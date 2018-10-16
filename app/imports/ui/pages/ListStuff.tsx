@@ -15,7 +15,7 @@ class ListStuff extends React.Component<IListStuffProps, object> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
   }
 
   /** Render the page once subscriptions have been received. */

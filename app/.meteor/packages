@@ -36,3 +36,6 @@ alanning:roles                   # https://github.com/alanning/meteor-roles
 # Prototyping only
 insecure@1.0.7                         # Enable client-side manipulation of Mongo collections.
 barbatus:typescript
+erasaur:meteor-lodash
+didericis:callpromise-mixin
+mdg:validated-method

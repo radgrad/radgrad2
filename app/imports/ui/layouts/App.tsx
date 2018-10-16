@@ -15,6 +15,8 @@ import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
 import Signup from '../pages/Signup';
 
+/* tslint:disable:jsx-no-multiline-js jsx-no-lambda*/
+
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 class App extends React.Component {
   public render() {

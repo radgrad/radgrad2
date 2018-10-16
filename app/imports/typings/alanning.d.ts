@@ -1,5 +1,5 @@
 /* Declaring in the format prescribed by Meteor */
-declare module "meteor/alanning:roles" {
+declare module 'meteor/alanning:roles' {
   namespace Roles {
     /**
      * Constant used to reference the special 'global' group that

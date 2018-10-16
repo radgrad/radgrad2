@@ -5,6 +5,8 @@ import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Menu } from 'semantic-ui-react';
 
+/* tslint:disable:jsx-no-multiline-js*/
+
 interface INavBarProps {
   currentUser: string;
 }
