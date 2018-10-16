@@ -3,18 +3,18 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 // tslint:disable-next-line: import-name
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-import { AdvisorLogs } from '../log/AdvisorLogCollection';
-import { CareerGoals } from '../career/CareerGoalCollection';
-import { CourseInstances } from '../course/CourseInstanceCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
-import { Feeds } from '../feed/FeedCollection';
-import { Interests } from '../interest/InterestCollection';
-import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+// import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
+// import { AdvisorLogs } from '../log/AdvisorLogCollection';
+// import { CareerGoals } from '../career/CareerGoalCollection';
+// import { CourseInstances } from '../course/CourseInstanceCollection';
+// import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
+// import { Feeds } from '../feed/FeedCollection';
+// import { Interests } from '../interest/InterestCollection';
+// import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
-import { Users } from './UserCollection';
+// import { Users } from './UserCollection';
 import { ROLE } from '../role/Role.js';
-import { VerificationRequests } from '../verification/VerificationRequestCollection';
+// import { VerificationRequests } from '../verification/VerificationRequestCollection';
 
 /* eslint-disable no-param-reassign, class-methods-use-this */
 
@@ -109,12 +109,12 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If user is not a valid user, or profile is not found.
    */
   public getProfile(user) {
-    const userID = Users.getID(user);
-    const doc = this._collection.findOne({ userID });
-    if (!doc) {
-      throw new Meteor.Error(`No profile found for user ${user}`);
-    }
-    return doc;
+    // const userID = Users.getID(user);
+    // const doc = this._collection.findOne({ userID });
+    // if (!doc) {
+    //   throw new Meteor.Error(`No profile found for user ${user}`);
+    // }
+    // return doc;
   }
 
   /**
@@ -133,8 +133,8 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If user is not a valid user.
    */
   public hasProfile(user) {
-    const userID = Users.getID(user);
-    return this._collection.findOne({ userID });
+    // const userID = Users.getID(user);
+    // return this._collection.findOne({ userID });
   }
 
   /**
@@ -143,13 +143,13 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @return {boolean}
    */
   public hasSetPicture(user) {
-    const userID = Users.getID(user);
-    const doc = this._collection.findOne({ userID });
+    // const userID = Users.getID(user);
+    // const doc = this._collection.findOne({ userID });
     // console.log(doc);
-    if (!doc) {
-      return false;
-    }
-    return !(_.isNil(doc.picture) || doc.picture === defaultProfilePicture);
+    // if (!doc) {
+    //   return false;
+    // }
+    // return !(_.isNil(doc.picture) || doc.picture === defaultProfilePicture);
   }
 
   /**
@@ -171,19 +171,19 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (!Slugs.isDefined(doc.username)) {
       problems.push(`Bad username: ${doc.username}`);
     }
-    _.forEach(doc.careerGoalIDs, (careerGoalID) => {
-      if (!CareerGoals.isDefined(careerGoalID)) {
-        problems.push(`Bad careerGoalID: ${careerGoalID}`);
-      }
-    });
-    _.forEach(doc.interestIDs, (interestID) => {
-      if (!Interests.isDefined(interestID)) {
-        problems.push(`Bad interestID: ${interestID}`);
-      }
-    });
-    if (!Users.isDefined(doc.userID)) {
-      problems.push(`Bad userID: ${doc.userID}`);
-    }
+    // _.forEach(doc.careerGoalIDs, (careerGoalID) => {
+    //   if (!CareerGoals.isDefined(careerGoalID)) {
+    //     problems.push(`Bad careerGoalID: ${careerGoalID}`);
+    //   }
+    // });
+    // _.forEach(doc.interestIDs, (interestID) => {
+    //   if (!Interests.isDefined(interestID)) {
+    //     problems.push(`Bad interestID: ${interestID}`);
+    //   }
+    // });
+    // if (!Users.isDefined(doc.userID)) {
+    //   problems.push(`Bad userID: ${doc.userID}`);
+    // }
     return problems;
   }
 
@@ -195,15 +195,15 @@ class BaseProfileCollection extends BaseSlugCollection {
   public removeIt(profileID) {
     const profile = this._collection.findOne({ _id: profileID });
     const userID = profile.userID;
-    if (!Users.isReferenced(userID)) {
+    // if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
-      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
-        VerificationRequests], (collection) => collection.removeUser(userID));
-      const username = profile.username;
-      Meteor.users.remove({ _id: profile.userID });
-      Slugs._collection.remove({ name: username });
-      super.removeIt(profileID);
-    }
+      // _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
+      //   VerificationRequests], (collection) => collection.removeUser(userID));
+      // const username = profile.username;
+      // Meteor.users.remove({ _id: profile.userID });
+      // Slugs._collection.remove({ name: username });
+      // super.removeIt(profileID);
+    // }
   }
 
   /**
@@ -225,12 +225,12 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (website) {
       updateData.website = website;
     }
-    if (interests) {
-      updateData.interestIDs = Interests.getIDs(interests);
-    }
-    if (careerGoals) {
-      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
-    }
+    // if (interests) {
+    //   updateData.interestIDs = Interests.getIDs(interests);
+    // }
+    // if (careerGoals) {
+    //   updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
+    // }
     // console.log('_updateCommonFields', updateData);
   }
 }

@@ -2,7 +2,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import { RadGrad } from '../radgrad/RadGrad';
 // import { assertIntegrity } from '../integrity/IntegrityChecker';
-import { Users } from '../user/UserCollection';
+// import { Users } from '../user/UserCollection';
 
 /**
  * Deletes all documents from all RadGrad collections.
@@ -17,7 +17,7 @@ export function removeAllEntities() {
     // assertIntegrity();  // this started failing after update to Meteor 1.6.1!
     _.forEach(RadGrad.collections, (collection) => collection._collection.remove({}));
     // Users is not part of RadGrad collections, so must deal with it individually.
-    Users.removeAll();
+    // Users.removeAll();
   } else {
     throw new Meteor.Error('removeAllEntities not called in testing mode.');
   }

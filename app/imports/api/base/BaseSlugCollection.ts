@@ -23,11 +23,11 @@ class BaseSlugCollection extends BaseCollection {
    * @returns { String } The docID associated with instance.
    * @throws { Meteor.Error } If instance is not a docID or a slug.
    */
-  getID(instance) {
+  public getID(instance) {
     let id;
     // If we've been passed a document, check to see if it has an _id field and make instance the value of _id.
     if (_.isObject(instance) && instance._id) {
-      instance = instance._id; // eslint-disable-line no-param-reassign
+      instance = instance._id; // tslint:disable-line: no-parameter-reassignment
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this._collection.findOne({ username: instance });
@@ -51,7 +51,7 @@ class BaseSlugCollection extends BaseCollection {
    * @returns { String[] } The docIDs associated with instances.
    * @throws { Meteor.Error } If any instance is not a docID or a slug.
    */
-  getIDs(instances) {
+  public getIDs(instances) {
     let ids;
     try {
       ids = (instances) ? instances.map((instance) => this.getID(instance)) : [];
@@ -69,7 +69,7 @@ class BaseSlugCollection extends BaseCollection {
    * @param { String } instance A docID or slug representing the instance.
    * @throws { Meteor.Error} If the instance (and its associated slug) cannot be found.
    */
-  removeIt(instance) {
+  public removeIt(instance) {
     const docID = this.getID(instance);
     const doc = super.findDoc(docID);
     check(doc, Object);
@@ -78,7 +78,7 @@ class BaseSlugCollection extends BaseCollection {
       check(slugDoc, Object);
       Slugs.removeIt(slugDoc);
     }
-    super.removeIt(doc);
+    return super.removeIt(doc);
   }
 
   /**
@@ -86,7 +86,7 @@ class BaseSlugCollection extends BaseCollection {
    * @param { String } instance A docID or a slug.
    * @returns {boolean} True if instance is a docID or slug for this entity.
    */
-  isDefined(instance) {
+  public isDefined(instance) {
     return (super.isDefined(instance) || this.hasSlug(instance));
   }
 
@@ -95,7 +95,7 @@ class BaseSlugCollection extends BaseCollection {
    * @param { String } slug Either the name of a slug or a slugID.
    * @returns {boolean} True if the slug is in this collection.
    */
-  hasSlug(slug) {
+  public hasSlug(slug) {
     return (!!(this._collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this._type));
   }
 
@@ -105,7 +105,7 @@ class BaseSlugCollection extends BaseCollection {
    * @returns { String } The docID.
    * @throws { Meteor.Error } If the slug cannot be found, or is not associated with an instance in this collection.
    */
-  findIdBySlug(slug) {
+  public findIdBySlug(slug) {
     return Slugs.getEntityID(slug, this._type);
   }
 
@@ -115,8 +115,8 @@ class BaseSlugCollection extends BaseCollection {
    * @return { Array } A list of docIDs.
    * @throws { Meteor.Error } If the slug cannot be found, or is not associated with an instance in this collection.
    */
-  findIdsBySlugs(slugs) {
-    return slugs.map(slug => this.findIdBySlug(slug));
+  public findIdsBySlugs(slugs) {
+    return slugs.map((slug) => this.findIdBySlug(slug));
   }
 
   /**
