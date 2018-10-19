@@ -1,22 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-// tslint:disable-next-line: import-name
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-// import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-// import { AdvisorLogs } from '../log/AdvisorLogCollection';
-// import { CareerGoals } from '../career/CareerGoalCollection';
-// import { CourseInstances } from '../course/CourseInstanceCollection';
-// import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
-// import { Feeds } from '../feed/FeedCollection';
-// import { Interests } from '../interest/InterestCollection';
-// import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
+import { AdvisorLogs } from '../log/AdvisorLogCollection';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
+import { Feeds } from '../feed/FeedCollection';
+import { Interests } from '../interest/InterestCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
-// import { Users } from './UserCollection';
-import { ROLE } from '../role/Role.js';
-// import { VerificationRequests } from '../verification/VerificationRequestCollection';
-
-/* eslint-disable no-param-reassign, class-methods-use-this */
+import { Users } from './UserCollection';
+import { ROLE } from '../role/Role';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
@@ -84,20 +81,20 @@ class BaseProfileCollection extends BaseSlugCollection {
       instance = instance._id; // tslint:disable-line no-parameter-reassignment
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
-    const usernameBasedDoc = this._collection.findOne({ username: instance });
+    const usernameBasedDoc = this.collection.findOne({ username: instance });
     if (usernameBasedDoc) {
       return usernameBasedDoc._id;
     }
     // If instance is the value of the userID field for some document in the collection, then return its ID.
-    const userIDBasedDoc = this._collection.findOne({ userID: instance });
+    const userIDBasedDoc = this.collection.findOne({ userID: instance });
     if (userIDBasedDoc) {
       return userIDBasedDoc._id;
     }
     // Otherwise see if we can find instance as a docID or as a slug.
     try {
-      id = (this._collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
+      id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
     } catch (err) {
-      throw new Meteor.Error(`Error in ${this._collectionName} getID(): Failed to convert ${instance} to an ID.`);
+      throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID.`);
     }
     return id;
   }
@@ -110,7 +107,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   public getProfile(user) {
     // const userID = Users.getID(user);
-    // const doc = this._collection.findOne({ userID });
+    // const doc = this.collection.findOne({ userID });
     // if (!doc) {
     //   throw new Meteor.Error(`No profile found for user ${user}`);
     // }
@@ -123,7 +120,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @returns The profile document, or null.
    */
   public findByUsername(username) {
-    return this._collection.findOne({ username });
+    return this.collection.findOne({ username });
   }
 
   /**
@@ -134,7 +131,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   public hasProfile(user) {
     // const userID = Users.getID(user);
-    // return this._collection.findOne({ userID });
+    // return this.collection.findOne({ userID });
   }
 
   /**
@@ -144,7 +141,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   public hasSetPicture(user) {
     // const userID = Users.getID(user);
-    // const doc = this._collection.findOne({ userID });
+    // const doc = this.collection.findOne({ userID });
     // console.log(doc);
     // if (!doc) {
     //   return false;
@@ -158,7 +155,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @returns The associated userID.
    */
   public getUserID(profileID) {
-    return this._collection.findOne(profileID).userID;
+    return this.collection.findOne(profileID).userID;
   }
 
   /**
@@ -193,17 +190,17 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @param profileID The ID for this profile object.
    */
   public removeIt(profileID) {
-    const profile = this._collection.findOne({ _id: profileID });
+    const profile = this.collection.findOne({ _id: profileID });
     const userID = profile.userID;
-    // if (!Users.isReferenced(userID)) {
+    if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
-      // _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
-      //   VerificationRequests], (collection) => collection.removeUser(userID));
-      // const username = profile.username;
-      // Meteor.users.remove({ _id: profile.userID });
-      // Slugs._collection.remove({ name: username });
-      // super.removeIt(profileID);
-    // }
+      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
+        VerificationRequests], (collection) => collection.removeUser(userID));
+      const username = profile.username;
+      Meteor.users.remove({ _id: profile.userID });
+      Slugs.getCollection().remove({ name: username });
+      return super.removeIt(profileID);
+    }
   }
 
   /**
@@ -211,8 +208,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * Destructively modifies updateData with the values of the passed fields.
    * Call this function for side-effect only.
    */
-  // tslint:disable-next-line: function-name
-  public _updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals }) {
+  protected updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals }) {
     if (firstName) {
       updateData.firstName = firstName;
     }
@@ -225,12 +221,12 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (website) {
       updateData.website = website;
     }
-    // if (interests) {
-    //   updateData.interestIDs = Interests.getIDs(interests);
-    // }
-    // if (careerGoals) {
-    //   updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
-    // }
+    if (interests) {
+      updateData.interestIDs = Interests.getIDs(interests);
+    }
+    if (careerGoals) {
+      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
+    }
     // console.log('_updateCommonFields', updateData);
   }
 }

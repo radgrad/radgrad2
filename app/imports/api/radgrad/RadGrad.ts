@@ -36,7 +36,7 @@ import BaseCollection from '../base/BaseCollection';
  */
 class RadGradClass {
   public collections: [BaseCollection];
-  private collectionLoadSequence;
+  public collectionLoadSequence;
   private collectionAssociation;
 
   constructor() {
@@ -117,7 +117,7 @@ class RadGradClass {
      */
     this.collectionAssociation = {};
     _.forEach(this.collections, (collection) => {
-      this.collectionAssociation[collection._collectionName] = collection;
+      this.collectionAssociation[collection.getCollectionName()] = collection;
     });
   }
 

@@ -30,15 +30,15 @@ class BaseSlugCollection extends BaseCollection {
       instance = instance._id; // tslint:disable-line: no-parameter-reassignment
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
-    const usernameBasedDoc = this._collection.findOne({ username: instance });
+    const usernameBasedDoc = this.collection.findOne({ username: instance });
     if (usernameBasedDoc) {
       return usernameBasedDoc._id;
     }
     // Otherwise see if we can find instance as a docID or as a slug.
     try {
-      id = (this._collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
+      id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
     } catch (err) {
-      throw new Meteor.Error(`Error in ${this._collectionName} getID(): Failed to convert ${instance} to an ID.`);
+      throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID.`);
     }
     return id;
   }
@@ -96,7 +96,7 @@ class BaseSlugCollection extends BaseCollection {
    * @returns {boolean} True if the slug is in this collection.
    */
   public hasSlug(slug) {
-    return (!!(this._collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this._type));
+    return (!!(this.collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this._type));
   }
 
   /**

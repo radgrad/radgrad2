@@ -39,3 +39,6 @@ barbatus:typescript
 erasaur:meteor-lodash
 didericis:callpromise-mixin
 mdg:validated-method
+momentjs:moment
+atoy40:accounts-cas
+ddp-rate-limiter

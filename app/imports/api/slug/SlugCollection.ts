@@ -1,6 +1,5 @@
 import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
-// tslint:disable-next-line: import-name
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 
@@ -55,7 +54,7 @@ class SlugCollection extends BaseCollection {
     if (!this.isValidSlugName(name)) {
       throw new Meteor.Error(`Slug is not a-zA-Z0-9 or dash, period, underscore, or @: ${name}`);
     }
-    const docID = this._collection.insert({ name, entityName });
+    const docID = this.collection.insert({ name, entityName });
     return docID;
   }
 
@@ -75,7 +74,7 @@ class SlugCollection extends BaseCollection {
    * @param { String } entityID The docID of the entity to be associated with this Slug.
    */
   public updateEntityID(slugID, entityID) {
-    this._collection.update(slugID, { $set: { entityID } });
+    this.collection.update(slugID, { $set: { entityID } });
   }
 
   /**
@@ -148,7 +147,7 @@ class SlugCollection extends BaseCollection {
    * @throws { Meteor.Error } If the passed slugName is not a slug name.
    */
   public assertSlug(slugName) {
-    if (!this._collection.findOne({ name: slugName })) {
+    if (!this.collection.findOne({ name: slugName })) {
       throw new Meteor.Error(`Undefined slug ${slugName}.`);
     }
   }

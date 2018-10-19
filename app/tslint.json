@@ -10,7 +10,14 @@
     "quotemark": [true, "single", "jsx-double"],
     "ter-arrow-parens": false,
     "ordered-imports": false,
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "import-name": false,
+    "interface-name": false,
+    "object-shorthand-properties-first": false,
+    "no-increment-decrement": false,
+    "no-console": false,
+    "member-ordering": false,
+    "max-line-length": false
   },
   "rulesDirectory": []
 }

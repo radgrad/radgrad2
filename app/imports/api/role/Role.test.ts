@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
+import {} from 'mocha';
 import { assertRole, isRole, ROLE } from '../role/Role';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression */

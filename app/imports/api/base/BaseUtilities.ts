@@ -15,7 +15,7 @@ import { RadGrad } from '../radgrad/RadGrad';
 export function removeAllEntities() {
   if (Meteor.isTest || Meteor.isAppTest) {
     // assertIntegrity();  // this started failing after update to Meteor 1.6.1!
-    _.forEach(RadGrad.collections, (collection) => collection._collection.remove({}));
+    _.forEach(RadGrad.collections, (collection) => collection.collection.remove({}));
     // Users is not part of RadGrad collections, so must deal with it individually.
     // Users.removeAll();
   } else {

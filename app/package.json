@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
+    "@types/jasmine": "^2.8.9",
     "@types/meteor": "^1.4.22",
     "@types/meteor-roles": "^1.2.31",
     "@types/mocha": "^5.2.5",

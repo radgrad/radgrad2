@@ -15,23 +15,32 @@ import { ROLE } from '../role/Role';
  * @memberOf api/base
  */
 class BaseCollection {
-  public _collection: Mongo.Collection<any>;
-  protected _collectionName: string;
-  protected _schema: any;
+  protected collection: Mongo.Collection<any>;
+  protected collectionName: string;
+  protected schema: any;
   protected _type: string;
 
   /**
    * Superclass constructor for all RadGrad entities.
-   * Defines internal fields needed by all entities: _type, _collectionName, _collection, and _schema.
+   * Defines internal fields needed by all entities: _type, collectionName, collection, and schema.
    * @param {String} type The name of the entity defined by the subclass.
    * @param {SimpleSchema} schema The schema for validating fields on insertion to the DB.
    */
   constructor(type, schema) {
     this._type = type;
-    this._collectionName = `${type}Collection`;
-    this._collection = new Mongo.Collection(`${type}Collection`);
-    this._schema = schema;
-    this._collection.attachSchema(this._schema);
+    this.collectionName = `${type}Collection`;
+    this.collection = new Mongo.Collection(`${type}Collection`);
+    this.schema = schema;
+    this.collection.attachSchema(this.schema);
+  }
+
+  /**
+   * Define documents for the collection.
+   * @param obj the document.
+   * @throws Meteor.Error since shouldn't call this method on the base class.
+   */
+  public define(obj: object) {
+    throw new Meteor.Error(`Default define method invoked by collection ${this.collectionName}`);
   }
 
   /**
@@ -39,7 +48,7 @@ class BaseCollection {
    * @returns { Number } The number of elements in this collection.
    */
   public count() {
-    return this._collection.find().count();
+    return this.collection.find().count();
   }
 
   /**
@@ -48,7 +57,7 @@ class BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this._collectionName, () => this._collection.find());
+      Meteor.publish(this.collectionName, () => this.collection.find());
     }
   }
 
@@ -58,7 +67,7 @@ class BaseCollection {
    */
   public subscribe() {
     if (Meteor.isClient) {
-      Meteor.subscribe(this._collectionName);
+      Meteor.subscribe(this.collectionName);
     }
   }
 
@@ -70,10 +79,10 @@ class BaseCollection {
    */
   public findDoc(name) {
     const doc = (
-      this._collection.findOne(name) ||
-      this._collection.findOne({ name }) ||
-      this._collection.findOne({ _id: name }) ||
-      this._collection.findOne({ username: name }));
+      this.collection.findOne(name) ||
+      this.collection.findOne({ name }) ||
+      this.collection.findOne({ _id: name }) ||
+      this.collection.findOne({ username: name }));
     if (!doc) {
       if (typeof name !== 'string') {
         throw new Meteor.Error(`${JSON.stringify(name)} is not a defined ${this._type}`);
@@ -91,9 +100,9 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public find(selector, options) {
+  public find(selector?, options?) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    return this._collection.find(theSelector, options);
+    return this.collection.find(theSelector, options);
   }
 
   /**
@@ -105,7 +114,7 @@ class BaseCollection {
    */
   public findOne(selector, options) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    return this._collection.findOne(theSelector, options);
+    return this.collection.findOne(theSelector, options);
   }
 
   /**
@@ -115,11 +124,11 @@ class BaseCollection {
    * @param { Object } modifier A MongoDB modifier
    * @returns true
    */
-  public update(selector, modifier) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    this._collection.update(theSelector, modifier);
-    return true;
-  }
+  // public update(selector, modifier) {
+  //   const theSelector = (typeof selector === 'undefined') ? {} : selector;
+  //   this.collection.update(theSelector, modifier);
+  //   return true;
+  // }
 
   /**
    * Returns true if the passed entity is in this collection.
@@ -128,9 +137,9 @@ class BaseCollection {
    */
   public isDefined(name) {
     return (
-      !!this._collection.findOne(name) ||
-      !!this._collection.findOne({ name }) ||
-      !!this._collection.findOne({ _id: name }));
+      !!this.collection.findOne(name) ||
+      !!this.collection.findOne({ name }) ||
+      !!this.collection.findOne({ _id: name }));
   }
 
   /**
@@ -141,7 +150,7 @@ class BaseCollection {
   public removeIt(name) {
     const doc = this.findDoc(name);
     check(doc, Object);
-    this._collection.remove(doc._id);
+    this.collection.remove(doc._id);
     return true;
   }
 
@@ -153,8 +162,8 @@ class BaseCollection {
    * @returns true
    */
   public removeAll() {
-    const items = this._collection.find().fetch();
-    const instance = this;
+    const items = this.collection.find().fetch();
+    const instance = this; // tslint:disable-line: no-this-assignment
     _.forEach(items, (i) => {
       instance.removeIt(i._id);
     });
@@ -174,7 +183,7 @@ class BaseCollection {
    * @returns { String } The publication name, as a string.
    */
   public getPublicationName() {
-    return this._collectionName;
+    return this.collectionName;
   }
 
   /**
@@ -182,15 +191,23 @@ class BaseCollection {
    * @return {string} The collection name as a string.
    */
   public getCollectionName() {
-    return this._collectionName;
+    return this.collectionName;
+  }
+
+  /**
+   * Returns the Mongo collection.
+   * @return {Mongo.Collection} The collection.
+   */
+  public getCollection() {
+    return this.collection;
   }
 
   /**
    * Returns a string representing all of the documents in this collection.
    * @returns {String}
    */
-  public toString() {
-    return this._collection.find().fetch();
+  public toString(...rest: any[]): string {
+    return this.collection.find().fetch().toString();
   }
 
   /**
@@ -223,7 +240,7 @@ class BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
   public assertValidRoleForMethod(userId) {
-    this._assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR]);
   }
 
   /**
@@ -242,7 +259,7 @@ class BaseCollection {
    * @returns {Object} An object representing the contents of this collection.
    */
   public dumpAll() {
-    const dumpObject = { name: this._collectionName, contents: this.find({}, {}).map((docID) => this.dumpOne(docID)) };
+    const dumpObject = { name: this.collectionName, contents: this.find({}, {}).map((docID) => this.dumpOne(docID)) };
     // If a collection doesn't want to be dumped, it can just return null from dumpOne.
     dumpObject.contents = _.without(dumpObject.contents, null);
     // sort the contents array by slug (if present)
@@ -259,7 +276,7 @@ class BaseCollection {
    * @returns { Object } An object representing this document.
    */
   public dumpOne(docID) { // eslint-disable-line
-    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this._collectionName}`);
+    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName}`);
   }
 
   /**
@@ -291,7 +308,7 @@ class BaseCollection {
    * @returns True if no error is thrown.
    * @ignore
    */
-  protected _assertRole(userId, roles) {  // tslint:disable-line
+  protected assertRole(userId, roles) {  // tslint:disable-line
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else
@@ -308,7 +325,7 @@ class BaseCollection {
    * @returns true if the user is in the roles, false otherwise.
    * @ignore
    */
-  protected _hasRole(userId, roles) {  // tslint:disable-line
+  protected hasRole(userId, roles) {
     if (!userId) {
       return false;
     }

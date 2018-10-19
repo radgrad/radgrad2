@@ -1,7 +1,6 @@
-// tslint:disable-next-line: import-name
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import {Users} from '../user/UserCollection';
+import { Users } from '../user/UserCollection';
 
 /**
  * Represents a snapshot of a student's ICE points and their level. Used to check if a student
@@ -34,8 +33,8 @@ class IceSnapshotCollection extends BaseCollection {
    * @param e The student's current experience points.
    * @param updated Timestamp of most recent snapshot.
    */
-  define({username, level, i, c, e, updated}) {
-    this._collection.insert({username, level, i, c, e, updated});
+  define({ username, level, i, c, e, updated }) {
+    this.collection.insert({ username, level, i, c, e, updated });
   }
 
   /**
@@ -48,7 +47,7 @@ class IceSnapshotCollection extends BaseCollection {
     this.find({}, {}).forEach((doc) => {
       if (!Users.isDefined(doc.username)) {
         problems.push(`Bad user: ${doc.username}`);
-      } else if (this.find({username: doc.username}).count() > 1) {
+      } else if (this.find({ username: doc.username }).count() > 1) {
         problems.push(`More than one document found for user: ${doc.username}`);
       }
     });
@@ -68,7 +67,7 @@ class IceSnapshotCollection extends BaseCollection {
     const i = doc.i;
     const c = doc.c;
     const e = doc.e;
-    return {username, level, i, c, e, updated};
+    return { username, level, i, c, e, updated };
   }
 }
 

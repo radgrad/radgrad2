@@ -1,7 +1,6 @@
 import { check } from 'meteor/check';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
-// tslint:disable-next-line: import-name
 import SimpleSchema from 'simpl-schema';
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from './BaseCollection';
@@ -33,7 +32,7 @@ class BaseTypeCollection extends BaseCollection {
    */
   public define({ name, slug, description }) {
     const slugID = Slugs.define({ name: slug, entityName: this._type });
-    const baseTypeID = this._collection.insert({ name, description, slugID });
+    const baseTypeID = this.collection.insert({ name, description, slugID });
     Slugs.updateEntityID(slugID, baseTypeID);
     return baseTypeID;
   }
@@ -53,9 +52,9 @@ class BaseTypeCollection extends BaseCollection {
       instance = instance._id;
     }
     try {
-      id = (this._collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
+      id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
     } catch (err) {
-      throw new Meteor.Error(`Error in ${this._collectionName} getID(): Failed to convert ${instance} to an ID.`);
+      throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID.`);
     }
     return id;
   }
@@ -112,7 +111,7 @@ class BaseTypeCollection extends BaseCollection {
    * @returns {boolean} True if the slug is in this collection.
    */
   public hasSlug(slug) {
-    return (!!(this._collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this._type));
+    return (!!(this.collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this._type));
   }
 
   /**
@@ -124,7 +123,7 @@ class BaseTypeCollection extends BaseCollection {
    */
   public findDocBySlug(slug) {
     const id = Slugs.getEntityID(slug, this._type);
-    return this._collection.findOne(id);
+    return this.collection.findOne(id);
   }
 
   /**
