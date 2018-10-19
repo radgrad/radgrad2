@@ -97,7 +97,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param verified boolean optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  update(docID, { semesterID, verified, ice }: IoiUpdate) {
+  public update(docID: string, { semesterID, verified, ice }: IoiUpdate) {
     this.assertDefined(docID);
     const updateData: IoiUpdate = {};
     if (semesterID) {
@@ -116,10 +116,10 @@ class OpportunityInstanceCollection extends BaseCollection {
    * Remove the opportunity instance.
    * @param docID The docID of the opportunity instance.
    */
-  removeIt(docID) {
+  public removeIt(docID: string) {
     this.assertDefined(docID);
     // OK, clear to delete.
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
@@ -127,7 +127,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param user The user, either the ID or the username.
    * @throws { Meteor.Error } If user is not an ID or username.
    */
-  removeUser(user) {
+  public removeUser(user: string) {
     const studentID = Users.getID(user);
     this.collection.remove({ studentID });
   }
@@ -139,8 +139,8 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  assertValidRoleForMethod(userId) {
-    this._assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+  public assertValidRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
   }
 
   /**

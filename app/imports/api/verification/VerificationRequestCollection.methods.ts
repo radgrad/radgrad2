@@ -23,7 +23,7 @@ export const verificationRequestsUpdateStatusMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   run(update) {
     // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no update can occur.
-    VerificationRequests._assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
+    VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
     return VerificationRequests.updateStatus(update.id, update.status, update.processed);
   },
 });
@@ -68,7 +68,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
     let resultMessage = '';
 
     // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no verification can occur.
-    VerificationRequests._assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
+    VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
 
     // Make sure there's an opportunity instance for this student.
     let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, semester);
@@ -124,7 +124,7 @@ export const processPendingVerificationMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   run({ verificationRequestID, command, feedback }) {
     // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no verification can occur.
-    VerificationRequests._assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
+    VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
 
     // Verify that the ID is valid.
     const requestDoc = VerificationRequests.findDoc(verificationRequestID);

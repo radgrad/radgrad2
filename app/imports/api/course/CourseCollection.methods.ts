@@ -15,7 +15,7 @@ import { nextSemester } from '../semester/SemesterUtilities';
  */
 function getEnrollmentData(courseID, semesterID) {
   const semesterShortName = Semesters.getShortName(semesterID);
-  const enrollment = CourseInstances.collection.find({ semesterID, courseID }).count();
+  const enrollment = CourseInstances.getCollection().find({ semesterID, courseID }).count();
   return [semesterShortName, enrollment];
 }
 
@@ -48,7 +48,7 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
       semesterList.push(semesterDoc);
     }
     // Map over these semesters and return a new list that includes the enrollment data for this course and semester.
-    const enrollmentData = _.map(semesterList, doc => getEnrollmentData(courseID, Semesters.getID(doc)));
+    const enrollmentData = _.map(semesterList, (doc) => getEnrollmentData(courseID, Semesters.getID(doc)));
     return { courseID, enrollmentData };
   },
 });

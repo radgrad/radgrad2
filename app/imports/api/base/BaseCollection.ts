@@ -308,7 +308,7 @@ class BaseCollection {
    * @returns True if no error is thrown.
    * @ignore
    */
-  protected assertRole(userId, roles) {  // tslint:disable-line
+  protected assertRole(userId: string, roles: string[]): boolean {
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else

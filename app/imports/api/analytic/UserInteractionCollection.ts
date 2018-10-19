@@ -41,7 +41,7 @@ class UserInteractionCollection extends BaseCollection {
    * @param typeData Any data associated with the interaction type.
    * @param timestamp The time of interaction.
    */
-  define({ username, type, typeData, timestamp = moment().toDate() }) {
+  public define({ username, type, typeData, timestamp = moment().toDate() }: IuiDefine) {
     this.collection.insert({ username, type, typeData, timestamp });
   }
 
@@ -50,7 +50,7 @@ class UserInteractionCollection extends BaseCollection {
    * @param username The username of user to be removed.
    * @throws { Meteor.Error } If user is not an ID or username.
    */
-  removeUser(username) {
+  public removeUser(username: string) {
     this.collection.remove({ username });
   }
 
@@ -59,8 +59,8 @@ class UserInteractionCollection extends BaseCollection {
    * within this class.
    * @param userId The userId of the logged in user.
    */
-  assertAdminRoleForMethod(userId) {
-    this._assertRole(userId, [ROLE.ADMIN]);
+  public assertAdminRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN]);
   }
 
   /**
@@ -68,8 +68,8 @@ class UserInteractionCollection extends BaseCollection {
    * within this class.
    * @param userId The userId of the logged in user.
    */
-  assertValidRoleForMethod(userId) {
-    this._assertRole(userId, [ROLE.ADMIN, ROLE.STUDENT, ROLE.ADVISOR, ROLE.MENTOR, ROLE.FACULTY]);
+  public assertValidRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.STUDENT, ROLE.ADVISOR, ROLE.MENTOR, ROLE.FACULTY]);
   }
 
   /**
@@ -77,9 +77,9 @@ class UserInteractionCollection extends BaseCollection {
    * Returns an empty array if no problems were found.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity(): string[] {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Users.isDefined(doc.username)) {
         problems.push(`Bad user: ${doc.username}`);
       }
@@ -92,7 +92,7 @@ class UserInteractionCollection extends BaseCollection {
    * @param docID The docID of a UserInteraction.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IuiDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const timestamp = doc.timestamp;
@@ -106,7 +106,7 @@ class UserInteractionCollection extends BaseCollection {
    * we do not need to publish any records, but would still like this to be on the list of collections
    * for integrity check, etc.
    */
-  publish() {
+  public publish() {
     if (Meteor.isServer) {
       Meteor.publish(this.collectionName, () => this.collection.find({}, { limit: 0 }));
     }

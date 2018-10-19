@@ -39,8 +39,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interests }:
-                  { name: string, slug: string, description: string, interests: string[] }) {
+  public define({ name, slug, description, interests }: IcgDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -80,8 +79,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param interests A new list of interest slugs or IDs. (optional).
    * @throws { Meteor.Error } If docID is not defined, or if any interest is not a defined slug or ID.
    */
-  public update(docID: string, { name, description, interests }:
-    { name?: string; description?: string; interests?: string[] }): void {
+  public update(docID: string, { name, description, interests }: IcgUpdate): void {
     this.assertDefined(docID);
     const updateData: {
       name?: string;

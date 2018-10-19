@@ -257,9 +257,9 @@ class VerificationRequestCollection extends BaseCollection {
    * Checks studentID, opportunityInstanceID, semesterID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Users.isDefined(doc.studentID)) {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
@@ -278,7 +278,7 @@ class VerificationRequestCollection extends BaseCollection {
    * @param docID The docID of an VerificationRequest.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string) {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);
@@ -289,6 +289,26 @@ class VerificationRequestCollection extends BaseCollection {
     const processed = doc.processed;
     return { student, semester, opportunity, submittedOn, status, processed };
   }
+
+  /**
+   * Internal helper function to simplify definition of the assertValidRoleForMethod method.
+   * @param userId The userID.
+   * @param roles An array of roles.
+   * @throws { Meteor.Error } If userId is not defined or user is not in the specified roles.
+   * @returns True if no error is thrown.
+   * @ignore
+   */
+  public assertRole(userId: string, roles: string[]): boolean {
+    if (!userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in.');
+    } else
+    if (!Roles.userIsInRole(userId, roles)) {
+      throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
+    }
+    return true;
+  }
+
+
 }
 
 /**

@@ -33,7 +33,7 @@ class IceSnapshotCollection extends BaseCollection {
    * @param e The student's current experience points.
    * @param updated Timestamp of most recent snapshot.
    */
-  define({ username, level, i, c, e, updated }) {
+  public define({ username, level, i, c, e, updated }: IisDefine) {
     this.collection.insert({ username, level, i, c, e, updated });
   }
 
@@ -42,7 +42,7 @@ class IceSnapshotCollection extends BaseCollection {
    * Returns an empty array if no problems were found.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity() { // eslint-disable-line class-methods-use-this
     const problems = [];
     this.find({}, {}).forEach((doc) => {
       if (!Users.isDefined(doc.username)) {
@@ -59,7 +59,7 @@ class IceSnapshotCollection extends BaseCollection {
    * @param docID The docID of a IceSnapshot.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IisDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const updated = doc.updated;
