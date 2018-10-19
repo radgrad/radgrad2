@@ -50,7 +50,7 @@ class CourseInstanceCollection extends BaseCollection {
       studentID: `${this.collectionName}.studentID`,
     };
     if (Meteor.isServer) {
-      this.collection._ensureIndex({ _id: 1, studentID: 1, courseID: 1 });
+      this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, courseID: 1 });
     }
   }
 
@@ -75,9 +75,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ semester, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }:
-                  { semester: string; course: string; verified?: boolean; fromSTAR?: boolean; grade?: string;
-                    note?: string; student: string; creditHrs: number; }) {
+  public define({ semester, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: IciDefine) {
     // Check arguments
     const semesterID = Semesters.getID(semester);
     const semesterDoc = Semesters.findDoc(semesterID);
@@ -121,13 +119,10 @@ class CourseInstanceCollection extends BaseCollection {
    * @param note optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { semesterID, verified, fromSTAR, grade, creditHrs, note, ice }:
-                { semesterID?: string; verified?: boolean; fromSTAR?: boolean; grade?: string;
-                  creditHrs?: number; note?: string; ice?: Ice}) {
+  public update(docID: string, { semesterID, verified, fromSTAR, grade, creditHrs, note, ice }: IciUpdate) {
     // console.log('CourseInstances.update', semesterID, verified, fromSTAR, grade, creditHrs, note, ice);
     this.assertDefined(docID);
-    const updateData: { semesterID?: string; verified?: boolean; fromSTAR?: boolean; grade?: string;
-      creditHrs?: number; note?: string; ice?: Ice} = {};
+    const updateData: IciUpdate = {};
     if (semesterID) {
       updateData.semesterID = semesterID;
     }
@@ -401,7 +396,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @param docID The docID of a CourseInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string) {
+  public dumpOne(docID: string): IciDefine {
     const doc = this.findDoc(docID);
     const semester = Semesters.findSlugByID(doc.semesterID);
     const course = Courses.findSlugByID(doc.courseID);

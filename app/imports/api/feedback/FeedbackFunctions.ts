@@ -1,4 +1,3 @@
-import { FlowRouter } from 'meteor/kadira:flow-router';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -39,7 +38,7 @@ export class FeedbackFunctionClass {
    * Checks the student's degree plan to ensure that all the prerequisites are met.
    * @param user the student's ID.
    */
-  checkPrerequisites(user) {
+  public checkPrerequisites(user: string) {
     const functionName = 'checkPrerequisites';
     const feedbackType = FeedbackInstances.WARNING;
     const currentSemester = Semesters.getCurrentSemesterDoc();

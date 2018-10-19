@@ -3,8 +3,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: 'off', no-unused-expressions: 'off', max-len: 'off' */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('DesiredDegreeCollection Meteor Methods ', function test() {
@@ -16,17 +15,17 @@ if (Meteor.isClient) {
       description: 'The Bachelor of Arts (BA) degree allows you to combine computer science with another discipline.',
     };
 
-    before(function (done) {
+    before(function(done) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define Method', async function() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function () {
+    it('Update Method', async function() {
       const id = DesiredDegrees.findIdBySlug(definitionData.slug);
       const name = 'updated DesiredDegree name';
       const shortName = 'updated short name';
@@ -34,7 +33,7 @@ if (Meteor.isClient) {
       await updateMethod.callPromise({ collectionName, updateData: { id, name, shortName, description } });
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function() {
       await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
     });
   });

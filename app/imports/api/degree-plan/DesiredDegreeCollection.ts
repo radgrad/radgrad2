@@ -36,7 +36,7 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  define({ name, shortName = name, slug, description }) {
+  public define({ name, shortName = name, slug, description }: IddDefine) {
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const desiredDegreeID = this.collection.insert({ name, shortName, slugID, description });
@@ -52,9 +52,9 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @param shortName the short name of this degree.
    * @param description the description of this degree.
    */
-  update(instance, { name, shortName, description }) {
+  public update(instance, { name, shortName, description }: IddUpdate) {
     const docID = this.getID(instance);
-    const updateData = {};
+    const updateData: IddUpdate = {};
     if (name) {
       updateData.name = name;
     }
@@ -73,15 +73,15 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If docID is not a DesiredDegree, or if this degree has any associated academic plans or
    * is referenced by any user.
    */
-  removeIt(instance) {
+  public removeIt(instance: string) {
     const desiredDegreeID = this.getID(instance);
     // Check that this is not referenced by any AcademicPlans.
-    AcademicPlans.find().map(function (plan) {  // eslint-disable-line array-callback-return
+    AcademicPlans.find().map((plan) => {
       if (plan.degreeID === desiredDegreeID) {
         throw new Meteor.Error(`DesiredDegree ${instance} is referenced by a academic plan ${plan}.`);
       }
     });
-    super.removeIt(desiredDegreeID);
+    return super.removeIt(desiredDegreeID);
   }
 
   /**
@@ -90,9 +90,9 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * Checks slugID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity(): string[] {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
@@ -105,7 +105,7 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @param docID The docID of a DesiredDegree.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IddDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const shortName = doc.shortName;

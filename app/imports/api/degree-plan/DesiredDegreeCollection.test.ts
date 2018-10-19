@@ -3,8 +3,7 @@ import { expect } from 'chai';
 import { DesiredDegrees } from '../degree-plan/DesiredDegreeCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('DesiredDegreeCollection', function testSuite() {
@@ -33,4 +32,3 @@ if (Meteor.isServer) {
     });
   });
 }
-

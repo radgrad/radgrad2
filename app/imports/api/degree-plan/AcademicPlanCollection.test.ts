@@ -1,12 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { DesiredDegrees } from '../degree-plan/DesiredDegreeCollection';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
+import { DesiredDegrees } from './DesiredDegreeCollection';
+import { AcademicPlans } from './AcademicPlanCollection';
 import { Semesters } from '../semester/SemesterCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('AcademicPlanCollection', function testSuite() {

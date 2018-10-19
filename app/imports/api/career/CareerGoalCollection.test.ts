@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
-import { CareerGoals } from '../career/CareerGoalCollection';
+import { CareerGoals } from './CareerGoalCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
 

@@ -58,14 +58,14 @@ class FeedCollection extends BaseCollection {
    */
   constructor() {
     super('Feed', new SimpleSchema({
-      feedType: String,
-      description: String,
-      timestamp: Date,
-      picture: String,
-      userIDs: { type: Array }, 'userIDs.$': SimpleSchema.RegEx.Id,
-      opportunityID: { type: SimpleSchema.RegEx.Id, optional: true },
-      courseID: { type: SimpleSchema.RegEx.Id, optional: true },
-      semesterID: { type: SimpleSchema.RegEx.Id, optional: true },
+      'feedType': String,
+      'description': String,
+      'timestamp': Date,
+      'picture': String,
+      'userIDs': { type: Array }, 'userIDs.$': SimpleSchema.RegEx.Id,
+      'opportunityID': { type: SimpleSchema.RegEx.Id, optional: true },
+      'courseID': { type: SimpleSchema.RegEx.Id, optional: true },
+      'semesterID': { type: SimpleSchema.RegEx.Id, optional: true },
     }));
     this.NEW_USER = 'new-user';
     this.NEW_COURSE = 'new-course';
@@ -116,24 +116,9 @@ class FeedCollection extends BaseCollection {
    * The timestamp and feedtype fields cannot be updated once created.
    * @throws { Meteor.Error } If docID is not defined, or if users, opportunity, or course are not defined.
    */
-  public update(docID: string, { description, picture, users, opportunity, course, semester }:
-    {
-      description?: string;
-      picture?: string;
-      users?: string[];
-      opportunity?: string;
-      course?: string;
-      semester?: string;
-    }) {
+  public update(docID: string, { description, picture, users, opportunity, course, semester }: IfeedUpdate) {
     this.assertDefined(docID);
-    const updateData: {
-      description?: string;
-      picture?: string;
-      userIDs?: string[];
-      opportunityID?: string;
-      courseID?: string;
-      semesterID?: string;
-    } = {};
+    const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; semesterID?: string; } = {};
     if (description) {
       updateData.description = description;
     }

@@ -3,8 +3,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { PlanChoices } from './PlanChoiceCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('PlanChoiceCollection Meteor Methods ', function test() {
@@ -12,24 +11,24 @@ if (Meteor.isClient) {
     const choice = 'ics211,ics215-1';
     const definitionData = { choice };
 
-    before(function (done) {
+    before(function(done) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define Method', async function() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function () {
-      const id = PlanChoices.findOne()._id;
+    it('Update Method', async function() {
+      const id = PlanChoices.findOne({}, {})._id;
       const newChoice = 'ics314-1';
       await updateMethod.callPromise({ collectionName, updateData: { id, choice: newChoice } });
     });
 
-    it('Remove Method', async function () {
-      const instance = PlanChoices.findOne()._id;
+    it('Remove Method', async function() {
+      const instance = PlanChoices.findOne({}, {})._id;
       await removeItMethod.callPromise({ collectionName, instance });
     });
   });

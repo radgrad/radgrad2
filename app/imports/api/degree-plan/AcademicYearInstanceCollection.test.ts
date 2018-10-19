@@ -1,13 +1,12 @@
 import { Meteor } from 'meteor/meteor';
-// import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { AcademicYearInstances } from './AcademicYearInstanceCollection';
 import { Users } from '../user/UserCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('AcademicYearInstanceCollection', function testSuite() {
@@ -68,4 +67,3 @@ if (Meteor.isServer) {
     // });
   });
 }
-

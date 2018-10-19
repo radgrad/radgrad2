@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import * as utilities from './AcademicYearUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('AcademicYearUtilities', function testSuite() {

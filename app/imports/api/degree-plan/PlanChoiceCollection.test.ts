@@ -3,8 +3,7 @@ import { expect } from 'chai';
 import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('PlanChoiceCollection', function testSuite() {
@@ -41,4 +40,3 @@ if (Meteor.isServer) {
     });
   });
 }
-

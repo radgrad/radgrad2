@@ -3,8 +3,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { Feeds } from './FeedCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('FeedCollection Meteor Methods ', function test() {

@@ -7,7 +7,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
  * @returns {*}
  * @memberOf api/degree-plan
  */
-export function stripCounter(planChoice) {
+export function stripCounter(planChoice: string) {
   const index = planChoice.indexOf('-');
   if (index !== -1) {
     return planChoice.substring(0, index);
@@ -21,7 +21,7 @@ export function stripCounter(planChoice) {
  * @returns {boolean}
  * @memberOf api/degree-plan
  */
-export function isSingleChoice(planChoice) {
+export function isSingleChoice(planChoice: string) {
   const cleaned = stripCounter(planChoice);
   return cleaned.indexOf(',') === -1;
 }
@@ -32,7 +32,7 @@ export function isSingleChoice(planChoice) {
  * @returns {boolean}
  * @memberOf api/degree-plan
  */
-export function isSimpleChoice(planChoice) {
+export function isSimpleChoice(planChoice: string) {
   const cleaned = stripCounter(planChoice);
   const parenp = cleaned.indexOf('(') !== -1;
   const orp = cleaned.indexOf(',') !== -1;
@@ -45,7 +45,7 @@ export function isSimpleChoice(planChoice) {
  * @returns {boolean}
  * @memberOf api/degree-plan
  */
-export function isComplexChoice(planChoice) {
+export function isComplexChoice(planChoice: string) {
   const cleaned = stripCounter(planChoice);
   const parenp = cleaned.indexOf('(') !== -1;
   const orp = cleaned.indexOf(',') !== -1;
@@ -58,7 +58,7 @@ export function isComplexChoice(planChoice) {
  * @return {boolean}
  * @memberOf api/degree-plan
  */
-export function isXXChoice(planChoice) {
+export function isXXChoice(planChoice: string) {
   const cleaned = stripCounter(planChoice);
   return cleaned.indexOf('+') !== -1;
 }
@@ -69,13 +69,14 @@ export function isXXChoice(planChoice) {
  * @param planChoice a plan choice.
  * @memberOf api/degree-plan
  */
-export function complexChoiceToArray(planChoice) {
+export function complexChoiceToArray(planChoice: string) {
   const cleaned = stripCounter(planChoice);
   const split = cleaned.split(',');
   return _.map(split, (slug) => {
     if (slug.startsWith('(')) {
       return slug.substring(1);
-    } else if (slug.endsWith(')')) {
+    }
+    if (slug.endsWith(')')) {
       return slug.substring(0, slug.length - 1);
     }
     return slug;
@@ -88,7 +89,7 @@ export function complexChoiceToArray(planChoice) {
  * @returns {string}
  * @memberOf api/degree-plan
  */
-export function buildCourseSlugName(slug) {
+export function buildCourseSlugName(slug: string) {
   const splits = slug.split('_');
   return `${splits[0].toUpperCase()} ${splits[1]}`;
 }
@@ -99,7 +100,7 @@ export function buildCourseSlugName(slug) {
  * @returns {string}
  * @memberOf api/degree-plan
  */
-export function buildSimpleName(slug) {
+export function buildSimpleName(slug: string) {
   const splits = slug.split(',');
   let ret = '';
   _.forEach(splits, (s) => {
@@ -114,7 +115,7 @@ export function buildSimpleName(slug) {
  * @returns {*}
  * @memberOf api/degree-plan
  */
-export function getDepartment(courseSlug) {
+export function getDepartment(courseSlug: string) {
   let slug = courseSlug;
   if (courseSlug.startsWith('(')) {
     slug = courseSlug.substring(1);
@@ -129,7 +130,7 @@ export function getDepartment(courseSlug) {
  * @returns {Array}
  * @memberOf api/degree-plan
  */
-export function getDepartments(planChoice) {
+export function getDepartments(planChoice: string) {
   const choices = planChoice.split(',');
   const ret = [];
   _.forEach(choices, (c) => {
@@ -148,14 +149,14 @@ export function getDepartments(planChoice) {
  * @returns {*}
  * @memberOf api/degree-plan
  */
-function satisfiesSinglePlanChoice(planChoice, courseSlug) {
+function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
   const dept = getDepartment(planChoice);
   if (planChoice.includes('300+')) {
     return courseSlug.startsWith(`${dept}_3`) || courseSlug.startsWith(`${dept}_4`);
-  } else
-    if (planChoice.includes('400+')) {
-      return courseSlug.startsWith(`${dept}_4`);
-    }
+  }
+  if (planChoice.includes('400+')) {
+    return courseSlug.startsWith(`${dept}_4`);
+  }
   return planChoice.indexOf(courseSlug) !== -1;
 }
 
@@ -166,7 +167,7 @@ function satisfiesSinglePlanChoice(planChoice, courseSlug) {
  * @return {Boolean}
  * @memberOf api/degree-plan
  */
-export function satisfiesPlanChoice(planChoice, courseSlug) {
+export function satisfiesPlanChoice(planChoice: string, courseSlug: string) {
   const singleChoices = planChoice.split(',');
   let ret = false;
   _.forEach(singleChoices, (choice) => {
@@ -184,7 +185,7 @@ export function satisfiesPlanChoice(planChoice, courseSlug) {
  * @return {Number} the index of courseSlug in the array.
  * @memberOf api/degree-plan
  */
-export function planIndexOf(planChoices, courseSlug) {
+export function planIndexOf(planChoices: string[], courseSlug: string) {
   for (let i = 0; i < planChoices.length; i += 1) {
     if (satisfiesPlanChoice(planChoices[i], courseSlug)) {
       return i;

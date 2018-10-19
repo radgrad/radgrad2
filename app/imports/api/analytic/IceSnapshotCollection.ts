@@ -34,7 +34,7 @@ class IceSnapshotCollection extends BaseCollection {
    * @param updated Timestamp of most recent snapshot.
    */
   public define({ username, level, i, c, e, updated }: IisDefine) {
-    this.collection.insert({ username, level, i, c, e, updated });
+    return this.collection.insert({ username, level, i, c, e, updated });
   }
 
   /**

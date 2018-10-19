@@ -154,7 +154,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param docID The docID of a CareerGoal.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string) {
+  public dumpOne(docID: string): IcgDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);

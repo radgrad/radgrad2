@@ -41,8 +41,8 @@ class UserInteractionCollection extends BaseCollection {
    * @param typeData Any data associated with the interaction type.
    * @param timestamp The time of interaction.
    */
-  public define({ username, type, typeData, timestamp = moment().toDate() }: IuiDefine) {
-    this.collection.insert({ username, type, typeData, timestamp });
+  public define({ username, type, typeData, timestamp = moment().toDate() }: IuiDefine): string {
+    return this.collection.insert({ username, type, typeData, timestamp });
   }
 
   /**

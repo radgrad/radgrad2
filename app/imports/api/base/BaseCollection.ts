@@ -39,7 +39,7 @@ class BaseCollection {
    * @param obj the document.
    * @throws Meteor.Error since shouldn't call this method on the base class.
    */
-  public define(obj: object) {
+  public define(obj: object): string {
     throw new Meteor.Error(`Default define method invoked by collection ${this.collectionName}`);
   }
 
@@ -285,7 +285,7 @@ class BaseCollection {
    * @param dumpObject An object representing one document in this collection.
    * @returns { String } The docID of the newly created document.
    */
-  public restoreOne(dumpObject) {
+  public restoreOne(dumpObject): string {
     if (typeof this.define === 'function') {
       return this.define(dumpObject);
     }

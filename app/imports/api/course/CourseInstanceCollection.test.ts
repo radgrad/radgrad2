@@ -6,15 +6,14 @@ import { makeSampleCourse, sampleCourseName } from '../course/SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
   describe('CourseInstanceCollection', function testSuite() {
     // Define course data.
-    let course;
-    let student;
-    let semester;
+    let course: string;
+    let student: string;
+    let semester: string;
     const verified = true;
     const grade = 'B';
 

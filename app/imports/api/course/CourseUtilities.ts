@@ -18,7 +18,7 @@ import { Users } from '../user/UserCollection';
  * @return {boolean}
  * @memberOf api/course
  */
-export function prereqsMet(coursesTakenSlugs, courseID) {
+export function prereqsMet(coursesTakenSlugs: string[], courseID: string) {
   const course = Courses.findDoc(courseID);
   let ret = true;
   _.forEach(course.prerequisites, (prereq) => {
@@ -31,25 +31,25 @@ export function prereqsMet(coursesTakenSlugs, courseID) {
   return ret;
 }
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);  // eslint-disable-line no-param-reassign
-  max = Math.floor(max);  // eslint-disable-line no-param-reassign
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);  // tslint:disable-line: no-parameter-reassignment
+  max = Math.floor(max);  // tslint:disable-line: no-parameter-reassignment
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export function clearPlannedCourseInstances(studentID) {
+export function clearPlannedCourseInstances(studentID: string) {
   const courses = CourseInstances.find({ studentID, verified: false, fromSTAR: false }).fetch();
   _.forEach(courses, (ci) => {
     CourseInstances.removeIt(ci);
   });
 }
 
-export function get300LevelDocs() {
+export function get300LevelDocs(): object[] {
   const courses = Courses.find({ number: /3\d\d/ }).fetch();
   return courses;
 }
 
-export function getStudent300LevelDocs(studentID, coursesTakenSlugs) {
+export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
   let ret = [];
   const courses = get300LevelDocs();
   const instances = CourseInstances.find({ studentID }).fetch();
@@ -61,23 +61,23 @@ export function getStudent300LevelDocs(studentID, coursesTakenSlugs) {
       }
     }
   });
-  ret = _.filter(courses, function filter(c) {
+  ret = _.filter(courses, (c) => {
     return _.indexOf(courseTakenIDs, c._id) === -1;
   });
-  ret = _.filter(ret, function filter(c) {
+  ret = _.filter(ret, (c) => {
     return prereqsMet(coursesTakenSlugs, c._id);  // remove courses that don't have the prerequisites
   });
   return ret;
 }
 
-export function bestStudent300LevelCourses(studentID, coursesTakenSlugs) {
+export function bestStudent300LevelCourses(studentID: string, coursesTakenSlugs: string[]) {
   const choices = getStudent300LevelDocs(studentID, coursesTakenSlugs);
   const interestIDs = Users.getProfile(studentID).interestIDs;
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
 }
 
-export function chooseStudent300LevelCourse(studentID, coursesTakenSlugs) {
+export function chooseStudent300LevelCourse(studentID: string, coursesTakenSlugs: string[]) {
   const best = bestStudent300LevelCourses(studentID, coursesTakenSlugs);
   return best[getRandomInt(0, best.length)];
 }
@@ -87,7 +87,7 @@ export function get400LevelDocs() {
   return courses;
 }
 
-export function getStudent400LevelDocs(studentID, coursesTakenSlugs) {
+export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
   let ret = [];
   const courses = get400LevelDocs();
   const instances = CourseInstances.find({ studentID }).fetch();
@@ -99,10 +99,10 @@ export function getStudent400LevelDocs(studentID, coursesTakenSlugs) {
       }
     }
   });
-  ret = _.filter(courses, function filter(c) {
+  ret = _.filter(courses, (c) => {
     return _.indexOf(courseTakenIDs, c._id) === -1;
   });
-  ret = _.filter(ret, function filter(c) {
+  ret = _.filter(ret, (c) => {
     return prereqsMet(coursesTakenSlugs, c._id);  // remove courses that don't have the prerequisites
   });
   return ret;

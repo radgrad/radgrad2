@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { getFutureEnrollmentMethod } from './CourseCollection.methods';
 import { Courses } from './CourseCollection';
@@ -7,8 +8,7 @@ import { Semesters } from '../semester/SemesterCollection';
 import { nextSemester } from '../semester/SemesterUtilities';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('CourseCollection Meteor Methods ', function test() {
@@ -25,17 +25,17 @@ if (Meteor.isClient) {
       prerequisites: ['ics_111'],
     };
 
-    before(function (done) {
+    before(function(done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define Method', async function() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function () {
+    it('Update Method', async function() {
       const id = Courses.findIdBySlug(definitionData.slug);
       const name = 'updated CareerGoal name';
       const description = 'updated CareerGoal description';
@@ -47,7 +47,7 @@ if (Meteor.isClient) {
       });
     });
 
-    it('getFutureEnrollment Methods', async function () {
+    it('getFutureEnrollment Methods', async function() {
       // First, just call this expecting that there is no future enrollment data.
       let id = Courses.findIdBySlug(definitionData.slug);
       let data = await getFutureEnrollmentMethod.callPromise(id);
@@ -78,7 +78,7 @@ if (Meteor.isClient) {
       expect(data.enrollmentData[0][1]).to.equal(1);
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function() {
       await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
     });
   });

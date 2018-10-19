@@ -3,8 +3,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { AcademicPlans } from './AcademicPlanCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: 'off', no-unused-expressions: 'off' */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('AcademicPlanCollection Meteor Methods ', function test() {
@@ -21,7 +20,7 @@ if (Meteor.isClient) {
         'ics_400+-4', 'ics_400+-5'],
     };
 
-    before(function (done) {
+    before(function(done) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
@@ -31,7 +30,7 @@ if (Meteor.isClient) {
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function () {
+    it('Update Method', async function() {
       const id = AcademicPlans.findIdBySlug(definitionData.slug);
       const degreeSlug = 'ba-ics';
       const name = 'updated AcademicPlan name';
@@ -42,7 +41,7 @@ if (Meteor.isClient) {
       });
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function() {
       await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
     });
   });

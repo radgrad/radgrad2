@@ -12,6 +12,9 @@ import BaseCollection from '../base/BaseCollection';
  * @memberOf api/feedback
  */
 class FeedbackInstanceCollection extends BaseCollection {
+  public WARNING: string;
+  public RECOMMENDATION: string;
+  public feedbackTypes: string[];
 
   /**
    * Creates the FeedbackInstance collection.
@@ -26,7 +29,7 @@ class FeedbackInstanceCollection extends BaseCollection {
     this.WARNING = 'Warning';
     this.RECOMMENDATION = 'Recommendation';
     this.feedbackTypes = [this.WARNING, this.RECOMMENDATION];
-    if (Meteor.server) {
+    if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, userID: 1 });
     }
   }
@@ -47,7 +50,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
 
-  define({ user, functionName, description, feedbackType }) {
+  public define({ user, functionName, description, feedbackType }: IfbiDefine) {
     // Validate Feedback and user.
     const userID = Users.getID(user);
     if (!_.includes(this.feedbackTypes, feedbackType)) {
@@ -66,9 +69,9 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param feedbackType
    * @param functionName
    */
-  update(docID, { user, description, feedbackType, functionName }) {
+  public update(docID: string, { user, description, feedbackType, functionName }: IfbiUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: { userID?: string; description?: string; feedbackType?: string; functionName?: string; } = {};
     if (user) {
       updateData.userID = user;
     }
@@ -91,7 +94,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param feedbackType The feedback type.
    * @returns {any}
    */
-  findFeedbackInstance(user, functionName, feedbackType) {
+  public findFeedbackInstance(user: string, functionName: string, feedbackType: string) {
     const userID = Users.getID(user);
     return this.collection.findOne({ userID, functionName, feedbackType });
   }
@@ -103,7 +106,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param feedbackType the feedback type.
    * @returns {boolean}
    */
-  isFeedbackInstance(user, functionName, feedbackType) {
+  public isFeedbackInstance(user: string, functionName: string, feedbackType: string) {
     return !!this.findFeedbackInstance(user, functionName, feedbackType);
   }
   /**
@@ -111,7 +114,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param user The user (typically a student).
    * @param functionName The FeedbackFunction name.
    */
-  clear(user, functionName) {
+  public clear(user: string, functionName: string) {
     const userID = Users.getID(user);
     this.collection.remove({ userID, functionName });
   }
@@ -121,7 +124,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param user The user, either the ID or the username.
    * @throws { Meteor.Error } If user is not an ID or username.
    */
-  removeUser(user) {
+  public removeUser(user: string) {
     const userID = Users.getID(user);
     this.collection.remove({ userID });
   }
@@ -130,7 +133,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * Returns a cursor to all the Warnings associated with this user.
    * @param user The user of interest.
    */
-  findWarnings(user) {
+  public findWarnings(user: string) {
     const userID = Users.getID(user);
     return this.collection.find({ userID, feedbackType: this.WARNING });
   }
@@ -139,7 +142,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * Returns a cursor to all the Warnings associated with this user.
    * @param user The user of interest.
    */
-  findRecommendations(user) {
+  public findRecommendations(user: string) {
     const userID = Users.getID(user);
     return this.collection.find({ userID, feedbackType: this.RECOMMENDATION });
   }
@@ -151,7 +154,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
   }
 
@@ -159,9 +162,9 @@ class FeedbackInstanceCollection extends BaseCollection {
    * Depending on the logged in user publish only their FeedbackInstances. If
    * the user is in the Role.ADMIN then publish all FeedbackInstances.
    */
-  publish() {
+  public publish() {
     if (Meteor.isServer) {
-      const instance = this;
+      const instance = this; // tslint:disable-line: no-this-assignment
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
           return this.ready();
@@ -180,9 +183,9 @@ class FeedbackInstanceCollection extends BaseCollection {
    * Checks userID
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Users.isDefined(doc.userID)) {
         problems.push(`Bad userID: ${doc.userID}`);
       }
@@ -195,7 +198,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param docID The docID of a FeedbackInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IfbiDefine {
     const doc = this.findDoc(docID);
     const user = Users.getProfile(doc.userID).username;
     const functionName = doc.functionName;

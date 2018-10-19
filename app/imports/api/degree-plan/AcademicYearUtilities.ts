@@ -9,7 +9,7 @@ import { Semesters } from '../semester/SemesterCollection';
  * @returns {number}
  * @memberOf api/degree-plan
  */
-export function getStudentsCurrentSemesterNumber(studentID) {
+export function getStudentsCurrentSemesterNumber(studentID: string) {
   const cis = CourseInstances.find({ studentID }).fetch();
   let firstSemester;
   _.forEach(cis, (ci) => {
@@ -30,7 +30,7 @@ export function getStudentsCurrentSemesterNumber(studentID) {
  * @param studentID the studentID.
  * @memberOf api/degree-plan
  */
-export function getStudentSemesters(studentID) {
+export function getStudentSemesters(studentID: string) {
   const years = AcademicYearInstances.find({ studentID }, { $sort: { year: 1 } }).fetch();
   let semesters = [];
   _.forEach(years, (ay) => {

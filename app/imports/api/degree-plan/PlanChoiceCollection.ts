@@ -26,7 +26,7 @@ class PlanChoiceCollection extends BaseCollection {
    * @param choice
    * @returns {*}
    */
-  define({ choice }) {
+  public define({ choice }: { choice: string; }) {
     const doc = this.collection.findOne(choice);
     if (doc) {
       return doc._id;
@@ -39,9 +39,9 @@ class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID associated with this plan choice.
    * @param choice the updated choice.
    */
-  update(docID, { choice }) {
+  public update(docID: string, { choice }: { choice: string; }) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: { choice?: string; } = {};
     if (choice) {
       updateData.choice = choice;
     }
@@ -53,7 +53,7 @@ class PlanChoiceCollection extends BaseCollection {
    * @param planChoiceSlug
    * @returns {string}
    */
-  toStringFromSlug(planChoiceSlug) { // eslint-disable-line class-methods-use-this
+  public toStringFromSlug(planChoiceSlug: string) {
     let ret = '';
     let slug;
     const countIndex = planChoiceSlug.indexOf('-');
@@ -93,7 +93,7 @@ class PlanChoiceCollection extends BaseCollection {
    * Returns an empty array (no integrity checking done on this collection.)
    * @returns {Array} An empty array.
    */
-  checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity() { // eslint-disable-line class-methods-use-this
     const problems = [];
     return problems;
   }
@@ -103,7 +103,7 @@ class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID of a PlanChoice.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): { choice: string; } {
     const doc = this.findDoc(docID);
     return { choice: doc.choice };
   }

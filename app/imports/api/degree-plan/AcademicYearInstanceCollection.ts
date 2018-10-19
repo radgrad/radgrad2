@@ -48,7 +48,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined student or a year that is out of bounds.
    * @returns The newly created docID.
    */
-  public define({ year, student }: { year: number; student: string; }) {
+  public define({ year, student }: IayDefine) {
     const studentID = Users.getID(student);
     let semesterIDs = [];
     // check for gaps
@@ -226,7 +226,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param docID The docID of an AcademicYearInstance.
    * @returns { object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): object {
+  public dumpOne(docID: string): IayDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const year = doc.year;

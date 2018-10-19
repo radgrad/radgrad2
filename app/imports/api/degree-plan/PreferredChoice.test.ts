@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { Courses } from '../course/CourseCollection';
 import { Interests } from '../interest/InterestCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import PreferredChoice from './PreferredChoice';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('PreferredChoice', function testSuite() {

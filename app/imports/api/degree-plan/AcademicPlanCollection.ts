@@ -19,15 +19,15 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   constructor() {
     super('AcademicPlan', new SimpleSchema({
-      name: String,
-      description: String,
-      slugID: SimpleSchema.RegEx.Id,
-      degreeID: SimpleSchema.RegEx.Id,
-      effectiveSemesterID: SimpleSchema.RegEx.Id,
-      semesterNumber: Number,
-      year: Number,
-      coursesPerSemester: { type: Array, minCount: 12, maxCount: 12 }, 'coursesPerSemester.$': Number,
-      courseList: [String],
+      'name': String,
+      'description': String,
+      'slugID': SimpleSchema.RegEx.Id,
+      'degreeID': SimpleSchema.RegEx.Id,
+      'effectiveSemesterID': SimpleSchema.RegEx.Id,
+      'semesterNumber': Number,
+      'year': Number,
+      'coursesPerSemester': { type: Array, minCount: 12, maxCount: 12 }, 'coursesPerSemester.$': Number,
+      'courseList': [String],
     }));
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, degreeID: 1, effectiveSemesterID: 1 });
@@ -56,7 +56,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param courseList an array of PlanChoices. The choices for each course.
    * @returns {*}
    */
-  define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList }) {
+  public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList }: IapDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
     const effectiveSemesterID = Semesters.getID(semester);
     const doc = this.collection.findOne({ degreeID, name, effectiveSemesterID });
@@ -85,9 +85,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param coursesPerSemester an array of the number of courses per semester.
    * @param courseList an array of PlanChoices, the choices for each course.
    */
-  update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList }) {
+  public update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList }: IapUpdate) {
     const docID = this.getID(instance);
-    const updateData = {};
+    const updateData: { degreeID?: string; name?: string; effectiveSemesterID?: string; coursesPerSemester?: number[]; courseList?: string[] } = {};
     if (degreeSlug) {
       updateData.degreeID = DesiredDegrees.getID(degreeSlug);
     }
@@ -127,23 +127,23 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param instance The docID or slug of the entity to be removed.
    * @throws { Meteor.Error } If docID is not an AcademicPlan, or if this plan is referenced by a User.
    */
-  removeIt(instance) {
+  public removeIt(instance: string) {
     const academicPlanID = this.getID(instance);
     // Check that no student is using this AcademicPlan.
-    const isReferenced = Users.someProfiles(profile => profile.academicPlanID === academicPlanID);
+    const isReferenced = Users.someProfiles((profile) => profile.academicPlanID === academicPlanID);
     if (isReferenced) {
       throw new Meteor.Error(`AcademicPlan ${instance} is referenced.`);
     }
-    super.removeIt(academicPlanID);
+    return super.removeIt(academicPlanID);
   }
 
   /**
    * Returns an array of problems. Checks the semesterID and DesiredDegree ID.
    * @returns {Array} An array of problem messages.
    */
-  checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
@@ -170,7 +170,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param semesterNumber (optional) the semester number. if undefined returns the latest AcademicPlans.
    * @return {any}
    */
-  getPlansForDegree(degree, semesterNumber) {
+  public getPlansForDegree(degree: string, semesterNumber?: number) {
     const degreeID = DesiredDegrees.getID(degree);
     if (!semesterNumber) {
       return this.collection.find({ degreeID, semesterNumber: this.getLatestSemesterNumber() }).fetch();
@@ -182,7 +182,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * Returns an array of the latest AcademicPlans.
    * @return {array}
    */
-  getLatestPlans() {
+  public getLatestPlans() {
     const semesterNumber = this.getLatestSemesterNumber();
     return this.collection.find({ semesterNumber }).fetch();
   }
@@ -191,7 +191,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * Returns the largest semester number.
    * @return {number}
    */
-  getLatestSemesterNumber() {
+  public getLatestSemesterNumber() {
     const plans = this.collection.find().fetch();
     let max = 0;
     _.forEach(plans, (p) => {
@@ -207,7 +207,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param planID the id of the academic plan.
    * @return {string}
    */
-  toFullString(planID) {
+  public toFullString(planID: string) {
     const plan = this.findDoc(planID);
     const semester = Semesters.findDoc(plan.effectiveSemesterID);
     return `${plan.name} (${semester.year})`;
@@ -218,7 +218,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param docID The docID of a HelpMessage.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IapDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
     const degree = DesiredDegrees.findDoc(doc.degreeID);

@@ -49,31 +49,18 @@ class CourseCollection extends BaseSlugCollection {
    *                  prerequisites: ['ics211'] });
    * @param { Object } description Object with keys name, shortName, slug, num, description, creditHrs,
    *                   interests, syllabus, and prerequisites.
-   * Name is the official course name.
-   * ShortName is an optional abbreviation. Defaults to name.
-   * Slug must not be previously defined.
-   * CreditHrs is optional and defaults to 3. If supplied, must be a num between 1 and 15.
-   * Interests is a (possibly empty) array of defined interest slugs or interestIDs.
-   * Syllabus is optional. If supplied, should be a URL.
-   * Prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
+   * @param name is the official course name.
+   * @param shortName is an optional abbreviation. Defaults to name.
+   * @param slug must not be previously defined.
+   * @param num the course number.
+   * @param creditHrs is optional and defaults to 3. If supplied, must be a num between 1 and 15.
+   * @param interests is a (possibly empty) array of defined interest slugs or interestIDs.
+   * @param syllabus is optional. If supplied, should be a URL.
+   * @param prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({
-                  name, shortName = name, slug, num, description, creditHrs = 3,
-                  interests = [], syllabus, prerequisites = [],
-                }:
-                  {
-                    name: string;
-                    shortName?: string;
-                    slug: string;
-                    num: string;
-                    description: string;
-                    creditHrs?: number;
-                    interests?: string[];
-                    syllabus?: string;
-                    prerequisites?: string[];
-                  }) {
+  public define({name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [], }: IcoDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -100,7 +87,7 @@ class CourseCollection extends BaseSlugCollection {
 
   /**
    * Update a Course.
-   * @param docID The docID (or slug) associated with this course.
+   * @param instance The docID (or slug) associated with this course.
    * @param name optional
    * @param shortName optional
    * @param num optional
@@ -110,7 +97,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param syllabus optional
    * @param prerequisites An array of course slugs. (optional)
    */
-  public update(instance, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus }) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus }: IcoUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -163,7 +150,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param instance The docID or slug of the entity to be removed.
    * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
    */
-  public removeIt(instance) {
+  public removeIt(instance: string) {
     const docID = this.getID(instance);
     // Check that this is not referenced by any Course Instance.
     CourseInstances.find().map((courseInstance) => {  // eslint-disable-line array-callback-return
@@ -186,13 +173,13 @@ class CourseCollection extends BaseSlugCollection {
    * @returns {boolean} True if the course has the associated Interest.
    * @throws { Meteor.Error } If course is not a course or interest is not a Interest.
    */
-  public hasInterest(course, interest) {
+  public hasInterest(course: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(course);
     return _.includes(doc.interestIDs, interestID);
   }
 
-  public getSlug(courseID) {
+  public getSlug(courseID: string) {
     this.assertDefined(courseID);
     const courseDoc = this.findDoc(courseID);
     return Slugs.findDoc(courseDoc.slugID).name;
@@ -229,7 +216,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param docID The docID of a Course.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID) {
+  public dumpOne(docID): IcoDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const shortName = doc.shortName;
