@@ -6,6 +6,7 @@ import { DesiredDegrees } from './DesiredDegreeCollection';
 import { Semesters } from '../semester/SemesterCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
+import { IAcademicPlanDefine, IAcademicPlanUpdate } from "../../typings/radgrad";
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -56,7 +57,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param courseList an array of PlanChoices. The choices for each course.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList }: IapDefine) {
+  public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
     const effectiveSemesterID = Semesters.getID(semester);
     const doc = this.collection.findOne({ degreeID, name, effectiveSemesterID });
@@ -85,7 +86,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param coursesPerSemester an array of the number of courses per semester.
    * @param courseList an array of PlanChoices, the choices for each course.
    */
-  public update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList }: IapUpdate) {
+  public update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
     const updateData: { degreeID?: string; name?: string; effectiveSemesterID?: string; coursesPerSemester?: number[]; courseList?: string[] } = {};
     if (degreeSlug) {
@@ -218,7 +219,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param docID The docID of a HelpMessage.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IapDefine {
+  public dumpOne(docID: string): IAcademicPlanDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
     const degree = DesiredDegrees.findDoc(doc.degreeID);

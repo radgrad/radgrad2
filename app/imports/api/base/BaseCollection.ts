@@ -4,6 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
+import { IDumpOne } from '../../typings/radgrad';
 
 /* tslint:disable:variable-name */
 

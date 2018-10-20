@@ -1,5 +1,6 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseTypeCollection from '../base/BaseTypeCollection';
+import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad';
 
 /**
  * OpportunityTypes help organize Opportunities into logically related groupings such as "Internships", "Clubs", etc.

@@ -5,6 +5,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
+import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad';
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -39,7 +40,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interests }: IcgDefine) {
+  public define({ name, slug, description, interests }: ICareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -79,7 +80,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param interests A new list of interest slugs or IDs. (optional).
    * @throws { Meteor.Error } If docID is not defined, or if any interest is not a defined slug or ID.
    */
-  public update(docID: string, { name, description, interests }: IcgUpdate): void {
+  public update(docID: string, { name, description, interests }: ICareerGoalUpdate): void {
     this.assertDefined(docID);
     const updateData: {
       name?: string;
@@ -154,7 +155,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param docID The docID of a CareerGoal.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IcgDefine {
+  public dumpOne(docID: string): ICareerGoalDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);

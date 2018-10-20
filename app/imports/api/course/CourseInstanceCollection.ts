@@ -10,6 +10,7 @@ import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE } from '../ice/IceProcessor';
+import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
 
 /**
  * Represents the taking of a course by a specific student in a specific semester.
@@ -75,7 +76,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ semester, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: IciDefine) {
+  public define({ semester, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
     // Check arguments
     const semesterID = Semesters.getID(semester);
     const semesterDoc = Semesters.findDoc(semesterID);
@@ -119,10 +120,10 @@ class CourseInstanceCollection extends BaseCollection {
    * @param note optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { semesterID, verified, fromSTAR, grade, creditHrs, note, ice }: IciUpdate) {
+  public update(docID: string, { semesterID, verified, fromSTAR, grade, creditHrs, note, ice }: ICourseInstanceUpdate) {
     // console.log('CourseInstances.update', semesterID, verified, fromSTAR, grade, creditHrs, note, ice);
     this.assertDefined(docID);
-    const updateData: IciUpdate = {};
+    const updateData: ICourseInstanceUpdate = {};
     if (semesterID) {
       updateData.semesterID = semesterID;
     }
@@ -396,7 +397,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @param docID The docID of a CourseInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IciDefine {
+  public dumpOne(docID: string): ICourseInstanceDefine {
     const doc = this.findDoc(docID);
     const semester = Semesters.findSlugByID(doc.semesterID);
     const course = Courses.findSlugByID(doc.courseID);

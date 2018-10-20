@@ -7,6 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
+import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Faculty Profile.
@@ -30,8 +31,8 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the FacultyProfile.
    */
-  define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals }) {
+  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+           careerGoals }: IProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
       const interestIDs = Interests.getIDs(interests);
@@ -52,10 +53,10 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the FacultyProfile.
    */
-  update(docID, { firstName, lastName, picture, website, interests, careerGoals }) {
+  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals }: IProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
-    this._updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
     this.collection.update(docID, { $set: updateData });
   }
 
@@ -66,7 +67,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Faculty.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
   }
 
@@ -76,9 +77,9 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * Checks the profile common fields and the role..
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     let problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if (doc.role !== ROLE.FACULTY) {
         problems.push(`FacultyProfile instance does not have ROLE.FACULTY: ${doc}`);
@@ -92,15 +93,15 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a FacultyProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, interestID => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, careerGoalID => CareerGoals.findSlugByID(careerGoalID));
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
     return { username, firstName, lastName, picture, website, interests, careerGoals };
   }
 }

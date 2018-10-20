@@ -4,6 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
+import { IUserInteractionDefine } from '../../typings/radgrad';
 
 /**
  * Represents a log of user interactions with RadGrad.
@@ -41,7 +42,7 @@ class UserInteractionCollection extends BaseCollection {
    * @param typeData Any data associated with the interaction type.
    * @param timestamp The time of interaction.
    */
-  public define({ username, type, typeData, timestamp = moment().toDate() }: IuiDefine): string {
+  public define({ username, type, typeData, timestamp = moment().toDate() }: IUserInteractionDefine): string {
     return this.collection.insert({ username, type, typeData, timestamp });
   }
 
@@ -92,7 +93,7 @@ class UserInteractionCollection extends BaseCollection {
    * @param docID The docID of a UserInteraction.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IuiDefine {
+  public dumpOne(docID: string): IUserInteractionDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const timestamp = doc.timestamp;

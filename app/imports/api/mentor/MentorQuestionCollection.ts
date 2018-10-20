@@ -5,6 +5,7 @@ import { ROLE } from '../role/Role';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
+import { IMentorQuestionDefine, IMentorQuestionUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a mentor answer.

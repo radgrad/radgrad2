@@ -6,6 +6,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
+import { ICourseDefine, ICourseUpdate } from "../../typings/radgrad";
 
 /**
  * Represents a specific course, such as "ICS 311".
@@ -60,7 +61,7 @@ class CourseCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [], }: IcoDefine) {
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [] }: ICourseDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -97,7 +98,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param syllabus optional
    * @param prerequisites An array of course slugs. (optional)
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus }: IcoUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus }: ICourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -216,7 +217,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param docID The docID of a Course.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID): IcoDefine {
+  public dumpOne(docID): ICourseDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const shortName = doc.shortName;
@@ -228,8 +229,7 @@ class CourseCollection extends BaseSlugCollection {
     const syllabus = doc.syllabus;
     const prerequisites = doc.prerequisites;
     return {
-      name, shortName, slug, num, description, creditHrs, interests, syllabus,
-      prerequisites
+      name, shortName, slug, num, description, creditHrs, interests, syllabus, prerequisites,
     };
   }
 }

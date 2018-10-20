@@ -6,6 +6,7 @@ import { Semesters } from '../semester/SemesterCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
+import { IAcademicYearDefine } from "../../typings/radgrad";
 
 /**
  * Each AcademicYearInstance represents a sequence of three semesters for a given student.
@@ -48,7 +49,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined student or a year that is out of bounds.
    * @returns The newly created docID.
    */
-  public define({ year, student }: IayDefine) {
+  public define({ year, student }: IAcademicYearDefine) {
     const studentID = Users.getID(student);
     let semesterIDs = [];
     // check for gaps
@@ -226,7 +227,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param docID The docID of an AcademicYearInstance.
    * @returns { object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IayDefine {
+  public dumpOne(docID: string): IAcademicYearDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const year = doc.year;

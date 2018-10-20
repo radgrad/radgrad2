@@ -7,7 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IAdvisorProfileDefine } from '../../typings/radgrad';
+import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Advisor Profile.
@@ -32,7 +32,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the AdvisorProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals }: IAdvisorProfileDefine) {
+           careerGoals }: IProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
       const interestIDs = Interests.getIDs(interests);
@@ -53,7 +53,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the AdvisorProfile.
    */
-  update(docID, { firstName, lastName, picture, website, interests, careerGoals }) {
+  public update(docID, { firstName, lastName, picture, website, interests, careerGoals }: IProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
     this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
@@ -66,7 +66,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR]);
   }
 
@@ -76,9 +76,9 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * Checks the profile common fields and the role..
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     let problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if (doc.role !== ROLE.ADVISOR) {
         problems.push(`AdvisorProfile instance does not have ROLE.ADVISOR: ${doc}`);
@@ -92,15 +92,15 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a AdvisorProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, interestID => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, careerGoalID => CareerGoals.findSlugByID(careerGoalID));
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
     return { username, firstName, lastName, picture, website, interests, careerGoals };
   }
 }

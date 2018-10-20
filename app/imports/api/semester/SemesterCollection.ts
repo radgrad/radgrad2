@@ -3,6 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import { moment } from 'meteor/momentjs:moment';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
+import { ISemesterDefine } from '../../typings/radgrad';
 
 /**
  * Represents a specific semester, such as "Spring, 2016", "Fall, 2017", or "Summer, 2015".

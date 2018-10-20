@@ -3,6 +3,7 @@ import BaseCollection from '../base/BaseCollection';
 import { MentorQuestions } from './MentorQuestionCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
+import { IMentorAnswerDefine, IMentorAnswerUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a mentor answer.

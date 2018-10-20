@@ -8,6 +8,7 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { Semesters } from '../semester/SemesterCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
+import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
 
 /**
  * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific semester.

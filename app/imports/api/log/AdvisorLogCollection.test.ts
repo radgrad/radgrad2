@@ -1,14 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-// import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { AdvisorLogs } from './AdvisorLogCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
+// import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
   describe('AdvisorLogCollection', function testSuite() {

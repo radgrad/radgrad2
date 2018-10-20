@@ -1,5 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
+import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Help message for a RadGrad page.
@@ -25,7 +26,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param text the help text.
    * @return {any} the ID of the help.
    */
-  public define({ routeName, title, text }: IhelpDefine): string {
+  public define({ routeName, title, text }: IHelpDefine): string {
     return this.collection.insert({ routeName, title, text });
   }
 
@@ -37,9 +38,9 @@ class HelpMessageCollection extends BaseCollection {
    * @param text New help text. (optional).
    * @throws { Meteor.Error } If docID is not defined.
    */
-  public update(docID: string, { routeName, title, text }: IhelpUpdate) {
+  public update(docID: string, { routeName, title, text }: IHelpUpdate) {
     this.assertDefined(docID);
-    const updateData: IhelpUpdate = {};
+    const updateData: IHelpUpdate = {};
     if (routeName) {
       updateData.routeName = routeName;
     }
@@ -79,7 +80,6 @@ class HelpMessageCollection extends BaseCollection {
     return this.collection.findOne({ routeName }).title;
   }
 
-
   /**
    * Returns an empty array (no integrity checking done on this collection.)
    * @returns {Array} An empty array.
@@ -102,7 +102,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param docID The docID of a HelpMessage.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IhelpDefine {
+  public dumpOne(docID: string): IHelpDefine {
     const doc = this.findDoc(docID);
     const routeName = doc.routeName;
     const title = doc.title;

@@ -3,6 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { Slugs } from '../slug/SlugCollection';
+import { IDesiredDegreeDefine, IDesiredDegreeUpdate } from '../../typings/radgrad';
 
 /**
  * DesiredDegrees specifies the set of degrees possible in this department.
@@ -36,7 +37,7 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, description }: IddDefine) {
+  public define({ name, shortName = name, slug, description }: IDesiredDegreeDefine) {
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const desiredDegreeID = this.collection.insert({ name, shortName, slugID, description });
@@ -52,9 +53,9 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @param shortName the short name of this degree.
    * @param description the description of this degree.
    */
-  public update(instance, { name, shortName, description }: IddUpdate) {
+  public update(instance, { name, shortName, description }: IDesiredDegreeUpdate) {
     const docID = this.getID(instance);
-    const updateData: IddUpdate = {};
+    const updateData: IDesiredDegreeUpdate = {};
     if (name) {
       updateData.name = name;
     }
@@ -105,7 +106,7 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @param docID The docID of a DesiredDegree.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IddDefine {
+  public dumpOne(docID: string): IDesiredDegreeDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const shortName = doc.shortName;

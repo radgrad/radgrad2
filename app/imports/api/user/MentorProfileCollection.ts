@@ -7,6 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
+import { IMentorProfileDefine, IMentorProfileUpdate, IMentorQuestionUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Mentor Profile.
@@ -42,8 +43,8 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the MentorProfile.
    */
-  define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, company, career, location, linkedin, motivation }) {
+  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+           careerGoals, company, career, location, linkedin, motivation }: IMentorProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.MENTOR;
       const interestIDs = Interests.getIDs(interests);
@@ -69,11 +70,11 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param linkedin LinkedIn user ID (optional).
    * @param motivation the motivation (optional).
    */
-  update(docID, { firstName, lastName, picture, website, interests, careerGoals, company, career, location, linkedin,
-    motivation }) {
+  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, company, career, location, linkedin,
+    motivation }: IMentorProfileUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
-    this._updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    const updateData: IMentorProfileUpdate = {};
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
     if (company) {
       updateData.company = company;
     }
@@ -99,7 +100,7 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.MENTOR]);
   }
 
@@ -109,9 +110,9 @@ class MentorProfileCollection extends BaseProfileCollection {
    * Checks the profile common fields and the role..
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     let problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if (doc.role !== ROLE.MENTOR) {
         problems.push(`MentorProfile instance does not have ROLE.MENTOR: ${doc}`);
@@ -125,15 +126,15 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a MentorProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IMentorProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, interestID => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, careerGoalID => CareerGoals.findSlugByID(careerGoalID));
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
     const company = doc.company;
     const career = doc.career;
     const location = doc.location;

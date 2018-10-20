@@ -3,8 +3,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { StudentProfiles } from './StudentProfileCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('StudentProfileCollection Meteor Methods ', function test() {
@@ -18,23 +17,23 @@ if (Meteor.isClient) {
     const careerGoals = [];
     const level = 6;
 
-    before(function (done) {
+    before(function(done) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define Method', async function() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const definitionData = { username, firstName, lastName, picture, website, interests, careerGoals, level };
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function () {
+    it('Update Method', async function() {
       const id = StudentProfiles.getID(username);
       await updateMethod.callPromise({ collectionName, updateData: { id, level: 4 } });
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function() {
       const instance = StudentProfiles.getID(username);
       await removeItMethod.callPromise({ collectionName, instance });
     });

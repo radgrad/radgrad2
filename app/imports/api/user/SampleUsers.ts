@@ -1,9 +1,9 @@
 import { moment } from 'meteor/momentjs:moment';
 import { Meteor } from 'meteor/meteor';
-import { StudentProfiles } from '../user/StudentProfileCollection';
-import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
-import { MentorProfiles } from '../user/MentorProfileCollection';
-import { FacultyProfiles } from '../user/FacultyProfileCollection';
+import { StudentProfiles } from './StudentProfileCollection';
+import { AdvisorProfiles } from './AdvisorProfileCollection';
+import { MentorProfiles } from './MentorProfileCollection';
+import { FacultyProfiles } from './FacultyProfileCollection';
 import { ROLE } from '../role/Role';
 
 function makeSampleStudent() {

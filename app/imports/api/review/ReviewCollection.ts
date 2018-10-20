@@ -8,6 +8,7 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { Courses } from '../course/CourseCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
+import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents a course or opportunity review by a student.
@@ -190,7 +191,7 @@ class ReviewCollection extends BaseSlugCollection {
    */
   public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }

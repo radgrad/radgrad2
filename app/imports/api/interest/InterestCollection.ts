@@ -8,6 +8,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
+import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a specific interest, such as "Software Engineering".
@@ -42,7 +43,7 @@ class InterestCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestType.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interestType }: IinterestDefine): string {
+  public define({ name, slug, description, interestType }: IInterestDefine): string {
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
     // Get SlugID, throw error if found.
@@ -62,7 +63,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param interestType The new interestType slug or ID (optional).
    * @throws { Meteor.Error } If docID is not defined, or if interestType is not valid.
    */
-  public update(docID: string, { name, description, interestType }: IinterestUpdate) {
+  public update(docID: string, { name, description, interestType }: IInterestUpdate) {
     this.assertDefined(docID);
     const updateData: { name?: string, description?: string, interestTypeID?: string } = {};
     if (name) {
@@ -154,7 +155,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param docID The docID of an Interest.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID): IinterestDefine {
+  public dumpOne(docID): IInterestDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);

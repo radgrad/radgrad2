@@ -5,6 +5,7 @@ import { Semesters } from '../semester/SemesterCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
+import { IStarDataObject } from '../../typings/radgrad';
 
 /* global isNaN */
 

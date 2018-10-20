@@ -15,6 +15,7 @@ import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
+import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents a Student Profile.
@@ -53,9 +54,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * academicPlan, declaredSemester, hiddenCourses, or hiddenOpportunities are invalid.
    * @return { String } The docID of the StudentProfile.
    */
-  define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
            careerGoals, level, academicPlan, declaredSemester, hiddenCourses = [], hiddenOpportunities = [],
-           isAlumni = false }) {
+           isAlumni = false }: IStudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
       const interestIDs = Interests.getIDs(interests);
@@ -94,11 +95,11 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param linkedin LinkedIn user ID (optional).
    * @param motivation the motivation (optional).
    */
-  update(docID, { firstName, lastName, picture, website, interests, careerGoals, level, academicPlan, declaredSemester,
-      hiddenCourses, hiddenOpportunities, isAlumni }) {
+  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, level, academicPlan, declaredSemester,
+      hiddenCourses, hiddenOpportunities, isAlumni }: IStudentProfileUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
-    this._updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    const updateData: IStudentProfileUpdateData = {};
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
     if (academicPlan) {
       updateData.academicPlanID = AcademicPlans.getID(academicPlan);
     }
@@ -113,18 +114,18 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     // Only Admins and Advisors can update the isAlumni and level fields.
     // Or if no one is logged in when this is executed (i.e. for testing) then it's cool.
-    if (!Meteor.userId() || this._hasRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR])) {
+    if (!Meteor.userId() || this.hasRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR])) {
       const userID = this.findDoc(docID).userID;
       if (_.isBoolean(isAlumni)) {
         updateData.isAlumni = isAlumni;
         if (isAlumni) {
           updateData.role = ROLE.ALUMNI;
           Roles.addUsersToRoles(userID, [ROLE.ALUMNI]);
-          Roles.removeUsersFromRoles(userID, ROLE.STUDENT);
+          Roles.removeUsersFromRoles(userID, [ROLE.STUDENT]);
         } else {
           updateData.role = ROLE.STUDENT;
           Roles.addUsersToRoles(userID, [ROLE.STUDENT]);
-          Roles.removeUsersFromRoles(userID, ROLE.ALUMNI);
+          Roles.removeUsersFromRoles(userID, [ROLE.ALUMNI]);
         }
       }
       if (level) {
@@ -139,7 +140,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * Asserts that level is an integer between 1 and 6.
    * @param level The level.
    */
-  assertValidLevel(level) {  // eslint-disable-line class-methods-use-this
+  public assertValidLevel(level: number) {
     if (!_.isInteger(level) && !_.inRange(level, 1, 7)) {
       throw new Meteor.Error(`Level ${level} is not between 1 and 6.`);
     }
@@ -152,7 +153,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
   }
 
@@ -162,9 +163,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * Checks the profile common fields and the role..
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     let problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if ((doc.role !== ROLE.STUDENT) && (doc.role !== ROLE.ALUMNI)) {
         problems.push(`StudentProfile instance does not have ROLE.STUDENT or ROLE.ALUMNI: ${doc.username}`);
@@ -181,12 +182,12 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (doc.declaredSemesterID && !Semesters.isDefined(doc.declaredSemesterID)) {
         problems.push(`Bad semesterID: ${doc.academicPlanID} in ${doc.username}`);
       }
-      _.forEach(doc.hiddenCourseIDs, hiddenCourseID => {
+      _.forEach(doc.hiddenCourseIDs, (hiddenCourseID) => {
         if (!Courses.isDefined(hiddenCourseID)) {
           problems.push(`Bad hiddenCourseID: ${hiddenCourseID} in ${doc.username}`);
         }
       });
-      _.forEach(doc.hiddenOpportunityIDs, hiddenOpportunityID => {
+      _.forEach(doc.hiddenOpportunityIDs, (hiddenOpportunityID) => {
         if (!Opportunities.isDefined(hiddenOpportunityID)) {
           problems.push(`Bad hiddenOpportunityID: ${hiddenOpportunityID} in ${doc.username}`);
         }
@@ -200,7 +201,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param user The student (username or userID).
    * @throws {Meteor.Error} If userID is not defined.
    */
-  getEarnedICE(user) { // eslint-disable-line
+  public getEarnedICE(user: string) {
     const studentID = Users.getID(user);
     const courseDocs = CourseInstances.find({ studentID }).fetch();
     const oppDocs = OpportunityInstances.find({ studentID }).fetch();
@@ -212,7 +213,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param user The student (username or userID).
    * @throws {Meteor.Error} If user is not defined.
    */
-  getProjectedICE(user) { // eslint-disable-line class-methods-use-this
+  public getProjectedICE(user: string) {
     const studentID = Users.getID(user);
     const courseDocs = CourseInstances.find({ studentID }).fetch();
     const oppDocs = OpportunityInstances.find({ studentID }).fetch();
@@ -223,7 +224,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * Returns an array of courseIDs that this user has taken (or plans to take) based on their courseInstances.
    * @param studentID The studentID.
    */
-  getCourseIDs(user) { // eslint-disable-line class-methods-use-this
+  public getCourseIDs(user: string) {
     const studentID = Users.getID(user);
     const courseInstanceDocs = CourseInstances.find({ studentID }).fetch();
     const courseIDs = courseInstanceDocs.map((doc) => doc.courseID);
@@ -236,7 +237,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param userID
    * @returns {Array}
    */
-  getInterestIDs(userID) {
+  public getInterestIDs(userID: string) {
     const user = this.collection.findOne({ _id: userID });
     let interestIDs = [];
     interestIDs = _.union(interestIDs, user.interestIDs);
@@ -252,7 +253,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * User selected. The second sub-array is the interestIDs from the user's career goals.
    * @param userID The user's ID.
    */
-  getInterestIDsByType(userID) {
+  public getInterestIDsByType(userID: string) {
     const user = this.collection.findOne({ _id: userID });
     const interestIDs = [];
     interestIDs.push(user.interestIDs);
@@ -271,31 +272,30 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param user The user (username or userID).
    * @param level The new level.
    */
-  setLevel(user, level) {
+  public setLevel(user: string, level: number) {
     const id = this.getID(user);
     this.collection.update({ _id: id }, { $set: { level } });
   }
-
 
   /**
    * Returns an object representing the StudentProfile docID in a format acceptable to define().
    * @param docID The docID of a StudentProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IStudentProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, interestID => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, careerGoalID => CareerGoals.findSlugByID(careerGoalID));
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
     const level = doc.level;
     const academicPlan = doc.academicPlanID && AcademicPlans.findSlugByID(doc.academicPlanID);
     const declaredSemester = doc.declaredSemesterID && Semesters.findSlugByID(doc.declaredSemesterID);
-    const hiddenCourses = _.map(doc.hiddenCourseIDs, hiddenCourseID => Courses.findSlugByID(hiddenCourseID));
-    const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, hiddenOpportunityID =>
+    const hiddenCourses = _.map(doc.hiddenCourseIDs, (hiddenCourseID) => Courses.findSlugByID(hiddenCourseID));
+    const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, (hiddenOpportunityID) =>
         Opportunities.findSlugByID(hiddenOpportunityID));
     const isAlumni = doc.isAlumni;
     return { username, firstName, lastName, picture, website, interests, careerGoals, level, academicPlan,

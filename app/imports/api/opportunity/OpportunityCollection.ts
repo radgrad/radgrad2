@@ -12,6 +12,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE } from '../ice/IceProcessor';
+import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".

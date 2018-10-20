@@ -5,6 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
+import { IAdvisorLogDefine, IAdvisorLogUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a log of an Advisor talking to a Student.
@@ -37,15 +38,15 @@ class AdvisorLogCollection extends BaseCollection {
    * @param student The student's username.
    * @param text The contents of the session.
    */
-  public define({ advisor, student, text, createdOn = moment().toDate() }: IadvisorLogDefine) {
+  public define({ advisor, student, text, createdOn = moment().toDate() }: IAdvisorLogDefine) {
     const advisorID = Users.getID(advisor);
     const studentID = Users.getID(student);
     return this.collection.insert({ advisorID, studentID, text, createdOn });
   }
 
-  public update(docID: string, { text }: IadvisorLogUpdate) {
+  public update(docID: string, { text }: IAdvisorLogUpdate) {
     this.assertDefined(docID);
-    const updateData: IadvisorLogUpdate = {};
+    const updateData: IAdvisorLogUpdate = {};
     if (text) {
       updateData.text = text;
     }
@@ -128,7 +129,7 @@ class AdvisorLogCollection extends BaseCollection {
    * @param docID The docID of a Log.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IadvisorLogDefine {
+  public dumpOne(docID: string): IAdvisorLogDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const advisor = Users.getProfile(doc.advisorID).username;

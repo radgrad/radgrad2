@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Courses } from '../course/CourseCollection';
+import { Ice } from '../../typings/radgrad';
 
 /**
  * Polyfill definition of isInteger in case it's not defined.
