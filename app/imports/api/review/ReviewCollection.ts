@@ -15,6 +15,8 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
  * @memberOf api/review
  */
 class ReviewCollection extends BaseSlugCollection {
+  public COURSE: string;
+  public OPPORTUNITY: string;
 
   /**
    * Creates the Review collection.
@@ -63,10 +65,7 @@ class ReviewCollection extends BaseSlugCollection {
    * undefined reviewee, undefined semester, or invalid rating.
    * @returns The newly created docID.
    */
-  define({
-           slug, student, reviewType, reviewee, semester, rating = 3, comments, moderated = false, visible = true,
-           moderatorComments,
-         }) {
+  public define({ slug, student, reviewType, reviewee, semester, rating = 3, comments, moderated = false, visible = true, moderatorComments }: IReviewDefine) {
     // Validate student, get studentID.
     const studentID = Users.getID(student);
     Users.assertInRole(studentID, [ROLE.STUDENT, ROLE.ALUMNI]);
@@ -76,6 +75,7 @@ class ReviewCollection extends BaseSlugCollection {
     if (reviewType === this.COURSE) {
       revieweeID = Courses.getID(reviewee);
       if (!slug) {
+        // tslint:disable: no-parameter-reassignment
         slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`;
       }
     } else
@@ -90,7 +90,6 @@ class ReviewCollection extends BaseSlugCollection {
     // Validate rating.
     this.assertValidRating(rating);
     // Guarantee that moderated and public are booleans.
-    /* eslint no-param-reassign: "off" */
     moderated = !!moderated;
     visible = !!visible;
     // Get SlugID, throw error if found.
@@ -108,7 +107,7 @@ class ReviewCollection extends BaseSlugCollection {
    * Throws an error if rating is not an integer between 1 and 5.
    * @param rating the rating.
    */
-  assertValidRating(rating) { // eslint-disable-line class-methods-use-this
+  public assertValidRating(rating: number) {
     if (!_.isInteger(rating) || !_.inRange(rating, 1, 6)) {
       throw new Meteor.Error(`Invalid rating: ${rating}`);
     }
@@ -118,7 +117,7 @@ class ReviewCollection extends BaseSlugCollection {
    * Throws an error if reviewType is not 'opportunity' or 'collection'.
    * @param reviewType The review type.
    */
-  assertValidReviewType(reviewType) { // eslint-disable-line class-methods-use-this
+  public assertValidReviewType(reviewType: string) {
     if (!_.includes([this.OPPORTUNITY, this.COURSE], reviewType)) {
       throw new Meteor.Error(`Invalid reviewType: ${reviewType}`);
     }
@@ -128,9 +127,9 @@ class ReviewCollection extends BaseSlugCollection {
    * Update the review. Only semester, rating, comments, moderated, visible, and moderatorComments can be updated.
    * @param docID The review docID (required).
    */
-  update(docID, { semester, rating, comments, moderated, visible, moderatorComments }) {
+  public update(docID, { semester, rating, comments, moderated, visible, moderatorComments }: IReviewUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: IReviewUpdateData = {};
     if (semester) {
       updateData.semesterID = Semesters.getID(semester);
     }
@@ -157,9 +156,9 @@ class ReviewCollection extends BaseSlugCollection {
    * Remove the review.
    * @param docID The docID of the review.
    */
-  removeIt(docID) {
+  public removeIt(docID: string) {
     this.assertDefined(docID);
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
@@ -169,7 +168,7 @@ class ReviewCollection extends BaseSlugCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
   }
 
@@ -177,7 +176,7 @@ class ReviewCollection extends BaseSlugCollection {
    * Returns the slug for the given opportunity ID.
    * @param opportunityID the opportunity ID.
    */
-  getSlug(reviewID) {
+  public getSlug(reviewID: string) {
     this.assertDefined(reviewID);
     const reviewDoc = this.findDoc(reviewID);
     return Slugs.findDoc(reviewDoc.slugID).name;
@@ -189,7 +188,7 @@ class ReviewCollection extends BaseSlugCollection {
    * Checks slugID, opportunityTypeID, sponsorID, interestIDs, semesterIDs
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
     this.find().forEach(doc => {
       if (!Slugs.isDefined(doc.slugID)) {
@@ -215,7 +214,7 @@ class ReviewCollection extends BaseSlugCollection {
    * @param visible The new visible value.
    * @param moderatorComments The new moderatorComments value.
    */
-  updateModerated(reviewID, moderated, visible, moderatorComments) {
+  public updateModerated(reviewID: string, moderated: boolean, visible: boolean, moderatorComments: string) {
     this.assertDefined(reviewID);
     this.collection.update({ _id: reviewID },
         { $set: { moderated, visible, moderatorComments } });
@@ -226,7 +225,7 @@ class ReviewCollection extends BaseSlugCollection {
    * @param docID The docID of an Review.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IReviewDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
     const student = Users.getProfile(doc.studentID).username;

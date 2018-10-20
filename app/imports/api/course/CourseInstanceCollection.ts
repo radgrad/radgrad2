@@ -17,7 +17,7 @@ import { makeCourseICE } from '../ice/IceProcessor';
  * @extends api/base.BaseCollection
  */
 class CourseInstanceCollection extends BaseCollection {
-  private validGrades: string[];
+  public validGrades: string[];
   private publicationNames: {
     student: string;
     perStudentAndSemester: string;

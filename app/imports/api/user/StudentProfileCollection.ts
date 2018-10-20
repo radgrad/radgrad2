@@ -165,7 +165,7 @@ class StudentProfileCollection extends BaseProfileCollection {
   checkIntegrity() {
     let problems = [];
     this.find().forEach(doc => {
-      problems = problems.concat(this._checkIntegrityCommonFields(doc));
+      problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if ((doc.role !== ROLE.STUDENT) && (doc.role !== ROLE.ALUMNI)) {
         problems.push(`StudentProfile instance does not have ROLE.STUDENT or ROLE.ALUMNI: ${doc.username}`);
       }

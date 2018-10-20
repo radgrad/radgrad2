@@ -11,14 +11,14 @@ import { ROLE } from '../role/Role';
 export const advisorLogsDefineMethod = new ValidatedMethod({
   name: 'AdvisorLogs.define',
   validate: null,
-  run(helpDefn) {
+  run(definition) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to define AdvisorLogs.');
     } else
       if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
         throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to define new AdvisorLogs.');
       }
-    return AdvisorLogs.define(helpDefn);
+    return AdvisorLogs.define(definition);
   },
 });
 
@@ -29,14 +29,14 @@ export const advisorLogsDefineMethod = new ValidatedMethod({
 export const advisorLogsUpdateMethod = new ValidatedMethod({
   name: 'AdvisorLogs.update',
   validate: null,
-  run(update) {
+  run(update: IadvisorLogUpdate) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to update AdvisorLogs.');
     } else
       if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
         throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to update AdvisorLogs.');
       }
-    return AdvisorLogs.update(update.id, { $set: update });
+    return AdvisorLogs.update(update.id, update);
   },
 });
 

@@ -1,0 +1,162 @@
+{
+  "timestamp": "2017-03-10T20:04:41.798Z",
+  "fixtureDescription" : "Sample definitions for basic entities.",
+  "collections": [
+    {
+      "name": "AcademicPlanCollection",
+      "contents": [
+        {
+          "slug": "bs-cs-2016",
+          "degreeSlug": "bs-cs",
+          "name": "B.S. in Computer Sciences (2016)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
+          "semester": "Fall-2016",
+          "coursesPerSemester": [
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_241-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_212-1",
+            "ics_321-1",
+            "ics_312,ics_331-1",
+            "ics_313,ics_361-1",
+            "ics_332-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3",
+            "ics_400+-4",
+            "ics_400+-5"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CareerGoalCollection",
+      "contents": [
+        {
+          "name": "Data Scientist",
+          "slug": "data-scientist",
+          "interests": [
+            "algorithms"
+          ],
+          "description": "A data scientist analyzes and interprets extremely complex and large data sets"
+        },
+        {
+          "name": "Database Administrator",
+          "slug": "database-administrator",
+          "interests": [
+            "algorithms"
+          ],
+          "description": "Companies, private organizations, and government agencies rely on database administrators"
+        }
+      ]
+    },
+    {
+      "name": "CourseCollection",
+      "contents": [
+        {
+          "name": "Introduction to Computer Science I",
+          "shortName": "Comp Sci I",
+          "slug": "ics_111",
+          "num": "ICS 111",
+          "description": "Overview of computer science, including Java programming",
+          "creditHrs": 4,
+          "interests": [
+            "java"
+          ],
+          "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS111.html",
+          "prerequisites": []
+        },
+        {
+          "name": "Discrete Mathematics for Computer Science I",
+          "shortName": "Discrete Math I",
+          "slug": "ics_141",
+          "num": "ICS 141",
+          "description": "Introduction to propositional and predicate logic",
+          "creditHrs": 3,
+          "interests": [
+            "algorithms"
+          ],
+          "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS141.html",
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "name": "DesiredDegreeCollection",
+      "contents": [
+        {
+          "name": "B.A. in Information and Computer Sciences",
+          "shortName": "B.A. ICS",
+          "slug": "ba-ics",
+          "description": "The Bachelor of Arts (BA) degree allows you to combine computer science with another discipline."
+        },
+        {
+          "name": "B.S. in Computer Engineering",
+          "shortName": "B.S. CE",
+          "slug": "bs-ce",
+          "description": "ICS and EE offer a joint Bachelor of Science degree in Computer Engineering (BSCE)."
+        },
+        {
+          "name": "B.S. in Computer Science",
+          "shortName": "B.S. CS",
+          "slug": "bs-cs",
+          "description": "The Bachelor of Science in Computer Science provides you with an in-depth foundation."
+        }
+      ]
+    },
+    {
+      "name": "InterestCollection",
+      "contents": [
+        {
+          "name": "Algorithms",
+          "slug": "algorithms",
+          "description": "Simply put, an algorithm is a self-contained step-by-step set of operations",
+          "interestType": "cs-disciplines"
+        },
+        {
+          "name": "Java",
+          "slug": "java",
+          "description": "Java is a general-purpose computer programming language ",
+          "interestType": "technologies"
+        }
+      ]
+    },
+    {
+      "name": "InterestTypeCollection",
+      "contents": [
+        {
+          "name": "CS Disciplines",
+          "slug": "cs-disciplines",
+          "description": "Computer science and engineering areas of interest, not including languages, tools, technologies."
+        },
+        {
+          "name": "Non-CS Disciplines",
+          "slug": "non-cs-disciplines",
+          "description": "Areas of interest apart from computer science and engineering."
+        },
+        {
+          "name": "technologies",
+          "slug": "technologies",
+          "description": "Computer science and engineering languages, tools, and technologies"
+        }
+      ]
+    }
+  ]
+}

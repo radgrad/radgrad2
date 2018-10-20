@@ -16,6 +16,7 @@ import BaseCollection from '../base/BaseCollection';
  */
 class OpportunityInstanceCollection extends BaseCollection {
   public publicationNames: { student: string; perStudentAndSemester: string; studentID: string; };
+
   /**
    * Creates the OpportunityInstance collection.
    */
@@ -53,7 +54,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
 
-  public define({ semester, opportunity, sponsor, verified = false, student }: IoiDefine) {
+  public define({ semester, opportunity, sponsor, verified = false, student }: IOpportunityInstanceDefine) {
     // Validate semester, opportunity, verified, and studentID
     const semesterID = Semesters.getID(semester);
     const semesterDoc = Semesters.findDoc(semesterID);
@@ -80,13 +81,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
     // Define and return the new OpportunityInstance
-    const opportunityInstanceID = this.collection.insert({ semesterID,
-      opportunityID,
-      verified,
-      studentID,
-      sponsorID,
-      ice,
-    });
+    const opportunityInstanceID = this.collection.insert({ semesterID, opportunityID, verified, studentID, sponsorID, ice });
     return opportunityInstanceID;
   }
 
@@ -97,9 +92,9 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param verified boolean optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { semesterID, verified, ice }: IoiUpdate) {
+  public update(docID: string, { semesterID, verified, ice }: IOpportunityInstanceUpdate) {
     this.assertDefined(docID);
-    const updateData: IoiUpdate = {};
+    const updateData: IOpportunityInstanceUpdate = {};
     if (semesterID) {
       updateData.semesterID = semesterID;
     }
@@ -151,7 +146,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns { Object } Returns the document or null if not found.
    * @throws { Meteor.Error } If semester, opportunity, or student does not exist.
    */
-  findOpportunityInstanceDoc(semester, opportunity, student) {
+  public findOpportunityInstanceDoc(semester: string, opportunity: string, student: string) {
     const semesterID = Semesters.getID(semester);
     const studentID = Users.getID(student);
     const opportunityID = Opportunities.getID(opportunity);
@@ -166,7 +161,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns True if the opportunity instance exists.
    * @throws { Meteor.Error } If semester, opportunity, or student does not exist.
    */
-  isOpportunityInstance(semester, opportunity, student) {
+  public isOpportunityInstance(semester: string, opportunity: string, student: string) {
     return !!this.findOpportunityInstanceDoc(semester, opportunity, student);
   }
 
@@ -176,7 +171,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns {Object} The associated Opportunity.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  getOpportunityDoc(instanceID) {
+  public getOpportunityDoc(instanceID: string) {
     // this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findDoc(instance.opportunityID);
@@ -188,7 +183,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns {Object} The associated Semester.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  getSemesterDoc(instanceID) {
+  public getSemesterDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Semesters.findDoc(instance.semesterID);
@@ -200,7 +195,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  getStudentDoc(instanceID) {
+  public getStudentDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Users.getProfile(instance.studentID);
@@ -210,8 +205,9 @@ class OpportunityInstanceCollection extends BaseCollection {
    * Depending on the logged in user publish only their OpportunityInstances. If
    * the user is in the Role.ADMIN then publish all OpportunityInstances.
    */
-  publish() {
+  public publish() {
     if (Meteor.isServer) {
+      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.publicationNames.student, function publish() {
         if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
@@ -219,20 +215,20 @@ class OpportunityInstanceCollection extends BaseCollection {
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
           return instance.collection.find();
-        } else if (Roles.userIsInRole(this.userId, [ROLE.STUDENT])) {
+        }
+        if (Roles.userIsInRole(this.userId, [ROLE.STUDENT])) {
           return instance.collection.find({ studentID: this.userId });
         }
         return instance.collection.find({ sponsorID: this.userId });
       });
-      Meteor.publish(this.publicationNames.perStudentAndSemester,
-          function perStudentAndSemester(studentID, semesterID) {  // eslint-disable-line
-            new SimpleSchema({
-              studentID: { type: String },
-              semesterID: { type: String },
-            }).validate({ studentID, semesterID });
-            return instance.collection.find({ studentID, semesterID });
-          });
-      Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) { // eslint-disable-line
+      Meteor.publish(this.publicationNames.perStudentAndSemester, (studentID: string, semesterID: string) => {
+        new SimpleSchema({
+          studentID: { type: String },
+          semesterID: { type: String },
+        }).validate({ studentID, semesterID });
+        return instance.collection.find({ studentID, semesterID });
+      });
+      Meteor.publish(this.publicationNames.studentID, (studentID) => {
         new SimpleSchema({
           studentID: { type: String },
         }).validate({ studentID });
@@ -246,7 +242,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param opportunityInstanceID The opportunity instance ID.
    * @throws {Meteor.Error} If not a valid ID.
    */
-  toString(opportunityInstanceID) {
+  public toString(opportunityInstanceID: string) {
     this.assertDefined(opportunityInstanceID);
     const opportunityInstanceDoc = this.findDoc(opportunityInstanceID);
     const semester = Semesters.toString(opportunityInstanceDoc.semesterID);
@@ -260,7 +256,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param semesterID The semester id.
    * @throws {Meteor.Error} If not a valid ID.
    */
-  updateSemester(opportunityInstanceID, semesterID) {
+  public updateSemester(opportunityInstanceID: string, semesterID: string) {
     this.assertDefined(opportunityInstanceID);
     Semesters.assertSemester(semesterID);
     this.collection.update({ _id: opportunityInstanceID }, { $set: { semesterID } });
@@ -272,7 +268,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param verified The new value of verified.
    * @throws {Meteor.Error} If not a valid ID.
    */
-  updateVerified(opportunityInstanceID, verified) {
+  public updateVerified(opportunityInstanceID: string, verified: boolean) {
     this.assertDefined(opportunityInstanceID);
     this.collection.update({ _id: opportunityInstanceID }, { $set: { verified } });
   }
@@ -283,9 +279,9 @@ class OpportunityInstanceCollection extends BaseCollection {
    * Checks semesterID, opportunityID, studentID
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Semesters.isDefined(doc.semesterID)) {
         problems.push(`Bad semesterID: ${doc.semesterID}`);
       }
@@ -307,7 +303,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param docID The docID of an OpportunityInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IOpportunityInstanceDefine {
     const doc = this.findDoc(docID);
     const semester = Semesters.findSlugByID(doc.semesterID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);

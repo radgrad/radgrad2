@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
   describe('OpportunityTypeCollection', function testSuite() {

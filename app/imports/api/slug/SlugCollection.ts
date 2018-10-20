@@ -45,8 +45,8 @@ class SlugCollection extends BaseCollection {
    * @returns { String } The docID of the created Slug.
    * @throws { Meteor.Error } If the slug already exists.
    */
-  public define({ name, entityName }) {
-    check(name, String);
+  public define({ name, entityName }: ISlugDefine) {
+    check(name, String); // TODO: Do we need this?
     check(entityName, String);
     if (super.isDefined(name)) {
       throw new Meteor.Error(`Attempt to redefine slug: ${name}`);
@@ -63,7 +63,7 @@ class SlugCollection extends BaseCollection {
    * @param slugName The slug name.
    * @returns {boolean} True if it's OK.
    */
-  public isValidSlugName(slugName) {  // eslint-disable-line
+  public isValidSlugName(slugName: string) {  // eslint-disable-line
     const slugRegEx = new RegExp('^[a-zA-Z0-9@.]+(?:[_-][a-zA-Z0-9@.]+)*$');
     return (typeof slugName === 'string') && slugName.length > 0 && slugRegEx.test(slugName);
   }
@@ -73,7 +73,7 @@ class SlugCollection extends BaseCollection {
    * @param { String } slugID The docID of this Slug.
    * @param { String } entityID The docID of the entity to be associated with this Slug.
    */
-  public updateEntityID(slugID, entityID) {
+  public updateEntityID(slugID: string, entityID: string) {
     this.collection.update(slugID, { $set: { entityID } });
   }
 
@@ -84,7 +84,7 @@ class SlugCollection extends BaseCollection {
    * @returns { String } The docID of the entity.
    * @throws { Meteor.Error } If the slug or entity cannot be found or is the wrong type.
    */
-  public getEntityID(slugName, entityName) {
+  public getEntityID(slugName: string, entityName: string) {
     if (!this.isDefined(slugName)) {
       throw new Meteor.Error(`Undefined slug ${slugName}.`);
     }
@@ -101,7 +101,7 @@ class SlugCollection extends BaseCollection {
    * @param entityName The entity for which this might be a defined slug.
    * @returns True if slugName is defined for entityName.
    */
-  public isSlugForEntity(slugName, entityName) {
+  public isSlugForEntity(slugName: string, entityName: string) {
     if (!this.isDefined(slugName)) {
       return false;
     }
@@ -118,7 +118,7 @@ class SlugCollection extends BaseCollection {
    * @param { String } slugID A docID.
    * @returns {boolean} True if the slugID is in this collection.
    */
-  public hasSlug(slugID) {
+  public hasSlug(slugID: string) {
     return this.isDefined(slugID);
   }
 
@@ -128,7 +128,7 @@ class SlugCollection extends BaseCollection {
    * @returns The slug name.
    * @throws { Meteor.Error } If the passed slugID is not valid.
    */
-  public getNameFromID(slugID) {
+  public getNameFromID(slugID: string) {
     this.assertDefined(slugID);
     return this.findDoc(slugID).name;
   }
@@ -137,7 +137,7 @@ class SlugCollection extends BaseCollection {
    * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
    * @param { String | Object } docOrID A document or docID in this collection.
    */
-  public removeIt(docOrID) {
+  public removeIt(docOrID: string | object) {
     return super.removeIt(docOrID);
   }
 
@@ -146,7 +146,7 @@ class SlugCollection extends BaseCollection {
    * @param slugName The SlugName
    * @throws { Meteor.Error } If the passed slugName is not a slug name.
    */
-  public assertSlug(slugName) {
+  public assertSlug(slugName: string) {
     if (!this.collection.findOne({ name: slugName })) {
       throw new Meteor.Error(`Undefined slug ${slugName}.`);
     }
@@ -165,7 +165,7 @@ class SlugCollection extends BaseCollection {
    * @param docID The docID of a Slug.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID) {
+  public dumpOne(docID): ISlugDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const entityName = doc.entityName;

@@ -36,15 +36,7 @@ class MentorQuestionCollection extends BaseSlugCollection {
    * @param moderatorComments any comments from the moderator.
    * @return { String } the docID of this question.
    */
-  public define({ question, slug, student, moderated = false, visible = false, moderatorComments = '' }:
-                  {
-                    question: string;
-                    slug: string;
-                    student: string;
-                    moderated?: boolean;
-                    visible?: boolean;
-                    moderatorComments?: string
-                  }) {
+  public define({ question, slug, student, moderated = false, visible = false, moderatorComments = '' }: IMentorQuestionDefine) {
     const studentID = Users.getID(student);
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const docID = this.collection.insert({ question, slugID, studentID, moderated, visible, moderatorComments });
@@ -61,16 +53,9 @@ class MentorQuestionCollection extends BaseSlugCollection {
    * @param visible boolean (optional).
    * @param moderatorComments string (optional).
    */
-  public update(instance: string, { question, student, moderated, visible, moderatorComments }:
-    { question?: string; student?: string; moderated?: boolean; visible?: boolean; moderatorComments?: string; }) {
+  public update(instance: string, { question, student, moderated, visible, moderatorComments }: IMentorQuestionUpdate) {
     const docID = this.getID(instance);
-    const updateData: {
-      question?: string;
-      studentID?: string;
-      moderated?: boolean;
-      visible?: boolean;
-      moderatorComments?: string;
-    } = {};
+    const updateData: { question?: string; studentID?: string; moderated?: boolean; visible?: boolean; moderatorComments?: string; } = {};
     if (question) {
       updateData.question = question;
     }
@@ -140,7 +125,7 @@ class MentorQuestionCollection extends BaseSlugCollection {
    * @param docID The docID of a MentorQuestion.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string) {
+  public dumpOne(docID: string): IMentorQuestionDefine {
     const doc = this.findDoc(docID);
     const question = doc.question;
     let slug;

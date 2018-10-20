@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
-import { Courses } from '../../api/course/CourseCollection';
-import { CourseInstances } from '../../api/course/CourseInstanceCollection';
+import { Courses } from '../course/CourseCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
 import * as ICE from './IceProcessor';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
@@ -12,8 +12,8 @@ import { defineTestFixtures } from '../test/test-utilities';
 if (Meteor.isServer) {
   describe('IceProcessor', function testSuite() {
     it('#isICE, #assertICE', function test() {
-      const ice = { i: 0, c: 10, e: 15 };
-      const notIce = { i: 0, d: 10, e: 15 };
+      const ice: Ice = { i: 0, c: 10, e: 15 };
+      const notIce: { i: number; d: number; e: number; } = { i: 0, d: 10, e: 15 };
       const notIce2 = 'foo';
       ICE.assertICE(ice);
       expect(ICE.isICE(ice)).to.be.true;

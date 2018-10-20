@@ -50,7 +50,7 @@ class OpportunityCollection extends BaseSlugCollection {
    *                        ice: { i: 10, c: 0, e: 10},
    *                        interests: ['software-engineering'],
    *                        semesters: ['Fall-2016', 'Spring-2016', 'Summer-2106'],
-     *                      });
+   *                      });
    * @param { Object } description Object with keys name, slug, description, opportunityType, sponsor, interests,
    * Slug must not be previously defined.
    * OpportunityType and sponsor must be defined slugs.
@@ -62,7 +62,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  define({ name, slug, description, opportunityType, sponsor, interests, semesters, ice, eventDate = null }) {
+  public define({ name, slug, description, opportunityType, sponsor, interests, semesters, ice, eventDate = null }: IOpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -102,9 +102,9 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param eventDate a Date. (optional)
    * @param ice An ICE object (optional).
    */
-  update(instance, { name, description, opportunityType, sponsor, interests, semesters, eventDate, ice }) {
+  public update(instance: string, { name, description, opportunityType, sponsor, interests, semesters, eventDate, ice }: IOpportunityUpdate) {
     const docID = this.getID(instance);
-    const updateData = {};
+    const updateData: IOpportunityUpdateData = {};
     if (name) {
       updateData.name = name;
     }
@@ -143,25 +143,25 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param instance The docID or slug of the entity to be removed.
    * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
    */
-  removeIt(instance) {
+  public removeIt(instance: string) {
     const docID = this.getID(instance);
     // Check that this opportunity is not referenced by any Opportunity Instance.
-    OpportunityInstances.find().map(function (opportunityInstance) {  // eslint-disable-line array-callback-return
+    OpportunityInstances.find().map((opportunityInstance) => {
       if (opportunityInstance.opportunityID === docID) {
         throw new Meteor.Error(`Opportunity ${instance} referenced by a opportunity instance ${opportunityInstance}.`);
       }
     });
     // Check that this opportunity is not referenced by any Teaser.
-    Teasers.find().map(function (teaser) {  // eslint-disable-line array-callback-return
+    Teasers.find().map((teaser) => {
       if (Teasers.hasOpportunity(teaser, docID)) {
         throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser ${teaser}.`);
       }
     });
     // OK to delete. First remove any Feeds that reference this opportunity.
-    Feeds.find({ opportunityID: docID }).map(function (feed) { // eslint-disable-line array-callback-return
+    Feeds.find({ opportunityID: docID }).map((feed) => {
       Feeds.removeIt(feed._id);
     });
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
@@ -170,10 +170,9 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not in the allowed roles.
    */
-  assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
   }
-
 
   /**
    * Returns the OpportunityType associated with the Opportunity with the given instanceID.
@@ -181,18 +180,17 @@ class OpportunityCollection extends BaseSlugCollection {
    * @returns {Object} The associated Opportunity.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  getOpportunityTypeDoc(instanceID) {
+  public getOpportunityTypeDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return OpportunityTypes.findDoc(instance.opportunityTypeID);
   }
 
-
   /**
    * Returns the slug for the given opportunity ID.
    * @param opportunityID the opportunity ID.
    */
-  getSlug(opportunityID) {
+  public getSlug(opportunityID: string) {
     this.assertDefined(opportunityID);
     const courseDoc = this.findDoc(opportunityID);
     return Slugs.findDoc(courseDoc.slugID).name;
@@ -204,9 +202,9 @@ class OpportunityCollection extends BaseSlugCollection {
    * Checks slugID, opportunityTypeID, sponsorID, interestIDs, semesterIDs
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
@@ -216,12 +214,12 @@ class OpportunityCollection extends BaseSlugCollection {
       if (!Users.isDefined(doc.sponsorID)) {
         problems.push(`Bad sponsorID: ${doc.sponsorID}`);
       }
-      _.forEach(doc.interestIDs, interestID => {
+      _.forEach(doc.interestIDs, (interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      _.forEach(doc.semesterIDs, semesterID => {
+      _.forEach(doc.semesterIDs, (semesterID) => {
         if (!Semesters.isDefined(semesterID)) {
           problems.push(`Bad semesterID: ${semesterID}`);
         }
@@ -237,7 +235,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * @returns {boolean} True if the opportunity has the associated Interest.
    * @throws { Meteor.Error } If opportunity is not a opportunity or interest is not a Interest.
    */
-  hasInterest(opportunity, interest) {
+  public hasInterest(opportunity: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(opportunity);
     return _.includes(doc.interestIDs, interestID);
@@ -248,7 +246,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param docID The docID of an Opportunity.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IOpportunityDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);
@@ -256,8 +254,8 @@ class OpportunityCollection extends BaseSlugCollection {
     const sponsor = Users.getProfile(doc.sponsorID).username;
     const description = doc.description;
     const ice = doc.ice;
-    const interests = _.map(doc.interestIDs, interestID => Interests.findSlugByID(interestID));
-    const semesters = _.map(doc.semesterIDs, semesterID => Semesters.findSlugByID(semesterID));
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const semesters = _.map(doc.semesterIDs, (semesterID) => Semesters.findSlugByID(semesterID));
     const eventDate = doc.eventDate;
     return { name, slug, description, opportunityType, sponsor, ice, interests, semesters, eventDate };
   }

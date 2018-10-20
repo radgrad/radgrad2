@@ -3,8 +3,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { Reviews } from './ReviewCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('ReviewCollection Meteor Methods ', function test() {
@@ -19,24 +18,24 @@ if (Meteor.isClient) {
       comments: 'This is great!',
     };
 
-    before(function (done) {
+    before(function(done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define Method', async function() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function () {
+    it('Update Method', async function() {
       const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
       const rating = 5;
       const comments = 'new comments';
       await updateMethod.callPromise({ collectionName, updateData: { id, rating, comments } });
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function() {
       const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
       await removeItMethod.callPromise({ collectionName, instance: id });
     });

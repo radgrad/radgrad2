@@ -6,6 +6,7 @@ import { Semesters } from '../semester/SemesterCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { getStudentsCurrentSemesterNumber } from '../degree-plan/AcademicYearUtilities';
+import { number } from 'prop-types';
 
 /**
  * Returns a random int between min and max.
@@ -15,8 +16,8 @@ import { getStudentsCurrentSemesterNumber } from '../degree-plan/AcademicYearUti
  * @memberOf api/opportunity
  */
 export function getRandomInt(min, max) {
-  min = Math.ceil(min);  // eslint-disable-line no-param-reassign
-  max = Math.floor(max);  // eslint-disable-line no-param-reassign
+  min = Math.ceil(min);  // tslint:disable-line: no-parameter-reassignment
+  max = Math.floor(max);  // tslint:disable-line: no-parameter-reassignment
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -25,7 +26,7 @@ export function getRandomInt(min, max) {
  * @param studentID
  * @memberOf api/opportunity
  */
-export function clearPlannedOpportunityInstances(studentID) {
+export function clearPlannedOpportunityInstances(studentID: string) {
   const courses = OpportunityInstances.find({ studentID, verified: false }).fetch();
   _.forEach(courses, (oi) => {
     const requests = VerificationRequests.find({ studentID, opportunityInstanceID: oi._id }).fetch();
@@ -35,37 +36,38 @@ export function clearPlannedOpportunityInstances(studentID) {
   });
 }
 
-export const calculateOpportunityCompatibility = (opportunityID, studentID) => {
+export function calculateOpportunityCompatibility(opportunityID: string, studentID: string) {
   const course = Opportunities.findDoc(opportunityID);
   const studentInterests = Users.getProfile(studentID).interestIDs;
   const intersection = _.intersection(course.interestIDs, studentInterests);
   return intersection.length;
-};
+}
 
-export const semesterOpportunities = (semester, semesterNumber) => {
+export function semesterOpportunities(semester, semesterNumber) {
   const id = semester._id;
   const opps = Opportunities.find().fetch();
-  const semesterOpps = _.filter(opps, function filter(opportunity) {
+  const semesterOpps = _.filter(opps, (opportunity) => {
     return _.indexOf(opportunity.semesterIDs, id) !== -1;
   });
   if (semesterNumber < 3) { // AY 1.
-    return _.filter(semesterOpps, function onlyEvents(opportunity) {
+    return _.filter(semesterOpps, (opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Club';
     });
-  } else if (semesterNumber < 6) {
-    return _.filter(semesterOpps, function onlyEvents(opportunity) {
+  }
+  if (semesterNumber < 6) {
+    return _.filter(semesterOpps, (opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Event' || type.name === 'Club';
     });
   }
   return semesterOpps;
-};
+}
 
-export const getStudentSemesterOpportunityChoices = (semester, semesterNumber, studentID) => {
+export function getStudentSemesterOpportunityChoices(semester: string, semesterNumber: number, studentID: string) {
   const opportunities = semesterOpportunities(semester, semesterNumber);
   const oppInstances = OpportunityInstances.find({ studentID }).fetch();
-  const filtered = _.filter(opportunities, function removeInstances(opp) {
+  const filtered = _.filter(opportunities, (opp) => {
     let taken = true;
     _.forEach(oppInstances, (oi) => {
       if (oi.opportunityID === opp._id) {
@@ -75,9 +77,9 @@ export const getStudentSemesterOpportunityChoices = (semester, semesterNumber, s
     return taken;
   });
   return filtered;
-};
+}
 
-export const chooseStudentSemesterOpportunity = (semester, semesterNumber, studentID) => {
+export function chooseStudentSemesterOpportunity(semester: string, semesterNumber: number, studentID: string) {
   const choices = getStudentSemesterOpportunityChoices(semester, semesterNumber, studentID);
   const interestIDs = Users.getProfile(studentID).interestIDs;
   const preferred = new PreferredChoice(choices, interestIDs);
@@ -86,26 +88,26 @@ export const chooseStudentSemesterOpportunity = (semester, semesterNumber, stude
     return best[getRandomInt(0, best.length)];
   }
   return null;
-};
+}
 
-export const getStudentCurrentSemesterOpportunityChoices = (studentID) => {
+export function getStudentCurrentSemesterOpportunityChoices(studentID: string) {
   const currentSemester = Semesters.getCurrentSemesterDoc();
   const semesterNum = getStudentsCurrentSemesterNumber(studentID);
   return getStudentSemesterOpportunityChoices(currentSemester, semesterNum, studentID);
-};
+}
 
-export const getRecommendedCurrentSemesterOpportunityChoices = (studentID) => {
+export function getRecommendedCurrentSemesterOpportunityChoices(studentID) {
   const choices = getStudentCurrentSemesterOpportunityChoices(studentID);
   const interestIDs = Users.getProfile(studentID).interestIDs;
   const preferred = new PreferredChoice(choices, interestIDs);
   const best = preferred.getBestChoices();
   return best;
-};
+}
 
-export const chooseCurrentSemesterOpportunity = (studentID) => {
+export function chooseCurrentSemesterOpportunity(studentID: string) {
   const best = getRecommendedCurrentSemesterOpportunityChoices(studentID);
   if (best) {
     return best[getRandomInt(0, best.length)];
   }
   return null;
-};
+}

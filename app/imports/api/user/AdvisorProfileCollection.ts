@@ -7,6 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
+import { IAdvisorProfileDefine } from '../../typings/radgrad';
 
 /**
  * Represents a Advisor Profile.
@@ -30,8 +31,8 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the AdvisorProfile.
    */
-  define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals }) {
+  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+           careerGoals }: IAdvisorProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
       const interestIDs = Interests.getIDs(interests);
@@ -78,7 +79,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
   checkIntegrity() {
     let problems = [];
     this.find().forEach(doc => {
-      problems = problems.concat(this._checkIntegrityCommonFields(doc));
+      problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if (doc.role !== ROLE.ADVISOR) {
         problems.push(`AdvisorProfile instance does not have ROLE.ADVISOR: ${doc}`);
       }

@@ -79,7 +79,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
   checkIntegrity() {
     let problems = [];
     this.find().forEach(doc => {
-      problems = problems.concat(this._checkIntegrityCommonFields(doc));
+      problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if (doc.role !== ROLE.FACULTY) {
         problems.push(`FacultyProfile instance does not have ROLE.FACULTY: ${doc}`);
       }

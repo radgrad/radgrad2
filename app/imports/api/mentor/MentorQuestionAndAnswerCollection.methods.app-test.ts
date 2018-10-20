@@ -5,8 +5,7 @@ import { MentorAnswers } from './MentorAnswerCollection';
 import { MentorQuestions } from './MentorQuestionCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('MentorQuestionAndAnswerCollection Meteor Methods ', function test() {
@@ -24,12 +23,12 @@ if (Meteor.isClient) {
       text: 'mentor-answer',
     };
 
-    before(function (done) {
+    before(function(done) {
       this.timeout(5000);
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'rbrewer.mentor'], done);
     });
 
-    it('Define Method (Question)', async function () {
+    it('Define Method (Question)', async function() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const questionID = await defineMethod.callPromise({
@@ -39,7 +38,7 @@ if (Meteor.isClient) {
       expect(MentorQuestions.isDefined(questionID)).to.be.true;
     });
 
-    it('Define Method (Answer)', async function () {
+    it('Define Method (Answer)', async function() {
       const answerID = await defineMethod.callPromise({
         collectionName: answerCollectionName,
         definitionData: answerDefinition,
@@ -47,7 +46,7 @@ if (Meteor.isClient) {
       expect(MentorAnswers.isDefined(answerID)).to.be.true;
     });
 
-    it('Question Update Method', async function () {
+    it('Question Update Method', async function() {
       const id = MentorQuestions.findIdBySlug(questionDefinition.slug);
       const question = 'updated CareerGoal name';
       const student = 'abi@hawaii.edu';
@@ -62,7 +61,7 @@ if (Meteor.isClient) {
       expect(doc.question).to.equal(question);
     });
 
-    it('Answer Update Method', async function () {
+    it('Answer Update Method', async function() {
       const questionID = MentorQuestions.findIdBySlug(questionDefinition.slug);
       const id = MentorAnswers.findDoc({ questionID })._id;
       const text = 'updated answer text';
@@ -71,7 +70,7 @@ if (Meteor.isClient) {
       expect(doc.text).to.equal(text);
     });
 
-    it('Question & Answer Remove Methods', async function () {
+    it('Question & Answer Remove Methods', async function() {
       const questionID = MentorQuestions.findIdBySlug(questionDefinition.slug);
       const answerID = MentorAnswers.findDoc({ questionID })._id;
       await removeItMethod.callPromise({ collectionName: answerCollectionName, answerID });

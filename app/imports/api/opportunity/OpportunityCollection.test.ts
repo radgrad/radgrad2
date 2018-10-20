@@ -1,15 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { ROLE } from '../role/Role';
-import { Opportunities } from '../opportunity/OpportunityCollection';
+import { Opportunities } from './OpportunityCollection';
 import { defineSemesters } from '../semester/SemesterUtilities';
 import { makeSampleInterest } from '../interest/SampleInterests';
-import { makeSampleOpportunityType } from '../opportunity/SampleOpportunities';
+import { makeSampleOpportunityType } from './SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
   describe('OpportunityCollection', function testSuite() {
@@ -44,4 +43,3 @@ if (Meteor.isServer) {
     });
   });
 }
-

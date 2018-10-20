@@ -26,7 +26,7 @@ class BaseCollection {
    * @param {String} type The name of the entity defined by the subclass.
    * @param {SimpleSchema} schema The schema for validating fields on insertion to the DB.
    */
-  constructor(type, schema) {
+  constructor(type: string, schema: any) {
     this._type = type;
     this.collectionName = `${type}Collection`;
     this.collection = new Mongo.Collection(`${type}Collection`);
@@ -77,7 +77,7 @@ class BaseCollection {
    * @returns { Object } The document associated with name.
    * @throws { Meteor.Error } If the document cannot be found.
    */
-  public findDoc(name) {
+  public findDoc(name: string | object | { name } | { _id: string; } | { username: string; }) {
     const doc = (
       this.collection.findOne(name) ||
       this.collection.findOne({ name }) ||
@@ -100,7 +100,7 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public find(selector?, options?) {
+  public find(selector?: object, options?: object) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.find(theSelector, options);
   }
@@ -112,7 +112,7 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public findOne(selector, options) {
+  public findOne(selector: object, options?: object) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.findOne(theSelector, options);
   }
@@ -135,7 +135,7 @@ class BaseCollection {
    * @param { String | Object } name The docID, or an object specifying a documennt.
    * @returns {boolean} True if name exists in this collection.
    */
-  public isDefined(name) {
+  public isDefined(name: string) {
     return (
       !!this.collection.findOne(name) ||
       !!this.collection.findOne({ name }) ||
@@ -147,7 +147,7 @@ class BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  public removeIt(name) {
+  public removeIt(name: string | object) {
     const doc = this.findDoc(name);
     check(doc, Object);
     this.collection.remove(doc._id);
@@ -215,7 +215,7 @@ class BaseCollection {
    * @param { String | List } name Should be a defined ID or doc in this collection.
    * @throws { Meteor.Error } If not defined.
    */
-  public assertDefined(name) {
+  public assertDefined(name: string) {
     if (!this.isDefined(name)) {
       throw new Meteor.Error(`${name} is not a valid instance of ${this._type}.`);
     }
@@ -226,7 +226,7 @@ class BaseCollection {
    * @param names Should be a list of docs and/or docIDs.
    * @throws { Meteor.Error } If instances is not an array, or if any instance is not in this collection.
    */
-  public assertAllDefined(names) {
+  public assertAllDefined(names: string[]) {
     if (!_.isArray(names)) {
       throw new Meteor.Error(`${names} is not an array.`);
     }
@@ -239,7 +239,7 @@ class BaseCollection {
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
-  public assertValidRoleForMethod(userId) {
+  public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR]);
   }
 
@@ -259,7 +259,7 @@ class BaseCollection {
    * @returns {Object} An object representing the contents of this collection.
    */
   public dumpAll() {
-    const dumpObject = { name: this.collectionName, contents: this.find({}, {}).map((docID) => this.dumpOne(docID)) };
+    const dumpObject: { name: string; contents: IDumpOne[]; } = { name: this.collectionName, contents: this.find().map((docID): IDumpOne => this.dumpOne(docID)) };
     // If a collection doesn't want to be dumped, it can just return null from dumpOne.
     dumpObject.contents = _.without(dumpObject.contents, null);
     // sort the contents array by slug (if present)
@@ -275,7 +275,7 @@ class BaseCollection {
    * @param docID A docID from this collection.
    * @returns { Object } An object representing this document.
    */
-  public dumpOne(docID) { // eslint-disable-line
+  public dumpOne(docID): IDumpOne { // eslint-disable-line
     throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName}`);
   }
 

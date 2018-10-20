@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { defaultCalcLevel } from './LevelProcessor';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { RadGrad } from '../radgrad/RadGrad';
 import { defineTestFixtures } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: 'off', no-unused-expressions: 'off' */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 // TODO: Waiting for test data based upon the Personae.
 

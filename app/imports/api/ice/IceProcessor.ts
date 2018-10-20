@@ -31,7 +31,7 @@ export const gradeCompetency: { A: number; B: number; C: number; } = {
  * @returns {boolean} True if all fields are present and are numbers.
  * @memberOf api/ice
  */
-export function isICE(obj) {
+export function isICE(obj: Ice): boolean {
   return (((typeof obj) === 'object') && Number.isInteger(obj.i) && Number.isInteger(obj.c) && Number.isInteger(obj.e));
 }
 

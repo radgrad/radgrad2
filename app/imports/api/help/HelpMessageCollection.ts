@@ -1,7 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 
-
 /**
  * Represents a Help message for a RadGrad page.
  * @extends api/base.BaseCollection
@@ -26,7 +25,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param text the help text.
    * @return {any} the ID of the help.
    */
-  define({ routeName, title, text }) {
+  public define({ routeName, title, text }: IhelpDefine): string {
     return this.collection.insert({ routeName, title, text });
   }
 
@@ -38,9 +37,9 @@ class HelpMessageCollection extends BaseCollection {
    * @param text New help text. (optional).
    * @throws { Meteor.Error } If docID is not defined.
    */
-  update(docID, { routeName, title, text }) {
+  public update(docID: string, { routeName, title, text }: IhelpUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: IhelpUpdate = {};
     if (routeName) {
       updateData.routeName = routeName;
     }
@@ -58,17 +57,17 @@ class HelpMessageCollection extends BaseCollection {
    * @param docID The docID of the entity to be removed.
    * @throws { Meteor.Error } If docID is not a Help Message.
    */
-  removeIt(docID) {
+  public removeIt(docID: string) {
     this.assertDefined(docID);
     // OK, clear to delete.
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
    * Returns the text for the given routeName.
    * @param routeName The route name.
    */
-  getHelpText(routeName) {
+  public getHelpText(routeName: string): string {
     return this.collection.findOne({ routeName }).text;
   }
 
@@ -76,7 +75,7 @@ class HelpMessageCollection extends BaseCollection {
    * Returns the title for the given routeName.
    * @param routeName The route name.
    */
-  getHelpTitle(routeName) {
+  public getHelpTitle(routeName: string): string {
     return this.collection.findOne({ routeName }).title;
   }
 
@@ -85,7 +84,7 @@ class HelpMessageCollection extends BaseCollection {
    * Returns an empty array (no integrity checking done on this collection.)
    * @returns {Array} An empty array.
    */
-  checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity(): string[] {
     return [];
   }
 
@@ -94,7 +93,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param routeName The routeName
    * @returns The doc, or null if not found.
    */
-  findDocByRouteName(routeName) {
+  public findDocByRouteName(routeName: string) {
     return this.collection.findOne({ routeName });
   }
 
@@ -103,7 +102,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param docID The docID of a HelpMessage.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IhelpDefine {
     const doc = this.findDoc(docID);
     const routeName = doc.routeName;
     const title = doc.title;

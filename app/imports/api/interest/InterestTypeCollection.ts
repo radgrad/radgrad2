@@ -24,7 +24,7 @@ class InterestTypeCollection extends BaseTypeCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description }) {
+  public define({ name, slug, description }: ITypeDefine) {
     return super.define({ name, slug, description });
   }
 
@@ -35,9 +35,9 @@ class InterestTypeCollection extends BaseTypeCollection {
    * @param description the new description (optional).
    * @throws { Meteor.Error } If docID is not defined.
    */
-  public update(docID, { name, description }) {
+  public update(docID, { name, description }: ITypeUpdate) {
     this.assertDefined(docID);
-    const updateData: { name?: string, description?: string } = {};
+    const updateData: ITypeUpdate = {};
     if (!_.isNil(name)) {
       updateData.name = name;
     }

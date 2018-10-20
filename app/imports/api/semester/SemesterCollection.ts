@@ -44,7 +44,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param docID The docID of a Semester.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID) {
+  public dumpOne(docID: string): ISemesterDefine {
     const doc = this.findDoc(docID);
     const term = doc.term;
     const year = doc.year;
@@ -62,7 +62,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the term or year are not correctly specified.
    * @returns The docID for this semester instance.
    */
-  public define({ term, year }: {term: string, year: number}) {
+  public define({ term, year }: ISemesterDefine) {
     // Check that term and year are valid.
     if (this.terms.indexOf(term) < 0) {
       throw new Meteor.Error(`Invalid term: ${term}`);
@@ -109,7 +109,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param semester Should be a defined semesterID or semester doc.
    * @throws {Meteor.Error} If semester is not a Semester.
    */
-  public assertSemester(semester) {
+  public assertSemester(semester: string) {
     if (!this.isDefined(semester)) {
       throw new Meteor.Error(`${semester} is not a valid Semester.`);
     }
@@ -139,7 +139,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param semester The semester (slug or semesterID).
    * @returns True if semester is in the future.
    */
-  public isUpcomingSemester(semester) {
+  public isUpcomingSemester(semester: string) {
     const semesterID = this.getID(semester);
     return this.findDoc(semesterID).semesterNumber >= this.getCurrentSemesterDoc().semesterNumber;
   }
@@ -158,7 +158,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param date The date as a string. Must be able to be parsed by moment();
    * @returns {String} The semesterID that the date falls in.
    */
-  public getSemester(date) {
+  public getSemester(date: string) {
     const d = moment(date);
     const year = d.year();
     const day = d.dayOfYear();
@@ -179,7 +179,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param date The date.
    * @returns Object The semester that the date falls in.
    */
-  public getSemesterDoc(date) {
+  public getSemesterDoc(date: string) {
     const id = this.getSemester(date);
     return this.findDoc(id);
   }
@@ -188,7 +188,7 @@ class SemesterCollection extends BaseSlugCollection {
    * Returns the slug associated with the semesterID.
    * @param semesterID the semester ID.
    */
-  public getSlug(semesterID) {
+  public getSlug(semesterID: string) {
     this.assertSemester(semesterID);
     const semesterDoc = this.findDoc(semesterID);
     return Slugs.findDoc(semesterDoc.slugID).name;
@@ -201,7 +201,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @returns The semester ID.
    * @throws { Meteor.Error } If the passed semester is not a valid semester slug.
    */
-  public getID(semester) {
+  public getID(semester: string) {
     if (this.isDefined(semester)) {
       return super.getID(semester);
     }
@@ -229,7 +229,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param semesterID The semester
    * @returns {string} The shortname.
    */
-  public getShortName(semesterID) {
+  public getShortName(semesterID: string) {
     this.assertSemester(semesterID);
     const semesterDoc = this.findDoc(semesterID);
     const yearString = `${semesterDoc.year}`.substring(2, 4);

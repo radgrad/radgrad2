@@ -1,7 +1,6 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseTypeCollection from '../base/BaseTypeCollection';
 
-
 /**
  * OpportunityTypes help organize Opportunities into logically related groupings such as "Internships", "Clubs", etc.
  * @extends api/base.BaseTypeCollection
@@ -25,7 +24,7 @@ class OpportunityTypeCollection extends BaseTypeCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  define({ name, slug, description }) {
+  public define({ name, slug, description }: ITypeDefine) {
     return super.define({ name, slug, description });
   }
 
@@ -36,9 +35,9 @@ class OpportunityTypeCollection extends BaseTypeCollection {
    * @param description the new description (optional).
    * @throws { Meteor.Error } If docID is not defined.
    */
-  update(docID, { name, description }) {
+  public update(docID, { name, description }: ITypeUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: ITypeUpdate = {};
     if (!_.isNil(name)) {
       updateData.name = name;
     }
@@ -56,4 +55,3 @@ class OpportunityTypeCollection extends BaseTypeCollection {
  * @memberOf api/opportunity
  */
 export const OpportunityTypes = new OpportunityTypeCollection();
-

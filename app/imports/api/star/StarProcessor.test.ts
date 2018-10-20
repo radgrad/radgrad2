@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { defineTestFixtures } from '../test/test-utilities';
 import { processStarCsvData, processBulkStarJsonData } from './StarProcessor';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 /* global Assets */
 
 if (Meteor.isServer) {

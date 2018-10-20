@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { ROLE } from '../role/Role';
 import { Reviews } from '../review/ReviewCollection';
 import { defineSemesters } from '../semester/SemesterUtilities';
@@ -7,8 +8,7 @@ import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
   describe('ReviewCollection', function testSuite() {
@@ -22,17 +22,15 @@ if (Meteor.isServer) {
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
       defineSemesters();
-      const slug = 'sample-opportunity-review';
-      const student = makeSampleUser();
-      const reviewType = 'opportunity';
-      const faculty = makeSampleUser(ROLE.FACULTY);
-      const reviewee = makeSampleOpportunity(faculty);
-      const semester = 'Fall-2015';
-      const rating = 3;
-      const comments = 'What a great course to write a test review for!';
-      let docID = Reviews.define({
-        slug, student, reviewType, reviewee, semester, rating, comments,
-      });
+      const slug: string = 'sample-opportunity-review';
+      const student: string = makeSampleUser();
+      const reviewType: string = 'opportunity';
+      const faculty: string = makeSampleUser(ROLE.FACULTY);
+      const reviewee: string = makeSampleOpportunity(faculty);
+      const semester: string = 'Fall-2015';
+      const rating: number = 3;
+      const comments: string = 'What a great course to write a test review for!';
+      let docID = Reviews.define({ slug, student, reviewType, reviewee, semester, rating, comments });
       expect(Reviews.isDefined(docID)).to.be.true;
       const dumpObject = Reviews.dumpOne(docID);
       Reviews.removeIt(docID);
@@ -43,4 +41,3 @@ if (Meteor.isServer) {
     });
   });
 }
-

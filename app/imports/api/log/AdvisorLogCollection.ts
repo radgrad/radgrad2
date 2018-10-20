@@ -6,7 +6,6 @@ import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 
-
 /**
  * Represents a log of an Advisor talking to a Student.
  * @extends api/base.BaseCollection
@@ -38,15 +37,15 @@ class AdvisorLogCollection extends BaseCollection {
    * @param student The student's username.
    * @param text The contents of the session.
    */
-  define({ advisor, student, text, createdOn = moment().toDate() }) {
+  public define({ advisor, student, text, createdOn = moment().toDate() }: IadvisorLogDefine) {
     const advisorID = Users.getID(advisor);
     const studentID = Users.getID(student);
-    this.collection.insert({ advisorID, studentID, text, createdOn });
+    return this.collection.insert({ advisorID, studentID, text, createdOn });
   }
 
-  update(docID, { text }) {
+  public update(docID: string, { text }: IadvisorLogUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: IadvisorLogUpdate = {};
     if (text) {
       updateData.text = text;
     }
@@ -58,7 +57,7 @@ class AdvisorLogCollection extends BaseCollection {
    * @param user The student user, either the ID or the username.
    * @throws { Meteor.Error } If user is not an ID or username.
    */
-  removeUser(user) {
+  public removeUser(user: string) {
     const studentID = Users.getID(user);
     this.collection.remove({ studentID });
   }
@@ -68,7 +67,7 @@ class AdvisorLogCollection extends BaseCollection {
    * @param instanceID the instance ID.
    * @returns {Object}
    */
-  getAdvisorDoc(instanceID) {
+  public getAdvisorDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.findDoc(instanceID);
     return Users.getProfile(instance.advisorID);
@@ -79,7 +78,7 @@ class AdvisorLogCollection extends BaseCollection {
    * @param instanceID the instance ID.
    * @returns {Object}
    */
-  getStudentDoc(instanceID) {
+  public getStudentDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.findDoc(instanceID);
     return Users.getProfile(instance.studentID);
@@ -89,8 +88,9 @@ class AdvisorLogCollection extends BaseCollection {
    * Depending on the logged in user publish only their AdvisorLogs. If
    * the user is in the Role.ADMIN or Role.ADVISOR then publish all AdvisorLogs.
    */
-  publish() {
+  public publish() {
     if (Meteor.isServer) {
+      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
@@ -110,9 +110,9 @@ class AdvisorLogCollection extends BaseCollection {
    * Checks studentID, advisorID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Users.isDefined(doc.studentID)) {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
@@ -123,13 +123,12 @@ class AdvisorLogCollection extends BaseCollection {
     return problems;
   }
 
-
   /**
    * Returns an object representing the Log docID in a format acceptable to define().
    * @param docID The docID of a Log.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): IadvisorLogDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const advisor = Users.getProfile(doc.advisorID).username;
@@ -145,4 +144,3 @@ class AdvisorLogCollection extends BaseCollection {
  * @memberOf api/log
  */
 export const AdvisorLogs = new AdvisorLogCollection();
-

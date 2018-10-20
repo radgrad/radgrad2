@@ -5,7 +5,6 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { Semesters } from '../semester/SemesterCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 
-
 /**
  * Creates an OpportunityType with a unique slug and returns its docID.
  * @returns { String } The docID of the newly generated OpportunityType.
@@ -44,9 +43,9 @@ export function makeSampleOpportunity(sponsor) {
  * Implicitly creates an Opportunity and an OpportunityType.
  * @memberOf api/opportunity
  */
-export function makeSampleOpportunityInstance(student, sponsor) {
-  const semester = Semesters.define({ term: Semesters.SPRING, year: 2015 });
-  const opportunity = makeSampleOpportunity(sponsor);
-  const verified = false;
-  return OpportunityInstances.define({ semester, opportunity, verified, student });
+export function makeSampleOpportunityInstance(student: string, sponsor: string) {
+  const semester: string = Semesters.define({ term: Semesters.SPRING, year: 2015 });
+  const opportunity: string = makeSampleOpportunity(sponsor);
+  const verified: boolean = false;
+  return OpportunityInstances.define({ semester, opportunity, sponsor, verified, student });
 }

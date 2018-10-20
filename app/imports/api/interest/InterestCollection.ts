@@ -9,7 +9,6 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 
-
 /**
  * Represents a specific interest, such as "Software Engineering".
  * Note that all Interests must have an associated InterestType.
@@ -43,7 +42,7 @@ class InterestCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestType.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interestType }) {
+  public define({ name, slug, description, interestType }: IinterestDefine): string {
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
     // Get SlugID, throw error if found.
@@ -63,7 +62,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param interestType The new interestType slug or ID (optional).
    * @throws { Meteor.Error } If docID is not defined, or if interestType is not valid.
    */
-  public update(docID, { name, description, interestType }) {
+  public update(docID: string, { name, description, interestType }: IinterestUpdate) {
     this.assertDefined(docID);
     const updateData: { name?: string, description?: string, interestTypeID?: string } = {};
     if (name) {
@@ -86,11 +85,12 @@ class InterestCollection extends BaseSlugCollection {
    * @param docID The docID of an interest.
    * @throws { Meteor.Error } If the interest is referenced in any of the collections.
    */
-  public assertUnusedInterest(collectionList, docID) { // eslint-disable-line class-methods-use-this
+  public assertUnusedInterest(collectionList, docID: string) {
+    const interest = this.findDoc(docID);
     _.forEach(collectionList, (collection) => {
-      collection.find().map((doc) => {  // eslint-disable-line array-callback-return
+      collection.find().map((doc) => {
         if (collection.hasInterest(doc, docID)) {
-          throw new Meteor.Error(`Interest ${docID.name} is referenced by collection ${collection.collectionName}.`);
+          throw new Meteor.Error(`Interest ${interest.name} is referenced by collection ${collection.collectionName}.`);
         }
       });
     });
@@ -101,7 +101,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param instance The docID or slug of the entity to be removed.
    * @throws { Meteor.Error } If Interest is associated with any User, Course, Career Goal, or Opportunity.
    */
-  public removeIt(instance) {
+  public removeIt(instance: string) {
     const docID = this.getID(instance);
     // Check that this interest is not referenced by any User.
     // TODO Should the profile collections be included below?
@@ -116,7 +116,7 @@ class InterestCollection extends BaseSlugCollection {
    * @returns { Array }
    * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
    */
-  public findNames(instanceIDs) {
+  public findNames(instanceIDs: string[]) {
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
 
@@ -124,7 +124,7 @@ class InterestCollection extends BaseSlugCollection {
    * Returns the name of the slug associated with interestID.
    * @param interestID The interest id.
    */
-  public getSlug(interestID) {
+  public getSlug(interestID: string) {
     this.assertDefined(interestID);
     const interestDoc = this.findDoc(interestID);
     return Slugs.findDoc(interestDoc.slugID).name;
@@ -154,7 +154,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param docID The docID of an Interest.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID) {
+  public dumpOne(docID): IinterestDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);

@@ -30,7 +30,7 @@ function getDefinitions(loadJSON, collection) {
 export function loadCollection(collection, loadJSON, consolep) {
   const definitions = getDefinitions(loadJSON, collection.collectionName);
   if (consolep) {
-    console.log(`Defining ${definitions.length} ${collection.collectionName} documents.`); // eslint-disable-line
+    console.log(`Defining ${definitions.length} ${collection.collectionName} documents.`);
   }
   _.each(definitions, (definition) => collection.define(definition));
 }

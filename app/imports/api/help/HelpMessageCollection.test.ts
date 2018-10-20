@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import {} from 'mocha';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { HelpMessages } from './HelpMessageCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isServer) {
   describe('HelpMessageCollection', function testSuite() {

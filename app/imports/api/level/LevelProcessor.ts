@@ -20,11 +20,11 @@ export function defaultCalcLevel(studentID) {
       .fetch(),
     OpportunityInstances.find({ studentID })
       .fetch());
-  const earnedICE = getEarnedICE(instances);
-  const plannedICE = getProjectedICE(instances);
-  const numReviews = Reviews.find({ studentID, reviewType: 'course', moderated: true, visible: true })
+  const earnedICE: Ice = getEarnedICE(instances);
+  const plannedICE: Ice = getProjectedICE(instances);
+  const numReviews: number = Reviews.find({ studentID, reviewType: 'course', moderated: true, visible: true })
     .count();
-  const hasPicture = StudentProfiles.hasSetPicture(studentID);
+  const hasPicture: boolean = StudentProfiles.hasSetPicture(studentID);
   // console.log('defaultCalcLevel', earnedICE, plannedICE, numReviews, hasPicture);
   let level = 1;
   if (earnedICE.i >= 100 &&
@@ -87,7 +87,7 @@ export function updateStudentLevel(advisor, studentID) {
     const text = `Congratulations! ${profile.firstName} you're now Level ${level}.
          Come by to get your RadGrad sticker.`;
     const student = studentID;
-    advisorLogsDefineMethod.call({ advisor, student, text }, (error) => {
+    defineMethod.call({ collectionName: 'AdvisorLogCollection', definitionData: { advisor, student, text } }, (error) => {
       if (error) {
         console.log('Error creating AdvisorLog.', error);
       }

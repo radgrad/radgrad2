@@ -14,6 +14,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
+import { IBaseProfile } from '../../typings/radgrad';
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
@@ -60,7 +61,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @param profile A Profile object.
    * @returns  { String } The name of a profile collection.
    */
-  public getCollectionNameForProfile(profile) {
+  public getCollectionNameForProfile(profile: IBaseProfile) {
     return rolesToCollectionNames[profile.role];
   }
 
@@ -106,12 +107,12 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If user is not a valid user, or profile is not found.
    */
   public getProfile(user) {
-    // const userID = Users.getID(user);
-    // const doc = this.collection.findOne({ userID });
-    // if (!doc) {
-    //   throw new Meteor.Error(`No profile found for user ${user}`);
-    // }
-    // return doc;
+    const userID = Users.getID(user);
+    const doc = this.collection.findOne({ userID });
+    if (!doc) {
+      throw new Meteor.Error(`No profile found for user ${user}`);
+    }
+    return doc;
   }
 
   /**
@@ -130,8 +131,8 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If user is not a valid user.
    */
   public hasProfile(user) {
-    // const userID = Users.getID(user);
-    // return this.collection.findOne({ userID });
+    const userID = Users.getID(user);
+    return this.collection.findOne({ userID });
   }
 
   /**
@@ -140,13 +141,13 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @return {boolean}
    */
   public hasSetPicture(user) {
-    // const userID = Users.getID(user);
-    // const doc = this.collection.findOne({ userID });
-    // console.log(doc);
-    // if (!doc) {
-    //   return false;
-    // }
-    // return !(_.isNil(doc.picture) || doc.picture === defaultProfilePicture);
+    const userID = Users.getID(user);
+    const doc = this.collection.findOne({ userID });
+    console.log(doc);
+    if (!doc) {
+      return false;
+    }
+    return !(_.isNil(doc.picture) || doc.picture === defaultProfilePicture);
   }
 
   /**
@@ -163,24 +164,24 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @param doc The profile document.
    * @returns {Array} An array of problems
    */
-  public _checkIntegrityCommonFields(doc) { // tslint:disable-line: function-name
+  protected checkIntegrityCommonFields(doc) {
     const problems = [];
     if (!Slugs.isDefined(doc.username)) {
       problems.push(`Bad username: ${doc.username}`);
     }
-    // _.forEach(doc.careerGoalIDs, (careerGoalID) => {
-    //   if (!CareerGoals.isDefined(careerGoalID)) {
-    //     problems.push(`Bad careerGoalID: ${careerGoalID}`);
-    //   }
-    // });
-    // _.forEach(doc.interestIDs, (interestID) => {
-    //   if (!Interests.isDefined(interestID)) {
-    //     problems.push(`Bad interestID: ${interestID}`);
-    //   }
-    // });
-    // if (!Users.isDefined(doc.userID)) {
-    //   problems.push(`Bad userID: ${doc.userID}`);
-    // }
+    _.forEach(doc.careerGoalIDs, (careerGoalID) => {
+      if (!CareerGoals.isDefined(careerGoalID)) {
+        problems.push(`Bad careerGoalID: ${careerGoalID}`);
+      }
+    });
+    _.forEach(doc.interestIDs, (interestID) => {
+      if (!Interests.isDefined(interestID)) {
+        problems.push(`Bad interestID: ${interestID}`);
+      }
+    });
+    if (!Users.isDefined(doc.userID)) {
+      problems.push(`Bad userID: ${doc.userID}`);
+    }
     return problems;
   }
 

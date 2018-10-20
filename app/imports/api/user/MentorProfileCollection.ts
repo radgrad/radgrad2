@@ -112,7 +112,7 @@ class MentorProfileCollection extends BaseProfileCollection {
   checkIntegrity() {
     let problems = [];
     this.find().forEach(doc => {
-      problems = problems.concat(this._checkIntegrityCommonFields(doc));
+      problems = problems.concat(this.checkIntegrityCommonFields(doc));
       if (doc.role !== ROLE.MENTOR) {
         problems.push(`MentorProfile instance does not have ROLE.MENTOR: ${doc}`);
       }

@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
@@ -32,6 +31,36 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  * @memberOf api/public-stats
  */
 class PublicStatsCollection extends BaseCollection {
+  private stats: any[];
+  public coursesTotalKey: string;
+  public careerGoalsTotalKey: string;
+  public careerGoalsListKey: string;
+  public desiredDegreesTotalKey: string;
+  public desiredDegreesListKey: string;
+  public interestsTotalKey: string;
+  public interestsListKey: string;
+  public opportunitiesTotalKey: string;
+  public opportunitiesProjectsTotalKey: string;
+  public opportunitiesProjectsListKey: string;
+  public usersTotalKey: string;
+  public usersStudentsTotalKey: string;
+  public usersFacultyTotalKey: string;
+  public usersMentorsTotalKey: string;
+  public usersMentorsProfessionsListKey: string;
+  public usersMentorsLocationsKey: string;
+  public courseReviewsTotalKey: string;
+  public courseReviewsCoursesKey: string;
+  public levelOneTotalKey: string;
+  public levelTwoTotalKey: string;
+  public levelThreeTotalKey: string;
+  public levelFourTotalKey: string;
+  public levelFiveTotalKey: string;
+  public levelSixTotalKey: string;
+  public firstAcademicPlanKey: string;
+  public firstCareerGoalKey: string;
+  public firstInterestKey: string;
+  public firstOpportunityKey: string;
+  public firstDegreeKey: string;
   /**
    * Creates the PublicStats collection.
    */
@@ -101,131 +130,131 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.firstDegreeKey);
   }
 
-  careerGoalsTotal() {
+  public careerGoalsTotal() {
     const count = CareerGoals.find().count();
     this.collection.upsert({ key: this.careerGoalsTotalKey }, { $set: { value: `${count}` } });
   }
 
-  coursesTotal() {
+  public coursesTotal() {
     const count = Courses.find().count();
     this.collection.upsert({ key: this.coursesTotalKey }, { $set: { value: `${count}` } });
   }
 
-  careerGoalsList() {
+  public careerGoalsList() {
     const goals = CareerGoals.find().fetch();
     const names = _.map(goals, 'name');
     this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
   }
 
-  desiredDegreesTotal() {
+  public desiredDegreesTotal() {
     const count = DesiredDegrees.find().count();
     this.collection.upsert({ key: this.desiredDegreesTotalKey }, { $set: { value: `${count}` } });
   }
 
-  desiredDegreesList() {
+  public desiredDegreesList() {
     const degrees = DesiredDegrees.find().fetch();
     const names = _.map(degrees, 'name');
     this.collection.upsert({ key: this.desiredDegreesListKey }, { $set: { value: names.join(', ') } });
   }
 
-  interestsTotal() {
+  public interestsTotal() {
     const numInterests = Interests.find().count();
     this.collection.upsert({ key: this.interestsTotalKey }, { $set: { value: `${numInterests}` } });
   }
 
-  interestsList() {
+  public interestsList() {
     const interests = Interests.find().fetch();
     const names = _.map(interests, 'name');
     this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
   }
 
-  opportunitiesTotal() {
+  public opportunitiesTotal() {
     const numOpps = Opportunities.find().count();
     this.collection.upsert({ key: this.opportunitiesTotalKey }, { $set: { value: `${numOpps}` } });
   }
 
-  opportunitiesProjectsTotal() {
+  public opportunitiesProjectsTotal() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
     const numProjects = Opportunities.find({ opportunityTypeID: projectType._id }).count();
     this.collection.upsert({ key: this.opportunitiesProjectsTotalKey }, { $set: { value: `${numProjects}` } });
   }
 
-  opportunitiesProjectsList() {
+  public opportunitiesProjectsList() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
     const projects = Opportunities.find({ opportunityTypeID: projectType._id }).fetch();
     const names = _.map(projects, 'name');
     this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: names.join(', ') } });
   }
 
-  upsertLevelTotal(level, key) {
+  public upsertLevelTotal(level, key) {
     const numUsers = StudentProfiles.find({ level }).count();
     this.collection.upsert({ key }, { $set: { value: `${numUsers}` } });
   }
 
-  levelOneTotal() {
+  public levelOneTotal() {
     this.upsertLevelTotal(1, this.levelOneTotalKey);
   }
 
-  levelTwoTotal() {
+  public levelTwoTotal() {
     this.upsertLevelTotal(2, this.levelTwoTotalKey);
   }
 
-  levelThreeTotal() {
+  public levelThreeTotal() {
     this.upsertLevelTotal(3, this.levelThreeTotalKey);
   }
 
-  levelFourTotal() {
+  public levelFourTotal() {
     this.upsertLevelTotal(4, this.levelFourTotalKey);
   }
 
-  levelFiveTotal() {
+  public levelFiveTotal() {
     this.upsertLevelTotal(5, this.levelFiveTotalKey);
   }
 
-  levelSixTotal() {
+  public levelSixTotal() {
     this.upsertLevelTotal(6, this.levelSixTotalKey);
   }
 
-  usersTotal() {
-    const numUsers = Users.findProfiles().length;
+  public usersTotal() {
+    const numUsers = Users.findProfiles({}, {}).length;
     this.collection.upsert({ key: this.usersTotalKey }, { $set: { value: `${numUsers}` } });
   }
 
-  usersStudentsTotal() {
+  public usersStudentsTotal() {
     const numUsers = StudentProfiles.find().count();
     this.collection.upsert({ key: this.usersStudentsTotalKey }, { $set: { value: `${numUsers}` } });
   }
 
-  usersFacultyTotal() {
+  public usersFacultyTotal() {
     const numUsers = FacultyProfiles.find().count();
     this.collection.upsert({ key: this.usersFacultyTotalKey }, { $set: { value: `${numUsers}` } });
   }
 
-  usersMentorsTotal() {
+  public usersMentorsTotal() {
     const numUsers = MentorProfiles.find().count();
     this.collection.upsert({ key: this.usersMentorsTotalKey }, { $set: { value: `${numUsers}` } });
   }
 
-  usersMentorsProfessionsList() {
+  public usersMentorsProfessionsList() {
     let professions = [];
-    MentorProfiles.find().forEach(profile => professions.push(profile.career));
+    MentorProfiles.find().forEach((profile) => professions.push(profile.career));
     professions = _.union(professions);
     this.collection.upsert({ key: this.usersMentorsProfessionsListKey }, { $set: { value: professions.join(', ') } });
   }
 
-  usersMentorsLocations() {
+  public usersMentorsLocations() {
     let locations = [];
-    MentorProfiles.find().forEach(profile => locations.push(profile.location));
+    MentorProfiles.find().forEach((profile) => locations.push(profile.location));
     locations = _.union(locations);
     this.collection.upsert({ key: this.usersMentorsLocationsKey }, { $set: { value: locations.join(', ') } });
   }
 
-  courseReviewsTotal() {
+  public courseReviewsTotal() {
     const numCourseReviews = Reviews.find({ reviewType: 'course' }).count();
     this.collection.upsert({ key: this.courseReviewsTotalKey }, { $set: { value: `${numCourseReviews}` } });
   }
 
-  courseReviewsCourses() {
+  public courseReviewsCourses() {
     const courseReviews = Reviews.find({ reviewType: 'course' }).fetch();
     let courseNumbers = [];
     _.forEach(courseReviews, (review) => {
@@ -238,7 +267,7 @@ class PublicStatsCollection extends BaseCollection {
     }
   }
 
-  firstAcademicPlan() {
+  public firstAcademicPlan() {
     let planName = '';
     const semesterNumber = AcademicPlans.getLatestSemesterNumber();
     const plan = AcademicPlans.findOne({ semesterNumber });
@@ -248,7 +277,7 @@ class PublicStatsCollection extends BaseCollection {
     this.collection.upsert({ key: this.firstAcademicPlanKey }, { $set: { value: planName } });
   }
 
-  firstCareerGoal() {
+  public firstCareerGoal() {
     const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
     if (careerGoals.length > 0) {
       const name = Slugs.findDoc(careerGoals[0].slugID).name;
@@ -256,7 +285,7 @@ class PublicStatsCollection extends BaseCollection {
     }
   }
 
-  firstInterest() {
+  public firstInterest() {
     const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
     if (interests.length > 0) {
       const name = Slugs.findDoc(interests[0].slugID).name;
@@ -264,7 +293,7 @@ class PublicStatsCollection extends BaseCollection {
     }
   }
 
-  firstOpportunity() {
+  public firstOpportunity() {
     const interests = Opportunities.find({}, { sort: { name: 1 } }).fetch();
     if (interests.length > 0) {
       const name = Slugs.findDoc(interests[0].slugID).name;
@@ -272,7 +301,7 @@ class PublicStatsCollection extends BaseCollection {
     }
   }
 
-  firstDegree() {
+  public firstDegree() {
     const degrees = DesiredDegrees.find({}, { sort: { name: 1 } }).fetch();
     if (degrees.length > 0) {
       const name = Slugs.findDoc(degrees[0].slugID).name;
@@ -280,8 +309,9 @@ class PublicStatsCollection extends BaseCollection {
     }
   }
 
-  generateStats() {
-    if (!Meteor.isAppTest) {
+  public generateStats() {
+    if (!Meteor.isTest) {
+      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       _.forEach(this.stats, (key) => {
         instance[key]();
@@ -293,7 +323,7 @@ class PublicStatsCollection extends BaseCollection {
    * Returns an empty array to indicate no integrity checking.
    * @returns {Array} An empty array.
    */
-  checkIntegrity() {  // eslint-disable-line class-methods-use-this
+  public checkIntegrity() {  // eslint-disable-line class-methods-use-this
     return [];
   }
 }
@@ -305,15 +335,15 @@ class PublicStatsCollection extends BaseCollection {
  */
 export const PublicStats = new PublicStatsCollection();
 
-/**
- * Create a global helper called publicStats that returns the value associated with the passed key.
- */
-if (Meteor.isClient) {
-  Template.registerHelper('publicStats', (key) => {
-    const stat = PublicStats.isDefined({ key }) && PublicStats.findDoc({ key });
-    if (stat) {
-      return stat.value;
-    }
-    return null;
-  });
-}
+// /**
+//  * Create a global helper called publicStats that returns the value associated with the passed key.
+//  */
+// if (Meteor.isClient) {
+//   Template.registerHelper('publicStats', (key) => {
+//     const stat = PublicStats.isDefined({ key }) && PublicStats.findDoc({ key });
+//     if (stat) {
+//       return stat.value;
+//     }
+//     return null;
+//   });
+// }

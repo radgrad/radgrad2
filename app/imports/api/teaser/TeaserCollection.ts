@@ -53,7 +53,7 @@ class TeaserCollection extends BaseSlugCollection {
    * if the slug is already defined, or if the opportunity is supplied and not found.
    * @returns The newly created docID.
    */
-  define({ title, slug, author, url, description, duration, interests, opportunity }) {
+  public define({ title, slug, author, url, description, duration, interests, opportunity }: ITeaserDefine) {
     // Get InterestIDs, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -72,9 +72,9 @@ class TeaserCollection extends BaseSlugCollection {
    * @param docID The docID to be updated.
    * @throws { Meteor.Error } If docID is not defined, or if any interest or opportunity is undefined.
    */
-  update(docID, { title, opportunity, interests, author, url, description, duration }) {
+  public update(docID, { title, opportunity, interests, author, url, description, duration }: ITeaserUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: ITeaserUpdateData = {};
     if (title) {
       updateData.title = title;
     }
@@ -104,12 +104,11 @@ class TeaserCollection extends BaseSlugCollection {
    * @param instance The docID or slug of the entity to be removed.
    * @throws { Meteor.Error } If docID is not a Teaser.
    */
-  removeIt(instance) {
+  public removeIt(instance: string) {
     const docID = this.getID(instance);
     // OK, clear to delete.
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
-
 
   /**
    * Returns true if teaser has the specified interest.
@@ -118,7 +117,7 @@ class TeaserCollection extends BaseSlugCollection {
    * @returns {boolean} True if the teaser has the associated Interest.
    * @throws { Meteor.Error } If teaser is not a teaser or interest is not a Interest.
    */
-  hasInterest(teaser, interest) {
+  public hasInterest(teaser: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(teaser);
     return _.includes(doc.interestIDs, interestID);
@@ -131,7 +130,7 @@ class TeaserCollection extends BaseSlugCollection {
    * @returns {boolean} True if the teaser has the associated Opportunity.
    * @throws { Meteor.Error } If teaser is not a teaser or opportunity is not a Opportunity.
    */
-  hasOpportunity(teaser, opportunity) {
+  public hasOpportunity(teaser: string, opportunity: string) {
     const opportunityID = Opportunities.getID(opportunity);
     const doc = this.findDoc(teaser);
     return (doc.opportunityID === opportunityID);
@@ -143,13 +142,13 @@ class TeaserCollection extends BaseSlugCollection {
    * Checks slugID, interestIDs
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  checkIntegrity() {
+  public checkIntegrity() {
     const problems = [];
-    this.find().forEach(doc => {
+    this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      _.forEach(doc.interestIDs, interestID => {
+      _.forEach(doc.interestIDs, (interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
@@ -166,7 +165,7 @@ class TeaserCollection extends BaseSlugCollection {
    * @param docID The docID of a Teaser.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID) {
+  public dumpOne(docID: string): ITeaserDefine {
     const doc = this.findDoc(docID);
     const title = doc.title;
     const slug = Slugs.getNameFromID(doc.slugID);
@@ -174,7 +173,7 @@ class TeaserCollection extends BaseSlugCollection {
     const url = doc.url;
     const description = doc.description;
     const duration = doc.duration;
-    const interests = _.map(doc.interestIDs, interestID => Interests.findSlugByID(interestID));
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
     let opportunity;
     if (doc.opportunityID) {
       opportunity = Opportunities.findSlugByID(doc.opportunityID);

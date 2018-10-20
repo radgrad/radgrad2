@@ -12,10 +12,10 @@ export function checkIntegrity() {
   let message = `Integrity check results (${moment().format('MMM Do YYYY, H:mm:ss a')})`;
   const startTime = moment();
   let count = 0;
-  _.forEach(_.sortBy(RadGrad.collections, (c) => c.collectionName), function checkCollection(collection) {
+  _.forEach(_.sortBy(RadGrad.collections, (c) => c.collectionName), (collection) => {
     message += `\n  ${collection.collectionName} (${collection.count()})`;
     const collectionStrings = collection.checkIntegrity();
-    _.forEach(collectionStrings, function addString(collectionString) {
+    _.forEach(collectionStrings, (collectionString) => {
       count += 1;
       message += `\n    ${collectionString}`;
     });

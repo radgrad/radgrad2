@@ -16,7 +16,7 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
  * @throws Meteor.Error If parsing fails.
  * @memberOf api/star
  */
-function findSemesterSlug(starDataObject) {
+function findSemesterSlug(starDataObject: IStarDataObject) {
   const semester = starDataObject.semester;
   if ((!_.isString(semester)) || (semester.length < 8)) {
     throw new Meteor.Error(`Could not parse semester data: ${JSON.stringify(starDataObject)}`);
@@ -58,8 +58,8 @@ function findSemesterSlug(starDataObject) {
  * @returns { String } The slug.
  * @memberOf api/star
  */
-function findCourseSlug(starDataObject) {
-  let slug = `${starDataObject.name.toLowerCase()}_${starDataObject.number}`;
+function findCourseSlug(starDataObject: IStarDataObject) {
+  let slug = `${starDataObject.name.toLowerCase()}_${starDataObject.num}`;
   if (!Slugs.isSlugForEntity(slug, Courses.getType())) {
     slug = Courses.unInterestingSlug;
   }
@@ -72,11 +72,11 @@ function findCourseSlug(starDataObject) {
  * @returns { Object } An object suitable for passing to CourseInstances.define.
  * @memberOf api/star
  */
-function makeCourseInstanceObject(starDataObject) {
+function makeCourseInstanceObject(starDataObject: IStarDataObject) {
   return {
     semester: findSemesterSlug(starDataObject),
     course: findCourseSlug(starDataObject),
-    note: `${starDataObject.name} ${starDataObject.number}`,
+    note: `${starDataObject.name} ${starDataObject.num}`,
     verified: true,
     fromSTAR: true,
     creditHrs: starDataObject.credits,
@@ -152,14 +152,14 @@ export function processStarCsvData(student, csvData) {
       } else if (grade.includes('L')) {
         grade = 'C';
       }
-      let number = data[numberIndex];
-      if (isNaN(number)) {
-        number = data[transferCourseNumberIndex];
+      let num = data[numberIndex];
+      if (isNaN(num)) {
+        num = data[transferCourseNumberIndex];
       }
-      const obj = {
+      const obj: IStarDataObject = {
         semester: data[semesterIndex],
         name,
-        number,
+        num,
         credits: data[creditsIndex],
         grade,
         student,
@@ -168,7 +168,7 @@ export function processStarCsvData(student, csvData) {
     });
     // console.log(dataObjects);
     // Now we take that array of objects and transform them into CourseInstance data objects.
-    return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), function removeOther(ci) {
+    return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
       return ci.course !== Courses.unInterestingSlug && ci.semester !== null;
     });
   }
@@ -220,15 +220,15 @@ export function processBulkStarCsvData(csvData) {
       } else if (grade.includes('L')) {
         grade = 'C';
       }
-      let number = data[numberIndex];
-      if (isNaN(number)) {
-        number = data[transferCourseNumberIndex];
+      let num = data[numberIndex];
+      if (isNaN(num)) {
+        num = data[transferCourseNumberIndex];
       }
       const student = data[emailIndex];
-      const obj = {
+      const obj: IStarDataObject = {
         semester: data[semesterIndex],
         name,
-        number,
+        num,
         credits: data[creditsIndex],
         grade,
         student,
@@ -243,7 +243,7 @@ export function processBulkStarCsvData(csvData) {
     });
     // Now we take that array of objects and transform them into CourseInstance data objects.
     _.forEach(Object.keys(bulkData), (key) => {
-      bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), function removeOther(ci) { // eslint-disable-line
+      bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
         return ci.course !== Courses.unInterestingSlug && ci.semester !== null;
       });
     });
@@ -279,14 +279,14 @@ export function processStarJsonData(student, jsonData) {
     } else {
       grade = 'OTHER';
     }
-    let number = course.number;
-    if (isNaN(number)) {
-      number = course.transferNumber;
+    let num = course.number;
+    if (isNaN(num)) {
+      num = course.transferNumber;
     }
-    const obj = {
+    const obj: IStarDataObject = {
       semester: course.semester,
       name,
-      number,
+      num,
       credits: course.credits,
       grade,
       student,
@@ -296,7 +296,7 @@ export function processStarJsonData(student, jsonData) {
 
   // console.log('single', dataObjects);
   // Now we take that array of objects and transform them into CourseInstance data objects.
-  return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), function removeOther(ci) {
+  return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
     return ci.course !== Courses.unInterestingSlug && ci.semester !== null;
   });
 }

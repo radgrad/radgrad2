@@ -21,7 +21,6 @@ class MentorAnswerCollection extends BaseCollection {
     }));
   }
 
-  /* tslint:disable: max-line-length */
   /**
    * Defines the mentor answer for a given question.
    * @example
@@ -35,7 +34,7 @@ class MentorAnswerCollection extends BaseCollection {
    * @return { String } The docID of the answer.
    * @throws { Meteor.Error } If question or mentor is undefined.
    */
-  public define({ question, mentor, text }: { question: string; mentor: string; text: string; }) {
+  public define({ question, mentor, text }: IMentorAnswerDefine) {
     const questionID = MentorQuestions.getID(question);
     const mentorID = Users.getID(mentor);
     Users.assertInRole(mentorID, ROLE.MENTOR);
@@ -47,9 +46,9 @@ class MentorAnswerCollection extends BaseCollection {
    * @param docID the docID of the mentor answer.
    * @param text the updated text.
    */
-  public update(docID: string, { text }: { text: string; }): void {
+  public update(docID: string, { text }: IMentorAnswerUpdate) {
     this.assertDefined(docID);
-    const updateData: { text?: string; } = {};
+    const updateData: IMentorAnswerUpdate = {};
     if (text) {
       updateData.text = text;
     }
@@ -151,7 +150,7 @@ class MentorAnswerCollection extends BaseCollection {
    * @param docID The docID of a MentorQuestion.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string) {
+  public dumpOne(docID: string): IMentorAnswerDefine {
     const doc = this.findDoc(docID);
     const question = MentorQuestions.findSlugByID(doc.questionID);
     const mentor = Users.getProfile(doc.mentorID).username;
