@@ -3,16 +3,15 @@ import { Semesters } from '../semester/SemesterCollection';
 import { processVerificationEventMethod } from './VerificationRequestCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('VerificationRequestCollection Meteor Methods ', function test() {
-    before(function (done) {
+    before(function b(done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'opportunities'], done);
     });
 
-    it('ProcessVerificationEvent Method', async function () {
+    it('ProcessVerificationEvent Method', async function processVerification() {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const student = 'abi@hawaii.edu';

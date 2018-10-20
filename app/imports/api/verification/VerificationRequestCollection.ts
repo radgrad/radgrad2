@@ -8,6 +8,7 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { ROLE } from '../role/Role';
 import { Semesters } from '../semester/SemesterCollection';
 import { Users } from '../user/UserCollection';
+import { IVerificationRequestDefine } from '../../typings/radgrad';
 
 /**
  * Schema for the processed information of VerificationRequests.
@@ -66,19 +67,7 @@ class VerificationRequestCollection extends BaseCollection {
    * or if verified is not a boolean.
    * @returns The newly created docID.
    */
-  public define({
-                  student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [],
-                  semester, opportunity,
-                }:
-                  {
-                    student: string;
-                    opportunityInstance?: string;
-                    submittedOn?: any;
-                    status?: string;
-                    processed?: any[];
-                    semester?: string;
-                    opportunity?: string;
-                  }) {
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], semester, opportunity }: IVerificationRequestDefine) {
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
       OpportunityInstances.findOpportunityInstanceDoc(semester, opportunity, student);
@@ -194,6 +183,7 @@ class VerificationRequestCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
+      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
@@ -221,7 +211,7 @@ class VerificationRequestCollection extends BaseCollection {
   /**
    * Sets the passed VerificationRequest to be verified.
    * @param verificationRequestID The VerificationRequest
-   * @param verifier The user who did the verification.
+   * @param verifyingUser The user who did the verification.
    * @throws { Meteor.Error } If verificationRequestID or verifyingUser are not defined.
    */
   public setVerified(verificationRequestID: string, verifyingUser: string) {
@@ -278,7 +268,7 @@ class VerificationRequestCollection extends BaseCollection {
    * @param docID The docID of an VerificationRequest.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string) {
+  public dumpOne(docID: string): IVerificationRequestDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);
@@ -307,8 +297,6 @@ class VerificationRequestCollection extends BaseCollection {
     }
     return true;
   }
-
-
 }
 
 /**

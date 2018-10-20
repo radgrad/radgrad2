@@ -63,7 +63,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
   name: 'VerificationRequests.processVerificationEvent',
   validate: null,
   mixins: [CallPromiseMixin],
-  run({ student, opportunity, semester }) {
+  run({ student, opportunity, semester, verified = false }: { student: string; opportunity: string; semester: string; verified?: boolean; }) {
     // Define a string to hold the result of this process.
     let resultMessage = '';
 
@@ -74,7 +74,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
     let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, semester);
     if (!opportunityInstanceID) {
       resultMessage += '  No opportunity instance found. Defining a new one.\n';
-      opportunityInstanceID = OpportunityInstances.define({ semester, opportunity, student });
+      opportunityInstanceID = OpportunityInstances.define({ semester, opportunity, student, verified });
     }
 
     // Make sure there's a verification request for this opportunity instance.

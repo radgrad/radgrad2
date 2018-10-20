@@ -15,8 +15,6 @@ import * as planUtils from '../degree-plan/PlanChoiceUtilities';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 
-/* eslint-disable class-methods-use-this */
-
 /**
  * Provides FeedbackFunctions. Each FeedbackFunction is a method of the singleton instance FeedbackFunctions.
  * Each FeedbackFunction accepts a studentID and updates the FeedbackInstanceCollection based upon the current state
@@ -59,7 +57,7 @@ export class FeedbackFunctionClass {
           prereqs.forEach((p) => {
             const courseID = Slugs.getEntityID(p, 'Course');
             const prerequisiteCourse = Courses.findDoc({ _id: courseID });
-            const preCiIndex = _.findIndex(cis, function find(obj) {
+            const preCiIndex = _.findIndex(cis, (obj) => {
               return obj.courseID === courseID;
             });
             if (preCiIndex !== -1) {
@@ -91,7 +89,7 @@ export class FeedbackFunctionClass {
    * Checks the student's degree plan to ensure that it satisfies the degree requirements.
    * @param user the student's ID.
    */
-  checkCompletePlan(user) {
+  public checkCompletePlan(user: string) {
     const functionName = 'checkCompletePlan';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
@@ -104,10 +102,10 @@ export class FeedbackFunctionClass {
     let courses = [];
     const academicPlan = AcademicPlans.findDoc(studentProfile.academicPlanID);
     courses = academicPlan.courseList.slice(0);
-    courses = this._missingCourses(courseIDs, courses);
+    courses = this.missingCourses(courseIDs, courses);
     if (courses.length > 0) {
       let description = 'Your degree plan is missing: \n\n';
-      const basePath = this._getBasePath(user);
+      const basePath = this.getBasePath(user);
       _.forEach(courses, (slug) => {
         if (!planUtils.isSingleChoice(slug)) {
           const slugs = planUtils.complexChoiceToArray(slug);
@@ -129,7 +127,6 @@ export class FeedbackFunctionClass {
             } else {
               const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
               const course = Courses.findDoc(id);
-              // eslint-disable-next-line max-len
               description = `${description} \n- [${course.number} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
             }
       });
@@ -143,7 +140,7 @@ export class FeedbackFunctionClass {
    * Checks the student's degree plan to ensure that there aren't too many courses in any one semester.
    * @param user the student's ID.
    */
-  checkOverloadedSemesters(user) {
+  public checkOverloadedSemesters(user: string) {
     const functionName = 'checkOverloadedSemesters';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
@@ -178,7 +175,7 @@ export class FeedbackFunctionClass {
    * is missing courses.
    * @param user the student's ID.
    */
-  generateRecommendedCourse(user) {
+  public generateRecommendedCourse(user: string) {
     const functionName = 'generateRecommendedCourse';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
@@ -196,13 +193,13 @@ export class FeedbackFunctionClass {
       const course = Courses.findDoc(cID);
       coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
     });
-    const missing = this._missingCourses(courseIDs, coursesNeeded);
+    const missing = this.missingCourses(courseIDs, coursesNeeded);
     if (missing.length > 0) {
       let description = 'Consider taking the following class to meet the degree requirement: ';
       // if (missing.length > 1) {
       //   description = 'Consider taking the following classes to meet the degree requirement: ';
       // }
-      const basePath = this._getBasePath(user);
+      const basePath = this.getBasePath(user);
       let slug = missing[0];
       if (planUtils.isComplexChoice(slug) || planUtils.isSimpleChoice(slug)) {
         slug = planUtils.complexChoiceToArray(slug);
@@ -234,7 +231,7 @@ export class FeedbackFunctionClass {
     }
   }
 
-  generateRecommended400LevelCourse(user) {
+  public generateRecommended400LevelCourse(user: string) {
     const functionName = 'generateRecommended400LevelCourse';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
@@ -251,9 +248,9 @@ export class FeedbackFunctionClass {
       const course = Courses.findDoc(cID);
       coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
     });
-    if (this._missingCourses(courseIDs, coursesNeeded).length > 0) {
+    if (this.missingCourses(courseIDs, coursesNeeded).length > 0) {
       let bestChoices = courseUtils.bestStudent400LevelCourses(user, coursesTakenSlugs);
-      const basePath = this._getBasePath(user);
+      const basePath = this.getBasePath(user);
       if (bestChoices) {
         const len = bestChoices.length;
         if (len > 5) {
@@ -279,7 +276,7 @@ export class FeedbackFunctionClass {
    * Creates a recommended opportunities FeedbackInstance for the given student and the current semester.
    * @param user the student's ID.
    */
-  generateRecommendedCurrentSemesterOpportunities(user) {
+  public generateRecommendedCurrentSemesterOpportunities(user: string) {
     const functionName = 'generateRecommendedCurrentSemesterOpportunities';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
@@ -289,7 +286,7 @@ export class FeedbackFunctionClass {
     clearFeedbackInstancesMethod.call({ user, functionName });
 
     let bestChoices = oppUtils.getStudentCurrentSemesterOpportunityChoices(user);
-    const basePath = this._getBasePath(user);
+    const basePath = this.getBasePath(user);
     const semesterID = Semesters.getCurrentSemesterID();
     const oppInstances = OpportunityInstances.find({ studentID, semesterID }).fetch();
     if (oppInstances.length === 0) {  // only make suggestions if there are no opportunities planned.
@@ -315,7 +312,7 @@ export class FeedbackFunctionClass {
    * Creates a recommendation for getting to the next RadGrad Level.
    * @param user The student's ID.
    */
-  generateNextLevelRecommendation(user) {
+  public generateNextLevelRecommendation(user: string) {
     const functionName = 'generateNextLevelRecommendation';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
@@ -325,7 +322,7 @@ export class FeedbackFunctionClass {
 
     const studentProfile = Users.getProfile(user);
     // Need to build the route not use current route since might be the Advisor.
-    const basePath = this._getBasePath(user);
+    const basePath = this.getBasePath(user);
     let description = 'Getting to the next Level: ';
     switch (studentProfile.level) {
       case 0:
@@ -365,7 +362,7 @@ export class FeedbackFunctionClass {
    * @param coursesNeeded An array of the course slugs needed for the degree.
    * @return {*|Array.<T>}
    */
-  _missingCourses(courseIDs, coursesNeeded) {
+  private missingCourses(courseIDs, coursesNeeded) {
     const planChoices = coursesNeeded.splice(0);
     _.forEach(courseIDs, (id) => {
       const course = Courses.findDoc(id);
@@ -378,21 +375,21 @@ export class FeedbackFunctionClass {
     return planChoices;
   }
 
-  _getBasePath(studentID) {
-    const getPosition = function (string, subString, index) {
-      return string.split(subString, index).join(subString).length;
+  private getBasePath(studentID) {
+    const getPosition = (str, subString, index) => {
+      return str.split(subString, index).join(subString).length;
     };
-    let basePath = '';
-    if (FlowRouter.current()) {
-      const currentRoute = FlowRouter.current().path;
-      if (currentRoute.startsWith('/advisor')) {
-        const username = Users.getProfile(studentID).username;
-        basePath = `/student/${username}/`;
-      } else {
-        const index = getPosition(currentRoute, '/', 3);
-        basePath = currentRoute.substring(0, index + 1);
-      }
-    }
+    const basePath = '';
+    // if (FlowRouter.current()) {
+    //   const currentRoute = FlowRouter.current().path;
+    //   if (currentRoute.startsWith('/advisor')) {
+    //     const username = Users.getProfile(studentID).username;
+    //     basePath = `/student/${username}/`;
+    //   } else {
+    //     const index = getPosition(currentRoute, '/', 3);
+    //     basePath = currentRoute.substring(0, index + 1);
+    //   }
+    // }
     return basePath;
   }
 }

@@ -24,7 +24,7 @@ import { ROLE } from '../../api/role/Role';
  * @memberOf startup/server
  */
 function documentCounts() {
-  return _.map(RadGrad.collectionLoadSequence, collection => collection.count());
+  return _.map(RadGrad.collectionLoadSequence, (collection) => collection.count());
 }
 
 /**
@@ -33,7 +33,7 @@ function documentCounts() {
  * @memberOf startup/server
  */
 function totalDocuments() {
-  return _.reduce(documentCounts(), function reducer(sum, count) {
+  return _.reduce(documentCounts(), (sum, count) => {
     return sum + count;
   }, 0);
 }
@@ -75,8 +75,8 @@ function loadDatabase() {
     // The list of collections, ordered so that they can be sequentially restored.
     const collectionList = RadGrad.collectionLoadSequence;
 
-    const loadNames = _.map(loadJSON.collections, obj => obj.name);
-    const collectionNames = _.map(collectionList, collection => collection._collectionName);
+    const loadNames = _.map(loadJSON.collections, (obj) => obj.name);
+    const collectionNames = _.map(collectionList, (collection) => collection._collectionName);
     const extraRestoreNames = _.difference(loadNames, collectionNames);
     const extraCollectionNames = _.difference(collectionNames, loadNames);
 
@@ -88,7 +88,7 @@ function loadDatabase() {
     }
 
     if (!extraRestoreNames.length && !extraCollectionNames.length) {
-      _.each(collectionList, collection => loadCollection(collection, loadJSON, true));
+      _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
     }
     console.log('Finished loading database.');
   }
@@ -126,7 +126,7 @@ function startupCheckIntegrity() {
 }
 
 function generateAdminCredential() {
-  if (Meteor.settings.public.admin.development || Meteor.isTest || Meteor.isAppTest) {
+  if (Meteor.settings.public.admin.development || Meteor.isTest) {
     return 'foo';
   }
   // adapted from: https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
@@ -156,7 +156,7 @@ function defineAdminUser() {
 }
 
 function defineTestAdminUser() {
-  if (Meteor.isTest || Meteor.isAppTest) {
+  if (Meteor.isTest) {
     const admin = 'radgrad@hawaii.edu';
     const userID = Accounts.createUser({ username: admin, email: admin, password: 'foo' });
     Roles.addUsersToRoles(userID, ROLE.ADMIN);
@@ -171,7 +171,7 @@ function defineTestAdminUser() {
 function fixUserInteractions() {
   if (Meteor.settings.public.fixUserInteractions) {
     console.log('Fixing UserInteraction collection.');
-    _.each(UserInteractions.find().fetch(), function (interaction) {
+    _.each(UserInteractions.find().fetch(), (interaction) => {
       /* if (interaction.userID) {
         const username = Meteor.users.findOne({ _id: interaction.userID }).username;
         console.log('Fixing interaction for user: ', username);
@@ -182,27 +182,27 @@ function fixUserInteractions() {
         const typeData = [];
         const type = interaction.type;
         if (type === 'interestIDs' && oldTypeData[0] !== 'n/a') {
-          _.each(oldTypeData, function (entry) {
+          _.each(oldTypeData, (entry) => {
             typeData.push(Interests.findSlugByID(entry));
           });
         } else if (type === 'careerGoalIDs' && oldTypeData[0] !== 'n/a') {
-          _.each(oldTypeData, function (entry) {
+          _.each(oldTypeData, (entry) => {
             typeData.push(CareerGoals.findSlugByID(entry));
           });
         } else if (type === 'academicPlanID' && oldTypeData[0] !== 'n/a') {
-          _.each(oldTypeData, function (entry) {
+          _.each(oldTypeData, (entry) => {
             typeData.push(AcademicPlans.findSlugByID(entry));
           });
         } else {
-          _.each(oldTypeData, function (entry) {
+          _.each(oldTypeData, (entry) => {
             typeData.push(entry);
           });
         }
         console.log('Fixing interaction for: ', interaction.username);
-        UserInteractions.update(interaction._id, { $set: { typeData } });
+        UserInteractions.getCollection().update(interaction._id, { $set: { typeData } });
       } else if (interaction.typeData[0] === 'ERROR: No such UserInteraction type found!') {
         const typeData = ['Leveled up!'];
-        UserInteractions.update(interaction._id, { $set: { typeData } });
+        UserInteractions.getCollection().update(interaction._id, { $set: { typeData } });
       }
     });
   }
@@ -210,7 +210,7 @@ function fixUserInteractions() {
 
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
-  if (Meteor.isTest || Meteor.isAppTest) {
+  if (Meteor.isTest) {
     console.log('Test mode. Database initialization disabled, current database cleared, rate limiting disabled.');
     Accounts.removeDefaultRateLimit();
     removeAllEntities();

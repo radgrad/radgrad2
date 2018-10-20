@@ -139,7 +139,7 @@ export function processStarCsvData(student, csvData) {
     const dataObjects = _.map(filteredData, (data) => {
       const name = data[nameIndex];
       let grade = data[gradeIndex];
-      console.log(`grade ${grade}`);
+      // console.log(`grade ${grade}`);
       if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
         grade = data[transferGradeIndex];
       } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) {
@@ -207,7 +207,7 @@ export function processBulkStarCsvData(csvData) {
     _.forEach(filteredData, (data) => {
       const name = data[nameIndex];
       let grade = data[gradeIndex];
-      console.log(`grade ${grade}`);
+      // console.log(`grade ${grade}`);
       if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
         grade = data[transferGradeIndex];
       } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) {

@@ -17,6 +17,7 @@ import {
   processBulkStarJsonData,
 } from './StarProcessor';
 import { updateStudentLevel } from '../level/LevelProcessor';
+import { IStudentProfileDefine } from '../../typings/radgrad';
 
 function processStudentStarDefinitions(advisor, student, definitions) {
   // console.log(`processStudentStarDefinitions(${advisor}, ${student}, ${definitions})`);
@@ -154,11 +155,12 @@ function processBulkStarDefinitions(advisor, definitions) {
       } else {
         console.log(`${student} is not defined need to create them.`);
         try {
-          const definitionData = {};
-          definitionData.username = student;
-          definitionData.firstName = definitions[student].firstName;
-          definitionData.lastName = definitions[student].lastName;
-          definitionData.level = 1;
+          const definitionData: IStudentProfileDefine = {
+            username: student,
+            firstName: definitions[student].firstName,
+            lastName: definitions[student].lastName,
+            level: 1,
+          };
           StudentProfiles.define(definitionData);
           const feedData = { feedType: Feeds.NEW_USER, user: definitionData.username };
           defineMethod.call({ collectionName: Feeds.getCollectionName(), definitionData: feedData });
@@ -224,4 +226,3 @@ export const starBulkLoadJsonDataMethod = new ValidatedMethod({
     return processBulkStarDataJson(data.advisor, data.jsonData);
   },
 });
-

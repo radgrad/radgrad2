@@ -159,7 +159,7 @@ class SemesterCollection extends BaseSlugCollection {
    * @param date The date as a string. Must be able to be parsed by moment();
    * @returns {String} The semesterID that the date falls in.
    */
-  public getSemester(date: string) {
+  public getSemester(date: string | Date) {
     const d = moment(date);
     const year = d.year();
     const day = d.dayOfYear();

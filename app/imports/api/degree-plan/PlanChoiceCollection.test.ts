@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
+import { PlanChoiceCollection, PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
@@ -32,10 +32,10 @@ if (Meteor.isServer) {
       expect(PlanChoices.isDefined(choiceID)).to.be.true;
       const complexID = PlanChoices.define({ choice: complex });
       expect(PlanChoices.isDefined(complexID)).to.be.true;
-      expect(PlanChoices.toStringFromSlug(simple) === 'ICS 111').to.be.true;
-      expect(PlanChoices.toStringFromSlug(choice) === 'ICS 313 or ICS 361').to.be.true;
-      expect(PlanChoices.toStringFromSlug(complex) === 'ICS 321 or ICS 332 or (ICS 415 or ICS 351)').to.be.true;
-      expect(PlanChoices.toStringFromSlug(complex2) ===
+      expect(PlanChoiceCollection.toStringFromSlug(simple) === 'ICS 111').to.be.true;
+      expect(PlanChoiceCollection.toStringFromSlug(choice) === 'ICS 313 or ICS 361').to.be.true;
+      expect(PlanChoiceCollection.toStringFromSlug(complex) === 'ICS 321 or ICS 332 or (ICS 415 or ICS 351)').to.be.true;
+      expect(PlanChoiceCollection.toStringFromSlug(complex2) ===
           '(ICS 312 or ICS 331) or (ICS 313 or ICS 361) or ICS 355').to.be.true;
     });
   });

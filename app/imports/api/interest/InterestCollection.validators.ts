@@ -8,7 +8,7 @@ import { Interests } from './InterestCollection';
  */
 export function isInterestSlugValidator() {
   const ret = (Interests.hasSlug(this.value)) ? undefined : 'undefinedInterestSlug';
-  console.log('isInterestSlugValidator', ret, this.value, Interests.hasSlug(this.value));
+  // console.log('isInterestSlugValidator', ret, this.value, Interests.hasSlug(this.value));
   return ret;
 }
 
@@ -20,6 +20,6 @@ export function isInterestSlugValidator() {
  */
 export function isInterestArrayValidator() {
   const ret = (Interests.hasSlug(this.value[0])) ? undefined : 'undefinedInterestSlug';
-  console.log('isInterestSlugValidator', ret, this.value, Interests.hasSlug(this.value));
+  // console.log('isInterestSlugValidator', ret, this.value, Interests.hasSlug(this.value));
   return ret;
 }

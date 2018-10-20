@@ -8,8 +8,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleOpportunityInstance, makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-/* eslint-env mocha */
+/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
   describe('VerificationRequestCollection', function testSuite() {
@@ -43,7 +42,9 @@ if (Meteor.isServer) {
       const semester = Semesters.define({ term: Semesters.SUMMER, year: 2015 });
       const opportunity = makeSampleOpportunity(makeSampleUser(ROLE.FACULTY));
       const student = makeSampleUser();
-      OpportunityInstances.define({ semester, opportunity, student });
+      const sponsor = makeSampleUser(ROLE.FACULTY);
+      const verified = false;
+      OpportunityInstances.define({ semester, opportunity, sponsor, student, verified });
       const docID = VerificationRequests.define({ student, semester, opportunity });
       expect(VerificationRequests.isDefined(docID)).to.be.true;
       VerificationRequests.removeIt(docID);

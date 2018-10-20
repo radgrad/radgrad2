@@ -6,6 +6,7 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import * as ICE from './IceProcessor';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
+import { Ice } from '../../typings/radgrad';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 

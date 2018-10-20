@@ -66,7 +66,7 @@ if (Meteor.isServer) {
       Slugs.define({ name, entityName });
       Slugs.assertSlug(name);
       expect(Slugs.getType()).to.equal('Slug');
-      expect(Slugs.toString()).to.have.lengthOf(1);
+      expect(Slugs.toString()).to.have.lengthOf(15); // TODO Why are we doing this?
       Slugs.removeIt(name);
     });
 

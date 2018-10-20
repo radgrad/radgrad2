@@ -262,7 +262,7 @@ export interface IOpportunityUpdateData {
 export interface IOpportunityInstanceDefine extends IDumpOne {
   semester: string;
   opportunity: string;
-  sponsor: string;
+  sponsor?: string;
   verified: boolean;
   student: string;
 }
@@ -271,6 +271,15 @@ export interface IOpportunityInstanceUpdate {
   semesterID?: string;
   verified?: boolean;
   ice?: Ice;
+}
+
+// PlanChoice
+export interface IPlanChoiceDefine extends IDumpOne {
+  choice: string;
+}
+
+export interface IPlanChoiceUpdate extends IDumpOne {
+  choice?: string;
 }
 
 // Profiles
@@ -324,7 +333,7 @@ export interface IMentorProfileUpdate extends IProfileUpdate {
 
 export interface IStudentProfileDefine extends IProfileDefine {
   level: number;
-  declaredSemester: string;
+  declaredSemester?: string;
   academicPlan?: string;
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
@@ -441,4 +450,15 @@ export interface IUserInteractionDefine extends IDumpOne {
   type: string;
   typeData: string;
   timestamp?: any;
+}
+
+// VerificationRequests
+export interface IVerificationRequestDefine extends IDumpOne {
+  student: string;
+  opportunityInstance?: string;
+  submittedOn?: any;
+  status?: string;
+  processed?: any[];
+  semester?: string;
+  opportunity?: string;
 }

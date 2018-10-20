@@ -1,13 +1,14 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
+import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a choice in an academic plan.
  * @extends api/base.BaseCollection
  * @memberOf api/degree-plan
  */
-class PlanChoiceCollection extends BaseCollection {
+export class PlanChoiceCollection extends BaseCollection {
 
   /**
    * Creates a plan choice.
@@ -26,7 +27,7 @@ class PlanChoiceCollection extends BaseCollection {
    * @param choice
    * @returns {*}
    */
-  public define({ choice }: { choice: string; }) {
+  public define({ choice }: IPlanChoiceDefine) {
     const doc = this.collection.findOne(choice);
     if (doc) {
       return doc._id;
@@ -39,9 +40,9 @@ class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID associated with this plan choice.
    * @param choice the updated choice.
    */
-  public update(docID: string, { choice }: { choice: string; }) {
+  public update(docID: string, { choice }: IPlanChoiceUpdate) {
     this.assertDefined(docID);
-    const updateData: { choice?: string; } = {};
+    const updateData: IPlanChoiceUpdate = {};
     if (choice) {
       updateData.choice = choice;
     }
@@ -53,7 +54,7 @@ class PlanChoiceCollection extends BaseCollection {
    * @param planChoiceSlug
    * @returns {string}
    */
-  public toStringFromSlug(planChoiceSlug: string) {
+  public static toStringFromSlug(planChoiceSlug: string) {
     let ret = '';
     let slug;
     const countIndex = planChoiceSlug.indexOf('-');
@@ -103,7 +104,7 @@ class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID of a PlanChoice.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): { choice: string; } {
+  public dumpOne(docID: string): IPlanChoiceDefine {
     const doc = this.findDoc(docID);
     return { choice: doc.choice };
   }
