@@ -86,7 +86,8 @@ export const processVerificationEventMethod = new ValidatedMethod({
 
     // If this event has already been verified, then return now.
     if (OpportunityInstances.findDoc(opportunityInstanceID).verified) {
-      return `  Event ${opportunity.name} is already verified for ${student}`;
+      const opp = Opportunities.findDoc(opportunity);
+      return `  Event ${opp.name} is already verified for ${student}`;
     }
 
     // Otherwise verify the opportunity instance and the VerificationRequestID.

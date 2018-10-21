@@ -6,7 +6,7 @@ import { RadGrad } from '../radgrad/RadGrad';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* global Assets */
+/** global Assets */
 
 /**
  * Returns the definition array associated with collectionName in the loadJSON structure,

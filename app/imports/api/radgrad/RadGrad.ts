@@ -29,7 +29,6 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import BaseCollection from '../base/BaseCollection';
 
 /**
  * @memberOf api/radgrad

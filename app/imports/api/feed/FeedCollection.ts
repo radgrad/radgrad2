@@ -10,6 +10,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { defaultProfilePicture } from '../user/BaseProfileCollection';
+import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad';
 
 /**
  * Returns the number of whole days between date a and b.
@@ -84,27 +85,27 @@ class FeedCollection extends BaseCollection {
    * Based upon the feedType, the object should contain additional fields providing the information necessary to
    * define that new feed.
    */
-  public define(feedDefinition: { user?: string; course?: string; feedType: string; timestamp: any; }) {
+  public define(feedDefinition: IFeedDefine) {
     if (feedDefinition.feedType === this.NEW_USER) {
       return this.defineNewUser(feedDefinition);
     }
     if (feedDefinition.feedType === this.NEW_COURSE) {
-      return this._defineNewCourse(feedDefinition);
+      return this.defineNewCourse(feedDefinition);
     }
     if (feedDefinition.feedType === this.NEW_OPPORTUNITY) {
-      return this._defineNewOpportunity(feedDefinition);
+      return this.defineNewOpportunity(feedDefinition);
     }
     if (feedDefinition.feedType === this.VERIFIED_OPPORTUNITY) {
-      return this._defineNewVerifiedOpportunity(feedDefinition);
+      return this.defineNewVerifiedOpportunity(feedDefinition);
     }
     if (feedDefinition.feedType === this.NEW_COURSE_REVIEW) {
-      return this._defineNewCourseReview(feedDefinition);
+      return this.defineNewCourseReview(feedDefinition);
     }
     if (feedDefinition.feedType === this.NEW_OPPORTUNITY_REVIEW) {
-      return this._defineNewOpportunityReview(feedDefinition);
+      return this.defineNewOpportunityReview(feedDefinition);
     }
     if (feedDefinition.feedType === this.NEW_LEVEL) {
-      return this._defineNewLevel(feedDefinition);
+      return this.defineNewLevel(feedDefinition);
     }
     throw new Meteor.Error(`Unknown feed type: ${feedDefinition.feedType}`);
   }
@@ -116,7 +117,7 @@ class FeedCollection extends BaseCollection {
    * The timestamp and feedtype fields cannot be updated once created.
    * @throws { Meteor.Error } If docID is not defined, or if users, opportunity, or course are not defined.
    */
-  public update(docID: string, { description, picture, users, opportunity, course, semester }: IfeedUpdate) {
+  public update(docID: string, { description, picture, users, opportunity, course, semester }: IFeedUpdate) {
     this.assertDefined(docID);
     const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; semesterID?: string; } = {};
     if (description) {
@@ -155,7 +156,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid user.
    */
-  private defineNewUser({ user, feedType, timestamp = moment().toDate() }) {
+  private defineNewUser({ user, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     // First, see if we've already defined any users within the past day.
     const recentFeedID = this.checkPastDayFeed(this.NEW_USER);
     // If there's a recentFeed, then update it instead with this user's info.
@@ -183,7 +184,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid course.
    */
-  private defineNewCourse({ course, feedType, timestamp = moment().toDate() }) {
+  private defineNewCourse({ course, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
     const description = `[${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)}) has been added to Courses`;
@@ -202,7 +203,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid opportunity.
    */
-  private defineNewOpportunity({ opportunity, feedType, timestamp = moment().toDate() }) {
+  private defineNewOpportunity({ opportunity, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
     const description = `[${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) has been added to Opportunities`;
@@ -218,7 +219,7 @@ class FeedCollection extends BaseCollection {
    * If there is a verified-opportunity feed within the past day, then this info is added to it and its docID is
    * returned.
    * @example
-   * Feeds._defineNewVerifiedOpportunity({ feedType: Feeds.VERIFIED_OPPORTUNITY,
+   * Feeds.defineNewVerifiedOpportunity({ feedType: Feeds.VERIFIED_OPPORTUNITY,
    *                                      user: 'abi@hawaii.edu',
    *                                      opportunity: 'att-hackathon'
    *                                      semester: 'Spring-2013'
@@ -228,7 +229,7 @@ class FeedCollection extends BaseCollection {
    * @returns The docID associated with this info.
    * @throws {Meteor.Error} If not a valid opportunity, semester, or user.
    */
-  private defineNewVerifiedOpportunity({ user, opportunity, semester, feedType, timestamp = moment().toDate() }) {
+  private defineNewVerifiedOpportunity({ user, opportunity, semester, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     // First, see if we've already defined any verified-opportunities for this opportunity within the past day.
     const recentFeedID = this.checkPastDayFeed(this.VERIFIED_OPPORTUNITY, opportunity);
     // If there's a recentFeed, then update it instead with this user's info and return.
@@ -246,17 +247,14 @@ class FeedCollection extends BaseCollection {
         has been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})
         (${Semesters.toString(semesterID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
     const picture = '/images/radgrad_logo.png';
-    const feedID = this.collection.insert({
-      userIDs, opportunityID, semesterID, description, timestamp,
-      picture, feedType
-    });
+    const feedID = this.collection.insert({ userIDs, opportunityID, semesterID, description, timestamp, picture, feedType });
     return feedID;
   }
 
   /**
    * Defines a new Feed (new course review).
    * @example
-   * Feeds._defineNewCourseReview({ feedType: Feeds.NEW_COURSE_REVIEW,
+   * Feeds.defineNewCourseReview({ feedType: Feeds.NEW_COURSE_REVIEW,
    *                              user: 'abi@hawaii.edu',
    *                              course: 'ics111'
    *                              timestamp: '12345465465', });
@@ -265,13 +263,12 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid course or user.
    */
-  _defineNewCourseReview({ user, course, feedType, timestamp = moment().toDate() }) {
+  private defineNewCourseReview({ user, course, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     let picture;
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
-    const description = `[${Users.getFullName(userID)}](./explorer/users/${Users.getProfile(userID).username}) 
-      has added a course review for [${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)})`;
+    const description = `[${Users.getFullName(userID)}](./explorer/users/${Users.getProfile(userID).username}) has added a course review for [${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)})`;
     picture = Users.getProfile(userID).picture;
     if (!picture) {
       picture = defaultProfilePicture;
@@ -292,7 +289,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid opportunity or user.
    */
-  private defineNewOpportunityReview({ user, opportunity, feedType, timestamp = moment().toDate() }) {
+  private defineNewOpportunityReview({ user, opportunity, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     let picture;
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const opportunityID = Opportunities.getID(opportunity);
@@ -322,7 +319,7 @@ class FeedCollection extends BaseCollection {
    * @param timestamp The time of the Feed.
    * @private
    */
-  private defineNewLevel({ user, level, feedType, timestamp = moment().toDate() }) {
+  private defineNewLevel({ user, level, feedType, timestamp = moment().toDate() }: IFeedDefine) {
     // First, see if we've already defined any users within the past day.
     const recentFeedID = this.checkPastDayLevelFeed(level, timestamp);
     // If there's a recentFeed, then update it instead with this user's info.
@@ -354,7 +351,8 @@ class FeedCollection extends BaseCollection {
    * @returns {boolean} False if feedID is not found.
    */
   public checkPastDayFeed(feedType: string, opportunity?: string, timestamp: any = moment().toDate()) {
-    let ret = false;
+    let ret = '';
+    // tslint:disable-next-line: no-this-assignment
     const instance = this;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {
       if (withinPastDay(feed, timestamp)) {
@@ -378,7 +376,8 @@ class FeedCollection extends BaseCollection {
   }
 
   public checkPastDayLevelFeed(level, timestamp = moment().toDate()) {
-    let ret = false;
+    let ret = '';
+    // tslint:disable-next-line: no-this-assignment
     const instance = this;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {
       if (withinPastDay(feed, timestamp)) {
@@ -500,7 +499,7 @@ class FeedCollection extends BaseCollection {
    * @param docID The docID of a Feed.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string) {
+  public dumpOne(docID: string): IFeedDefine {
     const doc = this.findDoc(docID);
     let user;
     if (doc.userIDs) {

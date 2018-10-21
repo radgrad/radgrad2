@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     it('#define (new-user), #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
       const feedType = Feeds.NEW_USER;
       const user = Users.getProfile(makeSampleUser()).username;
-      const timestamp = Date.now();
+      const timestamp: Date = new Date();
       let docID = Feeds.define({ feedType, user, timestamp });
       expect(Feeds.isDefined(docID)).to.be.true;
       const dumpObject = Feeds.dumpOne(docID);

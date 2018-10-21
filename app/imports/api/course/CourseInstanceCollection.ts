@@ -51,7 +51,7 @@ class CourseInstanceCollection extends BaseCollection {
       studentID: `${this.collectionName}.studentID`,
     };
     if (Meteor.isServer) {
-      this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, courseID: 1 });
+      // this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, courseID: 1 });
     }
   }
 

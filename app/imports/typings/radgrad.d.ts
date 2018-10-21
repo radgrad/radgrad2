@@ -121,6 +121,15 @@ export interface IDesiredDegreeUpdate {
 }
 
 // Feeds
+export interface IFeedDefine extends IDumpOne {
+  user?: string;
+  course?: string;
+  opportunity?: string;
+  semester?: string;
+  level?: number;
+  feedType: string;
+  timestamp?: Date;
+}
 export interface IFeedUpdate {
   description?: string;
   picture?: string;
@@ -448,7 +457,7 @@ export interface ITeaserUpdateData {
 export interface IUserInteractionDefine extends IDumpOne {
   username: string;
   type: string;
-  typeData: string;
+  typeData: any[];
   timestamp?: any;
 }
 

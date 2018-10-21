@@ -1,5 +1,5 @@
 {
-  "name": "meteor-application-template-react",
+  "name": "radgrad2",
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.1.2",

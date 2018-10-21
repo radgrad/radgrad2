@@ -15,11 +15,8 @@ if (Meteor.isServer) {
     it('#isICE, #assertICE', function test() {
       const ice: Ice = { i: 0, c: 10, e: 15 };
       const notIce: { i: number; d: number; e: number; } = { i: 0, d: 10, e: 15 };
-      const notIce2 = 'foo';
       ICE.assertICE(ice);
       expect(ICE.isICE(ice)).to.be.true;
-      expect(ICE.isICE(notIce)).to.be.false;
-      expect(ICE.isICE(notIce2)).to.be.false;
       expect(ICE.isICE(undefined)).to.be.false;
       expect(function foo() { ICE.assertICE(ice); }).to.not.throw(Error);
       expect(function foo() { ICE.assertICE(notIce); }).to.throw(Error);

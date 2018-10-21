@@ -2,8 +2,6 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 
-/* eslint-disable no-console */
-
 function createUser(email, password, role) {
   console.log(`  Creating user ${email}.`); // tslint:disable-line
   const userID = Accounts.createUser({

@@ -3,6 +3,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { AdvisorLogs } from './AdvisorLogCollection';
 import { ROLE } from '../role/Role';
+import { IAdvisorLogUpdate } from '../../typings/radgrad';
 
 /**
  * The validated method for defining AdvisorLogs.
@@ -29,7 +30,7 @@ export const advisorLogsDefineMethod = new ValidatedMethod({
 export const advisorLogsUpdateMethod = new ValidatedMethod({
   name: 'AdvisorLogs.update',
   validate: null,
-  run(update: IadvisorLogUpdate) {
+  run(update: IAdvisorLogUpdate) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to update AdvisorLogs.');
     } else
