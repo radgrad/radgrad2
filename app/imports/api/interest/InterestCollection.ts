@@ -44,6 +44,7 @@ class InterestCollection extends BaseSlugCollection {
    * @returns The newly created docID.
    */
   public define({ name, slug, description, interestType }: IInterestDefine): string {
+    // console.log(`${this.collectionName}.define(${name}, ${slug}, ${description}, ${interestType}`);
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
     // Get SlugID, throw error if found.

@@ -6,8 +6,6 @@ import { RadGrad } from '../radgrad/RadGrad';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/** global Assets */
-
 /**
  * Returns the definition array associated with collectionName in the loadJSON structure,
  * or an empty array if none was found.
@@ -33,6 +31,9 @@ export function loadCollection(collection, loadJSON, consolep) {
     console.log(`Defining ${definitions.length} ${collection.collectionName} documents.`);
   }
   _.each(definitions, (definition) => collection.define(definition));
+  if (consolep) {
+    console.log(`Have ${collection.find().count()} documents.`);
+  }
 }
 
 /**

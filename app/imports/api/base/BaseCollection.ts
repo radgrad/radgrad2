@@ -19,16 +19,16 @@ class BaseCollection {
   protected collection: Mongo.Collection<any>;
   protected collectionName: string;
   protected schema: any;
-  protected _type: string;
+  protected type: string;
 
   /**
    * Superclass constructor for all RadGrad entities.
-   * Defines internal fields needed by all entities: _type, collectionName, collection, and schema.
+   * Defines internal fields needed by all entities: type, collectionName, collection, and schema.
    * @param {String} type The name of the entity defined by the subclass.
    * @param {SimpleSchema} schema The schema for validating fields on insertion to the DB.
    */
   constructor(type: string, schema: any) {
-    this._type = type;
+    this.type = type;
     this.collectionName = `${type}Collection`;
     this.collection = new Mongo.Collection(`${type}Collection`);
     this.schema = schema;
@@ -86,9 +86,9 @@ class BaseCollection {
       this.collection.findOne({ username: name }));
     if (!doc) {
       if (typeof name !== 'string') {
-        throw new Meteor.Error(`${JSON.stringify(name)} is not a defined ${this._type}`);
+        throw new Meteor.Error(`${JSON.stringify(name)} is not a defined ${this.type}`);
       } else {
-        throw new Meteor.Error(`${name} is not a defined ${this._type}`);
+        throw new Meteor.Error(`${name} is not a defined ${this.type}`);
       }
     }
     return doc;
@@ -176,7 +176,7 @@ class BaseCollection {
    * @returns { String } The type, as a string.
    */
   public getType() {
-    return this._type;
+    return this.type;
   }
 
   /**
@@ -218,7 +218,7 @@ class BaseCollection {
    */
   public assertDefined(name: string) {
     if (!this.isDefined(name)) {
-      throw new Meteor.Error(`${name} is not a valid instance of ${this._type}.`);
+      throw new Meteor.Error(`${name} is not a valid instance of ${this.type}.`);
     }
   }
 

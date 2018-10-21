@@ -159,7 +159,7 @@ function defineAdminUser() {
 }
 
 function defineTestAdminUser() {
-  if (Meteor.isTest) {
+  if (Meteor.isTest || Meteor.isAppTest) {
     const admin = 'radgrad@hawaii.edu';
     const userID = Accounts.createUser({ username: admin, email: admin, password: 'foo' });
     Roles.addUsersToRoles(userID, ROLE.ADMIN);
@@ -214,7 +214,7 @@ function fixUserInteractions() {
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
   console.log(`Meteor.startup testing = ${Meteor.isTest} client = ${Meteor.isClient}`);
-  if (Meteor.isTest) {
+  if (Meteor.isTest || Meteor.isAppTest) {
     console.log('Test mode. Database initialization disabled, current database cleared, rate limiting disabled.');
     Accounts.removeDefaultRateLimit();
     removeAllEntities();

@@ -43,6 +43,7 @@ export const defineMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, definitionData }) {
+    console.log(collectionName, this.userId);
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     return collection.define(definitionData);

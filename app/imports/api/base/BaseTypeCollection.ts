@@ -31,7 +31,7 @@ class BaseTypeCollection extends BaseCollection {
    * @returns The newly created docID.
    */
   public define({ name, slug, description }) {
-    const slugID = Slugs.define({ name: slug, entityName: this._type });
+    const slugID = Slugs.define({ name: slug, entityName: this.type });
     const baseTypeID = this.collection.insert({ name, description, slugID });
     Slugs.updateEntityID(slugID, baseTypeID);
     return baseTypeID;
@@ -111,7 +111,7 @@ class BaseTypeCollection extends BaseCollection {
    * @returns {boolean} True if the slug is in this collection.
    */
   public hasSlug(slug) {
-    return (!!(this.collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this._type));
+    return (!!(this.collection.findOne({ slug })) || Slugs.isSlugForEntity(slug, this.type));
   }
 
   /**
@@ -122,7 +122,7 @@ class BaseTypeCollection extends BaseCollection {
    * instance in this collection.
    */
   public findDocBySlug(slug) {
-    const id = Slugs.getEntityID(slug, this._type);
+    const id = Slugs.getEntityID(slug, this.type);
     return this.collection.findOne(id);
   }
 
@@ -144,7 +144,7 @@ class BaseTypeCollection extends BaseCollection {
    * @throws { Meteor.Error } If the slug cannot be found, or is not associated with an instance in this collection.
    */
   public findIdBySlug(slug) {
-    return Slugs.getEntityID(slug, this._type);
+    return Slugs.getEntityID(slug, this.type);
   }
 
   /**
