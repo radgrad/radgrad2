@@ -259,7 +259,7 @@ class PublicStatsCollection extends BaseCollection {
     let courseNumbers = [];
     _.forEach(courseReviews, (review) => {
       const course = Courses.findDoc(review.revieweeID);
-      courseNumbers.push(course.number);
+      courseNumbers.push(course.num);
     });
     courseNumbers = _.union(courseNumbers);
     if (courseNumbers) {

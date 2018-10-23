@@ -280,7 +280,7 @@ export function processStarJsonData(student, jsonData) {
     } else {
       grade = 'OTHER';
     }
-    let num = course.number;
+    let num = course.num;
     if (isNaN(num)) {
       num = course.transferNumber;
     }

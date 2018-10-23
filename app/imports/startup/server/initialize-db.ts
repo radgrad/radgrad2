@@ -209,20 +209,16 @@ function fixUserInteractions() {
 
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
-  console.log(`Meteor.startup testing = ${Meteor.isTest} client = ${Meteor.isClient}`);
   if (Meteor.isTest || Meteor.isAppTest) {
     console.log('Test mode. Database initialization disabled, current database cleared, rate limiting disabled.');
     Accounts.removeDefaultRateLimit();
     removeAllEntities();
     defineTestAdminUser();
   } else {
-    console.log('Run mode.');
-    if (Meteor.isServer) {
-      defineAdminUser();
-      loadDatabase();
-      startupCheckIntegrity();
-      startupPublicStats();
-      fixUserInteractions();
-    }
+    defineAdminUser();
+    loadDatabase();
+    startupCheckIntegrity();
+    startupPublicStats();
+    fixUserInteractions();
   }
 });

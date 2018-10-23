@@ -275,7 +275,7 @@ class CourseInstanceCollection extends BaseCollection {
   public isInteresting(courseInstanceID: string) {
     this.assertDefined(courseInstanceID);
     const instance = this.findDoc(courseInstanceID);
-    return Courses.findDoc(instance.courseID).number !== Courses.unInterestingSlug;
+    return Courses.findDoc(instance.courseID).num !== Courses.unInterestingSlug;
   }
 
   /**

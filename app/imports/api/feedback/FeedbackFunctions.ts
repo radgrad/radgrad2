@@ -67,14 +67,14 @@ export class FeedbackFunctionClass {
               if (preSemester) {
                 if (preSemester.semesterNumber >= semester.semesterNumber) {
                   const semesterName2 = Semesters.toString(preSemester._id, false);
-                  const description = `${semesterName}: ${course.number}'s prerequisite ${preCourse.number} is ` +
+                  const description = `${semesterName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
                       `after or in ${semesterName2}.`;
                   const definitionData = { user, functionName, description, feedbackType };
                   defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
                 }
               }
             } else {
-              const description = `${semesterName}: Prerequisite ${prerequisiteCourse.number} for ${course.number}` +
+              const description = `${semesterName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
                   ' not found.';
               const definitionData = { user, functionName, description, feedbackType };
               defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
@@ -114,7 +114,7 @@ export class FeedbackFunctionClass {
             const id = Slugs.getEntityID(planUtils.stripCounter(s), 'Course');
             const course = Courses.findDoc(id);
             // eslint-disable-next-line max-len
-            description = `${description} [${course.number} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
+            description = `${description} [${course.num} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
           });
           description = description.substring(0, description.length - 4);
           description = `${description}, `;
@@ -127,7 +127,7 @@ export class FeedbackFunctionClass {
             } else {
               const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
               const course = Courses.findDoc(id);
-              description = `${description} \n- [${course.number} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
+              description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
             }
       });
       description = description.substring(0, description.length - 2);
@@ -209,7 +209,7 @@ export class FeedbackFunctionClass {
         if (course) {
           const courseSlug = Slugs.findDoc(course.slugID);
           // eslint-disable-next-line max-len
-          description = `${description} \n\n- [${course.number} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
+          description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
         }
       } else
         if (slug.startsWith('ics_4')) {
@@ -217,14 +217,14 @@ export class FeedbackFunctionClass {
           if (bestChoice) {
             const cSlug = Slugs.findDoc(bestChoice.slugID);
             // eslint-disable-next-line max-len
-            description = `${description} \n- [${bestChoice.number} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
+            description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
           }
         } else
           if (slug.startsWith('ics')) {
             const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
             const course = Courses.findDoc(courseID);
             // eslint-disable-next-line max-len
-            description = `${description} \n\n- [${course.number} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
+            description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
           }
       const definitionData = { user, functionName, description, feedbackType };
       defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
@@ -260,7 +260,7 @@ export class FeedbackFunctionClass {
         _.forEach(bestChoices, (course) => {
           const slug = Slugs.findDoc(course.slugID);
           // eslint-disable-next-line max-len
-          description = `${description} \n- [${course.number} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
+          description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
         });
         description = description.substring(0, description.length - 2);
         const definitionData = { user, functionName, description, feedbackType };
