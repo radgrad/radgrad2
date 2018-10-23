@@ -32,7 +32,6 @@ function documentCounts() {
  * @memberOf startup/server
  */
 function totalDocuments() {
-  console.log('totalDocuments()');
   return _.reduce(documentCounts(), (sum, count) => {
     return sum + count;
   }, 0);
@@ -67,31 +66,29 @@ function getRestoreFileAge(loadFileName) {
  * @memberOf startup/server
  */
 function loadDatabase() {
-  console.log('loadDatabase()');
   const loadFileName = Meteor.settings.public.databaseRestoreFileName;
-  console.log(`Loading database from file ${loadFileName}.`);
   if (loadFileName && (totalDocuments() === 0)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
     console.log(`Loading database from file ${loadFileName}, dumped ${loadFileAge}.`);
-    // const loadJSON = JSON.parse(Assets.getText(loadFileName));
+    const loadJSON = JSON.parse(Assets.getText(loadFileName));
     // The list of collections, ordered so that they can be sequentially restored.
-    // const collectionList = RadGrad.collectionLoadSequence;
-    //
-    // const loadNames = _.map(loadJSON.collections, (obj) => obj.name);
-    // const collectionNames = _.map(collectionList, (collection) => collection._collectionName);
-    // const extraRestoreNames = _.difference(loadNames, collectionNames);
-    // const extraCollectionNames = _.difference(collectionNames, loadNames);
-    //
-    // if (extraRestoreNames.length) {
-    //   console.log(`Error: Expected collections are missing from collection list: ${extraRestoreNames}`);
-    // }
-    // if (extraCollectionNames.length) {
-    //   console.log(`Error: Expected collections are missing from restore JSON file: ${extraCollectionNames}`);
-    // }
-    //
-    // if (!extraRestoreNames.length && !extraCollectionNames.length) {
-    //   _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
-    // }
+    const collectionList = RadGrad.collectionLoadSequence;
+
+    const loadNames = _.map(loadJSON.collections, (obj) => obj.name);
+    const collectionNames = _.map(collectionList, (collection) => collection.getCollectionName());
+    const extraRestoreNames = _.difference(loadNames, collectionNames);
+    const extraCollectionNames = _.difference(collectionNames, loadNames);
+
+    if (extraRestoreNames.length) {
+      console.log(`Error: Expected collections are missing from collection list: ${extraRestoreNames}`);
+    }
+    if (extraCollectionNames.length) {
+      console.log(`Error: Expected collections are missing from restore JSON file: ${extraCollectionNames}`);
+    }
+
+    if (!extraRestoreNames.length && !extraCollectionNames.length) {
+      _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
+    }
     console.log('Finished loading database.');
   }
 }
@@ -144,7 +141,6 @@ function generateAdminCredential() {
 }
 
 function defineAdminUser() {
-  console.log('defineAdminUser()');
   const adminUsername = Meteor.settings && Meteor.settings.public.admin && Meteor.settings.public.admin.username;
   if (!adminUsername) {
     console.log('\n\nNO ADMIN USERNAME SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
@@ -222,11 +218,11 @@ Meteor.startup(() => {
   } else {
     console.log('Run mode.');
     if (Meteor.isServer) {
-      // defineAdminUser();
-      // loadDatabase();
-      // startupCheckIntegrity();
-      // startupPublicStats();
-      // fixUserInteractions();
+      defineAdminUser();
+      loadDatabase();
+      startupCheckIntegrity();
+      startupPublicStats();
+      fixUserInteractions();
     }
   }
 });

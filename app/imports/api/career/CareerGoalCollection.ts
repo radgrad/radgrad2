@@ -41,8 +41,6 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @returns The newly created docID.
    */
   public define({ name, slug, description, interests }: ICareerGoalDefine) {
-    console.log(`${this.collectionName}.define(${name}, ${slug}, ${description}, [${interests}])`);
-    console.log(`There are ${Interests.find().count()} interests`);
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.

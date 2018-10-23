@@ -1,8 +1,6 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
-// console.time('startup/server'); // tslint:disable-line
 import { Stuffs } from '../../api/stuff/stuff';
-// console.timeEnd('startup/server'); // tslint:disable-line
 
 /** Initialize the database with a default data document. */
 function addData(data) {

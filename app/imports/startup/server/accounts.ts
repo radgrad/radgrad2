@@ -1,6 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 
 function createUser(email, password, role) {
   console.log(`  Creating user ${email}.`); // tslint:disable-line
@@ -9,8 +10,12 @@ function createUser(email, password, role) {
     password,
     username: email,
   });
-  if (role === 'admin') {
-    Roles.addUsersToRoles(userID, 'admin');
+  if (role === 'ADMIN') {
+    const allDefinedRoles = Roles.getAllRoles().fetch();
+    if (!_.includes(allDefinedRoles, 'ADMIN')) {
+      Roles.createRole('ADMIN');
+    }
+    Roles.addUsersToRoles(userID, 'ADMIN');
   }
 }
 

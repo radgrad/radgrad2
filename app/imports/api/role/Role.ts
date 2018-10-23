@@ -53,8 +53,11 @@ export function assertRole(role) {
 // Initialize Roles to ROLENAMES by deleting all existing roles, then defining just those in ROLENAMES.
 
 if (Meteor.isServer) {
-  if (Roles.getAllRoles().count() !== 6) {
-    // Roles.getAllRoles().fetch().map(role => Roles.deleteRole(role.name));
-    _.values(ROLE).map((role) => Roles.createRole(role));
-  }
+  const allDefinedRoles = Roles.getAllRoles().fetch();
+  const definedRoleNames = _.map(allDefinedRoles, (role) => role.name);
+  _.values(ROLE).forEach((role) => {
+    if (!_.includes(definedRoleNames, role)) {
+      Roles.createRole(role);
+    }
+  });
 }

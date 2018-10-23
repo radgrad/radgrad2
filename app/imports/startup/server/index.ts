@@ -1,11 +1,5 @@
-console.log('startup.server');
 import './accounts';
 import './stuff';
-// console.log('    done with accounts');
-console.log(' initialize-db');
 import './initialize-db';
-// console.log('    done with initialize-db');
 // import './interaction-cron';
-// console.log('    done with interaction-cron');
 // import './publications';
-console.log('    done with publications');
