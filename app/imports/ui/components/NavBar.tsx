@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Menu } from 'semantic-ui-react';
+import RadGradLoginButtons from './landing/RadGradLoginButtons';
 
 /* tslint:disable:jsx-no-multiline-js*/
 
@@ -43,6 +44,9 @@ class NavBar extends React.Component<INavBarProps, object> {
               </Dropdown.Menu>
             </Dropdown>
           )}
+        </Menu.Item>
+        <Menu.Item>
+          <RadGradLoginButtons/>
         </Menu.Item>
       </Menu>
     );
