@@ -17,7 +17,7 @@ if (Meteor.isClient) {
       name: 'Introduction to the theory and practice of scripting',
       shortName: 'Intro to Scripting',
       slug: 'ics_215',
-      number: 'ICS 215',
+      num: 'ICS 215',
       description: 'Introduction to scripting languages.',
       creditHrs: 4,
       interests: ['java'],
