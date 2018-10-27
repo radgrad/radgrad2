@@ -4,7 +4,6 @@ import * as React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.css';
 import Footer from '../components/Footer';
-import NavBar from '../components/NavBar';
 import AddStuff from '../pages/AddStuff';
 import EditStuff from '../pages/EditStuff';
 import ListStuff from '../pages/ListStuff';
@@ -15,15 +14,12 @@ import Signout from '../pages/Signout';
 import { ROLE } from '../../api/role/Role';
 import { routes } from '../../startup/client/routes-config';
 
-/* tslint:disable:jsx-no-multiline-js jsx-no-lambda*/
-
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 class App extends React.Component {
   public render() {
     return (
         <Router>
           <div>
-            <NavBar/>
             <Switch>
               {routes.LANDING.map((route, i) => (
                 <Route exact={true} key={i} {...route} />

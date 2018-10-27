@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../api/role/Role';
+import LandingNavBarContainer from './landing/LandingNavBar';
 
 interface ISigninProps {
   location: {
@@ -74,55 +75,57 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
     const { from } = { from: { pathname } };
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
-      console.log(from);
       return <Redirect to={from}/>;
     }
     // Otherwise return the Login form.
     return (
-      <Container>
-        <Grid textAlign="center" verticalAlign="middle" centered={true} columns={2}>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">
-              Login to your account
-            </Header>
-            <Form onSubmit={this.handleSubmit}>
-              <Segment stacked={true}>
-                <Form.Input
-                  label="Email"
-                  icon="user"
-                  iconPosition="left"
-                  name="email"
-                  type="email"
-                  placeholder="E-mail address"
-                  onChange={this.handleChange}
+      <div>
+        <LandingNavBarContainer/>
+        <Container>
+          <Grid textAlign="center" verticalAlign="middle" centered={true} columns={2}>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">
+                Login to your account
+              </Header>
+              <Form onSubmit={this.handleSubmit}>
+                <Segment stacked={true}>
+                  <Form.Input
+                    label="Email"
+                    icon="user"
+                    iconPosition="left"
+                    name="email"
+                    type="email"
+                    placeholder="E-mail address"
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    label="Password"
+                    icon="lock"
+                    iconPosition="left"
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    onChange={this.handleChange}
+                  />
+                  <Form.Button content="Submit"/>
+                </Segment>
+              </Form>
+              <Message>
+                <Link to="/signup">Click here to Register</Link>
+              </Message>
+              {this.state.error === '' ? ( // tslint:disable-line
+                ''
+              ) : (
+                <Message
+                  error={true}
+                  header="Login was not successful"
+                  content={this.state.error}
                 />
-                <Form.Input
-                  label="Password"
-                  icon="lock"
-                  iconPosition="left"
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                  onChange={this.handleChange}
-                />
-                <Form.Button content="Submit"/>
-              </Segment>
-            </Form>
-            <Message>
-              <Link to="/signup">Click here to Register</Link>
-            </Message>
-            {this.state.error === '' ? ( // tslint:disable-line
-              ''
-            ) : (
-              <Message
-                error={true}
-                header="Login was not successful"
-                content={this.state.error}
-              />
-            )}
-          </Grid.Column>
-        </Grid>
-      </Container>
+              )}
+            </Grid.Column>
+          </Grid>
+        </Container>
+      </div>
     );
   }
 }

@@ -17,7 +17,8 @@
     "no-increment-decrement": false,
     "no-console": false,
     "member-ordering": false,
-    "max-line-length": false
+    "max-line-length": false,
+    "jsx-no-multiline-js": false
   },
   "rulesDirectory": []
 }

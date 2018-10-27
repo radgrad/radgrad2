@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
 class RadGradLoginButtons extends React.Component {
@@ -21,7 +21,7 @@ class RadGradLoginButtons extends React.Component {
           <Dropdown.Item id={'faculty'} text={'... as faculty'} onClick={this.handleClick}/>
           <Dropdown.Item id={'mentor'} text={'... as mentor'} onClick={this.handleClick}/>
           <Dropdown.Item id={'advisor'} text={'... as advisor'} onClick={this.handleClick}/>
-          <Dropdown.Item id={'admin'}><Link to="/signin">{adminLabel}</Link></Dropdown.Item>
+          <Dropdown.Item id={'admin'} as={NavLink} exact={true} to="/signin" text={adminLabel} />
         </Dropdown.Menu>
       </Dropdown>
     );
