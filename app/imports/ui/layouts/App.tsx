@@ -7,14 +7,13 @@ import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 import AddStuff from '../pages/AddStuff';
 import EditStuff from '../pages/EditStuff';
-import Landing from '../pages/Landing';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
-import Signup from '../pages/Signup';
 import { ROLE } from '../../api/role/Role';
+import { routes } from '../../startup/client/routes-config';
 
 /* tslint:disable:jsx-no-multiline-js jsx-no-lambda*/
 
@@ -26,13 +25,27 @@ class App extends React.Component {
           <div>
             <NavBar/>
             <Switch>
-              <Route exact={true} path="/" component={Landing}/>
+              {routes.LANDING.map((route, i) => (
+                <Route exact={true} key={i} {...route} />
+              ))}
+              {routes.ADMIN.map((route, i) => (
+                <AdminProtectedRoute key={i} {...route} />
+              ))}
+              {routes.ADVISOR.map((route, i) => (
+                <AdvisorProtectedRoute key={i} {...route} />
+              ))}
+              {routes.FACULTY.map((route, i) => (
+                <FacultyProtectedRoute key={i} {...route} />
+              ))}
+              {routes.MENTOR.map((route, i) => (
+                <MentorProtectedRoute key={i} {...route} />
+              ))}
+              {routes.STUDENT.map((route, i) => (
+                <StudentProtectedRoute key={i} {...route} />
+              ))}
               <Route path="/signin" component={Signin}/>
-              <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/list" component={ListStuff}/>
-              <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-              <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+              <AdminProtectedRoute exact={true}  path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>

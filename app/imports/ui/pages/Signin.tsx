@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import * as PropTypes from 'prop-types';
+import { Roles } from 'meteor/alanning:roles';
 import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { ROLE } from '../../api/role/Role';
 
 interface ISigninProps {
   location: {
@@ -56,9 +57,24 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
 
   /** Render the signin form. */
   public render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const username = this.state.email;
+    const userId = Meteor.userId();
+    let pathname = '';
+    if (Roles.userIsInRole(userId, [ROLE.ADMIN])) {
+      pathname = `/admin/${username}/home`;
+    } else if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
+      pathname = `/advisor/${username}/home`;
+    } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
+      pathname = `/faculty/${username}/home`;
+    } else if (Roles.userIsInRole(userId, [ROLE.MENTOR])) {
+      pathname = `/mentor/${username}/home`;
+    } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
+      pathname = `/student/${username}/home`;
+    }
+    const { from } = { from: { pathname } };
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
+      console.log(from);
       return <Redirect to={from}/>;
     }
     // Otherwise return the Login form.
