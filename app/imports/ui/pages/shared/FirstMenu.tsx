@@ -7,6 +7,7 @@ import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLoginButtons from '../../components/landing/RadGradLoginButtons';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
+import { ROLE } from '../../../api/role/Role';
 
 interface INavBarProps {
   currentUser: string;
@@ -20,6 +21,7 @@ class FirstMenu extends React.Component<INavBarProps, object> {
     const radStyle = { fontWeight: 700 };
     const gradStyle = { fontWeight: 400 };
     const imageStyle = { width: '50px' };
+    const showIce = Roles.userIsInRole(Meteor.userId(), [ROLE.STUDENT]);
     return (
       <Menu style={menuStyle} attached="top" borderless={true}>
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
@@ -41,7 +43,7 @@ class FirstMenu extends React.Component<INavBarProps, object> {
             </div>
           ) : (
             <div>
-              <RadGradMenuProfile displayLevelAndIce={false}/>
+              <RadGradMenuProfile displayLevelAndIce={showIce}/>
               <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
                 <Dropdown.Menu>
                   <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
