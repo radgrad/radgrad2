@@ -6,6 +6,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLoginButtons from '../../components/landing/RadGradLoginButtons';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
+import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 
 interface INavBarProps {
   currentUser: string;
@@ -28,20 +29,25 @@ class FirstMenu extends React.Component<INavBarProps, object> {
           </div>
         </Menu.Item>
 
-        <Menu.Item position="right">
+        <Menu.Item position="right"  className="right menu radgrad-menu-profile">
           {this.props.currentUser === '' ? (
-            <Dropdown text="Login" pointing="top right" icon={'user'}>
-              <Dropdown.Menu>
-                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact={true} to="/signin"/>
-                <Dropdown.Item icon="add user" text="Sign Up" as={NavLink} exact={true} to="/signup"/>
-              </Dropdown.Menu>
-            </Dropdown>
+            <div>
+              <Dropdown text="Login" pointing="top right" icon={'user'}>
+                <Dropdown.Menu>
+                  <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact={true} to="/signin"/>
+                  <Dropdown.Item icon="add user" text="Sign Up" as={NavLink} exact={true} to="/signup"/>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           ) : (
-            <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
-              <Dropdown.Menu>
-                <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
-              </Dropdown.Menu>
-            </Dropdown>
+            <div>
+              <RadGradMenuProfile displayLevelAndIce={false}/>
+              <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
+                <Dropdown.Menu>
+                  <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           )}
         </Menu.Item>
       </Menu>
