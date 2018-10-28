@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Grid, Image, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import FirstMenuContainer from '../shared/FirstMenu';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -23,31 +22,25 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 
-interface IAdminHome {
+interface IReady {
   ready: boolean;
 }
-/** A simple static component to render some text for the landing page. */
-class AdminHome extends React.Component<IAdminHome, {}> {
+
+class WithGlobalSubscriptions extends React.Component<IReady, {}> {
+
+  constructor(props) {
+    super(props);
+  }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
+    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting global data</Loader>;
   }
 
   public renderPage() {
     return (
       <div>
-        <FirstMenuContainer/>
-        <Grid verticalAlign="middle" textAlign="center" container={true}>
-
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Admin Home</h1>
-          </Grid.Column>
-
-        </Grid>
+        {this.props.children}
       </div>
     );
   }
@@ -75,7 +68,7 @@ export default withTracker(() => {
   const sub19 = Meteor.subscribe(Users.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready() && sub7.ready() &&
-    sub8.ready() && sub9.ready() && sub10.ready() && sub11.ready() && sub12.ready() && sub13.ready() && sub14.ready() &&
-    sub15.ready() && sub16.ready() && sub17.ready() && sub18.ready() && sub19.ready(),
+      sub8.ready() && sub9.ready() && sub10.ready() && sub11.ready() && sub12.ready() && sub13.ready() && sub14.ready() &&
+      sub15.ready() && sub16.ready() && sub17.ready() && sub18.ready() && sub19.ready(),
   };
-})(AdminHome);
+})(WithGlobalSubscriptions);
