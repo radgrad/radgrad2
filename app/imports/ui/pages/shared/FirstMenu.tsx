@@ -18,10 +18,9 @@ class FirstMenu extends React.Component<INavBarProps, object> {
 
   public render() {
     const menuStyle = { marginBottom: '10px' };
-    const radStyle = { fontWeight: 700 };
-    const gradStyle = { fontWeight: 400 };
     const imageStyle = { width: '50px' };
-    const showIce = Roles.userIsInRole(Meteor.userId(), [ROLE.STUDENT]);
+    const signoutStyle = { marginTop: '32px' };
+    const flexStyle = { display: 'flex' };
     return (
       <Menu style={menuStyle} attached="top" borderless={true}>
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
@@ -31,7 +30,7 @@ class FirstMenu extends React.Component<INavBarProps, object> {
           </div>
         </Menu.Item>
 
-        <Menu.Item position="right"  className="right menu radgrad-menu-profile">
+        <Menu.Item position="right"  className="right menu">
           {this.props.currentUser === '' ? (
             <div>
               <Dropdown text="Login" pointing="top right" icon={'user'}>
@@ -42,9 +41,9 @@ class FirstMenu extends React.Component<INavBarProps, object> {
               </Dropdown>
             </div>
           ) : (
-            <div>
-              <RadGradMenuProfile displayLevelAndIce={showIce}/>
-              <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
+            <div style={flexStyle}>
+              <RadGradMenuProfile/>
+              <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'} style={signoutStyle}>
                 <Dropdown.Menu>
                   <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
                 </Dropdown.Menu>

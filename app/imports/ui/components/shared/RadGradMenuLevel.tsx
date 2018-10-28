@@ -16,9 +16,10 @@ export default class RadGradMenuLevel extends React.Component<IRadGradMenuLevelP
       backgroundRepeat: 'no-prepeat',
       width: '50px',
       height: '50px',
-      margin: '0 5px 0 0',
+      margin: '0px 5px 0 0',
       padding: 0,
       backgroundSize: '100% 100%',
+      display: 'flex',
     };
     return (
       <div style={iconStyle}/>

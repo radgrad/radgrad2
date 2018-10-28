@@ -22,12 +22,16 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 
-interface IReady {
+export interface IReady {
   ready: boolean;
 }
 
 class WithGlobalSubscriptions extends React.Component<IReady, {}> {
 
+  /**
+   * Creates a new WithGlobalSubscriptions instance.
+   * @param props the Properties.
+   */
   constructor(props) {
     super(props);
   }
