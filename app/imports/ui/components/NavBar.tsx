@@ -6,8 +6,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Menu } from 'semantic-ui-react';
 import RadGradLoginButtons from './landing/RadGradLoginButtons';
 
-/* tslint:disable:jsx-no-multiline-js*/
-
 interface INavBarProps {
   currentUser: string;
 }
@@ -30,6 +28,9 @@ class NavBar extends React.Component<INavBarProps, object> {
           <Menu.Item as={NavLink} activeClassName="active" exact={true} to="/admin" key="admin">Admin</Menu.Item>
         ) : ''}
         <Menu.Item position="right">
+          <RadGradLoginButtons/>
+        </Menu.Item>
+        <Menu.Item >
           {this.props.currentUser === '' ? (
             <Dropdown text="Login" pointing="top right" icon={'user'}>
               <Dropdown.Menu>
@@ -44,9 +45,6 @@ class NavBar extends React.Component<INavBarProps, object> {
               </Dropdown.Menu>
             </Dropdown>
           )}
-        </Menu.Item>
-        <Menu.Item>
-          <RadGradLoginButtons/>
         </Menu.Item>
       </Menu>
     );

@@ -206,6 +206,14 @@ class CourseInstanceCollection extends BaseCollection {
   }
 
   /**
+   * Gets the publication names.
+   * @returns {{student: string; perStudentAndSemester: string; publicStudent: string; publicSlugStudent: string; studentID: string}}
+   */
+  public getPublicationNames() {
+    return this.publicationNames;
+  }
+
+  /**
    * Returns the Semester associated with the CourseInstance with the given instanceID.
    * @param instanceID The id of the CourseInstance.
    * @returns {Object} The associated Semester.
