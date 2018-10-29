@@ -1,13 +1,6 @@
 import * as React from 'react';
-<<<<<<< HEAD
-
-import { Link, withRouter } from 'react-router-dom';
-import { Dropdown, Button, Popup } from 'semantic-ui-react';
-import LoginDialog from './LoginDialog';
-=======
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
->>>>>>> 7096d1222f3008c720fa530a7c3b1ca69ea080dc
 
 class RadGradLoginButtons extends React.Component {
   constructor(props) {
@@ -25,7 +18,6 @@ class RadGradLoginButtons extends React.Component {
     const mentorLabel = '... as mentor';
     return (
       <div>
-        <LoginDialog/>
         <Dropdown text={'LOGIN'}>
         <Dropdown.Menu>
           <Dropdown.Item id={'student'} onClick={this.handleClick}>... as student</Dropdown.Item>
