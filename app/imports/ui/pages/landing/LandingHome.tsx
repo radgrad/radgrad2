@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 import LandingNavBarContainer from './LandingNavBar';
+import LandingSection1 from '../../components/landing/LandingSection1';
+import LandingSection2 from '../../components/landing/LandingSection2';
 
 /** A simple static component to render some text for the landing page. */
 class LandingHome extends React.Component {
@@ -8,17 +10,8 @@ class LandingHome extends React.Component {
     return (
       <div>
         <LandingNavBarContainer/>
-        <Grid verticalAlign="middle" textAlign="center" container={true}>
-
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Welcome to RadGrad</h1>
-          </Grid.Column>
-
-        </Grid>
+        <LandingSection1/>
+        <LandingSection2/>
       </div>
     );
   }

@@ -1,14 +1,22 @@
 import * as React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, SemanticCOLORS } from 'semantic-ui-react';
 
-export default class RadGradLogoText extends React.Component {
+interface IRadGradLogoProps {
+  color?: SemanticCOLORS;
+  style?: any;
+}
+
+export default class RadGradLogoText extends React.Component<IRadGradLogoProps> {
+  constructor(props) {
+    super(props);
+  }
   public render() {
-    const radStyle = { fontWeight: 700 };
-    const gradStyle = { fontWeight: 400 };
+    const radStyle = { fontWeight: 700, color: this.props.color };
+    const gradStyle = { fontWeight: 400, color: this.props.color };
     return (
-      <Header as="h2"><span className="radgrad-brand-font" style={radStyle}>RAD</span>
+      <div style={this.props.style}><span className="radgrad-brand-font" style={radStyle}>RAD</span>
         <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>
-      </Header>
+      </div>
     );
   }
 }

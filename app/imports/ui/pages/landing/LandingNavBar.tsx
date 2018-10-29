@@ -14,14 +14,15 @@ interface INavBarProps {
 class LandingNavBar extends React.Component<INavBarProps, object> {
 
   public render() {
-    const menuStyle = { marginBottom: '10px' };
     const imageStyle = { width: '45px' };
     return (
-      <Menu style={menuStyle} attached="top" borderless={true} size="small">
+      <Menu attached="top" borderless={true} size="small">
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">
-            <RadGradLogoText/>
+            <Header as="h2">
+              <RadGradLogoText/>
+            </Header>
           </div>
         </Menu.Item>
         <Menu.Item as={NavLink} exact={true} to="#landing-section-9" position="right">GUIDED TOURS</Menu.Item>

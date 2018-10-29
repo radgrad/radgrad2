@@ -14,12 +14,13 @@ class RadGradLoginButtons extends React.Component {
 
   public render() {
     const adminLabel = '... as admin';
+    const mentorLabel = '... as mentor';
     return (
       <Dropdown text={'LOGIN'}>
         <Dropdown.Menu>
           <Dropdown.Item id={'student'} onClick={this.handleClick}>... as student</Dropdown.Item>
           <Dropdown.Item id={'faculty'} text={'... as faculty'} onClick={this.handleClick}/>
-          <Dropdown.Item id={'mentor'} text={'... as mentor'} onClick={this.handleClick}/>
+          <Dropdown.Item id={'mentor'} as={NavLink} to="/signin" text={mentorLabel}/>
           <Dropdown.Item id={'advisor'} text={'... as advisor'} onClick={this.handleClick}/>
           <Dropdown.Item id={'admin'} as={NavLink} exact={true} to="/signin" text={adminLabel} />
         </Dropdown.Menu>
