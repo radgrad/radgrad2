@@ -197,7 +197,7 @@ export function processBulkStarCsvData(csvData) {
     const emailIndex = _.findIndex(headers, (str) => str === 'Email');
     const firstNameIndex = _.findIndex(headers, (str) => str === 'First Name');
     const lastNameIndex = _.findIndex(headers, (str) => str === 'Last Name');
-    if (_.every([semesterIndex, nameIndex, numberIndex, creditsIndex, gradeIndex, emailIndex, firstNameIndex, lastNameIndex], (num) => num === -1)) { // eslint-disable-line
+    if (_.every([semesterIndex, nameIndex, numberIndex, creditsIndex, gradeIndex, emailIndex, firstNameIndex, lastNameIndex], (num) => num === -1)) {
       throw new Meteor.Error(`Required CSV header field was not found in ${headers}`);
     }
     const filteredData = filterParsedData(parsedData);

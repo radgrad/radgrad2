@@ -249,7 +249,7 @@ class BaseCollection {
    * Returns an array with a string indicating that this method is not overridden.
    * @returns { array } An array containing a string indicating the use of the default integrity checker.
    */
-  public checkIntegrity() {  // eslint-disable-line class-methods-use-this
+  public checkIntegrity() {
     return ['There is no integrity checker defined for this collection.'];
   }
 
@@ -276,7 +276,7 @@ class BaseCollection {
    * @param docID A docID from this collection.
    * @returns { Object } An object representing this document.
    */
-  public dumpOne(docID): IDumpOne { // eslint-disable-line
+  public dumpOne(docID): IDumpOne {
     throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName}`);
   }
 

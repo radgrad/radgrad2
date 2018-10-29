@@ -55,10 +55,10 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     } else {
       // numOtherCourses += 1;
     }
-    definition.fromSTAR = true; // eslint-disable-line
+    definition.fromSTAR = true;
     if (definition.grade === '***' || definition.grade === 'TBD') {
-      definition.grade = 'B';  // eslint-disable-line
-      definition.verified = false; // eslint-disable-line
+      definition.grade = 'B';
+      definition.verified = false;
     }
     if (definition.course !== Courses.unInterestingSlug) {
       // console.log('CourseInstances.define', definition);
@@ -66,8 +66,8 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     }
   });
   let text = 'Uploaded ';
-  for (const key in departments) {  // eslint-disable-line
-    if (departments.hasOwnProperty(key)) {  // eslint-disable-line
+  for (const key in departments) {
+    if (departments.hasOwnProperty(key)) {
       text = `${text} ${departments[key]} ${key}, `;
     }
   }

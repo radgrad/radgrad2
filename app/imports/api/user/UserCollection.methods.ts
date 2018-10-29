@@ -20,7 +20,6 @@ export const updateAcademicPlanMethod = new ValidatedMethod({
       throw new Meteor.Error('unauthorized', 'You must be logged in to dump the database..');
     } else
       if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT])) {
-        // eslint-disable-next-line
         throw new Meteor.Error('unauthorized', 'You must be an admin, advisor, or student to update the academic plan.');
       }
     // Don't update except on server side (disable client-side simulation).

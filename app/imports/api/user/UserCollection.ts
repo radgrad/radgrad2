@@ -13,8 +13,6 @@ import { StudentProfiles } from './StudentProfileCollection';
 import { MentorProfiles } from './MentorProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
 
-/* eslint-disable class-methods-use-this */
-
 /**
  * Represents a user, which is someone who has a Meteor account.
  *
@@ -30,7 +28,7 @@ import { FacultyProfiles } from './FacultyProfileCollection';
  * @memberOf api/user
  */
 class UserCollection {
-  private collectionName: string;
+  private readonly collectionName: string;
 
   constructor() {
     this.collectionName = 'UserCollection';
@@ -80,7 +78,7 @@ class UserCollection {
     const minLength = 6;
     const passwordLength = Math.floor(Math.random() * (maxLength - (minLength + 1))) + minLength;
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < passwordLength; i++) { // eslint-disable-line no-plusplus
+    for (let i = 0; i < passwordLength; i++) {
       password += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return password;

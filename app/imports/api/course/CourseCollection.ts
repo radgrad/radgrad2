@@ -6,7 +6,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICourseDefine, ICourseUpdate } from "../../typings/radgrad";
+import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a specific course, such as "ICS 311".
@@ -154,13 +154,13 @@ class CourseCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const docID = this.getID(instance);
     // Check that this is not referenced by any Course Instance.
-    CourseInstances.find().map((courseInstance) => {  // eslint-disable-line array-callback-return
+    CourseInstances.find().map((courseInstance) => {
       if (courseInstance.courseID === docID) {
         throw new Meteor.Error(`Course ${instance} is referenced by a course instance ${courseInstance}.`);
       }
     });
     // OK to delete. First remove any Feeds that reference this course.
-    Feeds.find({ courseID: docID }).map((feed) => { // eslint-disable-line array-callback-return
+    Feeds.find({ courseID: docID }).map((feed) => {
       Feeds.removeIt(feed._id);
     });
     // Now remove the Course.

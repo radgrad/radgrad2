@@ -94,7 +94,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * Returns an empty array (no integrity checking done on this collection.)
    * @returns {Array} An empty array.
    */
-  public checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity() {
     const problems = [];
     return problems;
   }

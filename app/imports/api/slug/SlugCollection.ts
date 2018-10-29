@@ -64,7 +64,7 @@ class SlugCollection extends BaseCollection {
    * @param slugName The slug name.
    * @returns {boolean} True if it's OK.
    */
-  public isValidSlugName(slugName: string) {  // eslint-disable-line
+  public isValidSlugName(slugName: string) {
     const slugRegEx = new RegExp('^[a-zA-Z0-9@.]+(?:[_-][a-zA-Z0-9@.]+)*$');
     return (typeof slugName === 'string') && slugName.length > 0 && slugRegEx.test(slugName);
   }
@@ -157,7 +157,7 @@ class SlugCollection extends BaseCollection {
    * Returns an empty array (no integrity checking done on Slugs.)
    * @returns {Array} An empty array.
    */
-  public checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity() {
     return [];
   }
 

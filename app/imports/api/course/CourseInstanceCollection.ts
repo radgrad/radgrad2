@@ -303,7 +303,7 @@ class CourseInstanceCollection extends BaseCollection {
             return instance.collection.find({ studentID, semesterID });
           });
       // tslint:disable-next-line: ter-prefer-arrow-callback
-      Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {  // eslint-disable-line
+      Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
         return instance.collection.find({}, { fields: { studentID: 1, semesterID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback

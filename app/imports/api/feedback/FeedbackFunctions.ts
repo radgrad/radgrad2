@@ -113,7 +113,6 @@ export class FeedbackFunctionClass {
           _.forEach(slugs, (s) => {
             const id = Slugs.getEntityID(planUtils.stripCounter(s), 'Course');
             const course = Courses.findDoc(id);
-            // eslint-disable-next-line max-len
             description = `${description} [${course.num} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
           });
           description = description.substring(0, description.length - 4);
@@ -208,7 +207,6 @@ export class FeedbackFunctionClass {
         const course = courseUtils.chooseBetween(slug, user, coursesTakenSlugs);
         if (course) {
           const courseSlug = Slugs.findDoc(course.slugID);
-          // eslint-disable-next-line max-len
           description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
         }
       } else
@@ -216,14 +214,12 @@ export class FeedbackFunctionClass {
           const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
           if (bestChoice) {
             const cSlug = Slugs.findDoc(bestChoice.slugID);
-            // eslint-disable-next-line max-len
             description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
           }
         } else
           if (slug.startsWith('ics')) {
             const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
             const course = Courses.findDoc(courseID);
-            // eslint-disable-next-line max-len
             description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
           }
       const definitionData = { user, functionName, description, feedbackType };
@@ -259,7 +255,6 @@ export class FeedbackFunctionClass {
         let description = 'Consider taking the following classes to meet the degree requirement: ';
         _.forEach(bestChoices, (course) => {
           const slug = Slugs.findDoc(course.slugID);
-          // eslint-disable-next-line max-len
           description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
         });
         description = description.substring(0, description.length - 2);
@@ -326,11 +321,9 @@ export class FeedbackFunctionClass {
     let description = 'Getting to the next Level: ';
     switch (studentProfile.level) {
       case 0:
-        // eslint-disable-next-line max-len
         description = `${description} Take and pass [ICS 111](${basePath}explorer/courses/ics111) and [ICS 141](${basePath}explorer/courses/ics141)`;
         break;
       case 1:
-        // eslint-disable-next-line max-len
         description = `${description} Take and pass [ICS 211](${basePath}explorer/courses/ics211) and [ICS 241](${basePath}explorer/courses/ics241)`;
         break;
       case 2:
@@ -340,11 +333,9 @@ export class FeedbackFunctionClass {
         description = `${description} Get some more innovation and experience [ICE points](${basePath}home/ice)`;
         break;
       case 4:
-        // eslint-disable-next-line max-len
         description = `${description} Get some more innovation and experience [ICE points](${basePath}home/ice) and go review something.`;
         break;
       case 5:
-        // eslint-disable-next-line max-len
         description = `${description} Get some more innovation and experience [ICE points](${basePath}home/ice) and do more reviews.`;
         break;
       default:

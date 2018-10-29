@@ -43,7 +43,7 @@ class IceSnapshotCollection extends BaseCollection {
    * Returns an empty array if no problems were found.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
-  public checkIntegrity() { // eslint-disable-line class-methods-use-this
+  public checkIntegrity() {
     const problems = [];
     this.find({}, {}).forEach((doc) => {
       if (!Users.isDefined(doc.username)) {

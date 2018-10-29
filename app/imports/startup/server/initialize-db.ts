@@ -134,7 +134,7 @@ function generateAdminCredential() {
   const minPasswordLength = 6;
   const passwordLength = Math.floor(Math.random() * (maxPasswordLength - (minPasswordLength + 1))) + minPasswordLength;
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < passwordLength; i++) { // eslint-disable-line no-plusplus
+  for (let i = 0; i < passwordLength; i++) {
     credential += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return credential;

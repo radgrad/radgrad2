@@ -159,7 +159,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
         numCourses += n;
       });
       if (doc.courseList.length !== numCourses) {
-        problems.push(`Mismatch between courseList.length ${doc.courseList.length} and sum of coursesPerSemester ${numCourses}`); // eslint-disable-line
+        problems.push(`Mismatch between courseList.length ${doc.courseList.length} and sum of coursesPerSemester ${numCourses}`);
       }
     });
     return problems;

@@ -1,6 +1,8 @@
 import * as React from 'react';
+
 import { Link, withRouter } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Button, Popup } from 'semantic-ui-react';
+import LoginDialog from './LoginDialog';
 
 class RadGradLoginButtons extends React.Component {
   constructor(props) {
@@ -10,11 +12,14 @@ class RadGradLoginButtons extends React.Component {
 
   private handleClick(e) {
     console.log(e.target.parentNode.id);
+    console.log('show');
   }
 
   public render() {
     return (
-      <Dropdown text={'LOGIN'}>
+      <div>
+        <LoginDialog/>
+        <Dropdown text={'LOGIN'}>
         <Dropdown.Menu>
           <Dropdown.Item id={'student'} text={'... as student'} onClick={this.handleClick}/>
           <Dropdown.Item id={'faculty'} text={'... as faculty'} onClick={this.handleClick}/>
@@ -23,6 +28,7 @@ class RadGradLoginButtons extends React.Component {
           <Dropdown.Item id={'admin'} text={'... as admin'} onClick={this.handleClick}/>
         </Dropdown.Menu>
       </Dropdown>
+      </div>
     );
   }
 }
