@@ -2,7 +2,6 @@ import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import 'semantic-ui-css/semantic.css';
 import '/public/semantic.min.css';
 import Footer from '../components/Footer';
 import AddStuff from '../pages/AddStuff';

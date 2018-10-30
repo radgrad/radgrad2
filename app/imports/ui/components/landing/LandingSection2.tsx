@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Loader } from 'semantic-ui-react';
-import RadGradLogoText from '../shared/RadGradLogoText';
+import RadGradLogoTextQ from '../shared/RadGradLogoTextQ';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import styles from './landing-styles';
 
 interface ILandingSection2Props {
   careerGoals?: number;
@@ -25,14 +26,14 @@ class LandingSection2 extends React.Component<ILandingSection2Props, {}> {
 
   public renderPage() {
     const noMarginTopStyle = { marginTop: '0px' };
-    const flexStyle = { display: 'flex' };
+    const inlineStyle = { display: 'flex' };
     return (
-      <div className="header-section">
+      <div style={styles['header-section']}>
         <Grid stackable={true}>
           <Grid.Column width={3}/>
-          <Grid.Column width={5}>
-            <Header as="h1" className="header-text">Why use <span style={flexStyle}><RadGradLogoText/>?</span></Header>
-            <p className="header-description">
+          <Grid.Column width={5} textAlign={'right'}>
+            <Header as="h1" style={styles['header-text']}>Why use <RadGradLogoTextQ/></Header>
+            <p style={styles['header-description']}>
               <b>Discover</b> your interests. <br/>
               <b>Build</b> your community. <br/>
               <b>Strengthen</b> your preparation. <br/>
@@ -42,7 +43,7 @@ class LandingSection2 extends React.Component<ILandingSection2Props, {}> {
           </Grid.Column>
           <Grid.Column width={5} verticalAlign={'middle'}>
             <div className="ui huge horizontal statistics landing-stats" style={noMarginTopStyle}>
-              <div className="green statistic">
+              <div className="green statistic" style={styles['landing-stats > .statistic']}>
                 <div className="value">
                   {this.props.careerGoals}
                 </div>
