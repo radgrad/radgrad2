@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Loader } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IReady } from './WithGlobalSubscriptions';
+import { ILoading } from './WithGlobalSubscriptions';
 
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
@@ -15,7 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 
-class WithInstanceSubscriptions extends React.Component<IReady, {}> {
+class WithInstanceSubscriptions extends React.Component<ILoading, {}> {
   /**
    * Creates a new WithInstanceSubscriptions Component.
    * @param props the Properties.
@@ -26,7 +26,7 @@ class WithInstanceSubscriptions extends React.Component<IReady, {}> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting global data</Loader>;
+    return (this.props.loading) ? <Loader active={true}>Getting global data</Loader> : this.renderPage();
   }
 
   public renderPage() {
@@ -54,6 +54,6 @@ export default withTracker(() => {
   handles.push(Meteor.subscribe(VerificationRequests.getPublicationName()));
 
   return {
-    ready: !handles.some((handle) => !handle.ready()),
+    ready: handles.some((handle) => !handle.ready()),
   };
 })(WithInstanceSubscriptions);

@@ -22,11 +22,11 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 
-export interface IReady {
-  ready: boolean;
+export interface ILoading {
+  loading: boolean;
 }
 
-class WithGlobalSubscriptions extends React.Component<IReady, {}> {
+class WithGlobalSubscriptions extends React.Component<ILoading, {}> {
 
   /**
    * Creates a new WithGlobalSubscriptions instance.
@@ -38,7 +38,7 @@ class WithGlobalSubscriptions extends React.Component<IReady, {}> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting global data</Loader>;
+    return (this.props.loading) ? <Loader active={true}>Getting global data</Loader> : this.renderPage();
   }
 
   public renderPage() {
@@ -74,6 +74,6 @@ export default withTracker(() => {
     Meteor.subscribe(Users.getPublicationName()),
   ];
   return {
-    ready: !handles.some((handle) => !handle.ready()),
+    loading: handles.some((handle) => !handle.ready()),
   };
 })(WithGlobalSubscriptions);
