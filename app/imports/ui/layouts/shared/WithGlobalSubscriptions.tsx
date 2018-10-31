@@ -50,29 +50,30 @@ class WithGlobalSubscriptions extends React.Component<IReady, {}> {
   }
 }
 
+// Idea from https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
-  const sub1 = Meteor.subscribe(AcademicPlans.getPublicationName());
-  const sub2 = Meteor.subscribe(AdvisorProfiles.getPublicationName());
-  const sub3 = Meteor.subscribe(CareerGoals.getPublicationName());
-  const sub4 = Meteor.subscribe(Courses.getPublicationName());
-  const sub5 = Meteor.subscribe(DesiredDegrees.getPublicationName());
-  const sub6 = Meteor.subscribe(FacultyProfiles.getPublicationName());
-  const sub7 = Meteor.subscribe(HelpMessages.getPublicationName());
-  const sub8 = Meteor.subscribe(Interests.getPublicationName());
-  const sub9 = Meteor.subscribe(InterestTypes.getPublicationName());
-  const sub10 = Meteor.subscribe(MentorProfiles.getPublicationName());
-  const sub11 = Meteor.subscribe(Opportunities.getPublicationName());
-  const sub12 = Meteor.subscribe(OpportunityTypes.getPublicationName());
-  const sub13 = Meteor.subscribe(PlanChoices.getPublicationName());
-  const sub14 = Meteor.subscribe(Reviews.getPublicationName());
-  const sub15 = Meteor.subscribe(Semesters.getPublicationName());
-  const sub16 = Meteor.subscribe(StudentProfiles.getPublicationName());
-  const sub17 = Meteor.subscribe(Slugs.getPublicationName());
-  const sub18 = Meteor.subscribe(Teasers.getPublicationName());
-  const sub19 = Meteor.subscribe(Users.getPublicationName());
+  const handles = [
+    Meteor.subscribe(AcademicPlans.getPublicationName()),
+    Meteor.subscribe(AdvisorProfiles.getPublicationName()),
+    Meteor.subscribe(CareerGoals.getPublicationName()),
+    Meteor.subscribe(Courses.getPublicationName()),
+    Meteor.subscribe(DesiredDegrees.getPublicationName()),
+    Meteor.subscribe(FacultyProfiles.getPublicationName()),
+    Meteor.subscribe(HelpMessages.getPublicationName()),
+    Meteor.subscribe(Interests.getPublicationName()),
+    Meteor.subscribe(InterestTypes.getPublicationName()),
+    Meteor.subscribe(MentorProfiles.getPublicationName()),
+    Meteor.subscribe(Opportunities.getPublicationName()),
+    Meteor.subscribe(OpportunityTypes.getPublicationName()),
+    Meteor.subscribe(PlanChoices.getPublicationName()),
+    Meteor.subscribe(Reviews.getPublicationName()),
+    Meteor.subscribe(Semesters.getPublicationName()),
+    Meteor.subscribe(StudentProfiles.getPublicationName()),
+    Meteor.subscribe(Slugs.getPublicationName()),
+    Meteor.subscribe(Teasers.getPublicationName()),
+    Meteor.subscribe(Users.getPublicationName()),
+  ];
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready() && sub7.ready() &&
-      sub8.ready() && sub9.ready() && sub10.ready() && sub11.ready() && sub12.ready() && sub13.ready() && sub14.ready() &&
-      sub15.ready() && sub16.ready() && sub17.ready() && sub18.ready() && sub19.ready(),
+    ready: !handles.some((handle) => !handle.ready()),
   };
 })(WithGlobalSubscriptions);
