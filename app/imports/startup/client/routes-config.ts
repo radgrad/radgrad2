@@ -5,7 +5,7 @@
 import AdminHome from '../../ui/pages/admin/AdminHome';
 import AdvisorHome from '../../ui/pages/advisor/AdvisorHome';
 import FacultyHome from '../../ui/pages/faculty/FacultyHome';
-import LandingHome from '../../ui/pages/landing/LandingHome';
+import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
 import MentorHome from '../../ui/pages/mentor/MentorHome';
 import StudentHome from '../../ui/pages/student/StudentHome';
 
@@ -31,7 +31,7 @@ export const routes = {
   LANDING: [
     {
       path: '/',
-      component: LandingHome,
+      component: LandingHomeContainer,
     },
   ],
   MENTOR: [

@@ -6,11 +6,8 @@ import styles from './landing-styles';
 
 // import './landing-section-1.css';
 
-class LandingSection1 extends React.Component {
-  public render() {
-    const headerStyle = { fontSize: '72px', display: 'inline' };
-    const mainDescriptionStyle = { color: 'rgba(255,255,255,.7)', fontSize: '20px' };
-    return (
+const headerStyle = { fontSize: '72px', display: 'inline' };
+const LandingSection1 = () => (
       <div id="landing-section-1" style={styles['inverted-section']}>
         <Container textAlign={'center'}>
           <Header as="h1" inverted={true} style={styles['inverted-main-header']}>Welcome to <span color="green"><RadGradLogoText color={'green'} style={headerStyle}/></span></Header>
@@ -128,8 +125,6 @@ class LandingSection1 extends React.Component {
           </Card.Group>
         </Container>
       </div>
-    );
-  }
-}
+);
 
 export default LandingSection1;

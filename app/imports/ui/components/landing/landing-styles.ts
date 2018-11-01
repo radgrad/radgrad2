@@ -5,7 +5,7 @@ export default {
   'inverted-section': {
     backgroundColor: 'rgba(0,0,0,.8)',
     paddingTop: 68,
-    paddingBottom: 9,
+    paddingBottom: 70,
     marginTop: 0,
   },
   'inverted-main-header': {
@@ -31,7 +31,7 @@ export default {
     paddingBottom: '5rem',
   },
   'landing-section-4, landing-section-6, landing-section-8': {
-    paddingTop: 68,
+    paddingTop: 9,
     paddingBottom: 9,
     backgroundColor: '#f7f7f7',
   },

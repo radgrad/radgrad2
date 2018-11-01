@@ -6,69 +6,33 @@ import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import styles from './landing-styles';
 
 interface ILandingSection3Props {
-  careerGoals?: number;
-  interests?: number;
-  degrees?: number;
-  ready?: boolean;
+  careerGoals: number;
+  interests: number;
+  degrees: number;
 }
 
-class LandingSection3 extends React.Component<ILandingSection3Props, {}> {
-  constructor(props) {
-    super(props);
-  }
+const LandingSection3 = (props: ILandingSection3Props) => (
+  <div id="landing-section-3" style={styles['inverted-section']}>
+    <Container>
+      <Grid textAlign={'center'} padded={true} stackable={true} columns={2} style={styles.container}>
+        <Grid.Column>
+          <Image rounded={true} src="/images/landing/abi-about-me.png"/>
+        </Grid.Column>
+        <Grid.Column>
+          <Header as="h1" style={styles['inverted-header']}>Specify your degree, career goals, and
+            interests</Header>
+          <p style={styles['inverted-description']}>Getting started with RadGrad is easy. Just meet with your
+            advisor, and they will set up your account and answer your questions.</p>
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
-  }
+          <p style={styles['inverted-description']}>To start, you'll select one of
+            the <strong>{props.degrees}</strong> <a href="/">degree programs</a>, one out
+            of <strong>{props.careerGoals}</strong> <a href="/">career directions</a>, and a few of
+            the <strong>{props.interests}</strong> <a href="/">interest areas</a>. Don't worry, you can change
+            them later!</p>
+        </Grid.Column>
+      </Grid>
+    </Container>
+  </div>
+);
 
-  public renderPage() {
-    return (
-      <div id="landing-section-3" style={styles['inverted-section']}>
-        <Container>
-          <Grid textAlign={'center'} padded={true} stackable={true} columns={2} style={styles.container}>
-            <Grid.Column>
-              <Image rounded={true} src="/images/landing/abi-about-me.png"/>
-            </Grid.Column>
-            <Grid.Column>
-              <Header as="h1" style={styles['inverted-header']}>Specify your degree, career goals, and
-                interests</Header>
-              <p style={styles['inverted-description']}>Getting started with RadGrad is easy. Just meet with your
-                advisor, and they will set up your account and answer your questions.</p>
-
-              <p style={styles['inverted-description']}>To start, you'll select one of
-                the <strong>{this.props.degrees}</strong> <a href="/">degree programs</a>, one out
-                of <strong>{this.props.careerGoals}</strong> <a href="/">career directions</a>, and a few of
-                the <strong>{this.props.interests}</strong> <a href="/">interest areas</a>. Don't worry, you can change
-                them later!</p>
-            </Grid.Column>
-          </Grid>
-        </Container>
-      </div>
-    );
-  }
-}
-
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
-  // Get access to Stuff documents.
-  const subscription = Meteor.subscribe(PublicStats.getCollectionName());
-  let key;
-  let interests;
-  let degrees;
-  let careerGoals;
-  if (subscription.ready()) {
-    key = PublicStats.interestsTotalKey;
-    interests = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.desiredDegreesTotalKey;
-    degrees = PublicStats.findDoc({ key }).value;
-    key = 'careerGoalsTotal';
-    careerGoals = PublicStats.findDoc({ key }).value;
-  }
-  return {
-    ready: subscription.ready(),
-    careerGoals,
-    interests,
-    degrees,
-  };
-})(LandingSection3);
+export default LandingSection3;

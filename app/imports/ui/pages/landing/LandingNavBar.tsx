@@ -25,7 +25,7 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
             </Header>
           </div>
         </Menu.Item>
-        <Menu.Item as={NavLink} exact={true} to="#landing-section-9" position="right">GUIDED TOURS</Menu.Item>
+        <Menu.Item as={NavLink} exact={true} to="/#landing-section-9" position="right">GUIDED TOURS</Menu.Item>
         <Menu.Item>
           {this.props.currentUser === '' ? (
             <div>
