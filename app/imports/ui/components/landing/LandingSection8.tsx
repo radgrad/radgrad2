@@ -21,13 +21,11 @@ const LandingSection8 = (props: ILandingSection8Props) => (
           </p>
           <p style={styles['header-description']}>
             During your time as a student, you can provide advice about courses you've already taken to those coming
-            after you. Students have contributed <strong
-            style={styles['green-text']}>{props.courseReviews}</strong> course reviews so far.
+            after you. Students have contributed <strong style={styles['green-text']}>{props.courseReviews}</strong> course reviews so far.
           </p>
           <p style={styles['header-description']}>
             After you graduate, you can become a mentor, and answer student questions about life after graduation
-            and how to best prepare for it. We have <strong
-            style={styles['green-text']}>{props.mentors}</strong> mentors from locations
+            and how to best prepare for it. We have <strong style={styles['green-text']}>{props.mentors}</strong> mentors from locations
             including: <strong style={styles['green-text']}>{props.locations}</strong>.
           </p>
         </Grid.Column>
