@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import * as scrollToComponent from 'react-scroll-to-component';
 import { Button, Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradLoginButtons from '../../components/landing/RadGradLoginButtons';

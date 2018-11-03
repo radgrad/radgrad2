@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Button, Card, Container, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { NavLink, withRouter } from 'react-router-dom';
 import styles from './landing-styles';
 
 const paddingStyle = {
@@ -33,8 +34,8 @@ class LandingSection9 extends React.Component<ILandingSection9Props> {
               <Card.Group stackable={true} itemsPerRow={4} style={paddingStyle}>
                 <Card style={noBoxShadowStyle}>
                   <Image src="/images/landing/students.jpg"/>
-                  <Button attached="bottom" className="ui bottom attached button"
-                          href="{{pathFor studentGuidedTourPageRouteName}}">
+                  <Button as={NavLink} attached="bottom"
+                          to="/guidedtour/student">
                     Students
                     <Icon name={'chevron right'}/>
                   </Button>
@@ -44,7 +45,7 @@ class LandingSection9 extends React.Component<ILandingSection9Props> {
                   <div className="image">
                     <Image src="/images/landing/advisor.png"/>
                   </div>
-                  <Button attached="bottom" href="{{pathFor advisorGuidedTourPageRouteName}}">
+                  <Button as={NavLink} attached="bottom" to="/guidedtour/advisor">
                     Advisors
                     <Icon name={'chevron right'}/>
                   </Button>
@@ -54,8 +55,8 @@ class LandingSection9 extends React.Component<ILandingSection9Props> {
                   <div className="image">
                     <Image src="/images/landing/ics-faculty-group.png"/>
                   </div>
-                  <Button attached="bottom" className="ui bottom attached button"
-                          href="{{pathFor facultyGuidedTourPageRouteName}}">
+                  <Button as={NavLink} attached="bottom"
+                          to="/guidedtour/faculty">
                     Faculty
                     <Icon name={'chevron right'}/>
                   </Button>
@@ -65,8 +66,8 @@ class LandingSection9 extends React.Component<ILandingSection9Props> {
                   <div className="image">
                     <Image src="/images/landing/nagashima.jpg"/>
                   </div>
-                  <Button attached="bottom" className="ui bottom attached button"
-                          href="{{pathFor mentorGuidedTourPageRouteName}}">
+                  <Button as={NavLink} attached="bottom"
+                          to="/guidedtour/mentor">
                     Mentors
                     <Icon name={'chevron right'}/>
                   </Button>
@@ -82,4 +83,5 @@ class LandingSection9 extends React.Component<ILandingSection9Props> {
   }
 }
 
-export default LandingSection9;
+const LandingSection9Container = withRouter(LandingSection9); // CAM: should this be LandingSection9Container?
+export default LandingSection9Container;

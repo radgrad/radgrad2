@@ -3,11 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
-import Footer from '../components/Footer';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
@@ -18,35 +13,31 @@ import { routes } from '../../startup/client/routes-config';
 class App extends React.Component {
   public render() {
     return (
-        <Router>
-          <div>
-            <Switch>
-              {routes.LANDING.map((route, i) => (
-                <Route exact={true} key={i} {...route} />
-              ))}
-              {routes.ADMIN.map((route, i) => (
-                <AdminProtectedRoute key={i} {...route} />
-              ))}
-              {routes.ADVISOR.map((route, i) => (
-                <AdvisorProtectedRoute key={i} {...route} />
-              ))}
-              {routes.FACULTY.map((route, i) => (
-                <FacultyProtectedRoute key={i} {...route} />
-              ))}
-              {routes.MENTOR.map((route, i) => (
-                <MentorProtectedRoute key={i} {...route} />
-              ))}
-              {routes.STUDENT.map((route, i) => (
-                <StudentProtectedRoute key={i} {...route} />
-              ))}
-              <Route path="/signin" component={Signin}/>
-              <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-              <AdminProtectedRoute exact={true}  path="/admin" component={ListStuffAdmin}/>
-              <ProtectedRoute path="/signout" component={Signout}/>
-              <Route component={NotFound}/>
-            </Switch>
-          </div>
-        </Router>
+      <Router>
+        <Switch>
+          {routes.LANDING.map((route, i) => (
+            <Route exact={true} key={i} {...route} />
+          ))}
+          {routes.ADMIN.map((route, i) => (
+            <AdminProtectedRoute key={i} {...route} />
+          ))}
+          {routes.ADVISOR.map((route, i) => (
+            <AdvisorProtectedRoute key={i} {...route} />
+          ))}
+          {routes.FACULTY.map((route, i) => (
+            <FacultyProtectedRoute key={i} {...route} />
+          ))}
+          {routes.MENTOR.map((route, i) => (
+            <MentorProtectedRoute key={i} {...route} />
+          ))}
+          {routes.STUDENT.map((route, i) => (
+            <StudentProtectedRoute key={i} {...route} />
+          ))}
+          <Route path="/signin" component={Signin}/>
+          <ProtectedRoute path="/signout" component={Signout}/>
+          <Route component={NotFound}/>
+        </Switch>
+      </Router>
     );
   }
 }
@@ -62,9 +53,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
     render={(props) => {
       const isLogged = Meteor.userId() !== null;
       return isLogged ?
-          (<Component {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-      );
+        (<Component {...props} />) :
+        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+        );
     }}
   />
 );
@@ -75,17 +66,17 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
  * @param {any} { component: Component, ...rest }
  */
 const AdminProtectedRoute = ({ component: Component, ...rest }) => (
-    <Route
-        {...rest}
-        render={(props) => {
-          const isLogged = Meteor.userId() !== null;
-          const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
-          return (isLogged && isAdmin) ?
-              (<Component {...props} />) :
-              (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-              );
-        }}
-    />
+  <Route
+    {...rest}
+    render={(props) => {
+      const isLogged = Meteor.userId() !== null;
+      const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
+      return (isLogged && isAdmin) ?
+        (<Component {...props} />) :
+        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+        );
+    }}
+  />
 );
 
 const AdvisorProtectedRoute = ({ component: Component, ...rest }) => (

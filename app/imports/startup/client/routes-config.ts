@@ -6,8 +6,12 @@ import AdminHome from '../../ui/pages/admin/AdminHome';
 import AdvisorHome from '../../ui/pages/advisor/AdvisorHome';
 import FacultyHome from '../../ui/pages/faculty/FacultyHome';
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
+import GuidedTourStudent from '../../ui/pages/landing/GuidedTourStudent';
 import MentorHome from '../../ui/pages/mentor/MentorHome';
 import StudentHome from '../../ui/pages/student/StudentHome';
+import GuidedTourAdvisor from '../../ui/pages/landing/GuidedTourAdvisor';
+import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
+import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
 
 export const routes = {
   ADMIN: [
@@ -32,6 +36,22 @@ export const routes = {
     {
       path: '/',
       component: LandingHomeContainer,
+    },
+    {
+      path: '/guidedtour/student',
+      component: GuidedTourStudent,
+    },
+    {
+      path: '/guidedtour/advisor',
+      component: GuidedTourAdvisor,
+    },
+    {
+      path: '/guidedtour/faculty',
+      component: GuidedTourFaculty,
+    },
+    {
+      path: '/guidedtour/mentor',
+      component: GuidedTourMentor,
     },
   ],
   MENTOR: [

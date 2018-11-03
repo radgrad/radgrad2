@@ -13,7 +13,7 @@ import LandingSection6 from '../../components/landing/LandingSection6';
 import LandingSection7 from '../../components/landing/LandingSection7';
 import LandingSection8 from '../../components/landing/LandingSection8';
 import Footer from '../../components/landing/Footer';
-import LandingSection9 from '../../components/landing/LandingSection9';
+import LandingSection9Container from '../../components/landing/LandingSection9';
 
 interface ILandingHomeProps {
   careerGoalNames: string[];
@@ -64,9 +64,7 @@ class LandingHome extends React.Component<ILandingHomeProps> {
         <LandingSection7 careerGoalNames={this.props.careerGoalNames}/>
         <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
                          mentors={this.props.mentors}/>
-        <div ref={(el) => this.Section9 = el}>
-          <LandingSection9 ref={this.Section9}/>
-        </div>
+        <LandingSection9Container/>
         <Footer/>
       </div>
     );
