@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
+import { Button, Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import LandingNavBarContainer from './LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
@@ -36,6 +36,8 @@ interface ILandingHomeProps {
 
 /** A simple static component to render some text for the landing page. */
 class LandingHome extends React.Component<ILandingHomeProps> {
+  private Section9: any;
+
   constructor(props) {
     super(props);
   }
@@ -48,16 +50,23 @@ class LandingHome extends React.Component<ILandingHomeProps> {
   public renderPage() {
     return (
       <div>
-        <LandingNavBarContainer/>
+        <LandingNavBarContainer scrollToRef={this.Section9}/>
         <LandingSection1/>
-        <LandingSection2 careerGoals={this.props.careerGoals} interests={this.props.interests} opportunities={this.props.opportunities} users={this.props.users} />
-        <LandingSection3 careerGoals={this.props.careerGoals} degrees={this.props.degrees} interests={this.props.interests} />
+        <LandingSection2 careerGoals={this.props.careerGoals} interests={this.props.interests}
+                         opportunities={this.props.opportunities} users={this.props.users}/>
+        <LandingSection3 careerGoals={this.props.careerGoals} degrees={this.props.degrees}
+                         interests={this.props.interests}/>
         <LandingSection4 opportunities={this.props.opportunities}/>
         <LandingSection5/>
-        <LandingSection6 levelOne={this.props.levelOne} levelTwo={this.props.levelTwo} levelThree={this.props.levelThree} levelFour={this.props.levelFour} levelFive={this.props.levelFive} levelSix={this.props.levelSix} />
+        <LandingSection6 levelOne={this.props.levelOne} levelTwo={this.props.levelTwo}
+                         levelThree={this.props.levelThree} levelFour={this.props.levelFour}
+                         levelFive={this.props.levelFive} levelSix={this.props.levelSix}/>
         <LandingSection7 careerGoalNames={this.props.careerGoalNames}/>
-        <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations} mentors={this.props.mentors}/>
-        <LandingSection9/>
+        <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
+                         mentors={this.props.mentors}/>
+        <div ref={(el) => this.Section9 = el}>
+          <LandingSection9 ref={this.Section9}/>
+        </div>
         <Footer/>
       </div>
     );

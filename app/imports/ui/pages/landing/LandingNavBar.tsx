@@ -2,9 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
+import * as scrollToComponent from 'react-scroll-to-component';
+import { Button, Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradLoginButtons from '../../components/landing/RadGradLoginButtons';
+import LandingSection9 from '../../components/landing/LandingSection9';
 
 interface INavBarProps {
   currentUser: string;
@@ -12,6 +14,15 @@ interface INavBarProps {
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class LandingNavBar extends React.Component<INavBarProps, object> {
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  public onClick() {
+    const el = document.getElementById('landing-section-9');
+    window.scrollTo(0, el.offsetTop);
+  }
 
   public render() {
     const imageStyle = { width: '45px' };
@@ -25,7 +36,7 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
             </Header>
           </div>
         </Menu.Item>
-        <Menu.Item as={NavLink} exact={true} to="/#landing-section-9" position="right">GUIDED TOURS</Menu.Item>
+        <Menu.Item  position="right"><Button onClick={this.onClick}>GUIDED TOURS</Button></Menu.Item>
         <Menu.Item>
           {this.props.currentUser === '' ? (
             <div>
