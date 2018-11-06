@@ -75,6 +75,7 @@ class GuidedTourStudent extends React.Component<IGuidedTourStudentProps> {
               <WhatsNext/>
             </Slider>
           </Segment>
+          <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
         </Container>
         <Footer/>
       </div>
