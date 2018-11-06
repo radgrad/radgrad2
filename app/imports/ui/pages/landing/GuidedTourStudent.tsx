@@ -1,21 +1,41 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { NavLink, withRouter } from 'react-router-dom';
+import { Container, Grid, Header, Image, List, Segment } from 'semantic-ui-react';
+import Slider from 'react-slick';
+import styles from './guidedtour-style';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Footer from '../../components/landing/Footer';
+import WhyRadGrad from '../../components/guidedtour/student/why-radgrad';
+import SetUp from '../../components/guidedtour/student/set-up';
+import Interests from '../../components/guidedtour/student/interests';
 
-const GuidedTourStudent = () => (
-  <div>
-    <Grid verticalAlign="middle" textAlign="center" container={true}>
+const GuidedTourStudent = () => {
 
-      <Grid.Column width={4}>
-        <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-      </Grid.Column>
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+  };
 
-      <Grid.Column width={8}>
-        <h1>Guided Tour Student</h1>
-      </Grid.Column>
-
-    </Grid>
-  </div>
-
-);
+  return (
+    <div style={styles.background}>
+      <Container textAlign="center">
+        <Segment padded={true} style={styles.background}>
+          <Slider {...settings}>
+            <WhyRadGrad/>
+            <SetUp/>
+            <Interests interests={65}/>
+            <div>2</div>
+            <div>3</div>
+          </Slider>
+        </Segment>
+      </Container>
+    </div>
+  );
+};
 
 export default GuidedTourStudent;
