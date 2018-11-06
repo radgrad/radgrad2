@@ -39,7 +39,7 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
     const pictureSrc = (this.props.userProfile.picture) ? this.props.userProfile.picture : '/images/default-profile-picture.png';
     return (
       <div style={flexStyle}>
-        {this.props.displayLevelAndIce === true ? (
+        {this.props.displayLevelAndIce ? (
           <div style={flexStyle}>
             <RadGradMenuLevel level={this.props.level}/>
             <MenuIceCircle earned={this.props.earnedICE.i} planned={this.props.projectedICE.i} type="innov"/>
