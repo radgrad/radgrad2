@@ -65,5 +65,6 @@ const LandingSection9 = () => (
   </div>
 );
 
-const LandingSection9Container = withRouter(LandingSection9); // CAM: should this be LandingSection9Container?
-export default LandingSection9Container;
+// const LandingSection9Container = withRouter(LandingSection9);
+// export default LandingSection9Container;
+export default LandingSection9;

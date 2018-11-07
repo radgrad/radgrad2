@@ -12,8 +12,8 @@ import LandingSection5 from '../../components/landing/LandingSection5';
 import LandingSection6 from '../../components/landing/LandingSection6';
 import LandingSection7 from '../../components/landing/LandingSection7';
 import LandingSection8 from '../../components/landing/LandingSection8';
+import LandingSection9 from '../../components/landing/LandingSection9';
 import Footer from '../../components/landing/Footer';
-import LandingSection9Container from '../../components/landing/LandingSection9';
 
 interface ILandingHomeProps {
   careerGoalNames: string[];
@@ -36,7 +36,6 @@ interface ILandingHomeProps {
 
 /** A simple static component to render some text for the landing page. */
 class LandingHome extends React.Component<ILandingHomeProps> {
-  private Section9: any;
 
   constructor(props) {
     super(props);
@@ -50,7 +49,7 @@ class LandingHome extends React.Component<ILandingHomeProps> {
   public renderPage() {
     return (
       <div>
-        <LandingNavBarContainer scrollToRef={this.Section9}/>
+        <LandingNavBarContainer/>
         <LandingSection1/>
         <LandingSection2 careerGoals={this.props.careerGoals} interests={this.props.interests}
                          opportunities={this.props.opportunities} users={this.props.users}/>
@@ -64,7 +63,7 @@ class LandingHome extends React.Component<ILandingHomeProps> {
         <LandingSection7 careerGoalNames={this.props.careerGoalNames}/>
         <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
                          mentors={this.props.mentors}/>
-        <LandingSection9Container/>
+        <LandingSection9/>
         <Footer/>
       </div>
     );
