@@ -90,7 +90,7 @@ const LandingHomeContainer = withTracker(() => {
   let mentors: number;
   let opportunities: number;
   let users: number;
-  if (subscription.ready()) {
+  if (subscription.ready() && !Meteor.isAppTest) {
     key = PublicStats.careerGoalsListKey;
     careerGoalNames = PublicStats.findDoc({ key }).value;
     key = PublicStats.careerGoalsTotalKey;

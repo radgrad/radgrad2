@@ -17,15 +17,11 @@ if (Meteor.isClient) {
     };
 
     before(function(done) {
-      this.timeout(5000);
-      defineTestFixturesMethod.call(['minimal', 'abi.student',
-        'extended.courses.interests', 'academicplan', 'abi.courseinstances'], done);
+      defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
     it('Define Method', async function() {
       await withLoggedInUser();
-      await defineTestFixturesMethod.call(['minimal', 'abi.student',
-        'extended.courses.interests', 'academicplan', 'abi.courseinstances']);
       await withRadGradSubscriptions();
       const careerGoalID = await defineMethod.callPromise({ collectionName, definitionData });
       expect(CareerGoals.isDefined(careerGoalID)).to.be.true;

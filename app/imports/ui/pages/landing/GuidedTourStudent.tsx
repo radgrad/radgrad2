@@ -93,7 +93,7 @@ const GuidedTourStudentContainer = withTracker(() => {
   let opportunities;
   let mentors;
   let mentorLocations;
-  if (subscription.ready()) {
+  if (subscription.ready() && !Meteor.isAppTest) {
     key = PublicStats.interestsTotalKey;
     interests = PublicStats.findDoc({ key }).value;
     key = PublicStats.careerGoalsListKey;
