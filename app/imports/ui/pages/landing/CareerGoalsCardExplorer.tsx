@@ -1,13 +1,18 @@
 import * as React from 'react';
+import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface ICareerGoalsCardExplorerProps {
   ready: boolean;
-  careerGoals?: object[];
+  careerGoals: object[];
+  match: object;
+  location: object;
+  history: object;
 }
 
 class CareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExplorerProps> {
@@ -24,25 +29,23 @@ class CareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExplorerPr
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true}>
           <Grid.Row>
-        Career Goals Card Explorer
+            <HelpPanelWidgetContainer routeProps={this.props.location}/>
           </Grid.Row>
+        Career Goals Card Explorer
         </Grid>
       </div>
     );
   }
 }
 
+const CareerGoalsCardExplorerCon =  withRouter(CareerGoalsCardExplorer);
+
 const CareerGoalsCardExplorerContainer = withTracker(() => {
-  const handle = Meteor.subscribe(CareerGoals.getCollectionName());
-  const ready = handle.ready();
-  let careerGoals = [];
-  if (ready) {
-    careerGoals = CareerGoals.find({}).fetch();
-  }
+  const subscription = Meteor.subscribe(CareerGoals.getCollectionName());
   return {
-    ready,
-    careerGoals,
+    ready: subscription.ready(),
+    careerGoals: CareerGoals.find({}).fetch(),
   };
-})(CareerGoalsCardExplorer);
+})(CareerGoalsCardExplorerCon);
 
 export default CareerGoalsCardExplorerContainer;

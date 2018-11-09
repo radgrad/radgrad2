@@ -1,16 +1,33 @@
 import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Button, Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
+import { Accordion, Button, Card, Container, Grid, Header, Icon, Image, Loader, Message, Segment } from 'semantic-ui-react';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IHelpPanelWidgetProps {
   ready: boolean;
   helpText: string;
   helpTitle: string;
 }
-class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps> {
+
+interface IHelpPanelWidgetState {
+  activeIndex: number;
+}
+
+class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelWidgetState> {
+  public state: IHelpPanelWidgetState = { activeIndex: -1 };
+
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  private handleClick(e, titleProps) {
+    const { index } = titleProps;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
+
+    this.setState({ activeIndex: newIndex });
   }
 
   public render() {
@@ -19,23 +36,49 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps> {
 
   private renderPage() {
     return (this.props.helpText) ? (
-      <div className="{{#if noHelpClass}} {{else}}radgrad-help{{/if}} sixteen wide column">
-        <div className="ui info floating message">
-          <div className="ui accordion">
-            <div className="radgrad-help-title {{#if open}}active{{/if}} title header">
-              <i className="dropdown icon"></i>
-              <span>{this.props.helpTitle}</span>
-            </div>
-            <div className="{{#if open}}active{{/if}} content">
-              {{#markdown}}{this.props.helpText}
+      <Grid>
+        <Grid.Column width={'sixteen'}>
+          <Message info={true}>
+            <Accordion>
+              <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
+                <Icon name="dropdown"/>
+                <span>{this.props.helpTitle}</span>
+              </Accordion.Title>
+              <Accordion.Content active={this.state.activeIndex === 0}>
+                {this.props.helpText}
 
-              #### Need more help?
-              If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).
-              {{/markdown}}
-                </div>
-                </div>
-                </div>
-                </div>
-                ) : '';
+                #### Need more help?
+                If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).
+              </Accordion.Content>
+            </Accordion>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    ) : '';
   }
 }
+
+const HelpPanelWidgetContainer = withTracker((props) => {
+  console.log(props);
+  const sub = Meteor.subscribe(HelpMessages.getPublicationName());
+  let doc;
+  let helpTitle;
+  let helpText;
+  if (sub.ready()) {
+    try {
+      doc = HelpMessages.findDoc({ routeName: props.routeProps.pathname });
+      helpTitle = doc.title;
+      helpText = doc.text;
+    } catch (e) {
+      helpTitle = '';
+      helpText = '';
+    }
+  }
+  return {
+    ready: sub.ready(),
+    helpTitle,
+    helpText,
+  };
+})(HelpPanelWidget);
+
+export default HelpPanelWidgetContainer;

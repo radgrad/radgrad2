@@ -36,26 +36,32 @@ export const routes = {
   LANDING: [
     {
       path: '/',
+      routeName: 'Landing_Page',
       component: LandingHomeContainer,
     },
     {
       path: '/guidedtour/student',
+      routeName: 'Student_Guided_Tour_Page',
       component: GuidedTourStudentContainer,
     },
     {
       path: '/guidedtour/advisor',
+      routeName: 'Advisor_Guided_Tour_Page',
       component: GuidedTourAdvisor,
     },
     {
       path: '/guidedtour/faculty',
+      routeName: 'Faculty_Guided_Tour_Page',
       component: GuidedTourFaculty,
     },
     {
       path: '/guidedtour/mentor',
+      routeName: 'Mentor_Guided_Tour_Page',
       component: GuidedTourMentor,
     },
     {
       path: '/explorer/career-goals',
+      routeName: 'Landing_Card_Explorer_CareerGoals_Page',
       component: CareerGoalsCardExplorerContainer,
     },
   ],
