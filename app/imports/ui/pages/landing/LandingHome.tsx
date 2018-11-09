@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import LandingNavBarContainer from './LandingNavBar';
+import LandingNavBarContainer from '../../components/landing/LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
 import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';

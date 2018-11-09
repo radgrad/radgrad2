@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../api/role/Role';
-import LandingNavBarContainer from './landing/LandingNavBar';
+import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
 interface ISigninProps {
   location: {

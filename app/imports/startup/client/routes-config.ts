@@ -12,6 +12,7 @@ import GuidedTourAdvisor from '../../ui/pages/landing/GuidedTourAdvisor';
 import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
 import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
 import GuidedTourStudentContainer from '../../ui/pages/landing/GuidedTourStudent';
+import CareerGoalsCardExplorerContainer from '../../ui/pages/landing/CareerGoalsCardExplorer';
 
 export const routes = {
   ADMIN: [
@@ -52,6 +53,10 @@ export const routes = {
     {
       path: '/guidedtour/mentor',
       component: GuidedTourMentor,
+    },
+    {
+      path: '/explorer/career-goals',
+      component: CareerGoalsCardExplorerContainer,
     },
   ],
   MENTOR: [

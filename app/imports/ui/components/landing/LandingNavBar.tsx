@@ -3,11 +3,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Dropdown, Header, Image, Menu } from 'semantic-ui-react';
-import RadGradLogoText from '../../components/shared/RadGradLogoText';
-import RadGradLoginButtons from '../../components/landing/RadGradLoginButtons';
-import LandingSection9 from '../../components/landing/LandingSection9';
+import RadGradLogoText from '../shared/RadGradLogoText';
+import RadGradLoginButtons from './RadGradLoginButtons';
+import LandingSection9 from './LandingSection9';
 
-interface INavBarProps {
+export interface INavBarProps {
   currentUser: string;
 }
 
