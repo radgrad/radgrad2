@@ -12,26 +12,26 @@ import LandingSection5 from '../../components/landing/LandingSection5';
 import LandingSection6 from '../../components/landing/LandingSection6';
 import LandingSection7 from '../../components/landing/LandingSection7';
 import LandingSection8 from '../../components/landing/LandingSection8';
-import LandingSection9 from '../../components/landing/LandingSection9';
+import LandingSection9Container from '../../components/landing/LandingSection9';
 import Footer from '../../components/landing/Footer';
+import { withGenericSubscriptions } from '../../layouts/shared/GenericSubscriptionHOC';
 
 interface ILandingHomeProps {
-  careerGoalNames: string[];
-  careerGoals: number;
-  courseReviews?: number;
-  degrees?: number;
-  interests: number;
-  levelOne?: number;
-  levelTwo?: number;
-  levelThree?: number;
-  levelFour?: number;
-  levelFive?: number;
-  levelSix?: number;
-  locations?: string[];
-  mentors?: number;
-  opportunities: number;
-  users: number;
-  ready?: boolean;
+  careerGoalNames: string;
+  careerGoals: string;
+  courseReviews?: string;
+  degrees?: string;
+  interests: string;
+  levelOne?: string;
+  levelTwo?: string;
+  levelThree?: string;
+  levelFour?: string;
+  levelFive?: string;
+  levelSix?: string;
+  locations?: string;
+  mentors?: string;
+  opportunities: string;
+  users: string;
 }
 
 /** A simple static component to render some text for the landing page. */
@@ -39,14 +39,11 @@ class LandingHome extends React.Component<ILandingHomeProps> {
 
   constructor(props) {
     super(props);
+    console.log(`LandingHome props ${props}`);
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
-  }
-
-  public renderPage() {
     return (
       <div>
         <LandingNavBarContainer/>
@@ -63,81 +60,35 @@ class LandingHome extends React.Component<ILandingHomeProps> {
         <LandingSection7 careerGoalNames={this.props.careerGoalNames}/>
         <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
                          mentors={this.props.mentors}/>
-        <LandingSection9/>
+        <LandingSection9Container/>
         <Footer/>
       </div>
     );
   }
 }
 
+const WithSubs = withGenericSubscriptions(LandingHome, [PublicStats.getPublicationName()]);
+
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {
-  const subscription = Meteor.subscribe(PublicStats.getCollectionName());
-  let key: string;
-  let careerGoalNames: string[];
-  let careerGoals: number;
-  let courseReviews: number;
-  let degrees: number;
-  let interests: number;
-  let levelOne: number;
-  let levelTwo: number;
-  let levelThree: number;
-  let levelFour: number;
-  let levelFive: number;
-  let levelSix: number;
-  let locations: string[];
-  let mentors: number;
-  let opportunities: number;
-  let users: number;
-  if (subscription.ready() && !Meteor.isAppTest) {
-    key = PublicStats.careerGoalsListKey;
-    careerGoalNames = PublicStats.findDoc({ key }).value;
-    key = PublicStats.careerGoalsTotalKey;
-    careerGoals = PublicStats.findDoc({ key }).value;
-    key = PublicStats.desiredDegreesTotalKey;
-    degrees = PublicStats.findDoc({ key }).value;
-    key = PublicStats.interestsTotalKey;
-    interests = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.levelOneTotalKey;
-    levelOne = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.levelTwoTotalKey;
-    levelTwo = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelThreeTotalKey;
-    levelThree = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelFourTotalKey;
-    levelFour = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelFiveTotalKey;
-    levelFive = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelSixTotalKey;
-    levelSix = PublicStats.findDoc({ key }).value;
-    key = PublicStats.opportunitiesTotalKey;
-    opportunities = PublicStats.findDoc({ key }).value;
-    key = PublicStats.courseReviewsTotalKey;
-    courseReviews = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.usersMentorsTotalKey;
-    mentors = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.usersMentorsLocationsKey;
-    locations = PublicStats.getCollection().findOne({ key }).value;
-    key = 'usersTotal';
-    users = PublicStats.findDoc({ key }).value;
-  }
+  console.log(`LandingHomeContainer withTracker()`);
   return {
-    ready: subscription.ready(),
-    careerGoals,
-    courseReviews,
-    degrees,
-    interests,
-    levelOne,
-    levelTwo,
-    levelThree,
-    levelFour,
-    levelFive,
-    levelSix,
-    locations,
-    mentors,
-    opportunities,
-    users,
+    careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
+    careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
+    courseReviews: PublicStats.getPublicStat(PublicStats.courseReviewsTotalKey),
+    degrees: PublicStats.getPublicStat(PublicStats.desiredDegreesTotalKey),
+    interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
+    levelOne: PublicStats.getPublicStat(PublicStats.levelOneTotalKey),
+    levelTwo: PublicStats.getPublicStat(PublicStats.levelTwoTotalKey),
+    levelThree: PublicStats.getPublicStat(PublicStats.levelThreeTotalKey),
+    levelFour: PublicStats.getPublicStat(PublicStats.levelFourTotalKey),
+    levelFive: PublicStats.getPublicStat(PublicStats.levelFiveTotalKey),
+    levelSix: PublicStats.getPublicStat(PublicStats.levelSixTotalKey),
+    locations: PublicStats.getPublicStat(PublicStats.usersMentorsLocationsKey),
+    mentors: PublicStats.getPublicStat(PublicStats.usersMentorsTotalKey),
+    opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
+    users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
   };
-})(LandingHome);
+})(WithSubs);
 
 export default LandingHomeContainer;

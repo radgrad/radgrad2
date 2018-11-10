@@ -5,10 +5,10 @@ import RadGradLogoTextQ from '../shared/RadGradLogoTextQ';
 import styles from './landing-styles';
 
 interface ILandingSection2Props {
-  careerGoals: number;
-  interests: number;
-  opportunities: number;
-  users: number;
+  careerGoals: string;
+  interests: string;
+  opportunities: string;
+  users: string;
 }
 
 const noMarginTopStyle = { marginTop: '0px' };

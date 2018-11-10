@@ -320,6 +320,19 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   /**
+   * Returns the value for the given key, or empty string if invalid key.
+   * @param {string} key
+   * @returns {string}
+   */
+  public getPublicStat(key: string): string {
+    try {
+      return this.findDoc({ key }).value;
+    } catch (e) {
+      return '';
+    }
+  }
+
+  /**
    * Returns an empty array to indicate no integrity checking.
    * @returns {Array} An empty array.
    */
