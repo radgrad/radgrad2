@@ -19,7 +19,8 @@
     "member-ordering": false,
     "max-line-length": false,
     "jsx-no-multiline-js": false,
-    "jsx-alignment": false
+    "jsx-alignment": false,
+    "space-before-function-paren": false
   },
   "rulesDirectory": []
 }
