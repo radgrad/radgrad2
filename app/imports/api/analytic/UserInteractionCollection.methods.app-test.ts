@@ -14,17 +14,17 @@ if (Meteor.isClient) {
       typeData: 'interaction-data',
     };
 
-    before(function(done) {
+    before(function (done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function() {
+    it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await userInteractionDefineMethod.callPromise(definitionData);
     });
 
-    it('Remove Method', async function() {
+    it('Remove Method', async function () {
       await userInteractionRemoveUserMethod.callPromise(student);
     });
   });

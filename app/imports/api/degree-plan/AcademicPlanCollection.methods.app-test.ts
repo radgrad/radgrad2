@@ -24,7 +24,7 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function() {
+    it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await defineMethod.callPromise({ collectionName, definitionData });

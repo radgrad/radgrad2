@@ -23,35 +23,40 @@ const LandingSection9 = () => (
               <div className="image">
                 <Image src="/images/landing/students.jpg"/>
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">Students
-                <Icon name={'chevron right'}/></a>
+              <Button as={NavLink} attached="bottom"
+                      to="/guidedtour/student">
+                Students
+                <Icon name={'chevron right'}/>
+              </Button>
             </Card>
             <Card style={noBoxShadowStyle}>
               <div className="image">
                 <Image src="/images/landing/advisor.png"/>
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/advisor">
+              <Button as={NavLink} attached="bottom" to="/guidedtour/advisor">
                 Advisors
                 <Icon name={'chevron right'}/>
-              </a>
+              </Button>
             </Card>
             <Card style={noBoxShadowStyle}>
               <div className="image">
                 <Image src="/images/landing/ics-faculty-group.png"/>
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/faculty">
+              <Button as={NavLink} attached="bottom"
+                      to="/guidedtour/faculty">
                 Faculty
                 <Icon name={'chevron right'}/>
-              </a>
+              </Button>
             </Card>
             <Card className="ui card" style={noBoxShadowStyle}>
               <div className="image">
                 <Image src="/images/landing/nagashima.jpg"/>
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/mentor">
+              <Button as={NavLink} attached="bottom"
+                      to="/guidedtour/mentor">
                 Mentors
                 <Icon name={'chevron right'}/>
-              </a>
+              </Button>
             </Card>
           </Card.Group>
         </Grid>
@@ -60,6 +65,6 @@ const LandingSection9 = () => (
   </div>
 );
 
-const LandingSection9Container = withRouter(LandingSection9);
-export default LandingSection9Container;
-// export default LandingSection9;
+// const LandingSection9Container = withRouter(LandingSection9);
+// export default LandingSection9Container;
+export default LandingSection9;

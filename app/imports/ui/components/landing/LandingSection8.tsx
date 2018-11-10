@@ -4,9 +4,9 @@ import { Card, Container, Grid, Header, Icon, Image, Label, Loader, Segment } fr
 import styles from './landing-styles';
 
 interface ILandingSection8Props {
-  courseReviews: string;
-  mentors: string;
-  locations: string;
+  courseReviews: number;
+  mentors: number;
+  locations: string[];
 }
 
 const LandingSection8 = (props: ILandingSection8Props) => (

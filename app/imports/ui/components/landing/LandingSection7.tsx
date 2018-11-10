@@ -6,7 +6,7 @@ import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import styles from './landing-styles';
 
 interface ILandingSection7Props {
-  careerGoalNames: string;
+  careerGoalNames: string[];
 }
 
 const LandingSection7 = (props: ILandingSection7Props) => (

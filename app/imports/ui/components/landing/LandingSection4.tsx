@@ -5,7 +5,7 @@ import RadGradLogoText from '../shared/RadGradLogoText';
 import styles from './landing-styles';
 
 interface ILandingSection4Props {
-  opportunities: string;
+  opportunities: number;
 }
 
 const LandingSection4 = (props: ILandingSection4Props) => (
