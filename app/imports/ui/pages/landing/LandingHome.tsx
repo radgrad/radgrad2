@@ -14,10 +14,9 @@ import LandingSection7 from '../../components/landing/LandingSection7';
 import LandingSection8 from '../../components/landing/LandingSection8';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import Footer from '../../components/landing/Footer';
-import { withPublicStatsSubscription } from '../../layouts/shared/subscriptionHOC';
+import { withGenericSubscriptions } from '../../layouts/shared/GenericSubscriptionHOC';
 
 interface ILandingHomeProps {
-  ready: boolean;
   careerGoalNames: string;
   careerGoals: string;
   courseReviews?: string;
@@ -45,10 +44,6 @@ class LandingHome extends React.Component<ILandingHomeProps> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader/>;
-  }
-
-  private renderPage() {
     return (
       <div>
         <LandingNavBarContainer/>
@@ -72,78 +67,27 @@ class LandingHome extends React.Component<ILandingHomeProps> {
   }
 }
 
-const WithSubs = withPublicStatsSubscription(LandingHome);
+const WithSubs = withGenericSubscriptions(LandingHome, [PublicStats.getPublicationName()]);
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {
   console.log(`LandingHomeContainer withTracker()`);
-  const subscription = Meteor.subscribe(PublicStats.getPublicationName());
-  let ready: boolean;
-  let key: string;
-  let careerGoalNames: string;
-  let careerGoals: string;
-  let courseReviews: string;
-  let degrees: string;
-  let interests: string;
-  let levelOne: string;
-  let levelTwo: string;
-  let levelThree: string;
-  let levelFour: string;
-  let levelFive: string;
-  let levelSix: string;
-  let locations: string;
-  let mentors: string;
-  let opportunities: string;
-  let users: string;
-  ready = subscription.ready();
-  if (ready && !Meteor.isAppTest) {
-    key = PublicStats.careerGoalsListKey;
-    careerGoalNames = PublicStats.findDoc({ key }).value;
-    key = PublicStats.careerGoalsTotalKey;
-    careerGoals = PublicStats.findDoc({ key }).value;
-    key = PublicStats.desiredDegreesTotalKey;
-    degrees = PublicStats.findDoc({ key }).value;
-    key = PublicStats.interestsTotalKey;
-    interests = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.levelOneTotalKey;
-    levelOne = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.levelTwoTotalKey;
-    levelTwo = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelThreeTotalKey;
-    levelThree = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelFourTotalKey;
-    levelFour = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelFiveTotalKey;
-    levelFive = PublicStats.findDoc({ key }).value;
-    key = PublicStats.levelSixTotalKey;
-    levelSix = PublicStats.findDoc({ key }).value;
-    key = PublicStats.opportunitiesTotalKey;
-    opportunities = PublicStats.findDoc({ key }).value;
-    key = PublicStats.courseReviewsTotalKey;
-    courseReviews = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.usersMentorsTotalKey;
-    mentors = PublicStats.getCollection().findOne({ key }).value;
-    key = PublicStats.usersMentorsLocationsKey;
-    locations = PublicStats.getCollection().findOne({ key }).value;
-    key = 'usersTotal';
-    users = PublicStats.findDoc({ key }).value;
-  }
   return {
-    ready,
-    careerGoals,
-    courseReviews,
-    degrees,
-    interests,
-    levelOne,
-    levelTwo,
-    levelThree,
-    levelFour,
-    levelFive,
-    levelSix,
-    locations,
-    mentors,
-    opportunities,
-    users,
+    careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
+    careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
+    courseReviews: PublicStats.getPublicStat(PublicStats.courseReviewsTotalKey),
+    degrees: PublicStats.getPublicStat(PublicStats.desiredDegreesTotalKey),
+    interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
+    levelOne: PublicStats.getPublicStat(PublicStats.levelOneTotalKey),
+    levelTwo: PublicStats.getPublicStat(PublicStats.levelTwoTotalKey),
+    levelThree: PublicStats.getPublicStat(PublicStats.levelThreeTotalKey),
+    levelFour: PublicStats.getPublicStat(PublicStats.levelFourTotalKey),
+    levelFive: PublicStats.getPublicStat(PublicStats.levelFiveTotalKey),
+    levelSix: PublicStats.getPublicStat(PublicStats.levelSixTotalKey),
+    locations: PublicStats.getPublicStat(PublicStats.usersMentorsLocationsKey),
+    mentors: PublicStats.getPublicStat(PublicStats.usersMentorsTotalKey),
+    opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
+    users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
   };
 })(WithSubs);
 
