@@ -6,12 +6,12 @@ import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import styles from './landing-styles';
 
 interface ILandingSection6Props {
-  levelOne: number;
-  levelTwo: number;
-  levelThree: number;
-  levelFour: number;
-  levelFive: number;
-  levelSix: number;
+  levelOne: string;
+  levelTwo: string;
+  levelThree: string;
+  levelFour: string;
+  levelFive: string;
+  levelSix: string;
 }
 
 const marginStyle = { margin: 21 };

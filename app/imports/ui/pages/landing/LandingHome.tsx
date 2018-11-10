@@ -12,26 +12,27 @@ import LandingSection5 from '../../components/landing/LandingSection5';
 import LandingSection6 from '../../components/landing/LandingSection6';
 import LandingSection7 from '../../components/landing/LandingSection7';
 import LandingSection8 from '../../components/landing/LandingSection8';
-import LandingSection9 from '../../components/landing/LandingSection9';
+import LandingSection9Container from '../../components/landing/LandingSection9';
 import Footer from '../../components/landing/Footer';
+import { withPublicStatsSubscription } from '../../layouts/shared/subscriptionHOC';
 
 interface ILandingHomeProps {
-  careerGoalNames: string[];
-  careerGoals: number;
-  courseReviews?: number;
-  degrees?: number;
-  interests: number;
-  levelOne?: number;
-  levelTwo?: number;
-  levelThree?: number;
-  levelFour?: number;
-  levelFive?: number;
-  levelSix?: number;
-  locations?: string[];
-  mentors?: number;
-  opportunities: number;
-  users: number;
-  ready?: boolean;
+  ready: boolean;
+  careerGoalNames: string;
+  careerGoals: string;
+  courseReviews?: string;
+  degrees?: string;
+  interests: string;
+  levelOne?: string;
+  levelTwo?: string;
+  levelThree?: string;
+  levelFour?: string;
+  levelFive?: string;
+  levelSix?: string;
+  locations?: string;
+  mentors?: string;
+  opportunities: string;
+  users: string;
 }
 
 /** A simple static component to render some text for the landing page. */
@@ -39,14 +40,15 @@ class LandingHome extends React.Component<ILandingHomeProps> {
 
   constructor(props) {
     super(props);
+    console.log(`LandingHome props ${props}`);
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
+    return (this.props.ready) ? this.renderPage() : <Loader/>;
   }
 
-  public renderPage() {
+  private renderPage() {
     return (
       <div>
         <LandingNavBarContainer/>
@@ -63,33 +65,38 @@ class LandingHome extends React.Component<ILandingHomeProps> {
         <LandingSection7 careerGoalNames={this.props.careerGoalNames}/>
         <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
                          mentors={this.props.mentors}/>
-        <LandingSection9/>
+        <LandingSection9Container/>
         <Footer/>
       </div>
     );
   }
 }
 
+const WithSubs = withPublicStatsSubscription(LandingHome);
+
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {
-  const subscription = Meteor.subscribe(PublicStats.getCollectionName());
+  console.log(`LandingHomeContainer withTracker()`);
+  const subscription = Meteor.subscribe(PublicStats.getPublicationName());
+  let ready: boolean;
   let key: string;
-  let careerGoalNames: string[];
-  let careerGoals: number;
-  let courseReviews: number;
-  let degrees: number;
-  let interests: number;
-  let levelOne: number;
-  let levelTwo: number;
-  let levelThree: number;
-  let levelFour: number;
-  let levelFive: number;
-  let levelSix: number;
-  let locations: string[];
-  let mentors: number;
-  let opportunities: number;
-  let users: number;
-  if (subscription.ready() && !Meteor.isAppTest) {
+  let careerGoalNames: string;
+  let careerGoals: string;
+  let courseReviews: string;
+  let degrees: string;
+  let interests: string;
+  let levelOne: string;
+  let levelTwo: string;
+  let levelThree: string;
+  let levelFour: string;
+  let levelFive: string;
+  let levelSix: string;
+  let locations: string;
+  let mentors: string;
+  let opportunities: string;
+  let users: string;
+  ready = subscription.ready();
+  if (ready && !Meteor.isAppTest) {
     key = PublicStats.careerGoalsListKey;
     careerGoalNames = PublicStats.findDoc({ key }).value;
     key = PublicStats.careerGoalsTotalKey;
@@ -122,7 +129,7 @@ const LandingHomeContainer = withTracker(() => {
     users = PublicStats.findDoc({ key }).value;
   }
   return {
-    ready: subscription.ready(),
+    ready,
     careerGoals,
     courseReviews,
     degrees,
@@ -138,6 +145,6 @@ const LandingHomeContainer = withTracker(() => {
     opportunities,
     users,
   };
-})(LandingHome);
+})(WithSubs);
 
 export default LandingHomeContainer;
