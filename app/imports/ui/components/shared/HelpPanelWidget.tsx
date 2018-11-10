@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
+import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Accordion, Button, Card, Container, Grid, Header, Icon, Image, Loader, Message, Segment } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -35,6 +36,9 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   }
 
   private renderPage() {
+    const helpText = `${this.props.helpText}
+#### Need more help?
+If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).`;
     return (this.props.helpText) ? (
       <Grid>
         <Grid.Column width={'sixteen'}>
@@ -45,10 +49,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
                 <span>{this.props.helpTitle}</span>
               </Accordion.Title>
               <Accordion.Content active={this.state.activeIndex === 0}>
-                {this.props.helpText}
-
-                #### Need more help?
-                If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).
+                <Markdown escapeHtml={true} source={helpText}/>
               </Accordion.Content>
             </Accordion>
           </Message>

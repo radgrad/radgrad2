@@ -47,12 +47,21 @@ export interface IAdvisorLogUpdate {
 }
 
 // CareerGoals
+export interface ICareerGoal {
+  _id: string;
+  name: string;
+  slug: string;
+  description: string;
+  interests: string[];
+}
+
 export interface ICareerGoalDefine extends IDumpOne {
   name: string;
   slug: string;
   description: string;
   interests: string[];
 }
+
 
 export interface ICareerGoalUpdate {
   name?: string;
