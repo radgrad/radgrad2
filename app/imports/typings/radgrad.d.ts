@@ -62,7 +62,6 @@ export interface ICareerGoalDefine extends IDumpOne {
   interests: string[];
 }
 
-
 export interface ICareerGoalUpdate {
   name?: string;
   description?: string;

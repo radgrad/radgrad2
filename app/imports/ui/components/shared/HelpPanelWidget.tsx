@@ -60,7 +60,6 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
 }
 
 const HelpPanelWidgetContainer = withTracker((props) => {
-  console.log(props);
   const sub = Meteor.subscribe(HelpMessages.getPublicationName());
   let doc;
   let helpTitle;

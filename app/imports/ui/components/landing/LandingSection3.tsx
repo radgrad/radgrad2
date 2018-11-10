@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
-import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import styles from './landing-styles';
 
 interface ILandingSection3Props {

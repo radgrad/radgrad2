@@ -2,11 +2,14 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Button, Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
+import { Card, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICareerGoal } from '../../../typings/radgrad';
+import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 
 interface ICareerGoalsCardExplorerProps {
   ready: boolean;
@@ -38,18 +41,25 @@ class CareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExplorerPr
           <Grid.Row>
             <HelpPanelWidgetContainer routeProps={this.props.location}/>
           </Grid.Row>
-          <Segment padded={true}>
-            <Header as="h4" dividing={true}>
-              <span>CAREER GOALS</span> ({this.props.count})
-            </Header>
-            <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-              {this.props.careerGoals.map((goal) => {
-                return (
-                  <Card key={goal._id}>{goal.name}</Card>
-                );
-              })}
-            </Card.Group>
-          </Segment>
+          <Grid.Row>
+            <Grid.Column width="three">
+              <LandingExplorerMenuContainer/>
+            </Grid.Column>
+            <Grid.Column width="thirteen">
+              <Segment padded={true}>
+                <Header as="h4" dividing={true}>
+                  <span>CAREER GOALS</span> ({this.props.count})
+                </Header>
+                <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
+                  {this.props.careerGoals.map((goal) => {
+                    return (
+                      <LandingExplorerCardContainer key={goal._id} type="career-goals" item={goal}/>
+                    );
+                  })}
+                </Card.Group>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
 
         </Grid>
       </div>
@@ -60,9 +70,10 @@ class CareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExplorerPr
 const CareerGoalsCardExplorerCon = withRouter(CareerGoalsCardExplorer);
 
 const CareerGoalsCardExplorerContainer = withTracker(() => {
-  const subscription = Meteor.subscribe(CareerGoals.getCollectionName());
+  const sub1 = Meteor.subscribe(CareerGoals.getCollectionName());
+  const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
-    ready: subscription.ready(),
+    ready: sub1.ready() && sub2.ready(),
     careerGoals: CareerGoals.find({}).fetch(),
     count: CareerGoals.find().count(),
   };
