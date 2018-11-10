@@ -46,7 +46,7 @@ class CareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExplorerPr
               <LandingExplorerMenuContainer/>
             </Grid.Column>
             <Grid.Column width="thirteen">
-              <Segment padded={true}>
+              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>CAREER GOALS</span> ({this.props.count})
                 </Header>
