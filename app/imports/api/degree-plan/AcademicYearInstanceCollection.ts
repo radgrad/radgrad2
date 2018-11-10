@@ -6,7 +6,7 @@ import { Semesters } from '../semester/SemesterCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IAcademicYearDefine } from '../../typings/radgrad';
+import { IAcademicYearDefine } from "../../typings/radgrad";
 
 /**
  * Each AcademicYearInstance represents a sequence of three semesters for a given student.

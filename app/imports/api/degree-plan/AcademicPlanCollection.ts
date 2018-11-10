@@ -6,7 +6,7 @@ import { DesiredDegrees } from './DesiredDegreeCollection';
 import { Semesters } from '../semester/SemesterCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
-import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
+import { IAcademicPlanDefine, IAcademicPlanUpdate } from "../../typings/radgrad";
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
