@@ -21,10 +21,29 @@ export function getSlug(item: { slugID: string; }) {
 }
 
 export function getRouteName(path: string): string {
-  switch (path) {
-    case '/explorer/career-goals':
-      return 'Career Goals';
-    default:
-      return 'Undefined';
+  let regex = /academic-plans/;
+  if (regex.test(path)) {
+    return 'Academic Plans';
   }
+  regex = /career-goals/;
+  if (regex.test(path)) {
+    return 'Career Goals';
+  }
+  regex = /courses/;
+  if (regex.test(path)) {
+    return 'Courses';
+  }
+  regex = /degrees/;
+  if (regex.test(path)) {
+    return 'Degrees';
+  }
+  regex = /interests/;
+  if (regex.test(path)) {
+    return 'Interests';
+  }
+  regex = /opportunities/;
+  if (regex.test(path)) {
+    return 'Opportunities';
+  }
+  return 'Undefined';
 }

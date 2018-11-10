@@ -13,6 +13,7 @@ import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
 import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
 import GuidedTourStudentContainer from '../../ui/pages/landing/GuidedTourStudent';
 import CareerGoalsCardExplorerContainer from '../../ui/pages/landing/CareerGoalsCardExplorer';
+import CareerGoalExplorerContainer from '../../ui/pages/landing/CareerGoalExplorer';
 
 export const routes = {
   ADMIN: [
@@ -36,33 +37,38 @@ export const routes = {
   LANDING: [
     {
       path: '/',
-      routeName: 'Landing_Page',
+      exact: true,
       component: LandingHomeContainer,
     },
     {
       path: '/guidedtour/student',
-      routeName: 'Student_Guided_Tour_Page',
+      exact: true,
       component: GuidedTourStudentContainer,
     },
     {
       path: '/guidedtour/advisor',
-      routeName: 'Advisor_Guided_Tour_Page',
+      exact: true,
       component: GuidedTourAdvisor,
     },
     {
       path: '/guidedtour/faculty',
-      routeName: 'Faculty_Guided_Tour_Page',
+      exact: true,
       component: GuidedTourFaculty,
     },
     {
       path: '/guidedtour/mentor',
-      routeName: 'Mentor_Guided_Tour_Page',
+      exact: true,
       component: GuidedTourMentor,
     },
     {
       path: '/explorer/career-goals',
-      routeName: 'Landing_Card_Explorer_CareerGoals_Page',
+      exact: true,
       component: CareerGoalsCardExplorerContainer,
+    },
+    {
+      path: '/explorer/career-goals/:careergoal',
+      exact: false,
+      component: CareerGoalExplorerContainer,
     },
   ],
   MENTOR: [

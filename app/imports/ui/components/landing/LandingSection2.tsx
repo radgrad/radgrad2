@@ -34,7 +34,7 @@ const LandingSection2 = (props: ILandingSection2Props) => (
               {props.careerGoals}
             </div>
             <div className="label">
-              <a href="/">Career Goals</a>
+              <a href="#/explorer/career-goals">Career Goals</a>
             </div>
           </div>
           <div className="green statistic">
@@ -42,7 +42,7 @@ const LandingSection2 = (props: ILandingSection2Props) => (
               {props.interests}
             </div>
             <div className="label">
-              <a href="/">Interests</a>
+              <a href="#/explorer/interests">Interests</a>
             </div>
           </div>
           <div className="green statistic">
@@ -50,7 +50,7 @@ const LandingSection2 = (props: ILandingSection2Props) => (
               {props.opportunities}
             </div>
             <div className="label">
-              <a href="/">Opportunities</a>
+              <a href="#/explorer/opportunities">Opportunities</a>
             </div>
           </div>
           <div className="green statistic">

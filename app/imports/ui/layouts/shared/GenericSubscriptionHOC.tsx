@@ -15,11 +15,12 @@ export function withGenericSubscriptions(WrappedComponent, subscriptionNames: st
 
     /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
     public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting public data</Loader> : <WrappedComponent {...this.props}/>;
+      return (this.props.loading) ? <Loader active={true}>Getting data</Loader> : <WrappedComponent {...this.props}/>;
     }
   }
   return withTracker(() => {
     const handles = [];
+    // console.log(subscriptionNames);
     subscriptionNames.forEach((name) => handles.push(Meteor.subscribe(name)));
     const loading = handles.some((handle) => !handle.ready());
     return {

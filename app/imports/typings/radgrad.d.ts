@@ -52,7 +52,7 @@ export interface ICareerGoal {
   name: string;
   slug: string;
   description: string;
-  interests: string[];
+  interestIDs: string[];
 }
 
 export interface ICareerGoalDefine extends IDumpOne {

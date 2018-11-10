@@ -18,7 +18,7 @@ class App extends React.Component {
       <Router>
         <Switch>
           {routes.LANDING.map((route, i) => (
-            <Route exact={true} key={i} {...route} />
+            <Route key={i} {...route} />
           ))}
           {routes.ADMIN.map((route, i) => (
             <AdminProtectedRoute key={i} {...route} />
