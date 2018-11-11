@@ -20,6 +20,14 @@ export function getSlug(item: { slugID: string; }) {
   }
 }
 
+export function getSlugFromEntityID(entityID) {
+  try {
+    return Slugs.findDoc({ entityID }).name;
+  } catch (e) {
+    return '';
+  }
+}
+
 export function getRouteName(path: string): string {
   let regex = /academic-plans/;
   if (regex.test(path)) {

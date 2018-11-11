@@ -8,9 +8,6 @@ interface IWithInterestsProps {
   interestIDs: string[];
 }
 
-function getSlug(interest) {
-  return Slugs.findDoc({ entityID: interest._id }).name;
-}
 const InterestList = (props: IWithInterestsProps) => {
   // console.log(Interests.find().fetch());
   // console.log(props.interestIDs);

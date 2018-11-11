@@ -12,6 +12,7 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import { Interests } from '../../../api/interest/InterestCollection';
 import withGenericSubscriptions from '../../layouts/shared/GenericSubscriptionHOC';
 import InterestList from '../../components/landing/InterestList';
+import PrerequisiteList from '../../components/landing/PrerequisiteList';
 
 interface ICourseExplorerProps {
   course: ICourse;
@@ -43,9 +44,19 @@ class CourseExplorer extends React.Component<ICourseExplorerProps> {
                 <Header as="h4" dividing={true}>
                   <span>{this.props.course.shortName} ({this.props.course.name})</span>
                 </Header>
-                <b>Course Number:</b> {this.props.course.num}
+                <Grid columns={2} stackable={true}>
+                  <Grid.Column width={'six'}>
+                    <b>Course Number:</b> {this.props.course.num}<br/>
+                    <b>Credit Hours:</b> {this.props.course.creditHrs}
+                  </Grid.Column>
+                  <Grid.Column width={'ten'}>
+                    <b>Syllabus</b> {this.props.course.syllabus ? < a href={this.props.course.syllabus}>{this.props.course.syllabus}</a> : 'None available'}
+                  </Grid.Column>
+                </Grid>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.course.description}/>
+                <Header as="h4" dividing={true}>Prerequisites</Header>
+                <PrerequisiteList prerequisites={this.props.course.prerequisites}/>
                 <Header as="h4" dividing={true}>Course Interests</Header>
                 <InterestList interestIDs={this.props.course.interestIDs}/>
               </Segment>
