@@ -14,6 +14,7 @@ import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
 import GuidedTourStudentContainer from '../../ui/pages/landing/GuidedTourStudent';
 import CareerGoalsCardExplorerContainer from '../../ui/pages/landing/CareerGoalsCardExplorer';
 import CareerGoalExplorerContainer from '../../ui/pages/landing/CareerGoalExplorer';
+import CoursesCardExplorerContainer from '../../ui/pages/landing/CoursesCardExplorer';
 
 export const routes = {
   ADMIN: [
@@ -69,6 +70,11 @@ export const routes = {
       path: '/explorer/career-goals/:careergoal',
       exact: false,
       component: CareerGoalExplorerContainer,
+    },
+    {
+      path: '/explorer/courses',
+      exact: true,
+      component: CoursesCardExplorerContainer,
     },
   ],
   MENTOR: [

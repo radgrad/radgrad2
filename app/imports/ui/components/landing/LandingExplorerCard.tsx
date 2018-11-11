@@ -5,6 +5,7 @@ import { getSlug, itemShortDescription } from './helper-functions';
 
 interface IItemProps {
   name: string;
+  num?: string;
   description: string;
   slugID: string;
 }
@@ -16,10 +17,14 @@ interface ILandingExplorerCardProps {
 
 const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
   const routeToItem = `#/explorer/${props.type}/${getSlug(props.item)}`;
+  let title = props.item.name;
+  if (props.type === 'courses') {
+    title = `${title} (${props.item.num})`;
+  }
   return (
     <Card className="ui card radgrad-interest-card">
       <Card.Content className="content">
-        <div className="header">{props.item.name}</div>
+        <div className="header">{title}</div>
       </Card.Content>
       <Card.Content className="content">
         <p>{itemShortDescription(props.item)}...</p>

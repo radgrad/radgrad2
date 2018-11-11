@@ -91,6 +91,20 @@ export interface ICourseInstanceUpdate {
 }
 
 // Courses
+export interface ICourse {
+  _id: string;
+  name: string;
+  shortName: string;
+  slugID: string;
+  num: string;
+  description: string;
+  creditHrs: number;
+  interestIDs: string[];
+  // Optional data
+  syllabus?: string;
+  prerequisites?: string[];
+}
+
 export interface ICourseDefine extends IDumpOne {
   name: string;
   shortName?: string;
