@@ -129,6 +129,14 @@ export interface ICourseUpdate {
 }
 
 // DesiredDegree
+export interface IDesiredDegree {
+  _id: string;
+  name: string;
+  shortName: string;
+  slugID: string;
+  description: string;
+}
+
 export interface IDesiredDegreeDefine extends IDumpOne {
   name: string;
   shortName?: string;
