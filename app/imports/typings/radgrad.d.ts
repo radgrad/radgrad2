@@ -198,6 +198,14 @@ export interface IHelpUpdate {
 }
 
 // Interests
+export interface IInterest {
+  _id: string;
+  name: string;
+  slugID: string;
+  description: string;
+  interestTypeID: string;
+}
+
 export interface IInterestDefine extends IDumpOne {
   name: string;
   slug: string;
@@ -263,6 +271,20 @@ export interface IMentorQuestionUpdate {
 }
 
 // Opportunities
+export interface IOpportunity {
+  _id: string;
+  name: string;
+  slugID: string;
+  description: string;
+  opportunityTypeID: string;
+  sponsorID: string;
+  interestIDs: string[];
+  semesterIDs: string[];
+  // Optional data
+  eventDate?: Date;
+  ice?: Ice;
+}
+
 export interface IOpportunityDefine extends IDumpOne {
   name: string;
   slug: string;
