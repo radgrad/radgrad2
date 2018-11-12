@@ -20,6 +20,8 @@ import DegreesCardExplorerContainer from '../../ui/pages/landing/DegreesCardExpl
 import DesiredDegreeExplorerContainer from '../../ui/pages/landing/DegreeExplorer';
 import InterestsCardExplorerContainer from '../../ui/pages/landing/InterestsCardExplorer';
 import InterestExplorerContainer from '../../ui/pages/landing/InterestExplorer';
+import OpportunitiesCardExplorerContainer from '../../ui/pages/landing/OpportunitiesCardExplorer';
+import OpportunityExplorerContainer from '../../ui/pages/landing/OpportunityExplorer';
 
 export const routes = {
   ADMIN: [
@@ -105,6 +107,16 @@ export const routes = {
       path: '/explorer/interests/:interest',
       exact: false,
       component: InterestExplorerContainer,
+    },
+    {
+      path: '/explorer/opportunities',
+      exact: true,
+      component: OpportunitiesCardExplorerContainer,
+    },
+    {
+      path: '/explorer/opportunities/:opportunity',
+      exact: false,
+      component: OpportunityExplorerContainer,
     },
   ],
   MENTOR: [

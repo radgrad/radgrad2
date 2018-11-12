@@ -76,7 +76,6 @@ class InterestExplorer extends React.Component<IInterestExplorerProps> {
               </Segment>
             </Grid.Column>
           </Grid.Row>
-
         </Grid>
       </div>
     );

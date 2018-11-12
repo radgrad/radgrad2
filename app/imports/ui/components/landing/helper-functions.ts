@@ -1,4 +1,8 @@
+import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Semesters } from '../../../api/semester/SemesterCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
 
 export function itemShortDescription(item: { description: string; }) {
   let description = item.description;
@@ -26,6 +30,29 @@ export function getSlugFromEntityID(entityID) {
   } catch (e) {
     return '';
   }
+}
+
+export function getOpportunityTypeName(opportunityTypeID) {
+  try {
+    return OpportunityTypes.findDoc(opportunityTypeID).name;
+  } catch (e) {
+    return '';
+  }
+}
+
+export function teaser(opportunity) {
+  try {
+    return Teasers.findDoc({ opportunityID: opportunity._id });
+  } catch (e) {
+    return '';
+  }
+}
+
+export function semesters(opportunity) {
+  const semesterIDs = opportunity.semesterIDs;
+  const array = _.map(semesterIDs, (semID) => Semesters.toString(semID));
+  const semString = array.join(', ');
+  return semString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 }
 
 export function getRouteName(path: string): string {
