@@ -17,6 +17,7 @@ import CareerGoalExplorerContainer from '../../ui/pages/landing/CareerGoalExplor
 import CoursesCardExplorerContainer from '../../ui/pages/landing/CoursesCardExplorer';
 import CourseExplorerContainer from '../../ui/pages/landing/CourseExplorer';
 import DegreesCardExplorerContainer from '../../ui/pages/landing/DegreesCardExplorer';
+import DesiredDegreeExplorerContainer from '../../ui/pages/landing/DegreeExplorer';
 
 export const routes = {
   ADMIN: [
@@ -87,6 +88,11 @@ export const routes = {
       path: '/explorer/degrees',
       exact: true,
       component: DegreesCardExplorerContainer,
+    },
+    {
+      path: '/explorer/degrees/:degree',
+      exact: false,
+      component: DesiredDegreeExplorerContainer,
     },
   ],
   MENTOR: [
