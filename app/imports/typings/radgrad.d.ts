@@ -9,6 +9,19 @@ export interface IDumpOne {
 }
 
 // AcademicPlans
+export interface IAcademicPlan {
+  _id: string;
+  name: string;
+  description: string;
+  slugID: string;
+  degreeID: string;
+  effectiveSemesterID: string;
+  semesterNumber: number;
+  year: number;
+  coursesPerSemester: number[];
+  courseList: string[];
+}
+
 export interface IAcademicPlanDefine extends IDumpOne {
   slug: string;
   degreeSlug: string;
