@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import styles from './guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Footer from '../../components/landing/Footer';
+import LandingFooter from '../../components/landing/LandingFooter';
 import WhyRadGrad from '../../components/guidedtour/mentor/why-radgrad';
 import WhatsNext from '../../components/guidedtour/mentor/whats-next';
 import SetUp from '../../components/guidedtour/mentor/set-up';
@@ -36,7 +36,7 @@ const GuidedTourMentor = () => {
         </Segment>
         <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
       </Container>
-      <Footer/>
+      <LandingFooter/>
     </div>
   );
 };

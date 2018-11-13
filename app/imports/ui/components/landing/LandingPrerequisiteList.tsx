@@ -9,7 +9,7 @@ interface IPrerequisitesListProps {
   prerequisites: string[];
 }
 
-const PrerequisiteList = (props: IPrerequisitesListProps) => {
+const LandingPrerequisiteList = (props: IPrerequisitesListProps) => {
   const courses = _.map(props.prerequisites, (slug) => Courses.findDocBySlug(slug));
   return (
     <List horizontal={true} bulleted={true}>
@@ -21,4 +21,4 @@ const PrerequisiteList = (props: IPrerequisitesListProps) => {
   );
 };
 
-export default PrerequisiteList;
+export default LandingPrerequisiteList;

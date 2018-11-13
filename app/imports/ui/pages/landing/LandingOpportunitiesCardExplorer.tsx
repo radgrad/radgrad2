@@ -3,30 +3,30 @@ import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
-import { IInterest } from '../../../typings/radgrad';
-import { Interests } from '../../../api/interest/InterestCollection';
+import { IOpportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 
-interface IInterestsCardExplorerProps {
+interface IOpportunitiesCardExplorerProps {
   ready: boolean;
-  interests: IInterest[];
+  opportunities: IOpportunity[];
   count: number;
   match: object;
   location: object;
   history: object;
 }
 
-class InterestsCardExplorer extends React.Component<IInterestsCardExplorerProps> {
+class LandingOpportunitiesCardExplorer extends React.Component<IOpportunitiesCardExplorerProps> {
   constructor(props) {
     super(props);
   }
 
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Interests</Loader>;
+    return (this.props.ready) ? this.renderPage() : <Loader>Loading Opportunities</Loader>;
   }
 
   private renderPage() {
@@ -48,12 +48,12 @@ class InterestsCardExplorer extends React.Component<IInterestsCardExplorerProps>
             <Grid.Column width="thirteen">
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
-                  <span>INTERESTS</span> ({this.props.count})
+                  <span>OPPORTUNITIES</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.interests.map((interest) => {
+                  {this.props.opportunities.map((opportunity) => {
                     return (
-                      <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
+                      <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity}/>
                     );
                   })}
                 </Card.Group>
@@ -66,16 +66,16 @@ class InterestsCardExplorer extends React.Component<IInterestsCardExplorerProps>
   }
 }
 
-const InterestsCardExplorerCon = withRouter(InterestsCardExplorer);
+const LandingOpportunitiesCardExplorerCon = withRouter(LandingOpportunitiesCardExplorer);
 
-const InterestsCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(Interests.getCollectionName());
+const LandingOpportunitiesCardExplorerContainer = withTracker(() => {
+  const sub1 = Meteor.subscribe(Opportunities.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    interests: Interests.find({}).fetch(),
-    count: Interests.find().count(),
+    opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
+    count: Opportunities.find().count(),
   };
-})(InterestsCardExplorerCon);
+})(LandingOpportunitiesCardExplorerCon);
 
-export default InterestsCardExplorerContainer;
+export default LandingOpportunitiesCardExplorerContainer;

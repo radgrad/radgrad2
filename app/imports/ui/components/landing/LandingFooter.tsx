@@ -8,7 +8,7 @@ const style = {
   padding: '1rem 0',
 };
 
-const Footer = () => (
+const LandingFooter = () => (
   <footer>
     <div style={style}>
       <Container textAlign={'center'}>
@@ -25,4 +25,4 @@ const Footer = () => (
   </footer>
 );
 
-export default Footer;
+export default LandingFooter;

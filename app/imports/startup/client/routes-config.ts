@@ -12,16 +12,16 @@ import GuidedTourAdvisor from '../../ui/pages/landing/GuidedTourAdvisor';
 import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
 import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
 import GuidedTourStudentContainer from '../../ui/pages/landing/GuidedTourStudent';
-import CareerGoalsCardExplorerContainer from '../../ui/pages/landing/CareerGoalsCardExplorer';
-import CareerGoalExplorerContainer from '../../ui/pages/landing/CareerGoalExplorer';
-import CoursesCardExplorerContainer from '../../ui/pages/landing/CoursesCardExplorer';
-import CourseExplorerContainer from '../../ui/pages/landing/CourseExplorer';
-import DegreesCardExplorerContainer from '../../ui/pages/landing/DegreesCardExplorer';
-import DesiredDegreeExplorerContainer from '../../ui/pages/landing/DegreeExplorer';
-import InterestsCardExplorerContainer from '../../ui/pages/landing/InterestsCardExplorer';
-import InterestExplorerContainer from '../../ui/pages/landing/InterestExplorer';
-import OpportunitiesCardExplorerContainer from '../../ui/pages/landing/OpportunitiesCardExplorer';
-import OpportunityExplorerContainer from '../../ui/pages/landing/OpportunityExplorer';
+import LandingCareerGoalsCardExplorerContainer from '../../ui/pages/landing/LandingCareerGoalsCardExplorer';
+import LandingCareerGoalExplorerContainer from '../../ui/pages/landing/LandingCareerGoalExplorer';
+import LandingCoursesCardExplorerContainer from '../../ui/pages/landing/LandingCoursesCardExplorer';
+import LandingCourseExplorerContainer from '../../ui/pages/landing/LandingCourseExplorer';
+import LandingDegreesCardExplorerContainer from '../../ui/pages/landing/LandingDegreesCardExplorer';
+import LandingDesiredDegreeExplorerContainer from '../../ui/pages/landing/LandingDegreeExplorer';
+import LandingInterestsCardExplorerContainer from '../../ui/pages/landing/LandingInterestsCardExplorer';
+import LandingInterestExplorerContainer from '../../ui/pages/landing/LandingInterestExplorer';
+import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/LandingOpportunitiesCardExplorer';
+import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorer';
 
 export const routes = {
   ADMIN: [
@@ -71,52 +71,52 @@ export const routes = {
     {
       path: '/explorer/career-goals',
       exact: true,
-      component: CareerGoalsCardExplorerContainer,
+      component: LandingCareerGoalsCardExplorerContainer,
     },
     {
       path: '/explorer/career-goals/:careergoal',
       exact: false,
-      component: CareerGoalExplorerContainer,
+      component: LandingCareerGoalExplorerContainer,
     },
     {
       path: '/explorer/courses',
       exact: true,
-      component: CoursesCardExplorerContainer,
+      component: LandingCoursesCardExplorerContainer,
     },
     {
       path: '/explorer/courses/:course',
       exact: false,
-      component: CourseExplorerContainer,
+      component: LandingCourseExplorerContainer,
     },
     {
       path: '/explorer/degrees',
       exact: true,
-      component: DegreesCardExplorerContainer,
+      component: LandingDegreesCardExplorerContainer,
     },
     {
       path: '/explorer/degrees/:degree',
       exact: false,
-      component: DesiredDegreeExplorerContainer,
+      component: LandingDesiredDegreeExplorerContainer,
     },
     {
       path: '/explorer/interests',
       exact: true,
-      component: InterestsCardExplorerContainer,
+      component: LandingInterestsCardExplorerContainer,
     },
     {
       path: '/explorer/interests/:interest',
       exact: false,
-      component: InterestExplorerContainer,
+      component: LandingInterestExplorerContainer,
     },
     {
       path: '/explorer/opportunities',
       exact: true,
-      component: OpportunitiesCardExplorerContainer,
+      component: LandingOpportunitiesCardExplorerContainer,
     },
     {
       path: '/explorer/opportunities/:opportunity',
       exact: false,
-      component: OpportunityExplorerContainer,
+      component: LandingOpportunityExplorerContainer,
     },
   ],
   MENTOR: [

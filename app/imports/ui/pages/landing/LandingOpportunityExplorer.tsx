@@ -1,22 +1,23 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
+import YouTube from 'react-youtube';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Label, Segment } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
-// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import { IOpportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withGenericSubscriptions from '../../layouts/shared/GenericSubscriptionHOC';
+import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import InterestList from '../../components/landing/InterestList';
-import PrerequisiteList from '../../components/landing/PrerequisiteList';
+import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
 import { Semesters } from '../../../api/semester/SemesterCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import OpportunityTeaser from '../../components/landing/OpportunityTeaser';
+// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {
   opportunity: IOpportunity;
@@ -25,13 +26,19 @@ interface IOpportunityExplorerProps {
   history: object;
 }
 
-class OpportunityExplorer extends React.Component<IOpportunityExplorerProps> {
+class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerProps> {
   constructor(props) {
     super(props);
   }
 
   public render() {
     // console.log(this.props.opportunity);
+    const opts = {
+      height: '390',
+      width: '640',
+    };
+    const videoID = teaser(this.props.opportunity);
+    console.log(videoID);
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -58,8 +65,8 @@ class OpportunityExplorer extends React.Component<IOpportunityExplorerProps> {
                 </Grid>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.opportunity.description}/>
-                <b>Teaser:</b>
-                {/*{teaser(this.props.opportunity) ? <OpportunityTeaser teaser={teaser(this.props.opportunity)}/> : <Label>N/A</Label>}*/}
+                <b>Teaser:</b><br/>
+                {teaser(this.props.opportunity) ? <YouTube videoId={videoID} opts={opts}/> : <Label>N/A</Label>}
                 <Header as="h4" dividing={true}>Opportunity Interests</Header>
                 <InterestList interestIDs={this.props.opportunity.interestIDs}/>
               </Segment>
@@ -71,7 +78,7 @@ class OpportunityExplorer extends React.Component<IOpportunityExplorerProps> {
   }
 }
 
-const WithSubs = withGenericSubscriptions(OpportunityExplorer, [
+const WithSubs = withListSubscriptions(LandingOpportunityExplorer, [
   Interests.getPublicationName(),
   Opportunities.getPublicationName(),
   Semesters.getPublicationName(),
@@ -79,15 +86,15 @@ const WithSubs = withGenericSubscriptions(OpportunityExplorer, [
   Teasers.getPublicationName(),
 ]);
 
-const OpportunityExplorerCon = withRouter(WithSubs);
+const LandingOpportunityExplorerCon = withRouter(WithSubs);
 
-const OpportunityExplorerContainer = withTracker((props) => {
+const LandingOpportunityExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.opportunity;
   // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(slugName, 'Opportunity');
   return {
     opportunity: Opportunities.findDoc(id),
   };
-})(OpportunityExplorerCon);
+})(LandingOpportunityExplorerCon);
 
-export default OpportunityExplorerContainer;
+export default LandingOpportunityExplorerContainer;

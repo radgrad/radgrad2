@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Icon, Image, Label, List, Loader, Segment } from 'semantic-ui-react';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
@@ -13,7 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
-import withGenericSubscriptions from '../../layouts/shared/GenericSubscriptionHOC';
+import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import InterestList from '../../components/landing/InterestList';
 import { getSlugFromEntityID } from '../../components/landing/helper-functions';
 
@@ -26,7 +26,7 @@ interface IInterestExplorerProps {
   history: object;
 }
 
-class InterestExplorer extends React.Component<IInterestExplorerProps> {
+class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
   constructor(props) {
     super(props);
   }
@@ -82,16 +82,16 @@ class InterestExplorer extends React.Component<IInterestExplorerProps> {
   }
 }
 
-const WithSubs = withGenericSubscriptions(InterestExplorer, [
+const WithSubs = withListSubscriptions(LandingInterestExplorer, [
   Courses.getPublicationName(),
   Interests.getPublicationName(),
   Opportunities.getPublicationName(),
   Slugs.getPublicationName(),
 ]);
 
-const InterestExplorerCon = withRouter(WithSubs);
+const LandingInterestExplorerCon = withRouter(WithSubs);
 
-const InterestExplorerContainer = withTracker((props) => {
+const LandingInterestExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.interest;
   // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(slugName, 'Interest');
@@ -100,6 +100,6 @@ const InterestExplorerContainer = withTracker((props) => {
     courses: Courses.find({ interestIDs: id }).fetch(),
     opportunities: Opportunities.find({ interestIDs: id }).fetch(),
   };
-})(InterestExplorerCon);
+})(LandingInterestExplorerCon);
 
-export default InterestExplorerContainer;
+export default LandingInterestExplorerContainer;

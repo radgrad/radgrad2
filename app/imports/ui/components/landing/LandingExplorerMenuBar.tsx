@@ -7,7 +7,7 @@ import { INavBarProps } from './LandingNavBar';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 
-class ExplorerMenuBar extends React.Component<INavBarProps> {
+class LandingExplorerMenuBar extends React.Component<INavBarProps> {
   constructor(props) {
     super(props);
   }
@@ -47,9 +47,9 @@ class ExplorerMenuBar extends React.Component<INavBarProps> {
   }
 }
 
-const ExplorerMenuBarContainer = withTracker(() => ({
+const LandingExplorerMenuBarContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(ExplorerMenuBar);
+}))(LandingExplorerMenuBar);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(ExplorerMenuBarContainer);
+export default withRouter(LandingExplorerMenuBarContainer);

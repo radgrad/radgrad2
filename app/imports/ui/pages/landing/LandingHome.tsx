@@ -13,8 +13,8 @@ import LandingSection6 from '../../components/landing/LandingSection6';
 import LandingSection7 from '../../components/landing/LandingSection7';
 import LandingSection8 from '../../components/landing/LandingSection8';
 import LandingSection9Container from '../../components/landing/LandingSection9';
-import Footer from '../../components/landing/Footer';
-import { withGenericSubscriptions } from '../../layouts/shared/GenericSubscriptionHOC';
+import LandingFooter from '../../components/landing/LandingFooter';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 
 interface ILandingHomeProps {
   careerGoalNames: string;
@@ -61,13 +61,13 @@ class LandingHome extends React.Component<ILandingHomeProps> {
         <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
                          mentors={this.props.mentors}/>
         <LandingSection9Container/>
-        <Footer/>
+        <LandingFooter/>
       </div>
     );
   }
 }
 
-const WithSubs = withGenericSubscriptions(LandingHome, [PublicStats.getPublicationName()]);
+const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationName()]);
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {

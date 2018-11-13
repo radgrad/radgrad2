@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICourse } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
@@ -20,7 +20,7 @@ interface ICoursesCardExplorerProps {
   history: object;
 }
 
-class CoursesCardExplorer extends React.Component<ICoursesCardExplorerProps> {
+class LandingCoursesCardExplorer extends React.Component<ICoursesCardExplorerProps> {
   constructor(props) {
     super(props);
   }
@@ -67,9 +67,9 @@ class CoursesCardExplorer extends React.Component<ICoursesCardExplorerProps> {
   }
 }
 
-const CoursesCardExplorerCon = withRouter(CoursesCardExplorer);
+const LandingCoursesCardExplorerCon = withRouter(LandingCoursesCardExplorer);
 
-const CoursesCardExplorerContainer = withTracker(() => {
+const LandingCoursesCardExplorerContainer = withTracker(() => {
   const sub1 = Meteor.subscribe(Courses.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
@@ -77,6 +77,6 @@ const CoursesCardExplorerContainer = withTracker(() => {
     courses: Courses.find({}, { sort: { shortName: 1 } }).fetch(),
     count: Courses.find().count(),
   };
-})(CoursesCardExplorerCon);
+})(LandingCoursesCardExplorerCon);
 
-export default CoursesCardExplorerContainer;
+export default LandingCoursesCardExplorerContainer;

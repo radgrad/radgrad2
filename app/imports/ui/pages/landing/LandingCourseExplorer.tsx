@@ -4,15 +4,15 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICourse } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withGenericSubscriptions from '../../layouts/shared/GenericSubscriptionHOC';
+import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import InterestList from '../../components/landing/InterestList';
-import PrerequisiteList from '../../components/landing/PrerequisiteList';
+import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 
 interface ICourseExplorerProps {
   course: ICourse;
@@ -21,7 +21,7 @@ interface ICourseExplorerProps {
   history: object;
 }
 
-class CourseExplorer extends React.Component<ICourseExplorerProps> {
+class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
   constructor(props) {
     super(props);
   }
@@ -56,7 +56,7 @@ class CourseExplorer extends React.Component<ICourseExplorerProps> {
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.course.description}/>
                 <Header as="h4" dividing={true}>Prerequisites</Header>
-                <PrerequisiteList prerequisites={this.props.course.prerequisites}/>
+                <LandingPrerequisiteList prerequisites={this.props.course.prerequisites}/>
                 <Header as="h4" dividing={true}>Course Interests</Header>
                 <InterestList interestIDs={this.props.course.interestIDs}/>
               </Segment>
@@ -69,21 +69,21 @@ class CourseExplorer extends React.Component<ICourseExplorerProps> {
   }
 }
 
-const WithSubs = withGenericSubscriptions(CourseExplorer, [
+const WithSubs = withListSubscriptions(LandingCourseExplorer, [
   Courses.getCollectionName(),
   Slugs.getPublicationName(),
   Interests.getPublicationName(),
 ]);
 
-const CourseExplorerCon = withRouter(WithSubs);
+const LandingCourseExplorerCon = withRouter(WithSubs);
 
-const CourseExplorerContainer = withTracker((props) => {
+const LandingCourseExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.course;
   // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(slugName, 'Course');
   return {
     course: Courses.findDoc(id),
   };
-})(CourseExplorerCon);
+})(LandingCourseExplorerCon);
 
-export default CourseExplorerContainer;
+export default LandingCourseExplorerContainer;

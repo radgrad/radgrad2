@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-/** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
+/** The LandingFooter appears at the bottom of every page. Rendered by the App Layout component. */
 class Footer extends React.Component {
   public render() {
     const divStyle = { paddingTop: '15px' };

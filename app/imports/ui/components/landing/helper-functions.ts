@@ -42,7 +42,9 @@ export function getOpportunityTypeName(opportunityTypeID) {
 
 export function teaser(opportunity) {
   try {
-    return Teasers.findDoc({ opportunityID: opportunity._id });
+    const t = Teasers.findDoc({ opportunityID: opportunity._id });
+    const url = t.url;
+    return url;
   } catch (e) {
     return '';
   }

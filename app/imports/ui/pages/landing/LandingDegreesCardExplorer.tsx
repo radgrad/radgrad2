@@ -3,24 +3,24 @@ import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
-import { IAcademicPlan } from '../../../typings/radgrad';
+import { IDesiredDegree } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 
 interface IDegreesCardExplorerProps {
   ready: boolean;
-  academicPlans: IAcademicPlan[];
+  desiredDegrees: IDesiredDegree[];
   count: number;
   match: object;
   location: object;
   history: object;
 }
 
-class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
+class LandingDegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
   constructor(props) {
     super(props);
   }
@@ -48,12 +48,12 @@ class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
             <Grid.Column width="thirteen">
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
-                  <span>ACADEMIC PLANS</span> ({this.props.count})
+                  <span>DESIRED DEGREES</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.academicPlans.map((plan) => {
+                  {this.props.desiredDegrees.map((goal) => {
                     return (
-                      <LandingExplorerCardContainer key={plan._id} type="plans" item={plan}/>
+                      <LandingExplorerCardContainer key={goal._id} type="degrees" item={goal}/>
                     );
                   })}
                 </Card.Group>
@@ -67,16 +67,16 @@ class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
   }
 }
 
-const DegreesCardExplorerCon = withRouter(DegreesCardExplorer);
+const LandingDegreesCardExplorerCon = withRouter(LandingDegreesCardExplorer);
 
-const DegreesCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(AcademicPlans.getPublicationName());
+const LandingDegreesCardExplorerContainer = withTracker(() => {
+  const sub1 = Meteor.subscribe(DesiredDegrees.getCollectionName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    academicPlans: AcademicPlans.find({}).fetch(),
-    count: AcademicPlans.find().count(),
+    desiredDegrees: DesiredDegrees.find({}).fetch(),
+    count: DesiredDegrees.find().count(),
   };
-})(DegreesCardExplorerCon);
+})(LandingDegreesCardExplorerCon);
 
-export default DegreesCardExplorerContainer;
+export default LandingDegreesCardExplorerContainer;

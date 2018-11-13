@@ -1,35 +1,33 @@
 import * as React from 'react';
+import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
-import ExplorerMenuBarContainer from '../../components/landing/ExplorerMenuBar';
+import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { IDesiredDegree } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import InterestList from '../../components/landing/InterestList';
+import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
-interface IDegreesCardExplorerProps {
-  ready: boolean;
-  desiredDegrees: IDesiredDegree[];
-  count: number;
+interface IDesiredDegreeExplorerProps {
+  desiredDegree: IDesiredDegree;
   match: object;
   location: object;
   history: object;
 }
 
-class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
+class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps> {
   constructor(props) {
     super(props);
   }
 
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Degrees</Loader>;
-  }
-
-  private renderPage() {
+    // console.log(this.props.desiredDegree);
     const inlineStyle = {
       maxHeight: 750,
       marginTop: 10,
@@ -48,15 +46,10 @@ class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
             <Grid.Column width="thirteen">
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
-                  <span>DESIRED DEGREES</span> ({this.props.count})
+                  <span>{this.props.desiredDegree.name}</span>
                 </Header>
-                <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.desiredDegrees.map((goal) => {
-                    return (
-                      <LandingExplorerCardContainer key={goal._id} type="degrees" item={goal}/>
-                    );
-                  })}
-                </Card.Group>
+                <b>Description:</b>
+                <Markdown escapeHtml={true} source={this.props.desiredDegree.description}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>
@@ -67,16 +60,20 @@ class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
   }
 }
 
-const DegreesCardExplorerCon = withRouter(DegreesCardExplorer);
+const WithSubs = withListSubscriptions(DesiredDegreeExplorer, [
+  DesiredDegrees.getCollectionName(),
+  Slugs.getPublicationName(),
+]);
 
-const DegreesCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(DesiredDegrees.getCollectionName());
-  const sub2 = Meteor.subscribe(Slugs.getPublicationName());
+const LandingDesiredDegreeExplorerCon = withRouter(WithSubs);
+
+const LandingDesiredDegreeExplorerContainer = withTracker((props) => {
+  const slugName = props.match.params.degree;
+  // console.log(Slugs.find().fetch());
+  const id = Slugs.getEntityID(slugName, 'DesiredDegree');
   return {
-    ready: sub1.ready() && sub2.ready(),
-    desiredDegrees: DesiredDegrees.find({}).fetch(),
-    count: DesiredDegrees.find().count(),
+    desiredDegree: DesiredDegrees.findDoc(id),
   };
-})(DegreesCardExplorerCon);
+})(LandingDesiredDegreeExplorerCon);
 
-export default DegreesCardExplorerContainer;
+export default LandingDesiredDegreeExplorerContainer;

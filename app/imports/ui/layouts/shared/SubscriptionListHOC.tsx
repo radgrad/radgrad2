@@ -7,7 +7,7 @@ interface ILoading {
   loading: boolean;
 }
 
-export function withGenericSubscriptions(WrappedComponent, subscriptionNames: string[]) {
+export function withListSubscriptions(WrappedComponent, subscriptionNames: string[]) {
   class GenericSubscription extends React.Component<ILoading> {
     constructor(props) {
       super(props);
@@ -29,4 +29,4 @@ export function withGenericSubscriptions(WrappedComponent, subscriptionNames: st
   })(GenericSubscription);
 }
 
-export default withGenericSubscriptions;
+export default withListSubscriptions;
