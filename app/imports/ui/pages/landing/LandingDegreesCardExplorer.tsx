@@ -70,7 +70,7 @@ class LandingDegreesCardExplorer extends React.Component<IDegreesCardExplorerPro
 const LandingDegreesCardExplorerCon = withRouter(LandingDegreesCardExplorer);
 
 const LandingDegreesCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(DesiredDegrees.getCollectionName());
+  const sub1 = Meteor.subscribe(DesiredDegrees.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),

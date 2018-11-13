@@ -69,7 +69,7 @@ class LandingInterestsCardExplorer extends React.Component<IInterestsCardExplore
 const LandingInterestsCardExplorerCon = withRouter(LandingInterestsCardExplorer);
 
 const LandingInterestsCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(Interests.getCollectionName());
+  const sub1 = Meteor.subscribe(Interests.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),

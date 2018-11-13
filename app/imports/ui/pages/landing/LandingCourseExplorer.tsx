@@ -70,7 +70,7 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
 }
 
 const WithSubs = withListSubscriptions(LandingCourseExplorer, [
-  Courses.getCollectionName(),
+  Courses.getPublicationName(),
   Slugs.getPublicationName(),
   Interests.getPublicationName(),
 ]);

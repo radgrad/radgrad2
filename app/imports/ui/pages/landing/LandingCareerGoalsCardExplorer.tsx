@@ -70,7 +70,7 @@ class LandingCareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExp
 const LandingCareerGoalsCardExplorerCon = withRouter(LandingCareerGoalsCardExplorer);
 
 const LandingCareerGoalsCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(CareerGoals.getCollectionName());
+  const sub1 = Meteor.subscribe(CareerGoals.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),

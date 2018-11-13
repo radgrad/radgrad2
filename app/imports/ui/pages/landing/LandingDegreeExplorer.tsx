@@ -61,7 +61,7 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
 }
 
 const WithSubs = withListSubscriptions(DesiredDegreeExplorer, [
-  DesiredDegrees.getCollectionName(),
+  DesiredDegrees.getPublicationName(),
   Slugs.getPublicationName(),
 ]);
 

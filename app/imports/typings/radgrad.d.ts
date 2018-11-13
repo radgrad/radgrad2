@@ -20,6 +20,7 @@ export interface IAcademicPlan {
   year: number;
   coursesPerSemester: number[];
   courseList: string[];
+  isBAM?: boolean;
 }
 
 export interface IAcademicPlanDefine extends IDumpOne {

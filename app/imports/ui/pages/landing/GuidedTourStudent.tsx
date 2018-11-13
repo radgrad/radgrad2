@@ -84,7 +84,7 @@ class GuidedTourStudent extends React.Component<IGuidedTourStudentProps> {
 }
 
 const GuidedTourStudentContainer = withTracker(() => {
-  const subscription = Meteor.subscribe(PublicStats.getCollectionName());
+  const subscription = Meteor.subscribe(PublicStats.getPublicationName());
   let key;
   let interests;
   let careerGoals;

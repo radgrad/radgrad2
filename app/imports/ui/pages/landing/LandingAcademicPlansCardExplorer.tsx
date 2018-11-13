@@ -10,8 +10,9 @@ import { IAcademicPlan } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import LandingAcademicPlanCardContainer from '../../components/landing/LandingAcademicPlanCard';
 
-interface IDegreesCardExplorerProps {
+interface IAcademicPlansCardExplorerProps {
   ready: boolean;
   academicPlans: IAcademicPlan[];
   count: number;
@@ -20,13 +21,13 @@ interface IDegreesCardExplorerProps {
   history: object;
 }
 
-class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
+class LandingAcademicPlansCardExplorer extends React.Component<IAcademicPlansCardExplorerProps> {
   constructor(props) {
     super(props);
   }
 
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Degrees</Loader>;
+    return (this.props.ready) ? this.renderPage() : <Loader>Loading Academic Plans</Loader>;
   }
 
   private renderPage() {
@@ -53,30 +54,29 @@ class DegreesCardExplorer extends React.Component<IDegreesCardExplorerProps> {
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
                   {this.props.academicPlans.map((plan) => {
                     return (
-                      <LandingExplorerCardContainer key={plan._id} type="plans" item={plan}/>
+                      <LandingAcademicPlanCardContainer key={plan._id} plan={plan}/>
                     );
                   })}
                 </Card.Group>
               </Segment>
             </Grid.Column>
           </Grid.Row>
-
         </Grid>
       </div>
     );
   }
 }
 
-const DegreesCardExplorerCon = withRouter(DegreesCardExplorer);
+const LandingAcademicPlansCardExplorerCon = withRouter(LandingAcademicPlansCardExplorer);
 
-const DegreesCardExplorerContainer = withTracker(() => {
+const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
   const sub1 = Meteor.subscribe(AcademicPlans.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    academicPlans: AcademicPlans.find({}).fetch(),
+    academicPlans: AcademicPlans.find({}, { $sort: { year: 1, name: 1 } }).fetch(),
     count: AcademicPlans.find().count(),
   };
-})(DegreesCardExplorerCon);
+})(LandingAcademicPlansCardExplorerCon);
 
-export default DegreesCardExplorerContainer;
+export default LandingAcademicPlansCardExplorerContainer;

@@ -22,6 +22,8 @@ import LandingInterestsCardExplorerContainer from '../../ui/pages/landing/Landin
 import LandingInterestExplorerContainer from '../../ui/pages/landing/LandingInterestExplorer';
 import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/LandingOpportunitiesCardExplorer';
 import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorer';
+import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorer';
+import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorer';
 
 export const routes = {
   ADMIN: [
@@ -117,6 +119,16 @@ export const routes = {
       path: '/explorer/opportunities/:opportunity',
       exact: false,
       component: LandingOpportunityExplorerContainer,
+    },
+    {
+      path: '/explorer/academic-plans',
+      exact: true,
+      component: LandingAcademicPlansCardExplorerContainer,
+    },
+    {
+      path: '/explorer/academic-plans/:plan',
+      exact: false,
+      component: LandingAcademicPlanExplorerContainer,
     },
   ],
   MENTOR: [

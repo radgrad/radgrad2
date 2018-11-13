@@ -29,6 +29,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'year': Number,
       'coursesPerSemester': { type: Array, minCount: 12, maxCount: 12 }, 'coursesPerSemester.$': Number,
       'courseList': [String],
+      'isBAM': { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, degreeID: 1, effectiveSemesterID: 1 });
