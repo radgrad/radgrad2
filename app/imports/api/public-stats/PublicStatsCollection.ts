@@ -169,19 +169,19 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public opportunitiesTotal() {
-    const numOpps = Opportunities.find().count();
+    const numOpps = Opportunities.countNonRetired();
     this.collection.upsert({ key: this.opportunitiesTotalKey }, { $set: { value: `${numOpps}` } });
   }
 
   public opportunitiesProjectsTotal() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
-    const numProjects = Opportunities.find({ opportunityTypeID: projectType._id }).count();
+    const numProjects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id }).length;
     this.collection.upsert({ key: this.opportunitiesProjectsTotalKey }, { $set: { value: `${numProjects}` } });
   }
 
   public opportunitiesProjectsList() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
-    const projects = Opportunities.find({ opportunityTypeID: projectType._id }).fetch();
+    const projects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id });
     const names = _.map(projects, 'name');
     this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: names.join(', ') } });
   }
@@ -294,7 +294,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public firstOpportunity() {
-    const interests = Opportunities.find({}, { sort: { name: 1 } }).fetch();
+    const interests = Opportunities.findNonRetired({}, { sort: { name: 1 } });
     if (interests.length > 0) {
       const name = Slugs.findDoc(interests[0].slugID).name;
       this.collection.upsert({ key: this.firstOpportunityKey }, { $set: { value: name } });

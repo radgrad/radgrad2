@@ -45,7 +45,7 @@ export function calculateOpportunityCompatibility(opportunityID: string, student
 
 export function semesterOpportunities(semester, semesterNumber) {
   const id = semester._id;
-  const opps = Opportunities.find().fetch();
+  const opps = Opportunities.findNonRetired();
   const semesterOpps = _.filter(opps, (opportunity) => {
     return _.indexOf(opportunity.semesterIDs, id) !== -1;
   });

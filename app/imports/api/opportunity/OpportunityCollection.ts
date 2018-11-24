@@ -12,7 +12,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE } from '../ice/IceProcessor';
-import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
+import { IOpportunity, IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".
@@ -37,6 +37,7 @@ class OpportunityCollection extends BaseSlugCollection {
       // Optional data
       eventDate: { type: Date, optional: true },
       ice: { type: Object, optional: true, blackbox: true },
+      retired: { type: Boolean, optional: true },
     }));
   }
 
@@ -63,7 +64,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, opportunityType, sponsor, interests, semesters, ice, eventDate = null }: IOpportunityDefine) {
+  public define({ name, slug, description, opportunityType, sponsor, interests, semesters, ice, eventDate = null, retired = false }: IOpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -79,11 +80,11 @@ class OpportunityCollection extends BaseSlugCollection {
       // Define the new Opportunity and its Slug.
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, semesterIDs, ice, eventDate });
+        interestIDs, semesterIDs, ice, eventDate, retired });
     } else {
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, semesterIDs, ice });
+        interestIDs, semesterIDs, ice, retired });
     }
     Slugs.updateEntityID(slugID, opportunityID);
 
@@ -102,8 +103,9 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param semesters optional
    * @param eventDate a Date. (optional)
    * @param ice An ICE object (optional).
+   * @param retired boolean (optional).
    */
-  public update(instance: string, { name, description, opportunityType, sponsor, interests, semesters, eventDate, ice }: IOpportunityUpdate) {
+  public update(instance: string, { name, description, opportunityType, sponsor, interests, semesters, eventDate, ice, retired }: IOpportunityUpdate) {
     const docID = this.getID(instance);
     const updateData: IOpportunityUpdateData = {};
     if (name) {
@@ -135,6 +137,9 @@ class OpportunityCollection extends BaseSlugCollection {
     if (ice) {
       assertICE(ice);
       updateData.ice = ice;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -258,7 +263,8 @@ class OpportunityCollection extends BaseSlugCollection {
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
     const semesters = _.map(doc.semesterIDs, (semesterID) => Semesters.findSlugByID(semesterID));
     const eventDate = doc.eventDate;
-    return { name, slug, description, opportunityType, sponsor, ice, interests, semesters, eventDate };
+    const retired = doc.retired;
+    return { name, slug, description, opportunityType, sponsor, ice, interests, semesters, eventDate, retired };
   }
 }
 

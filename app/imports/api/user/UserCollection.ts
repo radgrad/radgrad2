@@ -170,7 +170,7 @@ class UserCollection {
     const hasReviews = Reviews.find({ studentID: userID }).count();
     const hasAnswers = MentorAnswers.find({ mentorID: userID }).count();
     const hasQuestions = MentorQuestions.find({ studentID: userID }).count();
-    const hasOpportunities = Opportunities.find({ sponsorID: userID }).count();
+    const hasOpportunities = Opportunities.find({ sponsorID: userID }).count(); // TODO CAM can this be non-retired?
     return (hasReviews || hasAnswers || hasQuestions || hasOpportunities);
   }
 

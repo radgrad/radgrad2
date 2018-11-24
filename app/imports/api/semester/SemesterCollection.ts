@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { moment } from 'meteor/momentjs:moment';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ISemesterDefine } from '../../typings/radgrad';
+import { ISemesterDefine, ISemesterUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a specific semester, such as "Spring, 2016", "Fall, 2017", or "Summer, 2015".
@@ -29,6 +30,7 @@ class SemesterCollection extends BaseSlugCollection {
       year: { type: Number },
       semesterNumber: { type: Number },
       slugID: { type: SimpleSchema.RegEx.Id },
+      retired: { type: Boolean, optional: true },
     }));
     this.SPRING = 'Spring';
     this.SUMMER = 'Summer';
@@ -49,7 +51,8 @@ class SemesterCollection extends BaseSlugCollection {
     const doc = this.findDoc(docID);
     const term = doc.term;
     const year = doc.year;
-    return { term, year };
+    const retired = doc.retired;
+    return { term, year, retired };
   }
 
   /**
@@ -103,6 +106,19 @@ class SemesterCollection extends BaseSlugCollection {
     const semesterID = this.collection.insert({ term, year, semesterNumber, slugID });
     Slugs.updateEntityID(slugID, semesterID);
     return semesterID;
+  }
+
+  /**
+   * Updates the retired flag.
+   * @param docID the id of the semester.
+   * @param retired optional boolean.
+   */
+  public update(docID, { retired }: ISemesterUpdate) {
+    const updateData: ISemesterUpdate = {};
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+      this.collection.update(docID, { $set: updateData });
+    }
   }
 
   /**

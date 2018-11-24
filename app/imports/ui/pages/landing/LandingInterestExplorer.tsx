@@ -98,7 +98,7 @@ const LandingInterestExplorerContainer = withTracker((props) => {
   return {
     interest: Interests.findDoc(id),
     courses: Courses.findNonRetired({ interestIDs: id }),
-    opportunities: Opportunities.find({ interestIDs: id }).fetch(),
+    opportunities: Opportunities.findNonRetired({ interestIDs: id }),
   };
 })(LandingInterestExplorerCon);
 

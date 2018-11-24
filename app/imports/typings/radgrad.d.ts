@@ -304,6 +304,7 @@ export interface IOpportunity {
   // Optional data
   eventDate?: Date;
   ice?: Ice;
+  retired?: boolean;
 }
 
 export interface IOpportunityDefine extends IDumpOne {
@@ -316,6 +317,7 @@ export interface IOpportunityDefine extends IDumpOne {
   semesters: string[];
   ice: Ice;
   eventDate?: any;
+  retired?: boolean;
 }
 
 export interface IOpportunityUpdate {
@@ -327,6 +329,7 @@ export interface IOpportunityUpdate {
   semesters?: string[];
   eventDate?: any;
   ice?: Ice;
+  retired?: boolean;
 }
 
 export interface IOpportunityUpdateData {
@@ -338,6 +341,7 @@ export interface IOpportunityUpdateData {
   semesterIDs?: string[];
   eventDate?: any;
   ice?: Ice;
+  retired?: boolean;
 }
 
 // OpportunityInstances
@@ -476,6 +480,11 @@ export interface IReviewUpdateData {
 export interface ISemesterDefine extends IDumpOne {
   term: string;
   year: number;
+  retired?: boolean;
+}
+
+export interface ISemesterUpdate {
+  retired?: boolean;
 }
 
 // Slugs
