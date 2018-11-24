@@ -97,7 +97,7 @@ const LandingInterestExplorerContainer = withTracker((props) => {
   const id = Slugs.getEntityID(slugName, 'Interest');
   return {
     interest: Interests.findDoc(id),
-    courses: Courses.find({ interestIDs: id }).fetch(),
+    courses: Courses.findNonRetired({ interestIDs: id }),
     opportunities: Opportunities.find({ interestIDs: id }).fetch(),
   };
 })(LandingInterestExplorerCon);
