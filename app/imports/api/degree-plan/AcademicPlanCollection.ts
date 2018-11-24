@@ -20,7 +20,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   constructor() {
     super('AcademicPlan', new SimpleSchema({
-      'name': String,
+      'name': { type: String },
       'description': String,
       'slugID': SimpleSchema.RegEx.Id,
       'degreeID': SimpleSchema.RegEx.Id,

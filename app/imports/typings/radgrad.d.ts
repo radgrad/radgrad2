@@ -153,6 +153,7 @@ export interface IDesiredDegree {
   shortName: string;
   slugID: string;
   description: string;
+  retired?: boolean;
 }
 
 export interface IDesiredDegreeDefine extends IDumpOne {
@@ -160,12 +161,14 @@ export interface IDesiredDegreeDefine extends IDumpOne {
   shortName?: string;
   slug: string;
   description: string;
+  retired?: boolean;
 }
 
 export interface IDesiredDegreeUpdate {
   name?: string;
   shortName?: string;
   description?: string;
+  retired?: boolean;
 }
 
 // Feeds

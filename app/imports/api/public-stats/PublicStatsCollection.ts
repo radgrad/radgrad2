@@ -147,12 +147,12 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public desiredDegreesTotal() {
-    const count = DesiredDegrees.find().count();
+    const count = DesiredDegrees.countNonRetired();
     this.collection.upsert({ key: this.desiredDegreesTotalKey }, { $set: { value: `${count}` } });
   }
 
   public desiredDegreesList() {
-    const degrees = DesiredDegrees.find().fetch();
+    const degrees = DesiredDegrees.findNonRetired();
     const names = _.map(degrees, 'name');
     this.collection.upsert({ key: this.desiredDegreesListKey }, { $set: { value: names.join(', ') } });
   }
@@ -302,7 +302,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public firstDegree() {
-    const degrees = DesiredDegrees.find({}, { sort: { name: 1 } }).fetch();
+    const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
     if (degrees.length > 0) {
       const name = Slugs.findDoc(degrees[0].slugID).name;
       this.collection.upsert({ key: this.firstDegreeKey }, { $set: { value: name } });

@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
@@ -21,6 +22,7 @@ class DesiredDegreeCollection extends BaseSlugCollection {
       shortName: { type: String },
       slugID: { type: SimpleSchema.RegEx.Id },
       description: { type: String },
+      retired: { type: Boolean, optional: true },
     }));
   }
 
@@ -31,16 +33,16 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    *                         shortName: 'B.S. CS',
    *                         slug: 'bs-cs',
    *                         description: 'Focuses on software technology and provides a foundation in math.' });
-   * @param { Object } description Object with keys name, slug, and description.
+   * @param { Object } description Object with keys name, slug, description and optional retired flag.
    * Slug must be globally unique and previously undefined.
    * ShortName defaults to name if not supplied.
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, description }: IDesiredDegreeDefine) {
+  public define({ name, shortName = name, slug, description, retired = false }: IDesiredDegreeDefine) {
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const desiredDegreeID = this.collection.insert({ name, shortName, slugID, description });
+    const desiredDegreeID = this.collection.insert({ name, shortName, slugID, description, retired });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, desiredDegreeID);
     return desiredDegreeID;
@@ -52,8 +54,9 @@ class DesiredDegreeCollection extends BaseSlugCollection {
    * @param name the name of this degree.
    * @param shortName the short name of this degree.
    * @param description the description of this degree.
+   * @param retired boolean, optional.
    */
-  public update(instance, { name, shortName, description }: IDesiredDegreeUpdate) {
+  public update(instance, { name, shortName, description, retired }: IDesiredDegreeUpdate) {
     const docID = this.getID(instance);
     const updateData: IDesiredDegreeUpdate = {};
     if (name) {
@@ -64,6 +67,9 @@ class DesiredDegreeCollection extends BaseSlugCollection {
     }
     if (description) {
       updateData.description = description;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -112,7 +118,8 @@ class DesiredDegreeCollection extends BaseSlugCollection {
     const shortName = doc.shortName;
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
-    return { name, shortName, slug, description };
+    const retired = doc.retired;
+    return { name, shortName, slug, description, retired };
   }
 }
 

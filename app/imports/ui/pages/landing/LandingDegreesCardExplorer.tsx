@@ -74,8 +74,8 @@ const LandingDegreesCardExplorerContainer = withTracker(() => {
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    desiredDegrees: DesiredDegrees.find({}).fetch(),
-    count: DesiredDegrees.find().count(),
+    desiredDegrees: DesiredDegrees.findNonRetired(),
+    count: DesiredDegrees.countNonRetired(),
   };
 })(LandingDegreesCardExplorerCon);
 
