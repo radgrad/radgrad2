@@ -45,8 +45,7 @@ export function clearPlannedCourseInstances(studentID: string) {
 }
 
 export function get300LevelDocs(): object[] {
-  const courses = Courses.find({ number: /3\d\d/ }).fetch();
-  return courses;
+  return Courses.findNonRetired({ number: /3\d\d/ });
 }
 
 export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
@@ -83,8 +82,7 @@ export function chooseStudent300LevelCourse(studentID: string, coursesTakenSlugs
 }
 
 export function get400LevelDocs() {
-  const courses = Courses.find({ number: /4\d\d/ }).fetch();
-  return courses;
+  return Courses.findNonRetired({ number: /4\d\d/ });
 }
 
 export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: string[]) {

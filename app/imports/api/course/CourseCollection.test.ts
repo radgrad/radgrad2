@@ -28,6 +28,9 @@ if (Meteor.isServer) {
       expect(Courses.isDefined(slug)).to.be.true;
       expect(Courses.findDoc(docID).shortName).to.equal(name);
       const dumpObject = Courses.dumpOne(docID);
+      expect(Courses.countNonRetired()).to.equal(1);
+      Courses.update(docID, { retired: true });
+      expect(Courses.countNonRetired()).to.equal(0);
       Courses.removeIt(slug);
       expect(Courses.isDefined(slug)).to.be.false;
       Courses.restoreOne(dumpObject);
