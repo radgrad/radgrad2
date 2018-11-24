@@ -147,10 +147,8 @@ class CourseCollection extends BaseSlugCollection {
       });
       updateData.prerequisites = prerequisites;
     }
-    if (retired) {
+    if (_.isBoolean(retired)) {
       updateData.retired = retired;
-    } else {
-      updateData.retired = false;
     }
     this.collection.update(docID, { $set: updateData });
   }

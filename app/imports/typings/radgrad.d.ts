@@ -31,6 +31,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
   semester: string;
   coursesPerSemester: number[];
   courseList: string[];
+  retired?: boolean;
 }
 
 export interface IAcademicPlanUpdate {
@@ -39,6 +40,7 @@ export interface IAcademicPlanUpdate {
   semester?: string;
   coursesPerSemester?: number[];
   courseList?: string[];
+  retired?: boolean;
 }
 
 // AcademicYearInstances

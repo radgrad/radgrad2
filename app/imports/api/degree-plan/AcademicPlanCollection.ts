@@ -27,9 +27,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'effectiveSemesterID': SimpleSchema.RegEx.Id,
       'semesterNumber': Number,
       'year': Number,
-      'coursesPerSemester': { type: Array, minCount: 12, maxCount: 12 }, 'coursesPerSemester.$': Number,
+      'coursesPerSemester': { type: Array, minCount: 12, maxCount: 15 }, 'coursesPerSemester.$': Number,
       'courseList': [String],
-      'isBAM': { type: Boolean, optional: true },
+      'retired': { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, degreeID: 1, effectiveSemesterID: 1 });
@@ -56,9 +56,10 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param semester the slug for the semester.
    * @param coursesPerSemester an array of the number of courses to take in each semester.
    * @param courseList an array of PlanChoices. The choices for each course.
+   * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList }: IAcademicPlanDefine) {
+  public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList, retired = false }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
     const effectiveSemesterID = Semesters.getID(semester);
     const doc = this.collection.findOne({ degreeID, name, effectiveSemesterID });
@@ -71,7 +72,16 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const semesterNumber = semesterDoc.semesterNumber;
     const year = semesterDoc.year;
     const planID = this.collection.insert({
-      slugID, degreeID, name, description, effectiveSemesterID, semesterNumber, year, coursesPerSemester, courseList,
+      slugID,
+      degreeID,
+      name,
+      description,
+      effectiveSemesterID,
+      semesterNumber,
+      year,
+      coursesPerSemester,
+      courseList,
+      retired,
     });
     // Connect the Slug to this AcademicPlan.
     Slugs.updateEntityID(slugID, planID);
@@ -86,10 +96,11 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param semester the first semester this plan is effective.
    * @param coursesPerSemester an array of the number of courses per semester.
    * @param courseList an array of PlanChoices, the choices for each course.
+   * @param retired boolean, optional.
    */
-  public update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList }: IAcademicPlanUpdate) {
+  public update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
-    const updateData: { degreeID?: string; name?: string; effectiveSemesterID?: string; coursesPerSemester?: number[]; courseList?: string[] } = {};
+    const updateData: { degreeID?: string; name?: string; effectiveSemesterID?: string; coursesPerSemester?: number[]; courseList?: string[]; retired?: boolean; } = {};
     if (degreeSlug) {
       updateData.degreeID = DesiredDegrees.getID(degreeSlug);
     }
@@ -120,6 +131,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
         }
       });
       updateData.courseList = courseList;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -231,7 +245,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const semester = Slugs.findDoc(semesterDoc.slugID).name;
     const coursesPerSemester = doc.coursesPerSemester;
     const courseList = doc.courseList;
-    return { slug, degreeSlug, name, description, semester, coursesPerSemester, courseList };
+    const retired = doc.retired;
+    return { slug, degreeSlug, name, description, semester, coursesPerSemester, courseList, retired };
   }
 
 }
