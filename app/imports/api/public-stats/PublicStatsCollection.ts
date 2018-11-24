@@ -136,7 +136,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public coursesTotal() {
-    const count = Courses.find().count();
+    const count = Courses.findNonRetired().length;
     this.collection.upsert({ key: this.coursesTotalKey }, { $set: { value: `${count}` } });
   }
 

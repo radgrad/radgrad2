@@ -93,6 +93,7 @@ export interface ICourseDefine extends IDumpOne {
   interests?: string[];
   syllabus?: string;
   prerequisites?: string[];
+  retired?: boolean;
 }
 
 export interface ICourseUpdate {
@@ -104,6 +105,7 @@ export interface ICourseUpdate {
   interests?: string[];
   prerequisites?: string[];
   syllabus?: string;
+  retired?: boolean;
 }
 
 // DesiredDegree

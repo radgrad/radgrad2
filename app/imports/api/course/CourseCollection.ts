@@ -32,6 +32,7 @@ class CourseCollection extends BaseSlugCollection {
       // Optional data
       syllabus: { type: String, optional: true },
       prerequisites: [String],
+      retired: { type: Boolean, optional: true },
     }));
     this.unInterestingSlug = 'other';
   }
@@ -58,10 +59,11 @@ class CourseCollection extends BaseSlugCollection {
    * @param interests is a (possibly empty) array of defined interest slugs or interestIDs.
    * @param syllabus is optional. If supplied, should be a URL.
    * @param prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
+   * @param retired is optional, defaults to false.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [] }: ICourseDefine) {
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [], retired = false }: ICourseDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -79,7 +81,7 @@ class CourseCollection extends BaseSlugCollection {
     // Instead, we check that prereqs are valid as part of checkIntegrity.
     const courseID =
       this.collection.insert({
-        name, shortName, slugID, num, description, creditHrs, interestIDs, syllabus, prerequisites,
+        name, shortName, slugID, num, description, creditHrs, interestIDs, syllabus, prerequisites, retired,
       });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, courseID);
@@ -97,8 +99,9 @@ class CourseCollection extends BaseSlugCollection {
    * @param interests An array of interestIDs or slugs (optional)
    * @param syllabus optional
    * @param prerequisites An array of course slugs. (optional)
+   * @param retired optional boolean.
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus }: ICourseUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }: ICourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -109,6 +112,7 @@ class CourseCollection extends BaseSlugCollection {
       creditHrs?: number;
       syllabus?: string;
       prerequisites?: string[];
+      retired?: boolean;
     } = {};
     if (name) {
       updateData.name = name;
@@ -142,6 +146,11 @@ class CourseCollection extends BaseSlugCollection {
         }
       });
       updateData.prerequisites = prerequisites;
+    }
+    if (retired) {
+      updateData.retired = retired;
+    } else {
+      updateData.retired = false;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -228,8 +237,9 @@ class CourseCollection extends BaseSlugCollection {
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
     const syllabus = doc.syllabus;
     const prerequisites = doc.prerequisites;
+    const retired = doc.retired;
     return {
-      name, shortName, slug, num, description, creditHrs, interests, syllabus, prerequisites,
+      name, shortName, slug, num, description, creditHrs, interests, syllabus, prerequisites, retired,
     };
   }
 }
