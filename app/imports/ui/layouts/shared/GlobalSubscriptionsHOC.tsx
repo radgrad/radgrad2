@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -26,6 +27,10 @@ interface ILoading {
   loading: boolean;
 }
 
+// cacheLimit default is 10, so increased to handle all our subscriptions.
+// expireLimit set to 30 minutes because: why not.
+const globalSubs = new SubsManager({ cacheLimit: 21, expireIn: 30 });
+
 export function withGlobalSubscription(WrappedComponent) {
   class GlobalSubscription extends React.Component<ILoading> {
     constructor(props) {
@@ -41,25 +46,25 @@ export function withGlobalSubscription(WrappedComponent) {
 
   return withTracker(() => {
     const handles = [
-      Meteor.subscribe(AcademicPlans.getPublicationName()),
-      Meteor.subscribe(AdvisorProfiles.getPublicationName()),
-      Meteor.subscribe(CareerGoals.getPublicationName()),
-      Meteor.subscribe(Courses.getPublicationName()),
-      Meteor.subscribe(DesiredDegrees.getPublicationName()),
-      Meteor.subscribe(FacultyProfiles.getPublicationName()),
-      Meteor.subscribe(HelpMessages.getPublicationName()),
-      Meteor.subscribe(Interests.getPublicationName()),
-      Meteor.subscribe(InterestTypes.getPublicationName()),
-      Meteor.subscribe(MentorProfiles.getPublicationName()),
-      Meteor.subscribe(Opportunities.getPublicationName()),
-      Meteor.subscribe(OpportunityTypes.getPublicationName()),
-      Meteor.subscribe(PlanChoices.getPublicationName()),
-      Meteor.subscribe(Reviews.getPublicationName()),
-      Meteor.subscribe(Semesters.getPublicationName()),
-      Meteor.subscribe(StudentProfiles.getPublicationName()),
-      Meteor.subscribe(Slugs.getPublicationName()),
-      Meteor.subscribe(Teasers.getPublicationName()),
-      Meteor.subscribe(Users.getPublicationName()),
+      globalSubs.subscribe(AcademicPlans.getPublicationName()),
+      globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
+      globalSubs.subscribe(CareerGoals.getPublicationName()),
+      globalSubs.subscribe(Courses.getPublicationName()),
+      globalSubs.subscribe(DesiredDegrees.getPublicationName()),
+      globalSubs.subscribe(FacultyProfiles.getPublicationName()),
+      globalSubs.subscribe(HelpMessages.getPublicationName()),
+      globalSubs.subscribe(Interests.getPublicationName()),
+      globalSubs.subscribe(InterestTypes.getPublicationName()),
+      globalSubs.subscribe(MentorProfiles.getPublicationName()),
+      globalSubs.subscribe(Opportunities.getPublicationName()),
+      globalSubs.subscribe(OpportunityTypes.getPublicationName()),
+      globalSubs.subscribe(PlanChoices.getPublicationName()),
+      globalSubs.subscribe(Reviews.getPublicationName()),
+      globalSubs.subscribe(Semesters.getPublicationName()),
+      globalSubs.subscribe(StudentProfiles.getPublicationName()),
+      globalSubs.subscribe(Slugs.getPublicationName()),
+      globalSubs.subscribe(Teasers.getPublicationName()),
+      globalSubs.subscribe(Users.getPublicationName()),
 
     ];
     const loading = handles.some((handle) => !handle.ready());

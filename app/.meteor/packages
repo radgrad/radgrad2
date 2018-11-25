@@ -45,3 +45,4 @@ ddp-rate-limiter
 harrison:papa-parse
 percolate:synced-cron
 jquery
+meteorhacks:subs-manager
