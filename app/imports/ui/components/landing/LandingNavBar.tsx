@@ -6,9 +6,11 @@ import { Button, Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 import LandingSection9 from './LandingSection9';
+import RadGradMenuProfile from '../shared/RadGradMenuProfile';
 
 export interface INavBarProps {
   currentUser: string;
+  iconName: string;
 }
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
@@ -40,14 +42,9 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
           {this.props.currentUser === '' ? (
             <div>
               <RadGradLoginButtons/>
-              <Dropdown text="Login" pointing="top right" icon={'user'}>
-                <Dropdown.Menu>
-                  <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact={true} to="/signin"/>
-                </Dropdown.Menu>
-              </Dropdown>
             </div>
           ) : (
-            <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
+            <Dropdown text={this.props.currentUser} pointing="top right" icon={this.props.iconName}>
               <Dropdown.Menu>
                 <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
               </Dropdown.Menu>
@@ -62,6 +59,7 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingNavBarContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
+  iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
 }))(LandingNavBar);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */

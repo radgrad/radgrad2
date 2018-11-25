@@ -1,18 +1,30 @@
 import * as React from 'react';
+import { Container, List } from 'semantic-ui-react';
 
 /** The LandingFooter appears at the bottom of every page. Rendered by the App Layout component. */
 class Footer extends React.Component {
   public render() {
-    const divStyle = { paddingTop: '15px' };
+    const divStyle = {
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 15,
+      backgroundColor: '#252525',
+    };
     return (
-        <footer>
-          <div style={divStyle} className="ui center aligned container">
-            <hr />
-              Department of Information and Computer Sciences <br />
-              University of Hawaii<br />
-              Honolulu, HI 96822
-          </div>
-        </footer>
+      <footer>
+        <div style={divStyle}>
+          <Container textAlign="center">
+          <List bulleted={true} horizontal={true}>
+            <a className="footer-item item" href="http://radgrad.org/">
+              About Us
+            </a>
+            <a className="footer-item item" href="http://radgrad.org/organization/contact.html">
+              Contact
+            </a>
+          </List>
+          </Container>
+        </div>
+      </footer>
     );
   }
 }

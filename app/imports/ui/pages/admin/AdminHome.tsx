@@ -22,6 +22,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
+import Footer from '../../components/Footer';
 
 interface IAdminHome {
   ready: boolean;
@@ -46,7 +47,6 @@ class AdminHome extends React.Component<IAdminHome, {}> {
           <Grid.Column width={8}>
             <h1>Admin Home</h1>
           </Grid.Column>
-
         </Grid>
       </div>
     );

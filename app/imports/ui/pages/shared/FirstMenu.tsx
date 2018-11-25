@@ -7,14 +7,14 @@ import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLoginButtons from '../../components/landing/RadGradLoginButtons';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
-import { ROLE } from '../../../api/role/Role';
 
-interface INavBarProps {
+interface IFirstMenuProps {
   currentUser: string;
+  iconName: string;
 }
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
-class FirstMenu extends React.Component<INavBarProps, object> {
+class FirstMenu extends React.Component<IFirstMenuProps, object> {
 
   public render() {
     const menuStyle = { marginBottom: '10px' };
@@ -26,24 +26,26 @@ class FirstMenu extends React.Component<INavBarProps, object> {
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">
-            <RadGradLogoText/>
+            <Header as="h2">
+              <RadGradLogoText/>
+            </Header>
           </div>
         </Menu.Item>
 
-        <Menu.Item position="right"  className="right menu">
+        <Menu.Item position="right" className="right menu">
           {this.props.currentUser === '' ? (
             <div>
               <Dropdown text="Login" pointing="top right" icon={'user'}>
                 <Dropdown.Menu>
                   <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact={true} to="/signin"/>
-                  <Dropdown.Item icon="add user" text="Sign Up" as={NavLink} exact={true} to="/signup"/>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
           ) : (
             <div style={flexStyle}>
               <RadGradMenuProfile/>
-              <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'} style={signoutStyle}>
+              <Dropdown text={this.props.currentUser} pointing="top right" icon={this.props.iconName}
+                        style={signoutStyle}>
                 <Dropdown.Menu>
                   <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
                 </Dropdown.Menu>
@@ -59,6 +61,7 @@ class FirstMenu extends React.Component<INavBarProps, object> {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const FirstMenuContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
+  iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
 }))(FirstMenu);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
