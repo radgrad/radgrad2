@@ -2,7 +2,6 @@
  * This object holds all the routes for RadGrad2. The keys are the Roles the values are an array of route information.
  * Route information consists of a path, the path to the component, a Component to render.
  */
-import AdvisorHome from '../../ui/pages/advisor/AdvisorHome';
 import FacultyHome from '../../ui/pages/faculty/FacultyHome';
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
 import MentorHome from '../../ui/pages/mentor/MentorHome';
@@ -23,12 +22,17 @@ import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/La
 import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorer';
 import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorer';
 import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorer';
-import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage';
 import AdminHomePageContainer from '../../ui/pages/admin/AdminHomePage';
+import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage';
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
 import AdminModerationPageContainer from '../../ui/pages/admin/AdminModerationPage';
 import AdminAnalyticsPageContainer from '../../ui/pages/admin/AdminAnalyticsPage';
 import AdminCourseScoreboardPageContainer from '../../ui/pages/admin/AdminCourseScoreboardPage';
+import AdvisorHomePageContainer from '../../ui/pages/advisor/AdvisorHomePage';
+import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/AdvisorVerificationRequestPage';
+import AdvisorModerationPageContainer from '../../ui/pages/advisor/AdvisorModerationPage';
+import AdvisorAcademicPlanPageContainer from '../../ui/pages/advisor/AdvisorAcademicPlanPage';
+import AdvisorCourseScoreboardPageContainer from '../../ui/pages/advisor/AdvisorCourseScoreboardPage';
 
 export const routes = {
   ADMIN: [
@@ -66,7 +70,23 @@ export const routes = {
   ADVISOR: [
     {
       path: '/advisor/:username/home',
-      component: AdvisorHome,
+      component: AdvisorHomePageContainer,
+    },
+    {
+      path: '/advisor/:username/verification-requests',
+      component: AdvisorVerificationRequestPageContainer,
+    },
+    {
+      path: '/advisor/:username/moderation',
+      component: AdvisorModerationPageContainer,
+    },
+    {
+      path: '/advisor/:username/academic-plan',
+      component: AdvisorAcademicPlanPageContainer,
+    },
+    {
+      path: '/advisor/:username/course-scoreboard',
+      component: AdvisorCourseScoreboardPageContainer,
     },
   ],
   FACULTY: [

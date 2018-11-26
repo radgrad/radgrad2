@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
+import NavBar from '../../components/NavBar';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import { withGlobalSubscription } from '../../layouts/shared/GlobalSubscriptionsHOC';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
-class AdminDataModelPage extends React.Component {
+class AdvisorHomePage extends React.Component {
   public render() {
     return (
       <div>
-        <AdminPageMenuWidget/>
+        <AdvisorPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
 
           <Grid.Column width={4}>
@@ -17,15 +18,16 @@ class AdminDataModelPage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <h1>Admin Data Model</h1>
+            <h1>Advisor Home</h1>
           </Grid.Column>
+
         </Grid>
       </div>
     );
   }
 }
 
-const AdminDataModelPageCon = withGlobalSubscription(AdminDataModelPage);
-const AdminDataModelPageContainer = withInstanceSubscriptions(AdminDataModelPageCon);
+const AdvisorHomePageCon = withGlobalSubscription(AdvisorHomePage);
+const AdvisorHomePageContainer = withInstanceSubscriptions(AdvisorHomePageCon);
 
-export default AdminDataModelPageContainer;
+export default AdvisorHomePageContainer;

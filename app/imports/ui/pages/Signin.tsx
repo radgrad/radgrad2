@@ -73,7 +73,7 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
       pathname = `/student/${username}/home`;
     }
     const { from } = { from: { pathname } };
-    console.log(this.state);
+    // console.log(this.state);
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;

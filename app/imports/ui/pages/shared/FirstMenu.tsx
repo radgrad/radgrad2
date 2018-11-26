@@ -11,12 +11,21 @@ import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 interface IFirstMenuProps {
   currentUser: string;
   iconName: string;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class FirstMenu extends React.Component<IFirstMenuProps> {
 
   public render() {
+    const username = this.props.match.params.username;
     const imageStyle = { width: '50px' };
     const signoutStyle = { marginTop: '32px' };
     const flexStyle = { display: 'flex' };
@@ -42,7 +51,7 @@ class FirstMenu extends React.Component<IFirstMenuProps> {
             </div>
           ) : (
             <div style={flexStyle}>
-              <RadGradMenuProfile/>
+              <RadGradMenuProfile userName={username}/>
               <Dropdown text={this.props.currentUser} pointing="top right" icon={this.props.iconName}
                         style={signoutStyle}>
                 <Dropdown.Menu>

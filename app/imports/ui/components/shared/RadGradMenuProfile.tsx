@@ -13,12 +13,7 @@ import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
 
 interface IRadGradMenuProfileProps {
-  userProfile?: any;
-  displayLevelAndIce?: boolean;
-  level?: number;
-  earnedICE?: Ice;
-  projectedICE?: Ice;
-  ready?: boolean;
+  userName: string;
 }
 
 class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
@@ -28,28 +23,34 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
-  }
-
-  public renderPage() {
+    const profile = Users.getProfile(this.props.userName);
+    const displayLevelAndIce = Roles.userIsInRole(this.props.userName, [ROLE.STUDENT]);
+    let earnedICE;
+    let projectedICE;
+    if (displayLevelAndIce) {
+      earnedICE = StudentProfiles.getEarnedICE(this.props.userName);
+      projectedICE = StudentProfiles.getProjectedICE(this.props.userName);
+    }
+    const level = profile.level;
+    // console.log(profile);
     const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
     const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px',  marginTop: '3px' };
     const imageStyle = { width: '50px', borderRadius: '2px' };
     const nameStyle = { lineHeight: '20px', paddingLeft: '10px', marginTop: '0px' };
-    const pictureSrc = (this.props.userProfile.picture) ? this.props.userProfile.picture : '/images/default-profile-picture.png';
+    const pictureSrc = (profile.picture) ? profile.picture : '/images/default-profile-picture.png';
     return (
       <div style={flexStyle}>
-        {this.props.displayLevelAndIce ? (
+        {displayLevelAndIce ? (
           <div style={flexStyle}>
-            <RadGradMenuLevel level={this.props.level}/>
-            <MenuIceCircle earned={this.props.earnedICE.i} planned={this.props.projectedICE.i} type="innov"/>
-            <MenuIceCircle earned={this.props.earnedICE.c} planned={this.props.projectedICE.c} type="comp"/>
-            <MenuIceCircle earned={this.props.earnedICE.e} planned={this.props.projectedICE.e} type="exp"/>
+            <RadGradMenuLevel level={level}/>
+            <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov"/>
+            <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp"/>
+            <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp"/>
           </div>
         ) : ''}
         <div className="mobile hidden item radgrad-menu-profile radgrad-brand-font" style={divStyle}>
           <Image src={pictureSrc} style={imageStyle}/>
-          <Header style={nameStyle}><span>{this.props.userProfile.firstName}<br/>{this.props.userProfile.lastName}</span>
+          <Header style={nameStyle}><span>{profile.firstName}<br/>{profile.lastName}</span>
           </Header>
         </div>
       </div>
@@ -57,27 +58,4 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
   }
 }
 
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
-  // Get access to Stuff documents.
-  const subscription = Users.subscribe();
-  const userId = Meteor.userId();
-  const profile = Users.getProfile(userId);
-  const level = profile.level;
-  let earnedICE;
-  let projectedICE;
-  let displayLevelAndIce = false;
-  if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
-    displayLevelAndIce = true;
-    earnedICE = StudentProfiles.getEarnedICE(userId);
-    projectedICE = StudentProfiles.getProjectedICE(userId);
-  }
-  return {
-    ready: subscription.ready(),
-    userProfile: profile,
-    displayLevelAndIce,
-    level,
-    earnedICE,
-    projectedICE,
-  };
-})(RadGradMenuProfile);
+export default RadGradMenuProfile;

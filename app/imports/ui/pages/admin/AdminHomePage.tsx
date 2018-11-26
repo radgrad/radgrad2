@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import SecondMenu from '../shared/SecondMenu';
 import { withGlobalSubscription } from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
 class AdminHomePage extends React.Component {
@@ -27,6 +28,7 @@ class AdminHomePage extends React.Component {
   }
 }
 
-const AdminHomePageContainer = withGlobalSubscription(AdminHomePage);
+const AdminHomePageCon = withGlobalSubscription(AdminHomePage);
+const AdminHomePageContainer = withInstanceSubscriptions(AdminHomePageCon);
 
 export default AdminHomePageContainer;

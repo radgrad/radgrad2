@@ -20,15 +20,19 @@ interface ISecondMenuProps {
     isExact: boolean;
     path: string;
     url: string;
+    params: {
+      username: string;
+    }
   };
 }
 
 class SecondMenu extends React.Component<ISecondMenuProps> {
 
   public render() {
+    const username = this.props.match.params.username;
     const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(this.props.currentUser);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${this.props.currentUser}/`;
+    const baseIndex = baseUrl.indexOf(username);
+    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
     // console.log(this.props, baseRoute);
     return (
       <Menu attached="top" borderless={true} widths={this.props.numItems} className="radgrad-second-menu mobile hidden">
