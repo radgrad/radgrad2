@@ -39,7 +39,7 @@ class LandingHome extends React.Component<ILandingHomeProps> {
 
   constructor(props) {
     super(props);
-    console.log(`LandingHome props ${props}`);
+    // console.log(`LandingHome props ${props}`);
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -71,7 +71,7 @@ const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationN
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {
-  console.log(`LandingHomeContainer withTracker()`);
+  // console.log(`LandingHomeContainer withTracker()`);
   return {
     careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
     careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),

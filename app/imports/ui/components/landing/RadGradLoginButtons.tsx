@@ -17,17 +17,15 @@ class RadGradLoginButtons extends React.Component {
     const adminLabel = '... as admin';
     const mentorLabel = '... as mentor';
     return (
-      <div>
-        <Dropdown text={'LOGIN'}>
+      <Dropdown text="LOGIN" pointing={'top right'}>
         <Dropdown.Menu>
           <Dropdown.Item id={'student'} onClick={this.handleClick}>... as student</Dropdown.Item>
           <Dropdown.Item id={'faculty'} text={'... as faculty'} onClick={this.handleClick}/>
           <Dropdown.Item id={'mentor'} as={NavLink} to="/signin" text={mentorLabel}/>
           <Dropdown.Item id={'advisor'} text={'... as advisor'} onClick={this.handleClick}/>
-          <Dropdown.Item id={'admin'} as={NavLink} exact={true} to="/signin" text={adminLabel} />
+          <Dropdown.Item id={'admin'} as={NavLink} exact={true} to="/signin" text={adminLabel}/>
         </Dropdown.Menu>
       </Dropdown>
-      </div>
     );
   }
 }

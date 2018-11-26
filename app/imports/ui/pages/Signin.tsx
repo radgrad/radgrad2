@@ -73,15 +73,17 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
       pathname = `/student/${username}/home`;
     }
     const { from } = { from: { pathname } };
+    console.log(this.state);
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
     }
+    const containerStyle = { marginTop: 15 };
     // Otherwise return the Login form.
     return (
       <div>
         <LandingNavBarContainer/>
-        <Container>
+        <Container style={containerStyle}>
           <Grid textAlign="center" verticalAlign="middle" centered={true} columns={2}>
             <Grid.Column>
               <Header as="h2" textAlign="center">

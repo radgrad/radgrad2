@@ -28,9 +28,8 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
 
   public render() {
     const imageStyle = { width: 45 };
-    const menuStyle = { marginBottom: 10 };
     return (
-      <Menu style={menuStyle} attached="top" borderless={true} size="small">
+      <Menu attached="top" borderless={true} size="small">
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">
