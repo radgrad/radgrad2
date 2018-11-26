@@ -14,15 +14,14 @@ interface IFirstMenuProps {
 }
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
-class FirstMenu extends React.Component<IFirstMenuProps, object> {
+class FirstMenu extends React.Component<IFirstMenuProps> {
 
   public render() {
-    const menuStyle = { marginBottom: '10px' };
     const imageStyle = { width: '50px' };
     const signoutStyle = { marginTop: '32px' };
     const flexStyle = { display: 'flex' };
     return (
-      <Menu style={menuStyle} attached="top" borderless={true}>
+      <Menu attached="top" borderless={true}>
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">

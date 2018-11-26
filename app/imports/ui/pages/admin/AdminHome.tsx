@@ -22,7 +22,9 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
+import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import Footer from '../../components/Footer';
+import SecondMenu from '../shared/SecondMenu';
 
 interface IAdminHome {
   ready: boolean;
@@ -35,9 +37,25 @@ class AdminHome extends React.Component<IAdminHome, {}> {
   }
 
   public renderPage() {
+    let numMod = 0;
+    numMod += MentorQuestions.find({ moderated: false }).fetch().length;
+    numMod += Reviews.find({ moderated: false }).fetch().length;
+    let moderationLabel = 'Moderation';
+    if (numMod > 0) {
+      moderationLabel = `${moderationLabel} (${numMod})`;
+    }
+    const menuItems = [
+      { label: 'Home', route: 'home', regex: 'home' },
+      { label: 'Data Model', route: 'datamodel', regex: 'datamodel' },
+      { label: 'Data Base', route: 'database', regex: 'database' },
+      { label: moderationLabel, route: 'moderation', regex: 'moderation' },
+      { label: 'Analytics', route: 'analytics', regex: 'analytics' },
+      { label: 'Course Scoreboard', route: '/course-scoreboard', regex: 'course-scoreboard' },
+    ];
     return (
       <div>
         <FirstMenuContainer/>
+        <SecondMenu menuItems={menuItems} numItems={6}/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
 
           <Grid.Column width={4}>

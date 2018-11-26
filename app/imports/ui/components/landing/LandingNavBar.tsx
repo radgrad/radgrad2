@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
+import { Roles } from 'meteor/alanning:roles';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
@@ -26,9 +27,10 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
   }
 
   public render() {
-    const imageStyle = { width: '45px' };
+    const imageStyle = { width: 45 };
+    const menuStyle = { marginBottom: 10 };
     return (
-      <Menu attached="top" borderless={true} size="small">
+      <Menu style={menuStyle} attached="top" borderless={true} size="small">
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">
