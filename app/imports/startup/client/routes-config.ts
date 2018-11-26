@@ -2,7 +2,6 @@
  * This object holds all the routes for RadGrad2. The keys are the Roles the values are an array of route information.
  * Route information consists of a path, the path to the component, a Component to render.
  */
-import AdminHome from '../../ui/pages/admin/AdminHome';
 import AdvisorHome from '../../ui/pages/advisor/AdvisorHome';
 import FacultyHome from '../../ui/pages/faculty/FacultyHome';
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
@@ -24,12 +23,44 @@ import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/La
 import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorer';
 import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorer';
 import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorer';
+import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage';
+import AdminHomePageContainer from '../../ui/pages/admin/AdminHomePage';
+import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
+import AdminModerationPageContainer from '../../ui/pages/admin/AdminModerationPage';
+import AdminAnalyticsPageContainer from '../../ui/pages/admin/AdminAnalyticsPage';
+import AdminCourseScoreboardPageContainer from '../../ui/pages/admin/AdminCourseScoreboardPage';
 
 export const routes = {
   ADMIN: [
     {
       path: '/admin/:username/home',
-      component: AdminHome,
+      exact: true,
+      component: AdminHomePageContainer,
+    },
+    {
+      path: '/admin/:username/datamodel',
+      exact: true,
+      component: AdminDataModelPageContainer,
+    },
+    {
+      path: '/admin/:username/database',
+      exact: true,
+      component: AdminDatabasePageContainer,
+    },
+    {
+      path: '/admin/:username/moderation',
+      exact: true,
+      component: AdminModerationPageContainer,
+    },
+    {
+      path: '/admin/:username/analytics',
+      exact: true,
+      component: AdminAnalyticsPageContainer,
+    },
+    {
+      path: '/admin/:username/course-scoreboard',
+      exact: true,
+      component: AdminCourseScoreboardPageContainer,
     },
   ],
   ADVISOR: [
