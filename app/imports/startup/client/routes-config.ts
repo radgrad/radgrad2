@@ -3,7 +3,6 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
-import MentorHome from '../../ui/pages/mentor/MentorHome';
 import StudentHome from '../../ui/pages/student/StudentHome';
 import GuidedTourAdvisor from '../../ui/pages/landing/GuidedTourAdvisor';
 import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
@@ -37,6 +36,7 @@ import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import FacultyCourseScoreboardPageContainer from '../../ui/pages/faculty/FacultyCourseScoreboardPage';
 import FacultyExplorerPageContainer from '../../ui/pages/faculty/FacultyExplorerPage';
+import MentorHomePageContainer from '../../ui/pages/mentor/MentorHome';
 
 export const routes = {
   ADMIN: [
@@ -205,7 +205,7 @@ export const routes = {
   MENTOR: [
     {
       path: '/mentor/:username/home',
-      component: MentorHome,
+      component: MentorHomePageContainer,
     },
   ],
   STUDENT: [
