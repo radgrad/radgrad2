@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
-import SecondMenu from '../shared/SecondMenu';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
-class AdminHomePage extends React.Component {
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
+class FacultyExplorerPage extends React.Component {
   public render() {
     return (
       <div>
-        <AdminPageMenuWidget/>
+        <FacultyPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
 
           <Grid.Column width={4}>
@@ -20,15 +17,16 @@ class AdminHomePage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <h1>Admin Home</h1>
+            <h1>Faculty Explorer</h1>
           </Grid.Column>
+
         </Grid>
       </div>
     );
   }
 }
 
-const AdminHomePageCon = withGlobalSubscription(AdminHomePage);
-const AdminHomePageContainer = withInstanceSubscriptions(AdminHomePageCon);
+const FacultyExplorerPageCon = withGlobalSubscription(FacultyExplorerPage);
+const FacultyExplorerPageContainer = withInstanceSubscriptions(FacultyExplorerPageCon);
 
-export default AdminHomePageContainer;
+export default FacultyExplorerPageContainer;

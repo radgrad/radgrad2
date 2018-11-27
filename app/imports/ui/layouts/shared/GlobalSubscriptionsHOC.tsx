@@ -31,7 +31,7 @@ interface ILoading {
 // expireLimit set to 30 minutes because: why not.
 const globalSubs = new SubsManager({ cacheLimit: 21, expireIn: 30 });
 
-export function withGlobalSubscription(WrappedComponent) {
+function withGlobalSubscription(WrappedComponent) {
   class GlobalSubscription extends React.Component<ILoading> {
     constructor(props) {
       super(props);
@@ -65,7 +65,6 @@ export function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),
       globalSubs.subscribe(Users.getPublicationName()),
-
     ];
     const loading = handles.some((handle) => !handle.ready());
     return {
@@ -73,3 +72,5 @@ export function withGlobalSubscription(WrappedComponent) {
     };
   })(GlobalSubscription);
 }
+
+export default withGlobalSubscription;

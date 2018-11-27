@@ -2,7 +2,6 @@
  * This object holds all the routes for RadGrad2. The keys are the Roles the values are an array of route information.
  * Route information consists of a path, the path to the component, a Component to render.
  */
-import FacultyHome from '../../ui/pages/faculty/FacultyHome';
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
 import MentorHome from '../../ui/pages/mentor/MentorHome';
 import StudentHome from '../../ui/pages/student/StudentHome';
@@ -33,6 +32,11 @@ import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/Advi
 import AdvisorModerationPageContainer from '../../ui/pages/advisor/AdvisorModerationPage';
 import AdvisorAcademicPlanPageContainer from '../../ui/pages/advisor/AdvisorAcademicPlanPage';
 import AdvisorCourseScoreboardPageContainer from '../../ui/pages/advisor/AdvisorCourseScoreboardPage';
+import FacultyVerificationPageContainer from '../../ui/pages/faculty/FacultyVerificationPage';
+import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
+import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
+import FacultyCourseScoreboardPageContainer from '../../ui/pages/faculty/FacultyCourseScoreboardPage';
+import FacultyExplorerPageContainer from '../../ui/pages/faculty/FacultyExplorerPage';
 
 export const routes = {
   ADMIN: [
@@ -92,7 +96,23 @@ export const routes = {
   FACULTY: [
     {
       path: '/faculty/:username/home',
-      component: FacultyHome,
+      component: FacultyHomePageContainer,
+    },
+    {
+      path: '/faculty/:username/verification-requests',
+      component: FacultyVerificationPageContainer,
+    },
+    {
+      path: '/faculty/:username/manage-opportunities',
+      component: FacultyManageOpportunitiesPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer',
+      component: FacultyExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/course-scoreboard',
+      component: FacultyCourseScoreboardPageContainer,
     },
   ],
   LANDING: [

@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import NavBar from '../../components/NavBar';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
-class FacultyHome extends React.Component {
+class FacultyHomePage extends React.Component {
   public render() {
     return (
       <div>
-        <NavBar/>
+        <FacultyPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
 
           <Grid.Column width={4}>
@@ -24,4 +26,7 @@ class FacultyHome extends React.Component {
   }
 }
 
-export default FacultyHome;
+const FacultyHomePageCon = withGlobalSubscription(FacultyHomePage);
+const FacultyHomePageContainer = withInstanceSubscriptions(FacultyHomePageCon);
+
+export default FacultyHomePageContainer;

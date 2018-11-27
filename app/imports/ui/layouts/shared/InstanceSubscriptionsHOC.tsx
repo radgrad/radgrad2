@@ -22,7 +22,7 @@ interface ILoading {
 // expireLimit set to 30 minutes because: why not.
 const instanceSubs = new SubsManager({ cacheLimit: 10, expireIn: 30 });
 
-export function withInstanceSubscriptions(WrappedComponent) {
+function withInstanceSubscriptions(WrappedComponent) {
   class InstanceSubscriptions extends React.Component<ILoading> {
     constructor(props) {
       super(props);

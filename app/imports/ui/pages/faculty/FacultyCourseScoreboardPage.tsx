@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
-import SecondMenu from '../shared/SecondMenu';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
-class AdminHomePage extends React.Component {
+class FacultyCourseScoreboardPage extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
     return (
       <div>
-        <AdminPageMenuWidget/>
+        <FacultyPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
 
           <Grid.Column width={4}>
@@ -20,7 +18,7 @@ class AdminHomePage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <h1>Admin Home</h1>
+            <h1>Faculty Course Scoreboard</h1>
           </Grid.Column>
         </Grid>
       </div>
@@ -28,7 +26,7 @@ class AdminHomePage extends React.Component {
   }
 }
 
-const AdminHomePageCon = withGlobalSubscription(AdminHomePage);
-const AdminHomePageContainer = withInstanceSubscriptions(AdminHomePageCon);
+const FacultyCourseScoreboardPageCon = withGlobalSubscription(FacultyCourseScoreboardPage);
+const FacultyCourseScoreboardPageContainer = withInstanceSubscriptions(FacultyCourseScoreboardPageCon);
 
-export default AdminHomePageContainer;
+export default FacultyCourseScoreboardPageContainer;
