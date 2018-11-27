@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import FirstMenuContainer from '../shared/FirstMenu';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
-class StudentHome extends React.Component {
+class StudentHomePage extends React.Component {
   public render() {
     return (
       <div>
-        <FirstMenuContainer/>
+        <StudentPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
 
           <Grid.Column width={4}>
@@ -17,10 +19,14 @@ class StudentHome extends React.Component {
           <Grid.Column width={8}>
             <h1>Student Home</h1>
           </Grid.Column>
+
         </Grid>
       </div>
     );
   }
 }
 
-export default StudentHome;
+const StudentHomePageCon = withGlobalSubscription(StudentHomePage);
+const StudentHomePageContainer = withInstanceSubscriptions(StudentHomePageCon);
+
+export default StudentHomePageContainer;
