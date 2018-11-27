@@ -42,6 +42,7 @@ import StudentExplorerPageContainer from '../../ui/pages/student/StudentExplorer
 import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
 import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
 import MentorExplorerPageContainer from '../../ui/pages/mentor/MentorExplorerPage';
+import AlumniHomePageContainer from '../../ui/pages/alumni/AlumniHomePage';
 
 export const routes = {
   ADMIN: [
@@ -96,6 +97,12 @@ export const routes = {
     {
       path: '/advisor/:username/course-scoreboard',
       component: AdvisorCourseScoreboardPageContainer,
+    },
+  ],
+  ALUMNI: [
+    {
+      path: '/alumni/:username/home',
+      component: AlumniHomePageContainer,
     },
   ],
   FACULTY: [

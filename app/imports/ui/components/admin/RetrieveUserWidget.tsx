@@ -30,6 +30,7 @@ class RetrieveUserWidget extends React.Component {
     const faculty = FacultyProfiles.find({}, { sort: { lastName: 1 } }).fetch();
     const mentors = MentorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
     const students = StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1 } }).fetch();
+    const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1 } }).fetch();
     const linkStyle = { padding: 2 };
     const marginStyle = { margin: 10 };
     const panes = [
@@ -91,6 +92,22 @@ class RetrieveUserWidget extends React.Component {
               <Grid.Row centered={true}>
                 <Button color={'green'} basic={true} style={marginStyle} onClick={this.handleUpdateLevelButton}>Update Student Levels</Button>
               </Grid.Row>
+            </Grid>
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: `Alumni (${alumni.length})`,
+        pane: (
+          <Tab.Pane key="Alumni">
+            <Grid>
+              {alumni.map((user) => (
+                <Grid.Column key={user._id} width={2} style={linkStyle}>
+                  <a className="ui basic grey fluid label" target="_blank" href={url(user)}>
+                    {name(user)}
+                  </a>
+                </Grid.Column>
+              ))}
             </Grid>
           </Tab.Pane>
         ),

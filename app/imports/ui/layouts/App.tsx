@@ -36,6 +36,9 @@ class App extends React.Component {
           {routes.STUDENT.map((route, i) => (
             <StudentProtectedRoute key={i} {...route} />
           ))}
+          {routes.ALUMNI.map((route, i) => (
+            <StudentProtectedRoute key={i} {...route} />
+          ))}
           <Route path="/signin" component={Signin}/>
           <ProtectedRoute path="/signout" component={Signout}/>
           <Route component={NotFound}/>
