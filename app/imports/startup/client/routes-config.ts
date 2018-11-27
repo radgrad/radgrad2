@@ -3,7 +3,6 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
-import StudentHome from '../../ui/pages/student/StudentHome';
 import GuidedTourAdvisor from '../../ui/pages/landing/GuidedTourAdvisor';
 import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
 import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
@@ -36,6 +35,10 @@ import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import FacultyCourseScoreboardPageContainer from '../../ui/pages/faculty/FacultyCourseScoreboardPage';
 import FacultyExplorerPageContainer from '../../ui/pages/faculty/FacultyExplorerPage';
+import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
+import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
+import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
+import StudentExplorerPageContainer from '../../ui/pages/student/StudentExplorerPage';
 import MentorHomePageContainer from '../../ui/pages/mentor/MentorHome';
 
 export const routes = {
@@ -211,7 +214,19 @@ export const routes = {
   STUDENT: [
     {
       path: '/student/:username/home',
-      component: StudentHome,
+      component: StudentHomePageContainer,
+    },
+    {
+      path: '/student/:username/degree-planner',
+      component: StudentDegreePlannerPageContainer,
+    },
+    {
+      path: '/student/:username/mentor-space',
+      component: StudentMentorSpacePageContainer,
+    },
+    {
+      path: '/student/:username/explorer',
+      component: StudentExplorerPageContainer,
     },
   ],
 };
