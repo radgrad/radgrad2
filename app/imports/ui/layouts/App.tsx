@@ -8,6 +8,7 @@ import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
 import { ROLE } from '../../api/role/Role';
 import { routes } from '../../startup/client/routes-config';
+import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 
 /* tslint:disable: jsx-no-lambda */
 
@@ -71,8 +72,9 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
+      const userId = Meteor.userId();
+      const isLogged = userId !== null;
+      const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
       return (isLogged && isAdmin) ?
         (<Component {...props} />) :
         (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
@@ -127,8 +129,9 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+      const userId = Meteor.userId();
+      const isLogged = userId !== null;
+      const isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
       return (isLogged && isAllowed) ?
         (<Component {...props} />) :
         (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
@@ -137,5 +140,5 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-export default App;
+export default withGlobalSubscription(App);
 /* tslint:enable: jsx-no-lambda */

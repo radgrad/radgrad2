@@ -24,7 +24,8 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
     const profile = Users.getProfile(this.props.userName);
-    const displayLevelAndIce = Roles.userIsInRole(this.props.userName, [ROLE.STUDENT]);
+    // console.log(profile);
+    const displayLevelAndIce = Roles.userIsInRole(profile.userID, [ROLE.STUDENT]);
     let earnedICE;
     let projectedICE;
     if (displayLevelAndIce) {
@@ -32,7 +33,7 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
       projectedICE = StudentProfiles.getProjectedICE(this.props.userName);
     }
     const level = profile.level;
-    // console.log(profile);
+    // console.log(displayLevelAndIce);
     const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
     const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px',  marginTop: '3px' };
     const imageStyle = { width: '50px', borderRadius: '2px' };
