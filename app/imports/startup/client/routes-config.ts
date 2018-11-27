@@ -39,7 +39,9 @@ import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
 import StudentExplorerPageContainer from '../../ui/pages/student/StudentExplorerPage';
-import MentorHomePageContainer from '../../ui/pages/mentor/MentorHome';
+import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
+import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
+import MentorExplorerPageContainer from '../../ui/pages/mentor/MentorExplorerPage';
 
 export const routes = {
   ADMIN: [
@@ -209,6 +211,14 @@ export const routes = {
     {
       path: '/mentor/:username/home',
       component: MentorHomePageContainer,
+    },
+    {
+      path: '/mentor/:username/mentor-space',
+      component: MentorMentorSpacePageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer',
+      component: MentorExplorerPageContainer,
     },
   ],
   STUDENT: [

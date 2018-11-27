@@ -1,16 +1,8 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import SecondMenu from '../../pages/shared/SecondMenu';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 
 interface IMentorPageMenuWidgetProps {
   match?: {
@@ -25,20 +17,6 @@ interface IMentorPageMenuWidgetProps {
 
 class MentorPageMenuWidget extends React.Component<IMentorPageMenuWidgetProps> {
   public render() {
-    const username = this.props.match.params.username;
-    const faculty = MentorProfiles.findDoc(username);
-    // const sponsorID = Users.getID(username);
-    let openRequests = VerificationRequests.find({ status: VerificationRequests.OPEN }).fetch();
-    openRequests = _.filter(openRequests, (request) => {
-      const oi = OpportunityInstances.findDoc(request.opportunityInstanceID);
-      return Opportunities.findDoc(oi.opportunityID).sponsorID === faculty.userID;
-    });
-
-    const numRequests = openRequests.length;
-    let requestsLabel = 'Verification';
-    if (numRequests > 0) {
-      requestsLabel = `${requestsLabel} (${numRequests})`;
-    }
     const menuItems = [
       { label: 'Home', route: 'home' },
       { label: 'Mentor Space', route: 'mentor-space' },

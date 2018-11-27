@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
-import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
