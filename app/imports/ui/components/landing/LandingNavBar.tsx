@@ -8,13 +8,17 @@ import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 import LandingSection9 from './LandingSection9';
 import RadGradMenuProfile from '../shared/RadGradMenuProfile';
+import { ROLE } from '../../../api/role/Role';
 
 export interface INavBarProps {
   currentUser: string;
   iconName: string;
+  role: string;
 }
 
-/** The NavBar appears at the top of every page. Rendered by the App Layout component. */
+/**
+ * LandingNavBar rendered on each of the landing pages.
+ */
 class LandingNavBar extends React.Component<INavBarProps, object> {
   constructor(props) {
     super(props);
@@ -28,6 +32,8 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
 
   public render() {
     const imageStyle = { width: 45 };
+    // console.log(this.props);
+    const url = `/#/${this.props.role}/${this.props.currentUser}/home`;
     return (
       <Menu attached="top" borderless={true} size="small">
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
@@ -38,18 +44,14 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
             </Header>
           </div>
         </Menu.Item>
-        <Menu.Item  position="right"><Button onClick={this.onClick}>GUIDED TOURS</Button></Menu.Item>
+        <Menu.Item position="right"><Button onClick={this.onClick}>GUIDED TOURS</Button></Menu.Item>
         <Menu.Item>
-          {this.props.currentUser === '' ? (
+          {this.props.currentUser ? (
             <div>
-              <RadGradLoginButtons/>
+              <Button basic={true} color="green" compact={true}><a href={url}>Home</a></Button>
             </div>
           ) : (
-            <Dropdown text={this.props.currentUser} pointing="top right" icon={this.props.iconName}>
-              <Dropdown.Menu>
-                <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
-              </Dropdown.Menu>
-            </Dropdown>
+            <RadGradLoginButtons/>
           )}
         </Menu.Item>
       </Menu>
@@ -58,10 +60,33 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
 }
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-const LandingNavBarContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-  iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
-}))(LandingNavBar);
+const LandingNavBarContainer = withTracker(() => {
+  const userID = Meteor.userId();
+  let role;
+  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN])) {
+    role = 'admin';
+  }
+  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADVISOR])) {
+    role = 'advisor';
+  }
+  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ALUMNI])) {
+    role = 'alumni';
+  }
+  if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
+    role = 'faculty';
+  }
+  if (Roles.userIsInRole(Meteor.userId(), [ROLE.MENTOR])) {
+    role = 'mentor';
+  }
+  if (Roles.userIsInRole(Meteor.userId(), [ROLE.STUDENT])) {
+    role = 'student';
+  }
+  return {
+    currentUser: Meteor.user() ? Meteor.user().username : '',
+    iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
+    role,
+  };
+})(LandingNavBar);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
 export default withRouter(LandingNavBarContainer);
