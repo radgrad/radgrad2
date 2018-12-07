@@ -487,6 +487,15 @@ export interface ISemesterUpdate {
   retired?: boolean;
 }
 
+// Settings
+export interface ISettingsDefine extends IDumpOne {
+  quarterSystem: boolean;
+}
+
+export interface ISettingsUpdate {
+  quarterSystem?: boolean;
+}
+
 // Slugs
 export interface ISlugDefine extends IDumpOne {
   name: string;

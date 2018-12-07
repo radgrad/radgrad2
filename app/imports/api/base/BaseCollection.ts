@@ -168,7 +168,7 @@ class BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  public removeIt(name: string | object) {
+  public removeIt(name: string | object): boolean | void {
     const doc = this.findDoc(name);
     check(doc, Object);
     this.collection.remove(doc._id);
