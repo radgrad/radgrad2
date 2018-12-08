@@ -24,6 +24,7 @@ import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { PublicStats } from '../public-stats/PublicStatsCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Semesters } from '../semester/SemesterCollection';
+import { Settings } from '../settings/SettingsCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -69,6 +70,7 @@ class RadGradClass {
       PublicStats,
       Reviews,
       Semesters,
+      Settings,
       Slugs,
       StudentProfiles,
       Teasers,
@@ -84,6 +86,7 @@ class RadGradClass {
      * Some collections are not yet part of dump/restore.
      */
     this.collectionLoadSequence = [
+      Settings,
       Semesters,
       HelpMessages,
       InterestTypes,

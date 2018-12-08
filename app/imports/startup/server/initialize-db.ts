@@ -14,6 +14,7 @@ import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
 import { ROLE } from '../../api/role/Role';
+import { Settings } from '../../api/settings/SettingsCollection';
 
 /** global Assets */
 
@@ -207,6 +208,13 @@ function fixUserInteractions() {
   }
 }
 
+function ensureSettings() {
+  if (Settings.find({}).count() === 0) {
+    const quarterSystem = Meteor.settings.RadGrad.quarterSystem;
+    Settings.define({ quarterSystem });
+  }
+}
+
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
   if (Meteor.isTest || Meteor.isAppTest) {
@@ -220,5 +228,6 @@ Meteor.startup(() => {
     startupCheckIntegrity();
     startupPublicStats();
     fixUserInteractions();
+    ensureSettings();
   }
 });

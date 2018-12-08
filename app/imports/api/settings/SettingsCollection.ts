@@ -4,7 +4,7 @@ import BaseCollection from '../base/BaseCollection';
 import { ISettingsDefine, ISettingsUpdate } from '../../typings/radgrad';
 
 /**
- *
+ * Holds the settings for RadGrad.
  */
 class SettingsCollection extends BaseCollection {
   constructor() {
@@ -35,3 +35,5 @@ class SettingsCollection extends BaseCollection {
     return { quarterSystem };
   }
 }
+
+export const Settings = new SettingsCollection();
