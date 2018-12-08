@@ -6,6 +6,7 @@ import { moment } from 'meteor/momentjs:moment';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
+import { RadGradSettings } from '../../api/radgrad/RadGradSettingsCollection';
 import { Interests } from '../../api/interest/InterestCollection';
 import { CareerGoals } from '../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../api/degree-plan/AcademicPlanCollection';
@@ -14,7 +15,6 @@ import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
 import { ROLE } from '../../api/role/Role';
-import { Settings } from '../../api/settings/SettingsCollection';
 
 /** global Assets */
 
@@ -209,9 +209,9 @@ function fixUserInteractions() {
 }
 
 function ensureSettings() {
-  if (Settings.find({}).count() === 0) {
+  if (RadGradSettings.find({}).count() === 0) {
     const quarterSystem = Meteor.settings.RadGrad.quarterSystem;
-    Settings.define({ quarterSystem });
+    RadGradSettings.define({ quarterSystem });
   }
 }
 

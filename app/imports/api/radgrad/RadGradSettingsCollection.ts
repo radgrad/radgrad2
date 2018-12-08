@@ -5,16 +5,17 @@ import { ISettingsDefine, ISettingsUpdate } from '../../typings/radgrad';
 
 /**
  * Holds the settings for RadGrad.
+ * @memberOf api/radgrad
  */
-class SettingsCollection extends BaseCollection {
+class RadGradSettingsCollection extends BaseCollection {
   constructor() {
-    super('Settings', new SimpleSchema({
+    super('RadGradSettings', new SimpleSchema({
       quarterSystem: { type: Boolean },
     }));
   }
 
   /**
-   * Defines the Settings.
+   * Defines the RadGradSettings.
    * @param quarterSystem boolean true if using a quarter system.
    */
   public define({ quarterSystem }: ISettingsDefine) {
@@ -26,7 +27,7 @@ class SettingsCollection extends BaseCollection {
   }
 
   public removeIt(instance: string) {
-    throw new Meteor.Error('Cannot remove the Settings', '', Error().stack);
+    throw new Meteor.Error('Cannot remove the RadGradSettings', '', Error().stack);
   }
 
   public dumpOne(docID: string): ISettingsDefine {
@@ -34,6 +35,21 @@ class SettingsCollection extends BaseCollection {
     const quarterSystem = doc.quarterSystem;
     return { quarterSystem };
   }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks slugID, opportunityTypeID, sponsorID, interestIDs, semesterIDs
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    const numSettings = this.collection.find().count();
+    if (numSettings !== 1) {
+      problems.push(`Wrong number of settings documents: ${numSettings}`);
+    }
+    return problems;
+  }
 }
 
-export const Settings = new SettingsCollection();
+export const RadGradSettings = new RadGradSettingsCollection();

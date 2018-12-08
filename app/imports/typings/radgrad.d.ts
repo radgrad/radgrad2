@@ -487,7 +487,7 @@ export interface ISemesterUpdate {
   retired?: boolean;
 }
 
-// Settings
+// RadGradSettings
 export interface ISettingsDefine extends IDumpOne {
   quarterSystem: boolean;
 }
