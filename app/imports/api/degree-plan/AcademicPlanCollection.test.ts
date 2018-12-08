@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
@@ -63,7 +63,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #findIdBySlug, #removeIt, #dumpOne, #restoreOne #checkIntegrity', function test() {
-      Semesters.define({ term: 'Spring', year: 2017 });
+      AcademicTerms.define({ term: 'Spring', year: 2017 });
       DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
       const docID = AcademicPlans.define({
         slug, degreeSlug, name: description, description, semester, coursesPerSemester, courseList,

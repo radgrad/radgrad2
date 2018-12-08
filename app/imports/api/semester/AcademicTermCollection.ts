@@ -11,7 +11,7 @@ import { ISemesterDefine, ISemesterUpdate } from '../../typings/radgrad';
  * @extends api/base.BaseSlugCollection
  * @memberOf api/semester
  */
-class SemesterCollection extends BaseSlugCollection {
+class AcademicTermCollection extends BaseSlugCollection {
   public SPRING: string;
   public SUMMER: string;
   public FALL: string;
@@ -25,7 +25,7 @@ class SemesterCollection extends BaseSlugCollection {
    * Creates the Semester collection.
    */
   constructor() {
-    super('Semester', new SimpleSchema({
+    super('AcademicTerm', new SimpleSchema({
       term: { type: String },
       year: { type: Number },
       semesterNumber: { type: Number },
@@ -59,9 +59,9 @@ class SemesterCollection extends BaseSlugCollection {
    * Retrieves the docID for the specified Semester, or defines it if not yet present.
    * Implicitly defines the corresponding slug: Spring, 2016 semester is "Spring-2016".
    * @example
-   * Semesters.define({ term: Semesters.FALL, year: 2015 });
+   * AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
    * @param { Object } Object with keys term, semester.
-   * Term must be one of Semesters.FALL, Semesters.SPRING, or Semesters.SUMMER.
+   * Term must be one of AcademicTerms.FALL, AcademicTerms.SPRING, or AcademicTerms.SUMMER.
    * Year must be between 1990 and 2050.
    * @throws { Meteor.Error } If the term or year are not correctly specified.
    * @returns The docID for this semester instance.
@@ -134,7 +134,7 @@ class SemesterCollection extends BaseSlugCollection {
 
   /**
    * Returns the semesterID associated with the current semester based upon the current timestamp.
-   * See Semesters.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
+   * See AcademicTerms.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
    */
   public getCurrentSemesterID() {
     const year = moment().year();
@@ -163,7 +163,7 @@ class SemesterCollection extends BaseSlugCollection {
 
   /**
    * Returns the semester doc associated with the current semester based upon the current timestamp.
-   * See Semesters.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
+   * See AcademicTerms.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
    */
   public getCurrentSemesterDoc() {
     const id = this.getCurrentSemesterID();
@@ -276,4 +276,4 @@ class SemesterCollection extends BaseSlugCollection {
  * @type {api/semester.SemesterCollection}
  * @memberOf api/semester
  */
-export const Semesters = new SemesterCollection();
+export const AcademicTerms = new AcademicTermCollection();

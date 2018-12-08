@@ -26,9 +26,9 @@ if (Meteor.isServer) {
       // TODO: Yes the current semester has rolled and we will have to update this 3 times a year or update abi.student
       expect(utilities.getStudentsCurrentSemesterNumber(profile.userID)).to.equal(13);
     });
-    it('#getStudentSemesters.', function test() {
+    it('#getStudentTerms.', function test() {
       const profile = Users.getProfile('abi@hawaii.edu');
-      const semesters = utilities.getStudentSemesters(profile.userID);
+      const semesters = utilities.getStudentTerms(profile.userID);
       expect(semesters.length).to.equal(12);
     });
   });

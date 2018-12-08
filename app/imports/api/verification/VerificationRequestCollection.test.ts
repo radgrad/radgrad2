@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from './VerificationRequestCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleOpportunityInstance, makeSampleOpportunity } from '../opportunity/SampleOpportunities';
@@ -21,8 +21,8 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #findOne, #toString, #dumpOne, #restoreOne', function test() {
-      Semesters.define({ term: Semesters.SUMMER, year: 2015 });
-      Semesters.define({ term: Semesters.FALL, year: 2015 });
+      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
+      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
       const student = makeSampleUser();
       const faculty = makeSampleUser(ROLE.FACULTY);
       const opportunityInstance = makeSampleOpportunityInstance(student, faculty);
@@ -39,7 +39,7 @@ if (Meteor.isServer) {
     });
 
     it('#define using semester and opportunity', function test() {
-      const semester = Semesters.define({ term: Semesters.SUMMER, year: 2015 });
+      const semester = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
       const opportunity = makeSampleOpportunity(makeSampleUser(ROLE.FACULTY));
       const student = makeSampleUser();
       const sponsor = makeSampleUser(ROLE.FACULTY);

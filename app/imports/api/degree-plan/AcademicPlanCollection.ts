@@ -3,7 +3,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
@@ -61,14 +61,14 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList, retired = false }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
-    const effectiveSemesterID = Semesters.getID(semester);
+    const effectiveSemesterID = AcademicTerms.getID(semester);
     const doc = this.collection.findOne({ degreeID, name, effectiveSemesterID });
     if (doc) {
       return doc._id;
     }
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const semesterDoc = Semesters.findDoc(effectiveSemesterID);
+    const semesterDoc = AcademicTerms.findDoc(effectiveSemesterID);
     const semesterNumber = semesterDoc.semesterNumber;
     const year = semesterDoc.year;
     const planID = this.collection.insert({
@@ -108,7 +108,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       updateData.name = name;
     }
     if (semester) {
-      updateData.effectiveSemesterID = Semesters.getID(semester);
+      updateData.effectiveSemesterID = AcademicTerms.getID(semester);
     }
     if (coursesPerSemester) {
       if (!Array.isArray(coursesPerSemester)) {
@@ -163,7 +163,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      if (!Semesters.isDefined(doc.effectiveSemesterID)) {
+      if (!AcademicTerms.isDefined(doc.effectiveSemesterID)) {
         problems.push(`Bad semesterID: ${doc.effectiveSemesterID}`);
       }
       if (!DesiredDegrees.isDefined(doc.degreeID)) {
@@ -225,7 +225,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   public toFullString(planID: string) {
     const plan = this.findDoc(planID);
-    const semester = Semesters.findDoc(plan.effectiveSemesterID);
+    const semester = AcademicTerms.findDoc(plan.effectiveSemesterID);
     return `${plan.name} (${semester.year})`;
   }
 
@@ -241,7 +241,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const degreeSlug = Slugs.findDoc(degree.slugID).name;
     const name = doc.name;
     const description = doc.description;
-    const semesterDoc = Semesters.findDoc(doc.effectiveSemesterID);
+    const semesterDoc = AcademicTerms.findDoc(doc.effectiveSemesterID);
     const semester = Slugs.findDoc(semesterDoc.slugID).name;
     const coursesPerSemester = doc.coursesPerSemester;
     const courseList = doc.courseList;

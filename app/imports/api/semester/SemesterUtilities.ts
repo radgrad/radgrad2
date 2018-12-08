@@ -1,30 +1,30 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Semesters } from './SemesterCollection';
+import { AcademicTerms } from './AcademicTermCollection';
 
 /**
  * Defines default semesters from 2014 till 2020.
  * @memberOf api/semester
  */
 export function defineSemesters() {
-  if (Semesters.find().count() === 0) {
-    Semesters.define({ term: Semesters.FALL, year: 2014 });
-    Semesters.define({ term: Semesters.SPRING, year: 2015 });
-    Semesters.define({ term: Semesters.SUMMER, year: 2015 });
-    Semesters.define({ term: Semesters.FALL, year: 2015 });
-    Semesters.define({ term: Semesters.SPRING, year: 2016 });
-    Semesters.define({ term: Semesters.SUMMER, year: 2016 });
-    Semesters.define({ term: Semesters.FALL, year: 2016 });
-    Semesters.define({ term: Semesters.SPRING, year: 2017 });
-    Semesters.define({ term: Semesters.SUMMER, year: 2017 });
-    Semesters.define({ term: Semesters.FALL, year: 2017 });
-    Semesters.define({ term: Semesters.SPRING, year: 2018 });
-    Semesters.define({ term: Semesters.SUMMER, year: 2018 });
-    Semesters.define({ term: Semesters.FALL, year: 2018 });
-    Semesters.define({ term: Semesters.SPRING, year: 2019 });
-    Semesters.define({ term: Semesters.SUMMER, year: 2019 });
-    Semesters.define({ term: Semesters.FALL, year: 2019 });
-    Semesters.define({ term: Semesters.SPRING, year: 2020 });
-    Semesters.define({ term: Semesters.SUMMER, year: 2020 });
+  if (AcademicTerms.find().count() === 0) {
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2014 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2015 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2016 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2016 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2016 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2017 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2017 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2017 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2018 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2018 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2018 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2019 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2019 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2020 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2020 });
   }
 }
 
@@ -39,16 +39,16 @@ export function nextSemester(semesterDoc) {
   const currentYear = semesterDoc.year;
   let term;
   let year = currentYear;
-  if (currentTerm === Semesters.FALL) {
-    term = Semesters.SPRING;
+  if (currentTerm === AcademicTerms.FALL) {
+    term = AcademicTerms.SPRING;
     year += 1;
   } else
-    if (currentTerm === Semesters.SPRING) {
-      term = Semesters.SUMMER;
+    if (currentTerm === AcademicTerms.SPRING) {
+      term = AcademicTerms.SUMMER;
     } else {
-      term = Semesters.FALL;
+      term = AcademicTerms.FALL;
     }
-  return Semesters.findDoc(Semesters.define({ term, year }));
+  return AcademicTerms.findDoc(AcademicTerms.define({ term, year }));
 }
 
 /**
@@ -59,7 +59,7 @@ export function nextSemester(semesterDoc) {
  */
 export function nextFallSpringSemester(semester) {
   let next: { term: string } = nextSemester(semester);
-  if (next.term === Semesters.SUMMER) {
+  if (next.term === AcademicTerms.SUMMER) {
     next = nextSemester(next);
   }
   return next;
@@ -71,7 +71,7 @@ export function nextFallSpringSemester(semester) {
  * @memberOf api/semester
  */
 export function upComingSemesters() {
-  const currentSemester = Semesters.getCurrentSemesterDoc();
+  const currentSemester = AcademicTerms.getCurrentSemesterDoc();
   const nine = currentSemester.semesterNumber + 10;
-  return _.sortBy(Semesters.find({ semesterNumber: { $gt: currentSemester.semesterNumber, $lt: nine } }).fetch(), (sem) => sem.semesterNumber);
+  return _.sortBy(AcademicTerms.find({ semesterNumber: { $gt: currentSemester.semesterNumber, $lt: nine } }).fetch(), (sem) => sem.semesterNumber);
 }

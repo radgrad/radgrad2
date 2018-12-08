@@ -5,7 +5,7 @@ import { moment } from 'meteor/momentjs:moment';
 import { ROLE } from '../role/Role';
 import { Courses } from '../course/CourseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
@@ -137,7 +137,7 @@ class FeedCollection extends BaseCollection {
       updateData.courseID = Courses.getID(course);
     }
     if (semester) {
-      updateData.semesterID = Semesters.getID(course);
+      updateData.semesterID = AcademicTerms.getID(course);
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -240,12 +240,12 @@ class FeedCollection extends BaseCollection {
     // Otherwise, define a new feed instance.
     const users = (_.isArray(user)) ? user : [user];
     const userIDs = Users.getIDs(users);
-    const semesterID = Semesters.getID(semester);
+    const semesterID = AcademicTerms.getID(semester);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
     const description = `[${Users.getFullName(userIDs[0])}](./explorer/users/${Users.getProfile(userIDs[0]).username})
         has been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})
-        (${Semesters.toString(semesterID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
+        (${AcademicTerms.toString(semesterID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({ userIDs, opportunityID, semesterID, description, timestamp, picture, feedType });
     return feedID;
@@ -441,7 +441,7 @@ class FeedCollection extends BaseCollection {
     const userIDs = existingFeed.userIDs;
     userIDs.push(userID);
     const o = Opportunities.findDoc(existingFeed.opportunityID);
-    const description = `[${Users.getFullName(userIDs[0])}](./explorer/users/${Users.getProfile(userIDs[0]).username}) and ${userIDs.length - 1} others have been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${Semesters.toString(existingFeed.semesterID, false)})`;
+    const description = `[${Users.getFullName(userIDs[0])}](./explorer/users/${Users.getProfile(userIDs[0]).username}) and ${userIDs.length - 1} others have been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.semesterID, false)})`;
     this.collection.update(existingFeedID, { $set: { userIDs, description } });
   }
 
@@ -487,7 +487,7 @@ class FeedCollection extends BaseCollection {
       if (doc.courseID && !Courses.isDefined(doc.courseID)) {
         problems.push(`Bad courseID: ${doc.courseID}`);
       }
-      if (doc.semesterID && !Semesters.isDefined(doc.semesterID)) {
+      if (doc.semesterID && !AcademicTerms.isDefined(doc.semesterID)) {
         problems.push(`Bad semesterID: ${doc.semesterID}`);
       }
     });
@@ -515,7 +515,7 @@ class FeedCollection extends BaseCollection {
     }
     let semester;
     if (doc.semesterID) {
-      semester = Semesters.findSlugByID(doc.semesterID);
+      semester = AcademicTerms.findSlugByID(doc.semesterID);
     }
     const feedType = doc.feedType;
     const timestamp = doc.timestamp;

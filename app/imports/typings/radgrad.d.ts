@@ -476,7 +476,7 @@ export interface IReviewUpdateData {
   moderatorComments?: string;
 }
 
-// Semesters
+// AcademicTerms
 export interface ISemesterDefine extends IDumpOne {
   term: string;
   year: number;

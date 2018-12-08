@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { makeSampleCourse, sampleCourseName } from '../course/SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -22,7 +22,7 @@ if (Meteor.isServer) {
       removeAllEntities();
       course = makeSampleCourse();
       student = makeSampleUser();
-      semester = Semesters.define({ term: Semesters.FALL, year: 2015 });
+      semester = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
     });
 
     after(function teardown() {

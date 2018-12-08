@@ -1,4 +1,4 @@
 /** @namespace api/semester */
 
-import './SemesterCollection';
+import './AcademicTermCollection';
 import './SemesterUtilities';

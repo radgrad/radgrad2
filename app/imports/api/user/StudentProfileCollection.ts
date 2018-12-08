@@ -10,7 +10,7 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
@@ -62,7 +62,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       const interestIDs = Interests.getIDs(interests);
       const careerGoalIDs = CareerGoals.getIDs(careerGoals);
       const academicPlanID = (academicPlan) ? AcademicPlans.getID(academicPlan) : undefined;
-      const declaredSemesterID = (declaredSemester) ? Semesters.getID(declaredSemester) : undefined;
+      const declaredSemesterID = (declaredSemester) ? AcademicTerms.getID(declaredSemester) : undefined;
       const hiddenCourseIDs = Courses.getIDs(hiddenCourses);
       const hiddenOpportunityIDs = Opportunities.getIDs(hiddenOpportunities);
       this.assertValidLevel(level);
@@ -104,7 +104,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       updateData.academicPlanID = AcademicPlans.getID(academicPlan);
     }
     if (declaredSemester) {
-      updateData.declaredSemesterID = Semesters.getID(declaredSemester);
+      updateData.declaredSemesterID = AcademicTerms.getID(declaredSemester);
     }
     if (hiddenCourses) {
       updateData.hiddenCourseIDs = Courses.getIDs(hiddenCourses);
@@ -179,7 +179,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (doc.academicPlanID && !AcademicPlans.isDefined(doc.academicPlanID)) {
         problems.push(`Bad academicPlanID: ${doc.academicPlanID} in ${doc.username}`);
       }
-      if (doc.declaredSemesterID && !Semesters.isDefined(doc.declaredSemesterID)) {
+      if (doc.declaredSemesterID && !AcademicTerms.isDefined(doc.declaredSemesterID)) {
         problems.push(`Bad semesterID: ${doc.academicPlanID} in ${doc.username}`);
       }
       _.forEach(doc.hiddenCourseIDs, (hiddenCourseID) => {
@@ -293,7 +293,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
     const level = doc.level;
     const academicPlan = doc.academicPlanID && AcademicPlans.findSlugByID(doc.academicPlanID);
-    const declaredSemester = doc.declaredSemesterID && Semesters.findSlugByID(doc.declaredSemesterID);
+    const declaredSemester = doc.declaredSemesterID && AcademicTerms.findSlugByID(doc.declaredSemesterID);
     const hiddenCourses = _.map(doc.hiddenCourseIDs, (hiddenCourseID) => Courses.findSlugByID(hiddenCourseID));
     const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, (hiddenOpportunityID) =>
         Opportunities.findSlugByID(hiddenOpportunityID));

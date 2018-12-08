@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { ROLE } from '../role/Role';
@@ -57,7 +57,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * Slug must not be previously defined.
    * OpportunityType and sponsor must be defined slugs.
    * Interests must be a (possibly empty) array of interest slugs or IDs.
-   * Semesters must be a (possibly empty) array of semester slugs or IDs.
+   * AcademicTerms must be a (possibly empty) array of semester slugs or IDs.
    * Sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * ICE must be a valid ICE object.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
@@ -74,7 +74,7 @@ class OpportunityCollection extends BaseSlugCollection {
     const interestIDs = Interests.getIDs(interests);
     // Define the slug
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const semesterIDs = Semesters.getIDs(semesters);
+    const semesterIDs = AcademicTerms.getIDs(semesters);
     let opportunityID;
     if (eventDate !== null) {
       // Define the new Opportunity and its Slug.
@@ -128,7 +128,7 @@ class OpportunityCollection extends BaseSlugCollection {
       updateData.interestIDs = interestIDs;
     }
     if (semesters) {
-      const semesterIDs = Semesters.getIDs(semesters);
+      const semesterIDs = AcademicTerms.getIDs(semesters);
       updateData.semesterIDs = semesterIDs;
     }
     if (eventDate) {
@@ -226,7 +226,7 @@ class OpportunityCollection extends BaseSlugCollection {
         }
       });
       _.forEach(doc.semesterIDs, (semesterID) => {
-        if (!Semesters.isDefined(semesterID)) {
+        if (!AcademicTerms.isDefined(semesterID)) {
           problems.push(`Bad semesterID: ${semesterID}`);
         }
       });
@@ -261,7 +261,7 @@ class OpportunityCollection extends BaseSlugCollection {
     const description = doc.description;
     const ice = doc.ice;
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const semesters = _.map(doc.semesterIDs, (semesterID) => Semesters.findSlugByID(semesterID));
+    const semesters = _.map(doc.semesterIDs, (semesterID) => AcademicTerms.findSlugByID(semesterID));
     const eventDate = doc.eventDate;
     const retired = doc.retired;
     return { name, slug, description, opportunityType, sponsor, ice, interests, semesters, eventDate, retired };

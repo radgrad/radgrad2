@@ -14,13 +14,15 @@ import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import InterestList from '../../components/landing/InterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
-import { Semesters } from '../../../api/semester/SemesterCollection';
+import { AcademicTerms } from '../../../api/semester/AcademicTermCollection';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import OpportunityTeaser from '../../components/landing/OpportunityTeaser';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {
   opportunity: IOpportunity;
+  quarters: boolean;
   match: object;
   location: object;
   history: object;
@@ -38,7 +40,7 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
       width: '640',
     };
     const videoID = teaser(this.props.opportunity);
-    console.log(videoID);
+    // console.log(videoID);
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -60,7 +62,7 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
                     <b>Opportunity Type:</b> {getOpportunityTypeName(this.props.opportunity.opportunityTypeID)}<br/>
                   </Grid.Column>
                   <Grid.Column width={'ten'}>
-                    <b>Semesters</b> {semesters(this.props.opportunity)}
+                    <b>{(this.props.quarters ? 'Quarters' : 'Semesters')}</b> {semesters(this.props.opportunity)}
                   </Grid.Column>
                 </Grid>
                 <b>Description:</b>
@@ -79,9 +81,10 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
 }
 
 const WithSubs = withListSubscriptions(LandingOpportunityExplorer, [
+  AcademicTerms.getPublicationName(),
   Interests.getPublicationName(),
   Opportunities.getPublicationName(),
-  Semesters.getPublicationName(),
+  RadGradSettings.getPublicationName(),
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
 ]);
@@ -94,6 +97,7 @@ const LandingOpportunityExplorerContainer = withTracker((props) => {
   const id = Slugs.getEntityID(slugName, 'Opportunity');
   return {
     opportunity: Opportunities.findDoc(id),
+    quarters: RadGradSettings.findOne({}).quarterSystem,
   };
 })(LandingOpportunityExplorerCon);
 

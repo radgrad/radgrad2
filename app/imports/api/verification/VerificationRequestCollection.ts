@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { ROLE } from '../role/Role';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { IVerificationRequestDefine } from '../../typings/radgrad';
 
@@ -149,7 +149,7 @@ class VerificationRequestCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     const oppInstance = OpportunityInstances.findDoc(instance.opportunityInstanceID);
-    return Semesters.findDoc(oppInstance.semesterID);
+    return AcademicTerms.findDoc(oppInstance.semesterID);
   }
 
   /**
@@ -256,7 +256,7 @@ class VerificationRequestCollection extends BaseCollection {
       if (!OpportunityInstances.isDefined(doc.opportunityInstanceID)) {
         problems.push(`Bad opportunityInstanceID: ${doc.opportunityInstanceID}`);
       }
-      if (!Semesters.isDefined(doc.semesterID)) {
+      if (!AcademicTerms.isDefined(doc.semesterID)) {
         problems.push(`Bad semesterID: ${doc.semesterID}`);
       }
     });
@@ -272,7 +272,7 @@ class VerificationRequestCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);
-    const semester = Semesters.findSlugByID(opportunityInstance.semesterID);
+    const semester = AcademicTerms.findSlugByID(opportunityInstance.semesterID);
     const opportunity = Opportunities.findSlugByID(opportunityInstance.opportunityID);
     const submittedOn = doc.submittedOn;
     const status = doc.status;

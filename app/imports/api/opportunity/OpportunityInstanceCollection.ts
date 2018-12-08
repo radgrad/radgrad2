@@ -5,7 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { Opportunities } from './OpportunityCollection';
 import { ROLE } from '../role/Role';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
@@ -57,8 +57,8 @@ class OpportunityInstanceCollection extends BaseCollection {
 
   public define({ semester, opportunity, sponsor, verified = false, student }: IOpportunityInstanceDefine) {
     // Validate semester, opportunity, verified, and studentID
-    const semesterID = Semesters.getID(semester);
-    const semesterDoc = Semesters.findDoc(semesterID);
+    const semesterID = AcademicTerms.getID(semester);
+    const semesterDoc = AcademicTerms.findDoc(semesterID);
     const studentID = Users.getID(student);
     const studentProfile = Users.getProfile(studentID);
     const opportunityID = Opportunities.getID(opportunity);
@@ -69,7 +69,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     } else {
       sponsorID = Users.getID(sponsor);
     }
-    if (semesterDoc.term === Semesters.SPRING || semesterDoc.term === Semesters.SUMMER) {
+    if (semesterDoc.term === AcademicTerms.SPRING || semesterDoc.term === AcademicTerms.SUMMER) {
       AcademicYearInstances.define({ year: semesterDoc.year - 1, student: studentProfile.username });
     } else {
       AcademicYearInstances.define({ year: semesterDoc.year, student: studentProfile.username });
@@ -148,7 +148,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @throws { Meteor.Error } If semester, opportunity, or student does not exist.
    */
   public findOpportunityInstanceDoc(semester: string, opportunity: string, student: string) {
-    const semesterID = Semesters.getID(semester);
+    const semesterID = AcademicTerms.getID(semester);
     const studentID = Users.getID(student);
     const opportunityID = Opportunities.getID(opportunity);
     return this.collection.findOne({ semesterID, studentID, opportunityID });
@@ -187,7 +187,7 @@ class OpportunityInstanceCollection extends BaseCollection {
   public getSemesterDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Semesters.findDoc(instance.semesterID);
+    return AcademicTerms.findDoc(instance.semesterID);
   }
 
   /**
@@ -246,7 +246,7 @@ class OpportunityInstanceCollection extends BaseCollection {
   public toString(opportunityInstanceID: string) {
     this.assertDefined(opportunityInstanceID);
     const opportunityInstanceDoc = this.findDoc(opportunityInstanceID);
-    const semester = Semesters.toString(opportunityInstanceDoc.semesterID);
+    const semester = AcademicTerms.toString(opportunityInstanceDoc.semesterID);
     const opportunityName = Opportunities.findDoc(opportunityInstanceDoc.opportunityID).name;
     return `[OI ${semester} ${opportunityName}]`;
   }
@@ -259,7 +259,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public updateSemester(opportunityInstanceID: string, semesterID: string) {
     this.assertDefined(opportunityInstanceID);
-    Semesters.assertSemester(semesterID);
+    AcademicTerms.assertSemester(semesterID);
     this.collection.update({ _id: opportunityInstanceID }, { $set: { semesterID } });
   }
 
@@ -283,7 +283,7 @@ class OpportunityInstanceCollection extends BaseCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      if (!Semesters.isDefined(doc.semesterID)) {
+      if (!AcademicTerms.isDefined(doc.semesterID)) {
         problems.push(`Bad semesterID: ${doc.semesterID}`);
       }
       if (!Opportunities.isDefined(doc.opportunityID)) {
@@ -306,7 +306,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): IOpportunityInstanceDefine {
     const doc = this.findDoc(docID);
-    const semester = Semesters.findSlugByID(doc.semesterID);
+    const semester = AcademicTerms.findSlugByID(doc.semesterID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);
     const verified = doc.verified;
     const student = Users.getProfile(doc.studentID).username;

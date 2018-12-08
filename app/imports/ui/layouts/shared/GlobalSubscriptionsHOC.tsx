@@ -7,7 +7,7 @@ import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { Semesters } from '../../../api/semester/SemesterCollection';
+import { AcademicTerms } from '../../../api/semester/AcademicTermCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -60,7 +60,7 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PlanChoices.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
-      globalSubs.subscribe(Semesters.getPublicationName()),
+      globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(StudentProfiles.getPublicationName()),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),

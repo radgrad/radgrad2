@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
@@ -59,9 +59,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
       for (let y = lastYear + 1; y < year; y++) {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
           semesterIDs = [];
-          semesterIDs.push(Semesters.getID(`${Semesters.FALL}-${y}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SPRING}-${y + 1}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SUMMER}-${y + 1}`));
+          semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
+          semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
+          semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${y + 1}`));
           this.collection.insert({ year: y, springYear: y + 1, studentID, semesterIDs });
         }
       }
@@ -72,9 +72,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
       for (let y = year + 1; y < nextYear; y++) {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
           semesterIDs = [];
-          semesterIDs.push(Semesters.getID(`${Semesters.FALL}-${y}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SPRING}-${y + 1}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SUMMER}-${y + 1}`));
+          semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
+          semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
+          semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${y + 1}`));
           this.collection.insert({ year: y, springYear: y + 1, studentID, semesterIDs });
         }
       }
@@ -84,9 +84,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
       return doc[0]._id;
     }
     semesterIDs = [];
-    semesterIDs.push(Semesters.getID(`${Semesters.FALL}-${year}`));
-    semesterIDs.push(Semesters.getID(`${Semesters.SPRING}-${year + 1}`));
-    semesterIDs.push(Semesters.getID(`${Semesters.SUMMER}-${year + 1}`));
+    semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${year}`));
+    semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${year + 1}`));
+    semesterIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${year + 1}`));
 
     // Define and return the docID
     return this.collection.insert({ year, springYear: year + 1, studentID, semesterIDs });
@@ -121,7 +121,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
         throw new Meteor.Error(`SemesterIDs ${semesterIDs} is not an Array.`);
       }
       _.forEach(semesterIDs, (sem) => {
-        if (!Semesters.isDefined(sem)) {
+        if (!AcademicTerms.isDefined(sem)) {
           throw new Meteor.Error(`SemesterID ${sem} is not a SemesterID.`);
         }
       });
@@ -214,7 +214,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
       _.forEach(doc.semesterIDs, (semesterID) => {
-        if (!Semesters.isDefined(semesterID)) {
+        if (!AcademicTerms.isDefined(semesterID)) {
           problems.push(`Bad semesterID: ${semesterID}`);
         }
       });

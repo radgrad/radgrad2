@@ -3,7 +3,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { Slugs } from '../slug/SlugCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { Courses } from '../course/CourseCollection';
@@ -87,7 +87,7 @@ class ReviewCollection extends BaseSlugCollection {
         }
       }
     // Validate semester, get semesterID.
-    const semesterID = Semesters.getID(semester);
+    const semesterID = AcademicTerms.getID(semester);
     // Validate rating.
     this.assertValidRating(rating);
     // Guarantee that moderated and public are booleans.
@@ -132,7 +132,7 @@ class ReviewCollection extends BaseSlugCollection {
     this.assertDefined(docID);
     const updateData: IReviewUpdateData = {};
     if (semester) {
-      updateData.semesterID = Semesters.getID(semester);
+      updateData.semesterID = AcademicTerms.getID(semester);
     }
     if (_.isNumber(rating)) {
       this.assertValidRating(rating);
@@ -201,7 +201,7 @@ class ReviewCollection extends BaseSlugCollection {
       if (!Opportunities.isDefined(doc.revieweeID) && !Courses.isDefined(doc.revieweeID)) {
         problems.push(`Bad reviewee: ${doc.revieweeID}`);
       }
-      if (!Semesters.isDefined(doc.semesterID)) {
+      if (!AcademicTerms.isDefined(doc.semesterID)) {
         problems.push(`Bad studentID: ${doc.semesterID}`);
       }
     });
@@ -238,7 +238,7 @@ class ReviewCollection extends BaseSlugCollection {
       if (reviewType === this.OPPORTUNITY) {
         reviewee = Opportunities.findSlugByID(doc.revieweeID);
       }
-    const semester = Semesters.findSlugByID(doc.semesterID);
+    const semester = AcademicTerms.findSlugByID(doc.semesterID);
     const rating = doc.rating;
     const comments = doc.comments;
     const moderated = doc.moderated;

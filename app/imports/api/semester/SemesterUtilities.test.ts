@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { } from 'mocha';
 import { defineSemesters, nextSemester, upComingSemesters } from './SemesterUtilities';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { Semesters } from './SemesterCollection';
+import { AcademicTerms } from './AcademicTermCollection';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
@@ -19,13 +19,13 @@ if (Meteor.isServer) {
     });
 
     it('#nextSemester', function test() {
-      const currentSemester = Semesters.getCurrentSemesterDoc();
+      const currentSemester = AcademicTerms.getCurrentSemesterDoc();
       const next = nextSemester(currentSemester);
       expect(next.semesterNumber).to.equal(currentSemester.semesterNumber + 1);
     });
 
     it('#upComingSemesters', function test() {
-      const count = Semesters.find({}).count();
+      const count = AcademicTerms.find({}).count();
       expect(count).to.be.equal(18);
       const upComing = upComingSemesters();
       // console.log(upComing);

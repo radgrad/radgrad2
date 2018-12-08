@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Papa } from 'meteor/harrison:papa-parse';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -26,19 +26,19 @@ function findSemesterSlug(starDataObject: IStarDataObject) {
   let term;
   switch (semesterTokens[0]) {
     case 'Spring':
-      term = Semesters.SPRING;
+      term = AcademicTerms.SPRING;
       break;
     case 'Summer':
-      term = Semesters.SUMMER;
+      term = AcademicTerms.SUMMER;
       break;
     case 'Sum':
-      term = Semesters.SUMMER;
+      term = AcademicTerms.SUMMER;
       break;
     case 'Fall':
-      term = Semesters.FALL;
+      term = AcademicTerms.FALL;
       break;
     case 'Winter':
-      term = Semesters.FALL; // TODO Not sure it this is right thing to do.
+      term = AcademicTerms.FALL; // TODO Not sure it this is right thing to do.
       break;
     default:
       return null;
@@ -50,7 +50,7 @@ function findSemesterSlug(starDataObject: IStarDataObject) {
       return null;
     }
   }
-  return Semesters.findSlugByID(Semesters.define({ term, year }));
+  return AcademicTerms.findSlugByID(AcademicTerms.define({ term, year }));
 }
 
 /**

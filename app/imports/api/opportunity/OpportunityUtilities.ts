@@ -2,7 +2,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { getStudentsCurrentSemesterNumber } from '../degree-plan/AcademicYearUtilities';
@@ -91,7 +91,7 @@ export function chooseStudentSemesterOpportunity(semester: string, semesterNumbe
 }
 
 export function getStudentCurrentSemesterOpportunityChoices(studentID: string) {
-  const currentSemester = Semesters.getCurrentSemesterDoc();
+  const currentSemester = AcademicTerms.getCurrentSemesterDoc();
   const semesterNum = getStudentsCurrentSemesterNumber(studentID);
   return getStudentSemesterOpportunityChoices(currentSemester, semesterNum, studentID);
 }

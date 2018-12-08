@@ -6,7 +6,7 @@ import { FeedbackInstances } from './FeedbackInstanceCollection';
 import { clearFeedbackInstancesMethod } from './FeedbackInstanceCollection.methods';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import * as courseUtils from '../course/CourseUtilities';
 import * as oppUtils from '../opportunity/OpportunityUtilities';
@@ -39,7 +39,7 @@ export class FeedbackFunctionClass {
   public checkPrerequisites(user: string) {
     const functionName = 'checkPrerequisites';
     const feedbackType = FeedbackInstances.WARNING;
-    const currentSemester = Semesters.getCurrentSemesterDoc();
+    const currentSemester = AcademicTerms.getCurrentSemesterDoc();
     const studentID = Users.getID(user);
 
     // First clear any feedback instances previously created for this student.
@@ -48,9 +48,9 @@ export class FeedbackFunctionClass {
     // Now iterate through all the CourseInstances associated with this student.
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
-      const semester = Semesters.findDoc(ci.semesterID);
+      const semester = AcademicTerms.findDoc(ci.semesterID);
       if (semester.semesterNumber > currentSemester.semesterNumber) {
-        const semesterName = Semesters.toString(ci.semesterID, false);
+        const semesterName = AcademicTerms.toString(ci.semesterID, false);
         const course = Courses.findDoc(ci.courseID);
         if (course) {
           const prereqs = course.prerequisites;
@@ -63,10 +63,10 @@ export class FeedbackFunctionClass {
             if (preCiIndex !== -1) {
               const preCi = cis[preCiIndex];
               const preCourse = Courses.findDoc(preCi.courseID);
-              const preSemester = Semesters.findDoc(preCi.semesterID);
+              const preSemester = AcademicTerms.findDoc(preCi.semesterID);
               if (preSemester) {
                 if (preSemester.semesterNumber >= semester.semesterNumber) {
-                  const semesterName2 = Semesters.toString(preSemester._id, false);
+                  const semesterName2 = AcademicTerms.toString(preSemester._id, false);
                   const description = `${semesterName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
                       `after or in ${semesterName2}.`;
                   const definitionData = { user, functionName, description, feedbackType };
@@ -148,17 +148,17 @@ export class FeedbackFunctionClass {
     // First clear any feedback instances previously created for this student.
     clearFeedbackInstancesMethod.call({ user, functionName });
 
-    const currentSemester = Semesters.getCurrentSemesterDoc();
-    const semesters = yearUtils.getStudentSemesters(user);
+    const currentSemester = AcademicTerms.getCurrentSemesterDoc();
+    const semesters = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
     _.forEach(semesters, (semesterID) => {
-      const semester = Semesters.findDoc(semesterID);
+      const semester = AcademicTerms.findDoc(semesterID);
       if (semester.semesterNumber > currentSemester.semesterNumber) {
         const cis = CourseInstances.find({ studentID, semesterID, note: /ICS/ }).fetch();
         if (cis.length > 2) {
           haveOverloaded = true;
-          description = `${description} ${Semesters.toString(semesterID, false)}, `;
+          description = `${description} ${AcademicTerms.toString(semesterID, false)}, `;
         }
       }
     });
@@ -282,7 +282,7 @@ export class FeedbackFunctionClass {
 
     let bestChoices = oppUtils.getStudentCurrentSemesterOpportunityChoices(user);
     const basePath = this.getBasePath(user);
-    const semesterID = Semesters.getCurrentSemesterID();
+    const semesterID = AcademicTerms.getCurrentSemesterID();
     const oppInstances = OpportunityInstances.find({ studentID, semesterID }).fetch();
     if (oppInstances.length === 0) {  // only make suggestions if there are no opportunities planned.
       // console.log(bestChoices);

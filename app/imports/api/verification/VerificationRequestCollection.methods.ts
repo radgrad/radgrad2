@@ -5,7 +5,7 @@ import { VerificationRequests } from './VerificationRequestCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 
@@ -39,7 +39,7 @@ export const verificationRequestsUpdateStatusMethod = new ValidatedMethod({
 function getOpportunityInstanceID(student, opportunity, semester) {
   const studentID = Users.getID(student);
   const opportunityID = Opportunities.getID(opportunity);
-  const semesterID = Semesters.getID(semester);
+  const semesterID = AcademicTerms.getID(semester);
   const opportunityInstances = OpportunityInstances.find({ opportunityID, studentID, semesterID }).fetch();
   return (opportunityInstances.length > 0) ? opportunityInstances[0]._id : null;
 }

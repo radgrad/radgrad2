@@ -4,7 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Users } from '../user/UserCollection';
 import { advisorLogsDefineMethod } from '../log/AdvisorLogCollection.methods';
@@ -37,7 +37,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     // console.log('semesterID', semesterID);
     // console.log(definition);
     if (definition.course !== Courses.unInterestingSlug) {
-      const semesterID = Semesters.findIdBySlug(definition.semester);
+      const semesterID = AcademicTerms.findIdBySlug(definition.semester);
       const department = getDepartment(definition.course);
       if (!(department in departments)) {
         departments[department] = 1;

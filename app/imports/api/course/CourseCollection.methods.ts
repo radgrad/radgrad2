@@ -3,7 +3,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { nextSemester } from '../semester/SemesterUtilities';
 
 /**
@@ -14,7 +14,7 @@ import { nextSemester } from '../semester/SemesterUtilities';
  * @memberOf api/course
  */
 function getEnrollmentData(courseID, semesterID) {
-  const semesterShortName = Semesters.getShortName(semesterID);
+  const semesterShortName = AcademicTerms.getShortName(semesterID);
   const enrollment = CourseInstances.getCollection().find({ semesterID, courseID }).count();
   return [semesterShortName, enrollment];
 }
@@ -41,14 +41,14 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
     // Throw error if an invalid courseID is passed.
     Courses.assertDefined(courseID);
     // Create an array of the upcoming 9 semesters after the current semester.
-    let semesterDoc = Semesters.getCurrentSemesterDoc();
+    let semesterDoc = AcademicTerms.getCurrentSemesterDoc();
     const semesterList = [];
     for (let i = 0; i < 9; i++) {
       semesterDoc = nextSemester(semesterDoc);
       semesterList.push(semesterDoc);
     }
     // Map over these semesters and return a new list that includes the enrollment data for this course and semester.
-    const enrollmentData = _.map(semesterList, (doc) => getEnrollmentData(courseID, Semesters.getID(doc)));
+    const enrollmentData = _.map(semesterList, (doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
     return { courseID, enrollmentData };
   },
 });

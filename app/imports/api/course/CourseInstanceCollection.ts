@@ -5,7 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { ROLE } from '../role/Role';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../semester/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
@@ -78,13 +78,13 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public define({ semester, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
     // Check arguments
-    const semesterID = Semesters.getID(semester);
-    const semesterDoc = Semesters.findDoc(semesterID);
+    const semesterID = AcademicTerms.getID(semester);
+    const semesterDoc = AcademicTerms.findDoc(semesterID);
     const courseID = Courses.getID(course);
     const studentID = Users.getID(student);
     const profile = Users.getProfile(studentID);
     // ensure the AcademicYearInstance is defined.
-    if (semesterDoc.term === Semesters.SPRING || semesterDoc.term === Semesters.SUMMER) {
+    if (semesterDoc.term === AcademicTerms.SPRING || semesterDoc.term === AcademicTerms.SUMMER) {
       AcademicYearInstances.define({ year: semesterDoc.year - 1, student: profile.username });
     } else {
       AcademicYearInstances.define({ year: semesterDoc.year, student: profile.username });
@@ -222,7 +222,7 @@ class CourseInstanceCollection extends BaseCollection {
   public getSemesterDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Semesters.findDoc(instance.semesterID);
+    return AcademicTerms.findDoc(instance.semesterID);
   }
 
   /**
@@ -257,7 +257,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws { Meteor.Error } If semester, course, or student does not exist.
    */
   public findCourseInstanceDoc(semester: string, course: string, student: string) {
-    const semesterID = Semesters.getID(semester);
+    const semesterID = AcademicTerms.getID(semester);
     const studentID = Users.getID(student);
     const courseID = Courses.getID(course);
     return this.collection.findOne({ semesterID, studentID, courseID });
@@ -349,7 +349,7 @@ class CourseInstanceCollection extends BaseCollection {
     this.assertDefined(courseInstanceID);
     const courseInstanceDoc = this.findDoc(courseInstanceID);
     const courseName = this.findCourseName(courseInstanceID);
-    const semester = Semesters.toString(courseInstanceDoc.semesterID);
+    const semester = AcademicTerms.toString(courseInstanceDoc.semesterID);
     const grade = courseInstanceDoc.grade;
     return `[CI ${semester} ${courseName} ${grade}]`;
   }
@@ -374,7 +374,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public updateSemester(courseInstanceID: string, semesterID: string) {
     this.assertDefined(courseInstanceID);
-    Semesters.assertSemester(semesterID);
+    AcademicTerms.assertSemester(semesterID);
     this.collection.update({ _id: courseInstanceID }, { $set: { semesterID } });
   }
 
@@ -387,7 +387,7 @@ class CourseInstanceCollection extends BaseCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      if (!Semesters.isDefined(doc.semesterID)) {
+      if (!AcademicTerms.isDefined(doc.semesterID)) {
         problems.push(`Bad semesterID: ${doc.semesterID}`);
       }
       if (!Courses.isDefined(doc.courseID)) {
@@ -407,7 +407,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): ICourseInstanceDefine {
     const doc = this.findDoc(docID);
-    const semester = Semesters.findSlugByID(doc.semesterID);
+    const semester = AcademicTerms.findSlugByID(doc.semesterID);
     const course = Courses.findSlugByID(doc.courseID);
     const note = doc.note;
     const verified = doc.verified;
