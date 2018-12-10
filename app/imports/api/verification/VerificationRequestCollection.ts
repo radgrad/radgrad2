@@ -149,7 +149,7 @@ class VerificationRequestCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     const oppInstance = OpportunityInstances.findDoc(instance.opportunityInstanceID);
-    return AcademicTerms.findDoc(oppInstance.semesterID);
+    return AcademicTerms.findDoc(oppInstance.termID);
   }
 
   /**
@@ -244,7 +244,7 @@ class VerificationRequestCollection extends BaseCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks studentID, opportunityInstanceID, semesterID.
+   * Checks studentID, opportunityInstanceID, termID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity() {
@@ -256,8 +256,8 @@ class VerificationRequestCollection extends BaseCollection {
       if (!OpportunityInstances.isDefined(doc.opportunityInstanceID)) {
         problems.push(`Bad opportunityInstanceID: ${doc.opportunityInstanceID}`);
       }
-      if (!AcademicTerms.isDefined(doc.semesterID)) {
-        problems.push(`Bad semesterID: ${doc.semesterID}`);
+      if (!AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad termID: ${doc.termID}`);
       }
     });
     return problems;
@@ -272,7 +272,7 @@ class VerificationRequestCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);
-    const semester = AcademicTerms.findSlugByID(opportunityInstance.semesterID);
+    const semester = AcademicTerms.findSlugByID(opportunityInstance.termID);
     const opportunity = Opportunities.findSlugByID(opportunityInstance.opportunityID);
     const submittedOn = doc.submittedOn;
     const status = doc.status;

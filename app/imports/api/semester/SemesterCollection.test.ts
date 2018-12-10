@@ -31,44 +31,44 @@ if (Meteor.isServer) {
     });
 
     it('#get (multiple definition)', function test() {
-      const semesterID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
-      const semesterID2 = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
-      expect(semesterID).to.equal(semesterID2);
-      AcademicTerms.removeIt(semesterID);
-      expect(AcademicTerms.isDefined(semesterID2)).to.be.false;
+      const termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
+      const termID2 = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
+      expect(termID).to.equal(termID2);
+      AcademicTerms.removeIt(termID);
+      expect(AcademicTerms.isDefined(termID2)).to.be.false;
     });
 
     it('#assertSemester', function test() {
-      const semesterID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
-      expect(function foo() { AcademicTerms.assertSemester(semesterID); }).to.not.throw(Error);
-      AcademicTerms.removeIt(semesterID);
-      expect(function foo() { AcademicTerms.assertSemester(semesterID); }).to.throw(Error);
+      const termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
+      expect(function foo() { AcademicTerms.assertSemester(termID); }).to.not.throw(Error);
+      AcademicTerms.removeIt(termID);
+      expect(function foo() { AcademicTerms.assertSemester(termID); }).to.throw(Error);
     });
 
     it('#toString', function test() {
-      const semesterID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2010 });
-      expect(AcademicTerms.toString(semesterID)).to.equal('Spring 2010');
-      AcademicTerms.removeIt(semesterID);
+      const termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2010 });
+      expect(AcademicTerms.toString(termID)).to.equal('Spring 2010');
+      AcademicTerms.removeIt(termID);
     });
 
     it('#semesterNumber', function test() {
-      let semesterID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2011 });
-      expect(AcademicTerms.findDoc(semesterID).semesterNumber).to.equal(1);
+      let termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2011 });
+      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(1);
 
-      semesterID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2011 });
-      expect(AcademicTerms.findDoc(semesterID).semesterNumber).to.equal(2);
+      termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2011 });
+      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(2);
 
-      semesterID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2011 });
-      expect(AcademicTerms.findDoc(semesterID).semesterNumber).to.equal(3);
+      termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2011 });
+      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(3);
 
-      semesterID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2012 });
-      expect(AcademicTerms.findDoc(semesterID).semesterNumber).to.equal(4);
+      termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2012 });
+      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(4);
 
-      semesterID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2012 });
-      expect(AcademicTerms.findDoc(semesterID).semesterNumber).to.equal(5);
+      termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2012 });
+      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(5);
 
-      semesterID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
-      expect(AcademicTerms.findDoc(semesterID).semesterNumber).to.equal(6);
+      termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
+      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(6);
     });
 
     it('#getID', function test() {
@@ -78,8 +78,8 @@ if (Meteor.isServer) {
     });
 
     it('#getShortName', function test() {
-      const semesterID = AcademicTerms.getID('Summer-2010');
-      expect(AcademicTerms.getShortName(semesterID)).to.equal('Sum 10');
+      const termID = AcademicTerms.getID('Summer-2010');
+      expect(AcademicTerms.getShortName(termID)).to.equal('Sum 10');
     });
   });
 }

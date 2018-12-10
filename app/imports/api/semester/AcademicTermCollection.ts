@@ -103,9 +103,9 @@ class AcademicTermCollection extends BaseSlugCollection {
       throw new Meteor.Error(`Slug is already defined for undefined semester: ${slug}`);
     }
     const slugID = Slugs.define({ name: slug, entityName: 'Semester' });
-    const semesterID = this.collection.insert({ term, year, semesterNumber, slugID });
-    Slugs.updateEntityID(slugID, semesterID);
-    return semesterID;
+    const termID = this.collection.insert({ term, year, semesterNumber, slugID });
+    Slugs.updateEntityID(slugID, termID);
+    return termID;
   }
 
   /**
@@ -123,7 +123,7 @@ class AcademicTermCollection extends BaseSlugCollection {
 
   /**
    * Ensures the passed object is a Semester instance.
-   * @param semester Should be a defined semesterID or semester doc.
+   * @param semester Should be a defined termID or semester doc.
    * @throws {Meteor.Error} If semester is not a Semester.
    */
   public assertSemester(semester: string) {
@@ -133,7 +133,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the semesterID associated with the current semester based upon the current timestamp.
+   * Returns the termID associated with the current semester based upon the current timestamp.
    * See AcademicTerms.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
    */
   public getCurrentSemesterID() {
@@ -153,12 +153,12 @@ class AcademicTermCollection extends BaseSlugCollection {
 
   /**
    * Returns true if the passed semester occurs now or in the future.
-   * @param semester The semester (slug or semesterID).
+   * @param semester The semester (slug or termID).
    * @returns True if semester is in the future.
    */
   public isUpcomingSemester(semester: string) {
-    const semesterID = this.getID(semester);
-    return this.findDoc(semesterID).semesterNumber >= this.getCurrentSemesterDoc().semesterNumber;
+    const termID = this.getID(semester);
+    return this.findDoc(termID).semesterNumber >= this.getCurrentSemesterDoc().semesterNumber;
   }
 
   /**
@@ -173,7 +173,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   /**
    * Returns the semester ID corresponding to the given date.
    * @param date The date as a string. Must be able to be parsed by moment();
-   * @returns {String} The semesterID that the date falls in.
+   * @returns {String} The termID that the date falls in.
    */
   public getSemester(date: string | Date) {
     const d = moment(date);
@@ -202,12 +202,12 @@ class AcademicTermCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the slug associated with the semesterID.
-   * @param semesterID the semester ID.
+   * Returns the slug associated with the termID.
+   * @param termID the semester ID.
    */
-  public getSlug(semesterID: string) {
-    this.assertSemester(semesterID);
-    const semesterDoc = this.findDoc(semesterID);
+  public getSlug(termID: string) {
+    this.assertSemester(termID);
+    const semesterDoc = this.findDoc(termID);
     return Slugs.findDoc(semesterDoc.slugID).name;
   }
 
@@ -231,24 +231,24 @@ class AcademicTermCollection extends BaseSlugCollection {
 
   /**
    * Returns the passed semester, formatted as a string.
-   * @param semesterID The semester.
+   * @param termID The semester.
    * @param nospace If true, then term and year are concatenated without a space in between.
    * @returns { String } The semester as a string.
    */
-  public toString(semesterID: string, nospace?: boolean) {
-    this.assertSemester(semesterID);
-    const semesterDoc = this.findDoc(semesterID);
+  public toString(termID: string, nospace?: boolean) {
+    this.assertSemester(termID);
+    const semesterDoc = this.findDoc(termID);
     return (nospace) ? `${semesterDoc.term}${semesterDoc.year}` : `${semesterDoc.term} ${semesterDoc.year}`;
   }
 
   /**
    * Returns a four character "shortname" for a semester and year: Fa18, Sp19, Su20
-   * @param semesterID The semester
+   * @param termID The semester
    * @returns {string} The shortname.
    */
-  public getShortName(semesterID: string) {
-    this.assertSemester(semesterID);
-    const semesterDoc = this.findDoc(semesterID);
+  public getShortName(termID: string) {
+    this.assertSemester(termID);
+    const semesterDoc = this.findDoc(termID);
     const yearString = `${semesterDoc.year}`.substring(2, 4);
     const termString = (semesterDoc.term === 'Fall') ? 'Fall' : semesterDoc.term.substring(0, 3);
     return `${termString} ${yearString}`;

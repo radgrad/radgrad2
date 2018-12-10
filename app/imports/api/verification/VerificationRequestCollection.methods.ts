@@ -39,8 +39,8 @@ export const verificationRequestsUpdateStatusMethod = new ValidatedMethod({
 function getOpportunityInstanceID(student, opportunity, semester) {
   const studentID = Users.getID(student);
   const opportunityID = Opportunities.getID(opportunity);
-  const semesterID = AcademicTerms.getID(semester);
-  const opportunityInstances = OpportunityInstances.find({ opportunityID, studentID, semesterID }).fetch();
+  const termID = AcademicTerms.getID(semester);
+  const opportunityInstances = OpportunityInstances.find({ opportunityID, studentID, termID }).fetch();
   return (opportunityInstances.length > 0) ? opportunityInstances[0]._id : null;
 }
 

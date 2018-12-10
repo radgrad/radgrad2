@@ -51,8 +51,8 @@ export function teaser(opportunity) {
 }
 
 export function semesters(opportunity) {
-  const semesterIDs = opportunity.semesterIDs;
-  const array = _.map(semesterIDs, (semID) => AcademicTerms.toString(semID));
+  const termIDs = opportunity.termIDs;
+  const array = _.map(termIDs, (semID) => AcademicTerms.toString(semID));
   const semString = array.join(', ');
   return semString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 }

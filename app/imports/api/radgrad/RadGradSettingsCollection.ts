@@ -39,7 +39,7 @@ class RadGradSettingsCollection extends BaseCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks slugID, opportunityTypeID, sponsorID, interestIDs, semesterIDs
+   * Checks the number of RadGradSettings documents.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity() {

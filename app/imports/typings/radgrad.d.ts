@@ -97,7 +97,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
 }
 
 export interface ICourseInstanceUpdate {
-  semesterID?: string;
+  termID?: string;
   verified?: boolean;
   fromSTAR?: boolean;
   grade?: string;
@@ -300,7 +300,7 @@ export interface IOpportunity {
   opportunityTypeID: string;
   sponsorID: string;
   interestIDs: string[];
-  semesterIDs: string[];
+  termIDs: string[];
   // Optional data
   eventDate?: Date;
   ice?: Ice;
@@ -338,7 +338,7 @@ export interface IOpportunityUpdateData {
   opportunityTypeID?: string;
   sponsorID?: string;
   interestIDs?: string[];
-  semesterIDs?: string[];
+  termIDs?: string[];
   eventDate?: any;
   ice?: Ice;
   retired?: boolean;
@@ -354,7 +354,7 @@ export interface IOpportunityInstanceDefine extends IDumpOne {
 }
 
 export interface IOpportunityInstanceUpdate {
-  semesterID?: string;
+  termID?: string;
   verified?: boolean;
   ice?: Ice;
 }
@@ -468,7 +468,7 @@ export interface IReviewUpdate {
 }
 
 export interface IReviewUpdateData {
-  semesterID?: string;
+  termID?: string;
   rating?: number;
   comments?: string;
   moderated?: boolean;

@@ -13,7 +13,7 @@ export function getStudentsCurrentSemesterNumber(studentID: string) {
   const cis = CourseInstances.find({ studentID }).fetch();
   let firstSemester;
   _.forEach(cis, (ci) => {
-    const semester = AcademicTerms.findDoc(ci.semesterID);
+    const semester = AcademicTerms.findDoc(ci.termID);
     if (!firstSemester) {
       firstSemester = semester;
     } else if (semester.semesterNumber < firstSemester.semesterNumber) {
@@ -34,12 +34,12 @@ export function getStudentTerms(studentID: string) {
   const years = AcademicYearInstances.find({ studentID }, { $sort: { year: 1 } }).fetch();
   let semesters = [];
   _.forEach(years, (ay) => {
-    semesters = _.concat(semesters, ay.semesterIDs);
+    semesters = _.concat(semesters, ay.termIDs);
   });
   const cis = CourseInstances.find({ studentID }).fetch();
   let courseSemesters = [];
   _.forEach(cis, (ci) => {
-    courseSemesters.push(ci.semesterID);
+    courseSemesters.push(ci.termID);
   });
   courseSemesters = _.uniq(courseSemesters);
   return semesters;

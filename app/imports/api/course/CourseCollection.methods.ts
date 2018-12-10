@@ -10,12 +10,12 @@ import { nextSemester } from '../semester/SemesterUtilities';
  * Returns an array with two elements: a string with the shortName of the semester, and an integer indicating the
  * current planned enrollment for the course in that semester.
  * @param courseID The ID of the course.
- * @param semesterID The ID of the semester.
+ * @param termID The ID of the semester.
  * @memberOf api/course
  */
-function getEnrollmentData(courseID, semesterID) {
-  const semesterShortName = AcademicTerms.getShortName(semesterID);
-  const enrollment = CourseInstances.getCollection().find({ semesterID, courseID }).count();
+function getEnrollmentData(courseID, termID) {
+  const semesterShortName = AcademicTerms.getShortName(termID);
+  const enrollment = CourseInstances.getCollection().find({ termID, courseID }).count();
   return [semesterShortName, enrollment];
 }
 

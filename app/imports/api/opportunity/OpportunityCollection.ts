@@ -33,7 +33,7 @@ class OpportunityCollection extends BaseSlugCollection {
       opportunityTypeID: { type: SimpleSchema.RegEx.Id },
       sponsorID: { type: SimpleSchema.RegEx.Id },
       interestIDs: [SimpleSchema.RegEx.Id],
-      semesterIDs: [SimpleSchema.RegEx.Id],
+      termIDs: [SimpleSchema.RegEx.Id],
       // Optional data
       eventDate: { type: Date, optional: true },
       ice: { type: Object, optional: true, blackbox: true },
@@ -74,17 +74,17 @@ class OpportunityCollection extends BaseSlugCollection {
     const interestIDs = Interests.getIDs(interests);
     // Define the slug
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const semesterIDs = AcademicTerms.getIDs(semesters);
+    const termIDs = AcademicTerms.getIDs(semesters);
     let opportunityID;
     if (eventDate !== null) {
       // Define the new Opportunity and its Slug.
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, semesterIDs, ice, eventDate, retired });
+        interestIDs, termIDs, ice, eventDate, retired });
     } else {
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, semesterIDs, ice, retired });
+        interestIDs, termIDs, ice, retired });
     }
     Slugs.updateEntityID(slugID, opportunityID);
 
@@ -128,8 +128,8 @@ class OpportunityCollection extends BaseSlugCollection {
       updateData.interestIDs = interestIDs;
     }
     if (semesters) {
-      const semesterIDs = AcademicTerms.getIDs(semesters);
-      updateData.semesterIDs = semesterIDs;
+      const termIDs = AcademicTerms.getIDs(semesters);
+      updateData.termIDs = termIDs;
     }
     if (eventDate) {
       updateData.eventDate = eventDate;
@@ -205,7 +205,7 @@ class OpportunityCollection extends BaseSlugCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks slugID, opportunityTypeID, sponsorID, interestIDs, semesterIDs
+   * Checks slugID, opportunityTypeID, sponsorID, interestIDs, termIDs
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity() {
@@ -225,9 +225,9 @@ class OpportunityCollection extends BaseSlugCollection {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      _.forEach(doc.semesterIDs, (semesterID) => {
-        if (!AcademicTerms.isDefined(semesterID)) {
-          problems.push(`Bad semesterID: ${semesterID}`);
+      _.forEach(doc.termIDs, (termID) => {
+        if (!AcademicTerms.isDefined(termID)) {
+          problems.push(`Bad termID: ${termID}`);
         }
       });
     });
@@ -261,7 +261,7 @@ class OpportunityCollection extends BaseSlugCollection {
     const description = doc.description;
     const ice = doc.ice;
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const semesters = _.map(doc.semesterIDs, (semesterID) => AcademicTerms.findSlugByID(semesterID));
+    const semesters = _.map(doc.termIDs, (termID) => AcademicTerms.findSlugByID(termID));
     const eventDate = doc.eventDate;
     const retired = doc.retired;
     return { name, slug, description, opportunityType, sponsor, ice, interests, semesters, eventDate, retired };

@@ -28,7 +28,7 @@ class ReviewCollection extends BaseSlugCollection {
       studentID: { type: SimpleSchema.RegEx.Id },
       reviewType: { type: String },
       revieweeID: { type: SimpleSchema.RegEx.Id },
-      semesterID: { type: SimpleSchema.RegEx.Id },
+      termID: { type: SimpleSchema.RegEx.Id },
       rating: { type: Number },
       comments: { type: String },
       moderated: { type: Boolean },
@@ -86,8 +86,8 @@ class ReviewCollection extends BaseSlugCollection {
           slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`;
         }
       }
-    // Validate semester, get semesterID.
-    const semesterID = AcademicTerms.getID(semester);
+    // Validate semester, get termID.
+    const termID = AcademicTerms.getID(semester);
     // Validate rating.
     this.assertValidRating(rating);
     // Guarantee that moderated and public are booleans.
@@ -97,7 +97,7 @@ class ReviewCollection extends BaseSlugCollection {
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the new Review and its Slug.
     const reviewID = this.collection.insert({
-      slugID, studentID, reviewType, revieweeID, semesterID, rating, comments, moderated, visible, moderatorComments,
+      slugID, studentID, reviewType, revieweeID, termID, rating, comments, moderated, visible, moderatorComments,
     });
     Slugs.updateEntityID(slugID, reviewID);
     // Return the id to the newly created Review.
@@ -132,7 +132,7 @@ class ReviewCollection extends BaseSlugCollection {
     this.assertDefined(docID);
     const updateData: IReviewUpdateData = {};
     if (semester) {
-      updateData.semesterID = AcademicTerms.getID(semester);
+      updateData.termID = AcademicTerms.getID(semester);
     }
     if (_.isNumber(rating)) {
       this.assertValidRating(rating);
@@ -186,7 +186,7 @@ class ReviewCollection extends BaseSlugCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks slugID, opportunityTypeID, sponsorID, interestIDs, semesterIDs
+   * Checks slugID, opportunityTypeID, sponsorID, interestIDs, termIDs
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity() {
@@ -201,8 +201,8 @@ class ReviewCollection extends BaseSlugCollection {
       if (!Opportunities.isDefined(doc.revieweeID) && !Courses.isDefined(doc.revieweeID)) {
         problems.push(`Bad reviewee: ${doc.revieweeID}`);
       }
-      if (!AcademicTerms.isDefined(doc.semesterID)) {
-        problems.push(`Bad studentID: ${doc.semesterID}`);
+      if (!AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad studentID: ${doc.termID}`);
       }
     });
     return problems;
@@ -238,7 +238,7 @@ class ReviewCollection extends BaseSlugCollection {
       if (reviewType === this.OPPORTUNITY) {
         reviewee = Opportunities.findSlugByID(doc.revieweeID);
       }
-    const semester = AcademicTerms.findSlugByID(doc.semesterID);
+    const semester = AcademicTerms.findSlugByID(doc.termID);
     const rating = doc.rating;
     const comments = doc.comments;
     const moderated = doc.moderated;

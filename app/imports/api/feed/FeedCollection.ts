@@ -66,7 +66,7 @@ class FeedCollection extends BaseCollection {
       'userIDs': { type: Array }, 'userIDs.$': SimpleSchema.RegEx.Id,
       'opportunityID': { type: SimpleSchema.RegEx.Id, optional: true },
       'courseID': { type: SimpleSchema.RegEx.Id, optional: true },
-      'semesterID': { type: SimpleSchema.RegEx.Id, optional: true },
+      'termID': { type: SimpleSchema.RegEx.Id, optional: true },
     }));
     this.NEW_USER = 'new-user';
     this.NEW_COURSE = 'new-course';
@@ -119,7 +119,7 @@ class FeedCollection extends BaseCollection {
    */
   public update(docID: string, { description, picture, users, opportunity, course, semester }: IFeedUpdate) {
     this.assertDefined(docID);
-    const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; semesterID?: string; } = {};
+    const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; termID?: string; } = {};
     if (description) {
       updateData.description = description;
     }
@@ -137,7 +137,7 @@ class FeedCollection extends BaseCollection {
       updateData.courseID = Courses.getID(course);
     }
     if (semester) {
-      updateData.semesterID = AcademicTerms.getID(course);
+      updateData.termID = AcademicTerms.getID(course);
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -240,14 +240,14 @@ class FeedCollection extends BaseCollection {
     // Otherwise, define a new feed instance.
     const users = (_.isArray(user)) ? user : [user];
     const userIDs = Users.getIDs(users);
-    const semesterID = AcademicTerms.getID(semester);
+    const termID = AcademicTerms.getID(semester);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
     const description = `[${Users.getFullName(userIDs[0])}](./explorer/users/${Users.getProfile(userIDs[0]).username})
         has been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})
-        (${AcademicTerms.toString(semesterID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
+        (${AcademicTerms.toString(termID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
     const picture = '/images/radgrad_logo.png';
-    const feedID = this.collection.insert({ userIDs, opportunityID, semesterID, description, timestamp, picture, feedType });
+    const feedID = this.collection.insert({ userIDs, opportunityID, termID, description, timestamp, picture, feedType });
     return feedID;
   }
 
@@ -441,7 +441,7 @@ class FeedCollection extends BaseCollection {
     const userIDs = existingFeed.userIDs;
     userIDs.push(userID);
     const o = Opportunities.findDoc(existingFeed.opportunityID);
-    const description = `[${Users.getFullName(userIDs[0])}](./explorer/users/${Users.getProfile(userIDs[0]).username}) and ${userIDs.length - 1} others have been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.semesterID, false)})`;
+    const description = `[${Users.getFullName(userIDs[0])}](./explorer/users/${Users.getProfile(userIDs[0]).username}) and ${userIDs.length - 1} others have been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.termID, false)})`;
     this.collection.update(existingFeedID, { $set: { userIDs, description } });
   }
 
@@ -487,8 +487,8 @@ class FeedCollection extends BaseCollection {
       if (doc.courseID && !Courses.isDefined(doc.courseID)) {
         problems.push(`Bad courseID: ${doc.courseID}`);
       }
-      if (doc.semesterID && !AcademicTerms.isDefined(doc.semesterID)) {
-        problems.push(`Bad semesterID: ${doc.semesterID}`);
+      if (doc.termID && !AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad termID: ${doc.termID}`);
       }
     });
     return problems;
@@ -514,8 +514,8 @@ class FeedCollection extends BaseCollection {
       course = Courses.findSlugByID(doc.courseID);
     }
     let semester;
-    if (doc.semesterID) {
-      semester = AcademicTerms.findSlugByID(doc.semesterID);
+    if (doc.termID) {
+      semester = AcademicTerms.findSlugByID(doc.termID);
     }
     const feedType = doc.feedType;
     const timestamp = doc.timestamp;

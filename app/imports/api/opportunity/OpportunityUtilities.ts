@@ -47,7 +47,7 @@ export function semesterOpportunities(semester, semesterNumber) {
   const id = semester._id;
   const opps = Opportunities.findNonRetired();
   const semesterOpps = _.filter(opps, (opportunity) => {
-    return _.indexOf(opportunity.semesterIDs, id) !== -1;
+    return _.indexOf(opportunity.termIDs, id) !== -1;
   });
   if (semesterNumber < 3) { // AY 1.
     return _.filter(semesterOpps, (opportunity) => {

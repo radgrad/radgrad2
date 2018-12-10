@@ -180,7 +180,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         problems.push(`Bad academicPlanID: ${doc.academicPlanID} in ${doc.username}`);
       }
       if (doc.declaredSemesterID && !AcademicTerms.isDefined(doc.declaredSemesterID)) {
-        problems.push(`Bad semesterID: ${doc.academicPlanID} in ${doc.username}`);
+        problems.push(`Bad termID: ${doc.academicPlanID} in ${doc.username}`);
       }
       _.forEach(doc.hiddenCourseIDs, (hiddenCourseID) => {
         if (!Courses.isDefined(hiddenCourseID)) {

@@ -154,7 +154,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns an array of problems. Checks the semesterID and DesiredDegree ID.
+   * Returns an array of problems. Checks the termID and DesiredDegree ID.
    * @returns {Array} An array of problem messages.
    */
   public checkIntegrity() {
@@ -164,7 +164,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
       if (!AcademicTerms.isDefined(doc.effectiveSemesterID)) {
-        problems.push(`Bad semesterID: ${doc.effectiveSemesterID}`);
+        problems.push(`Bad termID: ${doc.effectiveSemesterID}`);
       }
       if (!DesiredDegrees.isDefined(doc.degreeID)) {
         problems.push(`Bad desiredDegreeID: ${doc.degreeID}`);

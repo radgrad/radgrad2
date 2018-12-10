@@ -48,9 +48,9 @@ export class FeedbackFunctionClass {
     // Now iterate through all the CourseInstances associated with this student.
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
-      const semester = AcademicTerms.findDoc(ci.semesterID);
+      const semester = AcademicTerms.findDoc(ci.termID);
       if (semester.semesterNumber > currentSemester.semesterNumber) {
-        const semesterName = AcademicTerms.toString(ci.semesterID, false);
+        const semesterName = AcademicTerms.toString(ci.termID, false);
         const course = Courses.findDoc(ci.courseID);
         if (course) {
           const prereqs = course.prerequisites;
@@ -63,7 +63,7 @@ export class FeedbackFunctionClass {
             if (preCiIndex !== -1) {
               const preCi = cis[preCiIndex];
               const preCourse = Courses.findDoc(preCi.courseID);
-              const preSemester = AcademicTerms.findDoc(preCi.semesterID);
+              const preSemester = AcademicTerms.findDoc(preCi.termID);
               if (preSemester) {
                 if (preSemester.semesterNumber >= semester.semesterNumber) {
                   const semesterName2 = AcademicTerms.toString(preSemester._id, false);
@@ -152,13 +152,13 @@ export class FeedbackFunctionClass {
     const semesters = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
-    _.forEach(semesters, (semesterID) => {
-      const semester = AcademicTerms.findDoc(semesterID);
+    _.forEach(semesters, (termID) => {
+      const semester = AcademicTerms.findDoc(termID);
       if (semester.semesterNumber > currentSemester.semesterNumber) {
-        const cis = CourseInstances.find({ studentID, semesterID, note: /ICS/ }).fetch();
+        const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
         if (cis.length > 2) {
           haveOverloaded = true;
-          description = `${description} ${AcademicTerms.toString(semesterID, false)}, `;
+          description = `${description} ${AcademicTerms.toString(termID, false)}, `;
         }
       }
     });
@@ -282,8 +282,8 @@ export class FeedbackFunctionClass {
 
     let bestChoices = oppUtils.getStudentCurrentSemesterOpportunityChoices(user);
     const basePath = this.getBasePath(user);
-    const semesterID = AcademicTerms.getCurrentSemesterID();
-    const oppInstances = OpportunityInstances.find({ studentID, semesterID }).fetch();
+    const termID = AcademicTerms.getCurrentSemesterID();
+    const oppInstances = OpportunityInstances.find({ studentID, termID }).fetch();
     if (oppInstances.length === 0) {  // only make suggestions if there are no opportunities planned.
       // console.log(bestChoices);
       if (bestChoices) {
