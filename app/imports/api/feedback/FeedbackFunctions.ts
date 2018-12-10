@@ -39,7 +39,7 @@ export class FeedbackFunctionClass {
   public checkPrerequisites(user: string) {
     const functionName = 'checkPrerequisites';
     const feedbackType = FeedbackInstances.WARNING;
-    const currentSemester = AcademicTerms.getCurrentSemesterDoc();
+    const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
     const studentID = Users.getID(user);
 
     // First clear any feedback instances previously created for this student.
@@ -49,7 +49,7 @@ export class FeedbackFunctionClass {
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
       const semester = AcademicTerms.findDoc(ci.termID);
-      if (semester.semesterNumber > currentSemester.semesterNumber) {
+      if (semester.termNumber > currentSemester.termNumber) {
         const semesterName = AcademicTerms.toString(ci.termID, false);
         const course = Courses.findDoc(ci.courseID);
         if (course) {
@@ -65,7 +65,7 @@ export class FeedbackFunctionClass {
               const preCourse = Courses.findDoc(preCi.courseID);
               const preSemester = AcademicTerms.findDoc(preCi.termID);
               if (preSemester) {
-                if (preSemester.semesterNumber >= semester.semesterNumber) {
+                if (preSemester.termNumber >= semester.termNumber) {
                   const semesterName2 = AcademicTerms.toString(preSemester._id, false);
                   const description = `${semesterName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
                       `after or in ${semesterName2}.`;
@@ -148,13 +148,13 @@ export class FeedbackFunctionClass {
     // First clear any feedback instances previously created for this student.
     clearFeedbackInstancesMethod.call({ user, functionName });
 
-    const currentSemester = AcademicTerms.getCurrentSemesterDoc();
+    const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
     const semesters = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
     _.forEach(semesters, (termID) => {
       const semester = AcademicTerms.findDoc(termID);
-      if (semester.semesterNumber > currentSemester.semesterNumber) {
+      if (semester.termNumber > currentSemester.termNumber) {
         const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
         if (cis.length > 2) {
           haveOverloaded = true;
@@ -282,7 +282,7 @@ export class FeedbackFunctionClass {
 
     let bestChoices = oppUtils.getStudentCurrentSemesterOpportunityChoices(user);
     const basePath = this.getBasePath(user);
-    const termID = AcademicTerms.getCurrentSemesterID();
+    const termID = AcademicTerms.getCurrentTermID();
     const oppInstances = OpportunityInstances.find({ studentID, termID }).fetch();
     if (oppInstances.length === 0) {  // only make suggestions if there are no opportunities planned.
       // console.log(bestChoices);

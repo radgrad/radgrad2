@@ -5,7 +5,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { getFutureEnrollmentMethod } from './CourseCollection.methods';
 import { Courses } from './CourseCollection';
 import { AcademicTerms } from '../semester/AcademicTermCollection';
-import { nextSemester } from '../semester/SemesterUtilities';
+import { nextAcademicTerm } from '../semester/AcademicTermUtilities';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
@@ -55,7 +55,7 @@ if (Meteor.isClient) {
       expect(data.enrollmentData[0][1]).to.equal(0);
 
       // Now make a course instance for next semester
-      const semester = AcademicTerms.getSlug(nextSemester(AcademicTerms.getCurrentSemesterDoc())._id);
+      const semester = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
       const student = 'abi@hawaii.edu';
       const course = 'ics_111';
       const courseInstanceDefinitionData = {

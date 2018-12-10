@@ -477,13 +477,13 @@ export interface IReviewUpdateData {
 }
 
 // AcademicTerms
-export interface ISemesterDefine extends IDumpOne {
+export interface IAcademicTermDefine extends IDumpOne {
   term: string;
   year: number;
   retired?: boolean;
 }
 
-export interface ISemesterUpdate {
+export interface IAcademicTermUpdate {
   retired?: boolean;
 }
 

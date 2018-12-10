@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
 import { AcademicTerms } from '../semester/AcademicTermCollection';
-import { defineSemesters } from '../semester/SemesterUtilities';
+import { defineAcademicTerms } from '../semester/AcademicTermUtilities';
 import { ROLE } from '../role/Role';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { makeSampleOpportunity } from './SampleOpportunities';
@@ -22,7 +22,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #toString, #dumpOne, #restoreOne, findOpportunityInstance', function test() {
-      defineSemesters();
+      defineAcademicTerms();
       const semester: string = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
       const faculty: string = makeSampleUser(ROLE.FACULTY);
       const student: string = makeSampleUser();

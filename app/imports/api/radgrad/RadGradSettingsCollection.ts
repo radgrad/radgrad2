@@ -22,6 +22,14 @@ class RadGradSettingsCollection extends BaseCollection {
     return this.collection.insert({ quarterSystem });
   }
 
+  public findOne(selector: object, options?: object) {
+    const doc = super.findOne(selector, options);
+    if (doc) {
+      return doc;
+    }
+    return { quarterSystem: false };
+  }
+
   public update(docID: string, { quarterSystem }: ISettingsUpdate) {
     throw new Meteor.Error('Quarter System is read only', 'Read Only', Error().stack);
   }

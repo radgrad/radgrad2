@@ -16,12 +16,12 @@ export function getStudentsCurrentSemesterNumber(studentID: string) {
     const semester = AcademicTerms.findDoc(ci.termID);
     if (!firstSemester) {
       firstSemester = semester;
-    } else if (semester.semesterNumber < firstSemester.semesterNumber) {
+    } else if (semester.termNumber < firstSemester.termNumber) {
       firstSemester = semester;
     }
   });
-  const currentSemester = AcademicTerms.getCurrentSemesterDoc();
-  return (currentSemester.semesterNumber - firstSemester.semesterNumber) + 1;
+  const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
+  return (currentSemester.termNumber - firstSemester.termNumber) + 1;
 }
 
 /**

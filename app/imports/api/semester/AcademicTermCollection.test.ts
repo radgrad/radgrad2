@@ -7,7 +7,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
 if (Meteor.isServer) {
-  describe('SemesterCollection', function testSuite() {
+  describe('AcademicTermCollection', function testSuite() {
     before(function setup() {
       removeAllEntities();
     });
@@ -38,11 +38,11 @@ if (Meteor.isServer) {
       expect(AcademicTerms.isDefined(termID2)).to.be.false;
     });
 
-    it('#assertSemester', function test() {
+    it('#assertAcademicTerm', function test() {
       const termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
-      expect(function foo() { AcademicTerms.assertSemester(termID); }).to.not.throw(Error);
+      expect(function foo() { AcademicTerms.assertAcademicTerm(termID); }).to.not.throw(Error);
       AcademicTerms.removeIt(termID);
-      expect(function foo() { AcademicTerms.assertSemester(termID); }).to.throw(Error);
+      expect(function foo() { AcademicTerms.assertAcademicTerm(termID); }).to.throw(Error);
     });
 
     it('#toString', function test() {
@@ -51,24 +51,24 @@ if (Meteor.isServer) {
       AcademicTerms.removeIt(termID);
     });
 
-    it('#semesterNumber', function test() {
+    it('#termNumber', function test() {
       let termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2011 });
-      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(1);
+      expect(AcademicTerms.findDoc(termID).termNumber).to.equal(1);
 
       termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2011 });
-      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(2);
+      expect(AcademicTerms.findDoc(termID).termNumber).to.equal(2);
 
       termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2011 });
-      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(3);
+      expect(AcademicTerms.findDoc(termID).termNumber).to.equal(3);
 
       termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2012 });
-      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(4);
+      expect(AcademicTerms.findDoc(termID).termNumber).to.equal(4);
 
       termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2012 });
-      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(5);
+      expect(AcademicTerms.findDoc(termID).termNumber).to.equal(5);
 
       termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
-      expect(AcademicTerms.findDoc(termID).semesterNumber).to.equal(6);
+      expect(AcademicTerms.findDoc(termID).termNumber).to.equal(6);
     });
 
     it('#getID', function test() {

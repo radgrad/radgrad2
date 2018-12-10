@@ -4,7 +4,9 @@ import { moment } from 'meteor/momentjs:moment';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ISemesterDefine, ISemesterUpdate } from '../../typings/radgrad';
+import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
+import { RadGrad } from '../radgrad/RadGrad';
+import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 /**
  * Represents a specific semester, such as "Spring, 2016", "Fall, 2017", or "Summer, 2015".
@@ -18,17 +20,18 @@ class AcademicTermCollection extends BaseSlugCollection {
   public WINTER: string;
   private terms: string[];
   private fallStart: number;
+  private winterStart: number;
   private springStart: number;
   private summerStart: number;
 
   /**
-   * Creates the Semester collection.
+   * Creates the AcademicTerm collection.
    */
   constructor() {
     super('AcademicTerm', new SimpleSchema({
       term: { type: String },
       year: { type: Number },
-      semesterNumber: { type: Number },
+      termNumber: { type: Number },
       slugID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
     }));
@@ -36,18 +39,27 @@ class AcademicTermCollection extends BaseSlugCollection {
     this.SUMMER = 'Summer';
     this.FALL = 'Fall';
     this.WINTER = 'Winter';
-    this.terms = [this.SPRING, this.SUMMER, this.FALL];
-    this.fallStart = parseInt(moment('08-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
-    this.springStart = parseInt(moment('01-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
-    this.summerStart = parseInt(moment('05-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
+    const settingsDoc = RadGradSettings.findOne({});
+    if (settingsDoc.quarterSystem) {
+      this.terms = [this.SPRING, this.SUMMER, this.FALL, this.WINTER];
+      this.fallStart = parseInt(moment('09-26-2015', 'MM-DD-YYYY').format('DDD'), 10);
+      this.winterStart = parseInt(moment('01-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
+      this.springStart = parseInt(moment('04-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
+      this.summerStart = parseInt(moment('06-20-2015', 'MM-DD-YYYY').format('DDD'), 10);
+    } else {
+      this.terms = [this.SPRING, this.SUMMER, this.FALL];
+      this.fallStart = parseInt(moment('08-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
+      this.springStart = parseInt(moment('01-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
+      this.summerStart = parseInt(moment('05-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
+    }
   }
 
   /**
-   * Returns an object representing the Semester docID in a format acceptable to define().
-   * @param docID The docID of a Semester.
+   * Returns an object representing the AcademicTerm docID in a format acceptable to define().
+   * @param docID The docID of a Academic Term.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): ISemesterDefine {
+  public dumpOne(docID: string): IAcademicTermDefine {
     const doc = this.findDoc(docID);
     const term = doc.term;
     const year = doc.year;
@@ -56,7 +68,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   }
 
   /**
-   * Retrieves the docID for the specified Semester, or defines it if not yet present.
+   * Retrieves the docID for the specified Academic Term, or defines it if not yet present.
    * Implicitly defines the corresponding slug: Spring, 2016 semester is "Spring-2016".
    * @example
    * AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
@@ -66,7 +78,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the term or year are not correctly specified.
    * @returns The docID for this semester instance.
    */
-  public define({ term, year }: ISemesterDefine) {
+  public define({ term, year }: IAcademicTermDefine) {
     // Check that term and year are valid.
     if (this.terms.indexOf(term) < 0) {
       throw new Meteor.Error(`Invalid term: ${term}`);
@@ -83,27 +95,38 @@ class AcademicTermCollection extends BaseSlugCollection {
 
     // Otherwise define a new semester and add it to the collection if successful.
 
-    // Compute semesterNumber, another number that puts semesters into chronological order.
+    // Compute termNumber, another number that puts semesters into chronological order.
     // Epoch is Fall-2010
-    let semesterNumber = 0;
+    let termNumber = 0;
     const yearDiff = year - 2010;
-    if (term === this.SPRING) {
-      semesterNumber = (3 * yearDiff) - 2;
-    } else
-      if (term === this.SUMMER) {
-        semesterNumber = (3 * yearDiff) - 1;
+    const settingsDoc = RadGradSettings.findOne({});
+    if (settingsDoc.quarterSystem) {
+      if (term === this.WINTER) {
+        termNumber = (4 * yearDiff) - 3;
+      } else if (term === this.SPRING) {
+        termNumber = (4 * yearDiff) - 2;
+      } else if (term === this.SUMMER) {
+        termNumber = (4 * yearDiff) - 1;
       } else {
-        semesterNumber = 3 * yearDiff;
+        termNumber = 4 * yearDiff;
       }
-
+    } else {
+      if (term === this.SPRING) {
+        termNumber = (3 * yearDiff) - 2;
+      } else if (term === this.SUMMER) {
+        termNumber = (3 * yearDiff) - 1;
+      } else {
+        termNumber = 3 * yearDiff;
+      }
+    }
     // Determine what the slug looks like.
     const slug = `${term}-${year}`;
 
     if (Slugs.isDefined(slug)) {
       throw new Meteor.Error(`Slug is already defined for undefined semester: ${slug}`);
     }
-    const slugID = Slugs.define({ name: slug, entityName: 'Semester' });
-    const termID = this.collection.insert({ term, year, semesterNumber, slugID });
+    const slugID = Slugs.define({ name: slug, entityName: 'AcademicTerm' });
+    const termID = this.collection.insert({ term, year, termNumber, slugID });
     Slugs.updateEntityID(slugID, termID);
     return termID;
   }
@@ -113,8 +136,8 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param docID the id of the semester.
    * @param retired optional boolean.
    */
-  public update(docID, { retired }: ISemesterUpdate) {
-    const updateData: ISemesterUpdate = {};
+  public update(docID, { retired }: IAcademicTermUpdate) {
+    const updateData: IAcademicTermUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
       this.collection.update(docID, { $set: updateData });
@@ -122,13 +145,13 @@ class AcademicTermCollection extends BaseSlugCollection {
   }
 
   /**
-   * Ensures the passed object is a Semester instance.
-   * @param semester Should be a defined termID or semester doc.
-   * @throws {Meteor.Error} If semester is not a Semester.
+   * Ensures the passed object is a Academic Term instance.
+   * @param term Should be a defined termID or academic term doc.
+   * @throws {Meteor.Error} If semester is not a Academic Term.
    */
-  public assertSemester(semester: string) {
-    if (!this.isDefined(semester)) {
-      throw new Meteor.Error(`${semester} is not a valid Semester.`);
+  public assertAcademicTerm(term: string) {
+    if (!this.isDefined(term)) {
+      throw new Meteor.Error(`${term} is not a valid Academic Term.`);
     }
   }
 
@@ -136,37 +159,36 @@ class AcademicTermCollection extends BaseSlugCollection {
    * Returns the termID associated with the current semester based upon the current timestamp.
    * See AcademicTerms.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
    */
-  public getCurrentSemesterID() {
+  public getCurrentTermID() {
     const year = moment().year();
     const day = moment().dayOfYear();
     let term = '';
     if (day >= this.fallStart) {
       term = this.FALL;
-    } else
-      if (day >= this.summerStart) {
-        term = this.SUMMER;
-      } else {
-        term = this.SPRING;
-      }
+    } else if (day >= this.summerStart) {
+      term = this.SUMMER;
+    } else {
+      term = this.SPRING;
+    }
     return this.define({ term, year });
   }
 
   /**
    * Returns true if the passed semester occurs now or in the future.
-   * @param semester The semester (slug or termID).
-   * @returns True if semester is in the future.
+   * @param term The academic term (slug or termID).
+   * @returns True if academic term is in the future.
    */
-  public isUpcomingSemester(semester: string) {
-    const termID = this.getID(semester);
-    return this.findDoc(termID).semesterNumber >= this.getCurrentSemesterDoc().semesterNumber;
+  public isUpcomingTerm(term: string) {
+    const termID = this.getID(term);
+    return this.findDoc(termID).termNumber >= this.getCurrentAcademicTermDoc().termNumber;
   }
 
   /**
    * Returns the semester doc associated with the current semester based upon the current timestamp.
    * See AcademicTerms.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.
    */
-  public getCurrentSemesterDoc() {
-    const id = this.getCurrentSemesterID();
+  public getCurrentAcademicTermDoc() {
+    const id = this.getCurrentTermID();
     return this.findDoc(id);
   }
 
@@ -175,19 +197,20 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param date The date as a string. Must be able to be parsed by moment();
    * @returns {String} The termID that the date falls in.
    */
-  public getSemester(date: string | Date) {
+  public getAcademicTerm(date: string | Date) {
     const d = moment(date);
     const year = d.year();
     const day = d.dayOfYear();
     let term = '';
     if (day >= this.fallStart) {
       term = this.FALL;
-    } else
-      if (day >= this.summerStart) {
-        term = this.SUMMER;
-      } else {
-        term = this.SPRING;
-      }
+    } else if (day >= this.summerStart) {
+      term = this.SUMMER;
+    } else if (day >= this.springStart) {
+      term = this.SPRING;
+    } else {
+      term = this.WINTER;
+    }
     return this.define({ term, year });
   }
 
@@ -196,8 +219,8 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param date The date.
    * @returns Object The semester that the date falls in.
    */
-  public getSemesterDoc(date: string) {
-    const id = this.getSemester(date);
+  public getAcademicTermDoc(date: string) {
+    const id = this.getAcademicTerm(date);
     return this.findDoc(id);
   }
 
@@ -206,7 +229,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param termID the semester ID.
    */
   public getSlug(termID: string) {
-    this.assertSemester(termID);
+    this.assertAcademicTerm(termID);
     const semesterDoc = this.findDoc(termID);
     return Slugs.findDoc(semesterDoc.slugID).name;
   }
@@ -236,7 +259,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @returns { String } The semester as a string.
    */
   public toString(termID: string, nospace?: boolean) {
-    this.assertSemester(termID);
+    this.assertAcademicTerm(termID);
     const semesterDoc = this.findDoc(termID);
     return (nospace) ? `${semesterDoc.term}${semesterDoc.year}` : `${semesterDoc.term} ${semesterDoc.year}`;
   }
@@ -247,7 +270,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @returns {string} The shortname.
    */
   public getShortName(termID: string) {
-    this.assertSemester(termID);
+    this.assertAcademicTerm(termID);
     const semesterDoc = this.findDoc(termID);
     const yearString = `${semesterDoc.year}`.substring(2, 4);
     const termString = (semesterDoc.term === 'Fall') ? 'Fall' : semesterDoc.term.substring(0, 3);
@@ -273,7 +296,7 @@ class AcademicTermCollection extends BaseSlugCollection {
 
 /**
  * Provides the singleton instance of this class to all other entities.
- * @type {api/semester.SemesterCollection}
+ * @type {api/semester.AcademicTermCollection}
  * @memberOf api/semester
  */
 export const AcademicTerms = new AcademicTermCollection();

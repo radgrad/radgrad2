@@ -25,7 +25,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'slugID': SimpleSchema.RegEx.Id,
       'degreeID': SimpleSchema.RegEx.Id,
       'effectiveSemesterID': SimpleSchema.RegEx.Id,
-      'semesterNumber': Number,
+      'termNumber': Number,
       'year': Number,
       'coursesPerSemester': { type: Array, minCount: 12, maxCount: 15 }, 'coursesPerSemester.$': Number,
       'courseList': [String],
@@ -69,7 +69,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const semesterDoc = AcademicTerms.findDoc(effectiveSemesterID);
-    const semesterNumber = semesterDoc.semesterNumber;
+    const termNumber = semesterDoc.termNumber;
     const year = semesterDoc.year;
     const planID = this.collection.insert({
       slugID,
@@ -77,7 +77,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       name,
       description,
       effectiveSemesterID,
-      semesterNumber,
+      termNumber,
       year,
       coursesPerSemester,
       courseList,
@@ -181,7 +181,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the AcademicPlans that are effective on or after semesterNumber for the given DesiredDegree.
+   * Returns the AcademicPlans that are effective on or after termNumber for the given DesiredDegree.
    * @param degree the desired degree either a slug or id.
    * @param semesterNumber (optional) the semester number. if undefined returns the latest AcademicPlans.
    * @return {any}
@@ -189,9 +189,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public getPlansForDegree(degree: string, semesterNumber?: number) {
     const degreeID = DesiredDegrees.getID(degree);
     if (!semesterNumber) {
-      return this.collection.find({ degreeID, semesterNumber: this.getLatestSemesterNumber() }).fetch();
+      return this.collection.find({ degreeID, termNumber: this.getLatestSemesterNumber() }).fetch();
     }
-    return this.collection.find({ degreeID, semesterNumber: { $gte: semesterNumber } }).fetch();
+    return this.collection.find({ degreeID, termNumber: { $gte: semesterNumber } }).fetch();
   }
 
   /**
@@ -199,8 +199,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @return {array}
    */
   public getLatestPlans() {
-    const semesterNumber = this.getLatestSemesterNumber();
-    return this.collection.find({ semesterNumber }).fetch();
+    const termNumber = this.getLatestSemesterNumber();
+    return this.collection.find({ termNumber }).fetch();
   }
 
   /**
@@ -211,8 +211,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const plans = this.collection.find().fetch();
     let max = 0;
     _.forEach(plans, (p) => {
-      if (max < p.semesterNumber) {
-        max = p.semesterNumber;
+      if (max < p.termNumber) {
+        max = p.termNumber;
       }
     });
     return max;

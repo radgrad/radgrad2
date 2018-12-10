@@ -374,7 +374,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public updateSemester(courseInstanceID: string, termID: string) {
     this.assertDefined(courseInstanceID);
-    AcademicTerms.assertSemester(termID);
+    AcademicTerms.assertAcademicTerm(termID);
     this.collection.update({ _id: courseInstanceID }, { $set: { termID } });
   }
 

@@ -269,8 +269,8 @@ class PublicStatsCollection extends BaseCollection {
 
   public firstAcademicPlan() {
     let planName = '';
-    const semesterNumber = AcademicPlans.getLatestSemesterNumber();
-    const plan = AcademicPlans.findOne({ semesterNumber });
+    const termNumber = AcademicPlans.getLatestSemesterNumber();
+    const plan = AcademicPlans.findOne({ termNumber });
     if (plan) {
       planName = (Slugs.findDoc(plan.slugID)).name;
     }

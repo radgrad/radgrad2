@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import {} from 'mocha';
 import { ROLE } from '../role/Role';
 import { Reviews } from '../review/ReviewCollection';
-import { defineSemesters } from '../semester/SemesterUtilities';
+import { defineAcademicTerms } from '../semester/AcademicTermUtilities';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
-      defineSemesters();
+      defineAcademicTerms();
       const slug: string = 'sample-opportunity-review';
       const student: string = makeSampleUser();
       const reviewType: string = 'opportunity';

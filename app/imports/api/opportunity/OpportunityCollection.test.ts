@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { ROLE } from '../role/Role';
 import { Opportunities } from './OpportunityCollection';
-import { defineSemesters } from '../semester/SemesterUtilities';
+import { defineAcademicTerms } from '../semester/AcademicTermUtilities';
 import { makeSampleInterest } from '../interest/SampleInterests';
 import { makeSampleOpportunityType } from './SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
-      defineSemesters();
+      defineAcademicTerms();
       const name = 'ATT Hackathon';
       const slug = 'att-hackathon-2016';
       const ice = { i: 10, c: 0, e: 10 };

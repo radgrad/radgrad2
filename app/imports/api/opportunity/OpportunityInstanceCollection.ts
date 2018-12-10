@@ -259,7 +259,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public updateSemester(opportunityInstanceID: string, termID: string) {
     this.assertDefined(opportunityInstanceID);
-    AcademicTerms.assertSemester(termID);
+    AcademicTerms.assertAcademicTerm(termID);
     this.collection.update({ _id: opportunityInstanceID }, { $set: { termID } });
   }
 

@@ -12,7 +12,7 @@ interface ILandingAcademicPlanViewerProps {
 function getCourses(plan, yearNum, semesterNum) {
   const ret = [];
   const totalSem = (3 * yearNum) + semesterNum;
-  // console.log(`courses(${yearNumber}, ${semesterNumber}) ${totalSem}`);
+  // console.log(`courses(${yearNumber}, ${termNumber}) ${totalSem}`);
   const numCoursesList = plan.coursesPerSemester.slice(0);
   const numCourses = numCoursesList[totalSem];
   const courseList = plan.courseList.slice(0);

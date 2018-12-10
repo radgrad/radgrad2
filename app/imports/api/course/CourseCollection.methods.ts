@@ -4,7 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { AcademicTerms } from '../semester/AcademicTermCollection';
-import { nextSemester } from '../semester/SemesterUtilities';
+import { nextAcademicTerm } from '../semester/AcademicTermUtilities';
 
 /**
  * Returns an array with two elements: a string with the shortName of the semester, and an integer indicating the
@@ -41,10 +41,10 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
     // Throw error if an invalid courseID is passed.
     Courses.assertDefined(courseID);
     // Create an array of the upcoming 9 semesters after the current semester.
-    let semesterDoc = AcademicTerms.getCurrentSemesterDoc();
+    let semesterDoc = AcademicTerms.getCurrentAcademicTermDoc();
     const semesterList = [];
     for (let i = 0; i < 9; i++) {
-      semesterDoc = nextSemester(semesterDoc);
+      semesterDoc = nextAcademicTerm(semesterDoc);
       semesterList.push(semesterDoc);
     }
     // Map over these semesters and return a new list that includes the enrollment data for this course and semester.

@@ -91,7 +91,7 @@ export function chooseStudentSemesterOpportunity(semester: string, semesterNumbe
 }
 
 export function getStudentCurrentSemesterOpportunityChoices(studentID: string) {
-  const currentSemester = AcademicTerms.getCurrentSemesterDoc();
+  const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
   const semesterNum = getStudentsCurrentSemesterNumber(studentID);
   return getStudentSemesterOpportunityChoices(currentSemester, semesterNum, studentID);
 }

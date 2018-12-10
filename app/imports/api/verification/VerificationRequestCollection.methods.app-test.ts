@@ -16,7 +16,7 @@ if (Meteor.isClient) {
       await withRadGradSubscriptions();
       const student = 'abi@hawaii.edu';
       const opportunity = 'acm-icpc';
-      const semester = AcademicTerms.getSemester(new Date('2016-11-18T00:00:00.000Z'));
+      const semester = AcademicTerms.getAcademicTerm(new Date('2016-11-18T00:00:00.000Z'));
       await processVerificationEventMethod.callPromise({ student, opportunity, semester });
     });
   });
