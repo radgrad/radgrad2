@@ -3,24 +3,24 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
-import { nextAcademicTerm } from '../semester/AcademicTermUtilities';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { nextAcademicTerm } from '../academic-term/AcademicTermUtilities';
 
 /**
- * Returns an array with two elements: a string with the shortName of the semester, and an integer indicating the
- * current planned enrollment for the course in that semester.
+ * Returns an array with two elements: a string with the shortName of the academicTerm, and an integer indicating the
+ * current planned enrollment for the course in that academicTerm.
  * @param courseID The ID of the course.
- * @param termID The ID of the semester.
+ * @param termID The ID of the academicTerm.
  * @memberOf api/course
  */
 function getEnrollmentData(courseID, termID) {
-  const semesterShortName = AcademicTerms.getShortName(termID);
+  const academicTermShortName = AcademicTerms.getShortName(termID);
   const enrollment = CourseInstances.getCollection().find({ termID, courseID }).count();
-  return [semesterShortName, enrollment];
+  return [academicTermShortName, enrollment];
 }
 
 /**
- * Given a courseID, returns enrollment data for the upcoming 9 semesters.
+ * Given a courseID, returns enrollment data for the upcoming 9 academicTerms.
  * The returned data is an object with fields courseID and enrollmentData.
  * CourseID is the course ID.
  * EnrollmentData is an array of arrays. Each interior array is a tuple: a string containing the shortname and an
@@ -40,15 +40,15 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
   run(courseID) {
     // Throw error if an invalid courseID is passed.
     Courses.assertDefined(courseID);
-    // Create an array of the upcoming 9 semesters after the current semester.
-    let semesterDoc = AcademicTerms.getCurrentAcademicTermDoc();
-    const semesterList = [];
+    // Create an array of the upcoming 9 academicTerms after the current academicTerm.
+    let academicTermDoc = AcademicTerms.getCurrentAcademicTermDoc();
+    const academicTermList = [];
     for (let i = 0; i < 9; i++) {
-      semesterDoc = nextAcademicTerm(semesterDoc);
-      semesterList.push(semesterDoc);
+      academicTermDoc = nextAcademicTerm(academicTermDoc);
+      academicTermList.push(academicTermDoc);
     }
-    // Map over these semesters and return a new list that includes the enrollment data for this course and semester.
-    const enrollmentData = _.map(semesterList, (doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
+    // Map over these academicTerms and return a new list that includes the enrollment data for this course and academicTerm.
+    const enrollmentData = _.map(academicTermList, (doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
     return { courseID, enrollmentData };
   },
 });

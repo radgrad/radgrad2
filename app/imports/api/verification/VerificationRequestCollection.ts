@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { ROLE } from '../role/Role';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { IVerificationRequestDefine } from '../../typings/radgrad';
 

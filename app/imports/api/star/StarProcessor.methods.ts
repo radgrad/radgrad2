@@ -4,7 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Users } from '../user/UserCollection';
 import { advisorLogsDefineMethod } from '../log/AdvisorLogCollection.methods';

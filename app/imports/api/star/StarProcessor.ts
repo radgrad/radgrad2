@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Papa } from 'meteor/harrison:papa-parse';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';

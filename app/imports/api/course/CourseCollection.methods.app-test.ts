@@ -4,8 +4,8 @@ import {} from 'mocha';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { getFutureEnrollmentMethod } from './CourseCollection.methods';
 import { Courses } from './CourseCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
-import { nextAcademicTerm } from '../semester/AcademicTermUtilities';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { nextAcademicTerm } from '../academic-term/AcademicTermUtilities';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
@@ -54,12 +54,12 @@ if (Meteor.isClient) {
       expect(data.courseID).to.equal(id);
       expect(data.enrollmentData[0][1]).to.equal(0);
 
-      // Now make a course instance for next semester
-      const semester = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
+      // Now make a course instance for next academicTerm
+      const academicTerm = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
       const student = 'abi@hawaii.edu';
       const course = 'ics_111';
       const courseInstanceDefinitionData = {
-        semester,
+        academicTerm,
         course,
         student,
         verified: true,
@@ -71,7 +71,7 @@ if (Meteor.isClient) {
       await defineMethod.callPromise({ collectionName: 'CourseInstanceCollection',
         definitionData: courseInstanceDefinitionData });
 
-      // We'll now expect next semester to have enrollment of 1.
+      // We'll now expect next academicTerm to have enrollment of 1.
       id = Courses.findIdBySlug('ics_111');
       data = await getFutureEnrollmentMethod.callPromise(id);
       expect(data.courseID).to.equal(id);

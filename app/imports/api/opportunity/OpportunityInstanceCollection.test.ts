@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
-import { defineAcademicTerms } from '../semester/AcademicTermUtilities';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { defineAcademicTerms } from '../academic-term/AcademicTermUtilities';
 import { ROLE } from '../role/Role';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { makeSampleOpportunity } from './SampleOpportunities';

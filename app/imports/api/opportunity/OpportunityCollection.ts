@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { ROLE } from '../role/Role';

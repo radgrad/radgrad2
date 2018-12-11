@@ -6,7 +6,7 @@ import { FeedbackInstances } from './FeedbackInstanceCollection';
 import { clearFeedbackInstancesMethod } from './FeedbackInstanceCollection.methods';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import * as courseUtils from '../course/CourseUtilities';
 import * as oppUtils from '../opportunity/OpportunityUtilities';

@@ -19,9 +19,9 @@ if (Meteor.isServer) {
     });
 
     it('#nextAcademicTerm', function test() {
-      const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
-      const next = nextAcademicTerm(currentSemester);
-      expect(next.termNumber).to.equal(currentSemester.termNumber + 1);
+      const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+      const next = nextAcademicTerm(currentAcademicTerm);
+      expect(next.termNumber).to.equal(currentAcademicTerm.termNumber + 1);
     });
 
     it('#upComingTerms', function test() {

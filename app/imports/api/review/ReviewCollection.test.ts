@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import {} from 'mocha';
 import { ROLE } from '../role/Role';
 import { Reviews } from '../review/ReviewCollection';
-import { defineAcademicTerms } from '../semester/AcademicTermUtilities';
+import { defineAcademicTerms } from '../academic-term/AcademicTermUtilities';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';

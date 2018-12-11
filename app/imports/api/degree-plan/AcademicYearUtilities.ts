@@ -1,7 +1,7 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { AcademicYearInstances } from './AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 
 /**
  * Returns the student's current semester number (i.e. which semester are they currently in.)

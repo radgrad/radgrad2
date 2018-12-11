@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */

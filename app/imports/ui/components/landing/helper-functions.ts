@@ -1,5 +1,5 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { AcademicTerms } from '../../../api/semester/AcademicTermCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';

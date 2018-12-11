@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from './VerificationRequestCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleOpportunityInstance, makeSampleOpportunity } from '../opportunity/SampleOpportunities';

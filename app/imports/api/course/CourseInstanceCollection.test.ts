@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { makeSampleCourse, sampleCourseName } from '../course/SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -13,7 +13,7 @@ if (Meteor.isServer) {
     // Define course data.
     let course: string;
     let student: string;
-    let semester: string;
+    let academicTerm: string;
     const verified = true;
     const grade = 'B';
 
@@ -22,7 +22,7 @@ if (Meteor.isServer) {
       removeAllEntities();
       course = makeSampleCourse();
       student = makeSampleUser();
-      semester = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
+      academicTerm = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
     });
 
     after(function teardown() {
@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
-      let courseInstanceID = CourseInstances.define({ semester, course, verified, grade, student });
+      let courseInstanceID = CourseInstances.define({ academicTerm, course, verified, grade, student });
       expect(CourseInstances.isDefined(courseInstanceID)).to.be.true;
       const dumpObject = CourseInstances.dumpOne(courseInstanceID);
       CourseInstances.removeIt(courseInstanceID);
@@ -41,7 +41,7 @@ if (Meteor.isServer) {
     });
 
     it('#findCourseName, #toString', function test() {
-      const courseInstanceID = CourseInstances.define({ semester, course, verified, grade, student });
+      const courseInstanceID = CourseInstances.define({ academicTerm, course, verified, grade, student });
       CourseInstances.toString(courseInstanceID);
       expect(CourseInstances.findCourseName(courseInstanceID)).to.equal(sampleCourseName);
       CourseInstances.removeIt(courseInstanceID);

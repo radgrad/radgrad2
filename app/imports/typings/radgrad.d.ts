@@ -86,7 +86,7 @@ export interface ICareerGoalUpdate {
 
 // CourseInstances
 export interface ICourseInstanceDefine extends IDumpOne {
-  semester: string;
+  academicTerm: string;
   course: string;
   verified?: boolean;
   fromSTAR?: boolean;

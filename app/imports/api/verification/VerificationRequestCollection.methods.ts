@@ -5,7 +5,7 @@ import { VerificationRequests } from './VerificationRequestCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 

@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { AcademicTerms } from '../semester/AcademicTermCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { processVerificationEventMethod } from './VerificationRequestCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
