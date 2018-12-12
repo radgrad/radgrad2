@@ -1,3 +1,13 @@
+declare global {
+  namespace Assets {
+    function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
+
+    function getText(assetPath: string, asyncCallback?: () => void): string;
+
+    function absoluteFilePath(assetPath: string): string;
+  }
+}
+
 export interface Ice {
   i: number;
   c: number;
@@ -16,7 +26,7 @@ export interface IAcademicPlan {
   slugID: string;
   degreeID: string;
   effectiveSemesterID: string;
-  semesterNumber: number;
+  academicTermNumber: number;
   year: number;
   coursesPerSemester: number[];
   courseList: string[];
@@ -28,7 +38,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
   degreeSlug: string;
   name: string;
   description: string;
-  semester: string;
+  academicTerm: string;
   coursesPerSemester: number[];
   courseList: string[];
   retired?: boolean;
@@ -37,7 +47,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
 export interface IAcademicPlanUpdate {
   degreeSlug?: string;
   name?: string;
-  semester?: string;
+  academicTerm?: string;
   coursesPerSemester?: number[];
   courseList?: string[];
   retired?: boolean;
@@ -176,7 +186,7 @@ export interface IFeedDefine extends IDumpOne {
   user?: string;
   course?: string;
   opportunity?: string;
-  semester?: string;
+  academicTerm?: string;
   level?: number;
   feedType: string;
   timestamp?: Date;
@@ -187,7 +197,7 @@ export interface IFeedUpdate {
   users?: string[];
   opportunity?: string;
   course?: string;
-  semester?: string;
+  academicTerm?: string;
 }
 
 // FeedBackInstances
@@ -314,7 +324,7 @@ export interface IOpportunityDefine extends IDumpOne {
   opportunityType: string;
   sponsor: string;
   interests: string[];
-  semesters: string[];
+  academicTerms: string[];
   ice: Ice;
   eventDate?: any;
   retired?: boolean;
@@ -326,7 +336,7 @@ export interface IOpportunityUpdate {
   opportunityType?: string;
   sponsor?: string;
   interests?: string[];
-  semesters?: string[];
+  academicTerms?: string[];
   eventDate?: any;
   ice?: Ice;
   retired?: boolean;
@@ -346,7 +356,7 @@ export interface IOpportunityUpdateData {
 
 // OpportunityInstances
 export interface IOpportunityInstanceDefine extends IDumpOne {
-  semester: string;
+  academicTerm: string;
   opportunity: string;
   sponsor?: string;
   verified: boolean;
@@ -450,7 +460,7 @@ export interface IReviewDefine extends IDumpOne {
   student: string;
   reviewType: string;
   reviewee: string;
-  semester: string;
+  academicTerm: string;
   rating?: number;
   comments: string;
   moderated?: boolean;
@@ -459,7 +469,7 @@ export interface IReviewDefine extends IDumpOne {
 }
 
 export interface IReviewUpdate {
-  semester?: string;
+  academicTerm?: string;
   rating?: number;
   comments?: string;
   moderated?: boolean;
@@ -559,6 +569,6 @@ export interface IVerificationRequestDefine extends IDumpOne {
   submittedOn?: any;
   status?: string;
   processed?: any[];
-  semester?: string;
+  academicTerm?: string;
   opportunity?: string;
 }

@@ -16,7 +16,7 @@ import { IOpportunity, IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdat
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".
- * To represent an Opportunity taken by a specific student in a specific semester, use OpportunityInstance.
+ * To represent an Opportunity taken by a specific student in a specific academicTerm, use OpportunityInstance.
  * @extends api/base.BaseSlugCollection
  * @memberOf api/opportunity
  */
@@ -51,20 +51,20 @@ class OpportunityCollection extends BaseSlugCollection {
    *                        sponsor: 'philipjohnson',
    *                        ice: { i: 10, c: 0, e: 10},
    *                        interests: ['software-engineering'],
-   *                        semesters: ['Fall-2016', 'Spring-2016', 'Summer-2106'],
+   *                        academicTerms: ['Fall-2016', 'Spring-2016', 'Summer-2106'],
    *                      });
    * @param { Object } description Object with keys name, slug, description, opportunityType, sponsor, interests,
    * Slug must not be previously defined.
    * OpportunityType and sponsor must be defined slugs.
    * Interests must be a (possibly empty) array of interest slugs or IDs.
-   * AcademicTerms must be a (possibly empty) array of semester slugs or IDs.
+   * AcademicTerms must be a (possibly empty) array of academicTerm slugs or IDs.
    * Sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * ICE must be a valid ICE object.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, opportunityType, sponsor, interests, semesters, ice, eventDate = null, retired = false }: IOpportunityDefine) {
+  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, eventDate = null, retired = false }: IOpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -74,7 +74,7 @@ class OpportunityCollection extends BaseSlugCollection {
     const interestIDs = Interests.getIDs(interests);
     // Define the slug
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const termIDs = AcademicTerms.getIDs(semesters);
+    const termIDs = AcademicTerms.getIDs(academicTerms);
     let opportunityID;
     if (eventDate !== null) {
       // Define the new Opportunity and its Slug.
@@ -100,12 +100,12 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param opportunityType docID or slug (optional.)
    * @param sponsor user in role admin, advisor, or faculty. optional.
    * @param interests optional.
-   * @param semesters optional
+   * @param academicTerms optional
    * @param eventDate a Date. (optional)
    * @param ice An ICE object (optional).
    * @param retired boolean (optional).
    */
-  public update(instance: string, { name, description, opportunityType, sponsor, interests, semesters, eventDate, ice, retired }: IOpportunityUpdate) {
+  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, retired }: IOpportunityUpdate) {
     const docID = this.getID(instance);
     const updateData: IOpportunityUpdateData = {};
     if (name) {
@@ -127,8 +127,8 @@ class OpportunityCollection extends BaseSlugCollection {
       const interestIDs = Interests.getIDs(interests);
       updateData.interestIDs = interestIDs;
     }
-    if (semesters) {
-      const termIDs = AcademicTerms.getIDs(semesters);
+    if (academicTerms) {
+      const termIDs = AcademicTerms.getIDs(academicTerms);
       updateData.termIDs = termIDs;
     }
     if (eventDate) {
@@ -261,10 +261,10 @@ class OpportunityCollection extends BaseSlugCollection {
     const description = doc.description;
     const ice = doc.ice;
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const semesters = _.map(doc.termIDs, (termID) => AcademicTerms.findSlugByID(termID));
+    const academicTerms = _.map(doc.termIDs, (termID) => AcademicTerms.findSlugByID(termID));
     const eventDate = doc.eventDate;
     const retired = doc.retired;
-    return { name, slug, description, opportunityType, sponsor, ice, interests, semesters, eventDate, retired };
+    return { name, slug, description, opportunityType, sponsor, ice, interests, academicTerms, eventDate, retired };
   }
 }
 

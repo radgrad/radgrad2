@@ -8,11 +8,11 @@ import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } 
 if (Meteor.isClient) {
   describe('OpportunityInstanceCollection Meteor Methods ', function test() {
     const collectionName = OpportunityInstances.getCollectionName();
-    const semester = 'Spring-2017';
+    const academicTerm = 'Spring-2017';
     const student = 'abi@hawaii.edu';
     const opportunity = 'acm-manoa';
     const verified = true;
-    const definitionData = { semester, opportunity, student, verified };
+    const definitionData = { academicTerm, opportunity, student, verified };
 
     before(function(done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'opportunities'], done);
@@ -25,12 +25,12 @@ if (Meteor.isClient) {
     });
 
     it('Update Method', async function() {
-      const id = OpportunityInstances.findOpportunityInstanceDoc(semester, opportunity, student)._id;
+      const id = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
       await updateMethod.callPromise({ collectionName, updateData: { id, verified: false } });
     });
 
     it('Remove Method', async function() {
-      const instance = OpportunityInstances.findOpportunityInstanceDoc(semester, opportunity, student)._id;
+      const instance = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
       await removeItMethod.callPromise({ collectionName, instance });
     });
   });

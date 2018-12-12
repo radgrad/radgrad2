@@ -6,7 +6,7 @@
       "name": "CourseInstanceCollection",
       "contents": [
         {
-          "semester": "Spring-2015",
+          "academicTerm": "Spring-2015",
           "course": "ics_211",
           "note": "ICS 211",
           "verified": true,
@@ -20,7 +20,7 @@
       "name": "OpportunityInstanceCollection",
       "contents": [
         {
-          "semester": "Fall-2014",
+          "academicTerm": "Fall-2014",
           "opportunity": "greyhats",
           "verified": true,
           "student": "betty@hawaii.edu"

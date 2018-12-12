@@ -3,8 +3,8 @@ import { AcademicTerms } from './AcademicTermCollection';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 /**
- * Defines default semesters from 2014 till 2020.
- * @memberOf api/semester
+ * Defines default academicTerms from 2014 till 2020.
+ * @memberOf api/academic-term
  */
 export function defineAcademicTerms() {
   if (AcademicTerms.find().count() === 0) {
@@ -61,7 +61,7 @@ export function defineAcademicTerms() {
  * Returns the next AcademicTerm document given an AcademicTerm document.
  * @param termDoc the AcademicTerm doc.
  * @returns The next AcademicTerm doc.
- * @memberOf api/semester
+ * @memberOf api/academic-term
  */
 export function nextAcademicTerm(termDoc) {
   const settingsDoc = RadGradSettings.findOne({});
@@ -90,7 +90,7 @@ export function nextAcademicTerm(termDoc) {
  * Returns the next Fall, Winter or Spring academic term doc. Skips over Summer academic terms.
  * @param term the academic term doc.
  * @returns The next academic term doc (excluding summer).
- * @memberOf api/semester
+ * @memberOf api/academic-term
  */
 export function nextNonSummerTerm(term) {
   let next: { term: string } = nextAcademicTerm(term);
@@ -101,9 +101,9 @@ export function nextNonSummerTerm(term) {
 }
 
 /**
- * Returns an array of the upcoming semesters.
- * @return {array} of the upcoming semesters.
- * @memberOf api/semester
+ * Returns an array of the upcoming academicTerms.
+ * @return {array} of the upcoming academicTerms.
+ * @memberOf api/academic-term
  */
 export function upComingTerms() {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();

@@ -13,7 +13,7 @@ import { makeCourseICE } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
 
 /**
- * Represents the taking of a course by a specific student in a specific semester.
+ * Represents the taking of a course by a specific student in a specific academicTerm.
  * @memberOf api/course
  * @extends api/base.BaseCollection
  */

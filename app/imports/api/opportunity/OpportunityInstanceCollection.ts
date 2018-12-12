@@ -43,22 +43,22 @@ class OpportunityInstanceCollection extends BaseCollection {
   /**
    * Defines a new OpportunityInstance.
    * @example
-   * OpportunityInstances.define({ semester: 'Fall-2015',
+   * OpportunityInstances.define({ academicTerm: 'Fall-2015',
    *                               opportunity: 'hack2015',
    *                               verified: false,
    *                               student: 'joesmith',
    *                              sponsor: 'johnson' });
    * @param { Object } description Semester, opportunity, and student must be slugs or IDs. Verified defaults to false.
    * Sponsor defaults to the opportunity sponsor.
-   * Note that only one opportunity instance can be defined for a given semester, opportunity, and student.
-   * @throws {Meteor.Error} If semester, opportunity, or student cannot be resolved, or if verified is not a boolean.
+   * Note that only one opportunity instance can be defined for a given academicTerm, opportunity, and student.
+   * @throws {Meteor.Error} If academicTerm, opportunity, or student cannot be resolved, or if verified is not a boolean.
    * @returns The newly created docID.
    */
 
-  public define({ semester, opportunity, sponsor, verified = false, student }: IOpportunityInstanceDefine) {
-    // Validate semester, opportunity, verified, and studentID
-    const termID = AcademicTerms.getID(semester);
-    const semesterDoc = AcademicTerms.findDoc(termID);
+  public define({ academicTerm, opportunity, sponsor, verified = false, student }: IOpportunityInstanceDefine) {
+    // Validate academicTerm, opportunity, verified, and studentID
+    const termID = AcademicTerms.getID(academicTerm);
+    const academicTermDoc = AcademicTerms.findDoc(termID);
     const studentID = Users.getID(student);
     const studentProfile = Users.getProfile(studentID);
     const opportunityID = Opportunities.getID(opportunity);
@@ -69,16 +69,16 @@ class OpportunityInstanceCollection extends BaseCollection {
     } else {
       sponsorID = Users.getID(sponsor);
     }
-    if (semesterDoc.term === AcademicTerms.SPRING || semesterDoc.term === AcademicTerms.SUMMER) {
-      AcademicYearInstances.define({ year: semesterDoc.year - 1, student: studentProfile.username });
+    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER) {
+      AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: studentProfile.username });
     } else {
-      AcademicYearInstances.define({ year: semesterDoc.year, student: studentProfile.username });
+      AcademicYearInstances.define({ year: academicTermDoc.year, student: studentProfile.username });
     }
     if ((typeof verified) !== 'boolean') {
       throw new Meteor.Error(`${verified} is not a boolean.`);
     }
-    if (this.isOpportunityInstance(semester, opportunity, student)) {
-      return this.findOpportunityInstanceDoc(semester, opportunity, student)._id;
+    if (this.isOpportunityInstance(academicTerm, opportunity, student)) {
+      return this.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
     // Define and return the new OpportunityInstance
@@ -140,30 +140,30 @@ class OpportunityInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Returns the opportunityInstance document associated with semester, opportunity, and student.
-   * @param semester The semester (slug or ID).
+   * Returns the opportunityInstance document associated with academicTerm, opportunity, and student.
+   * @param academicTerm The academicTerm (slug or ID).
    * @param opportunity The opportunity (slug or ID).
    * @param student The student (slug or ID)
    * @returns { Object } Returns the document or null if not found.
-   * @throws { Meteor.Error } If semester, opportunity, or student does not exist.
+   * @throws { Meteor.Error } If academicTerm, opportunity, or student does not exist.
    */
-  public findOpportunityInstanceDoc(semester: string, opportunity: string, student: string) {
-    const termID = AcademicTerms.getID(semester);
+  public findOpportunityInstanceDoc(academicTerm: string, opportunity: string, student: string) {
+    const termID = AcademicTerms.getID(academicTerm);
     const studentID = Users.getID(student);
     const opportunityID = Opportunities.getID(opportunity);
     return this.collection.findOne({ termID, studentID, opportunityID });
   }
 
   /**
-   * Returns true if there exists an OpportunityInstance for the given semester, opportunity, and student.
-   * @param semester The semester (slug or ID).
+   * Returns true if there exists an OpportunityInstance for the given academicTerm, opportunity, and student.
+   * @param academicTerm The academicTerm (slug or ID).
    * @param opportunity The opportunity (slug or ID).
    * @param student The student (slug or ID).
    * @returns True if the opportunity instance exists.
-   * @throws { Meteor.Error } If semester, opportunity, or student does not exist.
+   * @throws { Meteor.Error } If academicTerm, opportunity, or student does not exist.
    */
-  public isOpportunityInstance(semester: string, opportunity: string, student: string) {
-    return !!this.findOpportunityInstanceDoc(semester, opportunity, student);
+  public isOpportunityInstance(academicTerm: string, opportunity: string, student: string) {
+    return !!this.findOpportunityInstanceDoc(academicTerm, opportunity, student);
   }
 
   /**
@@ -246,15 +246,15 @@ class OpportunityInstanceCollection extends BaseCollection {
   public toString(opportunityInstanceID: string) {
     this.assertDefined(opportunityInstanceID);
     const opportunityInstanceDoc = this.findDoc(opportunityInstanceID);
-    const semester = AcademicTerms.toString(opportunityInstanceDoc.termID);
+    const academicTerm = AcademicTerms.toString(opportunityInstanceDoc.termID);
     const opportunityName = Opportunities.findDoc(opportunityInstanceDoc.opportunityID).name;
-    return `[OI ${semester} ${opportunityName}]`;
+    return `[OI ${academicTerm} ${opportunityName}]`;
   }
 
   /**
    * Updates the OpportunityInstance's Semester.
    * @param opportunityInstanceID The opportunity instance ID.
-   * @param termID The semester id.
+   * @param termID The academicTerm id.
    * @throws {Meteor.Error} If not a valid ID.
    */
   public updateSemester(opportunityInstanceID: string, termID: string) {
@@ -306,12 +306,12 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): IOpportunityInstanceDefine {
     const doc = this.findDoc(docID);
-    const semester = AcademicTerms.findSlugByID(doc.termID);
+    const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);
     const verified = doc.verified;
     const student = Users.getProfile(doc.studentID).username;
     const sponsor = Users.getProfile(doc.sponsorID).username;
-    return { semester, opportunity, verified, student, sponsor };
+    return { academicTerm, opportunity, verified, student, sponsor };
   }
 }
 

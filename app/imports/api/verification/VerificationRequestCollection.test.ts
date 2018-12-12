@@ -38,14 +38,14 @@ if (Meteor.isServer) {
       VerificationRequests.removeIt(docID);
     });
 
-    it('#define using semester and opportunity', function test() {
-      const semester = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
+    it('#define using academicTerm and opportunity', function test() {
+      const academicTerm = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
       const opportunity = makeSampleOpportunity(makeSampleUser(ROLE.FACULTY));
       const student = makeSampleUser();
       const sponsor = makeSampleUser(ROLE.FACULTY);
       const verified = false;
-      OpportunityInstances.define({ semester, opportunity, sponsor, student, verified });
-      const docID = VerificationRequests.define({ student, semester, opportunity });
+      OpportunityInstances.define({ academicTerm, opportunity, sponsor, student, verified });
+      const docID = VerificationRequests.define({ student, academicTerm, opportunity });
       expect(VerificationRequests.isDefined(docID)).to.be.true;
       VerificationRequests.removeIt(docID);
     });

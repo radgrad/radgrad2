@@ -44,7 +44,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    *                        degreeSlug: 'bs-cs',
    *                        name: 'B.S. in Computer Science',
    *                        description: 'The BS in CS degree offers a solid foundation in computer science.',
-   *                        semester: 'Spring-2016',
+   *                        academicTerm: 'Spring-2016',
    *                        coursesPerSemester: [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0],
    *                        courseList: ['ics111-1', 'ics141-1, 'ics211-1', 'ics241-1', 'ics311-1', 'ics314-1',
    *                                     'ics212-1', 'ics321-1', 'ics313,ics361-1', 'ics312,ics331-1', 'ics332-1',
@@ -53,24 +53,24 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param degreeSlug The slug for the desired degree.
    * @param name The name of the academic plan.
    * @param description The description of the academic plan.
-   * @param semester the slug for the semester.
-   * @param coursesPerSemester an array of the number of courses to take in each semester.
+   * @param academicTerm the slug for the academicTerm.
+   * @param coursesPerSemester an array of the number of courses to take in each academicTerm.
    * @param courseList an array of PlanChoices. The choices for each course.
    * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, semester, coursesPerSemester, courseList, retired = false }: IAcademicPlanDefine) {
+  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerSemester, courseList, retired = false }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
-    const effectiveSemesterID = AcademicTerms.getID(semester);
+    const effectiveSemesterID = AcademicTerms.getID(academicTerm);
     const doc = this.collection.findOne({ degreeID, name, effectiveSemesterID });
     if (doc) {
       return doc._id;
     }
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const semesterDoc = AcademicTerms.findDoc(effectiveSemesterID);
-    const termNumber = semesterDoc.termNumber;
-    const year = semesterDoc.year;
+    const academicTermDoc = AcademicTerms.findDoc(effectiveSemesterID);
+    const termNumber = academicTermDoc.termNumber;
+    const year = academicTermDoc.year;
     const planID = this.collection.insert({
       slugID,
       degreeID,
@@ -93,12 +93,12 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param instance the docID or slug associated with this AcademicPlan.
    * @param degreeSlug the slug for the DesiredDegree that this plan satisfies.
    * @param name the name of this AcademicPlan.
-   * @param semester the first semester this plan is effective.
-   * @param coursesPerSemester an array of the number of courses per semester.
+   * @param academicTerm the first academicTerm this plan is effective.
+   * @param coursesPerSemester an array of the number of courses per academicTerm.
    * @param courseList an array of PlanChoices, the choices for each course.
    * @param retired boolean, optional.
    */
-  public update(instance, { degreeSlug, name, semester, coursesPerSemester, courseList, retired }: IAcademicPlanUpdate) {
+  public update(instance, { degreeSlug, name, academicTerm, coursesPerSemester, courseList, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
     const updateData: { degreeID?: string; name?: string; effectiveSemesterID?: string; coursesPerSemester?: number[]; courseList?: string[]; retired?: boolean; } = {};
     if (degreeSlug) {
@@ -107,8 +107,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
     if (name) {
       updateData.name = name;
     }
-    if (semester) {
-      updateData.effectiveSemesterID = AcademicTerms.getID(semester);
+    if (academicTerm) {
+      updateData.effectiveSemesterID = AcademicTerms.getID(academicTerm);
     }
     if (coursesPerSemester) {
       if (!Array.isArray(coursesPerSemester)) {
@@ -183,15 +183,15 @@ class AcademicPlanCollection extends BaseSlugCollection {
   /**
    * Returns the AcademicPlans that are effective on or after termNumber for the given DesiredDegree.
    * @param degree the desired degree either a slug or id.
-   * @param semesterNumber (optional) the semester number. if undefined returns the latest AcademicPlans.
+   * @param academicTermNumber (optional) the academicTerm number. if undefined returns the latest AcademicPlans.
    * @return {any}
    */
-  public getPlansForDegree(degree: string, semesterNumber?: number) {
+  public getPlansForDegree(degree: string, academicTermNumber?: number) {
     const degreeID = DesiredDegrees.getID(degree);
-    if (!semesterNumber) {
+    if (!academicTermNumber) {
       return this.collection.find({ degreeID, termNumber: this.getLatestSemesterNumber() }).fetch();
     }
-    return this.collection.find({ degreeID, termNumber: { $gte: semesterNumber } }).fetch();
+    return this.collection.find({ degreeID, termNumber: { $gte: academicTermNumber } }).fetch();
   }
 
   /**
@@ -204,7 +204,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the largest semester number.
+   * Returns the largest academicTerm number.
    * @return {number}
    */
   public getLatestSemesterNumber() {
@@ -225,8 +225,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   public toFullString(planID: string) {
     const plan = this.findDoc(planID);
-    const semester = AcademicTerms.findDoc(plan.effectiveSemesterID);
-    return `${plan.name} (${semester.year})`;
+    const academicTerm = AcademicTerms.findDoc(plan.effectiveSemesterID);
+    return `${plan.name} (${academicTerm.year})`;
   }
 
   /**
@@ -241,12 +241,12 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const degreeSlug = Slugs.findDoc(degree.slugID).name;
     const name = doc.name;
     const description = doc.description;
-    const semesterDoc = AcademicTerms.findDoc(doc.effectiveSemesterID);
-    const semester = Slugs.findDoc(semesterDoc.slugID).name;
+    const academicTermDoc = AcademicTerms.findDoc(doc.effectiveSemesterID);
+    const academicTerm = Slugs.findDoc(academicTermDoc.slugID).name;
     const coursesPerSemester = doc.coursesPerSemester;
     const courseList = doc.courseList;
     const retired = doc.retired;
-    return { slug, degreeSlug, name, description, semester, coursesPerSemester, courseList, retired };
+    return { slug, degreeSlug, name, description, academicTerm, coursesPerSemester, courseList, retired };
   }
 
 }

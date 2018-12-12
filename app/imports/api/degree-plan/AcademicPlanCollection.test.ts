@@ -13,7 +13,7 @@ if (Meteor.isServer) {
     const shortName = 'B.S. CS';
     const degreeSlug = 'bs-cs';
     const description = 'B.S. in CS.';
-    const semester = 'Spring-2017';
+    const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
     const notDefinedSemester = 'Spring-1991';
     const coursesPerSemester = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
@@ -66,7 +66,7 @@ if (Meteor.isServer) {
       AcademicTerms.define({ term: 'Spring', year: 2017 });
       DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
       const docID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, semester, coursesPerSemester, courseList,
+        slug, degreeSlug, name: description, description, academicTerm, coursesPerSemester, courseList,
       });
       expect(AcademicPlans.isDefined(docID)).to.be.true;
       expect(AcademicPlans.findIdBySlug(slug)).to.be.a('string');
@@ -81,11 +81,11 @@ if (Meteor.isServer) {
       AcademicPlans.removeIt(planID);
       expect(AcademicPlans.isDefined(planID)).to.be.false;
       const anotherID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, semester: notDefinedSemester, coursesPerSemester, courseList,
+        slug, degreeSlug, name: description, description, academicTerm: notDefinedSemester, coursesPerSemester, courseList,
       });
       expect(AcademicPlans.isDefined(anotherID)).to.be.true;
       const redefinedID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, semester: notDefinedSemester, coursesPerSemester, courseList,
+        slug, degreeSlug, name: description, description, academicTerm: notDefinedSemester, coursesPerSemester, courseList,
       });
       expect(AcademicPlans.isDefined(redefinedID)).to.be.true;
       expect(anotherID).to.be.equal(redefinedID);
@@ -93,7 +93,7 @@ if (Meteor.isServer) {
       expect(errors.length).to.equal(0);
       AcademicPlans.removeIt(anotherID);
       const badID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, semester: notDefinedSemester, coursesPerSemester,
+        slug, degreeSlug, name: description, description, academicTerm: notDefinedSemester, coursesPerSemester,
         courseList: badCourseList,
       });
       expect(AcademicPlans.isDefined(badID)).to.be.true;

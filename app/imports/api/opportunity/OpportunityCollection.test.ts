@@ -29,9 +29,9 @@ if (Meteor.isServer) {
       const opportunityType = makeSampleOpportunityType();
       const sponsor = makeSampleUser(ROLE.FACULTY);
       const interests = [makeSampleInterest()];
-      const semesters = ['Fall-2015'];
+      const academicTerms = ['Fall-2015'];
       let docID = Opportunities.define({
-        name, slug, description, opportunityType, sponsor, interests, semesters, ice,
+        name, slug, description, opportunityType, sponsor, interests, academicTerms, ice,
       });
       expect(Opportunities.isDefined(docID)).to.be.true;
       const dumpObject = Opportunities.dumpOne(docID);

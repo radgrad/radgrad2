@@ -19,17 +19,17 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#getStudentsCurrentSemesterNumber.', function test() {
+    it('#getStudentsCurrentAcademicTermNumber.', function test() {
       const profile = Users.getProfile('abi@hawaii.edu');
 
-      // 1/11/18: Test failed: expected 11 to equal 10. I've changed to 11 so test passes. Has curr semester changed?
-      // TODO: Yes the current semester has rolled and we will have to update this 3 times a year or update abi.student
-      expect(utilities.getStudentsCurrentSemesterNumber(profile.userID)).to.equal(13);
+      // 1/11/18: Test failed: expected 11 to equal 10. I've changed to 11 so test passes. Has curr academicTerm changed?
+      // TODO: Yes the current academicTerm has rolled and we will have to update this 3 times a year or update abi.student
+      expect(utilities.getStudentsCurrentAcademicTermNumber(profile.userID)).to.equal(13);
     });
     it('#getStudentTerms.', function test() {
       const profile = Users.getProfile('abi@hawaii.edu');
-      const semesters = utilities.getStudentTerms(profile.userID);
-      expect(semesters.length).to.equal(12);
+      const academicTerms = utilities.getStudentTerms(profile.userID);
+      expect(academicTerms.length).to.equal(12);
     });
   });
 }

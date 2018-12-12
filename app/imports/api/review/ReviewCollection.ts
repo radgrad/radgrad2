@@ -46,14 +46,14 @@ class ReviewCollection extends BaseSlugCollection {
    *                 student: 'abi@hawaii.edu',
    *                 reviewType: 'course',
    *                 reviewee: 'ics_111',
-   *                 semester: 'Fall-2016',
+   *                 academicTerm: 'Fall-2016',
    *                 rating: 3,
    *                 comments: 'This class is great!',
    *                 moderated: false,
    *                 visible: true,
    *                 moderatedComments: 'sample comments here'});
    * @param { Object } description Object with keys slug, student, reviewee,
-   * reviewType,semester, rating, comments, moderated, public, and moderatorComments.
+   * reviewType,academicTerm, rating, comments, moderated, public, and moderatorComments.
    * Slug is optional. If supplied, must not be previously defined.
    * Student must be a user with role 'STUDENT.'
    * ReviewType must be either 'course' or 'opportunity'.
@@ -63,10 +63,10 @@ class ReviewCollection extends BaseSlugCollection {
    * Visible is optional and defaults to true.
    * ModeratorComments is optional.
    * @throws {Meteor.Error} If the definition includes a defined slug, undefined student,
-   * undefined reviewee, undefined semester, or invalid rating.
+   * undefined reviewee, undefined academicTerm, or invalid rating.
    * @returns The newly created docID.
    */
-  public define({ slug, student, reviewType, reviewee, semester, rating = 3, comments, moderated = false, visible = true, moderatorComments }: IReviewDefine) {
+  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments }: IReviewDefine) {
     // Validate student, get studentID.
     const studentID = Users.getID(student);
     Users.assertInRole(studentID, [ROLE.STUDENT, ROLE.ALUMNI]);
@@ -86,8 +86,8 @@ class ReviewCollection extends BaseSlugCollection {
           slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`;
         }
       }
-    // Validate semester, get termID.
-    const termID = AcademicTerms.getID(semester);
+    // Validate academicTerm, get termID.
+    const termID = AcademicTerms.getID(academicTerm);
     // Validate rating.
     this.assertValidRating(rating);
     // Guarantee that moderated and public are booleans.
@@ -125,14 +125,14 @@ class ReviewCollection extends BaseSlugCollection {
   }
 
   /**
-   * Update the review. Only semester, rating, comments, moderated, visible, and moderatorComments can be updated.
+   * Update the review. Only academicTerm, rating, comments, moderated, visible, and moderatorComments can be updated.
    * @param docID The review docID (required).
    */
-  public update(docID, { semester, rating, comments, moderated, visible, moderatorComments }: IReviewUpdate) {
+  public update(docID, { academicTerm, rating, comments, moderated, visible, moderatorComments }: IReviewUpdate) {
     this.assertDefined(docID);
     const updateData: IReviewUpdateData = {};
-    if (semester) {
-      updateData.termID = AcademicTerms.getID(semester);
+    if (academicTerm) {
+      updateData.termID = AcademicTerms.getID(academicTerm);
     }
     if (_.isNumber(rating)) {
       this.assertValidRating(rating);
@@ -238,14 +238,14 @@ class ReviewCollection extends BaseSlugCollection {
       if (reviewType === this.OPPORTUNITY) {
         reviewee = Opportunities.findSlugByID(doc.revieweeID);
       }
-    const semester = AcademicTerms.findSlugByID(doc.termID);
+    const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const rating = doc.rating;
     const comments = doc.comments;
     const moderated = doc.moderated;
     const visible = doc.visible;
     const moderatorComments = doc.moderatorComments;
 
-    return { slug, student, reviewType, reviewee, semester, rating, comments, moderated, visible, moderatorComments };
+    return { slug, student, reviewType, reviewee, academicTerm, rating, comments, moderated, visible, moderatorComments };
   }
 }
 

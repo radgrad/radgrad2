@@ -10,7 +10,7 @@ import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a specific course, such as "ICS 311".
- * To represent a specific course for a specific semester, use CourseInstance.
+ * To represent a specific course for a specific academicTerm, use CourseInstance.
  * @memberOf api/course
  * @extends api/base.BaseSlugCollection
  */

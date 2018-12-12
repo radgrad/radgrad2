@@ -30,10 +30,10 @@ export function makeSampleOpportunity(sponsor) {
   const description = 'Sample Opportunity Description';
   const opportunityType = makeSampleOpportunityType();
   const interests = [makeSampleInterest()];
-  const semester = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2015 });
-  const semesters = [semester];
+  const academicTerm = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2015 });
+  const academicTerms = [academicTerm];
   const ice = { i: 10, c: 0, e: 10 };
-  return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, semesters, ice });
+  return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice });
 }
 
 /**
@@ -44,8 +44,8 @@ export function makeSampleOpportunity(sponsor) {
  * @memberOf api/opportunity
  */
 export function makeSampleOpportunityInstance(student: string, sponsor: string) {
-  const semester: string = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2015 });
+  const academicTerm: string = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2015 });
   const opportunity: string = makeSampleOpportunity(sponsor);
   const verified: boolean = false;
-  return OpportunityInstances.define({ semester, opportunity, sponsor, verified, student });
+  return OpportunityInstances.define({ academicTerm, opportunity, sponsor, verified, student });
 }

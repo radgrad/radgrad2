@@ -48,9 +48,9 @@ export class FeedbackFunctionClass {
     // Now iterate through all the CourseInstances associated with this student.
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
-      const semester = AcademicTerms.findDoc(ci.termID);
-      if (semester.termNumber > currentSemester.termNumber) {
-        const semesterName = AcademicTerms.toString(ci.termID, false);
+      const academicTerm = AcademicTerms.findDoc(ci.termID);
+      if (academicTerm.termNumber > currentSemester.termNumber) {
+        const academicTermName = AcademicTerms.toString(ci.termID, false);
         const course = Courses.findDoc(ci.courseID);
         if (course) {
           const prereqs = course.prerequisites;
@@ -65,16 +65,16 @@ export class FeedbackFunctionClass {
               const preCourse = Courses.findDoc(preCi.courseID);
               const preSemester = AcademicTerms.findDoc(preCi.termID);
               if (preSemester) {
-                if (preSemester.termNumber >= semester.termNumber) {
-                  const semesterName2 = AcademicTerms.toString(preSemester._id, false);
-                  const description = `${semesterName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
-                      `after or in ${semesterName2}.`;
+                if (preSemester.termNumber >= academicTerm.termNumber) {
+                  const academicTermName2 = AcademicTerms.toString(preSemester._id, false);
+                  const description = `${academicTermName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
+                      `after or in ${academicTermName2}.`;
                   const definitionData = { user, functionName, description, feedbackType };
                   defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
                 }
               }
             } else {
-              const description = `${semesterName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
+              const description = `${academicTermName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
                   ' not found.';
               const definitionData = { user, functionName, description, feedbackType };
               defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
@@ -136,7 +136,7 @@ export class FeedbackFunctionClass {
   }
 
   /**
-   * Checks the student's degree plan to ensure that there aren't too many courses in any one semester.
+   * Checks the student's degree plan to ensure that there aren't too many courses in any one academicTerm.
    * @param user the student's ID.
    */
   public checkOverloadedSemesters(user: string) {
@@ -149,12 +149,12 @@ export class FeedbackFunctionClass {
     clearFeedbackInstancesMethod.call({ user, functionName });
 
     const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
-    const semesters = yearUtils.getStudentTerms(user);
+    const academicTerms = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
-    _.forEach(semesters, (termID) => {
-      const semester = AcademicTerms.findDoc(termID);
-      if (semester.termNumber > currentSemester.termNumber) {
+    _.forEach(academicTerms, (termID) => {
+      const academicTerm = AcademicTerms.findDoc(termID);
+      if (academicTerm.termNumber > currentSemester.termNumber) {
         const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
         if (cis.length > 2) {
           haveOverloaded = true;
@@ -268,7 +268,7 @@ export class FeedbackFunctionClass {
   }
 
   /**
-   * Creates a recommended opportunities FeedbackInstance for the given student and the current semester.
+   * Creates a recommended opportunities FeedbackInstance for the given student and the current academicTerm.
    * @param user the student's ID.
    */
   public generateRecommendedCurrentSemesterOpportunities(user: string) {
@@ -280,7 +280,7 @@ export class FeedbackFunctionClass {
     // First clear any feedback instances previously created for this student.
     clearFeedbackInstancesMethod.call({ user, functionName });
 
-    let bestChoices = oppUtils.getStudentCurrentSemesterOpportunityChoices(user);
+    let bestChoices = oppUtils.getStudentCurrentAcademicTermOpportunityChoices(user);
     const basePath = this.getBasePath(user);
     const termID = AcademicTerms.getCurrentTermID();
     const oppInstances = OpportunityInstances.find({ studentID, termID }).fetch();
@@ -291,7 +291,7 @@ export class FeedbackFunctionClass {
         if (len > 3) {
           bestChoices = _.drop(bestChoices, len - 3);
         }
-        let description = 'Consider the following opportunities for this semester: ';
+        let description = 'Consider the following opportunities for this academicTerm: ';
         _.forEach(bestChoices, (opp) => {
           const slug = Slugs.findDoc(opp.slugID);
           description = `${description} \n- [${opp.name}](${basePath}explorer/opportunities/${slug.name}), `;

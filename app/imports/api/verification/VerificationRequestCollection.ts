@@ -58,19 +58,19 @@ class VerificationRequestCollection extends BaseCollection {
    * or
    * VerificationRequests.define({ student: 'joesmith',
    *                               opportunity: 'TechHui',
-   *                              semester: 'Fall-2015'});
+   *                              academicTerm: 'Fall-2015'});
    * @param { Object } student and opportunity must be slugs or IDs. SubmittedOn defaults to now.
    * status defaults to OPEN, and processed defaults to an empty array.
-   * You can either pass the opportunityInstanceID or pass the opportunity and semester slugs. If opportunityInstance
-   * is not defined, then the student, opportunity, and semester arguments are used to look it up.
-   * @throws {Meteor.Error} If semester, opportunity, opportunityInstance or student cannot be resolved,
+   * You can either pass the opportunityInstanceID or pass the opportunity and academicTerm slugs. If opportunityInstance
+   * is not defined, then the student, opportunity, and academicTerm arguments are used to look it up.
+   * @throws {Meteor.Error} If academicTerm, opportunity, opportunityInstance or student cannot be resolved,
    * or if verified is not a boolean.
    * @returns The newly created docID.
    */
-  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], semester, opportunity }: IVerificationRequestDefine) {
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity }: IVerificationRequestDefine) {
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
-      OpportunityInstances.findOpportunityInstanceDoc(semester, opportunity, student);
+      OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student);
     if (!oppInstance) {
       throw new Meteor.Error('Could not find the opportunity instance to associate with this verification request');
     }
@@ -272,12 +272,12 @@ class VerificationRequestCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);
-    const semester = AcademicTerms.findSlugByID(opportunityInstance.termID);
+    const academicTerm = AcademicTerms.findSlugByID(opportunityInstance.termID);
     const opportunity = Opportunities.findSlugByID(opportunityInstance.opportunityID);
     const submittedOn = doc.submittedOn;
     const status = doc.status;
     const processed = doc.processed;
-    return { student, semester, opportunity, submittedOn, status, processed };
+    return { student, academicTerm, opportunity, submittedOn, status, processed };
   }
 
   /**

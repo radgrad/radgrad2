@@ -30,7 +30,7 @@
             "security",
             "software-engineering"
           ],
-          "semesters": [
+          "academicTerms": [
             "Summer-2015",
             "Summer-2016",
             "Summer-2017",
@@ -56,7 +56,7 @@
             "hci",
             "teaching"
           ],
-          "semesters": [
+          "academicTerms": [
             "Spring-2017",
             "Summer-2017"
           ]
@@ -64,7 +64,7 @@
         {
           "name": "Greyhats",
           "slug": "greyhats",
-          "description": "The ICS Grey Hats is a student-led, extracurricular organization focused on real-world training for cyber defense. Membership gives students an outstanding opportunity to learn and apply critical skills, and to share with others interested in modern security issues.\n\nThe Grey Hats is a Registered Independent Organization at the University of Hawai’i – Manoa, and fosters education in the fields of Information Assurance, Network Management, Cyber Security, and Security Ethics. Hosted by the Department of Information and Computer Sciences, the group provides students a venue for networking with industry and government, performing community outreach, and for practical application of security skills in a supportive environment. \n\n[Learn more here.](https://github.com/uhmgreyhats)\n\n#### Verification criteria\nTake selfies at least two meetings during the semester, then contact this Opportunity's sponsor to login to RadGrad to verify your participation.",
+          "description": "The ICS Grey Hats is a student-led, extracurricular organization focused on real-world training for cyber defense. Membership gives students an outstanding opportunity to learn and apply critical skills, and to share with others interested in modern security issues.\n\nThe Grey Hats is a Registered Independent Organization at the University of Hawai’i – Manoa, and fosters education in the fields of Information Assurance, Network Management, Cyber Security, and Security Ethics. Hosted by the Department of Information and Computer Sciences, the group provides students a venue for networking with industry and government, performing community outreach, and for practical application of security skills in a supportive environment. \n\n[Learn more here.](https://github.com/uhmgreyhats)\n\n#### Verification criteria\nTake selfies at least two meetings during the academicTerm, then contact this Opportunity's sponsor to login to RadGrad to verify your participation.",
           "opportunityType": "club",
           "sponsor": "radgrad@hawaii.edu",
           "ice": {
@@ -75,7 +75,7 @@
           "interests": [
             "security"
           ],
-          "semesters": [
+          "academicTerms": [
             "Fall-2013",
             "Spring-2014",
             "Summer-2014",
@@ -105,7 +105,7 @@
         {
           "name": "Research Project",
           "slug": "generic-project",
-          "description": "If you want to plan to participate in a research project in some future semester, but are not sure yet what project you want to work on, then you can add this Opportunity as a \"placeholder\" in your degree plan until you know more precisely what you want to do. \n\n[Learn more here.](http://www.ics.hawaii.edu/research/research-areas/)\n\n#### Verification criteria\nAt the conclusion of the project, request that this Opportunity's sponsor login to RadGrad to verify your participation. You should be able to supply evidence of participation, and contact details for your supervisor at the organization.",
+          "description": "If you want to plan to participate in a research project in some future academicTerm, but are not sure yet what project you want to work on, then you can add this Opportunity as a \"placeholder\" in your degree plan until you know more precisely what you want to do. \n\n[Learn more here.](http://www.ics.hawaii.edu/research/research-areas/)\n\n#### Verification criteria\nAt the conclusion of the project, request that this Opportunity's sponsor login to RadGrad to verify your participation. You should be able to supply evidence of participation, and contact details for your supervisor at the organization.",
           "opportunityType": "project",
           "sponsor": "radgrad@hawaii.edu",
           "ice": {
@@ -116,7 +116,7 @@
           "interests": [
             "research"
           ],
-          "semesters": [
+          "academicTerms": [
             "Spring-2014",
             "Summer-2014",
             "Fall-2014",
@@ -156,7 +156,7 @@
           "interests": [
             "data-visualization"
           ],
-          "semesters": [
+          "academicTerms": [
             "Summer-2014",
             "Summer-2015",
             "Summer-2016",
@@ -170,7 +170,7 @@
         {
           "name": "Business Plan Competition",
           "slug": "shidler-bpc",
-          "description": "The annual Shidler Business Plan competition is an intense and unique semester-long learning opportunity for UH students who aspire to pursue a business venture. The competition provides mentorship, training and resources. Winners walk away with a wealth of business savvy and substantial cash prizes. \n\n[Learn more here.](http://pace.shidler.hawaii.edu/bpc)\n\n#### Verification criteria\nAt the conclusion of the competition, request this Opportunity's sponsor to login to RadGrad to verify your participation. Provide your business plan and selfies at two meetings to verify your participation.",
+          "description": "The annual Shidler Business Plan competition is an intense and unique academicTerm-long learning opportunity for UH students who aspire to pursue a business venture. The competition provides mentorship, training and resources. Winners walk away with a wealth of business savvy and substantial cash prizes. \n\n[Learn more here.](http://pace.shidler.hawaii.edu/bpc)\n\n#### Verification criteria\nAt the conclusion of the competition, request this Opportunity's sponsor to login to RadGrad to verify your participation. Provide your business plan and selfies at two meetings to verify your participation.",
           "opportunityType": "event",
           "sponsor": "radgrad@hawaii.edu",
           "ice": {
@@ -181,7 +181,7 @@
           "interests": [
             "entrepreneurship"
           ],
-          "semesters": [
+          "academicTerms": [
             "Spring-2013",
             "Spring-2014",
             "Spring-2015",

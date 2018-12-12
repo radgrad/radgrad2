@@ -4,20 +4,20 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 
 /**
- * Returns the student's current semester number (i.e. which semester are they currently in.)
+ * Returns the student's current academicTerm number (i.e. which academicTerm are they currently in.)
  * @param studentID the studentID.
  * @returns {number}
  * @memberOf api/degree-plan
  */
-export function getStudentsCurrentSemesterNumber(studentID: string) {
+export function getStudentsCurrentAcademicTermNumber(studentID: string) {
   const cis = CourseInstances.find({ studentID }).fetch();
   let firstSemester;
   _.forEach(cis, (ci) => {
-    const semester = AcademicTerms.findDoc(ci.termID);
+    const academicTerm = AcademicTerms.findDoc(ci.termID);
     if (!firstSemester) {
-      firstSemester = semester;
-    } else if (semester.termNumber < firstSemester.termNumber) {
-      firstSemester = semester;
+      firstSemester = academicTerm;
+    } else if (academicTerm.termNumber < firstSemester.termNumber) {
+      firstSemester = academicTerm;
     }
   });
   const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
@@ -32,9 +32,9 @@ export function getStudentsCurrentSemesterNumber(studentID: string) {
  */
 export function getStudentTerms(studentID: string) {
   const years = AcademicYearInstances.find({ studentID }, { $sort: { year: 1 } }).fetch();
-  let semesters = [];
+  let academicTerms = [];
   _.forEach(years, (ay) => {
-    semesters = _.concat(semesters, ay.termIDs);
+    academicTerms = _.concat(academicTerms, ay.termIDs);
   });
   const cis = CourseInstances.find({ studentID }).fetch();
   let courseSemesters = [];
@@ -42,5 +42,5 @@ export function getStudentTerms(studentID: string) {
     courseSemesters.push(ci.termID);
   });
   courseSemesters = _.uniq(courseSemesters);
-  return semesters;
+  return academicTerms;
 }

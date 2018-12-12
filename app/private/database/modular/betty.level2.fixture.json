@@ -6,7 +6,7 @@
       "name": "CourseInstanceCollection",
       "contents": [
         {
-          "semester": "Fall-2014",
+          "academicTerm": "Fall-2014",
           "course": "ics_141",
           "note": "ICS 141",
           "verified": true,
