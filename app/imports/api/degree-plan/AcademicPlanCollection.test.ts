@@ -15,8 +15,8 @@ if (Meteor.isServer) {
     const description = 'B.S. in CS.';
     const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
-    const notDefinedSemester = 'Spring-1991';
-    const coursesPerSemester = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
+    const notDefinedAcademicTerm = 'Spring-1991';
+    const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
     const courseList = [
       'ics_111-1',
       'ics_141-1',
@@ -66,7 +66,13 @@ if (Meteor.isServer) {
       AcademicTerms.define({ term: 'Spring', year: 2017 });
       DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
       const docID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, academicTerm, coursesPerSemester, courseList,
+        slug,
+        degreeSlug,
+        name: description,
+        description,
+        academicTerm,
+        coursesPerAcademicTerm,
+        courseList,
       });
       expect(AcademicPlans.isDefined(docID)).to.be.true;
       expect(AcademicPlans.findIdBySlug(slug)).to.be.a('string');
@@ -81,11 +87,23 @@ if (Meteor.isServer) {
       AcademicPlans.removeIt(planID);
       expect(AcademicPlans.isDefined(planID)).to.be.false;
       const anotherID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, academicTerm: notDefinedSemester, coursesPerSemester, courseList,
+        slug,
+        degreeSlug,
+        name: description,
+        description,
+        academicTerm: notDefinedAcademicTerm,
+        coursesPerAcademicTerm,
+        courseList,
       });
       expect(AcademicPlans.isDefined(anotherID)).to.be.true;
       const redefinedID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, academicTerm: notDefinedSemester, coursesPerSemester, courseList,
+        slug,
+        degreeSlug,
+        name: description,
+        description,
+        academicTerm: notDefinedAcademicTerm,
+        coursesPerAcademicTerm,
+        courseList,
       });
       expect(AcademicPlans.isDefined(redefinedID)).to.be.true;
       expect(anotherID).to.be.equal(redefinedID);
@@ -93,7 +111,7 @@ if (Meteor.isServer) {
       expect(errors.length).to.equal(0);
       AcademicPlans.removeIt(anotherID);
       const badID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, academicTerm: notDefinedSemester, coursesPerSemester,
+        slug, degreeSlug, name: description, description, academicTerm: notDefinedAcademicTerm, coursesPerAcademicTerm,
         courseList: badCourseList,
       });
       expect(AcademicPlans.isDefined(badID)).to.be.true;

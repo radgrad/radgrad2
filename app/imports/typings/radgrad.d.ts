@@ -25,10 +25,10 @@ export interface IAcademicPlan {
   description: string;
   slugID: string;
   degreeID: string;
-  effectiveSemesterID: string;
+  effectiveAcademicTermID: string;
   academicTermNumber: number;
   year: number;
-  coursesPerSemester: number[];
+  coursesPerAcademicTerm: number[];
   courseList: string[];
   isBAM?: boolean;
 }
@@ -39,7 +39,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
   name: string;
   description: string;
   academicTerm: string;
-  coursesPerSemester: number[];
+  coursesPerAcademicTerm: number[];
   courseList: string[];
   retired?: boolean;
 }
@@ -48,7 +48,7 @@ export interface IAcademicPlanUpdate {
   degreeSlug?: string;
   name?: string;
   academicTerm?: string;
-  coursesPerSemester?: number[];
+  coursesPerAcademicTerm?: number[];
   courseList?: string[];
   retired?: boolean;
 }
@@ -429,7 +429,7 @@ export interface IMentorProfileUpdate extends IProfileUpdate {
 
 export interface IStudentProfileDefine extends IProfileDefine {
   level: number;
-  declaredSemester?: string;
+  declaredAcademicTerm?: string;
   academicPlan?: string;
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
@@ -438,7 +438,7 @@ export interface IStudentProfileDefine extends IProfileDefine {
 
 export interface IStudentProfileUpdate extends IProfileUpdate {
   level?: number;
-  declaredSemester?: string;
+  declaredAcademicTerm?: string;
   academicPlan?: string;
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
@@ -447,7 +447,7 @@ export interface IStudentProfileUpdate extends IProfileUpdate {
 
 export interface IStudentProfileUpdateData {
   level?: number;
-  declaredSemesterID?: string;
+  declaredAcademicTermID?: string;
   academicPlanID?: string;
   hiddenCourseIDs?: string[];
   hiddenOpportunityIDs?: string[];

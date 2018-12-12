@@ -14,7 +14,7 @@ if (Meteor.isClient) {
       name: 'B.S. in Computer Sciences',
       description: 'The BS in CS degree offers a solid foundation in computer science.',
       academicTerm: 'Fall-2016',
-      coursesPerSemester: [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0],
+      coursesPerAcademicTerm: [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0],
       courseList: ['ics_111-1', 'ics_141-1', 'ics_211-1', 'ics_241-1', 'ics_311-1', 'ics_314-1', 'ics_212-1',
         'ics_321-1', 'ics_312,ics_331-1', 'ics_313,ics_361-1', 'ics_332-1', 'ics_400+-1', 'ics_400+-2', 'ics_400+-3',
         'ics_400+-4', 'ics_400+-5'],
@@ -35,9 +35,9 @@ if (Meteor.isClient) {
       const degreeSlug = 'ba-ics';
       const name = 'updated AcademicPlan name';
       const academicTerm = 'Spring-2017';
-      const coursesPerSemester = [5, 5, 5, 5, 2, 0, 2, 2, 0, 2, 2, 0];
+      const coursesPerAcademicTerm = [5, 5, 5, 5, 2, 0, 2, 2, 0, 2, 2, 0];
       await updateMethod.callPromise({ collectionName,
-        updateData: { id, degreeSlug, name, academicTerm, coursesPerSemester },
+        updateData: { id, degreeSlug, name, academicTerm, coursesPerAcademicTerm },
       });
     });
 

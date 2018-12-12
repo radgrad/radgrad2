@@ -26,7 +26,7 @@ import { Users } from '../user/UserCollection';
  * @example
  * import { FeedbackFunctions } from '../feedback/FeedbackFunctions';
  *   :
- * FeedbackFunctions.recommendedCoursesThisSemesterByInterest(studentID);
+ * FeedbackFunctions.recommendedCoursesThisAcademicTermByInterest(studentID);
  * @class FeedbackFunctions
  * @memberOf api/feedback
  */
@@ -39,7 +39,7 @@ export class FeedbackFunctionClass {
   public checkPrerequisites(user: string) {
     const functionName = 'checkPrerequisites';
     const feedbackType = FeedbackInstances.WARNING;
-    const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
+    const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const studentID = Users.getID(user);
 
     // First clear any feedback instances previously created for this student.
@@ -49,7 +49,7 @@ export class FeedbackFunctionClass {
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
       const academicTerm = AcademicTerms.findDoc(ci.termID);
-      if (academicTerm.termNumber > currentSemester.termNumber) {
+      if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
         const academicTermName = AcademicTerms.toString(ci.termID, false);
         const course = Courses.findDoc(ci.courseID);
         if (course) {
@@ -63,10 +63,10 @@ export class FeedbackFunctionClass {
             if (preCiIndex !== -1) {
               const preCi = cis[preCiIndex];
               const preCourse = Courses.findDoc(preCi.courseID);
-              const preSemester = AcademicTerms.findDoc(preCi.termID);
-              if (preSemester) {
-                if (preSemester.termNumber >= academicTerm.termNumber) {
-                  const academicTermName2 = AcademicTerms.toString(preSemester._id, false);
+              const preAcademicTerm = AcademicTerms.findDoc(preCi.termID);
+              if (preAcademicTerm) {
+                if (preAcademicTerm.termNumber >= academicTerm.termNumber) {
+                  const academicTermName2 = AcademicTerms.toString(preAcademicTerm._id, false);
                   const description = `${academicTermName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
                       `after or in ${academicTermName2}.`;
                   const definitionData = { user, functionName, description, feedbackType };
@@ -139,8 +139,8 @@ export class FeedbackFunctionClass {
    * Checks the student's degree plan to ensure that there aren't too many courses in any one academicTerm.
    * @param user the student's ID.
    */
-  public checkOverloadedSemesters(user: string) {
-    const functionName = 'checkOverloadedSemesters';
+  public checkOverloadedAcademicTerms(user: string) {
+    const functionName = 'checkOverloadedAcademicTerms';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
     const studentID = Users.getID(user);
@@ -148,13 +148,13 @@ export class FeedbackFunctionClass {
     // First clear any feedback instances previously created for this student.
     clearFeedbackInstancesMethod.call({ user, functionName });
 
-    const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
+    const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const academicTerms = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
     _.forEach(academicTerms, (termID) => {
       const academicTerm = AcademicTerms.findDoc(termID);
-      if (academicTerm.termNumber > currentSemester.termNumber) {
+      if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
         const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
         if (cis.length > 2) {
           haveOverloaded = true;
@@ -271,8 +271,8 @@ export class FeedbackFunctionClass {
    * Creates a recommended opportunities FeedbackInstance for the given student and the current academicTerm.
    * @param user the student's ID.
    */
-  public generateRecommendedCurrentSemesterOpportunities(user: string) {
-    const functionName = 'generateRecommendedCurrentSemesterOpportunities';
+  public generateRecommendedCurrentAcademicTermOpportunities(user: string) {
+    const functionName = 'generateRecommendedCurrentAcademicTermOpportunities';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
     const studentID = Users.getID(user);

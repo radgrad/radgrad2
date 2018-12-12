@@ -147,7 +147,7 @@ export const processPendingVerificationMethod = new ValidatedMethod({
     if (verified) {
       const opportunityInstanceID = requestDoc.opportunityInstanceID;
       const opportunity = OpportunityInstances.getOpportunityDoc(opportunityInstanceID)._id;
-      const academicTermDoc = OpportunityInstances.getSemesterDoc(opportunityInstanceID);
+      const academicTermDoc = OpportunityInstances.getAcademicTermDoc(opportunityInstanceID);
       const academicTerm = `${academicTermDoc.term}-${academicTermDoc.year}`;
       Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, academicTerm });
     }

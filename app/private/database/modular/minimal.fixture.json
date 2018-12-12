@@ -11,7 +11,7 @@
           "name": "B.S. in Computer Sciences (2016)",
           "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
           "academicTerm": "Fall-2016",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,

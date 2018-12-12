@@ -58,7 +58,7 @@ class ReviewCollection extends BaseSlugCollection {
    * Student must be a user with role 'STUDENT.'
    * ReviewType must be either 'course' or 'opportunity'.
    * Reviewee must be a defined course or opportunity slug, depending upon reviewType.
-   * Semester must be a defined slug.
+   * academicTerm must be a defined slug.
    * Moderated is optional and defaults to false.
    * Visible is optional and defaults to true.
    * ModeratorComments is optional.

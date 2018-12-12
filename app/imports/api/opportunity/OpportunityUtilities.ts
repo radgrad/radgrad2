@@ -91,9 +91,9 @@ export function chooseStudentAcademicTermOpportunity(academicTerm: string, acade
 }
 
 export function getStudentCurrentAcademicTermOpportunityChoices(studentID: string) {
-  const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
+  const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const academicTermNum = getStudentsCurrentAcademicTermNumber(studentID);
-  return getStudentAcademicTermOpportunityChoices(currentSemester, academicTermNum, studentID);
+  return getStudentAcademicTermOpportunityChoices(currentAcademicTerm, academicTermNum, studentID);
 }
 
 export function getRecommendedCurrentAcademicTermOpportunityChoices(studentID) {

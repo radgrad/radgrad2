@@ -9,8 +9,8 @@ import BaseCollection from '../base/BaseCollection';
 import { IAcademicYearDefine } from '../../typings/radgrad';
 
 /**
- * Each AcademicYearInstance represents a sequence of three semesters for a given student.
- * It is used to control the display of semesters for a given student in the Degree Planner.
+ * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
+ * It is used to control the display of academic terms for a given student in the Degree Planner.
  * @extends api/base.BaseCollection
  * @memberOf api/degree-plan
  */
@@ -98,7 +98,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param year the fall year.
    * @param springYear the spring year
    * @param studentID the student's ID.
-   * @param termIDs the 3 semesters in the year.
+   * @param termIDs the 3 or 4 academic terms in the year.
    */
   public update(docID: string, { year, springYear, studentID, termIDs }:
     {year?: number; springYear?: number; studentID?: string; termIDs?: string[]; }) {
@@ -118,11 +118,11 @@ class AcademicYearInstanceCollection extends BaseCollection {
     }
     if (termIDs) {
       if (!Array.isArray(termIDs)) {
-        throw new Meteor.Error(`SemesterIDs ${termIDs} is not an Array.`);
+        throw new Meteor.Error(`AcademicTermIDs ${termIDs} is not an Array.`);
       }
       _.forEach(termIDs, (sem) => {
         if (!AcademicTerms.isDefined(sem)) {
-          throw new Meteor.Error(`SemesterID ${sem} is not a SemesterID.`);
+          throw new Meteor.Error(`AcademicTermID ${sem} is not a AcademicTermID.`);
         }
       });
       updateData.termIDs = termIDs;

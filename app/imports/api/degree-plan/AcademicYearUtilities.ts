@@ -11,17 +11,17 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
  */
 export function getStudentsCurrentAcademicTermNumber(studentID: string) {
   const cis = CourseInstances.find({ studentID }).fetch();
-  let firstSemester;
+  let firstAcademicTerm;
   _.forEach(cis, (ci) => {
     const academicTerm = AcademicTerms.findDoc(ci.termID);
-    if (!firstSemester) {
-      firstSemester = academicTerm;
-    } else if (academicTerm.termNumber < firstSemester.termNumber) {
-      firstSemester = academicTerm;
+    if (!firstAcademicTerm) {
+      firstAcademicTerm = academicTerm;
+    } else if (academicTerm.termNumber < firstAcademicTerm.termNumber) {
+      firstAcademicTerm = academicTerm;
     }
   });
-  const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
-  return (currentSemester.termNumber - firstSemester.termNumber) + 1;
+  const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  return (currentAcademicTerm.termNumber - firstAcademicTerm.termNumber) + 1;
 }
 
 /**
@@ -37,10 +37,10 @@ export function getStudentTerms(studentID: string) {
     academicTerms = _.concat(academicTerms, ay.termIDs);
   });
   const cis = CourseInstances.find({ studentID }).fetch();
-  let courseSemesters = [];
+  let courseAcademicTerms = [];
   _.forEach(cis, (ci) => {
-    courseSemesters.push(ci.termID);
+    courseAcademicTerms.push(ci.termID);
   });
-  courseSemesters = _.uniq(courseSemesters);
+  courseAcademicTerms = _.uniq(courseAcademicTerms);
   return academicTerms;
 }

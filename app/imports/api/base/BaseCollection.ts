@@ -10,7 +10,7 @@ import { IDumpOne } from '../../typings/radgrad';
 
 /**
  * BaseCollection is an abstract superclass of all RadGrad data model entities.
- * It is the direct superclass for SlugCollection and SemesterCollection.
+ * It is the direct superclass for SlugCollection and AcademicTermCollection.
  * Other collection classes are derived from BaseSlugCollection or BaseTypeCollection, which are abstract
  * classes that inherit from this one.
  * @memberOf api/base

@@ -27,7 +27,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     super('StudentProfile', new SimpleSchema({
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
       academicPlanID: { type: SimpleSchema.RegEx.Id, optional: true },
-      declaredSemesterID: { type: SimpleSchema.RegEx.Id, optional: true },
+      declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
       hiddenCourseIDs: [SimpleSchema.RegEx.Id],
       hiddenOpportunityIDs: [SimpleSchema.RegEx.Id],
       isAlumni: Boolean,
@@ -46,23 +46,23 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param careerGoals An array of career goals. (optional)
    * @param level An integer between 1 and 6 indicating the student's level.
    * @param academicPlan An optional slug indicating the academic plan.
-   * @param declaredSemester An optional string indicating the student's declared semester.
+   * @param declaredAcademicTerm An optional string indicating the student's declared academic term.
    * @param hiddenCourses An optional array of course slugs indicating the hidden ones.
    * @param hiddenOpportunities An optional array of opportunity slugs indicating the hidden opportunities.
    * @param isAlumni An optional boolean indicating if this student has graduated. Defaults to false.
    * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
-   * academicPlan, declaredSemester, hiddenCourses, or hiddenOpportunities are invalid.
+   * academicPlan, declaredAcademicTerm, hiddenCourses, or hiddenOpportunities are invalid.
    * @return { String } The docID of the StudentProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, level, academicPlan, declaredSemester, hiddenCourses = [], hiddenOpportunities = [],
+           careerGoals, level, academicPlan, declaredAcademicTerm, hiddenCourses = [], hiddenOpportunities = [],
            isAlumni = false }: IStudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
       const interestIDs = Interests.getIDs(interests);
       const careerGoalIDs = CareerGoals.getIDs(careerGoals);
       const academicPlanID = (academicPlan) ? AcademicPlans.getID(academicPlan) : undefined;
-      const declaredSemesterID = (declaredSemester) ? AcademicTerms.getID(declaredSemester) : undefined;
+      const declaredAcademicTermID = (declaredAcademicTerm) ? AcademicTerms.getID(declaredAcademicTerm) : undefined;
       const hiddenCourseIDs = Courses.getIDs(hiddenCourses);
       const hiddenOpportunityIDs = Opportunities.getIDs(hiddenOpportunities);
       this.assertValidLevel(level);
@@ -75,7 +75,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       const role = (isAlumni) ? ROLE.ALUMNI : ROLE.STUDENT;
       const profileID = this.collection.insert({
         username, firstName, lastName, role, picture, website, interestIDs, careerGoalIDs,
-        level, academicPlanID, declaredSemesterID, hiddenCourseIDs, hiddenOpportunityIDs, isAlumni,
+        level, academicPlanID, declaredAcademicTermID, hiddenCourseIDs, hiddenOpportunityIDs, isAlumni,
         userID: this.getFakeUserId() });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
@@ -95,7 +95,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param linkedin LinkedIn user ID (optional).
    * @param motivation the motivation (optional).
    */
-  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, level, academicPlan, declaredSemester,
+  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, level, academicPlan, declaredAcademicTerm,
       hiddenCourses, hiddenOpportunities, isAlumni }: IStudentProfileUpdate) {
     this.assertDefined(docID);
     const updateData: IStudentProfileUpdateData = {};
@@ -103,8 +103,8 @@ class StudentProfileCollection extends BaseProfileCollection {
     if (academicPlan) {
       updateData.academicPlanID = AcademicPlans.getID(academicPlan);
     }
-    if (declaredSemester) {
-      updateData.declaredSemesterID = AcademicTerms.getID(declaredSemester);
+    if (declaredAcademicTerm) {
+      updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
     }
     if (hiddenCourses) {
       updateData.hiddenCourseIDs = Courses.getIDs(hiddenCourses);
@@ -179,7 +179,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (doc.academicPlanID && !AcademicPlans.isDefined(doc.academicPlanID)) {
         problems.push(`Bad academicPlanID: ${doc.academicPlanID} in ${doc.username}`);
       }
-      if (doc.declaredSemesterID && !AcademicTerms.isDefined(doc.declaredSemesterID)) {
+      if (doc.declaredAcademicTermID && !AcademicTerms.isDefined(doc.declaredAcademicTermID)) {
         problems.push(`Bad termID: ${doc.academicPlanID} in ${doc.username}`);
       }
       _.forEach(doc.hiddenCourseIDs, (hiddenCourseID) => {
@@ -293,13 +293,13 @@ class StudentProfileCollection extends BaseProfileCollection {
     const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
     const level = doc.level;
     const academicPlan = doc.academicPlanID && AcademicPlans.findSlugByID(doc.academicPlanID);
-    const declaredSemester = doc.declaredSemesterID && AcademicTerms.findSlugByID(doc.declaredSemesterID);
+    const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const hiddenCourses = _.map(doc.hiddenCourseIDs, (hiddenCourseID) => Courses.findSlugByID(hiddenCourseID));
     const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, (hiddenOpportunityID) =>
         Opportunities.findSlugByID(hiddenOpportunityID));
     const isAlumni = doc.isAlumni;
     return { username, firstName, lastName, picture, website, interests, careerGoals, level, academicPlan,
-      declaredSemester, hiddenCourses, hiddenOpportunities, isAlumni };
+      declaredAcademicTerm, hiddenCourses, hiddenOpportunities, isAlumni };
   }
 }
 

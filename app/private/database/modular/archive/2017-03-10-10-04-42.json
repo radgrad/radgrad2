@@ -8,7 +8,7 @@
           "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Sciences",
           "semester": "Fall-2016",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -45,7 +45,7 @@
           "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Sciences Security Sciences",
           "semester": "Fall-2016",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             3,
             0,
@@ -82,7 +82,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A in Information and Computer Sciences",
           "semester": "Fall-2016",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -115,7 +115,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in ICS Security Science Focus",
           "semester": "Fall-2016",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             3,
             0,
@@ -152,7 +152,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in ICS IT Focus",
           "semester": "Fall-2016",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             3,
             0,
@@ -192,7 +192,7 @@
           "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Sciences",
           "semester": "Fall-2017",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -229,7 +229,7 @@
           "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Science Security Science",
           "semester": "Fall-2017",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -266,7 +266,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in Information and Computer Sciences",
           "semester": "Fall-2017",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -299,7 +299,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in ICS Security Science Focus",
           "semester": "Fall-2017",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -336,7 +336,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in Computer Sciences IT Focus",
           "semester": "Fall-2017",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             3,
             0,
@@ -376,7 +376,7 @@
           "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Science",
           "semester": "Fall-2015",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -413,7 +413,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in Information and Computer Sciences",
           "semester": "Fall-2015",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             2,
             0,
@@ -448,7 +448,7 @@
           "degreeSlug": "ba-ics",
           "name": "B.A. in Computer Sciences IT Focus",
           "semester": "Fall-2015",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             2,
             1,
             0,
@@ -486,7 +486,7 @@
           "degreeSlug": "bs-ce",
           "name": "B.S. in Computer Engineering",
           "semester": "Fall-2017",
-          "coursesPerSemester": [
+          "coursesPerAcademicTerm": [
             0,
             1,
             0,

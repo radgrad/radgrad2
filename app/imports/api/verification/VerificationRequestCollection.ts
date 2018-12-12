@@ -140,12 +140,12 @@ class VerificationRequestCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Semester associated with the VerificationRequest with the given instanceID.
+   * Returns the AcademicTerm associated with the VerificationRequest with the given instanceID.
    * @param instanceID The id of the VerificationRequest.
-   * @returns {Object} The associated Semester.
+   * @returns {Object} The associated AcademicTerm.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  public getSemesterDoc(instanceID: string) {
+  public getAcademicTermDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     const oppInstance = OpportunityInstances.findDoc(instance.opportunityInstanceID);

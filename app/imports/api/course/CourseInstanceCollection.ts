@@ -45,7 +45,7 @@ class CourseInstanceCollection extends BaseCollection {
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
       student: this.collectionName,
-      perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndSemester`,
+      perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
       publicStudent: `${this.collectionName}.PublicStudent`,
       publicSlugStudent: `${this.collectionName}.PublicSlugStudent`,
       studentID: `${this.collectionName}.studentID`,
@@ -214,9 +214,9 @@ class CourseInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Semester associated with the CourseInstance with the given instanceID.
+   * Returns the AcademicTerm associated with the CourseInstance with the given instanceID.
    * @param instanceID The id of the CourseInstance.
-   * @returns {Object} The associated Semester.
+   * @returns {Object} The associated AcademicTerm.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
   public getAcademicTermDoc(instanceID: string) {
@@ -367,7 +367,7 @@ class CourseInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Updates the CourseInstance's Semester.
+   * Updates the CourseInstance's AcademicTerm.
    * @param courseInstanceID The course instance ID.
    * @param termID The academicTerm id.
    * @throws {Meteor.Error} If courseInstanceID is not a valid ID.

@@ -11,12 +11,12 @@ import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
 
 /**
- * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific semester.
+ * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
  * @extends api/base.BaseCollection
  * @memberOf api/opportunity
  */
 class OpportunityInstanceCollection extends BaseCollection {
-  public publicationNames: { student: string; perStudentAndSemester: string; studentID: string; };
+  public publicationNames: { student: string; perStudentAndAcademicTerm: string; studentID: string; };
 
   /**
    * Creates the OpportunityInstance collection.
@@ -32,7 +32,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     }));
     this.publicationNames = {
       student: this.collectionName,
-      perStudentAndSemester: `${this.collectionName}.PerStudentAndSemester`,
+      perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
       studentID: `${this.collectionName}.studentID`,
     };
     if (Meteor.isServer) {
@@ -48,7 +48,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    *                               verified: false,
    *                               student: 'joesmith',
    *                              sponsor: 'johnson' });
-   * @param { Object } description Semester, opportunity, and student must be slugs or IDs. Verified defaults to false.
+   * @param { Object } description AcademicTerm, opportunity, and student must be slugs or IDs. Verified defaults to false.
    * Sponsor defaults to the opportunity sponsor.
    * Note that only one opportunity instance can be defined for a given academicTerm, opportunity, and student.
    * @throws {Meteor.Error} If academicTerm, opportunity, or student cannot be resolved, or if verified is not a boolean.
@@ -179,12 +179,12 @@ class OpportunityInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Semester associated with the OpportunityInstance with the given instanceID.
+   * Returns the AcademicTerm associated with the OpportunityInstance with the given instanceID.
    * @param instanceID The id of the OpportunityInstance.
-   * @returns {Object} The associated Semester.
+   * @returns {Object} The associated AcademicTerm.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  public getSemesterDoc(instanceID: string) {
+  public getAcademicTermDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return AcademicTerms.findDoc(instance.termID);
@@ -222,7 +222,7 @@ class OpportunityInstanceCollection extends BaseCollection {
         }
         return instance.collection.find({ sponsorID: this.userId });
       });
-      Meteor.publish(this.publicationNames.perStudentAndSemester, (studentID: string, termID: string) => {
+      Meteor.publish(this.publicationNames.perStudentAndAcademicTerm, (studentID: string, termID: string) => {
         new SimpleSchema({
           studentID: { type: String },
           termID: { type: String },
@@ -252,12 +252,12 @@ class OpportunityInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Updates the OpportunityInstance's Semester.
+   * Updates the OpportunityInstance's AcademicTerm.
    * @param opportunityInstanceID The opportunity instance ID.
    * @param termID The academicTerm id.
    * @throws {Meteor.Error} If not a valid ID.
    */
-  public updateSemester(opportunityInstanceID: string, termID: string) {
+  public updateAcademicTerm(opportunityInstanceID: string, termID: string) {
     this.assertDefined(opportunityInstanceID);
     AcademicTerms.assertAcademicTerm(termID);
     this.collection.update({ _id: opportunityInstanceID }, { $set: { termID } });

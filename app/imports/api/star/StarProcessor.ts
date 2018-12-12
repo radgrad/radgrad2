@@ -11,16 +11,16 @@ import { IStarDataObject } from '../../typings/radgrad';
 
 /**
  * Given the semester string from STAR (for example, 'Fall 2015 ext'), parses it, defines the corresponding academicTerm,
- * and returns the Semester slug.
+ * and returns the AcademicTerm slug.
  * @param academicTerm The STAR semester string.
  * @returns {String} The RadGrad academicTerm slug.
  * @throws Meteor.Error If parsing fails.
  * @memberOf api/star
  */
-function findSemesterSlug(starDataObject: IStarDataObject) {
+function findAcademicTermSlug(starDataObject: IStarDataObject) {
   const academicTerm = starDataObject.semester;
   if ((!_.isString(academicTerm)) || (academicTerm.length < 8)) {
-    throw new Meteor.Error(`Could not parse semester data: ${JSON.stringify(starDataObject)}`);
+    throw new Meteor.Error(`Could not parse academic term data: ${JSON.stringify(starDataObject)}`);
   }
   const academicTermTokens = academicTerm.split(' ');
   let term;
@@ -81,7 +81,7 @@ function findCourseSlug(starDataObject: IStarDataObject) {
  */
 function makeCourseInstanceObject(starDataObject: IStarDataObject) {
   return {
-    academicTerm: findSemesterSlug(starDataObject),
+    academicTerm: findAcademicTermSlug(starDataObject),
     course: findCourseSlug(starDataObject),
     note: `${starDataObject.name} ${starDataObject.num}`,
     verified: true,

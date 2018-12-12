@@ -16,10 +16,10 @@ function makeSampleStudent() {
   const interests = [];
   const careerGoals = [];
   const level = 6;
-  const declaredSemester = 'Spring-2017';
+  const declaredAcademicTerm = 'Spring-2017';
   const profileID = StudentProfiles.define({
     username, firstName, lastName, picture, website, interests,
-    careerGoals, level, declaredSemester,
+    careerGoals, level, declaredAcademicTerm,
   });
   return StudentProfiles.getUserID(profileID);
 }
