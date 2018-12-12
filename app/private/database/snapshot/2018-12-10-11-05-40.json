@@ -551,6 +551,157 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ]
+        },
+        {
+          "slug": "bs-ms-cs",
+          "degreeSlug": "bs-cs",
+          "name": "B.S./M.S. in Computer Science (2017)",
+          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
+          "academicTerm": "Fall-2017",
+          "coursesPerSemester": [
+            1,
+            2,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            3,
+            2,
+            0,
+            4,
+            4,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_212-1",
+            "ics_241-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_321-1",
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
+            "ics_332-1",
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
+            "ics_400+-1",
+            "ics_621-1",
+            "ics_400+-2",
+            "ics_414-1",
+            "ics_635-1",
+            "ics_600+-1",
+            "ics_600+-2",
+            "ics_600+-3",
+            "ics_699,ics_700-1",
+            "ics_600+4",
+            "ics_600+-5",
+            "ics_699,ics_700-2",
+            "ics_690-1"
+          ],
+          "retired": false
+        },
+        {
+          "slug": "bs-ms-ds",
+          "degreeSlug": "bs-cs",
+          "name": "B.S./M.S. in Computer Science Data Science (2017)",
+          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
+          "academicTerm": "Fall-2017",
+          "coursesPerSemester": [
+            1,
+            1,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            4,
+            4,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_211-1",
+            "ics_212-1",
+            "ics_235-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_321-1",
+            "ics_435-1",
+            "ics_434-1",
+            "ics_484-1",
+            "ics_438-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_635-1",
+            "ics_600+-1",
+            "ics_600+-2",
+            "ics_600+-3",
+            "ics_699,ics_700-1",
+            "ics_600+-4",
+            "ics_600+-5",
+            "ics_699,ics_700-2",
+            "ics_690-1"
+          ],
+          "retired": false
+        },
+        {
+          "slug": "bs-ms-ss",
+          "degreeSlug": "bs-cs",
+          "name": "B.S./M.S. in Computer Science Security Science (2017)",
+          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
+          "academicTerm": "Fall-2017",
+          "coursesPerSemester": [
+            1,
+            3,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            4,
+            4,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_222-1",
+            "ics_212-1",
+            "ics_241-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_321-1",
+            "ics_355-1",
+            "ics_312,ics_331,ics_332-1",
+            "ics_351,ics_451",
+            "ics_423-1",
+            "ics_425,ics_426,ics_455,ics_495-1",
+            "ics_425,ics_426,ics_455,ics_495-2",
+            "ics_425,ics_426,ics_455,ics_495-3",
+            "ics_600+-1",
+            "ics_600+-2",
+            "ics_600+-3",
+            "ics_699,ics_700-1",
+            "ics_600+-4",
+            "ics_600+-5",
+            "ics_699,ics_700-2",
+            "ics_690-1"
+          ],
+          "retired": false
         }
       ]
     },
@@ -987,7 +1138,8 @@
           "description": "Forces, resultants, and equilibrium; analysis of trusses, frames, and machines; centroids, moments of inertia; friction.",
           "creditHrs": 3,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Programming for Engineers",
@@ -997,7 +1149,8 @@
           "description": "Introductory course on computer programming and modern computing environments in C with an emphasis on algorithm and program design, implementation, and debugging. Includes a hands-on laboratory to develop and practice programming skills.",
           "creditHrs": 4,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Object Oriented Programming",
@@ -1009,7 +1162,8 @@
           "interests": [],
           "prerequisites": [
             "ee_160"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Basic Circuit Analysis I",
@@ -1019,7 +1173,8 @@
           "description": "Linear passive circuits, time domain analysis, transient and steady-state responses, phasors, impedance and admittance; power and energy, frequency responses, resonance.",
           "creditHrs": 4,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Basic Circuit Analysis II",
@@ -1031,7 +1186,8 @@
           "interests": [],
           "prerequisites": [
             "ee_211"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Introduction to Digital Design",
@@ -1043,7 +1199,8 @@
           "interests": [],
           "prerequisites": [
             "ee_160"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Sophomore Project",
@@ -1053,7 +1210,8 @@
           "description": "Sophomore level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills.",
           "creditHrs": 3,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Signal and Systems Analysis",
@@ -1065,7 +1223,8 @@
           "interests": [],
           "prerequisites": [
             "ee_213"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Microelectronic Circuits I",
@@ -1077,7 +1236,8 @@
           "interests": [],
           "prerequisites": [
             "ee_213"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Physical Electronics",
@@ -1087,7 +1247,8 @@
           "description": "Review of quantum mechanics fundamentals, H-atom, and chemical bonding. Introduction to band structure models and materials. Semiconductor doping, charge carrier statistics and charge transport, including ambipolar transport. Metal-semiconductor and PN junctions.",
           "creditHrs": 3,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Probability and Statistics",
@@ -1099,7 +1260,8 @@
           "interests": [],
           "prerequisites": [
             "ee_315"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Digital Systems and Computer Design",
@@ -1112,7 +1274,8 @@
           "prerequisites": [
             "ee_160",
             "ee_260"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Discrete Math for Engineers",
@@ -1125,7 +1288,8 @@
           "prerequisites": [
             "ee_160",
             "ee_260"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Computer Data Structures and Algorithms",
@@ -1138,7 +1302,8 @@
           "prerequisites": [
             "ee_205",
             "ics_141"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Engineering Electromagnetics I",
@@ -1150,7 +1315,8 @@
           "interests": [],
           "prerequisites": [
             "ee_213"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Junior Project",
@@ -1162,7 +1328,8 @@
           "interests": [],
           "prerequisites": [
             "ee_296"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Introduction to Computer and Network Security",
@@ -1174,7 +1341,8 @@
           "interests": [],
           "prerequisites": [
             "ee_367"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Object-oriented Software Engineering",
@@ -1186,7 +1354,8 @@
           "interests": [],
           "prerequisites": [
             "ee_367"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Introduction to Operating Systems",
@@ -1199,7 +1368,8 @@
           "prerequisites": [
             "ee_361",
             "ee_367"
-          ]
+          ],
+          "retired": true
         },
         {
           "name": "Ethics in Electrical Engineering",
@@ -1209,7 +1379,8 @@
           "description": "Equip electrical engineers with the necessary background for ethical reasoning, as it pertains to technology, society, workplace issues, and the environment.",
           "creditHrs": 1,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Capstone Design Project",
@@ -1219,7 +1390,8 @@
           "description": "Significant project integrating the design content of previous courses and incorporating engineering standards and realistic constraints. Written report must document all aspects of the design process: reliability, safety, economics, ethics.",
           "creditHrs": 1,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Digital Tools for the Information World",
@@ -2135,6 +2307,486 @@
           ]
         },
         {
+          "name": "Master’s Plan B/C Studies",
+          "shortName": "Plan B/C",
+          "slug": "ics_500",
+          "num": "ICS 500",
+          "description": "Enrollment for degree completion.",
+          "creditHrs": 1,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Intelligent Autonomous Agents",
+          "shortName": "Intelligent Autonomous Agents",
+          "slug": "ics_606",
+          "num": "ICS 606",
+          "description": "Theory, methods and practical applications of autonomous agent systems, including common applications of both software and hardware (robotic) agents. In-depth practical experience with autonomous agents through programming assignments and projects.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_313"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Compiler Theory and Construction",
+          "shortName": "Compilers",
+          "slug": "ics_611",
+          "num": "ICS 611",
+          "description": "Design and implementation of compilers, syntactic and semantic descriptions of programming languages, algorithms for syntactic analysis and object code generation",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_312"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Theory of Operating Systems",
+          "shortName": "Operating Systems",
+          "slug": "ics_612",
+          "num": "ICS 612",
+          "description": "Advanced study in operating systems theory and design with emphasis on case studies and distributed systems.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Advanced Software Engineering",
+          "shortName": "Advanced Software Engineering",
+          "slug": "ics_613",
+          "num": "ICS 613",
+          "description": "Fundamental software engineering procedures, including planning, estimation, design, testing, process definition and improvement, and software quality assurance. Measurement techniques are used to support empirically-driven software process improvement throughout the course.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_414"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Medical Informatics I",
+          "shortName": "Medical Informatics I",
+          "slug": "ics_614",
+          "num": "ICS 614",
+          "description": "Introduction to the field of medical informatics, which is found at the intersection of clinical science, public health, information science, computer technology and communications technology. Concentration on current issues.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Information Architecture and Web Design",
+          "shortName": "Information Architecture and Web Design",
+          "slug": "ics_616",
+          "num": "ICS 616",
+          "description": "User-centered design of websites; survey Information Architecture (IA) systems (organization, navigation, labeling, searching); gain experience in methodologies for creating IA, tools for IA, web standards and usability tests. ICS and LIS majors only. A-F only.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Analysis of Algorithms",
+          "shortName": "Analysis of Algorithms",
+          "slug": "ics_621",
+          "num": "ICS 621",
+          "description": "Analysis and design of algorithms: modeling, comparison, measures, applications.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_311"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Network Science",
+          "shortName": "Network Science",
+          "slug": "ics_622",
+          "num": "ICS 622",
+          "description": "Modeling human-made and natural systems as networks to understand their structure and dynamics. Computational and statistical methods and research results they enabled. Use of network analysis software. Applications to topics of interest to students.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Advanced Cryptography",
+          "shortName": "Advanced Cryptography",
+          "slug": "ics_623",
+          "num": "ICS 623",
+          "description": "Taxonomy of security properties: methods for defining and proving security. Randomness, pseudorandomness, and indistinguishability. Functional encryption and obfuscation. Zero knowledge.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_423",
+            "ics_455"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Advanced Data Management",
+          "shortName": "Advanced Data Management",
+          "slug": "ics_624",
+          "num": "ICS 624",
+          "description": "Exploration of information retrieval and object-relational tools and methods for the management of distributed multimedia database systems.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_321,ics_421"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Principles of High Performance Computing",
+          "shortName": "Principles of High Performance Computing",
+          "slug": "ics_632",
+          "num": "ICS 632",
+          "description": "Principles of high performance computing for single-processor and parallel architectures. Detailed coverage of parallel architectures and exposure to shared-memory, distributed-memory, and hybrid parallelism. Hands-on experience with message-passing and multi-threaded programming. A-F only.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Machine Learning",
+          "shortName": "Machine Learning",
+          "slug": "ics_635",
+          "num": "ICS 635",
+          "description": "Introduction to key theoretical concepts of machine learning. Practical experience with decision free methods, artificial neural networks. Bayesian belief networks and contemporary statistical methods including regression, clustering and classification.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Information Theory in Machine Learning",
+          "shortName": "Information Theory in Machine Learning",
+          "slug": "ics_636",
+          "num": "ICS 636",
+          "description": "Basics of information processing and learning in the brain; neural networks; learning algorithms based on information maximization; applications in molecular biology and bioinformatics. A-F only.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Advanced Theory of Computation",
+          "shortName": "Advanced Theory of Computation",
+          "slug": "ics_641",
+          "num": "ICS 641",
+          "description": "Advanced topics in formal languages, automata, computability, computational complexity.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_441"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Advanced Parallel Algorithms",
+          "shortName": "Advanced Parallel Algorithms",
+          "slug": "ics_643",
+          "num": "ICS 643",
+          "description": "Design and analysis of parallel algorithms, with emphasis on advanced techniques and latest advances in parallel algorithms.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_311"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Computer Networks",
+          "shortName": "Computer Networks",
+          "slug": "ics_651",
+          "num": "ICS 651",
+          "description": "Elementary principles of modern computer networking. Detailed coverage of overall architecture and the physical, data link, and network layers, with emphasis on the network layer.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_451"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Security and Trust III: Cyber Security and Commerce",
+          "shortName": "Security and Trust III",
+          "slug": "ics_655",
+          "num": "ICS 655",
+          "description": "Tools and methods for security managers. Tools and methods to secure and monetize services and applications. Network as a computer and as a market. Problems of cyber war, cyber crime, cyber bullying.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Computer Architecture I",
+          "shortName": "Computer Architecture I",
+          "slug": "ics_660",
+          "num": "ICS 660",
+          "description": "Models of computation, high-performance processors, pipelined machines, RISC processors, VLIW, superscalar and fine-grain parallel machines. Data-flow architectures. Hardware/software tradeoffs.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Advanced Artificial Intelligence",
+          "shortName": "Advanced Artificial Intelligence",
+          "slug": "ics_661",
+          "num": "ICS 661",
+          "description": "Current issues in artificial intelligence, including expert systems, knowledge representation, logic programming, learning, natural language processing.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_461"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Pattern Recognition",
+          "shortName": "Pattern Recognition",
+          "slug": "ics_663",
+          "num": "ICS 663",
+          "description": "Nature of the problem in pattern recognition and clustering; explanation of various algorithms.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Human-Computer Interaction II",
+          "shortName": "Human-Computer Interaction II",
+          "slug": "ics_664",
+          "num": "ICS 664",
+          "description": "Studies of human performance in designing and using information systems. Emphasizes concepts and methodologies from human factors, psychology, and software engineering relating to human performance.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_464"
+          ],
+          "retired": false
+        },
+        {
+          "name": "User Interfaces and Hypermedia",
+          "shortName": "User Interfaces and Hypermedia",
+          "slug": "ics_665",
+          "num": "ICS 665",
+          "description": "Advanced concepts in construction of interfaces between computers and their users. Hypermedia information structures, guidelines, problems, and tradeoffs. Discussion of selected readings, implementation of prototypes.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_465"
+          ],
+          "retired": false
+        },
+        {
+          "name": "HCI Design Methods",
+          "shortName": "HCI Design Methods",
+          "slug": "ics_667",
+          "num": "ICS 667",
+          "description": "Advanced analytical and empirical methods for the design and evaluation of usable, useful, and robust human-computer interfaces. Students will apply selected methodologies to a major system design project.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_464,ics_465"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Social Informatics",
+          "shortName": "Social Informatics",
+          "slug": "ics_668",
+          "num": "ICS 668",
+          "description": "An advanced introduction to the design of human-computer systems and other technological artifacts for supporting human collaboration in learning, work and social contexts, and to theoretical perspectives and empirical studies of collaboration that inform such design. A-F only.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_464,ics_465,ics_664,ics_665"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Social Computing",
+          "shortName": "Social Computing",
+          "slug": "ics_669",
+          "num": "ICS 669",
+          "description": "Participative analysis of online communities and user-generated content collections. Theoretical and practical aspects of online interaction, identity, trust, and virtual social capital. A-F only.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Evolutionary Computation I: Survey of Methods",
+          "shortName": "Evolutionary Computation I",
+          "slug": "ics_674",
+          "num": "ICS 674",
+          "description": "Evolutionary computation surveys in the field to prepare students for research. Topics include diverse engineering applications, theory, and concepts including search spaces, representation, objective functions, variation operators, selection, and population based search.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_211",
+            "ics_241"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Bioinformatics: Sequences Analysis",
+          "shortName": "Bioinformatics: Sequences Analysis",
+          "slug": "ics_675",
+          "num": "ICS 675",
+          "description": "To expose students to bioinformatics at the biological sequences analysis level (DNA, RNA, proteins). Several bioinformatics methods and algorithms are introduced. Students are required to present one paper and to participate in a small group project. A-F only.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_475"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Bioinformatics: Microarrays",
+          "shortName": "Bioinformatics: Microarrays",
+          "slug": "ics_676",
+          "num": "ICS 676",
+          "description": "Introduction to the basic principles of biology relevant for microarray gene expression data and to Bioconductor. Collaborative open-source project to develop a modular general framework for the analysis of cDNA arrays and gene chips. A-F only. (Once a year)",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_311"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Computer Graphics",
+          "shortName": "Computer Graphics",
+          "slug": "ics_681",
+          "num": "ICS 681",
+          "description": "Selected advanced topics in computer graphics. Substantial project required.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_481"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Numerical Computation",
+          "shortName": "Numerical Computation",
+          "slug": "ics_682",
+          "num": "ICS 682",
+          "description": "Selected topics in numerical analysis, mathematical software, and scientific computation; examples include sparse matrix methods, finite element methods, mathematical programming.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Advanced Computer Vision",
+          "shortName": "Advanced Computer Vision",
+          "slug": "ics_683",
+          "num": "ICS 683",
+          "description": "Fundamental problems and core concepts and techniques in computer vision, covering both theoretical and practical issues in the field. A-F only. (Once a year)",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [
+            "ics_483"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Virtual and Augmented Reality",
+          "shortName": "Virtual and Augmented Reality",
+          "slug": "ics_685",
+          "num": "ICS 685",
+          "description": "Students will learn the science, engineering, art, and applications of virtual reality and augmented reality, with an emphasis on the construction of working virtual environments. Graduate students only. (Fall only)",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Digital Video Information",
+          "shortName": "Digital Video Information",
+          "slug": "ics_686",
+          "num": "ICS 686",
+          "description": "Principles and techniques of technical and context analysis of digital video information. Video capture and editing tools, compression and analysis algorithms, visual culture, narrative structure, juxtaposition of multimedia elements and their effects on information transmission. Pre: graduate standing or consent. (Alt. years)",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Seminar in ICS",
+          "shortName": "Seminar in ICS",
+          "slug": "ics_690",
+          "num": "ICS 690",
+          "description": "Series of talks on advanced research topics. Repeatable unlimited times.CR/NC only.",
+          "creditHrs": 1,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Topics in Computer Science",
+          "shortName": "Topics in Computer Science",
+          "slug": "ics_691",
+          "num": "ICS 691",
+          "description": "Reflects special interests of faculty in various areas of computer science. (B) area 1; (C) area 2; (D) area 3; (E) area 4; (G) general. Repeatable unlimited times in different topics and different areas. Pre: consent.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Advanced Special Topics in Security",
+          "shortName": "Advanced Special Topics in Security",
+          "slug": "ics_695",
+          "num": "ICS 695",
+          "description": "Current topics and upcoming issues relevant to the field of information assurance and cyber security. Repeatable unlimited times. (Alt. years: spring)",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Directed Reading/Research",
+          "shortName": "Directed Reading/Research",
+          "slug": "ics_699",
+          "num": "ICS 699",
+          "description": "Repeatable unlimited times. Pre: graduate standing and consent.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Thesis Research",
+          "shortName": "Thesis Research",
+          "slug": "ics_700",
+          "num": "ICS 700",
+          "description": "Research for master’s thesis. Repeatable unlimited times.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Dissertation Research",
+          "shortName": "Dissertation Research",
+          "slug": "ics_800",
+          "num": "ICS 800",
+          "description": "Research for doctoral dissertation. Repeatable eight times. Pre: candidacy for PhD in computer science.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
           "name": "Thermodynamics",
           "shortName": "Thermodynamics",
           "slug": "me_311",
@@ -2142,7 +2794,8 @@
           "description": "Basic laws, closed and open systems. Work, heat, concept of entropy. Properties of pure simple substances. Ideal gases. Introduction to power and refrigeration cycles.",
           "creditHrs": 4,
           "interests": [],
-          "prerequisites": []
+          "prerequisites": [],
+          "retired": true
         },
         {
           "name": "Non Computer Science Course",
