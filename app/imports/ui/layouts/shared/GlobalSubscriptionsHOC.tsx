@@ -22,6 +22,8 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface ILoading {
   loading: boolean;
@@ -29,7 +31,7 @@ interface ILoading {
 
 // cacheLimit default is 10, so increased to handle all our subscriptions.
 // expireLimit set to 30 minutes because: why not.
-const globalSubs = new SubsManager({ cacheLimit: 21, expireIn: 30 });
+const globalSubs = new SubsManager({ cacheLimit: 22, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
   class GlobalSubscription extends React.Component<ILoading> {
@@ -47,6 +49,7 @@ function withGlobalSubscription(WrappedComponent) {
   return withTracker(() => {
     const handles = [
       globalSubs.subscribe(AcademicPlans.getPublicationName()),
+      globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       globalSubs.subscribe(CareerGoals.getPublicationName()),
       globalSubs.subscribe(Courses.getPublicationName()),
@@ -59,8 +62,9 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(Opportunities.getPublicationName()),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PlanChoices.getPublicationName()),
+      globalSubs.subscribe(PublicStats.getPublicationName()),
+      globalSubs.subscribe(RadGradSettings.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
-      globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(StudentProfiles.getPublicationName()),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),

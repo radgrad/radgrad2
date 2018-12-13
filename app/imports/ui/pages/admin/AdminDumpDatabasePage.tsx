@@ -3,10 +3,9 @@ import { Grid, Message } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
-class AdminDatabasePage extends React.Component {
+class AdminDumpDatabasePage extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
     const paddedStyle = {
@@ -22,9 +21,7 @@ class AdminDatabasePage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={11}>
-          <Message floating={true}>
-            Click on a page in the menu to the left.
-          </Message>
+            buttons to dump the database
           </Grid.Column>
         </Grid>
       </div>
@@ -32,6 +29,6 @@ class AdminDatabasePage extends React.Component {
   }
 }
 
-const AdminDatabasePageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminDatabasePage));
+const AdminDumpDatabasePageContainer = withGlobalSubscription(AdminDumpDatabasePage);
 
-export default AdminDatabasePageContainer;
+export default AdminDumpDatabasePageContainer;
