@@ -60,7 +60,6 @@ class LandingCoursesCardExplorer extends React.Component<ICoursesCardExplorerPro
               </Segment>
             </Grid.Column>
           </Grid.Row>
-
         </Grid>
       </div>
     );
