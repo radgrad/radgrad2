@@ -1,3 +1,13 @@
+declare global {
+  namespace Assets {
+    function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
+
+    function getText(assetPath: string, asyncCallback?: () => void): string;
+
+    function absoluteFilePath(assetPath: string): string;
+  }
+}
+
 export interface Ice {
   i: number;
   c: number;
@@ -15,10 +25,10 @@ export interface IAcademicPlan {
   description: string;
   slugID: string;
   degreeID: string;
-  effectiveSemesterID: string;
-  semesterNumber: number;
+  effectiveAcademicTermID: string;
+  academicTermNumber: number;
   year: number;
-  coursesPerSemester: number[];
+  coursesPerAcademicTerm: number[];
   courseList: string[];
   isBAM?: boolean;
 }
@@ -28,8 +38,8 @@ export interface IAcademicPlanDefine extends IDumpOne {
   degreeSlug: string;
   name: string;
   description: string;
-  semester: string;
-  coursesPerSemester: number[];
+  academicTerm: string;
+  coursesPerAcademicTerm: number[];
   courseList: string[];
   retired?: boolean;
 }
@@ -37,8 +47,8 @@ export interface IAcademicPlanDefine extends IDumpOne {
 export interface IAcademicPlanUpdate {
   degreeSlug?: string;
   name?: string;
-  semester?: string;
-  coursesPerSemester?: number[];
+  academicTerm?: string;
+  coursesPerAcademicTerm?: number[];
   courseList?: string[];
   retired?: boolean;
 }
@@ -86,7 +96,7 @@ export interface ICareerGoalUpdate {
 
 // CourseInstances
 export interface ICourseInstanceDefine extends IDumpOne {
-  semester: string;
+  academicTerm: string;
   course: string;
   verified?: boolean;
   fromSTAR?: boolean;
@@ -97,7 +107,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
 }
 
 export interface ICourseInstanceUpdate {
-  semesterID?: string;
+  termID?: string;
   verified?: boolean;
   fromSTAR?: boolean;
   grade?: string;
@@ -176,7 +186,7 @@ export interface IFeedDefine extends IDumpOne {
   user?: string;
   course?: string;
   opportunity?: string;
-  semester?: string;
+  academicTerm?: string;
   level?: number;
   feedType: string;
   timestamp?: Date;
@@ -187,7 +197,7 @@ export interface IFeedUpdate {
   users?: string[];
   opportunity?: string;
   course?: string;
-  semester?: string;
+  academicTerm?: string;
 }
 
 // FeedBackInstances
@@ -300,7 +310,7 @@ export interface IOpportunity {
   opportunityTypeID: string;
   sponsorID: string;
   interestIDs: string[];
-  semesterIDs: string[];
+  termIDs: string[];
   // Optional data
   eventDate?: Date;
   ice?: Ice;
@@ -314,7 +324,7 @@ export interface IOpportunityDefine extends IDumpOne {
   opportunityType: string;
   sponsor: string;
   interests: string[];
-  semesters: string[];
+  academicTerms: string[];
   ice: Ice;
   eventDate?: any;
   retired?: boolean;
@@ -326,7 +336,7 @@ export interface IOpportunityUpdate {
   opportunityType?: string;
   sponsor?: string;
   interests?: string[];
-  semesters?: string[];
+  academicTerms?: string[];
   eventDate?: any;
   ice?: Ice;
   retired?: boolean;
@@ -338,7 +348,7 @@ export interface IOpportunityUpdateData {
   opportunityTypeID?: string;
   sponsorID?: string;
   interestIDs?: string[];
-  semesterIDs?: string[];
+  termIDs?: string[];
   eventDate?: any;
   ice?: Ice;
   retired?: boolean;
@@ -346,7 +356,7 @@ export interface IOpportunityUpdateData {
 
 // OpportunityInstances
 export interface IOpportunityInstanceDefine extends IDumpOne {
-  semester: string;
+  academicTerm: string;
   opportunity: string;
   sponsor?: string;
   verified: boolean;
@@ -354,7 +364,7 @@ export interface IOpportunityInstanceDefine extends IDumpOne {
 }
 
 export interface IOpportunityInstanceUpdate {
-  semesterID?: string;
+  termID?: string;
   verified?: boolean;
   ice?: Ice;
 }
@@ -419,7 +429,7 @@ export interface IMentorProfileUpdate extends IProfileUpdate {
 
 export interface IStudentProfileDefine extends IProfileDefine {
   level: number;
-  declaredSemester?: string;
+  declaredAcademicTerm?: string;
   academicPlan?: string;
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
@@ -428,7 +438,7 @@ export interface IStudentProfileDefine extends IProfileDefine {
 
 export interface IStudentProfileUpdate extends IProfileUpdate {
   level?: number;
-  declaredSemester?: string;
+  declaredAcademicTerm?: string;
   academicPlan?: string;
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
@@ -437,7 +447,7 @@ export interface IStudentProfileUpdate extends IProfileUpdate {
 
 export interface IStudentProfileUpdateData {
   level?: number;
-  declaredSemesterID?: string;
+  declaredAcademicTermID?: string;
   academicPlanID?: string;
   hiddenCourseIDs?: string[];
   hiddenOpportunityIDs?: string[];
@@ -450,7 +460,7 @@ export interface IReviewDefine extends IDumpOne {
   student: string;
   reviewType: string;
   reviewee: string;
-  semester: string;
+  academicTerm: string;
   rating?: number;
   comments: string;
   moderated?: boolean;
@@ -459,7 +469,7 @@ export interface IReviewDefine extends IDumpOne {
 }
 
 export interface IReviewUpdate {
-  semester?: string;
+  academicTerm?: string;
   rating?: number;
   comments?: string;
   moderated?: boolean;
@@ -468,7 +478,7 @@ export interface IReviewUpdate {
 }
 
 export interface IReviewUpdateData {
-  semesterID?: string;
+  termID?: string;
   rating?: number;
   comments?: string;
   moderated?: boolean;
@@ -476,15 +486,24 @@ export interface IReviewUpdateData {
   moderatorComments?: string;
 }
 
-// Semesters
-export interface ISemesterDefine extends IDumpOne {
+// AcademicTerms
+export interface IAcademicTermDefine extends IDumpOne {
   term: string;
   year: number;
   retired?: boolean;
 }
 
-export interface ISemesterUpdate {
+export interface IAcademicTermUpdate {
   retired?: boolean;
+}
+
+// RadGradSettings
+export interface ISettingsDefine extends IDumpOne {
+  quarterSystem: boolean;
+}
+
+export interface ISettingsUpdate {
+  quarterSystem?: boolean;
 }
 
 // Slugs
@@ -550,6 +569,6 @@ export interface IVerificationRequestDefine extends IDumpOne {
   submittedOn?: any;
   status?: string;
   processed?: any[];
-  semester?: string;
+  academicTerm?: string;
   opportunity?: string;
 }

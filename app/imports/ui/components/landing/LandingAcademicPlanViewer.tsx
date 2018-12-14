@@ -9,11 +9,11 @@ interface ILandingAcademicPlanViewerProps {
   plan: IAcademicPlan;
 }
 
-function getCourses(plan, yearNum, semesterNum) {
+function getCourses(plan, yearNum, termNum) {
   const ret = [];
-  const totalSem = (3 * yearNum) + semesterNum;
-  // console.log(`courses(${yearNumber}, ${semesterNumber}) ${totalSem}`);
-  const numCoursesList = plan.coursesPerSemester.slice(0);
+  const totalSem = (3 * yearNum) + termNum;
+  // console.log(`courses(${yearNumber}, ${termNumber}) ${totalSem}`);
+  const numCoursesList = plan.coursesPerAcademicTerm.slice(0);
   const numCourses = numCoursesList[totalSem];
   const courseList = plan.courseList.slice(0);
   let i = 0;
@@ -25,13 +25,14 @@ function getCourses(plan, yearNum, semesterNum) {
     const course = courseList.splice(0, 1);
     ret.push(course[0]);
   }
-  // console.log(`yearNum ${yearNum} semester ${semesterNum}`, ret);
+  // console.log(`yearNum ${yearNum} term ${termNum}`, ret);
   return ret;
 }
 
 const LandingAcademicPlanViewer = (props: ILandingAcademicPlanViewerProps) => {
+  // console.log(props.plan);
   const plan = props.plan;
-  const numYears = props.plan.isBAM ? 5 : 4;
+  const numYears = props.plan.coursesPerAcademicTerm.length === 15 ? 5 : 4;
   return (
     <Grid stackable={true} padded={true} columns={numYears}>
       <Grid.Column>
@@ -66,11 +67,14 @@ const LandingAcademicPlanViewer = (props: ILandingAcademicPlanViewerProps) => {
         <Header>Summer</Header>
         {getCourses(props.plan, 3, 2).map((c) => (<Label key={c} basic={true} color="green">{PlanChoiceCollection.toStringFromSlug(c)}</Label>))}
       </Grid.Column>
-      {props.plan.isBAM ? (
+      {props.plan.coursesPerAcademicTerm.length === 15 ? (
         <Grid.Column>
           <Header>Fall</Header>
+          {getCourses(props.plan, 4, 0).map((c) => (<Label key={c} basic={true} color="green">{PlanChoiceCollection.toStringFromSlug(c)}</Label>))}
           <Header>Spring</Header>
+          {getCourses(props.plan, 4, 1).map((c) => (<Label key={c} basic={true} color="green">{PlanChoiceCollection.toStringFromSlug(c)}</Label>))}
           <Header>Summer</Header>
+          {getCourses(props.plan, 4, 2).map((c) => (<Label key={c} basic={true} color="green">{PlanChoiceCollection.toStringFromSlug(c)}</Label>))}
         </Grid.Column>
       ) : ''}
     </Grid>

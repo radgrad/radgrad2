@@ -4,7 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Users } from '../user/UserCollection';
 import { advisorLogsDefineMethod } from '../log/AdvisorLogCollection.methods';
@@ -34,10 +34,10 @@ function processStudentStarDefinitions(advisor, student, definitions) {
   // console.log('create new instances');
   const departments = {};
   _.forEach(definitions, (definition) => {
-    // console.log('semesterID', semesterID);
+    // console.log('termID', termID);
     // console.log(definition);
     if (definition.course !== Courses.unInterestingSlug) {
-      const semesterID = Semesters.findIdBySlug(definition.semester);
+      const termID = AcademicTerms.findIdBySlug(definition.semester);
       const department = getDepartment(definition.course);
       if (!(department in departments)) {
         departments[department] = 1;
@@ -47,7 +47,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
       numInterstingCourses += 1;
       const courseID = Courses.findIdBySlug(definition.course);
       // console.log('courseID', courseID);
-      const planning = CourseInstances.find({ studentID, semesterID, courseID, verified: false }).fetch();
+      const planning = CourseInstances.find({ studentID, termID, courseID, verified: false }).fetch();
       // console.log('planning', planning);
       if (planning.length > 0) {
         CourseInstances.removeIt(planning[0]._id);

@@ -5,7 +5,7 @@ import { VerificationRequests } from './VerificationRequestCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 
@@ -32,23 +32,23 @@ export const verificationRequestsUpdateStatusMethod = new ValidatedMethod({
  * Returns the opportunityInstanceID associated with the student and opportunity, or null if not found.
  * @param student The student.
  * @param opportunity The opportunity.
- * @param semester The semester
+ * @param academicTerm The academicTerm
  * @returns The opportunityInstanceID, or null if it wasn't found.
  * @memberOf api/verification
  */
-function getOpportunityInstanceID(student, opportunity, semester) {
+function getOpportunityInstanceID(student, opportunity, academicTerm) {
   const studentID = Users.getID(student);
   const opportunityID = Opportunities.getID(opportunity);
-  const semesterID = Semesters.getID(semester);
-  const opportunityInstances = OpportunityInstances.find({ opportunityID, studentID, semesterID }).fetch();
+  const termID = AcademicTerms.getID(academicTerm);
+  const opportunityInstances = OpportunityInstances.find({ opportunityID, studentID, termID }).fetch();
   return (opportunityInstances.length > 0) ? opportunityInstances[0]._id : null;
 }
 
 /**
  * This Meteor Method processes a request to verify an opportunity for a given user from the VerificationEvent page.
- * The method is passed a student, opportunity, and semester, which should normally be valid.
+ * The method is passed a student, opportunity, and academicTerm, which should normally be valid.
  * Processing this request involves the following:
- *   * If the student does not have an Opportunity Instance for this opportunity and semester, then one is created
+ *   * If the student does not have an Opportunity Instance for this opportunity and academicTerm, then one is created
  *     for them.
  *   * If the student has not already submitted a Verification Request for their Opportunity Instance, then one is
  *     created for them.
@@ -63,7 +63,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
   name: 'VerificationRequests.processVerificationEvent',
   validate: null,
   mixins: [CallPromiseMixin],
-  run({ student, opportunity, semester, verified = false }: { student: string; opportunity: string; semester: string; verified?: boolean; }) {
+  run({ student, opportunity, academicTerm, verified = false }: { student: string; opportunity: string; academicTerm: string; verified?: boolean; }) {
     // Define a string to hold the result of this process.
     let resultMessage = '';
 
@@ -71,10 +71,10 @@ export const processVerificationEventMethod = new ValidatedMethod({
     VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
 
     // Make sure there's an opportunity instance for this student.
-    let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, semester);
+    let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, academicTerm);
     if (!opportunityInstanceID) {
       resultMessage += '  No opportunity instance found. Defining a new one.\n';
-      opportunityInstanceID = OpportunityInstances.define({ semester, opportunity, student, verified });
+      opportunityInstanceID = OpportunityInstances.define({ academicTerm, opportunity, student, verified });
     }
 
     // Make sure there's a verification request for this opportunity instance.
@@ -97,7 +97,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
 
     // Create a Feed entry for this verification event.
     resultMessage += '  Creating a feed entry.\n';
-    Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, semester });
+    Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, academicTerm });
 
     return resultMessage;
   },
@@ -147,9 +147,9 @@ export const processPendingVerificationMethod = new ValidatedMethod({
     if (verified) {
       const opportunityInstanceID = requestDoc.opportunityInstanceID;
       const opportunity = OpportunityInstances.getOpportunityDoc(opportunityInstanceID)._id;
-      const semesterDoc = OpportunityInstances.getSemesterDoc(opportunityInstanceID);
-      const semester = `${semesterDoc.term}-${semesterDoc.year}`;
-      Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, semester });
+      const academicTermDoc = OpportunityInstances.getAcademicTermDoc(opportunityInstanceID);
+      const academicTerm = `${academicTermDoc.term}-${academicTermDoc.year}`;
+      Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, academicTerm });
     }
     return `Verification request for ${student} was processed`;
   },

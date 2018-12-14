@@ -1,46 +1,46 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { AcademicYearInstances } from './AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 
 /**
- * Returns the student's current semester number (i.e. which semester are they currently in.)
+ * Returns the student's current academicTerm number (i.e. which academicTerm are they currently in.)
  * @param studentID the studentID.
  * @returns {number}
  * @memberOf api/degree-plan
  */
-export function getStudentsCurrentSemesterNumber(studentID: string) {
+export function getStudentsCurrentAcademicTermNumber(studentID: string) {
   const cis = CourseInstances.find({ studentID }).fetch();
-  let firstSemester;
+  let firstAcademicTerm;
   _.forEach(cis, (ci) => {
-    const semester = Semesters.findDoc(ci.semesterID);
-    if (!firstSemester) {
-      firstSemester = semester;
-    } else if (semester.semesterNumber < firstSemester.semesterNumber) {
-      firstSemester = semester;
+    const academicTerm = AcademicTerms.findDoc(ci.termID);
+    if (!firstAcademicTerm) {
+      firstAcademicTerm = academicTerm;
+    } else if (academicTerm.termNumber < firstAcademicTerm.termNumber) {
+      firstAcademicTerm = academicTerm;
     }
   });
-  const currentSemester = Semesters.getCurrentSemesterDoc();
-  return (currentSemester.semesterNumber - firstSemester.semesterNumber) + 1;
+  const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  return (currentAcademicTerm.termNumber - firstAcademicTerm.termNumber) + 1;
 }
 
 /**
- * Returns an array of the semesterIDs that the student has taken or is planning to take courses or opportunities
+ * Returns an array of the academicTermIDs that the student has taken or is planning to take courses or opportunities
  * in.
  * @param studentID the studentID.
  * @memberOf api/degree-plan
  */
-export function getStudentSemesters(studentID: string) {
+export function getStudentTerms(studentID: string) {
   const years = AcademicYearInstances.find({ studentID }, { $sort: { year: 1 } }).fetch();
-  let semesters = [];
+  let academicTerms = [];
   _.forEach(years, (ay) => {
-    semesters = _.concat(semesters, ay.semesterIDs);
+    academicTerms = _.concat(academicTerms, ay.termIDs);
   });
   const cis = CourseInstances.find({ studentID }).fetch();
-  let courseSemesters = [];
+  let courseAcademicTerms = [];
   _.forEach(cis, (ci) => {
-    courseSemesters.push(ci.semesterID);
+    courseAcademicTerms.push(ci.termID);
   });
-  courseSemesters = _.uniq(courseSemesters);
-  return semesters;
+  courseAcademicTerms = _.uniq(courseAcademicTerms);
+  return academicTerms;
 }

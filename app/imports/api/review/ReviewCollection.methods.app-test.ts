@@ -13,7 +13,7 @@ if (Meteor.isClient) {
       student: 'abi@hawaii.edu',
       reviewType: 'course',
       reviewee: 'ics_111',
-      semester: 'Fall-2016',
+      academicTerm: 'Fall-2016',
       rating: 3,
       comments: 'This is great!',
     };

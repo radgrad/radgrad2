@@ -6,7 +6,7 @@ import { FeedbackInstances } from './FeedbackInstanceCollection';
 import { clearFeedbackInstancesMethod } from './FeedbackInstanceCollection.methods';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import * as courseUtils from '../course/CourseUtilities';
 import * as oppUtils from '../opportunity/OpportunityUtilities';
@@ -26,7 +26,7 @@ import { Users } from '../user/UserCollection';
  * @example
  * import { FeedbackFunctions } from '../feedback/FeedbackFunctions';
  *   :
- * FeedbackFunctions.recommendedCoursesThisSemesterByInterest(studentID);
+ * FeedbackFunctions.recommendedCoursesThisAcademicTermByInterest(studentID);
  * @class FeedbackFunctions
  * @memberOf api/feedback
  */
@@ -39,7 +39,7 @@ export class FeedbackFunctionClass {
   public checkPrerequisites(user: string) {
     const functionName = 'checkPrerequisites';
     const feedbackType = FeedbackInstances.WARNING;
-    const currentSemester = Semesters.getCurrentSemesterDoc();
+    const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const studentID = Users.getID(user);
 
     // First clear any feedback instances previously created for this student.
@@ -48,9 +48,9 @@ export class FeedbackFunctionClass {
     // Now iterate through all the CourseInstances associated with this student.
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
-      const semester = Semesters.findDoc(ci.semesterID);
-      if (semester.semesterNumber > currentSemester.semesterNumber) {
-        const semesterName = Semesters.toString(ci.semesterID, false);
+      const academicTerm = AcademicTerms.findDoc(ci.termID);
+      if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
+        const academicTermName = AcademicTerms.toString(ci.termID, false);
         const course = Courses.findDoc(ci.courseID);
         if (course) {
           const prereqs = course.prerequisites;
@@ -63,18 +63,18 @@ export class FeedbackFunctionClass {
             if (preCiIndex !== -1) {
               const preCi = cis[preCiIndex];
               const preCourse = Courses.findDoc(preCi.courseID);
-              const preSemester = Semesters.findDoc(preCi.semesterID);
-              if (preSemester) {
-                if (preSemester.semesterNumber >= semester.semesterNumber) {
-                  const semesterName2 = Semesters.toString(preSemester._id, false);
-                  const description = `${semesterName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
-                      `after or in ${semesterName2}.`;
+              const preAcademicTerm = AcademicTerms.findDoc(preCi.termID);
+              if (preAcademicTerm) {
+                if (preAcademicTerm.termNumber >= academicTerm.termNumber) {
+                  const academicTermName2 = AcademicTerms.toString(preAcademicTerm._id, false);
+                  const description = `${academicTermName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
+                      `after or in ${academicTermName2}.`;
                   const definitionData = { user, functionName, description, feedbackType };
                   defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
                 }
               }
             } else {
-              const description = `${semesterName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
+              const description = `${academicTermName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
                   ' not found.';
               const definitionData = { user, functionName, description, feedbackType };
               defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
@@ -136,11 +136,11 @@ export class FeedbackFunctionClass {
   }
 
   /**
-   * Checks the student's degree plan to ensure that there aren't too many courses in any one semester.
+   * Checks the student's degree plan to ensure that there aren't too many courses in any one academicTerm.
    * @param user the student's ID.
    */
-  public checkOverloadedSemesters(user: string) {
-    const functionName = 'checkOverloadedSemesters';
+  public checkOverloadedAcademicTerms(user: string) {
+    const functionName = 'checkOverloadedAcademicTerms';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
     const studentID = Users.getID(user);
@@ -148,17 +148,17 @@ export class FeedbackFunctionClass {
     // First clear any feedback instances previously created for this student.
     clearFeedbackInstancesMethod.call({ user, functionName });
 
-    const currentSemester = Semesters.getCurrentSemesterDoc();
-    const semesters = yearUtils.getStudentSemesters(user);
+    const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const academicTerms = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
-    _.forEach(semesters, (semesterID) => {
-      const semester = Semesters.findDoc(semesterID);
-      if (semester.semesterNumber > currentSemester.semesterNumber) {
-        const cis = CourseInstances.find({ studentID, semesterID, note: /ICS/ }).fetch();
+    _.forEach(academicTerms, (termID) => {
+      const academicTerm = AcademicTerms.findDoc(termID);
+      if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
+        const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
         if (cis.length > 2) {
           haveOverloaded = true;
-          description = `${description} ${Semesters.toString(semesterID, false)}, `;
+          description = `${description} ${AcademicTerms.toString(termID, false)}, `;
         }
       }
     });
@@ -268,11 +268,11 @@ export class FeedbackFunctionClass {
   }
 
   /**
-   * Creates a recommended opportunities FeedbackInstance for the given student and the current semester.
+   * Creates a recommended opportunities FeedbackInstance for the given student and the current academicTerm.
    * @param user the student's ID.
    */
-  public generateRecommendedCurrentSemesterOpportunities(user: string) {
-    const functionName = 'generateRecommendedCurrentSemesterOpportunities';
+  public generateRecommendedCurrentAcademicTermOpportunities(user: string) {
+    const functionName = 'generateRecommendedCurrentAcademicTermOpportunities';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
     const studentID = Users.getID(user);
@@ -280,10 +280,10 @@ export class FeedbackFunctionClass {
     // First clear any feedback instances previously created for this student.
     clearFeedbackInstancesMethod.call({ user, functionName });
 
-    let bestChoices = oppUtils.getStudentCurrentSemesterOpportunityChoices(user);
+    let bestChoices = oppUtils.getStudentCurrentAcademicTermOpportunityChoices(user);
     const basePath = this.getBasePath(user);
-    const semesterID = Semesters.getCurrentSemesterID();
-    const oppInstances = OpportunityInstances.find({ studentID, semesterID }).fetch();
+    const termID = AcademicTerms.getCurrentTermID();
+    const oppInstances = OpportunityInstances.find({ studentID, termID }).fetch();
     if (oppInstances.length === 0) {  // only make suggestions if there are no opportunities planned.
       // console.log(bestChoices);
       if (bestChoices) {
@@ -291,7 +291,7 @@ export class FeedbackFunctionClass {
         if (len > 3) {
           bestChoices = _.drop(bestChoices, len - 3);
         }
-        let description = 'Consider the following opportunities for this semester: ';
+        let description = 'Consider the following opportunities for this academicTerm: ';
         _.forEach(bestChoices, (opp) => {
           const slug = Slugs.findDoc(opp.slugID);
           description = `${description} \n- [${opp.name}](${basePath}explorer/opportunities/${slug.name}), `;

@@ -43,6 +43,8 @@ import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
 import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
 import MentorExplorerPageContainer from '../../ui/pages/mentor/MentorExplorerPage';
 import AlumniHomePageContainer from '../../ui/pages/alumni/AlumniHomePage';
+import AdminDumpDatabasePageContainer from '../../ui/pages/admin/AdminDumpDatabasePage';
+import AdminCheckDatabaseIntegrityPageContainer from '../../ui/pages/admin/AdminCheckDatabaseIntegrityPage';
 
 export const routes = {
   ADMIN: [
@@ -60,6 +62,16 @@ export const routes = {
       path: '/admin/:username/database',
       exact: true,
       component: AdminDatabasePageContainer,
+    },
+    {
+      path: '/admin/:username/database/dump',
+      exact: true,
+      component: AdminDumpDatabasePageContainer,
+    },
+    {
+      path: '/admin/:username/database/integrity-check',
+      exact: true,
+      component: AdminCheckDatabaseIntegrityPageContainer,
     },
     {
       path: '/admin/:username/moderation',

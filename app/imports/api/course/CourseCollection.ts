@@ -7,10 +7,11 @@ import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
+import { isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
 
 /**
  * Represents a specific course, such as "ICS 311".
- * To represent a specific course for a specific semester, use CourseInstance.
+ * To represent a specific course for a specific academicTerm, use CourseInstance.
  * @memberOf api/course
  * @extends api/base.BaseSlugCollection
  */
@@ -211,8 +212,17 @@ class CourseCollection extends BaseSlugCollection {
         }
       });
       _.forEach(doc.prerequisites, (prereq) => {
-        if (!this.hasSlug(prereq)) {
-          problems.push(`Bad course prerequisite slug: ${prereq}`);
+        if (isSingleChoice(prereq)) {
+          if (!this.hasSlug(prereq)) {
+            problems.push(`Bad course prerequisite slug: ${prereq}`);
+          }
+        } else {
+          const slugs = prereq.split(',');
+          _.forEach(slugs, (slug) => {
+            if (!this.hasSlug(slug)) {
+              problems.push(`Bad course prerequisite slug: ${slug}`);
+            }
+          });
         }
       });
     });

@@ -5,7 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { ROLE } from '../role/Role';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
@@ -13,7 +13,7 @@ import { makeCourseICE } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
 
 /**
- * Represents the taking of a course by a specific student in a specific semester.
+ * Represents the taking of a course by a specific student in a specific academicTerm.
  * @memberOf api/course
  * @extends api/base.BaseCollection
  */
@@ -21,7 +21,7 @@ class CourseInstanceCollection extends BaseCollection {
   public validGrades: string[];
   private publicationNames: {
     student: string;
-    perStudentAndSemester: string;
+    perStudentAndAcademicTerm: string;
     publicStudent: string;
     publicSlugStudent: string;
     studentID: string;
@@ -31,7 +31,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   constructor() {
     super('CourseInstance', new SimpleSchema({
-      semesterID: SimpleSchema.RegEx.Id,
+      termID: SimpleSchema.RegEx.Id,
       courseID: { type: SimpleSchema.RegEx.Id, optional: true },
       verified: Boolean,
       fromSTAR: { type: Boolean, optional: true },
@@ -45,7 +45,7 @@ class CourseInstanceCollection extends BaseCollection {
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
       student: this.collectionName,
-      perStudentAndSemester: `${this.collectionName}.PerStudentAndSemester`,
+      perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
       publicStudent: `${this.collectionName}.PublicStudent`,
       publicSlugStudent: `${this.collectionName}.PublicSlugStudent`,
       studentID: `${this.collectionName}.studentID`,
@@ -59,7 +59,7 @@ class CourseInstanceCollection extends BaseCollection {
    * Defines a new CourseInstance.
    * @example
    * // To define an instance of a CS course:
-   * CourseInstances.define({ semester: 'Spring-2016',
+   * CourseInstances.define({ academicTerm: 'Spring-2016',
    *                          course: 'ics311',
    *                          verified: false,
    *                          fromSTAR: false,
@@ -67,27 +67,27 @@ class CourseInstanceCollection extends BaseCollection {
    *                          note: '',
    *                          student: 'joesmith@hawaii.edu',
    *                          creditHrs: 3 });
-   * @param { Object } description Object with keys semester, course, verified, fromSTAR, grade,
+   * @param { Object } description Object with keys academicTerm, course, verified, fromSTAR, grade,
    * note, student, creditHrs.
-   * Required fields: semester, student, course, which must all be valid slugs or instance IDs.
+   * Required fields: academicTerm, student, course, which must all be valid slugs or instance IDs.
    * If the course slug is 'other', then the note field will be used as the course number.
    * Optional fields: note (defaults to ''), valid (defaults to false), grade (defaults to '').
    * CreditHrs defaults to the creditHrs assigned to course, or can be provided explicitly.
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ semester, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
+  public define({ academicTerm, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
     // Check arguments
-    const semesterID = Semesters.getID(semester);
-    const semesterDoc = Semesters.findDoc(semesterID);
+    const termID = AcademicTerms.getID(academicTerm);
+    const academicTermDoc = AcademicTerms.findDoc(termID);
     const courseID = Courses.getID(course);
     const studentID = Users.getID(student);
     const profile = Users.getProfile(studentID);
     // ensure the AcademicYearInstance is defined.
-    if (semesterDoc.term === Semesters.SPRING || semesterDoc.term === Semesters.SUMMER) {
-      AcademicYearInstances.define({ year: semesterDoc.year - 1, student: profile.username });
+    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER) {
+      AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: profile.username });
     } else {
-      AcademicYearInstances.define({ year: semesterDoc.year, student: profile.username });
+      AcademicYearInstances.define({ year: academicTermDoc.year, student: profile.username });
     }
     const ice = makeCourseICE(course, grade);
     if ((typeof verified) !== 'boolean') {
@@ -106,13 +106,13 @@ class CourseInstanceCollection extends BaseCollection {
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
     // Define and return the CourseInstance
-    return this.collection.insert({ semesterID, courseID, verified, fromSTAR, grade, studentID, creditHrs, note, ice });
+    return this.collection.insert({ termID, courseID, verified, fromSTAR, grade, studentID, creditHrs, note, ice });
   }
 
   /**
    * Update the course instance. Only a subset of fields can be updated.
    * @param docID The course instance docID (required).
-   * @param semesterID the semesterID for the course instance optional.
+   * @param termID the termID for the course instance optional.
    * @param verified boolean optional.
    * @param fromSTAR boolean optional.
    * @param grade optional.
@@ -120,12 +120,12 @@ class CourseInstanceCollection extends BaseCollection {
    * @param note optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { semesterID, verified, fromSTAR, grade, creditHrs, note, ice }: ICourseInstanceUpdate) {
-    // console.log('CourseInstances.update', semesterID, verified, fromSTAR, grade, creditHrs, note, ice);
+  public update(docID: string, { termID, verified, fromSTAR, grade, creditHrs, note, ice }: ICourseInstanceUpdate) {
+    // console.log('CourseInstances.update', termID, verified, fromSTAR, grade, creditHrs, note, ice);
     this.assertDefined(docID);
     const updateData: ICourseInstanceUpdate = {};
-    if (semesterID) {
-      updateData.semesterID = semesterID;
+    if (termID) {
+      updateData.termID = termID;
     }
     if (_.isBoolean(verified)) {
       updateData.verified = verified;
@@ -207,22 +207,22 @@ class CourseInstanceCollection extends BaseCollection {
 
   /**
    * Gets the publication names.
-   * @returns {{student: string; perStudentAndSemester: string; publicStudent: string; publicSlugStudent: string; studentID: string}}
+   * @returns {{student: string; perStudentAndAcademicTerm: string; publicStudent: string; publicSlugStudent: string; studentID: string}}
    */
   public getPublicationNames() {
     return this.publicationNames;
   }
 
   /**
-   * Returns the Semester associated with the CourseInstance with the given instanceID.
+   * Returns the AcademicTerm associated with the CourseInstance with the given instanceID.
    * @param instanceID The id of the CourseInstance.
-   * @returns {Object} The associated Semester.
+   * @returns {Object} The associated AcademicTerm.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  public getSemesterDoc(instanceID: string) {
+  public getAcademicTermDoc(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Semesters.findDoc(instance.semesterID);
+    return AcademicTerms.findDoc(instance.termID);
   }
 
   /**
@@ -249,30 +249,30 @@ class CourseInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Returns the courseInstance document associated with semester, course, and student.
-   * @param semester The semester (slug or ID).
+   * Returns the courseInstance document associated with academicTerm, course, and student.
+   * @param academicTerm The academicTerm (slug or ID).
    * @param course The course (slug or ID).
    * @param student The student (slug or ID)
    * @returns { Object } Returns the document or null if not found.
-   * @throws { Meteor.Error } If semester, course, or student does not exist.
+   * @throws { Meteor.Error } If academicTerm, course, or student does not exist.
    */
-  public findCourseInstanceDoc(semester: string, course: string, student: string) {
-    const semesterID = Semesters.getID(semester);
+  public findCourseInstanceDoc(academicTerm: string, course: string, student: string) {
+    const termID = AcademicTerms.getID(academicTerm);
     const studentID = Users.getID(student);
     const courseID = Courses.getID(course);
-    return this.collection.findOne({ semesterID, studentID, courseID });
+    return this.collection.findOne({ termID, studentID, courseID });
   }
 
   /**
-   * Returns true if there exists a CourseInstance for the given semester, course, and student.
-   * @param semester The semester (slug or ID).
+   * Returns true if there exists a CourseInstance for the given academicTerm, course, and student.
+   * @param academicTerm The academicTerm (slug or ID).
    * @param course The course (slug or ID).
    * @param student The student (slug or ID).
    * @returns True if the course instance exists.
-   * @throws { Meteor.Error } If semester, course, or student does not exist.
+   * @throws { Meteor.Error } If academicTerm, course, or student does not exist.
    */
-  public isCourseInstance(semester: string, course: string, student: string) {
-    return !!this.findCourseInstanceDoc(semester, course, student);
+  public isCourseInstance(academicTerm: string, course: string, student: string) {
+    return !!this.findCourseInstanceDoc(academicTerm, course, student);
   }
 
   /**
@@ -302,17 +302,17 @@ class CourseInstanceCollection extends BaseCollection {
         }
         return instance.collection.find({ studentID: this.userId });
       });
-      Meteor.publish(this.publicationNames.perStudentAndSemester,
-          function perStudentAndSemester(studentID, semesterID) {  // tslint:disable-line: ter-prefer-arrow-callback
+      Meteor.publish(this.publicationNames.perStudentAndAcademicTerm,
+          function perStudentAndAcademicTerm(studentID, termID) {  // tslint:disable-line: ter-prefer-arrow-callback
             new SimpleSchema({
               studentID: { type: String },
-              semesterID: { type: String },
-            }).validate({ studentID, semesterID });
-            return instance.collection.find({ studentID, semesterID });
+              termID: { type: String },
+            }).validate({ studentID, termID });
+            return instance.collection.find({ studentID, termID });
           });
       // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
-        return instance.collection.find({}, { fields: { studentID: 1, semesterID: 1, courseID: 1 } });
+        return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) {
@@ -324,7 +324,7 @@ class CourseInstanceCollection extends BaseCollection {
           courseID: { type: String },
         }).validate({ courseID });
 
-        return instance.collection.find({ courseID }, { fields: { studentID: 1, semesterID: 1, courseID: 1 } });
+        return instance.collection.find({ courseID }, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) {
@@ -349,9 +349,9 @@ class CourseInstanceCollection extends BaseCollection {
     this.assertDefined(courseInstanceID);
     const courseInstanceDoc = this.findDoc(courseInstanceID);
     const courseName = this.findCourseName(courseInstanceID);
-    const semester = Semesters.toString(courseInstanceDoc.semesterID);
+    const academicTerm = AcademicTerms.toString(courseInstanceDoc.termID);
     const grade = courseInstanceDoc.grade;
-    return `[CI ${semester} ${courseName} ${grade}]`;
+    return `[CI ${academicTerm} ${courseName} ${grade}]`;
   }
 
   /**
@@ -367,28 +367,28 @@ class CourseInstanceCollection extends BaseCollection {
   }
 
   /**
-   * Updates the CourseInstance's Semester.
+   * Updates the CourseInstance's AcademicTerm.
    * @param courseInstanceID The course instance ID.
-   * @param semesterID The semester id.
+   * @param termID The academicTerm id.
    * @throws {Meteor.Error} If courseInstanceID is not a valid ID.
    */
-  public updateSemester(courseInstanceID: string, semesterID: string) {
+  public updateAcademicTerm(courseInstanceID: string, termID: string) {
     this.assertDefined(courseInstanceID);
-    Semesters.assertSemester(semesterID);
-    this.collection.update({ _id: courseInstanceID }, { $set: { semesterID } });
+    AcademicTerms.assertAcademicTerm(termID);
+    this.collection.update({ _id: courseInstanceID }, { $set: { termID } });
   }
 
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks semesterID, courseID, and studentID.
+   * Checks termID, courseID, and studentID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      if (!Semesters.isDefined(doc.semesterID)) {
-        problems.push(`Bad semesterID: ${doc.semesterID}`);
+      if (!AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad termID: ${doc.termID}`);
       }
       if (!Courses.isDefined(doc.courseID)) {
         problems.push(`Bad courseID: ${doc.courseID}`);
@@ -407,7 +407,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): ICourseInstanceDefine {
     const doc = this.findDoc(docID);
-    const semester = Semesters.findSlugByID(doc.semesterID);
+    const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const course = Courses.findSlugByID(doc.courseID);
     const note = doc.note;
     const verified = doc.verified;
@@ -415,7 +415,7 @@ class CourseInstanceCollection extends BaseCollection {
     const grade = doc.grade;
     const fromSTAR = doc.fromSTAR;
     const student = Users.getProfile(doc.studentID).username;
-    return { semester, course, note, verified, fromSTAR, creditHrs, grade, student };
+    return { academicTerm, course, note, verified, fromSTAR, creditHrs, grade, student };
   }
 }
 

@@ -2,10 +2,10 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { getStudentsCurrentSemesterNumber } from '../degree-plan/AcademicYearUtilities';
+import { getStudentsCurrentAcademicTermNumber } from '../degree-plan/AcademicYearUtilities';
 import { number } from 'prop-types';
 
 /**
@@ -43,29 +43,29 @@ export function calculateOpportunityCompatibility(opportunityID: string, student
   return intersection.length;
 }
 
-export function semesterOpportunities(semester, semesterNumber) {
-  const id = semester._id;
+export function academicTermOpportunities(academicTerm, academicTermNumber) {
+  const id = academicTerm._id;
   const opps = Opportunities.findNonRetired();
-  const semesterOpps = _.filter(opps, (opportunity) => {
-    return _.indexOf(opportunity.semesterIDs, id) !== -1;
+  const academicTermOpps = _.filter(opps, (opportunity) => {
+    return _.indexOf(opportunity.termIDs, id) !== -1;
   });
-  if (semesterNumber < 3) { // AY 1.
-    return _.filter(semesterOpps, (opportunity) => {
+  if (academicTermNumber < 3) { // AY 1.
+    return _.filter(academicTermOpps, (opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Club';
     });
   }
-  if (semesterNumber < 6) {
-    return _.filter(semesterOpps, (opportunity) => {
+  if (academicTermNumber < 6) {
+    return _.filter(academicTermOpps, (opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Event' || type.name === 'Club';
     });
   }
-  return semesterOpps;
+  return academicTermOpps;
 }
 
-export function getStudentSemesterOpportunityChoices(semester: string, semesterNumber: number, studentID: string) {
-  const opportunities = semesterOpportunities(semester, semesterNumber);
+export function getStudentAcademicTermOpportunityChoices(academicTerm: string, academicTermNumber: number, studentID: string) {
+  const opportunities = academicTermOpportunities(academicTerm, academicTermNumber);
   const oppInstances = OpportunityInstances.find({ studentID }).fetch();
   const filtered = _.filter(opportunities, (opp) => {
     let taken = true;
@@ -79,8 +79,8 @@ export function getStudentSemesterOpportunityChoices(semester: string, semesterN
   return filtered;
 }
 
-export function chooseStudentSemesterOpportunity(semester: string, semesterNumber: number, studentID: string) {
-  const choices = getStudentSemesterOpportunityChoices(semester, semesterNumber, studentID);
+export function chooseStudentAcademicTermOpportunity(academicTerm: string, academicTermNumber: number, studentID: string) {
+  const choices = getStudentAcademicTermOpportunityChoices(academicTerm, academicTermNumber, studentID);
   const interestIDs = Users.getProfile(studentID).interestIDs;
   const preferred = new PreferredChoice(choices, interestIDs);
   const best = preferred.getBestChoices();
@@ -90,22 +90,22 @@ export function chooseStudentSemesterOpportunity(semester: string, semesterNumbe
   return null;
 }
 
-export function getStudentCurrentSemesterOpportunityChoices(studentID: string) {
-  const currentSemester = Semesters.getCurrentSemesterDoc();
-  const semesterNum = getStudentsCurrentSemesterNumber(studentID);
-  return getStudentSemesterOpportunityChoices(currentSemester, semesterNum, studentID);
+export function getStudentCurrentAcademicTermOpportunityChoices(studentID: string) {
+  const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const academicTermNum = getStudentsCurrentAcademicTermNumber(studentID);
+  return getStudentAcademicTermOpportunityChoices(currentAcademicTerm, academicTermNum, studentID);
 }
 
-export function getRecommendedCurrentSemesterOpportunityChoices(studentID) {
-  const choices = getStudentCurrentSemesterOpportunityChoices(studentID);
+export function getRecommendedCurrentAcademicTermOpportunityChoices(studentID) {
+  const choices = getStudentCurrentAcademicTermOpportunityChoices(studentID);
   const interestIDs = Users.getProfile(studentID).interestIDs;
   const preferred = new PreferredChoice(choices, interestIDs);
   const best = preferred.getBestChoices();
   return best;
 }
 
-export function chooseCurrentSemesterOpportunity(studentID: string) {
-  const best = getRecommendedCurrentSemesterOpportunityChoices(studentID);
+export function chooseCurrentAcademicTermOpportunity(studentID: string) {
+  const best = getRecommendedCurrentAcademicTermOpportunityChoices(studentID);
   if (best) {
     return best[getRandomInt(0, best.length)];
   }

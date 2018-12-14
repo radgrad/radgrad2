@@ -1,23 +1,30 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
 class AdminDatabasePage extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
+    const paddedStyle = {
+      paddingTop: 20,
+    };
     return (
       <div>
         <AdminPageMenuWidget/>
-        <Grid verticalAlign="middle" textAlign="center" container={true}>
+        <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
+          <Grid.Column width={5}>
+            <AdminDatabaseMenuContainer/>
           </Grid.Column>
 
-          <Grid.Column width={8}>
-            <h1>Admin Database</h1>
+          <Grid.Column width={11}>
+          <Message floating={true}>
+            Click on a page in the menu to the left.
+          </Message>
           </Grid.Column>
         </Grid>
       </div>
@@ -25,6 +32,6 @@ class AdminDatabasePage extends React.Component {
   }
 }
 
-const AdminDatabasePageContainer = withGlobalSubscription(AdminDatabasePage);
+const AdminDatabasePageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminDatabasePage));
 
 export default AdminDatabasePageContainer;

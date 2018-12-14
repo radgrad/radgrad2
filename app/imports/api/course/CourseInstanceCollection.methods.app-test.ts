@@ -9,11 +9,11 @@ import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } 
 if (Meteor.isClient) {
   describe('CourseInstanceCollection Meteor Methods ', function test() {
     const collectionName = CourseInstances.getCollectionName();
-    const semester = 'Spring-2017';
+    const academicTerm = 'Spring-2017';
     const student = 'abi@hawaii.edu';
     const course = 'ics_111';
     const definitionData = {
-      semester,
+      academicTerm,
       course,
       student,
       verified: true,
@@ -35,7 +35,7 @@ if (Meteor.isClient) {
     });
 
     it('Update Method', async function() {
-      const id = CourseInstances.findCourseInstanceDoc(semester, course, student)._id;
+      const id = CourseInstances.findCourseInstanceDoc(academicTerm, course, student)._id;
       const verified = false;
       const grade = 'A';
       const creditHrs = 4;
@@ -43,7 +43,7 @@ if (Meteor.isClient) {
     });
 
     it('Remove Method', async function() {
-      const instance = CourseInstances.findCourseInstanceDoc(semester, course, student)._id;
+      const instance = CourseInstances.findCourseInstanceDoc(academicTerm, course, student)._id;
       await removeItMethod.callPromise({ collectionName, instance });
     });
   });

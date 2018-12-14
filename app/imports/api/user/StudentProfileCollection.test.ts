@@ -25,10 +25,10 @@ if (Meteor.isServer) {
       const interests = [];
       const careerGoals = [];
       const level = 6;
-      const declaredSemester = 'Spring-2017';
+      const declaredAcademicTerm = 'Spring-2017';
       const docID = StudentProfiles.define({
         username, firstName, lastName, picture, website, interests,
-        careerGoals, level, declaredSemester,
+        careerGoals, level, declaredAcademicTerm,
       });
       expect(StudentProfiles.isDefined(docID)).to.be.true;
       const dumpObject = StudentProfiles.dumpOne(docID);

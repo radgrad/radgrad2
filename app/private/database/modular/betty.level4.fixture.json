@@ -6,7 +6,7 @@
       "name": "CourseInstanceCollection",
       "contents": [
         {
-          "semester": "Spring-2015",
+          "academicTerm": "Spring-2015",
           "course": "ics_241",
           "note": "ICS 241",
           "verified": true,
@@ -15,7 +15,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2015",
+          "academicTerm": "Fall-2015",
           "course": "ics_311",
           "note": "ICS 311",
           "verified": false,
@@ -24,7 +24,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2015",
+          "academicTerm": "Fall-2015",
           "course": "ics_314",
           "note": "ICS 314",
           "verified": false,
@@ -33,7 +33,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2016",
+          "academicTerm": "Spring-2016",
           "course": "ics_212",
           "note": "ICS 212",
           "verified": false,
@@ -42,7 +42,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2016",
+          "academicTerm": "Spring-2016",
           "course": "ics_321",
           "note": "ICS 321",
           "verified": false,
@@ -51,7 +51,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2016",
+          "academicTerm": "Fall-2016",
           "course": "ics_313",
           "note": "ICS 313",
           "verified": false,
@@ -60,7 +60,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2016",
+          "academicTerm": "Fall-2016",
           "course": "ics_331",
           "note": "ICS 331",
           "verified": false,
@@ -69,7 +69,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2017",
+          "academicTerm": "Spring-2017",
           "course": "ics_332",
           "note": "ICS 332",
           "verified": false,
@@ -78,7 +78,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2017",
+          "academicTerm": "Spring-2017",
           "course": "ics_422",
           "note": "ICS 422",
           "verified": false,
@@ -87,7 +87,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2017",
+          "academicTerm": "Fall-2017",
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
@@ -96,7 +96,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2017",
+          "academicTerm": "Fall-2017",
           "course": "ics_471",
           "note": "ICS 471",
           "verified": false,
@@ -105,7 +105,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2018",
+          "academicTerm": "Spring-2018",
           "course": "ics_475",
           "note": "ICS 475",
           "verified": false,
@@ -114,7 +114,7 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2018",
+          "academicTerm": "Spring-2018",
           "course": "ics_484",
           "note": "ICS 484",
           "verified": false,
@@ -128,67 +128,67 @@
       "name": "OpportunityInstanceCollection",
       "contents": [
         {
-          "semester": "Summer-2014",
+          "academicTerm": "Summer-2014",
           "opportunity": "google-summer-of-code",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2014",
+          "academicTerm": "Fall-2014",
           "opportunity": "greyhats",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2014",
+          "academicTerm": "Fall-2014",
           "opportunity": "dahi-internship",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2015",
+          "academicTerm": "Spring-2015",
           "opportunity": "greyhats",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Summer-2015",
+          "academicTerm": "Summer-2015",
           "opportunity": "sarp-internship",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2015",
+          "academicTerm": "Fall-2015",
           "opportunity": "generic-project",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Fall-2015",
+          "academicTerm": "Fall-2015",
           "opportunity": "greyhats",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2016",
+          "academicTerm": "Spring-2016",
           "opportunity": "shidler-bpc",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Spring-2016",
+          "academicTerm": "Spring-2016",
           "opportunity": "greyhats",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Summer-2016",
+          "academicTerm": "Summer-2016",
           "opportunity": "generic-project",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "semester": "Summer-2016",
+          "academicTerm": "Summer-2016",
           "opportunity": "sarp-internship",
           "verified": false,
           "student": "betty@hawaii.edu"

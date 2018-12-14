@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
-import { Semesters } from '../semester/SemesterCollection';
-import { defineSemesters } from '../semester/SemesterUtilities';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { defineAcademicTerms } from '../academic-term/AcademicTermUtilities';
 import { ROLE } from '../role/Role';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { makeSampleOpportunity } from './SampleOpportunities';
@@ -22,15 +22,15 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #toString, #dumpOne, #restoreOne, findOpportunityInstance', function test() {
-      defineSemesters();
-      const semester: string = Semesters.define({ term: Semesters.FALL, year: 2015 });
+      defineAcademicTerms();
+      const academicTerm: string = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
       const faculty: string = makeSampleUser(ROLE.FACULTY);
       const student: string = makeSampleUser();
       const opportunity: string = makeSampleOpportunity(faculty);
       const verified: boolean = true;
-      let docID = OpportunityInstances.define({ semester, opportunity, sponsor: faculty, verified, student });
-      expect(OpportunityInstances.isOpportunityInstance(semester, opportunity, student)).to.be.true;
-      expect(OpportunityInstances.isOpportunityInstance(semester, opportunity, faculty)).to.be.false;
+      let docID = OpportunityInstances.define({ academicTerm, opportunity, sponsor: faculty, verified, student });
+      expect(OpportunityInstances.isOpportunityInstance(academicTerm, opportunity, student)).to.be.true;
+      expect(OpportunityInstances.isOpportunityInstance(academicTerm, opportunity, faculty)).to.be.false;
       const dumpObject = OpportunityInstances.dumpOne(docID);
       expect(OpportunityInstances.isDefined(docID)).to.be.true;
       OpportunityInstances.toString(docID);

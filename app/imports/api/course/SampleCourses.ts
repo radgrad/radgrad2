@@ -1,5 +1,5 @@
 import { moment } from 'meteor/momentjs:moment';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
@@ -38,9 +38,9 @@ export function makeSampleCourse(args?: { num?: string; interestID?: string; }) 
  * @memberOf api/course
  */
 export function makeSampleCourseInstance(student, args) {
-  const semester = Semesters.define({ term: Semesters.FALL, year: 2013 });
+  const academicTerm = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2013 });
   const course = (args && args.course) ? args.course : makeSampleCourse();
   const verified = true;
   const grade = 'A';
-  return CourseInstances.define({ semester, course, verified, grade, student });
+  return CourseInstances.define({ academicTerm, course, verified, grade, student });
 }

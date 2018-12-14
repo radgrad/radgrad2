@@ -16,7 +16,7 @@ if (Meteor.isClient) {
       sponsor: 'radgrad@hawaii.edu',
       ice: { i: 5, c: 5, e: 5 },
       interests: ['algorithms'],
-      semesters: ['Spring-2017'],
+      academicTerms: ['Spring-2017'],
     };
 
     before(function(done) {

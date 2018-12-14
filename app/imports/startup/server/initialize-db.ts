@@ -6,6 +6,7 @@ import { moment } from 'meteor/momentjs:moment';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
+import { RadGradSettings } from '../../api/radgrad/RadGradSettingsCollection';
 import { Interests } from '../../api/interest/InterestCollection';
 import { CareerGoals } from '../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../api/degree-plan/AcademicPlanCollection';
@@ -207,6 +208,13 @@ function fixUserInteractions() {
   }
 }
 
+function ensureSettings() {
+  if (RadGradSettings.find({}).count() === 0) {
+    const quarterSystem = Meteor.settings.RadGrad.quarterSystem;
+    RadGradSettings.define({ quarterSystem });
+  }
+}
+
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
   if (Meteor.isTest || Meteor.isAppTest) {
@@ -220,5 +228,6 @@ Meteor.startup(() => {
     startupCheckIntegrity();
     startupPublicStats();
     fixUserInteractions();
+    ensureSettings();
   }
 });

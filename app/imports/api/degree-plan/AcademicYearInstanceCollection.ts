@@ -2,15 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Semesters } from '../semester/SemesterCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IAcademicYearDefine } from '../../typings/radgrad';
 
 /**
- * Each AcademicYearInstance represents a sequence of three semesters for a given student.
- * It is used to control the display of semesters for a given student in the Degree Planner.
+ * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
+ * It is used to control the display of academic terms for a given student in the Degree Planner.
  * @extends api/base.BaseCollection
  * @memberOf api/degree-plan
  */
@@ -28,7 +28,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       year: { type: Number },
       springYear: { type: Number },
       studentID: { type: SimpleSchema.RegEx.Id },
-      semesterIDs: [SimpleSchema.RegEx.Id],
+      termIDs: [SimpleSchema.RegEx.Id],
     }));
     this.publicationNames = {
       Public: this.collectionName,
@@ -51,18 +51,18 @@ class AcademicYearInstanceCollection extends BaseCollection {
    */
   public define({ year, student }: IAcademicYearDefine) {
     const studentID = Users.getID(student);
-    let semesterIDs = [];
+    let termIDs = [];
     // check for gaps
     const prevYears = this.collection.find({ year: { $lt: year }, studentID }, { sort: { year: 1 } }).fetch();
     if (prevYears.length > 0) {
       const lastYear = prevYears[prevYears.length - 1].year;
       for (let y = lastYear + 1; y < year; y++) {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
-          semesterIDs = [];
-          semesterIDs.push(Semesters.getID(`${Semesters.FALL}-${y}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SPRING}-${y + 1}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SUMMER}-${y + 1}`));
-          this.collection.insert({ year: y, springYear: y + 1, studentID, semesterIDs });
+          termIDs = [];
+          termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
+          termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
+          termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${y + 1}`));
+          this.collection.insert({ year: y, springYear: y + 1, studentID, termIDs });
         }
       }
     }
@@ -71,11 +71,11 @@ class AcademicYearInstanceCollection extends BaseCollection {
       const nextYear = nextYears[0].year;
       for (let y = year + 1; y < nextYear; y++) {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
-          semesterIDs = [];
-          semesterIDs.push(Semesters.getID(`${Semesters.FALL}-${y}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SPRING}-${y + 1}`));
-          semesterIDs.push(Semesters.getID(`${Semesters.SUMMER}-${y + 1}`));
-          this.collection.insert({ year: y, springYear: y + 1, studentID, semesterIDs });
+          termIDs = [];
+          termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
+          termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
+          termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${y + 1}`));
+          this.collection.insert({ year: y, springYear: y + 1, studentID, termIDs });
         }
       }
     }
@@ -83,13 +83,13 @@ class AcademicYearInstanceCollection extends BaseCollection {
     if (doc.length > 0) {
       return doc[0]._id;
     }
-    semesterIDs = [];
-    semesterIDs.push(Semesters.getID(`${Semesters.FALL}-${year}`));
-    semesterIDs.push(Semesters.getID(`${Semesters.SPRING}-${year + 1}`));
-    semesterIDs.push(Semesters.getID(`${Semesters.SUMMER}-${year + 1}`));
+    termIDs = [];
+    termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${year}`));
+    termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${year + 1}`));
+    termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${year + 1}`));
 
     // Define and return the docID
-    return this.collection.insert({ year, springYear: year + 1, studentID, semesterIDs });
+    return this.collection.insert({ year, springYear: year + 1, studentID, termIDs });
   }
 
   /**
@@ -98,12 +98,12 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param year the fall year.
    * @param springYear the spring year
    * @param studentID the student's ID.
-   * @param semesterIDs the 3 semesters in the year.
+   * @param termIDs the 3 or 4 academic terms in the year.
    */
-  public update(docID: string, { year, springYear, studentID, semesterIDs }:
-    {year?: number; springYear?: number; studentID?: string; semesterIDs?: string[]; }) {
+  public update(docID: string, { year, springYear, studentID, termIDs }:
+    {year?: number; springYear?: number; studentID?: string; termIDs?: string[]; }) {
     this.assertDefined(docID);
-    const updateData: {year?: number; springYear?: number; studentID?: string; semesterIDs?: string[]; } = {};
+    const updateData: {year?: number; springYear?: number; studentID?: string; termIDs?: string[]; } = {};
     if (_.isNumber(year)) {
       updateData.year = year;
     }
@@ -116,16 +116,16 @@ class AcademicYearInstanceCollection extends BaseCollection {
       }
       updateData.studentID = studentID;
     }
-    if (semesterIDs) {
-      if (!Array.isArray(semesterIDs)) {
-        throw new Meteor.Error(`SemesterIDs ${semesterIDs} is not an Array.`);
+    if (termIDs) {
+      if (!Array.isArray(termIDs)) {
+        throw new Meteor.Error(`AcademicTermIDs ${termIDs} is not an Array.`);
       }
-      _.forEach(semesterIDs, (sem) => {
-        if (!Semesters.isDefined(sem)) {
-          throw new Meteor.Error(`SemesterID ${sem} is not a SemesterID.`);
+      _.forEach(termIDs, (sem) => {
+        if (!AcademicTerms.isDefined(sem)) {
+          throw new Meteor.Error(`AcademicTermID ${sem} is not a AcademicTermID.`);
         }
       });
-      updateData.semesterIDs = semesterIDs;
+      updateData.termIDs = termIDs;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -204,7 +204,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks studentID, semesterIDs
+   * Checks studentID, termIDs
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity(): string[] {
@@ -213,9 +213,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
       if (!Users.isDefined(doc.studentID)) {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
-      _.forEach(doc.semesterIDs, (semesterID) => {
-        if (!Semesters.isDefined(semesterID)) {
-          problems.push(`Bad semesterID: ${semesterID}`);
+      _.forEach(doc.termIDs, (termID) => {
+        if (!AcademicTerms.isDefined(termID)) {
+          problems.push(`Bad termID: ${termID}`);
         }
       });
     });

@@ -1,3 +1,4 @@
+import '../imports/api/academic-term';
 import '../imports/api/analytic';
 import '../imports/api/base';
 import '../imports/api/career';
@@ -17,7 +18,6 @@ import '../imports/api/public-stats';
 import '../imports/api/radgrad';
 import '../imports/api/review';
 import '../imports/api/role';
-import '../imports/api/semester';
 import '../imports/api/slug';
 import '../imports/api/star';
 import '../imports/api/teaser';

@@ -1,5 +1,5 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Semesters } from '../../../api/semester/SemesterCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
@@ -51,8 +51,8 @@ export function teaser(opportunity) {
 }
 
 export function semesters(opportunity) {
-  const semesterIDs = opportunity.semesterIDs;
-  const array = _.map(semesterIDs, (semID) => Semesters.toString(semID));
+  const termIDs = opportunity.termIDs;
+  const array = _.map(termIDs, (semID) => AcademicTerms.toString(semID));
   const semString = array.join(', ');
   return semString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 }

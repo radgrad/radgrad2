@@ -7,7 +7,6 @@ import { Users } from '../user/UserCollection';
 // import { clearFeedbackInstancesMethod, feedbackInstancesDefineMethod,
 //   feedbackInstancesRemoveItMethod } from '../feedback/FeedbackInstanceCollection.methods';
 // import { Feedbacks } from '../feedback/FeedbackCollection';
-// import { Semesters } from '../semester/SemesterCollection';
 // import { Slugs } from '../slug/SlugCollection';
 
 /**

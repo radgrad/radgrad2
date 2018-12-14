@@ -10,7 +10,7 @@ import { IDumpOne } from '../../typings/radgrad';
 
 /**
  * BaseCollection is an abstract superclass of all RadGrad data model entities.
- * It is the direct superclass for SlugCollection and SemesterCollection.
+ * It is the direct superclass for SlugCollection and AcademicTermCollection.
  * Other collection classes are derived from BaseSlugCollection or BaseTypeCollection, which are abstract
  * classes that inherit from this one.
  * @memberOf api/base
@@ -168,7 +168,7 @@ class BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  public removeIt(name: string | object) {
+  public removeIt(name: string | object): boolean | void {
     const doc = this.findDoc(name);
     check(doc, Object);
     this.collection.remove(doc._id);

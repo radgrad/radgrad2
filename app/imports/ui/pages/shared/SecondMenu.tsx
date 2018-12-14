@@ -37,7 +37,7 @@ class SecondMenu extends React.Component<ISecondMenuProps> {
     return (
       <Menu attached="top" borderless={true} widths={this.props.numItems} className="radgrad-second-menu mobile hidden">
         {this.props.menuItems.map((item, index) => (
-          <Menu.Item key={index} as={NavLink} exact={true} to={`${baseRoute}${item.route}`}>
+          <Menu.Item key={index} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
             {item.label}
           </Menu.Item>))
         }
