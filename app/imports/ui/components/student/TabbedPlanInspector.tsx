@@ -1,38 +1,30 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { Grid, Tab } from 'semantic-ui-react';
+import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
 
-interface ITabbedPlanInspectorProps {
-  selectedCourseID: string;
-  selectedCourseInstanceID: string;
-  selectedOpportunityID: string;
-  selectedOpportunityInstanceID: string;
-}
-
-const mapStateToProps = (state) => {
-  return {
-    selectedCourseID: state.selectedCourseID,
-    selectedCourseInstanceID: state.selectedCourseInstanceID,
-    selectedOpportunityID: state.selectedOpportunityID,
-    selectedOpportunityInstanceID: state.selectedOpportunityInstanceID,
-  };
+const TabbedPlanInspector = () => {
+  const panes = [
+    {
+      menuItem: 'ACADEMIC PLAN',
+      pane: (
+        <Tab.Pane key="plan">
+          Academic Plan
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: 'INSPECTOR',
+      pane: (
+        <Tab.Pane key="inspector">
+          <CourseOpportunityInspectorWidgetContainer/>
+        </Tab.Pane>
+      ),
+    },
+  ];
+  return (
+    <div>
+      <Tab panes={panes} renderActiveOnly={false}/>
+    </div>
+  );
 };
-
-class ConnectedTabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    return (
-      <div>
-        Selected Course ID: {this.props.selectedCourseID}<br/>
-        Selected Course Instance ID: {this.props.selectedCourseInstanceID}<br/>
-        Selected Opportunity ID: {this.props.selectedOpportunityID}<br/>
-        Selected Opportunity Instance ID: {this.props.selectedOpportunityInstanceID}
-      </div>);
-  }
-}
-
-const TabbedPlanInspector = connect(mapStateToProps)(ConnectedTabbedPlanInspector);
-
 export default TabbedPlanInspector;

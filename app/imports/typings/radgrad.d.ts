@@ -95,6 +95,17 @@ export interface ICareerGoalUpdate {
 }
 
 // CourseInstances
+export interface ICourseInstance {
+  termID: string;
+  courseID: string;
+  verified: boolean;
+  fromSTAR?: boolean;
+  grade?: string;
+  creditHrs: number;
+  note?: string;
+  studentID: string;
+  ice?: Ice;
+}
 export interface ICourseInstanceDefine extends IDumpOne {
   academicTerm: string;
   course: string;
@@ -355,6 +366,15 @@ export interface IOpportunityUpdateData {
 }
 
 // OpportunityInstances
+export interface IOpportunityInstance {
+  termID: string;
+  opportunityID: string;
+  verified: boolean;
+  studentID: string;
+  sponsorID: string;
+  ice: Ice;
+}
+
 export interface IOpportunityInstanceDefine extends IDumpOne {
   academicTerm: string;
   opportunity: string;
