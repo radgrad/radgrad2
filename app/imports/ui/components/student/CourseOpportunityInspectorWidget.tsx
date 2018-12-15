@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Dropdown, Icon } from 'semantic-ui-react';
+import { Button, Dropdown, Grid, Icon, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { Roles } from 'meteor/alanning:roles';
 import { ICourse, ICourseInstance, IOpportunity, IOpportunityInstance } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
+import InspectorCourseMenuContainer from './InspectorCourseMenu';
+import InspectorCourseView from './InspectorCourseView';
 
 interface ICOInspectorWidgetProps {
   selectedCourseID: string;
@@ -46,31 +51,32 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
   }
 
   public render() {
-    console.log(this.props);
     const userName = this.props.match.params.username;
     const studentID = Users.getID(userName);
-    const courseInstances = CourseInstances.find({ studentID }).fetch();
-    const opportunityInstances = OpportunityInstances.find({ studentID }).fetch();
-    console.log(courseInstances, opportunityInstances);
+    const padddingBottomStyle = {
+      paddingBottom: 0,
+    };
+    const paddingStyle = {
+      padding: 0,
+    };
     return (
       <div>
-        <Button.Group>
+        <Button.Group attached="top">
           <Button>
-            <Dropdown text="Courses">
-              <Dropdown.Menu>
-                <Dropdown.Item>Academic Plans</Dropdown.Item>
-                <Dropdown.Item>Career Goals</Dropdown.Item>
-                <Dropdown.Item>Courses</Dropdown.Item>
-                <Dropdown.Item>Degrees</Dropdown.Item>
-                <Dropdown.Item>Interests</Dropdown.Item>
-                <Dropdown.Item>Opportunities</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <InspectorCourseMenuContainer studentID={studentID}/>
           </Button>
           <Button.Or/>
           <Button>Opportunities</Button>
         </Button.Group>
+        <Grid container={true}>
+          <Grid.Row style={padddingBottomStyle}>
+            <Segment basic={true} style={paddingStyle}>
+              {this.props.selectedCourseID ? <InspectorCourseView courseID={this.props.selectedCourseID} /> : ''}
+            </Segment>
+          </Grid.Row>
+        </Grid>
         <br/>
+
         Selected Course ID: {this.props.selectedCourseID}<br/>
         Selected Course Instance ID: {this.props.selectedCourseInstanceID}<br/>
         Selected Opportunity ID: {this.props.selectedOpportunityID}<br/>

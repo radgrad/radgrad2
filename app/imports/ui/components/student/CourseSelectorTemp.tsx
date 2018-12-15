@@ -12,10 +12,10 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IConnectedCourseSelectorTempProps {
-  ready: boolean;
   courses: ICourse[];
   selectCourse: (courseID: string) => any;
 }
+
 interface IConnectedCourseSelectorTempState {
   courseID?: string;
 }
@@ -47,10 +47,6 @@ class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelect
   }
 
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Courses</Loader>;
-  }
-
-  private renderPage() {
     const options = [];
     _.forEach(this.props.courses, (c) => {
       options.push({
@@ -62,7 +58,7 @@ class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelect
     // console.log(options);
     return (
       <Form>
-        <Form.Select fluid={true} label="Course" options={options} placeholder="Course" onChange={this.handleChange} />
+        <Form.Select fluid={true} label="Course" options={options} placeholder="Course" onChange={this.handleChange}/>
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
       </Form>
     );
@@ -73,10 +69,7 @@ const ConnectedCourseSelectorTempCon = withGlobalSubscription(ConnectedCourseSel
 const ConnectedCourseSelectorTempCont = withInstanceSubscriptions(ConnectedCourseSelectorTempCon);
 
 const ConnectedCourseSelectorTempConta = withTracker(() => {
-  const sub1 = Meteor.subscribe(Courses.getPublicationName());
-  const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
-    ready: sub1.ready() && sub2.ready(),
     courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
     count: Courses.countNonRetired(),
   };

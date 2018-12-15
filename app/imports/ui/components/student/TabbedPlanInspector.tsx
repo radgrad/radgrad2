@@ -22,9 +22,7 @@ const TabbedPlanInspector = () => {
     },
   ];
   return (
-    <div>
-      <Tab panes={panes} renderActiveOnly={false}/>
-    </div>
+    <Tab panes={panes} renderActiveOnly={false}/>
   );
 };
 export default TabbedPlanInspector;
