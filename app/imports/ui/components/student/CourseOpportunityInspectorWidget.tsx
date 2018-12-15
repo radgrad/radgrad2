@@ -69,10 +69,9 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
           <Button>Opportunities</Button>
         </Button.Group>
         <Grid container={true}>
-          <Grid.Row style={padddingBottomStyle}>
-            <Segment basic={true} style={paddingStyle}>
-              {this.props.selectedCourseID ? <InspectorCourseView courseID={this.props.selectedCourseID} /> : ''}
-            </Segment>
+          <Grid.Row stretched={true} style={padddingBottomStyle}>
+            {this.props.selectedCourseID ?
+              <InspectorCourseView courseID={this.props.selectedCourseID} studentID={studentID}/> : ''}
           </Grid.Row>
         </Grid>
         <br/>

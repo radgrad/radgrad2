@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Tab } from 'semantic-ui-react';
+import { Segment, Tab } from 'semantic-ui-react';
 import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
 
 const TabbedPlanInspector = () => {
@@ -22,7 +22,9 @@ const TabbedPlanInspector = () => {
     },
   ];
   return (
-    <Tab panes={panes} renderActiveOnly={false}/>
+    <Segment padded={true}>
+      <Tab panes={panes} renderActiveOnly={false}/>
+    </Segment>
   );
 };
 export default TabbedPlanInspector;

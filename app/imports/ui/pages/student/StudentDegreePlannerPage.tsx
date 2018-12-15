@@ -11,21 +11,26 @@ class StudentDegreePlannerPage extends React.Component {
   public render() {
     const paddedStyle = {
       paddingTop: 20,
+      paddingLeft: 10,
+      paddingRight: 20,
+    };
+    const marginRightStyle = {
+      marginRight: 0,
     };
     return (
       <div>
         <StudentPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <Grid stackable={true} style={paddedStyle}>
+          <Grid.Row stretched={true}>
+            <Grid.Column width={10} style={marginRightStyle}>
+              <h1>Student DegreePlanner</h1>
+            </Grid.Column>
 
-          <Grid.Column width={10}>
-            <h1>Student DegreePlanner</h1>
-          </Grid.Column>
-
-          <Grid.Column width={6} style={paddedStyle}>
-            <TabbedPlanInspector/>
-            <ConnectedCourseSelectorTempContainer/>
-          </Grid.Column>
-
+            <Grid.Column width={6} style={paddedStyle}>
+              <TabbedPlanInspector/>
+              <ConnectedCourseSelectorTempContainer/>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </div>
     );
