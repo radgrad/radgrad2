@@ -34,7 +34,7 @@ class CoursePrerequisitesView extends React.Component<ICoursePrerequisitesViewPr
       <List bulleted={true}>
         {_.map(this.props.prerequisites, (p) => {
           return (
-              <List.Item>
+              <List.Item key={p}>
                 {PlanChoiceCollection.toStringFromSlug(p)}
                 {missingPrerequisite(p, this.props.studentID) ? <Icon name="warning" color="red"/> :
                   <Icon name="checkmark" color="green"/>}
