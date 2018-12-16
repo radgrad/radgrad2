@@ -72,14 +72,12 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
           <Grid.Row stretched={true} style={padddingBottomStyle}>
             {this.props.selectedCourseID ?
               <InspectorCourseView courseID={this.props.selectedCourseID} studentID={studentID}/> : ''}
+            {this.props.selectedCourseInstanceID ? 'selectedCourseInstance' : ''}
+            {this.props.selectedOpportunityID ? 'selectedOpportunity' : ''}
+            {this.props.selectedOpportunityInstanceID ? 'selectedOpportunityInstance' : ''}
+            {(!this.props.selectedCourseID && !this.props.selectedCourseInstanceID && !this.props.selectedOpportunityID && !this.props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above.' : ''}
           </Grid.Row>
         </Grid>
-        <br/>
-
-        Selected Course ID: {this.props.selectedCourseID}<br/>
-        Selected Course Instance ID: {this.props.selectedCourseInstanceID}<br/>
-        Selected Opportunity ID: {this.props.selectedOpportunityID}<br/>
-        Selected Opportunity Instance ID: {this.props.selectedOpportunityInstanceID}
       </div>
     );
   }

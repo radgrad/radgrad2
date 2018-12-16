@@ -28,7 +28,6 @@ class StudentDegreePlannerPage extends React.Component {
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedPlanInspector/>
-              <ConnectedCourseSelectorTempContainer/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
