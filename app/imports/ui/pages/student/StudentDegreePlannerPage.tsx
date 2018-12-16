@@ -5,6 +5,7 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import TabbedPlanInspector from '../../components/student/TabbedPlanInspector';
 import ConnectedCourseSelectorTempContainer from '../../components/student/CourseSelectorTemp';
+import ConnectedCourseInstanceSelectorTempContainer from '../../components/student/CourseInstanceSelectorTemp';
 
 /** A simple static component to render some text for the landing page. */
 class StudentDegreePlannerPage extends React.Component {
@@ -28,6 +29,7 @@ class StudentDegreePlannerPage extends React.Component {
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedPlanInspector/>
+              <ConnectedCourseInstanceSelectorTempContainer />
             </Grid.Column>
           </Grid.Row>
         </Grid>

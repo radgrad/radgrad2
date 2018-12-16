@@ -59,6 +59,11 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
     const paddingStyle = {
       padding: 0,
     };
+    let courseID;
+    if (this.props.selectedCourseInstanceID) {
+      const courseInstance = CourseInstances.findDoc(this.props.selectedCourseInstanceID);
+      courseID = courseInstance.courseID;
+    }
     return (
       <div>
         <Button.Group attached="top">
@@ -72,7 +77,9 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
           <Grid.Row stretched={true} style={padddingBottomStyle}>
             {this.props.selectedCourseID ?
               <InspectorCourseView courseID={this.props.selectedCourseID} studentID={studentID}/> : ''}
-            {this.props.selectedCourseInstanceID ? 'selectedCourseInstance' : ''}
+            {this.props.selectedCourseInstanceID ?
+              <InspectorCourseView courseInstanceID={this.props.selectedCourseInstanceID} courseID={courseID}
+                                   studentID={studentID}/> : ''}
             {this.props.selectedOpportunityID ? 'selectedOpportunity' : ''}
             {this.props.selectedOpportunityInstanceID ? 'selectedOpportunityInstance' : ''}
             {(!this.props.selectedCourseID && !this.props.selectedCourseInstanceID && !this.props.selectedOpportunityID && !this.props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above.' : ''}

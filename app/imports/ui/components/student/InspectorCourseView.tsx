@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Container, Dropdown, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -10,10 +10,13 @@ import { makeCourseICE } from '../../../api/ice/IceProcessor';
 import CoursePrerequisitesView from './CoursePrerequisitesView';
 import FutureCourseEnrollmentWidget from '../shared/FutureCourseEnrollmentWidget';
 import UserInterestList from '../shared/UserInterestList';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 
 interface IInspectorCourseViewProps {
   courseID: string;
   studentID: string;
+  courseInstanceID?: string;
   match: {
     isExact: boolean;
     path: string;
@@ -32,12 +35,21 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
   public render() {
     const course = Courses.findDoc(this.props.courseID);
     const courseSlug = Slugs.getNameFromID(course.slugID);
+    let courseInstance;
+    let grade = 'C';
+    let plannedCourse = false;
+    let pastCourse = false;
+    if (this.props.courseInstanceID) {
+      courseInstance = CourseInstances.findDoc(this.props.courseInstanceID);
+      grade = courseInstance.grade;
+      const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+      const courseTerm = AcademicTerms.findDoc(courseInstance.termID);
+      plannedCourse = currentTerm.termNumber <= courseTerm.termNumber;
+      pastCourse = currentTerm.termNumber > courseTerm.termNumber;
+    }
     const paddingStyle = {
       paddingTop: 15,
       paddingBottom: 15,
-    };
-    const alignRightStyle = {
-      textAlign: 'right',
     };
     const username = this.props.match.params.username;
     const baseUrl = this.props.match.url;
@@ -47,10 +59,14 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
     return (
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
-          ice={makeCourseICE(courseSlug, 'C')}/></Header>
-        <Button floated="right" basic={true} color="green"
-                size="tiny">{buildSimpleName(courseSlug)}</Button>
-        <b>Scheduled: N/A</b>
+          ice={makeCourseICE(courseSlug, grade)}/></Header>
+        {plannedCourse ? <Button floated="right" basic={true} color="green"
+                                 size="tiny">remove</Button> : (pastCourse ?
+          <Button floated="right" basic={true} color="green"
+                  size="tiny">taken</Button> : <Button floated="right" basic={true} color="green"
+                                                       size="tiny">{buildSimpleName(courseSlug)}</Button>)}
+
+        <b>Scheduled: {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}</b>
         <p><b>Prerequisites:</b></p>
         <CoursePrerequisitesView prerequisites={course.prerequisites} studentID={this.props.studentID}/>
         <p><b>Catalog Description:</b></p>
