@@ -6,6 +6,7 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 import TabbedPlanInspector from '../../components/student/TabbedPlanInspector';
 import ConnectedCourseSelectorTempContainer from '../../components/student/CourseSelectorTemp';
 import ConnectedCourseInstanceSelectorTempContainer from '../../components/student/CourseInstanceSelectorTemp';
+import ChessboardTutorialApp from '../../components/student/Chessboard';
 
 /** A simple static component to render some text for the landing page. */
 class StudentDegreePlannerPage extends React.Component {
@@ -25,6 +26,7 @@ class StudentDegreePlannerPage extends React.Component {
           <Grid.Row stretched={true}>
             <Grid.Column width={10} style={marginRightStyle}>
               <h1>Student DegreePlanner</h1>
+              <ChessboardTutorialApp/>
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
