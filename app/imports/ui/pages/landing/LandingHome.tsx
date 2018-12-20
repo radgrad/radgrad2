@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { CircleArrow as ScrollUpButton } from 'react-scroll-up-button';
 import { Button, Card, Container, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import LandingNavBarContainer from '../../components/landing/LandingNavBar';
@@ -46,6 +47,7 @@ class LandingHome extends React.Component<ILandingHomeProps> {
   public render() {
     return (
       <div>
+        <ScrollUpButton />
         <LandingNavBarContainer/>
         <LandingSection1/>
         <LandingSection2 careerGoals={this.props.careerGoals} interests={this.props.interests}
