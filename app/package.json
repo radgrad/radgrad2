@@ -12,6 +12,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-addons-pure-render-mixin": "^15.6.2",
+    "react-beautiful-dnd": "^10.0.3",
     "react-dnd": "^7.0.2",
     "react-dnd-html5-backend": "^7.0.2",
     "react-dom": "^16.3.3",

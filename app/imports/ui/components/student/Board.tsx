@@ -14,7 +14,7 @@ export default class Board extends React.Component<BoardProps> {
     for (let i = 0; i < 64; i += 1) {
       squares.push(this.renderSquare(i));
     }
-    console.log(squares);
+    // console.log(squares);
     return (
       <div style={{
         width: '100%',

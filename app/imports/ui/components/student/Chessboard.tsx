@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Board from './Board';
 import { observe } from './Game';
+import BoardSquare from './BoardSquare';
 
 export interface ChessboardTutorialAppState {
   knightPosition: [number, number];
@@ -38,6 +39,7 @@ export default class ChessboardTutorialApp extends React.Component<
         }}
       >
         <Board knightPosition={knightPosition} />
+        <BoardSquare key={1} x={1} y={1}>foo</BoardSquare>
       </div>
     );
   }

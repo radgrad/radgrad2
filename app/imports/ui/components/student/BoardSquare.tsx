@@ -54,6 +54,7 @@ class BoardSquare extends React.Component<BoardSquareProps & CollectedProps> {
     const { x, y, connectDropTarget, isOver, canDrop, children } = this.props;
     const black = (x + y) % 2 === 1;
     return connectDropTarget(
+    // return (
       <div
         style={{
           position: 'relative',
@@ -71,3 +72,4 @@ class BoardSquare extends React.Component<BoardSquareProps & CollectedProps> {
 }
 
 export default DropTarget(ItemTypes.KNIGHT, squareTarget, collect)(BoardSquare);
+// export default BoardSquare;
