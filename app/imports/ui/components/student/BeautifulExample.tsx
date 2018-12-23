@@ -56,7 +56,7 @@ class BeautifulExample extends React.Component<{}, IBeautifulExampleState> {
   }
 
   private onDragEnd(result) {
-    console.log(result);
+    // console.log(result);
     // dropped outside the list
     if (!result.destination) {
       return;

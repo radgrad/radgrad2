@@ -29,7 +29,7 @@ class CoursePrerequisitesView extends React.Component<ICoursePrerequisitesViewPr
   }
 
   public render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <List bulleted={true}>
         {_.map(this.props.prerequisites, (p) => {

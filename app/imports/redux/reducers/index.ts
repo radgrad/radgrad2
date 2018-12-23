@@ -3,7 +3,7 @@ import {
   SELECT_COURSE,
   SELECT_COURSE_INSTANCE,
   SELECT_OPPORTUNITY,
-  SELECT_OPPORTUNITY_INSTANCE
+  SELECT_OPPORTUNITY_INSTANCE,
 } from '../actions/actionTypes';
 
 const initialState = {

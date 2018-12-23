@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Button, Container, Header, Icon } from 'semantic-ui-react';
+import { Button, Label, Container, Header, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { NavLink, withRouter } from 'react-router-dom';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Courses } from '../../../api/course/CourseCollection';
 import { buildSimpleName } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -56,6 +57,11 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/courses/${courseSlug}`;
     // console.log(course);
+    const item = {
+      id: 'foo',
+      content: 'bar',
+    };
+    const index = 4;
     return (
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
@@ -63,8 +69,28 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
         {plannedCourse ? <Button floated="right" basic={true} color="green"
                                  size="tiny">remove</Button> : (pastCourse ?
           <Button floated="right" basic={true} color="green"
-                  size="tiny">taken</Button> : <Button floated="right" basic={true} color="green"
-                                                       size="tiny">{buildSimpleName(courseSlug)}</Button>)}
+                  size="tiny">taken</Button> : <Droppable droppableId={`inspector-course`}>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+              >
+                <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
+                  {(provided, snapshot) => ( // tslint:disable-line
+                    <div style={{
+                      float: 'right',
+                      marginRight: 0,
+                      marginLeft: '.25em',
+                    }}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Label>{courseSlug}</Label>
+                    </div>
+                  )}
+                </Draggable>
+              </div>)}
+          </Droppable>)}
 
         <b>Scheduled: {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}</b>
         <p><b>Prerequisites:</b></p>

@@ -23,7 +23,7 @@ class FutureCourseEnrollmentWidget extends React.Component<IFutureCourseEnrollme
       if (error) {
         console.log(error);
       } else {
-        console.log(result);
+        // console.log(result);
         this.setState({ data: result });
       }
     });
@@ -32,7 +32,7 @@ class FutureCourseEnrollmentWidget extends React.Component<IFutureCourseEnrollme
   public render() {
     const { data } = this.state;
     if (data) {
-      console.log(data.enrollmentData);
+      // console.log(data.enrollmentData);
       const quarterP = RadGradSettings.findOne({}).quarterSystem;
       return (
         <div>

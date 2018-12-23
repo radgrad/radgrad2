@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
@@ -7,9 +8,14 @@ import TabbedPlanInspector from '../../components/student/TabbedPlanInspector';
 import ConnectedCourseSelectorTempContainer from '../../components/student/CourseSelectorTemp';
 import ConnectedCourseInstanceSelectorTempContainer from '../../components/student/CourseInstanceSelectorTemp';
 import BeautifulExample from '../../components/student/BeautifulExample';
+import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
 
 /** A simple static component to render some text for the landing page. */
 class StudentDegreePlannerPage extends React.Component {
+
+  public onDragEnd(result) {
+    console.log(result);
+  }
   public render() {
     const paddedStyle = {
       paddingTop: 20,
@@ -20,12 +26,13 @@ class StudentDegreePlannerPage extends React.Component {
       marginRight: 0,
     };
     return (
-      <div>
+      <DragDropContext onDragEnd={this.onDragEnd}>
         <StudentPageMenuWidget/>
         <Grid stackable={true} style={paddedStyle}>
           <Grid.Row stretched={true}>
             <Grid.Column width={10} style={marginRightStyle}>
               <h1>Student DegreePlanner</h1>
+              <DegreeExperiencePlannerWidget/>
               <BeautifulExample/>
             </Grid.Column>
 
@@ -35,7 +42,7 @@ class StudentDegreePlannerPage extends React.Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
+      </DragDropContext>
     );
   }
 }

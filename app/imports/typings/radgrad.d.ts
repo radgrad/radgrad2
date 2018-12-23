@@ -54,6 +54,13 @@ export interface IAcademicPlanUpdate {
 }
 
 // AcademicYearInstances
+export interface IAcademicYear {
+  year: number;
+  springYear: number;
+  studentID: string;
+  termIDs: string[];
+}
+
 export interface IAcademicYearDefine extends IDumpOne {
   year: number;
   student: string;
@@ -96,6 +103,7 @@ export interface ICareerGoalUpdate {
 
 // CourseInstances
 export interface ICourseInstance {
+  _id: string;
   termID: string;
   courseID: string;
   verified: boolean;
@@ -106,6 +114,7 @@ export interface ICourseInstance {
   studentID: string;
   ice?: Ice;
 }
+
 export interface ICourseInstanceDefine extends IDumpOne {
   academicTerm: string;
   course: string;
@@ -367,6 +376,7 @@ export interface IOpportunityUpdateData {
 
 // OpportunityInstances
 export interface IOpportunityInstance {
+  _id: string;
   termID: string;
   opportunityID: string;
   verified: boolean;
@@ -507,6 +517,15 @@ export interface IReviewUpdateData {
 }
 
 // AcademicTerms
+export interface IAcademicTerm {
+  _id: string;
+  term: string;
+  year: number;
+  termNumber: number;
+  slugID: string;
+  retired?: boolean;
+}
+
 export interface IAcademicTermDefine extends IDumpOne {
   term: string;
   year: number;
