@@ -85,7 +85,7 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <Label>{courseSlug}</Label>
+                      <Label basic={true} color="green">{courseSlug}</Label>
                     </div>
                   )}
                 </Draggable>

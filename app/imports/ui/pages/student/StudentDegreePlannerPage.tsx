@@ -1,21 +1,62 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { withRouter } from 'react-router-dom';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import TabbedPlanInspector from '../../components/student/TabbedPlanInspector';
-import ConnectedCourseSelectorTempContainer from '../../components/student/CourseSelectorTemp';
-import ConnectedCourseInstanceSelectorTempContainer from '../../components/student/CourseInstanceSelectorTemp';
-import BeautifulExample from '../../components/student/BeautifulExample';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
+import { Courses } from '../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { ICourseInstanceDefine } from '../../../typings/radgrad';
 
+interface IPageProps {
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
+}
 /** A simple static component to render some text for the landing page. */
-class StudentDegreePlannerPage extends React.Component {
+class StudentDegreePlannerPage extends React.Component<IPageProps> {
+  constructor(props) {
+    super(props);
+    this.onDragEnd = this.onDragEnd.bind(this);
+  }
 
   public onDragEnd(result) {
     console.log(result);
+    const termSlug = result.destination.droppableId;
+    const courseSlug = result.draggableId;
+    const student = this.props.match.params.username;
+    if (Courses.isDefined(courseSlug)) {
+      const courseID = Courses.findIdBySlug(courseSlug);
+      const course = Courses.findDoc(courseID);
+      const collectionName = CourseInstances.getCollectionName();
+      const definitionData: ICourseInstanceDefine = {
+        academicTerm: termSlug,
+        course: courseSlug,
+        verified: false,
+        fromSTAR: false,
+        note: course.num,
+        grade: 'B',
+        student,
+        creditHrs: course.creditHrs,
+      };
+      defineMethod.call({ collectionName, definitionData }, (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        console.log(result);
+      });
+    }
   }
+
   public render() {
     const paddedStyle = {
       paddingTop: 20,
@@ -33,12 +74,10 @@ class StudentDegreePlannerPage extends React.Component {
             <Grid.Column width={10} style={marginRightStyle}>
               <h1>Student DegreePlanner</h1>
               <DegreeExperiencePlannerWidget/>
-              <BeautifulExample/>
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedPlanInspector/>
-              <ConnectedCourseInstanceSelectorTempContainer />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -50,4 +89,4 @@ class StudentDegreePlannerPage extends React.Component {
 const StudentDegreePlannerPageCon = withGlobalSubscription(StudentDegreePlannerPage);
 const StudentDegreePlannerPageContainer = withInstanceSubscriptions(StudentDegreePlannerPageCon);
 
-export default StudentDegreePlannerPageContainer;
+export default withRouter(StudentDegreePlannerPageContainer);

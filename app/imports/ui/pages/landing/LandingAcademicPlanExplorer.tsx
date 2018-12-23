@@ -1,19 +1,14 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { IAcademicPlan } from '../../../typings/radgrad';
-import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
-import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
-import InterestList from '../../components/landing/InterestList';
 import LandingAcademicPlanViewer from '../../components/landing/LandingAcademicPlanViewer';
 
 interface IAcademicPlanExplorerProps {

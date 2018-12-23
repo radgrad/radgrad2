@@ -39,7 +39,6 @@ function withInstanceSubscriptions(WrappedComponent) {
     const handles = [];
     if (Meteor.userId()) {  // if logged out don't subscribe
       const userID = Users.getProfile(Meteor.userId()).username;
-      // tslint
       handles.push(instanceSubs.subscribe(AcademicYearInstances.publicationNames.PerStudentID, Meteor.userId()));
       handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, Meteor.userId()));
     }

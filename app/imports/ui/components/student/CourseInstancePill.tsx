@@ -10,6 +10,7 @@ interface ICourseInstancePillProps {
 
 class CourseInstancePill extends React.Component<ICourseInstancePillProps> {
   constructor(props) {
+    console.log(props.instance);
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }

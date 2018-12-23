@@ -3,7 +3,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid, Header } from 'semantic-ui-react';
 import { IAcademicYear } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import AcademicTermView from './AcademicTermView';
+import AcademicTermViewContainer from './AcademicTermView';
 
 interface IAcademicYearViewProps {
   academicYear: IAcademicYear;
@@ -26,7 +26,7 @@ class AcademicYearView extends React.Component<IAcademicYearViewProps> {
     return (
       <Grid.Column stretched={true}>
         {_.map(terms, (term) => (
-          <AcademicTermView key={term._id} term={term} studentID={this.props.studentID}
+          <AcademicTermViewContainer key={term._id} term={term} studentID={this.props.studentID}
                             handleClickCourseInstance={this.props.handleClickCourseInstance}
                             handleClickOpportunityInstance={this.props.handleClickOpportunityInstance}/>
         ))}
