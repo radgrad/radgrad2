@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Container, Grid, Header, Label } from 'semantic-ui-react';
 import { IOpportunityInstance } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 
 interface IOpportunityInstancePillProps {
   instance: IOpportunityInstance;
+  index: number;
   handleClickOpportunityInstance: (event, { value }) => any;
 }
 
@@ -24,9 +26,22 @@ class OpportunityInstancePill extends React.Component<IOpportunityInstancePillPr
   public render() {
     const opp = Opportunities.findDoc(this.props.instance.opportunityID);
     return (
-      <Label as="a" basic={true} onClick={this.handleClick}>
-        {opp.name}
-      </Label>
+      <Draggable key={this.props.instance._id} draggableId={this.props.instance._id} index={this.props.index}>
+        {(prov, snap) => (
+          <div
+            ref={prov.innerRef}
+            {...prov.draggableProps}
+            {...prov.dragHandleProps}
+          >
+            <Grid.Row onClick={this.handleClick}>
+              {/*<Label basic={true} color="green" >*/}
+              {opp.name}
+              {/*</Label>*/}
+            </Grid.Row>
+
+          </div>
+        )}
+      </Draggable>
     );
   }
 }

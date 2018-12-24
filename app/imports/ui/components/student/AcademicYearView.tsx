@@ -23,8 +23,13 @@ class AcademicYearView extends React.Component<IAcademicYearViewProps> {
     const paddingStyle = {
       padding: '0 0.6rem',
     };
+    const yearViewStyle = {
+      borderStyle: 'solid',
+      borderColor: 'yellow',
+      borderWidth: 1,
+    };
     return (
-      <Grid.Column stretched={true}>
+      <Grid.Column stretched={true} style={yearViewStyle}>
         {_.map(terms, (term) => (
           <AcademicTermViewContainer key={term._id} term={term} studentID={this.props.studentID}
                             handleClickCourseInstance={this.props.handleClickCourseInstance}

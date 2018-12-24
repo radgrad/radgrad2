@@ -36,6 +36,7 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
   public render() {
     const course = Courses.findDoc(this.props.courseID);
     const courseSlug = Slugs.getNameFromID(course.slugID);
+    const courseName = buildSimpleName(courseSlug);
     let courseInstance;
     let grade = 'C';
     let plannedCourse = false;
@@ -75,17 +76,13 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
                 ref={provided.innerRef}
               >
                 <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
-                  {(provided, snapshot) => ( // tslint:disable-line
-                    <div style={{
-                      float: 'right',
-                      marginRight: 0,
-                      marginLeft: '.25em',
-                    }}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
+                  {(prov, snap) => (
+                    <div
+                      ref={prov.innerRef}
+                      {...prov.draggableProps}
+                      {...prov.dragHandleProps}
                     >
-                      <Label basic={true} color="green">{courseSlug}</Label>
+                      <Label basic={true} color="green">{courseName}</Label>
                     </div>
                   )}
                 </Draggable>

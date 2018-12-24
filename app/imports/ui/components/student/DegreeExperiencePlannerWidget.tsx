@@ -57,8 +57,13 @@ class DEPWidget extends React.Component<IDePProps> {
     const username = this.props.match.params.username;
     const studentID = Users.getID(username);
     const years = AcademicYearInstances.find({ studentID }).fetch();
+    const outlineStyle = {
+      borderStyle: 'solid',
+      borderColor: 'blue',
+      borderWidth: 1,
+    };
     return (
-        <Grid stackable={true} columns="equal">
+        <Grid stackable={true} columns="equal" style={outlineStyle}>
           <Grid.Row stretched={true}>
             {_.map(years, (year) => (
               <AcademicYearView key={year._id} academicYear={year} studentID={studentID}
@@ -66,9 +71,9 @@ class DEPWidget extends React.Component<IDePProps> {
                                 handleClickOpportunityInstance={this.handleClickOpportunityInstance}/>
             ))}
           </Grid.Row>
-          <Grid.Row>
-            <BeautifulExample/>
-          </Grid.Row>
+          {/*<Grid.Row>*/}
+            {/*<BeautifulExample/>*/}
+          {/*</Grid.Row>*/}
         </Grid>
     );
   }
