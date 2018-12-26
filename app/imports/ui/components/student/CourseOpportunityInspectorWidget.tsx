@@ -18,6 +18,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import InspectorCourseMenuContainer from './InspectorCourseMenu';
 import InspectorCourseView from './InspectorCourseView';
+import InspectorOpportunityView from './InspectorOpportunityView';
 
 interface ICOInspectorWidgetProps {
   selectedCourseID: string;
@@ -64,6 +65,11 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
       const courseInstance = CourseInstances.findDoc(this.props.selectedCourseInstanceID);
       courseID = courseInstance.courseID;
     }
+    let opportunityID;
+    if (this.props.selectedOpportunityInstanceID) {
+      const instance = OpportunityInstances.findDoc(this.props.selectedOpportunityInstanceID);
+      opportunityID = instance.opportunityID;
+    }
     return (
       <div>
         <Button.Group attached="top">
@@ -81,8 +87,10 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
               <InspectorCourseView courseInstanceID={this.props.selectedCourseInstanceID} courseID={courseID}
                                    studentID={studentID}/> : ''}
             {this.props.selectedOpportunityID ? 'selectedOpportunity' : ''}
-            {this.props.selectedOpportunityInstanceID ? 'selectedOpportunityInstance' : ''}
-            {(!this.props.selectedCourseID && !this.props.selectedCourseInstanceID && !this.props.selectedOpportunityID && !this.props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above.' : ''}
+            {this.props.selectedOpportunityInstanceID ?
+              <InspectorOpportunityView opportunityInstanceID={this.props.selectedOpportunityInstanceID}
+                                        opportunityID={opportunityID} studentID={studentID}/> : ''}
+            {(!this.props.selectedCourseID && !this.props.selectedCourseInstanceID && !this.props.selectedOpportunityID && !this.props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above or click on a Course or Opportunity in the Degree Experience Planner to the right.' : ''}
           </Grid.Row>
         </Grid>
       </div>

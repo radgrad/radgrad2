@@ -43,13 +43,13 @@ class DEPWidget extends React.Component<IDePProps> {
 
   public handleClickCourseInstance(event, { value }) {
     event.preventDefault();
-    console.log(`course instance id ${value}`);
+    // console.log(`course instance id ${value}`);
     this.props.selectCourseInstance(value);
   }
 
   public handleClickOpportunityInstance(event, { value }) {
     event.preventDefault();
-    console.log(`opportunity instance id ${value}`);
+    // console.log(`opportunity instance id ${value}`);
     this.props.selectOpportunityInstance(value);
   }
 
