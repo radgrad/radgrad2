@@ -10,6 +10,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import CourseInstancePill from './CourseInstancePill';
 import OpportunityInstancePill from './OpportunityInstancePill';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { getListStyle } from './StyleFunctions';
 
 interface IAcademicTermViewProps {
   term: IAcademicTerm;
@@ -43,10 +44,11 @@ class AcademicTermView extends React.Component<IAcademicTermViewProps> {
         <Header dividing={true}>{AcademicTerms.toString(this.props.term._id)}</Header>
         <Grid stackable={true} stretched={true}>
           <Droppable droppableId={`${termSlug}`}>
-            {(provided) => (
+            {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
                 // style={style}
+                style={getListStyle(snapshot.isDraggingOver)}
               >
                 {_.map(this.props.courseInstances, (ci, index) => <CourseInstancePill key={ci._id} instance={ci} index={index}
                                                                                handleClickCourseInstance={this.props.handleClickCourseInstance}/>)}

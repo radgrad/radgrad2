@@ -4,6 +4,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Container, Grid, Header, Label } from 'semantic-ui-react';
 import { IOpportunityInstance } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { getItemStyle } from './StyleFunctions';
 
 interface IOpportunityInstancePillProps {
   instance: IOpportunityInstance;
@@ -32,11 +33,13 @@ class OpportunityInstancePill extends React.Component<IOpportunityInstancePillPr
             ref={prov.innerRef}
             {...prov.draggableProps}
             {...prov.dragHandleProps}
+            style={getItemStyle(
+              snap.isDragging,
+              prov.draggableProps.style,
+            )}
           >
             <Grid.Row onClick={this.handleClick}>
-              {/*<Label basic={true} color="green" >*/}
-              {opp.name}
-              {/*</Label>*/}
+              <b>{opp.name}</b>
             </Grid.Row>
 
           </div>

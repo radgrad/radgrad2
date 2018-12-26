@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Provider } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
@@ -57,13 +57,9 @@ class DEPWidget extends React.Component<IDePProps> {
     const username = this.props.match.params.username;
     const studentID = Users.getID(username);
     const years = AcademicYearInstances.find({ studentID }).fetch();
-    const outlineStyle = {
-      borderStyle: 'solid',
-      borderColor: 'blue',
-      borderWidth: 1,
-    };
     return (
-        <Grid stackable={true} columns="equal" style={outlineStyle}>
+      <Segment padded={true}>
+        <Grid stackable={true} columns="equal">
           <Grid.Row stretched={true}>
             {_.map(years, (year) => (
               <AcademicYearView key={year._id} academicYear={year} studentID={studentID}
@@ -72,9 +68,10 @@ class DEPWidget extends React.Component<IDePProps> {
             ))}
           </Grid.Row>
           {/*<Grid.Row>*/}
-            {/*<BeautifulExample/>*/}
+          {/*<BeautifulExample/>*/}
           {/*</Grid.Row>*/}
         </Grid>
+      </Segment>
     );
   }
 }

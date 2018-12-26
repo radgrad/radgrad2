@@ -13,6 +13,7 @@ import FutureCourseEnrollmentWidget from '../shared/FutureCourseEnrollmentWidget
 import UserInterestList from '../shared/UserInterestList';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { getInspectorViewItemStyle } from './StyleFunctions';
 
 interface IInspectorCourseViewProps {
   courseID: string;
@@ -58,11 +59,6 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/courses/${courseSlug}`;
     // console.log(course);
-    const item = {
-      id: 'foo',
-      content: 'bar',
-    };
-    const index = 4;
     return (
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
@@ -81,8 +77,12 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
                       ref={prov.innerRef}
                       {...prov.draggableProps}
                       {...prov.dragHandleProps}
+                      style={getInspectorViewItemStyle(
+                        snap.isDragging,
+                        prov.draggableProps.style,
+                      )}
                     >
-                      <Label basic={true} color="green">{courseName}</Label>
+                      <b>{courseName}</b>
                     </div>
                   )}
                 </Draggable>

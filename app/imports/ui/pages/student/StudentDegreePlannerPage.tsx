@@ -1,18 +1,22 @@
 import * as React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import TabbedPlanInspector from '../../components/student/TabbedPlanInspector';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
+import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { ICourseInstanceDefine } from '../../../typings/radgrad';
 
 interface IPageProps {
+  selectCourseInstance: (courseInstanceID: string) => any;
+  selectOpportunityInstance: (opportunityInstanceID: string) => any;
   match: {
     isExact: boolean;
     path: string;
@@ -22,7 +26,14 @@ interface IPageProps {
     }
   };
 }
-/** A simple static component to render some text for the landing page. */
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
+    selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
+  };
+};
+
 class StudentDegreePlannerPage extends React.Component<IPageProps> {
   constructor(props) {
     super(props);
@@ -30,10 +41,14 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
   }
 
   public onDragEnd(result) {
-    console.log(result);
+    // console.log(result);
+    if (!result.destination) {
+      return;
+    }
     const termSlug = result.destination.droppableId;
     const courseSlug = result.draggableId;
     const student = this.props.match.params.username;
+    const instance = this; // tslint:disable-line: no-this-assignment
     if (Courses.isDefined(courseSlug)) {
       const courseID = Courses.findIdBySlug(courseSlug);
       const course = Courses.findDoc(courseID);
@@ -48,11 +63,13 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
         student,
         creditHrs: course.creditHrs,
       };
-      defineMethod.call({ collectionName, definitionData }, (error, result) => {
+      defineMethod.call({ collectionName, definitionData }, (error, res) => {
         if (error) {
           console.log(error);
+        } else {
+          console.log(res);
+          instance.props.selectCourseInstance(res);
         }
-        console.log(result);
       });
     }
   }
@@ -63,16 +80,17 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
       paddingLeft: 10,
       paddingRight: 20,
     };
-    const marginRightStyle = {
-      marginRight: 0,
+    const marginStyle = {
+      marginLeft: 10,
+      marginRight: 10,
     };
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <StudentPageMenuWidget/>
-        <Grid stackable={true} style={paddedStyle}>
+        <Grid stackable={true} style={marginStyle}>
+          <Grid.Row><Header>Student DegreePlanner</Header></Grid.Row>
           <Grid.Row stretched={true}>
-            <Grid.Column width={10} style={marginRightStyle}>
-              <h1>Student DegreePlanner</h1>
+            <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget/>
             </Grid.Column>
 
@@ -87,6 +105,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
 }
 
 const StudentDegreePlannerPageCon = withGlobalSubscription(StudentDegreePlannerPage);
-const StudentDegreePlannerPageContainer = withInstanceSubscriptions(StudentDegreePlannerPageCon);
+const StudentDegreePlannerPageCont = withInstanceSubscriptions(StudentDegreePlannerPageCon);
+const StudentDegreePlannerPageContainer = connect(null,  mapDispatchToProps)(StudentDegreePlannerPageCont);
 
 export default withRouter(StudentDegreePlannerPageContainer);

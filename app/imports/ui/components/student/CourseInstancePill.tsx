@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Button, Label, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { ICourseInstance } from '../../../typings/radgrad';
+import { getItemStyle } from './StyleFunctions';
 
 interface ICourseInstancePillProps {
   instance: ICourseInstance;
@@ -30,11 +30,13 @@ class CourseInstancePill extends React.Component<ICourseInstancePillProps> {
             ref={prov.innerRef}
             {...prov.draggableProps}
             {...prov.dragHandleProps}
+            style={getItemStyle(
+              snap.isDragging,
+              prov.draggableProps.style,
+            )}
           >
             <Grid.Row onClick={this.handleClick}>
-              {/*<Label basic={true} color="green" >*/}
-                {this.props.instance.note}
-              {/*</Label>*/}
+              <b>{this.props.instance.note}</b>
             </Grid.Row>
 
           </div>
