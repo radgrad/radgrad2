@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Container, Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -76,19 +76,22 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
 
   public render() {
     const paddedStyle = {
-      paddingTop: 20,
+      paddingTop: 0,
       paddingLeft: 10,
       paddingRight: 20,
     };
     const marginStyle = {
       marginLeft: 10,
       marginRight: 10,
+      marginTop: 5,
     };
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <StudentPageMenuWidget/>
         <Grid stackable={true} style={marginStyle}>
-          <Grid.Row><Header>Student DegreePlanner</Header></Grid.Row>
+          <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
+            <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
+          </Grid.Row>
           <Grid.Row stretched={true}>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget/>
@@ -106,6 +109,6 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
 
 const StudentDegreePlannerPageCon = withGlobalSubscription(StudentDegreePlannerPage);
 const StudentDegreePlannerPageCont = withInstanceSubscriptions(StudentDegreePlannerPageCon);
-const StudentDegreePlannerPageContainer = connect(null,  mapDispatchToProps)(StudentDegreePlannerPageCont);
+const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPageCont);
 
 export default withRouter(StudentDegreePlannerPageContainer);
