@@ -19,6 +19,7 @@ import { Users } from '../../../api/user/UserCollection';
 import InspectorCourseMenuContainer from './InspectorCourseMenu';
 import InspectorCourseView from './InspectorCourseView';
 import InspectorOpportunityView from './InspectorOpportunityView';
+import InspectorOpportunityMenuContainer from './InspectorOpportunityMenu';
 
 interface ICOInspectorWidgetProps {
   selectedCourseID: string;
@@ -77,7 +78,9 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
             <InspectorCourseMenuContainer studentID={studentID}/>
           </Button>
           <Button.Or/>
-          <Button>Opportunities</Button>
+          <Button>
+            <InspectorOpportunityMenuContainer studentID={studentID}/>
+          </Button>
         </Button.Group>
         <Grid container={true}>
           <Grid.Row stretched={true} style={padddingBottomStyle}>
@@ -86,7 +89,8 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
             {this.props.selectedCourseInstanceID ?
               <InspectorCourseView courseInstanceID={this.props.selectedCourseInstanceID} courseID={courseID}
                                    studentID={studentID}/> : ''}
-            {this.props.selectedOpportunityID ? 'selectedOpportunity' : ''}
+            {this.props.selectedOpportunityID ?
+              <InspectorOpportunityView opportunityID={this.props.selectedOpportunityID} studentID={studentID}/> : ''}
             {this.props.selectedOpportunityInstanceID ?
               <InspectorOpportunityView opportunityInstanceID={this.props.selectedOpportunityInstanceID}
                                         opportunityID={opportunityID} studentID={studentID}/> : ''}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Grid, Header } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,7 +12,10 @@ import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { ICourseInstanceDefine } from '../../../typings/radgrad';
+import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Users } from '../../../api/user/UserCollection';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -45,17 +48,18 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
     if (!result.destination) {
       return;
     }
-    const termSlug = result.destination.droppableId;
-    const courseSlug = result.draggableId;
+    const termSlug: string = result.destination.droppableId;
+    const slug: string = result.draggableId;
     const student = this.props.match.params.username;
     const instance = this; // tslint:disable-line: no-this-assignment
-    if (Courses.isDefined(courseSlug)) {
-      const courseID = Courses.findIdBySlug(courseSlug);
+    console.log(termSlug, slug, student);
+    if (Courses.isDefined(slug)) {
+      const courseID = Courses.findIdBySlug(slug);
       const course = Courses.findDoc(courseID);
       const collectionName = CourseInstances.getCollectionName();
       const definitionData: ICourseInstanceDefine = {
         academicTerm: termSlug,
-        course: courseSlug,
+        course: slug,
         verified: false,
         fromSTAR: false,
         note: course.num,
@@ -67,8 +71,29 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
         if (error) {
           console.log(error);
         } else {
-          console.log(res);
+          // console.log(res);
           instance.props.selectCourseInstance(res);
+        }
+      });
+    } else if (Opportunities.isDefined(slug)) {
+      const opportunityID = Opportunities.findIdBySlug(slug);
+      const opportunity = Opportunities.findDoc(opportunityID);
+      const sponsor = Users.getProfile(opportunity.sponsorID).username;
+      const collectionName = OpportunityInstances.getCollectionName();
+      const definitionData: IOpportunityInstanceDefine = {
+        academicTerm: termSlug,
+        opportunity: slug,
+        verified: false,
+        student,
+        sponsor,
+      };
+      // console.log(definitionData);
+      defineMethod.call({ collectionName, definitionData }, (error, res) => {
+        if (error) {
+          console.log(error);
+        } else {
+          // console.log(res);
+          instance.props.selectOpportunityInstance(res);
         }
       });
     }
