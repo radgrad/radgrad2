@@ -7,6 +7,7 @@ import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IAcademicYearDefine } from '../../typings/radgrad';
+import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 /**
  * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
@@ -52,6 +53,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
   public define({ year, student }: IAcademicYearDefine) {
     const studentID = Users.getID(student);
     let termIDs = [];
+    const settingsDoc = RadGradSettings.findOne({});
     // check for gaps
     const prevYears = this.collection.find({ year: { $lt: year }, studentID }, { sort: { year: 1 } }).fetch();
     if (prevYears.length > 0) {
@@ -60,6 +62,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
           termIDs = [];
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
+          if (settingsDoc.quarterSystem) {
+            termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${y + 1}`));
+          }
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${y + 1}`));
           this.collection.insert({ year: y, springYear: y + 1, studentID, termIDs });
@@ -73,6 +78,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
           termIDs = [];
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
+          if (settingsDoc.quarterSystem) {
+            termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${y + 1}`));
+          }
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${y + 1}`));
           this.collection.insert({ year: y, springYear: y + 1, studentID, termIDs });
@@ -85,6 +93,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
     }
     termIDs = [];
     termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${year}`));
+    if (settingsDoc.quarterSystem) {
+      termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${year + 1}`));
+    }
     termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${year + 1}`));
     termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${year + 1}`));
 

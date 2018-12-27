@@ -11,7 +11,7 @@
       "popupHeight": 610
     },
     "fixUserInteractions": false,
-    "databaseRestoreFileName": "database/snapshot/2018-12-10-11-05-40.json",
+    "databaseRestoreFileName": "database/quarter/2018-12-27-09-06-31.json",
     "appLogging": { "enable": true, "filter": ["*"], "client": true, "server": true },
     "admin": { "username": "radgrad@hawaii.edu", "development": true },
     "cloudinary": {"cloud_name": "radgrad", "upload_preset": "CHANGEME"},
@@ -21,9 +21,9 @@
       "four": {"i": 30, "c": 36, "e": 30, "reviews": 0},
       "three": {"i": 1, "c": 24, "e": 1, "reviews": 0},
       "two": {"i": 0, "c": 12, "e": 0, "reviews": 0}
+    },
+    "RadGrad": {
+      "quarterSystem": true
     }
-  },
-  "RadGrad": {
-    "quarterSystem": false
   }
 }

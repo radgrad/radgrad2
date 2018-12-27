@@ -210,7 +210,7 @@ function fixUserInteractions() {
 
 function ensureSettings() {
   if (RadGradSettings.find({}).count() === 0) {
-    const quarterSystem = Meteor.settings.RadGrad.quarterSystem;
+    const quarterSystem = Meteor.settings.public.RadGrad.quarterSystem;
     RadGradSettings.define({ quarterSystem });
   }
 }

@@ -57,6 +57,7 @@ class DEPWidget extends React.Component<IDePProps> {
     const username = this.props.match.params.username;
     const studentID = Users.getID(username);
     const years = AcademicYearInstances.find({ studentID }).fetch();
+    console.log(years);
     return (
       <Segment padded={true}>
         <Grid stackable={true} columns="equal">

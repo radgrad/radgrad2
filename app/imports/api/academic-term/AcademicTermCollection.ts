@@ -40,6 +40,7 @@ class AcademicTermCollection extends BaseSlugCollection {
     this.FALL = 'Fall';
     this.WINTER = 'Winter';
     const settingsDoc = RadGradSettings.findOne({});
+    // console.log(settingsDoc, Meteor.settings);
     if (settingsDoc.quarterSystem) {
       this.terms = [this.SPRING, this.SUMMER, this.FALL, this.WINTER];
       this.fallStart = parseInt(moment('09-26-2015', 'MM-DD-YYYY').format('DDD'), 10);

@@ -27,7 +27,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'effectiveAcademicTermID': SimpleSchema.RegEx.Id,
       'termNumber': Number,
       'year': Number,
-      'coursesPerAcademicTerm': { type: Array, minCount: 12, maxCount: 15 }, 'coursesPerAcademicTerm.$': Number,
+      // CAM: maxCount of 20 is for quarter system bachelors and masters.
+      'coursesPerAcademicTerm': { type: Array, minCount: 12, maxCount: 20 }, 'coursesPerAcademicTerm.$': Number,
       'courseList': [String],
       'retired': { type: Boolean, optional: true },
     }));

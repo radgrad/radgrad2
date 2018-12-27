@@ -68,6 +68,7 @@ class VerificationRequestCollection extends BaseCollection {
    * @returns The newly created docID.
    */
   public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity }: IVerificationRequestDefine) {
+    // console.log(student, opportunityInstance, submittedOn, status, processed, academicTerm, opportunity);
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
       OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student);
