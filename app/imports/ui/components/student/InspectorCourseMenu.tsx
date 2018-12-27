@@ -10,6 +10,7 @@ import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface IInpectorCourseMenuProps {
   studentID: string;
@@ -32,7 +33,12 @@ function courseStructureForMenu(userID) {
   if (Roles.userIsInRole(userID, [ROLE.STUDENT])) {
     const profile = StudentProfiles.findDoc({ userID });
     const plan = AcademicPlans.findDoc(profile.academicPlanID);
-    if (!plan || plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
+    const setttingsDoc = RadGradSettings.findOne({});
+    let numTermsPerYear = 3;
+    if (setttingsDoc.quarterSystem) {
+      numTermsPerYear = 4;
+    }
+    if (!plan || plan.coursesPerAcademicTerm.length < (4 * numTermsPerYear) + 1) { // not bachelors and masters
       const regex = /[1234]\d\d/g;
       courses = _.filter(courses, (c: ICourse) => c.num.match(regex));
     }
