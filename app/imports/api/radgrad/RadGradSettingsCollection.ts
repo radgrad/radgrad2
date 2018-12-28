@@ -27,7 +27,7 @@ class RadGradSettingsCollection extends BaseCollection {
     if (doc) {
       return doc;
     }
-    return Meteor.settings.public.RadGrad;
+    return Meteor.settings.public.RadGrad ? Meteor.settings.public.RadGrad : { quarterSystem: false };
   }
 
   public update(docID: string, { quarterSystem }: ISettingsUpdate) {
