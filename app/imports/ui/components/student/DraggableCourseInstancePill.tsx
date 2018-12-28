@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 import { ICourseInstance } from '../../../typings/radgrad';
 import { getDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';

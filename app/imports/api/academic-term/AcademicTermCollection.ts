@@ -5,7 +5,6 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
-import { RadGrad } from '../radgrad/RadGrad';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 /**
@@ -20,7 +19,6 @@ class AcademicTermCollection extends BaseSlugCollection {
   public WINTER: string;
   private terms: string[];
   private fallStart: number;
-  private winterStart: number;
   private springStart: number;
   private summerStart: number;
 
@@ -44,7 +42,6 @@ class AcademicTermCollection extends BaseSlugCollection {
     if (settingsDoc.quarterSystem) {
       this.terms = [this.SPRING, this.SUMMER, this.FALL, this.WINTER];
       this.fallStart = parseInt(moment('09-26-2015', 'MM-DD-YYYY').format('DDD'), 10);
-      this.winterStart = parseInt(moment('01-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.springStart = parseInt(moment('04-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.summerStart = parseInt(moment('06-20-2015', 'MM-DD-YYYY').format('DDD'), 10);
     } else {
@@ -163,13 +160,26 @@ class AcademicTermCollection extends BaseSlugCollection {
   public getCurrentTermID() {
     const year = moment().year();
     const day = moment().dayOfYear();
+    const settingsDoc = RadGradSettings.findOne({});
     let term = '';
-    if (day >= this.fallStart) {
-      term = this.FALL;
-    } else if (day >= this.summerStart) {
-      term = this.SUMMER;
+    if (settingsDoc.quarterSystem) {
+      if (day >= this.fallStart) {
+        term = this.FALL;
+      } else if (day >= this.summerStart) {
+        term = this.SUMMER;
+      } else if (day >= this.springStart) {
+        term = this.SPRING;
+      } else {
+        term = this.WINTER;
+      }
     } else {
-      term = this.SPRING;
+      if (day >= this.fallStart) {
+        term = this.FALL;
+      } else if (day >= this.summerStart) {
+        term = this.SUMMER;
+      } else {
+        term = this.SPRING;
+      }
     }
     return this.define({ term, year });
   }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { Label } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Users } from '../../../api/user/UserCollection';

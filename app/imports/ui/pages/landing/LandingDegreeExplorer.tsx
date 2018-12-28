@@ -1,17 +1,13 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { IDesiredDegree } from '../../../typings/radgrad';
-import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
-import InterestList from '../../components/landing/InterestList';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 interface IDesiredDegreeExplorerProps {
@@ -28,10 +24,6 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
 
   public render() {
     // console.log(this.props.desiredDegree);
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
     return (
       <div>
         <ExplorerMenuBarContainer/>

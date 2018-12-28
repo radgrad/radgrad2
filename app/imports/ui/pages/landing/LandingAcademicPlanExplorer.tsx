@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import { IAcademicPlan } from '../../../typings/radgrad';
@@ -25,10 +25,6 @@ class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerP
 
   public render() {
     // console.log(this.props.plan);
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
     return (
       <div>
         <ExplorerMenuBarContainer/>

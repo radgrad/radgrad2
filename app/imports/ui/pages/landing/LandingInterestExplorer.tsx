@@ -1,20 +1,16 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Icon, Image, Label, List, Loader, Segment } from 'semantic-ui-react';
+import { Grid, Header, List, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
-import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
-import InterestList from '../../components/landing/InterestList';
 import { getSlugFromEntityID } from '../../components/landing/helper-functions';
 
 interface IInterestExplorerProps {
@@ -33,10 +29,6 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
 
   public render() {
     // console.log(this.props.interest);
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
     return (
       <div>
         <ExplorerMenuBarContainer/>

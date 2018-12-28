@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Ice } from '../../../typings/radgrad';
 
 interface IMenuIceCircleProps {
   earned: number;

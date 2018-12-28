@@ -2,12 +2,12 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
-import { Users } from '../user/UserCollection';
+import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IMentorProfileDefine, IMentorProfileUpdate, IMentorQuestionUpdate } from '../../typings/radgrad';
+import { IMentorProfileDefine, IMentorProfileUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Mentor Profile.
@@ -64,6 +64,12 @@ class MentorProfileCollection extends BaseProfileCollection {
    * Updates the MentorProfile.
    * You cannot change the username or role once defined.
    * @param docID the id of the MentorProfile.
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} picture
+   * @param {string} website
+   * @param {string[]} interests
+   * @param {string[]} careerGoals
    * @param company the company (optional).
    * @param career the career (optional).
    * @param location the location (optional).

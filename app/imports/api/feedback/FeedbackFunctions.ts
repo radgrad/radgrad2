@@ -367,10 +367,9 @@ export class FeedbackFunctionClass {
   }
 
   private getBasePath(studentID) {
-    const getPosition = (str, subString, index) => {
-      return str.split(subString, index).join(subString).length;
-    };
-    const basePath = '';
+    // const getPosition = (str, subString, index) => {
+    //   return str.split(subString, index).join(subString).length;
+    // };
     // if (FlowRouter.current()) {
     //   const currentRoute = FlowRouter.current().path;
     //   if (currentRoute.startsWith('/advisor')) {
@@ -381,7 +380,7 @@ export class FeedbackFunctionClass {
     //     basePath = currentRoute.substring(0, index + 1);
     //   }
     // }
-    return basePath;
+    return '';
   }
 }
 

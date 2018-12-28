@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Container, Grid, Header, Loader, Image } from 'semantic-ui-react';
-import RadGradLogoText from '../shared/RadGradLogoText';
+import { Container, Grid, Header, Image } from 'semantic-ui-react';
 import styles from './landing-styles';
 
 interface ILandingSection4Props {

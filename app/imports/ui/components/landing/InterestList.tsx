@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { Label } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IWithInterestsProps {
   interestIDs: string[];

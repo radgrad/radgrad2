@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';

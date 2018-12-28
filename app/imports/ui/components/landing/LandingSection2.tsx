@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Grid, Header, Loader } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import RadGradLogoTextQ from '../shared/RadGradLogoTextQ';
 import styles from './landing-styles';
 

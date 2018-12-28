@@ -1,14 +1,11 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICareerGoal } from '../../../typings/radgrad';
-import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -29,10 +26,6 @@ class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps
 
   public render() {
     // console.log(this.props.careerGoal);
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
     return (
       <div>
         <ExplorerMenuBarContainer/>

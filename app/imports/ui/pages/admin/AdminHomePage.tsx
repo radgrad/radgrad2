@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Container, Segment } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
-import SecondMenu from '../shared/SecondMenu';
+import { Container } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';

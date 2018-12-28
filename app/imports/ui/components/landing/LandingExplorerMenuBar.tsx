@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Button, Card, Dropdown, Container, Grid, Header, Icon, Image, Loader, Menu, Segment } from 'semantic-ui-react';
+import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import { INavBarProps } from './LandingNavBar';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';

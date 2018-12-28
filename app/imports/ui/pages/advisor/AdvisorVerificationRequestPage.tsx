@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import NavBar from '../../components/NavBar';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';

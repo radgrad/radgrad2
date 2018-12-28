@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Accordion, Button, Card, Container, Grid, Header, Icon, Image, Loader, Message, Segment } from 'semantic-ui-react';
+import { Accordion, Grid, Icon, Loader, Message } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IHelpPanelWidgetProps {
@@ -24,6 +24,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   }
 
   private handleClick(e, titleProps) {
+    e.preventDefault();
     const { index } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;

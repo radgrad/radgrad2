@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Card, Dropdown, Header, Icon, Segment } from 'semantic-ui-react';
+import { Dropdown, Header, Icon, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { getRouteName } from './helper-functions';

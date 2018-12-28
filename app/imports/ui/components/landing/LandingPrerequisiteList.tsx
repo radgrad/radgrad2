@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Card, Grid, Header, Icon, Image, Label, List, Loader, Segment } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { getSlugFromEntityID } from './helper-functions';
 

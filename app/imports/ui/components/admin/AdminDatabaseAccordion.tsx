@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Accordion, Button, Form, Grid, Icon, Message } from 'semantic-ui-react';
+import { Accordion, Icon } from 'semantic-ui-react';
 
 interface IAdminDatabaseAccordionState {
   activeIndex: number;
@@ -20,6 +20,7 @@ class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccodionProps
   }
 
   private handleClick(e, titleProps) {
+    e.preventDefault();
     console.log(titleProps);
     const { index } = titleProps;
     const { activeIndex } = this.state;

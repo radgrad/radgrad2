@@ -3,11 +3,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
 import { Roles } from 'meteor/alanning:roles';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Button, Dropdown, Header, Image, Menu } from 'semantic-ui-react';
+import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
-import LandingSection9 from './LandingSection9';
-import RadGradMenuProfile from '../shared/RadGradMenuProfile';
 import { ROLE } from '../../../api/role/Role';
 
 export interface INavBarProps {
@@ -22,10 +20,9 @@ export interface INavBarProps {
 class LandingNavBar extends React.Component<INavBarProps, object> {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
   }
 
-  public onClick() {
+  public static onClick() {
     const el = document.getElementById('landing-section-9');
     window.scrollTo(0, el.offsetTop);
   }
@@ -44,7 +41,7 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
             </Header>
           </div>
         </Menu.Item>
-        <Menu.Item position="right"><Button onClick={this.onClick}>GUIDED TOURS</Button></Menu.Item>
+        <Menu.Item position="right"><Button onClick={LandingNavBar.onClick}>GUIDED TOURS</Button></Menu.Item>
         <Menu.Item>
           {this.props.currentUser ? (
             <div>
@@ -61,7 +58,6 @@ class LandingNavBar extends React.Component<INavBarProps, object> {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingNavBarContainer = withTracker(() => {
-  const userID = Meteor.userId();
   let role;
   if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN])) {
     role = 'admin';

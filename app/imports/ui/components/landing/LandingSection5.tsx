@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Container, Grid, Header, Icon, Image, Label, Segment } from 'semantic-ui-react';
+import { Container, Grid, Header, Image } from 'semantic-ui-react';
 import styles from './landing-styles';
 
 const LandingSection5 = () => (

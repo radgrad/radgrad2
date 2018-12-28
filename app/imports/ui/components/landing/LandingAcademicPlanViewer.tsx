@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Button, Card, Grid, Header, Icon, Label } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
-import { getSlug, itemShortDescription } from './helper-functions';
+import { Grid, Header, Label } from 'semantic-ui-react';
 import { IAcademicPlan } from '../../../typings/radgrad';
 import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
 
@@ -16,7 +14,7 @@ function getCourses(plan, yearNum, termNum) {
   const numCoursesList = plan.coursesPerAcademicTerm.slice(0);
   const numCourses = numCoursesList[totalSem];
   const courseList = plan.courseList.slice(0);
-  let i = 0;
+  let i;
   for (i = 0; i < totalSem; i += 1) {
     courseList.splice(0, numCoursesList[i]);
   }
@@ -31,7 +29,6 @@ function getCourses(plan, yearNum, termNum) {
 
 const LandingAcademicPlanViewer = (props: ILandingAcademicPlanViewerProps) => {
   // console.log(props.plan);
-  const plan = props.plan;
   const numYears = props.plan.coursesPerAcademicTerm.length === 15 ? 5 : 4;
   return (
     <Grid stackable={true} padded={true} columns={numYears}>

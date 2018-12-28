@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Button, Card, Container, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Card, Grid, Header, Icon, Image } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 import styles from './landing-styles';
 
 const paddingStyle = {

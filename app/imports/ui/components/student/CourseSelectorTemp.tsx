@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Form, Grid, Header, Icon, Image, Loader, Segment } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { selectCourse } from '../../../redux/actions/actions';
 import { ICourse } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IConnectedCourseSelectorTempProps {
   courses: ICourse[];
@@ -35,6 +33,7 @@ class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelect
   }
 
   private handleChange(event, { value }) {
+    event.preventDefault();
     // console.log(value);
     this.setState({ courseID: value });
   }

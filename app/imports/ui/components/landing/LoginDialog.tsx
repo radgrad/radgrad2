@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import { Popup  } from 'semantic-ui-react';
 import LoginForm from './LoginForm';
 

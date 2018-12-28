@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
-import { Container, Grid, Header, Image, List, Segment } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
+import { Container, List, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import styles from './guidedtour-style';
 import 'slick-carousel/slick/slick.css';

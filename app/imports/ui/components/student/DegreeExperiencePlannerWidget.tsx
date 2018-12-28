@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid, Segment } from 'semantic-ui-react';
@@ -7,9 +7,6 @@ import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
-import { createStore } from 'redux';
-import rootReducer from '../../../redux/reducers';
-import BeautifulExample from './BeautifulExample';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -32,13 +29,11 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class DEPWidget extends React.Component<IDePProps> {
-  private store: any;
 
   constructor(props) {
     super(props);
     this.handleClickCourseInstance = this.handleClickCourseInstance.bind(this);
     this.handleClickOpportunityInstance = this.handleClickOpportunityInstance.bind(this);
-    this.store = createStore(rootReducer);
   }
 
   public handleClickCourseInstance(event, { value }) {

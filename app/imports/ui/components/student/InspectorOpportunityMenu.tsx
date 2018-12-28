@@ -4,7 +4,6 @@ import { Dropdown } from 'semantic-ui-react';
 import { selectOpportunity } from '../../../redux/actions/actions';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import IceHeader from '../shared/IceHeader';
 
 interface IInpectorOpportunityMenuProps {
@@ -22,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function opportunityStructureForMenu(userID) {
+function opportunityStructureForMenu() {
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   // console.log(opportunities.length);
   const opportunityStructure = [];
@@ -64,7 +63,7 @@ class InspectorOpportunityMenu extends React.Component<IInpectorOpportunityMenuP
 
   public render() {
     // console.log(this.props);
-    const opportunityMenuStructure = opportunityStructureForMenu(this.props.studentID);
+    const opportunityMenuStructure = opportunityStructureForMenu();
     return (
       <Dropdown text="Opportunities">
         <Dropdown.Menu>

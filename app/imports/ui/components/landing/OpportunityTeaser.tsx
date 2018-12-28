@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { $ } from 'meteor/jquery';
-import { Card, Grid, Header, Icon, Image, Label, List, Loader, Segment } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 
 const OpportunityTeaser = (props) => {
   setTimeout(() => {

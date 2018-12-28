@@ -1,10 +1,6 @@
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
-import { Ice } from '../../../typings/radgrad';
-import { Header, Image, Loader } from 'semantic-ui-react';
+import { Header, Image } from 'semantic-ui-react';
 import RadGradMenuLevel from './RadGradMenuLevel';
 
 import { Users } from '../../../api/user/UserCollection';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import { moment } from 'meteor/momentjs:moment';

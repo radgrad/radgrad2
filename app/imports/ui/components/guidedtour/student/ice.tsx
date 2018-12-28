@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
-import { Container, Grid, Header, Image, List, Segment } from 'semantic-ui-react';
+import { Grid, Header, Image, List } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
 const ICE = () => (

@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 import {
   SELECT_COURSE,
   SELECT_COURSE_INSTANCE,

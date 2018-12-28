@@ -12,12 +12,10 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import InterestList from '../../components/landing/InterestList';
-import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import OpportunityTeaser from '../../components/landing/OpportunityTeaser';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {

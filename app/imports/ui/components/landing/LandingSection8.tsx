@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Card, Container, Grid, Header, Icon, Image, Label, Loader, Segment } from 'semantic-ui-react';
+import { Container, Grid, Header, Image } from 'semantic-ui-react';
 import styles from './landing-styles';
 
 interface ILandingSection8Props {

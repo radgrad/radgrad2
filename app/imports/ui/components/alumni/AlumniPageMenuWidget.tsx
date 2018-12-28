@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import SecondMenu from '../../pages/shared/SecondMenu';

@@ -3,8 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import RadGradLogoText from '../../components/shared/RadGradLogoText';
-import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 
 interface IMenuItem {
   label: string;

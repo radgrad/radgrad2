@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Container, Grid, Header, Label } from 'semantic-ui-react';
+import { Draggable } from 'react-beautiful-dnd';
+import { Grid } from 'semantic-ui-react';
 import { IOpportunityInstance } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { getDraggablePillStyle } from '../shared/StyleFunctions';

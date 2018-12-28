@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Grid, Header, Menu } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 
 interface IAdminDatabaseMenuProps {
   currentUser: string;

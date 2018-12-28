@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Button, Container, Dropdown, Grid, Header, Image, Label, List, Menu, Segment, Tab } from 'semantic-ui-react';
+import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -23,6 +22,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
   }
 
   private handleUpdateLevelButton(event) {
+    event.preventDefault();
     updateAllStudentLevelsMethod.call((error, result) => {
       if (error) {
         console.log('There was an error updating the student levels', error);

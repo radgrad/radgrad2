@@ -12,7 +12,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE } from '../ice/IceProcessor';
-import { IOpportunity, IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
+import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".
@@ -54,12 +54,16 @@ class OpportunityCollection extends BaseSlugCollection {
    *                        academicTerms: ['Fall-2016', 'Spring-2016', 'Summer-2106'],
    *                      });
    * @param { Object } description Object with keys name, slug, description, opportunityType, sponsor, interests,
-   * Slug must not be previously defined.
-   * OpportunityType and sponsor must be defined slugs.
-   * Interests must be a (possibly empty) array of interest slugs or IDs.
-   * AcademicTerms must be a (possibly empty) array of academicTerm slugs or IDs.
-   * Sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
-   * ICE must be a valid ICE object.
+   * @param name the name of the opportunity.
+   * @param slug must not be previously defined.
+   * @param description the description of the opportunity. Can be markdown.
+   * @param opportunityType must be defined slug.
+   * @param interests must be a (possibly empty) array of interest slugs or IDs.
+   * @param academicTerms must be a (possibly empty) array of academicTerm slugs or IDs.
+   * @param sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
+   * @param ice must be a valid ICE object.
+   * @param eventDate optional date.
+   * @param retired optional, true if the opportunity is retired.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
@@ -115,8 +119,7 @@ class OpportunityCollection extends BaseSlugCollection {
       updateData.description = description;
     }
     if (opportunityType) {
-      const opportunityTypeID = OpportunityTypes.getID(opportunityType);
-      updateData.opportunityTypeID = opportunityTypeID;
+      updateData.opportunityTypeID = OpportunityTypes.getID(opportunityType);
     }
     if (sponsor) {
       const sponsorID = Users.getID(sponsor);
@@ -124,12 +127,10 @@ class OpportunityCollection extends BaseSlugCollection {
       updateData.sponsorID = sponsorID;
     }
     if (interests) {
-      const interestIDs = Interests.getIDs(interests);
-      updateData.interestIDs = interestIDs;
+      updateData.interestIDs = Interests.getIDs(interests);
     }
     if (academicTerms) {
-      const termIDs = AcademicTerms.getIDs(academicTerms);
-      updateData.termIDs = termIDs;
+      updateData.termIDs = AcademicTerms.getIDs(academicTerms);
     }
     if (eventDate) {
       updateData.eventDate = eventDate;

@@ -6,7 +6,6 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { getStudentsCurrentAcademicTermNumber } from '../degree-plan/AcademicYearUtilities';
-import { number } from 'prop-types';
 
 /**
  * Returns a random int between min and max.

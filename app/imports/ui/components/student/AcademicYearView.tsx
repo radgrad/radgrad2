@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { IAcademicYear } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AcademicTermViewContainer from './AcademicTermView';
@@ -20,9 +20,6 @@ class AcademicYearView extends React.Component<IAcademicYearViewProps> {
   public render() {
     const termIDs = this.props.academicYear.termIDs;
     const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
-    const paddingStyle = {
-      padding: '0 0.6rem',
-    };
     return (
       <Grid.Column stretched={true}>
         {_.map(terms, (term) => (
