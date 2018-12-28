@@ -1,25 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Dropdown, Grid, Icon, Segment } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { Roles } from 'meteor/alanning:roles';
-import { ICourse, ICourseInstance, IOpportunity, IOpportunityInstance } from '../../../typings/radgrad';
+import { ICourse, IOpportunity } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { ROLE } from '../../../api/role/Role';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import InspectorCourseMenuContainer from './InspectorCourseMenu';
-import InspectorCourseView from './InspectorCourseView';
-import InspectorOpportunityView from './InspectorOpportunityView';
 import InspectorOpportunityMenuContainer from './InspectorOpportunityMenu';
+import InspectorOpportunityViewContainer from './InspectorOpportunityView';
+import InspectorCourseViewContainer from './InspectorCourseView';
 
 interface ICOInspectorWidgetProps {
   selectedCourseID: string;
@@ -58,9 +53,6 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
     const padddingBottomStyle = {
       paddingBottom: 0,
     };
-    const paddingStyle = {
-      padding: 0,
-    };
     let courseID;
     if (this.props.selectedCourseInstanceID) {
       const courseInstance = CourseInstances.findDoc(this.props.selectedCourseInstanceID);
@@ -85,14 +77,14 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
         <Grid container={true}>
           <Grid.Row stretched={true} style={padddingBottomStyle}>
             {this.props.selectedCourseID ?
-              <InspectorCourseView courseID={this.props.selectedCourseID} studentID={studentID}/> : ''}
+              <InspectorCourseViewContainer courseID={this.props.selectedCourseID} studentID={studentID}/> : ''}
             {this.props.selectedCourseInstanceID ?
-              <InspectorCourseView courseInstanceID={this.props.selectedCourseInstanceID} courseID={courseID}
+              <InspectorCourseViewContainer courseInstanceID={this.props.selectedCourseInstanceID} courseID={courseID}
                                    studentID={studentID}/> : ''}
             {this.props.selectedOpportunityID ?
-              <InspectorOpportunityView opportunityID={this.props.selectedOpportunityID} studentID={studentID}/> : ''}
+              <InspectorOpportunityViewContainer opportunityID={this.props.selectedOpportunityID} studentID={studentID}/> : ''}
             {this.props.selectedOpportunityInstanceID ?
-              <InspectorOpportunityView opportunityInstanceID={this.props.selectedOpportunityInstanceID}
+              <InspectorOpportunityViewContainer opportunityInstanceID={this.props.selectedOpportunityInstanceID}
                                         opportunityID={opportunityID} studentID={studentID}/> : ''}
             {(!this.props.selectedCourseID && !this.props.selectedCourseInstanceID && !this.props.selectedOpportunityID && !this.props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above or click on a Course or Opportunity in the Degree Experience Planner to the right.' : ''}
           </Grid.Row>
@@ -105,7 +97,7 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
 const CourseOpportunityInspectorWidgetCon = withGlobalSubscription(CourseOpportunityInspectorWidget);
 const CourseOpportunityInspectorWidgetCont = withInstanceSubscriptions(CourseOpportunityInspectorWidgetCon);
 const COIW = withRouter(CourseOpportunityInspectorWidgetCont);
-const CourseOpportunityInspectorWidgetConati = withTracker((props) => {
+const CourseOpportunityInspectorWidgetConati = withTracker(() => {
   return {
     courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
     opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),

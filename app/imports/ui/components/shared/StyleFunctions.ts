@@ -1,6 +1,6 @@
 const grid = 4;
 
-const getItemStyle = (isDragging, draggableStyle) => ({
+const getDraggablePillStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid,
@@ -16,7 +16,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-const getInspectorViewItemStyle = (isDragging, draggableStyle) => ({
+const getInspectorDraggablePillStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid,
@@ -32,10 +32,10 @@ const getInspectorViewItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver) => ({
+const getDroppableListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? '#348C72' : 'white',
   padding: grid,
   width: '100%',
 });
 
-export { getItemStyle, getInspectorViewItemStyle, getListStyle };
+export { getDraggablePillStyle, getInspectorDraggablePillStyle, getDroppableListStyle };

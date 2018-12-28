@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { ICourseInstance } from '../../../typings/radgrad';
-import { getItemStyle } from './StyleFunctions';
+import { getDraggablePillStyle } from '../shared/StyleFunctions';
+import NamePill from '../shared/NamePill';
 
 interface ICourseInstancePillProps {
   instance: ICourseInstance;
@@ -10,7 +11,7 @@ interface ICourseInstancePillProps {
   handleClickCourseInstance: (event, { value }) => any;
 }
 
-class CourseInstancePill extends React.Component<ICourseInstancePillProps> {
+class DraggableCourseInstancePill extends React.Component<ICourseInstancePillProps> {
   constructor(props) {
     // console.log(props.instance);
     super(props);
@@ -30,13 +31,13 @@ class CourseInstancePill extends React.Component<ICourseInstancePillProps> {
             ref={prov.innerRef}
             {...prov.draggableProps}
             {...prov.dragHandleProps}
-            style={getItemStyle(
+            style={getDraggablePillStyle(
               snap.isDragging,
               prov.draggableProps.style,
             )}
           >
             <Grid.Row onClick={this.handleClick}>
-              <b>{this.props.instance.note}</b>
+              <NamePill name={this.props.instance.note}/>
             </Grid.Row>
 
           </div>
@@ -46,4 +47,4 @@ class CourseInstancePill extends React.Component<ICourseInstancePillProps> {
   }
 }
 
-export default CourseInstancePill;
+export default DraggableCourseInstancePill;

@@ -3,6 +3,7 @@ import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { connect } from 'react-redux';
 import { moment } from 'meteor/momentjs:moment';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -11,14 +12,18 @@ import IceHeader from '../shared/IceHeader';
 import UserInterestList from '../shared/UserInterestList';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { getInspectorViewItemStyle } from './StyleFunctions';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import has = Reflect.has;
+import { termIDsToString } from '../../../api/academic-term/AcademicTermUtilities';
+import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
+import NamePill from '../shared/NamePill';
+import { removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { selectOpportunity } from '../../../redux/actions/actions';
 
 interface IInspectorOpportunityViewProps {
   opportunityID: string;
   studentID: string;
   opportunityInstanceID?: string;
+  selectOpportunity: (opportunityID: string) => any;
   match: {
     isExact: boolean;
     path: string;
@@ -29,15 +34,38 @@ interface IInspectorOpportunityViewProps {
   };
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectOpportunity: (courseID) => dispatch(selectOpportunity(courseID)),
+  };
+};
+
 class InspectorOpportunityView extends React.Component<IInspectorOpportunityViewProps> {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleVRClick = this.handleVRClick.bind(this);
+    this.handleRemoveClick = this.handleRemoveClick.bind(this);
   }
 
-  private handleClick(event, { value }) {
+  private handleVRClick(event, { value }) {
     event.preventDefault();
     console.log(value);
+  }
+
+  private handleRemoveClick(event, { value }) {
+    event.preventDefault();
+    console.log(`Remove OI ${value}`);
+    const oi = OpportunityInstances.findDoc(value);
+    const collectionName = OpportunityInstances.getCollectionName();
+    const instance = value;
+    const inst = this; // tslint:disable-line: no-this-assignment
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        console.log(`Remove opportunityInstance ${instance} failed`, error);
+      } else {
+        inst.props.selectOpportunity(oi.opportunityID);
+      }
+    });
   }
 
   public render() {
@@ -79,10 +107,11 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{opportunity.num} {opportunity.name} <IceHeader
           ice={opportunity.ice}/></Header>
-        {plannedOpportunity ? <Button floated="right" basic={true} color="green"
-                                      size="tiny">remove</Button> : (pastOpportunity ?
+        {plannedOpportunity ? <Button floated="right" basic={true} color="green" onClick={this.handleRemoveClick}
+                                      size="tiny" value={opportunityInstance._id}>remove</Button> : (pastOpportunity ?
           <Button floated="right" basic={true} color="green"
-                  size="tiny">taken</Button> : <Droppable droppableId={`inspector-opportunity`}>
+                  size="tiny">taken</Button> :
+          <Droppable droppableId={'inspecto-opportunity'}>
             {(provided) => (
               <div
                 ref={provided.innerRef}
@@ -93,19 +122,19 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
                       ref={prov.innerRef}
                       {...prov.draggableProps}
                       {...prov.dragHandleProps}
-                      style={getInspectorViewItemStyle(
+                      style={getInspectorDraggablePillStyle(
                         snap.isDragging,
                         prov.draggableProps.style,
                       )}
                     >
-                      <b>{opportunityName}</b>
+                      <NamePill name={opportunityName}/>
                     </div>
                   )}
                 </Draggable>
               </div>)}
           </Droppable>)}
 
-        <b>When: {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : 'N/A'}</b>
+        <b>When: {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}</b>
         <p><b>Description:</b></p>
         <Markdown escapeHtml={true} source={opportunity.description}/>
         <p/>
@@ -117,7 +146,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
         {(pastOpportunity) ? (!hasRequest ? (
           <div>
             <Header dividing={true}/>
-            <Button basic={true} color="green" size="tiny" onClick={this.handleClick} value={opportunity._id}>Request
+            <Button basic={true} color="green" size="tiny" onClick={this.handleVRClick} value={opportunity._id}>Request
               Verification</Button>
           </div>
         ) : (
@@ -125,14 +154,12 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
             <Header as="h4" textAlign="center" dividing={true}>REQUEST STATUS</Header>
             <strong>Date Submitted:</strong> {whenSubmitted} <br/>
             <strong>Status: </strong>{requestStatus}
-            {_.map(requestHistory, (processed, index) => {
-              return (
-                  <p key={index}>
-                    <span>Processed: {moment(processed.date).calendar()} by {processed.verifier}
-                      ({processed.status}) <em>{processed.feedback}</em></span><br/>
-                  </p>
-              );
-            },
+            {_.map(requestHistory, (processed, index) => (
+                <p key={index}>
+                <span>Processed: {moment(processed.date).calendar()} by {processed.verifier}
+                  ({processed.status}) <em>{processed.feedback}</em></span><br/>
+                </p>
+              ),
             )}
           </div>
         )) : ''
@@ -142,4 +169,5 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
   }
 }
 
-export default withRouter(InspectorOpportunityView);
+const InspectorOpportunityViewContainer = connect(null, mapDispatchToProps)(InspectorOpportunityView);
+export default withRouter(InspectorOpportunityViewContainer);

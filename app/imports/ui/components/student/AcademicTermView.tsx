@@ -7,10 +7,10 @@ import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../t
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import CourseInstancePill from './CourseInstancePill';
-import OpportunityInstancePill from './OpportunityInstancePill';
+import DraggableCourseInstancePill from './DraggableCourseInstancePill';
+import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { getListStyle } from './StyleFunctions';
+import { getDroppableListStyle } from '../shared/StyleFunctions';
 
 interface IAcademicTermViewProps {
   term: IAcademicTerm;
@@ -33,12 +33,6 @@ class AcademicTermView extends React.Component<IAcademicTermViewProps> {
       margin: 10,
       padding: 5,
     };
-    // const style = {
-    //   borderStyle: 'solid',
-    //   borderWidth: 1,
-    //   borderColor: 'red',
-    //   width: '100%',
-    // };
     return (
       <Container style={paddedStyle}>
         <Header dividing={true}>{AcademicTerms.toString(this.props.term._id)}</Header>
@@ -48,12 +42,12 @@ class AcademicTermView extends React.Component<IAcademicTermViewProps> {
               <div
                 ref={provided.innerRef}
                 // style={style}
-                style={getListStyle(snapshot.isDraggingOver)}
+                style={getDroppableListStyle(snapshot.isDraggingOver)}
               >
-                {_.map(this.props.courseInstances, (ci, index) => <CourseInstancePill key={ci._id} instance={ci} index={index}
-                                                                               handleClickCourseInstance={this.props.handleClickCourseInstance}/>)}
-                {_.map(this.props.opportunityInstances, (oi, index) => <OpportunityInstancePill key={oi._id} instance={oi} index={index}
-                                                                                         handleClickOpportunityInstance={this.props.handleClickOpportunityInstance}/>)}
+                {_.map(this.props.courseInstances, (ci, index) => <DraggableCourseInstancePill key={ci._id} instance={ci} index={index}
+                                                                                               handleClickCourseInstance={this.props.handleClickCourseInstance}/>)}
+                {_.map(this.props.opportunityInstances, (oi, index) => <DraggableOpportunityInstancePill key={oi._id} instance={oi} index={index}
+                                                                                                         handleClickOpportunityInstance={this.props.handleClickOpportunityInstance}/>)}
                 {provided.placeholder}
               </div>
             )}

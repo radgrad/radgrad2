@@ -4,7 +4,8 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Container, Grid, Header, Label } from 'semantic-ui-react';
 import { IOpportunityInstance } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { getItemStyle } from './StyleFunctions';
+import { getDraggablePillStyle } from '../shared/StyleFunctions';
+import NamePill from '../shared/NamePill';
 
 interface IOpportunityInstancePillProps {
   instance: IOpportunityInstance;
@@ -12,7 +13,7 @@ interface IOpportunityInstancePillProps {
   handleClickOpportunityInstance: (event, { value }) => any;
 }
 
-class OpportunityInstancePill extends React.Component<IOpportunityInstancePillProps> {
+class DraggableOpportunityInstancePill extends React.Component<IOpportunityInstancePillProps> {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -33,13 +34,13 @@ class OpportunityInstancePill extends React.Component<IOpportunityInstancePillPr
             ref={prov.innerRef}
             {...prov.draggableProps}
             {...prov.dragHandleProps}
-            style={getItemStyle(
+            style={getDraggablePillStyle(
               snap.isDragging,
               prov.draggableProps.style,
             )}
           >
             <Grid.Row onClick={this.handleClick}>
-              <b>{opp.name}</b>
+              <NamePill name={opp.name}/>
             </Grid.Row>
 
           </div>
@@ -49,4 +50,4 @@ class OpportunityInstancePill extends React.Component<IOpportunityInstancePillPr
   }
 }
 
-export default OpportunityInstancePill;
+export default DraggableOpportunityInstancePill;

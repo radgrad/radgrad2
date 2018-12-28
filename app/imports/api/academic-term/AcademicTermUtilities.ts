@@ -115,3 +115,11 @@ export function upComingTerms() {
     },
   }).fetch(), (sem) => sem.termNumber);
 }
+
+export function termIDsToString(termIDs: string[]) {
+  const retVal = [];
+  termIDs.forEach((id) => {
+    retVal.push(AcademicTerms.toString(id));
+  });
+  return retVal;
+}
