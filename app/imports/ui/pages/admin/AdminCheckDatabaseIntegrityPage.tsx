@@ -38,7 +38,7 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<{}, IAdminCheckDat
   private clickSubmit() {
     checkIntegrityMethod.call(null, (error, result) => {
       if (error) {
-        console.log('Error during integrity check:', error);
+        console.error('Error during integrity check:', error);
       } else {
         this.setState({ serverResult: result });
       }

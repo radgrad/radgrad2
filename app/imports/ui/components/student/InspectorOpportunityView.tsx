@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import { moment } from 'meteor/momentjs:moment';
@@ -16,13 +17,15 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { termIDsToString } from '../../../api/academic-term/AcademicTermUtilities';
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
-import { removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { selectOpportunity } from '../../../redux/actions/actions';
+import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { selectOpportunity, selectOpportunityInstance } from '../../../redux/actions/actions';
+import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
 
 interface IInspectorOpportunityViewProps {
   opportunityID: string;
   studentID: string;
   opportunityInstanceID?: string;
+  verificationRequest?: IVerificationRequest;
   selectOpportunity: (opportunityID: string) => any;
   match: {
     isExact: boolean;
@@ -36,20 +39,36 @@ interface IInspectorOpportunityViewProps {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    selectOpportunity: (courseID) => dispatch(selectOpportunity(courseID)),
+    selectOpportunity: (opportunityID) => dispatch(selectOpportunity(opportunityID)),
+    selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
   };
 };
 
 class InspectorOpportunityView extends React.Component<IInspectorOpportunityViewProps> {
   constructor(props) {
     super(props);
+    console.log(props);
     this.handleVRClick = this.handleVRClick.bind(this);
     this.handleRemoveClick = this.handleRemoveClick.bind(this);
   }
 
   private handleVRClick(event, { value }) {
     event.preventDefault();
-    console.log(value);
+    // console.log(value);
+    const oi = OpportunityInstances.findDoc(value);
+    const student = this.props.match.params.username;
+    const collectionName = VerificationRequests.getCollectionName();
+    const definitionData: IVerificationRequestDefine = {
+      student,
+      opportunityInstance: oi._id,
+    };
+    const inst = this; // tslint:disable-line: no-this-assignment
+    console.log(inst.props);
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        console.error(`Error requesting verification`, error);
+      }
+    });
   }
 
   private handleRemoveClick(event, { value }) {
@@ -61,7 +80,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
     const inst = this; // tslint:disable-line: no-this-assignment
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
-        console.log(`Remove opportunityInstance ${instance} failed`, error);
+        console.error(`Remove opportunityInstance ${instance} failed`, error);
       } else {
         inst.props.selectOpportunity(oi.opportunityID);
       }
@@ -85,10 +104,9 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
       const opportunityTerm = AcademicTerms.findDoc(opportunityInstance.termID);
       plannedOpportunity = currentTerm.termNumber <= opportunityTerm.termNumber;
       pastOpportunity = currentTerm.termNumber > opportunityTerm.termNumber;
-      const requests = VerificationRequests.find({ opportunityInstanceID: opportunityInstance._id }).fetch();
-      hasRequest = requests.length > 0;
+      hasRequest = !!this.props.verificationRequest;
       if (hasRequest) {
-        const request = requests[0];
+        const request = this.props.verificationRequest;
         whenSubmitted = moment(request.submittedOn).calendar();
         requestStatus = request.status;
         requestHistory = request.processed;
@@ -102,7 +120,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/opportunities/${opportunitySlug}`;
-    // console.log(opportunity, pastOpportunity, hasRequest);
+    console.log('instance %o', opportunityInstance);
     return (
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{opportunity.num} {opportunity.name} <IceHeader
@@ -146,7 +164,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
         {(pastOpportunity) ? (!hasRequest ? (
           <div>
             <Header dividing={true}/>
-            <Button basic={true} color="green" size="tiny" onClick={this.handleVRClick} value={opportunity._id}>Request
+            <Button basic={true} color="green" size="tiny" onClick={this.handleVRClick} value={opportunityInstance._id}>Request
               Verification</Button>
           </div>
         ) : (
@@ -169,5 +187,18 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
   }
 }
 
-const InspectorOpportunityViewContainer = connect(null, mapDispatchToProps)(InspectorOpportunityView);
+const InspectorOpportunityViewCont = withTracker((props) => {
+  console.log(props);
+  if (props.opportunityInstanceID) {
+    const verificationRequests = VerificationRequests.find({ opportunityInstanceID: props.opportunityInstanceID }).fetch();
+    if (verificationRequests.length > 0) {
+      return {
+        verificationRequest: verificationRequests[0],
+      };
+    }
+    return {};
+  }
+  return {};
+})(InspectorOpportunityView);
+const InspectorOpportunityViewContainer = connect(null, mapDispatchToProps)(InspectorOpportunityViewCont);
 export default withRouter(InspectorOpportunityViewContainer);

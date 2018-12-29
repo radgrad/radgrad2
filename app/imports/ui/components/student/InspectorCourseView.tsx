@@ -55,7 +55,7 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
     const inst = this; // tslint:disable-line: no-this-assignment
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
-        console.log(`Remove courseInstance ${instance} failed.`, error);
+        console.error(`Remove courseInstance ${instance} failed.`, error);
       } else {
         inst.props.selectCourse(ci.courseID);
       }

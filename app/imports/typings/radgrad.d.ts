@@ -1,3 +1,5 @@
+import { ProcessedSchema } from '../api/verification/VerificationRequestCollection';
+
 declare global {
   namespace Assets {
     function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
@@ -602,6 +604,23 @@ export interface IUserInteractionDefine extends IDumpOne {
 }
 
 // VerificationRequests
+interface IProcessed {
+  date: Date;
+  status: string;
+  verifier: string;
+  feedback?: string;
+
+}
+export interface IVerificationRequest {
+  _id: string;
+  studentID: string;
+  opportunityInstanceID: string;
+  submittedOn: Date;
+  status: string;
+  processed: IProcessed[];
+  ice?: Ice;
+}
+
 export interface IVerificationRequestDefine extends IDumpOne {
   student: string;
   opportunityInstance?: string;

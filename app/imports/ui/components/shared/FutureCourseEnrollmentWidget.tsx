@@ -21,7 +21,7 @@ class FutureCourseEnrollmentWidget extends React.Component<IFutureCourseEnrollme
     this.state = {};
     getFutureEnrollmentMethod.call(props.courseID, (error, result) => {
       if (error) {
-        console.log(error);
+        console.error(error);
       } else {
         // console.log(result);
         this.setState({ data: result });

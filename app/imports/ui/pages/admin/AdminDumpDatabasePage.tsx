@@ -53,7 +53,7 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
       if (error) {
         this.setState({ isError: true });
       }
-      console.log(error, result);
+      // console.log(error, result);
       const data: Icollection = {};
       data.name = 'Students';
       data.contents = result.students;

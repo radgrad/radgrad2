@@ -25,7 +25,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
     event.preventDefault();
     updateAllStudentLevelsMethod.call((error, result) => {
       if (error) {
-        console.log('There was an error updating the student levels', error);
+        console.error('There was an error updating the student levels', error);
       }
       console.log(result);
     });

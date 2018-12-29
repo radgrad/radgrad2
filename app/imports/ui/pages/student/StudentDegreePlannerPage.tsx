@@ -69,7 +69,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
       };
       defineMethod.call({ collectionName, definitionData }, (error, res) => {
         if (error) {
-          console.log(error);
+          console.error(error);
         } else {
           // console.log(res);
           instance.props.selectCourseInstance(res);
@@ -90,7 +90,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
       // console.log(definitionData);
       defineMethod.call({ collectionName, definitionData }, (error, res) => {
         if (error) {
-          console.log(error);
+          console.error(error);
         } else {
           // console.log(res);
           instance.props.selectOpportunityInstance(res);
