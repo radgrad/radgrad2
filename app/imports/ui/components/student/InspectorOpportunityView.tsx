@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => {
 class InspectorOpportunityView extends React.Component<IInspectorOpportunityViewProps> {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     this.handleVRClick = this.handleVRClick.bind(this);
     this.handleRemoveClick = this.handleRemoveClick.bind(this);
   }
@@ -120,7 +120,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/opportunities/${opportunitySlug}`;
-    console.log('instance %o', opportunityInstance);
+    // console.log('instance %o', opportunityInstance);
     return (
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{opportunity.num} {opportunity.name} <IceHeader
@@ -188,7 +188,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
 }
 
 const InspectorOpportunityViewCont = withTracker((props) => {
-  console.log(props);
+  // console.log(props);
   if (props.opportunityInstanceID) {
     const verificationRequests = VerificationRequests.find({ opportunityInstanceID: props.opportunityInstanceID }).fetch();
     if (verificationRequests.length > 0) {
