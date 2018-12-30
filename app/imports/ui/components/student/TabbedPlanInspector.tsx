@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Segment, Tab } from 'semantic-ui-react';
 import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
+import AcademicPlanViewerContainer from './AcademicPlanViewer';
 
 class TabbedPlanInspector extends React.Component {
 
@@ -10,7 +11,7 @@ class TabbedPlanInspector extends React.Component {
         menuItem: 'ACADEMIC PLAN',
         pane: (
           <Tab.Pane key="plan">
-            Academic Plan
+            <AcademicPlanViewerContainer/>
           </Tab.Pane>
         ),
       },

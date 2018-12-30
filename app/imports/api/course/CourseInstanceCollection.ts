@@ -26,6 +26,7 @@ class CourseInstanceCollection extends BaseCollection {
     publicSlugStudent: string;
     studentID: string;
   };
+
   /**
    * Creates the CourseInstance collection.
    */
@@ -84,7 +85,7 @@ class CourseInstanceCollection extends BaseCollection {
     const studentID = Users.getID(student);
     const profile = Users.getProfile(studentID);
     // ensure the AcademicYearInstance is defined.
-    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER) {
+    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER || academicTermDoc.term === AcademicTerms.WINTER) {
       AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: profile.username });
     } else {
       AcademicYearInstances.define({ year: academicTermDoc.year, student: profile.username });
@@ -303,13 +304,13 @@ class CourseInstanceCollection extends BaseCollection {
         return instance.collection.find({ studentID: this.userId });
       });
       Meteor.publish(this.publicationNames.perStudentAndAcademicTerm,
-          function perStudentAndAcademicTerm(studentID, termID) {  // tslint:disable-line: ter-prefer-arrow-callback
-            new SimpleSchema({
-              studentID: { type: String },
-              termID: { type: String },
-            }).validate({ studentID, termID });
-            return instance.collection.find({ studentID, termID });
-          });
+        function perStudentAndAcademicTerm(studentID, termID) {  // tslint:disable-line: ter-prefer-arrow-callback
+          new SimpleSchema({
+            studentID: { type: String },
+            termID: { type: String },
+          }).validate({ studentID, termID });
+          return instance.collection.find({ studentID, termID });
+        });
       // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
         return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });

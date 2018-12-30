@@ -220,6 +220,15 @@ class AcademicPlanCollection extends BaseSlugCollection {
   }
 
   /**
+   * Returns an array of years that have AcademicPlans.
+   * @returns {number[]} an array of the years that have AcademicPlans.
+   */
+  public getPlanYears() {
+    const plans = this.collection.find({}).fetch();
+    return _.uniq(_.map(plans, (p) => p.year));
+  }
+
+  /**
    * Returns the plan name and year for the given plan id.
    * @param planID the id of the academic plan.
    * @return {string}
