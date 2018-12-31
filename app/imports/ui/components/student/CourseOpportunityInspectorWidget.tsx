@@ -35,10 +35,10 @@ interface ICOInspectorWidgetProps {
 
 const mapStateToProps = (state) => {
   return {
-    selectedCourseID: state.selectedCourseID,
-    selectedCourseInstanceID: state.selectedCourseInstanceID,
-    selectedOpportunityID: state.selectedOpportunityID,
-    selectedOpportunityInstanceID: state.selectedOpportunityInstanceID,
+    selectedCourseID: state.depInspector.selectedCourseID,
+    selectedCourseInstanceID: state.depInspector.selectedCourseInstanceID,
+    selectedOpportunityID: state.depInspector.selectedOpportunityID,
+    selectedOpportunityInstanceID: state.depInspector.selectedOpportunityInstanceID,
   };
 };
 

@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import TabbedPlanInspector from '../../components/student/TabbedPlanInspector';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
 import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -16,6 +15,7 @@ import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typi
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
+import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -123,7 +123,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
-              <TabbedPlanInspector/>
+              <TabbedPlanInspectorContainer/>
             </Grid.Column>
           </Grid.Row>
         </Grid>

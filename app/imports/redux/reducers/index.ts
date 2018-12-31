@@ -4,16 +4,23 @@ import {
   SELECT_COURSE_INSTANCE,
   SELECT_OPPORTUNITY,
   SELECT_OPPORTUNITY_INSTANCE,
+  DepSelectedTabs,
 } from '../actions/actionTypes';
 
 const initialState = {
-  selectedCourseID: '',
-  selectedCourseInstanceID: '',
-  selectedOpportunityID: '',
-  selectedOpportunityInstanceID: '',
+  depInspector: {
+    selectedCourseID: '',
+    selectedCourseInstanceID: '',
+    selectedOpportunityID: '',
+    selectedOpportunityInstanceID: '',
+  },
+  depTab: {
+    selectedTab: DepSelectedTabs.SELECT_PLAN,
+  },
 };
 
-const rootReducer = (state = initialState, action) => {
+function inspectorReducer(state = {}, action) {
+  // console.log('inspectorReducer state=%o, action=%o', state, action);
   switch (action.type) {
     case SELECT_COURSE: // TODO: CAM not sure which way to go Object.assign or ...state.
       return Object.assign({}, state, {
@@ -48,6 +55,29 @@ const rootReducer = (state = initialState, action) => {
     default:
       return state;
   }
+}
+function tabReducer(state = {}, action) {
+  // console.log('tabReducer state=%o action=%o', state, action);
+  switch (action.type) {
+    case DepSelectedTabs.SELECT_PLAN:
+      return {
+        selectedTab: DepSelectedTabs.SELECT_PLAN,
+      };
+    case DepSelectedTabs.SELECT_INSPECTOR:
+      return {
+        selectedTab: DepSelectedTabs.SELECT_INSPECTOR,
+      };
+    default:
+      return state;
+  }
+}
+const rootReducer = (state = initialState, action) => {
+  // console.log('rootReducer state=%o action=%o', state, action);
+  return {
+    ...state,
+    depInspector: inspectorReducer(state.depInspector, action),
+    depTab: tabReducer(state.depTab, action),
+  };
 };
 
 // export default combineReducers({});

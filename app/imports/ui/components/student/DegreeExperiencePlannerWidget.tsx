@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid, Segment } from 'semantic-ui-react';
-import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/actions/actions';
+import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/actions/actions';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
@@ -11,6 +11,7 @@ import AcademicYearView from './AcademicYearView';
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
+  selectInspectorTab: () => any;
   match: {
     isExact: boolean;
     path: string;
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
     selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
+    selectInspectorTab: () => dispatch(selectInspectorTab()),
   };
 };
 
@@ -40,12 +42,14 @@ class DEPWidget extends React.Component<IDePProps> {
     event.preventDefault();
     // console.log(`course instance id ${value}`);
     this.props.selectCourseInstance(value);
+    this.props.selectInspectorTab();
   }
 
   public handleClickOpportunityInstance(event, { value }) {
     event.preventDefault();
     // console.log(`opportunity instance id ${value}`);
     this.props.selectOpportunityInstance(value);
+    this.props.selectInspectorTab();
   }
 
   public render() {

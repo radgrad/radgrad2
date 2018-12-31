@@ -8,6 +8,7 @@ import simplSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { IAcademicPlan } from '../../../typings/radgrad';
 
 interface IAcademicPlanViewerProps {
   match: {
@@ -20,17 +21,25 @@ interface IAcademicPlanViewerProps {
   };
 }
 
+interface IAcademicPlanViewerState {
+  academicPlan?: IAcademicPlan;
+  name?: string;
+  year?: number;
+}
+
 const ChooseSchema = new simplSchema({
   year: Number,
   name: String,
 });
 
-class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps> {
+class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcademicPlanViewerState> {
   constructor(props) {
     super(props);
+    console.log(props);
     this.submit = this.submit.bind(this);
     this.handleChangeYear = this.handleChangeYear.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
+    this.state = {};
   }
 
   private submit(data) {
@@ -39,12 +48,13 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps> {
   }
 
   private handleChangeYear(data) {
-    console.log('change %o %o', data);
+    console.log('change year %o', data);
   }
 
   private handleChangeName(data) {
-    console.log('change %o %o', data);
+    console.log('change name %o', data);
   }
+
   public render() {
     const username = this.props.match.params.username;
     const profile = Users.getProfile(username);
@@ -53,10 +63,10 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps> {
     let plan;
     if (AcademicPlans.isDefined(profile.academicPlanID)) {
       plan = AcademicPlans.findDoc(profile.academicPlanID);
-      console.log(plan.year);
+      // console.log(plan.year);
       planYears = _.filter(planYears, (p) => p >= plan.year);
     }
-    console.log(planYears);
+    // console.log(planYears);
     const names = [];
     _.forEach(planYears, (year) => {
       const plans = AcademicPlans.find({ year }).fetch();
