@@ -9,6 +9,6 @@ export function getPlanChoices(academicPlan, termNum) {
     numChoices += academicPlan.coursesPerAcademicTerm[i];
   }
   const numTermChoices = academicPlan.coursesPerAcademicTerm[termNum];
-  console.log(academicPlan.coursesPerAcademicTerm, termNum, numTermChoices, academicPlan.courseList.slice(numChoices, numChoices + numTermChoices));
+  // console.log(academicPlan.coursesPerAcademicTerm, termNum, numTermChoices, academicPlan.courseList.slice(numChoices, numChoices + numTermChoices));
   return academicPlan.courseList.slice(numChoices, numChoices + numTermChoices);
 }
