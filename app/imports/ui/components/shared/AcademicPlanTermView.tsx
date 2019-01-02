@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { getDroppableListStyle } from './StyleFunctions';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
-import { isSingleChoice, isXXChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
+import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import NamePill from './NamePill';
 import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
 
@@ -12,6 +12,7 @@ interface IAcademicPlanTermViewProps {
   title: string;
   id: string;
   choices: string[];
+  studentID: string;
 }
 
 class AcademicPlanTermView extends React.Component<IAcademicPlanTermViewProps> {
@@ -35,9 +36,10 @@ class AcademicPlanTermView extends React.Component<IAcademicPlanTermViewProps> {
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
               {_.map(this.props.choices, (choice, index) => {
-                if (isSingleChoice(choice) && !isXXChoice(choice)) {
+                if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
                   return (
-                    <DraggablePlanChoicePill key={index} choice={choice} index={index}/>
+                    <DraggablePlanChoicePill key={index} choice={choice} index={index}
+                                             studentID={this.props.studentID}/>
                   );
                 }
                 return (<div key={index}><NamePill name={PlanChoiceCollection.toStringFromSlug(choice)}/></div>);

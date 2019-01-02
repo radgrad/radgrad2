@@ -8,6 +8,7 @@ import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollect
 interface IPlanChoicePillProps {
   choice: string;
   index: number;
+  studentID: string;
 }
 
 class DraggablePlanChoicePill extends React.Component<IPlanChoicePillProps> {

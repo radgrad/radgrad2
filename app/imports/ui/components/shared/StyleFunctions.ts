@@ -1,4 +1,4 @@
-const grid = 4;
+const grid = 2;
 
 const getDraggablePillStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -37,5 +37,9 @@ const getDroppableListStyle = (isDraggingOver) => ({
   padding: grid,
   width: '100%',
 });
+
+const getDraggablePlanChoicePillStyle = (isDragging, draggableStyle, choice) => {
+
+}
 
 export { getDraggablePillStyle, getInspectorDraggablePillStyle, getDroppableListStyle };

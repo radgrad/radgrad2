@@ -107,7 +107,7 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
           </Form.Group>
         </AutoForm>
         <Label basic={true}>{this.state.name}</Label>
-        <AcademicPlanViewerWidget academicPlan={this.state.academicPlan}/>
+        <AcademicPlanViewerWidget academicPlan={this.state.academicPlan} username={this.props.match.params.username}/>
       </div>
     );
   }
