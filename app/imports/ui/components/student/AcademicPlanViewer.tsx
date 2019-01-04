@@ -106,7 +106,6 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
             <SubmitField value="Choose this Plan"/>
           </Form.Group>
         </AutoForm>
-        <Label basic={true}>{this.state.name}</Label>
         <AcademicPlanViewerWidget academicPlan={this.state.academicPlan} username={this.props.match.params.username}/>
       </div>
     );

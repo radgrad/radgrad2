@@ -38,8 +38,12 @@ const getDroppableListStyle = (isDraggingOver) => ({
   width: '100%',
 });
 
-const getDraggablePlanChoicePillStyle = (isDragging, draggableStyle, choice) => {
+const getSatisfiedStyle = () => ({
+  color: '#348C72',
+});
 
-}
+const getNotSatisfiedStyle = () => ({
+  color: '#FF0000',
+});
 
-export { getDraggablePillStyle, getInspectorDraggablePillStyle, getDroppableListStyle };
+export { getDraggablePillStyle, getInspectorDraggablePillStyle, getDroppableListStyle, getNotSatisfiedStyle, getSatisfiedStyle };

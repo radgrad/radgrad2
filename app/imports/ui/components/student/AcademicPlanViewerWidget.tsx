@@ -6,6 +6,8 @@ import { IAcademicPlan } from '../../../typings/radgrad';
 import AcademicPlanYearView from '../shared/AcademicPlanYearView';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
+import { Users } from '../../../api/user/UserCollection';
 
 interface IAcademicPlanViewerWidgetProps {
   academicPlan: IAcademicPlan;
@@ -28,30 +30,27 @@ class AcademicPlanViewerWidget extends React.Component<IAcademicPlanViewerWidget
     };
     return (
       <Grid>
-        <Grid.Row>
-          <Label>{quarter ? 'Quarter' : 'Semester'} {fiveYear ? 'BAM' : 'Bachelors'}</Label>
-        </Grid.Row>
         <Grid.Row columns={fiveYear ? 5 : 4}>
           <Grid.Column style={littlePadding}>
             <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username}/>
+                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
           </Grid.Column>
           <Grid.Column style={littlePadding}>
             <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username}/>
+                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
           </Grid.Column>
           <Grid.Column style={littlePadding}>
             <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username}/>
+                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
           </Grid.Column>
           <Grid.Column style={littlePadding}>
             <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username}/>
+                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
           </Grid.Column>
           {fiveYear ? (
             <Grid.Column style={littlePadding}>
               <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                    username={this.props.username}/>
+                                    username={this.props.username} takenSlugs={this.props.takenSlugs}/>
             </Grid.Column>
           ) : ''}
         </Grid.Row>
@@ -61,14 +60,19 @@ class AcademicPlanViewerWidget extends React.Component<IAcademicPlanViewerWidget
 }
 
 function takenSlugs(courseInstances) {
-  return _.map(courseInstances, (ci) => {
+  const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
+  // console.log(courseInstances, passedCourseInstances);
+  return _.map(passedCourseInstances, (ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
     return Slugs.getNameFromID(doc.slugID);
   });
 }
 
 const AcademicPlanViewerWidgetContainer = withTracker((props) => {
-  const courseInstances = CourseInstances.find({ studentID: props.studentID }).fetch();
+  // console.log('AcademicPlanViewerWidget props = %o', props);
+  const profile = Users.findProfileFromUsername(props.username);
+  // console.log(profile);
+  const courseInstances = CourseInstances.find({ studentID: profile.userID }).fetch();
   return {
     takenSlugs: takenSlugs(courseInstances),
     ...props,

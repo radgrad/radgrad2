@@ -9,6 +9,7 @@ interface IAcademicPlanYearViewProps {
   yearNumber: number;
   academicPlan: IAcademicPlan;
   username: string;
+  takenSlugs: string[];
 }
 
 const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
@@ -17,16 +18,19 @@ const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
   const studentID = Users.getID(props.username);
   return (
     <div>
-      <Header>Year {props.yearNumber}</Header>
+      <Header>Year {props.yearNumber + 1}</Header>
       <AcademicPlanTermView title="Fall" id={`Fall-${props.yearNumber * 10 + termNum}`}
-                            choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}/>
+                            choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}
+                            takenSlugs={props.takenSlugs}/>
       {quarter ? (<AcademicPlanTermView title="Winter" id={`Winter-${props.yearNumber * 10 + termNum}`}
                                         choices={getPlanChoices(props.academicPlan, termNum++)}
-                                        studentID={studentID}/>) : ''}
+                                        studentID={studentID} takenSlugs={props.takenSlugs}/>) : ''}
       <AcademicPlanTermView title="Spring" id={`Spring-${props.yearNumber * 10 + termNum}`}
-                            choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}/>
+                            choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}
+                            takenSlugs={props.takenSlugs}/>
       <AcademicPlanTermView title="Summer" id={`Summer-${props.yearNumber * 10 + termNum}`}
-                            choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}/>
+                            choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}
+                            takenSlugs={props.takenSlugs}/>
 
     </div>
   );

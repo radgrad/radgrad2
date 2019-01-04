@@ -55,7 +55,7 @@ class DEPWidget extends React.Component<IDePProps> {
   public render() {
     const username = this.props.match.params.username;
     const studentID = Users.getID(username);
-    const years = AcademicYearInstances.find({ studentID }).fetch();
+    const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
     // console.log(years);
     return (
       <Segment padded={true}>
