@@ -33,9 +33,12 @@ class AcademicTermView extends React.Component<IAcademicTermViewProps> {
       margin: 10,
       padding: 5,
     };
+    const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+    const inPast = this.props.term.termNumber < currentTermNum;
+    const isCurrent = this.props.term.termNumber === currentTermNum;
     return (
       <Container style={paddedStyle}>
-        <Header dividing={true}>{AcademicTerms.toString(this.props.term._id)}</Header>
+        <Header dividing={true} disabled={inPast} color={isCurrent ? 'green' : 'black'}>{AcademicTerms.toString(this.props.term._id)}</Header>
         <Grid stackable={true} stretched={true}>
           <Droppable droppableId={`${termSlug}`}>
             {(provided, snapshot) => (

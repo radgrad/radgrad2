@@ -34,18 +34,15 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
             {_.map(props.choices, (choice, index) => {
               const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
               // console.log(`${choice} is satisfied = ${satisfied}`);
-              if (satisfied) {
-                return (
-                  <SatisfiedPlanChoicePill choice={choice} index={index} satisfied={satisfied}/>
-                );
-              }
               if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
                 return (
                   <DraggablePlanChoicePill key={index} choice={choice} index={index}
                                            studentID={props.studentID} satisfied={satisfied}/>
                 );
               }
-              return (<SatisfiedPlanChoicePill choice={choice} index={index} satisfied={satisfied}/>);
+              return (
+                <SatisfiedPlanChoicePill key={index} choice={choice} index={index} satisfied={satisfied}/>
+              );
             })}
             {provided.placeholder}
           </div>

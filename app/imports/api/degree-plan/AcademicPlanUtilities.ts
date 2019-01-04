@@ -36,6 +36,6 @@ export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]):
     }
   });
   const ret = count >= planCount;
-  console.log('isPlanChoiceSatisfied(%s, %o) returns %o', planChoice, takenSlugs, ret);
+  // console.log('isPlanChoiceSatisfied(%s, %o) returns %o', planChoice, takenSlugs, ret);
   return ret;
 }

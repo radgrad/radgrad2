@@ -12,7 +12,7 @@ interface ISatisfiedPlanChoicePillProps {
 
 const SatisfiedPlanChoicePill = (props: ISatisfiedPlanChoicePillProps) => {
   const style = props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
-  console.log(props.satisfied, style);
+  // console.log(props.satisfied, style);
   return (
     <Grid.Row style={style}>
       <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>

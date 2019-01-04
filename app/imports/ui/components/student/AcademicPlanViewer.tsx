@@ -36,7 +36,7 @@ const ChooseSchema = new simplSchema({
 class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcademicPlanViewerState> {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     const username = props.match.params.username;
     const profile = Users.getProfile(username);
     let plan;

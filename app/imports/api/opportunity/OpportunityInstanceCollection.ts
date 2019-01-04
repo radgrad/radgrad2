@@ -69,7 +69,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     } else {
       sponsorID = Users.getID(sponsor);
     }
-    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER) {
+    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER || academicTermDoc.term === AcademicTerms.WINTER) {
       AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: studentProfile.username });
     } else {
       AcademicYearInstances.define({ year: academicTermDoc.year, student: studentProfile.username });

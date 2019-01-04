@@ -21,7 +21,7 @@ class AcademicPlanViewerWidget extends React.Component<IAcademicPlanViewerWidget
   }
 
   public render() {
-    const fiveYear = this.props.academicPlan.coursesPerAcademicTerm.length % 5 === 0;
+    const fiveYear = (this.props.academicPlan.coursesPerAcademicTerm.length % 5) === 0;
     let yearNumber = 0;
     const littlePadding = {
       paddingLeft: 2,
