@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Label } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { IAcademicPlan } from '../../../typings/radgrad';
@@ -21,7 +21,6 @@ class AcademicPlanViewerWidget extends React.Component<IAcademicPlanViewerWidget
   }
 
   public render() {
-    const quarter = this.props.academicPlan.coursesPerAcademicTerm.length % 4 === 0;
     const fiveYear = this.props.academicPlan.coursesPerAcademicTerm.length % 5 === 0;
     let yearNumber = 0;
     const littlePadding = {

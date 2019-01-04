@@ -5,8 +5,6 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { getDroppableListStyle } from './StyleFunctions';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
-import NamePill from './NamePill';
-import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
 import { isPlanChoiceSatisfied } from '../../../api/degree-plan/AcademicPlanUtilities';
 import SatisfiedPlanChoicePill from './SatisfiedPlanChoicePill';
 

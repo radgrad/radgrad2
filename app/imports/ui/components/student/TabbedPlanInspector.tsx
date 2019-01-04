@@ -5,9 +5,7 @@ import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspec
 import AcademicPlanViewerContainer from './AcademicPlanViewer';
 import { DepSelectedTabs } from '../../../redux/actions/actionTypes';
 import {
-  selectCourseInstance,
   selectInspectorTab,
-  selectOpportunityInstance,
   selectPlanTab,
 } from '../../../redux/actions/actions';
 

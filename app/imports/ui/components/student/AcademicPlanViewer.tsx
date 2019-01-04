@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Label } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
@@ -60,7 +60,7 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
   private submit(data) {
     const { name, year } = data;
     console.log('Got %o from submit', { name, year });
-    const academicPlan = AcademicPlans.find({ year, name }).fetch()[0];
+    // const academicPlan = AcademicPlans.find({ year, name }).fetch()[0];
   }
 
   private handleChangeYear(data) {
