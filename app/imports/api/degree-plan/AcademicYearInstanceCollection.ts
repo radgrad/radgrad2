@@ -51,7 +51,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
   public define({ year, student }: IAcademicYearDefine) {
-    console.log(`AcadmeicYearInstance.define(${year}, ${student}`);
+    // console.log(`AcadmeicYearInstance.define(${year}, ${student})`);
     const studentID = Users.getID(student);
     let termIDs = [];
     const settingsDoc = RadGradSettings.findOne({});
