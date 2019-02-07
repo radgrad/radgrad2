@@ -8,6 +8,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { makeSampleOpportunity } from './SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
@@ -39,6 +40,20 @@ if (Meteor.isServer) {
       docID = OpportunityInstances.restoreOne(dumpObject);
       expect(OpportunityInstances.isDefined(docID)).to.be.true;
       OpportunityInstances.removeIt(docID);
+    });
+    it('dangling VR', function test() {
+      const academicTerm = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2019 });
+      const faculty = makeSampleUser(ROLE.FACULTY);
+      const student = makeSampleUser();
+      const opportunity = makeSampleOpportunity(faculty);
+      const verified = false;
+      const docID = OpportunityInstances.define({ academicTerm, opportunity, verified, student });
+      const vrID = VerificationRequests.define({ student, opportunityInstance: docID });
+      expect(OpportunityInstances.isOpportunityInstance(academicTerm, opportunity, student)).to.be.true;
+      expect(VerificationRequests.isDefined(vrID)).to.be.true;
+      OpportunityInstances.removeIt(docID);
+      expect(OpportunityInstances.isDefined(docID)).to.be.false;
+      expect(VerificationRequests.isDefined(vrID)).to.be.false;
     });
   });
 }
