@@ -7,6 +7,7 @@ import { ROLE } from '../role/Role';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
 
@@ -114,7 +115,12 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public removeIt(docID: string) {
     this.assertDefined(docID);
-    // OK, clear to delete.
+    // find any VerificationRequests associated with docID and remove them.
+    const requests = VerificationRequests.find({ opportunityInstanceID: docID })
+      .fetch();
+    _.forEach(requests, (vr) => {
+      VerificationRequests.removeIt(vr._id);
+    });
     return super.removeIt(docID);
   }
 
