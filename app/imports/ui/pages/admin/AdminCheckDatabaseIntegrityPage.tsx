@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -6,7 +7,13 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import { checkIntegrityDone, startCheckIntegrity } from '../../../redux/actions/actions';
 
+interface IAdminCheckDatabaseIntegrityPageProps {
+  startCheckIntegrity: () => any;
+  checkIntegrityDone: () => any;
+  checkIntegrityWorking?: boolean;
+}
 interface IAdminCheckDatabaseIntegrityPageState {
   clientResult?: {
     count: number;
@@ -16,10 +23,24 @@ interface IAdminCheckDatabaseIntegrityPageState {
     count: number;
     message: string;
   };
+  checkIntegrityWorking?: boolean;
 }
 
+const mapStateToProps = (state) => {
+  return {
+    checkIntegrityWorking: state.radgradWorking.checkIntegrity,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    startCheckIntegrity: () => dispatch(startCheckIntegrity()),
+    checkIntegrityDone: () => dispatch(checkIntegrityDone()),
+  };
+};
+
 /** A simple static component to render some text for the landing page. */
-class AdminCheckDatabaseIntegrityPage extends React.Component<{}, IAdminCheckDatabaseIntegrityPageState> {
+class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabaseIntegrityPageProps, IAdminCheckDatabaseIntegrityPageState> {
   constructor(props) {
     super(props);
     this.clickSubmit = this.clickSubmit.bind(this);
@@ -36,11 +57,13 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<{}, IAdminCheckDat
   }
 
   private clickSubmit() {
+    this.props.startCheckIntegrity();
     checkIntegrityMethod.call(null, (error, result) => {
       if (error) {
         console.error('Error during integrity check:', error);
       } else {
         this.setState({ serverResult: result });
+        this.props.checkIntegrityDone();
       }
     });
     const clientResult = checkIntegrity();
@@ -55,6 +78,8 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<{}, IAdminCheckDat
     const serverError = this.state.serverResult.count !== 0;
     const showClient = !!this.state.clientResult.message;
     const clientError = this.state.clientResult.count !== 0;
+    const working = this.props.checkIntegrityWorking;
+    // console.log('Check Integrity props=%o, state=%o working=%o', this.props, this.state, working);
     return (
       <div>
         <AdminPageMenuWidget/>
@@ -66,7 +91,7 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<{}, IAdminCheckDat
 
           <Grid.Column width={11}>
             <Form>
-              <Button color="green" basic={true} type="submit" onClick={this.clickSubmit}>Check Integrity</Button>
+              <Button color="green" loading={working} basic={true} type="submit" onClick={this.clickSubmit}>Check Integrity</Button>
             </Form>
             <Grid stackable={true} width="equal" style={paddedStyle}>
               <Grid.Column width={8}>
@@ -93,6 +118,7 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<{}, IAdminCheckDat
   }
 }
 
-const AdminCheckDatabaseIntegrityPageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminCheckDatabaseIntegrityPage));
+const AdminCheckDatabaseIntegrityPageCon = withInstanceSubscriptions(withGlobalSubscription(AdminCheckDatabaseIntegrityPage));
 
+const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPageCon);
 export default AdminCheckDatabaseIntegrityPageContainer;

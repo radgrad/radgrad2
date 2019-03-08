@@ -4,6 +4,12 @@ import {
   SELECT_COURSE_INSTANCE,
   SELECT_OPPORTUNITY,
   SELECT_OPPORTUNITY_INSTANCE,
+  CHECK_INTEGRITY_WORKING,
+  CHECK_INTEGRITY_DONE,
+  DUMP_DATABASE_WORKING,
+  DUMP_DATABASE_DONE,
+  GET_EMAILS_WORKING,
+  GET_EMAILS_DONE,
   DepSelectedTabs,
 } from '../actions/actionTypes';
 
@@ -17,7 +23,50 @@ const initialState = {
   depTab: {
     selectedTab: DepSelectedTabs.SELECT_PLAN,
   },
+  radgradWorking: {
+    checkIntegrity: false,
+    dumpDataBase: false,
+    getStudentEmails: false,
+  },
 };
+
+function radgradWorkingReducer(state = {}, action) {
+  // console.log('radGradWorking state=%o, action=%o', state, action);
+  switch (action.type) {
+    case CHECK_INTEGRITY_WORKING:
+      return {
+        ...state,
+        checkIntegrity: true,
+      };
+    case CHECK_INTEGRITY_DONE:
+      return {
+        ...state,
+        checkIntegrity: false,
+      };
+    case DUMP_DATABASE_WORKING:
+      return {
+        ...state,
+        dumpDataBase: true,
+      };
+    case DUMP_DATABASE_DONE:
+      return {
+        ...state,
+        dumpDataBase: false,
+      };
+    case GET_EMAILS_WORKING:
+      return {
+        ...state,
+        getStudentEmails: true,
+      };
+    case GET_EMAILS_DONE:
+      return {
+        ...state,
+        getStudentEmails: false,
+      };
+    default:
+      return state;
+  }
+}
 
 function inspectorReducer(state = {}, action) {
   // console.log('inspectorReducer state=%o, action=%o', state, action);
@@ -56,6 +105,7 @@ function inspectorReducer(state = {}, action) {
       return state;
   }
 }
+
 function tabReducer(state = {}, action) {
   // console.log('tabReducer state=%o action=%o', state, action);
   switch (action.type) {
@@ -77,6 +127,7 @@ const rootReducer = (state = initialState, action) => {
     ...state,
     depInspector: inspectorReducer(state.depInspector, action),
     depTab: tabReducer(state.depTab, action),
+    radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
   };
 };
 

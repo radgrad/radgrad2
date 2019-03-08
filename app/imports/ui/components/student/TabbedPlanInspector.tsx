@@ -36,7 +36,7 @@ class TabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {
 
   private handleTabChange(e , { activeIndex }) {
     e.preventDefault();
-    // console.log(`handleTabChange ${activeIndex}`);
+    console.log(`handleTabChange ${activeIndex}`);
     switch (activeIndex) {
       case 0:
         this.props.selectPlanTab();
