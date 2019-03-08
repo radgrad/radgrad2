@@ -96,16 +96,19 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
       const plans = AcademicPlans.find({ year }).fetch();
       _.forEach(plans, (p) => names.push(p.name));
     });
-
+    const noBottomMargin = {
+      marginBottom: 0,
+    };
     return (
       <div>
         <AutoForm schema={ChooseSchema} onSubmit={this.submit} model={plan}>
-          <Form.Group widths="equal">
+          <Form.Group widths="equal" style={noBottomMargin}>
             <SelectField allowedValues={planYears} name="year" onChange={this.handleChangeYear}/>
             <SelectField allowedValues={names} name="name" onChange={this.handleChangeName}/>
-            <SubmitField value="Choose this Plan"/>
           </Form.Group>
+          <SubmitField value="Choose this Plan"/>
         </AutoForm>
+        <hr/><p/>
         <AcademicPlanViewerWidget academicPlan={this.state.academicPlan} username={this.props.match.params.username}/>
       </div>
     );
