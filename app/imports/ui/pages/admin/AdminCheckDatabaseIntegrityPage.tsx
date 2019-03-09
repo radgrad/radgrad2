@@ -39,7 +39,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-/** A simple static component to render some text for the landing page. */
 class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabaseIntegrityPageProps, IAdminCheckDatabaseIntegrityPageState> {
   constructor(props) {
     super(props);
@@ -119,6 +118,5 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabas
 }
 
 const AdminCheckDatabaseIntegrityPageCon = withInstanceSubscriptions(withGlobalSubscription(AdminCheckDatabaseIntegrityPage));
-
 const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPageCon);
 export default AdminCheckDatabaseIntegrityPageContainer;

@@ -25,7 +25,7 @@ const initialState = {
   },
   radgradWorking: {
     checkIntegrity: false,
-    dumpDataBase: false,
+    dumpDatabase: false,
     getStudentEmails: false,
   },
 };
@@ -46,12 +46,12 @@ function radgradWorkingReducer(state = {}, action) {
     case DUMP_DATABASE_WORKING:
       return {
         ...state,
-        dumpDataBase: true,
+        dumpDatabase: true,
       };
     case DUMP_DATABASE_DONE:
       return {
         ...state,
-        dumpDataBase: false,
+        dumpDatabase: false,
       };
     case GET_EMAILS_WORKING:
       return {

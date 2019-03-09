@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { moment } from 'meteor/momentjs:moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
@@ -8,6 +9,10 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/AdminDatabaseAccordion';
+import {
+  dumpDatabaseDone, getStudentEmailsDone,
+  startDumpDatabase, startGetStudentEmails,
+} from '../../../redux/actions/actions';
 
 interface Icollection {
   name?: string;
@@ -19,9 +24,34 @@ interface IAdminDumpDatabasePageState {
   results: Icollection[];
 }
 
+interface IAdminDumpDatabasePageProps {
+  startDumpDatabase: () => any;
+  dumpDatabaseDone: () => any;
+  dumpDatabaseWorking?: boolean;
+  startGetStudentEmails: () => any;
+  getStudentEmailsDone: () => any;
+  getStudentEmailsWorking?: boolean;
+}
+
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageState> {
+const mapStateToProps = (state) => {
+  return {
+    dumpDatabaseWorking: state.radgradWorking.dumpDatabase,
+    getStudentEmailsWorking: state.radgradWorking.getStudentEmails,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    startDumpDatabase: () => dispatch(startDumpDatabase()),
+    dumpDatabaseDone: () => dispatch(dumpDatabaseDone()),
+    startGetStudentEmails: () => dispatch(startGetStudentEmails()),
+    getStudentEmailsDone: () => dispatch(getStudentEmailsDone()),
+  };
+};
+
+class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps, IAdminDumpDatabasePageState> {
   constructor(props) {
     super(props);
     this.clickDump = this.clickDump.bind(this);
@@ -33,6 +63,7 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
   }
 
   private clickDump() {
+    this.props.startDumpDatabase();
     dumpDatabaseMethod.call(null, (error, result) => {
       if (error) {
         this.setState({ isError: true });
@@ -45,10 +76,12 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
       const fileName = `${dir}/${moment(result.timestamp).format(databaseFileDateFormat)}.json`;
       zip.file(fileName, JSON.stringify(result, null, 2));
       zip.saveAs(`${dir}.zip`);
+      this.props.dumpDatabaseDone();
     });
   }
 
   private clickEmails() {
+    this.props.startGetStudentEmails();
     generateStudentEmailsMethod.call(null, (error, result) => {
       if (error) {
         this.setState({ isError: true });
@@ -66,6 +99,7 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
       const fileName = `${dir}/Students.txt`;
       zip.file(fileName, result.students.join('\n'));
       zip.saveAs(`${dir}.zip`);
+      this.props.getStudentEmailsDone();
     });
   }
 
@@ -75,6 +109,8 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
     };
     const errorCondition = this.state.isError;
     const showMessage = this.state.results.length > 0;
+    const dumpWorking = this.props.dumpDatabaseWorking;
+    const getWorking = this.props.getStudentEmailsWorking;
     return (
       <div>
         <AdminPageMenuWidget/>
@@ -86,8 +122,8 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
 
           <Grid.Column width={11}>
             <Form>
-              <Button color="green" basic={true} type="submit" onClick={this.clickDump}>Dump Database</Button>
-              <Button color="green" basic={true} type="submit" onClick={this.clickEmails}>Get Student Emails</Button>
+              <Button color="green" loading={dumpWorking} basic={true} type="submit" onClick={this.clickDump}>Dump Database</Button>
+              <Button color="green" loading={getWorking} basic={true} type="submit" onClick={this.clickEmails}>Get Student Emails</Button>
             </Form>
             {showMessage ? (
               <Grid stackable={true} style={paddedStyle}>
@@ -105,6 +141,6 @@ class AdminDumpDatabasePage extends React.Component<{}, IAdminDumpDatabasePageSt
   }
 }
 
-const AdminDumpDatabasePageContainer = withGlobalSubscription(AdminDumpDatabasePage);
-
+const AdminDumpDatabasePageCon = withGlobalSubscription(AdminDumpDatabasePage);
+const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDumpDatabasePageCon);
 export default AdminDumpDatabasePageContainer;
