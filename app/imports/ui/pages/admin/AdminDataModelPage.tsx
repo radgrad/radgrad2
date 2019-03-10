@@ -3,17 +3,21 @@ import { Grid, Image } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 
 /** A simple static component to render some text for the landing page. */
 class AdminDataModelPage extends React.Component {
   public render() {
+    const paddedStyle = {
+      paddingTop: 20,
+    };
     return (
       <div>
         <AdminPageMenuWidget/>
-        <Grid verticalAlign="middle" textAlign="center" container={true}>
+        <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
+          <Grid.Column width={5}>
+            <AdminDataModelMenu/>
           </Grid.Column>
 
           <Grid.Column width={8}>
