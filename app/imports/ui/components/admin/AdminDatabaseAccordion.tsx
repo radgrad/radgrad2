@@ -5,13 +5,13 @@ interface IAdminDatabaseAccordionState {
   activeIndex: number;
 }
 
-interface IAdminDatabaseAccodionProps {
+interface IAdminDatabaseAccordionProps {
   index: number;
   name: string;
   contents: string[];
 }
 
-class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccodionProps, IAdminDatabaseAccordionState> {
+class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProps, IAdminDatabaseAccordionState> {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);

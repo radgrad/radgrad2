@@ -4,8 +4,9 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
+import ListAcademicPlansWidget from '../../components/admin/ListAcademicPlansWidget';
 
-class AdminDataModelPage extends React.Component {
+class AdminDataModelAcademicPlansPage extends React.Component {
   public render() {
     const paddedStyle = {
       paddingTop: 20,
@@ -20,7 +21,8 @@ class AdminDataModelPage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <h1>Admin Data Model</h1>
+            <h1>Academic Plans</h1>
+            <ListAcademicPlansWidget/>
           </Grid.Column>
         </Grid>
       </div>
@@ -28,7 +30,4 @@ class AdminDataModelPage extends React.Component {
   }
 }
 
-const AdminDataModelPageCon = withGlobalSubscription(AdminDataModelPage);
-const AdminDataModelPageContainer = withInstanceSubscriptions(AdminDataModelPageCon);
-
-export default AdminDataModelPageContainer;
+export default AdminDataModelAcademicPlansPage;

@@ -45,6 +45,7 @@ import MentorExplorerPageContainer from '../../ui/pages/mentor/MentorExplorerPag
 import AlumniHomePageContainer from '../../ui/pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../ui/pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../ui/pages/admin/AdminCheckDatabaseIntegrityPage';
+import AdminDataModelAcademicPlansPage from '../../ui/pages/admin/AdminDataModelAcademicPlansPage';
 
 export const routes = {
   ADMIN: [
@@ -57,6 +58,11 @@ export const routes = {
       path: '/admin/:username/datamodel',
       exact: true,
       component: AdminDataModelPageContainer,
+    },
+    {
+      path: '/admin/:username/datamodel/academic-plans',
+      exact: true,
+      component: AdminDataModelAcademicPlansPage,
     },
     {
       path: '/admin/:username/database',
