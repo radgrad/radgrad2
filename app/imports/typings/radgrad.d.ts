@@ -20,6 +20,11 @@ export interface IDumpOne {
   slug?: string;
 }
 
+export interface IDescriptionPair {
+  label: string;
+  value: string;
+}
+
 // AcademicPlans
 export interface IAcademicPlan {
   _id: string;
