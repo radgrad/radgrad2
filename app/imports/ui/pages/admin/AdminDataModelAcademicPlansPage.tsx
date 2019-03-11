@@ -22,7 +22,7 @@ class AdminDataModelAcademicPlansPage extends React.Component {
 
           <Grid.Column width={11}>
             <h1>Academic Plans</h1>
-            <ListAcademicPlansWidget/>
+            {/*<ListAcademicPlansWidget/>*/}
           </Grid.Column>
         </Grid>
       </div>

@@ -3,7 +3,6 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
 import { IDescriptionPair } from '../../../typings/radgrad';
-import slug = Mocha.utils.slug;
 
 interface IAdminDataModelAccordionProps {
   id: string;
@@ -14,31 +13,52 @@ interface IAdminDataModelAccordionProps {
   descriptionPairs: IDescriptionPair[];
   updateDisabled: boolean;
   deleteDisabled: boolean;
-  handleUpdate: () => any;
-  handleDelete: () => any;
+  handleUpdate: (evt: any, id: any) => any;
+  handleDelete: (evt: any, id: any) => any;
 }
 
-const AdminDataModelAccordion = (props: IAdminDataModelAccordionProps) => (
-  <Accordion fluid={true} styled={true}>
-    <Accordion.Title>
-      {props.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {props.name}
-      {props.slug ? (props.slug) : ''}
-      {props.additionalTitleInfo ? props.additionalTitleInfo : ''}
-    </Accordion.Title>
-    <Accordion.Content>
-      {_.map(props.descriptionPairs, (descriptionPair) => (
-        <p><b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}/></p>
-      ))}
-      <p>
-        <Button id={props.id} color="green" basic={true} size="mini" disabled={props.updateDisabled}
-                onClick={props.handleUpdate}>Update</Button>
-        <Button id={props.id} color="green" basic={true} size="mini" disabled={props.deleteDisabled}
-                onClick={props.handleDelete}>Delete</Button>
-      </p>
-    </Accordion.Content>
-  </Accordion>
-);
+interface IAdminDataModelAccordionState {
+  active: boolean;
+}
 
+class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionProps, IAdminDataModelAccordionState> {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = { active: false };
+  }
+
+  public handleClick(e, titleProps) {
+    let { active } = this.state;
+    active = !active;
+    this.setState({ active });
+  }
+
+  public render() {
+    return (
+      <Accordion fluid={true} styled={true}>
+        <Accordion.Title active={this.state.active} onClick={this.handleClick}>
+          {this.props.retired ? <Icon name="eye slash"/> : ''}
+          <Icon name="dropdown"/>
+          {this.props.name}
+          {this.props.slug ? (this.props.slug) : ''}
+          {this.props.additionalTitleInfo ? this.props.additionalTitleInfo : ''}
+        </Accordion.Title>
+        <Accordion.Content active={this.state.active}>
+          {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
+            <React.Fragment key={index}>
+            <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}/>
+            </React.Fragment>
+          ))}
+          <p>
+            <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.updateDisabled}
+                    onClick={this.props.handleUpdate}>Update</Button>
+            <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.deleteDisabled}
+                    onClick={this.props.handleDelete}>Delete</Button>
+          </p>
+        </Accordion.Content>
+      </Accordion>
+    );
+  }
+}
 export default AdminDataModelAccordion;

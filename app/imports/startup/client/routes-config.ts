@@ -46,6 +46,7 @@ import AlumniHomePageContainer from '../../ui/pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../ui/pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../ui/pages/admin/AdminCheckDatabaseIntegrityPage';
 import AdminDataModelAcademicPlansPage from '../../ui/pages/admin/AdminDataModelAcademicPlansPage';
+import AdminDataModelAcademicTermsPage from '../../ui/pages/admin/AdminDataModelAcademicTermsPage';
 
 export const routes = {
   ADMIN: [
@@ -63,6 +64,11 @@ export const routes = {
       path: '/admin/:username/datamodel/academic-plans',
       exact: true,
       component: AdminDataModelAcademicPlansPage,
+    },
+    {
+      path: '/admin/:username/datamodel/academic-terms',
+      exact: true,
+      component: AdminDataModelAcademicTermsPage,
     },
     {
       path: '/admin/:username/database',
