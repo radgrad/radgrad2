@@ -4,12 +4,9 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
 import { IDescriptionPair } from '../../../typings/radgrad';
 
-interface IAdminDataModelAccordionProps {
+interface IAdminCollectionAccordionProps {
   id: string;
-  retired: boolean;
-  name: string;
-  slug?: string;
-  additionalTitleInfo?: string;
+  title: React.ReactNode;
   descriptionPairs: IDescriptionPair[];
   updateDisabled: boolean;
   deleteDisabled: boolean;
@@ -17,11 +14,11 @@ interface IAdminDataModelAccordionProps {
   handleDelete: (evt: any, id: any) => any;
 }
 
-interface IAdminDataModelAccordionState {
+interface IAdminCollectionAccordionState {
   active: boolean;
 }
 
-class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionProps, IAdminDataModelAccordionState> {
+class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordionProps, IAdminCollectionAccordionState> {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -34,20 +31,16 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
     this.setState({ active });
   }
 
-  public render() {
+  public render(): React.ReactNode {
     return (
       <Accordion fluid={true} styled={true}>
         <Accordion.Title active={this.state.active} onClick={this.handleClick}>
-          {this.props.retired ? <Icon name="eye slash"/> : ''}
-          <Icon name="dropdown"/>
-          {this.props.name}
-          {this.props.slug ? (this.props.slug) : ''}
-          {this.props.additionalTitleInfo ? this.props.additionalTitleInfo : ''}
+          {this.props.title}
         </Accordion.Title>
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-            <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}/>
+              <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}/>
             </React.Fragment>
           ))}
           <p>
@@ -61,4 +54,5 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
     );
   }
 }
-export default AdminDataModelAccordion;
+
+export default AdminCollectionAccordion;

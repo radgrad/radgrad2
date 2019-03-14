@@ -53,6 +53,7 @@
     "mocha": "^5.2.0",
     "nightmare": "^2.10.0",
     "ts-node": "^7.0.1",
+    "tsdoc": "0.0.4",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-react": "^3.6.0",

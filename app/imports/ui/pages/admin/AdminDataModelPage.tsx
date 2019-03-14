@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
@@ -20,7 +20,7 @@ class AdminDataModelPage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <h1>Admin Data Model</h1>
+            <Message floating={true} content={'Click on a data model element in the menu to the left to display those items.'}/>
           </Grid.Column>
         </Grid>
       </div>
@@ -28,7 +28,5 @@ class AdminDataModelPage extends React.Component {
   }
 }
 
-const AdminDataModelPageCon = withGlobalSubscription(AdminDataModelPage);
-const AdminDataModelPageContainer = withInstanceSubscriptions(AdminDataModelPageCon);
-
+const AdminDataModelPageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminDataModelPage));
 export default AdminDataModelPageContainer;

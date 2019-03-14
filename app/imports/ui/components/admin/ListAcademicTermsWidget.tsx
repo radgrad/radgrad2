@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { Accordion, Icon, Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
+import { Header, Segment } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import AdminDataModelAccordion from './AdminDataModelAccordion';
+import { IAcademicTerm, IDescriptionPair } from '../../../typings/radgrad';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 
 function numReferences(term) {
   let references = 0;
@@ -15,10 +18,15 @@ function numReferences(term) {
       }
     });
   });
+  _.forEach(Opportunities.find().fetch(), (e) => {
+    if (_.includes(e.termIDs, term._id)) {
+      references++;
+    }
+  });
   return references;
 }
 
-function descriptionPairs(term) {
+function descriptionPairs(term: IAcademicTerm): IDescriptionPair[] {
   return [
     { label: 'Term', value: AcademicTerms.toString(term._id, false) },
     { label: 'Term Number', value: `${term.termNumber}` },
@@ -28,17 +36,19 @@ function descriptionPairs(term) {
 }
 
 interface IListAcademicTermsWidgetProps {
-  handleUpdate: (evt: any, id: any) => any;
+  terms: IAcademicTerm[];
+  handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
 }
+
 class ListAcademicTermsWidget extends React.Component<IListAcademicTermsWidgetProps, {}> {
   constructor(props) {
     super(props);
   }
 
   public render(): React.ReactNode {
-    const count = AcademicTerms.count();
-    const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+    const count = this.props.terms.length;
+    const terms = this.props.terms;
     return (
       <Segment padded={true}>
         <Header dividing={true}>ACADEMIC TERMS ({count})</Header>
@@ -46,7 +56,7 @@ class ListAcademicTermsWidget extends React.Component<IListAcademicTermsWidgetPr
           <AdminDataModelAccordion key={term._id} id={term._id} retired={term.retired}
                                    name={AcademicTerms.toString(term._id, false)}
                                    descriptionPairs={descriptionPairs(term)} updateDisabled={false}
-                                   deleteDisabled={numReferences(term) > 0} handleUpdate={this.props.handleUpdate}
+                                   deleteDisabled={true} handleOpenUpdate={this.props.handleOpenUpdate}
                                    handleDelete={this.props.handleDelete}/>
         ))}
       </Segment>
@@ -54,4 +64,10 @@ class ListAcademicTermsWidget extends React.Component<IListAcademicTermsWidgetPr
   }
 }
 
-export default ListAcademicTermsWidget;
+const ListAcademicTermsWidgetContainer = withTracker((props) => {
+  return {
+    terms: AcademicTerms.find().fetch(),
+  };
+})(ListAcademicTermsWidget);
+
+export default ListAcademicTermsWidgetContainer;

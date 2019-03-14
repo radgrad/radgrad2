@@ -7,6 +7,7 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import UpdateAcademicTermWidget from '../../components/admin/UpdateAcademicTermWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IAdminDataModelAcademicTermsPageState {
   showUpdateForm: boolean;
@@ -16,21 +17,44 @@ interface IAdminDataModelAcademicTermsPageState {
 class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelAcademicTermsPageState> {
   constructor(props) {
     super(props);
+    this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.state = { showUpdateForm: false, id: '' };
   }
 
-  private handleUpdate(evt, inst) {
+  private handleOpenUpdate(evt, inst) {
     evt.preventDefault();
-    console.log('handleUpdate inst=%o', evt, inst);
+    // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
   }
 
-  private handleDelete(event, instance) {
+  private handleUpdate(doc) {
+    // console.log('handleUpdate doc=%o', doc);
+    const collectionName = AcademicTerms.getCollectionName();
+    const updateData: { id?: string, retired?: boolean } = {};
+    updateData.id = doc._id;
+    updateData.retired = doc.retired;
+    // console.log('parameter = %o', { collectionName, updateData });
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        console.error('Error in updating AcademicTerm. %o', error);
+      }
+      this.setState({ showUpdateForm: false, id: '' });
+    });
+  }
+
+  private handleDelete(event, inst) {
     event.preventDefault();
-    console.log('handleDelete inst=%o', instance);
+    console.log('handleDelete inst=%o', inst);
+    const collectionName = AcademicTerms.getCollectionName();
+    const instance = inst.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        console.error('Error deleting AcademicTerm. %o', error);
+      }
+    });
   }
 
   private handleCancel(event, instance) {
@@ -52,8 +76,10 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
 
           <Grid.Column width={11}>
-            {this.state.showUpdateForm ? (<UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)} handleCancel={this.handleCancel}/>) : ''}
-            <ListAcademicTermsWidget handleUpdate={this.handleUpdate} handleDelete={this.handleDelete}/>
+            {this.state.showUpdateForm ? (<UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)}
+                                                                    handleCancel={this.handleCancel}
+                                                                    handleUpdate={this.handleUpdate}/>) : ''}
+            <ListAcademicTermsWidget handleOpenUpdate={this.handleOpenUpdate} handleDelete={this.handleDelete}/>
           </Grid.Column>
         </Grid>
       </div>

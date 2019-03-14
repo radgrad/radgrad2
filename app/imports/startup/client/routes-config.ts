@@ -47,6 +47,7 @@ import AdminDumpDatabasePageContainer from '../../ui/pages/admin/AdminDumpDataba
 import AdminCheckDatabaseIntegrityPageContainer from '../../ui/pages/admin/AdminCheckDatabaseIntegrityPage';
 import AdminDataModelAcademicPlansPage from '../../ui/pages/admin/AdminDataModelAcademicPlansPage';
 import AdminDataModelAcademicTermsPage from '../../ui/pages/admin/AdminDataModelAcademicTermsPage';
+import AdminDataModelAcademicYearsPage from '../../ui/pages/admin/AdminDataModelAcademicYearsPage';
 
 export const routes = {
   ADMIN: [
@@ -69,6 +70,11 @@ export const routes = {
       path: '/admin/:username/datamodel/academic-terms',
       exact: true,
       component: AdminDataModelAcademicTermsPage,
+    },
+    {
+      path: '/admin/:username/datamodel/academic-year-instances',
+      exact: true,
+      component: AdminDataModelAcademicYearsPage,
     },
     {
       path: '/admin/:username/database',

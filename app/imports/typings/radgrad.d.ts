@@ -38,6 +38,7 @@ export interface IAcademicPlan {
   coursesPerAcademicTerm: number[];
   courseList: string[];
   isBAM?: boolean;
+  retired?: boolean;
 }
 
 export interface IAcademicPlanDefine extends IDumpOne {

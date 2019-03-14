@@ -6,6 +6,9 @@ import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 
 /**
  * Represents a specific academicTerm, such as "Spring, 2016", "Fall, 2017", or "Summer, 2015".
@@ -135,6 +138,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param retired optional boolean.
    */
   public update(docID, { retired }: IAcademicTermUpdate) {
+    // console.log(`AcademicTerm.update(${docID}, ${retired})`);
     const updateData: IAcademicTermUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -286,6 +290,34 @@ class AcademicTermCollection extends BaseSlugCollection {
     const yearString = `${academicTermDoc.year}`.substring(2, 4);
     const termString = (academicTermDoc.term === 'Fall') ? 'Fall' : academicTermDoc.term.substring(0, 3);
     return `${termString} ${yearString}`;
+  }
+
+  /**
+   * Remove the Course.
+   * @param instance The docID or slug of the entity to be removed.
+   * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
+   */
+  public removeIt(instance: string) {
+    const docID = this.getID(instance);
+    // Check that this term is not referenced by any Opportunity Instance.
+    OpportunityInstances.find().map((opportunityInstance) => {
+      if (opportunityInstance.termID === docID) {
+        throw new Meteor.Error(`AcademicTerm ${instance} referenced by a opportunity instance ${opportunityInstance}.`);
+      }
+    });
+    // Check that this term in not referenced by any Course Instance
+    CourseInstances.find().map((courseInstance) => {
+      if (courseInstance.termID === docID) {
+        throw new Meteor.Error(`AcademicTerm ${instance} referenced by a course instance ${courseInstance}`);
+      }
+    });
+    // Check that this term is not referenced by any Opportunity
+    Opportunities.find().map((opportunity) => {
+      if (_.includes(opportunity.termIDs, docID)) {
+        throw new Meteor.Error(`AcademicTerm ${instance} referenced by an opportunity ${opportunity}`);
+      }
+    });
+    return super.removeIt(docID);
   }
 
   /**
