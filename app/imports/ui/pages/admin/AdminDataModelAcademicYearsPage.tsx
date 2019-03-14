@@ -26,6 +26,7 @@ const itemTitle = (year: IAcademicYear): React.ReactNode => {
 };
 
 const deleteDisabled = (year: IAcademicYear): boolean => true;
+
 const updateDisabled = (year: IAcademicYear): boolean => true;
 
 class AdminDataModelAcademicYearsPage extends React.Component {

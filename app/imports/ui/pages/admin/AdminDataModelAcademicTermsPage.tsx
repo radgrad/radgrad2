@@ -87,5 +87,4 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
   }
 }
 
-const AdminDataModelAcademicTermsPageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminDataModelAcademicTermsPage));
-export default AdminDataModelAcademicTermsPageContainer;
+export default AdminDataModelAcademicTermsPage;

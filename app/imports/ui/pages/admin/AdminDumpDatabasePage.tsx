@@ -141,6 +141,5 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
   }
 }
 
-const AdminDumpDatabasePageCon = withGlobalSubscription(AdminDumpDatabasePage);
-const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDumpDatabasePageCon);
+const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDumpDatabasePage);
 export default AdminDumpDatabasePageContainer;

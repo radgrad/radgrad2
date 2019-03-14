@@ -28,5 +28,4 @@ class AdminDataModelPage extends React.Component {
   }
 }
 
-const AdminDataModelPageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminDataModelPage));
-export default AdminDataModelPageContainer;
+export default AdminDataModelPage;

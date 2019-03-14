@@ -9,6 +9,7 @@ import Signout from '../pages/Signout';
 import { ROLE } from '../../api/role/Role';
 import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 
 /* tslint:disable: jsx-no-lambda */
 
@@ -143,5 +144,5 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-export default withGlobalSubscription(App);
+export default withInstanceSubscriptions(withGlobalSubscription(App));
 /* tslint:enable: jsx-no-lambda */
