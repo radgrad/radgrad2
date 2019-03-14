@@ -26,7 +26,4 @@ class AdminAnalyticsPage extends React.Component {
   }
 }
 
-const AdminAnalyticsPageCon = withGlobalSubscription(AdminAnalyticsPage);
-const AdminAnalyticsPageContainer = withInstanceSubscriptions(AdminAnalyticsPageCon);
-
-export default AdminAnalyticsPageContainer;
+export default AdminAnalyticsPage;

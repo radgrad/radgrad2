@@ -25,6 +25,4 @@ class AdminModerationPage extends React.Component {
   }
 }
 
-const AdminModerationPageContainer = withGlobalSubscription(AdminModerationPage);
-
-export default AdminModerationPageContainer;
+export default AdminModerationPage;

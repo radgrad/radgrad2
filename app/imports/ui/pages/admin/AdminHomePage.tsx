@@ -50,7 +50,4 @@ class AdminHomePage extends React.Component<{}, IFilterUsers> {
   }
 }
 
-const AdminHomePageCon = withGlobalSubscription(AdminHomePage);
-const AdminHomePageContainer = withInstanceSubscriptions(AdminHomePageCon);
-
-export default AdminHomePageContainer;
+export default AdminHomePage;

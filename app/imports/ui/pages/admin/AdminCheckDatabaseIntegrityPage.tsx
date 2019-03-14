@@ -117,6 +117,5 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabas
   }
 }
 
-const AdminCheckDatabaseIntegrityPageCon = withInstanceSubscriptions(withGlobalSubscription(AdminCheckDatabaseIntegrityPage));
-const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPageCon);
+const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPage);
 export default AdminCheckDatabaseIntegrityPageContainer;
