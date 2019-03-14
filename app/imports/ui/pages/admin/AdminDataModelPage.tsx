@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 
 class AdminDataModelPage extends React.Component {

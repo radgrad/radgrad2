@@ -4,7 +4,6 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { IDescriptionPair } from '../../../typings/radgrad';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 
 interface IListCollectionWidgetProps {

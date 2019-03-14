@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { moment } from 'meteor/momentjs:moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';

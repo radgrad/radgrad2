@@ -1,13 +1,56 @@
 import * as React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Icon } from 'semantic-ui-react';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListAcademicTermsWidget from '../../components/admin/ListAcademicTermsWidget';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import UpdateAcademicTermWidget from '../../components/admin/UpdateAcademicTermWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { IAcademicTerm, IDescriptionPair } from '../../../typings/radgrad';
+import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+
+function numReferences(term) {
+  let references = 0;
+  [CourseInstances, OpportunityInstances].forEach((entity) => {
+    _.forEach(entity.find().fetch(), (e) => {
+      if (e.termID === term._id) {
+        references++;
+      }
+    });
+  });
+  _.forEach(Opportunities.find().fetch(), (e) => {
+    if (_.includes(e.termIDs, term._id)) {
+      references++;
+    }
+  });
+  return references;
+}
+
+function descriptionPairs(term: IAcademicTerm): IDescriptionPair[] {
+  return [
+    { label: 'Term', value: AcademicTerms.toString(term._id, false) },
+    { label: 'Term Number', value: `${term.termNumber}` },
+    { label: 'References', value: `${numReferences(term)}` },
+    { label: 'Retired', value: term.retired ? 'True' : 'False' },
+  ];
+}
+
+const itemTitle = (term: IAcademicTerm): React.ReactNode => {
+  return (
+    <React.Fragment>
+      {term.retired ? <Icon name="eye slash"/> : ''}
+      <Icon name="dropdown"/>
+      {AcademicTerms.toString(term._id, false)}
+    </React.Fragment>
+  );
+};
+
+const deleteDisabled = (term: IAcademicTerm): boolean => true;
+
+const updateDisabled = (term: IAcademicTerm): boolean => false;
 
 interface IAdminDataModelAcademicTermsPageState {
   showUpdateForm: boolean;
@@ -79,7 +122,13 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
             {this.state.showUpdateForm ? (<UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)}
                                                                     handleCancel={this.handleCancel}
                                                                     handleUpdate={this.handleUpdate}/>) : ''}
-            <ListAcademicTermsWidget handleOpenUpdate={this.handleOpenUpdate} handleDelete={this.handleDelete}/>
+            <ListCollectionWidget collection={AcademicTerms}
+                                  descriptionPairs={descriptionPairs}
+                                  itemTitle={itemTitle}
+                                  handleOpenUpdate={this.handleOpenUpdate}
+                                  handleDelete={this.handleDelete}
+                                  deleteDisabled={deleteDisabled}
+                                  updateDisabled={updateDisabled}/>
           </Grid.Column>
         </Grid>
       </div>

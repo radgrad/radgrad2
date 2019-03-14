@@ -1,7 +1,5 @@
 import * as React from 'react';
 import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import HiddenField from 'uniforms-semantic/HiddenField';
 import NumField from 'uniforms-semantic/NumField';
 import RadioField from 'uniforms-semantic/RadioField';
 import SubmitField from 'uniforms-semantic/SubmitField';

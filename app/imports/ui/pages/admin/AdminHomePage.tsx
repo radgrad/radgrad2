@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Container } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';
 import FilterUserWidget from '../../components/shared/FilterUserWidget';
 

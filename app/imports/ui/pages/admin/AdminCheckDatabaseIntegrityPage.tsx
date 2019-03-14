@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { checkIntegrityDone, startCheckIntegrity } from '../../../redux/actions/actions';
 
 interface IAdminCheckDatabaseIntegrityPageProps {

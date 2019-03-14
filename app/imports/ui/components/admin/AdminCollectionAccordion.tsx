@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Accordion, Button, Icon } from 'semantic-ui-react';
+import { Accordion, Button } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
 import { IDescriptionPair } from '../../../typings/radgrad';
