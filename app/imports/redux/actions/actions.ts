@@ -12,6 +12,12 @@ import {
   GET_EMAILS_WORKING,
   GET_EMAILS_DONE,
   DepSelectedTabs,
+  TEST_EMAIL_WORKING,
+  TEST_EMAIL_DONE,
+  LEVEL_EMAIL_WORKING,
+  LEVEL_EMAIL_DONE,
+  ALL_EMAIL_WORKING,
+  ALL_EMAIL_DONE,
 } from './actionTypes';
 
 export const selectCourse = (courseID) => ({
@@ -71,5 +77,35 @@ export const startGetStudentEmails = () => ({
 
 export const getStudentEmailsDone = () => ({
   type: GET_EMAILS_DONE,
+  payload: false,
+});
+
+export const startTestNewsletter = () => ({
+  type: TEST_EMAIL_WORKING,
+  payload: true,
+});
+
+export const testNewsletterDone = () => ({
+  type: TEST_EMAIL_DONE,
+  payload: false,
+});
+
+export const startLevelNewsletter = () => ({
+  type: LEVEL_EMAIL_WORKING,
+  payload: true,
+});
+
+export const levelNewsletterDone = () => ({
+  type: LEVEL_EMAIL_DONE,
+  payload: false,
+});
+
+export const startAllNewsletter = () => ({
+  type: ALL_EMAIL_WORKING,
+  payload: true,
+});
+
+export const allNewsletterDone = () => ({
+  type: ALL_EMAIL_DONE,
   payload: false,
 });

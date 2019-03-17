@@ -10,6 +10,12 @@ import {
   DUMP_DATABASE_DONE,
   GET_EMAILS_WORKING,
   GET_EMAILS_DONE,
+  TEST_EMAIL_WORKING,
+  TEST_EMAIL_DONE,
+  LEVEL_EMAIL_WORKING,
+  LEVEL_EMAIL_DONE,
+  ALL_EMAIL_WORKING,
+  ALL_EMAIL_DONE,
   DepSelectedTabs,
 } from '../actions/actionTypes';
 
@@ -27,6 +33,103 @@ const initialState = {
     checkIntegrity: false,
     dumpDatabase: false,
     getStudentEmails: false,
+    testNewsletter: false,
+    levelNewsletter: false,
+    allNewsletter: false,
+  },
+  pagination: {
+    academicPlans: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    academicTerms: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    academicYears: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    advisorLogs: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    careerGoals: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    courseInstances: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    courses: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    desiredDegrees: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    feeds: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    feedbackInstances: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    helpMessages: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    interests: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    interestTypes: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    mentorAnswers: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    mentorQuestions: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    opportunities: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    opportunityInstances: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    opportunityTypes: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    planChoices: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    reviews: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    slugs: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    teasers: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    verificationRequests: {
+      showIndex: 0,
+      showCount: 25,
+    },
   },
 };
 
@@ -62,6 +165,36 @@ function radgradWorkingReducer(state = {}, action) {
       return {
         ...state,
         getStudentEmails: false,
+      };
+    case TEST_EMAIL_WORKING:
+      return {
+        ...state,
+        testNewsletter: true,
+      };
+    case TEST_EMAIL_DONE:
+      return {
+        ...state,
+        testNewsletter: false,
+      };
+    case LEVEL_EMAIL_WORKING:
+      return {
+        ...state,
+        levelNewsletter: true,
+      };
+    case LEVEL_EMAIL_DONE:
+      return {
+        ...state,
+        levelNewsletter: false,
+      };
+    case ALL_EMAIL_WORKING:
+      return {
+        ...state,
+        allNewsletter: true,
+      };
+    case ALL_EMAIL_DONE:
+      return {
+        ...state,
+        allNewsletter: false,
       };
     default:
       return state;
@@ -106,6 +239,14 @@ function inspectorReducer(state = {}, action) {
   }
 }
 
+function paginationReducer(state = {}, action) {
+  // console.log('pagination state=%o, action=%o', state, action);
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
+
 function tabReducer(state = {}, action) {
   // console.log('tabReducer state=%o action=%o', state, action);
   switch (action.type) {
@@ -121,6 +262,7 @@ function tabReducer(state = {}, action) {
       return state;
   }
 }
+
 const rootReducer = (state = initialState, action) => {
   // console.log('rootReducer state=%o action=%o', state, action);
   return {
@@ -128,6 +270,7 @@ const rootReducer = (state = initialState, action) => {
     depInspector: inspectorReducer(state.depInspector, action),
     depTab: tabReducer(state.depTab, action),
     radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
+    pagination: paginationReducer(state.pagination, action),
   };
 };
 
