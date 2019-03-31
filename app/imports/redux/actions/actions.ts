@@ -19,6 +19,7 @@ import {
   ALL_EMAIL_WORKING,
   ALL_EMAIL_DONE,
 } from './actionTypes';
+import './paginationActions';
 
 export const selectCourse = (courseID) => ({
   type: SELECT_COURSE,

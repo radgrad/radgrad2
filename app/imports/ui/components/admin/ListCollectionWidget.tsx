@@ -8,13 +8,11 @@ import AdminCollectionAccordion from './AdminCollectionAccordion';
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
-  deleteDisabled: (item) => boolean;
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
   items: any[];
   itemTitle: (item) => React.ReactNode;
-  updateDisabled: (item) => boolean;
 }
 
 class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {}> {
@@ -30,8 +28,8 @@ class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {
         {_.map(this.props.items, (item) => (
           <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
                                     descriptionPairs={this.props.descriptionPairs(item)}
-                                    updateDisabled={this.props.updateDisabled(item)}
-                                    deleteDisabled={this.props.deleteDisabled(item)}
+                                    updateDisabled={false}
+                                    deleteDisabled={false}
                                     handleOpenUpdate={this.props.handleOpenUpdate}
                                     handleDelete={this.props.handleDelete}/>
         ))}

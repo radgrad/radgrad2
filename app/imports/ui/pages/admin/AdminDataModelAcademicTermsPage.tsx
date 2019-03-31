@@ -48,10 +48,6 @@ const itemTitle = (term: IAcademicTerm): React.ReactNode => {
   );
 };
 
-const deleteDisabled = (term: IAcademicTerm): boolean => true;
-
-const updateDisabled = (term: IAcademicTerm): boolean => false;
-
 interface IAdminDataModelAcademicTermsPageState {
   showUpdateForm: boolean;
   id: string;
@@ -126,9 +122,7 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  deleteDisabled={deleteDisabled}
-                                  updateDisabled={updateDisabled}/>
+                                  handleDelete={this.handleDelete}/>
           </Grid.Column>
         </Grid>
       </div>
