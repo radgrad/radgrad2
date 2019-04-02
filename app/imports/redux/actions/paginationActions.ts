@@ -4,7 +4,7 @@ import {
   SET_ACADEMIC_TERMS_SHOW_COUNT,
   SET_ACADEMIC_TERMS_SHOW_INDEX,
   SET_ACADEMIC_YEARS_SHOW_COUNT,
-  SET_ACADEMIC_YEARS_SHOW_INDEX,
+  SET_ACADEMIC_YEARS_SHOW_INDEX, SET_ADVISOR_LOGS_SHOW_COUNT, SET_ADVISOR_LOGS_SHOW_INDEX,
 } from './paginationActionTypes';
 
 export const setAcademicPlansShowCount = (count) => ({
@@ -34,5 +34,15 @@ export const setAcademicYearsShowCount = (count) => ({
 
 export const setAcademicYearsShowIndex = (index) => ({
   type: SET_ACADEMIC_YEARS_SHOW_INDEX,
+  payload: index,
+});
+
+export const setAdvisorLogsShowCount = (count) => ({
+  type: SET_ADVISOR_LOGS_SHOW_COUNT,
+  payload: count,
+});
+
+export const setAdvisorLogsShowIndex = (index) => ({
+  type: SET_ADVISOR_LOGS_SHOW_INDEX,
   payload: index,
 });

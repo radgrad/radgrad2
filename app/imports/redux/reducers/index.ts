@@ -19,6 +19,8 @@ import {
   DepSelectedTabs,
 } from '../actions/actionTypes';
 import { SET_ACADEMIC_TERMS_SHOW_COUNT, SET_ACADEMIC_TERMS_SHOW_INDEX } from '../actions/paginationActionTypes';
+import { IPagination } from '../../typings/radgrad';
+import { paginationReducer } from './paginationReducer';
 
 const initialState = {
   depInspector: {
@@ -51,83 +53,83 @@ const initialState = {
       showIndex: 0,
       showCount: 25,
     },
-    advisorLogs: {
+    AdvisorLogCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    careerGoals: {
+    CareerGoalCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    courseInstances: {
+    CourseInstanceCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    courses: {
+    CourseCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    desiredDegrees: {
+    DesiredDegreeCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    feeds: {
+    FeedCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    feedbackInstances: {
+    FeedbackInstanceCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    helpMessages: {
+    HelpMessageCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    interests: {
+    InterestCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    interestTypes: {
+    InterestTypeCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    mentorAnswers: {
+    MentorAnswerCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    mentorQuestions: {
+    MentorQuestionCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    opportunities: {
+    OpportunityCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    opportunityInstances: {
+    OpportuntiyInstanceCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    opportunityTypes: {
+    OpportunityTypeCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    planChoices: {
+    PlanChoiceCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    reviews: {
+    ReviewCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    slugs: {
+    SlugCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    teasers: {
+    TeaserCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    verificationRequests: {
+    VerificationRequestCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -235,36 +237,6 @@ function inspectorReducer(state = {}, action) {
         selectedOpportunityID: '',
         selectedOpportunityInstanceID: action.payload,
       };
-    default:
-      return state;
-  }
-}
-
-function paginationReducer(state = {}, action) {
-  // console.log('pagination state=%o, action=%o', state, action);
-  switch (action.type) {
-    case SET_ACADEMIC_TERMS_SHOW_INDEX:
-      let collect = state.AcademicTermCollection;
-      let s = {
-        ...state,
-        AcademicTermCollection: {
-          ...collect,
-          showIndex: action.payload,
-        },
-      };
-      // console.log('paginationReducer new state=%o', s);
-      return s;
-    case SET_ACADEMIC_TERMS_SHOW_COUNT:
-      collect = state.AcademicTermCollection;
-      s = {
-        ...state,
-        AcademicTermCollection: {
-          ...collect,
-          showCount: action.payload,
-        },
-      };
-      // console.log('paginationReducer new state=%o', s);
-      return s;
     default:
       return state;
   }

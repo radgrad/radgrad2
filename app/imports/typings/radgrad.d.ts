@@ -20,6 +20,101 @@ export interface IDumpOne {
   slug?: string;
 }
 
+export interface IPagination {
+  AcademicPlanCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  AcademicTermCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  AcademicYearCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  AdvisorLogCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  CareerGoalCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  CourseInstanceCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  CourseCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  DesiredDegreeCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  FeedCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  FeedbackInstanceCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  HelpMessageCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  InterestCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  InterestTypeCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  MentorAnswerCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  MentorQuestionCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  OpportunityCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  OpportuntiyInstanceCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  OpportunityTypeCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  PlanChoiceCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  ReviewCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  SlugCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  TeaserCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  VerificationRequestCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+}
+
 export interface IDescriptionPair {
   label: string;
   value: string;
@@ -219,6 +314,7 @@ export interface IFeedDefine extends IDumpOne {
   feedType: string;
   timestamp?: Date;
 }
+
 export interface IFeedUpdate {
   description?: string;
   picture?: string;
@@ -492,6 +588,7 @@ export interface IStudentProfileUpdateData {
   isAlumni?: boolean;
   role?: string;
 }
+
 // Reviews
 export interface IReviewDefine extends IDumpOne {
   slug?: string;
@@ -617,6 +714,7 @@ interface IProcessed {
   feedback?: string;
 
 }
+
 export interface IVerificationRequest {
   _id: string;
   studentID: string;
