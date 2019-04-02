@@ -11,7 +11,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { IAcademicTerm, IDescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setAcademicTermsShowIndex } from '../../../redux/actions/paginationActions';
+import { setAcademicTermsShowCount, setAcademicTermsShowIndex } from '../../../redux/actions/paginationActions';
 
 function numReferences(term) {
   let references = 0;
@@ -111,11 +111,11 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={5}>
+          <Grid.Column width={4}>
             <AdminDataModelMenu/>
           </Grid.Column>
 
-          <Grid.Column width={11}>
+          <Grid.Column width={12}>
             {this.state.showUpdateForm ? (<UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)}
                                                                     handleCancel={this.handleCancel}
                                                                     handleUpdate={this.handleUpdate}/>) : ''}
@@ -125,6 +125,7 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
                                   setShowIndex={setAcademicTermsShowIndex}
+                                  setShowCount={setAcademicTermsShowCount}
             />
           </Grid.Column>
         </Grid>
