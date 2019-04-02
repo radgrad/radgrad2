@@ -11,6 +11,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { IAcademicTerm, IDescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import { setAcademicTermsShowIndex } from '../../../redux/actions/paginationActions';
 
 function numReferences(term) {
   let references = 0;
@@ -122,7 +123,9 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}/>
+                                  handleDelete={this.handleDelete}
+                                  setShowIndex={setAcademicTermsShowIndex}
+            />
           </Grid.Column>
         </Grid>
       </div>

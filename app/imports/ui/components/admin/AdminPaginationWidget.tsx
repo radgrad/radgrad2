@@ -6,8 +6,9 @@ import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IAdminPaginationWidgetProps {
   collection: BaseCollection;
+  dispatch: any;
+  pagination: any;
   setShowIndex: (index) => any;
-  setShowCount: (count) => any;
 }
 
 interface IAdminPaginationWidgetState {
@@ -17,11 +18,8 @@ interface IAdminPaginationWidgetState {
 }
 
 const mapStateToProps = (state) => {
-};
-
-const mapDispatchToProps = (dispatch) => {
   return {
-    setShowIndex: (index) => dispatch()
+    pagination: state.pagination,
   };
 };
 
@@ -32,39 +30,50 @@ class AdminPaginationWidget extends React.Component<{}, IAdminPaginationWidgetSt
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleLastClick = this.handleLastClick.bind(this);
+    this.state = {
+      firstDisabled: true,
+      label: '',
+      lastDisabled: false,
+    };
   }
 
   private handleFirstClick(event) {
     event.preventDefault();
-    console.log('handleFirstClick(%o)', event);
+    console.log('handleFirstClick(%o) props=%o', event, this.props);
   }
 
   private handlePrevClick(event) {
     event.preventDefault();
-    console.log('handlePrevClick(%o)', event);
+    console.log('handlePrevClick(%o) props=%o', event, this.props);
   }
 
   private handleNextClick(event) {
     event.preventDefault();
-    console.log('handleNextClick(%o)', event);
+    console.log('handleNextClick(%o) props=%o', event, this.props);
   }
 
   private handleLastClick(event) {
     event.preventDefault();
-    console.log('handleLastClick(%o)', event);
+    console.log('handleLastClick(%o) props=%o', event, this.props);
   }
 
   public render(): React.ReactNode {
     return (
-      <Grid.Row>
+      <Grid.Row centered={true}>
         <Button basic={true} color="green" disabled={this.state.firstDisabled} onClick={this.handleFirstClick}><Icon
           name="fast backward"/> First</Button>
         <Button basic={true} color="green" disabled={this.state.firstDisabled} onClick={this.handlePrevClick}><Icon
           name="step backward"/> Prev</Button>
         <Message>{this.state.label}</Message>
-        <Button basic={true} color="green" disabled={this.state.lastDisabled} onClick={this.handleNextClick}> Next</Button>
-        <Button basic={true} color="green" disabled={this.state.lastDisabled} onClick={this.handleLastClick}> Last</Button>
+        <Button basic={true} color="green" disabled={this.state.lastDisabled}
+                onClick={this.handleNextClick}><Icon
+          name="step forward"/> Next</Button>
+        <Button basic={true} color="green" disabled={this.state.lastDisabled}
+                onClick={this.handleLastClick}><Icon
+          name="fast forward"/>  Last</Button>
       </Grid.Row>
     );
   }
 }
+
+export default connect(mapStateToProps)(AdminPaginationWidget);

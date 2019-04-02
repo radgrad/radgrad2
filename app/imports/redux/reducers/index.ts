@@ -38,15 +38,15 @@ const initialState = {
     allNewsletter: false,
   },
   pagination: {
-    academicPlans: {
+    AcademicPlanCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    academicTerms: {
+    AcademicTermCollection: {
       showIndex: 0,
       showCount: 25,
     },
-    academicYears: {
+    AcademicYearCollection: {
       showIndex: 0,
       showCount: 25,
     },
