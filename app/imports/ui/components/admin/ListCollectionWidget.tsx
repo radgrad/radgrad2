@@ -62,7 +62,7 @@ class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {
 const ListCollectionWidgetCon = connect(mapStateToProps)(ListCollectionWidget);
 
 const ListCollectionWidgetContainer = withTracker((props) => {
-  console.log('ListCollectionWidget withTracker props=%o', props);
+  // console.log('ListCollectionWidget withTracker props=%o', props);
   const items = props.collection.find().fetch();
   const startIndex = 3;
   return {

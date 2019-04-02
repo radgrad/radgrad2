@@ -26,13 +26,18 @@ const mapStateToProps = (state) => {
 class AdminPaginationWidget extends React.Component<{}, IAdminPaginationWidgetState> {
   constructor(props) {
     super(props);
+    console.log('AdminPaginationWidget props=%o', props);
     this.handleFirstClick = this.handleFirstClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleLastClick = this.handleLastClick.bind(this);
+    const count = props.collection.count();
+    const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
+    const endIndex = startIndex + props.pagination[props.collection.getCollectionName()].showCount;
+    const label = count < props.pagination[props.collection.getCollectionName()].showCount ? 'Showing all' : `${startIndex} - ${endIndex} of ${count}`;
     this.state = {
       firstDisabled: true,
-      label: '',
+      label,
       lastDisabled: false,
     };
   }
@@ -70,7 +75,7 @@ class AdminPaginationWidget extends React.Component<{}, IAdminPaginationWidgetSt
           name="step forward"/> Next</Button>
         <Button basic={true} color="green" disabled={this.state.lastDisabled}
                 onClick={this.handleLastClick}><Icon
-          name="fast forward"/>  Last</Button>
+          name="fast forward"/> Last</Button>
       </Grid.Row>
     );
   }
