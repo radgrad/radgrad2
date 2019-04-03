@@ -5,9 +5,10 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => {
   return [
@@ -40,7 +41,36 @@ const updateDisabled = (plan: IAcademicPlan) => false;
 /**
  * The AcademicPlan data model page.
  */
-class AdminDataModelAcademicPlansPage extends React.Component {
+class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataModelPageState> {
+  constructor(props) {
+    super(props);
+    this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.state = { showUpdateForm: false, id: '' };
+  }
+
+  private handleOpenUpdate(evt, inst) {
+    evt.preventDefault();
+    // console.log('handleOpenUpdate inst=%o', evt, inst);
+    this.setState({ showUpdateForm: true, id: inst.id });
+  }
+
+  private handleUpdate(doc) {
+    // do stuff.
+  }
+
+  private handleDelete(event, inst) {
+    event.preventDefault();
+    console.log('handleDelete inst=%o', inst);
+  }
+
+  private handleCancel(event, instance) {
+    event.preventDefault();
+    this.setState({ showUpdateForm: false, id: '' });
+  }
+
   public render() {
     const paddedStyle = {
       paddingTop: 20,
@@ -50,16 +80,19 @@ class AdminDataModelAcademicPlansPage extends React.Component {
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={5}>
+          <Grid.Column width={4}>
             <AdminDataModelMenu/>
           </Grid.Column>
 
-          <Grid.Column width={11}>
+          <Grid.Column width={12}>
             <ListCollectionWidget collection={AcademicPlans}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
-                                  deleteDisabled={deleteDisabled}
-                                  updateDisabled={updateDisabled}/>
+                                  handleOpenUpdate={this.handleOpenUpdate}
+                                  handleDelete={this.handleDelete}
+                                  setShowIndex={setCollectionShowIndex}
+                                  setShowCount={setCollectionShowCount}
+            />
           </Grid.Column>
         </Grid>
       </div>

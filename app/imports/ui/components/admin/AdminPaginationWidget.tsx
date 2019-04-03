@@ -8,8 +8,8 @@ interface IAdminPaginationWidgetProps {
   collection: BaseCollection;
   dispatch: any;
   pagination: any;
-  setShowIndex: (index: number) => any;
-  setShowCount: (count: number) => any;
+  setShowIndex: (collectionName: string, index: number) => any;
+  setShowCount: (collectionName: string, count: number) => any;
 }
 
 const mapStateToProps = (state) => {
@@ -36,7 +36,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
   private handleFirstClick(event) {
     event.preventDefault();
     // console.log('handleFirstClick(%o) props=%o', event, this.props);
-    this.props.dispatch(this.props.setShowIndex(0));
+    this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), 0));
   }
 
   private handlePrevClick(event) {
@@ -44,7 +44,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     // console.log('handlePrevClick(%o) props=%o', event, this.props);
     const showIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
-    this.props.dispatch(this.props.setShowIndex(showIndex - showCount));
+    this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), showIndex - showCount));
   }
 
   private handleNextClick(event) {
@@ -52,7 +52,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     // console.log('handleNextClick(%o) props=%o', event, this.props);
     const showIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
-    this.props.dispatch(this.props.setShowIndex(showIndex + showCount));
+    this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), showIndex + showCount));
   }
 
   private handleLastClick(event) {
@@ -60,18 +60,18 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     console.log('handleLastClick(%o) props=%o', event, this.props);
     const count = this.props.collection.count();
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
-    this.props.dispatch(this.props.setShowIndex(count - showCount));
+    this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), count - showCount));
   }
 
   private handleCountChange(event) {
     event.preventDefault();
     // console.log('handleCountChange count=%o', event.target.value);
     const count = parseInt(event.target.value, 10);
-    this.props.dispatch(this.props.setShowCount(count));
+    this.props.dispatch(this.props.setShowCount(this.props.collection.getCollectionName(), count));
   }
 
   public render(): React.ReactNode {
-    console.log('AdminPaginationWidget.render props=%o', this.props);
+    // console.log('AdminPaginationWidget.render props=%o', this.props);
     const heightStyle = {
       height: 48,
     };
@@ -93,7 +93,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     if (endIndex > count) {
       endIndex = count;
     }
-    const label = count < showCount ? 'Showing all' : `${startIndex + 1} - ${endIndex} of ${count}`;
+    const label = count <= showCount ? 'Showing all' : `${startIndex + 1} - ${endIndex} of ${count}`;
     const firstDisabled = startIndex < showCount;
     const lastDisabled = (count - startIndex) <= showCount;
     return (

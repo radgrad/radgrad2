@@ -7,6 +7,7 @@ import BaseCollection from '../../../api/base/BaseCollection';
 import { IDescriptionPair } from '../../../typings/radgrad';
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
+import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
@@ -15,8 +16,6 @@ interface IListCollectionWidgetProps {
   handleDelete: (evt: any, id: any) => any;
   items: any[];
   itemTitle: (item) => React.ReactNode;
-  setShowIndex: (index: number) => any;
-  setShowCount: (count: number) => any;
   dispatch: any;
   pagination: any;
 }
@@ -45,8 +44,8 @@ class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {
       <Segment padded={true}>
         <Header dividing={true}>{this.props.collection.getCollectionName()} ({count})</Header>
         <Grid>
-          <AdminPaginationWidget collection={this.props.collection} setShowIndex={this.props.setShowIndex}
-                                 setShowCount={this.props.setShowCount}/>
+          <AdminPaginationWidget collection={this.props.collection} setShowIndex={setCollectionShowIndex}
+                                 setShowCount={setCollectionShowCount}/>
           {_.map(items, (item) => (
             <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
                                       descriptionPairs={this.props.descriptionPairs(item)}
@@ -66,7 +65,6 @@ const ListCollectionWidgetCon = connect(mapStateToProps)(ListCollectionWidget);
 const ListCollectionWidgetContainer = withTracker((props) => {
   // console.log('ListCollectionWidget withTracker props=%o', props);
   const items = props.collection.find().fetch();
-  const startIndex = 3;
   return {
     items,
   };

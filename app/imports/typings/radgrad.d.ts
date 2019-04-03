@@ -20,6 +20,11 @@ export interface IDumpOne {
   slug?: string;
 }
 
+export interface IAdminDataModelPageState {
+  showUpdateForm: boolean;
+  id: string;
+}
+
 export interface IPagination {
   AcademicPlanCollection?: {
     showIndex: number;
@@ -29,7 +34,7 @@ export interface IPagination {
     showIndex: number;
     showCount: number;
   };
-  AcademicYearCollection?: {
+  AcademicYearInstanceCollection?: {
     showIndex: number;
     showCount: number;
   };

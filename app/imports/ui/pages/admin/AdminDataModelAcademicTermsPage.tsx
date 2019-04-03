@@ -9,9 +9,12 @@ import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.m
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { IAcademicTerm, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicTerm, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setAcademicTermsShowCount, setAcademicTermsShowIndex } from '../../../redux/actions/paginationActions';
+import {
+  setCollectionShowCount,
+  setCollectionShowIndex,
+} from '../../../redux/actions/paginationActions';
 
 function numReferences(term) {
   let references = 0;
@@ -49,12 +52,7 @@ const itemTitle = (term: IAcademicTerm): React.ReactNode => {
   );
 };
 
-interface IAdminDataModelAcademicTermsPageState {
-  showUpdateForm: boolean;
-  id: string;
-}
-
-class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelAcademicTermsPageState> {
+class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelPageState> {
   constructor(props) {
     super(props);
     this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
@@ -124,8 +122,8 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setAcademicTermsShowIndex}
-                                  setShowCount={setAcademicTermsShowCount}
+                                  setShowIndex={setCollectionShowIndex}
+                                  setShowCount={setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

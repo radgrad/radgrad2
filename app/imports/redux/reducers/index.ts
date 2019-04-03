@@ -49,7 +49,7 @@ const initialState = {
       showIndex: 0,
       showCount: 25,
     },
-    AcademicYearCollection: {
+    AcademicYearInstanceCollection: {
       showIndex: 0,
       showCount: 25,
     },
