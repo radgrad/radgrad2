@@ -175,6 +175,13 @@ export interface IAcademicYearDefine extends IDumpOne {
 }
 
 // AdvisorLogs
+export interface IAdvisorLog {
+  advisorID: string;
+  studentID: string;
+  text: string;
+  createdOn: Date;
+}
+
 export interface IAdvisorLogDefine extends IDumpOne {
   advisor: string;
   student: string;
