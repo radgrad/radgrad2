@@ -1,13 +1,9 @@
 import * as React from 'react';
-import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Grid, Icon } from 'semantic-ui-react';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import AutoFields from 'uniforms-semantic/AutoFields';
-import SubmitField from 'uniforms-semantic/SubmitField';
 import { Users } from '../../../api/user/UserCollection';
 import {
   IAdminDataModelPageState,

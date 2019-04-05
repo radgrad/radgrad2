@@ -35,6 +35,25 @@ class AcademicPlanCollection extends BaseSlugCollection {
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, degreeID: 1, effectiveAcademicTermID: 1 });
     }
+    this.defineSchema = new SimpleSchema({
+      slug: String,
+      degreeSlug: String,
+      name: String,
+      description: String,
+      academicTerm: String,
+      coursesPerAcademicTerm: [Number],
+      courseList: [String],
+    });
+    this.updateSchema = new SimpleSchema({
+      'degreeSlug': { type: String, optional: true },
+      'name': { type: String, optional: true },
+      'academicTerm': { type: String, optional: true },
+      'coursesPerAcademicTerm': { type: Array, optional: true },
+      'coursesPerAcademicTerm.$': { type: Number },
+      'courseList': { type: Array, optional: true },
+      'courseList.$': { type: String },
+      'retired': { type: Boolean, optional: true },
+    });
   }
 
   /**

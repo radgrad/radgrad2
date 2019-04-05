@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -8,6 +7,8 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
+import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => {
   return [
@@ -33,13 +34,17 @@ const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
  * The AcademicPlan data model page.
  */
 class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataModelPageState> {
+  private formRef;
+
   constructor(props) {
     super(props);
     this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.state = { showUpdateForm: false, id: '' };
+    this.formRef = React.createRef();
   }
 
   private handleOpenUpdate(evt, inst) {
@@ -52,12 +57,16 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
     // do stuff.
   }
 
+  private handleAdd(doc) {
+    // do stuff
+  }
+
   private handleDelete(event, inst) {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
   }
 
-  private handleCancel(event, instance) {
+  private handleCancel(event) {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
   }
@@ -76,6 +85,13 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
 
           <Grid.Column width={12}>
+            {this.state.showUpdateForm ? (
+              <AdminDataModelUpdateForm collection={AcademicPlans} id={this.state.id} formRef={this.formRef}
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+            ) : (
+              <AdminDataModelAddForm collection={AcademicPlans} formRef={this.formRef} handleAdd={this.handleAdd}/>
+            )}
+
             <ListCollectionWidget collection={AcademicPlans}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}

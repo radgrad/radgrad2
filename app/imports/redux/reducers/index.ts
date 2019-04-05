@@ -18,8 +18,6 @@ import {
   ALL_EMAIL_DONE,
   DepSelectedTabs,
 } from '../actions/actionTypes';
-import { SET_ACADEMIC_TERMS_SHOW_COUNT, SET_ACADEMIC_TERMS_SHOW_INDEX } from '../actions/paginationActionTypes';
-import { IPagination } from '../../typings/radgrad';
 import { paginationReducer } from './paginationReducer';
 
 const initialState = {
