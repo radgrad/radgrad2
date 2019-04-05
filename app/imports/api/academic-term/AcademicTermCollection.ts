@@ -53,6 +53,13 @@ class AcademicTermCollection extends BaseSlugCollection {
       this.springStart = parseInt(moment('01-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.summerStart = parseInt(moment('05-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
     }
+    this.defineSchema = new SimpleSchema({
+      term: String,
+      year: Number,
+    });
+    this.updateSchema = new SimpleSchema({
+      retired: Boolean,
+    });
   }
 
   /**

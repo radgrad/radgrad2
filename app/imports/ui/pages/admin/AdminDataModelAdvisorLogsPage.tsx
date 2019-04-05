@@ -17,6 +17,8 @@ import {
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
+import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => {
   return [
@@ -79,7 +81,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     console.log('handleDelete inst=%o', inst);
   }
 
-  private handleCancel(event, instance) {
+  private handleCancel(event) {
     event.preventDefault();
     // console.log('formRef = %o', this.formRef);
     this.formRef.current.reset();
@@ -115,16 +117,10 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
           <Grid.Column width={12}>
             {this.state.showUpdateForm ? (
-              <Segment padded={true}><Header dividing={true}>Update Advisor Log</Header><AutoForm
-                ref={this.formRef}
-                schema={AdvisorLogs.getUpdateSchema()} model={this.state.id ? AdvisorLogs.findDoc(this.state.id) : undefined}
-                onSubmit={this.handleUpdate}><AutoFields/><SubmitField/><Button
-                onClick={this.handleCancel}>Cancel</Button></AutoForm><p/></Segment>
+              <AdminDataModelUpdateForm collection={AdvisorLogs} id={this.state.id} formRef={this.formRef}
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
             ) : (
-              <Segment padded={true}><Header dividing={true}>Add Advisor Log</Header><AutoForm
-                ref={this.formRef}
-                onSubmit={this.handleAdd}
-                schema={AdvisorLogs.getDefineSchema()}/></Segment>
+              <AdminDataModelAddForm collection={AdvisorLogs} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={AdvisorLogs}
                                   descriptionPairs={descriptionPairs}

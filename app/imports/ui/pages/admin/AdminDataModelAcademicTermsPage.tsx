@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Bert } from 'meteor/themeteorchef:bert';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import UpdateAcademicTermWidget from '../../components/admin/UpdateAcademicTermWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -15,6 +15,8 @@ import {
   setCollectionShowCount,
   setCollectionShowIndex,
 } from '../../../redux/actions/paginationActions';
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
+import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 
 function numReferences(term) {
   let references = 0;
@@ -53,19 +55,27 @@ const itemTitle = (term: IAcademicTerm): React.ReactNode => {
 };
 
 class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelPageState> {
+  private formRef;
+
   constructor(props) {
     super(props);
     this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.state = { showUpdateForm: false, id: '' };
+    this.formRef = React.createRef();
   }
 
   private handleOpenUpdate(evt, inst) {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
+  }
+
+  private handleAdd(doc) {
+    console.log('handleAdd(%o)', doc);
   }
 
   private handleUpdate(doc) {
@@ -77,7 +87,10 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
     // console.log('parameter = %o', { collectionName, updateData });
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
+        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
         console.error('Error in updating AcademicTerm. %o', error);
+      } else {
+        Bert.alert({ type: 'success', message: 'Update succeeded' });
       }
       this.setState({ showUpdateForm: false, id: '' });
     });
@@ -90,12 +103,15 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
     const instance = inst.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
+        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
         console.error('Error deleting AcademicTerm. %o', error);
+      } else {
+        Bert.alert({ type: 'success', message: 'Delete succeeded' });
       }
     });
   }
 
-  private handleCancel(event, instance) {
+  private handleCancel(event) {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
   }
@@ -114,9 +130,12 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
 
           <Grid.Column width={12}>
-            {this.state.showUpdateForm ? (<UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)}
-                                                                    handleCancel={this.handleCancel}
-                                                                    handleUpdate={this.handleUpdate}/>) : ''}
+            {this.state.showUpdateForm ? (
+              <AdminDataModelUpdateForm collection={AcademicTerms} id={this.state.id} formRef={this.formRef}
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+            ) : (
+              <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd}/>
+            )}
             <ListCollectionWidget collection={AcademicTerms}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
