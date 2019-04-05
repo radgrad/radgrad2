@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid, Icon } from 'semantic-ui-react';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -7,35 +8,45 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
   IAdminDataModelPageState,
-  IAdvisorLog, IAdvisorLogUpdate,
+  ICareerGoal, ICareerGoalUpdate,
   IDescriptionPair,
 } from '../../../typings/radgrad';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 
-const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => {
+function numReferences(careerGoal) {
+  let references = 0;
+  Users.findProfiles({}, {}).forEach((profile) => {
+    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+      references += 1;
+    }
+  });
+  return references;
+}
+
+const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => {
   return [
-    { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
-    { label: 'Student', value: `${Users.getFullName(advisorLog.studentID)}` },
-    { label: 'Text', value: advisorLog.text },
+    { label: 'Description', value: careerGoal.description },
+    { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
+    { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
   ];
 };
 
-const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
-  const name = Users.getFullName(advisorLog.studentID);
+const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => {
   return (
     <React.Fragment>
-      {advisorLog.retired ? <Icon name="eye slash"/> : ''}
+      {careerGoal.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
-      {`${name} ${advisorLog.createdOn}`}
+      {`${careerGoal.name}`}
     </React.Fragment>
   );
 };
 
-class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelPageState> {
+class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
   private formRef;
 
   constructor(props) {
@@ -59,11 +70,14 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
     this.formRef.current.reset();
     this.setState({ showUpdateForm: false, id: '' });
-    const collectionName = AdvisorLogs.getCollectionName();
-    const updateData: IAdvisorLogUpdate = {};
+    const collectionName = CareerGoals.getCollectionName();
+    const updateData: ICareerGoalUpdate = {};
     updateData.id = doc._id;
-    updateData.text = doc.text;
-    // console.log('updateData = %o', updateData);
+    updateData.name = doc.name;
+    updateData.description = doc.description;
+    updateData.retired = doc.retired;
+    updateData.interests = doc.interests;
+    console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
@@ -87,7 +101,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
   private handleAdd(doc) {
     console.log('handleAdd(%o)', doc);
-    const collectionName = AdvisorLogs.getCollectionName();
+    const collectionName = CareerGoals.getCollectionName();
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
@@ -114,12 +128,12 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
           <Grid.Column width={12}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={AdvisorLogs} id={this.state.id} formRef={this.formRef}
+              <AdminDataModelUpdateForm collection={CareerGoals} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
             ) : (
-              <AdminDataModelAddForm collection={AdvisorLogs} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AdminDataModelAddForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
-            <ListCollectionWidget collection={AdvisorLogs}
+            <ListCollectionWidget collection={CareerGoals}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
@@ -135,4 +149,4 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
 }
 
-export default AdminDataModelAdvisorLogsPage;
+export default AdminDataModelCareerGoalsPage;

@@ -30,6 +30,13 @@ class CareerGoalCollection extends BaseSlugCollection {
       description: { type: String },
       interests: [String],
     });
+    // name, description, interests
+    this.updateSchema = new SimpleSchema({
+      'name': { type: String, optional: true },
+      'description': { type: String, optional: true },
+      'interests': { type: Array, optional: true },
+      'interests.$': String,
+    });
   }
 
   /**

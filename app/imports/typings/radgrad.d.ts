@@ -122,7 +122,7 @@ export interface IPagination {
 
 export interface IDescriptionPair {
   label: string;
-  value: string;
+  value: string | string[] | any[];
 }
 
 // AcademicPlans
@@ -167,6 +167,7 @@ export interface IAcademicYear {
   springYear: number;
   studentID: string;
   termIDs: string[];
+  retired?: boolean;
 }
 
 export interface IAcademicYearDefine extends IDumpOne {
@@ -180,6 +181,7 @@ export interface IAdvisorLog {
   studentID: string;
   text: string;
   createdOn: Date;
+  retired?: boolean;
 }
 
 export interface IAdvisorLogDefine extends IDumpOne {
@@ -187,11 +189,13 @@ export interface IAdvisorLogDefine extends IDumpOne {
   student: string;
   text: string;
   createdOn?: any;
+  retired?: boolean;
 }
 
 export interface IAdvisorLogUpdate {
   id?: string;
   text?: string;
+  retired?: boolean;
 }
 
 // CareerGoals
@@ -201,6 +205,7 @@ export interface ICareerGoal {
   slug: string;
   description: string;
   interestIDs: string[];
+  retired?: boolean;
 }
 
 export interface ICareerGoalDefine extends IDumpOne {
@@ -211,9 +216,11 @@ export interface ICareerGoalDefine extends IDumpOne {
 }
 
 export interface ICareerGoalUpdate {
+  id?: string;
   name?: string;
   description?: string;
   interests?: string[];
+  retired?: boolean;
 }
 
 // CourseInstances

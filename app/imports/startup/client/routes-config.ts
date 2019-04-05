@@ -49,6 +49,7 @@ import AdminDataModelAcademicPlansPage from '../../ui/pages/admin/AdminDataModel
 import AdminDataModelAcademicTermsPage from '../../ui/pages/admin/AdminDataModelAcademicTermsPage';
 import AdminDataModelAcademicYearsPage from '../../ui/pages/admin/AdminDataModelAcademicYearsPage';
 import AdminDataModelAdvisorLogsPage from '../../ui/pages/admin/AdminDataModelAdvisorLogsPage';
+import AdminDataModelCareerGoalsPage from '../../ui/pages/admin/AdminDataModelCareerGoalsPage';
 
 export const routes = {
   ADMIN: [
@@ -81,6 +82,11 @@ export const routes = {
       path: '/admin/:username/datamodel/advisor-logs',
       exact: true,
       component: AdminDataModelAdvisorLogsPage,
+    },
+    {
+      path: '/admin/:username/datamodel/career-goals',
+      exact: true,
+      component: AdminDataModelCareerGoalsPage,
     },
     {
       path: '/admin/:username/database',

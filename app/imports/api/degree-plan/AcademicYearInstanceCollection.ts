@@ -38,6 +38,18 @@ class AcademicYearInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       this.collection._ensureIndex({ studentID: 1 });
     }
+    this.defineSchema = new SimpleSchema({
+      year: Number,
+      student: String,
+    });
+    // year?: number; springYear?: number; studentID?: string; termIDs?: string[];
+    this.updateSchema = new SimpleSchema({
+      'year': { type: Number, optional: true },
+      'springYear': { type: Number, optional: true },
+      'studentID': { type: String, optional: true },
+      'termIDs': { type: Array, optional: true },
+      'termIDs.$': String,
+    });
   }
 
   /**
