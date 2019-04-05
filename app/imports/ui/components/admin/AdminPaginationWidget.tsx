@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Dropdown, Grid, Icon, Message } from 'semantic-ui-react';
+import { Button, Grid, Icon, Message } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../../../api/base/BaseCollection';
 
@@ -27,10 +27,6 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleLastClick = this.handleLastClick.bind(this);
     this.handleCountChange = this.handleCountChange.bind(this);
-    const count = props.collection.count();
-    const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
-    const endIndex = startIndex + props.pagination[props.collection.getCollectionName()].showCount;
-    const label = count < props.pagination[props.collection.getCollectionName()].showCount ? 'Showing all' : `${startIndex} - ${endIndex} of ${count}`;
   }
 
   private handleFirstClick(event) {
@@ -80,12 +76,6 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
       marginTop: 0,
       marginRight: '0.25em',
     };
-    const options = [
-      { key: 1, text: '100', value: 100 },
-      { key: 2, text: '50', value: 50 },
-      { key: 3, text: '25', value: 25 },
-      { key: 4, text: '10', value: 10 },
-    ];
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
     const count = this.props.collection.count();
     const startIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;

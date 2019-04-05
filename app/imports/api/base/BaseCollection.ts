@@ -20,6 +20,8 @@ class BaseCollection {
   protected collectionName: string;
   protected schema: any;
   protected type: string;
+  protected defineSchema: any;
+  protected updateSchema: any;
 
   /**
    * Superclass constructor for all RadGrad entities.
@@ -197,6 +199,30 @@ class BaseCollection {
    */
   public getType() {
     return this.type;
+  }
+
+  /**
+   * Returns the schema applied to the collection.
+   * @return { SimpleSchema }.
+   */
+  public getCollectionSchema() {
+    return this.schema;
+  }
+
+  /**
+   * Returns a schema for the define method's parameter.
+   * @returns { SimpleSchema } the define method's parameter.
+   */
+  public getDefineSchema() {
+    return this.defineSchema;
+  }
+
+  /**
+   * Returns a schema for the update method's second parameter.
+   * @returns { SimpleSchema }.
+   */
+  public getUpdateSchema() {
+    return this.updateSchema;
   }
 
   /**

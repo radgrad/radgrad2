@@ -7,7 +7,6 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => {
@@ -29,14 +28,6 @@ const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
     </React.Fragment>
   );
 };
-
-const deleteDisabled = (plan: IAcademicPlan) => {
-  const studentPlans = StudentProfiles.find({}, { fields: { academicPlanID: 1 } }).fetch();
-  // console.log(studentPlans, plan._id, _.some(studentPlans, { academicPlanID: plan._id }));
-  return _.some(studentPlans, { academicPlanID: plan._id });
-};
-
-const updateDisabled = (plan: IAcademicPlan) => false;
 
 /**
  * The AcademicPlan data model page.

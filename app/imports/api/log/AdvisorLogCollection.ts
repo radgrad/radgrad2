@@ -24,6 +24,14 @@ class AdvisorLogCollection extends BaseCollection {
       text: { type: String },
       createdOn: { type: Date },
     }));
+    this.defineSchema = new SimpleSchema({
+      advisor: String,
+      student: String,
+      text: String,
+    });
+    this.updateSchema = new SimpleSchema({
+      text: { type: String, optional: true },
+    });
   }
 
   /**
@@ -46,6 +54,7 @@ class AdvisorLogCollection extends BaseCollection {
 
   public update(docID: string, { text }: IAdvisorLogUpdate) {
     this.assertDefined(docID);
+    // console.log('update(%o, %o)', docID, text);
     const updateData: IAdvisorLogUpdate = {};
     if (text) {
       updateData.text = text;
