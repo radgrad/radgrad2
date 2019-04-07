@@ -7,6 +7,8 @@ import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { IAcademicTerm } from '../../../typings/radgrad';
+import { ROLE } from '../../../api/role/Role';
+import SelectUserField from '../form-fields/SelectUserField';
 
 const UpdateAcademicTermSchema = new SimpleSchema({
   id: { type: String, optional: true },
@@ -28,8 +30,8 @@ class UpdateAcademicTermWidget extends React.Component<IUpdateAcademicTermProps>
   }
 
   private updateTerm(doc) {
-    // console.log('handleSubmit instance=%o', doc);
-    this.props.handleUpdate(doc);
+    console.log('handleSubmit instance=%o', doc);
+    // this.props.handleUpdate(doc);
   }
 
   public render(): React.ReactNode {
@@ -46,8 +48,17 @@ class UpdateAcademicTermWidget extends React.Component<IUpdateAcademicTermProps>
                       transform={(value) => `${value}`}/>
           <Form.Group>
             <SubmitField name="update" value="Update" className="ui basic green button"/>
-            <SubmitField name="cancel" value="Cancel" className="ui basic green button" onClick={this.props.handleCancel}/>
+            <SubmitField name="cancel" value="Cancel" className="ui basic green button"
+                         onClick={this.props.handleCancel}/>
           </Form.Group>
+        </AutoForm>
+        <AutoForm schema={new SimpleSchema({
+          advisor: String,
+          student: String,
+        })} onSubmit={this.updateTerm}>
+          <SelectUserField role={ROLE.ADVISOR}/>
+          <SelectUserField role={ROLE.STUDENT}/>
+          <SubmitField/>
         </AutoForm>
       </Segment>
     );

@@ -544,6 +544,17 @@ export interface IBaseProfile {
   careerGoalIDs: string[];
 }
 
+export interface IProfile {
+  userID: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  picture?: string;
+  website?: string;
+  interestIDs?: string[];
+  careerGoalIDs?: string[];
+}
+
 // Advisor and Faculty Profiles
 export interface IProfileDefine extends IDumpOne {
   username: string;

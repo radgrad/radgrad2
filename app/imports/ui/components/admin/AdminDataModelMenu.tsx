@@ -120,4 +120,5 @@ const AdminDataModelMenuContainer = withTracker(() => ({
   teaserCount: Teasers.count(),
   verificationRequestCount: VerificationRequests.count(),
 }))(AdminDataModelMenu);
+
 export default withRouter(AdminDataModelMenuContainer);
