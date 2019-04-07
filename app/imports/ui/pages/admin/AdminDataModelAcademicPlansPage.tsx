@@ -76,15 +76,15 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
       paddingTop: 20,
     };
     return (
-      <div>
+      <div className="layout-page">
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={4}>
+          <Grid.Column width={3}>
             <AdminDataModelMenu/>
           </Grid.Column>
 
-          <Grid.Column width={12}>
+          <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <AdminDataModelUpdateForm collection={AcademicPlans} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>

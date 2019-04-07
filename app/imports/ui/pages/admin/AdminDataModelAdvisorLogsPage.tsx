@@ -108,11 +108,11 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={4}>
+          <Grid.Column width={3}>
             <AdminDataModelMenu/>
           </Grid.Column>
 
-          <Grid.Column width={12}>
+          <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <AdminDataModelUpdateForm collection={AdvisorLogs} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>

@@ -67,7 +67,7 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/datamodel/`;
   // console.log(this.props, baseRoute);
   return (
-    <Menu vertical={true}>
+    <Menu vertical={true} text={true}>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-plans`}>Academic Plans ({props.academicPlanCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-terms`}>Academic Terms ({props.academicTermCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-year-instances`}>Academic Year Instances ({props.academicYearCount})</Menu.Item>

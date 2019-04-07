@@ -15,8 +15,9 @@ import {
   setCollectionShowCount,
   setCollectionShowIndex,
 } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
+// import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import UpdateAcademicTermWidget from '../../components/admin/UpdateAcademicTermWidget';
 
 function numReferences(term) {
   let references = 0;
@@ -125,14 +126,14 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={4}>
+          <Grid.Column width={3}>
             <AdminDataModelMenu/>
           </Grid.Column>
 
-          <Grid.Column width={12}>
+          <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={AcademicTerms} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+              <UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)} handleUpdate={this.handleUpdate}
+                                        handleCancel={this.handleCancel}/>
             ) : (
               <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}

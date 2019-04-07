@@ -36,7 +36,7 @@ class UpdateAcademicTermWidget extends React.Component<IUpdateAcademicTermProps>
     // tslint:disable:jsx-no-lambda
     return (
       <Segment padded={true}>
-        <Header dividing={true} as="h4">UPDATE ACADEMIC TERM</Header>
+        <Header dividing={true}>UPDATE ACADEMIC TERM</Header>
         <AutoForm schema={UpdateAcademicTermSchema} onSubmit={this.updateTerm} model={this.props.model}>
           <Form.Group widths="equal">
             <TextField label="Term" name="term" value={this.props.model.term} disabled={true}/>
@@ -45,8 +45,8 @@ class UpdateAcademicTermWidget extends React.Component<IUpdateAcademicTermProps>
           <RadioField allowedValues={[true, false]} label="Retired" name="retired"
                       transform={(value) => `${value}`}/>
           <Form.Group>
-            <SubmitField name="update" value="Update"/>
-            <SubmitField name="cancel" value="Cancel" onClick={this.props.handleCancel}/>
+            <SubmitField name="update" value="Update" className="ui basic green button"/>
+            <SubmitField name="cancel" value="Cancel" className="ui basic green button" onClick={this.props.handleCancel}/>
           </Form.Group>
         </AutoForm>
       </Segment>

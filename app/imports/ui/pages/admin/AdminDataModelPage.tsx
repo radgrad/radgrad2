@@ -9,15 +9,15 @@ class AdminDataModelPage extends React.Component {
       paddingTop: 20,
     };
     return (
-      <div>
+      <div className="layout-page">
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
 
-          <Grid.Column width={5}>
+          <Grid.Column width={3}>
             <AdminDataModelMenu/>
           </Grid.Column>
 
-          <Grid.Column width={11}>
+          <Grid.Column width={13}>
             <Message floating={true} content={'Click on a data model element in the menu to the left to display those items.'}/>
           </Grid.Column>
         </Grid>
