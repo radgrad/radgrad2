@@ -9,6 +9,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { IAcademicTerm } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 import SelectUserField from '../form-fields/SelectUserField';
+import FormExampleSubcomponentControl from './FormExampleSubcomponentControl';
 
 const UpdateAcademicTermSchema = new SimpleSchema({
   id: { type: String, optional: true },
@@ -56,10 +57,11 @@ class UpdateAcademicTermWidget extends React.Component<IUpdateAcademicTermProps>
           advisor: String,
           student: String,
         })} onSubmit={this.updateTerm}>
-          <SelectUserField role={ROLE.ADVISOR}/>
-          <SelectUserField role={ROLE.STUDENT}/>
+          <SelectUserField label="Advisor" name="advisor" role={ROLE.ADVISOR} required={true}/>
+          <SelectUserField label="Student" name="student" role={ROLE.STUDENT} required={false}/>
           <SubmitField/>
         </AutoForm>
+        <FormExampleSubcomponentControl handleSubmit={this.updateTerm}/>
       </Segment>
     );
   }
