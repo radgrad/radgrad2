@@ -1,10 +1,8 @@
 import * as React from 'react';
-import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import SelectField from 'uniforms-semantic/SelectField';
-import AutoForm from 'uniforms-semantic/AutoForm';
+import { Form, Label, Select } from 'semantic-ui-react';
 
 interface IUser {
   _id: string;
@@ -13,19 +11,20 @@ interface IUser {
 }
 
 interface ISelectUserFieldProps {
+  label: string;
   name: string;
+  required?: boolean;
   role: string;
   users: IUser[];
 }
 
 const SelectUserField = (props: ISelectUserFieldProps) => {
   console.log(props);
-  const options = _.map(props.users, (userInfo) => ({ label: userInfo.username, value: userInfo._id }));
-  const allowedValues = _.map(props.users, (user) => user.username);
-  console.log('options=%o, allowed=%o', options, allowedValues);
-  const valueOptions = [{ label: 'value1', value: 'value1' }, { label: 'value2', value: 'value2' }];
+  const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.name, value: userInfo._id }));
+  console.log(options);
   return (
-    <SelectField name={props.role.toLowerCase()} allowedValues={['value1', 'value2']} options={valueOptions}/>
+    <Form.Select label={props.label} options={options} placeholder={`Select ${props.role}`}
+                required={props.required}/>
   );
 };
 
