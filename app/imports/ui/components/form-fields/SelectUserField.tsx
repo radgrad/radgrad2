@@ -21,13 +21,17 @@ interface ISelectUserFieldProps {
 const SelectUserField = (props: ISelectUserFieldProps) => {
   console.log(props);
   const options = _.map(props.users, (userInfo) => ({ label: userInfo.username, value: userInfo._id }));
+  const allowedValues = _.map(props.users, (user) => user.username);
+  console.log('options=%o, allowed=%o', options, allowedValues);
+  const valueOptions = [{ label: 'value1', value: 'value1' }, { label: 'value2', value: 'value2' }];
   return (
-    <SelectField name={props.role.toLowerCase()} label={props.role} options={options}/>
+    <SelectField name={props.role.toLowerCase()} allowedValues={['value1', 'value2']} options={valueOptions}/>
   );
 };
 
 const SelectUserFieldContainer = withTracker((props) => {
   const users = Roles.getUsersInRole(props.role).fetch();
+  console.log('users=%o', users);
   return {
     users,
   };
