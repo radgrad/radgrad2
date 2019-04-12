@@ -10,6 +10,9 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
+import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { Bert } from "meteor/themeteorchef:bert";
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => {
   return [
@@ -27,6 +30,10 @@ const itemTitle = (year: IAcademicYear): React.ReactNode => {
       {`${name} ${year.year}`}
     </React.Fragment>
   );
+};
+
+const itemTitleString = (year: IAcademicYear): string => {
+  return `${name} ${year.year}`;
 };
 
 class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataModelPageState> {
@@ -50,11 +57,35 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
   }
 
   private handleUpdate(doc) {
-    // do stuff.
+    console.log('handleUpdate(%o)', doc);
+    const collectionName = AcademicYearInstances.getCollectionName();
+    const updateData: { id?: string, retired?: boolean } = {};
+    updateData.id = doc._id;
+    updateData.retired = doc.retired;
+    // console.log('parameter = %o', { collectionName, updateData });
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
+        console.error('Error in updating AcademicYearInstance. %o', error);
+      } else {
+        Bert.alert({ type: 'success', message: 'Update succeeded' });
+      }
+      this.setState({ showUpdateForm: false, id: '' });
+    });
   }
 
   private handleAdd(doc) {
-    // do stuff.
+    console.log('handleAdd(%o)', doc);
+    const collectionName = AcademicYearInstances.getCollectionName();
+    const definitionData = doc;
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+      } else {
+        Bert.alert({ type: 'success', message: 'Add succeeded' });
+        this.formRef.current.reset();
+      }
+    });
   }
 
   private handleDelete(event, inst) {
@@ -83,9 +114,11 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <AdminDataModelUpdateForm collection={AcademicYearInstances} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                        itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={AcademicYearInstances} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddAcademicYearInstanceFormContainer formRef={this.formRef}
+                                     handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={AcademicYearInstances}
                                   descriptionPairs={descriptionPairs}

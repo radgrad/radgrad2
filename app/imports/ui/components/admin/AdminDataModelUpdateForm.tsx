@@ -11,6 +11,7 @@ interface IAdminDataModelUpdateFormProps {
   formRef: any;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
+  itemTitleString: (item) => React.ReactNode;
 }
 
 class AdminDataModelUpdateForm extends React.Component<IAdminDataModelUpdateFormProps> {
@@ -19,13 +20,14 @@ class AdminDataModelUpdateForm extends React.Component<IAdminDataModelUpdateForm
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const model = this.props.id ? this.props.collection.findDoc(this.props.id) : undefined;
     return (
       <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}</Header>
+        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
         <AutoForm
           ref={this.props.formRef}
           schema={this.props.collection.getUpdateSchema()}
-          model={this.props.id ? this.props.collection.findDoc(this.props.id) : undefined}
+          model={model}
           onSubmit={this.props.handleUpdate}>
           <AutoFields/>
           <p/>

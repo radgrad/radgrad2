@@ -31,7 +31,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   constructor() {
     super('AcademicTerm', new SimpleSchema({
       term: { type: String },
-      year: { type: Number },
+      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
       termNumber: { type: Number },
       slugID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
@@ -43,19 +43,19 @@ class AcademicTermCollection extends BaseSlugCollection {
     const settingsDoc = RadGradSettings.findOne({});
     // console.log(settingsDoc, Meteor.settings);
     if (settingsDoc.quarterSystem) {
-      this.terms = [this.SPRING, this.SUMMER, this.FALL, this.WINTER];
+      this.terms = [this.FALL, this.WINTER, this.SPRING, this.SUMMER];
       this.fallStart = parseInt(moment('09-26-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.springStart = parseInt(moment('04-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.summerStart = parseInt(moment('06-20-2015', 'MM-DD-YYYY').format('DDD'), 10);
     } else {
-      this.terms = [this.SPRING, this.SUMMER, this.FALL];
+      this.terms = [this.FALL, this.SPRING, this.SUMMER];
       this.fallStart = parseInt(moment('08-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.springStart = parseInt(moment('01-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.summerStart = parseInt(moment('05-15-2015', 'MM-DD-YYYY').format('DDD'), 10);
     }
     this.defineSchema = new SimpleSchema({
-      term: String,
-      year: Number,
+      term: { type: String, allowedValues: this.terms, defaultValue: this.FALL },
+      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
     });
     this.updateSchema = new SimpleSchema({
       retired: Boolean,
@@ -309,19 +309,19 @@ class AcademicTermCollection extends BaseSlugCollection {
     // Check that this term is not referenced by any Opportunity Instance.
     OpportunityInstances.find().map((opportunityInstance) => {
       if (opportunityInstance.termID === docID) {
-        throw new Meteor.Error(`AcademicTerm ${instance} referenced by a opportunity instance ${opportunityInstance}.`);
+        throw new Meteor.Error(`AcademicTerm ${instance} referenced by a opportunity instance.`);
       }
     });
     // Check that this term in not referenced by any Course Instance
     CourseInstances.find().map((courseInstance) => {
       if (courseInstance.termID === docID) {
-        throw new Meteor.Error(`AcademicTerm ${instance} referenced by a course instance ${courseInstance}`);
+        throw new Meteor.Error(`AcademicTerm ${instance} referenced by a course instance.`);
       }
     });
     // Check that this term is not referenced by any Opportunity
     Opportunities.find().map((opportunity) => {
       if (_.includes(opportunity.termIDs, docID)) {
-        throw new Meteor.Error(`AcademicTerm ${instance} referenced by an opportunity ${opportunity}`);
+        throw new Meteor.Error(`AcademicTerm ${instance} referenced by an opportunity.`);
       }
     });
     return super.removeIt(docID);

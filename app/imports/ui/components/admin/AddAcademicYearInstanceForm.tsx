@@ -2,49 +2,43 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
+import NumField from 'uniforms-semantic/NumField';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { moment } from 'meteor/momentjs:moment';
 import { ROLE } from '../../../api/role/Role';
 
-interface IAddAdvisorLogFormProps {
-  advisors: Meteor.User[];
+interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];
   formRef: any;
   handleAdd: (doc) => any;
 }
 
-class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
+class AddAcademicYearInstanceForm extends React.Component<IAddAcademicYearInstanceProps> {
   constructor(props) {
     super(props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    console.log(this.props);
-    const advisorNames = _.map(this.props.advisors, (a) => a.username);
     const studentNames = _.map(this.props.students, (a) => a.username);
     const schema = new SimpleSchema({
-      advisor: {
-        type: String,
-        allowedValues: advisorNames,
-      },
       student: {
         type: String,
         allowedValues: studentNames,
       },
-      text: String,
+      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
     });
-    return (
+
+    return  (
       <Segment padded={true}>
-        <Header dividing={true}>Add Advisor Log</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef}>
-          <SelectField name="advisor"/>
+        <Header dividing={true}>Add Academic Year Instance</Header>
+        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
+          <NumField name="year"/>
           <SelectField name="student"/>
-          <LongTextField name="text"/>
           <SubmitField/>
         </AutoForm>
       </Segment>
@@ -52,14 +46,12 @@ class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
   }
 }
 
-const AddAdvisorLogFormContainer = withTracker((props) => {
-  const advisors = Roles.getUsersInRole(ROLE.ADVISOR).fetch();
+const AddAcademicYearInstanceFormContainer = withTracker((props) => {
   const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();
-  console.log('advisors=%o students=%o', advisors, students);
+  // console.log('students=%o', students);
   return {
-    advisors,
     students,
   };
-})(AddAdvisorLogForm);
+})(AddAcademicYearInstanceForm);
 
-export default AddAdvisorLogFormContainer;
+export default AddAcademicYearInstanceFormContainer;

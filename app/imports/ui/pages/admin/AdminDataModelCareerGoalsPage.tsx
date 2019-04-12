@@ -46,6 +46,10 @@ const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => {
   );
 };
 
+const itemTitleString = (careerGoal: ICareerGoal): string => {
+  return `${careerGoal.name}`;
+};
+
 class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
   private formRef;
 
@@ -129,7 +133,8 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <AdminDataModelUpdateForm collection={CareerGoals} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                        itemTitleString={itemTitleString}/>
             ) : (
               <AdminDataModelAddForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}

@@ -30,6 +30,11 @@ const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
   );
 };
 
+const itemTitleString = (plan: IAcademicPlan): string => {
+  const slug = Slugs.getNameFromID(plan.slugID);
+  return `${plan.name} (${plan.year}) (${slug})`;
+};
+
 /**
  * The AcademicPlan data model page.
  */
@@ -87,7 +92,8 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <AdminDataModelUpdateForm collection={AcademicPlans} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                        itemTitleString={itemTitleString}/>
             ) : (
               <AdminDataModelAddForm collection={AcademicPlans} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}

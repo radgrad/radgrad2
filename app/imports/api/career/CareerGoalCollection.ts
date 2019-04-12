@@ -23,6 +23,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       slugID: { type: SimpleSchema.RegEx.Id },
       description: { type: String },
       interestIDs: [SimpleSchema.RegEx.Id],
+      retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       name: { type: String },

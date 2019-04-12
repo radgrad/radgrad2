@@ -5,17 +5,22 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { IAcademicTerm, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  IAcademicTermDefine,
+  IAdminDataModelPageState,
+  IDescriptionPair,
+} from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import {
   setCollectionShowCount,
   setCollectionShowIndex,
 } from '../../../redux/actions/paginationActions';
-// import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import UpdateAcademicTermWidget from '../../components/admin/UpdateAcademicTermWidget';
 
@@ -55,6 +60,10 @@ const itemTitle = (term: IAcademicTerm): React.ReactNode => {
   );
 };
 
+const itemTitleString = (term) => {
+  return AcademicTerms.toString(term._id, false);
+};
+
 class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelPageState> {
   private formRef;
 
@@ -77,6 +86,16 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
 
   private handleAdd(doc) {
     console.log('handleAdd(%o)', doc);
+    const collectionName = AcademicTerms.getCollectionName();
+    const definitionData: IAcademicTermDefine = doc;
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+      } else {
+        Bert.alert({ type: 'success', message: 'Add succeeded' });
+        this.formRef.current.reset();
+      }
+    });
   }
 
   private handleUpdate(doc) {
@@ -99,7 +118,7 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
 
   private handleDelete(event, inst) {
     event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
+    // console.log('handleDelete inst=%o', inst);
     const collectionName = AcademicTerms.getCollectionName();
     const instance = inst.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
@@ -132,8 +151,9 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateAcademicTermWidget model={AcademicTerms.findDoc(this.state.id)} handleUpdate={this.handleUpdate}
-                                        handleCancel={this.handleCancel}/>
+              <AdminDataModelUpdateForm collection={AcademicTerms} id={this.state.id} formRef={this.formRef}
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                        itemTitleString={itemTitleString}/>
             ) : (
               <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}

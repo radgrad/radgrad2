@@ -8,6 +8,7 @@ import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IAcademicYearDefine } from '../../typings/radgrad';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { moment } from "meteor/momentjs:moment";
 
 /**
  * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
@@ -30,6 +31,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       springYear: { type: Number },
       studentID: { type: SimpleSchema.RegEx.Id },
       termIDs: [SimpleSchema.RegEx.Id],
+      retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
       Public: this.collectionName,
@@ -39,13 +41,13 @@ class AcademicYearInstanceCollection extends BaseCollection {
       this.collection._ensureIndex({ studentID: 1 });
     }
     this.defineSchema = new SimpleSchema({
-      year: Number,
+      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
       student: String,
     });
     // year?: number; springYear?: number; studentID?: string; termIDs?: string[];
     this.updateSchema = new SimpleSchema({
-      'year': { type: Number, optional: true },
-      'springYear': { type: Number, optional: true },
+      'year': { type: SimpleSchema.Integer, min: 2009, max: 2050, optional: true },
+      'springYear': { type: SimpleSchema.Integer, min: 2009, max: 2050, optional: true },
       'studentID': { type: String, optional: true },
       'termIDs': { type: Array, optional: true },
       'termIDs.$': String,

@@ -43,7 +43,7 @@ export const defineMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, definitionData }) {
-    // console.log(collectionName, this.userId);
+    // console.log(collectionName, this.userId, definitionData);
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     return collection.define(definitionData);
@@ -55,6 +55,7 @@ export const updateMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, updateData }) {
+    console.log('updateMethod(%o, %o)', collectionName, updateData);
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     collection.update(updateData.id, updateData);

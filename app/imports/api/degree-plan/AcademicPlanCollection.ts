@@ -28,7 +28,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'termNumber': Number,
       'year': Number,
       // CAM: maxCount of 20 is for quarter system bachelors and masters.
-      'coursesPerAcademicTerm': { type: Array, minCount: 12, maxCount: 20 }, 'coursesPerAcademicTerm.$': Number,
+      'coursesPerAcademicTerm': { type: Array, minCount: 12, maxCount: 20 },
+      'coursesPerAcademicTerm.$': Number,
       'courseList': [String],
       'retired': { type: Boolean, optional: true },
     }));

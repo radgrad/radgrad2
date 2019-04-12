@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { moment } from 'meteor/momentjs:moment';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
@@ -23,6 +24,7 @@ class AdvisorLogCollection extends BaseCollection {
       advisorID: { type: SimpleSchema.RegEx.Id },
       text: { type: String },
       createdOn: { type: Date },
+      retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       advisor: String,
@@ -31,6 +33,7 @@ class AdvisorLogCollection extends BaseCollection {
     });
     this.updateSchema = new SimpleSchema({
       text: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
     });
   }
 
@@ -52,13 +55,17 @@ class AdvisorLogCollection extends BaseCollection {
     return this.collection.insert({ advisorID, studentID, text, createdOn });
   }
 
-  public update(docID: string, { text }: IAdvisorLogUpdate) {
+  public update(docID: string, { text, retired }: IAdvisorLogUpdate) {
     this.assertDefined(docID);
     // console.log('update(%o, %o)', docID, text);
     const updateData: IAdvisorLogUpdate = {};
     if (text) {
       updateData.text = text;
     }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+    }
+    console.log('')
     this.collection.update(docID, { $set: updateData });
   }
 

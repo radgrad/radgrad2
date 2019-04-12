@@ -15,6 +15,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => {
   return [
@@ -25,6 +26,7 @@ const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => {
 };
 
 const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
+  // console.log(advisorLog);
   const name = Users.getFullName(advisorLog.studentID);
   return (
     <React.Fragment>
@@ -33,6 +35,10 @@ const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
       {`${name} ${advisorLog.createdOn}`}
     </React.Fragment>
   );
+};
+
+const itemTitleString = (advisorLog: IAdvisorLog): string => {
+  return `${name} ${advisorLog.createdOn}`;
 };
 
 class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelPageState> {
@@ -56,14 +62,15 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
   }
 
   private handleUpdate(doc) {
-    // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
+    console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
     this.formRef.current.reset();
     this.setState({ showUpdateForm: false, id: '' });
     const collectionName = AdvisorLogs.getCollectionName();
     const updateData: IAdvisorLogUpdate = {};
     updateData.id = doc._id;
     updateData.text = doc.text;
-    // console.log('updateData = %o', updateData);
+    updateData.retired = doc.retired;
+    console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
@@ -115,9 +122,10 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <AdminDataModelUpdateForm collection={AdvisorLogs} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}/>
+                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                        itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={AdvisorLogs} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddAdvisorLogFormContainer formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={AdvisorLogs}
                                   descriptionPairs={descriptionPairs}
