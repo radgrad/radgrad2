@@ -33,6 +33,7 @@ export interface IAcademicPlan {
   coursesPerAcademicTerm: number[];
   courseList: string[];
   isBAM?: boolean;
+  retired?: boolean;
 }
 
 export interface IAcademicPlanDefine extends IDumpOne {
@@ -88,6 +89,7 @@ export interface ICareerGoal {
   slug: string;
   description: string;
   interestIDs: string[];
+  retired?: boolean;
 }
 
 export interface ICareerGoalDefine extends IDumpOne {
@@ -101,6 +103,7 @@ export interface ICareerGoalUpdate {
   name?: string;
   description?: string;
   interests?: string[];
+  retired?: boolean;
 }
 
 // CourseInstances
@@ -115,6 +118,7 @@ export interface ICourseInstance {
   note?: string;
   studentID: string;
   ice?: Ice;
+  retired?: boolean;
 }
 
 export interface ICourseInstanceDefine extends IDumpOne {
