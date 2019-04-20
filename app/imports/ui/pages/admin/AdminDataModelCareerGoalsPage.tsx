@@ -13,10 +13,12 @@ import {
 } from '../../../typings/radgrad';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 function numReferences(careerGoal) {
   let references = 0;
@@ -93,7 +95,17 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
 
   private handleDelete(event, inst) {
     event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
+    // console.log('handleDelete inst=%o', inst);
+    const collectionName = CareerGoals.getCollectionName();
+    const instance = inst.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Bert.alert({ type: 'danger', message: `Delete failed: ${error.message}` });
+      } else {
+        Bert.alert({ type: 'success', message: 'Delete succeeded' });
+        this.formRef.current.reset();
+      }
+    })
   }
 
   private handleCancel(event) {
@@ -106,7 +118,12 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
   private handleAdd(doc) {
     console.log('handleAdd(%o)', doc);
     const collectionName = CareerGoals.getCollectionName();
+    const interests = doc.interests;
+    const slugs = _.map(interests, (i) => {
+      return Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID);
+    });
     const definitionData = doc;
+    definitionData.interests = slugs;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
@@ -136,7 +153,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={CareerGoals}
                                   descriptionPairs={descriptionPairs}
