@@ -55,7 +55,12 @@ class AcademicTermCollection extends BaseSlugCollection {
     }
     this.defineSchema = new SimpleSchema({
       term: { type: String, allowedValues: this.terms, defaultValue: this.FALL },
-      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
+      year: {
+        type: SimpleSchema.Integer,
+        min: moment().year() - 5,
+        max: moment().year() + 10,
+        defaultValue: moment().year(),
+      },
     });
     this.updateSchema = new SimpleSchema({
       retired: Boolean,

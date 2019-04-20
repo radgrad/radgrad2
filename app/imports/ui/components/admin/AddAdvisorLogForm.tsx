@@ -24,17 +24,19 @@ class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    console.log(this.props);
+    // console.log(this.props);
     const advisorNames = _.map(this.props.advisors, (a) => a.username);
     const studentNames = _.map(this.props.students, (a) => a.username);
     const schema = new SimpleSchema({
       advisor: {
         type: String,
         allowedValues: advisorNames,
+        defaultValue: advisorNames[0],
       },
       student: {
         type: String,
         allowedValues: studentNames,
+        defaultValue: studentNames[0],
       },
       text: String,
     });
@@ -55,7 +57,7 @@ class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
 const AddAdvisorLogFormContainer = withTracker((props) => {
   const advisors = Roles.getUsersInRole(ROLE.ADVISOR).fetch();
   const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();
-  console.log('advisors=%o students=%o', advisors, students);
+  // console.log('advisors=%o students=%o', advisors, students);
   return {
     advisors,
     students,

@@ -55,7 +55,7 @@ export const updateMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, updateData }) {
-    console.log('updateMethod(%o, %o)', collectionName, updateData);
+    // console.log('updateMethod(%o, %o)', collectionName, updateData);
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     collection.update(updateData.id, updateData);

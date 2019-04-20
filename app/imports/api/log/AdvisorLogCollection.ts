@@ -65,7 +65,6 @@ class AdvisorLogCollection extends BaseCollection {
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
-    console.log('')
     this.collection.update(docID, { $set: updateData });
   }
 

@@ -12,7 +12,7 @@ import {
 } from '../../../typings/radgrad';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
@@ -62,7 +62,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
   }
 
   private handleUpdate(doc) {
-    console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
+    // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
     this.formRef.current.reset();
     this.setState({ showUpdateForm: false, id: '' });
     const collectionName = AdvisorLogs.getCollectionName();
@@ -82,7 +82,17 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
   private handleDelete(event, inst) {
     event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
+    // console.log('handleDelete inst=%o', inst);
+    const collectionName = AdvisorLogs.getCollectionName();
+    const instance = inst.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Bert.alert({ type: 'danger', message: `Delete failed: ${error.message}` });
+      } else {
+        Bert.alert({ type: 'success', message: 'Delete succeeded' });
+        this.formRef.current.reset();
+      }
+    })
   }
 
   private handleCancel(event) {
@@ -93,7 +103,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
   }
 
   private handleAdd(doc) {
-    console.log('handleAdd(%o)', doc);
+    // console.log('handleAdd(%o)', doc);
     const collectionName = AdvisorLogs.getCollectionName();
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {

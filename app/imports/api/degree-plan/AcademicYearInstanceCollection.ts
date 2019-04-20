@@ -8,7 +8,7 @@ import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IAcademicYearDefine } from '../../typings/radgrad';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
-import { moment } from "meteor/momentjs:moment";
+import { moment } from 'meteor/momentjs:moment';
 
 /**
  * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
@@ -41,13 +41,23 @@ class AcademicYearInstanceCollection extends BaseCollection {
       this.collection._ensureIndex({ studentID: 1 });
     }
     this.defineSchema = new SimpleSchema({
-      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
+      year: {
+        type: SimpleSchema.Integer,
+        min: moment().year() - 5,
+        max: moment().year() + 10,
+        defaultValue: moment().year(),
+      },
       student: String,
     });
     // year?: number; springYear?: number; studentID?: string; termIDs?: string[];
     this.updateSchema = new SimpleSchema({
-      'year': { type: SimpleSchema.Integer, min: 2009, max: 2050, optional: true },
-      'springYear': { type: SimpleSchema.Integer, min: 2009, max: 2050, optional: true },
+      'year': { type: SimpleSchema.Integer, min: moment().year() - 10, max: moment().year() + 10, optional: true },
+      'springYear': {
+        type: SimpleSchema.Integer,
+        min: moment().year() - 10,
+        max: moment().year() + 10,
+        optional: true,
+      },
       'studentID': { type: String, optional: true },
       'termIDs': { type: Array, optional: true },
       'termIDs.$': String,
@@ -127,9 +137,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param termIDs the 3 or 4 academic terms in the year.
    */
   public update(docID: string, { year, springYear, studentID, termIDs }:
-    {year?: number; springYear?: number; studentID?: string; termIDs?: string[]; }) {
+    { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; }) {
     this.assertDefined(docID);
-    const updateData: {year?: number; springYear?: number; studentID?: string; termIDs?: string[]; } = {};
+    const updateData: { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; } = {};
     if (_.isNumber(year)) {
       updateData.year = year;
     }
