@@ -44,6 +44,7 @@ class VerificationRequestCollection extends BaseCollection {
       status: String,
       processed: [ProcessedSchema],
       ice: { type: Object, optional: true, blackbox: true },
+      retired: { type: Boolean, optional: true },
     }));
     this.ACCEPTED = 'Accepted';
     this.REJECTED = 'Rejected';

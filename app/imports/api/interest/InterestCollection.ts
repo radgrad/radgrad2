@@ -27,6 +27,7 @@ class InterestCollection extends BaseSlugCollection {
       slugID: { type: SimpleSchema.RegEx.Id },
       description: { type: String },
       interestTypeID: { type: SimpleSchema.RegEx.Id },
+      retired: { type: Boolean, optional: true },
     }));
   }
 

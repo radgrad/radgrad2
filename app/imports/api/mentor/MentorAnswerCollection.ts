@@ -19,6 +19,7 @@ class MentorAnswerCollection extends BaseCollection {
       questionID: { type: SimpleSchema.RegEx.Id },
       mentorID: { type: SimpleSchema.RegEx.Id },
       text: { type: String },
+      retired: { type: Boolean, optional: true },
     }));
   }
 

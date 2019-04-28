@@ -26,6 +26,7 @@ class FeedbackInstanceCollection extends BaseCollection {
       functionName: String,
       description: String,
       feedbackType: String,
+      retired: { type: Boolean, optional: true },
     }));
     this.WARNING = 'Warning';
     this.RECOMMENDATION = 'Recommendation';

@@ -16,6 +16,7 @@ export class PlanChoiceCollection extends BaseCollection {
   constructor() {
     super('PlanChoice', new SimpleSchema({
       choice: { type: String },
+      retired: { type: Boolean, optional: true },
     }));
   }
 

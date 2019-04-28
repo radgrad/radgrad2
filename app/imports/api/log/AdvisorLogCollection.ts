@@ -23,6 +23,7 @@ class AdvisorLogCollection extends BaseCollection {
       advisorID: { type: SimpleSchema.RegEx.Id },
       text: { type: String },
       createdOn: { type: Date },
+      retired: { type: Boolean, optional: true },
     }));
   }
 

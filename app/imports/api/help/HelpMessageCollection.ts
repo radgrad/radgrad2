@@ -16,6 +16,7 @@ class HelpMessageCollection extends BaseCollection {
       routeName: { type: String },
       title: { type: String },
       text: { type: String },
+      retired: { type: Boolean, optional: true },
     }));
   }
 

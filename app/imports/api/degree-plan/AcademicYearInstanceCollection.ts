@@ -30,6 +30,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       springYear: { type: Number },
       studentID: { type: SimpleSchema.RegEx.Id },
       termIDs: [SimpleSchema.RegEx.Id],
+      retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
       Public: this.collectionName,
