@@ -26,18 +26,35 @@ if (Meteor.isServer) {
       const careerGoals = [];
       const level = 6;
       const declaredAcademicTerm = 'Spring-2017';
-      const docID = StudentProfiles.define({
+      let docID = StudentProfiles.define({
         username, firstName, lastName, picture, website, interests,
         careerGoals, level, declaredAcademicTerm,
       });
       expect(StudentProfiles.isDefined(docID)).to.be.true;
-      const dumpObject = StudentProfiles.dumpOne(docID);
+      let doc = StudentProfiles.findDoc(docID);
+      // console.log(doc);
+      expect(doc).to.be.an('object');
+      expect(doc.shareUsername).to.be.false;
+      expect(doc.shareInterests).to.be.false;
+      let dumpObject = StudentProfiles.dumpOne(docID);
+      expect(dumpObject.retired).to.be.false;
+      expect(dumpObject.shareUsername).to.be.false;
+      expect(dumpObject.shareInterests).to.be.false;
+      expect(StudentProfiles.findNonRetired().length).to.equal(1);
+      StudentProfiles.update(docID, { retired: true });
+      expect(StudentProfiles.findNonRetired().length).to.equal(0);
       StudentProfiles.removeIt(docID);
       expect(StudentProfiles.isDefined(docID)).to.be.false;
-      StudentProfiles.restoreOne(dumpObject);
-      const id = StudentProfiles.getID(username);
-      expect(StudentProfiles.isDefined(id)).to.be.true;
-      StudentProfiles.removeIt(id);
+      docID = StudentProfiles.restoreOne(dumpObject);
+      doc = StudentProfiles.findDoc(docID);
+      expect(doc.shareUsername).to.be.false;
+      expect(doc.shareInterests).to.be.false;
+      expect(StudentProfiles.isDefined(docID)).to.be.true;
+      StudentProfiles.update(docID, { retired: true, shareInterests: true });
+      dumpObject = StudentProfiles.dumpOne(docID);
+      expect(dumpObject.retired).to.be.true;
+      expect(dumpObject.shareInterests).to.be.true;
+      StudentProfiles.removeIt(docID);
     });
   });
 }

@@ -53,10 +53,10 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the AdvisorProfile.
    */
-  public update(docID, { firstName, lastName, picture, website, interests, careerGoals }: IProfileUpdate) {
+  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, retired }: IProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
     this.collection.update(docID, { $set: updateData });
   }
 

@@ -445,6 +445,7 @@ export interface IProfileUpdate {
   website?: string;
   interests?: string[];
   careerGoals?: string[];
+  retired?: boolean;
 }
 
 export interface IMentorProfileDefine extends IProfileDefine {

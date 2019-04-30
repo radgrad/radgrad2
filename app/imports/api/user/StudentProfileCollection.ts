@@ -32,7 +32,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       hiddenCourseIDs: [SimpleSchema.RegEx.Id],
       hiddenOpportunityIDs: [SimpleSchema.RegEx.Id],
       isAlumni: Boolean,
-      retired: { type: Boolean, optional: true },
       shareAcademicPlan: { type: Boolean, optional: true },
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
@@ -72,7 +71,7 @@ class StudentProfileCollection extends BaseProfileCollection {
   public define({
                   username, firstName, lastName, picture = defaultProfilePicture, website, interests,
                   careerGoals, level, academicPlan, declaredAcademicTerm, hiddenCourses = [], hiddenOpportunities = [],
-                  isAlumni = false, retired, shareUsername = false, sharePicture = false, shareWebsite = false,
+                  isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
                   shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
                   shareOpportunities = false, shareLevel = false,
                 }: IStudentProfileDefine) {
@@ -161,7 +160,7 @@ class StudentProfileCollection extends BaseProfileCollection {
   }: IStudentProfileUpdate) {
     this.assertDefined(docID);
     const updateData: IStudentProfileUpdateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
     if (academicPlan) {
       updateData.academicPlanID = AcademicPlans.getID(academicPlan);
     }
@@ -176,7 +175,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     // Only Admins and Advisors can update the isAlumni and level fields.
     // Or if no one is logged in when this is executed (i.e. for testing) then it's cool.
-    if (!Meteor.userId() || this.hasRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR])) {
+    if (Meteor.isTest || !Meteor.userId() || this.hasRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR])) {
       const userID = this.findDoc(docID).userID;
       if (_.isBoolean(isAlumni)) {
         updateData.isAlumni = isAlumni;
@@ -227,6 +226,21 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Removes this profile, given its profile ID.
+   * Also removes this user from Meteor Accounts.
+   * @param profileID The ID for this profile object.
+   */
+  public removeIt(profileID) {
+    if (this.isDefined(profileID)) {
+      const doc = this.findDoc(profileID);
+      if (doc.declaredAcademicTermID) {
+        AcademicTerms.removeIt(doc.declaredAcademicTermID);
+      }
+      super.removeIt(profileID);
+    }
   }
 
   /**
