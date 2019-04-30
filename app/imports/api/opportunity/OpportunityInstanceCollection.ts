@@ -30,6 +30,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       studentID: { type: SimpleSchema.RegEx.Id },
       sponsorID: { type: SimpleSchema.RegEx.Id },
       ice: { type: Object, optional: true, blackbox: true },
+      retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
       student: this.collectionName,

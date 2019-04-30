@@ -67,6 +67,7 @@ class FeedCollection extends BaseCollection {
       'opportunityID': { type: SimpleSchema.RegEx.Id, optional: true },
       'courseID': { type: SimpleSchema.RegEx.Id, optional: true },
       'termID': { type: SimpleSchema.RegEx.Id, optional: true },
+      'retired': { type: Boolean, optional: true },
     }));
     this.NEW_USER = 'new-user';
     this.NEW_COURSE = 'new-course';

@@ -94,12 +94,13 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param interests A new list of interest slugs or IDs. (optional).
    * @throws { Meteor.Error } If docID is not defined, or if any interest is not a defined slug or ID.
    */
-  public update(docID: string, { name, description, interests }: ICareerGoalUpdate): void {
+  public update(docID: string, { name, description, interests, retired }: ICareerGoalUpdate): void {
     this.assertDefined(docID);
     const updateData: {
       name?: string;
       description?: string;
       interestIDs?: string[];
+      retired?: boolean;
     } = {};
     if (name) {
       updateData.name = name;
@@ -110,6 +111,9 @@ class CareerGoalCollection extends BaseSlugCollection {
     if (interests) {
       const interestIDs = Interests.getIDs(interests);
       updateData.interestIDs = interestIDs;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }

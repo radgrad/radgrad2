@@ -269,13 +269,16 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the passed academicTerm is not a valid academicTerm slug.
    */
   public getID(academicTerm: string) {
+    // console.log('getID', academicTerm);
     if (this.isDefined(academicTerm)) {
+      // console.log('isDefined');
       return super.getID(academicTerm);
     }
     // Otherwise academicTerm should be a slug.  Try to define it.
     const split = academicTerm.split('-');
     const term = split[0];
     const year = parseInt(split[1], 10);
+    // console.log('define', term, year);
     return this.define({ term, year });
   }
 

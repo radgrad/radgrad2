@@ -235,6 +235,7 @@ export interface ICourseInstance {
   note?: string;
   studentID: string;
   ice?: Ice;
+  retired?: boolean;
 }
 
 export interface ICourseInstanceDefine extends IDumpOne {
@@ -573,6 +574,7 @@ export interface IProfileUpdate {
   website?: string;
   interests?: string[];
   careerGoals?: string[];
+  retired?: boolean;
 }
 
 export interface IMentorProfileDefine extends IProfileDefine {
@@ -598,6 +600,16 @@ export interface IStudentProfileDefine extends IProfileDefine {
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
   isAlumni?: boolean;
+  retired?: boolean;
+  shareUsername?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
+  shareAcademicPlan?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
+  shareLevel?: boolean;
 }
 
 export interface IStudentProfileUpdate extends IProfileUpdate {
@@ -607,6 +619,16 @@ export interface IStudentProfileUpdate extends IProfileUpdate {
   hiddenCourses?: string[];
   hiddenOpportunities?: string[];
   isAlumni?: boolean;
+  retired?: boolean;
+  shareUsername?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
+  shareAcademicPlan?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
+  shareLevel?: boolean;
 }
 
 export interface IStudentProfileUpdateData {
@@ -617,6 +639,16 @@ export interface IStudentProfileUpdateData {
   hiddenOpportunityIDs?: string[];
   isAlumni?: boolean;
   role?: string;
+  retired?: boolean;
+  shareUsername?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
+  shareAcademicPlan?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
+  shareLevel?: boolean;
 }
 
 // Reviews

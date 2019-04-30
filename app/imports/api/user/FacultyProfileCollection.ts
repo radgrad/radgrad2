@@ -53,10 +53,10 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the FacultyProfile.
    */
-  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals }: IProfileUpdate) {
+  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired }: IProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
     this.collection.update(docID, { $set: updateData });
   }
 

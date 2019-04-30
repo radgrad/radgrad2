@@ -24,6 +24,7 @@ class MentorQuestionCollection extends BaseSlugCollection {
       moderated: { type: Boolean },
       visible: { type: Boolean },
       moderatorComments: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
     }));
   }
 

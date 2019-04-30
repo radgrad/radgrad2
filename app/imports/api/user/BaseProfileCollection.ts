@@ -45,6 +45,12 @@ class BaseProfileCollection extends BaseSlugCollection {
       interestIDs: [SimpleSchema.RegEx.Id],
       careerGoalIDs: [SimpleSchema.RegEx.Id],
       userID: SimpleSchema.RegEx.Id,
+      retired: { type: Boolean, optional: true },
+      shareUsername: { type: Boolean, optional: true },
+      sharePicture: { type: Boolean, optional: true },
+      shareWebsite: { type: Boolean, optional: true },
+      shareInterests: { type: Boolean, optional: true },
+      shareCareerGoals: { type: Boolean, optional: true },
     })));
   }
 
@@ -209,7 +215,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * Destructively modifies updateData with the values of the passed fields.
    * Call this function for side-effect only.
    */
-  protected updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals }) {
+  protected updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired }) {
     if (firstName) {
       updateData.firstName = firstName;
     }
@@ -227,6 +233,9 @@ class BaseProfileCollection extends BaseSlugCollection {
     }
     if (careerGoals) {
       updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     // console.log('_updateCommonFields', updateData);
   }

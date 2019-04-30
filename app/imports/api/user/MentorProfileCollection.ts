@@ -76,11 +76,11 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param linkedin LinkedIn user ID (optional).
    * @param motivation the motivation (optional).
    */
-  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, company, career, location, linkedin,
+  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, company, career, location, linkedin,
     motivation }: IMentorProfileUpdate) {
     this.assertDefined(docID);
     const updateData: IMentorProfileUpdate = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
     if (company) {
       updateData.company = company;
     }

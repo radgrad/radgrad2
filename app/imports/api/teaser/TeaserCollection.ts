@@ -26,6 +26,7 @@ class TeaserCollection extends BaseSlugCollection {
       interestIDs: [SimpleSchema.RegEx.Id],
       opportunityID: SimpleSchema.RegEx.Id,
       duration: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
     }));
   }
 
