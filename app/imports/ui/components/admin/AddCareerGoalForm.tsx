@@ -13,7 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad';
 
 interface IAddCareerGoalFormProps {
-  interests: IInterest[],
+  interests: IInterest[];
   formRef: any;
   handleAdd: (doc) => any;
 }
@@ -21,23 +21,23 @@ interface IAddCareerGoalFormProps {
 class AddCareerGoalForm extends React.Component<IAddCareerGoalFormProps> {
   constructor(props) {
     super(props);
-    console.log('AddCareerGoalForm props=%o', props);
+    // console.log('AddCareerGoalForm props=%o', props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    console.log(this.props);
+    // console.log(this.props);
     const interestNames = _.map(this.props.interests, (interest) => interest.name);
     const schema = new SimpleSchema({
-      name: String,
-      slug: String,
-      description: String,
-      interests: {
+      'name': String,
+      'slug': String,
+      'description': String,
+      'interests': {
         type: Array,
       },
       'interests.$': {
         type: String,
         allowedValues: interestNames,
-      }
+      },
     });
     return (
       <Segment padded={true}>
@@ -55,10 +55,10 @@ class AddCareerGoalForm extends React.Component<IAddCareerGoalFormProps> {
 }
 
 const AddCareerGoalFormContainer = withTracker((props) => {
-  const interests = Interests.find({}).fetch();
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   return {
     interests,
-  }
+  };
 })(AddCareerGoalForm);
 
 export default AddCareerGoalFormContainer;

@@ -2,24 +2,24 @@ import {
   SET_ACADEMIC_PLANS_SHOW_COUNT, SET_ACADEMIC_PLANS_SHOW_INDEX,
   SET_ACADEMIC_TERMS_SHOW_COUNT, SET_ACADEMIC_TERMS_SHOW_INDEX,
   SET_ACADEMIC_YEARS_SHOW_COUNT, SET_ACADEMIC_YEARS_SHOW_INDEX,
-  SET_ADVISOR_LOGS_SHOW_COUNT, SET_ADVISOR_LOGS_SHOW_INDEX,
+  SET_ADVISOR_LOGS_SHOW_COUNT, SET_ADVISOR_LOGS_SHOW_INDEX, SET_ADVISORS_SHOW_COUNT, SET_ADVISORS_SHOW_INDEX,
   SET_CAREER_GOALS_SHOW_COUNT, SET_CAREER_GOALS_SHOW_INDEX,
   SET_COURSE_INSTANCES_SHOW_COUNT, SET_COURSE_INSTANCES_SHOW_INDEX,
   SET_COURSES_SHOW_COUNT, SET_COURSES_SHOW_INDEX,
-  SET_DESIRED_DEGREES_SHOW_COUNT, SET_DESIRED_DEGREES_SHOW_INDEX,
+  SET_DESIRED_DEGREES_SHOW_COUNT, SET_DESIRED_DEGREES_SHOW_INDEX, SET_FACULTY_SHOW_COUNT, SET_FACULTY_SHOW_INDEX,
   SET_FEEDBACK_INSTANCES_SHOW_COUNT, SET_FEEDBACK_INSTANCES_SHOW_INDEX,
   SET_FEEDS_SHOW_COUNT, SET_FEEDS_SHOW_INDEX,
   SET_HELP_MESSAGES_SHOW_COUNT, SET_HELP_MESSAGES_SHOW_INDEX,
   SET_INTEREST_TYPES_SHOW_COUNT, SET_INTEREST_TYPES_SHOW_INDEX,
   SET_INTERESTS_SHOW_COUNT, SET_INTERESTS_SHOW_INDEX,
   SET_MENTOR_ANSWERS_SHOW_COUNT, SET_MENTOR_ANSWERS_SHOW_INDEX,
-  SET_MENTOR_QUESTIONS_SHOW_COUNT, SET_MENTOR_QUESTIONS_SHOW_INDEX,
+  SET_MENTOR_QUESTIONS_SHOW_COUNT, SET_MENTOR_QUESTIONS_SHOW_INDEX, SET_MENTORS_SHOW_COUNT, SET_MENTORS_SHOW_INDEX,
   SET_OPPORTUNITIES_SHOW_COUNT, SET_OPPORTUNITIES_SHOW_INDEX,
   SET_OPPORTUNITY_INSTANCES_SHOW_COUNT, SET_OPPORTUNITY_INSTANCES_SHOW_INDEX,
   SET_OPPORTUNITY_TYPES_SHOW_COUNT, SET_OPPORTUNITY_TYPES_SHOW_INDEX,
   SET_PLAN_CHOICES_SHOW_COUNT, SET_PLAN_CHOICES_SHOW_INDEX,
   SET_REVIEWS_SHOW_COUNT, SET_REVIEWS_SHOW_INDEX,
-  SET_SLUGS_SHOW_COUNT, SET_SLUGS_SHOW_INDEX,
+  SET_SLUGS_SHOW_COUNT, SET_SLUGS_SHOW_INDEX, SET_STUDENTS_SHOW_COUNT, SET_STUDENTS_SHOW_INDEX,
   SET_TEASERS_SHOW_COUNT, SET_TEASERS_SHOW_INDEX,
   SET_VERIFICATION_REQUESTS_SHOW_COUNT, SET_VERIFICATION_REQUESTS_SHOW_INDEX,
 } from './paginationActionTypes';
@@ -46,6 +46,10 @@ import { Reviews } from '../../api/review/ReviewCollection';
 import { Slugs } from '../../api/slug/SlugCollection';
 import { Teasers } from '../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../api/verification/VerificationRequestCollection';
+import { StudentProfiles } from '../../api/user/StudentProfileCollection';
+import { AdvisorProfiles } from '../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../api/user/FacultyProfileCollection';
+import { MentorProfiles } from '../../api/user/MentorProfileCollection';
 
 export const setCollectionShowCount = (collectionName: string, count: number) => {
   const retval: {type?: string, payload?: number} = {};
@@ -113,6 +117,18 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
       break;
     case Slugs.getCollectionName():
       retval.type = SET_SLUGS_SHOW_COUNT;
+      break;
+    case AdvisorProfiles.getCollectionName():
+      retval.type = SET_ADVISORS_SHOW_COUNT;
+      break;
+    case FacultyProfiles.getCollectionName():
+      retval.type = SET_FACULTY_SHOW_COUNT;
+      break;
+    case MentorProfiles.getCollectionName():
+      retval.type = SET_MENTORS_SHOW_COUNT;
+      break;
+    case StudentProfiles.getCollectionName():
+      retval.type = SET_STUDENTS_SHOW_COUNT;
       break;
     case Teasers.getCollectionName():
       retval.type = SET_TEASERS_SHOW_COUNT;
@@ -192,6 +208,18 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
       break;
     case Slugs.getCollectionName():
       retval.type = SET_SLUGS_SHOW_INDEX;
+      break;
+    case AdvisorProfiles.getCollectionName():
+      retval.type = SET_ADVISORS_SHOW_INDEX;
+      break;
+    case FacultyProfiles.getCollectionName():
+      retval.type = SET_FACULTY_SHOW_INDEX;
+      break;
+    case MentorProfiles.getCollectionName():
+      retval.type = SET_MENTORS_SHOW_INDEX;
+      break;
+    case StudentProfiles.getCollectionName():
+      retval.type = SET_STUDENTS_SHOW_INDEX;
       break;
     case Teasers.getCollectionName():
       retval.type = SET_TEASERS_SHOW_INDEX;

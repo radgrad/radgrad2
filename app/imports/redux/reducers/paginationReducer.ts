@@ -42,6 +42,14 @@ import {
   SET_REVIEWS_SHOW_INDEX,
   SET_SLUGS_SHOW_COUNT,
   SET_SLUGS_SHOW_INDEX,
+  SET_ADVISORS_SHOW_COUNT,
+  SET_ADVISORS_SHOW_INDEX,
+  SET_FACULTY_SHOW_COUNT,
+  SET_FACULTY_SHOW_INDEX,
+  SET_MENTORS_SHOW_COUNT,
+  SET_MENTORS_SHOW_INDEX,
+  SET_STUDENTS_SHOW_COUNT,
+  SET_STUDENTS_SHOW_INDEX,
   SET_TEASERS_SHOW_COUNT,
   SET_TEASERS_SHOW_INDEX,
   SET_VERIFICATION_REQUESTS_SHOW_COUNT,
@@ -468,6 +476,86 @@ export function paginationReducer(state: IPagination = {}, action) {
       s = {
         ...state,
         SlugCollection: {
+          ...collect,
+          showCount: action.payload,
+        },
+      };
+      return s;
+    case SET_ADVISORS_SHOW_INDEX:
+      collect = state.AdvisorProfileCollection;
+      s = {
+        ...state,
+        AdvisorProfileCollection: {
+          ...collect,
+          showIndex: action.payload,
+        },
+      };
+      return s;
+    case SET_ADVISORS_SHOW_COUNT:
+      collect = state.AdvisorProfileCollection;
+      s = {
+        ...state,
+        AdvisorProfileCollection: {
+          ...collect,
+          showCount: action.payload,
+        },
+      };
+      return s;
+    case SET_FACULTY_SHOW_INDEX:
+      collect = state.FacultyProfileCollection;
+      s = {
+        ...state,
+        FacultyProfileCollection: {
+          ...collect,
+          showIndex: action.payload,
+        },
+      };
+      return s;
+    case SET_FACULTY_SHOW_COUNT:
+      collect = state.FacultyProfileCollection;
+      s = {
+        ...state,
+        FacultyProfileCollection: {
+          ...collect,
+          showCount: action.payload,
+        },
+      };
+      return s;
+    case SET_MENTORS_SHOW_INDEX:
+      collect = state.MentorProfileCollection;
+      s = {
+        ...state,
+        MentorProfileCollection: {
+          ...collect,
+          showIndex: action.payload,
+        },
+      };
+      return s;
+    case SET_MENTORS_SHOW_COUNT:
+      collect = state.MentorProfileCollection;
+      s = {
+        ...state,
+        MentorProfileCollection: {
+          ...collect,
+          showCount: action.payload,
+        },
+      };
+      return s;
+    case SET_STUDENTS_SHOW_COUNT:
+      collect = state.StudentProfileCollection;
+      s = {
+        ...state,
+        StudentProfileCollection: {
+          ...collect,
+          showIndex: action.payload,
+        },
+      };
+      return s;
+    case SET_STUDENTS_SHOW_COUNT:
+      collect = state.StudentProfileCollection;
+      s = {
+        ...state,
+        StudentProfileCollection: {
           ...collect,
           showCount: action.payload,
         },

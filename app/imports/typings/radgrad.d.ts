@@ -110,6 +110,22 @@ export interface IPagination {
     showIndex: number;
     showCount: number;
   };
+  AdvisorProfileCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  FacultyProfileCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  MentorProfileCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
+  StudentProfileCollection?: {
+    showIndex: number;
+    showCount: number;
+  };
   TeaserCollection?: {
     showIndex: number;
     showCount: number;
@@ -541,8 +557,29 @@ export interface IBaseProfile {
   role: string;
   picture?: string;
   website?: string;
-  interestIDs: string[];
-  careerGoalIDs: string[];
+  interestIDs?: string[];
+  careerGoalIDs?: string[];
+  retired?: boolean;
+  company?: string;
+  career?: string;
+  location?: string;
+  linkedin?: string;
+  motivation?: string;
+  level?: number;
+  declaredAcademicTermID?: string;
+  academicPlanID?: string;
+  hiddenCourses?: string[];
+  hiddenOpportunities?: string[];
+  isAlumni?: boolean;
+  shareUsername?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
+  shareAcademicPlan?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
+  shareLevel?: boolean;
 }
 
 export interface IProfile {
@@ -550,10 +587,12 @@ export interface IProfile {
   username: string;
   firstName: string;
   lastName: string;
+  role: string;
   picture?: string;
   website?: string;
   interestIDs?: string[];
   careerGoalIDs?: string[];
+  retired?: boolean;
 }
 
 // Advisor and Faculty Profiles
@@ -565,6 +604,7 @@ export interface IProfileDefine extends IDumpOne {
   website?: string;
   interests?: string[];
   careerGoals?: string[];
+  retired?: boolean;
 }
 
 export interface IProfileUpdate {
@@ -577,6 +617,13 @@ export interface IProfileUpdate {
   retired?: boolean;
 }
 
+export interface IMentorProfile extends IProfile {
+  company: string;
+  career: string;
+  location: string;
+  linkedin?: string;
+  motivation: string;
+}
 export interface IMentorProfileDefine extends IProfileDefine {
   company: string;
   career: string;
@@ -591,6 +638,24 @@ export interface IMentorProfileUpdate extends IProfileUpdate {
   location?: string;
   linkedin?: string;
   motivation?: string;
+}
+
+export interface IStudentProfile extends IProfile {
+  level: number;
+  declaredAcademicTermID?: string;
+  academicPlanID?: string;
+  hiddenCourses?: string[];
+  hiddenOpportunities?: string[];
+  isAlumni?: boolean;
+  shareUsername?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
+  shareAcademicPlan?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
+  shareLevel?: boolean;
 }
 
 export interface IStudentProfileDefine extends IProfileDefine {

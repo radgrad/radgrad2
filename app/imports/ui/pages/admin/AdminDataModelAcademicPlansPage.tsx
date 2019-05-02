@@ -19,20 +19,20 @@ const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => {
   ];
 };
 
+const itemTitleString = (plan: IAcademicPlan): string => {
+  const slug = Slugs.getNameFromID(plan.slugID);
+  return `${plan.name} (${plan.year}) (${slug})`;
+};
+
 const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
   const slug = Slugs.getNameFromID(plan.slugID);
   return (
     <React.Fragment>
       {plan.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
-      {`${plan.name} (${plan.year}) (${slug})`}
+      {itemTitleString(plan)}
     </React.Fragment>
   );
-};
-
-const itemTitleString = (plan: IAcademicPlan): string => {
-  const slug = Slugs.getNameFromID(plan.slugID);
-  return `${plan.name} (${plan.year}) (${slug})`;
 };
 
 /**
@@ -43,35 +43,30 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
 
   constructor(props) {
     super(props);
-    this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
     this.state = { showUpdateForm: false, id: '' };
     this.formRef = React.createRef();
   }
 
-  private handleOpenUpdate(evt, inst) {
+  private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
   }
 
-  private handleUpdate(doc) {
+  private handleUpdate = (doc) => {
     // do stuff.
   }
 
-  private handleAdd(doc) {
+  private handleAdd = (doc) => {
     // do stuff
   }
 
-  private handleDelete(event, inst) {
+  private handleDelete = (event, inst) => {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
   }
 
-  private handleCancel(event) {
+  private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
   }

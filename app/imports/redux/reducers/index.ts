@@ -123,6 +123,22 @@ const initialState = {
       showIndex: 0,
       showCount: 25,
     },
+    AdvisorProfileCollection: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    FacultyProfileCollection: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    MentorProfileCollection: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    StudentProfileCollection: {
+      showIndex: 0,
+      showCount: 25,
+    },
     TeaserCollection: {
       showIndex: 0,
       showCount: 25,

@@ -25,6 +25,7 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { Users } from '../../../api/user/UserCollection';
 
 interface IAdminDataModeMenuProps {
   match: {
@@ -57,6 +58,7 @@ interface IAdminDataModeMenuProps {
   reviewCount: number;
   slugCount: number;
   teaserCount: number;
+  usersCount: number;
   verificationRequestCount: number;
 }
 
@@ -90,6 +92,7 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}reviews`}>Reviews ({props.reviewCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}slugs`}>Slugs ({props.slugCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}teasers`}>Teasers ({props.teaserCount})</Menu.Item>
+      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}users`}>Users ({props.usersCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}verification-requests`}>Verification Requests ({props.verificationRequestCount})</Menu.Item>
     </Menu>
   );
@@ -118,6 +121,7 @@ const AdminDataModelMenuContainer = withTracker(() => ({
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
+  usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
 }))(AdminDataModelMenu);
 
