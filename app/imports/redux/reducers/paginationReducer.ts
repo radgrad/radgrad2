@@ -541,7 +541,7 @@ export function paginationReducer(state: IPagination = {}, action) {
         },
       };
       return s;
-    case SET_STUDENTS_SHOW_COUNT:
+    case SET_STUDENTS_SHOW_INDEX:
       collect = state.StudentProfileCollection;
       s = {
         ...state,

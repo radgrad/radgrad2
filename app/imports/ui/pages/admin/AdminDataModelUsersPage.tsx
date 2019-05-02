@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Grid, Icon, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
@@ -24,6 +24,9 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 
 const descriptionPairs = (user: IBaseProfile) => {
   const pairs = [];
@@ -87,30 +90,72 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
-  }
+  };
 
   private handleUpdate = (doc) => {
     // do stuff.
-  }
+  };
 
   private handleAdd = (doc) => {
     // do stuff
-  }
+  };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
-  }
+  };
 
   private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const paddedStyle = {
       paddingTop: 20,
     };
+    const panes = [
+      {
+        menuItem: `Advisors (${AdvisorProfiles.count()})`, render: () => (
+          <Tab.Pane><ListCollectionWidget collection={AdvisorProfiles}
+                                          descriptionPairs={descriptionPairs}
+                                          itemTitle={itemTitle}
+                                          handleOpenUpdate={this.handleOpenUpdate}
+                                          handleDelete={this.handleDelete}
+                                          setShowIndex={setCollectionShowIndex}
+                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+      },
+      {
+        menuItem: `Faculty (${FacultyProfiles.count()})`, render: () => (
+          <Tab.Pane><ListCollectionWidget collection={FacultyProfiles}
+                                          descriptionPairs={descriptionPairs}
+                                          itemTitle={itemTitle}
+                                          handleOpenUpdate={this.handleOpenUpdate}
+                                          handleDelete={this.handleDelete}
+                                          setShowIndex={setCollectionShowIndex}
+                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+      },
+      {
+        menuItem: `Mentors (${MentorProfiles.count()})`, render: () => (
+          <Tab.Pane><ListCollectionWidget collection={MentorProfiles}
+                                          descriptionPairs={descriptionPairs}
+                                          itemTitle={itemTitle}
+                                          handleOpenUpdate={this.handleOpenUpdate}
+                                          handleDelete={this.handleDelete}
+                                          setShowIndex={setCollectionShowIndex}
+                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+      },
+      {
+        menuItem: `Students (${StudentProfiles.count()})`, render: () => (
+          <Tab.Pane><ListCollectionWidget collection={StudentProfiles}
+                                          descriptionPairs={descriptionPairs}
+                                          itemTitle={itemTitle}
+                                          handleOpenUpdate={this.handleOpenUpdate}
+                                          handleDelete={this.handleDelete}
+                                          setShowIndex={setCollectionShowIndex}
+                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+      },
+    ];
     return (
       <div className="layout-page">
         <AdminPageMenuWidget/>
@@ -128,15 +173,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
             ) : (
               <AdminDataModelAddForm collection={StudentProfiles} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
-
-            <ListCollectionWidget collection={StudentProfiles}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
-            />
+            <Tab panes={panes} defaultActiveIndex={3}/>
           </Grid.Column>
         </Grid>
       </div>

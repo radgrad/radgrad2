@@ -39,7 +39,7 @@ class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
     const endIndex = startIndex + showCount;
     const items = _.slice(this.props.items, startIndex, endIndex);
-    // console.log(items);
+    // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
     return (
       <Segment padded={true}>
         <Header dividing={true}>{this.props.collection.getCollectionName()} ({count})</Header>
