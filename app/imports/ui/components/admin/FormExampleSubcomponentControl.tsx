@@ -18,8 +18,6 @@ class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, 
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   public handleChange = (e, { value }) => this.setState({ value });

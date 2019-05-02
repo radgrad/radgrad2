@@ -31,10 +31,9 @@ const mapDispatchToProps = (dispatch) => {
 class TabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {
   constructor(props) {
     super(props);
-    this.handleTabChange = this.handleTabChange.bind(this);
   }
 
-  private handleTabChange(e , { activeIndex }) {
+  private handleTabChange = (e , { activeIndex }) => {
     e.preventDefault();
     console.log(`handleTabChange ${activeIndex}`);
     switch (activeIndex) {

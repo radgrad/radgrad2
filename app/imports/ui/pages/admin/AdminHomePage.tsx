@@ -14,20 +14,17 @@ class AdminHomePage extends React.Component<{}, IFilterUsers> {
   constructor(props) {
     super(props);
     this.state = {};
-    this.updateFirstNameRegex = this.updateFirstNameRegex.bind(this);
-    this.updateLastNameRegex = this.updateLastNameRegex.bind(this);
-    this.updateUserNameRegex = this.updateUserNameRegex.bind(this);
   }
 
-  public updateFirstNameRegex(firstNameRegex) {
+  public updateFirstNameRegex = (firstNameRegex) => {
     this.setState({ firstNameRegex });
   }
 
-  public updateLastNameRegex(lastNameRegex) {
+  public updateLastNameRegex = (lastNameRegex) => {
     this.setState({ lastNameRegex });
   }
 
-  public updateUserNameRegex(userNameRegex) {
+  public updateUserNameRegex = (userNameRegex) => {
     this.setState({ userNameRegex });
   }
 

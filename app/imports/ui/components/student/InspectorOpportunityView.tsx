@@ -48,11 +48,9 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
   constructor(props) {
     super(props);
     // console.log(props);
-    this.handleVRClick = this.handleVRClick.bind(this);
-    this.handleRemoveClick = this.handleRemoveClick.bind(this);
   }
 
-  private handleVRClick(event, { value }) {
+  private handleVRClick = (event, { value }) => {
     event.preventDefault();
     // console.log(value);
     const oi = OpportunityInstances.findDoc(value);
@@ -71,7 +69,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
     });
   }
 
-  private handleRemoveClick(event, { value }) {
+  private handleRemoveClick = (event, { value }) => {
     event.preventDefault();
     console.log(`Remove OI ${value}`);
     const oi = OpportunityInstances.findDoc(value);

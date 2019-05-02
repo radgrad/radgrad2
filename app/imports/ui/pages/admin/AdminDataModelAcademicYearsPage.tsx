@@ -41,22 +41,17 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
 
   constructor(props) {
     super(props);
-    this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
     this.state = { showUpdateForm: false, id: '' };
     this.formRef = React.createRef();
   }
 
-  private handleOpenUpdate(evt, inst) {
+  private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
   }
 
-  private handleUpdate(doc) {
+  private handleUpdate = (doc) => {
     console.log('handleUpdate(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const updateData: { id?: string, retired?: boolean } = {};
@@ -74,7 +69,7 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
     });
   }
 
-  private handleAdd(doc) {
+  private handleAdd = (doc) => {
     console.log('handleAdd(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
@@ -88,12 +83,12 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
     });
   }
 
-  private handleDelete(event, inst) {
+  private handleDelete = (event, inst) => {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
   }
 
-  private handleCancel(event) {
+  private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
   }

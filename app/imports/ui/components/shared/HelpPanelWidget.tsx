@@ -20,10 +20,9 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  private handleClick(e, titleProps) {
+  private handleClick = (e, titleProps) => {
     e.preventDefault();
     const { index } = titleProps;
     const { activeIndex } = this.state;

@@ -21,11 +21,10 @@ interface IAdminCollectionAccordionState {
 class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordionProps, IAdminCollectionAccordionState> {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.state = { active: false };
   }
 
-  public handleClick(e, titleProps) {
+  public handleClick = (e, titleProps) => {
     let { active } = this.state;
     active = !active;
     this.setState({ active });

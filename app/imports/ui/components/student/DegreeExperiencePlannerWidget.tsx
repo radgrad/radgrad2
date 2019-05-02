@@ -41,11 +41,6 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   constructor(props) {
     super(props);
-    this.handleClickCourseInstance = this.handleClickCourseInstance.bind(this);
-    this.handleClickOpportunityInstance = this.handleClickOpportunityInstance.bind(this);
-    this.handleClickPrevYear = this.handleClickPrevYear.bind(this);
-    this.handleClickNextYear = this.handleClickNextYear.bind(this);
-    this.handleAddYear = this.handleAddYear.bind(this);
     const username = props.match.params.username;
     const studentID = Users.getID(username);
     const years: IAcademicYear[] = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
@@ -64,21 +59,21 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     };
   }
 
-  public handleClickCourseInstance(event, { value }) {
+  public handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
     // console.log(`course instance id ${value}`);
     this.props.selectCourseInstance(value);
     this.props.selectInspectorTab();
   }
 
-  public handleClickOpportunityInstance(event, { value }) {
+  public handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
     // console.log(`opportunity instance id ${value}`);
     this.props.selectOpportunityInstance(value);
     this.props.selectInspectorTab();
   }
 
-  public handleClickPrevYear(event) {
+  public handleClickPrevYear = (event) => {
     event.preventDefault();
     const visibleStartIndex = this.state.visibleStartIndex - 1;
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 5);
@@ -88,7 +83,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     });
   }
 
-  public handleClickNextYear(event) {
+  public handleClickNextYear = (event) => {
     event.preventDefault();
     const visibleStartIndex = this.state.visibleStartIndex + 1;
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 5);
@@ -98,7 +93,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     });
   }
 
-  public handleAddYear(event) {
+  public handleAddYear = (event) => {
     event.preventDefault();
     const student = this.props.match.params.username;
     const numYears = this.state.years.length;

@@ -14,12 +14,10 @@ interface IAdminDatabaseAccordionProps {
 class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProps, IAdminDatabaseAccordionState> {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.prettyPrint = this.prettyPrint.bind(this);
     this.state = { activeIndex: -1 };
   }
 
-  private handleClick(e, titleProps) {
+  private handleClick = (e, titleProps) => {
     e.preventDefault();
     console.log(titleProps);
     const { index } = titleProps;
@@ -28,7 +26,7 @@ class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProp
     this.setState({ activeIndex: newIndex });
   }
 
-  private prettyPrint() {
+  private prettyPrint = () => {
     let returnString = '';
     this.props.contents.forEach((s) => {
       returnString += `${JSON.stringify(s, null, 0)}\n`;

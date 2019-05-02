@@ -52,11 +52,10 @@ function opportunitiesLabel(opportunities) {
 class InspectorOpportunityMenu extends React.Component<IInpectorOpportunityMenuProps, IInspectorOpportunityMenuState> {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.state = {};
   }
 
-  private handleClick(event, { value }) {
+  private handleClick = (event, { value }) => {
     event.preventDefault();
     this.props.selectOpportunity(value);
   }

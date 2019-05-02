@@ -21,10 +21,9 @@ class DraggableCourseInstancePill extends React.Component<ICourseInstancePillPro
   constructor(props) {
     // console.log(props.instance);
     super(props);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  private handleClick(event) {
+  private handleClick = (event) => {
     event.preventDefault();
     this.props.handleClickCourseInstance(event, { value: this.props.instance._id });
   }

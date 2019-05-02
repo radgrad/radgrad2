@@ -43,9 +43,6 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
     if (AcademicPlans.isDefined(profile.academicPlanID)) {
       plan = AcademicPlans.findDoc(profile.academicPlanID);
     }
-    this.submit = this.submit.bind(this);
-    this.handleChangeYear = this.handleChangeYear.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
     if (plan) {
       this.state = {
         year: plan.year,
@@ -57,13 +54,13 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
     }
   }
 
-  private submit(data) {
+  private submit = (data) => {
     const { name, year } = data;
     console.log('Got %o from submit', { name, year });
     // const academicPlan = AcademicPlans.find({ year, name }).fetch()[0];
   }
 
-  private handleChangeYear(data) {
+  private handleChangeYear = (data) => {
     console.log('change year %o', data);
     const academicPlan = AcademicPlans.find({ year: data, name: this.state.name }).fetch()[0];
     if (academicPlan) {
@@ -75,7 +72,7 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
     }
   }
 
-  private handleChangeName(data) {
+  private handleChangeName = (data) => {
     console.log('change name %o', data);
     const academicPlan = AcademicPlans.find({ year: this.state.year, name: data }).fetch()[0];
     if (academicPlan) {

@@ -36,18 +36,16 @@ const mapDispatchToProps = (dispatch) => {
 class ConnectedCourseInstanceSelectorTemp extends React.Component<IConnectedCourseInstanceSelectorTempProps, IConnectedCourseInstanceSelectorTempState> {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {};
   }
 
-  private handleChange(event, { value }) {
+  private handleChange = (event, { value }) => {
     event.preventDefault();
     // console.log(value);
     this.setState({ courseInstanceID: value });
   }
 
-  private handleSubmit(event) {
+  private handleSubmit = (event) => {
     event.preventDefault();
     const { courseInstanceID } = this.state;
     // console.log(courseInstanceID);

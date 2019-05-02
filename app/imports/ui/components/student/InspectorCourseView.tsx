@@ -43,10 +43,9 @@ const mapDispatchToProps = (dispatch) => {
 class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
   constructor(props) {
     super(props);
-    this.handleRemove = this.handleRemove.bind(this);
   }
 
-  private handleRemove(event, { value }) {
+  private handleRemove = (event, { value }) => {
     event.preventDefault();
     // console.log(`Remove CI ${value}`);
     const ci = CourseInstances.findDoc(value);

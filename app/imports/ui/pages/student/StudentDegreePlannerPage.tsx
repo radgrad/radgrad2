@@ -40,10 +40,9 @@ const mapDispatchToProps = (dispatch) => {
 class StudentDegreePlannerPage extends React.Component<IPageProps> {
   constructor(props) {
     super(props);
-    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  public onDragEnd(result) {
+  public onDragEnd = (result) => {
     // console.log(result);
     if (!result.destination) {
       return;

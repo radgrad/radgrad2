@@ -42,26 +42,21 @@ const itemTitleString = (advisorLog: IAdvisorLog): string => {
 };
 
 class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private formRef;
+  private readonly formRef;
 
   constructor(props) {
     super(props);
-    this.handleOpenUpdate = this.handleOpenUpdate.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
     this.state = { showUpdateForm: false, id: '' };
     this.formRef = React.createRef();
   }
 
-  private handleOpenUpdate(evt, inst) {
+  private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o ref=%o', inst, this.formRef);
     this.setState({ showUpdateForm: true, id: inst.id });
   }
 
-  private handleUpdate(doc) {
+  private handleUpdate = (doc) => {
     // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
     this.formRef.current.reset();
     this.setState({ showUpdateForm: false, id: '' });
@@ -80,7 +75,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     });
   }
 
-  private handleDelete(event, inst) {
+  private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
     const collectionName = AdvisorLogs.getCollectionName();
@@ -92,17 +87,17 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
         Bert.alert({ type: 'success', message: 'Delete succeeded' });
         this.formRef.current.reset();
       }
-    })
+    });
   }
 
-  private handleCancel(event) {
+  private handleCancel = (event) => {
     event.preventDefault();
     // console.log('formRef = %o', this.formRef);
     this.formRef.current.reset();
     this.setState({ showUpdateForm: false, id: '' });
   }
 
-  private handleAdd(doc) {
+  private handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = AdvisorLogs.getCollectionName();
     const definitionData = doc;

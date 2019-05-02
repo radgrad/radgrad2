@@ -21,21 +21,15 @@ const mapStateToProps = (state) => {
 class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps> {
   constructor(props) {
     super(props);
-    // console.log('AdminPaginationWidget props=%o', props);
-    this.handleFirstClick = this.handleFirstClick.bind(this);
-    this.handlePrevClick = this.handlePrevClick.bind(this);
-    this.handleNextClick = this.handleNextClick.bind(this);
-    this.handleLastClick = this.handleLastClick.bind(this);
-    this.handleCountChange = this.handleCountChange.bind(this);
   }
 
-  private handleFirstClick(event) {
+  private handleFirstClick = (event) => {
     event.preventDefault();
     // console.log('handleFirstClick(%o) props=%o', event, this.props);
     this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), 0));
   }
 
-  private handlePrevClick(event) {
+  private handlePrevClick = (event) => {
     event.preventDefault();
     // console.log('handlePrevClick(%o) props=%o', event, this.props);
     const showIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
@@ -43,7 +37,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), showIndex - showCount));
   }
 
-  private handleNextClick(event) {
+  private handleNextClick = (event) => {
     event.preventDefault();
     // console.log('handleNextClick(%o) props=%o', event, this.props);
     const showIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
@@ -51,7 +45,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), showIndex + showCount));
   }
 
-  private handleLastClick(event) {
+  private handleLastClick = (event) => {
     event.preventDefault();
     console.log('handleLastClick(%o) props=%o', event, this.props);
     const count = this.props.collection.count();
@@ -59,7 +53,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
     this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), count - showCount));
   }
 
-  private handleCountChange(event) {
+  private handleCountChange = (event) => {
     event.preventDefault();
     // console.log('handleCountChange count=%o', event.target.value);
     const count = parseInt(event.target.value, 10);

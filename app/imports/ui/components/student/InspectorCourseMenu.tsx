@@ -75,11 +75,10 @@ function coursesLabel(courses) {
 class InspectorCourseMenu extends React.Component<IInpectorCourseMenuProps, IInspectorCourseMenuState> {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.state = {};
   }
 
-  private handleClick(event, { value }) {
+  private handleClick = (event, { value }) => {
     event.preventDefault();
     this.props.selectCourse(value);
   }

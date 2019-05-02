@@ -7,7 +7,7 @@ class LoginForm extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  private handleClick(e) {
+  private handleClick = (e) => {
     console.log(e.target.parentNode.id);
   }
 

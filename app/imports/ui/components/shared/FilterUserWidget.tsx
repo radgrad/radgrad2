@@ -10,21 +10,18 @@ interface IUpdateRegex {
 class FilterUserWidget extends React.Component<IUpdateRegex> {
   constructor(props) {
     super(props);
-    this.handleChangeFirstNameRegex = this.handleChangeFirstNameRegex.bind(this);
-    this.handleChangeLastNameRegex = this.handleChangeLastNameRegex.bind(this);
-    this.handleChangeUserNameRegex = this.handleChangeFirstNameRegex.bind(this);
   }
 
-  public handleChangeFirstNameRegex(event, value) {
+  public handleChangeFirstNameRegex = (event, value) => {
     console.log(event, value);
     this.props.updateFirstNameRegex(event.target.value);
   }
 
-  public handleChangeLastNameRegex(event) {
+  public handleChangeLastNameRegex = (event) => {
     this.props.updateLastNameRegex(event.target.value);
   }
 
-  public handleChangeUserNameRegex(event) {
+  public handleChangeUserNameRegex = (event) => {
     this.props.updateUserNameRegex(event.target.value);
   }
 

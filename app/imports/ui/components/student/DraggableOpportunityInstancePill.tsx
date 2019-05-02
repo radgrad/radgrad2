@@ -16,10 +16,9 @@ interface IOpportunityInstancePillProps {
 class DraggableOpportunityInstancePill extends React.Component<IOpportunityInstancePillProps> {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  private handleClick(event) {
+  private handleClick = (event) => {
     event.preventDefault();
     // console.log(`clicked OI ${this.props.instance}`);
     this.props.handleClickOpportunityInstance(event, { value: this.props.instance._id });

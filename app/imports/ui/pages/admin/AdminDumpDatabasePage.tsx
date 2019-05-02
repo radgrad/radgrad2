@@ -53,15 +53,13 @@ const mapDispatchToProps = (dispatch) => {
 class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps, IAdminDumpDatabasePageState> {
   constructor(props) {
     super(props);
-    this.clickDump = this.clickDump.bind(this);
-    this.clickEmails = this.clickEmails.bind(this);
     this.state = {
       isError: false,
       results: [],
     };
   }
 
-  private clickDump() {
+  private clickDump = () => {
     this.props.startDumpDatabase();
     dumpDatabaseMethod.call(null, (error, result) => {
       if (error) {
@@ -79,7 +77,7 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
     });
   }
 
-  private clickEmails() {
+  private clickEmails = () => {
     this.props.startGetStudentEmails();
     generateStudentEmailsMethod.call(null, (error, result) => {
       if (error) {

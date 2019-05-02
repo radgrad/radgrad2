@@ -30,7 +30,7 @@ class UpdateAcademicTermWidget extends React.Component<IUpdateAcademicTermProps>
     this.updateTerm = this.updateTerm.bind(this);
   }
 
-  private updateTerm(doc) {
+  private updateTerm = (doc) => {
     console.log('handleSubmit instance=%o', doc);
     // this.props.handleUpdate(doc);
   }

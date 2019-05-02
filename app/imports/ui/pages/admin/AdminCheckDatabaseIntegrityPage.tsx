@@ -40,7 +40,6 @@ const mapDispatchToProps = (dispatch) => {
 class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabaseIntegrityPageProps, IAdminCheckDatabaseIntegrityPageState> {
   constructor(props) {
     super(props);
-    this.clickSubmit = this.clickSubmit.bind(this);
     this.state = {
       clientResult: {
         count: 0,
@@ -53,7 +52,7 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabas
     };
   }
 
-  private clickSubmit() {
+  private clickSubmit = () => {
     this.props.startCheckIntegrity();
     checkIntegrityMethod.call(null, (error, result) => {
       if (error) {
