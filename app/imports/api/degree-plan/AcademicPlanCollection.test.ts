@@ -15,7 +15,7 @@ if (Meteor.isServer) {
     const description = 'B.S. in CS.';
     const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
-    const notDefinedAcademicTerm = 'Spring-1991';
+    const notDefinedAcademicTerm = 'Spring-2009';
     const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
     const courseList = [
       'ics_111-1',

@@ -15,7 +15,6 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';

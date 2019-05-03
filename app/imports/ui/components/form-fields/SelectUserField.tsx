@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Form, Label, Select } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 interface IUser {
   _id: string;

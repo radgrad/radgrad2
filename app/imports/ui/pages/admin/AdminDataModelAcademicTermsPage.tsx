@@ -22,7 +22,6 @@ import {
 } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
-import UpdateAcademicTermWidget from '../../components/admin/UpdateAcademicTermWidget';
 
 function numReferences(term) {
   let references = 0;
@@ -65,7 +64,7 @@ const itemTitleString = (term) => {
 };
 
 class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private formRef;
+  private readonly formRef;
 
   constructor(props) {
     super(props);

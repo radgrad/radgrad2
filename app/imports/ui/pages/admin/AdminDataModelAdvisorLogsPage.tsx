@@ -14,7 +14,6 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => {

@@ -4,25 +4,19 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import {
-  IAcademicPlan,
   IAdminDataModelPageState,
   IBaseProfile,
-  IMentorProfile,
-  IProfile,
-  IStudentProfile,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { makeLink, makeMarkdownLink } from './datamodel-utilities';
+import { makeMarkdownLink } from './datamodel-utilities';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddUserForm from '../../components/admin/AddUserForm';
-import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -64,7 +58,8 @@ const descriptionPairs = (user: IBaseProfile) => {
 };
 
 const itemTitleString = (user: IBaseProfile): string => {
-  return `${user.firstName} ${user.lastName} (${user.username})`;
+  const alumni = user.isAlumni ? 'Alumni' : '';
+  return `${user.firstName} ${user.lastName} (${user.username}) ${alumni}`;
 };
 
 const itemTitle = (user: IBaseProfile): React.ReactNode => {
@@ -93,11 +88,11 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
   }
 
   private handleUpdate = (doc) => {
-    // do stuff.
+    console.log('handleUpdate(%o)', doc);
   }
 
   private handleAdd = (doc) => {
-    // do stuff
+    console.log('handleAdd(%o)', doc);
   }
 
   private handleDelete = (event, inst) => {

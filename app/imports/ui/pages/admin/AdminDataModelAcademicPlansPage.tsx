@@ -25,7 +25,6 @@ const itemTitleString = (plan: IAcademicPlan): string => {
 };
 
 const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
-  const slug = Slugs.getNameFromID(plan.slugID);
   return (
     <React.Fragment>
       {plan.retired ? <Icon name="eye slash"/> : ''}

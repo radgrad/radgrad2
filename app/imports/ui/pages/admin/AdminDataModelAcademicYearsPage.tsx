@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Bert } from 'meteor/themeteorchef:bert';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -9,10 +10,8 @@ import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../..
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import { Bert } from "meteor/themeteorchef:bert";
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => {
   return [
