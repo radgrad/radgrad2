@@ -21,7 +21,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import AddUserForm from '../../components/admin/AddUserForm';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -90,25 +90,25 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
-  };
+  }
 
   private handleUpdate = (doc) => {
     // do stuff.
-  };
+  }
 
   private handleAdd = (doc) => {
     // do stuff
-  };
+  }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
-  };
+  }
 
   private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
-  };
+  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const paddedStyle = {
@@ -171,7 +171,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={StudentProfiles} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <Tab panes={panes} defaultActiveIndex={3}/>
           </Grid.Column>
