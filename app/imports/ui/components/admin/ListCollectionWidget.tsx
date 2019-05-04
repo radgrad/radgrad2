@@ -11,6 +11,7 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
+  findOptions?: object;
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
@@ -64,7 +65,8 @@ const ListCollectionWidgetCon = connect(mapStateToProps)(ListCollectionWidget);
 
 const ListCollectionWidgetContainer = withTracker((props) => {
   // console.log('ListCollectionWidget withTracker props=%o', props);
-  const items = props.collection.find().fetch();
+  const items = props.collection.find({}, props.findOptions).fetch();
+  console.log('ListCollectionWidget withTracker items=%o', items);
   return {
     items,
   };

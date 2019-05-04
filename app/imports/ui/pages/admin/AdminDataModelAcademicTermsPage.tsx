@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Bert } from 'meteor/themeteorchef:bert';
+import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -72,24 +72,62 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
     this.formRef = React.createRef();
   }
 
-  private handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
-
   private handleAdd = (doc) => {
-    console.log('handleAdd(%o)', doc);
+    // console.log('handleAdd(%o)', doc);
     const collectionName = AcademicTerms.getCollectionName();
     const definitionData: IAcademicTermDefine = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          type: 'error',
+        });
       } else {
-        Bert.alert({ type: 'success', message: 'Add succeeded' });
+        Swal.fire({
+          title: 'Add succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.formRef.current.reset();
       }
     });
+  }
+
+  private handleCancel = (event) => {
+    event.preventDefault();
+    this.setState({ showUpdateForm: false, id: '' });
+  }
+
+  private handleDelete = (event, inst) => {
+    event.preventDefault();
+    // console.log('handleDelete inst=%o', inst);
+    const collectionName = AcademicTerms.getCollectionName();
+    const instance = inst.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error deleting AcademicTerm. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Delete succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  }
+
+  private handleOpenUpdate = (evt, inst) => {
+    evt.preventDefault();
+    // console.log('handleOpenUpdate inst=%o', evt, inst);
+    this.setState({ showUpdateForm: true, id: inst.id });
   }
 
   private handleUpdate = (doc) => {
@@ -101,38 +139,30 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
     // console.log('parameter = %o', { collectionName, updateData });
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
         console.error('Error in updating AcademicTerm. %o', error);
       } else {
-        Bert.alert({ type: 'success', message: 'Update succeeded' });
-      }
-      this.setState({ showUpdateForm: false, id: '' });
-    });
-  }
-
-  private handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    const collectionName = AcademicTerms.getCollectionName();
-    const instance = inst.id;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
-        console.error('Error deleting AcademicTerm. %o', error);
-      } else {
-        Bert.alert({ type: 'success', message: 'Delete succeeded' });
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.setState({ showUpdateForm: false, id: '' });
       }
     });
-  }
-
-  private handleCancel = (event) => {
-    event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
   }
 
   public render() {
     const paddedStyle = {
       paddingTop: 20,
+    };
+    const findOptions = {
+      sort: { termNumber: 1 },
     };
     return (
       <div>
@@ -152,6 +182,7 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
               <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={AcademicTerms}
+                                  findOptions={findOptions}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Bert } from 'meteor/themeteorchef:bert';
+import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -11,7 +11,7 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => {
   return [
@@ -51,7 +51,7 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
   }
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate(%o)', doc);
+    // console.log('handleUpdate(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const updateData: { id?: string, retired?: boolean } = {};
     updateData.id = doc._id;
@@ -59,24 +59,43 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
     // console.log('parameter = %o', { collectionName, updateData });
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
         console.error('Error in updating AcademicYearInstance. %o', error);
       } else {
-        Bert.alert({ type: 'success', message: 'Update succeeded' });
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.formRef.current.reset();
+        this.setState({ showUpdateForm: false, id: '' });
       }
-      this.setState({ showUpdateForm: false, id: '' });
     });
   }
 
   private handleAdd = (doc) => {
-    console.log('handleAdd(%o)', doc);
+    // console.log('handleAdd(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          type: 'error',
+        });
       } else {
-        Bert.alert({ type: 'success', message: 'Add succeeded' });
+        Swal.fire({
+          title: 'Add succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.formRef.current.reset();
       }
     });
@@ -85,6 +104,25 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
   private handleDelete = (event, inst) => {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
+    const collectionName = AcademicYearInstances.getCollectionName();
+    const instance = inst.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error deleting AcademicYearInstance. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Delete succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   }
 
   private handleCancel = (event) => {
@@ -96,11 +134,13 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
     const paddedStyle = {
       paddingTop: 20,
     };
-    return (
+    const findOptions = {
+      sort: { year: 1 },
+    };
+    return(
       <div>
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
-
           <Grid.Column width={3}>
             <AdminDataModelMenu/>
           </Grid.Column>
@@ -112,9 +152,10 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
                                         itemTitleString={itemTitleString}/>
             ) : (
               <AddAcademicYearInstanceFormContainer formRef={this.formRef}
-                                     handleAdd={this.handleAdd}/>
+                                                    handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={AcademicYearInstances}
+                                  findOptions={findOptions}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}

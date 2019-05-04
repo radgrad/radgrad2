@@ -1,57 +1,52 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { Users } from '../../../api/user/UserCollection';
-import {
-  IAdminDataModelPageState,
-  ICareerGoal, ICareerGoalUpdate,
-  IDescriptionPair,
-} from '../../../typings/radgrad';
+// import { Collection } from '../../../api/collection/Collection';
+// import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+// import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import { Interests } from '../../../api/interest/InterestCollection';
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
+import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import BaseCollection from '../../../api/base/BaseCollection';
 
-function numReferences(careerGoal) {
-  let references = 0;
-  Users.findProfiles({}, {}).forEach((profile) => {
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-      references += 1;
-    }
-  });
-  return references;
-}
-
-const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => {
+/**
+ * Returns an array of Description pairs used in the ListCollectionWidget.
+ * @param item an item from the collection.
+ */
+const descriptionPairs = (item: any): IDescriptionPair[] => {
   return [
-    { label: 'Description', value: careerGoal.description },
-    { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
-    { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
+    { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
 };
 
-const itemTitleString = (careerGoal: ICareerGoal): string => {
-  return `${careerGoal.name}`;
+/**
+ * Returns the title string for the item. Used in the ListCollectionWidget.
+ * @param item an item from the collection.
+ */
+const itemTitleString = (item: any): string => {
+  return 'the item title string';
 };
 
-const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => {
+/**
+ * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
+ * @param item an item from the collection.
+ */
+const itemTitle = (item: any): React.ReactNode => {
   return (
     <React.Fragment>
-      {careerGoal.retired ? <Icon name="eye slash"/> : ''}
+      {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
-      {itemTitleString(careerGoal)}
+      {itemTitleString(item)}
     </React.Fragment>
   );
 };
 
-class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
+class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -61,14 +56,8 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
   }
 
   private handleAdd = (doc) => {
-    // console.log('handleAdd(%o)', doc);
-    const collectionName = CareerGoals.getCollectionName();
-    const interests = doc.interests;
-    const slugs = _.map(interests, (i) => {
-      return Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID);
-    });
-    const definitionData = doc;
-    definitionData.interests = slugs;
+    const collectionName = ''; // collectionName = Collection.getCollectionName()
+    const definitionData = {}; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -86,19 +75,18 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
         this.formRef.current.reset();
       }
     });
+
   }
 
   private handleCancel = (event) => {
     event.preventDefault();
-    // console.log('formRef = %o', this.formRef);
-    this.formRef.current.reset();
     this.setState({ showUpdateForm: false, id: '' });
   }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    const collectionName = CareerGoals.getCollectionName();
+    const collectionName = ''; // collectionName = Collection.getCollectionName()
     const instance = inst.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
@@ -107,7 +95,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           text: error.message,
           type: 'error',
         });
-        console.error('Error deleting CareerGoal. %o', error);
+        console.error('Error deleting AcademicTerm. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
@@ -121,20 +109,14 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o ref=%o', inst, this.formRef);
+    // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
   }
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
-    const collectionName = CareerGoals.getCollectionName();
-    const updateData: ICareerGoalUpdate = {};
-    updateData.id = doc._id;
-    updateData.name = doc.name;
-    updateData.description = doc.description;
-    updateData.retired = doc.retired;
-    updateData.interests = doc.interests;
-    console.log('updateData = %o', updateData);
+    // console.log('handleUpdate doc=%o', doc);
+    const collectionName = ''; // collectionName = Collection.getCollectionName()
+    const updateData = {}; // create the updateData object from the doc.
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -142,7 +124,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           text: error.message,
           type: 'error',
         });
-        console.error('Update failed', error);
+        console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'Update succeeded',
@@ -150,16 +132,19 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
         this.setState({ showUpdateForm: false, id: '' });
       }
     });
   }
 
-  public render(): React.ReactNode {
+  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const paddedStyle = {
       paddingTop: 20,
     };
+    const findOptions = {
+      sort: { name: 1 }, // determine how you want to sort the items in the list
+    };
+    const collection: BaseCollection = null; // replace with the Collection
     return (
       <div>
         <AdminPageMenuWidget/>
@@ -171,13 +156,14 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={CareerGoals} id={this.state.id} formRef={this.formRef}
+              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
-            <ListCollectionWidget collection={CareerGoals}
+            <ListCollectionWidget collection={collection}
+                                  findOptions={findOptions}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
@@ -190,7 +176,6 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
       </div>
     );
   }
-
 }
 
-export default AdminDataModelCareerGoalsPage;
+export default AdminDataModelGenericTemplatePage;

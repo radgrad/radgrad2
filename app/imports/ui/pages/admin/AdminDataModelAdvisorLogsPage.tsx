@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-import { Bert } from 'meteor/themeteorchef:bert';
+import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -57,8 +57,6 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
   private handleUpdate = (doc) => {
     // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
-    this.formRef.current.reset();
-    this.setState({ showUpdateForm: false, id: '' });
     const collectionName = AdvisorLogs.getCollectionName();
     const updateData: IAdvisorLogUpdate = {};
     updateData.id = doc._id;
@@ -67,9 +65,20 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` });
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
       } else {
-        Bert.alert({ type: 'success', message: 'Update succeeded' });
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.formRef.current.reset();
+        this.setState({ showUpdateForm: false, id: '' });
       }
     });
   }
@@ -81,9 +90,18 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     const instance = inst.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Delete failed: ${error.message}` });
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          type: 'error',
+        });
       } else {
-        Bert.alert({ type: 'success', message: 'Delete succeeded' });
+        Swal.fire({
+          title: 'Delete succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.formRef.current.reset();
       }
     });
@@ -102,9 +120,18 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          type: 'error',
+        });
       } else {
-        Bert.alert({ type: 'success', message: 'Add succeeded' });
+        Swal.fire({
+          title: 'Add succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.formRef.current.reset();
       }
     });
@@ -113,6 +140,9 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
   public render(): React.ReactNode {
     const paddedStyle = {
       paddingTop: 20,
+    };
+    const findOptions = {
+      sort: { createdOn: 1 },
     };
     return (
       <div>
@@ -132,6 +162,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
               <AddAdvisorLogFormContainer formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={AdvisorLogs}
+                                  findOptions={findOptions}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}

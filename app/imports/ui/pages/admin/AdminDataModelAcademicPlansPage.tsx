@@ -46,6 +46,21 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
     this.formRef = React.createRef();
   }
 
+  private handleAdd = (doc) => {
+    // const collectionName;
+    // const definitionData;
+  }
+
+  private handleCancel = (event) => {
+    event.preventDefault();
+    this.setState({ showUpdateForm: false, id: '' });
+  }
+
+  private handleDelete = (event, inst) => {
+    event.preventDefault();
+    console.log('handleDelete inst=%o', inst);
+  }
+
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
@@ -56,23 +71,12 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
     // do stuff.
   }
 
-  private handleAdd = (doc) => {
-    // do stuff
-  }
-
-  private handleDelete = (event, inst) => {
-    event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
-  }
-
-  private handleCancel = (event) => {
-    event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
-  }
-
   public render() {
     const paddedStyle = {
       paddingTop: 20,
+    };
+    const findOptions = {
+      sort: { year: 1, name: 1 },
     };
     return (
       <div className="layout-page">
@@ -93,6 +97,7 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
             )}
 
             <ListCollectionWidget collection={AcademicPlans}
+                                  findOptions={findOptions}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}

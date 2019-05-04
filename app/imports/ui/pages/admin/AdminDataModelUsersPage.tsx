@@ -145,7 +145,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
+    // console.log('handleDelete inst=%o', inst);
     const profiles = Users.findProfiles({ _id: inst.id }, {});
     // console.log(profiles);
     if (profiles.length > 0) {
@@ -178,6 +178,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
             showConfirmButton: false,
             timer: 1500,
           });
+          inst.formRef.current.reset();
         }
       });
     }
