@@ -293,9 +293,6 @@ class StudentProfileCollection extends BaseProfileCollection {
   public removeIt(profileID) {
     if (this.isDefined(profileID)) {
       const doc = this.findDoc(profileID);
-      if (doc.declaredAcademicTermID) {
-        AcademicTerms.removeIt(doc.declaredAcademicTermID);
-      }
       super.removeIt(profileID);
     }
   }

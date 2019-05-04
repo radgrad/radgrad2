@@ -2,6 +2,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 export const interestSlugFromName = (name: string): string => {
   const interest = Interests.findDoc(name);
@@ -16,4 +17,12 @@ export const careerGoalSlugFromName = (name: string): string => {
 export const academicPlanSlugFromName = (name: string): string => {
   const plan = AcademicPlans.findDoc(name);
   return Slugs.findDoc(plan.slugID).name;
+};
+
+export const declaredAcademicTermSlugFromName = (name: string): string => {
+  const split = name.split(' ');
+  const term = split[0];
+  const year = parseInt(split[1], 10);
+  const doc = AcademicTerms.findDoc({ term, year });
+  return Slugs.findDoc(doc.slugID).name;
 };

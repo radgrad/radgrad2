@@ -608,6 +608,7 @@ export interface IProfileDefine extends IDumpOne {
 }
 
 export interface ICombinedProfileDefine extends IProfileDefine {
+  role: string;
   company?: string;
   career?: string;
   location?: string;

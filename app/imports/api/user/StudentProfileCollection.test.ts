@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import {} from 'mocha';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { StudentProfiles } from './StudentProfileCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 
 /* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
 
@@ -43,7 +44,9 @@ if (Meteor.isServer) {
       expect(StudentProfiles.findNonRetired().length).to.equal(1);
       StudentProfiles.update(docID, { retired: true });
       expect(StudentProfiles.findNonRetired().length).to.equal(0);
+      const term = AcademicTerms.findDoc(doc.declaredAcademicTermID);
       StudentProfiles.removeIt(docID);
+      AcademicTerms.removeIt(term._id); // clean up the AcademicTerm
       expect(StudentProfiles.isDefined(docID)).to.be.false;
       docID = StudentProfiles.restoreOne(dumpObject);
       doc = StudentProfiles.findDoc(docID);

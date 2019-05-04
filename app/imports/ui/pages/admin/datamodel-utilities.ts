@@ -9,5 +9,5 @@ export function makeLink(url: string): string {
 }
 
 export function makeMarkdownLink(url: string): string {
-  return (url) ? `[${url}](${url})` : '';
+  return (url) ? `[${url}](${url})` : ' ';
 }

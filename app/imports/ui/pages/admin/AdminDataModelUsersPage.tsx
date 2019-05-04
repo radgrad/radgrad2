@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Grid, Icon, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import {
@@ -23,9 +24,11 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import {
   academicPlanSlugFromName,
-  careerGoalSlugFromName,
-  interestSlugFromName
+  careerGoalSlugFromName, declaredAcademicTermSlugFromName,
+  interestSlugFromName,
 } from '../../components/shared/FormHelperFunctions';
+import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { Users } from '../../../api/user/UserCollection';
 
 const descriptionPairs = (user: IBaseProfile) => {
   const pairs = [];
@@ -96,19 +99,88 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
   }
 
   private handleAdd = (doc: ICombinedProfileDefine) => {
-    console.log('handleAdd(%o)', doc);
+    // console.log('handleAdd(%o)', doc);
     const definitionData: ICombinedProfileDefine = doc;
     definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
     if (!_.isNil(doc.academicPlan)) {
       definitionData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
     }
-    console.log('definitionData=%o', definitionData);
+    if (!_.isNil(doc.declaredAcademicTerm)) {
+      definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
+    }
+    let collectionName = StudentProfiles.getCollectionName();
+    if (doc.role === ROLE.MENTOR) {
+      collectionName = MentorProfiles.getCollectionName();
+    } else if (doc.role === ROLE.ADVISOR) {
+      collectionName = AdvisorProfiles.getCollectionName();
+    } else if (doc.role === ROLE.FACULTY) {
+      collectionName = FacultyProfiles.getCollectionName();
+    } else if (doc.role === ROLE.STUDENT) {
+      if (_.isNil(doc.level)) {
+        definitionData.level = 1;
+      }
+    }
+    // console.log('collectionName=%o definitionData=%o', collectionName, definitionData);
+    const inst = this; // tslint:disable-line:no-this-assignment
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        console.error('Failed adding User', error);
+        Swal.fire({
+          title: 'Failed adding User',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Add User Succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        inst.formRef.current.reset();
+      }
+    });
   }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     console.log('handleDelete inst=%o', inst);
+    const profiles = Users.findProfiles({ _id: inst.id }, {});
+    // console.log(profiles);
+    if (profiles.length > 0) {
+      const profile = profiles[0];
+      let collectionName;
+      switch (profile.role) {
+        case ROLE.ADVISOR:
+          collectionName = AdvisorProfiles.getCollectionName();
+          break;
+        case ROLE.FACULTY:
+          collectionName = FacultyProfiles.getCollectionName();
+          break;
+        case ROLE.MENTOR:
+          collectionName = MentorProfiles.getCollectionName();
+          break;
+        default:
+          collectionName = StudentProfiles.getCollectionName();
+      }
+      removeItMethod.call({ collectionName, instance: profile._id }, (error) => {
+        if (error) {
+          Swal.fire({
+            title: 'Failed deleting User',
+            text: error.message,
+            type: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Delete User Succeeded',
+            type: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    }
   }
 
   private handleCancel = (event) => {
