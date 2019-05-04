@@ -12,9 +12,12 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import BaseCollection from '../../../api/base/BaseCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Users } from '../../../api/user/UserCollection';
 
-const collection = null; // the collection to use.
+const collection = CourseInstances;
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
@@ -22,6 +25,15 @@ const collection = null; // the collection to use.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => {
   return [
+    { label: 'Academic Term', value: AcademicTerms.toString(item.academicTermID) },
+    { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
+    { label: 'Verified', value: item.verified.toString() },
+    { label: 'fromSTAR', value: item.fromSTAR.toString() },
+    { label: 'Grade', value: item.grade },
+    { label: 'CreditHrs', value: item.creditHrs.toString() },
+    { label: 'Note', value: item.note },
+    { label: 'Student', value: Users.getFullName(item.studentID) },
+    { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
 };
@@ -31,7 +43,10 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
  * @param item an item from the collection.
  */
 const itemTitleString = (item: any): string => {
-  return 'the item title string';
+  const username = Users.getProfile(item.studentID).username;
+  const courseNum = Courses.findDoc(item.courseID).num;
+  const term = AcademicTerms.toString(item.academicTermID, true);
+  return `${username}-${courseNum}-${term}`;
 };
 
 /**
@@ -48,7 +63,7 @@ const itemTitle = (item: any): React.ReactNode => {
   );
 };
 
-class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataModelPageState> {
+class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -59,7 +74,8 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
 
   private handleAdd = (doc) => {
     const collectionName = collection.getCollectionName();
-    const definitionData = {}; // create the definitionData may need to modify doc's values
+    const definitionData = doc; // create the definitionData may need to modify doc's values
+    console.log(doc);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -116,9 +132,11 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate doc=%o', doc);
+    console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData = doc; // create the updateData object from the doc.
+    updateData.id = doc._id;
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -144,9 +162,8 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
       paddingTop: 20,
     };
     const findOptions = {
-      sort: { name: 1 }, // determine how you want to sort the items in the list
+      sort: { note: 1 }, // determine how you want to sort the items in the list
     };
-    const collection: BaseCollection = null; // replace with the Collection
     return (
       <div>
         <AdminPageMenuWidget/>
@@ -180,4 +197,4 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 }
 
-export default AdminDataModelGenericTemplatePage;
+export default AdminDataModelCourseInstancesPage;

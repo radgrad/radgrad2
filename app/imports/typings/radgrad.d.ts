@@ -273,6 +273,7 @@ export interface ICourseInstanceUpdate {
   creditHrs?: number;
   note?: string;
   ice?: Ice;
+  retired?: boolean;
 }
 
 // Courses

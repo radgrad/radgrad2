@@ -19,7 +19,7 @@ import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radg
  */
 class CourseInstanceCollection extends BaseCollection {
   public validGrades: string[];
-  private publicationNames: {
+  private readonly publicationNames: {
     student: string;
     perStudentAndAcademicTerm: string;
     publicStudent: string;
@@ -52,6 +52,26 @@ class CourseInstanceCollection extends BaseCollection {
       publicSlugStudent: `${this.collectionName}.PublicSlugStudent`,
       studentID: `${this.collectionName}.studentID`,
     };
+    this.defineSchema = new SimpleSchema({
+      academicTerm: String,
+      course: String,
+      verified: { type: Boolean, optional: true },
+      fromSTAR: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      note: { type: String, optional: true },
+      student: String,
+      creditHrs: SimpleSchema.Integer,
+    });
+    this.updateSchema = new SimpleSchema({
+      termID: { type: String, optional: true },
+      verified: { type: Boolean, optional: true },
+      fromSTAR: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      note: { type: String, optional: true },
+      ice: { type: Object, optional: true, blackbox: true },
+      retired: { type: Boolean, optional: true },
+    });
     if (Meteor.isServer) {
       // this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, courseID: 1 });
     }
@@ -107,8 +127,20 @@ class CourseInstanceCollection extends BaseCollection {
       /* tslint:disable-next-line: no-parameter-reassignment */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
+    const retired = false;
     // Define and return the CourseInstance
-    return this.collection.insert({ termID, courseID, verified, fromSTAR, grade, studentID, creditHrs, note, ice });
+    return this.collection.insert({
+      termID,
+      courseID,
+      verified,
+      fromSTAR,
+      grade,
+      studentID,
+      creditHrs,
+      note,
+      ice,
+      retired,
+    });
   }
 
   /**
@@ -122,7 +154,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @param note optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { termID, verified, fromSTAR, grade, creditHrs, note, ice }: ICourseInstanceUpdate) {
+  public update(docID: string, { termID, verified, fromSTAR, grade, creditHrs, note, ice, retired }: ICourseInstanceUpdate) {
     // console.log('CourseInstances.update', termID, verified, fromSTAR, grade, creditHrs, note, ice);
     this.assertDefined(docID);
     const updateData: ICourseInstanceUpdate = {};
@@ -149,6 +181,9 @@ class CourseInstanceCollection extends BaseCollection {
     }
     if (ice) {
       updateData.ice = ice;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }

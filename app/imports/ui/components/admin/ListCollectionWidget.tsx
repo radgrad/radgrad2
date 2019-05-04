@@ -66,7 +66,7 @@ const ListCollectionWidgetCon = connect(mapStateToProps)(ListCollectionWidget);
 const ListCollectionWidgetContainer = withTracker((props) => {
   // console.log('ListCollectionWidget withTracker props=%o', props);
   const items = props.collection.find({}, props.findOptions).fetch();
-  console.log('ListCollectionWidget withTracker items=%o', items);
+  // console.log('ListCollectionWidget withTracker items=%o', items);
   return {
     items,
   };
