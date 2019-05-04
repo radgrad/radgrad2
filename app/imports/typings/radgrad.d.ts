@@ -550,7 +550,7 @@ export interface IPlanChoiceUpdate extends IDumpOne {
 
 // Profiles
 export interface IBaseProfile {
-  userID: string;
+  userID?: string;
   username: string;
   firstName: string;
   lastName: string;
@@ -605,6 +605,30 @@ export interface IProfileDefine extends IDumpOne {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+}
+
+export interface ICombinedProfileDefine extends IProfileDefine {
+  company?: string;
+  career?: string;
+  location?: string;
+  linkedin?: string;
+  motivation?: string;
+  level?: number;
+  declaredAcademicTerm?: string;
+  academicPlan?: string;
+  hiddenCourses?: string[];
+  hiddenOpportunities?: string[];
+  isAlumni?: boolean;
+  retired?: boolean;
+  shareUsername?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
+  shareAcademicPlan?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
+  shareLevel?: boolean;
 }
 
 export interface IProfileUpdate {

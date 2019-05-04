@@ -5,7 +5,7 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import {
   IAdminDataModelPageState,
-  IBaseProfile,
+  IBaseProfile, ICombinedProfileDefine,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -21,6 +21,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import { careerGoalSlugFromName, interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 
 const descriptionPairs = (user: IBaseProfile) => {
   const pairs = [];
@@ -91,8 +92,12 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     console.log('handleUpdate(%o)', doc);
   }
 
-  private handleAdd = (doc) => {
+  private handleAdd = (doc: ICombinedProfileDefine) => {
     console.log('handleAdd(%o)', doc);
+    const definitionData: ICombinedProfileDefine = doc;
+    definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
+    definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
+    console.log('definitionData=%o', definitionData);
   }
 
   private handleDelete = (event, inst) => {

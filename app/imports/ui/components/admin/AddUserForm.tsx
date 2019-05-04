@@ -37,7 +37,7 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
   }
 
   private handleModelChange = (model) => {
-    console.log('change %o', model);
+    // console.log('change %o', model);
     const role = model.role;
     this.setState({ role });
   }
@@ -49,7 +49,7 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
     const academicTermNames = _.map(this.props.academicTerms, (term) => AcademicTerms.toString(term._id, false));
     const academicPlanNames = _.map(this.props.academicPlans, (plan) => plan.name);
     const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
-    console.log(academicTermNames);
+    // console.log(academicTermNames);
     const schema = new SimpleSchema({
       'username': String,
       'firstName': String,
