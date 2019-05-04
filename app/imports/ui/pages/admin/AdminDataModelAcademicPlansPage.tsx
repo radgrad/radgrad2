@@ -38,7 +38,7 @@ const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
  * The AcademicPlan data model page.
  */
 class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataModelPageState> {
-  private formRef;
+  private readonly formRef;
 
   constructor(props) {
     super(props);

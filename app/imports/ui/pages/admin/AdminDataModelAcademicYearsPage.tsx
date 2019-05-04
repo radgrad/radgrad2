@@ -36,7 +36,7 @@ const itemTitleString = (year: IAcademicYear): string => {
 };
 
 class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private formRef;
+  private readonly formRef;
 
   constructor(props) {
     super(props);

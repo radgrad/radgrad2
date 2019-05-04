@@ -21,7 +21,11 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
-import { careerGoalSlugFromName, interestSlugFromName } from '../../components/shared/FormHelperFunctions';
+import {
+  academicPlanSlugFromName,
+  careerGoalSlugFromName,
+  interestSlugFromName
+} from '../../components/shared/FormHelperFunctions';
 
 const descriptionPairs = (user: IBaseProfile) => {
   const pairs = [];
@@ -84,7 +88,6 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
   }
 
@@ -97,6 +100,9 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     const definitionData: ICombinedProfileDefine = doc;
     definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
+    if (!_.isNil(doc.academicPlan)) {
+      definitionData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
+    }
     console.log('definitionData=%o', definitionData);
   }
 
