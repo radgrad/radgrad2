@@ -259,8 +259,8 @@ export interface ICourseInstanceDefine extends IDumpOne {
   course: string;
   verified?: boolean;
   fromSTAR?: boolean;
-  grade?: string;
-  note?: string;
+  grade: string;
+  note: string;
   student: string;
   creditHrs?: number;
 }

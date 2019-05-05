@@ -200,6 +200,16 @@ class AcademicTermCollection extends BaseSlugCollection {
     return this.define({ term, year });
   }
 
+  public getAcademicTermFromToString(termToString: string) {
+    const split = termToString.split(' ');
+    if (split.length !== 2) {
+      throw new Meteor.Error('Invalid AcademicTerm toString value');
+    }
+    const term = split[0];
+    const year = parseInt(split[1], 10);
+    return this.findDoc({ term, year });
+  }
+
   /**
    * Returns true if the passed academicTerm occurs now or in the future.
    * @param term The academic term (slug or termID).

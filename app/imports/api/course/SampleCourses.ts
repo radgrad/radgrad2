@@ -42,5 +42,6 @@ export function makeSampleCourseInstance(student, args) {
   const course = (args && args.course) ? args.course : makeSampleCourse();
   const verified = true;
   const grade = 'A';
-  return CourseInstances.define({ academicTerm, course, verified, grade, student });
+  const note = `ABC ${course.num}`;
+  return CourseInstances.define({ academicTerm, course, verified, grade, student, note });
 }

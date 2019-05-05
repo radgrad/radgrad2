@@ -12,6 +12,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 
 interface IAddCourseInstanceFormProps {
   terms: IAcademicTerm[];
@@ -24,13 +25,13 @@ interface IAddCourseInstanceFormProps {
 class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps> {
   constructor(props) {
     super(props);
-    console.log('AddCourseInstanceForm props=%o', props);
+    // console.log('AddCourseInstanceForm props=%o', props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const termNames = _.map(this.props.terms, (term) => AcademicTerms.toString(term._id, false));
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-    const courseNames = _.map(this.props.courses, (course) => `${course.num} ${course.shortName}`);
+    const courseNames = _.map(this.props.courses, (course) => `${course.num}: ${course.shortName}`);
     const studentNames = _.map(this.props.students, (student) => `${Users.getFullName(student.userID)} (${student.username})`);
     const schema = new SimpleSchema({
       term: {
@@ -52,8 +53,12 @@ class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps>
         type: SimpleSchema.Integer,
         optional: true,
       },
+      grade: {
+        type: String,
+        allowedValues: CourseInstances.validGrades,
+      },
     });
-    console.log(termNames, courseNames, studentNames);
+    // console.log(termNames, courseNames, studentNames);
     return (
       <Segment padded={true}>
         <Header dividing={true}>Add Course Instance</Header>
@@ -65,6 +70,7 @@ class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps>
           <Form.Group widths="equal">
             <SelectField name="student"/>
             <NumField name="creditHours"/>
+            <SelectField name="grade"/>
           </Form.Group>
           <SubmitField/>
         </AutoForm>

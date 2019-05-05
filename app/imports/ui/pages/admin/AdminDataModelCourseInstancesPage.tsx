@@ -9,13 +9,14 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 // import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAdminDataModelPageState, ICourseInstanceDefine, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddCourseInstanceForm from '../../components/admin/AddCourseInstanceForm';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 const collection = CourseInstances;
 
@@ -24,13 +25,14 @@ const collection = CourseInstances;
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => {
+  console.log(item);
   return [
-    { label: 'Academic Term', value: AcademicTerms.toString(item.academicTermID) },
+    { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
     { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
     { label: 'Verified', value: item.verified.toString() },
     { label: 'fromSTAR', value: item.fromSTAR.toString() },
     { label: 'Grade', value: item.grade },
-    { label: 'CreditHrs', value: item.creditHrs.toString() },
+    { label: 'CreditHrs', value: `${item.creditHrs}` },
     { label: 'Note', value: item.note },
     { label: 'Student', value: Users.getFullName(item.studentID) },
     { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
@@ -45,7 +47,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
 const itemTitleString = (item: any): string => {
   const username = Users.getProfile(item.studentID).username;
   const courseNum = Courses.findDoc(item.courseID).num;
-  const term = AcademicTerms.toString(item.academicTermID, true);
+  const term = AcademicTerms.toString(item.termID, true);
   return `${username}-${courseNum}-${term}`;
 };
 
@@ -73,9 +75,22 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
   }
 
   private handleAdd = (doc) => {
+    console.log('CourseInstancePage.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc; // create the definitionData may need to modify doc's values
-    console.log(doc);
+    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.term);
+    const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
+    const note = doc.course.substring(0, doc.course.indexOf(':'));
+    const courseDoc = Courses.findDoc({ shortName: doc.course.substring(doc.course.indexOf(':') + 2) });
+    const course = Slugs.getNameFromID(courseDoc.slugID);
+    const student = doc.student.substring(doc.student.indexOf('(') + 1, doc.student.indexOf(')'));
+    const definitionData: ICourseInstanceDefine = {
+      academicTerm,
+      course,
+      note,
+      student,
+      grade: doc.grade,
+    };
+    console.log('definitionData=%o', definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
