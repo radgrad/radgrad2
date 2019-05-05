@@ -12,7 +12,6 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import BaseCollection from '../../../api/base/BaseCollection';
 
 const collection = null; // the collection to use.
 
@@ -146,7 +145,6 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
     const findOptions = {
       sort: { name: 1 }, // determine how you want to sort the items in the list
     };
-    const collection: BaseCollection = null; // replace with the Collection
     return (
       <div>
         <AdminPageMenuWidget/>

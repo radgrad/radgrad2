@@ -9,13 +9,13 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 // import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
+import AddCourseInstanceForm from '../../components/admin/AddCourseInstanceForm';
 
 const collection = CourseInstances;
 
@@ -179,7 +179,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddCourseInstanceForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}
