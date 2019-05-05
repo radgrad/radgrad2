@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
-import { makeCourseICE } from '../ice/IceProcessor';
+import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
 
 /**
@@ -40,7 +40,7 @@ class CourseInstanceCollection extends BaseCollection {
       creditHrs: Number,
       note: { type: String, optional: true },
       studentID: SimpleSchema.RegEx.Id,
-      ice: { type: Object, optional: true, blackbox: true },
+      ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     }));
     this.validGrades = ['', 'A', 'A+', 'A-',
@@ -63,13 +63,16 @@ class CourseInstanceCollection extends BaseCollection {
       creditHrs: SimpleSchema.Integer,
     });
     this.updateSchema = new SimpleSchema({
-      termID: { type: String, optional: true },
+      termID: {
+        type: String,
+        optional: true,
+      },
       verified: { type: Boolean, optional: true },
       fromSTAR: { type: Boolean, optional: true },
       grade: { type: String, optional: true },
       creditHrs: { type: SimpleSchema.Integer, optional: true },
       note: { type: String, optional: true },
-      ice: { type: Object, optional: true, blackbox: true },
+      ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     });
     if (Meteor.isServer) {
@@ -260,6 +263,30 @@ class CourseInstanceCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return AcademicTerms.findDoc(instance.termID);
+  }
+  /**
+   * Returns a schema for the update method's second parameter.
+   * @returns { SimpleSchema }.
+   */
+  public getUpdateSchema() {
+    const terms = AcademicTerms.find({}, { sort: { termNumber: 1 }, fields: { _id: 1 } }).fetch();
+    console.log(terms);
+    this.updateSchema = new SimpleSchema({
+      termID: {
+        type: String,
+        optional: true,
+        allowedValues: _.map(terms, (term) => term._id),
+      },
+      verified: { type: Boolean, optional: true },
+      fromSTAR: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      note: { type: String, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+
+    return this.updateSchema;
   }
 
   /**

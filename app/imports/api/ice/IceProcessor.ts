@@ -1,7 +1,23 @@
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import SimpleSchema from 'simpl-schema';
 import { Courses } from '../course/CourseCollection';
 import { Ice } from '../../typings/radgrad';
+
+export const iceSchema = new SimpleSchema({
+  i: {
+    type: SimpleSchema.Integer,
+    min: 0,
+  },
+  c: {
+    type: SimpleSchema.Integer,
+    min: 0,
+  },
+  e: {
+    type: SimpleSchema.Integer,
+    min: 0,
+  },
+});
 
 /**
  * Polyfill definition of isInteger in case it's not defined.

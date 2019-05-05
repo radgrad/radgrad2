@@ -25,7 +25,6 @@ const collection = CourseInstances;
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => {
-  console.log(item);
   return [
     { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
     { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
