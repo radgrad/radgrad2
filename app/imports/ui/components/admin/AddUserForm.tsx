@@ -15,6 +15,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import {  ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { academicTermToName, docToName } from '../shared/AdminDataModelHelperFunctions';
 
 interface IAddUserProps {
   interests: IInterest[];
@@ -44,10 +45,10 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     // console.log(this.props);
-    const interestNames = _.map(this.props.interests, (interest) => interest.name);
-    const careerGoalNames = _.map(this.props.careerGoals, (careerGoal) => careerGoal.name);
-    const academicTermNames = _.map(this.props.academicTerms, (term) => AcademicTerms.toString(term._id, false));
-    const academicPlanNames = _.map(this.props.academicPlans, (plan) => plan.name);
+    const interestNames = _.map(this.props.interests, docToName);
+    const careerGoalNames = _.map(this.props.careerGoals, docToName);
+    const academicTermNames = _.map(this.props.academicTerms, academicTermToName);
+    const academicPlanNames = _.map(this.props.academicPlans, docToName);
     const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
     // console.log(academicTermNames);
     const schema = new SimpleSchema({

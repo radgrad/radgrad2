@@ -10,6 +10,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { ROLE } from '../../../api/role/Role';
+import { profileToUsername } from '../shared/AdminDataModelHelperFunctions';
 
 interface IAddAdvisorLogFormProps {
   advisors: Meteor.User[];
@@ -25,8 +26,8 @@ class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     // console.log(this.props);
-    const advisorNames = _.map(this.props.advisors, (a) => a.username);
-    const studentNames = _.map(this.props.students, (a) => a.username);
+    const advisorNames = _.map(this.props.advisors, profileToUsername);
+    const studentNames = _.map(this.props.students, profileToUsername);
     const schema = new SimpleSchema({
       advisor: {
         type: String,

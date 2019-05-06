@@ -11,6 +11,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { moment } from 'meteor/momentjs:moment';
 import { ROLE } from '../../../api/role/Role';
+import { profileToUsername } from '../shared/AdminDataModelHelperFunctions';
 
 interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];
@@ -24,7 +25,7 @@ class AddAcademicYearInstanceForm extends React.Component<IAddAcademicYearInstan
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const studentNames = _.map(this.props.students, (a) => a.username);
+    const studentNames = _.map(this.props.students, profileToUsername);
     const schema = new SimpleSchema({
       student: {
         type: String,

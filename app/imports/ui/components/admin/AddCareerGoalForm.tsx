@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Header, Segment } from 'semantic-ui-react';
+import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import SelectField from 'uniforms-semantic/SelectField';
@@ -42,9 +42,11 @@ class AddCareerGoalForm extends React.Component<IAddCareerGoalFormProps> {
       <Segment padded={true}>
         <Header dividing={true}>Add Career Goal</Header>
         <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <TextField name="name" />
-          <TextField name="slug" />
-          <LongTextField name="description" />
+          <Form.Group widths="equal">
+            <TextField name="name"/>
+            <TextField name="slug"/>
+          </Form.Group>
+          <LongTextField name="description"/>
           <SelectField name="interests"/>
           <SubmitField/>
         </AutoForm>

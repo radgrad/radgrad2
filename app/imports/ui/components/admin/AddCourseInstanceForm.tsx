@@ -8,11 +8,11 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { academicTermToName, courseToName, profileToName } from '../shared/AdminDataModelHelperFunctions';
 
 interface IAddCourseInstanceFormProps {
   terms: IAcademicTerm[];
@@ -29,10 +29,10 @@ class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps>
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const termNames = _.map(this.props.terms, (term) => AcademicTerms.toString(term._id, false));
+    const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-    const courseNames = _.map(this.props.courses, (course) => `${course.num}: ${course.shortName}`);
-    const studentNames = _.map(this.props.students, (student) => `${Users.getFullName(student.userID)} (${student.username})`);
+    const courseNames = _.map(this.props.courses, courseToName);
+    const studentNames = _.map(this.props.students, profileToName);
     const schema = new SimpleSchema({
       term: {
         type: String,

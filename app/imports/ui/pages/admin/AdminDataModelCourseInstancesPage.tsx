@@ -17,6 +17,11 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddCourseInstanceForm from '../../components/admin/AddCourseInstanceForm';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import {
+  academicTermNameToDoc,
+  courseNameToCourseDoc,
+  profileNameToUsername,
+} from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = CourseInstances;
 
@@ -76,12 +81,12 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
   private handleAdd = (doc) => {
     console.log('CourseInstancePage.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.term);
+    const academicTermDoc = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
     const note = doc.course.substring(0, doc.course.indexOf(':'));
-    const courseDoc = Courses.findDoc({ shortName: doc.course.substring(doc.course.indexOf(':') + 2) });
+    const courseDoc = courseNameToCourseDoc(doc.course);
     const course = Slugs.getNameFromID(courseDoc.slugID);
-    const student = doc.student.substring(doc.student.indexOf('(') + 1, doc.student.indexOf(')'));
+    const student = profileNameToUsername(doc.student);
     const definitionData: ICourseInstanceDefine = {
       academicTerm,
       course,
