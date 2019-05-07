@@ -7,14 +7,16 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { makeMarkdownLink } from './datamodel-utilities';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { courseToName } from '../../components/shared/AdminDataModelHelperFunctions';
+import { courseToName, interestNameToId } from '../../components/shared/AdminDataModelHelperFunctions';
+import AddCourseForm from '../../components/admin/AddCourseForm';
+import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
+import UpdateCourseForm from '../../components/admin/UpdateCourseForm';
 
 const collection = Courses; // the collection to use.
 
@@ -70,8 +72,24 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
   }
 
   private handleAdd = (doc) => {
+    // console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = {}; // create the definitionData may need to modify doc's values
+    const definitionData: any = {}; // create the definitionData may need to modify doc's values
+    const interests = _.map(doc.interests, interestSlugFromName);
+    definitionData.slug = doc.slug;
+    definitionData.name = doc.name;
+    definitionData.num = doc.number;
+    definitionData.description = doc.description;
+    if (doc.shortName) {
+      definitionData.shortName = doc.shortName;
+    } else {
+      definitionData.shortName = doc.name;
+    }
+    definitionData.interests = interests;
+    if (doc.prerequisites) {
+      definitionData.prerequisites = doc.prerequisites.split(/,\s*/g);
+    }
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -89,7 +107,6 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
         this.formRef.current.reset();
       }
     });
-
   }
 
   private handleCancel = (event) => {
@@ -130,7 +147,14 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
   private handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData: any = doc; // create the updateData object from the doc.
+    if (doc.prerequisites.length === 0) {
+      updateData.prerequisites = [];
+    } else {
+      updateData.prerequisites = doc.prerequisites.split(/,\s*/g);
+    }
+    updateData.interests = _.map(doc.interests, interestNameToId);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -169,11 +193,11 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateCourseForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddCourseForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}

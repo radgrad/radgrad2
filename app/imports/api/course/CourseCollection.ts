@@ -198,25 +198,6 @@ class CourseCollection extends BaseSlugCollection {
     return super.removeIt(docID);
   }
 
-  public getDefineSchema(): any {
-    this.defineSchema = new SimpleSchema({
-      'name': String,
-      'shortName': { type: String, optional: true },
-      'slug': String,
-      'description': String,
-      'creditHrs': { type: SimpleSchema.Integer, optional: true },
-      'interests': { type: Array },
-      'interests.$': {
-        type: String,
-      },
-      'syllabus': String,
-      'prerequisites': [String],
-      'retired': { type: Boolean, optional: true },
-    });
-
-    return super.getDefineSchema();
-  }
-
   /**
    * Returns true if Course has the specified interest.
    * @param course The user (docID or slug)
