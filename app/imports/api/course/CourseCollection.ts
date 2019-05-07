@@ -35,6 +35,29 @@ class CourseCollection extends BaseSlugCollection {
       prerequisites: [String],
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      name: String,
+      shortName: { type: String, optional: true },
+      slug: String,
+      description: String,
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      interests: [String],
+      syllabus: String,
+      prerequisites: [String],
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      'name': { type: String, optional: true },
+      'shortName': { type: String, optional: true },
+      'description': { type: String, optional: true },
+      'creditHrs': { type: SimpleSchema.Integer, optional: true },
+      'interests': { type: Array, optional: true },
+      'interests.$': String,
+      'syllabus': { type: String, optional: true },
+      'prerequisites': { type: Array, optional: true },
+      'prerequisites.$': String,
+      'retired': { type: Boolean, optional: true },
+    });
     this.unInterestingSlug = 'other';
   }
 
@@ -173,6 +196,25 @@ class CourseCollection extends BaseSlugCollection {
     });
     // Now remove the Course.
     return super.removeIt(docID);
+  }
+
+  public getDefineSchema(): any {
+    this.defineSchema = new SimpleSchema({
+      'name': String,
+      'shortName': { type: String, optional: true },
+      'slug': String,
+      'description': String,
+      'creditHrs': { type: SimpleSchema.Integer, optional: true },
+      'interests': { type: Array },
+      'interests.$': {
+        type: String,
+      },
+      'syllabus': String,
+      'prerequisites': [String],
+      'retired': { type: Boolean, optional: true },
+    });
+
+    return super.getDefineSchema();
   }
 
   /**
