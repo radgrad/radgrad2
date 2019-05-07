@@ -85,7 +85,7 @@ function makeCourseInstanceObject(starDataObject: IStarDataObject) {
     course: findCourseSlug(starDataObject),
     note: `${starDataObject.name} ${starDataObject.num}`,
     verified: true,
-    fromSTAR: true,
+    fromRegistrar: true,
     creditHrs: starDataObject.credits,
     grade: starDataObject.grade,
     student: starDataObject.student,

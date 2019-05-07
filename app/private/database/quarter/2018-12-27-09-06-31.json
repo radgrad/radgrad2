@@ -2305,7 +2305,7 @@
           "course": "ics_111",
           "note": "ICS 111",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "B-",
           "student": "abi@hawaii.edu"
@@ -2315,7 +2315,7 @@
           "course": "ics_111",
           "note": "ICS 111",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "B+",
           "student": "abi@hawaii.edu"
@@ -2325,7 +2325,7 @@
           "course": "ics_141",
           "note": "ICS 141",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "B+",
           "student": "abi@hawaii.edu"
@@ -2335,7 +2335,7 @@
           "course": "ics_211",
           "note": "ICS 211",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "abi@hawaii.edu"
@@ -2345,7 +2345,7 @@
           "course": "ics_241",
           "note": "ICS 241",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A-",
           "student": "abi@hawaii.edu"
@@ -2355,7 +2355,7 @@
           "course": "ics_314",
           "note": "ICS 314",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2365,7 +2365,7 @@
           "course": "ics_212",
           "note": "ICS 212",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2375,7 +2375,7 @@
           "course": "ics_313",
           "note": "ICS 313",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "abi@hawaii.edu"
@@ -2385,7 +2385,7 @@
           "course": "ics_332",
           "note": "ICS 332",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2395,7 +2395,7 @@
           "course": "ics_464",
           "note": "ICS 464",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2405,7 +2405,7 @@
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2415,7 +2415,7 @@
           "course": "ics_415",
           "note": "ICS 415",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2425,7 +2425,7 @@
           "course": "ics_432",
           "note": "ICS 432",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu"
@@ -2435,7 +2435,7 @@
           "course": "ics_111",
           "note": "ICS 111",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2445,7 +2445,7 @@
           "course": "ics_141",
           "note": "ICS 141",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2455,7 +2455,7 @@
           "course": "ics_211",
           "note": "ICS 211",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2465,7 +2465,7 @@
           "course": "ics_241",
           "note": "ICS 241",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A-",
           "student": "alfred@hawaii.edu"
@@ -2475,7 +2475,7 @@
           "course": "ics_311",
           "note": "ICS 311",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2485,7 +2485,7 @@
           "course": "ics_314",
           "note": "ICS 314",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "B",
           "student": "alfred@hawaii.edu"
@@ -2495,7 +2495,7 @@
           "course": "ics_212",
           "note": "ICS 212",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2505,7 +2505,7 @@
           "course": "ics_321",
           "note": "ICS 321",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2515,7 +2515,7 @@
           "course": "ics_313",
           "note": "ICS 313",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2525,7 +2525,7 @@
           "course": "ics_331",
           "note": "ICS 331",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2535,7 +2535,7 @@
           "course": "ics_332",
           "note": "ICS 332",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2545,7 +2545,7 @@
           "course": "ics_464",
           "note": "ICS 464",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2555,7 +2555,7 @@
           "course": "ics_414",
           "note": "ICS 414",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2565,7 +2565,7 @@
           "course": "ics_415",
           "note": "ICS 415",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2575,7 +2575,7 @@
           "course": "ics_466",
           "note": "ICS 466",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "alfred@hawaii.edu"
@@ -2585,7 +2585,7 @@
           "course": "ics_432",
           "note": "ICS 432",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "B",
           "student": "alfred@hawaii.edu"
@@ -2595,7 +2595,7 @@
           "course": "ics_111",
           "note": "ICS 111",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2605,7 +2605,7 @@
           "course": "ics_141",
           "note": "ICS 141",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2615,7 +2615,7 @@
           "course": "ics_211",
           "note": "ICS 211",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2625,7 +2625,7 @@
           "course": "ics_241",
           "note": "ICS 241",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2635,7 +2635,7 @@
           "course": "ics_311",
           "note": "ICS 311",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2645,7 +2645,7 @@
           "course": "ics_314",
           "note": "ICS 314",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2655,7 +2655,7 @@
           "course": "ics_212",
           "note": "ICS 212",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2665,7 +2665,7 @@
           "course": "ics_321",
           "note": "ICS 321",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2675,7 +2675,7 @@
           "course": "ics_313",
           "note": "ICS 313",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2685,7 +2685,7 @@
           "course": "ics_331",
           "note": "ICS 331",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2695,7 +2695,7 @@
           "course": "ics_332",
           "note": "ICS 332",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2705,7 +2705,7 @@
           "course": "ics_422",
           "note": "ICS 422",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2715,7 +2715,7 @@
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2725,7 +2725,7 @@
           "course": "ics_471",
           "note": "ICS 471",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2735,7 +2735,7 @@
           "course": "ics_475",
           "note": "ICS 475",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2745,7 +2745,7 @@
           "course": "ics_484",
           "note": "ICS 484",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "betty@hawaii.edu"
@@ -2755,7 +2755,7 @@
           "course": "ics_111",
           "note": "ICS 111",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2765,7 +2765,7 @@
           "course": "ics_141",
           "note": "ICS 141",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2775,7 +2775,7 @@
           "course": "ics_211",
           "note": "ICS 211",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2785,7 +2785,7 @@
           "course": "ics_241",
           "note": "ICS 241",
           "verified": true,
-          "fromSTAR": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2795,7 +2795,7 @@
           "course": "ics_311",
           "note": "ICS 311",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 4,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2805,7 +2805,7 @@
           "course": "ics_314",
           "note": "ICS 314",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 4,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2815,7 +2815,7 @@
           "course": "ics_212",
           "note": "ICS 212",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2825,7 +2825,7 @@
           "course": "ics_321",
           "note": "ICS 321",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2835,7 +2835,7 @@
           "course": "ics_313",
           "note": "ICS 313",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2845,7 +2845,7 @@
           "course": "ics_331",
           "note": "ICS 331",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2855,7 +2855,7 @@
           "course": "ics_332",
           "note": "ICS 332",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2865,7 +2865,7 @@
           "course": "ics_422",
           "note": "ICS 422",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
@@ -2875,7 +2875,7 @@
           "course": "ics_451",
           "note": "ICS 451",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "charley@hawaii.edu"
@@ -2885,7 +2885,7 @@
           "course": "ics_452",
           "note": "ICS 452",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "charley@hawaii.edu"
@@ -2895,7 +2895,7 @@
           "course": "ics_111",
           "note": "ICS 111",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 4,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -2905,7 +2905,7 @@
           "course": "ics_141",
           "note": "ICS 141",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -2915,7 +2915,7 @@
           "course": "ics_211",
           "note": "ICS 211",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 4,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -2925,7 +2925,7 @@
           "course": "ics_241",
           "note": "ICS 241",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -2935,7 +2935,7 @@
           "course": "ics_311",
           "note": "ICS 311",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 4,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -2945,7 +2945,7 @@
           "course": "ics_314",
           "note": "ICS 314",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -2955,7 +2955,7 @@
           "course": "ics_212",
           "note": "ICS 212",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -2965,7 +2965,7 @@
           "course": "ics_321",
           "note": "ICS 321",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -2975,7 +2975,7 @@
           "course": "ics_312",
           "note": "ICS 312",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -2985,7 +2985,7 @@
           "course": "ics_361",
           "note": "ICS 361",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -2995,7 +2995,7 @@
           "course": "ics_332",
           "note": "ICS 332",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -3005,7 +3005,7 @@
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -3015,7 +3015,7 @@
           "course": "ics_443",
           "note": "ICS 443",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -3025,7 +3025,7 @@
           "course": "ics_461",
           "note": "ICS 461",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"
@@ -3035,7 +3035,7 @@
           "course": "ics_491",
           "note": "ICS 491",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
@@ -3045,7 +3045,7 @@
           "course": "ics_499",
           "note": "ICS 499",
           "verified": false,
-          "fromSTAR": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu"

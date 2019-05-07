@@ -35,7 +35,7 @@ class CourseInstanceCollection extends BaseCollection {
       termID: SimpleSchema.RegEx.Id,
       courseID: { type: SimpleSchema.RegEx.Id, optional: true },
       verified: Boolean,
-      fromSTAR: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
       grade: { type: String, optional: true },
       creditHrs: Number,
       note: { type: String, optional: true },
@@ -56,7 +56,7 @@ class CourseInstanceCollection extends BaseCollection {
       academicTerm: String,
       course: String,
       verified: { type: Boolean, optional: true },
-      fromSTAR: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
       grade: { type: String, optional: true },
       note: { type: String, optional: true },
       student: String,
@@ -68,7 +68,7 @@ class CourseInstanceCollection extends BaseCollection {
         optional: true,
       },
       verified: { type: Boolean, optional: true },
-      fromSTAR: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
       grade: { type: String, optional: true },
       creditHrs: { type: SimpleSchema.Integer, optional: true },
       note: { type: String, optional: true },
@@ -87,12 +87,12 @@ class CourseInstanceCollection extends BaseCollection {
    * CourseInstances.define({ academicTerm: 'Spring-2016',
    *                          course: 'ics311',
    *                          verified: false,
-   *                          fromSTAR: false,
+   *                          fromRegistrar: false,
    *                          grade: 'B',
    *                          note: '',
    *                          student: 'joesmith@hawaii.edu',
    *                          creditHrs: 3 });
-   * @param { Object } description Object with keys academicTerm, course, verified, fromSTAR, grade,
+   * @param { Object } description Object with keys academicTerm, course, verified, fromRegistrar, grade,
    * note, student, creditHrs.
    * Required fields: academicTerm, student, course, which must all be valid slugs or instance IDs.
    * If the course slug is 'other', then the note field will be used as the course number.
@@ -101,7 +101,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ academicTerm, course, verified = false, fromSTAR = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
+  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
     // Check arguments
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -136,7 +136,7 @@ class CourseInstanceCollection extends BaseCollection {
       termID,
       courseID,
       verified,
-      fromSTAR,
+      fromRegistrar,
       grade,
       studentID,
       creditHrs,
@@ -151,14 +151,14 @@ class CourseInstanceCollection extends BaseCollection {
    * @param docID The course instance docID (required).
    * @param termID the termID for the course instance optional.
    * @param verified boolean optional.
-   * @param fromSTAR boolean optional.
+   * @param fromRegistrar boolean optional.
    * @param grade optional.
    * @param creditHrs optional.
    * @param note optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { termID, verified, fromSTAR, grade, creditHrs, note, ice, retired }: ICourseInstanceUpdate) {
-    // console.log('CourseInstances.update', termID, verified, fromSTAR, grade, creditHrs, note, ice);
+  public update(docID: string, { termID, verified, fromRegistrar, grade, creditHrs, note, ice, retired }: ICourseInstanceUpdate) {
+    // console.log('CourseInstances.update', termID, verified, fromRegistrar, grade, creditHrs, note, ice);
     this.assertDefined(docID);
     const updateData: ICourseInstanceUpdate = {};
     if (termID) {
@@ -167,8 +167,8 @@ class CourseInstanceCollection extends BaseCollection {
     if (_.isBoolean(verified)) {
       updateData.verified = verified;
     }
-    if (_.isBoolean(fromSTAR)) {
-      updateData.fromSTAR = fromSTAR;
+    if (_.isBoolean(fromRegistrar)) {
+      updateData.fromRegistrar = fromRegistrar;
     }
     if (grade) {
       updateData.grade = grade;
@@ -278,7 +278,7 @@ class CourseInstanceCollection extends BaseCollection {
         allowedValues: _.map(terms, (term) => term._id),
       },
       verified: { type: Boolean, optional: true },
-      fromSTAR: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
       grade: { type: String, optional: true },
       creditHrs: { type: SimpleSchema.Integer, optional: true },
       note: { type: String, optional: true },
@@ -477,9 +477,9 @@ class CourseInstanceCollection extends BaseCollection {
     const verified = doc.verified;
     const creditHrs = doc.creditHrs;
     const grade = doc.grade;
-    const fromSTAR = doc.fromSTAR;
+    const fromRegistrar = doc.fromRegistrar;
     const student = Users.getProfile(doc.studentID).username;
-    return { academicTerm, course, note, verified, fromSTAR, creditHrs, grade, student };
+    return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student };
   }
 }
 

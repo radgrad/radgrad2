@@ -60,7 +60,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
         academicTerm: termSlug,
         course: slug,
         verified: false,
-        fromSTAR: false,
+        fromRegistrar: false,
         note: course.num,
         grade: 'B',
         student,

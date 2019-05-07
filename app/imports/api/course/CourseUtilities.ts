@@ -37,7 +37,7 @@ function getRandomInt(min: number, max: number) {
 }
 
 export function clearPlannedCourseInstances(studentID: string) {
-  const courses = CourseInstances.find({ studentID, verified: false, fromSTAR: false }).fetch();
+  const courses = CourseInstances.find({ studentID, verified: false, fromRegistrar: false }).fetch();
   _.forEach(courses, (ci) => {
     CourseInstances.removeIt(ci);
   });

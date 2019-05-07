@@ -17,7 +17,7 @@ if (Meteor.isClient) {
       course,
       student,
       verified: true,
-      fromSTAR: true,
+      fromRegistrar: true,
       grade: 'B',
       note: '',
       creditHrs: 3,

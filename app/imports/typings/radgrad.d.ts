@@ -245,7 +245,7 @@ export interface ICourseInstance {
   termID: string;
   courseID: string;
   verified: boolean;
-  fromSTAR?: boolean;
+  fromRegistrar?: boolean;
   grade?: string;
   creditHrs: number;
   note?: string;
@@ -258,7 +258,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
   academicTerm: string;
   course: string;
   verified?: boolean;
-  fromSTAR?: boolean;
+  fromRegistrar?: boolean;
   grade: string;
   note: string;
   student: string;
@@ -268,7 +268,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
 export interface ICourseInstanceUpdate {
   termID?: string;
   verified?: boolean;
-  fromSTAR?: boolean;
+  fromRegistrar?: boolean;
   grade?: string;
   creditHrs?: number;
   note?: string;

@@ -25,7 +25,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
   // console.log(definitions);
   const studentID = Users.getID(student);
   // console.log(student, studentID);
-  const oldInstances = CourseInstances.find({ studentID, fromSTAR: true }).fetch();
+  const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
   _.forEach(oldInstances, (instance) => {
     CourseInstances.removeIt(instance._id);
   });
@@ -55,7 +55,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     } else {
       // numOtherCourses += 1;
     }
-    definition.fromSTAR = true;
+    definition.fromRegistrar = true;
     if (definition.grade === '***' || definition.grade === 'TBD') {
       definition.grade = 'B';
       definition.verified = false;
