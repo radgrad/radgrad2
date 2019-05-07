@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { CourseInstances } from '../course/CourseInstanceCollection';
-import { makeSampleCourse, sampleCourseName } from '../course/SampleCourses';
+import { CourseInstances } from './CourseInstanceCollection';
+import { makeSampleCourse, sampleCourseName } from './SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
