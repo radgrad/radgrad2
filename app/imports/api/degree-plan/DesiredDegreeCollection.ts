@@ -24,6 +24,18 @@ class DesiredDegreeCollection extends BaseSlugCollection {
       description: { type: String },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      name: String,
+      shortName: String,
+      slug: String,
+      description: String,
+    });
+    this.updateSchema = new SimpleSchema({
+      name: { type: String, optional: true },
+      shortName: { type: String, optional: true },
+      description: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**

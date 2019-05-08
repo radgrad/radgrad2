@@ -8,12 +8,18 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 // import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 // import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import AddDesiredDegreeForm from '../../components/admin/AddDesiredDegreeForm';
+import UpdateDesiredDegreeForm from '../../components/admin/UpdateDesiredDegreeForm';
 
-const collection = null; // the collection to use.
+function numReferences(desiredDegree) {
+  return AcademicPlans.find({ degreeID: desiredDegree._id }).count();
+}
+
+const collection = DesiredDegrees; // the collection to use.
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
@@ -21,6 +27,10 @@ const collection = null; // the collection to use.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => {
   return [
+    { label: 'Name', value: item.name },
+    { label: 'Short Name', value: item.shortName },
+    { label: 'Description', value: item.description },
+    { label: 'References', value: `Academic Plans: ${numReferences(item)}` },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
 };
@@ -30,7 +40,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
  * @param item an item from the collection.
  */
 const itemTitleString = (item: any): string => {
-  return 'the item title string';
+  return `${item.name}: ${item.shortName}`;
 };
 
 /**
@@ -47,7 +57,7 @@ const itemTitle = (item: any): React.ReactNode => {
   );
 };
 
-class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataModelPageState> {
+class AdminDataModelDesiredDegreesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -57,9 +67,9 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 
   private handleAdd = (doc) => {
-    console.log('GenericTemplate.handleAdd(%o)', doc);
+    // console.log('DesiredDegrees.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = {}; // create the definitionData may need to modify doc's values
+    const definitionData = doc; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -117,7 +127,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   private handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData = doc; // create the updateData object from the doc.
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -156,11 +166,11 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateDesiredDegreeForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddDesiredDegreeForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}
@@ -178,4 +188,4 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 }
 
-export default AdminDataModelGenericTemplatePage;
+export default AdminDataModelDesiredDegreesPage;
