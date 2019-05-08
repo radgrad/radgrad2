@@ -76,6 +76,24 @@ class FeedCollection extends BaseCollection {
     this.NEW_COURSE_REVIEW = 'new-course-review';
     this.NEW_OPPORTUNITY_REVIEW = 'new-opportunity-review';
     this.NEW_LEVEL = 'new-level';
+    this.defineSchema = new SimpleSchema({
+      user: { type: String, optional: true },
+      course: { type: String, optional: true },
+      opportunity: { type: String, optional: true },
+      academicTerm: { type: String, optional: true },
+      level: { type: SimpleSchema.Integer, optional: true },
+      feedType: String,
+      timestamp: { type: Date, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      'description': { type: String, optional: true },
+      'picture': { type: String, optional: true },
+      'users': { type: Array, optional: true },
+      'users.$': String,
+      'opportunity': { type: String, optional: true },
+      'course': { type: String, optional: true },
+      'academicTerm': { type: String, optional: true },
+    });
   }
 
   /**
@@ -248,7 +266,15 @@ class FeedCollection extends BaseCollection {
         has been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})
         (${AcademicTerms.toString(termID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
     const picture = '/images/radgrad_logo.png';
-    const feedID = this.collection.insert({ userIDs, opportunityID, termID, description, timestamp, picture, feedType });
+    const feedID = this.collection.insert({
+      userIDs,
+      opportunityID,
+      termID,
+      description,
+      timestamp,
+      picture,
+      feedType,
+    });
     return feedID;
   }
 

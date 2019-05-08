@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import SimpleSchema from 'simpl-schema';
+// import SimpleSchema from 'simpl-schema';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../mentor/MentorQuestionCollection';

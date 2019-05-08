@@ -54,6 +54,7 @@ import AdminDataModelUsersPage from '../../ui/pages/admin/AdminDataModelUsersPag
 import AdminDataModelCourseInstancesPage from '../../ui/pages/admin/AdminDataModelCourseInstancesPage';
 import AdminDataModelCoursesPage from '../../ui/pages/admin/AdminDataModelCoursesPage';
 import AdminDataModelDesiredDegreesPage from '../../ui/pages/admin/AdminDataModelDesiredDegreePage';
+import AdminDataModelFeedsPage from '../../ui/pages/admin/AdminDataModelFeedsPage';
 
 export const routes = {
   ADMIN: [
@@ -106,6 +107,11 @@ export const routes = {
       path: '/admin/:username/datamodel/desired-degrees',
       exact: true,
       component: AdminDataModelDesiredDegreesPage,
+    },
+    {
+      path: '/admin/:username/datamodel/feeds',
+      exact: true,
+      component: AdminDataModelFeedsPage,
     },
     {
       path: '/admin/:username/datamodel/users',
