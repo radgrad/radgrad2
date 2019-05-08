@@ -10,7 +10,6 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 // import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
@@ -18,6 +17,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import AddFeedForm from '../../components/admin/AddFeedForm';
 
 const collection = Feeds; // the collection to use.
 
@@ -192,7 +192,7 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddFeedForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}
