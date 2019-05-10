@@ -88,11 +88,12 @@ class FeedCollection extends BaseCollection {
     this.updateSchema = new SimpleSchema({
       'description': { type: String, optional: true },
       'picture': { type: String, optional: true },
-      'users': { type: Array, optional: true },
-      'users.$': String,
+      'userIDs': { type: Array, optional: true },
+      'userIDs.$': String,
       'opportunity': { type: String, optional: true },
       'course': { type: String, optional: true },
       'academicTerm': { type: String, optional: true },
+      'retired': { type: Boolean, optional: true },
     });
   }
 
@@ -136,9 +137,9 @@ class FeedCollection extends BaseCollection {
    * The timestamp and feedtype fields cannot be updated once created.
    * @throws { Meteor.Error } If docID is not defined, or if users, opportunity, or course are not defined.
    */
-  public update(docID: string, { description, picture, users, opportunity, course, academicTerm }: IFeedUpdate) {
+  public update(docID: string, { description, picture, users, opportunity, course, academicTerm, retired }: IFeedUpdate) {
     this.assertDefined(docID);
-    const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; termID?: string; } = {};
+    const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; termID?: string; retired?: boolean; } = {};
     if (description) {
       updateData.description = description;
     }
@@ -157,6 +158,9 @@ class FeedCollection extends BaseCollection {
     }
     if (academicTerm) {
       updateData.termID = AcademicTerms.getID(course);
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -546,7 +550,8 @@ class FeedCollection extends BaseCollection {
     }
     const feedType = doc.feedType;
     const timestamp = doc.timestamp;
-    return { user, opportunity, course, academicTerm, feedType, timestamp };
+    const retired = doc.retired;
+    return { user, opportunity, course, academicTerm, feedType, timestamp, retired };
   }
 
   /**

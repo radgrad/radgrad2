@@ -37,6 +37,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       'description': { type: String, optional: true },
       'interests': { type: Array, optional: true },
       'interests.$': String,
+      'retired': { type: Boolean, optional: true },
     });
   }
 
@@ -54,7 +55,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interests }: ICareerGoalDefine) {
+  public define({ name, slug, description, interests, retired = false }: ICareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -179,7 +180,8 @@ class CareerGoalCollection extends BaseSlugCollection {
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    return { name, slug, interests, description };
+    const retired = doc.retired;
+    return { name, slug, interests, description, retired };
   }
 }
 

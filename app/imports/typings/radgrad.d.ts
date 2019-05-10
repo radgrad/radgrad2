@@ -229,6 +229,7 @@ export interface ICareerGoalDefine extends IDumpOne {
   slug: string;
   description: string;
   interests: string[];
+  retired?: boolean;
 }
 
 export interface ICareerGoalUpdate {
@@ -350,6 +351,7 @@ export interface IFeedDefine extends IDumpOne {
   level?: number;
   feedType: string;
   timestamp?: Date;
+  retired?: boolean;
 }
 
 export interface IFeedUpdate {
@@ -359,6 +361,7 @@ export interface IFeedUpdate {
   opportunity?: string;
   course?: string;
   academicTerm?: string;
+  retired?: boolean;
 }
 
 // FeedBackInstances

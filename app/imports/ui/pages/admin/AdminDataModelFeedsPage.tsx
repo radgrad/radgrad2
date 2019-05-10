@@ -5,11 +5,7 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-// import { Collection } from '../../../api/collection/Collection';
-// import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
-// import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
@@ -18,6 +14,13 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddFeedForm from '../../components/admin/AddFeedForm';
+import UpdateFeedForm from '../../components/admin/UpdateFeedForm';
+import {
+  academicTermNameToSlug,
+  courseNameToSlug,
+  opportunityNameToSlug,
+  profileNameToUsername,
+} from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = Feeds; // the collection to use.
 
@@ -89,9 +92,39 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 
   private handleAdd = (doc) => {
-    console.log('Feeds.handleAdd(%o)', doc);
+    // console.log('Feeds.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = {}; // create the definitionData may need to modify doc's values
+    const definitionData: any = {}; // create the definitionData may need to modify doc's values
+    definitionData.feedType = doc.feedType;
+    switch (doc.feedType) {
+      case Feeds.NEW_USER:
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.NEW_COURSE:
+        definitionData.course = courseNameToSlug(doc.course);
+        break;
+      case Feeds.NEW_COURSE_REVIEW:
+        definitionData.course = courseNameToSlug(doc.course);
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.NEW_LEVEL:
+        definitionData.user = profileNameToUsername(doc.user);
+        definitionData.level = parseInt(doc.level, 10);
+        break;
+      case Feeds.NEW_OPPORTUNITY:
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+        break;
+      case Feeds.NEW_OPPORTUNITY_REVIEW:
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.VERIFIED_OPPORTUNITY:
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+        definitionData.user = profileNameToUsername(doc.user);
+        definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+        break;
+    }
+    console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -147,9 +180,14 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate doc=%o', doc);
+    console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData: any = doc;
+    updateData.id = doc._id;
+    updateData.feedType = doc.feedType;
+    updateData.users = doc.userIDs;
+    updateData.opportunity = opportunityNameToSlug(doc.opportunity);
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -188,7 +226,7 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateFeedForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
