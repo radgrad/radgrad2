@@ -31,13 +31,22 @@ import { Users } from '../user/UserCollection';
  * @memberOf api/feedback
  */
 export class FeedbackFunctionClass {
+  public feedbackFunctionNames = [
+    this.checkPrerequisites.name,
+    this.checkCompletePlan.name,
+    this.checkOverloadedAcademicTerms.name,
+    this.generateRecommendedCourse.name,
+    this.generateRecommended400LevelCourse.name,
+    this.generateRecommendedCurrentAcademicTermOpportunities.name,
+    this.generateNextLevelRecommendation.name,
+  ];
 
   /**
    * Checks the student's degree plan to ensure that all the prerequisites are met.
    * @param user the student's ID.
    */
   public checkPrerequisites(user: string) {
-    const functionName = 'checkPrerequisites';
+    const functionName = this.checkPrerequisites.name;
     const feedbackType = FeedbackInstances.WARNING;
     const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const studentID = Users.getID(user);
@@ -68,14 +77,14 @@ export class FeedbackFunctionClass {
                 if (preAcademicTerm.termNumber >= academicTerm.termNumber) {
                   const academicTermName2 = AcademicTerms.toString(preAcademicTerm._id, false);
                   const description = `${academicTermName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
-                      `after or in ${academicTermName2}.`;
+                    `after or in ${academicTermName2}.`;
                   const definitionData = { user, functionName, description, feedbackType };
                   defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
                 }
               }
             } else {
               const description = `${academicTermName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
-                  ' not found.';
+                ' not found.';
               const definitionData = { user, functionName, description, feedbackType };
               defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
             }
@@ -90,7 +99,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public checkCompletePlan(user: string) {
-    const functionName = 'checkCompletePlan';
+    const functionName = this.checkCompletePlan.name;
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
 
@@ -117,17 +126,15 @@ export class FeedbackFunctionClass {
           });
           description = description.substring(0, description.length - 4);
           description = `${description}, `;
-        } else
-          if (slug.indexOf('400+') !== -1) {
-            description = `${description} \n- a 400 level elective, `;
-          } else
-            if (slug.indexOf('300+') !== -1) {
-              description = `${description} \n- a 300+ level elective, `;
-            } else {
-              const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
-              const course = Courses.findDoc(id);
-              description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
-            }
+        } else if (slug.indexOf('400+') !== -1) {
+          description = `${description} \n- a 400 level elective, `;
+        } else if (slug.indexOf('300+') !== -1) {
+          description = `${description} \n- a 300+ level elective, `;
+        } else {
+          const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
+          const course = Courses.findDoc(id);
+          description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
+        }
       });
       description = description.substring(0, description.length - 2);
       const definitionData = { user, functionName, description, feedbackType };
@@ -140,7 +147,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public checkOverloadedAcademicTerms(user: string) {
-    const functionName = 'checkOverloadedAcademicTerms';
+    const functionName = this.checkOverloadedAcademicTerms.name;
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
     const studentID = Users.getID(user);
@@ -175,7 +182,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public generateRecommendedCourse(user: string) {
-    const functionName = 'generateRecommendedCourse';
+    const functionName = this.generateRecommendedCourse.name;
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
 
@@ -209,27 +216,25 @@ export class FeedbackFunctionClass {
           const courseSlug = Slugs.findDoc(course.slugID);
           description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
         }
-      } else
-        if (slug.startsWith('ics_4')) {
-          const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
-          if (bestChoice) {
-            const cSlug = Slugs.findDoc(bestChoice.slugID);
-            description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
-          }
-        } else
-          if (slug.startsWith('ics')) {
-            const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
-            const course = Courses.findDoc(courseID);
-            description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
-          }
+      } else if (slug.startsWith('ics_4')) {
+        const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
+        if (bestChoice) {
+          const cSlug = Slugs.findDoc(bestChoice.slugID);
+          description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
+        }
+      } else if (slug.startsWith('ics')) {
+        const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
+        const course = Courses.findDoc(courseID);
+        description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
+      }
       const definitionData = { user, functionName, description, feedbackType };
       defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
     }
   }
 
   public generateRecommended400LevelCourse(user: string) {
-    const functionName = 'generateRecommended400LevelCourse';
-    console.log(`Running feedback function ${functionName}`);
+    const functionName = this.generateRecommended400LevelCourse.name;
+    // console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
 
     // First clear any feedback instances previously created for this student.
@@ -272,8 +277,8 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public generateRecommendedCurrentAcademicTermOpportunities(user: string) {
-    const functionName = 'generateRecommendedCurrentAcademicTermOpportunities';
-    console.log(`Running feedback function ${functionName}`);
+    const functionName = this.generateRecommendedCurrentAcademicTermOpportunities.name;
+    // console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
     const studentID = Users.getID(user);
 
@@ -308,8 +313,8 @@ export class FeedbackFunctionClass {
    * @param user The student's ID.
    */
   public generateNextLevelRecommendation(user: string) {
-    const functionName = 'generateNextLevelRecommendation';
-    console.log(`Running feedback function ${functionName}`);
+    const functionName = this.generateNextLevelRecommendation.name;
+    // console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
 
     // First clear any feedback instances previously created for this student.
