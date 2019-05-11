@@ -34,6 +34,20 @@ class FeedbackInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, userID: 1 });
     }
+    this.defineSchema = new SimpleSchema({
+      user: String,
+      functionName: String,
+      description: String,
+      feedbackType: { type: String, allowedValues: this.feedbackTypes },
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      user: { type: String, optional: true },
+      functionName: { type: String, optional: true },
+      description: { type: String, optional: true },
+      feedbackType: { type: String, allowedValues: this.feedbackTypes, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -51,15 +65,14 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If user or feedbackType cannot be resolved.
    * @returns The newly created docID.
    */
-
-  public define({ user, functionName, description, feedbackType }: IFeedbackInstanceDefine) {
+  public define({ user, functionName, description, feedbackType, retired }: IFeedbackInstanceDefine) {
     // Validate Feedback and user.
     const userID = Users.getID(user);
     if (!_.includes(this.feedbackTypes, feedbackType)) {
       throw new Meteor.Error(`FeedbackInstances.define passed illegal feedbackType: ${feedbackType}`);
     }
     // Define and return the new FeedbackInstance
-    const feedbackInstanceID = this.collection.insert({ userID, functionName, description, feedbackType });
+    const feedbackInstanceID = this.collection.insert({ userID, functionName, description, feedbackType, retired });
     return feedbackInstanceID;
   }
 
@@ -71,7 +84,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param feedbackType
    * @param functionName
    */
-  public update(docID: string, { user, description, feedbackType, functionName }: IFeedbackInstanceUpdate) {
+  public update(docID: string, { user, description, feedbackType, functionName, retired }: IFeedbackInstanceUpdate) {
     this.assertDefined(docID);
     const updateData: { userID?: string; description?: string; feedbackType?: string; functionName?: string; } = {};
     if (user) {
@@ -111,6 +124,7 @@ class FeedbackInstanceCollection extends BaseCollection {
   public isFeedbackInstance(user: string, functionName: string, feedbackType: string) {
     return !!this.findFeedbackInstance(user, functionName, feedbackType);
   }
+
   /**
    * Removes all FeedbackInstances associated with user and functionName.
    * @param user The user (typically a student).
@@ -206,7 +220,8 @@ class FeedbackInstanceCollection extends BaseCollection {
     const functionName = doc.functionName;
     const description = doc.description;
     const feedbackType = doc.feedbackType;
-    return { user, functionName, description, feedbackType };
+    const retired = doc.retired;
+    return { user, functionName, description, feedbackType, retired };
   }
 
 }
