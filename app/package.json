@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.3.1",
+    "acorn": "^6.1.1",
     "bcrypt": "^3.0.4",
     "classnames": "^2.2.6",
     "core-js": "^2.6.4",
@@ -55,10 +56,10 @@
     "mocha": "^5.2.0",
     "nightmare": "^2.10.0",
     "ts-node": "^7.0.1",
-    "tslint": "^5.12.1",
+    "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.3.3",
+    "typescript": "^3.4.5",
     "typescript-eslint-parser": "^19.0.2",
     "typescript-estree": "^1.1.0"
   },
