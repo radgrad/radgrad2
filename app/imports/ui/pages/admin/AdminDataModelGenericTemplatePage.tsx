@@ -8,7 +8,7 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 // import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 // import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -19,33 +19,27 @@ const collection = null; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (item: any): IDescriptionPair[] => [
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
-};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
-  return 'the item title string';
-};
+const itemTitleString = (item: any): string => 'the item title string';
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => {
-  return (
+const itemTitle = (item: any): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(item)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

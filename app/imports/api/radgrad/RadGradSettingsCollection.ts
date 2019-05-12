@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import { ISettingsDefine, ISettingsUpdate } from '../../typings/radgrad';
+import { ISettingsDefine, ISettingsUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import doc = Mocha.reporters.doc; // eslint-disable-line
 
 /**
  * Holds the settings for RadGrad.
@@ -23,24 +24,24 @@ class RadGradSettingsCollection extends BaseCollection {
   }
 
   public findOne(selector: object, options?: object) {
-    const doc = super.findOne(selector, options);
-    if (doc) {
-      return doc;
+    const document = super.findOne(selector, options);
+    if (document) {
+      return document;
     }
     return Meteor.settings.public.RadGrad ? Meteor.settings.public.RadGrad : { quarterSystem: false };
   }
 
   public update(docID: string, { quarterSystem }: ISettingsUpdate) {
-    throw new Meteor.Error('Quarter System is read only', 'Read Only', Error().stack);
+    throw new Meteor.Error(`Quarter System is read only ${docID} ${quarterSystem}`, 'Read Only', Error().stack);
   }
 
   public removeIt(instance: string) {
-    throw new Meteor.Error('Cannot remove the RadGradSettings', '', Error().stack);
+    throw new Meteor.Error(`Cannot remove the RadGradSettings ${instance}`, '', Error().stack);
   }
 
   public dumpOne(docID: string): ISettingsDefine {
-    const doc = this.findDoc(docID);
-    const quarterSystem = doc.quarterSystem;
+    const document = this.findDoc(docID);
+    const quarterSystem = document.quarterSystem;
     return { quarterSystem };
   }
 

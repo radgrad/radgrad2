@@ -8,7 +8,7 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { Courses } from '../course/CourseCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/radgrad';
+import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a course or opportunity review by a student.
@@ -78,13 +78,13 @@ class ReviewCollection extends BaseSlugCollection {
       revieweeID = Courses.getID(reviewee);
       if (!slug) {
         // tslint:disable: no-parameter-reassignment
-        slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`;
+        slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
       }
     } else
       if (reviewType === this.OPPORTUNITY) {
         revieweeID = Opportunities.getID(reviewee);
         if (!slug) {
-          slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`;
+          slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
         }
       }
     // Validate academicTerm, get termID.
@@ -92,8 +92,8 @@ class ReviewCollection extends BaseSlugCollection {
     // Validate rating.
     this.assertValidRating(rating);
     // Guarantee that moderated and public are booleans.
-    moderated = !!moderated;
-    visible = !!visible;
+    moderated = !!moderated; // eslint-disable-line
+    visible = !!visible; // eslint-disable-line
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the new Review and its Slug.

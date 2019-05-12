@@ -12,11 +12,9 @@ interface IAdminPaginationWidgetProps {
   setShowCount: (collectionName: string, count: number) => any;
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     pagination: state.pagination,
-  };
-};
+  });
 
 class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps> {
   constructor(props) {
@@ -95,7 +93,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
         <Button basic={true} color="green"
                 onClick={this.handleLastClick} style={heightStyle}><Icon
           name="fast forward"/> Last</Button>
-        {/*<Dropdown selection={true} options={options} className="jsNum"/>*/}
+        {/* <Dropdown selection={true} options={options} className="jsNum"/> */}
         <select className="ui dropdown jsNum" style={heightStyle} value={showCount} onChange={this.handleCountChange}>
           <option value={100}>100</option>
           <option value={50}>50</option>

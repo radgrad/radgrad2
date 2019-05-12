@@ -84,9 +84,9 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
       level: { type: SimpleSchema.Integer, min: 1, max: 6, defaultValue: 1, optional: true },
     });
     const newUserSchema = new SimpleSchema({
-      'users': { type: Array, optional: true },
-      'users.$': { type: String,  allowedValues: studentNames },
-      'picture': { type: String, optional: true },
+      users: { type: Array, optional: true },
+      'users.$': { type: String, allowedValues: studentNames },
+      picture: { type: String, optional: true },
     });
     const verifiedOpportunitySchema = new SimpleSchema({
       user: {
@@ -214,13 +214,11 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
   }
 }
 
-const UpdateFeedFormContainer  = withTracker((props) => {
-  return {
+const UpdateFeedFormContainer = withTracker((props) => ({
     academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
     courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
     opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
     students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  };
-})(UpdateFeedForm);
+  }))(UpdateFeedForm);
 
 export default UpdateFeedFormContainer;

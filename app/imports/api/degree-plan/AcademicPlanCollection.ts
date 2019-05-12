@@ -6,7 +6,7 @@ import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
-import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
+import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -20,18 +20,18 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   constructor() {
     super('AcademicPlan', new SimpleSchema({
-      'name': { type: String },
-      'description': String,
-      'slugID': SimpleSchema.RegEx.Id,
-      'degreeID': SimpleSchema.RegEx.Id,
-      'effectiveAcademicTermID': SimpleSchema.RegEx.Id,
-      'termNumber': Number,
-      'year': Number,
+      name: { type: String },
+      description: String,
+      slugID: SimpleSchema.RegEx.Id,
+      degreeID: SimpleSchema.RegEx.Id,
+      effectiveAcademicTermID: SimpleSchema.RegEx.Id,
+      termNumber: Number,
+      year: Number,
       // CAM: maxCount of 20 is for quarter system bachelors and masters.
-      'coursesPerAcademicTerm': { type: Array, minCount: 12, maxCount: 20 },
+      coursesPerAcademicTerm: { type: Array, minCount: 12, maxCount: 20 },
       'coursesPerAcademicTerm.$': Number,
-      'courseList': [String],
-      'retired': { type: Boolean, optional: true },
+      courseList: [String],
+      retired: { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, degreeID: 1, effectiveAcademicTermID: 1 });
@@ -46,14 +46,14 @@ class AcademicPlanCollection extends BaseSlugCollection {
       courseList: [String],
     });
     this.updateSchema = new SimpleSchema({
-      'degreeSlug': { type: String, optional: true },
-      'name': { type: String, optional: true },
-      'academicTerm': { type: String, optional: true },
-      'coursesPerAcademicTerm': { type: Array, optional: true },
+      degreeSlug: { type: String, optional: true },
+      name: { type: String, optional: true },
+      academicTerm: { type: String, optional: true },
+      coursesPerAcademicTerm: { type: Array, optional: true },
       'coursesPerAcademicTerm.$': { type: Number },
-      'courseList': { type: Array, optional: true },
+      courseList: { type: Array, optional: true },
       'courseList.$': { type: String },
-      'retired': { type: Boolean, optional: true },
+      retired: { type: Boolean, optional: true },
     });
   }
 

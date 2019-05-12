@@ -10,7 +10,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { defaultProfilePicture } from '../user/BaseProfileCollection';
-import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad';
+import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Returns the number of whole days between date a and b.
@@ -59,15 +59,15 @@ class FeedCollection extends BaseCollection {
    */
   constructor() {
     super('Feed', new SimpleSchema({
-      'feedType': String,
-      'description': String,
-      'timestamp': Date,
-      'picture': String,
-      'userIDs': { type: Array }, 'userIDs.$': SimpleSchema.RegEx.Id,
-      'opportunityID': { type: SimpleSchema.RegEx.Id, optional: true },
-      'courseID': { type: SimpleSchema.RegEx.Id, optional: true },
-      'termID': { type: SimpleSchema.RegEx.Id, optional: true },
-      'retired': { type: Boolean, optional: true },
+      feedType: String,
+      description: String,
+      timestamp: Date,
+      picture: String,
+      userIDs: { type: Array }, 'userIDs.$': SimpleSchema.RegEx.Id,
+      opportunityID: { type: SimpleSchema.RegEx.Id, optional: true },
+      courseID: { type: SimpleSchema.RegEx.Id, optional: true },
+      termID: { type: SimpleSchema.RegEx.Id, optional: true },
+      retired: { type: Boolean, optional: true },
     }));
     this.NEW_USER = 'new-user';
     this.NEW_COURSE = 'new-course';
@@ -86,14 +86,14 @@ class FeedCollection extends BaseCollection {
       timestamp: { type: Date, optional: true },
     });
     this.updateSchema = new SimpleSchema({
-      'description': { type: String, optional: true },
-      'picture': { type: String, optional: true },
-      'userIDs': { type: Array, optional: true },
+      description: { type: String, optional: true },
+      picture: { type: String, optional: true },
+      userIDs: { type: Array, optional: true },
       'userIDs.$': String,
-      'opportunity': { type: String, optional: true },
-      'course': { type: String, optional: true },
-      'academicTerm': { type: String, optional: true },
-      'retired': { type: Boolean, optional: true },
+      opportunity: { type: String, optional: true },
+      course: { type: String, optional: true },
+      academicTerm: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
     });
   }
 

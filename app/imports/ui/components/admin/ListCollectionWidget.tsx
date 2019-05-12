@@ -21,11 +21,9 @@ interface IListCollectionWidgetProps {
   pagination: any;
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     pagination: state.pagination,
-  };
-};
+  });
 
 class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {}> {
   constructor(props) {

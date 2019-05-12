@@ -28,10 +28,10 @@ class AddCareerGoalForm extends React.Component<IAddCareerGoalFormProps> {
     // console.log(this.props);
     const interestNames = _.map(this.props.interests, docToName);
     const schema = new SimpleSchema({
-      'name': String,
-      'slug': String,
-      'description': String,
-      'interests': {
+      name: String,
+      slug: String,
+      description: String,
+      interests: {
         type: Array,
       },
       'interests.$': {

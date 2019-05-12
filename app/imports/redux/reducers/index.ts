@@ -272,16 +272,14 @@ function tabReducer(state = {}, action) {
   }
 }
 
-const rootReducer = (state = initialState, action) => {
-  // console.log('rootReducer state=%o action=%o', state, action);
-  return {
+// console.log('rootReducer state=%o action=%o', state, action);
+const rootReducer = (state = initialState, action) => ({
     ...state,
     depInspector: inspectorReducer(state.depInspector, action),
     depTab: tabReducer(state.depTab, action),
     radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
     pagination: paginationReducer(state.pagination, action),
-  };
-};
+  });
 
 // export default combineReducers({});
 export default rootReducer;

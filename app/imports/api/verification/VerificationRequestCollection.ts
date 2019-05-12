@@ -8,7 +8,7 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
-import { IVerificationRequestDefine } from '../../typings/radgrad';
+import { IVerificationRequestDefine } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Schema for the processed information of VerificationRequests.
@@ -188,7 +188,7 @@ class VerificationRequestCollection extends BaseCollection {
       // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.collectionName, function publish() {
-        if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
+        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {

@@ -25,37 +25,31 @@ const collection = DesiredDegrees; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (item: any): IDescriptionPair[] => [
     { label: 'Name', value: item.name },
     { label: 'Short Name', value: item.shortName },
     { label: 'Description', value: item.description },
     { label: 'References', value: `Academic Plans: ${numReferences(item)}` },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
-};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
-  return `${item.name}: ${item.shortName}`;
-};
+const itemTitleString = (item: any): string => `${item.name}: ${item.shortName}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => {
-  return (
+const itemTitle = (item: any): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(item)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelDesiredDegreesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

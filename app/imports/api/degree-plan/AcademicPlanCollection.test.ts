@@ -5,7 +5,8 @@ import { AcademicPlans } from './AcademicPlanCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('AcademicPlanCollection', function testSuite() {

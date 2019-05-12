@@ -5,7 +5,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad';
+import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -33,11 +33,11 @@ class CareerGoalCollection extends BaseSlugCollection {
     });
     // name, description, interests
     this.updateSchema = new SimpleSchema({
-      'name': { type: String, optional: true },
-      'description': { type: String, optional: true },
-      'interests': { type: Array, optional: true },
+      name: { type: String, optional: true },
+      description: { type: String, optional: true },
+      interests: { type: Array, optional: true },
       'interests.$': String,
-      'retired': { type: Boolean, optional: true },
+      retired: { type: Boolean, optional: true },
     });
   }
 
@@ -60,7 +60,7 @@ class CareerGoalCollection extends BaseSlugCollection {
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const docID = this.collection.insert({ name, slugID, description, interestIDs });
+    const docID = this.collection.insert({ name, slugID, description, interestIDs, retired });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, docID);
     return docID;

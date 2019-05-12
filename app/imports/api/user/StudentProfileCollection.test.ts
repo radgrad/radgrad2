@@ -5,7 +5,8 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { StudentProfiles } from './StudentProfileCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('StudentProfileCollection', function testSuite() {

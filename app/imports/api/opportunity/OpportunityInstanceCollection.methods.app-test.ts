@@ -3,7 +3,8 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isClient) {
   describe('OpportunityInstanceCollection Meteor Methods ', function test() {
@@ -14,22 +15,22 @@ if (Meteor.isClient) {
     const verified = true;
     const definitionData = { academicTerm, opportunity, student, verified };
 
-    before(function(done) {
+    before(function (done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'opportunities'], done);
     });
 
-    it('Define Method', async function() {
+    it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 
-    it('Update Method', async function() {
+    it('Update Method', async function () {
       const id = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
       await updateMethod.callPromise({ collectionName, updateData: { id, verified: false } });
     });
 
-    it('Remove Method', async function() {
+    it('Remove Method', async function () {
       const instance = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
       await removeItMethod.callPromise({ collectionName, instance });
     });

@@ -7,7 +7,7 @@ import { Reviews } from '../review/ReviewCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { RadGrad } from '../radgrad/RadGrad';
-import { Ice } from '../../typings/radgrad';
+import { Ice } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Calculates the given student's Level.

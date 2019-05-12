@@ -6,7 +6,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -64,23 +64,19 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
-  return `${item.feedType} ${item.description}`;
-};
+const itemTitleString = (item: any): string => `${item.feedType} ${item.description}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => {
-  return (
+const itemTitle = (item: any): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(item)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -123,6 +119,7 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
         definitionData.user = profileNameToUsername(doc.user);
         definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
         break;
+      default:
     }
     console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {

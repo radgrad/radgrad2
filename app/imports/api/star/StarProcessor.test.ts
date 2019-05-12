@@ -6,7 +6,8 @@ import { processStarCsvData, processBulkStarJsonData } from './StarProcessor';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 /* global Assets */
 
 if (Meteor.isServer) {

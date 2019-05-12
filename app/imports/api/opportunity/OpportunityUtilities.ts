@@ -15,8 +15,8 @@ import { getStudentsCurrentAcademicTermNumber } from '../degree-plan/AcademicYea
  * @memberOf api/opportunity
  */
 export function getRandomInt(min, max) {
-  min = Math.ceil(min);  // tslint:disable-line: no-parameter-reassignment
-  max = Math.floor(max);  // tslint:disable-line: no-parameter-reassignment
+  min = Math.ceil(min); // eslint-disable-line no-param-reassign
+  max = Math.floor(max); // eslint-disable-line no-param-reassign
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -45,9 +45,7 @@ export function calculateOpportunityCompatibility(opportunityID: string, student
 export function academicTermOpportunities(academicTerm, academicTermNumber) {
   const id = academicTerm._id;
   const opps = Opportunities.findNonRetired();
-  const academicTermOpps = _.filter(opps, (opportunity) => {
-    return _.indexOf(opportunity.termIDs, id) !== -1;
-  });
+  const academicTermOpps = _.filter(opps, (opportunity) => _.indexOf(opportunity.termIDs, id) !== -1);
   if (academicTermNumber < 3) { // AY 1.
     return _.filter(academicTermOpps, (opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);

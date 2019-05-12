@@ -18,11 +18,9 @@ interface IConnectedCourseSelectorTempState {
   courseID?: string;
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectCourse: (courseID) => dispatch(selectCourse(courseID)),
-  };
-};
+  });
 
 class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelectorTempProps, IConnectedCourseSelectorTempState> {
   constructor(props) {
@@ -65,12 +63,10 @@ class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelect
 const ConnectedCourseSelectorTempCon = withGlobalSubscription(ConnectedCourseSelectorTemp);
 const ConnectedCourseSelectorTempCont = withInstanceSubscriptions(ConnectedCourseSelectorTempCon);
 
-const ConnectedCourseSelectorTempConta = withTracker(() => {
-  return {
+const ConnectedCourseSelectorTempConta = withTracker(() => ({
     courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
     count: Courses.countNonRetired(),
-  };
-})(ConnectedCourseSelectorTempCont);
+  }))(ConnectedCourseSelectorTempCont);
 
 const ConnectedCourseSelectorTempContainer = connect(null, mapDispatchToProps)(ConnectedCourseSelectorTempConta);
 export default ConnectedCourseSelectorTempContainer;

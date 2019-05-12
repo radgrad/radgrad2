@@ -12,7 +12,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IAcademicPlan, IAcademicTerm, ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import {  ROLE } from '../../../api/role/Role';
+import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { academicTermToName, docToName } from '../shared/AdminDataModelHelperFunctions';
@@ -52,22 +52,22 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
     const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
     // console.log(academicTermNames);
     const schema = new SimpleSchema({
-      'username': String,
-      'firstName': String,
-      'lastName': String,
-      'role': {
+      username: String,
+      firstName: String,
+      lastName: String,
+      role: {
         type: String,
         allowedValues: roles,
         defaultValue: roles[3],
       },
-      'picture': { type: String, optional: true },
-      'website': { type: String, optional: true },
-      'interests': { type: Array, optional: true },
+      picture: { type: String, optional: true },
+      website: { type: String, optional: true },
+      interests: { type: Array, optional: true },
       'interests.$': {
         type: String,
         allowedValues: interestNames,
       },
-      'careerGoals': { type: Array, optional: true },
+      careerGoals: { type: Array, optional: true },
       'careerGoals.$': {
         type: String,
         allowedValues: careerGoalNames,

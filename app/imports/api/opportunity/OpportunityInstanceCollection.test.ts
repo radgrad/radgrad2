@@ -10,7 +10,8 @@ import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('OpportunityInstanceCollection', function testSuite() {

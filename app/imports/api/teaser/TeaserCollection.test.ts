@@ -8,7 +8,8 @@ import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { ROLE } from '../role/Role';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('TeaserCollection', function testSuite() {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import { selectOpportunity } from '../../../redux/actions/actions';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { selectOpportunity } from '../../../redux/actions/actions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
 
@@ -15,11 +15,9 @@ interface IInspectorOpportunityMenuState {
   courseID?: string;
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectOpportunity: (courseID) => dispatch(selectOpportunity(courseID)),
-  };
-};
+  });
 
 function opportunityStructureForMenu() {
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });

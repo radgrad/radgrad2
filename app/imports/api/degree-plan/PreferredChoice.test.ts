@@ -7,7 +7,8 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import PreferredChoice from './PreferredChoice';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('PreferredChoice', function testSuite() {

@@ -29,13 +29,11 @@ interface IDePState {
   years: IAcademicYear[];
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
     selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
     selectInspectorTab: () => dispatch(selectInspectorTab()),
-  };
-};
+  });
 
 class DEPWidget extends React.Component<IDePProps, IDePState> {
 

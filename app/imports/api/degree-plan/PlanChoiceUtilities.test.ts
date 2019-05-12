@@ -2,7 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import * as planChoiceUtilities from './PlanChoiceUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('PlanChoiceUtilities', function testSuite() {

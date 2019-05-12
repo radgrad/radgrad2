@@ -8,7 +8,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad';
+import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a specific interest, such as "Software Engineering".
@@ -95,6 +95,7 @@ class InterestCollection extends BaseSlugCollection {
         if (collection.hasInterest(doc, docID)) {
           throw new Meteor.Error(`Interest ${interest.name} is referenced by collection ${collection.collectionName}.`);
         }
+        return true;
       });
     });
   }

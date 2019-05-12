@@ -49,19 +49,15 @@ function descriptionPairs(term: IAcademicTerm): IDescriptionPair[] {
   ];
 }
 
-const itemTitle = (term: IAcademicTerm): React.ReactNode => {
-  return (
+const itemTitle = (term: IAcademicTerm): React.ReactNode => (
     <React.Fragment>
       {term.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {AcademicTerms.toString(term._id, false)}
     </React.Fragment>
   );
-};
 
-const itemTitleString = (term) => {
-  return AcademicTerms.toString(term._id, false);
-};
+const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
 
 class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

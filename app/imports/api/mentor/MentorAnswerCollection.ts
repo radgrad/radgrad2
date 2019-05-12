@@ -3,7 +3,7 @@ import BaseCollection from '../base/BaseCollection';
 import { MentorQuestions } from './MentorQuestionCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
-import { IMentorAnswerDefine, IMentorAnswerUpdate } from '../../typings/radgrad';
+import { IMentorAnswerDefine, IMentorAnswerUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a mentor answer.

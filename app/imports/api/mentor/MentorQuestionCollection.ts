@@ -5,7 +5,7 @@ import { ROLE } from '../role/Role';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IMentorQuestionDefine, IMentorQuestionUpdate } from '../../typings/radgrad';
+import { IMentorQuestionDefine, IMentorQuestionUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a mentor answer.

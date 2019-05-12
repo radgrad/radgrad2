@@ -57,9 +57,7 @@ export class FeedbackFunctionClass {
           prereqs.forEach((p) => {
             const courseID = Slugs.getEntityID(p, 'Course');
             const prerequisiteCourse = Courses.findDoc({ _id: courseID });
-            const preCiIndex = _.findIndex(cis, (obj) => {
-              return obj.courseID === courseID;
-            });
+            const preCiIndex = _.findIndex(cis, (obj) => obj.courseID === courseID);
             if (preCiIndex !== -1) {
               const preCi = cis[preCiIndex];
               const preCourse = Courses.findDoc(preCi.courseID);
@@ -284,7 +282,7 @@ export class FeedbackFunctionClass {
     const basePath = this.getBasePath(user);
     const termID = AcademicTerms.getCurrentTermID();
     const oppInstances = OpportunityInstances.find({ studentID, termID }).fetch();
-    if (oppInstances.length === 0) {  // only make suggestions if there are no opportunities planned.
+    if (oppInstances.length === 0) { // only make suggestions if there are no opportunities planned.
       // console.log(bestChoices);
       if (bestChoices) {
         const len = bestChoices.length;
@@ -367,6 +365,7 @@ export class FeedbackFunctionClass {
   }
 
   private getBasePath(studentID) {
+    console.log(studentID);
     // const getPosition = (str, subString, index) => {
     //   return str.split(subString, index).join(subString).length;
     // };

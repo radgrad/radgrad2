@@ -6,7 +6,8 @@ import { makeSampleCourse, sampleCourseName } from './SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('CourseInstanceCollection', function testSuite() {

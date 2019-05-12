@@ -1,3 +1,4 @@
+/* eslint-disable */
 declare module 'meteor/mdg:validated-method' {
   class ValidatedMethod {
     constructor(options: object);

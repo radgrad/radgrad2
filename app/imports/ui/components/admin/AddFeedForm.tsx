@@ -203,13 +203,11 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
   }
 }
 
-const AddFeedFormContainer = withTracker((props) => {
-  return {
+const AddFeedFormContainer = withTracker((props) => ({
     academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
     courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
     opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
     students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  };
-})(AddFeedForm);
+  }))(AddFeedForm);
 
 export default AddFeedFormContainer;

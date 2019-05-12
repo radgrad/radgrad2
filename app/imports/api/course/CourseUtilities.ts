@@ -31,8 +31,8 @@ export function prereqsMet(coursesTakenSlugs: string[], courseID: string) {
 }
 
 function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);  // tslint:disable-line: no-parameter-reassignment
-  max = Math.floor(max);  // tslint:disable-line: no-parameter-reassignment
+  min = Math.ceil(min); // eslint-disable-line no-param-reassign
+  max = Math.floor(max); // eslint-disable-line no-param-reassign
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -59,12 +59,8 @@ export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: str
       }
     }
   });
-  ret = _.filter(courses, (c) => {
-    return _.indexOf(courseTakenIDs, c._id) === -1;
-  });
-  ret = _.filter(ret, (c) => {
-    return prereqsMet(coursesTakenSlugs, c._id);  // remove courses that don't have the prerequisites
-  });
+  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
   return ret;
 }
 
@@ -96,12 +92,8 @@ export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: str
       }
     }
   });
-  ret = _.filter(courses, (c) => {
-    return _.indexOf(courseTakenIDs, c._id) === -1;
-  });
-  ret = _.filter(ret, (c) => {
-    return prereqsMet(coursesTakenSlugs, c._id);  // remove courses that don't have the prerequisites
-  });
+  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
   return ret;
 }
 

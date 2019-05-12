@@ -37,9 +37,9 @@ class LandingInterestsCardExplorer extends React.Component<IInterestsCardExplore
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/*<Grid.Row>*/}
-          {/*<HelpPanelWidgetContainer routeProps={this.props.location}/>*/}
-          {/*</Grid.Row>*/}
+          {/* <Grid.Row> */}
+          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
               <LandingExplorerMenuContainer/>
@@ -50,11 +50,9 @@ class LandingInterestsCardExplorer extends React.Component<IInterestsCardExplore
                   <span>INTERESTS</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.interests.map((interest) => {
-                    return (
+                  {this.props.interests.map((interest) => (
                       <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
-                    );
-                  })}
+                    ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>

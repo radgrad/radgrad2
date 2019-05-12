@@ -1,4 +1,4 @@
-import { IPagination } from '../../typings/radgrad';
+import { IPagination } from '../../typings/radgrad'; // eslint-disable-line
 import {
   SET_ACADEMIC_PLANS_SHOW_COUNT,
   SET_ACADEMIC_PLANS_SHOW_INDEX,

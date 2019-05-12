@@ -7,7 +7,8 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { RadGrad } from '../radgrad/RadGrad';
 import { defineTestFixtures } from '../test/test-utilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 // TODO: Waiting for test data based upon the Personae.
 
@@ -90,7 +91,7 @@ if (Meteor.isServer) {
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(defaultCalcLevel(bettyProfile.userID))
         .to
-        .equal(4);  // CAM: This will have to change with issue-302
+        .equal(4); // CAM: This will have to change with issue-302
     });
 
     it('Betty Level 5', function levelFive() {
@@ -101,7 +102,7 @@ if (Meteor.isServer) {
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(defaultCalcLevel(bettyProfile.userID))
         .to
-        .equal(5);  // CAM: This will have to change with issue-302
+        .equal(5); // CAM: This will have to change with issue-302
     });
 
     it('Betty Level 6', function levelSix() {
@@ -112,7 +113,7 @@ if (Meteor.isServer) {
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(defaultCalcLevel(bettyProfile.userID))
         .to
-        .equal(6);  // CAM: This will have to change with issue-302
+        .equal(6); // CAM: This will have to change with issue-302
     });
   });
 }

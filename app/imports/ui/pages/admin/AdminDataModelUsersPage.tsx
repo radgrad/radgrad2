@@ -70,15 +70,13 @@ const itemTitleString = (user: IBaseProfile): string => {
   return `${user.firstName} ${user.lastName} (${user.username}) ${alumni}`;
 };
 
-const itemTitle = (user: IBaseProfile): React.ReactNode => {
-  return (
+const itemTitle = (user: IBaseProfile): React.ReactNode => (
     <React.Fragment>
       {user.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(user)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

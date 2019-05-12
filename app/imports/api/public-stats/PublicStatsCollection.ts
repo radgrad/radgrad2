@@ -31,7 +31,7 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  * @memberOf api/public-stats
  */
 class PublicStatsCollection extends BaseCollection {
-  private stats: any[];
+  private readonly stats: any[];
   public coursesTotalKey: string;
   public careerGoalsTotalKey: string;
   public careerGoalsListKey: string;

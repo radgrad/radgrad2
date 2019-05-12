@@ -27,8 +27,7 @@ function numReferences(course) {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (item: any): IDescriptionPair[] => [
     { label: 'Description', value: item.description },
     { label: 'Credit Hours', value: `${item.creditHrs}` },
     { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
@@ -37,29 +36,24 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
     { label: 'References', value: `Course Instances: ${numReferences(item)}` },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
-};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
-  return courseToName(item);
-};
+const itemTitleString = (item: any): string => courseToName(item);
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => {
-  return (
+const itemTitle = (item: any): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(item)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

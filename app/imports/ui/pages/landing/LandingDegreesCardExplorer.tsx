@@ -37,9 +37,9 @@ class LandingDegreesCardExplorer extends React.Component<IDegreesCardExplorerPro
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/*<Grid.Row>*/}
-          {/*<HelpPanelWidgetContainer routeProps={this.props.location}/>*/}
-          {/*</Grid.Row>*/}
+          {/* <Grid.Row> */}
+          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
               <LandingExplorerMenuContainer/>
@@ -50,11 +50,9 @@ class LandingDegreesCardExplorer extends React.Component<IDegreesCardExplorerPro
                   <span>DESIRED DEGREES</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.desiredDegrees.map((goal) => {
-                    return (
+                  {this.props.desiredDegrees.map((goal) => (
                       <LandingExplorerCardContainer key={goal._id} type="degrees" item={goal}/>
-                    );
-                  })}
+                    ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>

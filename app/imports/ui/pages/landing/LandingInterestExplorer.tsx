@@ -33,9 +33,9 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/*<Grid.Row>*/}
-          {/*<HelpPanelWidgetContainer routeProps={this.props.location}/>*/}
-          {/*</Grid.Row>*/}
+          {/* <Grid.Row> */}
+          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
               <LandingExplorerMenuContainer/>
@@ -51,19 +51,15 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
               <Segment padded={true}>
                 <Header as="h4" dividing={true}>Related Courses</Header>
                 <List horizontal={true} bulleted={true}>
-                  {this.props.courses.map((course) => {
-                    // console.log(course.name);
-                    return (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>);
-                  })}
+                  {// console.log(course.name);
+                   this.props.courses.map((course) => (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>))}
                 </List>
               </Segment>
               <Segment padded={true}>
                 <Header as="h4" dividing={true}>Related Opportunities</Header>
                 <List horizontal={true} bulleted={true}>
-                  {this.props.opportunities.map((opportunity) => {
-                    // console.log(course.name);
-                    return (<List.Item key={opportunity._id} href={`#/explorer/opportunites/${getSlugFromEntityID(opportunity._id)}`}>{opportunity.name}</List.Item>);
-                  })}
+                  {// console.log(course.name);
+                   this.props.opportunities.map((opportunity) => (<List.Item key={opportunity._id} href={`#/explorer/opportunites/${getSlugFromEntityID(opportunity._id)}`}>{opportunity.name}</List.Item>))}
                 </List>
               </Segment>
             </Grid.Column>

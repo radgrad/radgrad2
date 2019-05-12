@@ -2,13 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { moment } from 'meteor/momentjs:moment';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IAcademicYearDefine } from '../../typings/radgrad';
+import { IAcademicYearDefine } from '../../typings/radgrad'; // eslint-disable-line
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
-import { moment } from 'meteor/momentjs:moment';
 
 /**
  * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
@@ -51,15 +51,15 @@ class AcademicYearInstanceCollection extends BaseCollection {
     });
     // year?: number; springYear?: number; studentID?: string; termIDs?: string[];
     this.updateSchema = new SimpleSchema({
-      'year': { type: SimpleSchema.Integer, min: moment().year() - 10, max: moment().year() + 10, optional: true },
-      'springYear': {
+      year: { type: SimpleSchema.Integer, min: moment().year() - 10, max: moment().year() + 10, optional: true },
+      springYear: {
         type: SimpleSchema.Integer,
         min: moment().year() - 10,
         max: moment().year() + 10,
         optional: true,
       },
-      'studentID': { type: String, optional: true },
-      'termIDs': { type: Array, optional: true },
+      studentID: { type: String, optional: true },
+      termIDs: { type: Array, optional: true },
       'termIDs.$': String,
     });
   }
@@ -205,7 +205,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this; // tslint:disable-line: no-this-assignment
       Meteor.publish(this.publicationNames.Public, function publish() {
-        if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
+        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
@@ -213,7 +213,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
         }
         return instance.collection.find({ studentID: this.userId });
       });
-      Meteor.publish(this.publicationNames.PerStudentID, function filterStudentID(studentID) {
+      Meteor.publish(this.publicationNames.PerStudentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         new SimpleSchema({
           studentID: { type: String },
         }).validate({ studentID });

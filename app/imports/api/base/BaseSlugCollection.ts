@@ -28,7 +28,7 @@ class BaseSlugCollection extends BaseCollection {
     let id;
     // If we've been passed a document, check to see if it has an _id field and make instance the value of _id.
     if (_.isObject(instance) && instance._id) {
-      instance = instance._id; // tslint:disable-line: no-parameter-reassignment
+      instance = instance._id; // eslint-disable-line no-param-reassign
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this.collection.findOne({ username: instance });

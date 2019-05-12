@@ -8,7 +8,7 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 // import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 // import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import { IAdminDataModelPageState, ICourseInstanceDefine, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -29,8 +29,7 @@ const collection = CourseInstances;
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (item: any): IDescriptionPair[] => [
     { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
     { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
     { label: 'Verified', value: item.verified.toString() },
@@ -42,7 +41,6 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
     { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
-};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
@@ -59,15 +57,13 @@ const itemTitleString = (item: any): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => {
-  return (
+const itemTitle = (item: any): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(item)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

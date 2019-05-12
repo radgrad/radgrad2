@@ -3,7 +3,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { AdvisorLogs } from './AdvisorLogCollection';
 import { ROLE } from '../role/Role';
-import { IAdvisorLogUpdate } from '../../typings/radgrad';
+import { IAdvisorLogUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * The validated method for defining AdvisorLogs.

@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { ICourse, IOpportunity } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -33,14 +33,12 @@ interface ICOInspectorWidgetProps {
   };
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     selectedCourseID: state.depInspector.selectedCourseID,
     selectedCourseInstanceID: state.depInspector.selectedCourseInstanceID,
     selectedOpportunityID: state.depInspector.selectedOpportunityID,
     selectedOpportunityInstanceID: state.depInspector.selectedOpportunityInstanceID,
-  };
-};
+  });
 
 class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidgetProps> {
   constructor(props) {
@@ -97,11 +95,9 @@ class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidge
 const CourseOpportunityInspectorWidgetCon = withGlobalSubscription(CourseOpportunityInspectorWidget);
 const CourseOpportunityInspectorWidgetCont = withInstanceSubscriptions(CourseOpportunityInspectorWidgetCon);
 const COIW = withRouter(CourseOpportunityInspectorWidgetCont);
-const CourseOpportunityInspectorWidgetConati = withTracker(() => {
-  return {
+const CourseOpportunityInspectorWidgetConati = withTracker(() => ({
     courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
     opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
-  };
-})(COIW);
+  }))(COIW);
 const CourseOpportunityInspectorWidgetContainer = connect(mapStateToProps)(CourseOpportunityInspectorWidgetConati);
 export default CourseOpportunityInspectorWidgetContainer;

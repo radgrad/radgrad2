@@ -4,7 +4,8 @@ import {} from 'mocha';
 import { AcademicTerms } from './AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('AcademicTermCollection', function testSuite() {
@@ -29,7 +30,7 @@ if (Meteor.isServer) {
       docID = AcademicTerms.restoreOne(dumpObject);
       expect(AcademicTerms.isDefined(docID)).to.be.true;
       AcademicTerms.update(docID, { retired: true });
-      dumpObject =  AcademicTerms.dumpOne(docID);
+      dumpObject = AcademicTerms.dumpOne(docID);
       expect(dumpObject.retired).to.be.true;
       AcademicTerms.removeIt(docID);
     });
@@ -44,9 +45,13 @@ if (Meteor.isServer) {
 
     it('#assertAcademicTerm', function test() {
       const termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
-      expect(function foo() { AcademicTerms.assertAcademicTerm(termID); }).to.not.throw(Error);
+      expect(function foo() {
+        AcademicTerms.assertAcademicTerm(termID);
+      }).to.not.throw(Error);
       AcademicTerms.removeIt(termID);
-      expect(function foo() { AcademicTerms.assertAcademicTerm(termID); }).to.throw(Error);
+      expect(function foo() {
+        AcademicTerms.assertAcademicTerm(termID);
+      }).to.throw(Error);
     });
 
     it('#toString', function test() {
@@ -78,7 +83,9 @@ if (Meteor.isServer) {
     it('#getID', function test() {
       expect(AcademicTerms.getID('Summer-2010')).to.be.a('string');
       expect(AcademicTerms.getID('Summer-2040')).to.be.a('string');
-      expect(function foo() { AcademicTerms.getID('foobar'); }).to.throw(Error);
+      expect(function foo() {
+        AcademicTerms.getID('foobar');
+      }).to.throw(Error);
     });
 
     it('#getShortName', function test() {

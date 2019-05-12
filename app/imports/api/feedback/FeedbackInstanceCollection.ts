@@ -5,7 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad';
+import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Each FeedbackInstance represents one recommendation or warning for a user.
@@ -168,7 +168,7 @@ class FeedbackInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this; // tslint:disable-line: no-this-assignment
       Meteor.publish(this.collectionName, function publish() {
-        if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
+        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {

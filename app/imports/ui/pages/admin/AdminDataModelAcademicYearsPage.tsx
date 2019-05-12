@@ -13,12 +13,10 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 
-const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
     { label: 'Student', value: Users.getFullName(year.studentID) },
     { label: 'Year', value: `${year.year}` },
   ];
-};
 
 const itemTitle = (year: IAcademicYear): React.ReactNode => {
   const name = Users.getFullName(year.studentID);
@@ -31,9 +29,7 @@ const itemTitle = (year: IAcademicYear): React.ReactNode => {
   );
 };
 
-const itemTitleString = (year: IAcademicYear): string => {
-  return `${name} ${year.year}`;
-};
+const itemTitleString = (year: IAcademicYear): string => `${name} ${year.year}`;
 
 class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -137,7 +133,7 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
     const findOptions = {
       sort: { year: 1 },
     };
-    return(
+    return (
       <div>
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import NumField from 'uniforms-semantic/NumField';
@@ -34,7 +33,7 @@ class AddAcademicYearInstanceForm extends React.Component<IAddAcademicYearInstan
       year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
     });
 
-    return  (
+    return (
       <Segment padded={true}>
         <Header dividing={true}>Add Academic Year Instance</Header>
         <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
@@ -47,7 +46,7 @@ class AddAcademicYearInstanceForm extends React.Component<IAddAcademicYearInstan
   }
 }
 
-const AddAcademicYearInstanceFormContainer = withTracker((props) => {
+const AddAcademicYearInstanceFormContainer = withTracker(() => {
   const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();
   // console.log('students=%o', students);
   return {

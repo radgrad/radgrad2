@@ -27,11 +27,9 @@ interface IConnectedCourseInstanceSelectorTempState {
   courseInstanceID?: string;
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-  };
-};
+  });
 
 class ConnectedCourseInstanceSelectorTemp extends React.Component<IConnectedCourseInstanceSelectorTempProps, IConnectedCourseInstanceSelectorTempState> {
   constructor(props) {

@@ -9,12 +9,10 @@ interface ILandingPlanChoicePillProps {
   index: number;
 }
 
-const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => {
-  return (
+const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (
     <Grid.Row style={getSatisfiedStyle()}>
       <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
     </Grid.Row>
   );
-};
 
 export default LandingPlanChoicePill;

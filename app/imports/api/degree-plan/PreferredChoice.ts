@@ -5,8 +5,8 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
  * @memberOf api/degree-plan
  */
 class PreferredChoice {
-  private rankedChoices: any;
-  private max: number;
+  private readonly rankedChoices: any;
+  private readonly max: number;
 
   /**
    * Creates a new PreferredChoice instance given the array of choices and array of interestIDs.

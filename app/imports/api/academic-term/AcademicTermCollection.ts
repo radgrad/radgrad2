@@ -4,7 +4,7 @@ import { moment } from 'meteor/momentjs:moment';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
+import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -20,10 +20,10 @@ class AcademicTermCollection extends BaseSlugCollection {
   public SUMMER: string;
   public FALL: string;
   public WINTER: string;
-  private terms: string[];
-  private fallStart: number;
-  private springStart: number;
-  private summerStart: number;
+  private readonly terms: string[];
+  private readonly fallStart: number;
+  private readonly springStart: number;
+  private readonly summerStart: number;
 
   /**
    * Creates the AcademicTerm collection.
@@ -123,15 +123,14 @@ class AcademicTermCollection extends BaseSlugCollection {
       } else {
         termNumber = 4 * yearDiff;
       }
+    } else if (term === this.SPRING) {
+      termNumber = (3 * yearDiff) - 2;
+    } else if (term === this.SUMMER) {
+      termNumber = (3 * yearDiff) - 1;
     } else {
-      if (term === this.SPRING) {
-        termNumber = (3 * yearDiff) - 2;
-      } else if (term === this.SUMMER) {
-        termNumber = (3 * yearDiff) - 1;
-      } else {
-        termNumber = 3 * yearDiff;
-      }
+      termNumber = 3 * yearDiff;
     }
+
     // Determine what the slug looks like.
     const slug = `${term}-${year}`;
 
@@ -188,14 +187,12 @@ class AcademicTermCollection extends BaseSlugCollection {
       } else {
         term = this.WINTER;
       }
+    } else if (day >= this.fallStart) {
+      term = this.FALL;
+    } else if (day >= this.summerStart) {
+      term = this.SUMMER;
     } else {
-      if (day >= this.fallStart) {
-        term = this.FALL;
-      } else if (day >= this.summerStart) {
-        term = this.SUMMER;
-      } else {
-        term = this.SPRING;
-      }
+      term = this.SPRING;
     }
     return this.define({ term, year });
   }
@@ -329,18 +326,21 @@ class AcademicTermCollection extends BaseSlugCollection {
       if (opportunityInstance.termID === docID) {
         throw new Meteor.Error(`AcademicTerm ${instance} referenced by a opportunity instance.`);
       }
+      return true;
     });
     // Check that this term in not referenced by any Course Instance
     CourseInstances.find().map((courseInstance) => {
       if (courseInstance.termID === docID) {
         throw new Meteor.Error(`AcademicTerm ${instance} referenced by a course instance.`);
       }
+      return true;
     });
     // Check that this term is not referenced by any Opportunity
     Opportunities.find().map((opportunity) => {
       if (_.includes(opportunity.termIDs, docID)) {
         throw new Meteor.Error(`AcademicTerm ${instance} referenced by an opportunity.`);
       }
+      return true;
     });
     return super.removeIt(docID);
   }

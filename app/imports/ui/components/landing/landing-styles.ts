@@ -27,7 +27,7 @@ export default {
   'landing-section-1 .container': {
     paddingTop: '5rem',
   },
-  'container': {
+  container: {
     paddingBottom: '5rem',
   },
   'landing-section-4, landing-section-6, landing-section-8': {

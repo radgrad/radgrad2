@@ -10,7 +10,7 @@ import { Users } from '../user/UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
-import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
+import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents the taking of a course by a specific student in a specific academicTerm.
@@ -120,14 +120,14 @@ class CourseInstanceCollection extends BaseCollection {
     }
     if (!_.includes(this.validGrades, grade)) {
       if (grade.startsWith('I')) {
-        grade = grade.substring(1); // tslint:disable-line: no-parameter-reassignment
+        grade = grade.substring(1); // eslint-disable-line no-param-reassign
       }
       if (!_.includes(this.validGrades, grade)) {
         throw new Meteor.Error(`${grade} is not a valid grade.`);
       }
     }
     if (!creditHrs) {
-      /* tslint:disable-next-line: no-parameter-reassignment */
+      /* eslint-disable-next-line no-param-reassign */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
     const retired = false;
@@ -264,6 +264,7 @@ class CourseInstanceCollection extends BaseCollection {
     const instance = this.collection.findOne({ _id: instanceID });
     return AcademicTerms.findDoc(instance.termID);
   }
+
   /**
    * Returns a schema for the update method's second parameter.
    * @returns { SimpleSchema }.
@@ -358,7 +359,7 @@ class CourseInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this; // tslint:disable-line: no-this-assignment
       Meteor.publish(this.publicationNames.student, function publish() {
-        if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
+        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {
@@ -367,7 +368,7 @@ class CourseInstanceCollection extends BaseCollection {
         return instance.collection.find({ studentID: this.userId });
       });
       Meteor.publish(this.publicationNames.perStudentAndAcademicTerm,
-        function perStudentAndAcademicTerm(studentID, termID) {  // tslint:disable-line: ter-prefer-arrow-callback
+        function perStudentAndAcademicTerm(studentID, termID) { // eslint-disable-line meteor/audit-argument-checks
           new SimpleSchema({
             studentID: { type: String },
             termID: { type: String },
@@ -379,7 +380,7 @@ class CourseInstanceCollection extends BaseCollection {
         return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback
-      Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) {
+      Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) { // eslint-disable-line meteor/audit-argument-checks
         // check the courseID.
         const slug = Slugs.findDoc({ name: courseSlug });
         const course = Courses.findDoc({ slugID: slug._id });
@@ -391,7 +392,7 @@ class CourseInstanceCollection extends BaseCollection {
         return instance.collection.find({ courseID }, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback
-      Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) {
+      Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         new SimpleSchema({
           studentID: { type: String },
         }).validate({ studentID });

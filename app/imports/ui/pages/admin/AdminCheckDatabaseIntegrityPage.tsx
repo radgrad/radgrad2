@@ -24,18 +24,14 @@ interface IAdminCheckDatabaseIntegrityPageState {
   checkIntegrityWorking?: boolean;
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     checkIntegrityWorking: state.radgradWorking.checkIntegrity,
-  };
-};
+  });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     startCheckIntegrity: () => dispatch(startCheckIntegrity()),
     checkIntegrityDone: () => dispatch(checkIntegrityDone()),
-  };
-};
+  });
 
 class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabaseIntegrityPageProps, IAdminCheckDatabaseIntegrityPageState> {
   constructor(props) {

@@ -37,9 +37,9 @@ class LandingOpportunitiesCardExplorer extends React.Component<IOpportunitiesCar
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/*<Grid.Row>*/}
-          {/*<HelpPanelWidgetContainer routeProps={this.props.location}/>*/}
-          {/*</Grid.Row>*/}
+          {/* <Grid.Row> */}
+          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
               <LandingExplorerMenuContainer/>
@@ -50,11 +50,9 @@ class LandingOpportunitiesCardExplorer extends React.Component<IOpportunitiesCar
                   <span>OPPORTUNITIES</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.opportunities.map((opportunity) => {
-                    return (
+                  {this.props.opportunities.map((opportunity) => (
                       <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity}/>
-                    );
-                  })}
+                    ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>

@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
-import { IIceSnapshotDefine } from '../../typings/radgrad';
+import { IIceSnapshotDefine } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a snapshot of a student's ICE points and their level. Used to check if a student

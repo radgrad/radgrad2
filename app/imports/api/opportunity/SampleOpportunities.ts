@@ -1,7 +1,7 @@
 import { moment } from 'meteor/momentjs:moment';
-import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
-import { Opportunities } from '../opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { OpportunityTypes } from './OpportunityTypeCollection';
+import { Opportunities } from './OpportunityCollection';
+import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 

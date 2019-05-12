@@ -7,7 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IMentorProfileDefine, IMentorProfileUpdate } from '../../typings/radgrad';
+import { IMentorProfileDefine, IMentorProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a Mentor Profile.

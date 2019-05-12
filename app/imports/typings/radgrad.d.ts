@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ProcessedSchema } from '../api/verification/VerificationRequestCollection';
 
 declare global {

@@ -49,7 +49,7 @@ class BaseTypeCollection extends BaseCollection {
   public getID(instance) {
     let id;
     if (_.isObject(instance) && instance._id) {
-      // tslint:disable-next-line: no-parameter-reassignment
+      // eslint-disable-next-line no-param-reassign
       instance = instance._id;
     }
     try {

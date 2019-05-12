@@ -4,7 +4,9 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { StudentProfiles } from './StudentProfileCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+
+/* eslint-env mocha */
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -25,11 +27,11 @@ if (Meteor.isClient) {
     const careerGoals = [];
     const level = 6;
 
-    before(function(done) {
+    before(function (done) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function() {
+    it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const definitionData = { username, firstName, lastName, picture, website, interests, careerGoals, level };
@@ -42,7 +44,7 @@ if (Meteor.isClient) {
       expect(profile.userID).to.not.equal(StudentProfiles.getFakeUserId());
     });
 
-    it('Update Method', async function() {
+    it('Update Method', async function () {
       const id = StudentProfiles.getID(username);
       await updateMethod.callPromise({ collectionName, updateData: { id, level: 4 } });
       await sleep(delay); // give the system time to propagate the changes
@@ -50,7 +52,7 @@ if (Meteor.isClient) {
       expect(profile.level).to.equal(4);
     });
 
-    it('Remove Method', async function() {
+    it('Remove Method', async function () {
       const instance = StudentProfiles.getID(username);
       // const profile = StudentProfiles.findDoc({ username });
       // console.log(instance, profile);

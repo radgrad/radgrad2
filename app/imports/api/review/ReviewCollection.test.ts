@@ -2,13 +2,14 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
 import { ROLE } from '../role/Role';
-import { Reviews } from '../review/ReviewCollection';
+import { Reviews } from './ReviewCollection';
 import { defineAcademicTerms } from '../academic-term/AcademicTermUtilities';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('ReviewCollection', function testSuite() {

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
 import { Courses } from '../course/CourseCollection';
-import { Ice } from '../../typings/radgrad';
+import { Ice } from '../../typings/radgrad'; // eslint-disable-line
 
 export const iceSchema = new SimpleSchema({
   i: {
@@ -27,7 +27,7 @@ export const iceSchema = new SimpleSchema({
 Number.isInteger = Number.isInteger ||
     function test(value) {
       return typeof value === 'number' &&
-          isFinite(value) &&
+          isFinite(value) && // eslint-disable-line no-restricted-globals
           Math.floor(value) === value;
     };
 

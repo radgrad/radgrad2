@@ -7,5 +7,5 @@ import store from '../../redux/store';
 
 /** Startup the application by rendering the App layout component. */
 Meteor.startup(() => {
-  render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
+  render(<Provider store={store}><App/></Provider>, document.getElementById('root')); // eslint-disable-line
 });

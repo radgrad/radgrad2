@@ -4,7 +4,9 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { CareerGoals } from './CareerGoalCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
+
 
 if (Meteor.isClient) {
   describe('CareerGoalCollection Meteor Methods ', function test() {
@@ -16,18 +18,18 @@ if (Meteor.isClient) {
       interests: ['algorithms'],
     };
 
-    before(function(done) {
+    before(function (done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function() {
+    it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const careerGoalID = await defineMethod.callPromise({ collectionName, definitionData });
       expect(CareerGoals.isDefined(careerGoalID)).to.be.true;
     });
 
-    it('Update Method', async function() {
+    it('Update Method', async function () {
       const id = CareerGoals.findIdBySlug(definitionData.slug);
       const name = 'updated CareerGoal name';
       const description = 'updated CareerGoal description';
@@ -35,7 +37,7 @@ if (Meteor.isClient) {
       await updateMethod.callPromise({ collectionName, updateData: { id, name, description, interests } });
     });
 
-    it('Remove Method', async function() {
+    it('Remove Method', async function () {
       await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
     });
   });

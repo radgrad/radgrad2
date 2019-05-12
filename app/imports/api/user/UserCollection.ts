@@ -476,6 +476,7 @@ class UserCollection {
     if (Meteor.isClient) {
       return Meteor.subscribe(this.collectionName);
     }
+    return null;
   }
 
   /**

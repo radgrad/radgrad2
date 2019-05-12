@@ -33,9 +33,7 @@ function documentCounts() {
  * @memberOf startup/server
  */
 function totalDocuments() {
-  return _.reduce(documentCounts(), (sum, count) => {
-    return sum + count;
-  }, 0);
+  return _.reduce(documentCounts(), (sum, count) => sum + count, 0);
 }
 
 /**

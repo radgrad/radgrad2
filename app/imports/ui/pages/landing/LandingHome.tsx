@@ -71,9 +71,8 @@ class LandingHome extends React.Component<ILandingHomeProps> {
 const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationName(), RadGradSettings.getPublicationName()]);
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-const LandingHomeContainer = withTracker(() => {
-  // console.log(`LandingHomeContainer withTracker()`);
-  return {
+const LandingHomeContainer = // console.log(`LandingHomeContainer withTracker()`);
+                             withTracker(() => ({
     careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
     careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
     courseReviews: PublicStats.getPublicStat(PublicStats.courseReviewsTotalKey),
@@ -89,7 +88,6 @@ const LandingHomeContainer = withTracker(() => {
     mentors: PublicStats.getPublicStat(PublicStats.usersMentorsTotalKey),
     opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
     users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
-  };
-})(WithSubs);
+  }))(WithSubs);
 
 export default LandingHomeContainer;

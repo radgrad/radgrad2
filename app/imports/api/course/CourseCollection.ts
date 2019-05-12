@@ -6,7 +6,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
+import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
 
 /**
@@ -47,16 +47,16 @@ class CourseCollection extends BaseSlugCollection {
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
-      'name': { type: String, optional: true },
-      'shortName': { type: String, optional: true },
-      'description': { type: String, optional: true },
-      'creditHrs': { type: SimpleSchema.Integer, optional: true },
-      'interests': { type: Array, optional: true },
+      name: { type: String, optional: true },
+      shortName: { type: String, optional: true },
+      description: { type: String, optional: true },
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      interests: { type: Array, optional: true },
       'interests.$': String,
-      'syllabus': { type: String, optional: true },
-      'prerequisites': { type: Array, optional: true },
+      syllabus: { type: String, optional: true },
+      prerequisites: { type: Array, optional: true },
       'prerequisites.$': String,
-      'retired': { type: Boolean, optional: true },
+      retired: { type: Boolean, optional: true },
     });
     this.unInterestingSlug = 'other';
   }
@@ -189,11 +189,10 @@ class CourseCollection extends BaseSlugCollection {
       if (courseInstance.courseID === docID) {
         throw new Meteor.Error(`Course ${instance} is referenced by a course instance ${courseInstance}.`);
       }
+      return true;
     });
     // OK to delete. First remove any Feeds that reference this course.
-    Feeds.find({ courseID: docID }).map((feed) => {
-      Feeds.removeIt(feed._id);
-    });
+    Feeds.find({ courseID: docID }).map((feed) => Feeds.removeIt(feed._id));
     // Now remove the Course.
     return super.removeIt(docID);
   }

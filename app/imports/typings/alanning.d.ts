@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* Declaring in the format prescribed by Meteor */
 declare module 'meteor/alanning:roles' {
   namespace Roles {
@@ -18,7 +19,7 @@ declare module 'meteor/alanning:roles' {
      * @static
      * @final
      */
-    const GLOBAL_GROUP: string;
+//    const GLOBAL_GROUP: string;
 
     /**
      * Subscription handle for the currently logged in user's permissions.
@@ -35,7 +36,7 @@ declare module 'meteor/alanning:roles' {
      * @type Object
      * @for Roles
      */
-    const subscription: Subscription;
+//    const subscription: Subscription;
 
     /**
      * Add users to roles. Will create roles as needed.

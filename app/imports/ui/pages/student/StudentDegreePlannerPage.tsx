@@ -30,12 +30,10 @@ interface IPageProps {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
     selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  };
-};
+  });
 
 class StudentDegreePlannerPage extends React.Component<IPageProps> {
   constructor(props) {

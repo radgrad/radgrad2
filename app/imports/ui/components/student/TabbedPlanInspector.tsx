@@ -15,25 +15,21 @@ interface ITabbedPlanInspectorProps {
   selectPlanTab: () => any;
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     selectedTab: state.depTab.selectedTab,
-  };
-};
+  });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectPlanTab: () => dispatch(selectPlanTab()),
     selectInspectorTab: () => dispatch(selectInspectorTab()),
-  };
-};
+  });
 
 class TabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {
   constructor(props) {
     super(props);
   }
 
-  private handleTabChange = (e , { activeIndex }) => {
+  private handleTabChange = (e, { activeIndex }) => {
     e.preventDefault();
     console.log(`handleTabChange ${activeIndex}`);
     switch (activeIndex) {

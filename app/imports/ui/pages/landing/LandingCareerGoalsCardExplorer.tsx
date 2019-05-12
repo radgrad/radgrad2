@@ -37,9 +37,9 @@ class LandingCareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExp
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/*<Grid.Row>*/}
-            {/*<HelpPanelWidgetContainer routeProps={this.props.location}/>*/}
-          {/*</Grid.Row>*/}
+          {/* <Grid.Row> */}
+            {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
               <LandingExplorerMenuContainer/>
@@ -50,11 +50,9 @@ class LandingCareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExp
                   <span>CAREER GOALS</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.careerGoals.map((goal) => {
-                    return (
+                  {this.props.careerGoals.map((goal) => (
                       <LandingExplorerCardContainer key={goal._id} type="career-goals" item={goal}/>
-                    );
-                  })}
+                    ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>

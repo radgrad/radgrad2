@@ -34,21 +34,17 @@ interface IAdminDumpDatabasePageProps {
 
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     dumpDatabaseWorking: state.radgradWorking.dumpDatabase,
     getStudentEmailsWorking: state.radgradWorking.getStudentEmails,
-  };
-};
+  });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     startDumpDatabase: () => dispatch(startDumpDatabase()),
     dumpDatabaseDone: () => dispatch(dumpDatabaseDone()),
     startGetStudentEmails: () => dispatch(startGetStudentEmails()),
     getStudentEmailsDone: () => dispatch(getStudentEmailsDone()),
-  };
-};
+  });
 
 class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps, IAdminDumpDatabasePageState> {
   constructor(props) {
@@ -125,9 +121,7 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
             {showMessage ? (
               <Grid stackable={true} style={paddedStyle}>
                 <Message positive={!errorCondition} error={errorCondition}>
-                  {this.state.results.map((item, index) => {
-                    return (<AdminDatabaseAccordion key={index} index={index} name={item.name} contents={item.contents}/>);
-                  })}
+                  {this.state.results.map((item, index) => (<AdminDatabaseAccordion key={index} index={index} name={item.name} contents={item.contents}/>))}
                 </Message>
               </Grid>
             ) : ''}

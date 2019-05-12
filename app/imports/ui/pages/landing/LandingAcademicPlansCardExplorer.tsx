@@ -37,9 +37,9 @@ class LandingAcademicPlansCardExplorer extends React.Component<IAcademicPlansCar
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/*<Grid.Row>*/}
-          {/*<HelpPanelWidgetContainer routeProps={this.props.location}/>*/}
-          {/*</Grid.Row>*/}
+          {/* <Grid.Row> */}
+          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
               <LandingExplorerMenuContainer/>
@@ -50,11 +50,9 @@ class LandingAcademicPlansCardExplorer extends React.Component<IAcademicPlansCar
                   <span>ACADEMIC PLANS</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.academicPlans.map((plan) => {
-                    return (
+                  {this.props.academicPlans.map((plan) => (
                       <LandingAcademicPlanCardContainer key={plan._id} plan={plan}/>
-                    );
-                  })}
+                    ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>

@@ -34,11 +34,9 @@ interface IInspectorCourseViewProps {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectCourse: (courseID) => dispatch(selectCourse(courseID)),
-  };
-};
+  });
 
 class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
   constructor(props) {

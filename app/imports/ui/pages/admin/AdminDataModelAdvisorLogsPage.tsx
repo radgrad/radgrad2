@@ -16,13 +16,11 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 
-const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
     { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
     { label: 'Student', value: `${Users.getFullName(advisorLog.studentID)}` },
     { label: 'Text', value: advisorLog.text },
   ];
-};
 
 const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
   // console.log(advisorLog);
@@ -36,9 +34,7 @@ const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
   );
 };
 
-const itemTitleString = (advisorLog: IAdvisorLog): string => {
-  return `${name} ${advisorLog.createdOn}`;
-};
+const itemTitleString = (advisorLog: IAdvisorLog): string => `${name} ${advisorLog.createdOn}`;
 
 class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

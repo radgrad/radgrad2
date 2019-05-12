@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
+import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
@@ -218,7 +218,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.publicationNames.student, function publish() {
-        if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
+        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
@@ -229,14 +229,14 @@ class OpportunityInstanceCollection extends BaseCollection {
         }
         return instance.collection.find({ sponsorID: this.userId });
       });
-      Meteor.publish(this.publicationNames.perStudentAndAcademicTerm, (studentID: string, termID: string) => {
+      Meteor.publish(this.publicationNames.perStudentAndAcademicTerm, (studentID: string, termID: string) => { // eslint-disable-line meteor/audit-argument-checks
         new SimpleSchema({
           studentID: { type: String },
           termID: { type: String },
         }).validate({ studentID, termID });
         return instance.collection.find({ studentID, termID });
       });
-      Meteor.publish(this.publicationNames.studentID, (studentID) => {
+      Meteor.publish(this.publicationNames.studentID, (studentID) => { // eslint-disable-line
         new SimpleSchema({
           studentID: { type: String },
         }).validate({ studentID });

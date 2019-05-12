@@ -4,7 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
-import { IDumpOne } from '../../typings/radgrad';
+import { IDumpOne } from '../../typings/radgrad'; // eslint-disable-line
 
 /* tslint:disable:variable-name */
 
@@ -43,7 +43,7 @@ class BaseCollection {
    * @throws Meteor.Error since shouldn't call this method on the base class.
    */
   public define(obj: object): string {
-    throw new Meteor.Error(`Default define method invoked by collection ${this.collectionName}`);
+    throw new Meteor.Error(`Default define method invoked by collection ${this.collectionName} ${obj}`);
   }
 
   /**
@@ -253,7 +253,7 @@ class BaseCollection {
    * Returns a string representing all of the documents in this collection.
    * @returns {String}
    */
-  public toString(...rest: any[]): string {
+  public toString(...rest: any[]): string { // eslint-disable-line no-unused-vars
     return this.collection.find().fetch().toString();
   }
 
@@ -323,7 +323,7 @@ class BaseCollection {
    * @returns { Object } An object representing this document.
    */
   public dumpOne(docID): IDumpOne {
-    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName}`);
+    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName} on ${docID}`);
   }
 
   /**

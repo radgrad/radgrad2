@@ -37,12 +37,10 @@ interface IInspectorOpportunityViewProps {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectOpportunity: (opportunityID) => dispatch(selectOpportunity(opportunityID)),
     selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  };
-};
+  });
 
 class InspectorOpportunityView extends React.Component<IInspectorOpportunityViewProps> {
   constructor(props) {
@@ -64,7 +62,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
     console.log(inst.props);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        console.error(`Error requesting verification`, error);
+        console.error('Error requesting verification', error);
       }
     });
   }
@@ -175,8 +173,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
                 <span>Processed: {moment(processed.date).calendar()} by {processed.verifier}
                   ({processed.status}) <em>{processed.feedback}</em></span><br/>
                 </p>
-              ),
-            )}
+              ))}
           </div>
         )) : ''
         }

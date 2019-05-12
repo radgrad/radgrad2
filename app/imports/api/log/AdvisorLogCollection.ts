@@ -6,7 +6,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
-import { IAdvisorLogDefine, IAdvisorLogUpdate } from '../../typings/radgrad';
+import { IAdvisorLogDefine, IAdvisorLogUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a log of an Advisor talking to a Student.
@@ -109,7 +109,7 @@ class AdvisorLogCollection extends BaseCollection {
       // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.collectionName, function publish() {
-        if (!this.userId) {  // https://github.com/meteor/meteor/issues/9619
+        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {

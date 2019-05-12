@@ -104,15 +104,15 @@ const LandingSection1 = () => (
                   <Grid className="landing-ice" columns={3}>
                     <Grid.Column>
                       <MenuIceCircle earned={65} planned={100} type={'innov'}/>
-                      {/*{{ > First_Menu_Ice earned="92" projected="100" iceType="innov" type='landing'}}*/}
+                      {/* {{ > First_Menu_Ice earned="92" projected="100" iceType="innov" type='landing'}} */}
                     </Grid.Column>
                     <Grid.Column>
                       <MenuIceCircle earned={78} planned={100} type={'comp'}/>
-                      {/*{{ > First_Menu_Ice earned="81" projected="100" iceType="comp" type='landing'}}*/}
+                      {/* {{ > First_Menu_Ice earned="81" projected="100" iceType="comp" type='landing'}} */}
                     </Grid.Column>
                     <Grid.Column>
                       <MenuIceCircle earned={74} planned={100} type={'exp'}/>
-                      {/*{{ > First_Menu_Ice earned="90" projected="100" iceType="exp" type='landing'}}*/}
+                      {/* {{ > First_Menu_Ice earned="90" projected="100" iceType="exp" type='landing'}} */}
                     </Grid.Column>
                   </Grid>
                 </Card.Description>

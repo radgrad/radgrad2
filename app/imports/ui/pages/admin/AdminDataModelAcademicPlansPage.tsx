@@ -10,29 +10,25 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 
-const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
     { label: 'Name', value: plan.name },
     { label: 'Year', value: `${plan.year}` },
     { label: 'Course Choices', value: `${plan.courseList}` },
     { label: 'Retired', value: plan.retired ? 'True' : 'False' },
   ];
-};
 
 const itemTitleString = (plan: IAcademicPlan): string => {
   const slug = Slugs.getNameFromID(plan.slugID);
   return `${plan.name} (${plan.year}) (${slug})`;
 };
 
-const itemTitle = (plan: IAcademicPlan): React.ReactNode => {
-  return (
+const itemTitle = (plan: IAcademicPlan): React.ReactNode => (
     <React.Fragment>
       {plan.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(plan)}
     </React.Fragment>
   );
-};
 
 /**
  * The AcademicPlan data model page.

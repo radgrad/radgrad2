@@ -12,10 +12,8 @@ const LandingPrerequisiteList = (props: IPrerequisitesListProps) => {
   const courses = _.map(props.prerequisites, (slug) => Courses.findDocBySlug(slug));
   return (
     <List horizontal={true} bulleted={true}>
-      {courses.map((course) => {
-        // console.log(course.name);
-        return (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>);
-      })}
+      {// console.log(course.name);
+       courses.map((course) => (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>))}
     </List>
   );
 };

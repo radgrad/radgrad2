@@ -108,7 +108,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
               {students.map((user) => (
                 <Grid.Column key={user._id} width={2} style={linkStyle}>
                   <a className="ui basic grey fluid label" target="_blank" href={url(user)}>
-                    {/*<Image src={`/images/level-icons/radgrad-level-${user.level}-icon.png`}/>*/}
+                    {/* <Image src={`/images/level-icons/radgrad-level-${user.level}-icon.png`}/> */}
                     {name(user)}
                     </a>
                 </Grid.Column>

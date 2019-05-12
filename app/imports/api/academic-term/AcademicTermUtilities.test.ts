@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { } from 'mocha';
+import {} from 'mocha';
 import { defineAcademicTerms, nextAcademicTerm, upComingTerms } from './AcademicTermUtilities';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { AcademicTerms } from './AcademicTermCollection';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('AcademicTermUtilities', function testSuite() {

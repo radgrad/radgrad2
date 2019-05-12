@@ -1,4 +1,4 @@
-/* tslint:disable: function-name */
+/* eslint-disable */
 declare module 'react-slick' {
   export default function Slider();
 }

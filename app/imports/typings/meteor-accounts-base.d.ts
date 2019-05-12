@@ -1,3 +1,4 @@
+/* eslint-disable */
 declare module 'meteor/accounts-base' {
   namespace Accounts {
     function removeDefaultRateLimit(): any;

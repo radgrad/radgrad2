@@ -3,7 +3,8 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { processVerificationEventMethod } from './VerificationRequestCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isClient) {
   describe('VerificationRequestCollection Meteor Methods ', function test() {

@@ -37,7 +37,7 @@ import { VerificationRequests } from '../verification/VerificationRequestCollect
 class RadGradClass {
   public collections: any[];
   public collectionLoadSequence;
-  private collectionAssociation;
+  private readonly collectionAssociation;
   public calcLevel?: (studentID: string) => any;
 
   constructor() {

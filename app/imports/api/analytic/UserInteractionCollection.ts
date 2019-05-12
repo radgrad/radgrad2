@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IUserInteractionDefine } from '../../typings/radgrad';
+import { IUserInteractionDefine } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a log of user interactions with RadGrad.

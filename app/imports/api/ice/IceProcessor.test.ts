@@ -6,9 +6,10 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import * as ICE from './IceProcessor';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
-import { Ice } from '../../typings/radgrad';
+import { Ice } from '../../typings/radgrad'; // eslint-disable-line
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('IceProcessor', function testSuite() {

@@ -2,12 +2,12 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
-import { Users } from '../user/UserCollection';
+import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
+import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a Faculty Profile.

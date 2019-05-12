@@ -29,27 +29,21 @@ function numReferences(careerGoal) {
   return references;
 }
 
-const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => [
     { label: 'Description', value: careerGoal.description },
     { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
     { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
   ];
-};
 
-const itemTitleString = (careerGoal: ICareerGoal): string => {
-  return `${careerGoal.name}`;
-};
+const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name}`;
 
-const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => {
-  return (
+const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
     <React.Fragment>
       {careerGoal.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(careerGoal)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -64,9 +58,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
     // console.log('handleAdd(%o)', doc);
     const collectionName = CareerGoals.getCollectionName();
     const interests = doc.interests;
-    const slugs = _.map(interests, (i) => {
-      return Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID);
-    });
+    const slugs = _.map(interests, (i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
     const definitionData = doc;
     definitionData.interests = slugs;
     defineMethod.call({ collectionName, definitionData }, (error) => {

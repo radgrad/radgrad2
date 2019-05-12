@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Popup  } from 'semantic-ui-react';
+import { Popup } from 'semantic-ui-react';
 import LoginForm from './LoginForm';
 
 class LoginDialog extends React.Component {

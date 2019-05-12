@@ -1,6 +1,6 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseTypeCollection from '../base/BaseTypeCollection';
-import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad';
+import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * InterestTypes help organize Interests into logically related groupings such as "CS-Disciplines", "Locations", etc.

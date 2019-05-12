@@ -36,7 +36,7 @@ function withInstanceSubscriptions(WrappedComponent) {
 
   return withTracker(() => {
     const handles = [];
-    if (Meteor.userId()) {  // if logged out don't subscribe
+    if (Meteor.userId()) { // if logged out don't subscribe
       handles.push(instanceSubs.subscribe(AcademicYearInstances.publicationNames.PerStudentID, Meteor.userId()));
       handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, Meteor.userId()));
     }

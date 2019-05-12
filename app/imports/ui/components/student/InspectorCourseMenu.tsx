@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
+import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Roles } from 'meteor/alanning:roles';
 import { selectCourse } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { ICourse } from '../../../typings/radgrad';
-import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -21,11 +21,9 @@ interface IInspectorCourseMenuState {
   courseID?: string;
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     selectCourse: (courseID) => dispatch(selectCourse(courseID)),
-  };
-};
+  });
 
 function courseStructureForMenu(userID) {
   let courses = Courses.findNonRetired({}, { sort: { num: 1 } });

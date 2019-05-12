@@ -9,8 +9,8 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import BaseCollection from '../../../api/base/BaseCollection';
 import { withTracker } from 'meteor/react-meteor-data';
+import BaseCollection from '../../../api/base/BaseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad';
 import { docToName, interestIdToName } from '../shared/AdminDataModelHelperFunctions';
@@ -38,26 +38,26 @@ class UpdateCourseForm extends React.Component<IUpdateCourseFormProps> {
     // console.log(model);
     const interestNames = _.map(this.props.interests, docToName);
     const schema = new SimpleSchema({
-      'name': { type: String, optional: true },
-      'shortName': { type: String, optional: true },
-      'creditHrs': {
+      name: { type: String, optional: true },
+      shortName: { type: String, optional: true },
+      creditHrs: {
         type: SimpleSchema.Integer,
         optional: true,
         min: 1,
         max: 15,
         defaultValue: 3,
       },
-      'num': { type: String, optional: true },
-      'description': { type: String, optional: true },
-      'interests': Array,
-      'syllabus': { type: String, optional: true },
+      num: { type: String, optional: true },
+      description: { type: String, optional: true },
+      interests: Array,
+      syllabus: { type: String, optional: true },
       'interests.$': {
         type: String,
         allowedValues: interestNames,
         // optional: true, CAM: not sure if we want this to be optional
       },
-      'prerequisites': { type: String, optional: true },
-      'retired': Boolean,
+      prerequisites: { type: String, optional: true },
+      retired: Boolean,
     });
     return (
       <Segment padded={true}>

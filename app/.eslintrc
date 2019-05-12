@@ -1,13 +1,15 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "project": "./tsconfig.json"
   },
   "plugins": [
+    "@typescript-eslint",
     "meteor",
     "react"
   ],
@@ -37,12 +39,15 @@
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "linebreak-style": "off",
-    "max-len": ["error", 120],
+    "lines-between-class-members": "off",
+    "max-len": "off",
     "meteor/eventmap-params": [2, { "eventParamName": "event", "templateInstanceParamName": "instance" } ],
     "meteor/template-names": "off",
     "no-confusing-arrow": ["error", {"allowParens": true}],
+    "no-console": "off",
     "no-plusplus": "off",
     "no-underscore-dangle": "off",
+    "no-useless-constructor": "off",
     "object-curly-newline": "off",
     "object-property-newline": "off",
     "object-shorthand": "off",

@@ -14,7 +14,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { IBaseProfile } from '../../typings/radgrad';
+import { IBaseProfile } from '../../typings/radgrad'; // eslint-disable-line
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
@@ -85,7 +85,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     let id;
     // If we've been passed a document, check to see if it has an _id field and use that if available.
     if (_.isObject(instance) && instance._id) {
-      instance = instance._id; // tslint:disable-line no-parameter-reassignment
+      instance = instance._id; // eslint-disable-line no-param-reassign
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this.collection.findOne({ username: instance });
@@ -208,6 +208,7 @@ class BaseProfileCollection extends BaseSlugCollection {
       Slugs.getCollection().remove({ name: username });
       return super.removeIt(profileID);
     }
+    return null;
   }
 
   /**
@@ -217,25 +218,25 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   protected updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired }) {
     if (firstName) {
-      updateData.firstName = firstName;
+      updateData.firstName = firstName; // eslint-disable-line
     }
     if (lastName) {
-      updateData.lastName = lastName;
+      updateData.lastName = lastName; // eslint-disable-line
     }
     if (picture) {
-      updateData.picture = picture;
+      updateData.picture = picture; // eslint-disable-line
     }
     if (website) {
-      updateData.website = website;
+      updateData.website = website; // eslint-disable-line
     }
     if (interests) {
-      updateData.interestIDs = Interests.getIDs(interests);
+      updateData.interestIDs = Interests.getIDs(interests); // eslint-disable-line
     }
     if (careerGoals) {
-      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
+      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals); // eslint-disable-line
     }
     if (_.isBoolean(retired)) {
-      updateData.retired = retired;
+      updateData.retired = retired; // eslint-disable-line
     }
     // console.log('_updateCommonFields', updateData);
   }

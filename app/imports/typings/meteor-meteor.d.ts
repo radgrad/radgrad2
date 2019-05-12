@@ -1,3 +1,4 @@
+/* eslint-disable */
 declare module 'meteor/meteor' {
   namespace Meteor {
     const isAppTest: boolean;

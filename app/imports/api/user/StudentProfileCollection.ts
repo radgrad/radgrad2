@@ -16,7 +16,7 @@ import { Users } from './UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
-import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad';
+import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a Student Profile.
@@ -38,61 +38,61 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareLevel: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
-      'username': String,
-      'firstName': String,
-      'lastName': String,
-      'picture': { type: String, optional: true },
-      'website': { type: String, optional: true },
-      'interests': { type: Array, optional: true },
+      username: String,
+      firstName: String,
+      lastName: String,
+      picture: { type: String, optional: true },
+      website: { type: String, optional: true },
+      interests: { type: Array, optional: true },
       'interests.$': String,
-      'careerGoals': { type: Array, optional: true },
+      careerGoals: { type: Array, optional: true },
       'careerGoals.$': String,
-      'retired': { type: Boolean, optional: true },
-      'level': { type: SimpleSchema.Integer, min: 1, max: 6 },
-      'academicPlanID': { type: String, optional: true },
-      'declaredAcademicTermID': { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+      level: { type: SimpleSchema.Integer, min: 1, max: 6 },
+      academicPlanID: { type: String, optional: true },
+      declaredAcademicTermID: { type: String, optional: true },
       // 'hiddenCourseIDs': { type: Array, optional: true },
       // 'hiddenCourseIDs.$': String,
       // 'hiddenOpportunityIDs': { type: Array, optional: true },
       // 'hiddenOpportunityIDs.$': String,
-      'isAlumni': { type: Boolean, optional: true },
-      'shareUsername': { type: Boolean, optional: true },
-      'sharePicture': { type: Boolean, optional: true },
-      'shareWebsite': { type: Boolean, optional: true },
-      'shareInterests': { type: Boolean, optional: true },
-      'shareCareerGoals': { type: Boolean, optional: true },
-      'shareAcademicPlan': { type: Boolean, optional: true },
-      'shareOpportunities': { type: Boolean, optional: true },
-      'shareCourses': { type: Boolean, optional: true },
-      'shareLevel': { type: Boolean, optional: true },
+      isAlumni: { type: Boolean, optional: true },
+      shareUsername: { type: Boolean, optional: true },
+      sharePicture: { type: Boolean, optional: true },
+      shareWebsite: { type: Boolean, optional: true },
+      shareInterests: { type: Boolean, optional: true },
+      shareCareerGoals: { type: Boolean, optional: true },
+      shareAcademicPlan: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
+      shareLevel: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
-      'firstName': String,
-      'lastName': String,
-      'picture': { type: String, optional: true },
-      'website': { type: String, optional: true },
-      'interests': { type: Array, optional: true },
+      firstName: String,
+      lastName: String,
+      picture: { type: String, optional: true },
+      website: { type: String, optional: true },
+      interests: { type: Array, optional: true },
       'interests.$': String,
-      'careerGoals': { type: Array, optional: true },
+      careerGoals: { type: Array, optional: true },
       'careerGoals.$': String,
-      'retired': { type: Boolean, optional: true },
-      'level': { type: SimpleSchema.Integer, min: 1, max: 6 },
-      'academicPlanID': { type: String, optional: true },
-      'declaredAcademicTermID': { type: String, optional: true },
-      'hiddenCourseIDs': { type: Array, optional: true },
+      retired: { type: Boolean, optional: true },
+      level: { type: SimpleSchema.Integer, min: 1, max: 6 },
+      academicPlanID: { type: String, optional: true },
+      declaredAcademicTermID: { type: String, optional: true },
+      hiddenCourseIDs: { type: Array, optional: true },
       'hiddenCourseIDs.$': String,
-      'hiddenOpportunityIDs': { type: Array, optional: true },
+      hiddenOpportunityIDs: { type: Array, optional: true },
       'hiddenOpportunityIDs.$': String,
-      'isAlumni': { type: Boolean, optional: true },
-      'shareUsername': { type: Boolean, optional: true },
-      'sharePicture': { type: Boolean, optional: true },
-      'shareWebsite': { type: Boolean, optional: true },
-      'shareInterests': { type: Boolean, optional: true },
-      'shareCareerGoals': { type: Boolean, optional: true },
-      'shareAcademicPlan': { type: Boolean, optional: true },
-      'shareOpportunities': { type: Boolean, optional: true },
-      'shareCourses': { type: Boolean, optional: true },
-      'shareLevel': { type: Boolean, optional: true },
+      isAlumni: { type: Boolean, optional: true },
+      shareUsername: { type: Boolean, optional: true },
+      sharePicture: { type: Boolean, optional: true },
+      shareWebsite: { type: Boolean, optional: true },
+      shareInterests: { type: Boolean, optional: true },
+      shareCareerGoals: { type: Boolean, optional: true },
+      shareAcademicPlan: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
+      shareLevel: { type: Boolean, optional: true },
     });
   }
 
@@ -441,7 +441,7 @@ class StudentProfileCollection extends BaseProfileCollection {
   public publish() {
     if (Meteor.isServer) {
       const inst = this; // tslint:disable-line:no-this-assignment
-      Meteor.publish(this.collectionName, function() {
+      Meteor.publish(this.collectionName, function () {
         const userID = Meteor.userId();
         ReactiveAggregate(this, inst.collection, [{
           $project: {
@@ -550,8 +550,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     const academicPlan = doc.academicPlanID && AcademicPlans.findSlugByID(doc.academicPlanID);
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const hiddenCourses = _.map(doc.hiddenCourseIDs, (hiddenCourseID) => Courses.findSlugByID(hiddenCourseID));
-    const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, (hiddenOpportunityID) =>
-      Opportunities.findSlugByID(hiddenOpportunityID));
+    const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, (hiddenOpportunityID) => Opportunities.findSlugByID(hiddenOpportunityID));
     const isAlumni = doc.isAlumni;
     const retired = doc.retired;
     const shareUsername = doc.shareUsername;

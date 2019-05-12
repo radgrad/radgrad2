@@ -28,26 +28,26 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const interestNames = _.map(this.props.interests, docToName);
     const schema = new SimpleSchema({
-      'slug': String,
-      'name': String,
-      'shortName': { type: String, optional: true },
-      'creditHours': {
+      slug: String,
+      name: String,
+      shortName: { type: String, optional: true },
+      creditHours: {
         type: SimpleSchema.Integer,
         optional: true,
         min: 1,
         max: 15,
         defaultValue: 3,
       },
-      'number': String,
-      'description': String,
-      'interests': Array,
-      'syllabus': { type: String, optional: true },
+      number: String,
+      description: String,
+      interests: Array,
+      syllabus: { type: String, optional: true },
       'interests.$': {
         type: String,
         allowedValues: interestNames,
         // optional: true, CAM: not sure if we want this to be optional
       },
-      'prerequisites': { type: String, optional: true },
+      prerequisites: { type: String, optional: true },
     });
     return (
       <Segment padded={true}>

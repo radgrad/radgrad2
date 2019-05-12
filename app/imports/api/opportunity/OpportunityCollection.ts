@@ -12,7 +12,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE } from '../ice/IceProcessor';
-import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
+import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".
@@ -157,17 +157,17 @@ class OpportunityCollection extends BaseSlugCollection {
       if (opportunityInstance.opportunityID === docID) {
         throw new Meteor.Error(`Opportunity ${instance} referenced by a opportunity instance ${opportunityInstance}.`);
       }
+      return true;
     });
     // Check that this opportunity is not referenced by any Teaser.
     Teasers.find().map((teaser) => {
       if (Teasers.hasOpportunity(teaser, docID)) {
         throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser ${teaser}.`);
       }
+      return true;
     });
     // OK to delete. First remove any Feeds that reference this opportunity.
-    Feeds.find({ opportunityID: docID }).map((feed) => {
-      Feeds.removeIt(feed._id);
-    });
+    Feeds.find({ opportunityID: docID }).map((feed) => Feeds.removeIt(feed._id));
     return super.removeIt(docID);
   }
 

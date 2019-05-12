@@ -4,7 +4,8 @@ import {} from 'mocha';
 import { InterestTypes } from './InterestTypeCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('InterestTypeCollection', function testSuite() {

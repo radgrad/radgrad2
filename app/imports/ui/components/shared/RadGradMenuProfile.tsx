@@ -31,7 +31,7 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
     const level = profile.level;
     // console.log(displayLevelAndIce);
     const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
-    const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px',  marginTop: '3px' };
+    const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };
     const imageStyle = { width: '50px', borderRadius: '2px' };
     const nameStyle = { lineHeight: '20px', paddingLeft: '10px', marginTop: '0px' };
     const pictureSrc = (profile.picture) ? profile.picture : '/images/default-profile-picture.png';

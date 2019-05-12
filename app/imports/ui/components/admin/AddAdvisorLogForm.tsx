@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';
@@ -55,7 +54,7 @@ class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
   }
 }
 
-const AddAdvisorLogFormContainer = withTracker((props) => {
+const AddAdvisorLogFormContainer = withTracker(() => {
   const advisors = Roles.getUsersInRole(ROLE.ADVISOR).fetch();
   const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();
   // console.log('advisors=%o students=%o', advisors, students);

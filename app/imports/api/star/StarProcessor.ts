@@ -5,7 +5,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { IStarDataObject } from '../../typings/radgrad';
+import { IStarDataObject } from '../../typings/radgrad'; // eslint-disable-line
 
 /* global isNaN */
 
@@ -50,9 +50,9 @@ function findAcademicTermSlug(starDataObject: IStarDataObject) {
       return null;
   }
   let year = parseInt(academicTermTokens[1], 10);
-  if (isNaN(year)) {
+  if (isNaN(year)) { // eslint-disable-line
     year = parseInt(academicTermTokens[2], 10);
-    if (isNaN(year)) {
+    if (isNaN(year)) { // eslint-disable-line
       return null;
     }
   }
@@ -146,21 +146,21 @@ export function processStarCsvData(student, csvData) {
       const name = data[nameIndex];
       let grade = data[gradeIndex];
       // console.log(`grade ${grade}`);
-      if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
+      if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) { // eslint-disable-line
         grade = data[transferGradeIndex];
-      } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) {
+      } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) { // eslint-disable-line
         // got number assuming it is AP exam score need to determine the type of the exam.
         // const exam = data[transferCourseDesc];
         if (data[transferGradeIndex] > 2) {
           grade = 'B';
         }
-      } else if (grade === 'unknown' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
+      } else if (grade === 'unknown' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) { // eslint-disable-line
         grade = data[transferGradeIndex];
       } else if (grade.includes('L')) {
         grade = 'C';
       }
       let num = data[numberIndex];
-      if (isNaN(num)) {
+      if (isNaN(num)) { // eslint-disable-line
         num = data[transferCourseNumberIndex];
       }
       const obj: IStarDataObject = {
@@ -175,9 +175,7 @@ export function processStarCsvData(student, csvData) {
     });
     // console.log(dataObjects);
     // Now we take that array of objects and transform them into CourseInstance data objects.
-    return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
-      return ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null;
-    });
+    return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
   }
   // must be on the client.
   return null;
@@ -214,21 +212,21 @@ export function processBulkStarCsvData(csvData) {
       const name = data[nameIndex];
       let grade = data[gradeIndex];
       // console.log(`grade ${grade}`);
-      if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
+      if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) { // eslint-disable-line
         grade = data[transferGradeIndex];
-      } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) {
+      } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) { // eslint-disable-line
         // got number assuming it is AP exam score need to determine the type of the exam.
         // const exam = data[transferCourseDesc];
         if (data[transferGradeIndex] > 2) {
           grade = 'B';
         }
-      } else if (grade === 'unknown' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
+      } else if (grade === 'unknown' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) { // eslint-disable-line
         grade = data[transferGradeIndex];
       } else if (grade.includes('L')) {
         grade = 'C';
       }
       let num = data[numberIndex];
-      if (isNaN(num)) {
+      if (isNaN(num)) { // eslint-disable-line
         num = data[transferCourseNumberIndex];
       }
       const student = data[emailIndex];
@@ -277,9 +275,9 @@ export function processStarJsonData(student, jsonData) {
     const name = course.name;
     let grade = course.grade;
     if (_.includes(CourseInstances.validGrades, grade)) {
-      if (grade === 'CR' && course.transferGrade && isNaN(course.transferGrade)) {
+      if (grade === 'CR' && course.transferGrade && isNaN(course.transferGrade)) { // eslint-disable-line
         grade = course.transferGrade;
-      } else if (grade === 'CR' && course.transferGrade && !isNaN(course.transferGrade)) {
+      } else if (grade === 'CR' && course.transferGrade && !isNaN(course.transferGrade)) { // eslint-disable-line
         // got number assuming it is AP exam score need to determine the type of the exam.
         if (course.transferGrade > 2) {
           grade = 'B';
@@ -289,7 +287,7 @@ export function processStarJsonData(student, jsonData) {
       grade = 'OTHER';
     }
     let num = course.number;
-    if (isNaN(num)) {
+    if (isNaN(num)) { // eslint-disable-line
       num = course.transferNumber;
     }
     const obj: IStarDataObject = {
@@ -305,9 +303,7 @@ export function processStarJsonData(student, jsonData) {
 
   // console.log('single', dataObjects);
   // Now we take that array of objects and transform them into CourseInstance data objects.
-  return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
-    return ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null;
-  });
+  return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
 }
 
 /**

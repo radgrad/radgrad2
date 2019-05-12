@@ -6,7 +6,7 @@ import { getRouteName } from './helper-functions';
 
 const LandingExplorerMenu = (props) => {
   // console.log(props);
-  const fullPath =  `#${props.match.path}`;
+  const fullPath = `#${props.match.path}`;
   const pathBack = fullPath.substring(0, fullPath.lastIndexOf('/'));
   return (
     <div>

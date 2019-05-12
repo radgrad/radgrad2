@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
-import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
+import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
  * Represents a choice in an academic plan.

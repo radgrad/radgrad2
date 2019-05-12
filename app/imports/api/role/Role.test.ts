@@ -4,7 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import {} from 'mocha';
 import { assertRole, isRole, ROLE } from './Role';
 
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression */
+/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('Role', function testSuite() {

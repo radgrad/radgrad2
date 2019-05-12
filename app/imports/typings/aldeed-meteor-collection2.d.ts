@@ -1,3 +1,4 @@
+/* eslint-disable */
 declare module 'meteor/mongo' {
   namespace Mongo {
     interface Collection<T> { // tslint:disable-line
