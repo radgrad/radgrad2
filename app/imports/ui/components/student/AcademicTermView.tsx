@@ -3,7 +3,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
+import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

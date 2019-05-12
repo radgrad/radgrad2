@@ -10,7 +10,7 @@ import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IInterest } from '../../../typings/radgrad';
+import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { docToName } from '../shared/AdminDataModelHelperFunctions';
 
 interface IAddCourseFormProps {
@@ -75,7 +75,7 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
   }
 }
 
-const AddCourseFormContainer = withTracker((props) => {
+const AddCourseFormContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   return {
     interests,

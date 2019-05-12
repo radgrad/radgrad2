@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Grid, Icon, Popup } from 'semantic-ui-react';
-import { IOpportunityInstance } from '../../../typings/radgrad';
+import { IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { getDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';

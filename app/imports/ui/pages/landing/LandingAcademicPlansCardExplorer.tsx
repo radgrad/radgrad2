@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IAcademicPlan } from '../../../typings/radgrad';
+import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import LandingAcademicPlanCardContainer from '../../components/landing/LandingAcademicPlanCard';

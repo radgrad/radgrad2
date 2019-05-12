@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IDesiredDegree } from '../../../typings/radgrad';
+import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';

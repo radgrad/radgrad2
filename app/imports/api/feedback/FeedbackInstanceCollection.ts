@@ -86,7 +86,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    */
   public update(docID: string, { user, description, feedbackType, functionName, retired }: IFeedbackInstanceUpdate) {
     this.assertDefined(docID);
-    const updateData: { userID?: string; description?: string; feedbackType?: string; functionName?: string; } = {};
+    const updateData: { userID?: string; description?: string; feedbackType?: string; functionName?: string; retired?: boolean; } = {};
     if (user) {
       updateData.userID = user;
     }
@@ -98,6 +98,9 @@ class FeedbackInstanceCollection extends BaseCollection {
     }
     if (functionName) {
       updateData.functionName = functionName;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }

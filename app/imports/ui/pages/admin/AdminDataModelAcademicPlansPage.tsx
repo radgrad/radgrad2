@@ -4,7 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
@@ -43,6 +43,7 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
   }
 
   private handleAdd = (doc) => {
+    console.log(doc);
     // const collectionName;
     // const definitionData;
   }
@@ -64,7 +65,7 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
   }
 
   private handleUpdate = (doc) => {
-    // do stuff.
+    console.log(doc);
   }
 
   public render() {

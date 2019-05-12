@@ -4,11 +4,8 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-// import { Collection } from '../../../api/collection/Collection';
-// import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
-// import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';

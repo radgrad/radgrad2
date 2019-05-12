@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Table, Header } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { getFutureEnrollmentMethod } from '../../../api/course/CourseCollection.methods';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 

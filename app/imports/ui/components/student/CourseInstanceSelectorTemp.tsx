@@ -5,7 +5,7 @@ import { Form } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { selectCourseInstance } from '../../../redux/actions/actions';
-import { ICourse } from '../../../typings/radgrad';
+import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { Users } from '../../../api/user/UserCollection';

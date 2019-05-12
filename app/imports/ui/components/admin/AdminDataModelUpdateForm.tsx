@@ -3,7 +3,7 @@ import { Button, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import AutoFields from 'uniforms-semantic/AutoFields';
 import SubmitField from 'uniforms-semantic/SubmitField';
-import BaseCollection from '../../../api/base/BaseCollection';
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 
 interface IAdminDataModelUpdateFormProps {
   collection: BaseCollection;

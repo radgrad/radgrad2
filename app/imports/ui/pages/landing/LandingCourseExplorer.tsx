@@ -6,7 +6,7 @@ import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
-import { ICourse } from '../../../typings/radgrad';
+import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';

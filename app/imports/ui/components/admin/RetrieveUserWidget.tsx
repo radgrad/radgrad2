@@ -6,7 +6,7 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateAllStudentLevelsMethod } from '../../../api/level/LevelProcessor.methods';
-import { IFilterUsers } from '../../pages/admin/AdminHomePage';
+import { IFilterUsers } from '../../pages/admin/AdminHomePage'; // eslint-disable-line
 
 function url(user) {
   return `/#/${user.role.toLowerCase()}/${user.username}/home`;
@@ -65,7 +65,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
             <Grid>
               {advisors.map((user) => (
                 <Grid.Column key={user._id} width={2} style={linkStyle}>
-                  <a className="ui basic grey fluid label" target="_blank" href={url(user)}>{name(user)}</a>
+                  <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>{name(user)}</a>
                 </Grid.Column>
               ))}
             </Grid>
@@ -79,7 +79,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
             <Grid>
               {faculty.map((user) => (
                 <Grid.Column key={user._id} width={2} style={linkStyle}>
-                  <a className="ui basic grey fluid label" target="_blank" href={url(user)}>{name(user)}</a>
+                  <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>{name(user)}</a>
                 </Grid.Column>
               ))}
             </Grid>
@@ -93,7 +93,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
             <Grid>
               {mentors.map((user) => (
                 <Grid.Column key={user._id} width={2} style={linkStyle}>
-                  <a className="ui basic grey fluid label" target="_blank" href={url(user)}>{name(user)}</a>
+                  <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>{name(user)}</a>
                 </Grid.Column>
               ))}
             </Grid>
@@ -107,7 +107,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
             <Grid>
               {students.map((user) => (
                 <Grid.Column key={user._id} width={2} style={linkStyle}>
-                  <a className="ui basic grey fluid label" target="_blank" href={url(user)}>
+                  <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
                     {/* <Image src={`/images/level-icons/radgrad-level-${user.level}-icon.png`}/> */}
                     {name(user)}
                     </a>
@@ -127,7 +127,7 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
             <Grid>
               {alumni.map((user) => (
                 <Grid.Column key={user._id} width={2} style={linkStyle}>
-                  <a className="ui basic grey fluid label" target="_blank" href={url(user)}>
+                  <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
                     {name(user)}
                   </a>
                 </Grid.Column>

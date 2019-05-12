@@ -14,7 +14,7 @@ const LandingSection5 = () => (
           <Header as="h1" style={styles['inverted-header']}>Measure your progress with ICE</Header>
           <p style={styles['inverted-description']}>A decent GPA is only one piece of the puzzle for a well-rounded
             computer science degree experience. RadGrad
-            provides a self-assessment tool called "ICE", which stands for <span className="ice-innovation-proj-color"><b>Innovation</b></span>,
+            provides a self-assessment tool called &quot;ICE&quot;, which stands for <span className="ice-innovation-proj-color"><b>Innovation</b></span>,
             <span className="ice-competency-proj-color"><b>Competency</b></span>, and <span className="ice-experience-proj-color"><b>Experience</b></span>.
           </p>
 
@@ -27,7 +27,7 @@ const LandingSection5 = () => (
           </p>
 
           <p style={styles['inverted-description']}>
-            How do you know when you're well-rounded? Just accumulate 100 points in each of the three categories by
+            How do you know when you&apos;re well-rounded? Just accumulate 100 points in each of the three categories by
             the
             time you graduate.
           </p>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { $ } from 'meteor/jquery';
 
-const OpportunityTeaser = (props) => {
+const OpportunityTeaser = (props: { teaser: { url: string; } }) => {
   setTimeout(() => {
     $('.ui.embed.teaser').embed({
       source: 'youtube',

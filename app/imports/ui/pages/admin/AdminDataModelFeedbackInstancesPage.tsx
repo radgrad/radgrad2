@@ -5,8 +5,8 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';  // this should be replaced by specific UpdateForm
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -18,15 +18,13 @@ const collection = FeedbackInstances; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
-  return [
+const descriptionPairs = (item: any): IDescriptionPair[] => [
     { label: 'Student', value: Users.getFullName(item.userID) },
     { label: 'Function Name', value: item.functionName },
     { label: 'Description', value: item.description },
     { label: 'Type', value: item.feedbackType },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
-};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
@@ -42,15 +40,13 @@ const itemTitleString = (item: any): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => {
-  return (
+const itemTitle = (item: any): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>
       {itemTitleString(item)}
     </React.Fragment>
   );
-};
 
 class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -120,7 +116,7 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
   }
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate doc=%o', doc);
+    console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = {}; // create the updateData object from the doc.
     updateMethod.call({ collectionName, updateData }, (error) => {

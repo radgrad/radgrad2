@@ -11,7 +11,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
+import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -24,7 +24,7 @@ import {
   opportunityIdToName,
   profileToName, userIdToName,
 } from '../shared/AdminDataModelHelperFunctions';
-import BaseCollection from '../../../api/base/BaseCollection';
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 
 interface IUpdateFeedFromProps {
   academicTerms: IAcademicTerm[];
@@ -214,7 +214,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
   }
 }
 
-const UpdateFeedFormContainer = withTracker((props) => ({
+const UpdateFeedFormContainer = withTracker(() => ({
     academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
     courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
     opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),

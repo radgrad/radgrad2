@@ -11,7 +11,7 @@ import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad';
+import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';

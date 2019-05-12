@@ -7,9 +7,9 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState,
-  ICareerGoal, ICareerGoalUpdate,
-  IDescriptionPair,
+  IAdminDataModelPageState, // eslint-disable-line
+  ICareerGoal, ICareerGoalUpdate, // eslint-disable-line
+  IDescriptionPair, // eslint-disable-line
 } from '../../../typings/radgrad';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Interests } from '../../../api/interest/InterestCollection';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
-import { IDescriptionPair } from '../../../typings/radgrad';
+import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IAdminDataModelAccordionProps {
   id: string;
@@ -27,7 +27,7 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
     this.state = { active: false };
   }
 
-  public handleClick = (e, titleProps) => {
+  public handleClick = () => {
     let { active } = this.state;
     active = !active;
     this.setState({ active });

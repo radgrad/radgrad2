@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Icon, Message } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import BaseCollection from '../../../api/base/BaseCollection';
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 
 interface IAdminPaginationWidgetProps {
   collection: BaseCollection;

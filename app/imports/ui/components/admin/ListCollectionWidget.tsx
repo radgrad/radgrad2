@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import BaseCollection from '../../../api/base/BaseCollection';
-import { IDescriptionPair } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';

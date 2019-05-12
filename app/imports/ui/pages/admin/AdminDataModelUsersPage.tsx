@@ -5,8 +5,8 @@ import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import {
-  IAdminDataModelPageState,
-  IBaseProfile, ICombinedProfileDefine,
+  IAdminDataModelPageState, // eslint-disable-line
+  IBaseProfile, ICombinedProfileDefine, // eslint-disable-line
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';

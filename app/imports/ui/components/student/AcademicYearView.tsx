@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicYear } from '../../../typings/radgrad';
+import { IAcademicYear } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AcademicTermViewContainer from './AcademicTermView';
 

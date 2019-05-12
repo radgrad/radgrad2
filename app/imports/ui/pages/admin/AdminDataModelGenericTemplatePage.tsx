@@ -4,13 +4,10 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-// import { Collection } from '../../../api/collection/Collection';
-// import { ICollection, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
-// import { Slugs } from '../../../api/slug/SlugCollection'; // if needed.
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 
 const collection = null; // the collection to use.
@@ -27,7 +24,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => 'the item title string';
+const itemTitleString = (item: any): string => `the ${item} title string`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
@@ -109,7 +106,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate doc=%o', doc);
+    console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = {}; // create the updateData object from the doc.
     updateMethod.call({ collectionName, updateData }, (error) => {

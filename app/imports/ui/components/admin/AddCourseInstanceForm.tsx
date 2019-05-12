@@ -7,7 +7,7 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad';
+import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -79,7 +79,7 @@ class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps>
   }
 }
 
-const AddCourseInstanceFormContainer = withTracker((props) => {
+const AddCourseInstanceFormContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const courses = Courses.find().fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();

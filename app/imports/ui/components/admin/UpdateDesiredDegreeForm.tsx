@@ -5,8 +5,8 @@ import BoolField from 'uniforms-semantic/BoolField';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import BaseCollection from '../../../api/base/BaseCollection';
+import { _ } from 'meteor/erasaur:meteor-lodash'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 
 interface IUpdateDesiredDegreeFormProps {
   collection: BaseCollection;

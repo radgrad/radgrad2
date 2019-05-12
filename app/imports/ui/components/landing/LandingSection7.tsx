@@ -18,8 +18,8 @@ const LandingSection7 = (props: ILandingSection7Props) => (
             Computer science is changing all the time, and so your interests and career goals might evolve as well.
           </p>
           <p style={styles['inverted-description']}>
-            RadGrad provides "Explorers" for career goals, interests, degrees, and more so you can stay on top of
-            the latest trends. For example, RadGrad's career goals
+            RadGrad provides &quot;Explorers&quot; for career goals, interests, degrees, and more so you can stay on top of
+            the latest trends. For example, RadGrad&apos;s career goals
             include: <strong style={styles['green-text']}>{props.careerGoalNames}</strong>.
           </p>
         </Grid.Column>

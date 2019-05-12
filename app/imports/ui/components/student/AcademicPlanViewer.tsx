@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
-import simplSchema from 'simpl-schema';
+import SimplSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan } from '../../../typings/radgrad';
+import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import AcademicPlanViewerWidget from './AcademicPlanViewerWidget';
 
 interface IAcademicPlanViewerProps {
@@ -28,7 +28,7 @@ interface IAcademicPlanViewerState {
   year?: number;
 }
 
-const ChooseSchema = new simplSchema({
+const ChooseSchema = new SimplSchema({
   year: Number,
   name: String,
 });

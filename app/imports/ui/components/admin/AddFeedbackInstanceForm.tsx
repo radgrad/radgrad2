@@ -8,7 +8,7 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IStudentProfile } from '../../../typings/radgrad';
+import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { profileToName } from '../shared/AdminDataModelHelperFunctions';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
@@ -53,10 +53,8 @@ class AddFeedbackInstanceForm extends React.Component<IAddFeedbackInstanceFormPr
   }
 }
 
-const AddFeedbackInstanceFormContainer = withTracker((props) => {
-  return {
+const AddFeedbackInstanceFormContainer = withTracker(() => ({
     students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  };
-})(AddFeedbackInstanceForm);
+  }))(AddFeedbackInstanceForm);
 
 export default AddFeedbackInstanceFormContainer;

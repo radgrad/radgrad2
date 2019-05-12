@@ -5,7 +5,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Roles } from 'meteor/alanning:roles';
 import { selectCourse } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
-import { ICourse } from '../../../typings/radgrad';
+import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';

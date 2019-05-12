@@ -6,9 +6,9 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState,
-  IAdvisorLog, IAdvisorLogUpdate,
-  IDescriptionPair,
+  IAdminDataModelPageState, // eslint-disable-line
+  IAdvisorLog, IAdvisorLogUpdate, // eslint-disable-line
+  IDescriptionPair, // eslint-disable-line
 } from '../../../typings/radgrad';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -34,7 +34,7 @@ const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
   );
 };
 
-const itemTitleString = (advisorLog: IAdvisorLog): string => `${name} ${advisorLog.createdOn}`;
+const itemTitleString = (advisorLog: IAdvisorLog): string => `${Users.getFullName(advisorLog.studentID)} ${advisorLog.createdOn}`;
 
 class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

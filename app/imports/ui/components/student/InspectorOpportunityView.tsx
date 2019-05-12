@@ -19,7 +19,7 @@ import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { selectOpportunity, selectOpportunityInstance } from '../../../redux/actions/actions';
-import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
+import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IInspectorOpportunityViewProps {
   opportunityID: string;
@@ -121,7 +121,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{opportunity.num} {opportunity.name} <IceHeader
           ice={opportunity.ice}/></Header>
-        {plannedOpportunity ? <Button floated="right" basic={true} color="green" onClick={this.handleRemoveClick}
+        {plannedOpportunity ? <Button floated="right" basic={true} color="green" onClick={this.handleRemoveClick} // eslint-disable-line
                                       size="tiny" value={opportunityInstance._id}>remove</Button> : (pastOpportunity ?
           <Button floated="right" basic={true} color="green"
                   size="tiny">taken</Button> :
@@ -157,7 +157,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
         <p/>
         <a href={baseRoute}>View in Explorer <Icon name="arrow right"/></a>
         <p/>
-        {(pastOpportunity) ? (!hasRequest ? (
+        {(pastOpportunity) ? (!hasRequest ? ( // eslint-disable-line
           <div>
             <Header dividing={true}/>
             <Button basic={true} color="green" size="tiny" onClick={this.handleVRClick} value={opportunityInstance._id}>Request

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, List, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
+import { ICourse, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';

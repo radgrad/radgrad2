@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Popup } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
-import { ICourseInstance } from '../../../typings/radgrad';
+import { ICourseInstance } from '../../../typings/radgrad'; // eslint-disable-line
 import { getDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { Courses } from '../../../api/course/CourseCollection';

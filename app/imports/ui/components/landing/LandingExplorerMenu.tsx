@@ -4,7 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { getRouteName } from './helper-functions';
 
-const LandingExplorerMenu = (props) => {
+const LandingExplorerMenu = (props: { match: { path: string; params: string;}, location: { pathname: string;}}) => {
   // console.log(props);
   const fullPath = `#${props.match.path}`;
   const pathBack = fullPath.substring(0, fullPath.lastIndexOf('/'));

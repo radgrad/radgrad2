@@ -88,7 +88,7 @@ class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
       <Container fluid={true} style={paddingStyle}>
         <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
           ice={makeCourseICE(courseSlug, grade)}/></Header>
-        {plannedCourse ?
+        {plannedCourse ? // eslint-disable-line
           <Button floated="right" basic={true} color="green" value={courseInstance._id} onClick={this.handleRemove}
                   size="tiny">remove</Button> : (pastCourse ?
             <Button floated="right" basic={true} color="green"

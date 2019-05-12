@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
@@ -29,7 +28,7 @@ const itemTitle = (year: IAcademicYear): React.ReactNode => {
   );
 };
 
-const itemTitleString = (year: IAcademicYear): string => `${name} ${year.year}`;
+const itemTitleString = (year: IAcademicYear): string => `${Users.getFullName(year.studentID)} ${year.year}`;
 
 class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;

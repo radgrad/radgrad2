@@ -19,7 +19,7 @@ const LandingSection8 = (props: ILandingSection8Props) => (
             degree program and after they graduate.
           </p>
           <p style={styles['header-description']}>
-            During your time as a student, you can provide advice about courses you've already taken to those coming
+            During your time as a student, you can provide advice about courses you&apos;ve already taken to those coming
             after you. Students have contributed <strong style={styles['green-text']}>{props.courseReviews}</strong> course reviews so far.
           </p>
           <p style={styles['header-description']}>

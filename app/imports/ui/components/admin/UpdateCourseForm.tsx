@@ -10,9 +10,9 @@ import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import BaseCollection from '../../../api/base/BaseCollection';
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IInterest } from '../../../typings/radgrad';
+import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { docToName, interestIdToName } from '../shared/AdminDataModelHelperFunctions';
 
 interface IUpdateCourseFormProps {
@@ -91,7 +91,7 @@ class UpdateCourseForm extends React.Component<IUpdateCourseFormProps> {
   }
 }
 
-const UpdateCourseFormContainer = withTracker((props) => {
+const UpdateCourseFormContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   return {
     interests,

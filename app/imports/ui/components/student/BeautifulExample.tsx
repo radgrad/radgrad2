@@ -83,7 +83,7 @@ class BeautifulExample extends React.Component<{}, IBeautifulExampleState> {
             >
               {this.state.items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => ( // tslint:disable-line
+                  {(provided, snapshot) => ( // eslint-disable-line
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}

@@ -9,7 +9,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
+import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -202,7 +202,7 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
   }
 }
 
-const AddFeedFormContainer = withTracker((props) => ({
+const AddFeedFormContainer = withTracker(() => ({
     academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
     courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
     opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),

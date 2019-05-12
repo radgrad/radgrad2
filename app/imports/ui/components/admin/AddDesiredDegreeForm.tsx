@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';

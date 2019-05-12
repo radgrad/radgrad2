@@ -7,7 +7,7 @@ import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } f
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
-import { IAcademicYear } from '../../../typings/radgrad';
+import { IAcademicYear } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
