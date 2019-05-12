@@ -9,13 +9,13 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { academicTermToName, courseToName, docToName, profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IAddFeedFromProps {
   academicTerms: IAcademicTerm[];

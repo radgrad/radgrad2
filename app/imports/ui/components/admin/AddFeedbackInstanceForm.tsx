@@ -8,11 +8,11 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { profileToName } from '../shared/AdminDataModelHelperFunctions';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
+import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IAddFeedbackInstanceFormProps {
   students: IStudentProfile[];
@@ -30,10 +30,10 @@ class AddFeedbackInstanceForm extends React.Component<IAddFeedbackInstanceFormPr
     const studentNames = _.map(this.props.students, profileToName);
     // console.log(FeedbackFunctions.feedbackFunctionNames);
     const schema = new SimpleSchema({
-      user: { type: String, allowedValues: studentNames },
-      functionName: { type: String, allowedValues: FeedbackFunctions.feedbackFunctionNames },
+      user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
+      functionName: { type: String, allowedValues: FeedbackFunctions.feedbackFunctionNames, defaultValue: FeedbackFunctions.feedbackFunctionNames[0] },
       description: String,
-      feedbackType: { type: String, allowedValues: FeedbackInstances.feedbackTypes },
+      feedbackType: { type: String, allowedValues: FeedbackInstances.feedbackTypes, defaultValue: FeedbackInstances.feedbackTypes[0] },
       retired: { type: Boolean, optional: true },
     });
     return (

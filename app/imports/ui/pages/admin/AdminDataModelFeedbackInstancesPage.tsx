@@ -5,12 +5,18 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  IAdminDataModelPageState, // eslint-disable-line
+  IDescriptionPair, // eslint-disable-line
+  IFeedbackInstanceDefine, // eslint-disable-line
+  IFeedbackInstanceUpdate, // eslint-disable-line
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceForm';
+import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
+import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -19,12 +25,12 @@ const collection = FeedbackInstances; // the collection to use.
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => [
-    { label: 'Student', value: Users.getFullName(item.userID) },
-    { label: 'Function Name', value: item.functionName },
-    { label: 'Description', value: item.description },
-    { label: 'Type', value: item.feedbackType },
-    { label: 'Retired', value: item.retired ? 'True' : 'False' },
-  ];
+  { label: 'Student', value: Users.getFullName(item.userID) },
+  { label: 'Function Name', value: item.functionName },
+  { label: 'Description', value: item.description },
+  { label: 'Type', value: item.feedbackType },
+  { label: 'Retired', value: item.retired ? 'True' : 'False' },
+];
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
@@ -41,12 +47,12 @@ const itemTitleString = (item: any): string => {
  * @param item an item from the collection.
  */
 const itemTitle = (item: any): React.ReactNode => (
-    <React.Fragment>
-      {item.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(item)}
-    </React.Fragment>
-  );
+  <React.Fragment>
+    {item.retired ? <Icon name="eye slash"/> : ''}
+    <Icon name="dropdown"/>
+    {itemTitleString(item)}
+  </React.Fragment>
+);
 
 class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -58,9 +64,16 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
   }
 
   private handleAdd = (doc) => {
-    console.log('FeedbackInstances.handleAdd(%o)', doc);
+    // console.log('FeedbackInstances.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = {}; // create the definitionData may need to modify doc's values
+    const definitionData: IFeedbackInstanceDefine = {
+      user: profileNameToUsername(doc.user),
+      functionName: doc.functionName,
+      description: doc.description,
+      feedbackType: doc.feedbackType,
+      retired: doc.retired,
+    };
+    // console.log(collectionName, doc, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -78,12 +91,12 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
         this.formRef.current.reset();
       }
     });
-  }
+  };
 
   private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
-  }
+  };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
@@ -107,18 +120,21 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
         });
       }
     });
-  }
+  };
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
-  }
+  };
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData: any = doc;
+    updateData.id = doc._id;
+    updateData.user = profileNameToUsername(doc.user);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -137,7 +153,7 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
         this.setState({ showUpdateForm: false, id: '' });
       }
     });
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const paddedStyle = {
@@ -157,9 +173,9 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <UpdateFeedbackInstanceForm collection={collection} id={this.state.id} formRef={this.formRef}
+                                          handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                          itemTitleString={itemTitleString}/>
             ) : (
               <AddFeedbackInstanceForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
