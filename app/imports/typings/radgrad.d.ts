@@ -426,6 +426,14 @@ export interface IInterestUpdate {
 }
 
 // InterestTypes
+export interface IInterestType {
+  name: string;
+  slugID: string;
+  description: string;
+  interestTypeID: string;
+  retired?: boolean;
+}
+
 export interface ITypeDefine extends IDumpOne {
   name: string;
   slug: string;

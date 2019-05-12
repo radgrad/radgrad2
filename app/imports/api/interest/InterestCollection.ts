@@ -29,6 +29,20 @@ class InterestCollection extends BaseSlugCollection {
       interestTypeID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      name: String,
+      slug: String,
+      description: String,
+      interestType: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      name: { type: String, optional: true },
+      slug: { type: String, optional: true },
+      description: { type: String, optional: true },
+      interestType: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -44,14 +58,14 @@ class InterestCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestType.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interestType }: IInterestDefine): string {
+  public define({ name, slug, description, interestType, retired }: IInterestDefine): string {
     // console.log(`${this.collectionName}.define(${name}, ${slug}, ${description}, ${interestType}`);
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the Interest and get its ID
-    const interestID = this.collection.insert({ name, description, slugID, interestTypeID });
+    const interestID = this.collection.insert({ name, description, slugID, interestTypeID, retired });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, interestID);
     return interestID;
@@ -65,9 +79,9 @@ class InterestCollection extends BaseSlugCollection {
    * @param interestType The new interestType slug or ID (optional).
    * @throws { Meteor.Error } If docID is not defined, or if interestType is not valid.
    */
-  public update(docID: string, { name, description, interestType }: IInterestUpdate) {
+  public update(docID: string, { name, description, interestType, retired }: IInterestUpdate) {
     this.assertDefined(docID);
-    const updateData: { name?: string, description?: string, interestTypeID?: string } = {};
+    const updateData: { name?: string, description?: string, interestTypeID?: string, retired?: boolean } = {};
     if (name) {
       updateData.name = name;
     }
@@ -77,6 +91,9 @@ class InterestCollection extends BaseSlugCollection {
     if (interestType) {
       const interestTypeID = InterestTypes.getID(interestType);
       updateData.interestTypeID = interestTypeID;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
     return true;
@@ -164,7 +181,8 @@ class InterestCollection extends BaseSlugCollection {
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
     const interestType = InterestTypes.findSlugByID(doc.interestTypeID);
-    return { name, slug, description, interestType };
+    const retired = doc.retired;
+    return { name, slug, description, interestType, retired };
   }
 }
 
