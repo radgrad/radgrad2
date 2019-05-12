@@ -1,4 +1,5 @@
 import SimpleSchema from 'simpl-schema';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad'; // eslint-disable-line
 
@@ -18,6 +19,18 @@ class HelpMessageCollection extends BaseCollection {
       text: { type: String },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      routeName: String,
+      title: String,
+      text: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      routeName: { type: String, optional: true },
+      title: { type: String, optional: true },
+      text: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -27,8 +40,8 @@ class HelpMessageCollection extends BaseCollection {
    * @param text the help text.
    * @return {any} the ID of the help.
    */
-  public define({ routeName, title, text }: IHelpDefine): string {
-    return this.collection.insert({ routeName, title, text });
+  public define({ routeName, title, text, retired }: IHelpDefine): string {
+    return this.collection.insert({ routeName, title, text, retired });
   }
 
   /**
@@ -39,7 +52,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param text New help text. (optional).
    * @throws { Meteor.Error } If docID is not defined.
    */
-  public update(docID: string, { routeName, title, text }: IHelpUpdate) {
+  public update(docID: string, { routeName, title, text, retired }: IHelpUpdate) {
     this.assertDefined(docID);
     const updateData: IHelpUpdate = {};
     if (routeName) {
@@ -50,6 +63,9 @@ class HelpMessageCollection extends BaseCollection {
     }
     if (text) {
       updateData.text = text;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -108,7 +124,8 @@ class HelpMessageCollection extends BaseCollection {
     const routeName = doc.routeName;
     const title = doc.title;
     const text = doc.text;
-    return { routeName, title, text };
+    const retired = doc.retired;
+    return { routeName, title, text, retired };
   }
 }
 
