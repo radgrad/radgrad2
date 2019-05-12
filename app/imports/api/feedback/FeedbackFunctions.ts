@@ -32,13 +32,13 @@ import { Users } from '../user/UserCollection';
  */
 export class FeedbackFunctionClass {
   public feedbackFunctionNames = [
-    this.checkPrerequisites.name,
-    this.checkCompletePlan.name,
-    this.checkOverloadedAcademicTerms.name,
-    this.generateRecommendedCourse.name,
-    this.generateRecommended400LevelCourse.name,
-    this.generateRecommendedCurrentAcademicTermOpportunities.name,
-    this.generateNextLevelRecommendation.name,
+    'checkPrerequisites',
+    'checkCompletePlan',
+    'checkOverloadedAcademicTerms',
+    'generateRecommendedCourse',
+    'generateRecommended400LevelCourse',
+    'generateRecommendedCurrentAcademicTermOpportunities',
+    'generateNextLevelRecommendation',
   ];
 
   /**
@@ -46,7 +46,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public checkPrerequisites(user: string) {
-    const functionName = this.checkPrerequisites.name;
+    const functionName = 'checkPrerequisites';
     const feedbackType = FeedbackInstances.WARNING;
     const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const studentID = Users.getID(user);
@@ -97,7 +97,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public checkCompletePlan(user: string) {
-    const functionName = this.checkCompletePlan.name;
+    const functionName = 'checkCompletePlan';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
 
@@ -145,7 +145,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public checkOverloadedAcademicTerms(user: string) {
-    const functionName = this.checkOverloadedAcademicTerms.name;
+    const functionName = 'checkOverloadedAcademicTerms';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.WARNING;
     const studentID = Users.getID(user);
@@ -180,7 +180,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public generateRecommendedCourse(user: string) {
-    const functionName = this.generateRecommendedCourse.name;
+    const functionName = 'generateRecommendedCourse';
     console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
 
@@ -231,7 +231,7 @@ export class FeedbackFunctionClass {
   }
 
   public generateRecommended400LevelCourse(user: string) {
-    const functionName = this.generateRecommended400LevelCourse.name;
+    const functionName = 'generateRecommended400LevelCourse';
     // console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
 
@@ -275,7 +275,7 @@ export class FeedbackFunctionClass {
    * @param user the student's ID.
    */
   public generateRecommendedCurrentAcademicTermOpportunities(user: string) {
-    const functionName = this.generateRecommendedCurrentAcademicTermOpportunities.name;
+    const functionName = 'generateRecommendedCurrentAcademicTermOpportunities';
     // console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
     const studentID = Users.getID(user);
@@ -311,7 +311,7 @@ export class FeedbackFunctionClass {
    * @param user The student's ID.
    */
   public generateNextLevelRecommendation(user: string) {
-    const functionName = this.generateNextLevelRecommendation.name;
+    const functionName = 'generateNextLevelRecommendation';
     // console.log(`Running feedback function ${functionName}`);
     const feedbackType = FeedbackInstances.RECOMMENDATION;
 

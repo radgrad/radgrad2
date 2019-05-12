@@ -23,11 +23,12 @@ interface IAddFeedbackInstanceFormProps {
 class AddFeedbackInstanceForm extends React.Component<IAddFeedbackInstanceFormProps> {
   constructor(props) {
     super(props);
-    console.log('AddFeedbackInstanceForm props=%o', props);
+    // console.log('AddFeedbackInstanceForm props=%o', props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const studentNames = _.map(this.props.students, profileToName);
+    // console.log(FeedbackFunctions.feedbackFunctionNames);
     const schema = new SimpleSchema({
       user: { type: String, allowedValues: studentNames },
       functionName: { type: String, allowedValues: FeedbackFunctions.feedbackFunctionNames },

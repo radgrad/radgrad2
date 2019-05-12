@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { ISettingsDefine, ISettingsUpdate } from '../../typings/radgrad'; // eslint-disable-line
-import doc = Mocha.reporters.doc; // eslint-disable-line
+// import doc = Mocha.reporters.doc; // eslint-disable-line
 
 /**
  * Holds the settings for RadGrad.

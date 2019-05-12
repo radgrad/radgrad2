@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor'; // eslint-disable-line
 import { Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import NumField from 'uniforms-semantic/NumField';
