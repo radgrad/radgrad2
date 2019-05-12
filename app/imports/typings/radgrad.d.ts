@@ -190,6 +190,7 @@ export interface IAcademicYear {
 export interface IAcademicYearDefine extends IDumpOne {
   year: number;
   student: string;
+  retired?: boolean;
 }
 
 // AdvisorLogs
@@ -265,6 +266,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
   note?: string;
   student: string;
   creditHrs?: number;
+  retired?: boolean;
 }
 
 export interface ICourseInstanceUpdate {
@@ -291,6 +293,7 @@ export interface ICourse {
   // Optional data
   syllabus?: string;
   prerequisites?: string[];
+  retired?: boolean;
 }
 
 export interface ICourseDefine extends IDumpOne {
@@ -371,6 +374,7 @@ export interface IFeedbackInstanceDefine extends IDumpOne {
   functionName: string;
   description: string;
   feedbackType: string;
+  retired?: boolean;
 }
 
 export interface IFeedbackInstanceUpdate {
@@ -378,6 +382,7 @@ export interface IFeedbackInstanceUpdate {
   functionName?: string;
   description?: string;
   feedbackType?: string;
+  retired?: boolean;
 }
 
 // Help Messages
@@ -385,12 +390,14 @@ export interface IHelpDefine extends IDumpOne {
   routeName: string;
   title: string;
   text: string;
+  retired?: boolean;
 }
 
 export interface IHelpUpdate {
   routeName?: string;
   title?: string;
   text?: string;
+  retired?: boolean;
 }
 
 // Interests
@@ -400,6 +407,7 @@ export interface IInterest {
   slugID: string;
   description: string;
   interestTypeID: string;
+  retired?: boolean;
 }
 
 export interface IInterestDefine extends IDumpOne {
@@ -407,12 +415,14 @@ export interface IInterestDefine extends IDumpOne {
   slug: string;
   description: string;
   interestType: string;
+  retired?: boolean;
 }
 
 export interface IInterestUpdate {
   name?: string;
   description?: string;
   interestType?: string;
+  retired?: boolean;
 }
 
 // InterestTypes
@@ -420,11 +430,13 @@ export interface ITypeDefine extends IDumpOne {
   name: string;
   slug: string;
   description: string;
+  retired?: boolean;
 }
 
 export interface ITypeUpdate {
   name?: string;
   description?: string;
+  retired?: boolean;
 }
 
 // IceSnapshots
@@ -442,10 +454,12 @@ export interface IMentorAnswerDefine extends IDumpOne {
   question: string;
   mentor: string;
   text: string;
+  retired?: boolean;
 }
 
 export interface IMentorAnswerUpdate {
   text?: string;
+  retired?: boolean;
 }
 
 // MentorQuestions
@@ -456,6 +470,7 @@ export interface IMentorQuestionDefine extends IDumpOne {
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
+  retired?: boolean;
 }
 
 export interface IMentorQuestionUpdate {
@@ -464,6 +479,7 @@ export interface IMentorQuestionUpdate {
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
+  retired?: boolean;
 }
 
 // Opportunities
@@ -528,6 +544,7 @@ export interface IOpportunityInstance {
   studentID: string;
   sponsorID: string;
   ice: Ice;
+  retired?: boolean;
 }
 
 export interface IOpportunityInstanceDefine extends IDumpOne {
@@ -536,21 +553,25 @@ export interface IOpportunityInstanceDefine extends IDumpOne {
   sponsor?: string;
   verified: boolean;
   student: string;
+  retired?: boolean;
 }
 
 export interface IOpportunityInstanceUpdate {
   termID?: string;
   verified?: boolean;
   ice?: Ice;
+  retired?: boolean;
 }
 
 // PlanChoice
 export interface IPlanChoiceDefine extends IDumpOne {
   choice: string;
+  retired?: boolean;
 }
 
-export interface IPlanChoiceUpdate extends IDumpOne {
+export interface IPlanChoiceUpdate {
   choice?: string;
+  retired?: boolean;
 }
 
 // Profiles
@@ -758,6 +779,7 @@ export interface IReviewDefine extends IDumpOne {
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
+  retired?: boolean;
 }
 
 export interface IReviewUpdate {
@@ -767,6 +789,7 @@ export interface IReviewUpdate {
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
+  retired?: boolean;
 }
 
 export interface IReviewUpdateData {
@@ -776,6 +799,7 @@ export interface IReviewUpdateData {
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
+  retired?: boolean;
 }
 
 // AcademicTerms
@@ -833,6 +857,7 @@ export interface ITeaserDefine extends IDumpOne {
   duration: string;
   interests: string[];
   opportunity: string;
+  retired?: boolean;
 }
 
 export interface ITeaserUpdate {
@@ -843,6 +868,7 @@ export interface ITeaserUpdate {
   url?: string;
   description?: string;
   duration?: string;
+  retired?: boolean;
 }
 
 export interface ITeaserUpdateData {
@@ -853,6 +879,7 @@ export interface ITeaserUpdateData {
   url?: string;
   description?: string;
   duration?: string;
+  retired?: boolean;
 }
 
 // UserInteractions
@@ -880,6 +907,7 @@ export interface IVerificationRequest {
   status: string;
   processed: IProcessed[];
   ice?: Ice;
+  retired?: boolean;
 }
 
 export interface IVerificationRequestDefine extends IDumpOne {
@@ -890,4 +918,5 @@ export interface IVerificationRequestDefine extends IDumpOne {
   processed?: any[];
   academicTerm?: string;
   opportunity?: string;
+  retired?: boolean;
 }

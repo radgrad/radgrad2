@@ -3,7 +3,6 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import DateField from 'uniforms-semantic/DateField';
-import LongTextField from 'uniforms-semantic/LongTextField';
 import NumberField from 'uniforms-semantic/NumField';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';

@@ -1,0 +1,62 @@
+import * as React from 'react';
+import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Form, Header, Segment } from 'semantic-ui-react';
+import AutoForm from 'uniforms-semantic/AutoForm';
+import BoolField from 'uniforms-semantic/BoolField';
+import LongTextField from 'uniforms-semantic/LongTextField';
+import SelectField from 'uniforms-semantic/SelectField';
+import SubmitField from 'uniforms-semantic/SubmitField';
+import SimpleSchema from 'simpl-schema';
+import { withTracker } from 'meteor/react-meteor-data';
+import { IStudentProfile } from '../../../typings/radgrad';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
+import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
+
+interface IAddFeedbackInstanceFormProps {
+  students: IStudentProfile[];
+  formRef: any;
+  handleAdd: (doc) => any;
+}
+
+class AddFeedbackInstanceForm extends React.Component<IAddFeedbackInstanceFormProps> {
+  constructor(props) {
+    super(props);
+    console.log('AddFeedbackInstanceForm props=%o', props);
+  }
+
+  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const studentNames = _.map(this.props.students, profileToName);
+    const schema = new SimpleSchema({
+      user: { type: String, allowedValues: studentNames },
+      functionName: { type: String, allowedValues: FeedbackFunctions.feedbackFunctionNames },
+      description: String,
+      feedbackType: { type: String, allowedValues: FeedbackInstances.feedbackTypes },
+      retired: { type: Boolean, optional: true },
+    });
+    return (
+      <Segment padded={true}>
+        <Header dividing={true}>Add Feedback Instance</Header>
+        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
+          <Form.Group>
+            <SelectField name="user"/>
+            <SelectField name="functionName"/>
+            <SelectField name="feedbackType"/>
+          </Form.Group>
+          <LongTextField name="description"/>
+          <BoolField name="retired"/>
+          <SubmitField/>
+        </AutoForm>
+      </Segment>
+    );
+  }
+}
+
+const AddFeedbackInstanceFormContainer = withTracker((props) => {
+  return {
+    students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+  };
+})(AddFeedbackInstanceForm);
+
+export default AddFeedbackInstanceFormContainer;
