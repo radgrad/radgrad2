@@ -22,6 +22,17 @@ class BaseTypeCollection extends BaseCollection {
       slugID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      name: String,
+      slug: String,
+      description: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      name: { type: String, optional: true },
+      description: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**

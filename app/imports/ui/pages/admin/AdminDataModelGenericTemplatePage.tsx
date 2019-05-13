@@ -50,7 +50,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   private handleAdd = (doc) => {
     console.log('GenericTemplate.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = {}; // create the definitionData may need to modify doc's values
+    const definitionData = doc; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -87,7 +87,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
           text: error.message,
           type: 'error',
         });
-        console.error('Error deleting AcademicTerm. %o', error);
+        console.error('Error deleting. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
@@ -106,9 +106,10 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    console.log('GenericTemplate.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData = doc; // create the updateData object from the doc.
+    updateData.id = doc._id;
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

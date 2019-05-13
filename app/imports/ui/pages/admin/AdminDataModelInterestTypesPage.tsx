@@ -11,8 +11,8 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import AddInterestTypeForm from '../../components/admin/AddInterestTypeForm';
+import UpdateInterestTypeForm from '../../components/admin/UpdateInterestTypeForm';
 
 const collection = InterestTypes; // the collection to use.
 
@@ -56,7 +56,7 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModelPageState> {
+class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -66,9 +66,9 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
   }
 
   private handleAdd = (doc) => {
-    console.log('HelpMessages.handleAdd(%o)', doc);
+    console.log('InterestTypes.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc; // create the definitionData may need to modify doc's values
+    const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -105,7 +105,7 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
           text: error.message,
           type: 'error',
         });
-        console.error('Error deleting AcademicTerm. %o', error);
+        console.error('Error deleting. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
@@ -124,7 +124,7 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
   };
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc;
     updateData.id = doc._id;
@@ -166,11 +166,11 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <UpdateInterestTypeForm collection={collection} id={this.state.id} formRef={this.formRef}
+                                      handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                      itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddInterestTypeForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}
@@ -188,4 +188,4 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
   }
 }
 
-export default AdminDataModelHelpMessagesPage;
+export default AdminDataModelInterestTypesPage;
