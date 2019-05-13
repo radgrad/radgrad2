@@ -26,6 +26,23 @@ class MentorQuestionCollection extends BaseSlugCollection {
       moderatorComments: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      question: String,
+      slug: String,
+      student: String,
+      moderated: { type: Boolean, optional: true },
+      visible: { type: Boolean, optional: true },
+      moderatorComments: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      question: { type: String, optional: true },
+      student: { type: String, optional: true },
+      moderated: { type: Boolean, optional: true },
+      visible: { type: Boolean, optional: true },
+      moderatorComments: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -38,10 +55,10 @@ class MentorQuestionCollection extends BaseSlugCollection {
    * @param moderatorComments any comments from the moderator.
    * @return { String } the docID of this question.
    */
-  public define({ question, slug, student, moderated = false, visible = false, moderatorComments = '' }: IMentorQuestionDefine) {
+  public define({ question, slug, student, moderated = false, visible = false, moderatorComments = '', retired }: IMentorQuestionDefine) {
     const studentID = Users.getID(student);
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const docID = this.collection.insert({ question, slugID, studentID, moderated, visible, moderatorComments });
+    const docID = this.collection.insert({ question, slugID, studentID, moderated, visible, moderatorComments, retired });
     Slugs.updateEntityID(slugID, docID);
     return docID;
   }
@@ -55,9 +72,9 @@ class MentorQuestionCollection extends BaseSlugCollection {
    * @param visible boolean (optional).
    * @param moderatorComments string (optional).
    */
-  public update(instance: string, { question, student, moderated, visible, moderatorComments }: IMentorQuestionUpdate) {
+  public update(instance: string, { question, student, moderated, visible, moderatorComments, retired }: IMentorQuestionUpdate) {
     const docID = this.getID(instance);
-    const updateData: { question?: string; studentID?: string; moderated?: boolean; visible?: boolean; moderatorComments?: string; } = {};
+    const updateData: { question?: string; studentID?: string; moderated?: boolean; visible?: boolean; moderatorComments?: string; retired?: boolean; } = {};
     if (question) {
       updateData.question = question;
     }
@@ -72,6 +89,9 @@ class MentorQuestionCollection extends BaseSlugCollection {
     }
     if (moderatorComments) {
       updateData.moderatorComments = moderatorComments;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -138,7 +158,8 @@ class MentorQuestionCollection extends BaseSlugCollection {
     const moderated = doc.moderated;
     const visible = doc.visible;
     const moderatorComments = doc.moderatorComments;
-    return { question, slug, student, moderated, visible, moderatorComments };
+    const retired = doc.retired;
+    return { question, slug, student, moderated, visible, moderatorComments, retired };
   }
 }
 
