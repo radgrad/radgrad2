@@ -471,6 +471,16 @@ export interface IMentorAnswerUpdate {
 }
 
 // MentorQuestions
+export interface IMentorQuestion {
+  question: string;
+  slugID: string;
+  studentID: string;
+  moderated: boolean;
+  visible: boolean;
+  moderatorComments?: string;
+  retired?: boolean;
+}
+
 export interface IMentorQuestionDefine extends IDumpOne {
   question: string;
   slug: string;

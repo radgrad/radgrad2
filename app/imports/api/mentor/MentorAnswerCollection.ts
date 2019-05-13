@@ -1,4 +1,5 @@
 import SimpleSchema from 'simpl-schema';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { MentorQuestions } from './MentorQuestionCollection';
 import { ROLE } from '../role/Role';
@@ -21,6 +22,16 @@ class MentorAnswerCollection extends BaseCollection {
       text: { type: String },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      question: String,
+      mentor: String,
+      text: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      text: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -36,11 +47,11 @@ class MentorAnswerCollection extends BaseCollection {
    * @return { String } The docID of the answer.
    * @throws { Meteor.Error } If question or mentor is undefined.
    */
-  public define({ question, mentor, text }: IMentorAnswerDefine) {
+  public define({ question, mentor, text, retired }: IMentorAnswerDefine) {
     const questionID = MentorQuestions.getID(question);
     const mentorID = Users.getID(mentor);
     Users.assertInRole(mentorID, ROLE.MENTOR);
-    return this.collection.insert({ questionID, mentorID, text });
+    return this.collection.insert({ questionID, mentorID, text, retired });
   }
 
   /**
@@ -48,11 +59,14 @@ class MentorAnswerCollection extends BaseCollection {
    * @param docID the docID of the mentor answer.
    * @param text the updated text.
    */
-  public update(docID: string, { text }: IMentorAnswerUpdate) {
+  public update(docID: string, { text, retired }: IMentorAnswerUpdate) {
     this.assertDefined(docID);
     const updateData: IMentorAnswerUpdate = {};
     if (text) {
       updateData.text = text;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -157,7 +171,8 @@ class MentorAnswerCollection extends BaseCollection {
     const question = MentorQuestions.findSlugByID(doc.questionID);
     const mentor = Users.getProfile(doc.mentorID).username;
     const text = doc.text;
-    return { question, mentor, text };
+    const retired = doc.retired;
+    return { question, mentor, text, retired };
   }
 }
 

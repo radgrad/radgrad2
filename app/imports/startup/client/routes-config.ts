@@ -59,6 +59,7 @@ import AdminDataModelFeedbackInstancesPage from '../../ui/pages/admin/AdminDataM
 import AdminDataModelHelpMessagesPage from '../../ui/pages/admin/AdminDataModelHelpMessagesPage';
 import AdminDataModelInterestsPage from '../../ui/pages/admin/AdminDataModelInterestsPage';
 import AdminDataModelInterestTypesPage from '../../ui/pages/admin/AdminDataModelInterestTypesPage';
+import AdminDataModelMentorAnswerPage from '../../ui/pages/admin/AdminDataModelMentorAnswerPage';
 
 export const routes = {
   ADMIN: [
@@ -136,6 +137,11 @@ export const routes = {
       path: '/admin/:username/datamodel/interest-types',
       exact: true,
       component: AdminDataModelInterestTypesPage,
+    },
+    {
+      path: '/admin/:username/datamodel/mentor-answers',
+      exact: true,
+      component: AdminDataModelMentorAnswerPage,
     },
     {
       path: '/admin/:username/datamodel/users',

@@ -5,6 +5,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
+import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 
 export const academicTermToName = (term) => AcademicTerms.toString(term._id, false);
 
@@ -35,6 +36,11 @@ export const interestTypeNameToSlug = (name) => {
 };
 
 export const interestTypeNameToId = (name) => InterestTypes.findDoc(name)._id;
+
+export const mentorQuestionToSlug = (question) => {
+  const qDoc = MentorQuestions.findDoc({ question });
+  return Slugs.getNameFromID(qDoc.slugID);
+};
 
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 
