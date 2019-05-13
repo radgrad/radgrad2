@@ -5,13 +5,13 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/AddInterestForm';
-import { interestTypeNameToSlug } from '../../components/shared/AdminDataModelHelperFunctions';
+import UpdateInterestForm from '../../components/admin/UpdateInterestForm';
+import { interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = Interests; // the collection to use.
 
@@ -114,9 +114,14 @@ class AdminDataModelInterestsPage extends React.Component<{}, IAdminDataModelPag
   };
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = {}; // create the updateData object from the doc.
+    const updateData: any = doc;
+    updateData.id = doc._id;
+    if (doc.interestType) {
+      updateData.interestType = interestTypeNameToId(doc.interestType);
+    }
+    // console.log(updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -155,7 +160,7 @@ class AdminDataModelInterestsPage extends React.Component<{}, IAdminDataModelPag
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateInterestForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (

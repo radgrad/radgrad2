@@ -34,6 +34,8 @@ export const interestTypeNameToSlug = (name) => {
   return Slugs.getNameFromID(typeDoc.slugID);
 };
 
+export const interestTypeNameToId = (name) => InterestTypes.findDoc(name)._id;
+
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 
 export const opportunityNameToSlug = (name) => Slugs.getNameFromID(Opportunities.findDoc(name).slugID);
