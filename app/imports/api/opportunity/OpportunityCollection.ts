@@ -11,7 +11,7 @@ import { OpportunityTypes } from './OpportunityTypeCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { assertICE } from '../ice/IceProcessor';
+import { assertICE, iceSchema } from '../ice/IceProcessor';
 import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad'; // eslint-disable-line
 
 /**
@@ -36,9 +36,32 @@ class OpportunityCollection extends BaseSlugCollection {
       termIDs: [SimpleSchema.RegEx.Id],
       // Optional data
       eventDate: { type: Date, optional: true },
-      ice: { type: Object, optional: true, blackbox: true },
+      ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      name: String,
+      slug: String,
+      description: String,
+      opportunityType: String,
+      sponsor: String,
+      terms: Array,
+      'terms.$': String,
+      eventDate: { type: Date, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      name: { type: String, optional: true },
+      description: { type: String, optional: true },
+      opportunityType: { type: String, optional: true },
+      sponsor: { type: String, optional: true },
+      terms: { type: Array, optional: true },
+      'terms.$': String,
+      eventDate: { type: Date, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
