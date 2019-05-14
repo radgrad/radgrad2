@@ -5,13 +5,14 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import AddMentorQuestionForm from '../../components/admin/AddMentorQuestionForm';
+import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
+import UpdateMentorQuestionForm from '../../components/admin/UpdateMentorQuestionForm';
 
 const collection = MentorQuestions; // the collection to use.
 
@@ -59,9 +60,11 @@ class AdminDataModelMentorQuestionPage extends React.Component<{}, IAdminDataMod
   }
 
   private handleAdd = (doc) => {
-    console.log('MentorQuestion.handleAdd(%o)', doc);
+    // console.log('MentorQuestion.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc; // create the definitionData may need to modify doc's values
+    const definitionData = doc;
+    definitionData.student = profileNameToUsername(doc.student);
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -146,7 +149,7 @@ class AdminDataModelMentorQuestionPage extends React.Component<{}, IAdminDataMod
       paddingTop: 20,
     };
     const findOptions = {
-      sort: { name: 1 }, // determine how you want to sort the items in the list
+      sort: { question: 1 }, // determine how you want to sort the items in the list
     };
     return (
       <div>
@@ -159,11 +162,11 @@ class AdminDataModelMentorQuestionPage extends React.Component<{}, IAdminDataMod
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateMentorQuestionForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddMentorQuestionForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}
