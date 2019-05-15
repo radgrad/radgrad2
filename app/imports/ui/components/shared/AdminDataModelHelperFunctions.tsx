@@ -6,6 +6,9 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+
+export const academicTermIdToName = (id) => AcademicTerms.toString(id, false);
 
 export const academicTermToName = (term) => AcademicTerms.toString(term._id, false);
 
@@ -45,6 +48,13 @@ export const mentorQuestionToSlug = (question) => {
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 
 export const opportunityNameToSlug = (name) => Slugs.getNameFromID(Opportunities.findDoc(name).slugID);
+
+export const opportunityTypeNameToSlug = (name) => {
+  const doc = OpportunityTypes.findDoc(name);
+  return Slugs.getNameFromID(doc.slugID);
+};
+
+export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name;
 
 export const profileToName = (profile) => `${Users.getFullName(profile.userID)} (${profile.username})`;
 

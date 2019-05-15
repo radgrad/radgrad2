@@ -42,7 +42,7 @@ class AddMentorQuestionForm extends React.Component<IAddMentorQuestionFormProps>
         <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef}>
           <Form.Group widths="equal">
             <SelectField name="student"/>
-            <TextField name="slug"/>
+            <TextField name="slug" placeholder="question-student-0"/>
           </Form.Group>
           <LongTextField name="question"/>
           <LongTextField name="moderatorComments"/>

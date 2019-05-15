@@ -1,15 +1,26 @@
 import * as React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import AddOpportunityForm from '../../components/admin/AddOpportunityForm';
+import UpdateOpportunityForm from '../../components/admin/UpdateOpportunityForm';
+import {
+  academicTermNameToSlug,
+  opportunityTypeNameToSlug,
+  profileNameToUsername,
+} from '../../components/shared/AdminDataModelHelperFunctions';
+import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 
 const collection = Opportunities; // the collection to use.
 
@@ -18,26 +29,32 @@ const collection = Opportunities; // the collection to use.
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => [
-    { label: 'Retired', value: item.retired ? 'True' : 'False' },
-  ];
+  { label: 'Description', value: item.description },
+  { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
+  { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
+  { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
+  { label: 'Academic Terms', value: _.map(item.academicTermIDs, (id: string) => AcademicTerms.toString(id, false)) },
+  { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
+  { label: 'Retired', value: item.retired ? 'True' : 'False' },
+];
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `the ${item} title string`;
+const itemTitleString = (item: any): string => `${item.name}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
 const itemTitle = (item: any): React.ReactNode => (
-    <React.Fragment>
-      {item.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(item)}
-    </React.Fragment>
-  );
+  <React.Fragment>
+    {item.retired ? <Icon name="eye slash"/> : ''}
+    <Icon name="dropdown"/>
+    {itemTitleString(item)}
+  </React.Fragment>
+);
 
 class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -49,9 +66,16 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
   }
 
   private handleAdd = (doc) => {
-    console.log('Opportunities.handleAdd(%o)', doc);
+    // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc; // create the definitionData may need to modify doc's values
+    const definitionData = doc;
+    const interests = _.map(doc.interests, interestSlugFromName);
+    const terms = _.map(doc.terms, academicTermNameToSlug);
+    definitionData.interests = interests;
+    definitionData.terms = terms;
+    definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
+    definitionData.sponsor = profileNameToUsername(doc.sponsor);
+    // console.log(definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -69,12 +93,12 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
         this.formRef.current.reset();
       }
     });
-  }
+  };
 
   private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
-  }
+  };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
@@ -98,19 +122,24 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
         });
       }
     });
-  }
+  };
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
-  }
+  };
 
   private handleUpdate = (doc) => {
     console.log('Opportunities.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
+    updateData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
+    updateData.sponsor = profileNameToUsername(doc.sponsor);
+    updateData.interests = _.map(doc.interests, interestSlugFromName);
+    updateData.academicTerms = _.map(doc.terms, academicTermNameToSlug);
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -129,7 +158,7 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
         this.setState({ showUpdateForm: false, id: '' });
       }
     });
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const paddedStyle = {
@@ -149,11 +178,11 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}

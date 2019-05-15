@@ -581,6 +581,27 @@ export interface IOpportunityInstanceUpdate {
   retired?: boolean;
 }
 
+// OpportunityType
+export interface IOpportunityType {
+  description: string;
+  name: string;
+  slugID: string;
+  retired?: boolean;
+}
+
+export interface IOpportunityTypeDefine extends IDumpOne {
+  description: string;
+  name: string;
+  slug: string;
+  retired?: boolean;
+}
+
+export interface IOpportunityTypeUpdate {
+  description?: string;
+  name?: string;
+  retired?: boolean;
+}
+
 // PlanChoice
 export interface IPlanChoiceDefine extends IDumpOne {
   choice: string;
