@@ -57,7 +57,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
 
-  public define({ academicTerm, opportunity, sponsor, verified = false, student }: IOpportunityInstanceDefine) {
+  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired }: IOpportunityInstanceDefine) {
     // Validate academicTerm, opportunity, verified, and studentID
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -84,7 +84,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
     // Define and return the new OpportunityInstance
-    const opportunityInstanceID = this.collection.insert({ termID, opportunityID, verified, studentID, sponsorID, ice });
+    const opportunityInstanceID = this.collection.insert({ termID, opportunityID, verified, studentID, sponsorID, ice, retired });
     return opportunityInstanceID;
   }
 
@@ -95,7 +95,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param verified boolean optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { termID, verified, ice }: IOpportunityInstanceUpdate) {
+  public update(docID: string, { termID, verified, ice, retired }: IOpportunityInstanceUpdate) {
     this.assertDefined(docID);
     const updateData: IOpportunityInstanceUpdate = {};
     if (termID) {
@@ -106,6 +106,9 @@ class OpportunityInstanceCollection extends BaseCollection {
     }
     if (ice) {
       updateData.ice = ice;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -318,7 +321,8 @@ class OpportunityInstanceCollection extends BaseCollection {
     const verified = doc.verified;
     const student = Users.getProfile(doc.studentID).username;
     const sponsor = Users.getProfile(doc.sponsorID).username;
-    return { academicTerm, opportunity, verified, student, sponsor };
+    const retired = doc.retired;
+    return { academicTerm, opportunity, verified, student, sponsor, retired };
   }
 }
 

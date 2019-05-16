@@ -44,7 +44,7 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the MentorProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, company, career, location, linkedin, motivation }: IMentorProfileDefine) {
+           careerGoals, company, career, location, linkedin, motivation, retired }: IMentorProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.MENTOR;
       const interestIDs = Interests.getIDs(interests);
@@ -52,7 +52,7 @@ class MentorProfileCollection extends BaseProfileCollection {
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
         username, firstName, lastName, role, picture, website, interestIDs, company, career, location, linkedin,
-        motivation, careerGoalIDs, userID: this.getFakeUserId() });
+        motivation, careerGoalIDs, userID: this.getFakeUserId(), retired });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
       return profileID;
@@ -146,8 +146,9 @@ class MentorProfileCollection extends BaseProfileCollection {
     const location = doc.location;
     const linkedin = doc.linkedin;
     const motivation = doc.motivation;
+    const retired = doc.retired;
     return { username, firstName, lastName, picture, website, interests, careerGoals, company, career, location,
-      linkedin, motivation };
+      linkedin, motivation, retired };
   }
 }
 

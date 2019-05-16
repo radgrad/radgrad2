@@ -68,7 +68,7 @@ class VerificationRequestCollection extends BaseCollection {
    * or if verified is not a boolean.
    * @returns The newly created docID.
    */
-  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity }: IVerificationRequestDefine) {
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired }: IVerificationRequestDefine) {
     // console.log(student, opportunityInstance, submittedOn, status, processed, academicTerm, opportunity);
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
@@ -80,7 +80,7 @@ class VerificationRequestCollection extends BaseCollection {
     const ice = Opportunities.findDoc(oppInstance.opportunityID).ice;
     // Define and return the new VerificationRequest
     const requestID = this.collection.insert({
-      studentID, opportunityInstanceID, submittedOn, status, processed, ice,
+      studentID, opportunityInstanceID, submittedOn, status, processed, ice, retired,
     });
     return requestID;
   }
@@ -211,6 +211,16 @@ class VerificationRequestCollection extends BaseCollection {
   }
 
   /**
+   * Sets the retired status of the retired flag.
+   * @param requestID the VerificationRequest ID.
+   * @param retired the retired status.
+   */
+  public updateRetired(requestID: string, retired: boolean) {
+    this.assertDefined(requestID);
+    this.collection.update({ _id: requestID }, { $set: { retired } });
+  }
+
+  /**
    * Sets the passed VerificationRequest to be verified.
    * @param verificationRequestID The VerificationRequest
    * @param verifyingUser The user who did the verification.
@@ -293,8 +303,7 @@ class VerificationRequestCollection extends BaseCollection {
   public assertRole(userId: string, roles: string[]): boolean {
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
-    } else
-    if (!Roles.userIsInRole(userId, roles)) {
+    } else if (!Roles.userIsInRole(userId, roles)) {
       throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
     }
     return true;

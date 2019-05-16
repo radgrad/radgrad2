@@ -67,7 +67,7 @@ class ReviewCollection extends BaseSlugCollection {
    * undefined reviewee, undefined academicTerm, or invalid rating.
    * @returns The newly created docID.
    */
-  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments }: IReviewDefine) {
+  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired }: IReviewDefine) {
     // Validate student, get studentID.
     const studentID = Users.getID(student);
     Users.assertInRole(studentID, [ROLE.STUDENT, ROLE.ALUMNI]);
@@ -98,7 +98,7 @@ class ReviewCollection extends BaseSlugCollection {
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the new Review and its Slug.
     const reviewID = this.collection.insert({
-      slugID, studentID, reviewType, revieweeID, termID, rating, comments, moderated, visible, moderatorComments,
+      slugID, studentID, reviewType, revieweeID, termID, rating, comments, moderated, visible, moderatorComments, retired,
     });
     Slugs.updateEntityID(slugID, reviewID);
     // Return the id to the newly created Review.
@@ -129,7 +129,7 @@ class ReviewCollection extends BaseSlugCollection {
    * Update the review. Only academicTerm, rating, comments, moderated, visible, and moderatorComments can be updated.
    * @param docID The review docID (required).
    */
-  public update(docID, { academicTerm, rating, comments, moderated, visible, moderatorComments }: IReviewUpdate) {
+  public update(docID, { academicTerm, rating, comments, moderated, visible, moderatorComments, retired }: IReviewUpdate) {
     this.assertDefined(docID);
     const updateData: IReviewUpdateData = {};
     if (academicTerm) {
@@ -150,6 +150,9 @@ class ReviewCollection extends BaseSlugCollection {
     }
     if (moderatorComments) {
       updateData.moderatorComments = moderatorComments;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -245,8 +248,8 @@ class ReviewCollection extends BaseSlugCollection {
     const moderated = doc.moderated;
     const visible = doc.visible;
     const moderatorComments = doc.moderatorComments;
-
-    return { slug, student, reviewType, reviewee, academicTerm, rating, comments, moderated, visible, moderatorComments };
+    const retired = doc.retired;
+    return { slug, student, reviewType, reviewee, academicTerm, rating, comments, moderated, visible, moderatorComments, retired };
   }
 }
 

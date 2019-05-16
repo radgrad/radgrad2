@@ -55,7 +55,7 @@ class TeaserCollection extends BaseSlugCollection {
    * if the slug is already defined, or if the opportunity is supplied and not found.
    * @returns The newly created docID.
    */
-  public define({ title, slug, author, url, description, duration, interests, opportunity }: ITeaserDefine) {
+  public define({ title, slug, author, url, description, duration, interests, opportunity, retired }: ITeaserDefine) {
     // Get InterestIDs, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -63,7 +63,7 @@ class TeaserCollection extends BaseSlugCollection {
     // Get OpportunityID, throw error if not found.
     const opportunityID = Opportunities.getID(opportunity);
     const teaserID = this.collection.insert({ title, slugID, author, url, description, duration, interestIDs,
-      opportunityID });
+      opportunityID, retired });
     // Connect the Slug to this teaser
     Slugs.updateEntityID(slugID, teaserID);
     return teaserID;
@@ -74,7 +74,7 @@ class TeaserCollection extends BaseSlugCollection {
    * @param docID The docID to be updated.
    * @throws { Meteor.Error } If docID is not defined, or if any interest or opportunity is undefined.
    */
-  public update(docID, { title, opportunity, interests, author, url, description, duration }: ITeaserUpdate) {
+  public update(docID, { title, opportunity, interests, author, url, description, duration, retired }: ITeaserUpdate) {
     this.assertDefined(docID);
     const updateData: ITeaserUpdateData = {};
     if (title) {
@@ -97,6 +97,9 @@ class TeaserCollection extends BaseSlugCollection {
     }
     if (duration) {
       updateData.duration = duration;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -180,7 +183,8 @@ class TeaserCollection extends BaseSlugCollection {
     if (doc.opportunityID) {
       opportunity = Opportunities.findSlugByID(doc.opportunityID);
     }
-    return { title, slug, author, url, description, duration, interests, opportunity };
+    const retired = doc.retired;
+    return { title, slug, author, url, description, duration, interests, opportunity, retired };
   }
 }
 
