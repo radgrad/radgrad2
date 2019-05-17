@@ -298,6 +298,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   public toString(termID: string, nospace?: boolean) {
     this.assertAcademicTerm(termID);
     const academicTermDoc = this.findDoc(termID);
+    console.log(termID, academicTermDoc);
     return (nospace) ? `${academicTermDoc.term}${academicTermDoc.year}` : `${academicTermDoc.term} ${academicTermDoc.year}`;
   }
 

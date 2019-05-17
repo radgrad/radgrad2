@@ -35,7 +35,6 @@ class AdminDatabaseMenu extends React.Component<IAdminDatabaseMenuProps> {
       </Menu>
     );
   }
-
 }
 
 const AdminDatabaseMenuContainer = withTracker(() => ({

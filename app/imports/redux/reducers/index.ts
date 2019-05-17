@@ -103,7 +103,7 @@ const initialState = {
       showIndex: 0,
       showCount: 25,
     },
-    OpportuntiyInstanceCollection: {
+    OpportunityInstanceCollection: {
       showIndex: 0,
       showCount: 25,
     },

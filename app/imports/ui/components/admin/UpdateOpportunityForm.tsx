@@ -53,7 +53,7 @@ class UpdateOpportunityForm extends React.Component<IUpdateOpportunityFormProps>
     model.interests = _.map(model.interestIDs, interestIdToName);
     model.terms = _.map(model.termIDs, academicTermIdToName);
     model.sponsor = userIdToName(model.sponsorID);
-    console.log(model);
+    // console.log(model);
     // console.log(this.props);
     const sponsorNames = _.map(this.props.sponsors, profileToName);
     const termNames = _.map(this.props.terms, academicTermToName);
@@ -75,7 +75,7 @@ class UpdateOpportunityForm extends React.Component<IUpdateOpportunityFormProps>
     });
     return (
       <Segment padded={true}>
-        <Header dividing={true}>Update Course</Header>
+        <Header dividing={true}>Update Opportunity</Header>
         <AutoForm schema={schema} onSubmit={this.props.handleUpdate} ref={this.props.formRef}
                   showInlineError={true} model={model}>
           <Form.Group widths="equal">

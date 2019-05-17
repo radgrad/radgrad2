@@ -382,20 +382,20 @@ export function paginationReducer(state: IPagination = {}, action) {
       };
       return s;
     case SET_OPPORTUNITY_INSTANCES_SHOW_INDEX:
-      collect = state.OpportuntiyInstanceCollection;
+      collect = state.OpportunityInstanceCollection;
       s = {
         ...state,
-        OpportuntiyInstanceCollection: {
+        OpportunityInstanceCollection: {
           ...collect,
           showIndex: action.payload,
         },
       };
       return s;
     case SET_OPPORTUNITY_INSTANCES_SHOW_COUNT:
-      collect = state.OpportuntiyInstanceCollection;
+      collect = state.OpportunityInstanceCollection;
       s = {
         ...state,
-        OpportuntiyInstanceCollection: {
+        OpportunityInstanceCollection: {
           ...collect,
           showCount: action.payload,
         },

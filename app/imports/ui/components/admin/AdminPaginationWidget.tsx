@@ -44,7 +44,7 @@ class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps>
 
   private handleLastClick = (event) => {
     event.preventDefault();
-    console.log('handleLastClick(%o) props=%o', event, this.props);
+    // console.log('handleLastClick(%o) props=%o', event, this.props);
     const count = this.props.collection.count();
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
     this.props.dispatch(this.props.setShowIndex(this.props.collection.getCollectionName(), count - showCount));

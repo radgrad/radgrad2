@@ -91,7 +91,7 @@ export interface IPagination {
     showIndex: number;
     showCount: number;
   };
-  OpportuntiyInstanceCollection?: {
+  OpportunityInstanceCollection?: {
     showIndex: number;
     showCount: number;
   };

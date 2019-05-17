@@ -10,6 +10,7 @@ import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { iceSchema } from '../ice/IceProcessor';
 
 /**
  * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
@@ -29,7 +30,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       verified: { type: Boolean },
       studentID: { type: SimpleSchema.RegEx.Id },
       sponsorID: { type: SimpleSchema.RegEx.Id },
-      ice: { type: Object, optional: true, blackbox: true },
+      ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
@@ -40,6 +41,20 @@ class OpportunityInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, studentID: 1, termID: 1 });
     }
+    this.defineSchema = new SimpleSchema({
+      academicTerm: String,
+      opportunity: String,
+      sponsor: String,
+      verified: { type: Boolean, optional: true },
+      student: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      termID: { type: String, optional: true },
+      verified: { type: Boolean, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
