@@ -306,7 +306,10 @@ class BaseCollection {
    * @returns {Object} An object representing the contents of this collection.
    */
   public dumpAll() {
-    const dumpObject: { name: string; contents: IDumpOne[]; } = { name: this.collectionName, contents: this.find().map((docID): IDumpOne => this.dumpOne(docID)) };
+    const dumpObject: { name: string; contents: IDumpOne[]; } = {
+      name: this.collectionName,
+      contents: this.find().map((docID): IDumpOne => this.dumpOne(docID)),
+    };
     // If a collection doesn't want to be dumped, it can just return null from dumpOne.
     dumpObject.contents = _.without(dumpObject.contents, null);
     // sort the contents array by slug (if present)
@@ -358,8 +361,7 @@ class BaseCollection {
   protected assertRole(userId: string, roles: string[]): boolean {
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
-    } else
-    if (!Roles.userIsInRole(userId, roles)) {
+    } else if (!Roles.userIsInRole(userId, roles)) {
       throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
     }
     return true;

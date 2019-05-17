@@ -88,6 +88,7 @@ class BaseSlugCollection extends BaseCollection {
    * @returns {boolean} True if instance is a docID or slug for this entity.
    */
   public isDefined(instance) {
+    // console.log('isDefined(%o)', instance);
     return (super.isDefined(instance) || this.hasSlug(instance));
   }
 

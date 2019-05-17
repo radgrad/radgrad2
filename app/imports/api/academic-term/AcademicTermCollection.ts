@@ -163,7 +163,8 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If academicTerm is not a Academic Term.
    */
   public assertAcademicTerm(term: string) {
-    if (!this.isDefined(term)) {
+    // console.log('assertAcademicTerm(%o)', term);
+    if (!term || !this.isDefined(term)) {
       throw new Meteor.Error(`${term} is not a valid Academic Term.`);
     }
   }
@@ -298,7 +299,6 @@ class AcademicTermCollection extends BaseSlugCollection {
   public toString(termID: string, nospace?: boolean) {
     this.assertAcademicTerm(termID);
     const academicTermDoc = this.findDoc(termID);
-    console.log(termID, academicTermDoc);
     return (nospace) ? `${academicTermDoc.term}${academicTermDoc.year}` : `${academicTermDoc.term} ${academicTermDoc.year}`;
   }
 

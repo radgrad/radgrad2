@@ -27,12 +27,12 @@ interface IUpdateOpportunityInstanceFormProps {
 class UpdateOpportunityInstanceForm extends React.Component<IUpdateOpportunityInstanceFormProps> {
   constructor(props) {
     super(props);
-    console.log('UpdateOpportunityInstanceForm props=%o', props);
+    // console.log('UpdateOpportunityInstanceForm props=%o', props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const model = this.props.collection.findDoc(this.props.id);
-    model.academicTerm = academicTermIdToName(model.academicTermID);
+    model.academicTerm = academicTermIdToName(model.termID);
     const termNames = _.map(this.props.terms, academicTermToName);
     const schema = new SimpleSchema({
       academicTerm: {
@@ -43,7 +43,6 @@ class UpdateOpportunityInstanceForm extends React.Component<IUpdateOpportunityIn
       ice: iceSchema,
       retired: { type: Boolean, optional: true },
     });
-    console.log(model);
     return (
       <Segment padded={true}>
         <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>

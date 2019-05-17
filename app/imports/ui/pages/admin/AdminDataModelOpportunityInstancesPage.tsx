@@ -17,7 +17,7 @@ import UpdateOpportunityInstanceForm from '../../components/admin/UpdateOpportun
 import {
   academicTermNameToDoc,
   opportunityNameToSlug,
-  profileNameToUsername
+  profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
@@ -28,7 +28,7 @@ const collection = OpportunityInstances; // the collection to use.
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => [
-  { label: 'Academic Term', value: AcademicTerms.toString(item.semesterID) },
+  { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
   { label: 'Opportunity', value: (Opportunities.findDoc(item.opportunityID)).name },
   { label: 'Verified', value: item.verified.toString() },
   { label: 'Student', value: Users.getFullName(item.studentID) },
@@ -72,7 +72,7 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
   }
 
   private handleAdd = (doc) => {
-    console.log('OpportunityInstances.handleAdd(%o)', doc);
+    // console.log('OpportunityInstances.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     const academicTermDoc = academicTermNameToDoc(doc.term);
@@ -145,10 +145,12 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
   };
 
   private handleUpdate = (doc) => {
-    console.log('OpportunityInstances.handleUpdate doc=%o', doc);
+    // console.log('OpportunityInstances.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
+    updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

@@ -46,6 +46,9 @@ if (Meteor.isServer) {
     it('#assertAcademicTerm', function test() {
       const termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
       expect(function foo() {
+        AcademicTerms.assertAcademicTerm(undefined);
+      }).to.throw(Error);
+      expect(function foo() {
         AcademicTerms.assertAcademicTerm(termID);
       }).to.not.throw(Error);
       AcademicTerms.removeIt(termID);
