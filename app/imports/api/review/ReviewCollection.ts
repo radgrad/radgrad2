@@ -38,6 +38,31 @@ class ReviewCollection extends BaseSlugCollection {
     }));
     this.COURSE = 'course';
     this.OPPORTUNITY = 'opportunity';
+    this.defineSchema = new SimpleSchema({
+      slug: String,
+      student: String,
+      reviewType: String,
+      reviewee: String,
+      academicTerm: String,
+      rating: { type: SimpleSchema.Integer, optional: true },
+      comments: String,
+      moderated: { type: Boolean, optional: true },
+      visible: { type: Boolean, optional: true },
+      moderatorComments: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      student: { type: String, optional: true },
+      reviewType: { type: String, optional: true },
+      reviewee: { type: String, optional: true },
+      academicTerm: { type: String, optional: true },
+      rating: { type: SimpleSchema.Integer, optional: true },
+      comments: { type: String, optional: true },
+      moderated: { type: Boolean, optional: true },
+      visible: { type: Boolean, optional: true },
+      moderatorComments: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -80,13 +105,12 @@ class ReviewCollection extends BaseSlugCollection {
         // tslint:disable: no-parameter-reassignment
         slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
       }
-    } else
-      if (reviewType === this.OPPORTUNITY) {
-        revieweeID = Opportunities.getID(reviewee);
-        if (!slug) {
-          slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
-        }
+    } else if (reviewType === this.OPPORTUNITY) {
+      revieweeID = Opportunities.getID(reviewee);
+      if (!slug) {
+        slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
       }
+    }
     // Validate academicTerm, get termID.
     const termID = AcademicTerms.getID(academicTerm);
     // Validate rating.
@@ -98,7 +122,17 @@ class ReviewCollection extends BaseSlugCollection {
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the new Review and its Slug.
     const reviewID = this.collection.insert({
-      slugID, studentID, reviewType, revieweeID, termID, rating, comments, moderated, visible, moderatorComments, retired,
+      slugID,
+      studentID,
+      reviewType,
+      revieweeID,
+      termID,
+      rating,
+      comments,
+      moderated,
+      visible,
+      moderatorComments,
+      retired,
     });
     Slugs.updateEntityID(slugID, reviewID);
     // Return the id to the newly created Review.
@@ -222,7 +256,7 @@ class ReviewCollection extends BaseSlugCollection {
   public updateModerated(reviewID: string, moderated: boolean, visible: boolean, moderatorComments: string) {
     this.assertDefined(reviewID);
     this.collection.update({ _id: reviewID },
-        { $set: { moderated, visible, moderatorComments } });
+      { $set: { moderated, visible, moderatorComments } });
   }
 
   /**
@@ -238,10 +272,9 @@ class ReviewCollection extends BaseSlugCollection {
     let reviewee;
     if (reviewType === this.COURSE) {
       reviewee = Courses.findSlugByID(doc.revieweeID);
-    } else
-      if (reviewType === this.OPPORTUNITY) {
-        reviewee = Opportunities.findSlugByID(doc.revieweeID);
-      }
+    } else if (reviewType === this.OPPORTUNITY) {
+      reviewee = Opportunities.findSlugByID(doc.revieweeID);
+    }
     const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const rating = doc.rating;
     const comments = doc.comments;
@@ -249,7 +282,19 @@ class ReviewCollection extends BaseSlugCollection {
     const visible = doc.visible;
     const moderatorComments = doc.moderatorComments;
     const retired = doc.retired;
-    return { slug, student, reviewType, reviewee, academicTerm, rating, comments, moderated, visible, moderatorComments, retired };
+    return {
+      slug,
+      student,
+      reviewType,
+      reviewee,
+      academicTerm,
+      rating,
+      comments,
+      moderated,
+      visible,
+      moderatorComments,
+      retired
+    };
   }
 }
 
