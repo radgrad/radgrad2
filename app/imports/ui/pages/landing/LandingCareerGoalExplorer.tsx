@@ -10,7 +10,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
-import InterestList from '../../components/landing/InterestList';
+import LandingInterestList from '../../components/landing/LandingInterestList';
 
 interface ICareerGoalExplorerProps {
   careerGoal: ICareerGoal;
@@ -45,7 +45,7 @@ class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.careerGoal.description}/>
                 <Header as="h4" dividing={true}>Career Goal Interests</Header>
-                <InterestList interestIDs={this.props.careerGoal.interestIDs}/>
+                <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>

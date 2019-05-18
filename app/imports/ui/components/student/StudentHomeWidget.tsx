@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import StudentFeedWidget from './StudentFeedWidget';
+import StudentTeaserWidget from './StudentTeaserWidget';
 
 interface IStudentHomeWidget {
   type?: string;
@@ -21,7 +22,7 @@ class StudentHomeWidget extends React.Component<IStudentHomeWidget> {
 
           <Grid.Column width={6}>
             <StudentFeedWidget/>
-            TODO: StudentTeaserWidget
+            <StudentTeaserWidget/>
           </Grid.Column>
         </Grid>
     );
