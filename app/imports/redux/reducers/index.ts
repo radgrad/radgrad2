@@ -18,6 +18,14 @@ import {
   TEST_EMAIL_DONE,
   TEST_EMAIL_WORKING,
 } from '../actions/actionTypes';
+import {
+  ADVISOR_HOME_SET_COUNT,
+  ADVISOR_HOME_SET_FIRST_NAME,
+  ADVISOR_HOME_SET_LAST_NAME,
+  ADVISOR_HOME_SET_USERNAME,
+  ADVISOR_HOME_CLEAR_FILTER,
+  ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
+} from '../actions/pageAdvisorActionTypes';
 import { paginationReducer } from './paginationReducer';
 import { studentHomePageReducer } from './studentHomePageReducer';
 import { cardExplorerPageReducer } from './cardExplorerPageReducer';
@@ -162,6 +170,18 @@ const initialState = {
       hiddenOpportunities: true,
     },
   },
+  page: {
+    advisor: {
+      home: {
+        count: 0,
+        doNotChange: 42,
+        firstName: '',
+        lastName: '',
+        username: '',
+        selectedUsername: '',
+      },
+    },
+  },
 };
 
 function radgradWorkingReducer(state = {}, action) {
@@ -286,6 +306,82 @@ function tabReducer(state = {}, action) {
   }
 }
 
+function pageReducer(state: any = {}, action) {
+  switch (action.type) {
+    case ADVISOR_HOME_SET_COUNT:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            count: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_FIRST_NAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            firstName: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_LAST_NAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            lastName: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_USERNAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            username: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_CLEAR_FILTER:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            firstName: '',
+            lastName: '',
+            username: '',
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            selectedUsername: action.payload,
+          },
+        },
+      };
+  
+    default:
+      return state;
+  }
+}
+
 // console.log('rootReducer state=%o action=%o', state, action);
 const rootReducer = (state = initialState, action) => ({
   ...state,
@@ -295,6 +391,7 @@ const rootReducer = (state = initialState, action) => ({
   pagination: paginationReducer(state.pagination, action),
   studentHomePage: studentHomePageReducer(state.studentHomePage, action),
   cardExplorerPage: cardExplorerPageReducer(state.cardExplorerPage, action),
+  page: pageReducer(state.page, action),
 });
 
 // export default combineReducers({});
