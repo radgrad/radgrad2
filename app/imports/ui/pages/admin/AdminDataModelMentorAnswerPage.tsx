@@ -59,12 +59,12 @@ class AdminDataModelMentorAnswerPage extends React.Component<{}, IAdminDataModel
   }
 
   private handleAdd = (doc) => {
-    console.log('MentorAnswer.handleAdd(%o)', doc);
+    // console.log('MentorAnswer.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     definitionData.question = mentorQuestionToSlug(doc.question);
     definitionData.mentor = profileNameToUsername(doc.mentor);
-    console.log(collectionName, definitionData);
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -120,7 +120,7 @@ class AdminDataModelMentorAnswerPage extends React.Component<{}, IAdminDataModel
   };
 
   private handleUpdate = (doc) => {
-    console.log('MentorAnswer.handleUpdate doc=%o', doc);
+    // console.log('MentorAnswer.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;

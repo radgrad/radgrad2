@@ -48,7 +48,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 
   private handleAdd = (doc) => {
-    console.log('GenericTemplate.handleAdd(%o)', doc);
+    // console.log('GenericTemplate.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -106,7 +106,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 
   private handleUpdate = (doc) => {
-    console.log('GenericTemplate.handleUpdate doc=%o', doc);
+    // console.log('GenericTemplate.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;

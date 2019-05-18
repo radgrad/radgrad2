@@ -66,7 +66,7 @@ class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataMode
   }
 
   private handleAdd = (doc) => {
-    console.log('InterestTypes.handleAdd(%o)', doc);
+    // console.log('InterestTypes.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {

@@ -5,7 +5,6 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import { IAdminDataModelPageState, ICourseInstanceDefine, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -19,6 +18,7 @@ import {
   courseNameToCourseDoc,
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
+import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
 
 const collection = CourseInstances;
 
@@ -72,7 +72,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
   }
 
   private handleAdd = (doc) => {
-    console.log('CourseInstancePage.handleAdd(%o)', doc);
+    // console.log('CourseInstancePage.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const academicTermDoc = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
@@ -87,7 +87,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
       student,
       grade: doc.grade,
     };
-    console.log('definitionData=%o', definitionData);
+    // console.log('definitionData=%o', definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -144,11 +144,13 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
   }
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    console.log(collectionName, updateData);
+    updateData.creditHrs = doc.creditHours;
+    updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -187,7 +189,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateCourseInstanceForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (

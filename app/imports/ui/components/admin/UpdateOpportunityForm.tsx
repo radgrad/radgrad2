@@ -48,7 +48,7 @@ class UpdateOpportunityForm extends React.Component<IUpdateOpportunityFormProps>
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const model = this.props.collection.findDoc(this.props.id);
-    console.log('collection model = %o', model);
+    // console.log('collection model = %o', model);
     model.opportunityType = opportunityTypeIdToName(model.opportunityTypeID);
     model.interests = _.map(model.interestIDs, interestIdToName);
     model.terms = _.map(model.termIDs, academicTermIdToName);

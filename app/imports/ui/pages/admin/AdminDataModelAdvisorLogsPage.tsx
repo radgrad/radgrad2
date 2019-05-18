@@ -58,7 +58,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     updateData.id = doc._id;
     updateData.text = doc.text;
     updateData.retired = doc.retired;
-    console.log('updateData = %o', updateData);
+    // console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

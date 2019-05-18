@@ -98,7 +98,7 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
+    // console.log('handleDelete inst=%o', inst);
     const collectionName = AcademicYearInstances.getCollectionName();
     const instance = inst.id;
     removeItMethod.call({ collectionName, instance }, (error) => {

@@ -19,7 +19,7 @@ class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProp
 
   private handleClick = (e, titleProps) => {
     e.preventDefault();
-    console.log(titleProps);
+    // console.log(titleProps);
     const { index } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;

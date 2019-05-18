@@ -293,7 +293,7 @@ class ReviewCollection extends BaseSlugCollection {
       moderated,
       visible,
       moderatorComments,
-      retired
+      retired,
     };
   }
 }

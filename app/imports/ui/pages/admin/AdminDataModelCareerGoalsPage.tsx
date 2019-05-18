@@ -126,7 +126,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
     updateData.description = doc.description;
     updateData.retired = doc.retired;
     updateData.interests = doc.interests;
-    console.log('updateData = %o', updateData);
+    // console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

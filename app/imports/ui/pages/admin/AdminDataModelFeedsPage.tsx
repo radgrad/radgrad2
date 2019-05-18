@@ -121,7 +121,7 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
         break;
       default:
     }
-    console.log(collectionName, definitionData);
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -177,14 +177,14 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData: any = doc;
     updateData.id = doc._id;
     updateData.feedType = doc.feedType;
     updateData.users = doc.userIDs;
     updateData.opportunity = opportunityNameToSlug(doc.opportunity);
-    console.log(collectionName, updateData);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

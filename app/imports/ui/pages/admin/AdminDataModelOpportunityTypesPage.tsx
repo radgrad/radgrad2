@@ -66,7 +66,7 @@ class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataM
   }
 
   private handleAdd = (doc) => {
-    console.log('OpportunityTypes.handleAdd(%o)', doc);
+    // console.log('OpportunityTypes.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {

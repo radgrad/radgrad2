@@ -120,7 +120,7 @@ class AdminDataModelMentorQuestionPage extends React.Component<{}, IAdminDataMod
   };
 
   private handleUpdate = (doc) => {
-    console.log('MentorQuestion.handleUpdate doc=%o', doc);
+    // console.log('MentorQuestion.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;

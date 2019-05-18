@@ -48,7 +48,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
     const model = this.props.collection.findDoc(this.props.id);
     model.opportunity = opportunityIdToName(model.opportunityID);
     model.users = _.map(model.userIDs, userIdToName);
-    console.log(model);
+    // console.log(model);
     const academicTermNames = _.map(this.props.academicTerms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const courseNames = _.map(this.props.courses, courseToName);

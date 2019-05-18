@@ -6,7 +6,6 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -15,6 +14,13 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
+import AddReviewForm from '../../components/admin/AddReviewForm';
+import {
+  academicTermNameToSlug,
+  courseNameToSlug,
+  opportunityNameToSlug,
+  profileNameToUsername,
+} from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = Reviews; // the collection to use.
 
@@ -71,9 +77,16 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
   }
 
   private handleAdd = (doc) => {
-    console.log('Reviews.handleAdd(%o)', doc);
+    // console.log('Reviews.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc; // create the definitionData may need to modify doc's values
+    const definitionData = doc;
+    definitionData.student = profileNameToUsername(doc.student);
+    if (doc.reviewType === Reviews.COURSE) {
+      definitionData.reviewee = courseNameToSlug(doc.reviewee);
+    } else {
+      definitionData.reviewee = opportunityNameToSlug(doc.reviewee);
+    }
+    definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -129,7 +142,7 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
   }
 
   private handleUpdate = (doc) => {
-    console.log('Reviews.handleUpdate doc=%o', doc);
+    // console.log('Reviews.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
@@ -175,7 +188,7 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddReviewForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}

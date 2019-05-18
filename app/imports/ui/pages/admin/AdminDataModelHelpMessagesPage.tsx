@@ -52,7 +52,7 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
   }
 
   private handleAdd = (doc) => {
-    console.log('HelpMessages.handleAdd(%o)', doc);
+    // console.log('HelpMessages.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -110,7 +110,7 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
   };
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc;
     updateData.id = doc._id;

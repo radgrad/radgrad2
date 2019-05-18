@@ -131,7 +131,7 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
   };
 
   private handleUpdate = (doc) => {
-    console.log('Opportunities.handleUpdate doc=%o', doc);
+    // console.log('Opportunities.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
@@ -139,7 +139,7 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
     updateData.sponsor = profileNameToUsername(doc.sponsor);
     updateData.interests = _.map(doc.interests, interestSlugFromName);
     updateData.academicTerms = _.map(doc.terms, academicTermNameToSlug);
-    console.log(collectionName, updateData);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
