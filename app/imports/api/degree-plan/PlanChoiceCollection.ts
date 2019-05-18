@@ -1,4 +1,5 @@
 import SimpleSchema from 'simpl-schema';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
 import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line
@@ -18,6 +19,14 @@ export class PlanChoiceCollection extends BaseCollection {
       choice: { type: String },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      choice: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      choice: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
@@ -28,12 +37,12 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param choice
    * @returns {*}
    */
-  public define({ choice }: IPlanChoiceDefine) {
+  public define({ choice, retired }: IPlanChoiceDefine) {
     const doc = this.collection.findOne(choice);
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ choice });
+    return this.collection.insert({ choice, retired });
   }
 
   /**
@@ -41,11 +50,14 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID associated with this plan choice.
    * @param choice the updated choice.
    */
-  public update(docID: string, { choice }: IPlanChoiceUpdate) {
+  public update(docID: string, { choice, retired }: IPlanChoiceUpdate) {
     this.assertDefined(docID);
     const updateData: IPlanChoiceUpdate = {};
     if (choice) {
       updateData.choice = choice;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -107,7 +119,8 @@ export class PlanChoiceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): IPlanChoiceDefine {
     const doc = this.findDoc(docID);
-    return { choice: doc.choice };
+    const retired = doc.retired;
+    return { choice: doc.choice, retired };
   }
 
 }
