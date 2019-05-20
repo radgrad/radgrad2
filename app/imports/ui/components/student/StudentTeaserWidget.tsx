@@ -7,6 +7,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Segment, Container, Header, Card, Button, Icon } from 'semantic-ui-react';
 import StudentTeaserWidgetVideo from './StudentTeaserWidgetVideo';
 import InterestList from '../shared/InterestList';
+import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 
 interface IStudentTeaserWidget {
   match: {
@@ -67,8 +68,14 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
     return teaser.url;
   }
 
+  private teaserCount = (): number => {
+    return this.matchingTeasers().length;
+  }
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const teasers = this.matchingTeasers();
+    const teaserCount = this.teaserCount();
+
     const cardGroupStyle = {
       maxHeight: '500px',
       overflow: 'scroll',
@@ -76,52 +83,53 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
     };
     const cardContentStyle = { padding: '0' };
 
+    const chevronCircleRightIconStyle = { marginRight: '1px' };
     return (
         <div>
           <Container>
             <Segment padded={true}>
               <Header dividing={true}>
-                <Header as="h4"> TODO: WidgetHeaderNumber </Header>
+                <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>
               </Header>
+
+              {
+                teasers ?
+                    <Card.Group style={cardGroupStyle}>
+                      {
+                        teasers.map((teaser, index) => (
+                            <div key={index}>
+                              <Card centered={true}>
+                                <Card.Content>
+                                  <Card.Header>{this.teaserTitle(teaser)}</Card.Header>
+                                  <Card.Meta>By {this.teaserAuthor(teaser)} </Card.Meta>
+                                </Card.Content>
+
+                                <Card.Content style={cardContentStyle}>
+                                  <StudentTeaserWidgetVideo teaserUrl={this.teaserUrl(teaser)}/>
+                                </Card.Content>
+
+                                <Card.Content>
+                                  <InterestList item={teaser} size="mini"/>
+                                </Card.Content>
+
+                                {
+                                  teaser.opportunityID ?
+                                      <Button as="a" attached="bottom">
+                                        TODO: href
+                                        <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View More
+                                      </Button>
+                                      : ''
+                                }
+                              </Card>
+                            </div>
+                        ))
+                      }
+                    </Card.Group>
+                    :
+                    <p>Add interests to see recommendations here.</p>
+              }
             </Segment>
           </Container>
-
-          {
-            teasers ?
-                <Card.Group style={cardGroupStyle}>
-                  {
-                    teasers.map((teaser, index) => (
-                        <div key={index}>
-                          <Card centered={true}>
-                            <Card.Content>
-                              <Card.Header>{this.teaserTitle(teaser)}</Card.Header>
-                              <Card.Meta>By {this.teaserAuthor(teaser)} </Card.Meta>
-                            </Card.Content>
-
-                            <Card.Content style={cardContentStyle}>
-                              <StudentTeaserWidgetVideo teaserUrl={this.teaserUrl(teaser)}/>
-                            </Card.Content>
-
-                            <Card.Content>
-                              <InterestList item={teaser} size="mini"/>
-                            </Card.Content>
-
-                            {
-                              teaser.opportunityID ?
-                                  <Button as="a" attached="bottom">
-                                    TODO: href
-                                    <Icon name="chevron circle right"/> View More
-                                  </Button>
-                                  : ''
-                            }
-                          </Card>
-                        </div>
-                    ))
-                  }
-                </Card.Group>
-                :
-                <p>Add interests to see recommendations here.</p>
-          }
         </div>
     );
   }
