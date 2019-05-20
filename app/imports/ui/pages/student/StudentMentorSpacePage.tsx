@@ -4,6 +4,7 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import StudentMentorSpaceQuestionForm from '../../components/student/StudentMentorSpaceQuestionForm';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import StudentMentorSpaceQuestionsAccordion from '../../components/student/StudentMentorSpaceQuestionsAccordion';
 
 /** A simple static component to render some text for the landing page. */
 class StudentMentorSpacePage extends React.Component {
@@ -11,6 +12,7 @@ class StudentMentorSpacePage extends React.Component {
     const marginStyle = {
       marginTop: 5,
     };
+
     return (
       <div>
         <StudentPageMenuWidget/>
@@ -24,9 +26,9 @@ class StudentMentorSpacePage extends React.Component {
               <Header dividing={true}>
                 <h4>QUESTIONS</h4>
               </Header>
-              questionsList function goes here.
+              <StudentMentorSpaceQuestionsAccordion/>
             </Segment>
-              <StudentMentorSpaceQuestionForm/>
+            <StudentMentorSpaceQuestionForm/>
           </Grid.Column>
 
           <Grid.Column width={5}>

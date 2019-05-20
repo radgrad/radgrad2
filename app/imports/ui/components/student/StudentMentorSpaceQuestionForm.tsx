@@ -10,9 +10,7 @@ import { moment } from 'meteor/momentjs:moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 
-interface IAddMentorQuestionFormProps {
-  studentID?: string;
-  formRef?: any;
+interface IStudentMentorSpaceQuestionFormProps {
   match: {
     params: {
       username: string;
@@ -20,8 +18,8 @@ interface IAddMentorQuestionFormProps {
   };
 }
 
-class StudentMentorSpaceQuestionForm extends React.Component<IAddMentorQuestionFormProps> {
-  private formRef: any;
+class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpaceQuestionFormProps> {
+  private readonly formRef: any;
   constructor(props) {
     super(props);
     this.formRef = React.createRef();
