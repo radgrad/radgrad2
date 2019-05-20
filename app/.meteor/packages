@@ -29,7 +29,7 @@ aldeed:collection2-core          # Integrate node-simpl-schema with Meteor colle
 themeteorchef:bert               # UI notifications. https://themeteorchef.com/tutorials/client-side-alerts-with-bert
 
 # Utilities
-underscore@1.0.10                       # http://underscorejs.org/
+underscore                       # http://underscorejs.org/
 ejson@1.1.0                            # https://docs.meteor.com/api/ejson.html
 alanning:roles                   # https://github.com/alanning/meteor-roles
 
