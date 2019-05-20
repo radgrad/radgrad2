@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Label, SemanticSIZES, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { Label, SemanticSIZES } from 'semantic-ui-react';
+import { withRouter, Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import * as _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IInterestListProps {
   item: object;
@@ -23,6 +24,10 @@ class InterestList extends React.Component<IInterestListProps> {
     super(props);
   }
 
+  private getUsername = () => {
+    return this.props.match.params.username;
+  }
+
   private interestName = (interest): string => {
     return interest.name;
   }
@@ -36,9 +41,8 @@ class InterestList extends React.Component<IInterestListProps> {
   }
 
   private matchingUserInterestsHelper = (item) => {
-    const username = this.props.match.params.username;
     const matchingInterests = [];
-    const userInterestIDs = Users.getInterestIDsByType(username);
+    const userInterestIDs = Users.getInterestIDsByType(this.getUsername());
     const userInterests = _.map(userInterestIDs[0], (id) => Interests.findDoc(id));
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
     _.forEach(itemInterests, (itemInterest) => {
@@ -60,9 +64,8 @@ class InterestList extends React.Component<IInterestListProps> {
   }
 
   private matchingCareerInterestsHelper = (item) => {
-    const username = this.props.match.params.username;
     const matchingInterests = [];
-    const userInterestIDs = Users.getInterestIDsByType(username);
+    const userInterestIDs = Users.getInterestIDsByType(this.getUsername());
     const userInterests = _.map(userInterestIDs[1], (id) => Interests.findDoc(id));
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
     _.forEach(itemInterests, (itemInterest) => {
@@ -94,9 +97,8 @@ class InterestList extends React.Component<IInterestListProps> {
   }
 
   private matchingInterestsHelper = (item) => {
-    const username = this.props.match.params.username;
     const matchingInterests = [];
-    const userInterestIDs = Users.getInterestIDs(username);
+    const userInterestIDs = Users.getInterestIDs(this.getUsername());
     const userInterests = _.map(userInterestIDs, (id) => Interests.findDoc(id));
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
     _.forEach(itemInterests, (itemInterest) => {
@@ -109,7 +111,27 @@ class InterestList extends React.Component<IInterestListProps> {
     return matchingInterests;
   }
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+  private interestsRouteName = (interest) => {
+    const url = this.props.match.url;
+    const splitUrl = url.split('/');
+    const group = splitUrl[1];
+    const interestName = this.interestSlug(interest);
+    switch (group) {
+      case 'student':
+        return `/student/${this.getUsername()}/explorer/interests/${interestName}`;
+      case 'faculty':
+        return `/faculty/${this.getUsername()}/explorer/interests/${interestName}`;
+      default:
+        return `/mentor/${this.getUsername()}/explorer/interests/${interestName}`;
+    }
+  }
+
+  private interestSlug = (interest) => {
+    return Slugs.findDoc(interest.slugID).name;
+  }
+
+  public render():
+      React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const matchingUserInterests = this.matchingUserInterests(this.props.item);
     const matchingCareerInterests = this.matchingCareerInterests(this.props.item);
     const otherInterests = this.otherInterests(this.props.item);
@@ -117,28 +139,31 @@ class InterestList extends React.Component<IInterestListProps> {
         <Label.Group>
           {
             matchingUserInterests.map((interest, index) => (
-                <Label key={index} as="a" size={this.props.size}>
-                  TODO: href
-                  <i className="fitted star icon"/> {this.interestName(interest)}
-                </Label>
+                <Link to={this.interestsRouteName(interest)}>
+                  <Label key={index} size={this.props.size}>
+                    <i className="fitted star icon"/> {this.interestName(interest)}
+                  </Label>
+                </Link>
             ))
           }
 
           {
             matchingCareerInterests.map((interest, index) => (
-                <Label key={index} as="a" size={this.props.size}>
-                  TODO: href
-                  <i className="fitted suitcase icon"/> {this.interestName(interest)}
-                </Label>
+                <Link to={this.interestsRouteName(interest)}>
+                  <Label key={index} size={this.props.size}>
+                    <i className="fitted suitcase icon"/> {this.interestName(interest)}
+                  </Label>
+                </Link>
             ))
           }
 
           {
             otherInterests.map((interest, index) => (
-                <Label key={index} as="a" color="grey" size={this.props.size}>
-                  TODO: href
-                  {this.interestName(interest)}
-                </Label>
+                <Link to={this.interestsRouteName(interest)}>
+                  <Label key={index} size={this.props.size}>
+                    {this.interestName(interest)}
+                  </Label>
+                </Link>
             ))
           }
 
