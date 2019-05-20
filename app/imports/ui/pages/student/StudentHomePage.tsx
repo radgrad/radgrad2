@@ -17,7 +17,7 @@ import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 class StudentHomePage extends React.Component {
   public render() {
     return (
-      <div>
+      <div className="layout-page">
         <StudentPageMenuWidget/>
         <HelpPanelWidget/>
         <Grid stackable={true} verticalAlign="middle" textAlign="center" container={true}>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import StudentFeedWidget from './StudentFeedWidget';
 import StudentTeaserWidget from './StudentTeaserWidget';
+// import StudentOfInterestWidget from './StudentOfInterestWidget';
 
 interface IStudentHomeWidget {
   type?: string;
@@ -18,6 +19,8 @@ class StudentHomeWidget extends React.Component<IStudentHomeWidget> {
           <Grid.Column width={10}>
             TODO: StudentOfInterestWidget, type=opportunities
             TODO: StudentOfInterestWidget, type=courses
+            {/*<StudentOfInterestWidget type="opportunities"/>*/}
+            {/*<StudentOfInterestWidget type="courses"/>*/}
           </Grid.Column>
 
           <Grid.Column width={6}>
