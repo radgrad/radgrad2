@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -8,6 +8,8 @@ import { Segment, Container, Header, Card, Button, Icon } from 'semantic-ui-reac
 import StudentTeaserWidgetVideo from './StudentTeaserWidgetVideo';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IStudentTeaserWidget {
   match: {
@@ -25,12 +27,15 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
     super(props);
   }
 
+  private getUsername = () => {
+    return this.props.match.params.username;
+  }
+
   private matchingTeasers = () => {
-    const username = this.props.match.params.username;
-    if (username) {
+    if (this.getUsername()) {
       const allTeasers = Teasers.find().fetch();
       const matching = [];
-      const profile = Users.getProfile(username);
+      const profile = Users.getProfile(this.getUsername());
       const userInterests = [];
       let teaserInterests = [];
       _.forEach(Users.getInterestIDs(profile.userID), (id) => {
@@ -70,6 +75,21 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
 
   private teaserCount = (): number => {
     return this.matchingTeasers().length;
+  }
+
+  private opportunitiesRouteName = (teaser) => {
+    const opportunityName = this.opportunitySlug(teaser);
+    return `/student/${this.getUsername()}/explorer/opportunities/${opportunityName}`;
+  }
+
+  private opportunitySlug = (teaser) => {
+    let ret;
+    if (teaser.opportunityID) {
+      ret = Slugs.findDoc(Opportunities.findDoc(teaser.opportunityID).slugID).name;
+    } else {
+      ret = '#'; // TODO: Not sure if I should have this # or empty string. Can't test until we have opportunity pages working.
+    }
+    return ret;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -114,10 +134,12 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
 
                                 {
                                   teaser.opportunityID ?
-                                      <Button as="a" attached="bottom">
-                                        TODO: href
-                                        <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View More
-                                      </Button>
+                                      <Link to={this.opportunitiesRouteName(teaser)}>
+                                        <Button attached="bottom">
+                                          <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
+                                          More
+                                        </Button>
+                                      </Link>
                                       : ''
                                 }
                               </Card>
