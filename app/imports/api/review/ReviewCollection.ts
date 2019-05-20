@@ -52,9 +52,6 @@ class ReviewCollection extends BaseSlugCollection {
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
-      student: { type: String, optional: true },
-      reviewType: { type: String, optional: true },
-      reviewee: { type: String, optional: true },
       academicTerm: { type: String, optional: true },
       rating: { type: SimpleSchema.Integer, optional: true },
       comments: { type: String, optional: true },

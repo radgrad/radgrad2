@@ -5,7 +5,6 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -15,6 +14,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/AddReviewForm';
+import UpdateReviewForm from '../../components/admin/UpdateReviewForm';
 import {
   academicTermNameToSlug,
   courseNameToSlug,
@@ -146,6 +146,8 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
+    updateData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -184,7 +186,7 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
+              <UpdateReviewForm collection={collection} id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
