@@ -645,6 +645,7 @@ export interface IBaseProfile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  optedIn?: boolean;
 }
 
 export interface IProfile {
@@ -661,6 +662,10 @@ export interface IProfile {
 }
 
 // Advisor and Faculty Profiles
+export interface IAdvisorProfile extends IProfile {}
+
+export interface IFacultyProfile extends IProfile {}
+
 export interface IProfileDefine extends IDumpOne {
   username: string;
   firstName: string;

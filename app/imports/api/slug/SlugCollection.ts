@@ -139,6 +139,8 @@ class SlugCollection extends BaseCollection {
    * @param { String | Object } docOrID A document or docID in this collection.
    */
   public removeIt(docOrID: string | object) {
+    console.log('Slugs.removeIt(%o)', docOrID);
+    console.trace();
     return super.removeIt(docOrID);
   }
 

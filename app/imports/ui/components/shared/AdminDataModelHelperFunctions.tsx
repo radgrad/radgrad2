@@ -7,6 +7,12 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+
+export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
+
+export const academicPlanNameToSlug = (name) => Slugs.getNameFromID(AcademicPlans.findDoc(name).slugID);
 
 export const academicTermIdToName = (id) => AcademicTerms.toString(id, false);
 
@@ -15,6 +21,10 @@ export const academicTermToName = (term) => AcademicTerms.toString(term._id, fal
 export const academicTermNameToDoc = (name) => AcademicTerms.getAcademicTermFromToString(name);
 
 export const academicTermNameToSlug = (name) => Slugs.getNameFromID(AcademicTerms.getAcademicTermFromToString(name).slugID);
+
+export const careerGoalIdToName = (id) => CareerGoals.findDoc(id).name;
+
+export const careerGoalNameToSlug = (name) => Slugs.getNameFromID(CareerGoals.findDoc(name).slugID);
 
 export const courseToName = (course) => `${course.num}: ${course.shortName}`;
 

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Grid, Icon, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import {
-  IAdminDataModelPageState, // eslint-disable-line
-  IBaseProfile, ICombinedProfileDefine, // eslint-disable-line
+  IAdminDataModelPageState, IAdvisorProfile, // eslint-disable-line
+  IBaseProfile, ICombinedProfileDefine, IFacultyProfile, IMentorProfile, IStudentProfile, // eslint-disable-line
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -16,8 +17,8 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddUserForm from '../../components/admin/AddUserForm';
+import UpdateUserForm from '../../components/admin/UpdateUserForm';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -29,6 +30,13 @@ import {
 } from '../../components/shared/FormHelperFunctions';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
+
+interface IAdminDataModelUsersPageProps {
+  advisors: IAdvisorProfile[];
+  faculty: IFacultyProfile[];
+  mentors: IMentorProfile[];
+  students: IStudentProfile[];
+}
 
 const descriptionPairs = (user: IBaseProfile) => {
   const pairs = [];
@@ -51,7 +59,7 @@ const descriptionPairs = (user: IBaseProfile) => {
       label: 'Declared Semester',
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
     });
-    // pairs.push({ label: 'Share Email', value: user.shareUsername ? 'True' : 'False' });
+    pairs.push({ label: 'Opted In', value: user.optedIn ? 'True' : 'False' });
   }
   if (user.role === ROLE.MENTOR) {
     pairs.push({ label: 'Company', value: user.company });
@@ -71,14 +79,14 @@ const itemTitleString = (user: IBaseProfile): string => {
 };
 
 const itemTitle = (user: IBaseProfile): React.ReactNode => (
-    <React.Fragment>
-      {user.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(user)}
-    </React.Fragment>
-  );
+  <React.Fragment>
+    {user.retired ? <Icon name="eye slash"/> : ''}
+    <Icon name="dropdown"/>
+    {itemTitleString(user)}
+  </React.Fragment>
+);
 
-class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageState> {
+class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPageProps, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -130,18 +138,17 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
         inst.formRef.current.reset();
       }
     });
-  }
+  };
 
   private handleCancel = (event) => {
     event.preventDefault();
     this.setState({ showUpdateForm: false, id: '' });
-  }
+  };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
     const profiles = Users.findProfiles({ _id: inst.id }, {});
-    // console.log(profiles);
     if (profiles.length > 0) {
       const profile = profiles[0];
       let collectionName;
@@ -158,7 +165,9 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
         default:
           collectionName = StudentProfiles.getCollectionName();
       }
-      removeItMethod.call({ collectionName, instance: profile._id }, (error) => {
+      const instance = profile._id;
+      // console.log('removeIt.call(%o, %o)', collectionName, instance);
+      removeItMethod.call({ collectionName, instance }, (error) => {
         if (error) {
           Swal.fire({
             title: 'Failed deleting User',
@@ -172,35 +181,32 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
             showConfirmButton: false,
             timer: 1500,
           });
-          inst.formRef.current.reset();
         }
       });
     }
-  }
+  };
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     this.setState({ showUpdateForm: true, id: inst.id });
-  }
+  };
 
   private handleUpdate = (doc) => {
-    console.log('handleUpdate(%o)', doc);
+    // console.log('handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    const profile = Users.getProfile(doc._id);
     let collectionName;
-    switch (profile.role) {
-      case ROLE.ADVISOR:
-        collectionName = AdvisorProfiles.getCollectionName();
-        break;
-      case ROLE.FACULTY:
-        collectionName = FacultyProfiles.getCollectionName();
-        break;
-      case ROLE.MENTOR:
-        collectionName = MentorProfiles.getCollectionName();
-        break;
-      default:
-        collectionName = StudentProfiles.getCollectionName();
+    if (StudentProfiles.isDefined(updateData.id)) {
+      collectionName = StudentProfiles.getCollectionName();
+    }
+    if (FacultyProfiles.isDefined(updateData.id)) {
+      collectionName = FacultyProfiles.getCollectionName();
+    }
+    if (MentorProfiles.isDefined(updateData.id)) {
+      collectionName = MentorProfiles.getCollectionName();
+    }
+    if (AdvisorProfiles.isDefined(updateData.id)) {
+      collectionName = AdvisorProfiles.getCollectionName();
     }
     updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
@@ -210,7 +216,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
-
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -229,7 +235,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
         this.setState({ showUpdateForm: false, id: '' });
       }
     });
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const paddedStyle = {
@@ -237,7 +243,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     };
     const panes = [
       {
-        menuItem: `Advisors (${AdvisorProfiles.count()})`, render: () => (
+        menuItem: `Advisors (${this.props.advisors.length})`, render: () => (
           <Tab.Pane><ListCollectionWidget collection={AdvisorProfiles}
                                           descriptionPairs={descriptionPairs}
                                           itemTitle={itemTitle}
@@ -247,7 +253,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
                                           setShowCount={setCollectionShowCount}/></Tab.Pane>),
       },
       {
-        menuItem: `Faculty (${FacultyProfiles.count()})`, render: () => (
+        menuItem: `Faculty (${this.props.faculty.length})`, render: () => (
           <Tab.Pane><ListCollectionWidget collection={FacultyProfiles}
                                           descriptionPairs={descriptionPairs}
                                           itemTitle={itemTitle}
@@ -257,7 +263,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
                                           setShowCount={setCollectionShowCount}/></Tab.Pane>),
       },
       {
-        menuItem: `Mentors (${MentorProfiles.count()})`, render: () => (
+        menuItem: `Mentors (${this.props.mentors.length})`, render: () => (
           <Tab.Pane><ListCollectionWidget collection={MentorProfiles}
                                           descriptionPairs={descriptionPairs}
                                           itemTitle={itemTitle}
@@ -267,7 +273,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
                                           setShowCount={setCollectionShowCount}/></Tab.Pane>),
       },
       {
-        menuItem: `Students (${StudentProfiles.count()})`, render: () => (
+        menuItem: `Students (${this.props.students.length})`, render: () => (
           <Tab.Pane><ListCollectionWidget collection={StudentProfiles}
                                           descriptionPairs={descriptionPairs}
                                           itemTitle={itemTitle}
@@ -288,7 +294,7 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={StudentProfiles} id={this.state.id} formRef={this.formRef}
+              <UpdateUserForm id={this.state.id} formRef={this.formRef}
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
@@ -302,4 +308,15 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
   }
 }
 
-export default AdminDataModelUsersPage;
+export default withTracker(() => {
+  const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const mentors = MentorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  return {
+    advisors,
+    faculty,
+    mentors,
+    students,
+  };
+})(AdminDataModelUsersPage);

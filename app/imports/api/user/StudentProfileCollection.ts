@@ -513,7 +513,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 ],
               }, '$academicPlanID', ''],
             },
-            declaredSemesterID: 1,
+            declaredAcademicTermID: 1,
             hiddenCourseIDs: 1,
             hiddenOpportunityIDs: 1,
             isAlumni: 1,

@@ -159,6 +159,9 @@ class BaseCollection {
    * @returns {boolean} True if name exists in this collection.
    */
   public isDefined(name: string) {
+    if (_.isUndefined(name)) {
+      return false;
+    }
     return (
       !!this.collection.findOne(name) ||
       !!this.collection.findOne({ name }) ||
