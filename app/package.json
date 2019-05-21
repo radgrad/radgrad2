@@ -67,6 +67,7 @@
   },
   "scripts": {
     "start": "meteor --no-release-check --settings ../config/settings.development.json --port 3200",
+    "start-production": "meteor --production --no-release-check --settings ../config/settings.development.json --port 3200",
     "lint": "eslint --quiet --ext .tsx --ext .ts ./imports",
     "pretest": "npm run lint",
     "test": "TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
