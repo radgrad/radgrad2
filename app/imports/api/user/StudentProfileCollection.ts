@@ -450,7 +450,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareUsername', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$username', ''],
             },
@@ -462,7 +462,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$sharePicture', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$picture', '/images/default-profile-picture.png'],
             },
@@ -471,7 +471,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareWebsite', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$website', ''],
             },
@@ -480,7 +480,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareInterests', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$interestIDs', []],
             },
@@ -489,7 +489,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareCareerGoals', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$careerGoalIDs', []],
             },
@@ -500,7 +500,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareLevel', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$level', 0],
             },
@@ -509,7 +509,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareAcademicPlan', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$academicPlanID', ''],
             },
@@ -526,6 +526,21 @@ class StudentProfileCollection extends BaseProfileCollection {
             shareOpportunities: 1,
             shareCourses: 1,
             shareLevel: 1,
+            optedIn: {
+              $cond: [{
+                $or: [
+                  '$shareUsername',
+                  '$sharePicture',
+                  '$shareWebsite',
+                  '$shareInterests',
+                  '$shareCareerGoals',
+                  '$shareAcademicPlan',
+                  '$shareOpportunities',
+                  '$shareCourses',
+                  '$shareLevel',
+                ],
+              }, true, false],
+            },
           },
         }]);
       });

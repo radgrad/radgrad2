@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
+import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { ROLE } from '../role/Role';
@@ -11,6 +12,7 @@ import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
  * Represents the taking of a course by a specific student in a specific academicTerm.
@@ -19,7 +21,7 @@ import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radg
  */
 class CourseInstanceCollection extends BaseCollection {
   public validGrades: string[];
-  private readonly publicationNames: {
+  public readonly publicationNames: {
     student: string;
     perStudentAndAcademicTerm: string;
     publicStudent: string;
@@ -377,7 +379,22 @@ class CourseInstanceCollection extends BaseCollection {
         });
       // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
-        return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
+        const userID = Meteor.userId();
+        const willingToShare = [];
+        const profiles = StudentProfiles.find().fetch();
+        _.forEach(profiles, (p) => {
+          if (p.shareCourses) {
+            willingToShare.push(p.userID);
+          }
+        });
+        // console.log(willingToShare);
+        ReactiveAggregate(this, instance.collection, [
+          { $match: { $expr: { $or: [
+                  { $in: ['$studentID', willingToShare] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }] } } },
+          { $project: { studentID: 1, semesterID: 1, courseID: 1 } },
+        ]);
+        // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) { // eslint-disable-line meteor/audit-argument-checks

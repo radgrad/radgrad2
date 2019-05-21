@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
+import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Opportunities } from './OpportunityCollection';
 import { ROLE } from '../role/Role';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -11,6 +12,7 @@ import { VerificationRequests } from '../verification/VerificationRequestCollect
 import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { iceSchema } from '../ice/IceProcessor';
+import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
  * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
@@ -18,7 +20,7 @@ import { iceSchema } from '../ice/IceProcessor';
  * @memberOf api/opportunity
  */
 class OpportunityInstanceCollection extends BaseCollection {
-  public publicationNames: { student: string; perStudentAndAcademicTerm: string; studentID: string; };
+  public publicationNames: { student: string; perStudentAndAcademicTerm: string; studentID: string; publicStudent: string; };
 
   /**
    * Creates the OpportunityInstance collection.
@@ -37,6 +39,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       student: this.collectionName,
       perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
       studentID: `${this.collectionName}.studentID`,
+      publicStudent: `${this.collectionName}.publicStudent`,
     };
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, studentID: 1, termID: 1 });
@@ -259,6 +262,23 @@ class OpportunityInstanceCollection extends BaseCollection {
           studentID: { type: String },
         }).validate({ studentID });
         return instance.collection.find({ studentID });
+      });
+      Meteor.publish(this.publicationNames.publicStudent, function publicStudent() {
+        const userID = Meteor.userId();
+        const willingToShare = [];
+        const profiles = StudentProfiles.find().fetch();
+        _.forEach(profiles, (p) => {
+          if (p.shareOpportunities) {
+            willingToShare.push(p.userID);
+          }
+        });
+        // console.log('sharing Opporutnities = %o', willingToShare);
+        ReactiveAggregate(this, instance.collection, [
+          { $match: { $expr: { $or: [
+                  { $in: ['$studentID', willingToShare] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] }] } } },
+          { $project: { studentID: 1, semesterID: 1, opportunityID: 1 } },
+        ]);
       });
     }
   }

@@ -19,7 +19,7 @@ interface ILoading {
 
 // cacheLimit default is 10, so no change.
 // expireLimit set to 30 minutes because: why not.
-const instanceSubs = new SubsManager({ cacheLimit: 10, expireIn: 30 });
+const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
   class InstanceSubscriptions extends React.Component<ILoading> {
@@ -41,11 +41,12 @@ function withInstanceSubscriptions(WrappedComponent) {
       handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, Meteor.userId()));
     }
     handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName()));
+    handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.publicStudent));
     handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName()));
     handles.push(instanceSubs.subscribe(Feeds.getPublicationName()));
     handles.push(instanceSubs.subscribe(MentorAnswers.getPublicationName()));
     handles.push(instanceSubs.subscribe(MentorQuestions.getPublicationName()));
-    handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.student));
+    handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.publicStudent));
     handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName()));
     const loading = handles.some((handle) => !handle.ready());
     return {
