@@ -67,8 +67,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareLevel: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
-      firstName: String,
-      lastName: String,
+      firstName: { type: String, optional: true },
+      lastName: { type: String, optional: true },
       picture: { type: String, optional: true },
       website: { type: String, optional: true },
       interests: { type: Array, optional: true },

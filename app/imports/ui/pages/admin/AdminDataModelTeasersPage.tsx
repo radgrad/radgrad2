@@ -6,7 +6,6 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
@@ -14,10 +13,10 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { makeMarkdownLink } from './datamodel-utilities';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddTeaserForm from '../../components/admin/AddTeaserForm';
+import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
 import {
-  interestNameToId,
   interestNameToSlug,
-  opportunityNameToSlug
+  opportunityNameToSlug,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = Teasers; // the collection to use.
@@ -64,12 +63,12 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
   }
 
   private handleAdd = (doc) => {
-    console.log('Teasers.handleAdd(%o)', doc);
+    // console.log('Teasers.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     definitionData.interests = _.map(doc.interests, interestNameToSlug);
     definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
-    console.log(collectionName, definitionData);
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -129,6 +128,8 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
+    updateData.interests = _.map(doc.interests, interestNameToSlug);
+    updateData.opportunity = opportunityNameToSlug(doc.opportunity);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -167,9 +168,9 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <UpdateTeaserForm collection={collection} id={this.state.id} formRef={this.formRef}
+                                handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                itemTitleString={itemTitleString}/>
             ) : (
               <AddTeaserForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}

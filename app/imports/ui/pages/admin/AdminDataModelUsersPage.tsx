@@ -27,7 +27,7 @@ import {
   careerGoalSlugFromName, declaredAcademicTermSlugFromName,
   interestSlugFromName,
 } from '../../components/shared/FormHelperFunctions';
-import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 
 const descriptionPairs = (user: IBaseProfile) => {
@@ -87,15 +87,6 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     this.formRef = React.createRef();
   }
 
-  private handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
-
-  private handleUpdate = (doc) => {
-    console.log('handleUpdate(%o)', doc);
-  }
-
   private handleAdd = (doc: ICombinedProfileDefine) => {
     // console.log('handleAdd(%o)', doc);
     const definitionData: ICombinedProfileDefine = doc;
@@ -141,6 +132,11 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     });
   }
 
+  private handleCancel = (event) => {
+    event.preventDefault();
+    this.setState({ showUpdateForm: false, id: '' });
+  }
+
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
@@ -182,9 +178,57 @@ class AdminDataModelUsersPage extends React.Component<{}, IAdminDataModelPageSta
     }
   }
 
-  private handleCancel = (event) => {
-    event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
+  private handleOpenUpdate = (evt, inst) => {
+    evt.preventDefault();
+    this.setState({ showUpdateForm: true, id: inst.id });
+  }
+
+  private handleUpdate = (doc) => {
+    console.log('handleUpdate(%o)', doc);
+    const updateData = doc; // create the updateData object from the doc.
+    updateData.id = doc._id;
+    const profile = Users.getProfile(doc._id);
+    let collectionName;
+    switch (profile.role) {
+      case ROLE.ADVISOR:
+        collectionName = AdvisorProfiles.getCollectionName();
+        break;
+      case ROLE.FACULTY:
+        collectionName = FacultyProfiles.getCollectionName();
+        break;
+      case ROLE.MENTOR:
+        collectionName = MentorProfiles.getCollectionName();
+        break;
+      default:
+        collectionName = StudentProfiles.getCollectionName();
+    }
+    updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
+    updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
+    if (!_.isNil(doc.academicPlan)) {
+      updateData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
+    }
+    if (!_.isNil(doc.declaredAcademicTerm)) {
+      updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
+    }
+
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.setState({ showUpdateForm: false, id: '' });
+      }
+    });
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

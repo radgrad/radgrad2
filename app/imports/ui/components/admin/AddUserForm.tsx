@@ -2,6 +2,7 @@ import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
+import BoolField from 'uniforms-semantic/BoolField';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import NumberField from 'uniforms-semantic/NumField';
 import SelectField from 'uniforms-semantic/SelectField';
@@ -72,6 +73,7 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
         type: String,
         allowedValues: careerGoalNames,
       },
+      retired: { type: Boolean, optional: true },
     });
     const mentorSchema = new SimpleSchema({
       company: { type: String, optional: true },
@@ -92,6 +94,15 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
         optional: true,
         allowedValues: academicPlanNames,
       },
+      shareUsername: { type: Boolean, optional: true },
+      sharePicture: { type: Boolean, optional: true },
+      shareWebsite: { type: Boolean, optional: true },
+      shareInterests: { type: Boolean, optional: true },
+      shareCareerGoals: { type: Boolean, optional: true },
+      shareAcademicPlan: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
+      shareLevel: { type: Boolean, optional: true },
       isAlumni: { type: Boolean, optional: true },
     });
     if (this.state.role === ROLE.MENTOR) {
@@ -123,6 +134,7 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
             <SelectField name="interests"/>
             <SelectField name="careerGoals"/>
           </Form.Group>
+          <BoolField name="retired"/>
           {this.state.role === ROLE.MENTOR ? (
             <div>
               <Header dividing={true} as="h4">Mentor fields</Header>
@@ -144,6 +156,18 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
                 <NumberField name="level"/>
                 <SelectField name="declaredAcademicTerm"/>
                 <SelectField name="academicPlan"/>
+              </Form.Group>
+              <Form.Group widths="equal">
+                <BoolField name="shareUsername"/>
+                <BoolField name="sharePicture"/>
+                <BoolField name="shareWebsite"/>
+                <BoolField name="shareInterests"/>
+                <BoolField name="shareCareerGoals"/>
+                <BoolField name="shareAcademicPlan"/>
+                <BoolField name="shareOpportunities"/>
+                <BoolField name="shareCourses"/>
+                <BoolField name="shareLevel"/>
+                <BoolField name="isAlumni"/>
               </Form.Group>
             </div>
           ) : ''}
