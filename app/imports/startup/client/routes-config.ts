@@ -67,6 +67,7 @@ import AdminDataModelOpportunityTypesPage from '../../ui/pages/admin/AdminDataMo
 import AdminDataModelPlanChoicesPage from '../../ui/pages/admin/AdminDataModelPlanChoicesPage';
 import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReviewsPage';
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
+import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 
 export const routes = {
   ADMIN: [
@@ -184,6 +185,11 @@ export const routes = {
       path: '/admin/:username/datamodel/slugs',
       exact: true,
       component: AdminDataModelSlugsPage,
+    },
+    {
+      path: '/admin/:username/datamodel/teasers',
+      exact: true,
+      component: AdminDataModelTeasersPage,
     },
     {
       path: '/admin/:username/datamodel/users',

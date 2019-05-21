@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
 class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps> {
   constructor(props) {
     super(props);
+    // console.log('AdminPaginationWidget props=%o', this.props);
   }
 
   private handleFirstClick = (event) => {

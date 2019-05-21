@@ -28,6 +28,29 @@ class TeaserCollection extends BaseSlugCollection {
       duration: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     }));
+    this.defineSchema = new SimpleSchema({
+      title: String,
+      slug: String,
+      author: String,
+      url: String,
+      description: String,
+      duration: { type: String, optional: true },
+      interests: Array,
+      'interests.$': String,
+      opportunity: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      title: { type: String, optional: true },
+      author: { type: String, optional: true },
+      url: { type: String, optional: true },
+      description: { type: String, optional: true },
+      duration: { type: String, optional: true },
+      interests: { type: Array, optional: true },
+      'interests.$': String,
+      opportunity: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**
