@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
 import {Container, Grid, Header, Label, Icon, Form, Button} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
+import {Users} from "../../../api/user/UserCollection";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
@@ -16,10 +17,22 @@ interface IFacultyPageAboutMeWidgetProps {
 }
 
 class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
+  //call the props constructor
+  constructor(props) {
+    super(props);
+  }
+
   public render() {
     const username = this.props.match.params.username;
     const faculty = FacultyProfiles.findDoc(username);
-    console.log(faculty);
+
+    //shows full doc object and all attributes
+    console.log(Users.getProfile(faculty));
+    //shows the full name (first + last) of specific user
+    console.log(Users.getFullName(faculty));
+    //shows the ID of the specific User
+    console.log(Users.getID(faculty));
+    console.log(Users.isDefined(faculty));
     return (
       <Container>
         <Grid>
@@ -33,7 +46,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Name</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              put first and last name here
+              {}
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Email</Header>
