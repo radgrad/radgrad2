@@ -20,24 +20,23 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const username = this.props.match.params.username;
     const faculty = FacultyProfiles.findDoc(username);
     console.log(faculty);
-
     return (
       <Container>
-        <Grid celled>
+        <Grid>
           <Grid.Row>
             <Grid.Column>
-              <Header as='h4'>Profile</Header>
+              <Header as='h3' dividing textAlign='left'>Profile</Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5'>Name</Header>
+              <Header as='h5' textAlign='left'>Name</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              first and last name
+              put first and last name here
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5'>Email</Header>
+              <Header as='h5' textAlign='left'>Email</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
               Put the Email Address Here
@@ -45,10 +44,10 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
           </Grid.Row>
           <Grid.Row>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5'>Interests</Header>
+              <Header as='h5' textAlign='left'>Interests</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Grid celled>
+              <Grid>
                 <Grid.Row>
                   <Label as='a'>
                     <Icon name='star'> Interests</Icon>
@@ -66,10 +65,10 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               </Grid>
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5'>Career Goals</Header>
+              <Header as='h5' textAlign='left'>Career Goals</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Grid celled>
+              <Grid>
                 <Grid.Row>
                   <Label as='a'>
                     <Icon name='suitcase'> Career Goals</Icon>
@@ -89,25 +88,23 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
           </Grid.Row>
           <Grid.Row>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5'>Website</Header>
+              <Header as='h5' textAlign='left'>Website</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
               <Form>
-                <Form.Field>
-                  <input/>
-                </Form.Field>
-                <Button type='update'>Update</Button>
+                <Form.Group>
+                  <Form.Input width={8}/><Form.Button>Update</Form.Button>
+                </Form.Group>
               </Form>
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5'>Picture(<a>Upload</a>)</Header>
+              <Header as='h5' textAlign='left'>Picture(<a>Upload</a>)</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
               <Form>
-                <Form.Field>
-                  <input/>
-                </Form.Field>
-                <Button type='update'>Update</Button>
+                <Form.Group>
+                  <Form.Input width={8}/><Form.Button>Update</Form.Button>
+                </Form.Group>
               </Form>
             </Grid.Column>
           </Grid.Row>
