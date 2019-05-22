@@ -963,3 +963,9 @@ export interface IVerificationRequestDefine extends IDumpOne {
   opportunity?: string;
   retired?: boolean;
 }
+
+export interface IVerificationRequestUpdate {
+  status?: string;
+  processed?: IProcessed[];
+  retired?: boolean;
+}

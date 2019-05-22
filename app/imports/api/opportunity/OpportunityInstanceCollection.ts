@@ -102,6 +102,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
     // Define and return the new OpportunityInstance
+    console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
     const opportunityInstanceID = this.collection.insert({ termID, opportunityID, verified, studentID, sponsorID, ice, retired });
     return opportunityInstanceID;
   }
@@ -278,7 +279,7 @@ class OpportunityInstanceCollection extends BaseCollection {
           { $match: { $expr: { $or: [
                   { $in: ['$studentID', willingToShare] },
                   { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] }] } } },
-          { $project: { studentID: 1, semesterID: 1, opportunityID: 1 } },
+          { $project: { studentID: 1, opportunityID: 1, termID: 1 } },
         ]);
       });
     }

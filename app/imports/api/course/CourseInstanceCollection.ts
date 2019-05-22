@@ -392,7 +392,7 @@ class CourseInstanceCollection extends BaseCollection {
           { $match: { $expr: { $or: [
                   { $in: ['$studentID', willingToShare] },
                   { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }] } } },
-          { $project: { studentID: 1, semesterID: 1, courseID: 1 } },
+          { $project: { studentID: 1, termID: 1, courseID: 1 } },
         ]);
         // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });

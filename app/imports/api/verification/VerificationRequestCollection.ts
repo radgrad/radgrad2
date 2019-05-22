@@ -8,7 +8,7 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
-import { IVerificationRequestDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { iceSchema } from '../ice/IceProcessor';
 
 /**
@@ -54,9 +54,15 @@ class VerificationRequestCollection extends BaseCollection {
       student: String,
       opportunityInstance: { type: String, optional: true },
       submittedOn: { type: Date, optional: true },
-      status: { type: String, optional: true },
+      status: { type: String, optional: true, allowedValues: [this.REJECTED, this.ACCEPTED, this.OPEN] },
       academicTerm: { type: String, optional: true },
       opportunity: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      status: { type: String, optional: true, allowedValues: [this.REJECTED, this.ACCEPTED, this.OPEN] },
+      processed: { type: Array, optional: true },
+      'processed.$': { type: ProcessedSchema },
       retired: { type: Boolean, optional: true },
     });
   }
@@ -93,6 +99,18 @@ class VerificationRequestCollection extends BaseCollection {
       studentID, opportunityInstanceID, submittedOn, status, processed, ice, retired,
     });
     return requestID;
+  }
+
+  /**
+   * Updates the VerificationRequest
+   * @param docID the docID to update.
+   * @param {string} status optional
+   * @param {IProcessed[]} processed optional
+   * @param {boolean} retired optional
+   */
+  public update(docID, { status, processed, retired }: IVerificationRequestUpdate) {
+    const updateData: IVerificationRequestUpdate = { status, processed, retired };
+    this.collection.update(docID, { $set: updateData });
   }
 
   /**
@@ -215,7 +233,7 @@ class VerificationRequestCollection extends BaseCollection {
    * @param status The new Status.
    * @param processed The new array of process records.
    */
-  public updateStatus(requestID: string, status: string, processed: any[]) {
+  public updateStatus(requestID: string, status: string, processed: IProcessed[]) {
     this.assertDefined(requestID);
     this.collection.update({ _id: requestID }, { $set: { status, processed } });
   }
