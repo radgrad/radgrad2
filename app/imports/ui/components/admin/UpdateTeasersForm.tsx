@@ -14,6 +14,7 @@ import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable
 import { docToName, interestIdToName, opportunityIdToName } from '../shared/AdminDataModelHelperFunctions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IUpdateTeaserFormProps {
   interests: IInterest[];
@@ -70,7 +71,7 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
           </Form.Group>
           <LongTextField name="description"/>
           <Form.Group widths="equal">
-            <SelectField name="interests"/>
+            <MultiSelectField name="interests"/>
             <SelectField name="opportunity"/>
           </Form.Group>
           <BoolField name="retired"/>

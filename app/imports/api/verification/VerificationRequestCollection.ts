@@ -49,6 +49,15 @@ class VerificationRequestCollection extends BaseCollection {
     this.ACCEPTED = 'Accepted';
     this.REJECTED = 'Rejected';
     this.OPEN = 'Open';
+    this.defineSchema = new SimpleSchema({
+      student: String,
+      opportunityInstance: { type: String, optional: true },
+      submittedOn: { type: Date, optional: true },
+      status: { type: String, optional: true },
+      academicTerm: { type: String, optional: true },
+      opportunity: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
   }
 
   /**

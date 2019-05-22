@@ -14,6 +14,7 @@ import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { docToName, interestIdToName } from '../shared/AdminDataModelHelperFunctions';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IUpdateCourseFormProps {
   collection: BaseCollection;
@@ -78,7 +79,7 @@ class UpdateCourseForm extends React.Component<IUpdateCourseFormProps> {
           <LongTextField name="description"/>
           <TextField name="syllabus"/>
           <Form.Group widths="equal">
-            <SelectField name="interests"/>
+            <MultiSelectField name="interests"/>
             <TextField name="prerequisites" showInlineError={true}/>
           </Form.Group>
           <BoolField name="retired"/>

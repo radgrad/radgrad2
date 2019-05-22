@@ -19,6 +19,7 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { iceSchema } from '../../../api/ice/IceProcessor';
 import { Interests } from '../../../api/interest/InterestCollection';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IAddOpportunityFormProps {
   sponsors: IBaseProfile[];
@@ -58,7 +59,7 @@ class AddOpportunityForm extends React.Component<IAddOpportunityFormProps> {
     });
     return (
       <Segment padded={true}>
-        <Header dividing={true}>Add Course</Header>
+        <Header dividing={true}>Add Opportunity</Header>
         <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
           <Form.Group widths="equal">
             <TextField name="slug"/>
@@ -70,8 +71,8 @@ class AddOpportunityForm extends React.Component<IAddOpportunityFormProps> {
           </Form.Group>
           <LongTextField name="description"/>
           <Form.Group widths="equal">
-            <SelectField name="terms"/>
-            <SelectField name="interests"/>
+            <MultiSelectField name="terms"/>
+            <MultiSelectField name="interests"/>
           </Form.Group>
           <DateField name="eventDate"/>
           <AutoField name="ice"/>

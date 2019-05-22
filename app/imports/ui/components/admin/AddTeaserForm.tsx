@@ -13,6 +13,7 @@ import { IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-di
 import { docToName } from '../shared/AdminDataModelHelperFunctions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IAddTeaserFormProps {
   interests: IInterest[];
@@ -62,7 +63,7 @@ class AddTeaserForm extends React.Component<IAddTeaserFormProps> {
           </Form.Group>
           <LongTextField name="description"/>
           <Form.Group widths="equal">
-            <SelectField name="interests"/>
+            <MultiSelectField name="interests"/>
             <SelectField name="opportunity"/>
           </Form.Group>
           <BoolField name="retired"/>

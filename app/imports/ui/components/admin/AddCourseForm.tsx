@@ -4,11 +4,11 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { docToName } from '../shared/AdminDataModelHelperFunctions';
@@ -65,7 +65,7 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
           <LongTextField name="description"/>
           <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
           <Form.Group widths="equal">
-            <SelectField name="interests"/>
+            <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
             <TextField name="prerequisites" placeholder="dept_101, dept_110"/>
           </Form.Group>
           <SubmitField/>

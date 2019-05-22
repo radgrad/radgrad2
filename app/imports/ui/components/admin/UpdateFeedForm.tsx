@@ -25,6 +25,7 @@ import {
 } from '../shared/AdminDataModelHelperFunctions';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IUpdateFeedFromProps {
   academicTerms: IAcademicTerm[];
@@ -187,7 +188,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
             <div>
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="users"/>
+                <MultiSelectField name="users"/>
                 <TextField name="picture" placeholder="No picture URL specified"/>
               </Form.Group>
             </div>

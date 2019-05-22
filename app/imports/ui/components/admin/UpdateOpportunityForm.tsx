@@ -26,6 +26,7 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { iceSchema } from '../../../api/ice/IceProcessor';
 import { Interests } from '../../../api/interest/InterestCollection';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IUpdateOpportunityFormProps {
   sponsors: IBaseProfile[];
@@ -87,8 +88,8 @@ class UpdateOpportunityForm extends React.Component<IUpdateOpportunityFormProps>
           </Form.Group>
           <LongTextField name="description"/>
           <Form.Group widths="equal">
-            <SelectField name="terms"/>
-            <SelectField name="interests"/>
+            <MultiSelectField name="terms"/>
+            <MultiSelectField name="interests"/>
           </Form.Group>
           <DateField name="eventDate"/>
           <AutoField name="ice"/>

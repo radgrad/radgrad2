@@ -28,6 +28,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IUpdateUserProps {
   interests: IInterest[];
@@ -150,8 +151,8 @@ class UpdateUserForm extends React.Component<IUpdateUserProps> {
             <TextField name="website" placeholder="http://johndoe.github.io/"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <SelectField name="interests"/>
-            <SelectField name="careerGoals"/>
+            <MultiSelectField name="interests"/>
+            <MultiSelectField name="careerGoals"/>
           </Form.Group>
           <BoolField name="retired"/>
           {model.role === ROLE.MENTOR ? (

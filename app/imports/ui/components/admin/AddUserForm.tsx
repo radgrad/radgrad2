@@ -17,6 +17,7 @@ import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { academicTermToName, docToName } from '../shared/AdminDataModelHelperFunctions';
+import MultiSelectField from '../shared/MultiSelectField';
 
 interface IAddUserProps {
   interests: IInterest[];
@@ -131,8 +132,8 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
             <TextField name="website" placeholder="http://johndoe.github.io/"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <SelectField name="interests"/>
-            <SelectField name="careerGoals"/>
+            <MultiSelectField name="interests"/>
+            <MultiSelectField name="careerGoals"/>
           </Form.Group>
           <BoolField name="retired"/>
           {this.state.role === ROLE.MENTOR ? (

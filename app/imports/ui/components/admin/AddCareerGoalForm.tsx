@@ -3,11 +3,11 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { docToName } from '../shared/AdminDataModelHelperFunctions';
@@ -48,7 +48,7 @@ class AddCareerGoalForm extends React.Component<IAddCareerGoalFormProps> {
             <TextField name="slug"/>
           </Form.Group>
           <LongTextField name="description"/>
-          <SelectField name="interests"/>
+          <MultiSelectField name="interests"/>
           <SubmitField/>
         </AutoForm>
       </Segment>
