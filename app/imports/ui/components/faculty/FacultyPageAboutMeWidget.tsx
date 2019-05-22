@@ -9,6 +9,7 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
+import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
@@ -43,6 +44,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     //map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
     //should make it so that you reference the doc and then the name rather than the doc directly
+
+    //gets the website from the faculty profile
+    let facultyWebsite = facultyUserProfile.website;
 
     //shows full doc object and all attributes
     console.log(Users.getProfile(facultyDoc));
@@ -128,7 +132,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Form>
                 <Form.Group>
-                  <Form.Input width={8}/><Form.Button>Update</Form.Button>
+                  <Input width={8} placeholder={facultyWebsite}/><Form.Button>Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
@@ -138,7 +142,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Form>
                 <Form.Group>
-                  <Form.Input width={8}/><Form.Button>Update</Form.Button>
+                  <Input width={8} placeholder={facultyUserProfile.picture}/><Form.Button>Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
