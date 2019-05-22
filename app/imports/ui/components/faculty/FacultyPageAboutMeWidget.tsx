@@ -7,7 +7,8 @@ import {_} from 'meteor/erasaur:meteor-lodash';
 import {Container, Grid, Header, Label, Icon, Form, Button} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
-import {$} from "meteor/jquery";
+import {Interests} from "../../../api/interest/InterestCollection";
+import {CareerGoals} from "../../../api/career/CareerGoalCollection";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
@@ -25,24 +26,43 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
   public render() {
     const username = this.props.match.params.username;
+    //gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
-
     //gets the user ID based on the username
     const facultyUserID = facultyDoc.userID;
     //gets the user profile based on the user ID
     const facultyUserProfile = Users.getProfile(facultyUserID);
     //gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
+    //get the career goal IDs based on the user ID
+    const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
+    //map the career goal IDs to their names
+    const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
+    //get the interest goal IDs based on the User ID
+    const facultyInterestIDs = facultyUserProfile.interestIDs;
+    //map the interests IDs to their names
+    const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
+
     //shows full doc object and all attributes
     console.log(Users.getProfile(facultyDoc));
     //shows the full name (first + last) of specific user
     console.log(Users.getFullName(facultyDoc));
+    //shows boolean if the user is defined
     console.log(Users.isDefined(facultyUserID));
+    //shows the User profile
     console.log(facultyUserProfile);
+    //shows the User username
     console.log(facultyUserUsername);
-
-    //console.log(facultyInterestsIDs);
-    //console.log(facultyCareerGoalsIDs);
+    //shows the career goal IDs
+    console.log(facultyCareerGoalsIDs);
+    //shows the career goal names
+    console.log(facultyCareerGoals);
+    _.each(facultyCareerGoals, (careerGoals)=> console.log(careerGoals));
+    //shows the interest goal IDs
+    console.log(facultyInterestIDs);
+    //shows the interest names array
+    console.log(facultyInterests);
+    _.each(facultyInterests, (interests)=>console.log(interests));
 
 
     return (
@@ -75,7 +95,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Grid>
                 <Grid.Row>
                   <Label as='a'>
-                    <Icon name='star'> Interests</Icon>
+                    <Icon name='star'> {facultyInterests}</Icon>
                   </Label>
                   <Label as='a'>
                     <Icon name='star'> Interests</Icon>
