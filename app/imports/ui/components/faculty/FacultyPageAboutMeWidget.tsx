@@ -42,6 +42,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyInterestIDs = facultyUserProfile.interestIDs;
     //map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
+    //should make it so that you reference the doc and then the name rather than the doc directly
 
     //shows full doc object and all attributes
     console.log(Users.getProfile(facultyDoc));
@@ -57,13 +58,14 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     console.log(facultyCareerGoalsIDs);
     //shows the career goal names
     console.log(facultyCareerGoals);
-    _.each(facultyCareerGoals, (careerGoals)=> console.log(careerGoals));
+    //shows the career goals seperatley
+    _.each(facultyCareerGoals, (careerGoals) => console.log(careerGoals));
     //shows the interest goal IDs
     console.log(facultyInterestIDs);
     //shows the interest names array
     console.log(facultyInterests);
-    _.each(facultyInterests, (interests)=>console.log(interests));
-
+    //shows the interests seperatley
+    _.each(facultyInterests, (interests) => console.log(interests));
 
     return (
       <Container>
@@ -94,15 +96,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Grid>
                 <Grid.Row>
-                  <Label as='a'>
-                    <Icon name='star'> {facultyInterests}</Icon>
-                  </Label>
-                  <Label as='a'>
-                    <Icon name='star'> Interests</Icon>
-                  </Label>
-                  <Label as='a'>
-                    <Icon name='star'> Interests</Icon>
-                  </Label>
+                  {_.map(facultyInterests, (interests, index) =>
+                    <Label key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
+                  )}
                 </Grid.Row>
                 <Grid.Row>
                   <a>Edit in Interest Explorer</a>
@@ -115,15 +111,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Grid>
                 <Grid.Row>
-                  <Label as='a'>
-                    <Icon name='suitcase'> Career Goals</Icon>
-                  </Label>
-                  <Label as='a'>
-                    <Icon name='suitcase'> Career Goals</Icon>
-                  </Label>
-                  <Label as='a'>
-                    <Icon name='suitcase'> Career Goals</Icon>
-                  </Label>
+                  {_.map(facultyCareerGoals, (careerGoals, index) =>
+                    <Label key={index} as ='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
+                  )}
                 </Grid.Row>
                 <Grid.Row>
                   <a>Edit in Career Goal Explorer</a>
