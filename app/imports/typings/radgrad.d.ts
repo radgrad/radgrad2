@@ -940,7 +940,6 @@ interface IProcessed {
   status: string;
   verifier: string;
   feedback?: string;
-
 }
 
 export interface IVerificationRequest {
@@ -959,7 +958,7 @@ export interface IVerificationRequestDefine extends IDumpOne {
   opportunityInstance?: string;
   submittedOn?: any;
   status?: string;
-  processed?: any[];
+  processed?: IProcessed[];
   academicTerm?: string;
   opportunity?: string;
   retired?: boolean;

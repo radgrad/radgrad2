@@ -9,6 +9,7 @@ import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { IVerificationRequestDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { iceSchema } from '../ice/IceProcessor';
 
 /**
  * Schema for the processed information of VerificationRequests.
@@ -43,7 +44,7 @@ class VerificationRequestCollection extends BaseCollection {
       submittedOn: Date,
       status: String,
       processed: [ProcessedSchema],
-      ice: { type: Object, optional: true, blackbox: true },
+      ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     }));
     this.ACCEPTED = 'Accepted';
