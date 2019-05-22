@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
+import { Segment, Container, Header, Card, Button, Icon } from 'semantic-ui-react';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { Segment, Container, Header, Card, Button, Icon } from 'semantic-ui-react';
 import StudentTeaserWidgetVideo from './StudentTeaserWidgetVideo';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
@@ -27,9 +27,7 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
     super(props);
   }
 
-  private getUsername = () => {
-    return this.props.match.params.username;
-  }
+  private getUsername = () => this.props.match.params.username;
 
   private matchingTeasers = () => {
     if (this.getUsername()) {
@@ -61,21 +59,13 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
     return [];
   }
 
-  private teaserTitle = (teaser: any): string => {
-    return teaser.title;
-  }
+  private teaserTitle = (teaser: any): string => teaser.title;
 
-  private teaserAuthor = (teaser: any): string => {
-    return teaser.author;
-  }
+  private teaserAuthor = (teaser: any): string => teaser.author;
 
-  private teaserUrl = (teaser: any): string => {
-    return teaser.url;
-  }
+  private teaserUrl = (teaser: any): string => teaser.url;
 
-  private teaserCount = (): number => {
-    return this.matchingTeasers().length;
-  }
+  private teaserCount = (): number => this.matchingTeasers().length;
 
   private opportunitiesRouteName = (teaser) => {
     const opportunityName = this.opportunitySlug(teaser);

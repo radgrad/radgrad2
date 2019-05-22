@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Feed, Image, Divider } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-// import * as showdown from 'showdown';
+import * as showdown from 'showdown';
 
 interface IStudentFeedItem {
   feed: object;
@@ -24,9 +24,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItem> {
     return defaultProfilePicture;
   }
 
-  private multipleUsers = (feed) => {
-    return feed.userIDs.length > 1;
-  }
+  private multipleUsers = (feed) => feed.userIDs.length > 1;
 
   private dateDiffInDays = (a: string, b: string) => {
     const ams = Date.parse(a);
@@ -52,21 +50,13 @@ class StudentFeedItem extends React.Component<IStudentFeedItem> {
     return ret;
   }
 
-  // private markdownify = (text: string) => {
-  //   const converter = showdown.Converter();
-  //   console.log(`converter ${converter}`);
-  //   const html = converter.makeHtml(text);
-  //   console.log(`typeHtml ${html}`);
-  //   console.log(`typeof ${typeof html}`);
-  //   return html;
-  // }
+  // TODO: Fix markdown to html conversion
+  private markdownify = (text: string) => new showdown.Converter().makeHtml(text);
 
-  // TODO: How to convert from showdown to HTML for feed.description. Feed messages that contain link aren't properly translated
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { feed }: any = this.props;
     const feedPicture = this.getFeedPicture(feed);
     // const feedDescription = this.markdownify(feed.description);
-    // console.log(`convertedMarkdown ${feedDescription}`);
     const multipleUsers: boolean = this.multipleUsers(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
@@ -77,6 +67,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItem> {
             </Feed.Label>
             <Feed.Content style={{ marginTop: '0px' }}>
               <Feed.Summary>
+                {/*{feedDescription}*/}
                 {feed.description}
               </Feed.Summary>
 
