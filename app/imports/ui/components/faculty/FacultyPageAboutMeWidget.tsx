@@ -7,6 +7,7 @@ import {_} from 'meteor/erasaur:meteor-lodash';
 import {Container, Grid, Header, Label, Icon, Form, Button} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
+import {$} from "meteor/jquery";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
@@ -24,15 +25,26 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
   public render() {
     const username = this.props.match.params.username;
-    const faculty = FacultyProfiles.findDoc(username);
+    const facultyDoc = FacultyProfiles.findDoc(username);
 
+    //gets the user ID based on the username
+    const facultyUserID = facultyDoc.userID;
+    //gets the user profile based on the user ID
+    const facultyUserProfile = Users.getProfile(facultyUserID);
+    //gets the username based on the user ID
+    const facultyUserUsername = facultyUserProfile.username;
     //shows full doc object and all attributes
-    console.log(Users.getProfile(faculty));
+    console.log(Users.getProfile(facultyDoc));
     //shows the full name (first + last) of specific user
-    console.log(Users.getFullName(faculty));
-    //shows the ID of the specific User
-    console.log(Users.getID(faculty));
-    console.log(Users.isDefined(faculty));
+    console.log(Users.getFullName(facultyDoc));
+    console.log(Users.isDefined(facultyUserID));
+    console.log(facultyUserProfile);
+    console.log(facultyUserUsername);
+
+    //console.log(facultyInterestsIDs);
+    //console.log(facultyCareerGoalsIDs);
+
+
     return (
       <Container>
         <Grid>
@@ -46,13 +58,13 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Name</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              {}
+              {Users.getFullName(facultyDoc)}
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Email</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              Put the Email Address Here
+              {facultyUserUsername}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
