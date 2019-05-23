@@ -2,7 +2,7 @@
 //05/20/19
 //Faculty Widget that shows About Me information
 import * as React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
 import {Container, Grid, Header, Label, Icon, Form, Button} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
@@ -66,37 +66,20 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
     //M: should make it so that you reference the doc and then the name rather than the doc directly
 
-    //gets the website from the faculty profile
-    //for now this is just the username
-    let facultyWebsite = facultyUserProfile.username;
+    //gets the url from the faculty profile's information
+    //url is made up of: role/username/explorer/CareerOrInterests
+    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer','interests'];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
+    console.log(exploreRoute);
 
-    let path = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer','interests'];
-    let slug = path.join('/');
 
-    //shows full doc object and all attributes
-    console.log(Users.getProfile(facultyDoc));
-    //shows the full name (first + last) of specific user
-    console.log(Users.getFullName(facultyDoc));
-    //shows boolean if the user is defined
-    console.log(Users.isDefined(facultyUserID));
-    //shows the User profile
-    console.log(facultyUserProfile);
-    //shows the User username
-    console.log(facultyUserUsername);
-    //shows the career goal IDs
-    console.log(facultyCareerGoalsIDs);
-    //shows the career goal names
-    console.log(facultyCareerGoals);
-    //shows the career goals seperatley
-    _.each(facultyCareerGoals, (careerGoals) => console.log(careerGoals));
-    //shows the interest goal IDs
-    console.log(facultyInterestIDs);
-    //shows the interest names array
-    console.log(facultyInterests);
-    //shows the interests seperatley
-    _.each(facultyInterests, (interests) => console.log(interests));
-    console.log(slug);
+    let careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer','career-goals'];
+    let careerRoute = careerPath.join('/');
+    careerRoute =`/${careerRoute}`;
+    console.log(careerRoute);
 
+    // for the picture upload, reference https://cloudinary.com/documentation/upload_widget
 
     return (
       <Container>
@@ -134,7 +117,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   </Label.Group>
                 </Grid.Row>
                 <Grid.Row>
-                  <a href={slug}>Edit in Interest Explorer</a>
+                  <Link to={exploreRoute}>Edit in Interest Explorer</Link>
                 </Grid.Row>
               </Grid>
             </Grid.Column>
@@ -151,7 +134,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   </Label.Group>
                 </Grid.Row>
                 <Grid.Row>
-                  <a href={facultyUserUsername}>Edit in Career Goal Explorer</a>
+                  <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
                 </Grid.Row>
               </Grid>
             </Grid.Column>
@@ -163,7 +146,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Form>
                 <Form.Group>
-                  <Input width={10} placeholder={facultyWebsite}/><Form.Button>Update</Form.Button>
+                  <Input width={10}/><Form.Button>Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
