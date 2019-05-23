@@ -16,7 +16,7 @@ class StudentTeaserWidgetVideo extends React.Component<IStudentTeaserWidgetVideo
       height: 'auto',
     };
     return (
-        <Embed active={true} autoplay={false} style={embedStyle} source="youtube" id={this.props.teaserUrl}/>
+      <Embed active={true} autoplay={false} style={embedStyle} source="youtube" id={this.props.teaserUrl}/>
     );
   }
 }

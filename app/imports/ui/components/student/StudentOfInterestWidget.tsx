@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header, Segment, Card } from 'semantic-ui-react';
+import { Header, Segment, Card, Button, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
@@ -12,6 +12,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { setStudentHomeWidgetHidden } from '../../../redux/actions/studentHomePageActions';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -23,6 +24,7 @@ interface IStudentOfInterestWidgetProps {
       username: string;
     }
   };
+  dispatch: any;
   hidden: boolean;
 }
 
@@ -37,11 +39,36 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private isHidden = (): boolean => this.props.hidden
 
+  private hiddenExists() {
+    const username = this.getUsername();
+    if (username) {
+      const profile = Users.getProfile(username);
+      let ret;
+      if (this.typeCourse()) {
+        ret = profile.hiddenCourseIDs.length !== 0;
+      } else {
+        ret = profile.hiddenOpportunityIDs.length !== 0;
+      }
+      return ret;
+    }
+    return false;
+  }
+
+  private handleShowHidden = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHidden(false));
+  }
+
+  private handleHideHidden = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHidden(true));
+  }
+
   private getUsername = () => this.props.match.params.username;
 
   private itemCount = () => {
     let ret;
-    if (this.props.type === 'courses') {
+    if (this.typeCourse()) {
       ret = this.hiddenCoursesHelper().length;
     } else {
       ret = this.hiddenOpportunitiesHelper().length;
@@ -60,7 +87,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return visibleCourses;
   }
 
-  private typeCourse = (): boolean => this.props.type === 'courses'
+  private typeCourse = (): boolean => this.props.type === 'courses';
 
   private opportunities = () => {
     const opportunities = this.matchingOpportunities();
@@ -227,7 +254,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
      the "Type X is not assignable to Type Y" errors
      See https://github.com/microsoft/TypeScript/issues/11465#issuecomment-252453037
      */
-    const headerDividingStyle = { textTransform: 'uppercase' as 'uppercase' };
+    const uppercaseTextTransformStyle = { textTransform: 'uppercase' as 'uppercase' };
     const cardsStackableStyle = {
       maxHeight: '500px',
       overflowX: 'hidden' as 'hidden',
@@ -235,40 +262,56 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
       marginTop: '10px',
     };
 
+    const { type } = this.props;
+    const hiddenExists = this.hiddenExists();
+    const isHidden = this.isHidden();
     const isTypeCourse = this.typeCourse();
     const courses = this.courses();
     const opportunities = this.opportunities();
     console.log('%o', opportunities);
+
     return (
       <Segment padded={true}>
         <Header as="h4" dividng="true">
-          RECOMMENDED <span style={headerDividingStyle}> {this.props.type}</span> <WidgetHeaderNumber
+          RECOMMENDED <span style={uppercaseTextTransformStyle}> {type}</span> <WidgetHeaderNumber
           inputValue={this.itemCount()}/>
-
-          {
-            // TODO: Hidden code
-          }
-
-          {
-            courses ?
-              <div style={cardsStackableStyle}>
-                <Card.Group stackable={true} itemsPerRow={2}>
-                  {
-                    isTypeCourse ?
-                      courses.map((course, index) => <StudentOfInterestCard key={index} item={course}
-                                                                            type={this.props.type} canAdd={true}/>)
-                      :
-                      // FIXME: THis is not appearing
-                      opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp}
-                                                                               type={this.props.type} canAdd={true}/>)
-                  }
-                </Card.Group>
-              </div>
-              :
-              <p>Add interests to see recommendations here. To add interests, click on the &quot;Explorer&quot; tab,
-                then select &quot;Interests&quot; in the pull-down menu on that page.</p>
-          }
         </Header>
+
+        {/* I'm not sure how to test if the particular code block below works because even on the original radgrad, I could not find anywhere on the website through Chrome Debugger where this piece of code is used. There were no "HIDDEN" texts anywhere or where the buttons would appear that has the color green with chevron icons. */}
+        {
+          hiddenExists ?
+            [
+              isHidden ?
+                <Button basic={true} color="green" size="mini" onClick={this.handleShowHidden}>
+                  <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>{type}</span>
+                </Button>
+                :
+                <Button basic={true} color="green" size="mini" onClick={this.handleHideHidden}>
+                  <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>{type}</span>
+                </Button>,
+            ]
+            : ''
+        }
+
+        {
+          courses ?
+            <div style={cardsStackableStyle}>
+              <Card.Group stackable={true} itemsPerRow={2}>
+                {
+                  isTypeCourse ?
+                    courses.map((course, index) => <StudentOfInterestCard key={index} item={course}
+                                                                          type={type} canAdd={true}/>)
+                    :
+                    // FIXME: THis is not appearing
+                    opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp}
+                                                                             type={type} canAdd={true}/>)
+                }
+              </Card.Group>
+            </div>
+            :
+            <p>Add interests to see recommendations here. To add interests, click on the &quot;Explorer&quot; tab,
+              then select &quot;Interests&quot; in the pull-down menu on that page.</p>
+        }
       </Segment>
     );
   }
