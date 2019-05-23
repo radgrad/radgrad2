@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Header, Segment, Card } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
-import { Template } from 'meteor/templating';
+import { connect } from 'react-redux';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import StudentOfInterestCard from './StudentOfInterestCard';
 import { Users } from '../../../api/user/UserCollection';
@@ -13,7 +13,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
-interface IStudentOfInterestWidget {
+interface IStudentOfInterestWidgetProps {
   type: string;
   match: {
     isExact: boolean;
@@ -23,16 +23,23 @@ interface IStudentOfInterestWidget {
       username: string;
     }
   };
+  hidden: boolean;
 }
 
-class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> {
+const mapStateToProps = (state) => ({
+  hidden: state.studentHomePage.studentOfInterestWidget.hidden,
+});
+
+class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetProps> {
   constructor(props) {
     super(props);
   }
 
+  private isHidden = (): boolean => this.props.hidden
+
   private getUsername = () => this.props.match.params.username;
 
-   private itemCount = () => {
+  private itemCount = () => {
     let ret;
     if (this.props.type === 'courses') {
       ret = this.hiddenCoursesHelper().length;
@@ -45,7 +52,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
   private courses = () => {
     const courses = this.matchingCourses();
     let visibleCourses;
-    if (Template.instance().hidden.get()) {
+    if (this.isHidden()) {
       visibleCourses = this.hiddenCoursesHelper();
     } else {
       visibleCourses = courses;
@@ -58,7 +65,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
   private opportunities = () => {
     const opportunities = this.matchingOpportunities();
     let visibleOpportunities;
-    if (Template.instance().hidden.get()) {
+    if (this.isHidden()) {
       visibleOpportunities = this.hiddenOpportunitiesHelper();
     } else {
       visibleOpportunities = opportunities;
@@ -66,7 +73,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     return visibleOpportunities;
   }
 
-   private matchingCourses = () => {
+  private matchingCourses = () => {
     if (this.getUsername()) {
       const allCourses = this.availableCourses();
       const matching: any = [];
@@ -98,7 +105,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     return [];
   }
 
-   private availableCourses = () => {
+  private availableCourses = () => {
     const courses = Courses.findNonRetired({});
     if (courses.length > 0) {
       const filtered = _.filter(courses, (course) => {
@@ -116,11 +123,11 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     return [];
   }
 
-   private hiddenCoursesHelper = () => {
+  private hiddenCoursesHelper = () => {
     if (this.getUsername()) {
       const courses = this.matchingCourses();
       let nonHiddenCourses;
-      if (Template.instance().hidden.get()) {
+      if (this.isHidden()) {
         const profile = Users.getProfile(this.getUsername());
         nonHiddenCourses = _.filter(courses, (course) => {
           if (_.includes(profile.hiddenCourseIDs, course._id)) {
@@ -136,11 +143,11 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     return [];
   }
 
-   private hiddenOpportunitiesHelper = () => {
+  private hiddenOpportunitiesHelper = () => {
     if (this.getUsername()) {
       const opportunities = this.matchingOpportunities();
       let nonHiddenOpportunities;
-      if (Template.instance().hidden.get()) {
+      if (this.isHidden()) {
         const profile = Users.getProfile(this.getUsername());
         nonHiddenOpportunities = _.filter(opportunities, (opp) => {
           if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
@@ -156,7 +163,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     return [];
   }
 
-   private matchingOpportunities = () => {
+  private matchingOpportunities = () => {
     const allOpportunities = this.availableOpps();
     const matching: any = [];
     const profile = Users.getProfile(this.getUsername());
@@ -184,12 +191,12 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     return (matching < 7) ? matching : matching.slice(0, 6);
   }
 
-   private getUserIdFromRoute = () => {
+  private getUserIdFromRoute = () => {
     const username = this.getUsername();
     return username && Users.getID(username);
   }
 
-   private availableOpps = () => {
+  private availableOpps = () => {
     const notRetired = Opportunities.findNonRetired({});
     const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
     if (notRetired.length > 0) {
@@ -215,8 +222,11 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // Had to declare the properties of the CSS attributes as themselves to fix the "Type X is not assignable to Type Y" errors
-    // See https://github.com/microsoft/TypeScript/issues/11465#issuecomment-252453037
+    /*
+     Had to declare the properties of some of the CSS attributes as themselves to fix
+     the "Type X is not assignable to Type Y" errors
+     See https://github.com/microsoft/TypeScript/issues/11465#issuecomment-252453037
+     */
     const headerDividingStyle = { textTransform: 'uppercase' as 'uppercase' };
     const cardsStackableStyle = {
       maxHeight: '500px',
@@ -230,38 +240,38 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidget> 
     const opportunities = this.opportunities();
 
     return (
-        <Segment padded={true}>
-          <Header as="h4" dividng="true">
-            RECOMMENDED
-            {/* <span style={headerDividingStyle}>{this.props.type}</span> <WidgetHeaderNumber */}
-            {/*  inputValue={this.itemCount()}/> */}
-            <span style={headerDividingStyle}> {this.props.type}</span> <WidgetHeaderNumber
-              inputValue={0}/>
+      <Segment padded={true}>
+        <Header as="h4" dividng="true">
+          RECOMMENDED <span style={headerDividingStyle}> {this.props.type}</span> <WidgetHeaderNumber
+          inputValue={this.itemCount()}/>
 
-            {
-              // TODO: Hidden code
-            }
+          {
+            // TODO: Hidden code
+          }
 
-            {
-              courses ?
-                  <div style={cardsStackableStyle}>
-                    <Card.Group stackable={true} itemsPerRow={2}>
-                      {
-                        isTypeCourse ?
-                              courses.map((course, index) => <StudentOfInterestCard key={index} item={course} type={this.props.type} canAdd={true}/>)
-                            :
-                            opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp} type={this.props.type} canAdd={true}/>)
-                      }
-                    </Card.Group>
-                  </div>
-                  :
-                  <p>Add interests to see recommendations here. To add interests, click on the &quot;Explorer&quot; tab,
-                    then select &quot;Interests&quot; in the pull-down menu on that page.</p>
-            }
-          </Header>
-        </Segment>
+          {
+            courses ?
+              <div style={cardsStackableStyle}>
+                <Card.Group stackable={true} itemsPerRow={2}>
+                  {
+                    isTypeCourse ?
+                      courses.map((course, index) => <StudentOfInterestCard key={index} item={course}
+                                                                            type={this.props.type} canAdd={true}/>)
+                      :
+                      opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp}
+                                                                               type={this.props.type} canAdd={true}/>)
+                  }
+                </Card.Group>
+              </div>
+              :
+              <p>Add interests to see recommendations here. To add interests, click on the &quot;Explorer&quot; tab,
+                then select &quot;Interests&quot; in the pull-down menu on that page.</p>
+          }
+        </Header>
+      </Segment>
     );
   }
 }
 
-export default withRouter(StudentOfInterestWidget);
+const StudentOfInterestWidgetContainer = connect(mapStateToProps)(StudentOfInterestWidget);
+export default withRouter(StudentOfInterestWidgetContainer);

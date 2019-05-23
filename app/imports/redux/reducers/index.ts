@@ -19,6 +19,7 @@ import {
   DepSelectedTabs,
 } from '../actions/actionTypes';
 import { paginationReducer } from './paginationReducer';
+import { studentHomePageReducer } from './studentHomePageReducer';
 
 const initialState = {
   depInspector: {
@@ -146,6 +147,11 @@ const initialState = {
     VerificationRequestCollection: {
       showIndex: 0,
       showCount: 25,
+    },
+  },
+  studentHomePage: {
+    studentOfInterestWidget: {
+      hidden: true,
     },
   },
 };
@@ -279,6 +285,7 @@ const rootReducer = (state = initialState, action) => ({
     depTab: tabReducer(state.depTab, action),
     radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
     pagination: paginationReducer(state.pagination, action),
+    studentHomePage: studentHomePageReducer(state.studentHomePage, action),
   });
 
 // export default combineReducers({});

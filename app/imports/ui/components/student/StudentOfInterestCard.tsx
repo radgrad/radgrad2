@@ -11,9 +11,9 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IStudentOfInterestCardProps {
-  item: any,
-  type: string,
-  canAdd: boolean,
+  item: any;
+  type: string;
+  canAdd: boolean;
   match: {
     isExact: boolean;
     path: string;
@@ -123,8 +123,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
       if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
         ret = 'grey';
       }
-    } else
-    if (_.includes(profile.hiddenOpportunityIDs, this.props.item._id)) {
+    } else if (_.includes(profile.hiddenOpportunityIDs, this.props.item._id)) {
       ret = 'grey';
     }
     return ret;
@@ -158,61 +157,61 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const isHidden = !!hidden; // hidden ? true : false
 
     return (
-        <Card className="radgrad-interest-card">
-          <Card.Content>
-            <Header>{itemName}</Header>
-            <Card.Meta>
+      <Card className="radgrad-interest-card">
+        <Card.Content>
+          <Header>{itemName}</Header>
+          <Card.Meta>
+            {
+              itemSemesters ? this.replaceTermString(itemSemesters) : ''
+            }
+          </Card.Meta>
+        </Card.Content>
+
+        <Card.Content>
+          <p>{itemShortDescription}</p>
+          <InterestList item={item} size='mini'/>
+        </Card.Content>
+
+        <Card.Content>
+          <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
+          <Image.Group circular={true} size="mini" bordered={true}>
+            {
+              interestedStudents.map((student, index) => <Image key={index}
+                                                                data-content={this.studentFullName(student)}
+                                                                src={this.studentPicture(student)}/>)
+            }
+          </Image.Group>
+        </Card.Content>
+
+        {/* Missing a "Center aligned" attribute */}
+        {
+          // TODO: Test if we color=""" is valid so we don't have two Button Groups
+          isHidden ?
+            <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3} color="grey">
+              <Link to={this.getRouteName(this.props.item, this.props.type)}>
+                <Button><Icon name="chevron circle right"/><br/>View More</Button>
+              </Link>
+
+              {this.props.canAdd ?
+                // TODO: StudentOfInterestAdd
+                <br/>
+                : ''}
+
               {
-                itemSemesters ? this.replaceTermString(itemSemesters) : ''
+                hidden ?
+                  <Button><Icon name="unhide"/><br/>Unhide</Button>
+                  :
+                  <Button><Icon name="hide"/><br/>Hide</Button>
               }
-            </Card.Meta>
-          </Card.Content>
+            </Button.Group>
+            :
+            // This should be the same exact code as above, but this one has no color to the button
+            ''
+          // <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3}>
+          // </Button.Group>
+        }
 
-          <Card.Content>
-            <p>{itemShortDescription}</p>
-            <InterestList item={item} size='mini'/>
-          </Card.Content>
-
-          <Card.Content>
-            <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
-            <Image.Group circular={true} size="mini" bordered={true}>
-              {
-                interestedStudents.map((student, index) => <Image key={index}
-                                                                  data-content={this.studentFullName(student)}
-                                                                  src={this.studentPicture(student)}/>)
-              }
-            </Image.Group>
-          </Card.Content>
-
-          {/* Missing a "Center aligned" attribute */}
-          {
-            // TODO: Test if we color=""" is valid so we don't have two Button Groups
-            isHidden ?
-                <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3} color="grey">
-                        <Link to={this.getRouteName(this.props.item, this.props.type)}>
-                          <Button><Icon name="chevron circle right"/><br/>View More</Button>
-                        </Link>
-
-                  {this.props.canAdd ?
-                      // TODO: StudentOfInterestAdd
-                      <br/>
-                    : ''}
-
-                  {
-                    hidden ?
-                        <Button><Icon name="unhide"/><br/>Unhide</Button>
-                        :
-                        <Button><Icon name="hide"/><br/>Hide</Button>
-                  }
-                </Button.Group>
-                :
-                // This should be the same exact code as above, but this one has no color to the button
-                ''
-                // <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3}>
-                // </Button.Group>
-          }
-
-        </Card>
+      </Card>
     );
   }
 }
