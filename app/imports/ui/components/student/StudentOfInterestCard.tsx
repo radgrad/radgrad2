@@ -154,7 +154,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
     // Determines if the <Button.Group> should have a grey color attribute.
     const hidden = this.hidden();
-    const isHidden = !!hidden; // hidden ? true : false
+    const isHidden = !!hidden; // Same logic as hidden ? true : false
 
     return (
       <Card className="radgrad-interest-card">
@@ -174,11 +174,13 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
         <Card.Content>
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
-          <Image.Group circular={true} size="mini" bordered={true}>
+          <Image.Group size="mini">
             {
               interestedStudents.map((student, index) => <Image key={index}
                                                                 data-content={this.studentFullName(student)}
-                                                                src={this.studentPicture(student)}/>)
+                                                                src={this.studentPicture(student)}
+                                                                circular={true}
+                                                                bordered={true}/>)
             }
           </Image.Group>
         </Card.Content>

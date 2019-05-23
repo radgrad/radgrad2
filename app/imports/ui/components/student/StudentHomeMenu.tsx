@@ -20,28 +20,29 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const username = this.props.match.params.username;
+    // TODO: Mobile version
     return (
-        <div>
-          <Menu vertical={true} text={true}>
-            <Menu.Item><Link to={`/student/${username}/home`}>Home </Link></Menu.Item>
-            <Menu.Item><Link to={`/student/${username}/home/aboutme`}>About Me</Link></Menu.Item>
-            <Menu.Item><Link to={`/student/${username}/home/ice`}>ICE Points</Link></Menu.Item>
-            <Menu.Item><Link to={`/student/${username}/home/levels`}>Level</Link></Menu.Item>
-            <Menu.Item><Link to={`/student/${username}/home/log`}>Advisor Log</Link></Menu.Item>
-          </Menu>
+      <React.Fragment>
+        <Menu vertical={true} text={true}>
+          <Menu.Item><Link to={`/student/${username}/home`}>Home </Link></Menu.Item>
+          <Menu.Item><Link to={`/student/${username}/home/aboutme`}>About Me</Link></Menu.Item>
+          <Menu.Item><Link to={`/student/${username}/home/ice`}>ICE Points</Link></Menu.Item>
+          <Menu.Item><Link to={`/student/${username}/home/levels`}>Level</Link></Menu.Item>
+          <Menu.Item><Link to={`/student/${username}/home/log`}>Advisor Log</Link></Menu.Item>
+        </Menu>
 
-          <Responsive {...Responsive.onlyMobile}>
-            <Dropdown fluid={true}>
-              <Menu>
-                <Menu.Item><Link to={`/student/${username}/home`}>Home </Link></Menu.Item>
-                <Menu.Item><Link to={`/student/${username}/home/aboutme`}>About Me</Link></Menu.Item>
-                <Menu.Item><Link to={`/student/${username}/home/ice`}>ICE Points</Link></Menu.Item>
-                <Menu.Item><Link to={`/student/${username}/home/levels`}>Level</Link></Menu.Item>
-                <Menu.Item><Link to={`/student/${username}/home/log`}>Advisor Log</Link></Menu.Item>
-              </Menu>
-            </Dropdown>
-          </Responsive>
-        </div>
+        <Responsive {...Responsive.onlyMobile}>
+          <Dropdown fluid={true}>
+            <Menu>
+              <Menu.Item><Link to={`/student/${username}/home`}>Home </Link></Menu.Item>
+              <Menu.Item><Link to={`/student/${username}/home/aboutme`}>About Me</Link></Menu.Item>
+              <Menu.Item><Link to={`/student/${username}/home/ice`}>ICE Points</Link></Menu.Item>
+              <Menu.Item><Link to={`/student/${username}/home/levels`}>Level</Link></Menu.Item>
+              <Menu.Item><Link to={`/student/${username}/home/log`}>Advisor Log</Link></Menu.Item>
+            </Menu>
+          </Dropdown>
+        </Responsive>
+      </React.Fragment>
     );
   }
 }
