@@ -1,18 +1,16 @@
-//@qauchida
-//05/20/19
-//Faculty Widget that shows About Me information
+/**@qauchida
+* 05/20/19
+* Faculty Widget that shows About Me information
+*/
 import * as React from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
-import {Container, Grid, Header, Label, Icon, Form, Button} from 'semantic-ui-react';
+import {Container, Grid, Header, Label, Icon, Form} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
-import SlugCollection, {Slugs} from "../../../api/slug/SlugCollection";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import roles = Meteor.roles;
-import slugify from "../../../api/slug/SlugCollection";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
@@ -30,22 +28,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   constructor(props) {
     super(props);
   }
-  /**Written by Gian Paolo
-  private interestsRouteName = (interest) => {
-    const url = this.props.match.url;
-    const splitUrl = url.split('/');
-    const group = splitUrl[1];
-    const interestName = this.interestSlug(interest);
-    switch (group) {
-      case 'student':
-        return `/student/${this.getUsername()}/explorer/interests/${interestName}`;
-      case 'faculty':
-        return `/faculty/${this.getUsername()}/explorer/interests/${interestName}`;
-      default:
-        return `/mentor/${this.getUsername()}/explorer/interests/${interestName}`;
-    }
-  }
-*/
+
   public render() {
     const username = this.props.match.params.username;
     //gets the doc object containing information on desired profile based on username
@@ -113,7 +96,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                 <Grid.Row textAlign='left'>
                   <Label.Group>
                   {_.map(facultyInterests, (interests, index) =>
-                    <Label size='small'key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
+                    <Label size='small' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
                   )}
                   </Label.Group>
                 </Grid.Row>
@@ -171,3 +154,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 }
 
 export default withRouter(FacultyPageAboutMeWidget);
+
+//update button on click should update the appropriate field with information inputted from the user
+// may have to make quality checks and what not
