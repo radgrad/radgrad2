@@ -9,22 +9,43 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
+import SlugCollection, {Slugs} from "../../../api/slug/SlugCollection";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
+import roles = Meteor.roles;
+import slugify from "../../../api/slug/SlugCollection";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
       username: string;
+      url: string;
     }
   }
 }
+
+
 
 class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
   //call the props constructor
   constructor(props) {
     super(props);
   }
-
+  /**Written by Gian Paolo
+  private interestsRouteName = (interest) => {
+    const url = this.props.match.url;
+    const splitUrl = url.split('/');
+    const group = splitUrl[1];
+    const interestName = this.interestSlug(interest);
+    switch (group) {
+      case 'student':
+        return `/student/${this.getUsername()}/explorer/interests/${interestName}`;
+      case 'faculty':
+        return `/faculty/${this.getUsername()}/explorer/interests/${interestName}`;
+      default:
+        return `/mentor/${this.getUsername()}/explorer/interests/${interestName}`;
+    }
+  }
+*/
   public render() {
     const username = this.props.match.params.username;
     //gets the doc object containing information on desired profile based on username
@@ -43,10 +64,14 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyInterestIDs = facultyUserProfile.interestIDs;
     //map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
-    //should make it so that you reference the doc and then the name rather than the doc directly
+    //M: should make it so that you reference the doc and then the name rather than the doc directly
 
     //gets the website from the faculty profile
-    let facultyWebsite = facultyUserProfile.website;
+    //for now this is just the username
+    let facultyWebsite = facultyUserProfile.username;
+
+    let path = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer','interests'];
+    let slug = path.join('/');
 
     //shows full doc object and all attributes
     console.log(Users.getProfile(facultyDoc));
@@ -70,6 +95,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     console.log(facultyInterests);
     //shows the interests seperatley
     _.each(facultyInterests, (interests) => console.log(interests));
+    console.log(slug);
+
 
     return (
       <Container>
@@ -99,13 +126,15 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
               <Grid>
-                <Grid.Row>
+                <Grid.Row textAlign='left'>
+                  <Label.Group>
                   {_.map(facultyInterests, (interests, index) =>
-                    <Label key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
+                    <Label size='small'key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
                   )}
+                  </Label.Group>
                 </Grid.Row>
                 <Grid.Row>
-                  <a>Edit in Interest Explorer</a>
+                  <a href={slug}>Edit in Interest Explorer</a>
                 </Grid.Row>
               </Grid>
             </Grid.Column>
@@ -115,12 +144,14 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Grid>
                 <Grid.Row>
+                  <Label.Group>
                   {_.map(facultyCareerGoals, (careerGoals, index) =>
-                    <Label key={index} as ='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
+                    <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
                   )}
+                  </Label.Group>
                 </Grid.Row>
                 <Grid.Row>
-                  <a>Edit in Career Goal Explorer</a>
+                  <a href={facultyUserUsername}>Edit in Career Goal Explorer</a>
                 </Grid.Row>
               </Grid>
             </Grid.Column>
@@ -132,17 +163,17 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Form>
                 <Form.Group>
-                  <Input width={8} placeholder={facultyWebsite}/><Form.Button>Update</Form.Button>
+                  <Input width={10} placeholder={facultyWebsite}/><Form.Button>Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Picture(<a>Upload</a>)</Header>
+              <Header as='h5' textAlign='left'>Picture(<a href={facultyUserUsername}>Upload</a>)</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
               <Form>
                 <Form.Group>
-                  <Input width={8} placeholder={facultyUserProfile.picture}/><Form.Button>Update</Form.Button>
+                  <Input width={10} placeholder={facultyUserProfile.picture}/><Form.Button>Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
