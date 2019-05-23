@@ -57,6 +57,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     //gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
     //get the career goal IDs based on the user ID
+    const facultyWebsite = facultyUserProfile.website;
     const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
     //map the career goal IDs to their names
     const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
@@ -146,7 +147,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             <Grid.Column floated='left' width={6}>
               <Form>
                 <Form.Group>
-                  <Input width={10}/><Form.Button>Update</Form.Button>
+                  <Input width={10} placeholder={facultyWebsite}/><Form.Button>Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
