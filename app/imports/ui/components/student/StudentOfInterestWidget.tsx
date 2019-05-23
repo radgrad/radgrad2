@@ -91,20 +91,24 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private opportunities = () => {
     const opportunities = this.matchingOpportunities();
+    console.log('matchingOpportunities %o', opportunities);
     let visibleOpportunities;
     if (this.isHidden()) {
       visibleOpportunities = this.hiddenOpportunitiesHelper();
+      console.log('triggerredOne: %o', visibleOpportunities);
     } else {
       visibleOpportunities = opportunities;
+      console.log('triggerredTwo: %o', visibleOpportunities);
     }
     return visibleOpportunities;
   }
 
   private matchingCourses = () => {
-    if (this.getUsername()) {
+    const username = this.getUsername();
+    if (username) {
       const allCourses = this.availableCourses();
       const matching: any = [];
-      const profile = Users.getProfile(this.getUsername());
+      const profile = Users.getProfile(username);
       // console.log('StudentProfile=%o', profile);
       const userInterests = [];
       let courseInterests = [];
@@ -192,8 +196,9 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private matchingOpportunities = () => {
     const allOpportunities = this.availableOpps();
+    const username = this.getUsername();
     const matching: any = [];
-    const profile = Users.getProfile(this.getUsername());
+    const profile = Users.getProfile(username);
     const userInterests = [];
     let opportunityInterests = [];
     _.forEach(Users.getInterestIDs(profile.userID), (id) => {
@@ -225,25 +230,26 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private availableOpps = () => {
     const notRetired = Opportunities.findNonRetired({});
-    const currentSemester = AcademicTerms.getCurrentAcademicTermDoc();
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     if (notRetired.length > 0) {
-      const filteredBySem = _.filter(notRetired, (opp) => {
+      const filteredByTerm = _.filter(notRetired, (opp) => {
         const oi = OpportunityInstances.find({
           studentID: this.getUserIdFromRoute(),
           opportunityID: opp._id,
         }).fetch();
         return oi.length === 0;
       });
-      return _.filter(filteredBySem, (opp) => {
+      const ret = _.filter(filteredByTerm, (opp) => {
         let inFuture = false;
-        _.forEach(opp.semesterIDs, (semID) => {
-          const sem = AcademicTerms.findDoc(semID);
-          if (sem.semesterNumber >= currentSemester.semesterNumber) {
+        _.forEach(opp.termIDs, (termID) => {
+          const term = AcademicTerms.findDoc(termID);
+          if (term.termNumber >= currentTerm.termNumber) {
             inFuture = true;
           }
         });
         return inFuture;
       });
+      return ret;
     }
     return [];
   }
@@ -268,7 +274,6 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const isTypeCourse = this.typeCourse();
     const courses = this.courses();
     const opportunities = this.opportunities();
-    console.log('%o', opportunities);
 
     return (
       <Segment padded={true}>
@@ -277,7 +282,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
           inputValue={this.itemCount()}/>
         </Header>
 
-        {/* I'm not sure how to test if the particular code block below works because even on the original radgrad, I could not find anywhere on the website through Chrome Debugger where this piece of code is used. There were no "HIDDEN" texts anywhere or where the buttons would appear that has the color green with chevron icons. */}
+        {/* TODO: I'm not sure how to test if the particular code block below works because even on the original radgrad, I could not find anywhere on the website through Chrome Debugger where this piece of code is used. There were no "HIDDEN" texts anywhere or where the buttons would appear that has the color green with chevron icons. -Gian */}
         {
           hiddenExists ?
             [
@@ -302,7 +307,6 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
                     courses.map((course, index) => <StudentOfInterestCard key={index} item={course}
                                                                           type={type} canAdd={true}/>)
                     :
-                    // FIXME: THis is not appearing
                     opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp}
                                                                              type={type} canAdd={true}/>)
                 }
