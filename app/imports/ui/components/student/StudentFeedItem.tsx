@@ -60,32 +60,32 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     const multipleUsers: boolean = this.multipleUsers(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
-        <React.Fragment>
-          <Feed.Event>
-            <Feed.Label>
-              <Image src={feedPicture}/>
-            </Feed.Label>
-            <Feed.Content style={{ marginTop: '0px' }}>
-              <Feed.Summary>
-                {/* {feedDescription} */}
-                {feed.description}
-              </Feed.Summary>
+      <React.Fragment>
+        <Feed.Event>
+          <Feed.Label>
+            <Image src={feedPicture}/>
+          </Feed.Label>
+          <Feed.Content style={{ marginTop: '0px' }}>
+            <Feed.Summary>
+              {/* {feedDescription} */}
+              {feed.description}
+            </Feed.Summary>
 
-              <Feed.Extra text={true}>
-                {multipleUsers ?
-                    <Feed.Meta style={{ float: 'right', marginTop: '0px' }}>
-                      {/* TODO: Student_Feed_Modal */}
-                    </Feed.Meta>
-                    : ''
-                }
-                <Feed.Date style={{ marginTop: '0px' }}>
-                  {feedTimestamp}
-                </Feed.Date>
-              </Feed.Extra>
-            </Feed.Content>
-          </Feed.Event>
-          <Divider/>
-        </React.Fragment>
+            <Feed.Extra text={true}>
+              {multipleUsers ?
+                <Feed.Meta style={{ float: 'right', marginTop: '0px' }}>
+                  {/* TODO: Student_Feed_Modal */}
+                </Feed.Meta>
+                : ''
+              }
+              <Feed.Date style={{ marginTop: '0px' }}>
+                {feedTimestamp}
+              </Feed.Date>
+            </Feed.Extra>
+          </Feed.Content>
+        </Feed.Event>
+        <Divider/>
+      </React.Fragment>
     );
   }
 }

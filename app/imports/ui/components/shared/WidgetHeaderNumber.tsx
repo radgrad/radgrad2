@@ -11,7 +11,7 @@ class WidgetHeaderNumber extends React.Component<IWidgetHeaderNumberProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
-        <span className="radgrad-header-number">&middot; {this.props.inputValue} </span>
+      <span className="radgrad-header-number">&middot; {this.props.inputValue} </span>
     );
   }
 }

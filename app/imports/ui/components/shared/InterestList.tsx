@@ -125,49 +125,49 @@ class InterestList extends React.Component<IInterestListProps> {
   private interestSlug = (interest) => Slugs.findDoc(interest.slugID).name
 
   public render():
-      React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const matchingUserInterests = this.matchingUserInterests(this.props.item);
     const matchingCareerInterests = this.matchingCareerInterests(this.props.item);
     const otherInterests = this.otherInterests(this.props.item);
     return (
-        <Label.Group>
-          {
-            matchingUserInterests.map((interest, index) => (
-                <div key={index}>
-                  <Link to={this.interestsRouteName(interest)}>
-                    <Label size={this.props.size}>
-                      <i className="fitted star icon"/> {this.interestName(interest)}
-                    </Label>
-                  </Link>
-                </div>
-            ))
-          }
+      <Label.Group>
+        {
+          matchingUserInterests.map((interest, index) => (
+            <div key={index}>
+              <Link to={this.interestsRouteName(interest)}>
+                <Label size={this.props.size}>
+                  <i className="fitted star icon"/> {this.interestName(interest)}
+                </Label>
+              </Link>
+            </div>
+          ))
+        }
 
-          {
-            matchingCareerInterests.map((interest, index) => (
-                <div key={index}>
-                  <Link to={this.interestsRouteName(interest)}>
-                    <Label size={this.props.size}>
-                      <i className="fitted suitcase icon"/> {this.interestName(interest)}
-                    </Label>
-                  </Link>
-                </div>
-            ))
-          }
+        {
+          matchingCareerInterests.map((interest, index) => (
+            <div key={index}>
+              <Link to={this.interestsRouteName(interest)}>
+                <Label size={this.props.size}>
+                  <i className="fitted suitcase icon"/> {this.interestName(interest)}
+                </Label>
+              </Link>
+            </div>
+          ))
+        }
 
-          {
-            otherInterests.map((interest, index) => (
-                <div key={index}>
-                  <Link to={this.interestsRouteName(interest)}>
-                    <Label size={this.props.size}>
-                      {this.interestName(interest)}
-                    </Label>
-                  </Link>
-                </div>
-            ))
-          }
+        {
+          otherInterests.map((interest, index) => (
+            <div key={index}>
+              <Link to={this.interestsRouteName(interest)}>
+                <Label size={this.props.size}>
+                  {this.interestName(interest)}
+                </Label>
+              </Link>
+            </div>
+          ))
+        }
 
-        </Label.Group>
+      </Label.Group>
     );
   }
 }
