@@ -19,17 +19,18 @@ class StudentHomePage extends React.Component {
     return (
       <div className="layout-page">
         <StudentPageMenuWidget/>
-        <HelpPanelWidget/>
         <Grid stackable={true} verticalAlign="middle" textAlign="center" container={true}>
-            <Grid.Column width={2}>
-                <StudentHomeMenu/>
-            </Grid.Column>
+          <HelpPanelWidget/>
 
-            <Grid.Column width={14}>
-                <StudentHomeWidget/>
-            </Grid.Column>
+          <Grid.Column width={2}>
+            <StudentHomeMenu/>
+          </Grid.Column>
+
+          <Grid.Column width={14}>
+            <StudentHomeWidget/>
+          </Grid.Column>
         </Grid>
-          <div>TODO: Back to Top Button</div>
+        <div>TODO: Back to Top Button</div>
       </div>
     );
   }

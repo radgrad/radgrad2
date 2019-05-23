@@ -238,7 +238,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const isTypeCourse = this.typeCourse();
     const courses = this.courses();
     const opportunities = this.opportunities();
-
+    console.log('%o', opportunities);
     return (
       <Segment padded={true}>
         <Header as="h4" dividng="true">
@@ -258,6 +258,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
                       courses.map((course, index) => <StudentOfInterestCard key={index} item={course}
                                                                             type={this.props.type} canAdd={true}/>)
                       :
+                      // FIXME: THis is not appearing
                       opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp}
                                                                                type={this.props.type} canAdd={true}/>)
                   }

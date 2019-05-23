@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Feed, Image, Divider } from 'semantic-ui-react';
+import * as showdown from 'showdown';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-import * as showdown from 'showdown';
 
-interface IStudentFeedItem {
+interface IStudentFeedItemProps {
   feed: object;
 }
 
-class StudentFeedItem extends React.Component<IStudentFeedItem> {
+class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
   constructor(props) {
     super(props);
   }
@@ -60,14 +60,14 @@ class StudentFeedItem extends React.Component<IStudentFeedItem> {
     const multipleUsers: boolean = this.multipleUsers(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
-        <div>
+        <React.Fragment>
           <Feed.Event>
             <Feed.Label>
               <Image src={feedPicture}/>
             </Feed.Label>
             <Feed.Content style={{ marginTop: '0px' }}>
               <Feed.Summary>
-                {/*{feedDescription}*/}
+                {/* {feedDescription} */}
                 {feed.description}
               </Feed.Summary>
 
@@ -85,7 +85,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItem> {
             </Feed.Content>
           </Feed.Event>
           <Divider/>
-        </div>
+        </React.Fragment>
     );
   }
 }

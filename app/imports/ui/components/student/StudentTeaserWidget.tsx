@@ -11,7 +11,7 @@ import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
-interface IStudentTeaserWidget {
+interface IStudentTeaserWidgetProps {
   match: {
     isExact: boolean;
     path: string;
@@ -22,7 +22,7 @@ interface IStudentTeaserWidget {
   };
 }
 
-class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
+class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
   constructor(props) {
     super(props);
   }
@@ -77,7 +77,7 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
     if (teaser.opportunityID) {
       ret = Slugs.findDoc(Opportunities.findDoc(teaser.opportunityID).slugID).name;
     } else {
-      ret = '#'; // TODO: Not sure if I should have this # or empty string. Can't test until we have opportunity pages working.
+      ret = '#';
     }
     return ret;
   }
@@ -95,7 +95,7 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
 
     const chevronCircleRightIconStyle = { marginRight: '1px' };
     return (
-        <div>
+        <React.Fragment>
           <Container>
             <Segment padded={true}>
               <Header dividing={true}>
@@ -142,7 +142,7 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidget> {
               }
             </Segment>
           </Container>
-        </div>
+        </React.Fragment>
     );
   }
 }
