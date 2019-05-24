@@ -15,7 +15,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import {
   courseNameToSlug,
   courseToName,
-  interestNameToId
+  interestNameToId,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import AddCourseForm from '../../components/admin/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';

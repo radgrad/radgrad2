@@ -74,9 +74,9 @@ if (Meteor.isClient) {
     it('Question & Answer Remove Methods', async function () {
       const questionID = MentorQuestions.findIdBySlug(questionDefinition.slug);
       const answerID = MentorAnswers.findDoc({ questionID })._id;
-      await removeItMethod.callPromise({ collectionName: answerCollectionName, answerID });
+      await removeItMethod.callPromise({ collectionName: answerCollectionName, instance: answerID });
       expect(MentorAnswers.isDefined(answerID)).to.be.false;
-      await removeItMethod.callPromise({ collectionName: questionCollectionName, questionID });
+      await removeItMethod.callPromise({ collectionName: questionCollectionName, instance: questionID });
       expect(MentorQuestions.isDefined(questionID)).to.be.false;
     });
   });
