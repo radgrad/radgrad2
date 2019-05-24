@@ -1,7 +1,7 @@
 /**@qauchida
-* 05/20/19
-* Faculty Widget that shows About Me information
-*/
+ * 05/20/19
+ * Faculty Widget that shows About Me information
+ */
 import * as React from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
@@ -10,18 +10,21 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
-import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
       username: string;
       url: string;
+    },
+    state: {
+      website: string;
+      submittedWebsite: string;
+      photo: string;
+      submittedPhoto: string;
     }
   }
 }
-
-
 
 class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
   //call the props constructor
@@ -29,41 +32,72 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     super(props);
   }
 
+  //react.sematic-ui.com
+  private handleChange = (event, {name, value}) => {
+    console.log('handle change');
+    console.log(event);
+    this.setState({[name]: value});
+    console.log(this.state);
+  };
+
+  private handleSubmit = () => {
+    console.log('handle submit');
+
+    const {website, photo} = this.state;
+    this.setState({submittedWebsite: website, submittedPhoto: photo});
+    console.log(this.state);
+
+    switch (this.state) {
+      case 'website':
+        Users.getProfile(this.props.match.params.username).website = this.state;
+        console.log(Users.getProfile(this.props.match.params.username).website);
+        console.log('handle submit website')
+        break;
+      case 'photo':
+        Users.getProfile(this.props.match.params.username).photo = this.state;
+        console.log(Users.getProfile(this.props.match.params.username).photo);
+        console.log('handle submit photo');
+        break;
+    }
+  };
+
   public render() {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+//gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
-    //gets the user ID based on the username
+//gets the user ID based on the username
     const facultyUserID = facultyDoc.userID;
-    //gets the user profile based on the user ID
+//gets the user profile based on the user ID
     const facultyUserProfile = Users.getProfile(facultyUserID);
-    //gets the username based on the user ID
+//gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
-    //get the career goal IDs based on the user ID
+//gets the faculty website address
     const facultyWebsite = facultyUserProfile.website;
+    //get the career goal IDs based on the userID
     const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
-    //map the career goal IDs to their names
+//map the career goal IDs to their names
     const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
-    //get the interest goal IDs based on the User ID
+//get the interest goal IDs based on the User ID
     const facultyInterestIDs = facultyUserProfile.interestIDs;
-    //map the interests IDs to their names
+//map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
-    //M: should make it so that you reference the doc and then the name rather than the doc directly
+//M: should make it so that you reference the doc and then the name rather than the doc directly
 
-    //gets the url from the faculty profile's information
-    //url is made up of: role/username/explorer/CareerOrInterests
-    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer','interests'];
+//gets the url from the faculty profile's information
+//url is made up of: role/username/explorer/CareerOrInterests
+    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    console.log(exploreRoute);
 
-
-    let careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer','career-goals'];
+    let careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
     let careerRoute = careerPath.join('/');
-    careerRoute =`/${careerRoute}`;
-    console.log(careerRoute);
+    careerRoute = `/${careerRoute}`;
+//handles the submit for website changes
 
-    // for the picture upload, reference https://cloudinary.com/documentation/upload_widget
+// for the picture upload, reference https://cloudinary.com/documentation/upload_widget from RadGrad1
+// here is the react way: https://www.npmjs.com/package/react-images-upload
+
+// React Image Uploader https://www.npmjs.com/package/react-images-upload
 
     return (
       <Container>
@@ -87,6 +121,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               {facultyUserUsername}
             </Grid.Column>
           </Grid.Row>
+
           <Grid.Row>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Interests</Header>
@@ -95,9 +130,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Grid>
                 <Grid.Row textAlign='left'>
                   <Label.Group>
-                  {_.map(facultyInterests, (interests, index) =>
-                    <Label size='small' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
-                  )}
+                    {_.map(facultyInterests, (interests, index) =>
+                      <Label size='small' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
+                    )}
                   </Label.Group>
                 </Grid.Row>
                 <Grid.Row>
@@ -112,9 +147,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Grid>
                 <Grid.Row>
                   <Label.Group>
-                  {_.map(facultyCareerGoals, (careerGoals, index) =>
-                    <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
-                  )}
+                    {_.map(facultyCareerGoals, (careerGoals, index) =>
+                      <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
+                    )}
                   </Label.Group>
                 </Grid.Row>
                 <Grid.Row>
@@ -128,19 +163,26 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Website</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form>
+              <Form onSubmit={this.handleSubmit} success>
                 <Form.Group>
-                  <Input width={10} placeholder={facultyWebsite}/><Form.Button>Update</Form.Button>
+                  <Form.Input width={10}
+                              name='website'
+                              onChange={this.handleChange}
+                              placeholder={facultyWebsite}/>
+                  <Form.Button content='Update'/>
                 </Form.Group>
               </Form>
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Picture(<a href={facultyUserUsername}>Upload</a>)</Header>
+              <Header as='h5' textAlign='left'>Picture(<a id="image-upload-widget">Upload</a>)</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form>
+              <Form onSubmit={this.handleSubmit} className='uploadPicture' success>
                 <Form.Group>
-                  <Input width={10} placeholder={facultyUserProfile.picture}/><Form.Button>Update</Form.Button>
+                  <Form.Input onChange={this.handleChange} width={10}
+                              name='photo'
+                              placeholder={facultyUserProfile.picture}/>
+                  <Form.Button content='Update'/>
                 </Form.Group>
               </Form>
             </Grid.Column>
@@ -149,7 +191,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
       </Container>
 
     );
+
   }
+
 
 }
 
@@ -157,3 +201,4 @@ export default withRouter(FacultyPageAboutMeWidget);
 
 //update button on click should update the appropriate field with information inputted from the user
 // may have to make quality checks and what not
+
