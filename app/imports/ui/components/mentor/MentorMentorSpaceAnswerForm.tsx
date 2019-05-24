@@ -4,6 +4,7 @@ import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 import { _ } from "meteor/erasaur:meteor-lodash";
+import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
 
 interface IMentorMentorSpaceAnswerFormState {
   activeIndex: number;
@@ -35,15 +36,18 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
     const accordionStyle = { overflow: 'hidden' };
     const answer = _.filter(this.props.answer, (ans) => ans.questionID === this.props.question._id);
     console.log("MentorMentor answer: ", answer);
-    console.log("MentorMentor answer text: ", answer.text);
     return (
-        <Accordion fluid={true} styled={true} style={accordionStyle}>
-          <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+      <div>
+      {_.map(answer, (a, ind) => {
+          const mentor = MentorProfiles.findDoc({ userID: a.mentorID });
+          return (
+        <Accordion fluid={true} styled={true} style={accordionStyle} key={ind}>
+          <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
             <Icon name="dropdown"/> {`Add or update your answer (markdown supported)`}
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 0}>
+          <Accordion.Content active={activeIndex === ind}>
             <Form>
-              <Form.TextArea value={"testing"}/>
+              <Form.TextArea value={a.text}/>
             </Form><br/>
             <Grid.Row>
               <Button basic color='green' content='Submit'/>
@@ -51,6 +55,9 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
             </Grid.Row>
           </Accordion.Content>
         </Accordion>
+          );
+      })}
+      </div>
     );
   }
 }
