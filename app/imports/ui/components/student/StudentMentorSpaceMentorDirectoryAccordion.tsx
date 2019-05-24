@@ -1,0 +1,77 @@
+import * as React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import { _ } from "meteor/erasaur:meteor-lodash";
+import { Accordion, Divider, Icon, Image, List, Container } from "semantic-ui-react";
+
+interface IStudentMentorSpaceMentorDirectoryAccordionState {
+  activeIndex: number;
+}
+
+interface IStudentMentorSpaceMentorDirectoryAccordionProps {
+  profiles: string;
+  index: number;
+}
+
+class StudentMentorSpaceMentorDirectoryAccordion extends React.Component<IStudentMentorSpaceMentorDirectoryAccordionProps, IStudentMentorSpaceMentorDirectoryAccordionState> {
+  constructor(props) {
+    super(props);
+    this.state = { activeIndex: -1 };
+  }
+
+  public handleClick = (e, titleProps) => {
+    e.preventDefault();
+    const { index } = titleProps;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
+    this.setState({ activeIndex: newIndex });
+  }
+
+
+  public render() {
+    const { activeIndex } = this.state;
+    console.log(this.props.profiles);
+    return (
+      <div>
+        {_.map(this.props.profiles, (p, ind) => {
+          const mentor = MentorProfiles.findDoc(p._id);
+          return (
+            <Accordion fluid={true} styled={true} key={ind}>
+              <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
+                <List>
+                  <List.Item>
+                    <Icon name="dropdown"/>
+                    <Image src={mentor.picture} size={'mini'}/>
+                    <List.Content>
+                      <a href="#">{mentor.firstName} {mentor.lastName} </a>
+                      <List.Description>
+                        {mentor.career}, {mentor.company}
+                      </List.Description>
+                    </List.Content>
+                  </List.Item>
+                </List>
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === ind}>
+                <Divider/>
+                <Container>
+                 "{mentor.motivation}"
+                <br/><br/>
+                </Container>
+                {mentor.firstName} {mentor.lastName} is based in {mentor.location}
+              </Accordion.Content>
+            </Accordion>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+const StudentMentorSpaceMentorDirectoryAccordionContainer = withTracker(() => {
+  const profiles = MentorProfiles.find().fetch();
+  // console.log('StudentMentorSpaceMentorDirectoryAccordion withTracker items=%o', answers);
+  return {
+    profiles,
+  };
+})(StudentMentorSpaceMentorDirectoryAccordion);
+export default StudentMentorSpaceMentorDirectoryAccordionContainer;
