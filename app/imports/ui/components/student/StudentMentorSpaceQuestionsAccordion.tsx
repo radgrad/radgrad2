@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import QuestionAnswersWidget from './QuestionAnswersWidget';
-import { MentorAnswers } from "../../../api/mentor/MentorAnswerCollection";
+import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 
 interface IStudentMentorSpaceQuestionsAccordionState {
   activeIndex: number;
@@ -35,15 +35,13 @@ class StudentMentorSpaceQuestionsAccordion extends React.Component<IStudentMento
     const print2 = ' answers';
     if (answerCount === 1) {
       return print1;
-    } else {
-      return print2;
     }
-
+    return print2;
   }
 
   public render() {
     const { activeIndex } = this.state;
-    const accordionStyle = {overflow: 'hidden',}
+    const accordionStyle = { overflow: 'hidden' };
     return (
       <div>
         {_.map(this.props.questions, (q, ind) => (
@@ -75,7 +73,7 @@ const StudentMentorSpaceQuestionsAccordionContainer = withTracker(() => {
   const questions = MentorQuestions.find().fetch();
   const answerCount = _.map(questions, (q) => {
     console.log(q);
-    return MentorAnswers.find({ questionID: q._id }).fetch().length
+    return MentorAnswers.find({ questionID: q._id }).fetch().length;
   });
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', questions);
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', answerCount);

@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { Accordion, Divider, Icon, Image, List, Segment } from 'semantic-ui-react';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
-import { _ } from "meteor/erasaur:meteor-lodash";
-import { Accordion, Divider, Icon, Image, List, Segment } from "semantic-ui-react";
 
 interface IStudentMentorSpaceMentorDirectoryAccordionState {
   activeIndex: number;
@@ -54,7 +54,7 @@ class StudentMentorSpaceMentorDirectoryAccordion extends React.Component<IStuden
               <Accordion.Content active={activeIndex === ind}>
                 <Divider/>
                 <Segment basic={true} size='tiny'>
-                 "{mentor.motivation}"<br/>
+                  {`"${mentor.motivation}"`}<br/>
                 </Segment>
                 <Segment basic={true} size='tiny'>
                   {mentor.firstName} {mentor.lastName} is based in {mentor.location}<br/>

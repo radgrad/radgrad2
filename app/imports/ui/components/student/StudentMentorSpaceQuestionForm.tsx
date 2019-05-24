@@ -58,7 +58,6 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
     const schema = new SimpleSchema({
       question: String,
     });
-    //console.log(this.props);
     return (
       <Segment padded={true}>
         <Header dividing={true}><h4>ASK A NEW QUESTION</h4></Header>
