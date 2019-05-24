@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Card, Header, Image, Button, Icon } from 'semantic-ui-react';
+// eslint-disable-next-line no-unused-vars
+import { Card, Header, Image, Button, Icon, SemanticCOLORS } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -9,6 +10,9 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import StudentOfInterestAdd from './StudentOfInterestAdd';
 
 interface IStudentOfInterestCardProps {
   item: any;
@@ -29,6 +33,53 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     super(props);
   }
 
+  private handleHideStudentInterest = (e) => {
+    e.preventDefault();
+    const username = this.getUsername();
+    const profile = Users.getProfile(username);
+    const id = this.props.item._id;
+    const collectionName = StudentProfiles.getCollectionName();
+    const updateData: any = {};
+    updateData.id = profile._id;
+    if (this.typeCourse()) {
+      const studentItems = profile.hiddenCourseIDs;
+      studentItems.push(id);
+      updateData.hiddenCourses = studentItems;
+    } else {
+      const studentItems = profile.hiddenOpportunityIDs;
+      studentItems.push(id);
+      updateData.hiddenOpportunities = studentItems;
+    }
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        console.log('Error hiding course/opportunity', error);
+      }
+    });
+  }
+
+  private handleUnHideStudentInterest = (e) => {
+    e.preventDefault();
+    const username = this.getUsername();
+    const profile = Users.getProfile(username);
+    const id = this.props.item._id;
+    const collectionName = StudentProfiles.getCollectionName();
+    const updateData: any = {};
+    updateData.id = profile._id;
+    if (this.typeCourse()) {
+      let studentItems = profile.hiddenCourseIDs;
+      studentItems = _.without(studentItems, id);
+      updateData.hiddenCourses = studentItems;
+    } else {
+      let studentItems = profile.hiddenOpportunityIDs;
+      studentItems = _.without(studentItems, id);
+      updateData.hiddenOpportunities = studentItems;
+    }
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        console.log('Error unhiding course/opportunity', error);
+      }
+    });
+  }
 
   // This was originally in a template-helpers.js file. Should move it to one if one is made - Gian.
   private opportunityTerms(opportunityInstance) {
@@ -119,7 +170,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const username = this.props.match.params.username;
     let ret = '';
     const profile = Users.getProfile(username);
-    if (this.props.type === 'courses') {
+    if (this.typeCourse()) {
       if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
         ret = 'grey';
       }
@@ -152,10 +203,9 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const numberStudents = this.numberStudents(item);
     const interestedStudents = this.interestedStudents(item);
 
-    // Determines if the <Button.Group> should have a grey color attribute.
-    const hidden = this.hidden();
-    const isHidden = !!hidden; // Same logic as hidden ? true : false
-
+    const hidden = this.hidden() as SemanticCOLORS;
+    // console.log(`hidden ${hidden}`);
+    // console.log(`colored ${colored}`);
     return (
       <Card className="radgrad-interest-card">
         <Card.Content>
@@ -185,34 +235,27 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
           </Image.Group>
         </Card.Content>
 
-        {/* Missing a "Center aligned" attribute */}
+        {/* FIXME: Missing a "Center aligned" attribute */}
         {
-          // TODO: Test if we color=""" is valid so we don't have two Button Groups
-          isHidden ?
-            <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3} color="grey">
-              <Link to={this.getRouteName(this.props.item, this.props.type)}>
-                <Button><Icon name="chevron circle right"/><br/>View More</Button>
-              </Link>
+          <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3}
+                        color={hidden || undefined}>
+            <Link to={this.getRouteName(this.props.item, this.props.type)}>
+              <Button><Icon name="chevron circle right"/><br/>View More</Button>
+            </Link>
 
-              {this.props.canAdd ?
-                // TODO: StudentOfInterestAdd
-                <br/>
-                : ''}
+            {this.props.canAdd ?
+              <StudentOfInterestAdd item={this.props.item} type={this.props.type}/>
+              : ''
+            }
 
-              {
-                hidden ?
-                  <Button><Icon name="unhide"/><br/>Unhide</Button>
-                  :
-                  <Button><Icon name="hide"/><br/>Hide</Button>
-              }
-            </Button.Group>
-            :
-            // This should be the same exact code as above, but this one has no color to the button
-            ''
-          // <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3}>
-          // </Button.Group>
+            {
+              hidden ?
+                <Button onClick={this.handleUnHideStudentInterest}><Icon name="unhide"/><br/>Unhide</Button>
+                :
+                <Button onClick={this.handleHideStudentInterest}><Icon name="hide"/><br/>Hide</Button>
+            }
+          </Button.Group>
         }
-
       </Card>
     );
   }

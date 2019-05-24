@@ -91,14 +91,11 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private opportunities = () => {
     const opportunities = this.matchingOpportunities();
-    console.log('matchingOpportunities %o', opportunities);
     let visibleOpportunities;
     if (this.isHidden()) {
       visibleOpportunities = this.hiddenOpportunitiesHelper();
-      console.log('triggerredOne: %o', visibleOpportunities);
     } else {
       visibleOpportunities = opportunities;
-      console.log('triggerredTwo: %o', visibleOpportunities);
     }
     return visibleOpportunities;
   }
