@@ -66,7 +66,7 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
               </Accordion.Content>
             </Accordion>
             <Divider/>
-            <MentorMentorSpaceAnswerForm/>
+            <MentorMentorSpaceAnswerForm question={q}/>
           </Segment>
         ))}
       </div>
