@@ -1,18 +1,25 @@
 import * as React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
+// import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import AddVerificationRequestForm from '../../components/admin/AddVerificationRequestForm';
+import {
+  academicTermNameToSlug,
+  opportunityInstanceNameToId, opportunityNameToSlug,
+  profileNameToUsername,
+} from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = VerificationRequests; // the collection to use.
 
@@ -68,7 +75,20 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
   private handleAdd = (doc) => {
     // console.log('VerificationRequests.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc; // create the definitionData may need to modify doc's values
+    const definitionData: any = {};
+    definitionData.status = doc.status;
+    definitionData.student = profileNameToUsername(doc.student);
+    if (doc.opportunityInstance) {
+      definitionData.opportunityInstance = opportunityInstanceNameToId(doc.opportunityInstance);
+    }
+    if (doc.opportunity) {
+      definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+      definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+    }
+    if (_.isBoolean(doc.retired)) {
+      definitionData.retired = doc.retired;
+    }
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -176,7 +196,7 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
                                         handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
                                         itemTitleString={itemTitleString}/>
             ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddVerificationRequestForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListCollectionWidget collection={collection}
                                   findOptions={findOptions}

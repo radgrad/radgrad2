@@ -9,6 +9,8 @@ import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
 
@@ -60,6 +62,27 @@ export const mentorQuestionToSlug = (question) => {
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 
 export const opportunityNameToSlug = (name) => Slugs.getNameFromID(Opportunities.findDoc(name).slugID);
+
+export const opportunityInstanceToName = (oi) => {
+  const student = StudentProfiles.findDoc({ userID: oi.studentID }).username;
+  const opportunity = Opportunities.findDoc(oi.opportunityID).name;
+  const term = AcademicTerms.toString(oi.termID, false);
+  return `${student}-${opportunity}-${term}`;
+};
+
+export const opportunityInstanceNameToId = (name) => {
+  const parts = name.split('-');
+  const opportunityDoc = Opportunities.findDoc(parts[1]);
+  const opportunityID = opportunityDoc._id;
+  const termParts = parts[2].split(' ');
+  const term = termParts[0];
+  const year = parseInt(termParts[1], 10);
+  const termDoc = AcademicTerms.findDoc({ term, year });
+  const termID = termDoc._id;
+  const profile = StudentProfiles.findDoc({ username: parts[0] });
+  const studentID = profile.userID;
+  return OpportunityInstances.findDoc({ opportunityID, termID, studentID })._id;
+};
 
 export const opportunityTypeNameToSlug = (name) => {
   const doc = OpportunityTypes.findDoc(name);
