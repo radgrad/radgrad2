@@ -32,7 +32,8 @@ class CourseCollection extends BaseSlugCollection {
       interestIDs: [SimpleSchema.RegEx.Id],
       // Optional data
       syllabus: { type: String, optional: true },
-      prerequisites: [String],
+      prerequisites: { type: Array },
+      'prerequisites.$': String,
       retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
@@ -43,7 +44,8 @@ class CourseCollection extends BaseSlugCollection {
       creditHrs: { type: SimpleSchema.Integer, optional: true },
       interests: [String],
       syllabus: String,
-      prerequisites: [String],
+      prerequisites: { type: Array },
+      'prerequisites.$': String,
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({

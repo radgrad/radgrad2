@@ -7,7 +7,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 
 /* eslint react/prop-types: 0 */
 const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transform, value }) => {
-  // console.log('renderMultiSelect value=%o', value);
+  // console.log('renderMultiSelect value=%o allowedValues=%o', value, allowedValues);
   const options = _.map(allowedValues, (val, index) => ({
     key: index,
     text: transform ? transform(val) : val,

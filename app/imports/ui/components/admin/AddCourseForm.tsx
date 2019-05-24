@@ -70,7 +70,7 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
           <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
           <Form.Group widths="equal">
             <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
-            <MultiSelectField name="prerequisites"/>
+            <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
           </Form.Group>
           <SubmitField/>
         </AutoForm>

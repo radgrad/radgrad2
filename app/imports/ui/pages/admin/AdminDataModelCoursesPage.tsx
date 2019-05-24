@@ -151,11 +151,8 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData: any = doc; // create the updateData object from the doc.
-    if (doc.prerequisites.length === 0) {
-      updateData.prerequisites = [];
-    } else {
-      updateData.prerequisites = doc.prerequisites.split(/,\s*/g);
-    }
+    updateData.id = doc._id;
+    updateData.prerequisites = _.map(doc.prerequisiteNames, courseNameToSlug);
     updateData.interests = _.map(doc.interests, interestNameToId);
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
