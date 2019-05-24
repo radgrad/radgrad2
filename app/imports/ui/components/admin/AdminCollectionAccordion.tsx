@@ -39,9 +39,9 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-              <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ?
-              <Markdown escapeHtml={true} source={descriptionPair.value}/> : <p>{descriptionPair.value.join(', ')}</p>}
-            </React.Fragment>
+          <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ?
+          <Markdown escapeHtml={true} source={descriptionPair.value}/> : <p>{descriptionPair.value.join(', ')}</p>}
+        </React.Fragment>
           ))}
           <p>
             <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.updateDisabled}
