@@ -459,6 +459,13 @@ export interface IIceSnapshotDefine extends IDumpOne {
 }
 
 // MentorAnswers
+export interface IMentorAnswer {
+  questionID: string;
+  mentorID: string;
+  text: string;
+  retired?: boolean;
+}
+
 export interface IMentorAnswerDefine extends IDumpOne {
   question: string;
   mentor: string;
@@ -480,6 +487,7 @@ export interface IMentorQuestion {
   visible: boolean;
   moderatorComments?: string;
   retired?: boolean;
+  _id: string;
 }
 
 export interface IMentorQuestionDefine extends IDumpOne {
