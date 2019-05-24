@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Popup, Button, Icon, Menu } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 interface IStudentOfInterestAddProps {
@@ -32,18 +32,26 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
     // const nextFourYears = this.nextYears(4);
 
     return (
-        <div>
-          {
-            this.typeCourse() ?
-                <Button>
+      <React.Fragment>
+        {
+          this.typeCourse() ?
+            <Popup trigger={
+              <Button>
+                <Icon name="plus"/><br/>Add to Plan
+              </Button>
+            }>
+              {/* TODO: fluid popup transition hidden */}
+              <Popup.Content>
+                <Menu size="mini" secondary={true}>
+              </Popup.Content>
+            </Popup>
+            :
 
-                </Button>
-                :
-                <Button>
+            <Button>
 
-                </Button>
-          }
-        </div>
+            </Button>
+        }
+      </React.Fragment>
     );
   }
 }
