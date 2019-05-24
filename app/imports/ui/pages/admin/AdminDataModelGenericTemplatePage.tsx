@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
@@ -43,7 +43,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -72,14 +72,19 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
   }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = collection.getCollectionName();
-    const instance = inst.id;
+    const instance = this.state.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -96,6 +101,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
           timer: 1500,
         });
       }
+      this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
     });
   }
 
@@ -165,6 +171,7 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Generic?"/>
       </div>
     );
   }

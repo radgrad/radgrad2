@@ -32,6 +32,8 @@ export const courseNameToCourseDoc = (name) => Courses.findDoc({ shortName: name
 
 export const courseNameToSlug = (name) => Slugs.getNameFromID(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }).slugID);
 
+export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.getEntityID(slug, 'Course')));
+
 export const docToName = (doc) => doc.name;
 
 export const interestIdToName = (id) => Interests.findDoc(id).name;

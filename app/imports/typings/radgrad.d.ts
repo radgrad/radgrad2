@@ -24,6 +24,7 @@ export interface IDumpOne {
 export interface IAdminDataModelPageState {
   showUpdateForm: boolean;
   id: string;
+  confirmOpen: boolean;
 }
 
 export interface IPagination {

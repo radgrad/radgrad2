@@ -10,11 +10,13 @@ import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
-import { docToName } from '../shared/AdminDataModelHelperFunctions';
+import { ICourse, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { courseToName, docToName } from '../shared/AdminDataModelHelperFunctions';
+import { Courses } from '../../../api/course/CourseCollection';
 
 interface IAddCourseFormProps {
   interests: IInterest[];
+  courses: ICourse[];
   formRef: any;
   handleAdd: (doc) => any;
 }
@@ -27,6 +29,7 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const interestNames = _.map(this.props.interests, docToName);
+    const courseNames = _.map(this.props.courses, courseToName);
     const schema = new SimpleSchema({
       slug: String,
       name: String,
@@ -47,7 +50,8 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
         allowedValues: interestNames,
         // optional: true, CAM: not sure if we want this to be optional
       },
-      prerequisites: { type: String, optional: true },
+      prerequisites: { type: Array, optional: true },
+      'prerequisites.$': { type: String, allowedValues: courseNames },
     });
     return (
       <Segment padded={true}>
@@ -66,7 +70,7 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
           <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
           <Form.Group widths="equal">
             <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
-            <TextField name="prerequisites" placeholder="dept_101, dept_110"/>
+            <MultiSelectField name="prerequisites"/>
           </Form.Group>
           <SubmitField/>
         </AutoForm>
@@ -77,7 +81,9 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
 
 const AddCourseFormContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   return {
+    courses,
     interests,
   };
 })(AddCourseForm);

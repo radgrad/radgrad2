@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -12,7 +12,11 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { makeMarkdownLink } from './datamodel-utilities';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { courseToName, interestNameToId } from '../../components/shared/AdminDataModelHelperFunctions';
+import {
+  courseNameToSlug,
+  courseToName,
+  interestNameToId
+} from '../../components/shared/AdminDataModelHelperFunctions';
 import AddCourseForm from '../../components/admin/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import UpdateCourseForm from '../../components/admin/UpdateCourseForm';
@@ -60,7 +64,7 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -80,7 +84,7 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
     }
     definitionData.interests = interests;
     if (doc.prerequisites) {
-      definitionData.prerequisites = doc.prerequisites.split(/,\s*/g);
+      definitionData.prerequisites = _.map(doc.prerequisites, courseNameToSlug);
     }
     // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -104,14 +108,19 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
   }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = collection.getCollectionName();
-    const instance = inst.id;
+    const instance = this.state.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -128,6 +137,7 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
           timer: 1500,
         });
       }
+      this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
     });
   }
 
@@ -203,6 +213,7 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Course?"/>
       </div>
     );
   }

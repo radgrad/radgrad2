@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -11,11 +11,11 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
-    { label: 'Name', value: plan.name },
-    { label: 'Year', value: `${plan.year}` },
-    { label: 'Course Choices', value: `${plan.courseList}` },
-    { label: 'Retired', value: plan.retired ? 'True' : 'False' },
-  ];
+  { label: 'Name', value: plan.name },
+  { label: 'Year', value: `${plan.year}` },
+  { label: 'Course Choices', value: `${plan.courseList}` },
+  { label: 'Retired', value: plan.retired ? 'True' : 'False' },
+];
 
 const itemTitleString = (plan: IAcademicPlan): string => {
   const slug = Slugs.getNameFromID(plan.slugID);
@@ -23,12 +23,12 @@ const itemTitleString = (plan: IAcademicPlan): string => {
 };
 
 const itemTitle = (plan: IAcademicPlan): React.ReactNode => (
-    <React.Fragment>
-      {plan.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(plan)}
-    </React.Fragment>
-  );
+  <React.Fragment>
+    {plan.retired ? <Icon name="eye slash"/> : ''}
+    <Icon name="dropdown"/>
+    {itemTitleString(plan)}
+  </React.Fragment>
+);
 
 /**
  * The AcademicPlan data model page.
@@ -38,35 +38,42 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
   private handleAdd = (doc) => {
-    console.log(doc);
+    console.log('AcademicPlans.handleAdd(%o)', doc);
     // const collectionName;
     // const definitionData;
-  }
+  };
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
-  }
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+  };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
-    console.log('handleDelete inst=%o', inst);
-  }
+    console.log('handleDelete inst=%o state=%o', inst, this.state);
+    this.setState({ confirmOpen: true, id: inst.id });
+  };
+
+  private handleConfirmDelete = (event) => {
+    event.preventDefault();
+    console.log('handle confirm delete state=%o', this.state);
+    this.setState({ confirmOpen: false });
+  };
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
     this.setState({ showUpdateForm: true, id: inst.id });
-  }
+  };
 
   private handleUpdate = (doc) => {
     console.log(doc);
-  }
+  };
 
   public render() {
     const paddedStyle = {
@@ -104,6 +111,7 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Plan?"/>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon, Tab } from 'semantic-ui-react';
+import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
@@ -91,7 +91,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -142,13 +142,18 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
   };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    const profiles = Users.findProfiles({ _id: inst.id }, {});
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+    const profiles = Users.findProfiles({ _id: this.state.id }, {});
     if (profiles.length > 0) {
       const profile = profiles[0];
       let collectionName;
@@ -182,6 +187,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
             timer: 1500,
           });
         }
+        this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
       });
     }
   };
@@ -303,6 +309,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
             <Tab panes={panes} defaultActiveIndex={3}/>
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete User?"/>
       </div>
     );
   }

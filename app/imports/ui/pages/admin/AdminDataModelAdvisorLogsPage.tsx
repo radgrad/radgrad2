@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
@@ -41,8 +41,68 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
+  }
+
+  private handleAdd = (doc) => {
+    // console.log('handleAdd(%o)', doc);
+    const collectionName = AdvisorLogs.getCollectionName();
+    const definitionData = doc;
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Add succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.formRef.current.reset();
+      }
+    });
+  }
+
+  private handleCancel = (event) => {
+    event.preventDefault();
+    // console.log('formRef = %o', this.formRef);
+    this.formRef.current.reset();
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+  }
+
+  private handleDelete = (event, inst) => {
+    event.preventDefault();
+    // console.log('handleDelete inst=%o', inst);
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+    const collectionName = AdvisorLogs.getCollectionName();
+    const instance = this.state.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Delete succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // this.formRef.current.reset();
+        this.setState({ id: '', confirmOpen: false });
+      }
+    });
   }
 
   private handleOpenUpdate = (evt, inst) => {
@@ -75,60 +135,6 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
         });
         this.formRef.current.reset();
         this.setState({ showUpdateForm: false, id: '' });
-      }
-    });
-  }
-
-  private handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    const collectionName = AdvisorLogs.getCollectionName();
-    const instance = inst.id;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          type: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          type: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.formRef.current.reset();
-      }
-    });
-  }
-
-  private handleCancel = (event) => {
-    event.preventDefault();
-    // console.log('formRef = %o', this.formRef);
-    this.formRef.current.reset();
-    this.setState({ showUpdateForm: false, id: '' });
-  }
-
-  private handleAdd = (doc) => {
-    // console.log('handleAdd(%o)', doc);
-    const collectionName = AdvisorLogs.getCollectionName();
-    const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          type: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          type: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.formRef.current.reset();
       }
     });
   }
@@ -168,6 +174,7 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Advisor Log?"/>
       </div>
     );
   }

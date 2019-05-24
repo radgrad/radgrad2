@@ -102,7 +102,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
     // Define and return the new OpportunityInstance
-    console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
+    // console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
     const opportunityInstanceID = this.collection.insert({ termID, opportunityID, verified, studentID, sponsorID, ice, retired });
     return opportunityInstanceID;
   }

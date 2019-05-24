@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
@@ -50,7 +50,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -84,14 +84,19 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
     event.preventDefault();
     // console.log('formRef = %o', this.formRef);
     this.formRef.current.reset();
-    this.setState({ showUpdateForm: false, id: '' });
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
   }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = CareerGoals.getCollectionName();
-    const instance = inst.id;
+    const instance = this.state.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -108,6 +113,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           timer: 1500,
         });
       }
+      this.setState({ confirmOpen: false, id: '' });
     });
   }
 
@@ -179,6 +185,7 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?"/>
       </div>
     );
   }

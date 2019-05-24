@@ -42,7 +42,7 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 

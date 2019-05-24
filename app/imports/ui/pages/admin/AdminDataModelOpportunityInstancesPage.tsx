@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -30,11 +30,11 @@ const collection = OpportunityInstances; // the collection to use.
 const descriptionPairs = (item: any): IDescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
   { label: 'Opportunity', value: (Opportunities.findDoc(item.opportunityID)).name },
-  { label: 'Verified', value: item.verified.toString() },
+  { label: 'Verified', value: item.verified ? 'True' : 'False' },
   { label: 'Student', value: Users.getFullName(item.studentID) },
   {
-    label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, 
-        ${item.ice.e}`,
+    label: 'ICE', value: item.ice ? `${item.ice.i}, ${item.ice.c}, 
+        ${item.ice.e}` : '',
   },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
@@ -67,7 +67,7 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -111,14 +111,19 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
   };
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = collection.getCollectionName();
-    const instance = inst.id;
+    const instance = this.state.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -135,6 +140,7 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
           timer: 1500,
         });
       }
+      this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
     });
   };
 
@@ -206,6 +212,7 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity Instance?"/>
       </div>
     );
   }

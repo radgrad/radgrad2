@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
@@ -29,13 +29,13 @@ const collection = CourseInstances;
 const descriptionPairs = (item: any): IDescriptionPair[] => [
     { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
     { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
-    { label: 'Verified', value: item.verified.toString() },
-    { label: 'From Registrar', value: item.fromRegistrar.toString() },
+    { label: 'Verified', value: item.verified ? 'True' : 'False' },
+    { label: 'From Registrar', value: item.fromRegistrar ? 'True' : 'False' },
     { label: 'Grade', value: item.grade },
     { label: 'Credit Hours', value: `${item.creditHrs}` },
     { label: 'Note', value: item.note },
     { label: 'Student', value: Users.getFullName(item.studentID) },
-    { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
+    { label: 'ICE', value: item.ice ? `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` : '' },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
 
@@ -67,7 +67,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '' };
+    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -110,14 +110,19 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
+    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
   }
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
+    this.setState({ confirmOpen: true, id: inst.id });
+  }
+
+  private handleConfirmDelete = () => {
+    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = collection.getCollectionName();
-    const instance = inst.id;
+    const instance = this.state.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -134,6 +139,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
           timer: 1500,
         });
       }
+      this.setState({ id: '', confirmOpen: false });
     });
   }
 
@@ -206,6 +212,7 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
             />
           </Grid.Column>
         </Grid>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Course Instance?"/>
       </div>
     );
   }
