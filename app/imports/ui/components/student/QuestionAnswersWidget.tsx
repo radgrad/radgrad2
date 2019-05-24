@@ -22,7 +22,6 @@ class QuestionAnswersWidget extends React.Component<IQuestionAnswersWidgetProps>
       <div>
         {_.map(answers, (a, index) => {
           const mentor = MentorProfiles.findDoc({ userID: a.mentorID });
-          const answered = ' answered: ';
           return (
           <div key={index}>
             <Divider/>
@@ -30,9 +29,8 @@ class QuestionAnswersWidget extends React.Component<IQuestionAnswersWidgetProps>
               <List.Item>
                 <Image src={mentor.picture} size={'mini'}/>
                 <List.Content>
-                  <a href="#">{mentor.firstName} {mentor.lastName} </a>
+                  <a href="#">{mentor.firstName} {mentor.lastName} </a> answered:
                 </List.Content>
-                {answered}
               </List.Item>
             </List>
             <p>{a.text}</p>

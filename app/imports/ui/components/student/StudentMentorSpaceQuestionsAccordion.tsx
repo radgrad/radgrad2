@@ -45,7 +45,7 @@ class StudentMentorSpaceQuestionsAccordion extends React.Component<IStudentMento
     const { activeIndex } = this.state;
     const accordionStyle = {overflow: 'hidden',}
     return (
-      <div>0
+      <div>
         {_.map(this.props.questions, (q, ind) => (
           <Accordion fluid={true} styled={true} key={ind} style={accordionStyle}>
             <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
