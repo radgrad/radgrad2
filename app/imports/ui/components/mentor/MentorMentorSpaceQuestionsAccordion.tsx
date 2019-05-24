@@ -46,7 +46,7 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
     return (
       <div>
         {_.map(this.props.questions, (q, ind) => (
-          <Segment>
+          <Segment key={ind}>
             <Accordion fluid={true} styled={true} key={ind} style={accordionStyle}>
               <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
                 <Grid columns='equal'>
@@ -77,7 +77,6 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
 const MentorMentorSpaceQuestionsAccordionContainer = withTracker(() => {
   const questions = MentorQuestions.find().fetch();
   const answerCount = _.map(questions, (q) => {
-    console.log(q);
     return MentorAnswers.find({ questionID: q._id }).fetch().length;
   });
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', questions);
