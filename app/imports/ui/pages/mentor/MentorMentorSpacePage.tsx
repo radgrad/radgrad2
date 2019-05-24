@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
-import StudentMentorSpaceQuestionsAccordion from '../../components/student/StudentMentorSpaceQuestionsAccordion';
-import StudentMentorSpaceMentorDirectoryAccordion from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
+import StudentMentorSpaceMentorDirectoryAccordion
+  from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
+import MentorMentorSpaceQuestionsAccordion from '../../components/mentor/MentorMentorSpaceQuestionsAccordion';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
@@ -22,9 +23,7 @@ class MentorMentorSpacePage extends React.Component {
           </Grid.Row>
 
           <Grid.Column width={11}>
-            <Segment padded={true}>
-              <StudentMentorSpaceQuestionsAccordion/>
-            </Segment>
+            <MentorMentorSpaceQuestionsAccordion/>
           </Grid.Column>
 
           <Grid.Column width={5}>
