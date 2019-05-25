@@ -1,14 +1,16 @@
-import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Accordion, Grid, Icon, Loader, Message } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IHelpPanelWidgetProps {
-  ready: boolean;
-  helpText: string;
-  helpTitle: string;
+  match: {
+    path: string;
+    parameters: {
+      username: string;
+    }
+  }
 }
 
 interface IHelpPanelWidgetState {
@@ -20,6 +22,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
   constructor(props) {
     super(props);
+    // console.log('HelpPanelWidget props=%o', props);
   }
 
   private handleClick = (e, titleProps) => {
@@ -27,29 +30,27 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
     const { index } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-
     this.setState({ activeIndex: newIndex });
   }
 
   public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Help data</Loader>;
-  }
-
-  private renderPage() {
-    const helpText = `${this.props.helpText}
-#### Need more help?
+    console.log(this.props.match.path);
+    const helpMessage = HelpMessages.findDoc({ routeName: this.props.match.path });
+    console.log(helpMessage);
+    const helpText = `${helpMessage.text}
+    #### Need more help?
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).`;
-    return (this.props.helpText) ? (
+    return (helpText) ? (
       <Grid>
         <Grid.Column width={'sixteen'}>
           <Message info={true}>
             <Accordion>
               <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
                 <Icon name="dropdown"/>
-                <span>{this.props.helpTitle}</span>
+                <span>{helpMessage.title}</span>
               </Accordion.Title>
               <Accordion.Content active={this.state.activeIndex === 0}>
-                <Markdown escapeHtml={true} source={helpText}/>
+                <Markdown escapeHtml={false} source={helpText}/>
               </Accordion.Content>
             </Accordion>
           </Message>
@@ -59,26 +60,6 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
   }
 }
 
-const HelpPanelWidgetContainer = withTracker((props) => {
-  const sub = Meteor.subscribe(HelpMessages.getPublicationName());
-  let doc;
-  let helpTitle;
-  let helpText;
-  if (sub.ready()) {
-    try {
-      doc = HelpMessages.findDoc({ routeName: props.routeProps.pathname });
-      helpTitle = doc.title;
-      helpText = doc.text;
-    } catch (e) {
-      helpTitle = '';
-      helpText = '';
-    }
-  }
-  return {
-    ready: sub.ready(),
-    helpTitle,
-    helpText,
-  };
-})(HelpPanelWidget);
+const HelpPanelWidgetContainer = withRouter(HelpPanelWidget);
 
 export default HelpPanelWidgetContainer;
