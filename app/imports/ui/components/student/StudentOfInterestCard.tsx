@@ -1,7 +1,7 @@
 import * as React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Card, Header, Image, Button, Icon, SemanticCOLORS } from 'semantic-ui-react';
-import { withRouter, Link } from 'react-router-dom';
+import { Button, Card, Header, Icon, Image, SemanticCOLORS } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
@@ -81,11 +81,12 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     });
   }
 
-  // This was originally in a template-helpers.js file. Should move it to one if one is made - Gian.
+  // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
+  // Should move it to one if one is made - Gian.
   private opportunityTerms(opportunityInstance) {
     const academicTermIDs = opportunityInstance.semesterIDs;
-    const upcomingAcademicTerms = _.filter(academicTermIDs, semesterID => AcademicTerms.isUpcomingTerm(semesterID));
-    return _.map(upcomingAcademicTerms, semesterID => AcademicTerms.toString(semesterID));
+    const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
+    return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
   }
 
   private itemName = (item) => item.name;
@@ -202,10 +203,8 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberStudents(item);
     const interestedStudents = this.interestedStudents(item);
-
     const hidden = this.hidden() as SemanticCOLORS;
-    // console.log(`hidden ${hidden}`);
-    // console.log(`colored ${colored}`);
+
     return (
       <Card className="radgrad-interest-card">
         <Card.Content>
@@ -237,8 +236,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
         {/* FIXME: Missing a "Center aligned" attribute */}
         {
-          <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3}
-                        color={hidden || undefined}>
+          <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3} color={hidden || undefined}>
             <Link to={this.getRouteName(this.props.item, this.props.type)}>
               <Button><Icon name="chevron circle right"/><br/>View More</Button>
             </Link>

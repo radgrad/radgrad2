@@ -63,6 +63,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
           </Feed.Label>
           <Feed.Content style={{ marginTop: '0px' }}>
             <Feed.Summary>
+              {/* FIXME: Links are not being routed properly */}
               <Markdown escapeHtml={true} source={feed.description}/>
             </Feed.Summary>
 

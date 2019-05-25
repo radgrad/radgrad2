@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header, Segment, Card, Button, Icon } from 'semantic-ui-react';
+import { Button, Card, Header, Icon, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
@@ -279,16 +279,16 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
           inputValue={this.itemCount()}/>
         </Header>
 
-        {/* TODO: I'm not sure how to test if the particular code block below works because even on the original radgrad, I could not find anywhere on the website through Chrome Debugger where this piece of code is used. There were no "HIDDEN" texts anywhere or where the buttons would appear that has the color green with chevron icons. -Gian */}
         {
+          // TODO: Hiding and unhiding is not reactive
           hiddenExists ?
             [
               isHidden ?
-                <Button basic={true} color="green" size="mini" onClick={this.handleShowHidden}>
+                <Button key='one' basic={true} color="green" size="mini" onClick={this.handleShowHidden}>
                   <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>{type}</span>
                 </Button>
                 :
-                <Button basic={true} color="green" size="mini" onClick={this.handleHideHidden}>
+                <Button key='two' basic={true} color="green" size="mini" onClick={this.handleHideHidden}>
                   <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>{type}</span>
                 </Button>,
             ]

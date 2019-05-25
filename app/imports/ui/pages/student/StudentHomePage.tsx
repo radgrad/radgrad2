@@ -8,7 +8,6 @@ import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 
 // TODO: StudentHomeMenu: mobile version of the menu (dropdown)
-// TODO: Student Home Widget
 // TODO: Back to Top Button
 
 /** A simple static component to render some text for the landing page. */

@@ -34,9 +34,9 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   }
 
   public render() {
-    console.log(this.props.match.path);
+    // console.log(this.props.match.path);
     const helpMessage = HelpMessages.findDoc({ routeName: this.props.match.path });
-    console.log(helpMessage);
+    // console.log(helpMessage);
     const helpText = `${helpMessage.text}
     #### Need more help?
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).`;
