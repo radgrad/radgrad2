@@ -16,10 +16,9 @@ import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 /** A simple static component to render some text for the landing page. */
 class StudentHomePage extends React.Component {
   public render() {
-      // TODO: test
     return (
       <div className="layout-page">
-        <StudentPageMenuWidget/>
+         {/* <StudentPageMenuWidget/> */}
         <Grid stackable={true} verticalAlign="middle" textAlign="center" container={true}>
           <HelpPanelWidget/>
 

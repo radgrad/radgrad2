@@ -29,7 +29,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
   private yearSemesters = (year) => [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // const nextFourYears = this.nextYears(4);
+    const nextYears = this.nextYears(4);
 
     return (
       <React.Fragment>
@@ -42,7 +42,15 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
             }>
               {/* TODO: fluid popup transition hidden */}
               <Popup.Content>
-                <Menu size="mini" secondary={true}>
+                <Menu size="mini" secondary={true} vertical={true}>
+                  {
+                    nextYears.map((year, index) => (
+                      <React.Fragment key={index}>
+                        <Menu.Item />
+                      </React.Fragment>
+                    ))
+                  }
+                </Menu>
               </Popup.Content>
             </Popup>
             :
