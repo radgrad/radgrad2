@@ -20,7 +20,7 @@ interface IFacultyPageAboutMeWidgetProps {
     state: {
       id: 'not changed';
       website: string;
-      photoInput: string;
+      picture: string;
     }
   }
 }
@@ -38,7 +38,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     this.setState({[name]: value});
   };
 
-  private handleSubmitWebsite = () => {
+  private handleSubmitWebsite = (event) => {
     const username = this.props.match.params.username;
 //gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
@@ -48,21 +48,35 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     this.setState({id: 'changed'});
     console.log(this.state);
     console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
+    //updates faculty profile's website entry
     FacultyProfiles.update(facultyDoc._id, this.state);
     console.log(Users.getProfile(facultyDoc.userID));
-
-
+    //need to alert userif their update was sucessful
+    //also need to update the placeholder text
+    alert(event);
 
 // I want to assign this.state.websiteInput to the
-// FacultyProfiles.findDoc(this.props.match.params.username).website
   };
 
-  private handleSubmitPhoto = ({name, value}) => {
-    console.log('handle Submit Photos');
+  private handleSubmitPhoto = (event) => {
+    const username = this.props.match.params.username;
+//gets the doc object containing information on desired profile based on username
+    const facultyDoc = FacultyProfiles.findDoc(username);
+//gets the user ID based on the username
+    const facultyUserID = facultyDoc.userID;
+    console.log('handle Submit Photo');
     this.setState({id: 'changed'});
     console.log(this.state);
+    console.log(FacultyProfiles.findDoc(this.props.match.params.username).picture);
+    //updates faculty profile's website entry
+    FacultyProfiles.update(facultyDoc._id, this.state);
+    console.log(Users.getProfile(facultyDoc.userID));
+    //need to alert userif their update was sucessful
+    //also need to update the placeholder text
+    alert(event);
   };
 
+  //private method to call the picture uploader
   private ImageUpload = () => {
 
   }
@@ -88,7 +102,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 //map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
 //M: should make it so that you reference the doc and then the name rather than the doc directly
-
 //gets the url from the faculty profile's information
 //url is made up of: role/username/explorer/CareerOrInterests
     let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
@@ -184,11 +197,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form className='uploadPicture' success>
+              <Form onSubmit={this.handleSubmitPhoto} success>
                 <Form.Group>
                   <Form.Input
                     onChange={this.handleChange} width={10}
-                    name='photoInput'
+                    name='picture'
                     placeholder={facultyUserProfile.picture}/>
                   <Form.Button content='Update'/>
                 </Form.Group>
