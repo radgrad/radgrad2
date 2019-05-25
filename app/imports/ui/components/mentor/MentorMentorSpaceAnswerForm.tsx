@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 import { _ } from "meteor/erasaur:meteor-lodash";
 import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
+import { defineMethod, updateMethod, removeItMethod } from "../../../api/base/BaseCollection.methods";
 
 interface IMentorMentorSpaceAnswerFormState {
   activeIndex: number;
@@ -21,6 +22,34 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
   constructor(props) {
     super(props);
     this.state = { activeIndex: -1 };
+  }
+
+  private handleSubmit = (doc) => {
+    doc.preventDefault();
+    const answer = doc.target.msanswer.value;
+    const question = this.props.question._id;
+    const collectionName = MentorAnswers.getCollectionName();
+    const newAnswer = { question, mentor: getUserIdFromRoute(), text: answer };
+    const existingAnswers = MentorAnswers.find({ questionID: question, mentorID: getUserIdFromRoute() }).fetch();
+    const answerExists = (existingAnswers.length > 0);
+    if (answerExists) {
+      newAnswer.id = existingAnswers[0]._id;
+      updateMethod.call({ collectionName, updateData: newAnswer }, (error) => {
+        if (error) console.log('error in MentorAnswers.update', error);
+      });
+    } else {
+      defineMethod.call({ collectionName, definitionData: newAnswer }, (error) => {
+        if (error) console.log('error in MentorAnswers.define', error);
+      });
+    }
+  }
+
+  private handleDelete = (doc) => {
+    doc.preventDefault();
+    const questionID = this.props.question._id;
+    const collectionName = MentorAnswers.getCollectionName();
+    const instance = MentorAnswers.findDoc({ questionID, mentorID: getUserIdFromRoute() })._id;
+    removeItMethod.call({ collectionName, instance });
   }
 
   public handleClick = (e, titleProps) => {
@@ -41,16 +70,16 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
           const mentor = MentorProfiles.findDoc({ userID: a.mentorID });
           return (
             <Accordion fluid={true} styled={true} style={accordionStyle} key={ind}>
-              <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
+              <Accordion.Title active={activeIndex === ind} index={ind}>
                 <Icon name="dropdown"/> {`Add or update your answer (markdown supported)`}
               </Accordion.Title>
               <Accordion.Content active={activeIndex === ind}>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                   <Form.TextArea value={a.text} style={{ minHeight: 175 }}/>
                 </Form><br/>
                 <Grid.Row>
-                  <Button basic color='green' content='Submit'/>
-                  <Button basic color='red' content='Delete'/>
+                  <Button basic color='green' content='Submit'onClick={this.handleSubmit}/>
+                  <Button basic color='red' content='Delete' onClick={this.handleDelete}/>
                 </Grid.Row>
               </Accordion.Content>
             </Accordion>
