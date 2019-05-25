@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
@@ -24,6 +23,7 @@ class StudentHomePage extends React.Component {
 
           <Grid.Column width={2}>
             <StudentHomeMenu/>
+
           </Grid.Column>
 
           <Grid.Column width={14}>

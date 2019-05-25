@@ -263,6 +263,9 @@ class OpportunityInstanceCollection extends BaseCollection {
         new SimpleSchema({
           studentID: { type: String },
         }).validate({ studentID });
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {
+          return instance.collection.find();
+        }
         return instance.collection.find({ studentID });
       });
       Meteor.publish(this.publicationNames.publicStudent, function publicStudent() {
@@ -284,6 +287,15 @@ class OpportunityInstanceCollection extends BaseCollection {
       });
     }
   }
+
+  /**
+   * Gets the publication names.
+   * @returns {{student: string; perStudentAndAcademicTerm: string; publicStudent: string; publicSlugStudent: string; studentID: string}}
+   */
+  public getPublicationNames() {
+    return this.publicationNames;
+  }
+
 
   /**
    * @returns {String} This opportunity instance, formatted as a string.

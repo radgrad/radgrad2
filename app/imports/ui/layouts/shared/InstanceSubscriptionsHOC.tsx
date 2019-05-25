@@ -39,6 +39,7 @@ function withInstanceSubscriptions(WrappedComponent) {
     if (Meteor.userId()) { // if logged out don't subscribe
       handles.push(instanceSubs.subscribe(AcademicYearInstances.publicationNames.PerStudentID, Meteor.userId()));
       handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, Meteor.userId()));
+      handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationNames().studentID, Meteor.userId()));
     }
     handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName()));
     handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.publicStudent));

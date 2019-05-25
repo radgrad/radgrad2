@@ -359,7 +359,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      const instance = this; // tslint:disable-line: no-this-assignment
+      const instance = this;
       Meteor.publish(this.publicationNames.student, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
@@ -394,6 +394,15 @@ class CourseInstanceCollection extends BaseCollection {
                   { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }] } } },
           { $project: { studentID: 1, termID: 1, courseID: 1 } },
         ]);
+        // verified: Boolean,
+        //   fromRegistrar: { type: Boolean, optional: true },
+        // grade: { type: String, optional: true },
+        // creditHrs: Number,
+        //   note: { type: String, optional: true },
+        // studentID: SimpleSchema.RegEx.Id,
+        //   ice: { type: iceSchema, optional: true },
+        // retired: { type: Boolean, optional: true },
+        //
         // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
       // tslint:disable-next-line: ter-prefer-arrow-callback
