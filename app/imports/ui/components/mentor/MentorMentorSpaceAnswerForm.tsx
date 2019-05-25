@@ -35,28 +35,27 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
     const { activeIndex } = this.state;
     const accordionStyle = { overflow: 'hidden' };
     const answer = _.filter(this.props.answer, (ans) => ans.questionID === this.props.question._id);
-    console.log("MentorMentor answer: ", answer);
     return (
       <div>
-      {_.map(answer, (a, ind) => {
+        {_.map(answer, (a, ind) => {
           const mentor = MentorProfiles.findDoc({ userID: a.mentorID });
           return (
-        <Accordion fluid={true} styled={true} style={accordionStyle} key={ind}>
-          <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
-            <Icon name="dropdown"/> {`Add or update your answer (markdown supported)`}
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === ind}>
-            <Form>
-              <Form.TextArea value={a.text}/>
-            </Form><br/>
-            <Grid.Row>
-              <Button basic color='green' content='Submit'/>
-              <Button basic color='red' content='Delete'/>
-            </Grid.Row>
-          </Accordion.Content>
-        </Accordion>
+            <Accordion fluid={true} styled={true} style={accordionStyle} key={ind}>
+              <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
+                <Icon name="dropdown"/> {`Add or update your answer (markdown supported)`}
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === ind}>
+                <Form>
+                  <Form.TextArea value={a.text} style={{ minHeight: 175 }}/>
+                </Form><br/>
+                <Grid.Row>
+                  <Button basic color='green' content='Submit'/>
+                  <Button basic color='red' content='Delete'/>
+                </Grid.Row>
+              </Accordion.Content>
+            </Accordion>
           );
-      })}
+        })}
       </div>
     );
   }

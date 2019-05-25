@@ -29,7 +29,6 @@ class StudentMentorSpaceMentorDirectoryAccordion extends React.Component<IStuden
 
   public render() {
     const { activeIndex } = this.state;
-    console.log(this.props.profiles);
     return (
       <div>
         {_.map(this.props.profiles, (p, ind) => {
