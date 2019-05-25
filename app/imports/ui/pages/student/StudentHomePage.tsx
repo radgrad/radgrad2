@@ -5,10 +5,9 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeWidget from '../../components/student/StudentHomeWidget';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 
-// TODO: StudentHomeMenu: the different pages for each menu item
 // TODO: StudentHomeMenu: mobile version of the menu (dropdown)
-// TODO: HelpPanelWidget
 // TODO: Student Home Widget
 // TODO: Back to Top Button
 
@@ -17,13 +16,12 @@ class StudentHomePage extends React.Component {
   public render() {
     return (
       <div className="layout-page">
-         {/* <StudentPageMenuWidget/> */}
+        <StudentPageMenuWidget/>
         <Grid stackable={true} verticalAlign="middle" textAlign="center" container={true}>
           <HelpPanelWidget/>
 
           <Grid.Column width={2}>
             <StudentHomeMenu/>
-
           </Grid.Column>
 
           <Grid.Column width={14}>

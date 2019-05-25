@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Label } from 'semantic-ui-react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -49,7 +49,7 @@ class InterestList extends React.Component<IInterestListProps> {
       });
     });
     return matchingInterests;
-  };
+  }
 
   private matchingCareerInterests = (course) => {
     try {
@@ -57,7 +57,7 @@ class InterestList extends React.Component<IInterestListProps> {
     } catch (err) {
       return null;
     }
-  };
+  }
 
   private matchingCareerInterestsHelper = (item) => {
     const matchingInterests = [];
@@ -122,7 +122,7 @@ class InterestList extends React.Component<IInterestListProps> {
     }
   }
 
-  private interestSlug = (interest) => Slugs.findDoc(interest.slugID).name
+  private interestSlug = (interest) => Slugs.findDoc(interest.slugID).name;
 
   public render():
     React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

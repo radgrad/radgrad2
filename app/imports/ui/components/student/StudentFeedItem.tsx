@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Feed, Image, Divider } from 'semantic-ui-react';
-import * as showdown from 'showdown';
+import * as Markdown from 'react-markdown';
+import { Divider, Feed, Image } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
@@ -50,13 +50,9 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     return ret;
   }
 
-  // TODO: Fix markdown to html conversion
-  private markdownify = (text: string) => new showdown.Converter().makeHtml(text);
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { feed }: any = this.props;
     const feedPicture = this.getFeedPicture(feed);
-    // const feedDescription = this.markdownify(feed.description);
     const multipleUsers: boolean = this.multipleUsers(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
@@ -67,8 +63,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
           </Feed.Label>
           <Feed.Content style={{ marginTop: '0px' }}>
             <Feed.Summary>
-              {/* {feedDescription} */}
-              {feed.description}
+              <Markdown escapeHtml={true} source={feed.description}/>
             </Feed.Summary>
 
             <Feed.Extra text={true}>
