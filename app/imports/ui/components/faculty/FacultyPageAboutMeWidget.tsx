@@ -18,48 +18,54 @@ interface IFacultyPageAboutMeWidgetProps {
       url: string;
     },
     state: {
+      id: 'not changed';
       website: string;
-      submittedWebsite: string;
-      photo: string;
-      submittedPhoto: string;
+      photoInput: string;
     }
   }
 }
 
 class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
   //call the props constructor
-  constructor(props) {
+  constructor(props: any) {
     super(props);
   }
 
   //react.sematic-ui.com
   private handleChange = (event, {name, value}) => {
     console.log('handle change');
-    console.log(event);
+    console.log(event, {name, value});
     this.setState({[name]: value});
+  };
+
+  private handleSubmitWebsite = () => {
+    const username = this.props.match.params.username;
+//gets the doc object containing information on desired profile based on username
+    const facultyDoc = FacultyProfiles.findDoc(username);
+//gets the user ID based on the username
+    const facultyUserID = facultyDoc.userID;
+    console.log('handle Submit Website');
+    this.setState({id: 'changed'});
+    console.log(this.state);
+    console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
+    FacultyProfiles.update(facultyDoc._id, this.state);
+    console.log(Users.getProfile(facultyDoc.userID));
+
+
+
+// I want to assign this.state.websiteInput to the
+// FacultyProfiles.findDoc(this.props.match.params.username).website
+  };
+
+  private handleSubmitPhoto = ({name, value}) => {
+    console.log('handle Submit Photos');
+    this.setState({id: 'changed'});
     console.log(this.state);
   };
 
-  private handleSubmit = () => {
-    console.log('handle submit');
+  private ImageUpload = () => {
 
-    const {website, photo} = this.state;
-    this.setState({submittedWebsite: website, submittedPhoto: photo});
-    console.log(this.state);
-
-    switch (this.state) {
-      case 'website':
-        Users.getProfile(this.props.match.params.username).website = this.state;
-        console.log(Users.getProfile(this.props.match.params.username).website);
-        console.log('handle submit website')
-        break;
-      case 'photo':
-        Users.getProfile(this.props.match.params.username).photo = this.state;
-        console.log(Users.getProfile(this.props.match.params.username).photo);
-        console.log('handle submit photo');
-        break;
-    }
-  };
+  }
 
   public render() {
     const username = this.props.match.params.username;
@@ -163,7 +169,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Website</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form onSubmit={this.handleSubmit} success>
+              <Form onSubmit={this.handleSubmitWebsite} success>
                 <Form.Group>
                   <Form.Input width={10}
                               name='website'
@@ -175,13 +181,15 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Picture(<a id="image-upload-widget">Upload</a>)</Header>
+
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form onSubmit={this.handleSubmit} className='uploadPicture' success>
+              <Form className='uploadPicture' success>
                 <Form.Group>
-                  <Form.Input onChange={this.handleChange} width={10}
-                              name='photo'
-                              placeholder={facultyUserProfile.picture}/>
+                  <Form.Input
+                    onChange={this.handleChange} width={10}
+                    name='photoInput'
+                    placeholder={facultyUserProfile.picture}/>
                   <Form.Button content='Update'/>
                 </Form.Group>
               </Form>
