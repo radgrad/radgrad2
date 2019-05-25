@@ -131,7 +131,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Name</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              {Users.getFullName(facultyDoc)}
+              <Header as='h5' textAlign='left'>{Users.getFullName(facultyDoc)}</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Email</Header>
@@ -146,14 +146,12 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Interests</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Grid>
-                <Grid.Row textAlign='left'>
-                  <Label.Group>
+              <Grid celled>
+                  <Grid.Row textAlign='left'>
                     {_.map(facultyInterests, (interests, index) =>
                       <Label size='small' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
                     )}
-                  </Label.Group>
-                </Grid.Row>
+                  </Grid.Row>
                 <Grid.Row>
                   <Link to={exploreRoute}>Edit in Interest Explorer</Link>
                 </Grid.Row>
@@ -163,8 +161,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Career Goals</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Grid>
-                <Grid.Row>
+              <Grid celled>
+                <Grid.Row divided textAlign='left'>
                   <Label.Group>
                     {_.map(facultyCareerGoals, (careerGoals, index) =>
                       <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
@@ -194,7 +192,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Picture(<a id="image-upload-widget">Upload</a>)</Header>
-
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
               <Form onSubmit={this.handleSubmitPhoto} success>
