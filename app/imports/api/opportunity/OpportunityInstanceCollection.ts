@@ -137,7 +137,6 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param docID The docID of the opportunity instance.
    */
   public removeIt(docID: string) {
-    console.log('OpportunityInstance.removeIt(%o)', docID);
     this.assertDefined(docID);
     // find any VerificationRequests associated with docID and remove them.
     const requests = VerificationRequests.find({ opportunityInstanceID: docID })
