@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
-import { Segment, Container, Header, Card, Button, Icon } from 'semantic-ui-react';
+import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -124,12 +124,10 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
 
                           {
                             teaser.opportunityID ?
-                              <Link to={this.opportunitiesRouteName(teaser)}>
-                                <Button attached="bottom">
-                                  <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
-                                  More
-                                </Button>
-                              </Link>
+                              <Button as={NavLink} exact={true} to={this.opportunitiesRouteName(teaser)}
+                                      attached="bottom">
+                                <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View More
+                              </Button>
                               : ''
                           }
                         </Card>

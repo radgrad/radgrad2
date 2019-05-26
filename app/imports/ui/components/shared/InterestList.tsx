@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Label } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -134,11 +134,9 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           matchingUserInterests.map((interest, index) => (
             <div key={index}>
-              <Link to={this.interestsRouteName(interest)}>
-                <Label size={this.props.size}>
-                  <i className="fitted star icon"/> {this.interestName(interest)}
-                </Label>
-              </Link>
+              <Label as={NavLink} exact={true} to={this.interestsRouteName(interest)} size={this.props.size}>
+                <i className="fitted star icon"/> {this.interestName(interest)}
+              </Label>
             </div>
           ))
         }
@@ -146,11 +144,9 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           matchingCareerInterests.map((interest, index) => (
             <div key={index}>
-              <Link to={this.interestsRouteName(interest)}>
-                <Label size={this.props.size}>
-                  <i className="fitted suitcase icon"/> {this.interestName(interest)}
-                </Label>
-              </Link>
+              <Label as={NavLink} exact={true} to={this.interestsRouteName(interest)} size={this.props.size}>
+                <i className="fitted suitcase icon"/> {this.interestName(interest)}
+              </Label>
             </div>
           ))
         }
@@ -158,11 +154,9 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           otherInterests.map((interest, index) => (
             <div key={index}>
-              <Link to={this.interestsRouteName(interest)}>
-                <Label size={this.props.size}>
-                  {this.interestName(interest)}
-                </Label>
-              </Link>
+              <Label as={NavLink} exact={true} to={this.interestsRouteName(interest)} size={this.props.size}>
+                {this.interestName(interest)}
+              </Label>
             </div>
           ))
         }
