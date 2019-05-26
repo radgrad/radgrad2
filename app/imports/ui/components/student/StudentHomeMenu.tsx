@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Menu, Responsive } from 'semantic-ui-react';
 
 interface IStudentHomeMenuProps {
@@ -43,8 +43,6 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
     const routeName = splitUrl[splitUrl.length - 1];
     console.log(routeName);
     switch (routeName) {
-      case 'home':
-        return 'Home';
       case 'aboutme':
         return 'About Me';
       case 'ice':
@@ -54,50 +52,42 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
       case 'log':
         return 'Advisor Log';
       default:
-        return 'Menu';
+        return 'Home';
     }
   }
 
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const username = this.props.match.params.username;
-    // TODO: Mobile version
-    // const menuMobileOptions = [
-    //   {
-    //     key: 'Home',
-    //     text: 'Home',
-    //     value: 'Home',
-    //   },
-    // ];
+    const studentPageRouteNames = ['Home', 'About Me', 'ICE Points', 'Levels', 'Advisor Log'];
+    const studentPageRouteUrls = ['', 'aboutme', 'ice', 'levels', 'log'];
+    const menuMobileOptions = studentPageRouteNames.map((name, index) => ({
+      key: name,
+      text: name,
+      as: NavLink,
+      exact: true,
+      to: `/student/${username}/home/${studentPageRouteUrls[index]}`,
+      style: { textDecoration: 'none' },
+    }));
 
     return (
       <React.Fragment>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           <Menu vertical={true} text={true}>
-            <Menu.Item active={this.isActiveRoute('home') ? true : undefined}><Link
-              to={`/student/${username}/home`}>Home </Link></Menu.Item>
-            <Menu.Item active={this.isActiveRoute('aboutme') ? true : undefined}><Link
-              to={`/student/${username}/home/aboutme`}>About Me</Link></Menu.Item>
-            <Menu.Item active={this.isActiveRoute('ice') ? true : undefined}><Link to={`/student/${username}/home/ice`}>ICE
-              Points</Link></Menu.Item>
-            <Menu.Item active={this.isActiveRoute('levels') ? true : undefined}><Link
-              to={`/student/${username}/home/levels`}>Level</Link></Menu.Item>
-            <Menu.Item active={this.isActiveRoute('log') ? true : undefined}><Link to={`/student/${username}/home/log`}>Advisor
-              Log</Link></Menu.Item>
+            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home`}
+                       className={this.isActiveRoute('home') ? 'active item' : undefined}>Home</Menu.Item>
+            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/aboutme`}
+                       className={this.isActiveRoute('aboutme') ? 'active item' : undefined}>About Me</Menu.Item>
+            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/ice`}
+                       className={this.isActiveRoute('ice') ? 'active item' : undefined}>ICE Points</Menu.Item>
+            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/levels`}
+                       className={this.isActiveRoute('levels') ? 'active item' : undefined}>Levels</Menu.Item>
+            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/log`}
+                       className={this.isActiveRoute('log') ? 'active item' : undefined}>Advisor Log </Menu.Item>
           </Menu>
         </Responsive>
 
         <Responsive {...Responsive.onlyMobile}>
-          <Dropdown selection={true} fluid={true} icon="dropdown">
-            <span>{this.getRouteName()}</span>
-            <Menu>
-              <Menu.Item><Link to={`/student/${username}/home`}>Home </Link></Menu.Item>
-              <Menu.Item><Link to={`/student/${username}/home/aboutme`}>About Me</Link></Menu.Item>
-              <Menu.Item><Link to={`/student/${username}/home/ice`}>ICE Points</Link></Menu.Item>
-              <Menu.Item><Link to={`/student/${username}/home/levels`}>Level</Link></Menu.Item>
-              <Menu.Item><Link to={`/student/${username}/home/log`}>Advisor Log</Link></Menu.Item>
-            </Menu>
-          </Dropdown>
+          <Dropdown selection={true} fluid={true} options={menuMobileOptions} text={this.getRouteName()}/>
         </Responsive>
       </React.Fragment>
     );
