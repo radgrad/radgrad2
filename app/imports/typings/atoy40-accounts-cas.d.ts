@@ -1,2 +1,0 @@
-// tslint:disable
-// tslint:enable

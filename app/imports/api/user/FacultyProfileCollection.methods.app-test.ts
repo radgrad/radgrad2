@@ -5,7 +5,6 @@ import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } 
 
 /* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
 /* eslint-env mocha */
-/* tslint:disable:ter-prefer-arrow-callback no-unused-expression only-arrow-functions */
 
 if (Meteor.isClient) {
   describe('FacultyProfileCollection Meteor Methods ', function test() {

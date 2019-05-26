@@ -106,7 +106,6 @@ class AdvisorLogCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619

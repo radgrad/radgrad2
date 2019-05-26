@@ -6,7 +6,7 @@ import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection'
 interface IFutureCourseEnrollmentWidgetState {
   data?: {
     courseID: string;
-    enrollmentData: (string | number)[][]; // tslint:disable-line: array-type
+    enrollmentData: (string | number)[][];
   };
 }
 

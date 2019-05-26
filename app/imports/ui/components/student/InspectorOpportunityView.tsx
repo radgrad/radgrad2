@@ -58,7 +58,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
       student,
       opportunityInstance: oi._id,
     };
-    const inst = this; // tslint:disable-line: no-this-assignment
+    const inst = this;
     console.log(inst.props);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
@@ -73,7 +73,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
     const oi = OpportunityInstances.findDoc(value);
     const collectionName = OpportunityInstances.getCollectionName();
     const instance = value;
-    const inst = this; // tslint:disable-line: no-this-assignment
+    const inst = this;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         console.error(`Remove opportunityInstance ${instance} failed`, error);

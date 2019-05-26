@@ -311,7 +311,6 @@ class PublicStatsCollection extends BaseCollection {
 
   public generateStats() {
     if (!(Meteor.isTest || Meteor.isAppTest)) {
-      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       _.forEach(this.stats, (key) => {
         instance[key]();

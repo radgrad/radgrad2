@@ -441,7 +441,7 @@ class StudentProfileCollection extends BaseProfileCollection {
 
   public publish() {
     if (Meteor.isServer) {
-      const inst = this; // tslint:disable-line:no-this-assignment
+      const inst = this;
       Meteor.publish(this.collectionName, function () {
         const userID = Meteor.userId();
         ReactiveAggregate(this, inst.collection, [{

@@ -376,7 +376,6 @@ class CourseInstanceCollection extends BaseCollection {
           }).validate({ studentID, termID });
           return instance.collection.find({ studentID, termID });
         });
-      // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
         const userID = Meteor.userId();
         const willingToShare = [];
@@ -404,7 +403,6 @@ class CourseInstanceCollection extends BaseCollection {
         //
         // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
-      // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) { // eslint-disable-line meteor/audit-argument-checks
         // check the courseID.
         const slug = Slugs.findDoc({ name: courseSlug });
@@ -416,7 +414,6 @@ class CourseInstanceCollection extends BaseCollection {
 
         return instance.collection.find({ courseID }, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
-      // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         new SimpleSchema({
           studentID: { type: String },

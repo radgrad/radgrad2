@@ -100,7 +100,6 @@ class ReviewCollection extends BaseSlugCollection {
     if (reviewType === this.COURSE) {
       revieweeID = Courses.getID(reviewee);
       if (!slug) {
-        // tslint:disable: no-parameter-reassignment
         slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
       }
     } else if (reviewType === this.OPPORTUNITY) {

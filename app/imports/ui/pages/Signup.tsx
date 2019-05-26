@@ -73,7 +73,7 @@ export default class Signup extends React.Component<object, ISignupState> {
               <Message>
                 Already have an account? Login <Link to="/signin">here</Link>
               </Message>
-              {this.state.error === '' ? ( // tslint:disable-line
+              {this.state.error === '' ? (
                   ''
               ) : (
                   <Message

@@ -183,7 +183,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      const instance = this; // tslint:disable-line: no-this-assignment
+      const instance = this;
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();

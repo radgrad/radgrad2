@@ -408,7 +408,6 @@ class FeedCollection extends BaseCollection {
    */
   public checkPastDayFeed(feedType: string, opportunity?: string, timestamp: any = moment().toDate()) {
     let ret = '';
-    // tslint:disable-next-line: no-this-assignment
     const instance = this;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {
       if (withinPastDay(feed, timestamp)) {
@@ -433,7 +432,6 @@ class FeedCollection extends BaseCollection {
 
   public checkPastDayLevelFeed(level, timestamp = moment().toDate()) {
     let ret = '';
-    // tslint:disable-next-line: no-this-assignment
     const instance = this;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {
       if (withinPastDay(feed, timestamp)) {
