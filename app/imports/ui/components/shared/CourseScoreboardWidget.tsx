@@ -36,7 +36,7 @@ class CourseScoreboardWidget extends React.Component<ICourseScoreboardWidgetProp
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Course</Table.HeaderCell>
-              {_.map(this.props.terms, (term) => (<Table.HeaderCell key={term._id} collapsing={true}>{AcademicTerms.toString(term._id, false)}</Table.HeaderCell>))}
+              {_.map(this.props.terms, (term) => (<Table.HeaderCell key={term._id} collapsing={true}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -59,7 +59,7 @@ class CourseScoreboardWidget extends React.Component<ICourseScoreboardWidgetProp
 }
 
 const CourseScoreboardWidgetContainer = withTracker(() => {
-  const courses = Courses.findNonRetired({}, { sort: { num: 1 } });
+  const courses = Courses.findNonRetired({ num: { $ne: 'other' } }, { sort: { num: 1 } });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, { sort: { termNumber: 1 } });
   const scores = CourseScoreboard.find().fetch();
