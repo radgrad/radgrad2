@@ -107,6 +107,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param interests An array of interests. (optional)
    * @param careerGoals An array of career goals. (optional)
    * @param level An integer between 1 and 6 indicating the student's level.
+   * @param retired boolean. (optional defaults to false)
    * @param academicPlan An optional slug indicating the academic plan.
    * @param declaredAcademicTerm An optional string indicating the student's declared academic term.
    * @param hiddenCourses An optional array of course slugs indicating the hidden ones.

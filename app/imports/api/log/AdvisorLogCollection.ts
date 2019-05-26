@@ -49,10 +49,10 @@ class AdvisorLogCollection extends BaseCollection {
    * @param student The student's username.
    * @param text The contents of the session.
    */
-  public define({ advisor, student, text, createdOn = moment().toDate() }: IAdvisorLogDefine) {
+  public define({ advisor, student, text, createdOn = moment().toDate(), retired = false }: IAdvisorLogDefine) {
     const advisorID = Users.getID(advisor);
     const studentID = Users.getID(student);
-    return this.collection.insert({ advisorID, studentID, text, createdOn });
+    return this.collection.insert({ advisorID, studentID, text, createdOn, retired });
   }
 
   public update(docID: string, { text, retired }: IAdvisorLogUpdate) {
@@ -150,7 +150,8 @@ class AdvisorLogCollection extends BaseCollection {
     const advisor = Users.getProfile(doc.advisorID).username;
     const text = doc.text;
     const createdOn = doc.createdOn;
-    return { student, advisor, text, createdOn };
+    const retired = doc.retired;
+    return { student, advisor, text, createdOn, retired };
   }
 }
 

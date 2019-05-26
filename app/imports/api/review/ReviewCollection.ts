@@ -74,7 +74,8 @@ class ReviewCollection extends BaseSlugCollection {
    *                 comments: 'This class is great!',
    *                 moderated: false,
    *                 visible: true,
-   *                 moderatedComments: 'sample comments here'});
+   *                 moderatedComments: 'sample comments here',
+   *                 retired: false});
    * @param { Object } description Object with keys slug, student, reviewee,
    * reviewType,academicTerm, rating, comments, moderated, public, and moderatorComments.
    * Slug is optional. If supplied, must not be previously defined.
@@ -89,7 +90,7 @@ class ReviewCollection extends BaseSlugCollection {
    * undefined reviewee, undefined academicTerm, or invalid rating.
    * @returns The newly created docID.
    */
-  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired }: IReviewDefine) {
+  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired = false }: IReviewDefine) {
     // Validate student, get studentID.
     const studentID = Users.getID(student);
     Users.assertInRole(studentID, [ROLE.STUDENT, ROLE.ALUMNI]);

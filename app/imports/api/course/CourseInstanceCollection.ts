@@ -103,7 +103,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
+  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs, retired = false }: ICourseInstanceDefine) {
     // Check arguments
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -132,7 +132,6 @@ class CourseInstanceCollection extends BaseCollection {
       /* eslint-disable-next-line no-param-reassign */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
-    const retired = false;
     // Define and return the CourseInstance
     return this.collection.insert({
       termID,
@@ -506,7 +505,8 @@ class CourseInstanceCollection extends BaseCollection {
     const grade = doc.grade;
     const fromRegistrar = doc.fromRegistrar;
     const student = Users.getProfile(doc.studentID).username;
-    return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student };
+    const retired = doc.retired;
+    return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student, retired };
   }
 }
 

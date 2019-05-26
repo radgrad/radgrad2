@@ -91,7 +91,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the term or year are not correctly specified.
    * @returns The docID for this academicTerm instance.
    */
-  public define({ term, year }: IAcademicTermDefine) {
+  public define({ term, year, retired = false }: IAcademicTermDefine) {
     // Check that term and year are valid.
     if (this.terms.indexOf(term) < 0) {
       throw new Meteor.Error(`Invalid term: ${term}`);
@@ -138,7 +138,7 @@ class AcademicTermCollection extends BaseSlugCollection {
       throw new Meteor.Error(`Slug is already defined for undefined AcademicTerm: ${slug}`);
     }
     const slugID = Slugs.define({ name: slug, entityName: 'AcademicTerm' });
-    const termID = this.collection.insert({ term, year, termNumber, slugID });
+    const termID = this.collection.insert({ term, year, termNumber, slugID, retired });
     Slugs.updateEntityID(slugID, termID);
     return termID;
   }

@@ -63,7 +63,7 @@ class TeaserCollection extends BaseSlugCollection {
    *                 author: 'Torlief Nielson'
    *                 url: 'https://www.youtube.com/watch?v=OI4CXULK3tw'
    *                 description: 'Learn web development by helping to develop and maintain the ACM Manoa website.',
-   *                 duration: '0:39'
+   *                 duration: '0:39',
    *                 })
    * @param { Object } description Object with keys title, slug, URL, description, duration. interestIDs.
    * Title is a required string.
@@ -78,7 +78,7 @@ class TeaserCollection extends BaseSlugCollection {
    * if the slug is already defined, or if the opportunity is supplied and not found.
    * @returns The newly created docID.
    */
-  public define({ title, slug, author, url, description, duration, interests, opportunity, retired }: ITeaserDefine) {
+  public define({ title, slug, author, url, description, duration, interests, opportunity, retired = false }: ITeaserDefine) {
     // Get InterestIDs, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.

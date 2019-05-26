@@ -75,7 +75,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
 
-  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired }: IOpportunityInstanceDefine) {
+  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired = false }: IOpportunityInstanceDefine) {
     // Validate academicTerm, opportunity, verified, and studentID
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
