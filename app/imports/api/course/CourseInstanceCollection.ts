@@ -13,6 +13,7 @@ import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { StudentProfiles } from '../user/StudentProfileCollection';
+import { CourseScoreboardName } from '../../startup/both/names';
 
 /**
  * Represents the taking of a course by a specific student in a specific academicTerm.
@@ -27,6 +28,7 @@ class CourseInstanceCollection extends BaseCollection {
     publicStudent: string;
     publicSlugStudent: string;
     studentID: string;
+    scoreboard: string;
   };
 
   /**
@@ -53,6 +55,7 @@ class CourseInstanceCollection extends BaseCollection {
       publicStudent: `${this.collectionName}.PublicStudent`,
       publicSlugStudent: `${this.collectionName}.PublicSlugStudent`,
       studentID: `${this.collectionName}.studentID`,
+      scoreboard: `${this.collectionName}.Scoreboard`,
     };
     this.defineSchema = new SimpleSchema({
       academicTerm: String,
@@ -387,9 +390,15 @@ class CourseInstanceCollection extends BaseCollection {
         });
         // console.log(willingToShare);
         ReactiveAggregate(this, instance.collection, [
-          { $match: { $expr: { $or: [
+          {
+            $match: {
+              $expr: {
+                $or: [
                   { $in: ['$studentID', willingToShare] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }] } } },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }],
+              },
+            },
+          },
           { $project: { studentID: 1, termID: 1, courseID: 1 } },
         ]);
         // verified: Boolean,
@@ -402,6 +411,20 @@ class CourseInstanceCollection extends BaseCollection {
         // retired: { type: Boolean, optional: true },
         //
         // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
+      });
+      Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
+        ReactiveAggregate(this, instance.collection, [
+          {
+            $addFields: { courseTerm: { $concat: ['$courseID', ' ', '$termID'] } },
+          },
+          {
+            $group: {
+              _id: '$courseTerm',
+              count: { $sum: 1 },
+            },
+          },
+          { $project: { count: 1, termID: 1, courseID: 1 } },
+        ], { clientCollection: CourseScoreboardName });
       });
       Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) { // eslint-disable-line meteor/audit-argument-checks
         // check the courseID.

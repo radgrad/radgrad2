@@ -43,6 +43,7 @@ function withInstanceSubscriptions(WrappedComponent) {
     }
     handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName()));
     handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.publicStudent));
+    handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.scoreboard));
     handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName()));
     handles.push(instanceSubs.subscribe(Feeds.getPublicationName()));
     handles.push(instanceSubs.subscribe(MentorAnswers.getPublicationName()));
