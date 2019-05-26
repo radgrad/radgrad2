@@ -39,9 +39,7 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
   private getRouteName = () => {
     const url = this.props.match.url;
     const splitUrl = url.split('/');
-    console.log(splitUrl);
     const routeName = splitUrl[splitUrl.length - 1];
-    console.log(routeName);
     switch (routeName) {
       case 'aboutme':
         return 'About Me';

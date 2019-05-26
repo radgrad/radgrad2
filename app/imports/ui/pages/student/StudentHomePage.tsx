@@ -7,7 +7,6 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 
-// TODO: StudentHomeMenu: mobile version of the menu (dropdown)
 // TODO: Back to Top Button
 
 /** A simple static component to render some text for the landing page. */
@@ -27,7 +26,7 @@ class StudentHomePage extends React.Component {
             <StudentHomeWidget/>
           </Grid.Column>
         </Grid>
-        <div>TODO: Back to Top Button</div>
+        <div>Back to Top Button</div>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import { Divider, Feed, Image } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
@@ -50,6 +51,16 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     return ret;
   }
 
+  /*
+  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
+  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
+  */
+  private routerLink = (props) => (
+    props.href.match(/^(https?:)?\/\//)
+      ? <a href={props.href}>{props.children}</a>
+      : <Link to={props.href}>{props.children}</Link>
+  )
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { feed }: any = this.props;
     const feedPicture = this.getFeedPicture(feed);
@@ -63,8 +74,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
           </Feed.Label>
           <Feed.Content style={{ marginTop: '0px' }}>
             <Feed.Summary>
-              {/* FIXME: Links are not being routed properly */}
-              <Markdown escapeHtml={true} source={feed.description}/>
+              <Markdown escapeHtml={true} source={feed.description} renderers={{ link: this.routerLink }}/>
             </Feed.Summary>
 
             <Feed.Extra text={true}>
