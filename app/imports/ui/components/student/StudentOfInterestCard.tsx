@@ -1,7 +1,7 @@
 import * as React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { Button, Card, Header, Icon, Image, SemanticCOLORS } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
@@ -237,9 +237,9 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         {/* FIXME: Missing a "Center aligned" attribute */}
         {
           <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3} color={hidden || undefined}>
-            <Button as={NavLink} exact={true} to={this.getRouteName(this.props.item, this.props.type)}>
-              <Icon name="chevron circle right"/><br/>View More
-            </Button>
+            <Link to={this.getRouteName(this.props.item, this.props.type)}>
+              <Button><Icon name="chevron circle right"/><br/>View More</Button>
+            </Link>
 
             {this.props.canAdd ?
               <StudentOfInterestAdd item={this.props.item} type={this.props.type}/>
