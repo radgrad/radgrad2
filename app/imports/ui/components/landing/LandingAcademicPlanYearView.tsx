@@ -13,7 +13,7 @@ interface ILandingAcademicPlanYearViewProps {
 const LandingAcademicPlanYearView = (props: ILandingAcademicPlanYearViewProps) => {
   const quarter = props.academicPlan.coursesPerAcademicTerm.length % 4 === 0;
   let termNum = quarter ? props.yearNumber * 4 : props.yearNumber * 3;
-  console.log('LandingAcademicPlanYearView props=%o quarter=%o', props, quarter);
+  // console.log('LandingAcademicPlanYearView props=%o quarter=%o', props, quarter);
   return (
     <div>
       <Header>Year {props.yearNumber + 1}</Header>

@@ -34,11 +34,9 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   }
 
   public render() {
-    console.log(this.props.match.path);
     const helpMessage = HelpMessages.findDoc({ routeName: this.props.match.path });
-    console.log(helpMessage);
     const helpText = `${helpMessage.text}
-    #### Need more help?
+#### Need more help?
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).`;
     return (helpText) ? (
       <Grid>
@@ -48,6 +46,7 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
               <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
                 <Icon name="dropdown"/>
                 <span>{helpMessage.title}</span>
+                <Icon name="help circle"/>
               </Accordion.Title>
               <Accordion.Content active={this.state.activeIndex === 0}>
                 <Markdown escapeHtml={false} source={helpText}/>

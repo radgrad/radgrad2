@@ -1,30 +1,37 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import AdvisorAcademicPlanTabs from '../../components/advisor/AdvisorAcademicPlanTabs';
 
-/** A simple static component to render some text for the landing page. */
-class AdvisorAcademicPlanPage extends React.Component {
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  public render() {
-    return (
-      <div>
-        <AdvisorPageMenuWidget/>
-        <Grid verticalAlign="middle" textAlign="center" container={true}>
-
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
+const AdvisorAcademicPlanPage = () => {
+  const moveDownStyle = {
+    marginTop: 10,
+  };
+  return (
+    <div>
+      <AdvisorPageMenuWidget/>
+      <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
+        <Grid.Row textAlign="left">
+          <Grid.Column width={1}/>
+          <Grid.Column width={14}>
+            <HelpPanelWidget/>
           </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Advisor Academic Plan</h1>
+          <Grid.Column width={1}/>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={14}>
+            <AdvisorAcademicPlanTabs/>
           </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
-}
+          <Grid.Column width={1}/>
+        </Grid.Row>
+      </Grid>
+    </div>
+  );
+};
 
 const AdvisorAcademicPlanPageCon = withGlobalSubscription(AdvisorAcademicPlanPage);
 const AdvisorAcademicPlanPageContainer = withInstanceSubscriptions(AdvisorAcademicPlanPageCon);
