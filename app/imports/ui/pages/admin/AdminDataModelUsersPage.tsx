@@ -119,7 +119,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
       }
     }
     // console.log('collectionName=%o definitionData=%o', collectionName, definitionData);
-    const inst = this; // tslint:disable-line:no-this-assignment
+    const inst = this;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         console.error('Failed adding User', error);

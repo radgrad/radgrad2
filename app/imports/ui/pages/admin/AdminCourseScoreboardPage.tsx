@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
 
 /** A simple static component to render some text for the landing page. */
 class AdminCourseScoreboardPage extends React.Component {
@@ -12,13 +13,8 @@ class AdminCourseScoreboardPage extends React.Component {
       <div>
         <AdminPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
-
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Admin Course Scoreboard</h1>
+          <Grid.Column width={16}>
+            <CourseScoreboardWidget/>
           </Grid.Column>
         </Grid>
       </div>

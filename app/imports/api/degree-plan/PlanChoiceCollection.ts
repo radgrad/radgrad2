@@ -37,7 +37,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param choice
    * @returns {*}
    */
-  public define({ choice, retired }: IPlanChoiceDefine) {
+  public define({ choice, retired = false }: IPlanChoiceDefine) {
     const doc = this.collection.findOne(choice);
     if (doc) {
       return doc._id;
@@ -119,8 +119,9 @@ export class PlanChoiceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): IPlanChoiceDefine {
     const doc = this.findDoc(docID);
+    const choice = doc.choice;
     const retired = doc.retired;
-    return { choice: doc.choice, retired };
+    return { choice, retired };
   }
 
 }

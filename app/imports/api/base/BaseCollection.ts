@@ -6,8 +6,6 @@ import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
 import { IDumpOne } from '../../typings/radgrad'; // eslint-disable-line
 
-/* tslint:disable:variable-name */
-
 /**
  * BaseCollection is an abstract superclass of all RadGrad data model entities.
  * It is the direct superclass for SlugCollection and AcademicTermCollection.
@@ -189,7 +187,7 @@ class BaseCollection {
    */
   public removeAll() {
     const items = this.collection.find().fetch();
-    const instance = this; // tslint:disable-line: no-this-assignment
+    const instance = this;
     _.forEach(items, (i) => {
       instance.removeIt(i._id);
     });

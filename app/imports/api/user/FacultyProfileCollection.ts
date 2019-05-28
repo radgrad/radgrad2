@@ -32,7 +32,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the FacultyProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, retired }: IProfileDefine) {
+           careerGoals, retired = false }: IProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
       const interestIDs = Interests.getIDs(interests);

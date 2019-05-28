@@ -25,7 +25,7 @@ class OpportunityTypeCollection extends BaseTypeCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, retired }: ITypeDefine) {
+  public define({ name, slug, description, retired = false }: ITypeDefine) {
     return super.define({ name, slug, description, retired });
   }
 

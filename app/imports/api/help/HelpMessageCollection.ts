@@ -40,7 +40,7 @@ class HelpMessageCollection extends BaseCollection {
    * @param text the help text.
    * @return {any} the ID of the help.
    */
-  public define({ routeName, title, text, retired }: IHelpDefine): string {
+  public define({ routeName, title, text, retired = false }: IHelpDefine): string {
     return this.collection.insert({ routeName, title, text, retired });
   }
 

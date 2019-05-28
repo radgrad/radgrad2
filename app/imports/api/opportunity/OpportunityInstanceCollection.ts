@@ -75,7 +75,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
 
-  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired }: IOpportunityInstanceDefine) {
+  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired = false }: IOpportunityInstanceDefine) {
     // Validate academicTerm, opportunity, verified, and studentID
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -137,7 +137,6 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param docID The docID of the opportunity instance.
    */
   public removeIt(docID: string) {
-    console.log('OpportunityInstance.removeIt(%o)', docID);
     this.assertDefined(docID);
     // find any VerificationRequests associated with docID and remove them.
     const requests = VerificationRequests.find({ opportunityInstanceID: docID })
@@ -238,7 +237,6 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.publicationNames.student, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619

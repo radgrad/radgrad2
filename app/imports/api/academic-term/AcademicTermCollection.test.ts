@@ -21,7 +21,7 @@ if (Meteor.isServer) {
       let docID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2010 });
       expect(AcademicTerms.isDefined(docID)).to.be.true;
       let dumpObject = AcademicTerms.dumpOne(docID);
-      expect(dumpObject.retired).to.be.undefined;
+      expect(dumpObject.retired).to.be.false;
       expect(AcademicTerms.countNonRetired()).to.equal(1);
       AcademicTerms.update(docID, { retired: true });
       expect(AcademicTerms.countNonRetired()).to.equal(0);

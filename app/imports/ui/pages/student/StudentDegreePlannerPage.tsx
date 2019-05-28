@@ -48,7 +48,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
     const termSlug: string = result.destination.droppableId;
     const slug: string = result.draggableId;
     const student = this.props.match.params.username;
-    const instance = this; // tslint:disable-line: no-this-assignment
+    const instance = this;
     // console.log(termSlug, slug, student);
     if (Courses.isDefined(slug)) {
       const courseID = Courses.findIdBySlug(slug);

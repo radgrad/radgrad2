@@ -47,7 +47,7 @@ class MentorAnswerCollection extends BaseCollection {
    * @return { String } The docID of the answer.
    * @throws { Meteor.Error } If question or mentor is undefined.
    */
-  public define({ question, mentor, text, retired }: IMentorAnswerDefine) {
+  public define({ question, mentor, text, retired = false }: IMentorAnswerDefine) {
     const questionID = MentorQuestions.getID(question);
     const mentorID = Users.getID(mentor);
     Users.assertInRole(mentorID, ROLE.MENTOR);
