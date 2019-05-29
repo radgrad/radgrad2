@@ -31,13 +31,13 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     super(props);
   }
 
-  //react.sematic-ui.com
   private handleChange = (event, {name, value}) => {
     console.log('handle change');
     console.log(event, {name, value});
     this.setState({[name]: value});
   };
 
+  //reference the handleUpdate from AdminDataModelUsersPage.tsx
   private handleSubmitWebsite = (event) => {
     const username = this.props.match.params.username;
 //gets the doc object containing information on desired profile based on username
@@ -47,6 +47,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     console.log(this.state);
     console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
     //updates faculty profile's website entry
+    //should not actually work now
+
     FacultyProfiles.update(facultyDoc._id, this.state);
     console.log(Users.getProfile(facultyDoc.userID));
     //need to alert userif their update was sucessful
