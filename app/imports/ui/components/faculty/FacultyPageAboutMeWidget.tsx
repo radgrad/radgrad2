@@ -10,7 +10,7 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
-//import slugify from "../../../api/slug/SlugCollection.ts";
+
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
@@ -76,19 +76,37 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   private fileSelectedHandler = (event) => {
     console.log(event.target.files[0]);
   };
+
+  //private method to generate route for slugs for interests
   private generateInterestRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
-    label = label.toString().toLowerCase().replace(' ', '-');
-    console.log(label);
+    label = label.toString().toLowerCase().split(' ').join('-');
     //example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
     let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
       'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
     return(exploreRoute);
+  };
+
+  //private method to generate route for slugs for career goals
+  private generateCareerGoalsRoute = (label) => {
+    const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
+    const facultyUserID = facultyDoc.userID;
+    const facultyUserProfile = Users.getProfile(facultyUserID);
+    const facultyUserUsername = facultyUserProfile.username;
+    label = label.toString().toLowerCase().split(' ').join('-');
+    console.log('career goals', label);
+    //example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
+    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
+      'explorer', 'career-goals', label];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
+    console.log (exploreRoute);
+    return (exploreRoute);
   };
 
   public render() {
@@ -176,7 +194,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
                       {_.map(facultyCareerGoals, (careerGoals, index) =>
-                        <Label size='small' key={index} as='a' href='Career Goals Route'><Icon
+                        <Label size='small' key={index} as={NavLink} exact={true} to={this.generateCareerGoalsRoute(careerGoals)}><Icon
                           name='suitcase'>{careerGoals}</Icon></Label>
                       )}
                     </Label.Group>
