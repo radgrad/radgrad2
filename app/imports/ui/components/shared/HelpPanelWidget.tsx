@@ -35,13 +35,11 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   };
 
   public render() {
-    console.log(this.props.match.path);
     const helpMessage = _.find(this.props.helpMessages, (m) => m.routeName === this.props.match.path);
-    console.log(helpMessage);
-    const helpText = `${helpMessage.text}
-    #### Need more help?
-If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).`;
-    return (helpText) ? (
+    const helpText = helpMessage ? `${helpMessage.text}
+#### Need more help?
+If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
+    return (helpMessage) ? (
       <Grid>
         <Grid.Column width={'sixteen'}>
           <Message info={true}>
@@ -61,11 +59,12 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
   }
 }
 
-const HelpPanelWidgetContainer = withRouter(HelpPanelWidget);
 
-export default withTracker(() => {
-  const helpMessages = HelpMessages.find({}, { sort: { routeName: 1 } }).fetch();
+const HelpPanelWidgetContainer = withTracker((props) => {
+  const helpMessages = HelpMessages.find({ routeName: props.match.path }, { sort: { routeName: 1 } }).fetch();
   return {
     helpMessages,
   };
-})(HelpPanelWidgetContainer);
+})(HelpPanelWidget);
+
+export default withRouter(HelpPanelWidgetContainer);
