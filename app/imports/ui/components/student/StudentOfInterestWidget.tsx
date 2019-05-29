@@ -3,6 +3,7 @@ import { Button, Card, Header, Icon, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
+import { withTracker } from 'meteor/react-meteor-data';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import StudentOfInterestCard from './StudentOfInterestCard';
 import { Users } from '../../../api/user/UserCollection';
@@ -26,6 +27,7 @@ interface IStudentOfInterestWidgetProps {
   };
   dispatch: any;
   hidden: boolean;
+  profile: any;
 }
 
 const mapStateToProps = (state) => ({
@@ -42,7 +44,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   private hiddenExists() {
     const username = this.getUsername();
     if (username) {
-      const profile = Users.getProfile(username);
+      const { profile } = this.props;
       let ret;
       if (this.typeCourse()) {
         ret = profile.hiddenCourseIDs.length !== 0;
@@ -76,6 +78,8 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return ret;
   }
 
+  private typeCourse = (): boolean => this.props.type === 'courses';
+
   private courses = () => {
     const courses = this.matchingCourses();
     let visibleCourses;
@@ -86,8 +90,6 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     }
     return visibleCourses;
   }
-
-  private typeCourse = (): boolean => this.props.type === 'courses';
 
   private opportunities = () => {
     const opportunities = this.matchingOpportunities();
@@ -105,7 +107,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     if (username) {
       const allCourses = this.availableCourses();
       const matching: any = [];
-      const profile = Users.getProfile(username);
+      const { profile } = this.props;
       // console.log('StudentProfile=%o', profile);
       const userInterests = [];
       let courseInterests = [];
@@ -154,9 +156,10 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   private hiddenCoursesHelper = () => {
     if (this.getUsername()) {
       const courses = this.matchingCourses();
+      // const courses = this.props.matchingCourses;
       let nonHiddenCourses;
       if (this.isHidden()) {
-        const profile = Users.getProfile(this.getUsername());
+        const { profile } = this.props;
         nonHiddenCourses = _.filter(courses, (course) => {
           if (_.includes(profile.hiddenCourseIDs, course._id)) {
             return false;
@@ -174,9 +177,10 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   private hiddenOpportunitiesHelper = () => {
     if (this.getUsername()) {
       const opportunities = this.matchingOpportunities();
+      // const opportunities = this.props.matchingOpportunities;
       let nonHiddenOpportunities;
       if (this.isHidden()) {
-        const profile = Users.getProfile(this.getUsername());
+        const { profile } = this.props;
         nonHiddenOpportunities = _.filter(opportunities, (opp) => {
           if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
             return false;
@@ -193,9 +197,9 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private matchingOpportunities = () => {
     const allOpportunities = this.availableOpps();
-    const username = this.getUsername();
+    // const username = this.getUsername();
     const matching: any = [];
-    const profile = Users.getProfile(username);
+    const { profile } = this.props;
     const userInterests = [];
     let opportunityInterests = [];
     _.forEach(Users.getInterestIDs(profile.userID), (id) => {
@@ -271,6 +275,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const isTypeCourse = this.typeCourse();
     const courses = this.courses();
     const opportunities = this.opportunities();
+    // const { theCourses, theOpportunities } = this.props;
 
     return (
       <Segment padded={true}>
@@ -318,5 +323,14 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   }
 }
 
-const StudentOfInterestWidgetContainer = connect(mapStateToProps)(StudentOfInterestWidget);
-export default withRouter(StudentOfInterestWidgetContainer);
+const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWidget);
+const StudentOfInterestWidgetCont = withTracker(({ match }) => {
+  const username = match.params.username;
+  const profile = Users.getProfile(username);
+  return {
+    profile,
+  };
+})(StudentOfInterestWidgetCon);
+const StudentOfInterestWidgetContainer = withRouter(StudentOfInterestWidgetCont);
+
+export default StudentOfInterestWidgetContainer;

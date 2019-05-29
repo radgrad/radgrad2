@@ -1,7 +1,9 @@
 import * as React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { Button, Card, Header, Icon, Image, SemanticCOLORS } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
 import { Link, withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
@@ -26,6 +28,7 @@ interface IStudentOfInterestCardProps {
       username: string;
     }
   };
+  profile: any;
 }
 
 class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps> {
@@ -259,4 +262,12 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
   }
 }
 
-export default withRouter(StudentOfInterestCard);
+const StudentOfInterestCardCon = withRouter(StudentOfInterestCard);
+const StudentOfInterestCardContainer = withTracker(() => {
+  const username = Meteor.user().username;
+  const profile = Users.getProfile(username);
+  return {
+    profile,
+  };
+})(StudentOfInterestCardCon);
+export default StudentOfInterestCardContainer;

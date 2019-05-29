@@ -159,7 +159,7 @@ class InterestList extends React.Component<IInterestListProps> {
           otherInterests.map((interest, index) => (
             <div key={index}>
               <Link to={this.interestsRouteName(interest)}>
-                <Label size={this.props.size}>
+                <Label size={this.props.size} color="grey">
                   {this.interestName(interest)}
                 </Label>
               </Link>

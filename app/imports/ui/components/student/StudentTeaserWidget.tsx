@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
-import { Segment, Container, Header, Card, Button, Icon } from 'semantic-ui-react';
+import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -91,9 +91,9 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
       overflow: 'scroll',
       marginTop: '10px',
     };
-    const cardContentStyle = { padding: '0' };
-
+    const teaserWidgetVideoStyle = { padding: '0' };
     const chevronCircleRightIconStyle = { marginRight: '1px' };
+
     return (
       <React.Fragment>
         <Container>
@@ -107,14 +107,14 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
                 <Card.Group style={cardGroupStyle}>
                   {
                     teasers.map((teaser, index) => (
-                      <div key={index}>
+                      <React.Fragment key={index}>
                         <Card centered={true}>
                           <Card.Content>
                             <Card.Header>{this.teaserTitle(teaser)}</Card.Header>
                             <Card.Meta>By {this.teaserAuthor(teaser)} </Card.Meta>
                           </Card.Content>
 
-                          <Card.Content style={cardContentStyle}>
+                          <Card.Content style={teaserWidgetVideoStyle}>
                             <StudentTeaserWidgetVideo teaserUrl={this.teaserUrl(teaser)}/>
                           </Card.Content>
 
@@ -133,7 +133,7 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
                               : ''
                           }
                         </Card>
-                      </div>
+                      </React.Fragment>
                     ))
                   }
                 </Card.Group>

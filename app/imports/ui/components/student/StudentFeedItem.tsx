@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Divider, Feed, Image } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import StudentFeedModal from './StudentFeedModal';
 
 interface IStudentFeedItemProps {
   feed: object;
@@ -80,7 +81,8 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
             <Feed.Extra text={true}>
               {multipleUsers ?
                 <Feed.Meta style={{ float: 'right', marginTop: '0px' }}>
-                  {/* TODO: Student_Feed_Modal */}
+                  {/* TODO: Implement and test this */}
+                  <StudentFeedModal feed={feed}/>
                 </Feed.Meta>
                 : ''
               }

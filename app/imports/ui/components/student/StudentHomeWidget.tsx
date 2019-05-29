@@ -11,7 +11,7 @@ class StudentHomeWidget extends React.Component {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
-      <Grid>
+      <Grid centered={true} stackable={true}>
         <Grid.Column width={10}>
           <StudentOfInterestWidget type="opportunities"/>
           <StudentOfInterestWidget type="courses"/>

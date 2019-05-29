@@ -15,7 +15,7 @@ class StudentHomePage extends React.Component {
     return (
       <div className="layout-page">
         <StudentPageMenuWidget/>
-        <Grid stackable={true} verticalAlign="middle" textAlign="center" container={true}>
+        <Grid centered={true} stackable={true} container={true}>
           <HelpPanelWidget/>
 
           <Grid.Column width={2}>
