@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
-import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
+import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
+import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
-import { _ } from "meteor/erasaur:meteor-lodash";
-import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
-import { defineMethod, updateMethod, removeItMethod } from "../../../api/base/BaseCollection.methods";
-import { Users } from "../../../api/user/UserCollection";
+import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { Users } from '../../../api/user/UserCollection';
 
 interface IMentorMentorSpaceAnswerFormState {
   activeIndex: number;
@@ -17,6 +17,7 @@ interface IMentorMentorSpaceAnswerFormProps {
   question: IMentorQuestion;
   index: number;
   answer: IMentorAnswer[];
+  mentorID: number;
   match: {
     params: {
       username: string;
@@ -34,6 +35,10 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
   private getUserIdFromRoute() {
     const username = this.props.match.params.username;
     return username && Users.getID(username);
+  }
+
+  private mentorID(mentorID) {
+    return Users.getID(mentorID);
   }
 
   private existingAnswer() {
@@ -81,31 +86,31 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
   public render() {
     const { activeIndex } = this.state;
     const accordionStyle = { overflow: 'hidden' };
-    const answer = _.filter(this.props.answer, (ans) => ans.questionID === this.props.question._id);
-    const student = this.props.match.params.username;
-    console.log("params: ", student);
+    const answers = _.filter(this.props.answer, (ans) => ans.questionID === this.props.question._id);
+    console.log('answer ', answers);
+    const answerIDs = _.map(answers, function (ans) { return ans.mentorID; });
+    console.log('answerIDs ', answerIDs);
+    const existingAnswer = this.existingAnswer();
     return (
       <div>
-        {_.map(answer, (a, ind) => {
-          const mentor = MentorProfiles.findDoc({ userID: a.mentorID });
-          const mentorUsername = mentor.username;
-          return (
-            <Accordion fluid={true} styled={true} style={accordionStyle} key={ind}>
-              <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
-                <Icon name="dropdown"/> {`Add or update your answer (markdown supported)`}
+            <Accordion fluid={true} styled={true} style={accordionStyle} key={0}>
+              <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                <Icon name="dropdown"/> {'Add or update your answer (markdown supported)'}
               </Accordion.Title>
-              <Accordion.Content active={activeIndex === ind}>
-                <Form onSubmit={this.handleSubmit}>
-                  <Form.TextArea value={a.text} style={{ minHeight: 175 }}/>
+              <Accordion.Content active={activeIndex === 0}>
+                <Form>
+                  <Form.TextArea defaultValue={existingAnswer} style={{ minHeight: 175 }}/>
                 </Form><br/>
                 <Grid.Row>
                   <Button basic color='green' content='Submit' onClick={this.handleSubmit}/>
-                  <Button basic color='red' content='Delete' onClick={this.handleDelete}/>
+                  {
+                    existingAnswer ?
+                      <Button basic color='red' content='Delete' onClick={this.handleDelete}/>
+                      : ''
+                  }
                 </Grid.Row>
               </Accordion.Content>
             </Accordion>
-          );
-        })}
       </div>
     );
   }

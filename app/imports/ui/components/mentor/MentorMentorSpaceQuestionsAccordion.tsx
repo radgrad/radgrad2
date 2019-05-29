@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Accordion, Icon, Grid, Divider, Segment } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { withTracker } from 'meteor/react-meteor-data';
 import QuestionAnswersWidget from '../student/QuestionAnswersWidget';
-import MentorMentorSpaceAnswerForm from "./MentorMentorSpaceAnswerForm";
+import MentorMentorSpaceAnswerForm from './MentorMentorSpaceAnswerForm';
 
 interface IMentorMentorSpaceQuestionsAccordionState {
   activeIndex: number;
@@ -30,6 +30,11 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
     const newIndex = activeIndex === index ? -1 : index;
     this.setState({ activeIndex: newIndex });
   }
+
+  public clickAnswer(event, instance) {
+    const questionID = event.target.id;
+    instance.answering.set(questionID);
+      }
 
   public answerAmt(answerCount) {
     const print1 = ' answer';
@@ -76,9 +81,7 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
 
 const MentorMentorSpaceQuestionsAccordionContainer = withTracker(() => {
   const questions = MentorQuestions.find().fetch();
-  const answerCount = _.map(questions, (q) => {
-    return MentorAnswers.find({ questionID: q._id }).fetch().length;
-  });
+  const answerCount = _.map(questions, (q) => MentorAnswers.find({ questionID: q._id }).fetch().length);
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', questions);
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', answerCount);
   return {
