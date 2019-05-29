@@ -61,7 +61,7 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
 
 
 const HelpPanelWidgetContainer = withTracker((props) => {
-  const helpMessages = HelpMessages.find({ routeName: props.match.path }, { sort: { routeName: 1 } }).fetch();
+  const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };
