@@ -1,23 +1,19 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+// eslint-disable-next-line no-unused-vars
+import { IMentorQuestion } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 
 interface IMentorMentorSpaceAnswerFormState {
   activeIndex: number;
+  textArea: string;
 }
 
 interface IMentorMentorSpaceAnswerFormProps {
   question: IMentorQuestion;
-  index: number;
-  answer: IMentorAnswer[];
-  mentorID: number;
   match: {
     params: {
       username: string;
@@ -29,7 +25,11 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
 
   constructor(props) {
     super(props);
-    this.state = { activeIndex: -1 };
+    const answer = this.existingAnswer();
+    this.state = {
+      activeIndex: -1,
+      textArea: answer,
+    };
   }
 
   private getUserIdFromRoute() {
@@ -47,9 +47,13 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
     return (existingAnswers.length > 0) ? existingAnswers[0].text : '';
   }
 
+  private handleEdit = (e, { value }) => {
+    this.setState({ textArea: value });
+  }
+
   private handleSubmit = (doc) => {
     doc.preventDefault();
-    const answer = doc.target.msanswer.value;
+    const answer = this.state.textArea;
     const question = this.props.question._id;
     const collectionName = MentorAnswers.getCollectionName();
     const newAnswer: any = { question, mentor: this.getUserIdFromRoute(), text: answer };
@@ -86,10 +90,6 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
   public render() {
     const { activeIndex } = this.state;
     const accordionStyle = { overflow: 'hidden' };
-    const answers = _.filter(this.props.answer, (ans) => ans.questionID === this.props.question._id);
-    console.log('answer ', answers);
-    const answerIDs = _.map(answers, function (ans) { return ans.mentorID; });
-    console.log('answerIDs ', answerIDs);
     const existingAnswer = this.existingAnswer();
     return (
       <div>
@@ -99,7 +99,7 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
                 <Form>
-                  <Form.TextArea defaultValue={existingAnswer} style={{ minHeight: 175 }}/>
+                  <Form.TextArea onChange={this.handleEdit} value={this.state.textArea} id={'msanswer'} name={'msanswer'} style={{ minHeight: 175 }}/>
                 </Form><br/>
                 <Grid.Row>
                   <Button basic color='green' content='Submit' onClick={this.handleSubmit}/>
@@ -115,12 +115,4 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
     );
   }
 }
-
-const MentorMentorSpaceAnswerFormContainer = withTracker(() => {
-  const answer = MentorAnswers.find().fetch();
-  // console.log('QuestionAnswersWidget withTracker items=%o', answer);
-  return {
-    answer,
-  };
-})(MentorMentorSpaceAnswerForm);
-export default withRouter(MentorMentorSpaceAnswerFormContainer);
+export default withRouter(MentorMentorSpaceAnswerForm);
