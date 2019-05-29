@@ -3,8 +3,8 @@ import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import AdvisorAcademicPlanTabs from '../../components/advisor/AdvisorAcademicPlanTabs';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 const AdvisorAcademicPlanPage = () => {
   const moveDownStyle = {
@@ -14,22 +14,17 @@ const AdvisorAcademicPlanPage = () => {
     <div>
       <AdvisorPageMenuWidget/>
       <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
-        <Grid.Row textAlign="left">
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}>
-            <HelpPanelWidget/>
-          </Grid.Column>
-          <Grid.Column width={1}/>
-        </Grid.Row>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}>
+          <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+        </Grid.Row>
+        < Grid.Row>
+          <Grid.Column width={16}>
             <AdvisorAcademicPlanTabs/>
           </Grid.Column>
-          <Grid.Column width={1}/>
         </Grid.Row>
       </Grid>
-    </div>
+    </
+      div>
   );
 };
 

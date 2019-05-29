@@ -6,6 +6,7 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentMentorSpaceQuestionsAccordion from '../../components/student/StudentMentorSpaceQuestionsAccordion';
 import StudentMentorSpaceMentorDirectoryAccordion from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 /** A simple static component to render some text for the landing page. */
 class StudentMentorSpacePage extends React.Component {
@@ -13,13 +14,12 @@ class StudentMentorSpacePage extends React.Component {
     const marginStyle = {
       marginTop: 5,
     };
-
     return (
       <div>
         <StudentPageMenuWidget/>
         <Grid container={true} stackable={true} style={marginStyle}>
           <Grid.Row>
-            <h3>Help Panel Widget goes here.</h3>
+            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
 
           <Grid.Column width={11}>
