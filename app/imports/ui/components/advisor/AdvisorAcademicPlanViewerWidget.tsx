@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
@@ -28,11 +26,11 @@ class AdvisorAcademicPlanViewerWidget extends React.Component<IAdvisorAcademicPl
     const year = props.plans[0].year;
     const planNames = _.map(_.filter(this.props.plans, (p) => p.year === year), (plan) => plan.name);
     this.state = { planNames, selectedPlan: props.plans[0], year };
-    console.log('AdvisorAcademicPlan props=%o', props);
+    // console.log('AdvisorAcademicPlan props=%o', props);
   }
 
   private handleModelChange = (model) => {
-    console.log('model=%o state=%o', model, this.state);
+    // console.log('model=%o state=%o', model, this.state);
     const { year, name } = model;
     const yearInt = parseInt(year, 10);
     if (yearInt !== this.state.year) {
@@ -69,7 +67,7 @@ class AdvisorAcademicPlanViewerWidget extends React.Component<IAdvisorAcademicPl
 
 const AdvisorAcademicPlanViewerWidgetContainer = withTracker(() => {
   const plans = AcademicPlans.findNonRetired();
-  console.log(plans);
+  // console.log(plans);
   return {
     plans,
   };
