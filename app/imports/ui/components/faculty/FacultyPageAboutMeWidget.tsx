@@ -76,6 +76,20 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   private fileSelectedHandler = (event) => {
     console.log(event.target.files[0]);
   };
+  private generateInterestRoute = (label) => {
+    const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
+    const facultyUserID = facultyDoc.userID;
+    const facultyUserProfile = Users.getProfile(facultyUserID);
+    const facultyUserUsername = facultyUserProfile.username;
+    label = label.toString().toLowerCase().replace(' ', '-');
+    console.log(label);
+    //example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
+    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
+      'explorer', 'interests', label];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
+    console.log(exploreRoute);
+  };
 
   public render() {
     const username = this.props.match.params.username;
@@ -103,7 +117,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-
+    //url for career path explorer
     let careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
     let careerRoute = careerPath.join('/');
     careerRoute = `/${careerRoute}`;
@@ -146,8 +160,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
                       {_.map(facultyInterests, (interests, index) =>
-                        <Label size='tiny' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
-                      )}
+                        <Label size='small' key={index} as='Link' href={this.generateInterestRoute(interests)}><Icon
+                          name='star'>{interests}</Icon></Label>
+                          )}
                     </Label.Group>
                   </Grid.Row>
                   <Link to={exploreRoute}>Edit in Interest Explorer</Link>
@@ -161,7 +176,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
                       {_.map(facultyCareerGoals, (careerGoals, index) =>
-                        <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
+                        <Label size='small' key={index} as='a' href='Career Goals Route'><Icon
+                          name='suitcase'>{careerGoals}</Icon></Label>
                       )}
                     </Label.Group>
                   </Grid.Row>
@@ -198,7 +214,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   </Form.Group>
                 </Form>
                 <input type='file' onChange={this.fileSelectedHandler}/>
-
               </Grid.Column>
             </Grid.Row>
           </Grid>
