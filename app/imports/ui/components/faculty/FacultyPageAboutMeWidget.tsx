@@ -1,5 +1,4 @@
-/**
- * qauchida
+/**@qauchida
  * 05/20/19
  * Faculty Widget that shows About Me information
  */
@@ -12,9 +11,6 @@ import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
 
-/**
- * The Faculty
- */
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
@@ -29,33 +25,22 @@ interface IFacultyPageAboutMeWidgetProps {
   }
 }
 
-/**
- * The Faculty About Me Widget should show basic information of the specified user.
- */
 class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
   //call the props constructor
   constructor(props: any) {
     super(props);
   }
 
-  /**
-   * Changes state based on user input.
-   * @param event Details of the Event
-   * @param name Name of the Event
-   * @param value User input
-   */
+  //react.sematic-ui.com
   private handleChange = (event, {name, value}) => {
-    console.log('handle change',event, {name, value});
+    console.log('handle change');
+    console.log(event, {name, value});
     this.setState({[name]: value});
   };
 
-  /**
-   * Updates the website of specified user to match the current state.
-   * @param event Details of the event
-   */
   private handleSubmitWebsite = (event) => {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+//gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
     console.log('handle Submit Website');
     this.setState({id: 'changed'});
@@ -66,17 +51,14 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     console.log(Users.getProfile(facultyDoc.userID));
     //need to alert userif their update was sucessful
     //also need to update the placeholder text
-    console.log(event);
-    //create an update data object examples:
+    alert(event);
+
+// I want to assign this.state.websiteInput to the
   };
 
-  /**
-   * Updates the photo of specified user to match current state.
-   * @param event Details of the event
-   */
   private handleSubmitPhoto = (event) => {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+//gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
     console.log('handle Submit Photo');
     this.setState({id: 'changed'});
@@ -90,19 +72,12 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     alert(event);
   };
 
-  /**
-   * Calls the built in file handler.
-   * @param event Details of the event
-   */
+  //private method to call the picture uploader
   private fileSelectedHandler = (event) => {
     console.log(event.target.files[0]);
   };
 
-  /**
-   * Generates the slug for given interest
-   * @param label The interest name of selected interest
-   * @returns string Slug of specified interest
-   */
+  //private method to generate route for slugs for interests
   private generateInterestRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
     const facultyUserID = facultyDoc.userID;
@@ -117,51 +92,46 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     return(exploreRoute);
   };
 
-  /**
-   * Generates the slug for the given career goal
-   * @param label The name of the selected career goal
-   * @returns string Slug of specified career goal
-   */
+  //private method to generate route for slugs for career goals
   private generateCareerGoalsRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
     label = label.toString().toLowerCase().split(' ').join('-');
+    console.log('career goals', label);
     //example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
     let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
       'explorer', 'career-goals', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
+    console.log (exploreRoute);
     return (exploreRoute);
   };
 
-  /**
-   * Renders all components
-   */
   public render() {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+//gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
-    //gets the user ID based on the username
+//gets the user ID based on the username
     const facultyUserID = facultyDoc.userID;
-    //gets the user profile based on the user ID
+//gets the user profile based on the user ID
     const facultyUserProfile = Users.getProfile(facultyUserID);
-    //gets the username based on the user ID
+//gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
-    //gets the faculty website address
+//gets the faculty website address
     const facultyWebsite = facultyUserProfile.website;
     //get the career goal IDs based on the userID
     const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
-    //map the career goal IDs to their names
+//map the career goal IDs to their names
     const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
-    //get the interest goal IDs based on the User ID
+//get the interest goal IDs based on the User ID
     const facultyInterestIDs = facultyUserProfile.interestIDs;
-    //map the interests IDs to their names
+//map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
-    //M: should make it so that you reference the doc and then the name rather than the doc directly
-    // gets the url from the faculty profile's information
-    // url is made up of: role/username/explorer/CareerOrInterests
+//M: should make it so that you reference the doc and then the name rather than the doc directly
+//gets the url from the faculty profile's information
+//url is made up of: role/username/explorer/CareerOrInterests
     let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
@@ -169,6 +139,12 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     let careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
     let careerRoute = careerPath.join('/');
     careerRoute = `/${careerRoute}`;
+//handles the submit for website changes
+
+// for the picture upload, reference https://cloudinary.com/documentation/upload_widget from RadGrad1
+// here is the react way: https://www.npmjs.com/package/react-images-upload
+
+// React Image Uploader https://www.npmjs.com/package/react-images-upload
 
     return (
       <Container>
@@ -270,10 +246,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
 export default withRouter(FacultyPageAboutMeWidget);
 
-/**
- * Addtional Notes:
- * may have to make quality checks and what not
- * make alert to notify user that information has been updated sucessfully
- * conditional showing of interest and career goal labels: if user doesn't have any, text should say:
- * no career goals/ interests added yet
-*/
+//update button on click should update the appropriate field with information inputted from the user
+// may have to make quality checks and what not
+
