@@ -5,7 +5,7 @@
 import * as React from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
-import {Container, Grid, Header, Label, Icon, Form} from 'semantic-ui-react';
+import {Container, Grid, Header, Label, Icon, Form, Message} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
@@ -120,6 +120,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
     return (
       <Container>
+      <div className="ui padded container segment">
         <Grid>
           <Grid.Row>
             <Grid.Column>
@@ -137,7 +138,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Email</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              {facultyUserUsername}
+              <Header as='h5' textAlign='left'>{facultyUserUsername}</Header>
             </Grid.Column>
           </Grid.Row>
 
@@ -146,22 +147,22 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Interests</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Grid celled>
-                  <Grid.Row textAlign='left'>
+              <Grid>
+                  <Grid.Row  divided textAlign='left'>
+                  <Label.Group>
                     {_.map(facultyInterests, (interests, index) =>
-                      <Label size='small' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
+                      <Label size='tiny' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
                     )}
+                  </Label.Group>
                   </Grid.Row>
-                <Grid.Row>
                   <Link to={exploreRoute}>Edit in Interest Explorer</Link>
-                </Grid.Row>
               </Grid>
             </Grid.Column>
             <Grid.Column floated='left' width={2}>
               <Header as='h5' textAlign='left'>Career Goals</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Grid celled>
+              <Grid>
                 <Grid.Row divided textAlign='left'>
                   <Label.Group>
                     {_.map(facultyCareerGoals, (careerGoals, index) =>
@@ -169,9 +170,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                     )}
                   </Label.Group>
                 </Grid.Row>
-                <Grid.Row>
                   <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
-                </Grid.Row>
               </Grid>
             </Grid.Column>
           </Grid.Row>
@@ -206,8 +205,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             </Grid.Column>
           </Grid.Row>
         </Grid>
+      </div>
       </Container>
-
     );
 
   }
