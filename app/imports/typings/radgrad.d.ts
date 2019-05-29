@@ -11,6 +11,11 @@ declare global {
   }
 }
 
+// TODO -- issue-17, get cloudinary working
+export namespace cloudinary {
+  function openUploadWidget(options: any, callback: (error: any, result?: any) => any);
+}
+
 export interface Ice {
   i: number;
   c: number;

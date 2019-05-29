@@ -63,9 +63,9 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
       overflow: 'hidden',
     };
     
-    const filterFirst = _.filter(this.props.students, s => s.firstName.includes(this.props.firstName));
-    const filterLast = _.filter(filterFirst, s => s.lastName.includes(this.props.lastName));
-    const filteredStudents = _.filter(filterLast, s => s.username.includes(this.props.username));
+    const filterFirst = _.filter(this.props.students, s => s.firstName.toLowerCase().includes(this.props.firstName.toLowerCase()));
+    const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(this.props.lastName.toLowerCase()));
+    const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(this.props.username.toLowerCase()));
     
     const panes = [
       {

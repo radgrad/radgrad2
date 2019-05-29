@@ -25,6 +25,7 @@ import {
   ADVISOR_HOME_SET_USERNAME,
   ADVISOR_HOME_CLEAR_FILTER,
   ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
+  ADVISOR_HOME_SET_IS_LOADED,
 } from '../actions/pageAdvisorActionTypes';
 import { paginationReducer } from './paginationReducer';
 import { studentHomePageReducer } from './studentHomePageReducer';
@@ -179,6 +180,7 @@ const initialState = {
         lastName: '',
         username: '',
         selectedUsername: '',
+        isLoaded: false,
       },
     },
   },
@@ -373,10 +375,22 @@ function pageReducer(state: any = {}, action) {
           home: {
             ...state.advisor.home,
             selectedUsername: action.payload,
+            isLoaded: false,
           },
         },
       };
-  
+    case ADVISOR_HOME_SET_IS_LOADED:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            isLoaded: action.payload,
+          },
+        },
+      };
+    
     default:
       return state;
   }

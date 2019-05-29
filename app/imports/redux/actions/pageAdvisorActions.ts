@@ -5,6 +5,7 @@ import {
   ADVISOR_HOME_SET_USERNAME,
   ADVISOR_HOME_CLEAR_FILTER,
   ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
+  ADVISOR_HOME_SET_IS_LOADED,
 } from './pageAdvisorActionTypes';
 
 export const advisorHomeSetCount = (count) => ({
@@ -35,3 +36,9 @@ export const advisorHomeSetSelectedStudentUsername = (username) => ({
   type: ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
   payload: username,
 });
+
+export const advisorHomeSetIsLoaded = (bool) => ({
+  type: ADVISOR_HOME_SET_IS_LOADED,
+  payload: bool,
+});
+
