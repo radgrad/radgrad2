@@ -3,14 +3,14 @@
  * Faculty Widget that shows About Me information
  */
 import * as React from 'react';
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter, Link, NavLink} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
 import {Container, Grid, Header, Label, Icon, Form} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
-
+//import slugify from "../../../api/slug/SlugCollection.ts";
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
@@ -88,7 +88,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
       'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    console.log(exploreRoute);
+    return(exploreRoute);
   };
 
   public render() {
@@ -160,7 +160,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
                       {_.map(facultyInterests, (interests, index) =>
-                        <Label size='small' key={index} as='Link' href={this.generateInterestRoute(interests)}><Icon
+                        <Label size='small' key={index} as={NavLink} exact={true} to={this.generateInterestRoute(interests)}><Icon
                           name='star'>{interests}</Icon></Label>
                           )}
                     </Label.Group>
