@@ -34,6 +34,7 @@ ejson@1.1.0                            # https://docs.meteor.com/api/ejson.html
 alanning:roles                   # https://github.com/alanning/meteor-roles
 
 # Prototyping only
+insecure@1.0.7                         # Enable client-side manipulation of Mongo collections.
 barbatus:typescript
 erasaur:meteor-lodash
 didericis:callpromise-mixin
