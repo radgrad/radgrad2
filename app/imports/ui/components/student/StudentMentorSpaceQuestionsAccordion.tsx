@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Accordion, Icon, Grid } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { withTracker } from 'meteor/react-meteor-data';
 import QuestionAnswersWidget from './QuestionAnswersWidget';
 
 interface IStudentMentorSpaceQuestionsAccordionState {
