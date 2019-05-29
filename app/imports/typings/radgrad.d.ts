@@ -11,6 +11,10 @@ declare global {
   }
 }
 
+export class cloudinary {
+  public openUploadWidget(options: any, callback: (error: any, result?: any) => any);
+}
+
 export interface Ice {
   i: number;
   c: number;
