@@ -203,7 +203,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    */
   public publish(): void {
     if (Meteor.isServer) {
-      const instance = this; // tslint:disable-line: no-this-assignment
+      const instance = this;
       Meteor.publish(this.publicationNames.Public, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();

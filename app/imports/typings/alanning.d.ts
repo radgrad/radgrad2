@@ -245,7 +245,7 @@ declare module 'meteor/alanning:roles' {
       group?: string,
     ): boolean;
 
-    interface Role { // tslint:disable-line: interface-name
+    interface Role {
       name: string;
     }
   }

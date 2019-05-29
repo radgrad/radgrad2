@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateAllStudentLevelsMethod } from '../../../api/level/LevelProcessor.methods';
 import { IFilterUsers } from '../../pages/admin/AdminHomePage'; // eslint-disable-line
+import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 function url(user) {
   return `/#/${user.role.toLowerCase()}/${user.username}/home`;
@@ -16,7 +18,15 @@ function name(user) {
   return `${user.lastName}, ${user.firstName}`;
 }
 
-class RetrieveUserWidget extends React.Component<IFilterUsers> {
+interface IRetrieveUserWidgetProps extends IFilterUsers{
+  advisors: IAdvisorProfile[];
+  faculty: IFacultyProfile[];
+  mentors: IMentorProfile[];
+  students: IStudentProfile[];
+  alumni: IStudentProfile[];
+}
+
+class RetrieveUserWidget extends React.Component<IRetrieveUserWidgetProps> {
   constructor(props) {
     super(props);
   }
@@ -32,11 +42,11 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
   }
 
   public render() {
-    let advisors = AdvisorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-    let faculty = FacultyProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-    let mentors = MentorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-    let students = StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1 } }).fetch();
-    let alumni = StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1 } }).fetch();
+    let advisors = this.props.advisors;
+    let faculty = this.props.faculty;
+    let mentors = this.props.mentors;
+    let students = this.props.students;
+    let alumni = this.props.alumni;
     let regex = new RegExp(this.props.firstNameRegex);
     advisors = _.filter(advisors, (u) => regex.test(u.firstName));
     faculty = _.filter(faculty, (u) => regex.test(u.firstName));
@@ -146,4 +156,19 @@ class RetrieveUserWidget extends React.Component<IFilterUsers> {
   }
 }
 
-export default RetrieveUserWidget;
+const RetireveUserWidgetContainer = withTracker(() => {
+  const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
+  const faculty = FacultyProfiles.find({}, { sort: { lastName: 1 } }).fetch();
+  const mentors = MentorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
+  const students = StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1 } }).fetch();
+  const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1 } }).fetch();
+  return {
+    advisors,
+    faculty,
+    mentors,
+    students,
+    alumni,
+  };
+})(RetrieveUserWidget);
+
+export default RetireveUserWidgetContainer;

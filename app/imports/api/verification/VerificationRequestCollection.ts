@@ -77,14 +77,14 @@ class VerificationRequestCollection extends BaseCollection {
    *                               opportunity: 'TechHui',
    *                              academicTerm: 'Fall-2015'});
    * @param { Object } student and opportunity must be slugs or IDs. SubmittedOn defaults to now.
-   * status defaults to OPEN, and processed defaults to an empty array.
+   * status defaults to OPEN, processed defaults to an empty array and retired defaults to false.
    * You can either pass the opportunityInstanceID or pass the opportunity and academicTerm slugs. If opportunityInstance
    * is not defined, then the student, opportunity, and academicTerm arguments are used to look it up.
    * @throws {Meteor.Error} If academicTerm, opportunity, opportunityInstance or student cannot be resolved,
    * or if verified is not a boolean.
    * @returns The newly created docID.
    */
-  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired }: IVerificationRequestDefine) {
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired = false }: IVerificationRequestDefine) {
     // console.log(student, opportunityInstance, submittedOn, status, processed, academicTerm, opportunity);
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
@@ -213,7 +213,6 @@ class VerificationRequestCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      // tslint:disable-next-line: no-this-assignment
       const instance = this;
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
@@ -317,7 +316,8 @@ class VerificationRequestCollection extends BaseCollection {
     const submittedOn = doc.submittedOn;
     const status = doc.status;
     const processed = doc.processed;
-    return { student, academicTerm, opportunity, submittedOn, status, processed };
+    const retired = doc.retired;
+    return { student, academicTerm, opportunity, submittedOn, status, processed, retired };
   }
 
   /**

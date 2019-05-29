@@ -65,7 +65,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If user or feedbackType cannot be resolved.
    * @returns The newly created docID.
    */
-  public define({ user, functionName, description, feedbackType, retired }: IFeedbackInstanceDefine) {
+  public define({ user, functionName, description, feedbackType, retired = false }: IFeedbackInstanceDefine) {
     // Validate Feedback and user.
     const userID = Users.getID(user);
     if (!_.includes(this.feedbackTypes, feedbackType)) {
@@ -183,7 +183,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      const instance = this; // tslint:disable-line: no-this-assignment
+      const instance = this;
       Meteor.publish(this.collectionName, function publish() {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();

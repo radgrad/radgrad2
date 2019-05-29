@@ -40,11 +40,12 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param location The mentor's location.
    * @param linkedin The mentor's LinkedIn user ID. (optional)
    * @param motivation The reason why the user mentors.
+   * @param retired Is this mentor retired? (optional)
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the MentorProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, company, career, location, linkedin, motivation, retired }: IMentorProfileDefine) {
+           careerGoals, company, career, location, linkedin, motivation, retired = false }: IMentorProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.MENTOR;
       const interestIDs = Interests.getIDs(interests);

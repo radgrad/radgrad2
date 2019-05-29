@@ -55,7 +55,7 @@ class MentorQuestionCollection extends BaseSlugCollection {
    * @param moderatorComments any comments from the moderator.
    * @return { String } the docID of this question.
    */
-  public define({ question, slug, student, moderated = false, visible = false, moderatorComments = '', retired }: IMentorQuestionDefine) {
+  public define({ question, slug, student, moderated = false, visible = false, moderatorComments = '', retired = false }: IMentorQuestionDefine) {
     const studentID = Users.getID(student);
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const docID = this.collection.insert({ question, slugID, studentID, moderated, visible, moderatorComments, retired });

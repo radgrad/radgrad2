@@ -111,7 +111,7 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
               <Message>
                 <Link to="/signup">Click here to Register</Link>
               </Message>
-              {this.state.error === '' ? ( // tslint:disable-line
+              {this.state.error === '' ? (
                 ''
               ) : (
                 <Message

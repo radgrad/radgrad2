@@ -131,7 +131,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps> {
     if (model.role === ROLE.MENTOR) {
       schema.extend(mentorSchema);
     }
-    if (model.role === ROLE.STUDENT) {
+    if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
       schema.extend(studentSchema);
     }
     // console.log(schema);
@@ -169,7 +169,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps> {
               <LongTextField name="motivation"/>
             </div>
           ) : ''}
-          {model.role === ROLE.STUDENT ? (
+          {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
             <div>
               <Header dividing={true} as="h4">Student fields</Header>
               <Form.Group widths="equal">

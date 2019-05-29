@@ -658,6 +658,7 @@ export interface IBaseProfile {
 }
 
 export interface IProfile {
+  _id?: string;
   userID: string;
   username: string;
   firstName: string;

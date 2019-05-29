@@ -11,8 +11,6 @@ import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 
-/* tslint:disable: jsx-no-lambda */
-
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 class App extends React.Component {
   public render() {
@@ -145,4 +143,3 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => ( // eslint
 );
 
 export default withInstanceSubscriptions(withGlobalSubscription(App));
-/* tslint:enable: jsx-no-lambda */

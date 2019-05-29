@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
 
 /** A simple static component to render some text for the landing page. */
 class FacultyCourseScoreboardPage extends React.Component {
@@ -19,13 +20,8 @@ class FacultyCourseScoreboardPage extends React.Component {
           <Grid.Row>
             <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
-
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Faculty Course Scoreboard</h1>
+          <Grid.Column width={16}>
+            <CourseScoreboardWidget/>
           </Grid.Column>
         </Grid>
       </div>

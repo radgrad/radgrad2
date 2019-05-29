@@ -13,6 +13,7 @@ import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { StudentProfiles } from '../user/StudentProfileCollection';
+import { CourseScoreboardName } from '../../startup/both/names';
 
 /**
  * Represents the taking of a course by a specific student in a specific academicTerm.
@@ -27,6 +28,7 @@ class CourseInstanceCollection extends BaseCollection {
     publicStudent: string;
     publicSlugStudent: string;
     studentID: string;
+    scoreboard: string;
   };
 
   /**
@@ -53,6 +55,7 @@ class CourseInstanceCollection extends BaseCollection {
       publicStudent: `${this.collectionName}.PublicStudent`,
       publicSlugStudent: `${this.collectionName}.PublicSlugStudent`,
       studentID: `${this.collectionName}.studentID`,
+      scoreboard: `${this.collectionName}.Scoreboard`,
     };
     this.defineSchema = new SimpleSchema({
       academicTerm: String,
@@ -103,7 +106,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs }: ICourseInstanceDefine) {
+  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs, retired = false }: ICourseInstanceDefine) {
     // Check arguments
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -132,7 +135,6 @@ class CourseInstanceCollection extends BaseCollection {
       /* eslint-disable-next-line no-param-reassign */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
-    const retired = false;
     // Define and return the CourseInstance
     return this.collection.insert({
       termID,
@@ -377,7 +379,6 @@ class CourseInstanceCollection extends BaseCollection {
           }).validate({ studentID, termID });
           return instance.collection.find({ studentID, termID });
         });
-      // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
         const userID = Meteor.userId();
         const willingToShare = [];
@@ -389,9 +390,15 @@ class CourseInstanceCollection extends BaseCollection {
         });
         // console.log(willingToShare);
         ReactiveAggregate(this, instance.collection, [
-          { $match: { $expr: { $or: [
+          {
+            $match: {
+              $expr: {
+                $or: [
                   { $in: ['$studentID', willingToShare] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }] } } },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }],
+              },
+            },
+          },
           { $project: { studentID: 1, termID: 1, courseID: 1 } },
         ]);
         // verified: Boolean,
@@ -405,7 +412,20 @@ class CourseInstanceCollection extends BaseCollection {
         //
         // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
-      // tslint:disable-next-line: ter-prefer-arrow-callback
+      Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
+        ReactiveAggregate(this, instance.collection, [
+          {
+            $addFields: { courseTerm: { $concat: ['$courseID', ' ', '$termID'] } },
+          },
+          {
+            $group: {
+              _id: '$courseTerm',
+              count: { $sum: 1 },
+            },
+          },
+          { $project: { count: 1, termID: 1, courseID: 1 } },
+        ], { clientCollection: CourseScoreboardName });
+      });
       Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) { // eslint-disable-line meteor/audit-argument-checks
         // check the courseID.
         const slug = Slugs.findDoc({ name: courseSlug });
@@ -417,7 +437,6 @@ class CourseInstanceCollection extends BaseCollection {
 
         return instance.collection.find({ courseID }, { fields: { studentID: 1, termID: 1, courseID: 1 } });
       });
-      // tslint:disable-next-line: ter-prefer-arrow-callback
       Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         new SimpleSchema({
           studentID: { type: String },
@@ -506,7 +525,8 @@ class CourseInstanceCollection extends BaseCollection {
     const grade = doc.grade;
     const fromRegistrar = doc.fromRegistrar;
     const student = Users.getProfile(doc.studentID).username;
-    return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student };
+    const retired = doc.retired;
+    return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student, retired };
   }
 }
 
