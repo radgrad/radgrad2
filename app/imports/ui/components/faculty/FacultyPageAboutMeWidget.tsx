@@ -5,7 +5,7 @@
 import * as React from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {_} from 'meteor/erasaur:meteor-lodash';
-import {Container, Grid, Header, Label, Icon, Form, Message} from 'semantic-ui-react';
+import {Container, Grid, Header, Label, Icon, Form} from 'semantic-ui-react';
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
@@ -42,8 +42,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const username = this.props.match.params.username;
 //gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
-//gets the user ID based on the username
-    const facultyUserID = facultyDoc.userID;
     console.log('handle Submit Website');
     this.setState({id: 'changed'});
     console.log(this.state);
@@ -62,8 +60,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const username = this.props.match.params.username;
 //gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
-//gets the user ID based on the username
-    const facultyUserID = facultyDoc.userID;
     console.log('handle Submit Photo');
     this.setState({id: 'changed'});
     console.log(this.state);
@@ -77,9 +73,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   };
 
   //private method to call the picture uploader
-  private ImageUpload = () => {
-
-  }
+  private fileSelectedHandler = (event) => {
+    console.log(event.target.files[0]);
+  };
 
   public render() {
     const username = this.props.match.params.username;
@@ -120,92 +116,93 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
     return (
       <Container>
-      <div className="ui padded container segment">
-        <Grid>
-          <Grid.Row>
-            <Grid.Column>
-              <Header as='h3' dividing textAlign='left'>Profile</Header>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Name</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Header as='h5' textAlign='left'>{Users.getFullName(facultyDoc)}</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Email</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Header as='h5' textAlign='left'>{facultyUserUsername}</Header>
-            </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Interests</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Grid>
-                  <Grid.Row  divided textAlign='left'>
-                  <Label.Group>
-                    {_.map(facultyInterests, (interests, index) =>
-                      <Label size='tiny' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
-                    )}
-                  </Label.Group>
+        <div className="ui padded container segment">
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as='h3' dividing textAlign='left'>Profile</Header>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column floated='left' width={2}>
+                <Header as='h5' textAlign='left'>Name</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={6}>
+                <Header as='h5' textAlign='left'>{Users.getFullName(facultyDoc)}</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={2}>
+                <Header as='h5' textAlign='left'>Email</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={6}>
+                <Header as='h5' textAlign='left'>{facultyUserUsername}</Header>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column floated='left' width={2}>
+                <Header as='h5' textAlign='left'>Interests</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={6}>
+                <Grid>
+                  <Grid.Row divided textAlign='left'>
+                    <Label.Group>
+                      {_.map(facultyInterests, (interests, index) =>
+                        <Label size='tiny' key={index} as='a'><Icon name='star'>{interests}</Icon></Label>
+                      )}
+                    </Label.Group>
                   </Grid.Row>
                   <Link to={exploreRoute}>Edit in Interest Explorer</Link>
-              </Grid>
-            </Grid.Column>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Career Goals</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Grid>
-                <Grid.Row divided textAlign='left'>
-                  <Label.Group>
-                    {_.map(facultyCareerGoals, (careerGoals, index) =>
-                      <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
-                    )}
-                  </Label.Group>
-                </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Grid.Column floated='left' width={2}>
+                <Header as='h5' textAlign='left'>Career Goals</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={6}>
+                <Grid>
+                  <Grid.Row divided textAlign='left'>
+                    <Label.Group>
+                      {_.map(facultyCareerGoals, (careerGoals, index) =>
+                        <Label size='small' key={index} as='a'><Icon name='suitcase'>{careerGoals}</Icon></Label>
+                      )}
+                    </Label.Group>
+                  </Grid.Row>
                   <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Website</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Form onSubmit={this.handleSubmitWebsite} success>
-                <Form.Group>
-                  <Form.Input width={10}
-                              name='website'
-                              onChange={this.handleChange}
-                              placeholder={facultyWebsite}/>
-                  <Form.Button content='Update'/>
-                </Form.Group>
-              </Form>
-            </Grid.Column>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Picture(<a id="image-upload-widget">Upload</a>)</Header>
-            </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Form onSubmit={this.handleSubmitPhoto} success>
-                <Form.Group>
-                  <Form.Input
-                    onChange={this.handleChange} width={10}
-                    name='picture'
-                    placeholder={facultyUserProfile.picture}/>
-                  <Form.Button content='Update'/>
-                </Form.Group>
-              </Form>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
+                </Grid>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column floated='left' width={2}>
+                <Header as='h5' textAlign='left'>Website</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={6}>
+                <Form onSubmit={this.handleSubmitWebsite} success>
+                  <Form.Group>
+                    <Form.Input width={10}
+                                name='website'
+                                onChange={this.handleChange}
+                                placeholder={facultyWebsite}/>
+                    <Form.Button content='Update'/>
+                  </Form.Group>
+                </Form>
+              </Grid.Column>
+              <Grid.Column floated='left' width={2}>
+                <Header as='h5' textAlign='left'>Picture</Header>
+              </Grid.Column>
+              <Grid.Column floated='left' width={6}>
+                <Form onSubmit={this.handleSubmitPhoto} success>
+                  <Form.Group>
+                    <Form.Input
+                      onChange={this.handleChange} width={10}
+                      name='picture'
+                      placeholder={facultyUserProfile.picture}/>
+                    <Form.Button content='Update'/>
+                  </Form.Group>
+                </Form>
+                <input type='file' onChange={this.fileSelectedHandler}/>
+
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
       </Container>
     );
 
