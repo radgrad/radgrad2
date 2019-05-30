@@ -3,7 +3,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import ListOpportunitiesWidget from '../../components/admin/ListOpportunitiesWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -184,7 +184,7 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
             ) : (
               <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
-            <ListCollectionWidget collection={collection}
+            <ListOpportunitiesWidget collection={collection}
                                   findOptions={findOptions}
                                   descriptionPairs={descriptionPairs}
                                   itemTitle={itemTitle}
