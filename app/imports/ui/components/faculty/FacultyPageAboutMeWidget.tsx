@@ -4,13 +4,15 @@
  * Faculty Widget that shows About Me information
  */
 import * as React from 'react';
-import {withRouter, Link, NavLink} from 'react-router-dom';
-import {_} from 'meteor/erasaur:meteor-lodash';
-import {Container, Grid, Header, Label, Icon, Form} from 'semantic-ui-react';
-import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
-import {Users} from "../../../api/user/UserCollection";
-import {Interests} from "../../../api/interest/InterestCollection";
-import {CareerGoals} from "../../../api/career/CareerGoalCollection";
+import { withRouter, Link, NavLink } from 'react-router-dom';
+import { _ } from 'meteor/erasaur:meteor-lodash';
+import { Container, Grid, Header, Label, Icon, Form } from 'semantic-ui-react';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+
+/* global alert */
 
 /**
  * The Faculty
@@ -33,7 +35,7 @@ interface IFacultyPageAboutMeWidgetProps {
  * The Faculty About Me Widget should show basic information of the specified user.
  */
 class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
-  //call the props constructor
+  // call the props constructor
   constructor(props: any) {
     super(props);
   }
@@ -44,9 +46,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * @param name Name of the Event
    * @param value User input
    */
-  private handleChange = (event, {name, value}) => {
-    console.log('handle change',event, {name, value});
-    this.setState({[name]: value});
+  private handleChange = (event, { name, value }) => {
+    console.log('handle change', event, { name, value });
+    this.setState({ [name]: value });
   };
 
   /**
@@ -55,19 +57,19 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    */
   private handleSubmitWebsite = (event) => {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+    // gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
     console.log('handle Submit Website');
-    this.setState({id: 'changed'});
+    this.setState({ id: 'changed' });
     console.log(this.state);
     console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
-    //updates faculty profile's website entry
+    // updates faculty profile's website entry
     FacultyProfiles.update(facultyDoc._id, this.state);
     console.log(Users.getProfile(facultyDoc.userID));
-    //need to alert userif their update was sucessful
-    //also need to update the placeholder text
+    // need to alert userif their update was sucessful
+    // also need to update the placeholder text
     console.log(event);
-    //create an update data object examples:
+    // create an update data object examples:
   };
 
   /**
@@ -76,18 +78,18 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    */
   private handleSubmitPhoto = (event) => {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+    // gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
     console.log('handle Submit Photo');
-    this.setState({id: 'changed'});
+    this.setState({ id: 'changed' });
     console.log(this.state);
     console.log(FacultyProfiles.findDoc(this.props.match.params.username).picture);
-    //updates faculty profile's website entry
+    // updates faculty profile's website entry
     FacultyProfiles.update(facultyDoc._id, this.state);
     console.log(Users.getProfile(facultyDoc.userID));
-    //need to alert userif their update was sucessful
-    //also need to update the placeholder text
-    alert(event);
+    // need to alert userif their update was sucessful
+    // also need to update the placeholder text
+    alert(event); // eslint-disable-line no-alert
   };
 
   /**
@@ -108,13 +110,13 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
-    label = label.toString().toLowerCase().split(' ').join('-');
-    //example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
-    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
+    label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
+    // example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
+    const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
       'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    return(exploreRoute);
+    return (exploreRoute);
   };
 
   /**
@@ -127,9 +129,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
-    label = label.toString().toLowerCase().split(' ').join('-');
-    //example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
-    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
+    label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
+    // example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
+    const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
       'explorer', 'career-goals', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
@@ -141,32 +143,32 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    */
   public render() {
     const username = this.props.match.params.username;
-    //gets the doc object containing information on desired profile based on username
+    // gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
-    //gets the user ID based on the username
+    // gets the user ID based on the username
     const facultyUserID = facultyDoc.userID;
-    //gets the user profile based on the user ID
+    // gets the user profile based on the user ID
     const facultyUserProfile = Users.getProfile(facultyUserID);
-    //gets the username based on the user ID
+    // gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
-    //gets the faculty website address
+    // gets the faculty website address
     const facultyWebsite = facultyUserProfile.website;
-    //get the career goal IDs based on the userID
+    // get the career goal IDs based on the userID
     const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
-    //map the career goal IDs to their names
+    // map the career goal IDs to their names
     const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
-    //get the interest goal IDs based on the User ID
+    // get the interest goal IDs based on the User ID
     const facultyInterestIDs = facultyUserProfile.interestIDs;
-    //map the interests IDs to their names
+    // map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
-    //M: should make it so that you reference the doc and then the name rather than the doc directly
+    // M: should make it so that you reference the doc and then the name rather than the doc directly
     // gets the url from the faculty profile's information
     // url is made up of: role/username/explorer/CareerOrInterests
-    let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
+    const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    //url for career path explorer
-    let careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
+    // url for career path explorer
+    const careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
     let careerRoute = careerPath.join('/');
     careerRoute = `/${careerRoute}`;
 
@@ -201,10 +203,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                 <Grid>
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
-                      {_.map(facultyInterests, (interests, index) =>
-                        <Label size='small' key={index} as={NavLink} exact={true} to={this.generateInterestRoute(interests)}><Icon
+                      {_.map(facultyInterests, (interests, index) => (
+                        <Label size='small' key={index} as={NavLink} exact={true}
+                               to={this.generateInterestRoute(interests)}><Icon
                           name='star'>{interests}</Icon></Label>
-                          )}
+                      ))}
                     </Label.Group>
                   </Grid.Row>
                   <Link to={exploreRoute}>Edit in Interest Explorer</Link>
@@ -217,10 +220,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                 <Grid>
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
-                      {_.map(facultyCareerGoals, (careerGoals, index) =>
-                        <Label size='small' key={index} as={NavLink} exact={true} to={this.generateCareerGoalsRoute(careerGoals)}><Icon
+                      {_.map(facultyCareerGoals, (careerGoals, index) => (
+                        <Label size='small' key={index} as={NavLink} exact={true}
+                               to={this.generateCareerGoalsRoute(careerGoals)}><Icon
                           name='suitcase'>{careerGoals}</Icon></Label>
-                      )}
+                      ))}
                     </Label.Group>
                   </Grid.Row>
                   <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
@@ -276,4 +280,4 @@ export default withRouter(FacultyPageAboutMeWidget);
  * make alert to notify user that information has been updated sucessfully
  * conditional showing of interest and career goal labels: if user doesn't have any, text should say:
  * no career goals/ interests added yet
-*/
+ */

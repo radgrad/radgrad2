@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Grid, Image, Header} from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import FacultyPageAboutMeWidget from "../../components/faculty/FacultyPageAboutMeWidget";
+import FacultyPageAboutMeWidget from '../../components/faculty/FacultyPageAboutMeWidget';
 
 /** A simple static component to render some text for the landing page. */
 class FacultyHomePage extends React.Component {
