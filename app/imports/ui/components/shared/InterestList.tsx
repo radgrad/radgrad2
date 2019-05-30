@@ -130,7 +130,7 @@ class InterestList extends React.Component<IInterestListProps> {
     const matchingCareerInterests = this.matchingCareerInterests(this.props.item);
     const otherInterests = this.otherInterests(this.props.item);
     return (
-      <Label.Group>
+      <Label.Group size={this.props.size}>
         {
           matchingUserInterests.map((interest, index) => (
             <div key={index}>

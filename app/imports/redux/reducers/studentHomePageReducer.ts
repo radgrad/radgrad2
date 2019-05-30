@@ -1,10 +1,12 @@
 import {
-  SET_STUDENT_HOME_WIDGET_HIDDEN,
+  SET_STUDENT_HOME_WIDGET_HIDDEN_COURSES,
+  SET_STUDENT_HOME_WIDGET_HIDDEN_OPPORTUNITIES,
 } from '../actions/studentHomePageActionTypes';
 
 interface IStudentHomePageStates {
   studentOfInterestWidget?: {
-    hidden: boolean,
+    hiddenCourses: boolean,
+    hiddenOpportunities: boolean,
   }
 }
 
@@ -12,13 +14,23 @@ export function studentHomePageReducer(state: IStudentHomePageStates = {}, actio
   let otherKeys;
   let s: IStudentHomePageStates;
   switch (action.type) {
-    case SET_STUDENT_HOME_WIDGET_HIDDEN:
+    case SET_STUDENT_HOME_WIDGET_HIDDEN_COURSES:
       otherKeys = state.studentOfInterestWidget;
       s = {
         ...state,
         studentOfInterestWidget: {
           ...otherKeys,
-          hidden: action.payload,
+          hiddenCourses: action.payload,
+        },
+      };
+      return s;
+    case SET_STUDENT_HOME_WIDGET_HIDDEN_OPPORTUNITIES:
+      otherKeys = state.studentOfInterestWidget;
+      s = {
+        ...state,
+        studentOfInterestWidget: {
+          ...otherKeys,
+          hiddenOpportunities: action.payload,
         },
       };
       return s;

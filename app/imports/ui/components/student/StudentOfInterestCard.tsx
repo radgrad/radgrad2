@@ -87,7 +87,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
   // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
   // Should move it to one if one is made - Gian.
   private opportunityTerms(opportunityInstance) {
-    const academicTermIDs = opportunityInstance.semesterIDs;
+    const academicTermIDs = opportunityInstance.termIDs;
     const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
     return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
   }
@@ -220,7 +220,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         </Card.Content>
 
         <Card.Content>
-          <p>{itemShortDescription}</p>
+          <p>{itemShortDescription}...</p>
           <InterestList item={item} size='mini'/>
         </Card.Content>
 
@@ -237,9 +237,9 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
           </Image.Group>
         </Card.Content>
 
-        {/* FIXME: Missing a "Center aligned" attribute */}
         {
-          <Button.Group className="radgrad-home-buttons" attached="bottom" widths={3} color={hidden || undefined}>
+          <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
+                        color={hidden || undefined}>
             <Link to={this.getRouteName(this.props.item, this.props.type)}>
               <Button><Icon name="chevron circle right"/><br/>View More</Button>
             </Link>

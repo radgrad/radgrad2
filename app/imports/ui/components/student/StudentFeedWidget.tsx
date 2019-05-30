@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Container, Feed, Header, Segment } from 'semantic-ui-react';
+import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import StudentFeedItem from './StudentFeedItem';
 
@@ -14,15 +14,24 @@ class StudentFeedWidget extends React.Component<IStudentFeedWidgetProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const feedStyle = {
+      maxHeight: '488px',
+      overflow: 'scroll',
+      marginTop: '10px',
+    };
+
     return (
       <Container>
         <Segment padded={true}>
           <Header dividing={true}>RADGRAD COMMUNITY ACTIVITY</Header>
           {
             this.props.feeds ?
-              <Feed>
+              <Feed style={feedStyle}>
                 {this.props.feeds.map((feed, index) => (
-                  <StudentFeedItem key={index} feed={feed}/>
+                  <React.Fragment key={index}>
+                    <StudentFeedItem feed={feed}/>
+                    <Divider/>
+                  </React.Fragment>
                 ))}
               </Feed>
               :

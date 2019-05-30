@@ -2,9 +2,12 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface IStudentOfInterestAddProps {
   item: any;
@@ -17,9 +20,14 @@ interface IStudentOfInterestAddProps {
       username: string;
     }
   };
+  profile: object;
+  courseInstances: object[];
+  opportunityInstances: object[];
+  currentTerm: {
+    year: number;
+  }
 }
 
-// TODO: How to implement adding to plan with Academic Terms instead of semesters
 class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
   constructor(props) {
     super(props);
@@ -31,7 +39,8 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
 
   private nextYears = (amount) => {
     const nextYears = [];
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const { currentTerm } = this.props;
+    // const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     let currentYear = currentTerm.year;
     for (let i = 0; i < amount; i += 1) {
       nextYears.push(currentYear);
@@ -40,11 +49,8 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
     return nextYears;
   }
 
-  // TODO: How to convert this into Academic Terms?
-  private yearSemesters = (year) => [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
+  private yearTerms = (year) => [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
 
-  // FIXME: In the original radgrad code, in the HTML file the code call is "itemSemesters item" but the itemSemesters
-  //        function does not take a parameter.
   private itemTerms = () => {
     let ret = [];
     if (this.typeCourse()) {
@@ -58,22 +64,23 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
   // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
   // Should move it to one if one is made - Gian.
   private opportunityTerms(opportunityInstance) {
-    const academicTermIDs = opportunityInstance.semesterIDs;
+    const academicTermIDs = opportunityInstance.termIDs;
     const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
     return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
   }
 
   private handleAddToPlan = (e) => {
     e.preventDefault();
-    const semester = e.target.text;
+    const term = e.target.text;
     const { item } = this.props;
     const itemSlug = Slugs.findDoc({ _id: item.slugID });
-    const semSplit = semester.split(' ');
-    const semSlug = `${semSplit[0]}-${semSplit[1]}`;
+    const termSplit = term.split(' ');
+    const termSlug = `${termSplit[0]}-${termSplit[1]}`;
     const username = this.getUsername();
+
     if (this.typeCourse()) {
       const definitionData = {
-        semester: semSlug,
+        academicTerm: termSlug,
         course: itemSlug,
         verified: false,
         note: item.number,
@@ -87,7 +94,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
       });
     } else {
       const definitionData = {
-        semester: semSlug,
+        academicTerm: termSlug,
         opportunity: itemSlug.name,
         verified: false,
         student: username,
@@ -107,29 +114,37 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
       <React.Fragment>
         {
           this.typeCourse() ?
-            <Popup trigger={
-              <Button>
-                <Icon name="plus"/><br/>Add to Plan
-              </Button>
-            }>
-              {/* FIXME: the Popups are disappearing immediately */}
+            <Popup
+              trigger={
+                <Button>
+                  <Icon name="plus"/><br/>Add to Plan
+                </Button>
+              }
+              on="click"
+            >
               {/* TODO: fluid popup transition hidden */}
               <Popup.Content>
                 <Menu size="mini" secondary={true} vertical={true}>
                   {
                     nextYears.map((year, index) => (
                       <React.Fragment key={index}>
-                        <Menu.Item as="a" className={`${this.props.item} chooseSemester`}>
-                          {year}
-                        </Menu.Item>
                         {/* TODO: fluid popup transition hidden */}
-                        <Popup>
+                        <Popup
+                          trigger={
+                            <Menu.Item as="a" className={`${this.props.item} chooseSemester`}>
+                              {year}
+                            </Menu.Item>
+                          }
+                          on="click"
+                        >
                           <Popup.Content>
                             <Menu size="mini" secondary={true} vertical={true}>
                               {
-                                this.yearSemesters(year).map((semester) => (
-                                  <Menu.Item as="a" className={`${this.props.item}`} key={index}>
-                                    {semester}
+                                this.yearTerms(year).map((term) => (
+                                  <Menu.Item as="a" className={`${this.props.item}`}
+                                             key={index}
+                                             onClick={this.handleAddToPlan}>
+                                    {term}
                                   </Menu.Item>
                                 ))
                               }
@@ -143,18 +158,22 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
               </Popup.Content>
             </Popup>
             :
-            <Popup trigger={
-              <Button>
-                <Icon name="plus"/><br/>Add to Plan
-              </Button>
-            }>
-              {/* FIXME: the Popups are disappearing immediately */}
+            <Popup
+              trigger={
+                <Button>
+                  <Icon name="plus"/><br/>Add to Plan
+                </Button>
+              }
+              on="click"
+            >
               {/* TODO: fluid popup transition hidden */}
               <Popup.Content position="right center">
                 <Menu size="mini" secondary={true} vertical={true}>
                   {
                     this.itemTerms().map((term, index) => (
-                      <Menu.Item key={index} as="a" className={`${this.props.item}`} onClick={this.handleAddToPlan}>
+                      <Menu.Item
+                        key={index}
+                        as="a" className={`${this.props.item}`} onClick={this.handleAddToPlan}>
                         {term}
                       </Menu.Item>
                     ))
@@ -168,4 +187,15 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
   }
 }
 
-export default withRouter(StudentOfInterestAdd);
+const StudentOfInterestAddCon = withTracker(() => {
+  const courseInstances = CourseInstances.findNonRetired();
+  const opportunityInstances = OpportunityInstances.findNonRetired();
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  return {
+    courseInstances,
+    opportunityInstances,
+    currentTerm,
+  };
+})(StudentOfInterestAdd);
+const StudentOfInterestAddContainer = withRouter(StudentOfInterestAddCon);
+export default StudentOfInterestAddContainer;

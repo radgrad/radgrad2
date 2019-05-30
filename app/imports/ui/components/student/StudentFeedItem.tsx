@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import { Divider, Feed, Image } from 'semantic-ui-react';
+import { Feed, Image } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import StudentFeedModal from './StudentFeedModal';
@@ -92,7 +92,6 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
             </Feed.Extra>
           </Feed.Content>
         </Feed.Event>
-        <Divider/>
       </React.Fragment>
     );
   }

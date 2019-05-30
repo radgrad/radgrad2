@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, Icon, Image, Item, Modal } from 'semantic-ui-react';
+import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 
 interface IStudentFeedModalProps {

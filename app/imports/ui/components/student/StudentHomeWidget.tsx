@@ -19,6 +19,7 @@ class StudentHomeWidget extends React.Component {
 
         <Grid.Column width={6}>
           <StudentFeedWidget/>
+          <br/>
           <StudentTeaserWidget/>
         </Grid.Column>
       </Grid>

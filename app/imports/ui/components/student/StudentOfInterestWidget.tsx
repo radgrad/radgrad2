@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, Card, Header, Icon, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import StudentOfInterestCard from './StudentOfInterestCard';
@@ -13,7 +13,10 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { setStudentHomeWidgetHidden } from '../../../redux/actions/studentHomePageActions';
+import {
+  setStudentHomeWidgetHiddenCourses,
+  setStudentHomeWidgetHiddenOpportunities,
+} from '../../../redux/actions/studentHomePageActions';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -25,21 +28,23 @@ interface IStudentOfInterestWidgetProps {
       username: string;
     }
   };
-  dispatch: any;
-  hidden: boolean;
   profile: any;
+  nonRetiredCourses: object[];
+  nonRetiredOpportunities: object[];
+  hiddenCourses: boolean;
+  hiddenOpportunities: boolean;
+  dispatch: any;
 }
 
 const mapStateToProps = (state) => ({
-  hidden: state.studentHomePage.studentOfInterestWidget.hidden,
+  hiddenCourses: state.studentHomePage.studentOfInterestWidget.hiddenCourses,
+  hiddenOpportunities: state.studentHomePage.studentOfInterestWidget.hiddenOpportunities,
 });
 
 class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetProps> {
   constructor(props) {
     super(props);
   }
-
-  private isHidden = (): boolean => this.props.hidden
 
   private hiddenExists() {
     const username = this.getUsername();
@@ -56,17 +61,36 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return false;
   }
 
-  private handleShowHidden = (e) => {
+  private isCoursesHidden = (): boolean => this.props.hiddenCourses
+
+  private isOpportunitiesHidden = (): boolean => this.props.hiddenOpportunities
+
+  private handleShowHiddenCourses = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHidden(false));
+    this.props.dispatch(setStudentHomeWidgetHiddenCourses(false));
   }
 
-  private handleHideHidden = (e) => {
+  private handleHideHiddenCourses = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHidden(true));
+    this.props.dispatch(setStudentHomeWidgetHiddenCourses(true));
+  }
+
+  private handleShowHiddenOpportunities = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(false));
+  }
+
+  private handleHideHiddenOpportunities = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(true));
   }
 
   private getUsername = () => this.props.match.params.username;
+
+  private getUserIdFromRoute = () => {
+    const username = this.getUsername();
+    return username && Users.getID(username);
+  }
 
   private itemCount = () => {
     let ret;
@@ -83,23 +107,12 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   private courses = () => {
     const courses = this.matchingCourses();
     let visibleCourses;
-    if (this.isHidden()) {
+    if (this.isCoursesHidden()) {
       visibleCourses = this.hiddenCoursesHelper();
     } else {
       visibleCourses = courses;
     }
     return visibleCourses;
-  }
-
-  private opportunities = () => {
-    const opportunities = this.matchingOpportunities();
-    let visibleOpportunities;
-    if (this.isHidden()) {
-      visibleOpportunities = this.hiddenOpportunitiesHelper();
-    } else {
-      visibleOpportunities = opportunities;
-    }
-    return visibleOpportunities;
   }
 
   private matchingCourses = () => {
@@ -108,7 +121,6 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
       const allCourses = this.availableCourses();
       const matching: any = [];
       const { profile } = this.props;
-      // console.log('StudentProfile=%o', profile);
       const userInterests = [];
       let courseInterests = [];
       _.forEach(Users.getInterestIDs(profile.userID), (id) => {
@@ -136,10 +148,10 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   }
 
   private availableCourses = () => {
-    const courses = Courses.findNonRetired({});
-    if (courses.length > 0) {
-      const filtered = _.filter(courses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: WHy is ICS 499 hardcoded?
+    const { nonRetiredCourses } = this.props;
+    if (nonRetiredCourses.length > 0) {
+      const filtered = _.filter(nonRetiredCourses, (course) => {
+        if (course.number === 'ICS 499') {
           return true;
         }
         const ci = CourseInstances.find({
@@ -156,9 +168,8 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   private hiddenCoursesHelper = () => {
     if (this.getUsername()) {
       const courses = this.matchingCourses();
-      // const courses = this.props.matchingCourses;
       let nonHiddenCourses;
-      if (this.isHidden()) {
+      if (this.isCoursesHidden()) {
         const { profile } = this.props;
         nonHiddenCourses = _.filter(courses, (course) => {
           if (_.includes(profile.hiddenCourseIDs, course._id)) {
@@ -174,30 +185,19 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return [];
   }
 
-  private hiddenOpportunitiesHelper = () => {
-    if (this.getUsername()) {
-      const opportunities = this.matchingOpportunities();
-      // const opportunities = this.props.matchingOpportunities;
-      let nonHiddenOpportunities;
-      if (this.isHidden()) {
-        const { profile } = this.props;
-        nonHiddenOpportunities = _.filter(opportunities, (opp) => {
-          if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
-            return false;
-          }
-          return true;
-        });
-      } else {
-        nonHiddenOpportunities = opportunities;
-      }
-      return nonHiddenOpportunities;
+  private opportunities = () => {
+    const opportunities = this.matchingOpportunities();
+    let visibleOpportunities;
+    if (this.isOpportunitiesHidden()) {
+      visibleOpportunities = this.hiddenOpportunitiesHelper();
+    } else {
+      visibleOpportunities = opportunities;
     }
-    return [];
+    return visibleOpportunities;
   }
 
   private matchingOpportunities = () => {
     const allOpportunities = this.availableOpps();
-    // const username = this.getUsername();
     const matching: any = [];
     const { profile } = this.props;
     const userInterests = [];
@@ -224,16 +224,11 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return (matching < 7) ? matching : matching.slice(0, 6);
   }
 
-  private getUserIdFromRoute = () => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
   private availableOpps = () => {
-    const notRetired = Opportunities.findNonRetired({});
+    const { nonRetiredOpportunities } = this.props;
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    if (notRetired.length > 0) {
-      const filteredByTerm = _.filter(notRetired, (opp) => {
+    if (nonRetiredOpportunities.length > 0) {
+      const filteredByTerm = _.filter(nonRetiredOpportunities, (opp) => {
         const oi = OpportunityInstances.find({
           studentID: this.getUserIdFromRoute(),
           opportunityID: opp._id,
@@ -255,53 +250,95 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return [];
   }
 
+  private hiddenOpportunitiesHelper = () => {
+    if (this.getUsername()) {
+      const opportunities = this.matchingOpportunities();
+      // const opportunities = this.props.matchingOpportunities;
+      let nonHiddenOpportunities;
+      if (this.isOpportunitiesHidden()) {
+        const { profile } = this.props;
+        nonHiddenOpportunities = _.filter(opportunities, (opp) => {
+          if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
+            return false;
+          }
+          return true;
+        });
+      } else {
+        nonHiddenOpportunities = opportunities;
+      }
+      return nonHiddenOpportunities;
+    }
+    return [];
+  }
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     /*
-     Had to declare the properties of some of the CSS attributes as themselves to fix
-     the "Type X is not assignable to Type Y" errors
+     Had to declare the styles as React.CSSProperties to fix the "Type X is not assignable to Type Y" errors
      See https://github.com/microsoft/TypeScript/issues/11465#issuecomment-252453037
      */
-    const uppercaseTextTransformStyle = { textTransform: 'uppercase' as 'uppercase' };
-    const cardsStackableStyle = {
+    const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
+    const cardsStackableStyle: React.CSSProperties = {
       maxHeight: '500px',
-      overflowX: 'hidden' as 'hidden',
-      overflowY: 'scroll' as 'scroll',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
       marginTop: '10px',
     };
 
     const { type } = this.props;
     const hiddenExists = this.hiddenExists();
-    const isHidden = this.isHidden();
+    const isCoursesHidden = this.isCoursesHidden();
+    const isOpportunitiesHidden = this.isOpportunitiesHidden();
     const isTypeCourse = this.typeCourse();
     const courses = this.courses();
     const opportunities = this.opportunities();
-    // const { theCourses, theOpportunities } = this.props;
 
     return (
       <Segment padded={true}>
-        <Header as="h4" dividng="true">
-          RECOMMENDED <span style={uppercaseTextTransformStyle}> {type}</span> <WidgetHeaderNumber
-          inputValue={this.itemCount()}/>
+        {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
+        complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
+        had to use the className attribute instead so it renders as "ui dividing header". - Gian */}
+        <Header className="dividing">
+          <h4>
+            RECOMMENDED <span style={uppercaseTextTransformStyle}>{type}</span> <WidgetHeaderNumber
+            inputValue={this.itemCount()}/>
+          </h4>
         </Header>
 
         {
-          // TODO: Hiding and unhiding is not reactive
           hiddenExists ?
             [
-              isHidden ?
-                <Button key='one' basic={true} color="green" size="mini" onClick={this.handleShowHidden}>
-                  <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>{type}</span>
-                </Button>
+              isTypeCourse ?
+                [
+                  isCoursesHidden ?
+                    <Button key='one' basic={true} color="green" size="mini" onClick={this.handleShowHiddenCourses}>
+                      <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>COURSES</span>
+                    </Button>
+                    :
+                    <Button key='two' basic={true} color="green" size="mini" onClick={this.handleHideHiddenCourses}>
+                      <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>COURSES</span>
+                    </Button>,
+                ]
                 :
-                <Button key='two' basic={true} color="green" size="mini" onClick={this.handleHideHidden}>
-                  <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>{type}</span>
-                </Button>,
+                [
+                  isOpportunitiesHidden ?
+                    <Button key='one' basic={true} color="green" size="mini"
+                            onClick={this.handleShowHiddenOpportunities}>
+                      <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                    </Button>
+                    :
+                    <Button key='two' basic={true} color="green" size="mini"
+                            onClick={this.handleHideHiddenOpportunities}>
+                      <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                    </Button>,
+                ],
             ]
             : ''
         }
 
         {
           courses ?
+            // The overflow-x and overflow-y CSS properties had to be hard coded into the className because they would
+            // not work if stored inside cardsStackableStyle for some reason. - Gian
             <div style={cardsStackableStyle}>
               <Card.Group stackable={true} itemsPerRow={2}>
                 {
@@ -327,8 +364,12 @@ const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWid
 const StudentOfInterestWidgetCont = withTracker(({ match }) => {
   const username = match.params.username;
   const profile = Users.getProfile(username);
+  const nonRetiredCourses = Courses.findNonRetired({});
+  const nonRetiredOpportunities = Opportunities.findNonRetired({});
   return {
     profile,
+    nonRetiredCourses,
+    nonRetiredOpportunities,
   };
 })(StudentOfInterestWidgetCon);
 const StudentOfInterestWidgetContainer = withRouter(StudentOfInterestWidgetCont);

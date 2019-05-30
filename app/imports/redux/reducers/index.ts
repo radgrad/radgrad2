@@ -1,22 +1,22 @@
 // import { combineReducers } from 'redux';
 import {
+  ALL_EMAIL_DONE,
+  ALL_EMAIL_WORKING,
+  CHECK_INTEGRITY_DONE,
+  CHECK_INTEGRITY_WORKING,
+  DepSelectedTabs,
+  DUMP_DATABASE_DONE,
+  DUMP_DATABASE_WORKING,
+  GET_EMAILS_DONE,
+  GET_EMAILS_WORKING,
+  LEVEL_EMAIL_DONE,
+  LEVEL_EMAIL_WORKING,
   SELECT_COURSE,
   SELECT_COURSE_INSTANCE,
   SELECT_OPPORTUNITY,
   SELECT_OPPORTUNITY_INSTANCE,
-  CHECK_INTEGRITY_WORKING,
-  CHECK_INTEGRITY_DONE,
-  DUMP_DATABASE_WORKING,
-  DUMP_DATABASE_DONE,
-  GET_EMAILS_WORKING,
-  GET_EMAILS_DONE,
-  TEST_EMAIL_WORKING,
   TEST_EMAIL_DONE,
-  LEVEL_EMAIL_WORKING,
-  LEVEL_EMAIL_DONE,
-  ALL_EMAIL_WORKING,
-  ALL_EMAIL_DONE,
-  DepSelectedTabs,
+  TEST_EMAIL_WORKING,
 } from '../actions/actionTypes';
 import { paginationReducer } from './paginationReducer';
 import { studentHomePageReducer } from './studentHomePageReducer';
@@ -151,7 +151,8 @@ const initialState = {
   },
   studentHomePage: {
     studentOfInterestWidget: {
-      hidden: true,
+      hiddenCourses: true,
+      hiddenOpportunities: true,
     },
   },
 };
