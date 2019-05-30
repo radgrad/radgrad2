@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { Segment, Tab } from 'semantic-ui-react';
-import { DragDropContext } from 'react-beautiful-dnd';
 import AdvisorAcademicPlanViewerWidget from './AdvisorAcademicPlanViewerWidget';
 import AdvisorAcademicPlanBuilderWidget from './AdvisorAcademicPlanBuilderWidget';
-
-const onDragEnd = (result) => {
-  console.log(result);
-  if (!result.destination) {
-    return null;
-  }
-  return 'hi';
-};
 
 const AdvisorAcademicPlanTabs = () => {
   const panes = [
@@ -29,9 +20,7 @@ const AdvisorAcademicPlanTabs = () => {
   ];
   return (
     <Segment padded={true}>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Tab panes={panes}/>
-      </DragDropContext>
+      <Tab panes={panes}/>
     </Segment>);
 };
 

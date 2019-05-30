@@ -32,9 +32,9 @@ interface IPageProps {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-    selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  });
+  selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
+});
 
 class StudentDegreePlannerPage extends React.Component<IPageProps> {
   constructor(props) {
@@ -95,7 +95,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
         }
       });
     }
-  }
+  };
 
   public render() {
     const paddedStyle = {
