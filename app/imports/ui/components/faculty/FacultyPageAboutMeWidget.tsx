@@ -10,6 +10,14 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
+import {
+  academicPlanSlugFromName,
+  careerGoalSlugFromName,
+  declaredAcademicTermSlugFromName,
+  interestSlugFromName
+} from "../shared/FormHelperFunctions";
+import {updateMethod} from "../../../api/base/BaseCollection.methods";
+import Swal from "sweetalert2";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
@@ -37,30 +45,86 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     this.setState({[name]: value});
   };
 
-  //reference the handleUpdate from AdminDataModelUsersPage.tsx
-  private handleSubmitWebsite = (event) => {
-    const username = this.props.match.params.username;
-//gets the doc object containing information on desired profile based on username
-    const facultyDoc = FacultyProfiles.findDoc(username);
-    console.log('handle Submit Website');
-    this.setState({id: 'changed'});
-    console.log(this.state);
-    console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
-    //updates faculty profile's website entry
-    //should not actually work now
-
-    FacultyProfiles.update(facultyDoc._id, this.state);
-    console.log(Users.getProfile(facultyDoc.userID));
-    //need to alert userif their update was sucessful
-    //also need to update the placeholder text
-    alert(event);
-
-// I want to assign this.state.websiteInput to the
+  /**
+   * Handle Update from AdminDataModelUsersPage.tsx
+  private handleUpdate = (doc) => {
+    const updateData = doc; // create the updateData object from the doc.
+    updateData.id = doc._id;
+    let collectionName;
+    if (StudentProfiles.isDefined(updateData.id)) {
+      collectionName = StudentProfiles.getCollectionName();
+    }
+    if (FacultyProfiles.isDefined(updateData.id)) {
+      collectionName = FacultyProfiles.getCollectionName();
+    }
+    if (MentorProfiles.isDefined(updateData.id)) {
+      collectionName = MentorProfiles.getCollectionName();
+    }
+    if (AdvisorProfiles.isDefined(updateData.id)) {
+      collectionName = AdvisorProfiles.getCollectionName();
+    }
+    updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
+    updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
+    if (!_.isNil(doc.academicPlan)) {
+      updateData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
+    }
+    if (!_.isNil(doc.declaredAcademicTerm)) {
+      updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
+    }
+    console.log(collectionName, updateData);
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.setState({ showUpdateForm: false, id: '' });
+      }
+    });
   };
+   */
+
+  //reference the handleUpdate from AdminDataModelUsersPage.tsx
+  private handleSubmitWebsite = () => {
+    const updateData = this.state; // create the updateData object from the doc.
+    let collectionName = FacultyProfiles.getCollectionName();
+    console.log(collectionName);
+    console.log(updateData);
+
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.setState({ showUpdateForm: false, id: '' });
+      }
+    });
+  };
+
+
 
   private handleSubmitPhoto = (event) => {
     const username = this.props.match.params.username;
-//gets the doc object containing information on desired profile based on username
+    //gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
     console.log('handle Submit Photo');
     this.setState({id: 'changed'});
@@ -72,6 +136,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     //need to alert userif their update was sucessful
     //also need to update the placeholder text
     alert(event);
+
   };
 
   //private method to call the picture uploader
@@ -100,14 +165,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
-    label = label.toString().toLowerCase().split(' ').join('-');
-    console.log('career goals', label);
     //example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
     let explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
       'explorer', 'career-goals', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    console.log (exploreRoute);
     return (exploreRoute);
   };
 
