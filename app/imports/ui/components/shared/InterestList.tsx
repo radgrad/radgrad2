@@ -107,19 +107,13 @@ class InterestList extends React.Component<IInterestListProps> {
     return matchingInterests;
   }
 
-  private interestsRouteName = (interest) => {
-    const url = this.props.match.url;
-    const splitUrl = url.split('/');
-    const group = splitUrl[1];
+  private buildInterestsRouteName = (interest) => {
     const interestName = this.interestSlug(interest);
-    switch (group) {
-      case 'student':
-        return `/student/${this.getUsername()}/explorer/interests/${interestName}`;
-      case 'faculty':
-        return `/faculty/${this.getUsername()}/explorer/interests/${interestName}`;
-      default:
-        return `/mentor/${this.getUsername()}/explorer/interests/${interestName}`;
-    }
+    const username = this.props.match.params.username;
+    const baseUrl = this.props.match.url;
+    const baseIndex = baseUrl.indexOf(username);
+    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    return `${baseRoute}explorer/interests/${interestName}`;
   }
 
   private interestSlug = (interest) => Slugs.findDoc(interest.slugID).name;
@@ -134,7 +128,7 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           matchingUserInterests.map((interest, index) => (
             <div key={index}>
-              <Link to={this.interestsRouteName(interest)}>
+              <Link to={this.buildInterestsRouteName(interest)}>
                 <Label size={this.props.size}>
                   <i className="fitted star icon"/> {this.interestName(interest)}
                 </Label>
@@ -146,7 +140,7 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           matchingCareerInterests.map((interest, index) => (
             <div key={index}>
-              <Link to={this.interestsRouteName(interest)}>
+              <Link to={this.buildInterestsRouteName(interest)}>
                 <Label size={this.props.size}>
                   <i className="fitted suitcase icon"/> {this.interestName(interest)}
                 </Label>
@@ -158,7 +152,7 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           otherInterests.map((interest, index) => (
             <div key={index}>
-              <Link to={this.interestsRouteName(interest)}>
+              <Link to={this.buildInterestsRouteName(interest)}>
                 <Label size={this.props.size} color="grey">
                   {this.interestName(interest)}
                 </Label>

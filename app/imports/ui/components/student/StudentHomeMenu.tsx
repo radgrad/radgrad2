@@ -36,7 +36,7 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
     }
   }
 
-  private getRouteName = () => {
+  private buildRouteName = () => {
     const url = this.props.match.url;
     const splitUrl = url.split('/');
     const routeName = splitUrl[splitUrl.length - 1];
@@ -56,14 +56,24 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const username = this.props.match.params.username;
-    const studentPageRouteNames = ['Home', 'About Me', 'ICE Points', 'Levels', 'Advisor Log'];
-    const studentPageRouteUrls = ['', 'aboutme', 'ice', 'levels', 'log'];
-    const menuMobileOptions = studentPageRouteNames.map((name, index) => ({
-      key: name,
-      text: name,
+    const baseUrl = this.props.match.url;
+    const baseIndex = baseUrl.indexOf(username);
+    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+
+    const menuItems = [
+      { key: 'Home', route: '' },
+      { key: 'About Me', route: 'aboutme' },
+      { key: 'ICE Points', route: 'ice' },
+      { key: 'Levels', route: 'levels' },
+      { key: 'Advisor Log', route: 'log' },
+    ];
+
+    const menuMobileItems = menuItems.map((item) => ({
+      key: item.key,
+      text: item.key,
       as: NavLink,
       exact: true,
-      to: `/student/${username}/home/${studentPageRouteUrls[index]}`,
+      to: `${baseRoute}home/${item.route}`,
       style: { textDecoration: 'none' },
     }));
 
@@ -71,21 +81,20 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
       <React.Fragment>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           <Menu vertical={true} text={true}>
-            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home`}
-                       className={this.isActiveRoute('home') ? 'active item' : undefined}>Home</Menu.Item>
-            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/aboutme`}
-                       className={this.isActiveRoute('aboutme') ? 'active item' : undefined}>About Me</Menu.Item>
-            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/ice`}
-                       className={this.isActiveRoute('ice') ? 'active item' : undefined}>ICE Points</Menu.Item>
-            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/levels`}
-                       className={this.isActiveRoute('levels') ? 'active item' : undefined}>Levels</Menu.Item>
-            <Menu.Item as={NavLink} exact={true} to={`/student/${username}/home/log`}
-                       className={this.isActiveRoute('log') ? 'active item' : undefined}>Advisor Log </Menu.Item>
+            {
+              menuItems.map((item, index) => (<Menu.Item
+                key={index}
+                as={NavLink}
+                exact={true}
+                to={`${baseRoute}home/${item.route}`}
+                active={this.isActiveRoute(item.route) ? true : undefined}
+                content={item.key}/>))
+            }
           </Menu>
         </Responsive>
 
         <Responsive {...Responsive.onlyMobile}>
-          <Dropdown selection={true} fluid={true} options={menuMobileOptions} text={this.getRouteName()}/>
+          <Dropdown selection={true} fluid={true} options={menuMobileItems} text={this.buildRouteName()}/>
         </Responsive>
       </React.Fragment>
     );

@@ -1,10 +1,9 @@
 import * as React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Button, Card, Header, Icon, Image, SemanticCOLORS } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
+import { Button, Card, Header, Icon, Image, Popup, SemanticCOLORS } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
+import * as Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
@@ -17,7 +16,6 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import StudentOfInterestAdd from './StudentOfInterestAdd';
 
 interface IStudentOfInterestCardProps {
-  item: any;
   type: string;
   canAdd: boolean;
   match: {
@@ -28,7 +26,12 @@ interface IStudentOfInterestCardProps {
       username: string;
     }
   };
-  profile: any;
+  item: {
+    _id: string;
+  };
+  profile: {
+    _id: string;
+  };
 }
 
 class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps> {
@@ -44,7 +47,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.typeCourse()) {
+    if (this.isTypeCourse()) {
       const studentItems = profile.hiddenCourseIDs;
       studentItems.push(id);
       updateData.hiddenCourses = studentItems;
@@ -68,7 +71,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.typeCourse()) {
+    if (this.isTypeCourse()) {
       let studentItems = profile.hiddenCourseIDs;
       studentItems = _.without(studentItems, id);
       updateData.hiddenCourses = studentItems;
@@ -98,7 +101,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
   private itemTerms = () => {
     let ret = [];
-    if (this.props.type === 'courses') {
+    if (this.isTypeCourse()) {
       // do nothing
     } else {
       ret = this.opportunityTerms(this.props.item);
@@ -168,13 +171,13 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     return Users.getProfile(studentID).picture;
   }
 
-  private typeCourse = () => this.props.type === 'courses'
+  private isTypeCourse = () => this.props.type === 'courses'
 
   private hidden = () => {
     const username = this.props.match.params.username;
     let ret = '';
     const profile = Users.getProfile(username);
-    if (this.typeCourse()) {
+    if (this.isTypeCourse()) {
       if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
         ret = 'grey';
       }
@@ -186,23 +189,37 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
   private getUsername = () => this.props.match.params.username;
 
-  private getRouteName = (item, type) => {
+  private buildRouteName = (item, type) => {
     const itemName = this.itemSlug(item);
+    const username = this.props.match.params.username;
+    const baseUrl = this.props.match.url;
+    const baseIndex = baseUrl.indexOf(username);
+    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
     switch (type) {
       case 'courses':
-        return `/student/${this.getUsername()}/explorer/courses/${itemName}`;
+        return `${baseRoute}explorer/courses/${itemName}`;
       case 'opportunities':
-        return `/student/${this.getUsername()}/explorer/opportunities/${itemName}`;
+        return `${baseRoute}explorer/opportunities/${itemName}`;
       default:
         break;
     }
     return '#';
   }
 
+  /*
+  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
+  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
+  */
+  private routerLink = (props) => (
+    props.href.match(/^(https?:)?\/\//)
+      ? <a href={props.href}>{props.children}</a>
+      : <Link to={props.href}>{props.children}</Link>
+  )
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { item } = this.props;
     const itemName = this.itemName(item);
-    const itemSemesters = this.itemTerms();
+    const itemTerms = this.itemTerms();
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberStudents(item);
     const interestedStudents = this.interestedStudents(item);
@@ -214,13 +231,13 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
           <Header>{itemName}</Header>
           <Card.Meta>
             {
-              itemSemesters ? this.replaceTermString(itemSemesters) : ''
+              itemTerms ? this.replaceTermString(itemTerms) : ''
             }
           </Card.Meta>
         </Card.Content>
 
         <Card.Content>
-          <p>{itemShortDescription}...</p>
+          <Markdown escapeHtml={true} source={`${itemShortDescription}...`} renderers={{ link: this.routerLink }}/>
           <InterestList item={item} size='mini'/>
         </Card.Content>
 
@@ -228,11 +245,11 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
           <Image.Group size="mini">
             {
-              interestedStudents.map((student, index) => <Image key={index}
-                                                                data-content={this.studentFullName(student)}
-                                                                src={this.studentPicture(student)}
-                                                                circular={true}
-                                                                bordered={true}/>)
+              interestedStudents.map((student, index) => <Popup
+                key={index}
+                trigger={<Image src={this.studentPicture(student)} circular={true} bordered={true}/>}
+                content={this.studentFullName(student)}
+              />)
             }
           </Image.Group>
         </Card.Content>
@@ -240,7 +257,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         {
           <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
                         color={hidden || undefined}>
-            <Link to={this.getRouteName(this.props.item, this.props.type)}>
+            <Link to={this.buildRouteName(this.props.item, this.props.type)}>
               <Button><Icon name="chevron circle right"/><br/>View More</Button>
             </Link>
 
@@ -262,12 +279,4 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
   }
 }
 
-const StudentOfInterestCardCon = withRouter(StudentOfInterestCard);
-const StudentOfInterestCardContainer = withTracker(() => {
-  const username = Meteor.user().username;
-  const profile = Users.getProfile(username);
-  return {
-    profile,
-  };
-})(StudentOfInterestCardCon);
-export default StudentOfInterestCardContainer;
+export default withRouter(StudentOfInterestCard);

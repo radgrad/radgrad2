@@ -67,9 +67,13 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
 
   private teaserCount = (): number => this.matchingTeasers().length;
 
-  private opportunitiesRouteName = (teaser) => {
+  private buildOpportunitiesRouteName = (teaser) => {
     const opportunityName = this.opportunitySlug(teaser);
-    return `/student/${this.getUsername()}/explorer/opportunities/${opportunityName}`;
+    const username = this.props.match.params.username;
+    const baseUrl = this.props.match.url;
+    const baseIndex = baseUrl.indexOf(username);
+    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    return `${baseRoute}explorer/opportunities/${opportunityName}`;
   }
 
   private opportunitySlug = (teaser) => {
@@ -124,7 +128,7 @@ class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
 
                           {
                             teaser.opportunityID ?
-                              <Link to={this.opportunitiesRouteName(teaser)}>
+                              <Link to={this.buildOpportunitiesRouteName(teaser)}>
                                 <Button attached="bottom">
                                   <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
                                   More

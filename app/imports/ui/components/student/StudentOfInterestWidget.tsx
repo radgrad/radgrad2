@@ -34,6 +34,8 @@ interface IStudentOfInterestWidgetProps {
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
   dispatch: any;
+  courseInstances: any[];
+  opportunityInstances: any[];
 }
 
 const mapStateToProps = (state) => ({
@@ -51,7 +53,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     if (username) {
       const { profile } = this.props;
       let ret;
-      if (this.typeCourse()) {
+      if (this.isTypeCourse()) {
         ret = profile.hiddenCourseIDs.length !== 0;
       } else {
         ret = profile.hiddenOpportunityIDs.length !== 0;
@@ -94,7 +96,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private itemCount = () => {
     let ret;
-    if (this.typeCourse()) {
+    if (this.isTypeCourse()) {
       ret = this.hiddenCoursesHelper().length;
     } else {
       ret = this.hiddenOpportunitiesHelper().length;
@@ -102,7 +104,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return ret;
   }
 
-  private typeCourse = (): boolean => this.props.type === 'courses';
+  private isTypeCourse = (): boolean => this.props.type === 'courses';
 
   private courses = () => {
     const courses = this.matchingCourses();
@@ -253,7 +255,6 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
   private hiddenOpportunitiesHelper = () => {
     if (this.getUsername()) {
       const opportunities = this.matchingOpportunities();
-      // const opportunities = this.props.matchingOpportunities;
       let nonHiddenOpportunities;
       if (this.isOpportunitiesHidden()) {
         const { profile } = this.props;
@@ -288,7 +289,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const hiddenExists = this.hiddenExists();
     const isCoursesHidden = this.isCoursesHidden();
     const isOpportunitiesHidden = this.isOpportunitiesHidden();
-    const isTypeCourse = this.typeCourse();
+    const isTypeCourse = this.isTypeCourse();
     const courses = this.courses();
     const opportunities = this.opportunities();
 
@@ -337,8 +338,6 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
         {
           courses ?
-            // The overflow-x and overflow-y CSS properties had to be hard coded into the className because they would
-            // not work if stored inside cardsStackableStyle for some reason. - Gian
             <div style={cardsStackableStyle}>
               <Card.Group stackable={true} itemsPerRow={2}>
                 {
@@ -362,14 +361,22 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
 const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWidget);
 const StudentOfInterestWidgetCont = withTracker(({ match }) => {
+  /* Reactive sources to make Hiding a Course / Opportunity reactive */
   const username = match.params.username;
   const profile = Users.getProfile(username);
-  const nonRetiredCourses = Courses.findNonRetired({});
-  const nonRetiredOpportunities = Opportunities.findNonRetired({});
+  const nonRetiredCourses = Courses.findNonRetired();
+  const nonRetiredOpportunities = Opportunities.findNonRetired();
+
+  /* Reactive sources to make StudentOfInterestAdd reactive */
+  const courseInstances = CourseInstances.findNonRetired();
+  const opportunityInstances = OpportunityInstances.findNonRetired();
+
   return {
     profile,
     nonRetiredCourses,
     nonRetiredOpportunities,
+    courseInstances,
+    opportunityInstances,
   };
 })(StudentOfInterestWidgetCon);
 const StudentOfInterestWidgetContainer = withRouter(StudentOfInterestWidgetCont);

@@ -2,12 +2,9 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface IStudentOfInterestAddProps {
   item: any;
@@ -21,11 +18,6 @@ interface IStudentOfInterestAddProps {
     }
   };
   profile: object;
-  courseInstances: object[];
-  opportunityInstances: object[];
-  currentTerm: {
-    year: number;
-  }
 }
 
 class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
@@ -35,12 +27,11 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
 
   private getUsername = () => this.props.match.params.username;
 
-  private typeCourse = () => this.props.type === 'courses';
+  private isTypeCourse = () => this.props.type === 'courses';
 
   private nextYears = (amount) => {
     const nextYears = [];
-    const { currentTerm } = this.props;
-    // const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     let currentYear = currentTerm.year;
     for (let i = 0; i < amount; i += 1) {
       nextYears.push(currentYear);
@@ -53,7 +44,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
 
   private itemTerms = () => {
     let ret = [];
-    if (this.typeCourse()) {
+    if (this.isTypeCourse()) {
       // do nothing
     } else {
       ret = this.opportunityTerms(this.props.item);
@@ -78,7 +69,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
     const termSlug = `${termSplit[0]}-${termSplit[1]}`;
     const username = this.getUsername();
 
-    if (this.typeCourse()) {
+    if (this.isTypeCourse()) {
       const definitionData = {
         academicTerm: termSlug,
         course: itemSlug,
@@ -113,8 +104,9 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
     return (
       <React.Fragment>
         {
-          this.typeCourse() ?
+          this.isTypeCourse() ?
             <Popup
+              className="transition"
               trigger={
                 <Button>
                   <Icon name="plus"/><br/>Add to Plan
@@ -122,13 +114,11 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
               }
               on="click"
             >
-              {/* TODO: fluid popup transition hidden */}
               <Popup.Content>
                 <Menu size="mini" secondary={true} vertical={true}>
                   {
                     nextYears.map((year, index) => (
                       <React.Fragment key={index}>
-                        {/* TODO: fluid popup transition hidden */}
                         <Popup
                           trigger={
                             <Menu.Item as="a" className={`${this.props.item} chooseSemester`}>
@@ -142,7 +132,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
                               {
                                 this.yearTerms(year).map((term) => (
                                   <Menu.Item as="a" className={`${this.props.item}`}
-                                             key={index}
+                                             key={term}
                                              onClick={this.handleAddToPlan}>
                                     {term}
                                   </Menu.Item>
@@ -166,7 +156,6 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
               }
               on="click"
             >
-              {/* TODO: fluid popup transition hidden */}
               <Popup.Content position="right center">
                 <Menu size="mini" secondary={true} vertical={true}>
                   {
@@ -187,15 +176,4 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
   }
 }
 
-const StudentOfInterestAddCon = withTracker(() => {
-  const courseInstances = CourseInstances.findNonRetired();
-  const opportunityInstances = OpportunityInstances.findNonRetired();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  return {
-    courseInstances,
-    opportunityInstances,
-    currentTerm,
-  };
-})(StudentOfInterestAdd);
-const StudentOfInterestAddContainer = withRouter(StudentOfInterestAddCon);
-export default StudentOfInterestAddContainer;
+export default withRouter(StudentOfInterestAdd);

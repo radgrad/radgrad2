@@ -81,7 +81,6 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
             <Feed.Extra text={true}>
               {multipleUsers ?
                 <Feed.Meta style={{ float: 'right', marginTop: '0px' }}>
-                  {/* TODO: Implement and test this */}
                   <StudentFeedModal feed={feed}/>
                 </Feed.Meta>
                 : ''

@@ -44,7 +44,7 @@ class StudentFeedWidget extends React.Component<IStudentFeedWidgetProps> {
 }
 
 const StudentFeedWidgetContainer = withTracker(() => ({
-  feeds: Feeds.find({}, { sort: { timestamp: -1 } }),
+  feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
 }))(StudentFeedWidget);
 
 export default StudentFeedWidgetContainer;
