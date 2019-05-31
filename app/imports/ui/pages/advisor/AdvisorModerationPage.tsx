@@ -4,6 +4,7 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import BeautifulExample from '../../components/student/BeautifulExample';
 
 /** A simple static component to render some text for the landing page. */
 class AdvisorModerationPage extends React.Component {
@@ -26,6 +27,7 @@ class AdvisorModerationPage extends React.Component {
 
           <Grid.Column width={8}>
             <h1>Advisor Moderation</h1>
+            <BeautifulExample/>
           </Grid.Column>
         </Grid>
       </div>

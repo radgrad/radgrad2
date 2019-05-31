@@ -14,7 +14,8 @@ import { docToShortName } from '../shared/AdminDataModelHelperFunctions';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import SatisfiedPlanChoicePill from '../shared/SatisfiedPlanChoicePill';
+import DraggablePlanChoicePill from '../shared/DraggablePlanChoicePill';
+import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 
 
 interface IAdvisorAcademicPlanBuilderWidgetProps {
@@ -26,7 +27,7 @@ interface IAdvisorAcademicPlanBuilderWidgetProps {
 class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicPlanBuilderWidgetProps> {
   constructor(props) {
     super(props);
-    console.log('AdvisorAcademicPlanBuilder props=%o', props);
+    // console.log('AdvisorAcademicPlanBuilder props=%o', props);
   }
 
   private onDragEnd = (result) => {
@@ -66,13 +67,14 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                       <Divider horizontal={true}>{py}</Divider>
                       <Segment>
                         <Header dividing={true} as="h4">{AcademicTerms.FALL}</Header>
-                        <Droppable droppableId={`${AcademicTerms.FALL}%{py}`}>
+                        <Droppable droppableId={`${AcademicTerms.FALL}${py}`}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
                               // style={style}
                               style={getDroppableListStyle(snapshot.isDraggingOver)}
                             >
+                              {provided.placeholder}
                               {provided.placeholder}
                             </div>
                           )}
@@ -82,13 +84,14 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                         quarterSystem ?
                           <Segment>
                             <Header dividing={true} as="h4">{AcademicTerms.WINTER}</Header>
-                            <Droppable droppableId={`${AcademicTerms.WINTER}%{py}`}>
+                            <Droppable droppableId={`${AcademicTerms.WINTER}${py}`}>
                               {(provided, snapshot) => (
                                 <div
                                   ref={provided.innerRef}
                                   // style={style}
                                   style={getDroppableListStyle(snapshot.isDraggingOver)}
                                 >
+                                  {provided.placeholder}
                                   {provided.placeholder}
                                 </div>
                               )}
@@ -98,7 +101,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                       }
                       <Segment>
                         <Header dividing={true} as="h4">{AcademicTerms.SPRING}</Header>
-                        <Droppable droppableId={`${AcademicTerms.SPRING}%{py}`}>
+                        <Droppable droppableId={`${AcademicTerms.SPRING}${py}`}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
@@ -106,19 +109,21 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                               style={getDroppableListStyle(snapshot.isDraggingOver)}
                             >
                               {provided.placeholder}
+                              {provided.placeholder}
                             </div>
                           )}
                         </Droppable>
                       </Segment>
                       <Segment>
                         <Header dividing={true} as="h4">{AcademicTerms.SUMMER}</Header>
-                        <Droppable droppableId={`${AcademicTerms.SUMMER}%{py}`}>
+                        <Droppable droppableId={`${AcademicTerms.SUMMER}${py}`}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
                               // style={style}
                               style={getDroppableListStyle(snapshot.isDraggingOver)}
                             >
+                              {provided.placeholder}
                               {provided.placeholder}
                             </div>
                           )}
@@ -130,22 +135,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
               </Grid>
             </Grid.Column>
             <Grid.Column width={6}>
-              <Segment>
-                <Header dividing={true}>Course Choices</Header>
-                <Droppable droppableId="AdvisorBuildPlanChoices">
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      // style={style}
-                      style={getDroppableListStyle(snapshot.isDraggingOver)}
-                    >
-                      {_.map(this.props.choices, (choice, index) => (
-                        <SatisfiedPlanChoicePill key={choice.choice} index={index} choice={choice.choice}
-                                                 satisfied={true}/>
-                      ))}
-                    </div>)}
-                </Droppable>
-              </Segment>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices}/>
             </Grid.Column>
           </Grid>
         </DragDropContext>
