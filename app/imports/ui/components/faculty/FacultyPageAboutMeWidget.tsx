@@ -10,18 +10,16 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {Users} from "../../../api/user/UserCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
-import {
-  academicPlanSlugFromName,
-  careerGoalSlugFromName,
-  declaredAcademicTermSlugFromName,
-  interestSlugFromName
-} from "../shared/FormHelperFunctions";
-import {updateMethod} from "../../../api/base/BaseCollection.methods";
 import Swal from "sweetalert2";
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import {RadGrad} from "../../../api/radgrad/RadGrad";
+import {CallPromiseMixin} from "meteor/didericis:callpromise-mixin";
+import {updateMethod} from "../../../api/base/BaseCollection.methods";
 
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
+      id: string;
       username: string;
       url: string;
     },
@@ -42,6 +40,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   private handleChange = (event, {name, value}) => {
     console.log('handle change');
     console.log(event, {name, value});
+    console.log(FacultyProfiles.findDoc(this.props.match.params.username).userID);
     this.setState({[name]: value});
   };
 
@@ -94,11 +93,21 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    */
 
   //reference the handleUpdate from AdminDataModelUsersPage.tsx
-  private handleSubmitWebsite = () => {
-    const updateData = this.state; // create the updateData object from the doc.
-    let collectionName = FacultyProfiles.getCollectionName();
-    console.log(collectionName);
+  private handleSubmitWebsite = (event, info) => {
+    console.log('handle update');
+    let updateData = this.state;  // create the updateData object from the doc.
     console.log(updateData);
+
+    console.log(FacultyProfiles.findDoc(this.props.match.params.username).userID);
+
+    updateData.id = (FacultyProfiles.findDoc(this.props.match.params.username)._id);
+    console.log('updataData:', updateData);
+    let collectionName = FacultyProfiles.getCollectionName();
+    console.log(event, info);
+    console.log(FacultyProfiles.isDefined(this.props.match.params.username));
+    console.log(collectionName);
+
+
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -116,9 +125,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
           timer: 1500,
         });
         this.setState({ showUpdateForm: false, id: '' });
+        console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
       }
     });
   };
+
 
 
 
