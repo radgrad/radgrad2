@@ -175,7 +175,7 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
     return (
       <div>
         <FacultyPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <Grid container={true} meteostackable={true} style={paddedStyle}>
           <Grid.Column width={16}>
             {this.state.showUpdateForm ? (
               <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}

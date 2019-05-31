@@ -6,13 +6,17 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
-import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import AdminDataModelAccordion from './AdminDataModelAccordion';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -46,6 +50,22 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
     return username && Users.getID(username);
   }
 
+  private count() {
+    return Opportunities.find({ sponsorID: { $ne: this.getUserIdFromRoute() } }).count();
+  }
+
+  private descriptionPairs(opportunity) {
+    return [
+      { label: 'Description', value: opportunity.description },
+      { label: 'Opportunity Type', value: OpportunityTypes.findDoc(opportunity.opportunityTypeID).name },
+      { label: 'Sponsor', value: Users.getProfile(opportunity.sponsorID).username },
+      { label: 'Interests', value: _.sortBy(Interests.findNames(opportunity.interestIDs)) },
+      { label: 'Terms', value: _.map(opportunity.termIDs, id => AcademicTerms.toString(id)) },
+      { label: 'ICE', value: `${opportunity.ice.i}, ${opportunity.ice.c}, ${opportunity.ice.e}` },
+      { label: 'Retired', value: opportunity.retired ? 'true' : 'false' },
+    ];
+  }
+
   private isInRole() {
     const userID = this.getUserIdFromRoute();
     return Roles.userIsInRole(userID, [ROLE.FACULTY]);
@@ -60,9 +80,21 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
     return Opportunities.find({ sponsorID: this.getUserIdFromRoute() }).count();
   }
 
+  private titleICE(opportunity) {
+    return ` (ICE: ${opportunity.ice.i}/${opportunity.ice.c}/${opportunity.ice.e})`;
+  }
+
+  private retired(opportunity) {
+    return opportunity.retired;
+  }
+
+  private slugName(slugID) {
+    return ` (${Slugs.findDoc(slugID).name})`;
+  }
+
   public render(): React.ReactNode {
     // console.log('ListOpportunitiesWidget.render props=%o', this.props);
-    const count = this.props.collection.count();
+    const count = this.count();
     const facultyCounter = this.facultyCount();
     const startIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
@@ -77,14 +109,16 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
             <div>
               <Header dividing={true}> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
               {_.map(factoryOpp, (item) => (
-                <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
-                                          descriptionPairs={this.props.descriptionPairs(item)}
-                                          updateDisabled={false}
-                                          deleteDisabled={false}
-                                          handleOpenUpdate={this.props.handleOpenUpdate}
-                                          handleDelete={this.props.handleDelete}/>
+                <AdminDataModelAccordion key={item._id} id={item._id} retired={this.retired(item)} name={item.name}
+                                         slug={this.slugName(item.slugID)}
+                                         descriptionPairs={this.props.descriptionPairs(item)}
+                                         updateDisabled={false}
+                                         deleteDisabled={false}
+                                         handleOpenUpdate={this.props.handleOpenUpdate}
+                                         handleDelete={this.props.handleDelete}
+                                         additionalTitleInfo={this.titleICE(item)}/>
               ))}
-              <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count})</Header>
+              <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count})</Header> <br/>
             </div>
             : <Header dividing={true}>OPPORTUNITIES ({count})</Header>
         }
@@ -93,12 +127,14 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
           <AdminPaginationWidget collection={this.props.collection} setShowIndex={setCollectionShowIndex}
                                  setShowCount={setCollectionShowCount}/>
           {_.map(items, (item) => (
-            <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
-                                      descriptionPairs={this.props.descriptionPairs(item)}
-                                      updateDisabled={false}
-                                      deleteDisabled={false}
-                                      handleOpenUpdate={this.props.handleOpenUpdate}
-                                      handleDelete={this.props.handleDelete}/>
+            <AdminDataModelAccordion key={item._id} id={item._id} retired={this.retired(item)} name={item.name}
+                                     slug={this.slugName(item.slugID)}
+                                     descriptionPairs={this.props.descriptionPairs(item)}
+                                     updateDisabled={true}
+                                     deleteDisabled={true}
+                                     handleOpenUpdate={this.props.handleOpenUpdate}
+                                     handleDelete={this.props.handleDelete}
+                                     additionalTitleInfo={this.titleICE(item)}/>
           ))}
         </Grid>
       </Segment>
