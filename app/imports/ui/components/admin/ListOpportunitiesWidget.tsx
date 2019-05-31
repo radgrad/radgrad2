@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
+import { Roles } from 'meteor/alanning:roles';
+import { ROLE } from '../../../api/role/Role';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { Users } from '../../../api/user/UserCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -19,6 +24,11 @@ interface IListOpportunitiesWidgetProps {
   itemTitle: (item) => React.ReactNode;
   dispatch: any;
   pagination: any;
+  match: {
+    params: {
+      username: string;
+    };
+  };
 }
 
 const mapStateToProps = (state) => ({
@@ -31,17 +41,54 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
     // console.log('ListOpportunitiesWidget(%o)', props);
   }
 
+  private getUserIdFromRoute() {
+    const username = this.props.match.params.username;
+    return username && Users.getID(username);
+  }
+
+  private isInRole() {
+    const userID = this.getUserIdFromRoute();
+    return Roles.userIsInRole(userID, [ROLE.FACULTY]);
+  }
+
+  facultyOpportunities() {
+    console.log('stuff ', Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch());
+    return Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch();
+  }
+
+  private facultyCount() {
+    return Opportunities.find({ sponsorID: this.getUserIdFromRoute() }).count();
+  }
+
   public render(): React.ReactNode {
     // console.log('ListOpportunitiesWidget.render props=%o', this.props);
     const count = this.props.collection.count();
+    const facultyCounter = this.facultyCount();
     const startIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
     const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
     const endIndex = startIndex + showCount;
     const items = _.slice(this.props.items, startIndex, endIndex);
+    const factoryOpp = this.facultyOpportunities();
     // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
     return (
       <Segment padded={true}>
-        <Header dividing={true}>OPPORTUNITIES ({count})</Header>
+        {
+          this.isInRole() ?
+            <div>
+              <Header dividing={true}> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
+              {_.map(factoryOpp, (item) => (
+                <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
+                                          descriptionPairs={this.props.descriptionPairs(item)}
+                                          updateDisabled={false}
+                                          deleteDisabled={false}
+                                          handleOpenUpdate={this.props.handleOpenUpdate}
+                                          handleDelete={this.props.handleDelete}/>
+              ))}
+              <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count})</Header>
+            </div>
+            : <Header dividing={true}>OPPORTUNITIES ({count})</Header>
+        }
+
         <Grid>
           <AdminPaginationWidget collection={this.props.collection} setShowIndex={setCollectionShowIndex}
                                  setShowCount={setCollectionShowCount}/>
@@ -69,4 +116,4 @@ const ListOpportunitiesWidgetContainer = withTracker((props) => {
     items,
   };
 })(ListOpportunitiesWidgetCon);
-export default ListOpportunitiesWidgetContainer;
+export default withRouter(ListOpportunitiesWidgetContainer);

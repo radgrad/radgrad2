@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/admin/ListOpportunitiesWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
@@ -174,7 +174,7 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
+        <FacultyPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
           <Grid.Column width={16}>
             {this.state.showUpdateForm ? (
