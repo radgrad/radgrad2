@@ -4,6 +4,7 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import FacultyPageAboutMeWidget from '../../components/faculty/FacultyPageAboutMeWidget';
 
 /** A simple static component to render some text for the landing page. */
 class FacultyHomePage extends React.Component {
@@ -19,12 +20,8 @@ class FacultyHomePage extends React.Component {
             <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
 
-        <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Faculty Home</h1>
+          <Grid.Column width={16}>
+            <FacultyPageAboutMeWidget/>
           </Grid.Column>
 
         </Grid>

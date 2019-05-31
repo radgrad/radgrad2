@@ -11,7 +11,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
-import InterestList from '../../components/landing/InterestList';
+import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 
 interface ICourseExplorerProps {
@@ -58,7 +58,7 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
                 <Header as="h4" dividing={true}>Prerequisites</Header>
                 <LandingPrerequisiteList prerequisites={this.props.course.prerequisites}/>
                 <Header as="h4" dividing={true}>Course Interests</Header>
-                <InterestList interestIDs={this.props.course.interestIDs}/>
+                <LandingInterestList interestIDs={this.props.course.interestIDs}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>

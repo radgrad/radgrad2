@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
+import StudentMentorSpaceMentorDirectoryAccordion
+  from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
+import MentorMentorSpaceQuestionsAccordion from '../../components/mentor/MentorMentorSpaceQuestionsAccordion';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
@@ -14,17 +17,22 @@ class MentorMentorSpacePage extends React.Component {
     return (
       <div>
         <MentorPageMenuWidget/>
-        <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
+        <Grid container={true} style={moveDownStyle}>
           <Grid.Row>
             <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
 
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
+          <Grid.Column width={11}>
+            <MentorMentorSpaceQuestionsAccordion/>
           </Grid.Column>
 
-          <Grid.Column width={8}>
-            <h1>Mentor MentorSpace</h1>
+          <Grid.Column width={5}>
+            <Segment>
+              <Header dividing={true}>
+                <h4>MENTOR DIRECTORY</h4>
+              </Header>
+              <StudentMentorSpaceMentorDirectoryAccordion/>
+            </Segment>
           </Grid.Column>
 
         </Grid>

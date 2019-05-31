@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import StudentHomeMenu from '../../components/student/StudentHomeMenu';
+import StudentHomeWidget from '../../components/student/StudentHomeWidget';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+
+// TODO: Back to Top Button
 
 /** A simple static component to render some text for the landing page. */
 class StudentHomePage extends React.Component {
@@ -12,21 +16,21 @@ class StudentHomePage extends React.Component {
       marginTop: 10,
     };
     return (
-      <div>
+      <div className="layout-page">
         <StudentPageMenuWidget/>
         <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
           <Grid.Row>
             <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
+          <Grid.Column width={2}>
+            <StudentHomeMenu/>
           </Grid.Column>
 
-          <Grid.Column width={8}>
-            <h1>Student Home</h1>
+          <Grid.Column width={14}>
+            <StudentHomeWidget/>
           </Grid.Column>
-
         </Grid>
+        <div>Back to Top Button</div>
       </div>
     );
   }
