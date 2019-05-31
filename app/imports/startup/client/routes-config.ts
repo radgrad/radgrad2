@@ -69,6 +69,7 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
+import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
 
 export const routes = {
   ADMIN: [
@@ -276,7 +277,13 @@ export const routes = {
     },
     {
       path: '/faculty/:username/explorer',
+      exact: true,
       component: FacultyExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/degrees',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
     },
     {
       path: '/faculty/:username/course-scoreboard',
@@ -381,7 +388,13 @@ export const routes = {
     },
     {
       path: '/mentor/:username/explorer',
+      exact: true,
       component: MentorExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/degrees',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
     },
   ],
   STUDENT: [
@@ -399,7 +412,13 @@ export const routes = {
     },
     {
       path: '/student/:username/explorer',
+      exact: true,
       component: StudentExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/degrees',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
     },
   ],
 };
