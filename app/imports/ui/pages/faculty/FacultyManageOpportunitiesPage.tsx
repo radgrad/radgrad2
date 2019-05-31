@@ -20,6 +20,7 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 const collection = Opportunities; // the collection to use.
 
@@ -103,7 +104,7 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
     this.setState({ confirmOpen: true, id: inst.id });
-  }
+  };
 
   private handleConfirmDelete = () => {
     // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
@@ -176,6 +177,11 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
       <div>
         <FacultyPageMenuWidget/>
         <Grid container={true} meteostackable={true} style={paddedStyle}>
+          <Grid.Row>
+            <Grid.Column width={16}>
+              <HelpPanelWidgetContainer/>
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Column width={16}>
             {this.state.showUpdateForm ? (
               <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}
@@ -185,17 +191,18 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
               <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <ListOpportunitiesWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                     findOptions={findOptions}
+                                     descriptionPairs={descriptionPairs}
+                                     itemTitle={itemTitle}
+                                     handleOpenUpdate={this.handleOpenUpdate}
+                                     handleDelete={this.handleDelete}
+                                     setShowIndex={setCollectionShowIndex}
+                                     setShowCount={setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
+                 header="Delete Opportunity?"/>
       </div>
     );
   }
