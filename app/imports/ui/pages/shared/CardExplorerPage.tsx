@@ -80,6 +80,8 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const username = this.props.match.params.username;
+
     return (
       <React.Fragment>
         {
@@ -92,7 +94,8 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
           </Grid.Row>
 
           <Grid.Row width={13}>
-            <CardExplorerWidget collection={this.getCollection()} type={this.getType()}/>
+            <CardExplorerWidget collection={this.getCollection()} type={this.getType()} role={this.getRoleByUrl()}
+                                username={username}/>
           </Grid.Row>
         </Grid>
 
