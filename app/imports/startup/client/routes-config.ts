@@ -70,6 +70,8 @@ import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPag
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
+import CardExplorerCareerGoalsPageContainer from '../../ui/pages/shared/CardExplorerCareerGoalsPage';
+import ExplorerCareerGoalsPageContainer from '../../ui/pages/shared/ExplorerCareerGoalsPage';
 
 export const routes = {
   ADMIN: [
@@ -321,6 +323,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/faculty/:username/explorer/careergoals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
+    },
+    {
       path: '/faculty/:username/course-scoreboard',
       component: FacultyCourseScoreboardPageContainer,
     },
@@ -461,6 +468,11 @@ export const routes = {
       exact: true,
       component: CardExplorerPageContainer,
     },
+    {
+      path: '/mentor/:username/explorer/careergoals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
+    },
   ],
   STUDENT: [
     {
@@ -514,6 +526,11 @@ export const routes = {
       path: '/student/:username/explorer/users',
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/careergoals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
     },
   ],
 };
