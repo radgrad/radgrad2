@@ -11,7 +11,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
-import InterestList from '../../components/landing/InterestList';
+import LandingInterestList from '../../components/landing/LandingInterestList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
@@ -68,7 +68,7 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
                 <b>Teaser:</b><br/>
                 {teaser(this.props.opportunity) ? <YouTube videoId={videoID} opts={opts}/> : <Label>N/A</Label>}
                 <Header as="h4" dividing={true}>Opportunity Interests</Header>
-                <InterestList interestIDs={this.props.opportunity.interestIDs}/>
+                <LandingInterestList interestIDs={this.props.opportunity.interestIDs}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>
