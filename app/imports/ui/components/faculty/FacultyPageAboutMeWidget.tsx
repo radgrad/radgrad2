@@ -95,7 +95,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
   /**
    * Puts together the slug for specific interest route.
-   * @param label
+   * @param label Name of Interest
    */
   private generateInterestRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
@@ -112,7 +112,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 
   /**
    * Puts together the slug for the specific career goals route.
-   * @param label
+   * @param label Name of Career Goal
    */
   private generateCareerGoalsRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
