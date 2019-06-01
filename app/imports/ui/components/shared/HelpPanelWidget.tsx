@@ -34,28 +34,26 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   }
 
   public render() {
-    console.log(this.props.match.path);
+    // console.log(this.props.match.path);
     const helpMessage = HelpMessages.findDoc({ routeName: this.props.match.path });
-    console.log(helpMessage);
+    // console.log(helpMessage);
     const helpText = `${helpMessage.text}
     #### Need more help?
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).`;
     return (helpText) ? (
-      <Grid>
-        <Grid.Column width={'sixteen'}>
-          <Message info={true}>
-            <Accordion>
-              <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
-                <Icon name="dropdown"/>
-                <span>{helpMessage.title}</span>
-              </Accordion.Title>
-              <Accordion.Content active={this.state.activeIndex === 0}>
-                <Markdown escapeHtml={false} source={helpText}/>
-              </Accordion.Content>
-            </Accordion>
-          </Message>
-        </Grid.Column>
-      </Grid>
+      <Grid.Column width={'sixteen'}>
+        <Message info={true}>
+          <Accordion>
+            <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
+              <Icon name="dropdown"/>
+              <span>{helpMessage.title}</span>
+            </Accordion.Title>
+            <Accordion.Content active={this.state.activeIndex === 0}>
+              <Markdown escapeHtml={false} source={helpText}/>
+            </Accordion.Content>
+          </Accordion>
+        </Message>
+      </Grid.Column>
     ) : '';
   }
 }

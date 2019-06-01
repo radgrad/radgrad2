@@ -7,7 +7,7 @@ interface IWithInterestsProps {
   interestIDs: string[];
 }
 
-const InterestList = (props: IWithInterestsProps) => {
+const LandingInterestList = (props: IWithInterestsProps) => {
   // console.log(Interests.find().fetch());
   // console.log(props.interestIDs);
   const interests = _.map(props.interestIDs, (id) => Interests.findDoc(id));
@@ -19,4 +19,4 @@ const InterestList = (props: IWithInterestsProps) => {
   );
 };
 
-export default InterestList;
+export default LandingInterestList;
