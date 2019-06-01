@@ -69,6 +69,8 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
+import CardExplorerCareerGoalsPageContainer from '../../ui/pages/shared/CardExplorerCareerGoalsPage';
+import ExplorerCareerGoalsPageContainer from '../../ui/pages/shared/ExplorerCareerGoalsPage';
 
 export const routes = {
   ADMIN: [
@@ -276,7 +278,18 @@ export const routes = {
     },
     {
       path: '/faculty/:username/explorer',
+      exact: true,
       component: FacultyExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/careergoals',
+      exact: true,
+      component: CardExplorerCareerGoalsPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/careergoals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
     },
     {
       path: '/faculty/:username/course-scoreboard',
@@ -381,7 +394,18 @@ export const routes = {
     },
     {
       path: '/mentor/:username/explorer',
+      exact: true,
       component: MentorExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/careergoals',
+      exact: true,
+      component: CardExplorerCareerGoalsPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/careergoals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
     },
   ],
   STUDENT: [
@@ -399,7 +423,18 @@ export const routes = {
     },
     {
       path: '/student/:username/explorer',
+      exact: true,
       component: StudentExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/careergoals',
+      exact: true,
+      component: CardExplorerCareerGoalsPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/careergoals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
     },
   ],
 };
