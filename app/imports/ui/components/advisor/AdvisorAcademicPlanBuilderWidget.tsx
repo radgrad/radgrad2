@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { $ } from 'meteor/jquery';
 import { Divider, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import AutoForm from 'uniforms-semantic/AutoForm';
@@ -14,7 +15,6 @@ import { docToShortName } from '../shared/AdminDataModelHelperFunctions';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import DraggablePlanChoicePill from '../shared/DraggablePlanChoicePill';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 
 
@@ -32,6 +32,12 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
 
   private onDragEnd = (result) => {
     console.log(result);
+    const divs = $('#ApbTrash');
+    let element = divs;
+    while (element && !element.hasClass('segment')) {
+      element = element.parent();
+    }
+    console.log(divs, element);
   };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
