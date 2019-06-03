@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
+import { Button, Card, Grid, Header, Icon, Segment, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
+import { connect } from 'react-redux';
+import { Roles } from 'meteor/alanning:roles';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -11,6 +13,15 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { ROLE } from '../../../api/role/Role';
+import { Courses } from '../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import {
+  setStudentHomeWidgetHiddenCourses,
+  setStudentHomeWidgetHiddenOpportunities,
+} from '../../../redux/actions/studentHomePageActions';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -18,7 +29,15 @@ interface ICardExplorerWidgetProps {
   role: 'student' | 'faculty' | 'mentor';
   username: string;
   reactiveSource: object[];
+  dispatch: any;
+  hiddenCourses: boolean;
+  hiddenOpportunities: boolean;
 }
+
+const mapStateToProps = (state) => ({
+  hiddenCourses: state.cardExplorerPage.cardExplorerWidget.hiddenCourses,
+  hiddenOpportunities: state.cardExplorerPage.cardExplorerWidget.hiddenOpportunities,
+});
 
 /**
  * Process to build a new Card Explorer Widget
@@ -78,15 +97,13 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       case 'career-goals':
         return this.careerGoalsItemCount();
       case 'courses':
-        // TODO
-        return 0;
+        return this.coursesItemCount();
       case 'degrees':
         return this.degreesItemCount();
       case 'interests':
         return this.interestsItemCount();
       case 'opportunities':
-        // TODO
-        return 0;
+        return this.opportunitiesItemCount();
       case 'users':
         // do nothing; we do not track user count
         return -1;
@@ -114,16 +131,14 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
           {this.noItems('noCareerGoals') ? this.buildNoItemsMessage('noCareerGoals') : ''}
         </React.Fragment>;
       case 'courses':
-        //  TODO
-        return '';
+        return this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : '';
       case 'degrees':
         //  do nothing; users cannot add their own desired degrees to their profile
         return '';
       case 'interests':
         return this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : '';
       case 'opportunities':
-        // TODO
-        return '';
+        return this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : '';
       case 'users':
         // do nothing; we do not track if there are no users
         return '';
@@ -146,17 +161,24 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   }
 
   private buildNoItemsMessage = (noItemsMessageType) => {
-    const { type } = this.props;
     switch (noItemsMessageType) {
       case 'noPlan':
         return <p>You have no Academic Plan, select add to profile to select a plan.</p>;
       case 'noInterests':
-        if (type === 'career-goals') {
+        if (this.isType('career-goals')) {
           return <p>Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
             menu on the left.</p>;
         }
-        if (type === 'interests') {
+        if (this.isType('courses')) {
+          return <p>Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
+            menu on the left.</p>;
+        }
+        if (this.isType('interests')) {
           return <p>You have no Interests, select add to profile to add an interest.</p>;
+        }
+        if (this.isType('opportunities')) {
+          return <p>Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
+            pull-down menu on the left.</p>;
         }
         return '';
       case 'noCareerGoals':
@@ -170,6 +192,16 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   private getUsername = () => this.props.username
 
+  private getUserIdFromRoute = () => {
+    const username = this.getUsername();
+    return username && Users.getID(username);
+  }
+
+  private isType = (typeToCheck) => {
+    const { type } = this.props;
+    return type === typeToCheck;
+  }
+
   private getItems = () => {
     const { type } = this.props;
     switch (type) {
@@ -178,15 +210,13 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       case 'career-goals':
         return this.matchingCareerGoals();
       case 'courses':
-        // TODO
-        return [];
+        return this.courses();
       case 'degrees':
         return this.degrees();
       case 'interests':
         return this.availableInterests();
       case 'opportunities':
-        //   TODO
-        return [];
+        return this.opportunities();
       case 'users':
         //  do nothing. For other Card Explorers, we only need one constant variable to hold an item array.
         //  However, we need multiple constant variables to hold the users for each of the invidual roles
@@ -195,6 +225,22 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       default:
         return [];
     }
+  }
+
+  // Used in both Courses and Opportunities Card Explorer
+  private hiddenExists() {
+    const username = this.getUsername();
+    if (username) {
+      const profile = Users.getProfile(username);
+      let ret;
+      if (this.isType('courses')) {
+        ret = profile.hiddenCourseIDs.length !== 0;
+      } else {
+        ret = profile.hiddenOpportunityIDs.length !== 0;
+      }
+      return ret;
+    }
+    return false;
   }
 
   /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
@@ -275,7 +321,90 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   }
 
   /* ####################################### COURSES HELPER FUNCTIONS ####################################### */
-  // TODO
+  private isCoursesHidden = () => this.props.hiddenCourses;
+
+  private handleShowHiddenCourses = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHiddenCourses(false));
+  }
+
+  private handleHideHiddenCourses = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHiddenCourses(true));
+  }
+
+  private courses = () => {
+    const courses = this.matchingCourses();
+    let visibleCourses;
+    if (this.isCoursesHidden()) {
+      visibleCourses = this.hiddenCoursesHelper();
+    } else {
+      visibleCourses = courses;
+    }
+    return visibleCourses;
+  };
+
+  private matchingCourses = () => {
+    const username = this.getUsername();
+    if (username) {
+      const allCourses = this.availableCourses();
+      const profile = Users.getProfile(username);
+      const interestIDs = Users.getInterestIDs(profile.userID);
+      const preferred = new PreferredChoice(allCourses, interestIDs);
+      return preferred.getOrderedChoices();
+    }
+    return [];
+  }
+
+  private availableCourses = () => {
+    const courses = Courses.findNonRetired({});
+    if (courses.length > 0) {
+      const studentID = this.getUserIdFromRoute();
+      let filtered = _.filter(courses, function filter(course) {
+        if (course.number === 'ICS 499') {
+          return true;
+        }
+        const ci = CourseInstances.find({
+          studentID,
+          courseID: course._id,
+        }).fetch();
+        return ci.length === 0;
+      });
+      if (Roles.userIsInRole(studentID, [ROLE.STUDENT])) {
+        const profile = StudentProfiles.findDoc({ userID: studentID });
+        const plan = AcademicPlans.findDoc(profile.academicPlanID);
+        if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
+          const regex = /[1234]\d\d/g;
+          filtered = _.filter(filtered, (c) => c.number.match(regex));
+        }
+      }
+      return filtered;
+    }
+    return [];
+  };
+
+  private hiddenCoursesHelper = () => {
+    const username = this.getUsername();
+    if (username) {
+      const courses = this.matchingCourses();
+      let nonHiddenCourses;
+      if (this.isCoursesHidden()) {
+        const profile = Users.getProfile(username);
+        nonHiddenCourses = _.filter(courses, (course) => {
+          if (_.includes(profile.hiddenCourseIDs, course._id)) {
+            return false;
+          }
+          return true;
+        });
+      } else {
+        nonHiddenCourses = courses;
+      }
+      return nonHiddenCourses;
+    }
+    return [];
+  }
+
+  private coursesItemCount = () => this.hiddenCoursesHelper().length;
 
   /* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
   private degrees = () => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
@@ -298,7 +427,91 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   private interestsItemCount = () => this.availableInterests().length;
 
   /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ####################################### */
-  // TODO
+  private isOpportunitiesHidden = () => this.props.hiddenOpportunities;
+
+  private handleShowHiddenOpportunities = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(false));
+  }
+
+  private handleHideHiddenOpportunities = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(true));
+  }
+
+  private opportunities = () => {
+    const opportunities = this.matchingOpportunities();
+    let visibleOpportunities;
+    if (this.isOpportunitiesHidden()) {
+      visibleOpportunities = this.hiddenOpportunitiesHelper();
+    } else {
+      visibleOpportunities = opportunities;
+    }
+    return visibleOpportunities;
+  }
+
+  private matchingOpportunities = () => {
+    const allOpportunities = this.availableOpps();
+    const username = this.getUsername();
+    const profile = Users.getProfile(username);
+    const interestIDs = Users.getInterestIDs(profile.userID);
+    const preferred = new PreferredChoice(allOpportunities, interestIDs);
+    return preferred.getOrderedChoices();
+  }
+
+  private availableOpps = () => {
+    const notRetired = Opportunities.findNonRetired({});
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    if (this.isRoleStudent()) {
+      if (notRetired.length > 0) {
+        const filteredByTerm = _.filter(notRetired, function filter(opp) {
+          const oi = OpportunityInstances.find({
+            studentID: this.getUserIdFromRoute(),
+            opportunityID: opp._id,
+          })
+            .fetch();
+          return oi.length === 0;
+        });
+        const filteredByInstance = _.filter(filteredByTerm, function filter(opp) {
+          let inFuture = false;
+          _.forEach(opp.termIDs, (termID) => {
+            const term = AcademicTerms.findDoc(termID);
+            if (term.termNumber >= currentTerm.termNumber) {
+              inFuture = true;
+            }
+          });
+          return inFuture;
+        });
+        return filteredByInstance;
+      }
+    } else if (this.props.role === 'faculty') {
+      return _.filter(notRetired, o => o.sponsorID !== this.getUserIdFromRoute());
+    }
+    return notRetired;
+  };
+
+  private hiddenOpportunitiesHelper = () => {
+    const username = this.getUsername();
+    if (username) {
+      const opportunities = this.matchingOpportunities();
+      let nonHiddenOpportunities;
+      if (this.isOpportunitiesHidden()) {
+        const profile = Users.getProfile(username);
+        nonHiddenOpportunities = _.filter(opportunities, (opp) => {
+          if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
+            return false;
+          }
+          return true;
+        });
+      } else {
+        nonHiddenOpportunities = opportunities;
+      }
+      return nonHiddenOpportunities;
+    }
+    return [];
+  }
+
+  private opportunitiesItemCount = () => this.hiddenOpportunitiesHelper().length;
 
   /* ####################################### USERS HELPER FUNCTIONS ####################################### */
   private getUsers = (role) => {
@@ -312,13 +525,8 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       const filtered = _.filter(users, (u) => u.username !== profile.username);
       const interestIDs = Users.getInterestIDs(profile.userID);
       const preferred = new PreferredChoice(filtered, interestIDs);
-      console.log('triggerred Username');
-      console.log(preferred.getOrderedChoices());
-      console.log(typeof preferred.getOrderedChoices());
       return preferred.getOrderedChoices();
     }
-    console.log('end');
-    console.log(users);
     return users;
   }
 
@@ -326,7 +534,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     /* Styles */
-    const headerStyle: React.CSSProperties = { textTransform: 'uppercase' };
+    const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
     const cardGroupStyle: React.CSSProperties = {
       maxHeight: '750px',
       overflowX: 'hidden',
@@ -346,18 +554,25 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     const { type, username } = this.props;
 
     // For the Academic Plans Card Explorer
-    const buildPlanCard = type === 'plans';
+    const buildPlanCard = this.isType('plans');
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-    const buildProfileCard = type === 'interests' || type === 'career-goals';
+    const buildProfileCard = this.isType('interests') || this.isType('career-goals');
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
-    const buildTermCard = type === 'courses' || type === 'opportunities';
+    const buildTermCard = this.isType('courses') || this.isType('opportunities');
+    const isCoursesHidden = this.isCoursesHidden();
+    const isOpportunitiesHidden = this.isOpportunitiesHidden();
+    const hiddenExists = this.hiddenExists();
+
     // For Degrees (or any future Card Explore that only has a "View More" functionality)
-    const buildExplorerCard = type === 'degrees';
+    const buildExplorerCard = this.isType('degrees');
 
     // For the Users Card Explorer
-    const buildStudentUserCard = type === 'users';
+    const buildStudentUserCard = this.isType('users');
+    // FIXME: There is currently a weird behavior where getUsers returns some sort of an Iterable. When you console log,
+    //        advisorRoleUsers, etc... you get an array of objects just fine. But for some reason you cannot call .map()
+    //        over it.
     const advisorRoleUsers = this.getUsers(ROLE.ADVISOR);
-    console.log(typeof advisorRoleUsers);
+    // console.log(Array.from(advisorRoleUsers).map((user, index) => console.log(user)));
     const facultyRoleUsers = this.getUsers(ROLE.FACULTY);
     const mentorRoleUsers = this.getUsers(ROLE.MENTOR);
     const studentRoleUsers = this.getUsers(ROLE.STUDENT);
@@ -368,30 +583,55 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
           <Tab.Pane key="advisors">
             <Grid stackable={true}>
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
+                {
+                  // TODO
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                }
               </Card.Group>
             </Grid>
           </Tab.Pane>,
       },
       {
-        menuItem: 'Faculty', render: () => (
-          <Tab.Pane>
-
-          </Tab.Pane>
-        ),
+        menuItem: 'Faculty',
+        pane:
+          <Tab.Pane key="faculty">
+            <Grid stackable={true}>
+              <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
+                {
+                  // TODO
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                }
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>,
       },
       {
-        menuItem: 'Mentors', render: () => (
-          <Tab.Pane>
-
-          </Tab.Pane>
-        ),
+        menuItem: 'Mentors',
+        pane:
+          <Tab.Pane key="mentors">
+            <Grid stackable={true}>
+              <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
+                {
+                  // TODO
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                }
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>,
       },
       {
-        menuItem: 'Students', render: () => (
-          <Tab.Pane>
-
-          </Tab.Pane>
-        ),
+        menuItem: 'Students',
+        pane:
+          <Tab.Pane key="students">
+            <Grid stackable={true}>
+              <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
+                {
+                  // TODO
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                }
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>,
       },
     ];
 
@@ -406,10 +646,11 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               {
                 !buildStudentUserCard ?
                   <React.Fragment>
-                    <span style={headerStyle}>{header.title} </span><WidgetHeaderNumber inputValue={header.count}/>
+                    <span style={uppercaseTextTransformStyle}>{header.title} </span><WidgetHeaderNumber
+                    inputValue={header.count}/>
                   </React.Fragment>
                   :
-                  <span style={headerStyle}>{header.title}</span>
+                  <span style={uppercaseTextTransformStyle}>{header.title}</span>
               }
             </h4>
           </Header>
@@ -432,10 +673,51 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                   //                                           username={username}/>) : ''
                 }
                 {
-                  // buildTermCard ?
-                  //   // TODO: Implement TermCard (named SemesterCard in radgrad)
-                  //   items.map((item, index) => <TermCard key={index} item={item} type={type} canAdd={true}
-                  //                                        username={username}/>) : ''
+                  buildTermCard ?
+                    [
+                      [
+                        hiddenExists ?
+                          [
+                            this.isType('courses') ?
+                              [
+                                isCoursesHidden ?
+                                  <Button key='one' basic={true} color="green" size="mini"
+                                          onClick={this.handleShowHiddenCourses}>
+                                    <Icon name="chevron up"/> HIDDEN <span
+                                    style={uppercaseTextTransformStyle}>COURSES</span>
+                                  </Button>
+                                  :
+                                  <Button key='two' basic={true} color="green" size="mini"
+                                          onClick={this.handleHideHiddenCourses}>
+                                    <Icon name="chevron down"/> HIDDEN <span
+                                    style={uppercaseTextTransformStyle}>COURSES</span>
+                                  </Button>,
+                              ]
+                              :
+                              [
+                                isOpportunitiesHidden ?
+                                  <Button key='one' basic={true} color="green" size="mini"
+                                          onClick={this.handleShowHiddenOpportunities}>
+                                    <Icon name="chevron up"/> HIDDEN <span
+                                    style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                                  </Button>
+                                  :
+                                  <Button key='two' basic={true} color="green" size="mini"
+                                          onClick={this.handleHideHiddenOpportunities}>
+                                    <Icon name="chevron down"/> HIDDEN <span
+                                    style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                                  </Button>,
+                              ],
+                          ]
+                          : '',
+                      ],
+                      [
+                        //   TODO: Implement TermCard (named SemesterCard in radgrad)
+                        //   items.map((item, index) => <TermCard key={index} item={item} type={type} canAdd={true}
+                        //                                        username={username}/>) : ''
+                      ],
+                    ]
+                    : ''
                 }
                 {
                   // buildExplorerCard ?
@@ -457,6 +739,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   }
 }
 
+const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetContainer = withTracker((props) => {
   const { collection, type, username } = props;
   // TODO: Test to make sure this is enough to make things reactive
@@ -470,5 +753,5 @@ const CardExplorerWidgetContainer = withTracker((props) => {
   return {
     reactiveSource,
   };
-})(CardExplorerWidget);
+})(CardExplorerWidgetCon);
 export default CardExplorerWidgetContainer;
