@@ -22,12 +22,20 @@ import {
 } from '../../../redux/actions/studentHomePageActions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import ExplorerCard from './ExplorerCard';
 
 interface ICardExplorerWidgetProps {
   collection: any;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty' | 'mentor';
-  username: string;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   reactiveSource: object[];
   dispatch: any;
   hiddenCourses: boolean;
@@ -190,7 +198,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   /* ####################################### GENERAL HELPER FUNCTIONS ####################################### */
   private isRoleStudent = () => this.props.role === 'student'
 
-  private getUsername = () => this.props.username
+  private getUsername = () => this.props.match.params.username
 
   private getUserIdFromRoute = () => {
     const username = this.getUsername();
@@ -245,9 +253,10 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
   private noPlan = () => {
+    const username = this.getUsername();
     if (this.isRoleStudent()) {
       if (this.getUsername()) {
-        return _.isNil(Users.getProfile(this.props.username).academicPlanID);
+        return _.isNil(Users.getProfile(username).academicPlanID);
       }
     }
     return false;
@@ -414,7 +423,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   /* ####################################### INTERESTS HELPER FUNCTIONS ####################################### */
   private availableInterests = () => {
     let interests = Interests.find({}).fetch();
-    const { username } = this.props;
+    const username = this.getUsername();
     if (username) {
       const profile = Users.getProfile(username);
       const allInterests = Users.getInterestIDsByType(profile.userID);
@@ -515,7 +524,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   /* ####################################### USERS HELPER FUNCTIONS ####################################### */
   private getUsers = (role) => {
-    const { username } = this.props;
+    const username = this.getUsername();
     let users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
     if (role === ROLE.STUDENT) {
       users = _.filter(users, (u) => u.optedIn);
@@ -551,7 +560,8 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     /* Variables */
     const header = this.buildHeader(); // The header Title and Count
     const items = this.getItems(); // The items to map over
-    const { type, username } = this.props;
+    const { type, match } = this.props;
+    const username = this.getUsername();
 
     // For the Academic Plans Card Explorer
     const buildPlanCard = this.isType('plans');
@@ -664,13 +674,13 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                   // buildPlanCard ?
                   //   // TODO: Implement PlanCard
                   //   items.map((item, index) => <PlanCard key={index} item={item} type={type} canAdd={canAdd}
-                  //                                        username={username}/>) : ''
+                  //                                        match={match}/>) : ''
                 }
                 {
                   // buildProfileCard ?
                   //   // TODO: Implement ProfileCard
                   //   items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}
-                  //                                           username={username}/>) : ''
+                  //                                           match={match}/>) : ''
                 }
                 {
                   buildTermCard ?
@@ -714,16 +724,16 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                       [
                         //   TODO: Implement TermCard (named SemesterCard in radgrad)
                         //   items.map((item, index) => <TermCard key={index} item={item} type={type} canAdd={true}
-                        //                                        username={username}/>) : ''
+                        //                                        match={match}/>) : ''
                       ],
                     ]
                     : ''
                 }
                 {
-                  // buildExplorerCard ?
-                  //   // TODO: Implement ExplorerCard
-                  //   items.map((item, index) => <ExplorerCard key={index} item={item} type={type}
-                  //                                            username={username}/>) : ''
+                  buildExplorerCard ?
+                    // TODO: Implement ExplorerCard
+                    items.map((item, index) => <ExplorerCard key={index} item={item} type={type} match={match}/>)
+                    : ''
                 }
               </Card.Group>
               :
@@ -741,7 +751,8 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
 const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetContainer = withTracker((props) => {
-  const { collection, type, username } = props;
+  const { collection, type, match } = props;
+  const username = match.params.username;
   // TODO: Test to make sure this is enough to make things reactive
   let reactiveSource;
   if (type !== 'users') {

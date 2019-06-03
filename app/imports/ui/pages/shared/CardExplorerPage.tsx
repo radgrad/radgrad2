@@ -79,8 +79,10 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     }
   }
 
+  // TODO: Need to implement Card Explorer Menu
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const username = this.props.match.params.username;
+    const match = this.props.match;
 
     return (
       <React.Fragment>
@@ -95,7 +97,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
           <Grid.Row width={13}>
             <CardExplorerWidget collection={this.getCollection()} type={this.getType()} role={this.getRoleByUrl()}
-                                username={username}/>
+                                match={match}/>
           </Grid.Row>
         </Grid>
 
