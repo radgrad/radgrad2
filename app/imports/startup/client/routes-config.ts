@@ -69,6 +69,7 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
+import InterestExplorerPageContainer from "../../ui/pages/shared/InterestExplorer";
 
 export const routes = {
   ADMIN: [
@@ -276,12 +277,24 @@ export const routes = {
     },
     {
       path: '/faculty/:username/explorer',
+      exact: true,
       component: FacultyExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/interests',
+      exact: true,
+      component: InterestExplorerPageContainer,
+    },
+    {
+      path: 'faculty/:username/explorer/interests/:interests',
+      exact: false,
+      component: InterestExplorerPageContainer
     },
     {
       path: '/faculty/:username/course-scoreboard',
       component: FacultyCourseScoreboardPageContainer,
     },
+
   ],
   LANDING: [
     {
@@ -381,7 +394,13 @@ export const routes = {
     },
     {
       path: '/mentor/:username/explorer',
+      exact: true,
       component: MentorExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/interests',
+      exact: true,
+      component: InterestExplorerPageContainer,
     },
   ],
   STUDENT: [
@@ -399,7 +418,13 @@ export const routes = {
     },
     {
       path: '/student/:username/explorer',
+      exact: true,
       component: StudentExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/interests',
+      exact: true,
+      component: InterestExplorerPageContainer,
     },
   ],
 };

@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Image } from 'semantic-ui-react';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
+
 /** A simple static component to render some text for the landing page. */
-class FacultyExplorerPage extends React.Component {
+class FacultyExplorerPage extends React.Component{
+
+
   public render() {
     return (
       <div>

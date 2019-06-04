@@ -32,8 +32,21 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           </Header>
           <p>
             The Explorer Interest Widget should the blown up description, title and details for a specific interest
-            This widget should be shown on the explorer page. 
+            This widget should be shown on the explorer page.
           </p>
+          <Header as='h3'>What should be here: </Header>
+          <ol>
+            <li>Title</li>
+            <li>Description with a Learn More Here Link</li>
+            <li>Details</li>
+            <li>Student Count w/ pics</li>
+            <li>Faculty Count w/ pics</li>
+            <li>Alumni Count w/ pics</li>
+            <li>Mentor Count w/ pics</li>
+            <li>Related Courses</li>
+            <li>Related Opportunities</li>
+            <li>The side menu</li>
+          </ol>
         </div>
       </Container>
     );
