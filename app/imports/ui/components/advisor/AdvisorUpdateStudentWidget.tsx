@@ -1,13 +1,8 @@
 import {Meteor} from 'meteor/meteor';
 import * as React from 'react';
 import Swal from 'sweetalert2';
-// import {_} from 'meteor/erasaur:meteor-lodash';
 import {connect} from 'react-redux';
-// import {withTracker} from 'meteor/react-meteor-data';
 import {Segment, Button, Image, Grid, Header, Form, Label, Dropdown, Radio} from 'semantic-ui-react';
-// import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-// import {CareerGoals} from '../../../api/career/CareerGoalCollection';
-// import {Interests} from '../../../api/interest/InterestCollection';
 import {AcademicTerms} from '../../../api/academic-term/AcademicTermCollection';
 import {AcademicPlans} from '../../../api/degree-plan/AcademicPlanCollection';
 import {openCloudinaryWidget} from '../shared/OpenCloudinaryWidget';
@@ -92,6 +87,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     }
     console.log(`state change: ${name}: `, value);
     
+    // TODO -- gbarcelo - find out why typescript is complaining
     // @ts-ignore
     this.setState({[name]: value});
   }
@@ -99,18 +95,6 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
   private handleInterestSelection = (e, {userInterests}) => this.setState({userInterests});
   
   private handleUpdateSubmit = () => {
-    // const {
-    //   firstName,
-    //   lastName,
-    //   picture,
-    //   website,
-    //   careerGoals,
-    //   userInterests,
-    //   isAlumni,
-    //   level,
-    //   declaredAcademicTerm,
-    //   academicPlanID,
-    // } = this.state;
     const collectionName = this.props.studentCollectionName;
     const updateData: any = {};
     updateData.firstName = this.state.firstName;
@@ -160,7 +144,6 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
   }
   
   public renderUpdateComponent() {
-    // public render() {
     if (!this.props.isLoaded) this.prePopulateForm(this.props.usernameDoc)
     const {
       firstName,
@@ -175,15 +158,6 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       academicPlanID,
     } = this.state;
     console.log('rendered doc: ', this.props.usernameDoc);
-    // let rawData = this.props.usernameDoc.careerGoalIDs;
-    // rawData = rawData.map(id => (CareerGoals.findDoc(id)));
-    // const cgDropdownValue = (userCGoals.length === 0) ?
-    //   rawData.map(cg => ( cg._id ))
-    //   : userCGoals;
-    // console.log('cgDropdownValue',cgDropdownValue);
-    //
-    // rawData = this.props.interests;
-    // console.log('props.interests',rawData);
     
     return (
       <Segment>
@@ -220,17 +194,11 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
                                         href={'javascript:void(0)'}>Upload</a>)
                           </div>}
                         value={picture}/>
-            {/*<Form.Input name="picture"*/}
-            {/*            label={'Picture'}*/}
-            {/*            onChange={this.handleFormChange}*/}
-            {/*            value={picture || ''}/>*/}
             <Form.Input name="website"
                         label={'Website'}
                         onChange={this.handleFormChange}
                         value={website || ''}/>
           </Form.Group>
-          {/*<Button content={'Upload'}*/}
-          {/*        onClick={this.handleUploadClick}/>*/}
           <Form.Group widths={"equal"}>
             <Form.Dropdown selection multiple
                            name={'careerGoals'}
@@ -313,14 +281,4 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
   }
 }
 
-// const AdvisorUpdateStudentWidgetContainer = withTracker((props) => {
-//   return {
-//     usernameDoc: StudentProfiles.findByUsername(props.selectedUsername),
-//     interests: Interests.findNonRetired(),
-//     careerGoals: CareerGoals.findNonRetired(),
-//   };
-// })(AdvisorUpdateStudentWidget);
-
-// export default (AdvisorUpdateStudentWidgetContainer);
 export default connect(mapStateToProps)(AdvisorUpdateStudentWidget);
-// export default (AdvisorUpdateStudentWidget);

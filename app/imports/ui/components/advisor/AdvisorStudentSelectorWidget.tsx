@@ -125,7 +125,6 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         menuItem: 'Add New',
         render: () =>
           <Tab.Pane key={'new'}>
-            {/*<Header content={'ADD NEW'}/>*/}
             <Header content={`The one key: ${this.props.instanceKey}`}/>
           </Tab.Pane>
         ,
