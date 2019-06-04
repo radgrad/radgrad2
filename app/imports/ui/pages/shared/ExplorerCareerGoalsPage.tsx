@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import ExplorerCareerGoalsWidgetContainer from '../../components/shared/ExplorerCareerGoalsWidget';
 // eslint-disable-next-line no-unused-vars
 // import { IDesiredDegree } from '../../../typings/radgrad';
 // import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
@@ -16,15 +17,18 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const marginStyle = {
+      marginTop: 5,
+    };
     return (
-      <Grid container={true} stackable={true}>
-        <Grid.Row width={3}>
+      <Grid container={true} stackable={true} style={marginStyle}>
+        <Grid.Column width={3}>
           {/*  TODO: Card Explorer Menu */}
-        </Grid.Row>
+        </Grid.Column>
 
-        <Grid.Row width={13}>
-          <p>test</p>
-        </Grid.Row>
+        <Grid.Column width={13}>
+          <ExplorerCareerGoalsWidgetContainer/>
+        </Grid.Column>
       </Grid>
     );
   }
