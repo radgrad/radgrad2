@@ -561,12 +561,12 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     const header = this.buildHeader(); // The header Title and Count
     const items = this.getItems(); // The items to map over
     const { type, match } = this.props;
-    const username = this.getUsername();
+    // const username = this.getUsername();
 
     // For the Academic Plans Card Explorer
-    const buildPlanCard = this.isType('plans');
+    // const buildPlanCard = this.isType('plans');
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-    const buildProfileCard = this.isType('interests') || this.isType('career-goals');
+    // const buildProfileCard = this.isType('interests') || this.isType('career-goals');
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
     const buildTermCard = this.isType('courses') || this.isType('opportunities');
     const isCoursesHidden = this.isCoursesHidden();
@@ -581,11 +581,11 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     // FIXME: There is currently a weird behavior where getUsers returns some sort of an Iterable. When you console log,
     //        advisorRoleUsers, etc... you get an array of objects just fine. But for some reason you cannot call .map()
     //        over it.
-    const advisorRoleUsers = this.getUsers(ROLE.ADVISOR);
+    // const advisorRoleUsers = this.getUsers(ROLE.ADVISOR);
     // console.log(Array.from(advisorRoleUsers).map((user, index) => console.log(user)));
-    const facultyRoleUsers = this.getUsers(ROLE.FACULTY);
-    const mentorRoleUsers = this.getUsers(ROLE.MENTOR);
-    const studentRoleUsers = this.getUsers(ROLE.STUDENT);
+    // const facultyRoleUsers = this.getUsers(ROLE.FACULTY);
+    // const mentorRoleUsers = this.getUsers(ROLE.MENTOR);
+    // const studentRoleUsers = this.getUsers(ROLE.STUDENT);
     const panes = [
       {
         menuItem: 'Advisors',
@@ -646,7 +646,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     ];
 
     // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-    const canAdd = this.isRoleStudent();
+    // const canAdd = this.isRoleStudent();
 
     return (
       <React.Fragment>
