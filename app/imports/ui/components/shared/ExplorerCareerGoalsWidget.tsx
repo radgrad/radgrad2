@@ -7,13 +7,17 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 // import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 interface IExplorerCareerGoalsWidgetProps {
-  // desiredDegrees: IDesiredDegree;
+  name: string;
 }
 
 class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidgetProps> {
   constructor(props) {
     super(props);
   }
+
+  private getCareerGoalName = () => this.props.name;
+
+  private toUpper = (string) => string.toUpperCase();
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginStyle = {
@@ -23,6 +27,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const divPadding = {
       marginTop: 0,
     };
+    const upperName = this.toUpper(this.getCareerGoalName());
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
         <Grid.Column width={16}>
@@ -30,11 +35,11 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
             <Segment basic clearing={true} vertical>
               <Grid.Row verticalAlign={'middle'}>
                 <Button size={'mini'} color={'green'} floated={'right'} basic={true}>ADD TO CAREER GOALS</Button>
-                <Header floated={'left'}>Test</Header>
+                <Header floated={'left'}>{upperName}</Header>
               </Grid.Row>
             </Segment>
             <Divider style={divPadding}/>
-            <Grid.Column stackable={true}>
+            <Grid.Column>
               Description.
             </Grid.Column>
           </Segment>
