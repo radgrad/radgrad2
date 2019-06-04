@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidgetContainer from '../../components/shared/ExplorerCareerGoalsWidget';
@@ -8,7 +9,15 @@ import ExplorerCareerGoalsWidgetContainer from '../../components/shared/Explorer
 // import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 interface IExplorerCareerGoalsPageProps {
-  // desiredDegrees: IDesiredDegree;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+      careergoal: string;
+    }
+  };
 }
 
 class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPageProps> {
@@ -27,7 +36,7 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
         </Grid.Column>
 
         <Grid.Column width={13}>
-          <ExplorerCareerGoalsWidgetContainer/>
+          <ExplorerCareerGoalsWidgetContainer name={this.props.match.params.careergoal}/>
         </Grid.Column>
       </Grid>
     );
@@ -37,4 +46,4 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
 const ExplorerCareerGoalsPageCon = withGlobalSubscription(ExplorerCareerGoalsPage);
 const ExplorerCareerGoalsPageContainer = withInstanceSubscriptions(ExplorerCareerGoalsPageCon);
 
-export default ExplorerCareerGoalsPageContainer;
+export default withRouter(ExplorerCareerGoalsPageContainer);
