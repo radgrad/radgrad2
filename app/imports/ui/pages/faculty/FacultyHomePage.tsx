@@ -11,7 +11,7 @@ class FacultyHomePage extends React.Component {
     return (
       <div>
         <FacultyPageMenuWidget/>
-        <Grid verticalAlign="middle" textAlign="center" container={true}>
+        <Grid verticalAlign='middle' textAlign='center' container={true}>
 
           <Grid.Column width={16}>
             <FacultyPageAboutMeWidget/>
