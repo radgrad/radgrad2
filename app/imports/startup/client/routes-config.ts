@@ -283,16 +283,6 @@ export const routes = {
       component: FacultyExplorerPageContainer,
     },
     {
-      path: '/faculty/:username/explorer/interests',
-      exact: true,
-      component: InterestExplorerPageContainer,
-    },
-    {
-      path: 'faculty/:username/explorer/interests/:interests',
-      exact: false,
-      component: InterestExplorerPageContainer
-      },
-    {
       path: '/faculty/:username/explorer/degrees',
       exact: true,
       component: CardExplorerPageContainer,

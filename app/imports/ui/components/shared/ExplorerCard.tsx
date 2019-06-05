@@ -4,7 +4,7 @@ import * as Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
-interface IExplorerCardProps {
+export interface IExplorerCardProps {
   item: {
     _id: string;
   };

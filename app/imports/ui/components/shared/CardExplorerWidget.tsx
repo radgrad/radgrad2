@@ -23,6 +23,7 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
+import InterestProfileCard from "./InterestProfileCard";
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -109,6 +110,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       case 'degrees':
         return this.degreesItemCount();
       case 'interests':
+        console.log(this.interestsItemCount());
         return this.interestsItemCount();
       case 'opportunities':
         return this.opportunitiesItemCount();
@@ -566,7 +568,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     // For the Academic Plans Card Explorer
     // const buildPlanCard = this.isType('plans');
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-    // const buildProfileCard = this.isType('interests') || this.isType('career-goals');
+    const buildProfileCard = this.isType('interests') || this.isType('career-goals');
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
     const buildTermCard = this.isType('courses') || this.isType('opportunities');
     const isCoursesHidden = this.isCoursesHidden();
@@ -677,10 +679,10 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                   //                                        match={match}/>) : ''
                 }
                 {
-                  // buildProfileCard ?
-                  //   // TODO: Implement ProfileCard
-                  //   items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}
-                  //                                           match={match}/>) : ''
+                  buildProfileCard ?
+                    // TODO: Implement ProfileCard
+                    items.map((item, index) => <InterestProfileCard key={index} item={item} type={type} canAdd={true}
+                                                            match={match}/>) : ''
                 }
                 {
                   buildTermCard ?
