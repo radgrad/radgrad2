@@ -9,6 +9,10 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import ExplorerDegreesWidget from '../../components/shared/ExplorerDegreesWidget';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 
 interface IExplorerDegreesPageProps {
   match: {
@@ -25,6 +29,27 @@ interface IExplorerDegreesPageProps {
 class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
   constructor(props) {
     super(props);
+  }
+
+  private getRoleByUrl = () => {
+    const url = this.props.match.url;
+    const username = this.props.match.params.username;
+    const indexUsername = url.indexOf(username);
+    return url.substring(1, indexUsername - 1);
+  }
+
+  private renderPageMenuWidget = () => {
+    const role = this.getRoleByUrl();
+    switch (role) {
+      case 'student':
+        return <StudentPageMenuWidget/>;
+      case 'mentor':
+        return <MentorPageMenuWidget/>;
+      case 'faculty':
+        return <FacultyPageMenuWidget/>;
+      default:
+        return '';
+    }
   }
 
   private degree = () => {
@@ -69,16 +94,25 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
     const id = degree._id;
 
     return (
-      <Grid container={true} stackable={true}>
-        <Grid.Row width={3}>
-          {/*  TODO: Card Explorer Menu */}
-        </Grid.Row>
+      <React.Fragment>
+        {
+          this.renderPageMenuWidget()
+        }
 
-        <Grid.Row width={13}>
-          <ExplorerDegreesWidget name={name} slug={slug} descriptionPairs={descriptionPairs} socialPairs={socialPairs}
-                                 id={id} updateID={updateID} item={degree}/>
-        </Grid.Row>
-      </Grid>
+        <Grid container={true} stackable={true}>
+          <Grid.Row width={3}>
+            {/*  TODO: Card Explorer Menu */}
+          </Grid.Row>
+
+          <Grid.Row width={13}>
+            {/* FIXME: A prop named updateID={updateID} is supposed to be passed to the Widget, but I have no idea how
+                  updateID is obtained. Even looking through the source code of radgrad1, it seems like updateID isn't
+                  even used. */}
+            <ExplorerDegreesWidget name={name} slug={slug} descriptionPairs={descriptionPairs} socialPairs={socialPairs}
+                                   id={id} item={degree}/>
+          </Grid.Row>
+        </Grid>
+      </React.Fragment>
     );
   }
 }
