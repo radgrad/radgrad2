@@ -160,7 +160,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     console.log('rendered doc: ', this.props.usernameDoc);
     
     return (
-      <Segment>
+      <Segment padded={true}>
         <Header as="h4" dividing={true}>UPDATE STUDENT</Header>
         <Form onSubmit={this.handleUpdateSubmit}>
           <Form.Group widths={"equal"}>
