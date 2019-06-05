@@ -139,12 +139,17 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     this.props.dispatch(advisorHomeSetSelectedStudentUsername(''))
   }
   
+  componentDidUpdate(prevProps: Readonly<IAdvisorUpdateStudentWidgetProps>, prevState: Readonly<IAdvisorUpdateStudentWidgetState>, snapshot?: any): void {
+    const prop = this.props.selectedUsername;
+    if ((prop !== prevProps.selectedUsername) && (prop !== '')) this.prePopulateForm(this.props.usernameDoc)
+  }
+  
   public render() {
     return ((this.props.selectedUsername === '') ? '' : this.renderUpdateComponent());
   }
   
   public renderUpdateComponent() {
-    if (!this.props.isLoaded) this.prePopulateForm(this.props.usernameDoc)
+    // if (!this.props.isLoaded) this.prePopulateForm(this.props.usernameDoc)
     const {
       firstName,
       lastName,
