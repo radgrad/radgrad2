@@ -1,12 +1,13 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidgetContainer from '../../components/shared/ExplorerCareerGoalsWidget';
-// eslint-disable-next-line no-unused-vars
-// import { IDesiredDegree } from '../../../typings/radgrad';
-// import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 
 interface IExplorerCareerGoalsPageProps {
   match: {
@@ -25,10 +26,27 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
     super(props);
   }
 
+  private careerGoal = () => {
+    const careerGoalSlugName = this.props.match.params.careergoal;
+    const slug = Slugs.find({ name: careerGoalSlugName }).fetch();
+    const careerGoal = CareerGoals.find({ slugID: slug[0]._id }).fetch();
+    return careerGoal[0];
+  }
+
+  private descriptionPairs = (careerGoal) => [
+    { label: 'Description', value: careerGoal.description },
+    { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
+  ]
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginStyle = {
       marginTop: 5,
     };
+    const careerGoal = this.careerGoal();
+    console.log('careerGoal: ', careerGoal);
+    const careerName = careerGoal.name;
+    const slugName = careerGoal.slugID;
+    const descriptionPairs = this.descriptionPairs(careerGoal);
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
         <Grid.Column width={3}>
@@ -36,7 +54,7 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
         </Grid.Column>
 
         <Grid.Column width={13}>
-          <ExplorerCareerGoalsWidgetContainer name={this.props.match.params.careergoal}/>
+          <ExplorerCareerGoalsWidgetContainer name={careerName} slug={slugName} descriptionPairs={descriptionPairs} item={careerGoal}/>
         </Grid.Column>
       </Grid>
     );
