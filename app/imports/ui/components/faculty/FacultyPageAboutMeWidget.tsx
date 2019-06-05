@@ -1,5 +1,5 @@
 /**
- * @qauchida
+ * qauchida
  * 05/20/19
  * Faculty Widget that shows About Me information
  */
@@ -7,126 +7,140 @@ import * as React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Container, Grid, Header, Label, Icon, Form } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
+/* global alert */
+
+/**
+ * The Faculty
+ */
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
-      id: string;
       username: string;
       url: string;
+    },
+    state: {
+      id: 'not changed';
+      website: string;
+      picture: string;
     }
-
   }
 }
 
-interface IFacultyProfileState {
-  id: string;
-  website: string;
-  picture: string;
-}
-
-
-class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps, IFacultyProfileState> {
+/**
+ * The Faculty About Me Widget should show basic information of the specified user.
+ */
+class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
   // call the props constructor
   constructor(props: any) {
     super(props);
-    this.state = { id: '', website: '', picture: '' };
   }
 
   /**
-   * Function to record the changes in the form.
-   * @param event
-   * @param name Name of the value being changed
-   * @param value Value of the attribute
+   * Changes state based on user input.
+   * @param event Details of the Event
+   * @param name Name of the Event
+   * @param value User input
    */
   private handleChange = (event, { name, value }) => {
-    console.log('handle change');
-    console.log(event, { name, value });
-    console.log(FacultyProfiles.findDoc(this.props.match.params.username).userID);
-    const changeIntermediate = {};
-    changeIntermediate[name] = value;
-    this.setState(changeIntermediate);
+    console.log('handle change', event, { name, value });
+    this.setState({ [name]: value });
   };
 
   /**
-   * Function to handle the submission.
+   * Updates the website of specified user to match the current state.
+   * @param event Details of the event
    */
-  private handleSubmitWebsite = () => {
-    const updateData: any = this.state;
-    updateData.id = (FacultyProfiles.findDoc(this.props.match.params.username)._id);
-    const collectionName = FacultyProfiles.getCollectionName();
-    /**
-     * borrowed from AdminDataModelUsersPage.tsx
-     */
-
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          type: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          type: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+  private handleSubmitWebsite = (event) => {
+    const username = this.props.match.params.username;
+    // gets the doc object containing information on desired profile based on username
+    const facultyDoc = FacultyProfiles.findDoc(username);
+    console.log('handle Submit Website');
+    this.setState({ id: 'changed' });
+    console.log(this.state);
+    console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
+    // updates faculty profile's website entry
+    FacultyProfiles.update(facultyDoc._id, this.state);
+    console.log(Users.getProfile(facultyDoc.userID));
+    // need to alert userif their update was sucessful
+    // also need to update the placeholder text
+    console.log(event);
+    // create an update data object examples:
   };
 
   /**
-   * Function to handle picture uploads.
-   * This is a placeholder until we get cloudniary working.
-   * @param event (may delete later)
+   * Updates the photo of specified user to match current state.
+   * @param event Details of the event
+   */
+  private handleSubmitPhoto = (event) => {
+    const username = this.props.match.params.username;
+    // gets the doc object containing information on desired profile based on username
+    const facultyDoc = FacultyProfiles.findDoc(username);
+    console.log('handle Submit Photo');
+    this.setState({ id: 'changed' });
+    console.log(this.state);
+    console.log(FacultyProfiles.findDoc(this.props.match.params.username).picture);
+    // updates faculty profile's website entry
+    FacultyProfiles.update(facultyDoc._id, this.state);
+    console.log(Users.getProfile(facultyDoc.userID));
+    // need to alert userif their update was sucessful
+    // also need to update the placeholder text
+    alert(event); // eslint-disable-line no-alert
+  };
+
+  /**
+   * Calls the built in file handler.
+   * @param event Details of the event
    */
   private fileSelectedHandler = (event) => {
     console.log(event.target.files[0]);
   };
 
   /**
-   * Puts together the slug for specific interest route.
-   * @param label Name of Interest
+   * Generates the slug for given interest
+   * @param label The interest name of selected interest
+   * @returns string Slug of specified interest
    */
   private generateInterestRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
-    const interestRouteSlug = label.toString().toLowerCase().split(' ').join('-');
+    label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
     const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
-      'explorer', 'interests', interestRouteSlug];
-    const exploreRoute = `/${explorePath.join('/')}`;
+      'explorer', 'interests', label];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
     return (exploreRoute);
   };
 
   /**
-   * Puts together the slug for the specific career goals route.
-   * @param label Name of Career Goal
+   * Generates the slug for the given career goal
+   * @param label The name of the selected career goal
+   * @returns string Slug of specified career goal
    */
   private generateCareerGoalsRoute = (label) => {
     const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
+    label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
-    const careerGoalRouteSlug = label.toString().toLowerCase().split(' ').join('-');
     const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
-      'explorer', 'career-goals', careerGoalRouteSlug];
-    const exploreRoute = `/${explorePath.join('/')}`;
+      'explorer', 'career-goals', label];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
     return (exploreRoute);
   };
 
+  /**
+   * Renders all components
+   */
   public render() {
     const username = this.props.match.params.username;
     // gets the doc object containing information on desired profile based on username
@@ -157,13 +171,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
     let careerRoute = careerPath.join('/');
     careerRoute = `/${careerRoute}`;
-    // handles the submit for website changes
-    // for the picture upload, reference https://cloudinary.com/documentation/upload_widget from RadGrad1
-    // here is the react way: https://www.npmjs.com/package/react-images-upload
-    // React Image Uploader https://www.npmjs.com/package/react-images-upload
 
     return (
-
       <Container>
         <div className="ui padded container segment">
           <Grid>
@@ -194,9 +203,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                 <Grid>
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
-                      {_.map(facultyInterests, (interests, index) => <Label size='small' key={index} as={NavLink} exact={true} to={this.generateInterestRoute(interests)}>
-                          <Icon name='star'>{interests}</Icon>
-                        </Label>)}
+                      {_.map(facultyInterests, (interests, index) => (
+                        <Label size='small' key={index} as={NavLink} exact={true}
+                               to={this.generateInterestRoute(interests)}><Icon
+                          name='star'>{interests}</Icon></Label>
+                      ))}
                     </Label.Group>
                   </Grid.Row>
                   <Link to={exploreRoute}>Edit in Interest Explorer</Link>
@@ -209,9 +220,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                 <Grid>
                   <Grid.Row divided textAlign='left'>
                     <Label.Group>
-                      {_.map(facultyCareerGoals, (careerGoals, index) => <Label size='small' key={index} as={NavLink} exact={true}
+                      {_.map(facultyCareerGoals, (careerGoals, index) => (
+                        <Label size='small' key={index} as={NavLink} exact={true}
                                to={this.generateCareerGoalsRoute(careerGoals)}><Icon
-                          name='suitcase'>{careerGoals}</Icon></Label>)}
+                          name='suitcase'>{careerGoals}</Icon></Label>
+                      ))}
                     </Label.Group>
                   </Grid.Row>
                   <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
@@ -237,7 +250,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                 <Header as='h5' textAlign='left'>Picture</Header>
               </Grid.Column>
               <Grid.Column floated='left' width={6}>
-                <Form onSubmit={this.handleSubmitWebsite} success>
+                <Form onSubmit={this.handleSubmitPhoto} success>
                   <Form.Group>
                     <Form.Input
                       onChange={this.handleChange} width={10}
@@ -252,7 +265,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
           </Grid>
         </div>
       </Container>
-
     );
 
   }
@@ -261,3 +273,11 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
 }
 
 export default withRouter(FacultyPageAboutMeWidget);
+
+/**
+ * Addtional Notes:
+ * may have to make quality checks and what not
+ * make alert to notify user that information has been updated sucessfully
+ * conditional showing of interest and career goal labels: if user doesn't have any, text should say:
+ * no career goals/ interests added yet
+ */

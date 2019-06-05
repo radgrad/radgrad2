@@ -20,6 +20,7 @@ import {
 } from '../actions/actionTypes';
 import { paginationReducer } from './paginationReducer';
 import { studentHomePageReducer } from './studentHomePageReducer';
+import { cardExplorerPageReducer } from './cardExplorerPageReducer';
 
 const initialState = {
   depInspector: {
@@ -155,6 +156,12 @@ const initialState = {
       hiddenOpportunities: true,
     },
   },
+  cardExplorerPage: {
+    cardExplorerWidget: {
+      hiddenCourses: true,
+      hiddenOpportunities: true,
+    },
+  },
 };
 
 function radgradWorkingReducer(state = {}, action) {
@@ -281,13 +288,14 @@ function tabReducer(state = {}, action) {
 
 // console.log('rootReducer state=%o action=%o', state, action);
 const rootReducer = (state = initialState, action) => ({
-    ...state,
-    depInspector: inspectorReducer(state.depInspector, action),
-    depTab: tabReducer(state.depTab, action),
-    radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
-    pagination: paginationReducer(state.pagination, action),
-    studentHomePage: studentHomePageReducer(state.studentHomePage, action),
-  });
+  ...state,
+  depInspector: inspectorReducer(state.depInspector, action),
+  depTab: tabReducer(state.depTab, action),
+  radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
+  pagination: paginationReducer(state.pagination, action),
+  studentHomePage: studentHomePageReducer(state.studentHomePage, action),
+  cardExplorerPage: cardExplorerPageReducer(state.cardExplorerPage, action),
+});
 
 // export default combineReducers({});
 export default rootReducer;
