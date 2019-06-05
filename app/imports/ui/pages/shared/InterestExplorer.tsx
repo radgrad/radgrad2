@@ -16,7 +16,6 @@ class InterestExplorerPage extends React.Component{
     console.log('This is the InterestExplorer.tsx');
     return (
       <div>
-        <FacultyPageMenuWidget/>
         <Container>
           <Header as='h1'>
             The Interest Explorer Pages should go here.
