@@ -283,7 +283,6 @@ export const routes = {
       component: FacultyExplorerPageContainer,
     },
     {
-<<<<<<< HEAD
       path: '/faculty/:username/explorer/interests',
       exact: true,
       component: InterestExplorerPageContainer,
@@ -292,7 +291,8 @@ export const routes = {
       path: 'faculty/:username/explorer/interests/:interests',
       exact: false,
       component: InterestExplorerPageContainer
-=======
+      },
+    {
       path: '/faculty/:username/explorer/degrees',
       exact: true,
       component: CardExplorerPageContainer,
@@ -336,7 +336,6 @@ export const routes = {
       path: '/faculty/:username/explorer/users',
       exact: true,
       component: CardExplorerPageContainer,
->>>>>>> master
     },
     {
       path: '/faculty/:username/course-scoreboard',
@@ -446,11 +445,11 @@ export const routes = {
       component: MentorExplorerPageContainer,
     },
     {
-<<<<<<< HEAD
       path: '/mentor/:username/explorer/interests',
       exact: true,
       component: InterestExplorerPageContainer,
-=======
+    },
+    {
       path: '/mentor/:username/explorer/plans',
       exact: true,
       component: CardExplorerPageContainer,
@@ -489,7 +488,6 @@ export const routes = {
       path: '/mentor/:username/explorer/users',
       exact: true,
       component: CardExplorerPageContainer,
->>>>>>> master
     },
   ],
   STUDENT: [
@@ -511,11 +509,11 @@ export const routes = {
       component: StudentExplorerPageContainer,
     },
     {
-<<<<<<< HEAD
       path: '/student/:username/explorer/interests',
       exact: true,
       component: InterestExplorerPageContainer,
-=======
+    },
+    {
       path: '/student/:username/explorer/plans',
       exact: true,
       component: CardExplorerPageContainer,
@@ -554,7 +552,6 @@ export const routes = {
       path: '/student/:username/explorer/users',
       exact: true,
       component: CardExplorerPageContainer,
->>>>>>> master
     },
   ],
 };
