@@ -13,7 +13,6 @@ class InterestExplorerPage extends React.Component{
     super(props);
   }
   public render() {
-    console.log('This is the InterestExplorer.tsx');
     return (
       <div>
         <Container>

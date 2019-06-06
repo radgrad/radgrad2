@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, Header } from 'semantic-ui-react';
+import StudentPageMenuWidget from "../../pages/shared/ExplorerDegreesPage";
+import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 
 interface IExplorerInterestsWidgetProps {
-  match?: {
+  match: {
+    isExact: boolean,
+    path: string,
+    url: string,
     params: {
-      id: string;
-      name: string;
-      url: string;
+      username: string;
+      interest: string;
     }
   }
 }
@@ -23,31 +28,35 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     this.state = {};
   }
 
+  private getRoleByUrl = () => {
+    const url = this.props.match.url;
+    const username = this.props.match.params.username;
+    const indexUsername = url.indexOf(username);
+    return url.substring(1, indexUsername - 1);
+  }
+
+  private renderPageMenuWidget = () => {
+    const role = this.getRoleByUrl();
+    switch (role) {
+      case 'student':
+        return <StudentPageMenuWidget/>;
+      case 'mentor':
+        return <MentorPageMenuWidget/>;
+      case 'faculty':
+        return <FacultyPageMenuWidget/>;
+      default:
+        return '';
+    }
+  }
+
   public render() {
     return (
       <Container>
-        <div className='ui padded container segment'>
-          <Header as = 'h4'>
-          The Explorer Interest Widget should go here
-          </Header>
-          <p>
-            The Explorer Interest Widget should the blown up description, title and details for a specific interest
-            This widget should be shown on the explorer page.
-          </p>
-          <Header as='h3'>What should be here: </Header>
-          <ol>
-            <li>Top Menu According to Role</li>
-            <li>Title of Interest</li>
-            <li>Description with a Learn More Here Link</li>
-            <li>Details</li>
-            <li>Student Count w/ pics</li>
-            <li>Faculty Count w/ pics</li>
-            <li>Alumni Count w/ pics</li>
-            <li>Mentor Count w/ pics</li>
-            <li>Related Courses</li>
-            <li>Related Opportunities</li>
-            <li>The side menu</li>
-          </ol>
+        {this.renderPageMenuWidget()}
+        <div className="ui segments">
+          <div className='ui padded segment container'>
+            <Header>The Interest Name should go here</Header>
+          </div>
         </div>
       </Container>
     );
