@@ -1,25 +1,12 @@
 import * as React from 'react';
 import {Button, Card, Icon} from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import {Link} from 'react-router-dom';
-import {Slugs} from '../../../api/slug/SlugCollection';
+import { Link } from 'react-router-dom';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { IExplorerCard } from '../../../typings/radgrad'; // eslint-disable-line
 
-interface IExplorerCardProps {
-  item: {
-    _id: string;
-  };
-  type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
 
-class ExplorerCard extends React.Component<IExplorerCardProps> {
+class ExplorerCard extends React.Component<IExplorerCard> {
   constructor(props) {
     super(props);
   }

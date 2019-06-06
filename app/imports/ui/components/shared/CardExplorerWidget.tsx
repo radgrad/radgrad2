@@ -238,6 +238,8 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   // Used in both Courses and Opportunities Card Explorer
   private hiddenExists() {
+    if (!this.isRoleStudent()) return false;
+
     const username = this.getUsername();
     if (username) {
       const profile = Users.getProfile(username);
@@ -282,7 +284,6 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
         return _.filter(plans, p => profile.academicPlanID !== p._id);
       }
     }
-    console.log(plans);
     return plans;
   }
 
@@ -596,7 +597,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
@@ -610,7 +611,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
@@ -624,7 +625,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
@@ -638,7 +639,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} user={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
