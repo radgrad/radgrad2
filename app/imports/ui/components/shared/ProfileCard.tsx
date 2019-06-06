@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Button, Card, Icon} from 'semantic-ui-react';
-import {Interests} from "../../../api/interest/InterestCollection";
 import {Slugs} from "../../../api/slug/SlugCollection";
 import {Link} from 'react-router-dom';
 import * as Markdown from 'react-markdown';
@@ -10,7 +9,7 @@ import * as Markdown from 'react-markdown';
  * think about making generic classes and then inheriting
  */
 
-interface IInterestProfileCardProps {
+interface IProfileCardProps {
   item: {
     _id: string;
   };
@@ -26,7 +25,7 @@ interface IInterestProfileCardProps {
   };
 }
 
-class InterestProfileCard extends React.Component<IInterestProfileCardProps> {
+class ProfileCard extends React.Component<IProfileCardProps> {
   constructor(props) {
     super(props);
   }
@@ -109,4 +108,4 @@ class InterestProfileCard extends React.Component<IInterestProfileCardProps> {
   }
 }
 
-export default InterestProfileCard;
+export default ProfileCard;

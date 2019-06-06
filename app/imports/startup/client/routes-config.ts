@@ -69,7 +69,7 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
-import InterestExplorerPageContainer from "../../ui/pages/shared/InterestExplorer";
+import ExplorerInterestsPageContainer from "../../ui/pages/shared/ExplorerInterestsPage";
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
 
@@ -320,7 +320,7 @@ export const routes = {
 
       path: '/faculty/:username/explorer/interests/:interest',
       exact: true,
-      component: InterestExplorerPageContainer,
+      component: ExplorerInterestsPageContainer,
     },
     {
       path: '/faculty/:username/explorer/opportunities',
@@ -442,7 +442,7 @@ export const routes = {
     {
       path: '/mentor/:username/explorer/interests',
       exact: true,
-      component: InterestExplorerPageContainer,
+      component: ExplorerInterestsPageContainer,
     },
     {
       path: '/mentor/:username/explorer/plans',
@@ -536,7 +536,7 @@ export const routes = {
     {
       path: '/student/:username/explorer/interests/:interest',
       exact: true,
-      component: InterestExplorerPageContainer,
+      component: ExplorerInterestsPageContainer,
     },
     {
       path: '/student/:username/explorer/opportunities',

@@ -8,7 +8,7 @@ import SecondMenuContainer from "./SecondMenu";
 import FacultyPageMenuWidget from "../faculty/FacultyExplorerPage";
 
 /** A simple static component to render some text */
-class InterestExplorerPage extends React.Component{
+class ExplorerInterestsPage extends React.Component{
   constructor(props) {
     super(props);
   }
@@ -26,7 +26,7 @@ class InterestExplorerPage extends React.Component{
   }
 }
 
-const InterestExplorerPageCon = withGlobalSubscription(InterestExplorerPage);
-const InterestExplorerPageContainer = withInstanceSubscriptions(InterestExplorerPageCon);
+const ExplorerInterestsPageCon = withGlobalSubscription(ExplorerInterestsPage);
+const ExplorerInterestsPageContainer = withInstanceSubscriptions(ExplorerInterestsPageCon);
 
-export default InterestExplorerPageContainer;
+export default ExplorerInterestsPageContainer;

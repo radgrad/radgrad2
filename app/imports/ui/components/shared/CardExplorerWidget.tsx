@@ -23,7 +23,7 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
-import InterestProfileCard from "./InterestProfileCard";
+import ProfileCard from "./ProfileCard";
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -681,7 +681,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                 {
                   buildProfileCard ?
                     // TODO: Implement ProfileCard
-                    items.map((item, index) => <InterestProfileCard key={index} item={item} type={type} canAdd={true}
+                    items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}
                                                             match={match}/>) : ''
                 }
                 {
