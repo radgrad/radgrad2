@@ -23,6 +23,7 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
+import TermCard from './TermCard';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -573,6 +574,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     const isCoursesHidden = this.isCoursesHidden();
     const isOpportunitiesHidden = this.isOpportunitiesHidden();
     const hiddenExists = this.hiddenExists();
+    const isStudent = this.isRoleStudent();
 
     // For Degrees (or any future Card Explore that only has a "View More" functionality)
     const buildExplorerCard = this.isType('degrees');
@@ -724,15 +726,14 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                       ],
                       [
                         //   TODO: Implement TermCard (named SemesterCard in radgrad)
-                        //   items.map((item, index) => <TermCard key={index} item={item} type={type} canAdd={true}
-                        //                                        match={match}/>) : ''
+                        items.map((item, index) => <TermCard key={index} item={item} type={type} isStudent={isStudent}
+                                                             canAdd={true} match={match}/>),
                       ],
                     ]
                     : ''
                 }
                 {
                   buildExplorerCard ?
-                    // TODO: Implement ExplorerCard
                     items.map((item, index) => <ExplorerCard key={index} item={item} type={type} match={match}/>)
                     : ''
                 }
