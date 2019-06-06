@@ -51,14 +51,13 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
   public render() {
     return (
-      <Container>
-        {this.renderPageMenuWidget()}
+      <div className='ui paded container'>
         <div className="ui segments">
           <div className='ui padded segment container'>
             <Header>The Interest Name should go here</Header>
           </div>
         </div>
-      </Container>
+      </div>
     );
   }
 }
