@@ -36,7 +36,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           </p>
           <Header as='h3'>What should be here: </Header>
           <ol>
-            <li>Title</li>
+            <li>Top Menu According to Role</li>
+            <li>Title of Interest</li>
             <li>Description with a Learn More Here Link</li>
             <li>Details</li>
             <li>Student Count w/ pics</li>

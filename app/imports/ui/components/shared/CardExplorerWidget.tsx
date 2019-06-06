@@ -110,7 +110,6 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       case 'degrees':
         return this.degreesItemCount();
       case 'interests':
-        console.log(this.interestsItemCount());
         return this.interestsItemCount();
       case 'opportunities':
         return this.opportunitiesItemCount();

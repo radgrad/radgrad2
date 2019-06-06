@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Button, Card, Icon } from 'semantic-ui-react';
+import {Button, Card, Icon} from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { Link } from 'react-router-dom';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import {Link} from 'react-router-dom';
+import {Slugs} from '../../../api/slug/SlugCollection';
 
-export interface IExplorerCardProps {
+interface IExplorerCardProps {
   item: {
     _id: string;
   };
@@ -57,7 +57,7 @@ class ExplorerCard extends React.Component<IExplorerCardProps> {
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    const { type } = this.props;
+    const {type} = this.props;
     switch (type) {
       case 'career-goals':
         return `${baseRoute}explorer/career-goals/${itemSlug}`;
@@ -76,7 +76,7 @@ class ExplorerCard extends React.Component<IExplorerCardProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item } = this.props;
+    const {item} = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
 
@@ -89,7 +89,7 @@ class ExplorerCard extends React.Component<IExplorerCardProps> {
 
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: this.routerLink }}/>
+                    renderers={{link: this.routerLink}}/>
         </Card.Content>
 
         <Link to={this.buildRouteName(this.props.item)}>
