@@ -316,6 +316,11 @@ export const routes = {
       path: '/faculty/:username/explorer/interests',
       exact: true,
       component: CardExplorerPageContainer,
+    }, {
+
+      path: '/faculty/:username/explorer/interests/:interest',
+      exact: true,
+      component: InterestExplorerPageContainer,
     },
     {
       path: '/faculty/:username/explorer/opportunities',
@@ -529,8 +534,8 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
-      path: '/student/:username/explorer/interests/:interests',
-      exact:false,
+      path: '/student/:username/explorer/interests/:interest',
+      exact: true,
       component: InterestExplorerPageContainer,
     },
     {

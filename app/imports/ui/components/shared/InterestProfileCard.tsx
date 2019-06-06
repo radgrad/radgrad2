@@ -59,6 +59,7 @@ class InterestProfileCard extends React.Component<IInterestProfileCardProps> {
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    console.log(itemSlug);
     const {type} = this.props;
     switch (type) {
       case 'career-goals':

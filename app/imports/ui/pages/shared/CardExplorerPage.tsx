@@ -86,9 +86,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
     return (
       <React.Fragment>
-        {
-          this.renderPageMenuWidget()
-        }
 
         <Grid container={true} stackable={true}>
           <Grid.Row width={3}>
