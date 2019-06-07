@@ -12,6 +12,7 @@ import {withTracker} from "meteor/react-meteor-data";
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
+import {AdvisorLogs} from "../../../api/log/AdvisorLogCollection";
 
 // Formatting for parameters
 export interface IFilterStudents {
@@ -22,6 +23,7 @@ export interface IFilterStudents {
   usernameDoc: any;
   interests: any;
   careerGoals: any;
+  advisorLogs: any;
 }
 
 const mapStateToProps = (state) => ({
@@ -30,8 +32,6 @@ const mapStateToProps = (state) => ({
 
 /** A simple static component to render some text for the landing page. */
 class AdvisorHomePage extends React.Component<IFilterStudents> {
-  
-  
   public render() {
     return (
       <div>
@@ -46,38 +46,54 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
                 <AdvisorStudentSelectorWidget/>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Column width={9} stretched={true}>
-              <AdvisorUpdateStudentWidget usernameDoc={this.props.usernameDoc}
-                                          studentCollectionName={StudentProfiles.getCollectionName()}
-                                          careerGoals={this.props.careerGoals}
-                                          interests={this.props.interests}/>
-            </Grid.Column>
-            <Grid.Column width={5} stretched={true}>
-              <AdvisorLogEntryWidget/>
-              <Segment padded={true}>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-                <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-              </Segment>
-            </Grid.Column>
+            {this.renderSelectedStudentWidgets()}
           </Grid>
         </Container>
       </div>
     );
+  }
+  
+  public renderSelectedStudentWidgets() {
+    if (this.props.selectedUsername === '') return;
+    else {
+      return (
+        <Grid.Row>
+          <Grid.Column width={9} stretched={true}>
+            <AdvisorUpdateStudentWidget usernameDoc={this.props.usernameDoc}
+                                        studentCollectionName={StudentProfiles.getCollectionName()}
+                                        careerGoals={this.props.careerGoals}
+                                        interests={this.props.interests}/>
+          </Grid.Column>
+          <Grid.Column width={5} stretched={true}>
+            {console.log('advisorLogs', this.props.advisorLogs)}
+            <AdvisorLogEntryWidget advisorLogs={this.props.advisorLogs}/>
+            <Segment padded={true}>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      );
+    }
   }
 }
 
 const AdvisorHomePageCon = withGlobalSubscription(AdvisorHomePage);
 const AdvisorHomePageContai = withInstanceSubscriptions(AdvisorHomePageCon);
 const AdvisorHomePageContainer = withTracker((props) => {
+  const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
+  console.log('usernameDoc',usernameDoc);
   return {
-    usernameDoc: StudentProfiles.findByUsername(props.selectedUsername),
+    usernameDoc: usernameDoc,
     interests: Interests.findNonRetired(),
     careerGoals: CareerGoals.findNonRetired(),
+    // advisorLogs: AdvisorLogs.findNonRetired({ studentID: usernameDoc ? usernameDoc._id : ''})
+    advisorLogs: AdvisorLogs.findNonRetired({ studentID: 'cbiAnLf79yZTfXDBN'}) // placeholder to check if collection is accessed
   };
 })(AdvisorHomePageContai);
 

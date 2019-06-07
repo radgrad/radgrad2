@@ -4,9 +4,12 @@ import {withTracker} from "meteor/react-meteor-data";
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
 import {AdvisorLogs} from "../../../api/log/AdvisorLogCollection";
 
+export interface IAdvisorLogEntryWidgetProps {
+  advisorLogs: any;
+}
 
-class AdvisorLogEntryWidget extends React.Component {
-  
+class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps> {
+  // TODO -- 4 connect to redux or override componentDidUpdate
   public render() {
     
     return (
@@ -28,8 +31,8 @@ class AdvisorLogEntryWidget extends React.Component {
         }}>Past Advisor Logs</p>
         <div style={{"height":"200px"}}>
           <div style={{"height":"100%","overflowY":"auto"}}>
-            {AdvisorLogs.findNonRetired({}).map(
-              ele => <Segment><strong>{ele.createdOn.toDateString()}: </strong>{ele.text}</Segment>
+            {this.props.advisorLogs.map(
+              (ele, i) => <Segment key={i}><strong>{ele.createdOn.toDateString()}: </strong>{ele.text}</Segment>
             )}
           </div>
         </div>

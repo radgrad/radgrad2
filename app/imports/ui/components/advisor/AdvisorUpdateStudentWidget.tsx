@@ -43,19 +43,19 @@ const mapStateToProps = (state) => ({
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
   constructor(props) {
     super(props);
-    // const doc = this.props.usernameDoc;
+    const doc = this.props.usernameDoc;
     // console.log('doc', doc);
     this.state = {
-      firstName: '',
-      lastName: '',
-      picture: '',
-      website: '',
-      careerGoals: [],
-      userInterests: [],
-      isAlumni: undefined,
-      level: -1,
-      declaredAcademicTerm: '',
-      academicPlanID: '',
+      firstName: doc.firstName,
+      lastName: doc.lastName,
+      picture: doc.picture,
+      website: doc.website,
+      careerGoals: doc ? doc.careerGoalIDs : [],
+      userInterests: doc ? doc.interestIDs : [],
+      isAlumni: doc.isAlumni,
+      level: doc.level,
+      declaredAcademicTerm: doc.declaredAcademicTerm || '',
+      academicPlanID: doc.academicPlanID,
     };
   }
   
@@ -86,10 +86,12 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       value = value === 'true';
     }
     console.log(`state change: ${name}: `, value);
+    const newState = {
+      ...this.state,
+      [name]: value,
+    }
     
-    // TODO -- gbarcelo - find out why typescript is complaining
-    // @ts-ignore
-    this.setState({[name]: value});
+    this.setState(newState);
   }
   
   private handleInterestSelection = (e, {userInterests}) => this.setState({userInterests});
@@ -144,12 +146,13 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     if ((prop !== prevProps.selectedUsername) && (prop !== '')) this.prePopulateForm(this.props.usernameDoc)
   }
   
+  // public render() {
+  //   return ((this.props.selectedUsername === '') ? '' : this.renderUpdateComponent());
+  // }
+  //
+  // public renderUpdateComponent() {
+  // if (!this.props.isLoaded) this.prePopulateForm(this.props.usernameDoc)
   public render() {
-    return ((this.props.selectedUsername === '') ? '' : this.renderUpdateComponent());
-  }
-  
-  public renderUpdateComponent() {
-    // if (!this.props.isLoaded) this.prePopulateForm(this.props.usernameDoc)
     const {
       firstName,
       lastName,
@@ -281,6 +284,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
             <Form.Button content={'Cancel'} onClick={this.handleCancel}/>
           </Form.Group>
         </Form>
+        // TODO -- missing component after form
       </Segment>
     );
   }
