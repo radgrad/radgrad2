@@ -16,14 +16,14 @@ import { ROLE } from '../../../api/role/Role';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import {
-  setStudentHomeWidgetHiddenCourses,
-  setStudentHomeWidgetHiddenOpportunities,
-} from '../../../redux/actions/studentHomePageActions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
 import TermCard from './TermCard';
+import {
+  setCardExplorerWidgetHiddenCourses,
+  setCardExplorerWidgetHiddenOpportunities,
+} from '../../../redux/actions/cardExplorerPageActions';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -339,12 +339,12 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   private handleShowHiddenCourses = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenCourses(false));
+    this.props.dispatch(setCardExplorerWidgetHiddenCourses(false));
   }
 
   private handleHideHiddenCourses = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenCourses(true));
+    this.props.dispatch(setCardExplorerWidgetHiddenCourses(true));
   }
 
   private courses = () => {
@@ -445,12 +445,12 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   private handleShowHiddenOpportunities = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(false));
+    this.props.dispatch(setCardExplorerWidgetHiddenCourses(false));
   }
 
   private handleHideHiddenOpportunities = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(true));
+    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(true));
   }
 
   private opportunities = () => {
