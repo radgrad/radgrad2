@@ -65,23 +65,37 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         for(let a = 0; a < students.length; a++){
           console.log(students[a].interestIDs);
          for(let i = 0; i< students[a].interestIDs.length; i++){
-            //if(students[a].interestIDs[i] === this.GetInterestDoc()._id){
-              //interested.push(students[a]);
-            //}
+            if(students[a].interestIDs[i] === this.GetInterestDoc()._id){
+            interested.push(students[a]);
+            }
           }
-
         }
-
-       console.log(interested);
-        return howManyInterested;
+        instances = interested.length;
+        return instances;
       case 'faculty':
         const faculty = FacultyProfiles.findNonRetired();
-        console.log(faculty);
-        return 'faculty count';
+        for(let a = 0; a < faculty.length; a++){
+          console.log(faculty[a].interestIDs);
+          for(let i = 0; i< faculty[a].interestIDs.length; i++){
+            if(faculty[a].interestIDs[i] === this.GetInterestDoc()._id){
+              interested.push(faculty[a]);
+            }
+          }
+        }
+        instances = interested.length;
+        return instances;
       case 'mentor':
         const mentor = MentorProfiles.findNonRetired();
-        console.log(mentor);
-        return 'mentor count';
+        for(let a = 0; a < mentor.length; a++){
+          console.log(mentor[a].interestIDs);
+          for(let i = 0; i< mentor[a].interestIDs.length; i++){
+            if(mentor[a].interestIDs[i] === this.GetInterestDoc()._id){
+              interested.push(mentor[a]);
+            }
+          }
+        }
+        instances = interested.length;
+        return instances;
       case 'alumni':
         return 'alumni count';
     }
