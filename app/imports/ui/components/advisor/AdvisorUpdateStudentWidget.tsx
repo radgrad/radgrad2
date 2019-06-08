@@ -94,8 +94,6 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     this.setState(newState);
   }
   
-  private handleInterestSelection = (e, {userInterests}) => this.setState({userInterests});
-  
   private handleUpdateSubmit = () => {
     const collectionName = this.props.studentCollectionName;
     const updateData: any = {};
@@ -109,15 +107,10 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     updateData.isAlumni = this.state.isAlumni;
     updateData.level = this.state.level;
     updateData.academicPlanID = this.state.academicPlanID;
-    const compare = this.state.declaredAcademicTerm;
-    if ((compare !== '') && (compare)) {
-      updateData.declaredAcademicTerm = compare
-    }
+    const prop = this.state.declaredAcademicTerm;
+    if ((prop !== '') && (prop)) updateData.declaredAcademicTerm = prop;
     
-    console.log('updateMethod: firstname', updateData.firstName);
-    console.log('updateMethod: collectionName', collectionName);
-    console.log('updateMethod: id', updateData.id);
-    const bool = updateMethod.call({collectionName, updateData}, (error) => {
+    updateMethod.call({collectionName, updateData}, (error) => {
       if (error) {
         Swal.fire({
           title: 'Update failed',
@@ -134,7 +127,6 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
         });
       }
     })
-    console.log('updateMethod return: ', bool);
   }
   
   public handleCancel = () => {
@@ -146,12 +138,6 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     if ((prop !== prevProps.selectedUsername) && (prop !== '')) this.prePopulateForm(this.props.usernameDoc)
   }
   
-  // public render() {
-  //   return ((this.props.selectedUsername === '') ? '' : this.renderUpdateComponent());
-  // }
-  //
-  // public renderUpdateComponent() {
-  // if (!this.props.isLoaded) this.prePopulateForm(this.props.usernameDoc)
   public render() {
     const {
       firstName,
@@ -280,11 +266,14 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
             </Form.Field>
           </Form.Group>
           <Form.Group inline={true}>
+            {// TODO -- missing new level component
+            }
             <Form.Button content={'Update'} type={'Submit'}/>
             <Form.Button content={'Cancel'} onClick={this.handleCancel}/>
           </Form.Group>
         </Form>
-        // TODO -- missing component after form
+        {// TODO -- missing academic plan display component after form
+        }
       </Segment>
     );
   }

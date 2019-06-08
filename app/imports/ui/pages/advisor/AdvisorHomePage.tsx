@@ -9,6 +9,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import {withTracker} from "meteor/react-meteor-data";
+import {withRouter} from 'react-router-dom';
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
 import {Interests} from "../../../api/interest/InterestCollection";
 import {CareerGoals} from "../../../api/career/CareerGoalCollection";
@@ -24,6 +25,11 @@ export interface IFilterStudents {
   interests: any;
   careerGoals: any;
   advisorLogs: any;
+  match: {
+    params: {
+      username: string;
+    }
+  }
 }
 
 const mapStateToProps = (state) => ({
@@ -66,11 +72,10 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
           </Grid.Column>
           <Grid.Column width={5} stretched={true}>
             {console.log('advisorLogs', this.props.advisorLogs)}
-            <AdvisorLogEntryWidget advisorLogs={this.props.advisorLogs}/>
+            <AdvisorLogEntryWidget usernameDoc={this.props.usernameDoc}
+                                   advisorLogs={this.props.advisorLogs}
+                                   advisorUsername={this.props.match.params.username}/>
             <Segment padded={true}>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
               <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
               <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
               <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
@@ -87,15 +92,14 @@ const AdvisorHomePageCon = withGlobalSubscription(AdvisorHomePage);
 const AdvisorHomePageContai = withInstanceSubscriptions(AdvisorHomePageCon);
 const AdvisorHomePageContainer = withTracker((props) => {
   const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
-  console.log('usernameDoc',usernameDoc);
+  const userID = usernameDoc ? usernameDoc.userID : '';
+  console.log('usernameDoc', usernameDoc);
   return {
     usernameDoc: usernameDoc,
     interests: Interests.findNonRetired(),
     careerGoals: CareerGoals.findNonRetired(),
-    // advisorLogs: AdvisorLogs.findNonRetired({ studentID: usernameDoc ? usernameDoc._id : ''})
-    advisorLogs: AdvisorLogs.findNonRetired({ studentID: 'cbiAnLf79yZTfXDBN'}) // placeholder to check if collection is accessed
+    advisorLogs: AdvisorLogs.findNonRetired({studentID: userID}, {sort: {createdOn: -1}})
   };
 })(AdvisorHomePageContai);
 
-export default connect(mapStateToProps)(AdvisorHomePageContainer);
-// export default (AdvisorHomePageContainer);
+export default connect(mapStateToProps)(withRouter(AdvisorHomePageContainer));
