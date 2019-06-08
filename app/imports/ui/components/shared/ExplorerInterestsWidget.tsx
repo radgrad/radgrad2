@@ -7,6 +7,9 @@ import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
 import {CourseInstances} from "../../../api/course/CourseInstanceCollection";
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
+import {Doughnut} from 'react-chartjs-2';
+import { Courses } from "../../../api/course/CourseCollection"
+import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
 
 interface IExplorerInterestsWidgetProps {
   match: {
@@ -59,14 +62,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         // go through the StudentProfiles Collection and compare the interest IDs to this.GetInterestDoc().interestID
         // if there is a match, interested.push(theStudent);
         // then assign howManyInterested = interested.length+1 to get the amount of students interested
-       const students = StudentProfiles.findNonRetired();
-       console.log(students);
-       console.log(students.length);
-        for(let a = 0; a < students.length; a++){
-          console.log(students[a].interestIDs);
-         for(let i = 0; i< students[a].interestIDs.length; i++){
-            if(students[a].interestIDs[i] === this.GetInterestDoc()._id){
-            interested.push(students[a]);
+        const students = StudentProfiles.findNonRetired();
+        for (let a = 0; a < students.length; a++) {
+          for (let i = 0; i < students[a].interestIDs.length; i++) {
+            if (students[a].interestIDs[i] === this.GetInterestDoc()._id) {
+              interested.push(students[a]);
             }
           }
         }
@@ -74,10 +74,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         return instances;
       case 'faculty':
         const faculty = FacultyProfiles.findNonRetired();
-        for(let a = 0; a < faculty.length; a++){
-          console.log(faculty[a].interestIDs);
-          for(let i = 0; i< faculty[a].interestIDs.length; i++){
-            if(faculty[a].interestIDs[i] === this.GetInterestDoc()._id){
+        for (let a = 0; a < faculty.length; a++) {
+          for (let i = 0; i < faculty[a].interestIDs.length; i++) {
+            if (faculty[a].interestIDs[i] === this.GetInterestDoc()._id) {
               interested.push(faculty[a]);
             }
           }
@@ -86,10 +85,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         return instances;
       case 'mentor':
         const mentor = MentorProfiles.findNonRetired();
-        for(let a = 0; a < mentor.length; a++){
-          console.log(mentor[a].interestIDs);
-          for(let i = 0; i< mentor[a].interestIDs.length; i++){
-            if(mentor[a].interestIDs[i] === this.GetInterestDoc()._id){
+        for (let a = 0; a < mentor.length; a++) {
+          for (let i = 0; i < mentor[a].interestIDs.length; i++) {
+            if (mentor[a].interestIDs[i] === this.GetInterestDoc()._id) {
               interested.push(mentor[a]);
             }
           }
@@ -104,12 +102,73 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return 'a number';
   };
 
+  private getCourses = () => {
+    let courses = [];
+    const courseInstances = Courses.find().fetch();
+    for (let a = 0; a < courseInstances.length; a++) {
+      for (let i = 0; i < courseInstances[a].interestIDs.length; i++) {
+        if (courseInstances[a].interestIDs[i] === this.GetInterestDoc()._id) {
+          courses.push(courseInstances[a]);
+        }
+      }
+    }
+    console.log(courses);
+    console.log(CourseInstances.find().fetch());
+    const numberOfCourses = courses.length;
+    console.log(numberOfCourses);
+    const courseCount = [];
+    courseCount.push(numberOfCourses);
+    return courseCount;
+  };
+
+  private getOpportunities = () => {
+    let opportunities = [];
+    const opportunityInstances = Opportunities.find().fetch();
+    for (let a = 0; a < opportunityInstances.length; a++) {
+      for (let i = 0; i < opportunityInstances[a].interestIDs.length; i++) {
+        if (opportunityInstances[a].interestIDs[i] === this.GetInterestDoc()._id) {
+          opportunities.push(opportunityInstances[a]);
+        }
+      }
+    }
+    const numberOfOpportunities = opportunities.length;
+    const opportunityCount = [];
+    opportunityCount.push(numberOfOpportunities);
+    return opportunityCount;
+  };
+
+
   public render() {
     const interestDoc = this.GetInterestDoc();
     const interestName = interestDoc.name;
     const interestDescription = interestDoc.description;
-    const interestID = interestDoc._id;
-    console.log(interestID);
+   //const interestID = interestDoc._id;
+    const coursesData = {
+      labels: ['not in plan', 'in plan', 'completed'],
+      datasets: [{
+        data: this.getCourses(),
+        backgroundColor: [
+          '#ff925b',
+          '#ffe45b',
+          '#745bff',
+        ],
+        text: 'Related Courses'
+      }]
+    };
+
+    const opportunitiesData = {
+      labels: ['not in plan', 'in plan', 'completed'],
+      datasets: [{
+        data: this.getOpportunities(),
+        backgroundColor: [
+          '#ff925b',
+          '#ffe45b',
+          '#745bff',
+        ],
+        text: 'Related Courses'
+      }]
+    };
+
     return (
       <div className='ui paded container'>
         <div className="ui segments">
@@ -137,31 +196,33 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           </div>
           <div className='ui padded segment container'>
             <Header>Related Courses</Header>
-            <ul>
-              <li>Completed</li>
-              <li>In Plan</li>
-              <li>Not In Plan</li>
-            </ul>
+            <div>Courses</div>
+            <Container>
+              <Doughnut data={coursesData}/>
+            </Container>
           </div>
           <div className='ui padded segment container'>
             <Header>Related Opportunities</Header>
-            <ul>
-              <li>Completed</li>
-              <li>In Plan</li>
-              <li>Not In Plan</li>
-            </ul>
+            <div>Opportunities</div>
+            <Container>
+              <Doughnut data={opportunitiesData}/>
+            </Container>
           </div>
           <div className='ui padded segment container'>
-            Students participating <b>{this.Participation('student')}</b>
+            Students participating: <b>{this.Participation('student')}</b>
+            <div>pictures</div>
           </div>
           <div className='ui padded segment container'>
-            Faculty participating <b>{this.Participation('faculty')}</b>
+            Faculty participating: <b>{this.Participation('faculty')}</b>
+            <div>pictures</div>
           </div>
           <div className='ui padded segment container'>
-            Alumni participating <b>{this.Participation('alumni')}</b>
+            Alumni participating: <b>{this.Participation('alumni')}</b>
+            <div>pictures</div>
           </div>
           <div className='ui padded segment container'>
-            Mentors participating <b>{this.Participation('mentor')}</b>
+            Mentors participating: <b>{this.Participation('mentor')}</b>
+            <div>pictures</div>
           </div>
         </div>
       </div>
