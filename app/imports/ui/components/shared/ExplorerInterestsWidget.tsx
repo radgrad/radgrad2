@@ -95,6 +95,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         instances = interested.length;
         return instances;
       case 'alumni':
+        const alumni = StudentProfiles.findNonRetired({'isAlumni': true});
+        console.log(alumni);
+
         return 'alumni count';
     }
 
@@ -165,7 +168,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           '#ffe45b',
           '#745bff',
         ],
-        text: 'Related Courses'
+        text: 'Related Opportunities'
       }]
     };
 
@@ -196,14 +199,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           </div>
           <div className='ui padded segment container'>
             <Header>Related Courses</Header>
-            <div>Courses</div>
             <Container>
               <Doughnut data={coursesData}/>
             </Container>
           </div>
           <div className='ui padded segment container'>
             <Header>Related Opportunities</Header>
-            <div>Opportunities</div>
             <Container>
               <Doughnut data={opportunitiesData}/>
             </Container>
