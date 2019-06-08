@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -31,13 +30,13 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     super(props);
   }
 
-  private getType = () => {
+  private getType = (): string => {
     const url = this.props.match.url;
     const index = url.lastIndexOf('/');
     return url.substr(index + 1);
   }
 
-  private getCollection = () => {
+  private getCollection = (): object => {
     const type = this.getType();
     switch (type) {
       case 'plans':
@@ -58,14 +57,15 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
         return {};
     }
   }
-  private getRoleByUrl = () => {
+
+  private getRoleByUrl = (): string => {
     const url = this.props.match.url;
     const username = this.props.match.params.username;
     const indexUsername = url.indexOf(username);
     return url.substring(1, indexUsername - 1);
   }
 
-  private renderPageMenuWidget = () => {
+  private renderPageMenuWidget = (): JSX.Element => {
     const role = this.getRoleByUrl();
     switch (role) {
       case 'student':
@@ -75,20 +75,14 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
       case 'faculty':
         return <FacultyPageMenuWidget/>;
       default:
-        return '';
+        return <React.Fragment/>;
     }
   }
 
-  // TODO: Need to implement Card Explorer Menu
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const match = this.props.match;
-
     return (
       <React.Fragment>
-        {
-          this.renderPageMenuWidget()
-        }
+        {this.renderPageMenuWidget()}
 
         <Grid container={true} stackable={true}>
           <Grid.Row width={3}>
@@ -96,8 +90,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
           </Grid.Row>
 
           <Grid.Row width={13}>
-            <CardExplorerWidget collection={this.getCollection()} type={this.getType()} role={this.getRoleByUrl()}
-                                match={match}/>
+            <CardExplorerWidget collection={this.getCollection()} type={this.getType()} role={this.getRoleByUrl()}/>
           </Grid.Row>
         </Grid>
 
@@ -107,7 +100,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 }
 
 const CardExplorerPageCon = withGlobalSubscription(CardExplorerPage);
-const CardExplorerPageCont = withInstanceSubscriptions(CardExplorerPageCon);
-const CardExplorerPageContainer = withRouter(CardExplorerPageCont);
+const CardExplorerPageContainer = withInstanceSubscriptions(CardExplorerPageCon);
 
 export default CardExplorerPageContainer;
