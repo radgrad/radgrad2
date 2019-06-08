@@ -70,6 +70,7 @@ import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPag
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
+import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
 
 export const routes = {
   ADMIN: [
@@ -306,6 +307,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/faculty/:username/explorer/degrees/:degree',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
+    },
+    {
       path: '/faculty/:username/explorer/interests',
       exact: true,
       component: CardExplorerPageContainer,
@@ -447,6 +453,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/mentor/:username/explorer/degrees/:degree',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
+    },
+    {
       path: '/mentor/:username/explorer/interests',
       exact: true,
       component: CardExplorerPageContainer,
@@ -499,6 +510,11 @@ export const routes = {
       path: '/student/:username/explorer/degrees',
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/degrees/:degree',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
     },
     {
       path: '/student/:username/explorer/interests',
