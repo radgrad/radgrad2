@@ -5,6 +5,7 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import AdvisorStudentSelectorWidget from '../../components/advisor/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/AdvisorUpdateStudentWidget';
 import AdvisorLogEntryWidget from '../../components/advisor/AdvisorLogEntryWidget';
+import AdvisorStarUploadWidget from '../../components/advisor/AdvisorStarUploadWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
@@ -75,12 +76,9 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
             <AdvisorLogEntryWidget usernameDoc={this.props.usernameDoc}
                                    advisorLogs={this.props.advisorLogs}
                                    advisorUsername={this.props.match.params.username}/>
-            <Segment padded={true}>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-              <Header as={'h4'} dividing={true}>UPLOAD STAR DATA</Header>
-            </Segment>
+            <AdvisorStarUploadWidget usernameDoc={this.props.usernameDoc}
+                                   advisorUsername={this.props.match.params.username}/>
+          
           </Grid.Column>
         </Grid.Row>
       );

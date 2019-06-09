@@ -76,7 +76,7 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
                          name={'comment'}
                          onChange={this.handleForm}
                          value={this.state.comment}/>
-          <Form.Button content={'ADD COMMENTS'} type={'Submit'}/>
+          <Form.Button content={'ADD COMMENTS'} type={'Submit'} basic={true} color={'green'}/>
         </Form>
         <br/>
         <p style={{

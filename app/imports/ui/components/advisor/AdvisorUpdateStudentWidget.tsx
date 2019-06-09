@@ -268,8 +268,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
           <Form.Group inline={true}>
             {// TODO -- missing new level component
             }
-            <Form.Button content={'Update'} type={'Submit'}/>
-            <Form.Button content={'Cancel'} onClick={this.handleCancel}/>
+            <Form.Button content={'Update'} type={'Submit'} basic={true} color={'green'}/>
+            <Form.Button content={'Cancel'} onClick={this.handleCancel} basic={true} color={'green'}/>
           </Form.Group>
         </Form>
         {// TODO -- missing academic plan display component after form
