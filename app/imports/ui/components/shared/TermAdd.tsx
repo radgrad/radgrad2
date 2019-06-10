@@ -115,7 +115,7 @@ class TermAdd extends React.Component<ITermAddProps> {
                       <React.Fragment key={index}>
                         <Popup
                           trigger={
-                            <Menu.Item as="a" className={`${this.props.item} chooseSemester`}>
+                            <Menu.Item as="a" className={`chooseSemester`}>
                               {year}
                             </Menu.Item>
                           }
@@ -154,9 +154,7 @@ class TermAdd extends React.Component<ITermAddProps> {
                 <Menu size="mini" secondary={true} vertical={true}>
                   {
                     this.itemTerms().map((term, index) => (
-                      <Menu.Item
-                        key={index}
-                        as="a" className={`${this.props.item}`} onClick={this.handleAddToPlan}>
+                      <Menu.Item key={index} as="a" onClick={this.handleAddToPlan}>
                         {term}
                       </Menu.Item>
                     ))

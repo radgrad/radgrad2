@@ -3,6 +3,7 @@ import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslin
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
 import IceHeader from './IceHeader';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -252,4 +253,4 @@ class TermCard extends React.Component<ITermCard> {
   }
 }
 
-export default TermCard;
+export default withRouter(TermCard);
