@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {Button, Card, Icon} from 'semantic-ui-react';
-import {Slugs} from "../../../api/slug/SlugCollection";
-import {Link} from 'react-router-dom';
+import { Button, Card, Icon } from 'semantic-ui-react';
+import { Slugs } from "../../../api/slug/SlugCollection";
+import { Link } from 'react-router-dom';
 import * as Markdown from 'react-markdown';
+import { StudentProfiles } from "../../../api/user/StudentProfileCollection";
+import { Interests } from "../../../api/interest/InterestCollection";
 
 /**
  * reference taken from ExplorerCard.tsx written by Gian ../imports/ui/shared/ExplorerCard.tsx
@@ -75,7 +77,8 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         break;
     }
     return '#';
-  }
+  };
+
 
   /**
    * in ../imports/ui/shared/CardExplorerWidget.tsx the Interest Profile card needs to have:
@@ -85,17 +88,19 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const {item} = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
+    const studentCount = 'student count';
     console.log(item);
     return (
       <Card className='radgrad-interest-card'>
         <Card.Content>
           <Card.Header>{itemName}</Card.Header>
-          <Card.Meta>
-          </Card.Meta>
         </Card.Content>
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
                     renderers={{link: this.routerLink}}/>
+        </Card.Content>
+        <Card.Content>
+          STUDENTS PARTICIPATING {studentCount}
         </Card.Content>
         <Link to={this.buildRouteName(this.props.item)}>
         <Button className="radgrad-home-buttons center aligned" attached="bottom"><Icon

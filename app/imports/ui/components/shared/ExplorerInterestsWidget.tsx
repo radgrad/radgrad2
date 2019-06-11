@@ -96,16 +96,22 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         return instances;
       case 'alumni':
         const alumni = StudentProfiles.findNonRetired({'isAlumni': true});
-        console.log(alumni);
-
-        return 'alumni count';
+        for (let a = 0; a < alumni.length; a++) {
+          for (let i = 0; i < alumni[a].interestIDs.length; i++) {
+            if (alumni[a].interestIDs[i] === this.GetInterestDoc()._id) {
+              interested.push(alumni[a]);
+            }
+          }
+        }
+        instances = interested.length;
+        return instances;
     }
 
 
     return 'a number';
   };
 
-  private getCourses = () => {
+  private getRelatedCourses = () => {
     let courses = [];
     const courseInstances = Courses.find().fetch();
     for (let a = 0; a < courseInstances.length; a++) {
@@ -115,16 +121,22 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       }
     }
-    console.log(courses);
-    console.log(CourseInstances.find().fetch());
-    const numberOfCourses = courses.length;
-    console.log(numberOfCourses);
-    const courseCount = [];
-    courseCount.push(numberOfCourses);
-    return courseCount;
+    console.log(' Related courses',courses);
+    return courses;
   };
 
-  private getOpportunities = () => {
+
+  private getRelatedCourseNames = () => {
+    const relatedCourses = this.getRelatedCourses();
+    let relatedCourseNames = [];
+    for (let a = 0; a < relatedCourses.length; a++){
+      relatedCourseNames.push(relatedCourses[a].name);
+    }
+    console.log(relatedCourseNames);
+    return relatedCourseNames;
+  };
+
+  private getRelatedOpportunities = () => {
     let opportunities = [];
     const opportunityInstances = Opportunities.find().fetch();
     for (let a = 0; a < opportunityInstances.length; a++) {
@@ -134,22 +146,31 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       }
     }
-    const numberOfOpportunities = opportunities.length;
-    const opportunityCount = [];
-    opportunityCount.push(numberOfOpportunities);
-    return opportunityCount;
+    console.log('Related Opportunities', opportunities);
+    return opportunities;
   };
 
+  private getRelatedOpportunityNames = () => {
+    let relatedOpportunityNames = [];
+    const relatedOpportunities = this.getRelatedOpportunities();
+    _.map(relatedOpportunities, (related) => relatedOpportunityNames.push(related.name));
+    console.log('related opportunity names', relatedOpportunityNames);
+    return relatedOpportunityNames;
+  };
 
   public render() {
     const interestDoc = this.GetInterestDoc();
     const interestName = interestDoc.name;
     const interestDescription = interestDoc.description;
+    const relatedCourseNames = this.getRelatedCourseNames();
+    const relatedOpportunityNames = this.getRelatedOpportunityNames();
    //const interestID = interestDoc._id;
+
+    /** data for doughnut charts*/
     const coursesData = {
       labels: ['not in plan', 'in plan', 'completed'],
       datasets: [{
-        data: this.getCourses(),
+        data: this.getRelatedCourses(),
         backgroundColor: [
           '#ff925b',
           '#ffe45b',
@@ -162,7 +183,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const opportunitiesData = {
       labels: ['not in plan', 'in plan', 'completed'],
       datasets: [{
-        data: this.getOpportunities(),
+        data: this.getRelatedOpportunities(),
         backgroundColor: [
           '#ff925b',
           '#ffe45b',
@@ -200,13 +221,13 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           <div className='ui padded segment container'>
             <Header>Related Courses</Header>
             <Container>
-              <Doughnut data={coursesData}/>
+              {relatedCourseNames}
             </Container>
           </div>
           <div className='ui padded segment container'>
             <Header>Related Opportunities</Header>
             <Container>
-              <Doughnut data={opportunitiesData}/>
+              {relatedOpportunityNames}
             </Container>
           </div>
           <div className='ui padded segment container'>
