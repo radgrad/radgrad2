@@ -3,7 +3,6 @@ import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslin
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
 import IceHeader from './IceHeader';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -219,38 +218,48 @@ class TermCard extends React.Component<ITermCard> {
         {/* FIXME: The three buttons are not all the same size. "View More" button is smaller compared to the other two
                     buttons. I think this *might* just be because we do not have the Card Explorer Menu on the left of the
                     CardExplorerWidget yet. */}
-        <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
-                      color={hidden || undefined}>
-          {
+        {
+          isStudent ?
+            <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
+                          color={hidden || undefined}>
+              {
+                <Link to={this.buildRouteName(this.props.item, this.props.type)}>
+                  <Button><Icon name="chevron circle right"/><br/>View More</Button>
+                </Link>
+              }
+
+              {
+                isStudent ?
+                  [
+                    canAdd ?
+                      <TermAdd key={_.uniqueId()} item={item} type={type} match={match}/>
+                      : '',
+                  ]
+                  : ''
+              }
+
+              {
+                isStudent ?
+                  [
+                    hidden ?
+                      <Button key={_.uniqueId()} onClick={this.handleUnHideItem}><Icon
+                        name="unhide"/><br/>Unhide</Button>
+                      :
+                      <Button key={_.uniqueId()} onClick={this.handleHideItem}><Icon name="hide"/><br/>Hide</Button>,
+                  ]
+                  : ''
+              }
+            </Button.Group>
+            :
             <Link to={this.buildRouteName(this.props.item, this.props.type)}>
-              <Button><Icon name="chevron circle right"/><br/>View More</Button>
+              <Button className="radgrad-home-buttons center aligned" attached="bottom" color={hidden || undefined}>
+                <Icon name="chevron circle right"/><br/>View More
+              </Button>
             </Link>
-          }
-
-          {
-            isStudent ?
-              [
-                canAdd ?
-                  <TermAdd key={_.uniqueId()} item={item} type={type} match={match}/>
-                  : '',
-              ]
-              : ''
-          }
-
-          {
-            isStudent ?
-              [
-                hidden ?
-                  <Button key={_.uniqueId()} onClick={this.handleUnHideItem}><Icon name="unhide"/><br/>Unhide</Button>
-                  :
-                  <Button key={_.uniqueId()} onClick={this.handleHideItem}><Icon name="hide"/><br/>Hide</Button>,
-              ]
-              : ''
-          }
-        </Button.Group>
+        }
       </Card>
     );
   }
 }
 
-export default withRouter(TermCard);
+export default TermCard;

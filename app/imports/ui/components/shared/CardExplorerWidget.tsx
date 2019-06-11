@@ -17,14 +17,14 @@ import { ROLE } from '../../../api/role/Role';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import {
-  setStudentHomeWidgetHiddenCourses,
-  setStudentHomeWidgetHiddenOpportunities,
-} from '../../../redux/actions/studentHomePageActions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
 import TermCard from './TermCard';
+import {
+  setCardExplorerWidgetHiddenCourses,
+  setCardExplorerWidgetHiddenOpportunities,
+} from '../../../redux/actions/cardExplorerPageActions';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -39,6 +39,9 @@ interface ICardExplorerWidgetProps {
     }
   };
   reactiveSource: object[];
+  reactiveSourceProfile: object;
+  reactiveSourceForTermCarOne: object[];
+  reactiveSourceForTermCarTwo: object[];
   dispatch: any;
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
@@ -212,7 +215,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     return type === typeToCheck;
   }
 
-  private getItems = (): object[] => {
+  private getItems = (): { [key: string]: any }[] => {
     const { type } = this.props;
     switch (type) {
       case 'plans':
@@ -337,12 +340,12 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   private handleShowHiddenCourses = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenCourses(false));
+    this.props.dispatch(setCardExplorerWidgetHiddenCourses(false));
   }
 
   private handleHideHiddenCourses = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenCourses(true));
+    this.props.dispatch(setCardExplorerWidgetHiddenCourses(true));
   }
 
   private courses = (): object[] => {
@@ -443,12 +446,12 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
   private handleShowHiddenOpportunities = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(false));
+    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(false));
   }
 
   private handleHideHiddenOpportunities = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(true));
+    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(true));
   }
 
   private opportunities = (): object[] => {
@@ -563,7 +566,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     /* Variables */
     const header = this.buildHeader(); // The header Title and Count
     const items = this.getItems(); // The items to map over
-    const { type } = this.props;
+    const { type, match } = this.props;
     // const username = this.getUsername();
 
     // For the Academic Plans Card Explorer
@@ -575,6 +578,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     const isCoursesHidden = this.isCoursesHidden();
     const isOpportunitiesHidden = this.isOpportunitiesHidden();
     const hiddenExists = this.hiddenExists();
+    const isStudent = this.isRoleStudent();
 
     // For Degrees (or any future Card Explore that only has a "View More" functionality)
     const buildExplorerCard = this.isType('degrees');
@@ -612,7 +616,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(facultyRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
@@ -626,7 +630,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(mentorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
@@ -640,7 +644,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
                 {
                   // TODO
-                  // Array.from(studentRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
+                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
                 }
               </Card.Group>
             </Grid>
@@ -668,6 +672,48 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
             </h4>
           </Header>
 
+          {/* FIXME: These buttons dont work */}
+          {
+            buildTermCard ?
+              [
+                hiddenExists ?
+                  [
+                    this.isType('courses') ?
+                      [
+                        isCoursesHidden ?
+                          <Button key={_.uniqueId()} basic={true} color="green" size="mini"
+                                  onClick={this.handleShowHiddenCourses}>
+                            <Icon name="chevron up"/> HIDDEN <span
+                            style={uppercaseTextTransformStyle}>COURSES</span>
+                          </Button>
+                          :
+                          <Button key={_.uniqueId()} basic={true} color="green" size="mini"
+                                  onClick={this.handleHideHiddenCourses}>
+                            <Icon name="chevron down"/> HIDDEN <span
+                            style={uppercaseTextTransformStyle}>COURSES</span>
+                          </Button>,
+                      ]
+                      :
+                      [
+                        isOpportunitiesHidden ?
+                          <Button key={_.uniqueId()} basic={true} color="green" size="mini"
+                                  onClick={this.handleShowHiddenOpportunities}>
+                            <Icon name="chevron up"/> HIDDEN <span
+                            style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                          </Button>
+                          :
+                          <Button key={_.uniqueId()} basic={true} color="green" size="mini"
+                                  onClick={this.handleHideHiddenOpportunities}>
+                            <Icon name="chevron down"/> HIDDEN <span
+                            style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                          </Button>,
+                      ],
+                  ]
+                  : '',
+              ]
+              : ''
+          }
+
           {this.checkForNoItems()}
 
           {
@@ -676,61 +722,25 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                 {
                   // buildPlanCard ?
                   //   // TODO: Implement PlanCard
-                  //   items.map((item, index) => <PlanCard key={index} item={item} type={type} canAdd={canAdd}/>) : ''
+                  //   items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}
+                  //                                        match={match}/>) : ''
                 }
                 {
                   // buildProfileCard ?
                   //   // TODO: Implement ProfileCard
-                  //   items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}/>) : ''
+                  //   items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd={true}
+                  //                                           match={match}/>) : ''
                 }
                 {
                   buildTermCard ?
-                    [
-                      [
-                        hiddenExists ?
-                          [
-                            this.isType('courses') ?
-                              [
-                                isCoursesHidden ?
-                                  <Button key='one' basic={true} color="green" size="mini"
-                                          onClick={this.handleShowHiddenCourses}>
-                                    <Icon name="chevron up"/> HIDDEN <span
-                                    style={uppercaseTextTransformStyle}>COURSES</span>
-                                  </Button>
-                                  :
-                                  <Button key='two' basic={true} color="green" size="mini"
-                                          onClick={this.handleHideHiddenCourses}>
-                                    <Icon name="chevron down"/> HIDDEN <span
-                                    style={uppercaseTextTransformStyle}>COURSES</span>
-                                  </Button>,
-                              ]
-                              :
-                              [
-                                isOpportunitiesHidden ?
-                                  <Button key='one' basic={true} color="green" size="mini"
-                                          onClick={this.handleShowHiddenOpportunities}>
-                                    <Icon name="chevron up"/> HIDDEN <span
-                                    style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
-                                  </Button>
-                                  :
-                                  <Button key='two' basic={true} color="green" size="mini"
-                                          onClick={this.handleHideHiddenOpportunities}>
-                                    <Icon name="chevron down"/> HIDDEN <span
-                                    style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
-                                  </Button>,
-                              ],
-                          ]
-                          : '',
-                      ],
-                      [
-                        items.map((item, index) => <TermCard key={index} item={item} type={type} canAdd={true}/>),
-                      ],
-                    ]
+                    //   TODO: Implement TermCard (named SemesterCard in radgrad)
+                    items.map((item) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent}
+                                                  canAdd={true} match={match}/>)
                     : ''
                 }
                 {
                   buildExplorerCard ?
-                    items.map((item, index) => <ExplorerCard key={index} item={item} type={type}/>)
+                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type} match={match}/>)
                     : ''
                 }
               </Card.Group>
@@ -759,8 +769,18 @@ const CardExplorerWidgetCont = withTracker((props) => {
     reactiveSource = Users.getProfile(username);
   }
 
+  /* Reactive sources to make TermCard reactive */
+  const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});
+  const reactiveSourceForTermCarTwo = OpportunityInstances.findNonRetired({});
+
+  /* Reactive sources to make Hiding a Course / Opportunity reactive */
+  const reactiveSourceProfile = Users.getProfile(username);
+
   return {
     reactiveSource,
+    reactiveSourceForTermCardOne,
+    reactiveSourceForTermCarTwo,
+    reactiveSourceProfile,
   };
 })(CardExplorerWidgetCon);
 const CardExplorerWidgetContainer = withRouter(CardExplorerWidgetCont);

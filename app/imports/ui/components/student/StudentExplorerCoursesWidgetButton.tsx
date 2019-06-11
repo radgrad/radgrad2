@@ -13,7 +13,7 @@ import { userInteractionDefineMethod } from '../../../api/analytic/UserInteracti
 
 interface IStudentExplorerCoursesWidgetButtonProps {
   buttonType: string;
-  course?: {
+  course: {
     [key: string]: any;
   };
   match: {
@@ -195,40 +195,45 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
               </Popup.Content>
             </Popup>
             :
-            [
-              isRemoveButtonType ?
-                <Popup
-                  className="transition"
-                  trigger={
-                    <Button basic={true} color="green" size="mini" floated="right" style={buttonStyle}>
-                      REMOVE FROM PLAN
-                    </Button>
-                  }
-                  on="click"
-                >
-                  <Popup.Content>
-                    <Menu vertical={true}>
-                      {
-                        existingTerms.map((term) => (
-                          <Menu.Item as="a" key={term} onClick={this.handleRemoveFromPlan} position="right">
-                            {term}
-                          </Menu.Item>
-                        ))
-                      }
-                    </Menu>
-                  </Popup.Content>
-                </Popup>
-                :
-                [
-                  isTakenButtonType ?
-                    <Header as="h5" color="green" floated="right" style={header5Style}>COMPLETED</Header>
-                    : '',
-                ],
-            ]
+            <React.Fragment>
+              {
+                isRemoveButtonType ?
+                  <Popup
+                    className="transition"
+                    trigger={
+                      <Button basic={true} color="green" size="mini" floated="right" style={buttonStyle}>
+                        REMOVE FROM PLAN
+                      </Button>
+                    }
+                    on="click"
+                  >
+                    <Popup.Content>
+                      <Menu vertical={true}>
+                        {
+                          existingTerms.map((term) => (
+                            <Menu.Item as="a" key={term} onClick={this.handleRemoveFromPlan} position="right">
+                              {term}
+                            </Menu.Item>
+                          ))
+                        }
+                      </Menu>
+                    </Popup.Content>
+                  </Popup>
+                  :
+                  <React.Fragment>
+                    {
+                      isTakenButtonType ?
+                        <Header as="h5" color="green" floated="right" style={header5Style}>COMPLETED</Header>
+                        : ''
+                    }
+                  </React.Fragment>
+              }
+            </React.Fragment>
         }
       </React.Fragment>
     );
   }
 }
 
-export default withRouter(StudentExplorerCoursesWidgetButton);
+const StudentExplorerCoursesWidgetButtonContainer = withRouter(StudentExplorerCoursesWidgetButton);
+export default StudentExplorerCoursesWidgetButtonContainer;
