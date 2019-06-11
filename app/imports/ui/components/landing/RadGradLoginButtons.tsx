@@ -1,15 +1,38 @@
 import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
+import { Users } from '../../../api/user/UserCollection';
 
 class RadGradLoginButtons extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  private static handleClick(e) {
-    console.log(e.target.parentNode.id);
-    console.log('show');
+  private static handleClick(e, instance) {
+    console.log(e, instance);
+    e.preventDefault();
+    const callback = function loginCallback(error) {
+      if (error) {
+        console.log('Error during CAS Login: ', error);
+        instance.$('div .ui.error.message.hidden').text('You are not yet registered. Go see your Advisor.');
+        instance.$('div .ui.error.message.hidden').removeClass('hidden');
+      } else {
+        const username = Meteor.user().username;
+        const id = Meteor.userId();
+        let role = Roles.getRolesForUser(id)[0];
+        const studentp = role.toLowerCase() === 'student';
+        if (studentp) {
+          const profile = Users.findProfileFromUsername(username);
+          if (profile.isAlumni) {
+            role = 'Alumni';
+          }
+        }
+      }
+    };
+    Meteor.loginWithCas(callback);
+
   }
 
   public render() {
