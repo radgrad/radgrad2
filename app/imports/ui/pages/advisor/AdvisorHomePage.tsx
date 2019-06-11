@@ -50,7 +50,8 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
                 <HelpPanelWidget/>
               </Grid.Row>
               <Grid.Row>
-                <AdvisorStudentSelectorWidget/>
+                <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
+                                              interests={this.props.interests}/>
               </Grid.Row>
             </Grid.Column>
             {this.renderSelectedStudentWidgets()}

@@ -13,6 +13,7 @@ import {
   advisorHomeClearFilter,
   advisorHomeSetSelectedStudentUsername,
 } from '../../../redux/actions/pageAdvisorActions';
+import AdvisorAddStudentWidget from "./AdvisorAddStudentWidget";
 
 interface IAdvisorStudentSelectorWidgetProps {
   instanceCount: number;
@@ -22,6 +23,9 @@ interface IAdvisorStudentSelectorWidgetProps {
   lastName: string;
   username: string;
   students: IStudentProfile[];
+  // These are parameters for reactivity
+  interests: any;
+  careerGoals: any;
 }
 
 const mapStateToProps = (state) => ({
@@ -123,11 +127,8 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
       },
       {
         menuItem: 'Add New',
-        render: () =>
-          <Tab.Pane key={'new'}>
-            <Header content={`The one key: ${this.props.instanceKey}`}/>
-          </Tab.Pane>
-        ,
+        render: () => <AdvisorAddStudentWidget interests={this.props.interests}
+                                               careerGoals={this.props.careerGoals}/>,
       },
       {
         menuItem: 'Bulk STAR Upload',
