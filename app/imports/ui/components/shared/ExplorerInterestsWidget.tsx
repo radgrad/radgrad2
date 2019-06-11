@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {withRouter} from 'react-router-dom';
-import {Container, Header, Button, Grid} from 'semantic-ui-react';
+import {Container, Header, Button, Grid, Image, Popup} from 'semantic-ui-react';
 import {Interests} from "../../../api/interest/InterestCollection";
 import * as _ from 'lodash';
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
@@ -8,10 +8,11 @@ import {CourseInstances} from "../../../api/course/CourseInstanceCollection";
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
 import {Doughnut} from 'react-chartjs-2';
-import { Courses } from "../../../api/course/CourseCollection"
-import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
+import {Courses} from "../../../api/course/CourseCollection"
+import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
 
 interface IExplorerInterestsWidgetProps {
+  type: string;
   match: {
     isExact: boolean,
     path: string,
@@ -51,8 +52,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
   private Participation = (role) => {
     let interested = [];
-    let instances;
-    let howManyInterested = 0;
     switch (role) {
       case 'student':
         //StudentProfiles.getInterestIDs(all the students);
@@ -70,8 +69,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             }
           }
         }
-        instances = interested.length;
-        return instances;
+        return interested;
       case 'faculty':
         const faculty = FacultyProfiles.findNonRetired();
         for (let a = 0; a < faculty.length; a++) {
@@ -81,8 +79,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             }
           }
         }
-        instances = interested.length;
-        return instances;
+        return interested;
       case 'mentor':
         const mentor = MentorProfiles.findNonRetired();
         for (let a = 0; a < mentor.length; a++) {
@@ -92,8 +89,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             }
           }
         }
-        instances = interested.length;
-        return instances;
+        return interested;
       case 'alumni':
         const alumni = StudentProfiles.findNonRetired({'isAlumni': true});
         for (let a = 0; a < alumni.length; a++) {
@@ -103,15 +99,32 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             }
           }
         }
-        instances = interested.length;
-        return instances;
+        return interested;
     }
-
-
-    return 'a number';
   };
 
-  private getRelatedCourses = () => {
+  private GetUserPictureUrls = (role) => {
+    const users = this.Participation(role);
+    let pictureUrl = [];
+    switch (role) {
+      case 'student':
+        _.map(users, (value) => {
+          pictureUrl.push(value.picture)
+        });
+        console.log(pictureUrl)
+        return pictureUrl;
+      case 'faculty' :
+        return pictureUrl;
+      case 'mentor' :
+        return pictureUrl;
+      case 'alumni':
+        return pictureUrl;
+
+    }
+
+  };
+
+  private GetRelatedCourses = () => {
     let courses = [];
     const courseInstances = Courses.find().fetch();
     for (let a = 0; a < courseInstances.length; a++) {
@@ -121,22 +134,18 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       }
     }
-    console.log(' Related courses',courses);
     return courses;
   };
 
 
-  private getRelatedCourseNames = () => {
-    const relatedCourses = this.getRelatedCourses();
+  private GetRelatedCourseNames = () => {
+    const relatedCourses = this.GetRelatedCourses();
     let relatedCourseNames = [];
-    for (let a = 0; a < relatedCourses.length; a++){
-      relatedCourseNames.push(relatedCourses[a].name);
-    }
-    console.log(relatedCourseNames);
+    _.map(relatedCourses, (related) => relatedCourseNames.push(related.name, '\n'));
     return relatedCourseNames;
   };
 
-  private getRelatedOpportunities = () => {
+  private GetRelatedOpportunities = () => {
     let opportunities = [];
     const opportunityInstances = Opportunities.find().fetch();
     for (let a = 0; a < opportunityInstances.length; a++) {
@@ -146,31 +155,35 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       }
     }
-    console.log('Related Opportunities', opportunities);
     return opportunities;
   };
 
-  private getRelatedOpportunityNames = () => {
+  private GetRelatedOpportunityNames = () => {
     let relatedOpportunityNames = [];
-    const relatedOpportunities = this.getRelatedOpportunities();
-    _.map(relatedOpportunities, (related) => relatedOpportunityNames.push(related.name));
-    console.log('related opportunity names', relatedOpportunityNames);
+    const relatedOpportunities = this.GetRelatedOpportunities();
+    _.map(relatedOpportunities, (related) => relatedOpportunityNames.push(related.name, '\n'));
     return relatedOpportunityNames;
   };
+
 
   public render() {
     const interestDoc = this.GetInterestDoc();
     const interestName = interestDoc.name;
     const interestDescription = interestDoc.description;
-    const relatedCourseNames = this.getRelatedCourseNames();
-    const relatedOpportunityNames = this.getRelatedOpportunityNames();
-   //const interestID = interestDoc._id;
+    const relatedCourseNames = this.GetRelatedCourseNames();
+    const relatedOpportunityNames = this.GetRelatedOpportunityNames();
+    const interestedStudents = this.Participation('student');
+    const interestedFaculty = this.Participation('faculty');
+    const interestedAlumni = this.Participation('alumni');
+    const interestedMentor = this.Participation('mentor');
+
+    //const interestID = interestDoc._id;
 
     /** data for doughnut charts*/
     const coursesData = {
       labels: ['not in plan', 'in plan', 'completed'],
       datasets: [{
-        data: this.getRelatedCourses(),
+        data: this.GetRelatedCourses(),
         backgroundColor: [
           '#ff925b',
           '#ffe45b',
@@ -183,7 +196,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const opportunitiesData = {
       labels: ['not in plan', 'in plan', 'completed'],
       datasets: [{
-        data: this.getRelatedOpportunities(),
+        data: this.GetRelatedOpportunities(),
         backgroundColor: [
           '#ff925b',
           '#ffe45b',
@@ -215,7 +228,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               </Grid.Row>
             </Grid>
             <div>
-
             </div>
           </div>
           <div className='ui padded segment container'>
@@ -231,20 +243,53 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             </Container>
           </div>
           <div className='ui padded segment container'>
-            Students participating: <b>{this.Participation('student')}</b>
-            <div>pictures</div>
+            Students participating: <b>{this.Participation('student').length}</b>
+            <div>
+              <Image.Group size='mini'>
+                {interestedStudents.map((student, index) =>
+                  <Popup
+                    key={index}
+                    trigger={<Image src={student.picture} circular></Image>}
+                  />)
+                }
+              </Image.Group>
+            </div>
           </div>
           <div className='ui padded segment container'>
-            Faculty participating: <b>{this.Participation('faculty')}</b>
-            <div>pictures</div>
+            Faculty participating: <b>{this.Participation('faculty').length}</b>
+            <div>
+              <Image.Group size='mini'>
+                {interestedFaculty.map((faculty, index) => <Popup
+                  key={index}
+                  trigger={<Image src={faculty.picture} circular></Image>}
+                />)
+                }
+              </Image.Group>
+            </div>
           </div>
           <div className='ui padded segment container'>
-            Alumni participating: <b>{this.Participation('alumni')}</b>
-            <div>pictures</div>
+            Alumni participating: <b>{this.Participation('alumni').length}</b>
+            <div>
+              <Image.Group size='mini'>
+                {interestedAlumni.map((alumni, index) => <Popup
+                  key={index}
+                  trigger={<Image src={alumni.picture} circular></Image>}
+                />)
+                }
+              </Image.Group>
+            </div>
           </div>
           <div className='ui padded segment container'>
-            Mentors participating: <b>{this.Participation('mentor')}</b>
-            <div>pictures</div>
+            Mentors participating: <b>{this.Participation('mentor').length}</b>
+            <div>
+              <Image.Group size='mini'>
+                {interestedMentor.map((mentors, index) => <Popup
+                  key={index}
+                  trigger={<Image src={mentors.picture} circular></Image>}
+                />)
+                }
+              </Image.Group>
+            </div>
           </div>
         </div>
       </div>
