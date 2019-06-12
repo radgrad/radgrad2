@@ -26,12 +26,15 @@ interface IExplorerInterestsWidgetProps {
 
 // don't know if we'll need this because state may not change
 interface IExplorerInterestsWidgetState {
-
+  id: string;
+  interestInProfile: boolean;
+  careerGoalInProfile : boolean;
 }
 
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
   constructor(props: any) {
     super(props);
+    this.state = {id: '', interestInProfile: true, careerGoalInProfile: true}
   }
 
   /**
@@ -250,6 +253,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
+  private handleClick = () => {
+    console.log('handle click')
+  };
+  private checkInterestStatus = () => {
+    console.log('check interest status')
+  };
 
   public render() {
     const interestDoc = this.GetInterestDoc();
@@ -276,11 +285,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                   <Header>{interestName}</Header>
                 </Grid.Column>
                 <Grid.Column width={3}>
-                  <Button fluid floated='right'>
-                    <Button.Content>
-                      Add To Interests
-                    </Button.Content>
-                  </Button>
+                  <Button
+                    fluid floated='right'
+                  attached ='bottom'
+                  content = {this.checkInterestStatus}
+                  onClick={this.handleClick}/>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
@@ -296,24 +305,24 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               <div>
                 <Header as='h4'>Completed</Header>
                 {
-                  _.map(relatedCourses.completed, (value) =>
-                    <div>
+                  _.map(relatedCourses.completed, (value, index) =>
+                    <div key={index}>
                       <Link to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
                     </div>)
                 }</div>
               <div>
                 <Header as='h4'>In Plan</Header>
                 {
-                  _.map(relatedCourses.inPlan, (value) =>
-                    <div>
+                  _.map(relatedCourses.inPlan, (value, index) =>
+                    <div key={index}>
                       <Link to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
                     </div>)
                 }</div>
               <div>
                 <Header as='h4'>Not In Plan</Header>
                 {
-                  _.map(relatedCourses.notInPlan, (value) =>
-                    <div>
+                  _.map(relatedCourses.notInPlan, (value, index) =>
+                    <div key={index}>
                       <Link to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
                     </div>)
                 }</div>
@@ -325,8 +334,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               <div>
                 <Header as='h4'>Completed</Header>
                 {
-                  _.map(relatedOpportunities.completed, (value) =>
-                    <div>
+                  _.map(relatedOpportunities.completed, (value, index) =>
+                    <div key={index}>
                       <Link
                         to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
                     </div>)
@@ -334,8 +343,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               <div>
                 <Header as='h4'>In Plan</Header>
                 {
-                  _.map(relatedOpportunities.inPlan, (value) =>
-                    <div>
+                  _.map(relatedOpportunities.inPlan, (value, index) =>
+                    <div key={index}>
                       <Link
                         to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
                     </div>)
@@ -343,8 +352,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               <div>
                 <Header as='h4'>Not In Plan</Header>
                 {
-                  _.map(relatedOpportunities.notInPlan, (value) =>
-                    <div>
+                  _.map(relatedOpportunities.notInPlan, (value, index) =>
+                    <div key={index}>
                       <Link
                         to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
                     </div>)
