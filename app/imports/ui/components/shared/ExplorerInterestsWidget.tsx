@@ -28,12 +28,13 @@ interface IExplorerInterestsWidgetProps {
 interface IExplorerInterestsWidgetState {
   id: string;
   interestInProfile: boolean;
+  interests: [];
 }
 
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
   constructor(props: any) {
     super(props);
-    this.state = {id: '', interestInProfile: true}
+    this.state = {id: '', interestInProfile: true, interests: []}
   }
 
   /**
@@ -47,6 +48,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     //Interests.findIdBySlug(slug)
   };
 
+  private getRoleByUrl = (): string => {
+    const role = this.props.match.url.split('/')[1];
+    return role;
+  };
   /**
    * return how many users participate in interest based on role
    *  match the interest w/ the interest in a user profile
@@ -250,21 +255,72 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
-  private handleClick = (interestStatus) => {
-    console.log(interestStatus);
-    console.log('handle click')
+  private handleClick = (event) => {
+    console.log('check interest status', this.checkInterestStatus());
+    console.log('event', event);
+    let interestIDsofUser: [];
+    const interestID = this.GetInterestDoc()._id;
+    const currentInterestID = [interestID];
+    let dataValue;
+    switch (this.checkInterestStatus()) {
+      case 'remove from interests':
+        switch (this.getRoleByUrl()) {
+          case 'student':
+            console.log('remove interest student');
+            interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+            dataValue = [interestIDsofUser, currentInterestID];
+            console.log(dataValue);
+            const updateValueStudentRemove = _.difference(dataValue);
+            console.log(dataValue);
+            console.log(_.difference(dataValue));
+            console.log(updateValueStudentRemove);
+            return updateValueStudentRemove;
+          case 'faculty':
+            console.log('remove interest faculty');
+            break;
+          case 'alumni':
+            console.log('remove interest alumni');
+            break;
+          case 'mentor':
+            console.log('remove interest mentor');
+            break;
+        }        //remove this interest_id from the user's interest's
+        //might need to put switch in for different roles
+        console.log('on click', this.checkInterestStatus());
+        break;
+      case 'add to interests':
+        switch (this.getRoleByUrl()) {
+          case 'student':
+            console.log('add interest student');
+            interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+            dataValue = [interestIDsofUser, currentInterestID];
+            console.log(dataValue);
+          let updateValueStudentAdd =  _.flatten(dataValue);
+            console.log('should return single array',updateValueStudentAdd);
+            return updateValueStudentAdd;
+          case 'faculty':
+            break;
+          case 'alumni':
+            break;
+          case 'mentor':
+            break;
+        }
+        console.log('on click', this.checkInterestStatus());
+
+    }
+    console.log('handle click');
   };
   private checkInterestStatus = () => {
     //check if this interest is in student's interest's
     //get the interest ID
     let interestIDsofUser: [];
     const currentInterest = this.GetInterestDoc()._id;
-    switch (this.props.match.url.split('/')[1]) {
+    switch (this.getRoleByUrl()) {
       case 'student':
         interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
         let currentInterestIDStudent = [currentInterest];
         let iDsinCommonStudent = _.intersection(currentInterestIDStudent, interestIDsofUser);
-        if(iDsinCommonStudent.length == 1){
+        if (iDsinCommonStudent.length == 1) {
           return 'remove from interests';
         } else {
           return 'add to interests';
@@ -275,7 +331,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestIDsofUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
         let currentInterestIDFaculty = [currentInterest];
         let iDsinCommonFaculty = _.intersection(currentInterestIDFaculty, interestIDsofUser);
-        if(iDsinCommonFaculty.length == 1){
+        if (iDsinCommonFaculty.length == 1) {
           return 'remove from interests';
         } else {
           return 'add to interests';
@@ -286,7 +342,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
         let currentInterestIDAlumni = [currentInterest];
         let iDsinCommonAlumni = _.intersection(currentInterestIDAlumni, interestIDsofUser);
-        if(iDsinCommonAlumni.length == 1){
+        if (iDsinCommonAlumni.length == 1) {
           return 'remove from interests';
         } else {
           return 'add to interests';
@@ -297,7 +353,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestIDsofUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
         let currentInterestIDMentor = [currentInterest];
         let iDsinCommonMentor = _.intersection(currentInterestIDMentor, interestIDsofUser);
-        if(iDsinCommonMentor.length == 1){
+        if (iDsinCommonMentor.length == 1) {
           return 'remove from interests';
         } else {
           return 'add to interests';
