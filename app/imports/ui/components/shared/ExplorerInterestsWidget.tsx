@@ -258,53 +258,87 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private handleClick = (event) => {
     console.log('check interest status', this.checkInterestStatus());
     console.log('event', event);
-    let interestIDsofUser: [];
+    console.log('handle click');
+    switch (this.checkInterestStatus()) {
+      case 'remove from interests':
+        const newInterestsAfterRemove = this.removeInterest();
+        console.log('handle click remove', newInterestsAfterRemove);
+        break;
+      case 'add to interests':
+        const newInterestsAfterAdd = this.addInterest();
+        console.log('handle click add', newInterestsAfterAdd);
+        break;
+    }
+  };
+
+
+  private addInterest = () => {
+    let interestIDsOfUser: [];
     const interestID = this.GetInterestDoc()._id;
     const currentInterestID = [interestID];
     let dataValue;
-    switch (this.checkInterestStatus()) {
-      case 'remove from interests':
-        switch (this.getRoleByUrl()) {
-          case 'student':
-            console.log('remove interest student');
-            interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
-            const updateValueStudentRemove = _.without(interestIDsofUser,interestID);
-            return updateValueStudentRemove;
-          case 'faculty':
-            console.log('remove interest faculty');
-            break;
-          case 'alumni':
-            console.log('remove interest alumni');
-            break;
-          case 'mentor':
-            console.log('remove interest mentor');
-            break;
-        }        //remove this interest_id from the user's interest's
-        //might need to put switch in for different roles
-        console.log('on click', this.checkInterestStatus());
-        break;
-      case 'add to interests':
-        switch (this.getRoleByUrl()) {
-          case 'student':
-            console.log('add interest student');
-            interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
-            dataValue = [interestIDsofUser, currentInterestID];
-            console.log(dataValue);
-          let updateValueStudentAdd =  _.flatten(dataValue);
-            console.log('should return single array',updateValueStudentAdd);
-            return updateValueStudentAdd;
-          case 'faculty':
-            break;
-          case 'alumni':
-            break;
-          case 'mentor':
-            break;
-        }
-        console.log('on click', this.checkInterestStatus());
+    let updateValue;
+
+    switch (this.getRoleByUrl()) {
+      case 'student':
+        interestIDsOfUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        dataValue = [interestIDsOfUser, currentInterestID];
+        updateValue = _.flatten(dataValue);
+        return updateValue;
+      case 'faculty':
+        interestIDsOfUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
+        updateValue = _.flatten(dataValue);
+        return updateValue;
+      case 'alumni':
+        interestIDsOfUser = StudentProfiles.findDoc({
+          username: this.props.match.params.username,
+          isAlumnk: true
+        }).interestIDs;
+        updateValue = _.flatten(dataValue);
+        return updateValue;
+      case 'mentor':
+        interestIDsOfUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
+        updateValue = _.flatten(dataValue);
+        return updateValue;
 
     }
-    console.log('handle click');
+
   };
+
+  private removeInterest = () => {
+    let interestIDsOfUser: [];
+    const interestID = this.GetInterestDoc()._id;
+    const currentInterestID = [interestID];
+    let dataValue;
+    let updateValue;
+    switch (this.getRoleByUrl()) {
+      case 'student':
+        console.log('remove interest student');
+        interestIDsOfUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        updateValue = _.without(interestIDsOfUser, interestID);
+        return updateValue;
+      case 'faculty':
+        console.log('remove interest faculty');
+        interestIDsOfUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
+        updateValue = _.without(interestIDsOfUser, interestID);
+        console.log(updateValue);
+        return updateValue;
+      case 'alumni':
+        console.log('remove interest alumni');
+        interestIDsOfUser = StudentProfiles.findDoc({
+          username: this.props.match.params.username,
+          isAlumni: true
+        }).interestIDs;
+        updateValue = _.without(interestIDsOfUser, interestID);
+        return updateValue;
+      case 'mentor':
+        console.log('remove interest mentor');
+        interestIDsOfUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
+        updateValue = _.without(interestIDsOfUser, interestID);
+        return updateValue;
+    }
+  };
+
   private checkInterestStatus = () => {
     //check if this interest is in student's interest's
     //get the interest ID
