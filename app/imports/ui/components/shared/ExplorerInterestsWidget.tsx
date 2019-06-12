@@ -13,6 +13,7 @@ import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
 import {interestIdToName} from "./AdminDataModelHelperFunctions";
 import {userInteractionDefineMethod} from "../../../api/analytic/UserInteractionCollection.methods";
 import {Users} from "../../../api/user/UserCollection";
+import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstanceCollection";
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -172,12 +173,44 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return opportunities;
   };
 
-  private GetRelatedOpportunityNames = () => {
-    let relatedOpportunityNames = [];
-    const relatedOpportunities = this.GetRelatedOpportunities();
-    _.map(relatedOpportunities, (related) => relatedOpportunityNames.push(related.name, '\n'));
-    return relatedOpportunityNames;
+  private GetAssociationRelatedOpportunities = (opportunities) => {
+    let inPlanIDs = [];
+    let completedIDs = [];
+
+    const inPlanInstance = OpportunityInstances.findNonRetired({
+      'studentID':
+      StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': false,
+    });
+    _.map(inPlanInstance, (value) => {
+      inPlanIDs.push(value.opportunityID);
+    });
+
+    const completedInstance = OpportunityInstances.findNonRetired({
+      'studentID':
+      StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': true
+    });
+    _.map(completedInstance, (value) => {
+      completedIDs.push(value.opportunityID);
+    });
+    let relatedIDs = [];
+    //shows all ids for related courses
+    _.map(opportunities, (value) => {
+      relatedIDs.push(value._id)
+    });
+
+    const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
+    const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
+    const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
+
+    let relatedOpportunities: { completed: []; inPlan: []; notInPlan: []; } = {
+      completed: relatedCompletedIDs,
+      inPlan: relatedInPlanIDs,
+      notInPlan: relatedNotInPlanIDs
+    };
+    return relatedOpportunities;
+
   };
+
 
   private GenerateCourseRoute = (document) => {
     const variableSlug = Courses.findSlugByID(document._id);
@@ -193,45 +226,31 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
+  private GenerateOpportunityRoute = (document) => {
+    const variableSlug = Opportunities.findSlugByID(document._id);
+    let username = this.props.match.params.username;
+    let role = this.props.match.url.split('/')[1];
+    let partialSlug = [];
+    partialSlug.push(role);
+    partialSlug.push(username);
+    partialSlug.push('explorer');
+    partialSlug.push('opportunities');
+    partialSlug.push(variableSlug);
+    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`
+    return fullSlug;
+  };
+
 
   public render() {
     const interestDoc = this.GetInterestDoc();
     const interestName = interestDoc.name;
     const interestDescription = interestDoc.description;
     const relatedCourses = this.GetAssociationRelatedCourses(this.GetRelatedCourses());
-    const relatedOpportunityNames = this.GetRelatedOpportunityNames();
+    const relatedOpportunities = this.GetAssociationRelatedOpportunities(this.GetRelatedOpportunities());
     const interestedStudents = this.Participation('student');
     const interestedFaculty = this.Participation('faculty');
     const interestedAlumni = this.Participation('alumni');
     const interestedMentor = this.Participation('mentor');
-    //const interestID = interestDoc._id;
-
-    /** data for doughnut charts*/
-    /* const coursesData = {
-       labels: ['not in plan', 'in plan', 'completed'],
-       datasets: [{
-         data: this.GetRelatedCourses(),
-         backgroundColor: [
-           '#ff925b',
-           '#ffe45b',
-           '#745bff',
-         ],
-         text: 'Related Courses'
-       }]
-     };
-
-     const opportunitiesData = {
-       labels: ['not in plan', 'in plan', 'completed'],
-       datasets: [{
-         data: this.GetRelatedOpportunities(),
-         backgroundColor: [
-           '#ff925b',
-           '#ffe45b',
-           '#745bff',
-         ],
-         text: 'Related Opportunities'
-       }]
-     };*/
 
     return (
       <div className='ui paded container'>
@@ -289,7 +308,30 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           <div className='ui padded segment container'>
             <Header>Related Opportunities</Header>
             <Container>
-              {relatedOpportunityNames}
+              <div>
+                <Header as='h4'>Completed</Header>
+                {
+                  _.map(relatedOpportunities.completed, (value) =>
+                    <div>
+                      <Link to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
+                    </div>)
+                }</div>
+              <div>
+                <Header as='h4'>In Plan</Header>
+                {
+                  _.map(relatedOpportunities.inPlan, (value) =>
+                    <div>
+                      <Link to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
+                    </div>)
+                }</div>
+              <div>
+                <Header as='h4'>Not In Plan</Header>
+                {
+                  _.map(relatedOpportunities.notInPlan, (value) =>
+                    <div>
+                      <Link to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
+                    </div>)
+                }</div>
             </Container>
           </div>
           <div className='ui padded segment container'>
