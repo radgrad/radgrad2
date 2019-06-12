@@ -111,7 +111,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         _.map(users, (value) => {
           pictureUrl.push(value.picture)
         });
-        console.log(pictureUrl)
+        console.log(pictureUrl);
         return pictureUrl;
       case 'faculty' :
         return pictureUrl;
@@ -121,7 +121,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         return pictureUrl;
 
     }
-
   };
 
   private GetRelatedCourses = () => {
@@ -138,11 +137,40 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   };
 
 
-  private GetRelatedCourseNames = () => {
-    const relatedCourses = this.GetRelatedCourses();
-    let relatedCourseNames = [];
-    _.map(relatedCourses, (related) => relatedCourseNames.push(related.name, '\n'));
-    return relatedCourseNames;
+  private GetAssociationRelatedCourses = (courses) => {
+    let inPlanIDs = [];
+    let completedIDs = [];
+    const inPlanInstance = CourseInstances.findNonRetired({
+      'studentID':
+      StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': false,
+    });
+    _.map(inPlanInstance, (value) => {
+      inPlanIDs.push(value.courseID);
+    });
+    console.log(inPlanIDs);
+
+    const completedInstance = CourseInstances.findNonRetired({
+      'studentID':
+      StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': true
+    });
+    _.map(completedInstance, (value) => {
+      completedIDs.push(value.courseID);
+    });
+    console.log(completedIDs);
+
+    console.log(courses);
+    let relatedIDs = [];
+    //shows all ids for related courses
+    _.map(courses, (value) => {
+      relatedIDs.push(value._id)
+    });
+    console.log(relatedIDs);
+
+    const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
+    const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
+    const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
+        console.log('completed instances', relatedCompletedIDs, 'in plan instances', relatedInPlanIDs, 'not in plan', relatedNotInPlanIDs);
+
   };
 
   private GetRelatedOpportunities = () => {
@@ -170,7 +198,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const interestDoc = this.GetInterestDoc();
     const interestName = interestDoc.name;
     const interestDescription = interestDoc.description;
-    const relatedCourseNames = this.GetRelatedCourseNames();
+    const relatedCourses = this.GetAssociationRelatedCourses(this.GetRelatedCourses());
     const relatedOpportunityNames = this.GetRelatedOpportunityNames();
     const interestedStudents = this.Participation('student');
     const interestedFaculty = this.Participation('faculty');
@@ -233,7 +261,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           <div className='ui padded segment container'>
             <Header>Related Courses</Header>
             <Container>
-              {relatedCourseNames}
+              Course Names should go here
             </Container>
           </div>
           <div className='ui padded segment container'>
@@ -250,6 +278,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                   <Popup
                     key={index}
                     trigger={<Image src={student.picture} circular></Image>}
+                    content='names'
                   />)
                 }
               </Image.Group>
@@ -262,6 +291,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                 {interestedFaculty.map((faculty, index) => <Popup
                   key={index}
                   trigger={<Image src={faculty.picture} circular></Image>}
+                  content='names'
                 />)
                 }
               </Image.Group>
@@ -274,6 +304,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                 {interestedAlumni.map((alumni, index) => <Popup
                   key={index}
                   trigger={<Image src={alumni.picture} circular></Image>}
+                  content='names'
                 />)
                 }
               </Image.Group>
@@ -286,6 +317,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                 {interestedMentor.map((mentors, index) => <Popup
                   key={index}
                   trigger={<Image src={mentors.picture} circular></Image>}
+                  content='names'
                 />)
                 }
               </Image.Group>
