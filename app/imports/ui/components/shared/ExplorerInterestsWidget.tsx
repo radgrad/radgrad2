@@ -268,12 +268,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           case 'student':
             console.log('remove interest student');
             interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
-            dataValue = [interestIDsofUser, currentInterestID];
-            console.log(dataValue);
-            const updateValueStudentRemove = _.difference(dataValue);
-            console.log(dataValue);
-            console.log(_.difference(dataValue));
-            console.log(updateValueStudentRemove);
+            const updateValueStudentRemove = _.without(interestIDsofUser,interestID);
             return updateValueStudentRemove;
           case 'faculty':
             console.log('remove interest faculty');
