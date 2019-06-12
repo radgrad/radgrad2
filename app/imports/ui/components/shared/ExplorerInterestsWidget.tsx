@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {Container, Header, Button, Grid, Image, Popup} from 'semantic-ui-react';
 import {Interests} from "../../../api/interest/InterestCollection";
 import * as _ from 'lodash';
@@ -103,25 +103,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     }
   };
 
-  private GetUserPictureUrls = (role) => {
-    const users = this.Participation(role);
-    let pictureUrl = [];
-    switch (role) {
-      case 'student':
-        _.map(users, (value) => {
-          pictureUrl.push(value.picture)
-        });
-        console.log(pictureUrl);
-        return pictureUrl;
-      case 'faculty' :
-        return pictureUrl;
-      case 'mentor' :
-        return pictureUrl;
-      case 'alumni':
-        return pictureUrl;
-
-    }
-  };
 
   private GetRelatedCourses = () => {
     let courses = [];
@@ -140,6 +121,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetAssociationRelatedCourses = (courses) => {
     let inPlanIDs = [];
     let completedIDs = [];
+
     const inPlanInstance = CourseInstances.findNonRetired({
       'studentID':
       StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': false,
@@ -147,7 +129,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     _.map(inPlanInstance, (value) => {
       inPlanIDs.push(value.courseID);
     });
-    console.log(inPlanIDs);
 
     const completedInstance = CourseInstances.findNonRetired({
       'studentID':
@@ -156,20 +137,22 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     _.map(completedInstance, (value) => {
       completedIDs.push(value.courseID);
     });
-    console.log(completedIDs);
 
-    console.log(courses);
     let relatedIDs = [];
     //shows all ids for related courses
     _.map(courses, (value) => {
       relatedIDs.push(value._id)
     });
-    console.log(relatedIDs);
-
     const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
     const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
     const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
-        console.log('completed instances', relatedCompletedIDs, 'in plan instances', relatedInPlanIDs, 'not in plan', relatedNotInPlanIDs);
+
+    let relatedCourses: { completed: []; inPlan: []; notInPlan: []; } = {
+      completed: relatedCompletedIDs,
+      inPlan: relatedInPlanIDs,
+      notInPlan: relatedNotInPlanIDs
+    };
+    return relatedCourses;
 
   };
 
@@ -204,35 +187,39 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const interestedFaculty = this.Participation('faculty');
     const interestedAlumni = this.Participation('alumni');
     const interestedMentor = this.Participation('mentor');
+    console.log(relatedCourses);
+    console.log('related courses not in plan', relatedCourses.notInPlan);
+    console.log('related courses in plan', relatedCourses.inPlan);
+    console.log('related courses completed', relatedCourses.completed);
 
     //const interestID = interestDoc._id;
 
     /** data for doughnut charts*/
-    const coursesData = {
-      labels: ['not in plan', 'in plan', 'completed'],
-      datasets: [{
-        data: this.GetRelatedCourses(),
-        backgroundColor: [
-          '#ff925b',
-          '#ffe45b',
-          '#745bff',
-        ],
-        text: 'Related Courses'
-      }]
-    };
+    /* const coursesData = {
+       labels: ['not in plan', 'in plan', 'completed'],
+       datasets: [{
+         data: this.GetRelatedCourses(),
+         backgroundColor: [
+           '#ff925b',
+           '#ffe45b',
+           '#745bff',
+         ],
+         text: 'Related Courses'
+       }]
+     };
 
-    const opportunitiesData = {
-      labels: ['not in plan', 'in plan', 'completed'],
-      datasets: [{
-        data: this.GetRelatedOpportunities(),
-        backgroundColor: [
-          '#ff925b',
-          '#ffe45b',
-          '#745bff',
-        ],
-        text: 'Related Opportunities'
-      }]
-    };
+     const opportunitiesData = {
+       labels: ['not in plan', 'in plan', 'completed'],
+       datasets: [{
+         data: this.GetRelatedOpportunities(),
+         backgroundColor: [
+           '#ff925b',
+           '#ffe45b',
+           '#745bff',
+         ],
+         text: 'Related Opportunities'
+       }]
+     };*/
 
     return (
       <div className='ui paded container'>
@@ -262,6 +249,29 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             <Header>Related Courses</Header>
             <Container>
               Course Names should go here
+              <div>
+                <Header as='h4'>Completed</Header>
+                {
+                  _.map(relatedCourses.completed, (value) =>
+                    <div>
+                      <a>{Courses.findDoc(value).name}</a>
+                    </div>)
+                }</div>
+              <div>
+                <Header as='h4'>In Plan</Header>
+                {
+                  _.map(relatedCourses.inPlan, (value) =>
+                    <div>
+                      <a>{Courses.findDoc(value).name}</a>
+                    </div>)
+                }</div>
+              <div>
+                <Header as='h4'>Not In Plan</Header>
+                {
+                  _.map(relatedCourses.notInPlan, (value) =>
+                    <div><a>{Courses.findDoc(value).name}</a>
+                    </div>)
+                }</div>
             </Container>
           </div>
           <div className='ui padded segment container'>
