@@ -122,13 +122,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetAssociationRelatedCourses = (courses, role) => {
     let inPlanIDs = [];
     let completedIDs = [];
-
+    let relatedCourses: { completed: []; inPlan: []; notInPlan: []; } = {
+      completed: [],
+      inPlan: [],
+      notInPlan: []
+    };
     if (role != 'student') {
-      let relatedCourses: { completed: []; inPlan: []; notInPlan: []; } = {
-        completed: [],
-        inPlan: [],
-        notInPlan: []
-      };
       return relatedCourses;
     } else {
       const inPlanInstance = CourseInstances.findNonRetired({
@@ -156,7 +155,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
       const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
 
-      let relatedCourses: { completed: []; inPlan: []; notInPlan: []; } = {
+      relatedCourses = {
         completed: relatedCompletedIDs,
         inPlan: relatedInPlanIDs,
         notInPlan: relatedNotInPlanIDs
@@ -181,13 +180,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetAssociationRelatedOpportunities = (opportunities, role) => {
     let inPlanIDs = [];
     let completedIDs = [];
-
+    let relatedOpportunities: { completed: []; inPlan: []; notInPlan: []; } = {
+      completed: [],
+      inPlan: [],
+      notInPlan: []
+    };
     if (role != 'student') {
-      let relatedOpportunities: { completed: []; inPlan: []; notInPlan: []; } = {
-        completed: [],
-        inPlan: [],
-        notInPlan: []
-      };
       return relatedOpportunities;
     } else {
       const inPlanInstance = OpportunityInstances.findNonRetired({
@@ -215,7 +213,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
       const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
 
-      let relatedOpportunities: { completed: []; inPlan: []; notInPlan: []; } = {
+      relatedOpportunities = {
         completed: relatedCompletedIDs,
         inPlan: relatedInPlanIDs,
         notInPlan: relatedNotInPlanIDs
@@ -257,7 +255,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     console.log('handle click')
   };
   private checkInterestStatus = () => {
-    console.log('check interest status')
+    return 'add to interests';
+
   };
 
   public render() {
@@ -288,7 +287,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                   <Button
                     fluid floated='right'
                   attached ='bottom'
-                  content = {this.checkInterestStatus}
+                  content = {this.checkInterestStatus()}
                   onClick={this.handleClick}/>
                 </Grid.Column>
               </Grid.Row>
