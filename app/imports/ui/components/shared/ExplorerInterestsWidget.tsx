@@ -28,13 +28,12 @@ interface IExplorerInterestsWidgetProps {
 interface IExplorerInterestsWidgetState {
   id: string;
   interestInProfile: boolean;
-  careerGoalInProfile : boolean;
 }
 
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
   constructor(props: any) {
     super(props);
-    this.state = {id: '', interestInProfile: true, careerGoalInProfile: true}
+    this.state = {id: '', interestInProfile: true}
   }
 
   /**
@@ -251,12 +250,60 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
-  private handleClick = () => {
+  private handleClick = (interestStatus) => {
+    console.log(interestStatus);
     console.log('handle click')
   };
   private checkInterestStatus = () => {
-    return 'add to interests';
-
+    //check if this interest is in student's interest's
+    //get the interest ID
+    let interestIDsofUser: [];
+    const currentInterest = this.GetInterestDoc()._id;
+    switch (this.props.match.url.split('/')[1]) {
+      case 'student':
+        interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        let currentInterestIDStudent = [currentInterest];
+        let iDsinCommonStudent = _.intersection(currentInterestIDStudent, interestIDsofUser);
+        if(iDsinCommonStudent.length == 1){
+          return 'remove from interests';
+        } else {
+          return 'add to interests';
+        }
+      case 'faculty':
+        console.log(`this is a ${this.props.match.url.split('/')[1]}`);
+        console.log(FacultyProfiles.findDoc(this.props.match.params.username));
+        interestIDsofUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
+        let currentInterestIDFaculty = [currentInterest];
+        let iDsinCommonFaculty = _.intersection(currentInterestIDFaculty, interestIDsofUser);
+        if(iDsinCommonFaculty.length == 1){
+          return 'remove from interests';
+        } else {
+          return 'add to interests';
+        }
+        break;
+      case 'alumni':
+        console.log(`this is a ${this.props.match.url.split('/')[1]}`);
+        interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        let currentInterestIDAlumni = [currentInterest];
+        let iDsinCommonAlumni = _.intersection(currentInterestIDAlumni, interestIDsofUser);
+        if(iDsinCommonAlumni.length == 1){
+          return 'remove from interests';
+        } else {
+          return 'add to interests';
+        }
+        break;
+      case 'mentor':
+        console.log(`this is a ${this.props.match.url.split('/')[1]}`);
+        interestIDsofUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
+        let currentInterestIDMentor = [currentInterest];
+        let iDsinCommonMentor = _.intersection(currentInterestIDMentor, interestIDsofUser);
+        if(iDsinCommonMentor.length == 1){
+          return 'remove from interests';
+        } else {
+          return 'add to interests';
+        }
+        break;
+    }
   };
 
   public render() {
@@ -285,10 +332,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                 </Grid.Column>
                 <Grid.Column width={3}>
                   <Button
-                    fluid floated='right'
-                  attached ='bottom'
-                  content = {this.checkInterestStatus()}
-                  onClick={this.handleClick}/>
+                    attached='bottom'
+                    content={this.checkInterestStatus()}
+                    onClick={this.handleClick}/>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
