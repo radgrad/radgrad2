@@ -10,6 +10,9 @@ import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
 import {Doughnut} from 'react-chartjs-2';
 import {Courses} from "../../../api/course/CourseCollection"
 import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
+import {interestIdToName} from "./AdminDataModelHelperFunctions";
+import {userInteractionDefineMethod} from "../../../api/analytic/UserInteractionCollection.methods";
+import {Users} from "../../../api/user/UserCollection";
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -176,6 +179,20 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return relatedOpportunityNames;
   };
 
+  private GenerateCourseRoute = (document) => {
+    const variableSlug = Courses.findSlugByID(document._id);
+    let username = this.props.match.params.username;
+    let role = this.props.match.url.split('/')[1];
+    let partialSlug = [];
+    partialSlug.push(role);
+    partialSlug.push(username);
+    partialSlug.push('explorer');
+    partialSlug.push('courses');
+    partialSlug.push(variableSlug);
+    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`
+    return fullSlug;
+  };
+
 
   public render() {
     const interestDoc = this.GetInterestDoc();
@@ -187,11 +204,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const interestedFaculty = this.Participation('faculty');
     const interestedAlumni = this.Participation('alumni');
     const interestedMentor = this.Participation('mentor');
-    console.log(relatedCourses);
-    console.log('related courses not in plan', relatedCourses.notInPlan);
-    console.log('related courses in plan', relatedCourses.inPlan);
-    console.log('related courses completed', relatedCourses.completed);
-
     //const interestID = interestDoc._id;
 
     /** data for doughnut charts*/
@@ -248,13 +260,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           <div className='ui padded segment container'>
             <Header>Related Courses</Header>
             <Container>
-              Course Names should go here
               <div>
                 <Header as='h4'>Completed</Header>
                 {
                   _.map(relatedCourses.completed, (value) =>
                     <div>
-                      <a>{Courses.findDoc(value).name}</a>
+                      <Link to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
                     </div>)
                 }</div>
               <div>
@@ -262,14 +273,15 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                 {
                   _.map(relatedCourses.inPlan, (value) =>
                     <div>
-                      <a>{Courses.findDoc(value).name}</a>
+                      <Link to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
                     </div>)
                 }</div>
               <div>
                 <Header as='h4'>Not In Plan</Header>
                 {
                   _.map(relatedCourses.notInPlan, (value) =>
-                    <div><a>{Courses.findDoc(value).name}</a>
+                    <div>
+                      <Link to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
                     </div>)
                 }</div>
             </Container>
