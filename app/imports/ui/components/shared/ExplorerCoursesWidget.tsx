@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Segment, Container, Divider, Grid, Header, List } from 'semantic-ui-react';
-import { withRouter, Link, NavLink } from 'react-router-dom';
+import { Container, Divider, Grid, Header, List, Segment } from 'semantic-ui-react';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
@@ -102,6 +102,20 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
   private isLabel = (label: string, str: string): boolean => label === str;
 
+  private getPrerequisites = (descriptionPairs: object[]): string[] => {
+    const index = _.findIndex(descriptionPairs, (descriptionPair) => descriptionPair.label === 'Prerequisites');
+    const prerequisiteObject = descriptionPairs[index];
+    const prerequisiteList = _.pick(prerequisiteObject, 'value');
+    const prerequisiteArray = _.values(prerequisiteList);
+    const prerequisites = [];
+    _.forEach(prerequisiteArray, (prereqType) => (
+      _.forEach(prereqType, (arrays) => (
+        _.forEach(arrays, (courseObject) => prerequisites.push(courseObject.course))
+      ))
+    ));
+    return prerequisites;
+  }
+
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
       ? <a href={props.href}>{props.children}</a>
@@ -136,9 +150,8 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     const userStatus = this.userStatus(item);
     const futureInstance = this.futureInstance(item);
     const passedCourse = this.passedCourse(item);
+    const prerequisites = this.getPrerequisites(descriptionPairs);
 
-    const prerequisiteList = descriptionPairs[descriptionPairs.length - 1];
-    console.log(prerequisiteList);
     return (
       <div>
         <Segment.Group style={segmentGroupStyle}>
@@ -283,7 +296,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                               {
                                 descriptionPair.value ?
                                   <React.Fragment>
-                                    <Header as="h4" dividing={true}>{descriptionPair.label}</Header>
+                                    <Header as="h4" className={'horizontal divider'}>{descriptionPair.label}</Header>
                                     {
                                       isStudent ?
                                         <Grid>
@@ -291,31 +304,18 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                                         </Grid>
                                         :
                                         <List horizontal={true} bulleted={true}>
-                                          <List.Item>
-                                            <React.Fragment>
-                                              {
-                                                Object.keys(prerequisiteList).map((key) => {
-  
-                                                })
-                                              }
-
-
-                                            </React.Fragment>
-                                          </List.Item>
+                                          {
+                                            prerequisites.map((course) => (
+                                              <List.Item key={course} as={NavLink} exact={true}
+                                                         to={this.buildRouteName(course)}>
+                                                {this.courseNameFromSlug(course)}
+                                              </List.Item>
+                                            ))
+                                          }
                                         </List>
                                     }
                                   </React.Fragment>
                                   : ''
-                              //   _.forEach(prerequisiteList.value, (arr) => (
-                              //   _.map(arr, (prereqType) => {
-                              //   // _.forEach(prereqType, (prereq) => (
-                              //   return (
-                              //   console.log(prereqType.course)
-                              //   );
-                              //   // ))
-                              // })
-                              //   ))
-                              // }
                               }
                             </React.Fragment>
                             : ''
