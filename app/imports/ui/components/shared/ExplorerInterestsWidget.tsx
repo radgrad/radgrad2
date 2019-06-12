@@ -113,7 +113,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
   /**
    *
-   * ToDo need to add conditionals for other roles
    * @param courses
    * @constructor
    */
@@ -126,7 +125,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         completed: [],
         inPlan: [],
         notInPlan: []
-      }
+      };
       return relatedCourses;
     } else {
       const inPlanInstance = CourseInstances.findNonRetired({
@@ -185,7 +184,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         completed: [],
         inPlan: [],
         notInPlan: []
-      }
+      };
       return relatedOpportunities;
     } else {
       const inPlanInstance = OpportunityInstances.findNonRetired({
@@ -233,7 +232,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     partialSlug.push('explorer');
     partialSlug.push('courses');
     partialSlug.push(variableSlug);
-    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`
+    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`;
     return fullSlug;
   };
 
@@ -247,7 +246,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     partialSlug.push('explorer');
     partialSlug.push('opportunities');
     partialSlug.push(variableSlug);
-    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`
+    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`;
     return fullSlug;
   };
 
@@ -265,6 +264,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
     /**
      * ToDo polish this UI
+     * ToDo add functionality for button
      */
     return (
       <div className='ui paded container'>
