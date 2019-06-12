@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Divider, Grid, Header, List, Segment } from 'semantic-ui-react';
+import { Container, Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -13,6 +13,7 @@ import StudentExplorerCoursesWidgetButtonContainer from '../student/StudentExplo
 import InterestList from './InterestList';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -102,19 +103,43 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
   private isLabel = (label: string, str: string): boolean => label === str;
 
-  private getPrerequisites = (descriptionPairs: object[]): string[] => {
-    const index = _.findIndex(descriptionPairs, (descriptionPair) => descriptionPair.label === 'Prerequisites');
-    const prerequisiteObject = descriptionPairs[index];
-    const prerequisiteList = _.pick(prerequisiteObject, 'value');
-    const prerequisiteArray = _.values(prerequisiteList);
-    const prerequisites = [];
-    _.forEach(prerequisiteArray, (prereqType) => (
-      _.forEach(prereqType, (arrays) => (
-        _.forEach(arrays, (courseObject) => prerequisites.push(courseObject.course))
-      ))
-    ));
-    return prerequisites;
+  private getTableTitle = (tableIndex: number, table: object[]): JSX.Element | String => {
+    const greyColorStyle = { color: 'grey' };
+    switch (tableIndex) {
+      case 0:
+        if (table.length !== 0) {
+          return <h4><i className="green checkmark icon"/>Completed</h4>;
+        }
+        return <h4 style={greyColorStyle}><i className="grey checkmark icon"/>Completed</h4>;
+      case 1:
+        if (table.length !== 0) {
+          return <h4><i className="yellow warning sign icon"/>In Plan (Not Yet Completed)</h4>;
+        }
+        return <h4 style={greyColorStyle}><i className="grey warning sign icon"/>In Plan (Not Yet Completed)</h4>;
+      case 2:
+        if (table.length !== 0) {
+          return <h4><i className="red warning circle icon"/>Not in Plan</h4>;
+        }
+        return <h4 style={greyColorStyle}><i className="grey warning circle icon"/>Not in Plan</h4>;
+      default:
+        return 'ERROR: More than one table.';
+    }
   }
+
+  private color = (table: object[]): string => {
+    if (table.length === 0) {
+      return 'whitesmoke';
+    }
+    return '';
+  }
+
+  private length = (table: object[]): boolean => table.length !== 0;
+
+  private isSingleChoice = (prerequisite: { course: string; status: string }): boolean => isSingleChoice(prerequisite.course);
+
+  private choices = (prerequisite: { course: string; status: string }): string[] => prerequisite.course.split(',');
+
+  private isFirst = (index: number): boolean => index === 0;
 
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
@@ -150,7 +175,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     const userStatus = this.userStatus(item);
     const futureInstance = this.futureInstance(item);
     const passedCourse = this.passedCourse(item);
-    const prerequisites = this.getPrerequisites(descriptionPairs);
 
     return (
       <div>
@@ -239,6 +263,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             <React.Fragment>
                               <b>{descriptionPair.label}:</b>
                               {
+                                // FIXME: Links not being clickable as 'a'
                                 descriptionPair.value ?
                                   <div style={breakWordStyle}><Markdown escapeHtml={false}
                                                                         source={descriptionPair.value}/></div>
@@ -299,17 +324,75 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                                     <Header as="h4" className={'horizontal divider'}>{descriptionPair.label}</Header>
                                     {
                                       isStudent ?
-                                        <Grid>
-                                          {/* TODO */}
+                                        <Grid columns={3} stackable={true} padded={true} celled={true}>
+                                          <Grid.Row>
+                                            {
+                                              descriptionPair.value.map((table, tableIndex) => (
+                                                <Grid.Column key={_.uniqueId()} style={{
+                                                  textAlign: 'center',
+                                                  backgroundColor: this.color(table),
+                                                }}>
+                                                  {this.getTableTitle(tableIndex, table)}
+                                                  {
+                                                    this.length(table) ?
+                                                      <React.Fragment>
+                                                        {
+                                                          table.map((prerequisite) => (
+                                                            <React.Fragment key={_.uniqueId()}>
+                                                              {
+                                                                this.isSingleChoice(prerequisite) ?
+                                                                  <NavLink exact={true}
+                                                                           to={this.buildRouteName(prerequisite.course)}
+                                                                           activeClassName="active item">
+                                                                    {this.courseNameFromSlug(prerequisite.course)}
+                                                                    <br/>
+                                                                  </NavLink>
+                                                                  :
+                                                                  _.map(this.choices(prerequisite), (choice, choicesIndex) => (
+                                                                    <React.Fragment key={_.uniqueId()}>
+                                                                      {
+                                                                        this.isFirst(choicesIndex) ?
+                                                                          <NavLink exact={true}
+                                                                                   to={this.buildRouteName(choice)}
+                                                                                   activeClassName="active item">
+                                                                            {this.courseNameFromSlug(choice)}
+                                                                          </NavLink>
+                                                                          :
+                                                                          <React.Fragment>
+                                                                            {/* Not exactly sure where this pops up because even in
+                                                                             the original RadGrad I don't see any "or {choice} */}
+                                                                            or <NavLink exact={true}
+                                                                                        to={this.buildRouteName(choice)}
+                                                                                        activeClassName="active item">
+                                                                            {this.courseNameFromSlug(choice)}
+                                                                          </NavLink>
+                                                                          </React.Fragment>
+                                                                      }
+                                                                    </React.Fragment>
+                                                                  ))
+                                                              }
+                                                            </React.Fragment>
+                                                          ))
+                                                        }
+                                                      </React.Fragment>
+                                                      :
+                                                      <Item style={{ color: 'grey' }}>None</Item>
+                                                  }
+                                                </Grid.Column>
+                                              ))
+                                            }
+                                          </Grid.Row>
                                         </Grid>
                                         :
                                         <List horizontal={true} bulleted={true}>
                                           {
-                                            prerequisites.map((course) => (
-                                              <List.Item key={course} as={NavLink} exact={true}
-                                                         to={this.buildRouteName(course)}>
-                                                {this.courseNameFromSlug(course)}
-                                              </List.Item>
+                                            descriptionPair.value.map((prereqType) => (
+                                              prereqType.map((prereq) => (
+                                                <List.Item key={prereq.course} as={NavLink} exact={true}
+                                                           to={this.buildRouteName(prereq.course)}>
+                                                  {this.courseNameFromSlug(prereq.course)}
+                                                </List.Item>
+                                              ))
                                             ))
                                           }
                                         </List>
