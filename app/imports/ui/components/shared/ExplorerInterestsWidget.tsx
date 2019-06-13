@@ -450,6 +450,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
      * ToDo add functionality for button
      */
     return (
+      <Grid>
+      <Container as='div'>
       <div className='ui paded container'>
         <div className="ui segments">
           <div className='ui padded segment container'>
@@ -588,6 +590,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           </div>
         </div>
       </div>
+      </Container>
+      </Grid>
     );
   }
 }

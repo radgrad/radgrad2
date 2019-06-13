@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Container, Header} from 'semantic-ui-react';
+import {Container, Grid, Menu} from 'semantic-ui-react';
 import ExplorerInterestsWidget from "../../components/shared/ExplorerInterestsWidget";
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
@@ -22,7 +22,7 @@ interface IExplorerInterestsPageProps {
 /**
  * written @gian
  */
-class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>{
+class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps> {
   constructor(props) {
     super(props);
   }
@@ -50,9 +50,29 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
 
   public render() {
     return (
-      <div>
+      <div className="layout-page">
         {this.renderPageMenuWidget()}
-          <ExplorerInterestsWidget/>
+        <Grid celled>
+          <Grid.Row>
+            <Grid.Column>
+              <Container>
+                <Grid columns='equal'>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                    <Menu fluid vertical tabular>
+                      <Menu.Item name='my interests'></Menu.Item>
+                      <Menu.Item name='my career goals'></Menu.Item>
+                    </Menu>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <ExplorerInterestsWidget/>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Container>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
