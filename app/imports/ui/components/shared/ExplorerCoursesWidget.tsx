@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
@@ -156,7 +156,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
       ? <a href={props.href}>{props.children}</a>
-      : <div/>
+      : <Link to={props.href}>{props.children}</Link>
   )
 
   private buildRouteName = (slug) => {
@@ -278,7 +278,10 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                                 <div style={breakWordStyle}>
                                   <Markdown source={descriptionPair.value}
                                             linkTarget="_blank"
-                                            renderers={{ link: this.routerLink }}/>
+                                            renderers={{
+                                              link: props => <a href={props.href} target="_blank"
+                                                                rel="noopener noreferrer">{props.children}</a>,
+                                            }}/>
                                   <br/>
                                 </div>
                                 :
