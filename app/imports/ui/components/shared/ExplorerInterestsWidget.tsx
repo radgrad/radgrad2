@@ -10,6 +10,9 @@ import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
 import {Courses} from "../../../api/course/CourseCollection"
 import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
 import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstanceCollection";
+import Swal from 'sweetalert2';
+import {updateMethod} from '../../../api/base/BaseCollection.methods';
+import {Users} from "../../../api/user/UserCollection";
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -255,10 +258,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
-  private handleClick = (event) => {
-    console.log('check interest status', this.checkInterestStatus());
-    console.log('event', event);
+  private handleClick = () => {
+
     console.log('handle click');
+    console.log(StudentProfiles.findDoc(this.props.match.params.username));
     switch (this.checkInterestStatus()) {
       case 'remove from interests':
         const newInterestsAfterRemove = this.removeInterest();
@@ -267,6 +270,29 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       case 'add to interests':
         const newInterestsAfterAdd = this.addInterest();
         console.log('handle click add', newInterestsAfterAdd);
+        let updateData = newInterestsAfterAdd;
+        updateData.id = this.getUpdateDataID();
+        console.log(updateData.id);
+        const collectionName = this.getCollectionName();
+
+        console.log('collection name: ', collectionName, 'update data: ', updateData, 'update data id: ', updateData.id);
+        updateMethod.call({ collectionName, updateData }, (error) => {
+           if (error) {
+             Swal.fire({
+               title: 'Update failed',
+               text: error.message,
+               type: 'error',
+             });
+             console.error('Error in updating. %o', error);
+           } else {
+             Swal.fire({
+               title: 'Update succeeded',
+               type: 'success',
+               showConfirmButton: false,
+               timer: 1500,
+             });
+           }
+         });
         break;
     }
   };
@@ -292,7 +318,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       case 'alumni':
         interestIDsOfUser = StudentProfiles.findDoc({
           username: this.props.match.params.username,
-          isAlumnk: true
+          isAlumni: true
         }).interestIDs;
         updateValue = _.flatten(dataValue);
         return updateValue;
@@ -304,6 +330,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     }
 
   };
+
 
   private removeInterest = () => {
     let interestIDsOfUser: [];
@@ -336,6 +363,34 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestIDsOfUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
+    }
+  };
+
+  private getUpdateDataID = () => {
+    switch (this.getRoleByUrl()) {
+      case 'student':
+        return StudentProfiles.findDoc(this.props.match.params.username)._id;
+      case 'faculty':
+        return FacultyProfiles.findDoc(this.props.match.params.username)._id;
+      case 'alumni':
+        return StudentProfiles.findDoc({
+          username: this.props.match.params.username,
+          isAlumni: true
+        })._id;
+      case 'mentor':
+        return MentorProfiles.findDoc(this.props.match.params.username)._id;
+    }
+  };
+  private getCollectionName = () => {
+    switch (this.getRoleByUrl()) {
+      case 'student':
+        return StudentProfiles.getCollectionName();
+      case 'faculty':
+        return FacultyProfiles.getCollectionName();
+      case 'alumni':
+        return StudentProfiles.getCollectionName();
+      case 'mentor':
+        return MentorProfiles.getCollectionName();
     }
   };
 
