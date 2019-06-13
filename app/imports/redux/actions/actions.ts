@@ -111,4 +111,3 @@ export const allNewsletterDone = () => ({
   type: ALL_EMAIL_DONE,
   payload: false,
 });
-

@@ -1,16 +1,18 @@
 import * as React from 'react';
-import {Tab, Header, Form, Radio} from 'semantic-ui-react';
-import {AcademicTerms} from "../../../api/academic-term/AcademicTermCollection";
-import {AcademicPlans} from "../../../api/degree-plan/AcademicPlanCollection";
-import {defineMethod} from "../../../api/base/BaseCollection.methods";
-import Swal from "sweetalert2";
-import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
-import {Feeds} from "../../../api/feed/FeedCollection";
+import { Tab, Header, Form, Radio } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Feeds } from '../../../api/feed/FeedCollection';
+// eslint-disable-next-line no-unused-vars
+import { ICareerGoal, IInterest } from '../../../typings/radgrad';
 
 export interface IAdvisorAddStudentWidgetProps {
   // These are parameters for reactivity
-  interests: any;
-  careerGoals: any;
+  interests: IInterest[];
+  careerGoals: ICareerGoal[];
 }
 
 export interface IAdvisorAddStudentWidgetState {
@@ -20,8 +22,8 @@ export interface IAdvisorAddStudentWidgetState {
   isAlumni: boolean;
   picture: string;
   website: string;
-  careerGoals: any;
-  userInterests: any;
+  careerGoals: string[];
+  userInterests: string[];
   declaredAcademicTerm: string;
   academicPlanID: string;
 }
@@ -39,21 +41,21 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
     declaredAcademicTerm: undefined,
     academicPlanID: undefined,
   };
-  
-  private handleFormChange = (e, {name, value}) => {
-    console.log(`${name}: `, value);
-    if (value === 'true' || value === 'false') {
-      value = value === 'true';
+
+  private handleFormChange = (e, { name, value }) => {
+    const k = name;
+    let v = value;
+    if (v === 'true' || v === 'false') {
+      v = v === 'true';
     }
-    console.log(`state change: ${name}: `, value);
     const newState = {
       ...this.state,
-      [name]: value,
-    }
-    
+      [k]: v,
+    };
+
     this.setState(newState);
   }
-  
+
   private onSubmit = () => {
     const collectionName: string = StudentProfiles.getCollectionName();
     const definitionData: any = {};
@@ -68,8 +70,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
     definitionData.declaredAcademicTerm = this.state.declaredAcademicTerm;
     definitionData.academicPlanID = this.state.academicPlanID;
     definitionData.level = 1;
-    
-    defineMethod.call({collectionName, definitionData}, (error) => {
+
+    defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         console.error('Failed adding User', error);
         Swal.fire({
@@ -99,9 +101,9 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
           academicPlanID: undefined,
         });
       }
-    })
+    });
   }
-  
+
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const {
       firstName,
@@ -191,7 +193,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                            value={careerGoals}
                            onChange={this.handleFormChange}
                            options={this.props.careerGoals.map(
-                             (ele, i) => ({'key': i, 'text': ele.name, 'value': ele._id}))}
+                             (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
+                           )}
                            placeholder={'Select Career Goal(s)'}/>
             <Form.Dropdown selection multiple
                            name={'userInterests'}
@@ -199,7 +202,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                            value={userInterests}
                            onChange={this.handleFormChange}
                            options={this.props.interests.map(
-                             (ele, i) => ({'key': i, 'text': ele.name, 'value': ele._id}))}
+                             (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
+                           )}
                            placeholder={'Select Interest(s)'}/>
           </Form.Group>
           <Form.Group>
@@ -209,7 +213,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                              value={declaredAcademicTerm}
                              onChange={this.handleFormChange}
                              options={AcademicTerms.findNonRetired().map(
-                               (ele, i) => ({'key': i, 'text': `${ele.term} ${ele.year}`, 'value': ele._id}))}
+                               (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
+                             )}
                              selection={true}
                              placeholder={'Select Semester'}/>
             </Form.Field>
@@ -220,7 +225,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                              value={academicPlanID}
                              onChange={this.handleFormChange}
                              options={AcademicPlans.findNonRetired().map(
-                               (ele, i) => ({'key': i, 'text': ele.name, 'value': ele._id}))}
+                               (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
+                             )}
                              placeholder={'Select Academic Plan'}/>
             </Form.Field>
           </Form.Group>

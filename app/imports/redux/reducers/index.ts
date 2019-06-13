@@ -19,7 +19,6 @@ import {
   TEST_EMAIL_WORKING,
 } from '../actions/actionTypes';
 import {
-  ADVISOR_HOME_SET_COUNT,
   ADVISOR_HOME_SET_FIRST_NAME,
   ADVISOR_HOME_SET_LAST_NAME,
   ADVISOR_HOME_SET_USERNAME,
@@ -174,8 +173,6 @@ const initialState = {
   page: {
     advisor: {
       home: {
-        count: 0,
-        doNotChange: 42,
         firstName: '',
         lastName: '',
         username: '',
@@ -310,17 +307,6 @@ function tabReducer(state = {}, action) {
 
 function pageReducer(state: any = {}, action) {
   switch (action.type) {
-    case ADVISOR_HOME_SET_COUNT:
-      return {
-        ...state,
-        advisor: {
-          ...state.advisor,
-          home: {
-            ...state.advisor.home,
-            count: action.payload,
-          },
-        },
-      };
     case ADVISOR_HOME_SET_FIRST_NAME:
       return {
         ...state,
@@ -390,7 +376,7 @@ function pageReducer(state: any = {}, action) {
           },
         },
       };
-    
+
     default:
       return state;
   }

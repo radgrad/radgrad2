@@ -1,5 +1,4 @@
 import {
-  ADVISOR_HOME_SET_COUNT,
   ADVISOR_HOME_SET_FIRST_NAME,
   ADVISOR_HOME_SET_LAST_NAME,
   ADVISOR_HOME_SET_USERNAME,
@@ -7,11 +6,6 @@ import {
   ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
   ADVISOR_HOME_SET_IS_LOADED,
 } from './pageAdvisorActionTypes';
-
-export const advisorHomeSetCount = (count) => ({
-  type: ADVISOR_HOME_SET_COUNT,
-  payload: count,
-});
 
 export const advisorHomeSetFirstName = (firstName) => ({
   type: ADVISOR_HOME_SET_FIRST_NAME,
@@ -41,4 +35,3 @@ export const advisorHomeSetIsLoaded = (bool) => ({
   type: ADVISOR_HOME_SET_IS_LOADED,
   payload: bool,
 });
-

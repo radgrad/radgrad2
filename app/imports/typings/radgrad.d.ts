@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-// TODO -- issue-17, get cloudinary working
+// TODO -- get cloudinary working (issue-47)
 export namespace cloudinary {
   function openUploadWidget(options: any, callback: (error: any, result?: any) => any);
 }
