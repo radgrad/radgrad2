@@ -411,7 +411,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         } else {
           return 'add to interests';
         }
-        break;
       case 'alumni':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
         interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
@@ -422,7 +421,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         } else {
           return 'add to interests';
         }
-        break;
       case 'mentor':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
         interestIDsofUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
@@ -433,7 +431,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         } else {
           return 'add to interests';
         }
-        break;
     }
   };
 
@@ -457,7 +454,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         <Grid padded celled>
           <Grid.Row>
             <Grid.Column>
-              <Container textAlign='justified'  >
+              <Container textAlign='justified'>
                 <Header>{interestName}<Button
                   attatched='top'
                   floated='right'
@@ -474,192 +471,188 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               </Container>
             </Grid.Column>
           </Grid.Row>
-        <Grid.Row>
-          <Grid padded celled divided='vertically'>
-            <Grid.Row>
-              <Grid.Column width={10}>
-                <Container fluid>
-                <Header>Related Courses</Header>
-                  <Divider/>
-                  <Grid padded columns='equal'>
-                    <Grid.Row columns={3} divided>
-                      <Grid.Column>
-                        <Container>
-                          <div>
-                            <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
-                            {
-                              _.map(relatedCourses.completed, (value, index) =>
-                                <div key={index}>
-                                  <Link
-                                    to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-                                </div>)
-                            }</div>
-                        </Container>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Container>
-                        <div>
-                          <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
-                          {
-                            _.map(relatedCourses.inPlan, (value, index) =>
-                              <div key={index}>
-                                <Link
-                                  to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-                              </div>)
-                          }</div>
-                        </Container>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Container>
-                        <div>
-                          <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
-                          {
-                            _.map(relatedCourses.notInPlan, (value, index) =>
-                              <div key={index}>
-                                <Link
-                                  to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-                              </div>)
-                          }</div>
-                        </Container>
+          <Grid.Row>
+            <Grid padded celled divided='vertically'>
+              <Grid.Row>
+                <Grid.Column width={10}>
+                  <Container fluid>
+                    <Header>Related Courses</Header>
+                    <Divider/>
+                    <Grid padded columns='equal'>
+                      <Grid.Row columns={3} divided>
+                        <Grid.Column>
+                          <Container>
+                            <div>
+                              <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
+                              {
+                                _.map(relatedCourses.completed, (value, index) =>
+                                  <div key={index}>
+                                    <Link
+                                      to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
+                                  </div>)
+                              }</div>
+                          </Container>
                         </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Container>
-              </Grid.Column>
-              <Grid.Column width={2}>
-                <Container fluid>
-                  <Header>Students participating: <b>{this.Participation('student').length}</b></Header>
-                  <Divider/>
-                  <div>
-                    <Image.Group size='mini'>
-                      {interestedStudents.map((student, index) =>
-                        <Popup
-                          key={index}
-                          trigger={<Image src={student.picture} circular></Image>}
-                          content='names'
-                        />)
-                      }
-                    </Image.Group>
-                  </div>
-                </Container>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={10}>
-                <Container fluid>
-                  <Header>Related Opportunities</Header>
-                  <Divider/>
-                  <Grid padded columns='equal'>
-                    <Grid.Row columns={3} divided>
+                        <Grid.Column>
+                          <Container>
+                            <div>
+                              <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
+                              {
+                                _.map(relatedCourses.inPlan, (value, index) =>
+                                  <div key={index}>
+                                    <Link
+                                      to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
+                                  </div>)
+                              }</div>
+                          </Container>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Container>
+                            <div>
+                              <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
+                              {
+                                _.map(relatedCourses.notInPlan, (value, index) =>
+                                  <div key={index}>
+                                    <Link
+                                      to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
+                                  </div>)
+                              }</div>
+                          </Container>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                  </Container>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <Grid>
+                    <Grid.Row>
                       <Grid.Column>
-                        <Container>
+                        <Container fluid>
+                          <Header>Students participating: <b>{this.Participation('student').length}</b></Header>
+                          <Divider/>
                           <div>
-                            <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
-                            {
-                              _.map(relatedOpportunities.completed, (value, index) =>
-                                <div key={index}>
-                                  <Link
-                                    to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-                                </div>)
-                            }</div>
-                        </Container>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Container>
-                        <div>
-                          <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
-                          {
-                            _.map(relatedOpportunities.inPlan, (value, index) =>
-                              <div key={index}>
-                                <Link
-                                  to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-                              </div>)
-                          }</div>
-                        </Container>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Container>
-                        <div>
-                          <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
-                          {
-                            _.map(relatedOpportunities.notInPlan, (value, index) =>
-                              <div key={index}>
-                                <Link
-                                  to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-                              </div>)
-                          }</div>
+                            <Image.Group size='mini'>
+                              {interestedStudents.map((student, index) =>
+                                <Popup
+                                  key={index}
+                                  trigger={<Image src={student.picture} circular></Image>}
+                                  content='names'
+                                />)
+                              }
+                            </Image.Group>
+                          </div>
                         </Container>
                       </Grid.Column>
                     </Grid.Row>
+                    <Grid.Row>
+                      <Grid.Column>
+                        <Container fluid>
+                          <Header>Faculty participating: <b>{this.Participation('faculty').length}</b>
+                          </Header>
+                          <Divider/>
+                          <div>
+                            <Image.Group size='mini'>
+                              {interestedFaculty.map((faculty, index) => <Popup
+                                key={index}
+                                trigger={<Image src={faculty.picture} circular></Image>}
+                                content='names'
+                              />)
+                              }
+                            </Image.Group>
+                          </div>
+                        </Container>
+                      </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                      <Grid.Column>
+                        <Header>Alumni participating: <b>{this.Participation('alumni').length}</b>
+                        </Header>
+                        <Divider/>
+                        <div>
+                          <Image.Group size='mini'>
+                            {interestedAlumni.map((alumni, index) => <Popup
+                              key={index}
+                              trigger={<Image src={alumni.picture} circular></Image>}
+                              content='names'
+                            />)
+                            }
+                          </Image.Group>
+                        </div>
+                      </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                      <Grid.Column>
+                        <Header>Mentors participating: <b>{this.Participation('mentor').length}</b>
+                        </Header>
+                        <Divider/>
+                        <div>
+                          <Image.Group size='mini'>
+                            {interestedMentor.map((mentors, index) => <Popup
+                              key={index}
+                              trigger={<Image src={mentors.picture} circular></Image>}
+                              content='names'
+                            />)
+                            }
+                          </Image.Group>
+                        </div>
+                      </Grid.Column>
+                    </Grid.Row>
                   </Grid>
-                </Container>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Grid.Row>
-        </Grid>
-
-
-        <Grid>
-          <Container as='div'>
-            <div className='ui paded container'>
-              <div className="ui segments">
-                <div className='ui padded segment container'>
-                  Students participating: <b>{this.Participation('student').length}</b>
-                  <div>
-                    <Image.Group size='mini'>
-                      {interestedStudents.map((student, index) =>
-                        <Popup
-                          key={index}
-                          trigger={<Image src={student.picture} circular></Image>}
-                          content='names'
-                        />)
-                      }
-                    </Image.Group>
-                  </div>
-                </div>
-                <div className='ui padded segment container'>
-                  Faculty participating: <b>{this.Participation('faculty').length}</b>
-                  <div>
-                    <Image.Group size='mini'>
-                      {interestedFaculty.map((faculty, index) => <Popup
-                        key={index}
-                        trigger={<Image src={faculty.picture} circular></Image>}
-                        content='names'
-                      />)
-                      }
-                    </Image.Group>
-                  </div>
-                </div>
-                <div className='ui padded segment container'>
-                  Alumni participating: <b>{this.Participation('alumni').length}</b>
-                  <div>
-                    <Image.Group size='mini'>
-                      {interestedAlumni.map((alumni, index) => <Popup
-                        key={index}
-                        trigger={<Image src={alumni.picture} circular></Image>}
-                        content='names'
-                      />)
-                      }
-                    </Image.Group>
-                  </div>
-                </div>
-                <div className='ui padded segment container'>
-                  Mentors participating: <b>{this.Participation('mentor').length}</b>
-                  <div>
-                    <Image.Group size='mini'>
-                      {interestedMentor.map((mentors, index) => <Popup
-                        key={index}
-                        trigger={<Image src={mentors.picture} circular></Image>}
-                        content='names'
-                      />)
-                      }
-                    </Image.Group>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Container>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={10}>
+                  <Container fluid>
+                    <Header>Related Opportunities</Header>
+                    <Divider/>
+                    <Grid padded columns='equal'>
+                      <Grid.Row columns={3} divided>
+                        <Grid.Column>
+                          <Container>
+                            <div>
+                              <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
+                              {
+                                _.map(relatedOpportunities.completed, (value, index) =>
+                                  <div key={index}>
+                                    <Link
+                                      to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
+                                  </div>)
+                              }</div>
+                          </Container>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Container>
+                            <div>
+                              <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
+                              {
+                                _.map(relatedOpportunities.inPlan, (value, index) =>
+                                  <div key={index}>
+                                    <Link
+                                      to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
+                                  </div>)
+                              }</div>
+                          </Container>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Container>
+                            <div>
+                              <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
+                              {
+                                _.map(relatedOpportunities.notInPlan, (value, index) =>
+                                  <div key={index}>
+                                    <Link
+                                      to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
+                                  </div>)
+                              }</div>
+                          </Container>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                  </Container>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Row>
         </Grid>
       </Container>
     );
