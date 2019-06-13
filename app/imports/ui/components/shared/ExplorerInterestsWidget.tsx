@@ -13,6 +13,7 @@ import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstance
 import Swal from 'sweetalert2';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {Users} from "../../../api/user/UserCollection";
+import Icon from "semantic-ui-react/dist/commonjs/elements/Icon";
 
 //find and import simple schema
 
@@ -523,82 +524,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                     </Grid>
                   </Container>
                 </Grid.Column>
-                <Grid.Column width={4}>
-                  <Grid>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Container fluid>
-                          <Header>Students participating: <b>{this.Participation('student').length}</b></Header>
-                          <Divider/>
-                          <div>
-                            <Image.Group size='mini'>
-                              {interestedStudents.map((student, index) =>
-                                <Popup
-                                  key={index}
-                                  trigger={<Image src={student.picture} circular></Image>}
-                                  content='names'
-                                />)
-                              }
-                            </Image.Group>
-                          </div>
-                        </Container>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Container fluid>
-                          <Header>Faculty participating: <b>{this.Participation('faculty').length}</b>
-                          </Header>
-                          <Divider/>
-                          <div>
-                            <Image.Group size='mini'>
-                              {interestedFaculty.map((faculty, index) => <Popup
-                                key={index}
-                                trigger={<Image src={faculty.picture} circular></Image>}
-                                content='names'
-                              />)
-                              }
-                            </Image.Group>
-                          </div>
-                        </Container>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Header>Alumni participating: <b>{this.Participation('alumni').length}</b>
-                        </Header>
-                        <Divider/>
-                        <div>
-                          <Image.Group size='mini'>
-                            {interestedAlumni.map((alumni, index) => <Popup
-                              key={index}
-                              trigger={<Image src={alumni.picture} circular></Image>}
-                              content='names'
-                            />)
-                            }
-                          </Image.Group>
-                        </div>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Header>Mentors participating: <b>{this.Participation('mentor').length}</b>
-                        </Header>
-                        <Divider/>
-                        <div>
-                          <Image.Group size='mini'>
-                            {interestedMentor.map((mentors, index) => <Popup
-                              key={index}
-                              trigger={<Image src={mentors.picture} circular></Image>}
-                              content='names'
-                            />)
-                            }
-                          </Image.Group>
-                        </div>
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Grid.Column>
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={10}>
@@ -651,6 +576,85 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                   </Container>
                 </Grid.Column>
               </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={4}>
+                <Grid>
+                  <Grid.Row centered>
+                    <Grid.Column>
+                      <Container fluid>
+                        <Header>Students participating: <b>{this.Participation('student').length}</b></Header>
+                        <Divider/>
+                        <div>
+                          <Image.Group size='mini'>
+                            {interestedStudents.map((student, index) =>
+                              <Popup
+                                key={index}
+                                trigger={<Image src={student.picture} circular></Image>}
+                                content='names'
+                              />)
+                            }
+                          </Image.Group>
+                        </div>
+                      </Container>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Container fluid>
+                        <Header>Faculty participating: <b>{this.Participation('faculty').length}</b>
+                        </Header>
+                        <Divider/>
+                        <div>
+                          <Image.Group size='mini'>
+                            {interestedFaculty.map((faculty, index) => <Popup
+                              key={index}
+                              trigger={<Image src={faculty.picture} circular></Image>}
+                              content='names'
+                            />)
+                            }
+                          </Image.Group>
+                        </div>
+                      </Container>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header>Alumni participating: <b>{this.Participation('alumni').length}</b>
+                      </Header>
+                      <Divider/>
+                      <div>
+                        <Image.Group size='mini'>
+                          {interestedAlumni.map((alumni, index) => <Popup
+                            key={index}
+                            trigger={<Image src={alumni.picture} circular></Image>}
+                            content='names'
+                          />)
+                          }
+                        </Image.Group>
+                      </div>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header>Mentors participating: <b>{this.Participation('mentor').length}</b>
+                      </Header>
+                      <Divider/>
+                      <div>
+                        <Image.Group size='mini'>
+                          {interestedMentor.map((mentors, index) => <Popup
+                            key={index}
+                            trigger={<Image src={mentors.picture} circular></Image>}
+                            content='names'
+                          />)
+                          }
+                        </Image.Group>
+                      </div>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+            </Grid.Row>
+
             </Grid>
           </Grid.Row>
         </Grid>
