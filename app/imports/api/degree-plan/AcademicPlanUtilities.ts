@@ -21,6 +21,7 @@ export function getPlanChoices(academicPlan: IAcademicPlan, termNum: number): st
 export function passedCourse(ci: ICourseInstance): boolean {
   const courseDoc = CourseInstances.getCourseDoc(ci._id);
   const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
+  // TODO: We need another way of representing 'passing'
   if (courseSlug.includes('111') || courseSlug.includes('141') || courseSlug.includes('211') || courseSlug.includes('241')) {
     return _.includes(['B', 'B+', 'A-', 'A', 'A+'], ci.grade);
   }
