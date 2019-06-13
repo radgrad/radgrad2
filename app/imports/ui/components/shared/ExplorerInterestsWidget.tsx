@@ -130,14 +130,13 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetAssociationRelatedCourses = (courses, role) => {
     let inPlanIDs = [];
     let completedIDs = [];
-    let relatedCourses: { completed: []; inPlan: []; notInPlan: []; } = {
-      completed: [],
-      inPlan: [],
-      notInPlan: []
-    };
     if (role != 'student') {
-      inPlanIDs.push('none');
-      completedIDs.push('none');
+
+      let relatedCourses = {
+        completed: ['none'],
+        inPlan: ['none'],
+        notInPlan: ['none']
+      };
 
       return relatedCourses;
     } else {
@@ -166,7 +165,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
       const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
 
-      relatedCourses = {
+      let relatedCourses = {
         completed: relatedCompletedIDs,
         inPlan: relatedInPlanIDs,
         notInPlan: relatedNotInPlanIDs
@@ -224,7 +223,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
       const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
 
-      relatedOpportunities = {
+      let relatedOpportunities = {
         completed: relatedCompletedIDs,
         inPlan: relatedInPlanIDs,
         notInPlan: relatedNotInPlanIDs
@@ -475,9 +474,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               <Grid.Row>
                 <Grid.Column width={11}>
                   <Container fluid>
-                    <Grid celled>
+                    <Grid celled padded='horizontally' columns={1}>
                       <Grid.Row>
-
+                        <Grid.Column>
                           <Container>
                             <Segment>
                               <Header>Related Courses</Header>
@@ -527,7 +526,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                               </Grid>
                             </Segment>
                           </Container>
-
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row>
+                        <Grid.Column>
                           <Container fluid>
                             <Segment>
                               <Header>Related Opportunities</Header>
@@ -577,13 +579,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                               </Grid>
                             </Segment>
                           </Container>
-
+                        </Grid.Column>
                       </Grid.Row>
                     </Grid>
                   </Container>
-                  <Grid.Column width={11}>
-
-                  </Grid.Column>
                 </Grid.Column>
                 <Grid.Column width={5}>
                   <Grid>
