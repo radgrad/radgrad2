@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import {_} from 'meteor/erasaur:meteor-lodash';
 import {withTracker} from 'meteor/react-meteor-data';
 import {Segment, Grid, Header, Tab, Form, Button, Card, Image, Label, Popup} from 'semantic-ui-react';
 import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
@@ -14,6 +14,21 @@ import {
   advisorHomeSetSelectedStudentUsername,
 } from '../../../redux/actions/pageAdvisorActions';
 import AdvisorAddStudentWidget from "./AdvisorAddStudentWidget";
+import {generateStudentEmailsMethod} from '../../../api/user/UserCollection.methods';
+import Swal from "sweetalert2";
+import {ZipZap} from "meteor/udondan:zipzap";
+import {moment} from 'meteor/momentjs:moment';
+import {SyntheticEvent} from "react";
+import {starBulkLoadJsonDataMethod} from "../../../api/star/StarProcessor.methods";
+
+interface IFileReaderEventTarget extends EventTarget {
+  result:string
+}
+
+interface IFileReaderEvent extends ProgressEvent {
+  target: IFileReaderEventTarget;
+  getMessage():string;
+}
 
 interface IAdvisorStudentSelectorWidgetProps {
   instanceCount: number;
@@ -23,6 +38,7 @@ interface IAdvisorStudentSelectorWidgetProps {
   lastName: string;
   username: string;
   students: IStudentProfile[];
+  advisorUsername: string;
   // These are parameters for reactivity
   interests: any;
   careerGoals: any;
@@ -37,7 +53,12 @@ const mapStateToProps = (state) => ({
 })
 
 class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelectorWidgetProps> {
+  private handleTabChange = () => {
+    // this.props.dispatch(advisorHomeSetSelectedStudentUsername(''));
+    this.setState( {fileData: '', generatedData: ''})
+  }
   
+  // Functionality for 'Update Existing' tab
   public handleChangeFirstName = (event) => {
     this.props.dispatch(advisorHomeSetFirstName(event.target.value));
   };
@@ -56,6 +77,93 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
   
   public handleSelectStudent = (event, data) => {
     this.props.dispatch(advisorHomeSetSelectedStudentUsername(data.studentusername));
+  };
+  
+  // Functionality for 'Bulk STAR Upload' tab
+  state = {fileData: '', isEmailWorking: false, isUploadWorking: false, generatedData: ''};
+  
+  private readFile = (e) => {
+    const files = e.target.files;
+    const reader = new FileReader();
+    reader.readAsText(files[0]);
+    
+    reader.onload = (e: IFileReaderEvent) => {
+      /* RESOLVED_TODO -- figure out why typescript doesn't think result exists when it does
+       * https://stackoverflow.com/questions/35789498/new-typescript-1-8-4-build-error-build-property-result-does-not-exist-on-t
+       * Still unresolved as of June 2019
+       * Solution: implement some interfaces IFileReaderEvent and IFileReaderEventTarget
+       */
+      try {
+        const jsonData = JSON.parse(e.target.result);
+        this.setState({fileData: jsonData})
+      } catch (e) {
+        Swal.fire({
+          title: 'Error reading data from file',
+          text: 'Please ensure the file you selected is formatted properly',
+          type: 'error',
+        });
+        console.log(e.message);
+      }
+    };
+  };
+  
+  private handleStarSubmit = () => {
+    console.log('Data submitted: ', this.state.fileData);
+    this.setState({isUploadWorking: true});
+    const advisor = this.props.advisorUsername;
+    const jsonData = this.state.fileData;
+    starBulkLoadJsonDataMethod.call({ advisor, jsonData }, ((error, result) => {
+      if (error) {
+        Swal.fire({
+          title: 'Error loading bulk STAR data',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'STAR Data loaded successfully',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.setState({fileData: ''})
+      }
+    }));
+    this.setState({isUploadWorking: false});
+  };
+  
+  private getStudentEmails = () => {
+    this.setState({isEmailWorking: true});
+    generateStudentEmailsMethod.call({}, (error, result) => {
+      if (error) {
+        Swal.fire({
+          title: 'Error during Generating Student Emails',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Beginning Download...',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        const data: any = {};
+        data.name = 'Students';
+        data.contents = result.students;
+        const emails = result.students.join('\n');
+        this.setState({generatedData:emails});
+        const zip = new ZipZap();
+        const now = moment().format('YYYY-MM-DD-HH-mm-ss');
+        const dir = `radgrad-students${now}`;
+        const fileName = `${dir}/Students.txt`;
+        zip.file(fileName, emails);
+        zip.saveAs(`${dir}.zip`);
+      }
+    });
+    this.setState({isEmailWorking: false});
   };
   
   public render() {
@@ -134,7 +242,23 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         menuItem: 'Bulk STAR Upload',
         render: () =>
           <Tab.Pane key={'upload'}>
-            <Header content={'BULK STAR UPL'}/>
+            <Header dividing={true} content={'BULK STAR UPLOAD STAR DATA'}/>
+            <Form onSubmit={this.handleStarSubmit}>
+              <Form.Field>
+                <Form.Input type={'file'} onChange={this.readFile} label={'BULK STAR JSON'}/>
+              </Form.Field>
+              <Form.Group inline={true}>
+                <Form.Button size={'tiny'} basic={true} color={'green'} content={'LOAD BULK STAR DATA'}
+                             type={'Submit'}
+                             loading={this.state.isUploadWorking}
+                             disabled={this.state.isUploadWorking || (this.state.fileData === '')}/>
+                <Form.Button size={'tiny'} basic={true} color={'green'} content={'GET STUDENT EMAILS'}
+                             onClick={this.getStudentEmails}
+                             loading={this.state.isEmailWorking}
+                             disabled={this.state.isEmailWorking}/>
+              </Form.Group>
+            </Form>
+            {this.state.generatedData ? <Segment>{this.state.generatedData}</Segment> : undefined}
           </Tab.Pane>
         ,
       },
@@ -143,7 +267,7 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
     return (
       <Segment>
         <Header as="h4" dividing={true}>SELECT STUDENT</Header>
-        <Tab panes={panes}/>
+        <Tab panes={panes} onTabChange={this.handleTabChange}/>
       </Segment>
     );
   }

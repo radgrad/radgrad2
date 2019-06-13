@@ -5,6 +5,7 @@ import {AcademicPlans} from "../../../api/degree-plan/AcademicPlanCollection";
 import {defineMethod} from "../../../api/base/BaseCollection.methods";
 import Swal from "sweetalert2";
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
+import {Feeds} from "../../../api/feed/FeedCollection";
 
 export interface IAdvisorAddStudentWidgetProps {
   // These are parameters for reactivity
@@ -83,6 +84,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
           showConfirmButton: false,
           timer: 1500,
         });
+        const feedData = { feedType: Feeds.NEW_USER, user: definitionData.username };
+        defineMethod.call({ collectionName: Feeds.getCollectionName(), definitionData: feedData });
         this.setState({
           firstName: '',
           lastName: '',

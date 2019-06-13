@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Segment, Header, Form} from 'semantic-ui-react';
 import {AdvisorLogs} from "../../../api/log/AdvisorLogCollection";
-import {AdvisorProfiles} from "../../../api/user/AdvisorProfileCollection";
+import {Users} from "../../../api/user/UserCollection";
 import {defineMethod} from '../../../api/base/BaseCollection.methods';
 import Swal from "sweetalert2";
 
@@ -67,7 +67,6 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
   }
   
   public render() {
-    
     return (
       <Segment padded={true}>
         <Header as="h4" dividing={true}>ADVISOR LOG</Header>
@@ -95,7 +94,7 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
                 <Segment key={i}>
                   <strong>
                     {ele.createdOn.toDateString()} {ele.createdOn.getHours()}:{this.formatMinuteString(ele.createdOn.getMinutes())}:
-                  </strong> {ele.text} <i>({AdvisorProfiles.find({userID: ele.advisorID}).fetch()[0].firstName})</i>
+                  </strong> {ele.text} <i>({Users.getProfile(ele.advisorID).firstName})</i>
                 </Segment>
             ) : <i>No past advisor logs with this student.</i>}
           </div>

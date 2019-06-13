@@ -8,6 +8,8 @@ import {AcademicPlans} from '../../../api/degree-plan/AcademicPlanCollection';
 import {openCloudinaryWidget} from '../shared/OpenCloudinaryWidget';
 import {advisorHomeSetIsLoaded, advisorHomeSetSelectedStudentUsername} from "../../../redux/actions/pageAdvisorActions";
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
+import {RadGrad} from "../../../api/radgrad/RadGrad";
+import {defaultCalcLevel} from "../../../api/level/LevelProcessor";
 
 interface IAdvisorUpdateStudentWidgetProps {
   // instanceCount: any; TODO -- remove instanceCount code from all other files
@@ -92,6 +94,11 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     }
     
     this.setState(newState);
+  }
+  
+  private hasNewLevel = () => {
+    const student = this.props.usernameDoc;
+    RadGrad.calcLevel ? student.level !== RadGrad.calcLevel(student.userID) : defaultCalcLevel(student.userID);
   }
   
   private handleUpdateSubmit = () => {
@@ -240,7 +247,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               <Form.Input name="level"
                           label={'Level'}
                           onChange={this.handleFormChange}
-                          value={level}/>
+                          value={level}
+                          disabled={true}/>
             </Form.Field>
           </Form.Group>
           <Form.Group widths={"equal"}>
@@ -265,15 +273,21 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
                              value={academicPlanID}/>
             </Form.Field>
           </Form.Group>
-          <Form.Group inline={true}>
-            {// TODO -- missing new level component
+            {// TODO -- Find a way to test RadGrad.calcLevel
             }
+          {this.hasNewLevel ? <Segment inverted color={'green'} secondary><Header as={'h3'}>New Level!!</Header></Segment> : undefined}
+          <Form.Group inline={true}>
             <Form.Button content={'Update'} type={'Submit'} basic={true} color={'green'}/>
             <Form.Button content={'Cancel'} onClick={this.handleCancel} basic={true} color={'green'}/>
           </Form.Group>
         </Form>
-        {// TODO -- missing academic plan display component after form
+        {// TODO -- Find a way to test
         }
+        <b>View {this.props.usernameDoc.firstName}'s degree plan: </b>
+        <a target="_blank"
+           href={`/student/${this.props.usernameDoc.username}/degree-planner`}>
+          /student/{this.props.usernameDoc.username}/degree-planner
+        </a>
       </Segment>
     );
   }

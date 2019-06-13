@@ -1,5 +1,16 @@
 import * as React from 'react';
 import {Segment, Header, Form} from 'semantic-ui-react';
+import {starLoadDataMethod} from "../../../api/star/StarProcessor.methods";
+import {updateLevelMethod} from "../../../api/level/LevelProcessor.methods";
+
+interface IFileReaderEventTarget extends EventTarget {
+  result:string
+}
+
+interface IFileReaderEvent extends ProgressEvent {
+  target: IFileReaderEventTarget;
+  getMessage():string;
+}
 
 export interface IAdvisorStarUploadWidgetProps {
   usernameDoc: any;
@@ -18,16 +29,28 @@ class AdvisorStarUploadWidget extends React.Component<IAdvisorStarUploadWidgetPr
     const reader = new FileReader();
     reader.readAsText(files[0]);
   
-    reader.onload = e => {
-      // TODO -- figure out why typescript doesn't think result exists when it does
-      // @ts-ignore
+    reader.onload = (e: IFileReaderEvent) => {
+      /* RESOLVED_TODO -- figure out why typescript doesn't think result exists when it does
+       * See AdvisorStudentSelectorWidget.tsx for details
+       */
       this.setState({fileData: e.target.result})
     };
   };
   
   private onSubmit = () => {
-    // TODO -- Placeholder submit until we find out how to process STAR CSV
     console.log('Data submitted: ', this.state.fileData);
+    // TODO -- find out more about how data is uploaded from STAR
+    const advisor = this.props.advisorUsername;
+    const studentDoc = this.props.usernameDoc;
+    const csvData = this.state.fileData;
+    starLoadDataMethod.call({advisor, student: studentDoc.username, csvData}, (error) => {
+      if (error) {
+        console.log('Error loading STAR data', error);
+      }
+    });
+    updateLevelMethod.call({ studentID:studentDoc.userID }, (e) => {
+      if (e) { console.log('Error updating student level', e)}
+    })
   };
   
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -42,6 +65,7 @@ class AdvisorStarUploadWidget extends React.Component<IAdvisorStarUploadWidgetPr
         </Form>
       </Segment>
     );
+    
   }
 }
 

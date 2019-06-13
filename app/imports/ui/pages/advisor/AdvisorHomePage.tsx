@@ -51,7 +51,8 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
               </Grid.Row>
               <Grid.Row>
                 <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
-                                              interests={this.props.interests}/>
+                                              interests={this.props.interests}
+                                              advisorUsername={this.props.match.params.username}/>
               </Grid.Row>
             </Grid.Column>
             {this.renderSelectedStudentWidgets()}
