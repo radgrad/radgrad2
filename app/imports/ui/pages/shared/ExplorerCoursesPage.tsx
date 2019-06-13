@@ -8,7 +8,6 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { makeLink } from '../admin/datamodel-utilities';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Users } from '../../../api/user/UserCollection';
@@ -67,7 +66,7 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     { label: 'Course Number', value: course.number },
     { label: 'Credit Hours', value: course.creditHrs },
     { label: 'Description', value: course.description },
-    { label: 'Syllabus', value: makeLink(course.syllabus) },
+    { label: 'Syllabus', value: course.syllabus },
     { label: 'Interests', value: _.sortBy(Interests.findNames(course.interestIDs)) },
     { label: 'Prerequisites', value: this.prerequisites(course) },
   ]
