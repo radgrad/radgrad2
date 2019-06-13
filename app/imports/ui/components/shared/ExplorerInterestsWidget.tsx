@@ -2,7 +2,7 @@ import * as React from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {Container, Header, Button, Grid, Image, Popup} from 'semantic-ui-react';
 import {Interests} from "../../../api/interest/InterestCollection";
-import * as _ from 'lodash';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
 import {CourseInstances} from "../../../api/course/CourseInstanceCollection";
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
@@ -13,6 +13,8 @@ import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstance
 import Swal from 'sweetalert2';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {Users} from "../../../api/user/UserCollection";
+
+//find and import simple schema
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -30,14 +32,13 @@ interface IExplorerInterestsWidgetProps {
 // don't know if we'll need this because state may not change
 interface IExplorerInterestsWidgetState {
   id: string;
-  interestInProfile: boolean;
-  interests: [];
+  interestIDs: [];
 }
 
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
   constructor(props: any) {
     super(props);
-    this.state = {id: '', interestInProfile: true, interests: []}
+    this.state = {id: '', interestIDs: []}
   }
 
   /**
@@ -258,10 +259,13 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
+  /**
+   * ToDo ask Gian about this or Moore when he gets back
+   */
   private handleClick = () => {
 
     console.log('handle click');
-    console.log(StudentProfiles.findDoc(this.props.match.params.username));
+    console.log('find doc',StudentProfiles.findDoc(this.props.match.params.username));
     switch (this.checkInterestStatus()) {
       case 'remove from interests':
         const newInterestsAfterRemove = this.removeInterest();
@@ -269,14 +273,17 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         break;
       case 'add to interests':
         const newInterestsAfterAdd = this.addInterest();
+        console.log('this is the state:' ,this.state);
+        this.state = {id: Users.getProfile(this.props.match.params.username)._id, interestIDs: newInterestsAfterAdd}
+        console.log('this is the state:' ,this.state);
+        (this.setState({id: Users.getProfile(this.props.match.params.username)._id, interestIDs: newInterestsAfterAdd}));
+        console.log('this is the state: ', this.state);
         console.log('handle click add', newInterestsAfterAdd);
-        let updateData = newInterestsAfterAdd;
-        updateData.id = this.getUpdateDataID();
-        console.log(updateData.id);
+        const updateData: any = this.state;
+        console.log('this is the updateData',updateData);
         const collectionName = this.getCollectionName();
-
-        console.log('collection name: ', collectionName, 'update data: ', updateData, 'update data id: ', updateData.id);
-        updateMethod.call({ collectionName, updateData }, (error) => {
+        console.log('this is the collection name: ', collectionName);
+     /*   updateMethod.call({ collectionName, updateData }, (error) => {
            if (error) {
              Swal.fire({
                title: 'Update failed',
@@ -292,42 +299,23 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                timer: 1500,
              });
            }
-         });
+         });*/
         break;
     }
   };
 
 
   private addInterest = () => {
-    let interestIDsOfUser: [];
+
+    const user = Users.getProfile(this.props.match.params.username);
+    const interestIDsOfUser: [] = user.interestIDs;
     const interestID = this.GetInterestDoc()._id;
     const currentInterestID = [interestID];
     let dataValue;
     let updateValue;
-
-    switch (this.getRoleByUrl()) {
-      case 'student':
-        interestIDsOfUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
-        dataValue = [interestIDsOfUser, currentInterestID];
-        updateValue = _.flatten(dataValue);
-        return updateValue;
-      case 'faculty':
-        interestIDsOfUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
-        updateValue = _.flatten(dataValue);
-        return updateValue;
-      case 'alumni':
-        interestIDsOfUser = StudentProfiles.findDoc({
-          username: this.props.match.params.username,
-          isAlumni: true
-        }).interestIDs;
-        updateValue = _.flatten(dataValue);
-        return updateValue;
-      case 'mentor':
-        interestIDsOfUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
-        updateValue = _.flatten(dataValue);
-        return updateValue;
-
-    }
+    dataValue = [interestIDsOfUser, currentInterestID];
+    updateValue = _.flatten(dataValue);
+    return updateValue;
 
   };
 
