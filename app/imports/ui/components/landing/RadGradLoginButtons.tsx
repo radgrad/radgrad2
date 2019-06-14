@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 
@@ -11,7 +12,7 @@ class RadGradLoginButtons extends React.Component {
   }
 
   private static handleClick(e, instance) {
-    console.log(e, instance);
+    console.log(e, instance, Random.id());
     e.preventDefault();
     const callback = function loginCallback(error) {
       if (error) {
