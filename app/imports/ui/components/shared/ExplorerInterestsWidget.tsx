@@ -284,7 +284,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         console.log('this is the updateData', updateData);
         const collectionName = this.getCollectionName();
         console.log('this is the collection name: ', collectionName);
-        /*   updateMethod.call({ collectionName, updateData }, (error) => {
+           updateMethod.call({ collectionName, updateData }, (error) => {
               if (error) {
                 Swal.fire({
                   title: 'Update failed',
@@ -300,7 +300,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                   timer: 1500,
                 });
               }
-            });*/
+            });
         break;
     }
   };
