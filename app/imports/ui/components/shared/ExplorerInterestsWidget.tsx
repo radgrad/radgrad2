@@ -446,10 +446,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
      */
     return (
       <Container>
-        <Grid padded>
+        <Grid padded stackable>
           <Grid.Row>
             <Grid.Column>
-              <Container textAlign='justified'>
+              <Container textAlign='left'>
                 <Segment>
                   <Header>{interestName}<Button
                     attatched='top'
@@ -469,18 +469,18 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid divided='vertically' celled>
+            <Grid divided='vertically' stackable>
               <Grid.Row>
                 <Grid.Column width={8}>
                   <Container fluid>
-                    <Grid padded='horizontally' columns={1}>
+                    <Grid padded='horizontally' columns={1} stackable>
                       <Grid.Row>
                         <Grid.Column>
                           <Container>
                             <Segment>
                               <Header>Related Courses</Header>
                               <Divider/>
-                              <Grid padded columns='equal'>
+                              <Grid columns='equal'>
                                 <Grid.Row columns={3} divided>
                                   <Grid.Column>
                                     <Container>
