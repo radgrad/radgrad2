@@ -190,13 +190,13 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetAssociationRelatedOpportunities = (opportunities, role) => {
     let inPlanIDs = [];
     let completedIDs = [];
-    let relatedOpportunities: { completed: []; inPlan: []; notInPlan: []; } = {
-      completed: [],
-      inPlan: [],
-      notInPlan: []
-    };
+
     if (role != 'student') {
-      return relatedOpportunities;
+      let relatedOpportunities = {
+        completed: ['none'],
+        inPlan: ['none'],
+        notInPlan: ['none']
+      };      return relatedOpportunities;
     } else {
       const inPlanInstance = OpportunityInstances.findNonRetired({
         'studentID':
@@ -322,13 +322,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
 
   private removeInterest = () => {
-    let interestIDsOfUser: [];
     const interestID = this.GetInterestDoc()._id;
     let updateValue;
     switch (this.getRoleByUrl()) {
       case 'student':
         console.log('remove interest student');
-        interestIDsOfUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        let interestIDsOfUser:[] = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
       case 'faculty':
