@@ -446,7 +446,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
      */
     return (
       <Container>
-        <Grid padded celled>
+        <Grid padded>
           <Grid.Row>
             <Grid.Column>
               <Container textAlign='justified'>
@@ -469,11 +469,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid padded celled divided='vertically'>
+            <Grid padded divided='vertically'>
               <Grid.Row>
-                <Grid.Column width={11}>
+                <Grid.Column width={8}>
                   <Container fluid>
-                    <Grid celled padded='horizontally' columns={1}>
+                    <Grid padded='horizontally' columns={1}>
                       <Grid.Row>
                         <Grid.Column>
                           <Container>
@@ -583,7 +583,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                     </Grid>
                   </Container>
                 </Grid.Column>
-                <Grid.Column width={5}>
+                <Grid.Column width={4}>
                   <Grid>
                     <Grid.Row centered>
                       <Grid.Column>
