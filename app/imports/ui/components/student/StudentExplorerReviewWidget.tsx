@@ -7,6 +7,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
+import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -101,7 +102,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
     const commentsStyle = { paddingTop: '5px' };
 
     const { event, userReview, completed, reviewType } = this.props;
-    const { name, username, picture, term, rating, comments } = this.reviewData(userReview);
+    const { name, picture, term, rating, comments } = this.reviewData(userReview);
     const currentUserPicture = this.currentUserPicture();
     const currentUserName = this.currentUserName();
     const reviews = this.reviews();
@@ -133,7 +134,8 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                   </Grid.Column>
                 </Grid>
 
-                {/*  TODO: <StudentExplorerEditReviewWidget review={userReview} event={event}/> */}
+                <StudentExplorerEditReviewForm review={userReview} event={event}/>
+
               </List.Item>
               :
               <List.Item>

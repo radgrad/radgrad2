@@ -41,6 +41,7 @@ interface IExplorerCoursesWidgetProps {
   reactiveSourceOne: object[];
   reactiveSourceTwo: object[];
   reactiveSourceThree: object[];
+  reactiveSourceFour: object[];
 }
 
 class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps> {
@@ -449,10 +450,14 @@ const ExplorerCoursesWidgetContainer = withTracker(() => {
   const reactiveSouceTwo = OpportunityInstances.findNonRetired({});
   const reactiveSourceThree = UserInteractions.find({}).fetch();
 
+  /* Reactive Source to make StudentExplorerEditReviewForm reactive */
+  const reactiveSourceFour = Reviews.find({}).fetch();
+
   return {
     reactiveSourceOne,
     reactiveSouceTwo,
     reactiveSourceThree,
+    reactiveSourceFour,
   };
 })(ExplorerCoursesWidget);
 export default withRouter(ExplorerCoursesWidgetContainer);

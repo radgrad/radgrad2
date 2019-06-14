@@ -180,9 +180,6 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
           </Grid.Row>
 
           <Grid.Row width={13}>
-            {/* FIXME: A prop named updateID={updateID} is supposed to be passed to the Widget, but I have no idea how
-                  updateID is obtained. Even looking through the source code of radgrad1, it seems like updateID isn't
-                  even used. */}
             <ExplorerCoursesWidget name={name} shortName={shortName} slug={slug} descriptionPairs={descriptionPairs}
                                    id={id} item={course} completed={completed} reviewed={reviewed} role={role}/>
           </Grid.Row>
