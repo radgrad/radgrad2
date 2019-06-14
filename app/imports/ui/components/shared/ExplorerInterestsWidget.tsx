@@ -469,7 +469,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid padded divided='vertically'>
+            <Grid divided='vertically' celled>
               <Grid.Row>
                 <Grid.Column width={8}>
                   <Container fluid>
@@ -488,10 +488,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                         <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
                                         {
                                           _.map(relatedCourses.completed, (value, index) =>
-                                            <div key={index}>
+                                            <Container key={index} textAlign='center'>
                                               <Link
                                                 to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-                                            </div>)
+                                            </Container>)
                                         }</div>
                                     </Container>
                                   </Grid.Column>
@@ -501,10 +501,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                         <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
                                         {
                                           _.map(relatedCourses.inPlan, (value, index) =>
-                                            <div key={index}>
+                                            <Container key={index} textAlign='center'>
                                               <Link
                                                 to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-                                            </div>)
+                                            </Container>)
                                         }</div>
                                     </Container>
                                   </Grid.Column>
@@ -514,10 +514,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                         <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
                                         {
                                           _.map(relatedCourses.notInPlan, (value, index) =>
-                                            <div key={index}>
+                                            <Container key={index} textAlign='center'>
                                               <Link
                                                 to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-                                            </div>)
+                                            </Container>)
                                         }</div>
                                     </Container>
                                   </Grid.Column>
@@ -533,7 +533,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                             <Segment>
                               <Header>Related Opportunities</Header>
                               <Divider/>
-                              <Grid padded columns='equal'>
+                              <Grid padded columns='equal' celled>
                                 <Grid.Row columns={3} divided>
                                   <Grid.Column>
                                     <Container>
@@ -541,10 +541,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                         <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
                                         {
                                           _.map(relatedOpportunities.completed, (value, index) =>
-                                            <div key={index}>
+                                            <Container key={index} textAlign='center'>
                                               <Link
                                                 to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-                                            </div>)
+                                            </Container>)
                                         }</div>
                                     </Container>
                                   </Grid.Column>
@@ -554,10 +554,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                         <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
                                         {
                                           _.map(relatedOpportunities.inPlan, (value, index) =>
-                                            <div key={index}>
+                                            <Container key={index} textAlign='center'>
                                               <Link
                                                 to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-                                            </div>)
+                                            </Container>)
                                         }</div>
                                     </Container>
                                   </Grid.Column>
@@ -567,10 +567,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                         <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
                                         {
                                           _.map(relatedOpportunities.notInPlan, (value, index) =>
-                                            <div key={index}>
+                                            <Container key={index} textAlign='center'>
                                               <Link
                                                 to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-                                            </div>)
+                                            </Container>)
                                         }</div>
                                     </Container>
                                   </Grid.Column>
@@ -589,19 +589,19 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                            <Header>Students participating: <b>{this.Participation('student').length}</b></Header>
+                            <Header textAlign='center'>Students <b>{this.Participation('student').length}</b></Header>
                             <Divider/>
-                            <div>
+                            <Container textAlign='center'>
                               <Image.Group size='mini'>
                                 {interestedStudents.map((student, index) =>
                                   <Popup
                                     key={index}
-                                    trigger={<Image src={student.picture} circular></Image>}
+                                    trigger={<Image src={student.picture} circular size='mini'></Image>}
                                     content='names'
                                   />)
                                 }
                               </Image.Group>
-                            </div>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -610,11 +610,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                            <Header>Faculty participating: <b>{this.Participation('faculty').length}</b>
+                            <Header textAlign='center'>Faculty Members <b>{this.Participation('faculty').length}</b>
                             </Header>
                             <Divider/>
 
-                            <div>
+                            <Container textAlign = 'center'>
                               <Image.Group size='mini'>
                                 {interestedFaculty.map((faculty, index) => <Popup
                                   key={index}
@@ -623,7 +623,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                 />)
                                 }
                               </Image.Group>
-                            </div>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -632,10 +632,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header>Alumni participating: <b>{this.Participation('alumni').length}</b>
+                            <Header textAlign = 'center'>Alumni <b>{this.Participation('alumni').length}</b>
                             </Header>
                             <Divider/>
-                            <div>
+                            <Container textAlign='center'>
                               <Image.Group size='mini'>
                                 {interestedAlumni.map((alumni, index) => <Popup
                                   key={index}
@@ -644,7 +644,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                 />)
                                 }
                               </Image.Group>
-                            </div>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -653,10 +653,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header>Mentors participating: <b>{this.Participation('mentor').length}</b>
+                            <Header textAlign='center'>Mentors <b>{this.Participation('mentor').length}</b>
                             </Header>
                             <Divider/>
-                            <div>
+                            <Container textAlign='center'>
                               <Image.Group size='mini'>
                                 {interestedMentor.map((mentors, index) => <Popup
                                   key={index}
@@ -665,7 +665,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                 />)
                                 }
                               </Image.Group>
-                            </div>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
