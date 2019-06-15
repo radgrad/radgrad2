@@ -7,8 +7,6 @@ import * as Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import StudentExplorerCoursesWidgetButtonContainer from '../student/StudentExplorerCoursesWidgetButton';
 import InterestList from './InterestList';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -429,14 +427,18 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
           </Segment>
         </Segment.Group>
 
-        <Grid stackable={true} columns={1}>
-          <Grid.Column width={16}>
-            <Segment padded={true}>
-              <StudentExplorerReviewWidget event={item} userReview={this.review()} completed={completed}
-                                           reviewType="course"/>
-            </Segment>
-          </Grid.Column>
-        </Grid>
+        {
+          isStudent ?
+            <Grid stackable={true} columns={1}>
+              <Grid.Column width={16}>
+                <Segment padded={true}>
+                  <StudentExplorerReviewWidget event={item} userReview={this.review()} completed={completed}
+                                               reviewType="course"/>
+                </Segment>
+              </Grid.Column>
+            </Grid>
+            : ''
+        }
 
         {/*  TODO: Back To Top Button */}
       </div>
@@ -447,16 +449,16 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 const ExplorerCoursesWidgetContainer = withTracker(() => {
   /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
   const reactiveSourceOne = CourseInstances.findNonRetired({});
-  const reactiveSouceTwo = OpportunityInstances.findNonRetired({});
-  const reactiveSourceThree = UserInteractions.find({}).fetch();
+  // const reactiveSouceTwo = OpportunityInstances.findNonRetired({});
+  // const reactiveSourceThree = UserInteractions.find({}).fetch();
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
   const reactiveSourceFour = Reviews.find({}).fetch();
 
   return {
     reactiveSourceOne,
-    reactiveSouceTwo,
-    reactiveSourceThree,
+    // reactiveSouceTwo,
+    // reactiveSourceThree,
     reactiveSourceFour,
   };
 })(ExplorerCoursesWidget);

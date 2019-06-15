@@ -65,7 +65,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     return newObject;
   }
 
-  private handleUpdate = (doc) => {
+  private handleUpdate = (doc: { [key: string]: any }): void => {
     const collectionName = collection.getCollectionName();
     let updateData = doc;
     updateData = this.renameKey(updateData, 'academicTerm', 'termID');
@@ -75,15 +75,15 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
-          title: 'Update failed',
+          title: 'Update Failed',
           text: error.message,
           type: 'error',
         });
-        console.error('Error in updating Review. %o', error);
       } else {
         Swal.fire({
-          title: 'Update succeeded',
+          title: 'Update Succeeded',
           type: 'success',
+          text: 'Your review was successfully edited.',
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,

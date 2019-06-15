@@ -672,7 +672,6 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
             </h4>
           </Header>
 
-          {/* FIXME: These buttons dont work */}
           {
             buildTermCard ?
               [
@@ -733,7 +732,6 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                 }
                 {
                   buildTermCard ?
-                    //   TODO: Implement TermCard (named SemesterCard in radgrad)
                     items.map((item) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent}
                                                   canAdd={true} match={match}/>)
                     : ''

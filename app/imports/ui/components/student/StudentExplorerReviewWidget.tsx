@@ -8,6 +8,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
+import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -156,8 +157,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                 </Grid>
                 {
                   completed ?
-                    <div/>
-                    //    TODO: <StudentExplorerAddReviewWidget event={event} reviewType={reviewType}/>
+                    <StudentExplorerAddReviewForm event={event} reviewType={reviewType}/>
                     : ''
                 }
               </List.Item>

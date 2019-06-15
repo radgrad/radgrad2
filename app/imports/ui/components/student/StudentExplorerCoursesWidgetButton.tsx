@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Popup, Menu, Header } from 'semantic-ui-react';
+import { Button, Header, Menu, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -87,6 +87,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     });
   }
 
+  // FIXME: Removing from Plan isn't reactive
   private handleRemoveFromPlan = (e: any): void => {
     e.preventDefault();
     const course = this.props.course;
@@ -152,6 +153,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     const nextYears = this.nextYears(4);
     const existingTerms = this.existingTerms();
 
+    // FIXME: Only one Popup should be open at a time
     return (
       <React.Fragment>
         {
@@ -170,7 +172,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
                       <React.Fragment key={index}>
                         <Popup
                           trigger={
-                            <Menu.Item as="a" position="right">
+                            <Menu.Item as="a">
                               {year}
                             </Menu.Item>
                           }
