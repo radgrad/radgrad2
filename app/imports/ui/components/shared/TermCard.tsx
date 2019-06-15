@@ -161,7 +161,7 @@ class TermCard extends React.Component<ITermCard> {
   */
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
+      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
       : <Link to={props.href}>{props.children}</Link>
   )
 
