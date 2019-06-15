@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
@@ -64,6 +64,9 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
       case 'Summer':
         termName = 'Sum';
         break;
+      case 'Winter':
+        termName = 'Win';
+        break;
       default:
         termName = 'N/A';
         break;
@@ -121,7 +124,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                 <Grid>
                   <Grid.Column width={4}>
                     <Image floated="left" verticalAlign="middle" circular={true} size="mini" src={picture}/>
-                    <Link to={'/explorer/users'}>{name}</Link>
+                    <b>{name}</b>
                     <br/>
                     {this.abbreviateTerm(term)}
                   </Grid.Column>

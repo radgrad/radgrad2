@@ -6,16 +6,14 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { ICourseInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, ICourseInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentExplorerCoursesWidgetButtonProps {
-  buttonType: string;
-  course: {
-    [key: string]: any;
-  };
+  buttonType: 'remove' | 'add' | 'taken';
+  course: ICourse;
   match: {
     isExact: boolean;
     path: string;
@@ -102,7 +100,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
       termID: termID,
     }).fetch();
     if (ci.length > 1) {
-      console.log('Too many course instances found for a single semester.');
+      console.log('Too many course instances found for a single academic term.');
     }
     removeItMethod.call({ collectionName, instance: ci[0]._id }, (error) => {
       if (!error) {
@@ -130,7 +128,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
       studentID: this.getUserIdFromRoute(),
       courseID: course._id,
     }).fetch();
-    _.forEach(ci, function (c) {
+    _.forEach(ci, (c) => {
       const term = AcademicTerms.findDoc(c.termID);
       if (term.termNumber >= AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
         terms.push(AcademicTerms.toString(c.termID, false));
@@ -159,10 +157,11 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
         {
           isAddButtonType ?
             <Popup
-              className="transition"
               trigger={
                 <Button basic={true} color="green" size="mini" floated="right" style={buttonStyle}>ADD TO PLAN</Button>
               }
+              className="transition"
+              position="right center"
               on="click"
             >
               <Popup.Content>
@@ -207,6 +206,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
                         REMOVE FROM PLAN
                       </Button>
                     }
+                    position="right center"
                     on="click"
                   >
                     <Popup.Content>

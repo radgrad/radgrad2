@@ -14,6 +14,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import ExplorerCoursesWidget from '../../components/shared/ExplorerCoursesWidget';
+import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IExplorerCoursesPageProps {
   match: {
@@ -53,7 +54,7 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     }
   }
 
-  private course = (): { [key: string]: any } => {
+  private course = (): ICourse => {
     const courseSlugName = this.props.match.params.course;
     const slug = Slugs.find({ name: courseSlugName }).fetch();
     const course = Courses.findDoc({ slugID: slug[0]._id });
@@ -62,8 +63,8 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
 
   private slugName = (slugID: string): string => Slugs.findDoc(slugID).name;
 
-  private descriptionPairs = (course): object[] => [
-    { label: 'Course Number', value: course.number },
+  private descriptionPairs = (course: ICourse): object[] => [
+    { label: 'Course Number', value: course.num },
     { label: 'Credit Hours', value: course.creditHrs },
     { label: 'Description', value: course.description },
     { label: 'Syllabus', value: course.syllabus },
@@ -71,7 +72,7 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     { label: 'Prerequisites', value: this.prerequisites(course) },
   ]
 
-  private prerequisites = (course: { [key: string]: any }): any[] => {
+  private prerequisites = (course: ICourse): any[] => {
     const list = course.prerequisites;
     const complete = [];
     const incomplete = [];
@@ -140,7 +141,7 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     return ret;
   }
 
-  private reviewed = (course: { [key: string]: any }): boolean => {
+  private reviewed = (course: ICourse): boolean => {
     let ret = false;
     const review = Reviews.find({
       studentID: this.getUserIdFromRoute(),

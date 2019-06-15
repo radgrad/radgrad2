@@ -14,6 +14,8 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
+import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -21,9 +23,7 @@ interface IExplorerCoursesWidgetProps {
   slug: string;
   descriptionPairs: any[];
   id: string;
-  item: {
-    [key: string]: any;
-  };
+  item: ICourse;
   completed: boolean;
   reviewed: boolean;
   role: string;
@@ -39,7 +39,6 @@ interface IExplorerCoursesWidgetProps {
   reactiveSourceOne: object[];
   reactiveSourceTwo: object[];
   reactiveSourceThree: object[];
-  reactiveSourceFour: object[];
 }
 
 class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps> {
@@ -56,7 +55,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     return username && Users.getID(username);
   }
 
-  private userStatus = (course: { [key: string]: any }): boolean => {
+  private userStatus = (course: ICourse): boolean => {
     let ret = false;
     const ci = CourseInstances.find({
       studentID: this.getUserIdFromRoute(),
@@ -68,7 +67,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     return ret;
   }
 
-  private futureInstance = (course: { [key: string]: any }): boolean => {
+  private futureInstance = (course: ICourse): boolean => {
     let ret = false;
     const ci = CourseInstances.find({
       studentID: this.getUserIdFromRoute(),
@@ -83,7 +82,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     return ret;
   }
 
-  private passedCourse = (course: { [key: string]: any }): boolean => {
+  private passedCourse = (course: ICourse): boolean => {
     let ret = false;
     const ci = CourseInstances.find({
       studentID: this.getUserIdFromRoute(),
@@ -154,7 +153,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
+      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
       : <Link to={props.href}>{props.children}</Link>
   )
 
@@ -169,6 +168,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const segmentGroupStyle = { backgroundColor: 'white' };
     const zeroMarginTopStyle = { marginTop: 0 };
+    const fiveMarginTopStyle = { marginTop: '5px' };
     const clearingBasicSegmentStyle = {
       margin: 0,
       paddingLeft: 0,
@@ -177,7 +177,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
       paddingBottom: 0,
     };
     const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
-    const fiveMarginTopStyle = { marginTop: '5px' };
 
     const { name, shortName, descriptionPairs, item, completed } = this.props;
     /* Header Variables */
@@ -275,12 +274,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <div style={breakWordStyle}>
-                                  <Markdown source={descriptionPair.value}
-                                            linkTarget="_blank"
-                                            renderers={{
-                                              link: props => <a href={props.href} target="_blank"
-                                                                rel="noopener noreferrer">{props.children}</a>,
-                                            }}/>
+                                  <Markdown source={descriptionPair.value} renderers={{ link: this.routerLink }}/>
                                   <br/>
                                 </div>
                                 :
@@ -429,7 +423,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
         {
           isStudent ?
-            <Grid stackable={true} columns={1}>
+            <Grid stackable={true} className="column">
               <Grid.Column width={16}>
                 <Segment padded={true}>
                   <StudentExplorerReviewWidget event={item} userReview={this.review()} completed={completed}
@@ -449,17 +443,15 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 const ExplorerCoursesWidgetContainer = withTracker(() => {
   /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
   const reactiveSourceOne = CourseInstances.findNonRetired({});
-  // const reactiveSouceTwo = OpportunityInstances.findNonRetired({});
-  // const reactiveSourceThree = UserInteractions.find({}).fetch();
+  const reactiveSouceTwo = UserInteractions.find({}).fetch();
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
-  const reactiveSourceFour = Reviews.find({}).fetch();
+  const reactiveSourceThree = Reviews.find({}).fetch();
 
   return {
     reactiveSourceOne,
-    // reactiveSouceTwo,
-    // reactiveSourceThree,
-    reactiveSourceFour,
+    reactiveSouceTwo,
+    reactiveSourceThree,
   };
 })(ExplorerCoursesWidget);
 export default withRouter(ExplorerCoursesWidgetContainer);
