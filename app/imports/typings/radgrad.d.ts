@@ -176,6 +176,7 @@ export interface IProfileCard extends ICardExplorerCards {
 
 export interface ITermCard extends ICardExplorerCards {
   type: string;
+  isStudent: boolean;
   canAdd: boolean;
   match: {
     isExact: boolean;
@@ -199,9 +200,7 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IUserProfileCard extends ICardExplorerCards {
-  profile: IBaseProfile;
-}
+export interface IUserProfileCard extends ICardExplorerCards {}
 
 
 export interface IDescriptionPair {

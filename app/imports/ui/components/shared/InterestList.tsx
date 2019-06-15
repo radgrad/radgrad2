@@ -10,7 +10,9 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { IBaseProfile } from '../../../typings/radgrad';
 
 interface IInterestListProps {
-  item: IBaseProfile;
+  item: {
+    interestIDs: string[];
+  }
   size: SemanticSIZES;
   match: {
     isExact: boolean;
@@ -129,41 +131,29 @@ class InterestList extends React.Component<IInterestListProps> {
     return (
       <Label.Group size={this.props.size}>
         {
-          matchingUserInterests.map((interest, index) => (
-            <div key={index}>
-              <Link to={this.buildInterestsRouteName(interest)}>
-                <Label size={this.props.size}>
-                  <i className="fitted star icon"/> {this.interestName(interest)}
-                </Label>
-              </Link>
-            </div>
+          matchingUserInterests.map((interest) => (
+            <Label as={Link} key={interest._id} to={this.buildInterestsRouteName(interest)} size={this.props.size}>
+              <i className="fitted star icon"/> {this.interestName(interest)}
+            </Label>
           ))
         }
 
         {
-          matchingCareerInterests.map((interest, index) => (
-            <div key={index}>
-              <Link to={this.buildInterestsRouteName(interest)}>
-                <Label size={this.props.size}>
-                  <i className="fitted suitcase icon"/> {this.interestName(interest)}
-                </Label>
-              </Link>
-            </div>
+          matchingCareerInterests.map((interest) => (
+            <Label as={Link} key={interest._id} to={this.buildInterestsRouteName(interest)} size={this.props.size}>
+              <i className="fitted suitcase icon"/> {this.interestName(interest)}
+            </Label>
           ))
         }
 
         {
-          otherInterests.map((interest, index) => (
-            <div key={index}>
-              <Link to={this.buildInterestsRouteName(interest)}>
-                <Label size={this.props.size} color="grey">
-                  {this.interestName(interest)}
-                </Label>
-              </Link>
-            </div>
+          otherInterests.map((interest) => (
+            <Label as={Link} key={interest._id} to={this.buildInterestsRouteName(interest)} size={this.props.size}
+                   color="grey">
+              {this.interestName(interest)}
+            </Label>
           ))
         }
-
       </Label.Group>
     );
   }
