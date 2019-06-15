@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { Label } from 'semantic-ui-react';
+// eslint-disable-next-line no-unused-vars
+import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+// eslint-disable-next-line no-unused-vars
+import { IBaseProfile } from '../../../typings/radgrad';
 
 interface IInterestListProps {
-  item: object;
-  size: any;
+  item: IBaseProfile;
+  size: SemanticSIZES;
   match: {
     isExact: boolean;
     path: string;

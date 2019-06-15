@@ -199,7 +199,8 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IStudentUserCard extends ICardExplorerCards {
+export interface IUserProfileCard extends ICardExplorerCards {
+  profile: IBaseProfile;
 }
 
 

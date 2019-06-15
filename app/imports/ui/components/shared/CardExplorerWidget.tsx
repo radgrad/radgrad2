@@ -24,6 +24,9 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
+// eslint-disable-next-line no-unused-vars
+import { IProfile } from '../../../typings/radgrad';
+import UserProfileCard from './UserProfileCard';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -525,12 +528,14 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   private opportunitiesItemCount = (): number => this.hiddenOpportunitiesHelper().length;
 
   /* ####################################### USERS HELPER FUNCTIONS ####################################### */
-  private getUsers = (role: string): string | any[] => {
+  private getUsers = (role: string): IProfile[] => {
     const username = this.getUsername();
-    let users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
-    if (role === ROLE.STUDENT) {
-      users = _.filter(users, (u) => u.optedIn);
-    }
+    const users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
+    // Temporarily commented because no students opted in: TODO -- Ask Cam about optedIn prop
+    // let users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
+    // if (role === ROLE.STUDENT) {
+    //   users = _.filter(users, (u) => u.optedIn);
+    // }
     if (username) {
       const profile = Users.getProfile(username);
       const filtered = _.filter(users, (u) => u.username !== profile.username);
@@ -538,7 +543,8 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       const preferred = new PreferredChoice(filtered, interestIDs);
       return preferred.getOrderedChoices();
     }
-    return users;
+    // temporary fix. TODO -- real fix need to change UserCollection to enforce returning only an array (ask Cam)
+    return Array.isArray(users) ? users : [users];
   }
 
   private handleRoleTabClick = (e: any, { name }): void => this.setState({ activeRoleTab: name });
@@ -580,67 +586,47 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
 
     // For the Users Card Explorer
     const buildStudentUserCard = this.isType('users');
-    // FIXME: There is currently a weird behavior where getUsers returns some sort of an Iterable. When you console log,
-    //        advisorRoleUsers, etc... you get an array of objects just fine. But for some reason you cannot call .map()
-    //        over it.
-    // const advisorRoleUsers = this.getUsers(ROLE.ADVISOR);
-    // console.log(Array.from(advisorRoleUsers).map((user, index) => console.log(user)));
-    // const facultyRoleUsers = this.getUsers(ROLE.FACULTY);
-    // const mentorRoleUsers = this.getUsers(ROLE.MENTOR);
-    // const studentRoleUsers = this.getUsers(ROLE.STUDENT);
+    const advisorRoleUsers = this.getUsers(ROLE.ADVISOR);
+    const facultyRoleUsers = this.getUsers(ROLE.FACULTY);
+    const mentorRoleUsers = this.getUsers(ROLE.MENTOR);
+    const studentRoleUsers = this.getUsers(ROLE.STUDENT);
     const panes = [
       {
         menuItem: 'Advisors',
-        pane:
-          <Tab.Pane key="advisors">
+        render: () => <Tab.Pane key="advisors">
             <Grid stackable={true}>
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-                {
-                  // TODO
-                  // Array.from(advisorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
-                }
+                {advisorRoleUsers.map((user, index) => <UserProfileCard key={index} profile={user}/>)}
               </Card.Group>
             </Grid>
           </Tab.Pane>,
       },
       {
         menuItem: 'Faculty',
-        pane:
-          <Tab.Pane key="faculty">
+        render: () => <Tab.Pane key="faculty">
             <Grid stackable={true}>
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-                {
-                  // TODO
-                  // Array.from(facultyRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
-                }
+                {Array.from(facultyRoleUsers).map((user, index) => <UserProfileCard key={index} profile={user}/>)}
               </Card.Group>
             </Grid>
           </Tab.Pane>,
       },
       {
         menuItem: 'Mentors',
-        pane:
-          <Tab.Pane key="mentors">
+        render: () => <Tab.Pane key="mentors">
             <Grid stackable={true}>
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-                {
-                  // TODO
-                  // Array.from(mentorRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
-                }
+                {Array.from(mentorRoleUsers).map((user, index) => <UserProfileCard key={index} profile={user}/>)}
               </Card.Group>
             </Grid>
           </Tab.Pane>,
       },
       {
         menuItem: 'Students',
-        pane:
-          <Tab.Pane key="students">
+        render: () => <Tab.Pane key="students">
             <Grid stackable={true}>
               <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-                {
-                  // TODO
-                  // Array.from(studentRoleUsers).map((user, index) => <StudentUserCard key={index} item={user}/>)
-                }
+                {studentRoleUsers.map((user, index) => <UserProfileCard key={index} profile={user}/>)}
               </Card.Group>
             </Grid>
           </Tab.Pane>,
