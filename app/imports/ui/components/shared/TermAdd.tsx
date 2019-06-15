@@ -115,7 +115,7 @@ class TermAdd extends React.Component<ITermAddProps> {
                       <React.Fragment key={index}>
                         <Popup
                           trigger={
-                            <Menu.Item as="a" className={`chooseSemester`}>
+                            <Menu.Item as="a" className="chooseSemester">
                               {year}
                             </Menu.Item>
                           }

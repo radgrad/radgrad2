@@ -100,7 +100,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const nextYears = this.nextYears(4);
-    // FIXME: Popup needs to close once clicked
+    // FIXME: Only one Popup should be open at a time and they need to close once an Item has been picked
     return (
       <React.Fragment>
         {

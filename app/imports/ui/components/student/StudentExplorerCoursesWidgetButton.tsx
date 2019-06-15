@@ -153,7 +153,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     const nextYears = this.nextYears(4);
     const existingTerms = this.existingTerms();
 
-    // FIXME: Only one Popup should be open at a time
+    // FIXME: Only one Popup should be open at a time and they need to close once an Item has been picked
     return (
       <React.Fragment>
         {

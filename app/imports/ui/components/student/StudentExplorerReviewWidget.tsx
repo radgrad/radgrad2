@@ -143,7 +143,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                 <Grid>
                   <Grid.Column width={4}>
                     <Image floated="left" verticalAlign="middle" circular={true} size="mini" src={currentUserPicture}/>
-                    <Link to={'/explorer/users'}>{currentUserName}</Link>
+                    <b>{currentUserName}</b>
                   </Grid.Column>
 
                   <Grid.Column width={12}>
@@ -175,7 +175,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                           <Grid.Column width={4}>
                             <Image floated="left" verticalAlign="middle" circular={true} size="mini"
                                    src={aReview.picture}/>
-                            <Link to={'/explorer/users'}>{aReview.name}</Link>
+                            <b>{aReview.name}</b>
                             <br/>
                             {this.abbreviateTerm(aReview.term)}
                           </Grid.Column>
