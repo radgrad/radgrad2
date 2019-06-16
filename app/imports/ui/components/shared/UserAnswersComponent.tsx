@@ -7,9 +7,6 @@ import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Users } from '../../../api/user/UserCollection';
 
-/**
- * @return <Card.Component> A component meant to be used on a <Card>.
- */
 interface IUserAnswersComponentProps {
   userID: string;
   match: {
@@ -27,6 +24,10 @@ const ALLOWED_ROLES = [
   ROLE.MENTOR,
 ];
 
+/**
+ * @param userID {string} UserID used to search for answers in the database
+ * @return {Card.Component} A component meant to be used on a <Card>.
+ */
 class UserAnswersComponent extends React.Component<IUserAnswersComponentProps> {
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const thisUserProfile = Users.findProfileFromUsername(this.props.match.params.username);
