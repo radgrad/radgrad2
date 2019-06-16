@@ -216,8 +216,7 @@ class TermCard extends React.Component<ITermCard> {
         </Card.Content>
 
         {/* FIXME: The three buttons are not all the same size. "View More" button is smaller compared to the other two
-                    buttons. I think this *might* just be because we do not have the Card Explorer Menu on the left of the
-                    CardExplorerWidget yet. */}
+                    buttons.  */}
         {
           isStudent ?
             <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
