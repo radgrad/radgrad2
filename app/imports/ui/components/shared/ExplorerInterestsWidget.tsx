@@ -10,11 +10,9 @@ import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
 import {Courses} from "../../../api/course/CourseCollection"
 import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
-
 import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstanceCollection";
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {Users} from "../../../api/user/UserCollection";
-import Icon from "semantic-ui-react/dist/commonjs/elements/Icon";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
 import {IProfile} from "../../../typings/radgrad";
 
@@ -48,7 +46,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
    * returns the doc of interest based on url
    * @constructor
    */
-  private GetInterestDoc = () => {
+  private getInterestDoc = () => {
     const splitUrl = this.props.match.url.split('/');
     const splitSlug = splitUrl[splitUrl.length - 1];
     return (Interests.findDocBySlug(splitSlug));
@@ -61,29 +59,54 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   };
 
 
+/*
+  private studentsParticipating = (item) => {
+    let participation = [];
+    const interestID = item._id;
+    const students = StudentProfiles.findNonRetired();
+    _.map(students, (num) => {
+      _.filter(num.interestIDs, (interests)=> {
+        if(interests == interestID){
+          participation.push(num);
+          console.log(num.username);
+        }
+      })
+    });
+    return participation.length;
+  };
+*/
+
+
   /**
    * return how many users participate in interest based on role
    *  match the interest w/ the interest in a user profile
    */
 
-  private Participation = (role) => {
+  private participation = (role) => {
     let interested = [];
     switch (role) {
       case 'student':
         const students = StudentProfiles.findNonRetired();
-        for (let a = 0; a < students.length; a++) {
+        _.map(students, (num) => {
+          _.filter(num.interestIDs, (interests) => {
+            if(interests == this.getInterestDoc()._id){
+              interested.push(num);
+            }
+          })
+        });
+      /*  for (let a = 0; a < students.length; a++) {
           for (let i = 0; i < students[a].interestIDs.length; i++) {
             if (students[a].interestIDs[i] === this.GetInterestDoc()._id) {
               interested.push(students[a]);
             }
           }
-        }
+        }*/
         return interested;
       case 'faculty':
         const faculty = FacultyProfiles.findNonRetired();
         for (let a = 0; a < faculty.length; a++) {
           for (let i = 0; i < faculty[a].interestIDs.length; i++) {
-            if (faculty[a].interestIDs[i] === this.GetInterestDoc()._id) {
+            if (faculty[a].interestIDs[i] === this.getInterestDoc()._id) {
               interested.push(faculty[a]);
             }
           }
@@ -93,7 +116,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const mentor = MentorProfiles.findNonRetired();
         for (let a = 0; a < mentor.length; a++) {
           for (let i = 0; i < mentor[a].interestIDs.length; i++) {
-            if (mentor[a].interestIDs[i] === this.GetInterestDoc()._id) {
+            if (mentor[a].interestIDs[i] === this.getInterestDoc()._id) {
               interested.push(mentor[a]);
             }
           }
@@ -103,7 +126,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const alumni = StudentProfiles.findNonRetired({'isAlumni': true});
         for (let a = 0; a < alumni.length; a++) {
           for (let i = 0; i < alumni[a].interestIDs.length; i++) {
-            if (alumni[a].interestIDs[i] === this.GetInterestDoc()._id) {
+            if (alumni[a].interestIDs[i] === this.getInterestDoc()._id) {
               interested.push(alumni[a]);
             }
           }
@@ -116,13 +139,21 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetRelatedCourses = () => {
     let courses = [];
     const courseInstances = Courses.find().fetch();
-    for (let a = 0; a < courseInstances.length; a++) {
+
+    _.map(courseInstances, (num) => {
+      _.filter(num.interestIDs, (interests) => {
+        if(interests == this.getInterestDoc()._id){
+          courses.push(num);
+        }
+      })
+    });
+   /* for (let a = 0; a < courseInstances.length; a++) {
       for (let i = 0; i < courseInstances[a].interestIDs.length; i++) {
-        if (courseInstances[a].interestIDs[i] === this.GetInterestDoc()._id) {
+        if (courseInstances[a].interestIDs[i] === this.getInterestDoc()._id) {
           courses.push(courseInstances[a]);
         }
       }
-    }
+    }*/
     return courses;
   };
 
@@ -184,7 +215,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const opportunityInstances = Opportunities.find().fetch();
     for (let a = 0; a < opportunityInstances.length; a++) {
       for (let i = 0; i < opportunityInstances[a].interestIDs.length; i++) {
-        if (opportunityInstances[a].interestIDs[i] === this.GetInterestDoc()._id) {
+        if (opportunityInstances[a].interestIDs[i] === this.getInterestDoc()._id) {
           opportunities.push(opportunityInstances[a]);
         }
       }
@@ -278,19 +309,42 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       case 'remove from interests':
         const newInterestsAfterRemove = this.removeInterest();
         console.log('handle click remove', newInterestsAfterRemove);
+        const updateDataRemove: any = {
+          id: Users.getProfile(this.props.match.params.username)._id,
+          interests: newInterestsAfterRemove
+        };
+        const collectionNameRemove = this.getCollectionName();
+
+        updateMethod.call({collectionNameRemove, updateDataRemove}, (error) => {
+          if (error) {
+            Swal.fire({
+              title: 'Update failed',
+              text: error.message,
+              type: 'error',
+            });
+            console.error('Error in updating. %o', error);
+          } else {
+            Swal.fire({
+              title: 'Update succeeded',
+              type: 'success',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
         break;
       case 'add to interests':
         const newInterestsAfterAdd = this.addInterest();
         console.log('handle click add', newInterestsAfterAdd);
-        const updateData: any = {
+        const updateDataAdd: any = {
           id: Users.getProfile(this.props.match.params.username)._id,
           interests: newInterestsAfterAdd
         };
-        console.log('this is the updateData', updateData);
-        const collectionName = this.getCollectionName();
-        console.log('this is the collection name: ', collectionName);
+        console.log('this is the updateData', updateDataAdd);
+        const collectionNameAdd = this.getCollectionName();
+        console.log('this is the collection name: ', collectionNameAdd);
 
-        updateMethod.call({collectionName, updateData}, (error) => {
+        updateMethod.call({collectionNameAdd, updateDataAdd}, (error) => {
           if (error) {
             Swal.fire({
               title: 'Update failed',
@@ -315,8 +369,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private addInterest = () => {
 
     const user = Users.getProfile(this.props.match.params.username);
-    const interestIDsOfUser= user.interestIDs;
-    const interestID = this.GetInterestDoc()._id;
+    const interestIDsOfUser = user.interestIDs;
+    const interestID = this.getInterestDoc()._id;
     const currentInterestID = [interestID];
     let dataValue;
     let updateValue;
@@ -329,17 +383,14 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
 
   private removeInterest = () => {
-    const interestID = this.GetInterestDoc()._id;
+    const interestID = this.getInterestDoc()._id;
     let updateValue;
     switch (this.getRoleByUrl()) {
       case 'student':
         console.log('remove interest student');
         //specify the type of the profile
-        const studentProfile:IProfile = StudentProfiles.findDoc(this.props.match.params.username);
-
-
+        const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
         let interestIDsOfUser: string[] = studentProfile.interestIDs;
-
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
       case 'faculty':
@@ -397,7 +448,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     //check if this interest is in student's interest's
     //get the interest ID
     let interestIDsofUser: string[];
-    const currentInterest = this.GetInterestDoc()._id;
+    const currentInterest = this.getInterestDoc()._id;
     switch (this.getRoleByUrl()) {
       case 'student':
         const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
@@ -411,7 +462,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       case 'faculty':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
-        const facultyProfile:IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
+        const facultyProfile: IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
         console.log(FacultyProfiles.findDoc(this.props.match.params.username));
         interestIDsofUser = facultyProfile.interestIDs;
         let currentInterestIDFaculty = [currentInterest];
@@ -423,7 +474,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       case 'alumni':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
-        const alumniProfile: IProfile = StudentProfiles.findDoc({username: this.props.match.params.username, 'isAlumni': true});
+        const alumniProfile: IProfile = StudentProfiles.findDoc({
+          username: this.props.match.params.username,
+          'isAlumni': true
+        });
         interestIDsofUser = alumniProfile.interestIDs;
         let currentInterestIDAlumni = [currentInterest];
         let iDsinCommonAlumni = _.intersection(currentInterestIDAlumni, interestIDsofUser);
@@ -434,7 +488,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       case 'mentor':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
-        const mentorProfile:IProfile = MentorProfiles.findDoc(this.props.match.params.username);
+        const mentorProfile: IProfile = MentorProfiles.findDoc(this.props.match.params.username);
         interestIDsofUser = mentorProfile.interestIDs;
         let currentInterestIDMentor = [currentInterest];
         let iDsinCommonMentor = _.intersection(currentInterestIDMentor, interestIDsofUser);
@@ -447,15 +501,15 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   };
 
   public render() {
-    const interestDoc = this.GetInterestDoc();
+    const interestDoc = this.getInterestDoc();
     const interestName = interestDoc.name;
     const interestDescription = interestDoc.description;
     const relatedCourses = this.GetAssociationRelatedCourses(this.GetRelatedCourses(), this.props.match.url.split('/')[1]);
     const relatedOpportunities = this.GetAssociationRelatedOpportunities(this.GetRelatedOpportunities(), this.props.match.url.split('/')[1]);
-    const interestedStudents = this.Participation('student');
-    const interestedFaculty = this.Participation('faculty');
-    const interestedAlumni = this.Participation('alumni');
-    const interestedMentor = this.Participation('mentor');
+    const interestedStudents = this.participation('student');
+    const interestedFaculty = this.participation('faculty');
+    const interestedAlumni = this.participation('alumni');
+    const interestedMentor = this.participation('mentor');
 
     /**
      * ToDo polish this UI
@@ -606,7 +660,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                            <Header textAlign='center'>Students <b>{this.Participation('student').length}</b></Header>
+                            <Header textAlign='center'>Students <b>{this.participation('student').length}</b></Header>
                             <Divider/>
                             <Container textAlign='center'>
                               <Image.Group size='mini'>
@@ -627,7 +681,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                            <Header textAlign='center'>Faculty Members <b>{this.Participation('faculty').length}</b>
+                            <Header textAlign='center'>Faculty Members <b>{this.participation('faculty').length}</b>
                             </Header>
                             <Divider/>
 
@@ -649,7 +703,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header textAlign='center'>Alumni <b>{this.Participation('alumni').length}</b>
+                            <Header textAlign='center'>Alumni <b>{this.participation('alumni').length}</b>
                             </Header>
                             <Divider/>
                             <Container textAlign='center'>
@@ -670,7 +724,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header textAlign='center'>Mentors <b>{this.Participation('mentor').length}</b>
+                            <Header textAlign='center'>Mentors <b>{this.participation('mentor').length}</b>
                             </Header>
                             <Divider/>
                             <Container textAlign='center'>
