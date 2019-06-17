@@ -152,7 +152,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   }
 
   private courseName = (course: { item: ICourse, count: number }): string => {
-    const countStr = `x${course.item}`;
+    const countStr = `x${course.count}`;
     if (course.count > 1) {
       return `${course.item.shortName} ${countStr}`;
     }
@@ -232,15 +232,17 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
         {/* ####### Main Dropdown Menu ####### */}
         <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
         <br/>
+
         {/* ####### The Menu underneath the Dropdown for NON mobile  ####### */}
-        {/* The following components are rendered ONLY for STUDENTS: Academic Plans and Courses */}
+        {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. However,
+            FACULTY or MENTORS have a 'Suggest a Opportunity / Career Goal' mailto link. */}
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           {
-            (isStudent && (this.isType('plans') || this.isType('courses'))) ?
-              <Menu vertical={true} text={true}>
+            this.isType('plans') ?
+              <React.Fragment>
                 {
-                  this.isType('plans') ?
-                    <React.Fragment>
+                  isStudent ?
+                    <Menu vertical={true} text={true}>
                       <Header as="h4" dividing={true}>MY ACADEMIC PLAN</Header>
                       {
                         menuAddedList.map((listItem, index) => (
@@ -251,13 +253,19 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                           </Menu.Item>
                         ))
                       }
-                    </React.Fragment>
+                    </Menu>
                     : ''
                 }
+              </React.Fragment>
+              : ''
+          }
 
+          {
+            this.isType('courses') ?
+              <React.Fragment>
                 {
-                  this.isType('courses') ?
-                    <React.Fragment>
+                  isStudent ?
+                    <Menu vertical={true} text={true}>
                       <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
                       {
                         menuAddedList.map((listItem, index) => (
@@ -268,24 +276,23 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                           </Menu.Item>
                         ))
                       }
-                    </React.Fragment>
+                    </Menu>
                     : ''
                 }
-              </Menu>
+              </React.Fragment>
               : ''
           }
 
-          {/* Components renderable to STUDENTS, FACULTY, and MENTORS */}
           {
-            (this.isType('career-goals') || this.isType('interests') || this.isType('opportunities')) ?
-              <Menu vertical={true} text={true}>
+            this.isType('opportunities') ?
+              <React.Fragment>
                 {
-                  this.isType('opportunities') ?
-                    <React.Fragment>
-                      {
-                        <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new
-                          Opportunity</a>
-                      }
+                  <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new
+                    Opportunity</a>
+                }
+                {
+                  isStudent ?
+                    <Menu vertical={true} text={true}>
                       <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
                       {
                         menuAddedList.map((listItem, index) => (
@@ -296,63 +303,67 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                           </Menu.Item>
                         ))
                       }
-                    </React.Fragment>
+                    </Menu>
                     : ''
                 }
+              </React.Fragment>
+              : ''
+          }
 
+          {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
+                don't map over menuAddedList or else we get undefined error. */}
+          {
+            this.isType('interests') ?
+              <Menu vertical={true} text={true}>
                 {
-                  this.isType('interests') ?
-                    <React.Fragment>
-                      {
-                        <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new
-                          Interest</a>
-                      }
-                      <Header as="h4" dividing={true}>MY INTERESTS</Header>
-                      {
-                        menuAddedList.map((listItem, index) => (
-                          <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
-                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                            {this.itemName(listItem)}
-                          </Menu.Item>
-                        ))
-                      }
-
-                      <Header as="h4" dividing={true}>CAREER GOAL INTERESTS</Header>
-                      {
-                        menuCareerList.map((listItem, index) => (
-                          <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
-                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                            {this.itemName(listItem)}
-                          </Menu.Item>
-                        ))
-                      }
-                    </React.Fragment>
-                    : ''
+                  <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new
+                    Interest</a>
                 }
+                <React.Fragment>
+                  <Header as="h4" dividing={true}>MY INTERESTS</Header>
+                  {
+                    menuAddedList.map((listItem, index) => (
+                      <Menu.Item as={NavLink} key={index} exact={true}
+                                 to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                        <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                        {this.itemName(listItem)}
+                      </Menu.Item>
+                    ))
+                  }
+                </React.Fragment>
 
+                <Header as="h4" dividing={true}>CAREER GOAL INTERESTS</Header>
                 {
-                  this.isType('career-goals') ?
-                    <React.Fragment>
-                      {
-                        <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new
-                          Career Goal</a>
-                      }
-                      {
-                        <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
-                      }
-                      {
-                        menuAddedList.map((listItem, index) => (
-                          <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}>
-                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                            {this.itemName(listItem)}
-                          </Menu.Item>
-                        ))
-                      }
-                    </React.Fragment>
-                    : ''
+                  menuCareerList.map((listItem, index) => (
+                    <Menu.Item as={NavLink} key={index} exact={true}
+                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                      {this.itemName(listItem)}
+                    </Menu.Item>
+                  ))
+                }
+              </Menu>
+              : ''
+          }
+
+          {
+            this.isType('career-goals') ?
+              <Menu vertical={true} text={true}>
+                {
+                  <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new
+                    Career Goal</a>
+                }
+                {
+                  <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
+                }
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <Menu.Item as={NavLink} key={index} exact={true}
+                               to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}>
+                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                      {this.itemName(listItem)}
+                    </Menu.Item>
+                  ))
                 }
               </Menu>
               : ''
@@ -360,16 +371,15 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
         </Responsive>
 
         {/* ####### The Menu underneath the Dropdown for MOBILE ONLY ####### */}
-        {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, Degrees */}
+        {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
         <Responsive {...Responsive.onlyMobile}>
           {
-            (isStudent && (this.isType('plans') || this.isType('courses'))) ?
-              <Dropdown className="selection" fluid={true} text="Select Item"
-                        style={{ marginTop: '1rem' }}>
-                <Dropdown.Menu>
-                  {
-                    this.isType('plans') ?
-                      <React.Fragment>
+            this.isType('plans') ?
+              <React.Fragment>
+                {
+                  isStudent ?
+                    <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
+                      <Dropdown.Menu>
                         <Dropdown.Header as="h4">MY ACADEMIC PLAN</Dropdown.Header>
                         <Dropdown.Divider/>
                         {
@@ -384,13 +394,21 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                                            )}/>
                           ))
                         }
-                      </React.Fragment>
-                      : ''
-                  }
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    : ''
+                }
+              </React.Fragment>
+              : ''
+          }
 
-                  {
-                    this.isType('courses') ?
-                      <React.Fragment>
+          {
+            this.isType('courses') ?
+              <React.Fragment>
+                {
+                  isStudent ?
+                    <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
+                      <Dropdown.Menu>
                         <Dropdown.Header as="h4">COURSES IN MY PLAN</Dropdown.Header>
                         <Dropdown.Divider/>
                         {
@@ -405,23 +423,21 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                                            )}/>
                           ))
                         }
-                      </React.Fragment>
-                      : ''
-                  }
-                </Dropdown.Menu>
-              </Dropdown>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    : ''
+                }
+              </React.Fragment>
               : ''
           }
 
-          {/* Components renderable to STUDENTS, FACULTY, and MENTORS */}
           {
-            (this.isType('opportunities') || this.isType('interests') || this.isType('career-goals')) ?
-              <Dropdown className="search selection" fluid={true} text="Select Item"
-                        style={{ marginTop: '1rem' }}>
-                <Dropdown.Menu>
-                  {
-                    this.isType('opportunities') ?
-                      <React.Fragment>
+            this.isType('opportunities') ?
+              <React.Fragment>
+                {
+                  isStudent ?
+                    <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
+                      <Dropdown.Menu>
                         <Dropdown.Header as="h4">OPPORTUNITIES IN MY PLAN</Dropdown.Header>
                         <Dropdown.Divider/>
                         {
@@ -436,65 +452,70 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                                            )}/>
                           ))
                         }
-                      </React.Fragment>
-                      : ''
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    : ''
+                }
+              </React.Fragment>
+              : ''
+          }
+
+          {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
+          {
+            this.isType('interests') ?
+              <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
+                <Dropdown.Menu>
+                  <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
+                  <Dropdown.Divider/>
+                  {
+                    menuAddedList.map((listItem, index) => (
+                      <Dropdown.Item as={NavLink} key={index} exact={true}
+                                     to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}
+                                     text={(
+                                       <React.Fragment>
+                                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                                         {this.itemName(listItem)}
+                                       </React.Fragment>
+                                     )}/>
+                    ))
                   }
 
+                  <Dropdown.Header as="h4">CAREER GOAL INTERESTS</Dropdown.Header>
+                  <Dropdown.Divider/>
                   {
-                    this.isType('interests') ?
-                      <React.Fragment>
-                        <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
-                        <Dropdown.Divider/>
-                        {
-                          menuAddedList.map((listItem, index) => (
-                            <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}
-                                           text={(
-                                             <React.Fragment>
-                                               <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                               {this.itemName(listItem)}
-                                             </React.Fragment>
-                                           )}/>
-                          ))
-                        }
-
-                        <Dropdown.Header as="h4">CAREER GOAL INTERESTS</Dropdown.Header>
-                        <Dropdown.Divider/>
-                        {
-                          menuCareerList.map((listItem, index) => (
-                            <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}
-                                           text={(
-                                             <React.Fragment>
-                                               <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                               {this.itemName(listItem)}
-                                             </React.Fragment>
-                                           )}/>
-                          ))
-                        }
-                      </React.Fragment>
-                      : ''
+                    menuCareerList.map((listItem, index) => (
+                      <Dropdown.Item as={NavLink} key={index} exact={true}
+                                     to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}
+                                     text={(
+                                       <React.Fragment>
+                                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                                         {this.itemName(listItem)}
+                                       </React.Fragment>
+                                     )}/>
+                    ))
                   }
+                </Dropdown.Menu>
+              </Dropdown>
+              : ''
+          }
 
+          {
+            this.isType('career-goals') ?
+              <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
+                <Dropdown.Menu>
+                  <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
+                  <Dropdown.Divider/>
                   {
-                    this.isType('career-goals') ?
-                      <React.Fragment>
-                        <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
-                        <Dropdown.Divider/>
-                        {
-                          menuAddedList.map((listItem, index) => (
-                            <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}
-                                           text={(
-                                             <React.Fragment>
-                                               <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                               {this.itemName(listItem)}
-                                             </React.Fragment>
-                                           )}/>
-                          ))
-                        }
-                      </React.Fragment>
-                      : ''
+                    menuAddedList.map((listItem, index) => (
+                      <Dropdown.Item as={NavLink} key={index} exact={true}
+                                     to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}
+                                     text={(
+                                       <React.Fragment>
+                                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                                         {this.itemName(listItem)}
+                                       </React.Fragment>
+                                     )}/>
+                    ))
                   }
                 </Dropdown.Menu>
               </Dropdown>
