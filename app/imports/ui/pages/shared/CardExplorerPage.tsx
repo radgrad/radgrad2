@@ -119,6 +119,8 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     }
   }
 
+  // This function and the nonAdded functions in the switch statements are NOT used at all. However, I'm keeping them here
+  // just in case. -Gian
   private getNonAddedList = (): (IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity)[] => {
     const type = this.getType();
     switch (type) {
@@ -326,10 +328,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
 
     const addedList = this.getAddedList();
-    // Decided not to implement rendering nonAddedList for now. In radgrad1, the nonAddedList only renders for mobile.
-    // I figured there's no point in implementing it then if it's only for mobile. I'll keep the functions to get nonAddedList
-    // in file just in case.
-    const nonAddedList = this.getNonAddedList();
     const isTypeInterest = this.getType() === 'interests'; // Only Interests takes in Career List for CardExplorerMenu
     type types = 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
     type roles = 'student' | 'faculty' | 'mentor';
@@ -344,9 +342,10 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
           </Grid.Row>
 
           <Grid.Column width={3}>
-            <CardExplorerMenu menuAddedList={addedList} menuNonAddedList={nonAddedList}
+            <CardExplorerMenu menuAddedList={addedList} type={this.getType() as types}
+                              role={this.getRoleByUrl()}
                               menuCareerList={isTypeInterest ? this.addedCareerInterests() : undefined}
-                              type={this.getType() as types} role={this.getRoleByUrl() as roles}/>
+            />
           </Grid.Column>
 
           <Grid.Column width={13}>

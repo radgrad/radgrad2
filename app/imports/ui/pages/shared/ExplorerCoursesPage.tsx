@@ -15,6 +15,9 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import ExplorerCoursesWidget from '../../components/shared/ExplorerCoursesWidget';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import ExplorerMenu from "../../components/shared/ExplorerMenu"; // eslint-disable-line
 
 interface IExplorerCoursesPageProps {
   match: {
@@ -54,6 +57,28 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     }
   }
 
+  /* ####################################### EXPLORER MENU HELPER FUNCTIONS ######################################### */
+  private addedCourses = (): { item: ICourse, count: number }[] => {
+    const addedCourses = [];
+    const allCourses = _.filter(Courses.find({}, { sort: { shortName: 1 } })
+      .fetch(), (c) => !c.retired);
+    const userID = this.getUserIdFromRoute();
+    _.forEach(allCourses, (course) => {
+      const ci = CourseInstances.find({
+        studentID: userID,
+        courseID: course._id,
+      })
+        .fetch();
+      if (ci.length > 0) {
+        if (course.shortName !== 'Non-CS Course') {
+          addedCourses.push({ item: course, count: ci.length });
+        }
+      }
+    });
+    return addedCourses;
+  }
+
+  /* ####################################### EXPLORER COURSES WIDGET HELPER FUNCTIONS ############################### */
   private course = (): ICourse => {
     const courseSlugName = this.props.match.params.course;
     const slug = Slugs.find({ name: courseSlugName }).fetch();
@@ -159,6 +184,10 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
+
+    const addedList = this.addedCourses();
+
     const course = this.course();
     const name = course.name;
     const shortName = course.shortName;
@@ -171,19 +200,21 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
 
     return (
       <React.Fragment>
-        {
-          this.renderPageMenuWidget()
-        }
+        {this.renderPageMenuWidget()}
 
         <Grid container={true} stackable={true}>
-          <Grid.Row width={3}>
-            {/*  TODO: Card Explorer Menu */}
+          <Grid.Row>
+            {helpMessage ? <HelpPanelWidget/> : ''}
           </Grid.Row>
 
-          <Grid.Row width={13}>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={addedList} type={'courses'} role={this.getRoleByUrl()}/>
+          </Grid.Column>
+
+          <Grid.Column width={13}>
             <ExplorerCoursesWidget name={name} shortName={shortName} slug={slug} descriptionPairs={descriptionPairs}
                                    id={id} item={course} completed={completed} reviewed={reviewed} role={role}/>
-          </Grid.Row>
+          </Grid.Column>
         </Grid>
       </React.Fragment>
     );
