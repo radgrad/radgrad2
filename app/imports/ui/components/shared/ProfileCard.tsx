@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Button, Card, Icon } from 'semantic-ui-react';
-import { Slugs } from "../../../api/slug/SlugCollection";
-import { Link } from 'react-router-dom';
+import {_} from 'meteor/erasaur:meteor-lodash';
+import {withRouter} from 'react-router-dom';
+import {Button, Card, Icon} from 'semantic-ui-react';
+import {Slugs} from "../../../api/slug/SlugCollection";
+import {Link} from 'react-router-dom';
 import * as Markdown from 'react-markdown';
-import { StudentProfiles } from "../../../api/user/StudentProfileCollection";
-import { Interests } from "../../../api/interest/InterestCollection";
+import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
+import {Interests} from "../../../api/interest/InterestCollection";
 
 /**
  * reference taken from ExplorerCard.tsx written by Gian ../imports/ui/shared/ExplorerCard.tsx
@@ -79,6 +81,15 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     return '#';
   };
 
+  private studentsParticipating = (item) => {
+    console.log('studets participating ', item);
+    const interestID = item._id;
+    const students = StudentProfiles.findNonRetired();
+    _.map(students, (num) => {
+      console.log('underscore map', num);
+    });
+    return 'STUDENTS PARTICIPATING';
+  };
 
   /**
    * in ../imports/ui/shared/CardExplorerWidget.tsx the Interest Profile card needs to have:
@@ -88,7 +99,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const {item} = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
-    const studentCount = 'student count';
+    const itemParticipation = this.studentsParticipating(item);
     console.log(item);
     return (
       <Card className='radgrad-interest-card'>
@@ -100,11 +111,11 @@ class ProfileCard extends React.Component<IProfileCardProps> {
                     renderers={{link: this.routerLink}}/>
         </Card.Content>
         <Card.Content>
-          STUDENTS PARTICIPATING {studentCount}
+          {itemParticipation}
         </Card.Content>
         <Link to={this.buildRouteName(this.props.item)}>
-        <Button className="radgrad-home-buttons center aligned" attached="bottom"><Icon
-          name="chevron circle right"/><br/>View More</Button>
+          <Button className="radgrad-home-buttons center aligned" attached="bottom"><Icon
+            name="chevron circle right"/><br/>View More</Button>
         </Link>
       </Card>
 
@@ -113,4 +124,4 @@ class ProfileCard extends React.Component<IProfileCardProps> {
   }
 }
 
-export default ProfileCard;
+export default withRouter(ProfileCard);

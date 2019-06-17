@@ -3,18 +3,20 @@ import {withRouter, Link} from 'react-router-dom';
 import {Container, Header, Button, Grid, Image, Popup, Divider} from 'semantic-ui-react';
 import {Interests} from "../../../api/interest/InterestCollection";
 import {_} from 'meteor/erasaur:meteor-lodash';
+import Swal from 'sweetalert2';
 import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
 import {CourseInstances} from "../../../api/course/CourseInstanceCollection";
 import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
 import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
 import {Courses} from "../../../api/course/CourseCollection"
 import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
+
 import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstanceCollection";
-import Swal from 'sweetalert2';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {Users} from "../../../api/user/UserCollection";
 import Icon from "semantic-ui-react/dist/commonjs/elements/Icon";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
+import {IProfile} from "../../../typings/radgrad";
 
 //find and import simple schema
 
@@ -39,6 +41,7 @@ interface IExplorerInterestsWidgetState {
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
   constructor(props: any) {
     super(props);
+    console.log(props);
   }
 
   /**
@@ -56,6 +59,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const role = this.props.match.url.split('/')[1];
     return role;
   };
+
+
   /**
    * return how many users participate in interest based on role
    *  match the interest w/ the interest in a user profile
@@ -196,7 +201,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         completed: ['none'],
         inPlan: ['none'],
         notInPlan: ['none']
-      };      return relatedOpportunities;
+      };
+      return relatedOpportunities;
     } else {
       const inPlanInstance = OpportunityInstances.findNonRetired({
         'studentID':
@@ -284,23 +290,24 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         console.log('this is the updateData', updateData);
         const collectionName = this.getCollectionName();
         console.log('this is the collection name: ', collectionName);
-           updateMethod.call({ collectionName, updateData }, (error) => {
-              if (error) {
-                Swal.fire({
-                  title: 'Update failed',
-                  text: error.message,
-                  type: 'error',
-                });
-                console.error('Error in updating. %o', error);
-              } else {
-                Swal.fire({
-                  title: 'Update succeeded',
-                  type: 'success',
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-              }
+
+        updateMethod.call({collectionName, updateData}, (error) => {
+          if (error) {
+            Swal.fire({
+              title: 'Update failed',
+              text: error.message,
+              type: 'error',
             });
+            console.error('Error in updating. %o', error);
+          } else {
+            Swal.fire({
+              title: 'Update succeeded',
+              type: 'success',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
         break;
     }
   };
@@ -309,13 +316,14 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private addInterest = () => {
 
     const user = Users.getProfile(this.props.match.params.username);
-    const interestIDsOfUser: [] = user.interestIDs;
+    const interestIDsOfUser= user.interestIDs;
     const interestID = this.GetInterestDoc()._id;
     const currentInterestID = [interestID];
     let dataValue;
     let updateValue;
     dataValue = [interestIDsOfUser, currentInterestID];
     updateValue = _.flatten(dataValue);
+    console.log(updateValue);
     return updateValue;
 
   };
@@ -327,7 +335,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     switch (this.getRoleByUrl()) {
       case 'student':
         console.log('remove interest student');
-        let interestIDsOfUser:[] = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        //specify the type of the profile
+        const studentProfile:IProfile = StudentProfiles.findDoc(this.props.match.params.username);
+
+
+        let interestIDsOfUser: string[] = studentProfile.interestIDs;
+
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
       case 'faculty':
@@ -367,6 +380,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         return MentorProfiles.findDoc(this.props.match.params.username)._id;
     }
   };
+
   private getCollectionName = () => {
     switch (this.getRoleByUrl()) {
       case 'student':
@@ -383,11 +397,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private checkInterestStatus = () => {
     //check if this interest is in student's interest's
     //get the interest ID
-    let interestIDsofUser: [];
+    let interestIDsofUser: string[];
     const currentInterest = this.GetInterestDoc()._id;
     switch (this.getRoleByUrl()) {
       case 'student':
-        interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
+        interestIDsofUser = studentProfile.interestIDs;
         let currentInterestIDStudent = [currentInterest];
         let iDsinCommonStudent = _.intersection(currentInterestIDStudent, interestIDsofUser);
         if (iDsinCommonStudent.length == 1) {
@@ -397,8 +412,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       case 'faculty':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
+        const facultyProfile:IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
         console.log(FacultyProfiles.findDoc(this.props.match.params.username));
-        interestIDsofUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
+        interestIDsofUser = facultyProfile.interestIDs;
         let currentInterestIDFaculty = [currentInterest];
         let iDsinCommonFaculty = _.intersection(currentInterestIDFaculty, interestIDsofUser);
         if (iDsinCommonFaculty.length == 1) {
@@ -408,7 +424,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       case 'alumni':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
-        interestIDsofUser = StudentProfiles.findDoc(this.props.match.params.username).interestIDs;
+        const alumniProfile: IProfile = StudentProfiles.findDoc({username: this.props.match.params.username, 'isAlumni': true});
+        interestIDsofUser = alumniProfile.interestIDs;
         let currentInterestIDAlumni = [currentInterest];
         let iDsinCommonAlumni = _.intersection(currentInterestIDAlumni, interestIDsofUser);
         if (iDsinCommonAlumni.length == 1) {
@@ -418,7 +435,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         }
       case 'mentor':
         console.log(`this is a ${this.props.match.url.split('/')[1]}`);
-        interestIDsofUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
+        const mentorProfile:IProfile = MentorProfiles.findDoc(this.props.match.params.username);
+        interestIDsofUser = mentorProfile.interestIDs;
         let currentInterestIDMentor = [currentInterest];
         let iDsinCommonMentor = _.intersection(currentInterestIDMentor, interestIDsofUser);
         if (iDsinCommonMentor.length == 1) {
@@ -483,7 +501,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                               <Grid columns='equal'>
                                 <Grid.Row columns={3} divided>
                                   <Grid.Column>
-                                    <Container>
+                                    <Container textAlign='center'>
                                       <div>
                                         <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
                                         {
@@ -496,7 +514,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                     </Container>
                                   </Grid.Column>
                                   <Grid.Column>
-                                    <Container>
+                                    <Container textAlign='center'>
                                       <div>
                                         <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
                                         {
@@ -509,7 +527,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                     </Container>
                                   </Grid.Column>
                                   <Grid.Column>
-                                    <Container>
+                                    <Container textAlign='center'>
                                       <div>
                                         <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
                                         {
@@ -533,10 +551,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                             <Segment>
                               <Header>Related Opportunities</Header>
                               <Divider/>
-                              <Grid padded columns='equal' celled>
+                              <Grid padded columns='equal'>
                                 <Grid.Row columns={3} divided>
                                   <Grid.Column>
-                                    <Container>
+                                    <Container textAlign='center'>
                                       <div>
                                         <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
                                         {
@@ -549,7 +567,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                     </Container>
                                   </Grid.Column>
                                   <Grid.Column>
-                                    <Container>
+                                    <Container textAlign='center'>
                                       <div>
                                         <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
                                         {
@@ -562,7 +580,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                                     </Container>
                                   </Grid.Column>
                                   <Grid.Column>
-                                    <Container>
+                                    <Container textAlign='center'>
                                       <div>
                                         <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
                                         {
@@ -614,7 +632,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                             </Header>
                             <Divider/>
 
-                            <Container textAlign = 'center'>
+                            <Container textAlign='center'>
                               <Image.Group size='mini'>
                                 {interestedFaculty.map((faculty, index) => <Popup
                                   key={index}
@@ -632,7 +650,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header textAlign = 'center'>Alumni <b>{this.Participation('alumni').length}</b>
+                            <Header textAlign='center'>Alumni <b>{this.Participation('alumni').length}</b>
                             </Header>
                             <Divider/>
                             <Container textAlign='center'>
