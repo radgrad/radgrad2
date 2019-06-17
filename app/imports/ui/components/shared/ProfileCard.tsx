@@ -82,13 +82,18 @@ class ProfileCard extends React.Component<IProfileCardProps> {
   };
 
   private studentsParticipating = (item) => {
-    console.log('studets participating ', item);
+    let participation = [];
     const interestID = item._id;
     const students = StudentProfiles.findNonRetired();
     _.map(students, (num) => {
-      console.log('underscore map', num);
+      _.filter(num.interestIDs, (interests)=> {
+        if(interests == interestID){
+          participation.push(num);
+          console.log(num.username);
+        }
+      })
     });
-    return 'STUDENTS PARTICIPATING';
+    return participation.length;
   };
 
   /**
@@ -100,7 +105,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
     const itemParticipation = this.studentsParticipating(item);
-    console.log(item);
+    //console.log(item);
     return (
       <Card className='radgrad-interest-card'>
         <Card.Content>
@@ -111,7 +116,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
                     renderers={{link: this.routerLink}}/>
         </Card.Content>
         <Card.Content>
-          {itemParticipation}
+         STUDENTS PARTICIPATING: {itemParticipation}
         </Card.Content>
         <Link to={this.buildRouteName(this.props.item)}>
           <Button className="radgrad-home-buttons center aligned" attached="bottom"><Icon
