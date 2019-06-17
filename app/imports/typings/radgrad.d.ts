@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { ProcessedSchema } from '../api/verification/VerificationRequestCollection';
 
 declare global {
   namespace Assets {
@@ -9,6 +8,11 @@ declare global {
 
     function absoluteFilePath(assetPath: string): string;
   }
+}
+
+// TODO -- get cloudinary working (issue-47)
+export namespace cloudinary {
+  function openUploadWidget(options: any, callback: (error: any, result?: any) => any);
 }
 
 export interface Ice {
@@ -137,6 +141,67 @@ export interface IPagination {
     showCount: number;
   };
 }
+
+// Card Explorer Cards. Note that this does not refer to specifically ExplorerCard.tsx. But rather all the Cards that are
+// used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
+export interface ICardExplorerCards {
+  item: any;
+}
+
+export interface IPlanCard extends ICardExplorerCards {
+  type: string;
+  canAdd: boolean;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
+}
+
+export interface IProfileCard extends ICardExplorerCards {
+  type: string;
+  canAdd: boolean;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
+}
+
+export interface ITermCard extends ICardExplorerCards {
+  type: string;
+  isStudent: boolean;
+  canAdd: boolean;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
+}
+
+export interface IExplorerCard extends ICardExplorerCards {
+  type: string;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
+}
+
+export interface IUserProfileCard extends ICardExplorerCards {}
+
 
 export interface IDescriptionPair {
   label: string;
@@ -672,9 +737,11 @@ export interface IProfile {
 }
 
 // Advisor and Faculty Profiles
-export interface IAdvisorProfile extends IProfile {}
+export interface IAdvisorProfile extends IProfile {
+}
 
-export interface IFacultyProfile extends IProfile {}
+export interface IFacultyProfile extends IProfile {
+}
 
 export interface IProfileDefine extends IDumpOne {
   username: string;
@@ -729,6 +796,7 @@ export interface IMentorProfile extends IProfile {
   linkedin?: string;
   motivation: string;
 }
+
 export interface IMentorProfileDefine extends IProfileDefine {
   company: string;
   career: string;

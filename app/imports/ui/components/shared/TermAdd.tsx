@@ -1,12 +1,11 @@
 import * as React from 'react';
-import * as _ from 'lodash';
-import { withRouter } from 'react-router-dom';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
+import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { defineMethod } from '../../../api/base/BaseCollection.methods';
 
-interface IStudentOfInterestAddProps {
+interface ITermAddProps {
   item: any;
   type: string;
   match: {
@@ -17,14 +16,9 @@ interface IStudentOfInterestAddProps {
       username: string;
     }
   };
-  profile: object;
 }
 
-class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
-  constructor(props) {
-    super(props);
-  }
-
+class TermAdd extends React.Component<ITermAddProps> {
   private getUsername = () => this.props.match.params.username;
 
   private isTypeCourse = () => this.props.type === 'courses';
@@ -52,8 +46,8 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
     return ret.slice(0, 8);
   }
 
-  // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
-  // Should move it to one if one is made - Gian.
+// This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
+// Should move it to one if one is made - Gian.
   private opportunityTerms(opportunityInstance) {
     const academicTermIDs = opportunityInstance.termIDs;
     const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
@@ -100,7 +94,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const nextYears = this.nextYears(4);
-    // FIXME: Only one Popup should be open at a time and they need to close once an Item has been picked
+
     return (
       <React.Fragment>
         {
@@ -121,7 +115,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
                       <React.Fragment key={index}>
                         <Popup
                           trigger={
-                            <Menu.Item as="a" className={`${this.props.item} chooseSemester`}>
+                            <Menu.Item as="a" className="chooseSemester">
                               {year}
                             </Menu.Item>
                           }
@@ -160,9 +154,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
                 <Menu size="mini" secondary={true} vertical={true}>
                   {
                     this.itemTerms().map((term, index) => (
-                      <Menu.Item
-                        key={index}
-                        as="a" className={`${this.props.item}`} onClick={this.handleAddToPlan}>
+                      <Menu.Item key={index} as="a" onClick={this.handleAddToPlan}>
                         {term}
                       </Menu.Item>
                     ))
@@ -176,4 +168,4 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
   }
 }
 
-export default withRouter(StudentOfInterestAdd);
+export default TermAdd;

@@ -69,6 +69,10 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
+import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
+import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
+import ExplorerCoursesPageContainer from '../../ui/pages/shared/ExplorerCoursesPage';
+import ExplorerOpportunitiesPageContainer from '../../ui/pages/shared/ExplorerOpportunitiesPage';
 
 export const routes = {
   ADMIN: [
@@ -276,7 +280,63 @@ export const routes = {
     },
     {
       path: '/faculty/:username/explorer',
+      exact: true,
       component: FacultyExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/degrees',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/plans',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/career-goals',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/courses',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/courses/:course',
+      exact: true,
+      component: ExplorerCoursesPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/degrees',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/degrees/:degree',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/interests',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/opportunities',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/opportunities/:opportunity',
+      exact: true,
+      component: ExplorerOpportunitiesPageContainer,
+    },
+    {
+      path: '/faculty/:username/explorer/users',
+      exact: true,
+      component: CardExplorerPageContainer,
     },
     {
       path: '/faculty/:username/course-scoreboard',
@@ -381,7 +441,58 @@ export const routes = {
     },
     {
       path: '/mentor/:username/explorer',
+      exact: true,
       component: MentorExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/plans',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/career-goals',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/courses',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/courses/:course',
+      exact: true,
+      component: ExplorerCoursesPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/degrees',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/degrees/:degree',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/interests',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/opportunities',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/opportunities/:opportunity',
+      exact: true,
+      component: ExplorerOpportunitiesPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/users',
+      exact: true,
+      component: CardExplorerPageContainer,
     },
   ],
   STUDENT: [
@@ -399,7 +510,58 @@ export const routes = {
     },
     {
       path: '/student/:username/explorer',
+      exact: true,
       component: StudentExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/plans',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/career-goals',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/courses',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/courses/:course',
+      exact: true,
+      component: ExplorerCoursesPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/degrees',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/degrees/:degree',
+      exact: true,
+      component: ExplorerDegreesPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/interests',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/opportunities',
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/opportunities/:opportunity',
+      exact: true,
+      component: ExplorerOpportunitiesPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/users',
+      exact: true,
+      component: CardExplorerPageContainer,
     },
   ],
 };

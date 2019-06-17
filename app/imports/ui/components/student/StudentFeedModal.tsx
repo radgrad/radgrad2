@@ -23,7 +23,7 @@ class StudentFeedModal extends React.Component<IStudentFeedModalProps> {
 
   private students = (feed) => {
     const students = [];
-    _.forEach(feed.userIDs, function (userID) {
+    _.forEach(feed.userIDs, (userID) => {
       students.push(Users.getProfile(userID));
     });
     return students;

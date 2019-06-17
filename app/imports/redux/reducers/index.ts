@@ -18,8 +18,17 @@ import {
   TEST_EMAIL_DONE,
   TEST_EMAIL_WORKING,
 } from '../actions/actionTypes';
+import {
+  ADVISOR_HOME_SET_FIRST_NAME,
+  ADVISOR_HOME_SET_LAST_NAME,
+  ADVISOR_HOME_SET_USERNAME,
+  ADVISOR_HOME_CLEAR_FILTER,
+  ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
+  ADVISOR_HOME_SET_IS_LOADED,
+} from '../actions/pageAdvisorActionTypes';
 import { paginationReducer } from './paginationReducer';
 import { studentHomePageReducer } from './studentHomePageReducer';
+import { cardExplorerPageReducer } from './cardExplorerPageReducer';
 
 const initialState = {
   depInspector: {
@@ -155,6 +164,23 @@ const initialState = {
       hiddenOpportunities: true,
     },
   },
+  cardExplorerPage: {
+    cardExplorerWidget: {
+      hiddenCourses: true,
+      hiddenOpportunities: true,
+    },
+  },
+  page: {
+    advisor: {
+      home: {
+        firstName: '',
+        lastName: '',
+        username: '',
+        selectedUsername: '',
+        isLoaded: false,
+      },
+    },
+  },
 };
 
 function radgradWorkingReducer(state = {}, action) {
@@ -279,15 +305,94 @@ function tabReducer(state = {}, action) {
   }
 }
 
+function pageReducer(state: any = {}, action) {
+  switch (action.type) {
+    case ADVISOR_HOME_SET_FIRST_NAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            firstName: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_LAST_NAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            lastName: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_USERNAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            username: action.payload,
+          },
+        },
+      };
+    case ADVISOR_HOME_CLEAR_FILTER:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            firstName: '',
+            lastName: '',
+            username: '',
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            selectedUsername: action.payload,
+            isLoaded: false,
+          },
+        },
+      };
+    case ADVISOR_HOME_SET_IS_LOADED:
+      return {
+        ...state,
+        advisor: {
+          ...state.advisor,
+          home: {
+            ...state.advisor.home,
+            isLoaded: action.payload,
+          },
+        },
+      };
+
+    default:
+      return state;
+  }
+}
+
 // console.log('rootReducer state=%o action=%o', state, action);
 const rootReducer = (state = initialState, action) => ({
-    ...state,
-    depInspector: inspectorReducer(state.depInspector, action),
-    depTab: tabReducer(state.depTab, action),
-    radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
-    pagination: paginationReducer(state.pagination, action),
-    studentHomePage: studentHomePageReducer(state.studentHomePage, action),
-  });
+  ...state,
+  depInspector: inspectorReducer(state.depInspector, action),
+  depTab: tabReducer(state.depTab, action),
+  radgradWorking: radgradWorkingReducer(state.radgradWorking, action),
+  pagination: paginationReducer(state.pagination, action),
+  studentHomePage: studentHomePageReducer(state.studentHomePage, action),
+  cardExplorerPage: cardExplorerPageReducer(state.cardExplorerPage, action),
+  page: pageReducer(state.page, action),
+});
 
 // export default combineReducers({});
 export default rootReducer;
