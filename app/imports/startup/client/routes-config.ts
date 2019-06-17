@@ -34,14 +34,11 @@ import FacultyVerificationPageContainer from '../../ui/pages/faculty/FacultyVeri
 import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import FacultyCourseScoreboardPageContainer from '../../ui/pages/faculty/FacultyCourseScoreboardPage';
-import FacultyExplorerPageContainer from '../../ui/pages/faculty/FacultyExplorerPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
-import StudentExplorerPageContainer from '../../ui/pages/student/StudentExplorerPage';
 import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
 import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
-import MentorExplorerPageContainer from '../../ui/pages/mentor/MentorExplorerPage';
 import AlumniHomePageContainer from '../../ui/pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../ui/pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../ui/pages/admin/AdminCheckDatabaseIntegrityPage';
@@ -69,6 +66,8 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
+/* Explorers */
+import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
 import ExplorerCoursesPageContainer from '../../ui/pages/shared/ExplorerCoursesPage';
@@ -281,7 +280,7 @@ export const routes = {
     {
       path: '/faculty/:username/explorer',
       exact: true,
-      component: FacultyExplorerPageContainer,
+      component: ExplorerHomePageContainer,
     },
     {
       path: '/faculty/:username/explorer/degrees',
@@ -442,7 +441,7 @@ export const routes = {
     {
       path: '/mentor/:username/explorer',
       exact: true,
-      component: MentorExplorerPageContainer,
+      component: ExplorerHomePageContainer,
     },
     {
       path: '/mentor/:username/explorer/plans',
@@ -511,7 +510,7 @@ export const routes = {
     {
       path: '/student/:username/explorer',
       exact: true,
-      component: StudentExplorerPageContainer,
+      component: ExplorerHomePageContainer,
     },
     {
       path: '/student/:username/explorer/plans',
