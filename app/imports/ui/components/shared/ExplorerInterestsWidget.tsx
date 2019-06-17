@@ -281,11 +281,10 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         break;
       case 'add to interests':
         const newInterestsAfterAdd = this.addInterest();
-        console.log('this is the state:', this.state);
         console.log('handle click add', newInterestsAfterAdd);
         const updateData: any = {
           id: Users.getProfile(this.props.match.params.username)._id,
-          interestIDs: newInterestsAfterAdd
+          interests: newInterestsAfterAdd
         };
         console.log('this is the updateData', updateData);
         const collectionName = this.getCollectionName();
