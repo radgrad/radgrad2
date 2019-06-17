@@ -314,8 +314,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           interests: newInterestsAfterRemove
         };
         const collectionNameRemove = this.getCollectionName();
+        console.log(collectionNameRemove);
 
-        updateMethod.call({collectionNameRemove, updateDataRemove}, (error) => {
+        updateMethod.call({collectionName: collectionNameRemove, updateData: updateDataRemove}, (error) => {
           if (error) {
             Swal.fire({
               title: 'Update failed',
@@ -344,7 +345,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const collectionNameAdd = this.getCollectionName();
         console.log('this is the collection name: ', collectionNameAdd);
 
-        updateMethod.call({collectionNameAdd, updateDataAdd}, (error) => {
+        updateMethod.call({collectionName: collectionNameAdd, updateData: updateDataAdd}, (error) => {
           if (error) {
             Swal.fire({
               title: 'Update failed',
