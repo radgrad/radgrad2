@@ -41,7 +41,6 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 #### Need more help?
 
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
-    console.log(helpText);
     return (helpMessage) ? (
       <Grid>
         <Grid.Column width={'sixteen'}>
