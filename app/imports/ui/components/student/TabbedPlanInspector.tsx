@@ -4,10 +4,7 @@ import { Segment, Tab } from 'semantic-ui-react';
 import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
 import AcademicPlanViewerContainer from './AcademicPlanViewer';
 import { DepSelectedTabs } from '../../../redux/actions/actionTypes';
-import {
-  selectInspectorTab,
-  selectPlanTab,
-} from '../../../redux/actions/actions';
+import { selectInspectorTab, selectPlanTab } from '../../../redux/actions/actions';
 
 interface ITabbedPlanInspectorProps {
   selectedTab: string;
@@ -46,7 +43,7 @@ class TabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {
 
   public render() {
     const activeIndex = this.props.selectedTab === DepSelectedTabs.SELECT_PLAN ? 0 : 1;
-    console.log('TabbedPlanInspector.render props=%o, activeIndex=%o', this.props, activeIndex);
+    // console.log('TabbedPlanInspector.render props=%o, activeIndex=%o', this.props, activeIndex);
     const panes = [
       {
         menuItem: 'ACADEMIC PLAN',
