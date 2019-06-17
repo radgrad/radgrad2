@@ -119,7 +119,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     }
   }
 
-  private getNonAddedList = (): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
+  private getNonAddedList = (): (IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity)[] => {
     const type = this.getType();
     switch (type) {
       case 'plans':
@@ -154,7 +154,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return plan;
   }
 
-  nonAddedPlans = (): { item: IAcademicPlan, count: number }[] => {
+  nonAddedPlans = (): IAcademicPlan[] => {
     const plans = AcademicPlans.findNonRetired({});
     if (this.getUsername()) {
       const profile = Users.getProfile(this.getUsername());
@@ -176,7 +176,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return addedCareerGoals;
   }
 
-  private nonAddedCareerGoals = (): { item: ICareerGoal, count: number }[] => {
+  private nonAddedCareerGoals = (): ICareerGoal[] => {
     const profile = Users.getProfile(this.getUsername());
     const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
     const nonAddedCareerGoals = _.filter(allCareerGoals, (careerGoal) => {
@@ -216,7 +216,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return addedCourses;
   }
 
-  private nonAddedCourses = (): { item: ICourse, count: number }[] => {
+  private nonAddedCourses = (): ICourse[] => {
     const allCourses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
     const userID = this.getUserIdFromRoute();
     const nonAddedCourses = _.filter(allCourses, (course) => {
@@ -241,7 +241,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     count: 1,
   }))
 
-  private nonAddedDegrees = (): { item: IDesiredDegree, count: number }[] => []
+  private nonAddedDegrees = (): IDesiredDegree[] => []
 
   /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
   private addedInterests = (): { item: IInterest, count: number }[] => {
@@ -267,7 +267,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return [];
   }
 
-  private nonAddedInterests = (): { item: IInterest, count: number }[] => {
+  private nonAddedInterests = (): IInterest[] => {
     const interests = Interests.find({}).fetch();
     if (this.getUserIdFromRoute()) {
       const profile = Users.getProfile(this.getUserIdFromRoute());
@@ -299,7 +299,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return addedOpportunities;
   }
 
-  private nonAddedOpportunities = (): { item: IOpportunity, count: number }[] => {
+  private nonAddedOpportunities = (): IOpportunity[] => {
     const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
     const userID = this.getUserIdFromRoute();
     const group = this.getRoleByUrl();
@@ -326,8 +326,11 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
 
     const addedList = this.getAddedList();
+    // Decided not to implement rendering nonAddedList for now. In radgrad1, the nonAddedList only renders for mobile.
+    // I figured there's no point in implementing it then if it's only for mobile. I'll keep the functions to get nonAddedList
+    // in file just in case.
     const nonAddedList = this.getNonAddedList();
-    const isTypeInterests = this.getType() === 'Interests'; // Only Interests takes in Career List for CardExplorerMenu
+    const isTypeInterest = this.getType() === 'interests'; // Only Interests takes in Career List for CardExplorerMenu
     type types = 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
     type roles = 'student' | 'faculty' | 'mentor';
 
@@ -342,7 +345,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
           <Grid.Column width={3}>
             <CardExplorerMenu menuAddedList={addedList} menuNonAddedList={nonAddedList}
-                              menuCareerList={isTypeInterests ? this.addedCareerInterests() : undefined}
+                              menuCareerList={isTypeInterest ? this.addedCareerInterests() : undefined}
                               type={this.getType() as types} role={this.getRoleByUrl() as roles}/>
           </Grid.Column>
 
