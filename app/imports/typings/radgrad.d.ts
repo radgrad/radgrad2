@@ -143,7 +143,7 @@ export interface IPagination {
 }
 
 // Card Explorer Cards. Note that this does not refer to specifically ExplorerCard.tsx. But rather all the Cards that are
-// used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and StudentUserCard).
+// used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
 export interface ICardExplorerCards {
   item: any;
 }
@@ -200,8 +200,7 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IStudentUserCard extends ICardExplorerCards {
-}
+export interface IUserProfileCard extends ICardExplorerCards {}
 
 
 export interface IDescriptionPair {
