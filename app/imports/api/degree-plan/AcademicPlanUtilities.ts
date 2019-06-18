@@ -4,6 +4,7 @@ import { IAcademicPlan, ICourseInstance } from '../../typings/radgrad'; // eslin
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
 import * as PlanChoiceUtils from './PlanChoiceUtilities';
+import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 export function getPlanChoices(academicPlan: IAcademicPlan, termNum: number): string[] {
   if (termNum < 0 || termNum > academicPlan.coursesPerAcademicTerm.length - 1) {
@@ -39,4 +40,57 @@ export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]):
   const ret = count >= planCount;
   // console.log('isPlanChoiceSatisfied(%s, %o) returns %o', planChoice, takenSlugs, ret);
   return ret;
+}
+
+export function isAcademicPlanValid(academicPlan: IAcademicPlan): boolean {
+  const quarters = RadGradSettings.findOne({}).quarterSystem;
+  // check the coursesPerAcademicTerm length
+  if (quarters) {
+    if (academicPlan.coursesPerAcademicTerm.length % 4 !== 0) {
+      return false;
+    }
+  } else if (academicPlan.coursesPerAcademicTerm.length % 3 !== 0) {
+    return false;
+  }
+  // check the courseList length to the sum of the coursesPerTerm
+  const numCourses = _.reduce(academicPlan.coursesPerAcademicTerm, (sum, n) => sum + n, 0);
+  if (numCourses !== academicPlan.courseList.length) {
+    return false;
+  }
+  // check the courseList to see if has numbers.
+  if (!_.each(academicPlan.courseList, (choice) => PlanChoiceUtils.getPlanCount(choice) !== 0)) {
+    return false;
+  }
+  // check to see if courseList numbers are correct.
+  return true;
+}
+
+function getCourseListIndex(coursesPerAcademicTerm: number[], termNum: number) {
+  let index = 0;
+  let i = 0;
+  for (i = 0; i < termNum; i++) {
+    index += coursesPerAcademicTerm[i];
+  }
+  if (coursesPerAcademicTerm[i]) {
+    index += coursesPerAcademicTerm[i];
+  }
+  return index;
+}
+
+export function addChoiceToPlan(academicPlan: IAcademicPlan, termNum: number, choice: string) {
+  const listIndex = getCourseListIndex(academicPlan.coursesPerAcademicTerm, termNum);
+  const choiceWithNum = `${choice}-1`;
+  console.log(listIndex, choiceWithNum);
+  if (listIndex === 0) {
+    academicPlan.courseList.unshift(choiceWithNum);
+  } else if (listIndex === academicPlan.courseList.length) {
+    academicPlan.courseList.push(choiceWithNum);
+  } else {
+    academicPlan.courseList.splice(listIndex, 0, choiceWithNum);
+  }
+  if (academicPlan.coursesPerAcademicTerm[termNum]) {
+    academicPlan.coursesPerAcademicTerm[termNum] += 1; // eslint-disable-line no-param-reassign
+  } else {
+    academicPlan.coursesPerAcademicTerm[termNum] = 1; // eslint-disable-line no-param-reassign
+  }
 }
