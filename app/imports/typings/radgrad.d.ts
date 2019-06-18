@@ -10,8 +10,9 @@ declare global {
   }
 }
 
-export class cloudinary {
-  public openUploadWidget(options: any, callback: (error: any, result?: any) => any);
+// TODO -- get cloudinary working (issue-47)
+export namespace cloudinary {
+  function openUploadWidget(options: any, callback: (error: any, result?: any) => any);
 }
 
 export interface Ice {
@@ -142,11 +143,9 @@ export interface IPagination {
 }
 
 // Card Explorer Cards. Note that this does not refer to specifically ExplorerCard.tsx. But rather all the Cards that are
-// used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and StudentUserCard).
+// used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
 export interface ICardExplorerCards {
-  item: {
-    _id: string;
-  };
+  item: any;
 }
 
 export interface IPlanCard extends ICardExplorerCards {
@@ -177,6 +176,7 @@ export interface IProfileCard extends ICardExplorerCards {
 
 export interface ITermCard extends ICardExplorerCards {
   type: string;
+  isStudent: boolean;
   canAdd: boolean;
   match: {
     isExact: boolean;
@@ -200,8 +200,7 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IStudentUserCard extends ICardExplorerCards {
-}
+export interface IUserProfileCard extends ICardExplorerCards {}
 
 
 export interface IDescriptionPair {
