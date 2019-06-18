@@ -116,19 +116,26 @@ class ProfileCard extends React.Component<IProfileCardProps> {
   };
 
   private getCollectionName = () => {
+    let name;
     switch (this.getRoleByUrl()) {
       case 'student':
-        return StudentProfiles.getCollectionName();
+       name = StudentProfiles.getCollectionName();
+       break;
       case 'faculty':
-        return FacultyProfiles.getCollectionName();
+        name = FacultyProfiles.getCollectionName();
+        break;
       case 'alumni':
-        return StudentProfiles.getCollectionName();
+        name = StudentProfiles.getCollectionName();
+        break;
       case 'mentor':
-        return MentorProfiles.getCollectionName();
+        name = MentorProfiles.getCollectionName();
+        break;
       default:
         break;
     }
-    return;
+    console.log('get collection name', name);
+    return name;
+
   };
 
 
