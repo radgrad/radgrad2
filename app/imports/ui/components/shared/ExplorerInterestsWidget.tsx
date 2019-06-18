@@ -49,8 +49,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   };
 
   private getRoleByUrl = (): string => this.props.match.url.split('/')[1];
-
-
   /**
    * return how many users participate in interest based on role
    *  match the interest w/ the interest in a user profile
@@ -188,7 +186,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private GetAssociationRelatedOpportunities = (opportunities, role) => {
     const inPlanIDs = [];
     const completedIDs = [];
-
     if (role !== 'student') {
       const relatedOpportunities = {
         completed: ['none'],
@@ -336,26 +333,30 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
   private removeInterest = () => {
     const interestID = this.getInterestDoc()._id;
-    const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
-    const interestIDsOfStudent: string[] = studentProfile.interestIDs;
-    const interestIDsOfFaculty: string[] = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
-    const interestIDsOfAlumni: string[] = StudentProfiles.findDoc({
-      username: this.props.match.params.username,
-      isAlumni: true,
-    }).interestIDs;
-    const interestIDsOfMentor: string[] = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
+
     let updateValue;
     switch (this.getRoleByUrl()) {
       case 'student':
+        const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
+        const interestIDsOfStudent: string[] = studentProfile.interestIDs;
         updateValue = _.without(interestIDsOfStudent, interestID);
         break;
       case 'faculty':
+        const facultyProfile: IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
+        const interestIDsOfFaculty: string[] = facultyProfile.interestIDs;
         updateValue = _.without(interestIDsOfFaculty, interestID);
         break;
       case 'alumni':
+        const alumniProfile: IProfile = StudentProfiles.findDoc({
+          username: this.props.match.params.username,
+          isAlumni: true,
+        })
+        const interestIDsOfAlumni: string[] = alumniProfile.interestIDs;
         updateValue = _.without(interestIDsOfAlumni, interestID);
         break;
       case 'mentor':
+        const mentorProfile: IProfile = MentorProfiles.findDoc(this.props.match.params.username);
+        const interestIDsOfMentor: string[] = mentorProfile.interestIDs;
         updateValue = _.without(interestIDsOfMentor, interestID);
         break;
       default:
@@ -394,31 +395,20 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const currentInterest = this.getInterestDoc()._id;
     let interestStatus;
     // student variables
-    const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
     const currentInterestIDStudent = [currentInterest];
-    const interestIDsOfStudent: string[] = studentProfile.interestIDs;
-    const iDsinCommonStudent = _.intersection(currentInterestIDStudent, interestIDsOfStudent);
     // faculty variables
-    const facultyProfile: IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
-    const interestIDsOfFaculty: string[] = facultyProfile.interestIDs;
     const currentInterestIDFaculty = [currentInterest];
-    const iDsinCommonFaculty = _.intersection(currentInterestIDFaculty, interestIDsOfFaculty);
     // alumni variables
-    const alumniProfile: IProfile = StudentProfiles.findDoc({
-      username: this.props.match.params.username,
-      isAlumni: true,
-    });
-    const interestIDsOfAlumni: string[] = alumniProfile.interestIDs;
     const currentInterestIDAlumni = [currentInterest];
-    const iDsinCommonAlumni = _.intersection(currentInterestIDAlumni, interestIDsOfAlumni);
     // mentor variables
-    const mentorProfile: IProfile = MentorProfiles.findDoc(this.props.match.params.username);
-    const interestIDsOfMentor: string[] = mentorProfile.interestIDs;
     const currentInterestIDMentor = [currentInterest];
-    const iDsinCommonMentor = _.intersection(currentInterestIDMentor, interestIDsOfMentor);
 
     switch (this.getRoleByUrl()) {
       case 'student':
+        // student variables
+        const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
+        const interestIDsOfStudent: string[] = studentProfile.interestIDs;
+        const iDsinCommonStudent = _.intersection(currentInterestIDStudent, interestIDsOfStudent);
         if (iDsinCommonStudent.length === 1) {
           interestStatus = 'remove from interests';
           break;
@@ -426,6 +416,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestStatus = 'add to interests';
         break;
       case 'faculty':
+        const facultyProfile: IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
+        const interestIDsOfFaculty: string[] = facultyProfile.interestIDs;
+        const iDsinCommonFaculty = _.intersection(currentInterestIDFaculty, interestIDsOfFaculty);
         if (iDsinCommonFaculty.length === 1) {
           interestStatus = 'remove from interests';
           break;
@@ -433,6 +426,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestStatus = 'add to interests';
         break;
       case 'alumni':
+        const alumniProfile: IProfile = StudentProfiles.findDoc({
+          username: this.props.match.params.username,
+          isAlumni: true,
+        });
+        const interestIDsOfAlumni: string[] = alumniProfile.interestIDs;
+        const iDsinCommonAlumni = _.intersection(currentInterestIDAlumni, interestIDsOfAlumni);
         if (iDsinCommonAlumni.length === 1) {
           interestStatus = 'remove from interests';
           break;
@@ -441,7 +440,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         break;
 
       case 'mentor':
-
+        const mentorProfile: IProfile = MentorProfiles.findDoc(this.props.match.params.username);
+        const interestIDsOfMentor: string[] = mentorProfile.interestIDs;
+        const iDsinCommonMentor = _.intersection(currentInterestIDMentor, interestIDsOfMentor);
         if (iDsinCommonMentor.length === 1) {
           interestStatus = 'remove from interests';
           break;
