@@ -12,8 +12,7 @@ import { updateMethod } from "../../../api/base/BaseCollection.methods";
 import Swal from "sweetalert2";
 import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
 import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
-import { withTracker } from "meteor/react-meteor-data";
-import Container from "semantic-ui-react/dist/commonjs/elements/Container";
+
 
 /**
  * reference taken from ExplorerCard.tsx written by Gian ../imports/ui/shared/ExplorerCard.tsx
@@ -70,7 +69,6 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    console.log(itemSlug);
     const { type } = this.props;
     switch (type) {
       case 'career-goals':
@@ -118,7 +116,6 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     let updateValue;
     dataValue = [interestIDsOfUser, currentInterestID];
     updateValue = _.flatten(dataValue);
-    console.log(updateValue);
     return updateValue;
   };
 
@@ -142,17 +139,12 @@ class ProfileCard extends React.Component<IProfileCardProps> {
 
 
   private handleClick = () => {
-    console.log('handle click');
-    console.log('find doc', Users.getProfile(this.props.match.params.username));
     const newInterestsAfterAdd = this.addInterest();
-    console.log('handle click add', newInterestsAfterAdd);
     const updateDataAdd: any = {
       id: Users.getProfile(this.props.match.params.username)._id,
       interests: newInterestsAfterAdd
     };
-    console.log('this is the updateData', updateDataAdd);
     const collectionNameAdd = this.getCollectionName();
-    console.log('this is the collection name: ', collectionNameAdd);
     updateMethod.call({ collectionName: collectionNameAdd, updateData: updateDataAdd }, (error) => {
       if (error) {
         Swal.fire({
@@ -184,7 +176,6 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
     const itemParticipation = this.studentsParticipating(item);
-    //console.log(item);
     return (
       <Card className='radgrad-interest-card'>
         <Card.Content>
@@ -197,21 +188,18 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         <Card.Content>
           STUDENTS PARTICIPATING &middot; {itemParticipation}
         </Card.Content>
-
         <div className="radgrad-home-buttons ui center aligned two bottom attached buttons">
-          <Link to={this.buildRouteName(this.props.item)} class='ui button'>
+          <Link to={this.buildRouteName(this.props.item)} className='ui button'>
             <Icon name='chevron circle right'></Icon>
             <br/>
             View More
           </Link>
-
-          <Button className="radgrad-home-buttons center aligned" attatched="bottom" onClick={this.handleClick} fluid><Icon
+          <Button className="radgrad-home-buttons center aligned" attatched="bottom" onClick={this.handleClick}
+                  fluid><Icon
             name="plus"></Icon>
             <br/>Add to
             Interests</Button>
         </div>
-
-
       </Card>
 
     );

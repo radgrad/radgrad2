@@ -42,7 +42,6 @@ interface IExplorerInterestsWidgetState {
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   /**
@@ -274,17 +273,14 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
    */
   private handleClick = () => {
 
-    console.log('handle click');
     switch (this.checkInterestStatus()) {
       case 'remove from interests':
         const newInterestsAfterRemove = this.removeInterest();
-        console.log('handle click remove', newInterestsAfterRemove);
         const updateDataRemove: any = {
           id: Users.getProfile(this.props.match.params.username)._id,
           interests: newInterestsAfterRemove
         };
         const collectionNameRemove = this.getCollectionName();
-        console.log(collectionNameRemove);
 
         updateMethod.call({ collectionName: collectionNameRemove, updateData: updateDataRemove }, (error) => {
           if (error) {
@@ -306,14 +302,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         break;
       case 'add to interests':
         const newInterestsAfterAdd = this.addInterest();
-        console.log('handle click add', newInterestsAfterAdd);
         const updateDataAdd: any = {
           id: Users.getProfile(this.props.match.params.username)._id,
           interests: newInterestsAfterAdd
         };
-        console.log('this is the updateData', updateDataAdd);
         const collectionNameAdd = this.getCollectionName();
-        console.log('this is the collection name: ', collectionNameAdd);
 
         updateMethod.call({ collectionName: collectionNameAdd, updateData: updateDataAdd }, (error) => {
           if (error) {
@@ -347,7 +340,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     let updateValue;
     dataValue = [interestIDsOfUser, currentInterestID];
     updateValue = _.flatten(dataValue);
-    console.log(updateValue);
     return updateValue;
 
   };
@@ -358,20 +350,16 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     let updateValue;
     switch (this.getRoleByUrl()) {
       case 'student':
-        console.log('remove interest student');
         //specify the type of the profile
         const studentProfile: IProfile = StudentProfiles.findDoc(this.props.match.params.username);
         let interestIDsOfUser: string[] = studentProfile.interestIDs;
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
       case 'faculty':
-        console.log('remove interest faculty');
         interestIDsOfUser = FacultyProfiles.findDoc(this.props.match.params.username).interestIDs;
         updateValue = _.without(interestIDsOfUser, interestID);
-        console.log(updateValue);
         return updateValue;
       case 'alumni':
-        console.log('remove interest alumni');
         interestIDsOfUser = StudentProfiles.findDoc({
           username: this.props.match.params.username,
           isAlumni: true
@@ -379,7 +367,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
       case 'mentor':
-        console.log('remove interest mentor');
         interestIDsOfUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
@@ -416,9 +403,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           return 'add to interests';
         }
       case 'faculty':
-        console.log(`this is a ${this.props.match.url.split('/')[1]}`);
         const facultyProfile: IProfile = FacultyProfiles.findDoc(this.props.match.params.username);
-        console.log(FacultyProfiles.findDoc(this.props.match.params.username));
         interestIDsofUser = facultyProfile.interestIDs;
         let currentInterestIDFaculty = [currentInterest];
         let iDsinCommonFaculty = _.intersection(currentInterestIDFaculty, interestIDsofUser);
@@ -428,7 +413,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           return 'add to interests';
         }
       case 'alumni':
-        console.log(`this is a ${this.props.match.url.split('/')[1]}`);
         const alumniProfile: IProfile = StudentProfiles.findDoc({
           username: this.props.match.params.username,
           'isAlumni': true
@@ -442,7 +426,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
           return 'add to interests';
         }
       case 'mentor':
-        console.log(`this is a ${this.props.match.url.split('/')[1]}`);
         const mentorProfile: IProfile = MentorProfiles.findDoc(this.props.match.params.username);
         interestIDsofUser = mentorProfile.interestIDs;
         let currentInterestIDMentor = [currentInterest];
