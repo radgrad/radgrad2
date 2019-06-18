@@ -14,11 +14,6 @@ import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
 import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
 
 
-/**
- * reference taken from ExplorerCard.tsx written by Gian ../imports/ui/shared/ExplorerCard.tsx
- * think about making generic classes and then inheriting
- */
-
 interface IProfileCardProps {
   item: {
     _id: string;

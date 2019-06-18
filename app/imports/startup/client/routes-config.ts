@@ -66,7 +66,7 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
-import ExplorerInterestsPageContainer from "../../ui/pages/shared/ExplorerInterestsPage";
+import ExplorerInterestsPageContainer from '../../ui/pages/shared/ExplorerInterestsPage';
 /* Explorers */
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
