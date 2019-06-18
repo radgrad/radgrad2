@@ -281,7 +281,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
 
             <Grid stackable={true}>
               <Grid.Column style={zeroMarginTopStyle}>
-                {/*  TODO */}
                 {
                   descriptionPairs.map((descriptionPair, index) => (
                     <React.Fragment key={index}>
