@@ -1,24 +1,23 @@
 import * as React from 'react';
-import { withRouter, acker, Link } from 'react-router-dom';
-import { Container, Header, Button, Grid, Image, Popup, Divider, Card } from 'semantic-ui-react';
-import { Interests } from "../../../api/interest/InterestCollection";
+import { withRouter, Link } from 'react-router-dom';
+import { Container, Header, Button, Grid, Image, Popup, Divider } from 'semantic-ui-react';
+import * as Markdown from 'react-markdown';
+import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import Swal from 'sweetalert2';
-import { StudentProfiles } from "../../../api/user/StudentProfileCollection";
-import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
-import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
-import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
-import { Courses } from "../../../api/course/CourseCollection"
-import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
-import { OpportunityInstances } from "../../../api/opportunity/OpportunityInstanceCollection";
+import { IProfile } from '../../../typings/radgrad';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { Users } from "../../../api/user/UserCollection";
-import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
-import { IProfile } from "../../../typings/radgrad";
-import * as Markdown from 'react-markdown';
-import { withTracker } from "meteor/react-meteor-data";
+import { Users } from '../../../api/user/UserCollection';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
 
-//find and import simple schema
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -34,12 +33,8 @@ interface IExplorerInterestsWidgetProps {
   profile: object;
 }
 
-// don't know if we'll need this because state may not change
-interface IExplorerInterestsWidgetState {
 
-}
-
-class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IExplorerInterestsWidgetState> {
+class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IProfile> {
   constructor(props: any) {
     super(props);
   }
@@ -81,19 +76,19 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         return interested;
       case 'faculty':
         const faculty = FacultyProfiles.findNonRetired();
-      _.map(faculty, (num) => {
-        _.filter(num.interestIDs, (interests) => {
-          if(interests == this.getInterestDoc()._id){
-            interested.push(num);
-          }
-        })
-      });
+        _.map(faculty, (num) => {
+          _.filter(num.interestIDs, (interests) => {
+            if (interests == this.getInterestDoc()._id) {
+              interested.push(num);
+            }
+          })
+        });
         return interested;
       case 'mentor':
         const mentor = MentorProfiles.findNonRetired();
         _.map(mentor, (num) => {
           _.filter(num.interestIDs, (interests) => {
-            if(interests == this.getInterestDoc()._id){
+            if (interests == this.getInterestDoc()._id) {
               interested.push(num);
             }
           })
@@ -103,7 +98,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const alumni = StudentProfiles.findNonRetired({ 'isAlumni': true });
         _.map(alumni, (num) => {
           _.filter(num.interestIDs, (interests) => {
-            if(interests == this.getInterestDoc()._id){
+            if (interests == this.getInterestDoc()._id) {
               interested.push(num);
             }
           })
@@ -619,20 +614,21 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                          <Header textAlign='center'>Faculty Members &middot;  <b>{this.participation('faculty').length}</b>
-                          </Header>
-                          <Divider/>
+                            <Header textAlign='center'>Faculty Members &middot;
+                              <b>{this.participation('faculty').length}</b>
+                            </Header>
+                            <Divider/>
 
-                          <Container textAlign='center'>
-                            <Image.Group size='mini'>
-                              {interestedFaculty.map((faculty, index) => <Popup
-                                key={index}
-                                trigger={<Image src={faculty.picture} circular></Image>}
-                                content={faculty.name}
-                              />)
-                              }
-                            </Image.Group>
-                          </Container>
+                            <Container textAlign='center'>
+                              <Image.Group size='mini'>
+                                {interestedFaculty.map((faculty, index) => <Popup
+                                  key={index}
+                                  trigger={<Image src={faculty.picture} circular></Image>}
+                                  content={faculty.name}
+                                />)
+                                }
+                              </Image.Group>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -641,19 +637,19 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                          <Header textAlign='center'>Alumni &middot; <b>{this.participation('alumni').length}</b>
-                          </Header>
-                          <Divider/>
-                          <Container textAlign='center'>
-                            <Image.Group size='mini'>
-                              {interestedAlumni.map((alumni, index) => <Popup
-                                key={index}
-                                trigger={<Image src={alumni.picture} circular></Image>}
-                                content='names'
-                              />)
-                              }
-                            </Image.Group>
-                          </Container>
+                            <Header textAlign='center'>Alumni &middot; <b>{this.participation('alumni').length}</b>
+                            </Header>
+                            <Divider/>
+                            <Container textAlign='center'>
+                              <Image.Group size='mini'>
+                                {interestedAlumni.map((alumni, index) => <Popup
+                                  key={index}
+                                  trigger={<Image src={alumni.picture} circular></Image>}
+                                  content='names'
+                                />)
+                                }
+                              </Image.Group>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -662,19 +658,19 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                          <Header textAlign='center'>Mentors &middot;  <b>{this.participation('mentor').length}</b>
-                          </Header>
-                          <Divider/>
-                          <Container textAlign='center'>
-                            <Image.Group size='mini'>
-                              {interestedMentor.map((mentors, index) => <Popup
-                                key={index}
-                                trigger={<Image src={mentors.picture} circular></Image>}
-                                content='names'
-                              />)
-                              }
-                            </Image.Group>
-                          </Container>
+                            <Header textAlign='center'>Mentors &middot;  <b>{this.participation('mentor').length}</b>
+                            </Header>
+                            <Divider/>
+                            <Container textAlign='center'>
+                              <Image.Group size='mini'>
+                                {interestedMentor.map((mentors, index) => <Popup
+                                  key={index}
+                                  trigger={<Image src={mentors.picture} circular></Image>}
+                                  content='names'
+                                />)
+                                }
+                              </Image.Group>
+                            </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>

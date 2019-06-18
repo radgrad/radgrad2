@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Container, Grid, Menu} from 'semantic-ui-react';
-import ExplorerInterestsWidget from "../../components/shared/ExplorerInterestsWidget";
+import { Container, Grid, Menu } from 'semantic-ui-react';
+import ExplorerInterestsWidget from '../../components/shared/ExplorerInterestsWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -50,7 +50,7 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
 
   public render() {
     return (
-      <div className="layout-page">
+      <div className='layout-page'>
         {this.renderPageMenuWidget()}
         <Grid celled>
           <Grid.Row>
@@ -59,10 +59,10 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
                 <Grid columns='equal'>
                   <Grid.Row>
                     <Grid.Column width={3}>
-                    <Menu fluid vertical tabular>
-                      <Menu.Item name='my interests'></Menu.Item>
-                      <Menu.Item name='my career goals'></Menu.Item>
-                    </Menu>
+                      <Menu fluid vertical tabular>
+                        <Menu.Item name='my interests'></Menu.Item>
+                        <Menu.Item name='my career goals'></Menu.Item>
+                      </Menu>
                     </Grid.Column>
                     <Grid.Column>
                       <ExplorerInterestsWidget/>

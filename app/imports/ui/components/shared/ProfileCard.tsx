@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { withRouter } from 'react-router-dom';
-import { Button, Card, Icon, Grid } from 'semantic-ui-react';
-import { Slugs } from "../../../api/slug/SlugCollection";
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import { Button, Card, Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import * as Markdown from 'react-markdown';
-import { StudentProfiles } from "../../../api/user/StudentProfileCollection";
-import { Interests } from "../../../api/interest/InterestCollection";
-import { Users } from "../../../api/user/UserCollection";
-import { updateMethod } from "../../../api/base/BaseCollection.methods";
-import Swal from "sweetalert2";
-import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
-import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 
 
 interface IProfileCardProps {
@@ -83,16 +81,16 @@ class ProfileCard extends React.Component<IProfileCardProps> {
   };
 
   private studentsParticipating = (item) => {
-    let participation = [];
+    const participation = [];
     const interestID = item._id;
     const students = StudentProfiles.findNonRetired();
     _.map(students, (num) => {
       _.filter(num.interestIDs, (interests) => {
-        if (interests == interestID) {
+        if (interests === interestID) {
           participation.push(num);
           console.log(num.username);
         }
-      })
+      });
     });
     return participation.length;
   };
@@ -107,10 +105,8 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const interestIDsOfUser = user.interestIDs;
     const interestID = this.getInterestDoc()._id;
     const currentInterestID = [interestID];
-    let dataValue;
-    let updateValue;
-    dataValue = [interestIDsOfUser, currentInterestID];
-    updateValue = _.flatten(dataValue);
+    const dataValue = [interestIDsOfUser, currentInterestID];
+    const updateValue = _.flatten(dataValue);
     return updateValue;
   };
 
@@ -129,7 +125,10 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         return StudentProfiles.getCollectionName();
       case 'mentor':
         return MentorProfiles.getCollectionName();
+      default:
+        break;
     }
+    return;
   };
 
 
@@ -137,7 +136,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const newInterestsAfterAdd = this.addInterest();
     const updateDataAdd: any = {
       id: Users.getProfile(this.props.match.params.username)._id,
-      interests: newInterestsAfterAdd
+      interests: newInterestsAfterAdd,
     };
     const collectionNameAdd = this.getCollectionName();
     updateMethod.call({ collectionName: collectionNameAdd, updateData: updateDataAdd }, (error) => {
