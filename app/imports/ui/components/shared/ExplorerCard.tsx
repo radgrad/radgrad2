@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Button, Card, Icon} from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { IExplorerCard } from '../../../typings/radgrad'; // eslint-disable-line
 
@@ -88,4 +88,4 @@ class ExplorerCard extends React.Component<IExplorerCard> {
   }
 }
 
-export default ExplorerCard;
+export default withRouter(ExplorerCard);
