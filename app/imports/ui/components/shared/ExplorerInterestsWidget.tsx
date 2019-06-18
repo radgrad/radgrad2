@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Header, Button, Grid, Image, Popup, Divider } from 'semantic-ui-react';
+import { Container, Header, Button, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
@@ -16,7 +16,6 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -47,13 +46,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const splitUrl = this.props.match.url.split('/');
     const splitSlug = splitUrl[splitUrl.length - 1];
     return (Interests.findDocBySlug(splitSlug));
-    //Interests.findIdBySlug(slug)
   };
 
-  private getRoleByUrl = (): string => {
-    const role = this.props.match.url.split('/')[1];
-    return role;
-  };
+  private getRoleByUrl = (): string => this.props.match.url.split('/')[1];
 
 
   /**
@@ -62,26 +57,26 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
    */
 
   private participation = (role) => {
-    let interested = [];
+    const interested = [];
     switch (role) {
       case 'student':
         const students = StudentProfiles.findNonRetired();
         _.map(students, (num) => {
           _.filter(num.interestIDs, (interests) => {
-            if (interests == this.getInterestDoc()._id) {
+            if (interests === this.getInterestDoc()._id) {
               interested.push(num);
             }
-          })
+          });
         });
         return interested;
       case 'faculty':
         const faculty = FacultyProfiles.findNonRetired();
         _.map(faculty, (num) => {
           _.filter(num.interestIDs, (interests) => {
-            if (interests == this.getInterestDoc()._id) {
+            if (interests === this.getInterestDoc()._id) {
               interested.push(num);
             }
-          })
+          });
         });
         return interested;
       case 'mentor':
@@ -95,29 +90,31 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         });
         return interested;
       case 'alumni':
-        const alumni = StudentProfiles.findNonRetired({ 'isAlumni': true });
+        const alumni = StudentProfiles.findNonRetired({ isAlumni: true });
         _.map(alumni, (num) => {
           _.filter(num.interestIDs, (interests) => {
-            if (interests == this.getInterestDoc()._id) {
+            if (interests === this.getInterestDoc()._id) {
               interested.push(num);
             }
-          })
+          });
         });
+        return interested;
+      default:
         return interested;
     }
   };
 
 
   private GetRelatedCourses = () => {
-    let courses = [];
+    const courses = [];
     const courseInstances = Courses.find().fetch();
 
     _.map(courseInstances, (num) => {
       _.filter(num.interestIDs, (interests) => {
-        if (interests == this.getInterestDoc()._id) {
+        if (interests === this.getInterestDoc()._id) {
           courses.push(num);
         }
-      })
+      });
     });
     return courses;
   };
@@ -129,38 +126,37 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
    * @constructor
    */
   private GetAssociationRelatedCourses = (courses, role) => {
-    let inPlanIDs = [];
-    let completedIDs = [];
-    if (role != 'student') {
+    const inPlanIDs = [];
+    const completedIDs = [];
+    if (role !== 'student') {
 
       let relatedCourses = {
         completed: ['none'],
         inPlan: ['none'],
-        notInPlan: ['none']
+        notInPlan: ['none'],
       };
 
       return relatedCourses;
-    } else {
+    }
       const inPlanInstance = CourseInstances.findNonRetired({
-        'studentID':
-        StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': false,
+        studentID:
+        StudentProfiles.findDoc(this.props.match.params.username).userID, verified: false,
       });
       _.map(inPlanInstance, (value) => {
         inPlanIDs.push(value.courseID);
       });
 
       const completedInstance = CourseInstances.findNonRetired({
-        'studentID':
-        StudentProfiles.findDoc(this.props.match.params.username).userID, 'verified': true
+        studentID:
+        StudentProfiles.findDoc(this.props.match.params.username).userID, verified: true,
       });
       _.map(completedInstance, (value) => {
         completedIDs.push(value.courseID);
       });
 
-      let relatedIDs = [];
-      //shows all ids for related courses
+      const relatedIDs = [];
       _.map(courses, (value) => {
-        relatedIDs.push(value._id)
+        relatedIDs.push(value._id);
       });
       const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
       const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
@@ -172,7 +168,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         notInPlan: relatedNotInPlanIDs
       };
       return relatedCourses;
-    }
+
   };
 
   private GetRelatedOpportunities = () => {
