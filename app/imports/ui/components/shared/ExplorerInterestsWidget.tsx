@@ -1,20 +1,22 @@
 import * as React from 'react';
-import {withRouter, Link} from 'react-router-dom';
-import {Container, Header, Button, Grid, Image, Popup, Divider} from 'semantic-ui-react';
-import {Interests} from "../../../api/interest/InterestCollection";
-import {_} from 'meteor/erasaur:meteor-lodash';
+import { withRouter, acker, Link } from 'react-router-dom';
+import { Container, Header, Button, Grid, Image, Popup, Divider, Card } from 'semantic-ui-react';
+import { Interests } from "../../../api/interest/InterestCollection";
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import Swal from 'sweetalert2';
-import {StudentProfiles} from "../../../api/user/StudentProfileCollection";
-import {CourseInstances} from "../../../api/course/CourseInstanceCollection";
-import {FacultyProfiles} from "../../../api/user/FacultyProfileCollection";
-import {MentorProfiles} from "../../../api/user/MentorProfileCollection";
-import {Courses} from "../../../api/course/CourseCollection"
-import {Opportunities} from "../../../api/opportunity/OpportunityCollection";
-import {OpportunityInstances} from "../../../api/opportunity/OpportunityInstanceCollection";
-import {updateMethod} from '../../../api/base/BaseCollection.methods';
-import {Users} from "../../../api/user/UserCollection";
+import { StudentProfiles } from "../../../api/user/StudentProfileCollection";
+import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
+import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
+import { MentorProfiles } from "../../../api/user/MentorProfileCollection";
+import { Courses } from "../../../api/course/CourseCollection"
+import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
+import { OpportunityInstances } from "../../../api/opportunity/OpportunityInstanceCollection";
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { Users } from "../../../api/user/UserCollection";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
-import {IProfile} from "../../../typings/radgrad";
+import { IProfile } from "../../../typings/radgrad";
+import * as Markdown from 'react-markdown';
+import { withTracker } from "meteor/react-meteor-data";
 
 //find and import simple schema
 
@@ -29,6 +31,7 @@ interface IExplorerInterestsWidgetProps {
       interest: string;
     }
   }
+  profile: object;
 }
 
 // don't know if we'll need this because state may not change
@@ -59,24 +62,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   };
 
 
-/*
-  private studentsParticipating = (item) => {
-    let participation = [];
-    const interestID = item._id;
-    const students = StudentProfiles.findNonRetired();
-    _.map(students, (num) => {
-      _.filter(num.interestIDs, (interests)=> {
-        if(interests == interestID){
-          participation.push(num);
-          console.log(num.username);
-        }
-      })
-    });
-    return participation.length;
-  };
-*/
-
-
   /**
    * return how many users participate in interest based on role
    *  match the interest w/ the interest in a user profile
@@ -89,48 +74,41 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const students = StudentProfiles.findNonRetired();
         _.map(students, (num) => {
           _.filter(num.interestIDs, (interests) => {
+            if (interests == this.getInterestDoc()._id) {
+              interested.push(num);
+            }
+          })
+        });
+        return interested;
+      case 'faculty':
+        const faculty = FacultyProfiles.findNonRetired();
+      _.map(faculty, (num) => {
+        _.filter(num.interestIDs, (interests) => {
+          if(interests == this.getInterestDoc()._id){
+            interested.push(num);
+          }
+        })
+      });
+        return interested;
+      case 'mentor':
+        const mentor = MentorProfiles.findNonRetired();
+        _.map(mentor, (num) => {
+          _.filter(num.interestIDs, (interests) => {
             if(interests == this.getInterestDoc()._id){
               interested.push(num);
             }
           })
         });
-      /*  for (let a = 0; a < students.length; a++) {
-          for (let i = 0; i < students[a].interestIDs.length; i++) {
-            if (students[a].interestIDs[i] === this.GetInterestDoc()._id) {
-              interested.push(students[a]);
-            }
-          }
-        }*/
-        return interested;
-      case 'faculty':
-        const faculty = FacultyProfiles.findNonRetired();
-        for (let a = 0; a < faculty.length; a++) {
-          for (let i = 0; i < faculty[a].interestIDs.length; i++) {
-            if (faculty[a].interestIDs[i] === this.getInterestDoc()._id) {
-              interested.push(faculty[a]);
-            }
-          }
-        }
-        return interested;
-      case 'mentor':
-        const mentor = MentorProfiles.findNonRetired();
-        for (let a = 0; a < mentor.length; a++) {
-          for (let i = 0; i < mentor[a].interestIDs.length; i++) {
-            if (mentor[a].interestIDs[i] === this.getInterestDoc()._id) {
-              interested.push(mentor[a]);
-            }
-          }
-        }
         return interested;
       case 'alumni':
-        const alumni = StudentProfiles.findNonRetired({'isAlumni': true});
-        for (let a = 0; a < alumni.length; a++) {
-          for (let i = 0; i < alumni[a].interestIDs.length; i++) {
-            if (alumni[a].interestIDs[i] === this.getInterestDoc()._id) {
-              interested.push(alumni[a]);
+        const alumni = StudentProfiles.findNonRetired({ 'isAlumni': true });
+        _.map(alumni, (num) => {
+          _.filter(num.interestIDs, (interests) => {
+            if(interests == this.getInterestDoc()._id){
+              interested.push(num);
             }
-          }
-        }
+          })
+        });
         return interested;
     }
   };
@@ -142,18 +120,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
     _.map(courseInstances, (num) => {
       _.filter(num.interestIDs, (interests) => {
-        if(interests == this.getInterestDoc()._id){
+        if (interests == this.getInterestDoc()._id) {
           courses.push(num);
         }
       })
     });
-   /* for (let a = 0; a < courseInstances.length; a++) {
-      for (let i = 0; i < courseInstances[a].interestIDs.length; i++) {
-        if (courseInstances[a].interestIDs[i] === this.getInterestDoc()._id) {
-          courses.push(courseInstances[a]);
-        }
-      }
-    }*/
     return courses;
   };
 
@@ -304,7 +275,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   private handleClick = () => {
 
     console.log('handle click');
-    console.log('find doc', StudentProfiles.findDoc(this.props.match.params.username));
     switch (this.checkInterestStatus()) {
       case 'remove from interests':
         const newInterestsAfterRemove = this.removeInterest();
@@ -316,7 +286,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const collectionNameRemove = this.getCollectionName();
         console.log(collectionNameRemove);
 
-        updateMethod.call({collectionName: collectionNameRemove, updateData: updateDataRemove}, (error) => {
+        updateMethod.call({ collectionName: collectionNameRemove, updateData: updateDataRemove }, (error) => {
           if (error) {
             Swal.fire({
               title: 'Update failed',
@@ -345,7 +315,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         const collectionNameAdd = this.getCollectionName();
         console.log('this is the collection name: ', collectionNameAdd);
 
-        updateMethod.call({collectionName: collectionNameAdd, updateData: updateDataAdd}, (error) => {
+        updateMethod.call({ collectionName: collectionNameAdd, updateData: updateDataAdd }, (error) => {
           if (error) {
             Swal.fire({
               title: 'Update failed',
@@ -413,22 +383,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         interestIDsOfUser = MentorProfiles.findDoc(this.props.match.params.username).interestIDs;
         updateValue = _.without(interestIDsOfUser, interestID);
         return updateValue;
-    }
-  };
-
-  private getUpdateDataID = () => {
-    switch (this.getRoleByUrl()) {
-      case 'student':
-        return StudentProfiles.findDoc(this.props.match.params.username)._id;
-      case 'faculty':
-        return FacultyProfiles.findDoc(this.props.match.params.username)._id;
-      case 'alumni':
-        return StudentProfiles.findDoc({
-          username: this.props.match.params.username,
-          isAlumni: true
-        })._id;
-      case 'mentor':
-        return MentorProfiles.findDoc(this.props.match.params.username)._id;
     }
   };
 
@@ -534,7 +488,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                     <b>Description: </b>
                   </div>
                   <div>
-                    <p>{interestDescription}</p>
+                    <Markdown escapeHtml={true} source={interestDescription}/>
                   </div>
                 </Segment>
               </Container>
@@ -661,7 +615,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                            <Header textAlign='center'>Students <b>{this.participation('student').length}</b></Header>
+                            <Header textAlign='center'>Students &middot;  <b>{this.participation('student').length}</b></Header>
                             <Divider/>
                             <Container textAlign='center'>
                               <Image.Group size='mini'>
@@ -682,20 +636,20 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container fluid>
                           <Segment>
-                            <Header textAlign='center'>Faculty Members <b>{this.participation('faculty').length}</b>
-                            </Header>
-                            <Divider/>
+                          <Header textAlign='center'>Faculty Members &middot;  <b>{this.participation('faculty').length}</b>
+                          </Header>
+                          <Divider/>
 
-                            <Container textAlign='center'>
-                              <Image.Group size='mini'>
-                                {interestedFaculty.map((faculty, index) => <Popup
-                                  key={index}
-                                  trigger={<Image src={faculty.picture} circular></Image>}
-                                  content={faculty.name}
-                                />)
-                                }
-                              </Image.Group>
-                            </Container>
+                          <Container textAlign='center'>
+                            <Image.Group size='mini'>
+                              {interestedFaculty.map((faculty, index) => <Popup
+                                key={index}
+                                trigger={<Image src={faculty.picture} circular></Image>}
+                                content={faculty.name}
+                              />)
+                              }
+                            </Image.Group>
+                          </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -704,19 +658,19 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header textAlign='center'>Alumni <b>{this.participation('alumni').length}</b>
-                            </Header>
-                            <Divider/>
-                            <Container textAlign='center'>
-                              <Image.Group size='mini'>
-                                {interestedAlumni.map((alumni, index) => <Popup
-                                  key={index}
-                                  trigger={<Image src={alumni.picture} circular></Image>}
-                                  content='names'
-                                />)
-                                }
-                              </Image.Group>
-                            </Container>
+                          <Header textAlign='center'>Alumni &middot; <b>{this.participation('alumni').length}</b>
+                          </Header>
+                          <Divider/>
+                          <Container textAlign='center'>
+                            <Image.Group size='mini'>
+                              {interestedAlumni.map((alumni, index) => <Popup
+                                key={index}
+                                trigger={<Image src={alumni.picture} circular></Image>}
+                                content='names'
+                              />)
+                              }
+                            </Image.Group>
+                          </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -725,19 +679,19 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                       <Grid.Column>
                         <Container>
                           <Segment>
-                            <Header textAlign='center'>Mentors <b>{this.participation('mentor').length}</b>
-                            </Header>
-                            <Divider/>
-                            <Container textAlign='center'>
-                              <Image.Group size='mini'>
-                                {interestedMentor.map((mentors, index) => <Popup
-                                  key={index}
-                                  trigger={<Image src={mentors.picture} circular></Image>}
-                                  content='names'
-                                />)
-                                }
-                              </Image.Group>
-                            </Container>
+                          <Header textAlign='center'>Mentors &middot;  <b>{this.participation('mentor').length}</b>
+                          </Header>
+                          <Divider/>
+                          <Container textAlign='center'>
+                            <Image.Group size='mini'>
+                              {interestedMentor.map((mentors, index) => <Popup
+                                key={index}
+                                trigger={<Image src={mentors.picture} circular></Image>}
+                                content='names'
+                              />)
+                              }
+                            </Image.Group>
+                          </Container>
                           </Segment>
                         </Container>
                       </Grid.Column>
@@ -759,4 +713,15 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   }
 }
 
-export default withRouter(ExplorerInterestsWidget);
+const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
+  const username = match.params.username;
+  const profile = Users.getProfile(username);
+
+  return {
+    profile,
+  };
+})(ExplorerInterestsWidget);
+
+const ExplorerInterestsWidgetContainer = withRouter(ExplorerInterestsWidgetCon);
+
+export default ExplorerInterestsWidgetContainer;
