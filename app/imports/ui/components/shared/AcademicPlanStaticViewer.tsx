@@ -28,41 +28,7 @@ class AcademicPlanStaticViewer extends React.Component<IAcademicPlanStaticViewer
     super(props);
   }
 
-  private years = (): string[] => {
-    const plan = this.props.plan;
-    if (plan.coursesPerAcademicTerm.length === 15) {
-      return ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
-    }
-    return ['Year 1', 'Year 2', 'Year 3', 'Year 4'];
-  }
-
-  private hasSummer = (yearNum: number): boolean => {
-    const plan = this.props.plan;
-    const numCoursesList = plan.coursesPerAcademicTerm.slice(0);
-    return numCoursesList[(3 * yearNum) + 2] !== 0;
-  }
-
-  private courses = (yearNumber: number, termNumber: number): ICourse[] => {
-    const ret = [];
-    const totalSem = (3 * yearNumber) + termNumber;
-    const plan = this.props.plan;
-    const numCoursesList = plan.coursesPerAcademicTerm.slice(0);
-    const numCourses = numCoursesList[totalSem];
-    const courseList = plan.courseList.slice(0);
-    let i = 0;
-    for (i = 0; i < totalSem; i += 1) {
-      courseList.splice(0, numCoursesList[i]);
-    }
-    for (i = 0; i < numCourses; i += 1) {
-      const course = courseList.splice(0, 1);
-      ret.push(course[0]);
-    }
-    return ret;
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // TODO: Test to make sure the important is being set
-    const paddedContainerStyle = { marginBottom: '0 !important' };
     const equalWidthGridStyle = { margin: 0 };
 
     const { plan } = this.props;
@@ -75,7 +41,7 @@ class AcademicPlanStaticViewer extends React.Component<IAcademicPlanStaticViewer
     const username = this.props.match.params.username;
 
     return (
-      <div className="ui padded container" style={paddedContainerStyle}>
+      <div className="ui padded container">
         <Grid stackable={true}>
           <Grid.Column>
             <Grid columns="equal" style={equalWidthGridStyle}>
