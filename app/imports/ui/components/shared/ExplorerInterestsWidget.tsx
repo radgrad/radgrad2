@@ -36,6 +36,7 @@ interface IExplorerInterestsWidgetProps {
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps, IProfile> {
   constructor(props: any) {
     super(props);
+    console.log(props);
   }
 
   /**

@@ -5,14 +5,13 @@ import { Grid, Container, Header, Card, Segment, Button } from 'semantic-ui-reac
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from "../../../api/mentor/MentorQuestionCollection";
 import { updateMethod } from "../../../api/base/BaseCollection.methods";
-import { IReviewUpdateData, IMentorQuestion } from '../../../typings/radgrad'; // eslint-disable-line
+import { IMentorQuestion, IReview } from '../../../typings/radgrad'; // eslint-disable-line
 
 
 interface IAdminModerationWidget {
-  item: {
-    mentorQuestion: IMentorQuestion[];
-  }
-  // opportunity, course review or mentor question
+  mentorQuestions: IMentorQuestion[];
+  reviews: IReview[];
+  // IReview not found, made one
 }
 
 class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
@@ -22,7 +21,8 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   }
 
   public render() {
-    console.log(this.props)
+    console.log(this.props);
+
     return (
       <Container>
         <Header>Hello World</Header>
