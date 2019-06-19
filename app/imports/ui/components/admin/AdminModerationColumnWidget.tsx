@@ -55,11 +55,12 @@ const AdminModerationColumnWidgetContainer = withTracker((c) => ({
       }
     }
     const collectionName = `${Slugs.getNameFromID(item.slugID).entityName}Collection`;
+    console.log('your review has been denied...\n', item);
+
     return {
       updateData,
       collectionName
     }
-    console.log('your review has been denied...\n', item);
   },
 }))(AdminModerationColumnWidget);
 
