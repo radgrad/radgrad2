@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Container, Grid, Menu } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
@@ -7,9 +8,16 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 import AdvisorPendingVerificationWidget from '../../components/advisor/AdvisorPendingVerificationWidget';
 import AdvisorEventVerificationWidget from '../../components/advisor/AdvisorEventVerificationWidget';
 import AdvisorCompletedVerificationWidget from '../../components/advisor/AdvisorCompletedVerificationWidget';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+// eslint-disable-next-line no-unused-vars
+import { IVerificationRequest } from '../../../typings/radgrad';
+
+interface IAdvisorVerificationRequestPageProps {
+  verificationRequests: IVerificationRequest[];
+}
 
 /** A simple static component to render some text for the landing page. */
-class AdvisorVerificationRequestPage extends React.Component {
+class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificationRequestPageProps> {
   state = { activeItem: 'pending' };
 
   handleMenu = (e, { name }) => this.setState({ activeItem: name });
@@ -27,7 +35,7 @@ class AdvisorVerificationRequestPage extends React.Component {
               </Grid.Row>
             </Grid.Column>
             <Grid.Row>
-              <Grid.Column width={4}>
+              <Grid.Column width={3}>
                 <Menu vertical={true} text={true}>
                   <Menu.Item name={'pending'}
                              active={activeItem === 'pending'}
@@ -46,8 +54,9 @@ class AdvisorVerificationRequestPage extends React.Component {
                   </Menu.Item>
                 </Menu>
               </Grid.Column>
-              <Grid.Column width={10}>
-                {activeItem === 'pending' ? <AdvisorPendingVerificationWidget/> : undefined}
+              <Grid.Column width={11}>
+                {activeItem === 'pending' ? <AdvisorPendingVerificationWidget
+                  pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/> : undefined}
                 {activeItem === 'event' ? <AdvisorEventVerificationWidget/> : undefined}
                 {activeItem === 'completed' ? <AdvisorCompletedVerificationWidget/> : undefined}
               </Grid.Column>
@@ -62,5 +71,8 @@ class AdvisorVerificationRequestPage extends React.Component {
 
 const AdvisorVerificationRequestPageCon = withGlobalSubscription(AdvisorVerificationRequestPage);
 const AdvisorVerificationRequestPageContainer = withInstanceSubscriptions(AdvisorVerificationRequestPageCon);
+const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
+  verificationRequests: VerificationRequests.findNonRetired(),
+}))(AdvisorVerificationRequestPageContainer);
 
-export default AdvisorVerificationRequestPageContainer;
+export default AdvisorVerificationRequestPageContainerTracker;
