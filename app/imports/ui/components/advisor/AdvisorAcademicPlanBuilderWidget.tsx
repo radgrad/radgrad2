@@ -25,9 +25,9 @@ interface IAdvisorAcademicPlanBuilderWidgetProps {
   years: number[];
 }
 
-interface IAdvisorAcademicPlanBuilderWidgetState {
+export interface IAdvisorAcademicPlanBuilderWidgetState {
   coursesPerTerm: number[];
-  courseList: string[];
+  choiceList: string[];
 }
 
 class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicPlanBuilderWidgetProps, IAdvisorAcademicPlanBuilderWidgetState> {
@@ -42,7 +42,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
     for (let i = 0; i < numTerms; i++) {
       coursesPerTerm.push(0);
     }
-    this.state = { courseList: [], coursesPerTerm };
+    this.state = { choiceList: [], coursesPerTerm };
   }
 
   /**
@@ -76,16 +76,16 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
   private onDragEnd = (result) => {
     // TODO: Check the droppableId to see what kind of drop this is.
     const termIndex = this.parseTermYear(result.destination.droppableId);
-    const { courseList, coursesPerTerm } = this.state;
+    const { choiceList, coursesPerTerm } = this.state;
     let courseListIndex = 0;
     for (let i = 0; i < termIndex; i++) {
       courseListIndex += coursesPerTerm[i];
     }
     courseListIndex += result.destination.index;
-    courseList.splice(courseListIndex, 0, result.draggableId);
+    choiceList.splice(courseListIndex, 0, result.draggableId);
     coursesPerTerm[termIndex]++;
     // console.log('new state = %o', { courseList, coursesPerTerm });
-    this.setState({ coursesPerTerm, courseList });
+    this.setState({ coursesPerTerm, choiceList });
     const divs = $('#ApbTrash');
     let element = divs;
     while (element && !element.hasClass('segment')) {
@@ -105,7 +105,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
     const academicYearStyle = {
       padding: '0 0.6rem',
     };
-    const { courseList, coursesPerTerm } = this.state;
+    const { choiceList, coursesPerTerm } = this.state;
     let courseListStartIndex = 0;
     let coursesPerTermIndex = 0;
     return (
@@ -130,7 +130,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                         <Header dividing={true} as="h4">{AcademicTerms.FALL}</Header>
                         <Droppable droppableId={`${AcademicTerms.FALL}${py}`}>
                           {(provided, snapshot) => {
-                            const courses = courseList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
+                            const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
                             courseListStartIndex += coursesPerTerm[coursesPerTermIndex++];
                             // console.log(`${AcademicTerms.FALL}${py}`, courses, courseListStartIndex, coursesPerTermIndex);
                             return (
@@ -155,7 +155,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                             <Header dividing={true} as="h4">{AcademicTerms.WINTER}</Header>
                             <Droppable droppableId={`${AcademicTerms.WINTER}${py}`}>
                               {(provided, snapshot) => {
-                                const courses = courseList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
+                                const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
                                 courseListStartIndex += coursesPerTerm[coursesPerTermIndex++];
                                 // console.log(`${AcademicTerms.WINTER}${py}`, courses, courseListStartIndex, coursesPerTermIndex);
                                 return (
@@ -180,7 +180,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                         <Header dividing={true} as="h4">{AcademicTerms.SPRING}</Header>
                         <Droppable droppableId={`${AcademicTerms.SPRING}${py}`}>
                           {(provided, snapshot) => {
-                            const courses = courseList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
+                            const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
                             courseListStartIndex += coursesPerTerm[coursesPerTermIndex++];
                             // console.log(`${AcademicTerms.SPRING}${py}`, courses, courseListStartIndex, coursesPerTermIndex);
                             return (
@@ -203,7 +203,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                         <Header dividing={true} as="h4">{AcademicTerms.SUMMER}</Header>
                         <Droppable droppableId={`${AcademicTerms.SUMMER}${py}`}>
                           {(provided, snapshot) => {
-                            const courses = courseList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
+                            const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
                             courseListStartIndex += coursesPerTerm[coursesPerTermIndex++];
                             // console.log(`${AcademicTerms.SUMMER}${py}`, courses, courseListStartIndex, coursesPerTermIndex);
                             return (

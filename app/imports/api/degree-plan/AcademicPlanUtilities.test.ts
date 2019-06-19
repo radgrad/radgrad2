@@ -84,11 +84,16 @@ if (Meteor.isServer) {
     it('addChoiceToPlan', function () {
       // console.log('before %o', badPlan);
       AcademicPlanUtilities.addChoiceToPlan(badPlan, 2, 'ics_314');
-      console.log('after %o', badPlan);
+      // console.log('after %o', badPlan);
       expect(AcademicPlanUtilities.isAcademicPlanValid(badPlan)).to.be.true;
       AcademicPlanUtilities.addChoiceToPlan(goodPlan, 1, 'ics_314');
       expect(AcademicPlanUtilities.isAcademicPlanValid(goodPlan)).to.be.true;
-      console.log('updated good %o', goodPlan);
+      // console.log('updated good %o', goodPlan);
+    });
+    it('addDuplicateChoice', function () {
+      AcademicPlanUtilities.addChoiceToPlan(badPlan, 0, 'ics_314');
+      // console.log('after duplicate %o', badPlan);
+      expect(AcademicPlanUtilities.isAcademicPlanValid(badPlan)).to.be.true;
     });
   });
 }

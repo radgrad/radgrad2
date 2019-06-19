@@ -77,20 +77,45 @@ function getCourseListIndex(coursesPerAcademicTerm: number[], termNum: number) {
   return index;
 }
 
-export function addChoiceToPlan(academicPlan: IAcademicPlan, termNum: number, choice: string) {
-  const listIndex = getCourseListIndex(academicPlan.coursesPerAcademicTerm, termNum);
+export function updateChoiceCounts(choiceList: string[]) {
+  // create a map to count the choices
+  const choiceCounts = {};
+  // loop over each of the items in choiceList
+  let i = 0;
+  for (i = 0; i < choiceList.length; i++) {
+    const choice = choiceList[i];
+    // strip off the counter and check the choice in the map
+    const noCount = PlanChoiceUtils.stripCounter(choice);
+    if (choiceCounts[noCount]) {
+      // update the choiceList[i]
+      const seen = choiceCounts[noCount] + 1;
+      choiceList[i] = `${noCount}-${seen}`; // eslint-disable-line no-param-reassign
+      choiceCounts[noCount] = seen;
+    } else {
+      choiceList[i] = `${noCount}-1`; // eslint-disable-line no-param-reassign
+      choiceCounts[noCount] = 1;
+    }
+  }
+}
+
+export function addChoiceToRaw(choice: string, termNum: number, choiceList: string[], coursesPerAcademicTerm: number[]) {
+  const listIndex = getCourseListIndex(coursesPerAcademicTerm, termNum);
   const choiceWithNum = `${choice}-1`;
-  console.log(listIndex, choiceWithNum);
   if (listIndex === 0) {
-    academicPlan.courseList.unshift(choiceWithNum);
-  } else if (listIndex === academicPlan.courseList.length) {
-    academicPlan.courseList.push(choiceWithNum);
+    choiceList.unshift(choiceWithNum);
+  } else if (listIndex === choiceList.length) {
+    choiceList.push(choiceWithNum);
   } else {
-    academicPlan.courseList.splice(listIndex, 0, choiceWithNum);
+    choiceList.splice(listIndex, 0, choiceWithNum);
   }
-  if (academicPlan.coursesPerAcademicTerm[termNum]) {
-    academicPlan.coursesPerAcademicTerm[termNum] += 1; // eslint-disable-line no-param-reassign
+  if (coursesPerAcademicTerm[termNum]) {
+    coursesPerAcademicTerm[termNum] += 1; // eslint-disable-line no-param-reassign
   } else {
-    academicPlan.coursesPerAcademicTerm[termNum] = 1; // eslint-disable-line no-param-reassign
+    coursesPerAcademicTerm[termNum] = 1; // eslint-disable-line no-param-reassign
   }
+  updateChoiceCounts(choiceList);
+}
+
+export function addChoiceToPlan(academicPlan: IAcademicPlan, termNum: number, choice: string) {
+  addChoiceToRaw(choice, termNum, academicPlan.courseList, academicPlan.coursesPerAcademicTerm);
 }
