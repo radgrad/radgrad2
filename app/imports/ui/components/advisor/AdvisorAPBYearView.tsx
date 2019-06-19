@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Divider, Grid } from 'semantic-ui-react';
-import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget';
+import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget'; // eslint-disable-line no-unused-vars
 
 interface IAdvisorAPBYearViewProps {
   yearNumber: number;
