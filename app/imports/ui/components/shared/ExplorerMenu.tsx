@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Dropdown, Menu, Header, Responsive } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Dropdown, Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
+import { NavLink, withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
 import {
   IAcademicPlan, //eslint-disable-line
@@ -17,9 +17,9 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
-interface ICardExplorerMenuProps {
+interface IExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
-  menuCareerList: { item: IInterest, count: number }[] | undefined;
+  menuCareerList?: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty' | 'mentor';
   match: {
@@ -33,7 +33,7 @@ interface ICardExplorerMenuProps {
 }
 
 // FIXME: Needs to be reactive
-class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
+class ExplorerMenu extends React.Component<IExplorerMenuProps> {
   constructor(props) {
     super(props);
   }
@@ -200,6 +200,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
       position: 'absolute',
       marginLeft: '-20px',
     };
+    const marginTopStyle = { marginTop: '5px' };
 
     const menuItems = [
       { key: 'Academic Plans', route: 'plans' },
@@ -240,6 +241,9 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           {
             this.isType('plans') ?
               <React.Fragment>
+                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                  <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
+                </Button>
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
@@ -263,6 +267,9 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           {
             this.isType('courses') ?
               <React.Fragment>
+                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                  <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
+                </Button>
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
@@ -287,6 +294,9 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
             this.isType('opportunities') ?
               <React.Fragment>
                 <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
+                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                  <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
+                </Button>
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
@@ -313,6 +323,9 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
             this.isType('interests') ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
+                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                  <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
+                </Button>
                 <Header as="h4" dividing={true}>MY INTERESTS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
@@ -342,6 +355,9 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
             this.isType('career-goals') ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
+                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                  <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
+                </Button>
                 <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
@@ -353,6 +369,14 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
                   ))
                 }
               </Menu>
+              : ''
+          }
+
+          {
+            this.isType('degrees') ?
+              <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
+              </Button>
               : ''
           }
         </Responsive>
@@ -514,4 +538,4 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   }
 }
 
-export default withRouter(CardExplorerMenu);
+export default withRouter(ExplorerMenu);

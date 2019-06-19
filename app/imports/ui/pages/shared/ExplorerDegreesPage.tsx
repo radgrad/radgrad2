@@ -13,6 +13,10 @@ import ExplorerDegreesWidget from '../../components/shared/ExplorerDegreesWidget
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import ExplorerMenu from '../../components/shared/ExplorerMenu';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IExplorerDegreesPageProps {
   match: {
@@ -52,6 +56,13 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
     }
   }
 
+  /* ####################################### EXPLORER MENU HELPER FUNCTIONS ######################################### */
+  private addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
+    item: d,
+    count: 1,
+  }))
+
+  /* ####################################### EXPLORER DEGREES WIDGET HELPER FUNCTIONS ############################### */
   private degree = () => {
     const degreeSlugName = this.props.match.params.degree;
     const slug = Slugs.find({ name: degreeSlugName }).fetch();
@@ -86,6 +97,10 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
   private numUsers = (degree) => this.interestedUsers(degree).length;
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
+
+    const addedList = this.addedDegrees();
+
     const degree = this.degree();
     const name = degree.name;
     const slug = this.slugName(degree.slugID);
@@ -95,19 +110,21 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
 
     return (
       <React.Fragment>
-        {
-          this.renderPageMenuWidget()
-        }
+        {this.renderPageMenuWidget()}
 
         <Grid container={true} stackable={true}>
-          <Grid.Row width={3}>
-            {/*  TODO: Card Explorer Menu */}
+          <Grid.Row>
+            {helpMessage ? <HelpPanelWidget/> : ''}
           </Grid.Row>
 
-          <Grid.Row width={13}>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={addedList} type={'degrees'} role={this.getRoleByUrl()}/>
+          </Grid.Column>
+
+          <Grid.Column width={13}>
             <ExplorerDegreesWidget name={name} slug={slug} descriptionPairs={descriptionPairs} socialPairs={socialPairs}
                                    id={id} item={degree}/>
-          </Grid.Row>
+          </Grid.Column>
         </Grid>
       </React.Fragment>
     );

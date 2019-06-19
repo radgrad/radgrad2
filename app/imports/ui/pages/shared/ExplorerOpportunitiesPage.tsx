@@ -16,8 +16,9 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import ExplorerOpportunitiesWidget from '../../components/shared/ExplorerOpportunitiesWidget';
-
-// import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import ExplorerMenu from '../../components/shared/ExplorerMenu';
 
 interface IExplorerOpportunitiesPageProps {
   match: {
@@ -62,6 +63,30 @@ class ExplorerOpportunitiesPage extends React.Component<IExplorerOpportunitiesPa
     return username && Users.getID(username);
   }
 
+  /* ####################################### EXPLORER MENU HELPER FUNCTIONS ######################################### */
+  private addedOpportunities = (): { item: IOpportunity, count: number }[] => {
+    const addedOpportunities = [];
+    const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+    const userID = this.getUserIdFromRoute();
+    const group = this.getRoleByUrl();
+    if (group === 'faculty') {
+      return _.filter(allOpportunities, o => o.sponsorID === userID);
+    }
+    if (group === 'student') {
+      _.forEach(allOpportunities, (opportunity) => {
+        const oi = OpportunityInstances.find({
+          studentID: userID,
+          opportunityID: opportunity._id,
+        }).fetch();
+        if (oi.length > 0) {
+          addedOpportunities.push({ item: opportunity, count: oi.length });
+        }
+      });
+    }
+    return addedOpportunities;
+  }
+
+  /* ####################################### EXPLORER OPPORTUNITIES WIDGET HELPER FUNCTIONS ######################### */
   private opportunity = (): IOpportunity => {
     const opportunitySlugName = this.props.match.params.opportunity;
     const slug = Slugs.find({ name: opportunitySlugName }).fetch();
@@ -151,6 +176,10 @@ class ExplorerOpportunitiesPage extends React.Component<IExplorerOpportunitiesPa
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
+
+    const addedList = this.addedOpportunities();
+
     const opportunity = this.opportunity();
     const name = opportunity.name;
     const slug = this.slugName(opportunity.slugID);
@@ -162,25 +191,22 @@ class ExplorerOpportunitiesPage extends React.Component<IExplorerOpportunitiesPa
     const role = this.getRoleByUrl();
     return (
       <React.Fragment>
-        {
-          this.renderPageMenuWidget()
-        }
+        {this.renderPageMenuWidget()}
 
         <Grid container={true} stackable={true}>
           <Grid.Row>
-            {/* FIXME: Explorer Opportunities need a Help Message according to radgrad1 */}
-            {/* <HelpPanelWidget/> */}
+            {helpMessage ? <HelpPanelWidget/> : ''}
           </Grid.Row>
 
-          <Grid.Row width={3}>
-            {/*  TODO: Card Explorer Menu */}
-          </Grid.Row>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={addedList} type={'opportunities'} role={this.getRoleByUrl()}/>
+          </Grid.Column>
 
-          <Grid.Row width={13}>
+          <Grid.Column width={13}>
             <ExplorerOpportunitiesWidget name={name} slug={slug} descriptionPairs={descriptionPairs} id={id} role={role}
                                          item={opportunity} socialPairs={socialPairs} completed={completed}
                                          reviewed={reviewed}/>
-          </Grid.Row>
+          </Grid.Column>
         </Grid>
       </React.Fragment>
     );
