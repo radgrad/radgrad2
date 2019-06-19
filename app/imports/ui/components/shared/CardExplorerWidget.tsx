@@ -20,6 +20,9 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
+
+import ProfileCard from './ProfileCard';
+
 // eslint-disable-next-line no-unused-vars
 import { IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
@@ -29,6 +32,7 @@ import {
   setCardExplorerWidgetHiddenOpportunities,
 } from '../../../redux/actions/cardExplorerPageActions';
 import PlanCard from './PlanCard';
+
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -78,7 +82,8 @@ const mapStateToProps = (state) => ({
  *      career-goals is the type.)
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
-class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
+class CardExplorerWidget extends React.Component
+  <ICardExplorerWidgetProps> {
   constructor(props) {
     super(props);
   }
@@ -584,7 +589,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     const buildPlanCard = this.isType('plans');
 
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-    // const buildProfileCard = this.isType('interests') || this.isType('career-goals');
+    const buildProfileCard = this.isType('interests') || this.isType('career-goals');
 
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
     const buildTermCard = this.isType('courses') || this.isType('opportunities');
@@ -716,9 +721,8 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
                     items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}/>) : ''
                 }
                 {
-                  // buildProfileCard ?
-                  //   // TODO: Implement ProfileCard
-                  //   items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd={true}/>) : ''
+                  buildProfileCard ?
+                    items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}/>) : ''
                 }
                 {
                   buildTermCard ?
@@ -750,6 +754,7 @@ const CardExplorerWidgetCont = withTracker((props) => {
   const { collection, type, match } = props;
   const username = match.params.username;
   // TODO: Test to make sure this is enough to make things reactive
+
   let reactiveSource;
   if (type !== 'users') {
     reactiveSource = collection.findNonRetired();
