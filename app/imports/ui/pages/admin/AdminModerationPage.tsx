@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminModerationWidget from '../../components/admin/AdminModerationWidget'
 
 /** A simple static component to render some text for the landing page. */
 class AdminModerationPage extends React.Component {
@@ -10,14 +11,12 @@ class AdminModerationPage extends React.Component {
       <div>
         <AdminPageMenuWidget/>
         <Grid verticalAlign="middle" textAlign="center" container={true}>
+          <Grid.Row>
+            <Grid.Column>
+              <AdminModerationWidget/>
+            </Grid.Column>
+          </Grid.Row>
 
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Admin Moderation</h1>
-          </Grid.Column>
         </Grid>
       </div>
     );

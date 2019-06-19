@@ -27,14 +27,12 @@ const GuidedTourAdvisor = () => {
     <div style={styles.background}>
       <Container textAlign="center">
         <Segment padded={true} style={styles.background}>
-          <Slider {...settings}>
             <WhyRadGrad/>
             <Welcome/>
             <DegreePlan/>
             <Opportunities/>
             <ReviewModeration/>
             <WhatsNext/>
-          </Slider>
         </Segment>
         <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
         <p/>
@@ -46,3 +44,13 @@ const GuidedTourAdvisor = () => {
 };
 
 export default GuidedTourAdvisor;
+/*
+took out <Slider> because was getting a no properties in common error
+<Slider {...settings}>
+  <WhyRadGrad/>
+  <Welcome/>
+  <DegreePlan/>
+  <Opportunities/>
+  <ReviewModeration/>
+  <WhatsNext/>
+</Slider>*/
