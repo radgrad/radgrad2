@@ -32,7 +32,7 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
     const username = this.props.match.params.username;
     const indexUsername = url.indexOf(username);
     return url.substring(1, indexUsername - 1);
-  }
+  };
 
   private renderPageMenuWidget = () => {
     const role = this.getRoleByUrl();
@@ -46,7 +46,7 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
       default:
         return '';
     }
-  }
+  };
 
   public render() {
     return (
@@ -60,8 +60,8 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
                   <Grid.Row>
                     <Grid.Column width={3}>
                       <Menu fluid vertical tabular>
-                        <Menu.Item name='my interests'></Menu.Item>
-                        <Menu.Item name='my career goals'></Menu.Item>
+                        <Menu.Item name='my interests'/>
+                        <Menu.Item name='my career goals'/>
                       </Menu>
                     </Grid.Column>
                     <Grid.Column>

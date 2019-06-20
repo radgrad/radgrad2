@@ -780,6 +780,7 @@ export interface ICombinedProfileDefine extends IProfileDefine {
 }
 
 export interface IProfileUpdate {
+  id?: string;
   firstName?: string;
   lastName?: string;
   picture?: string;
