@@ -38,8 +38,39 @@ interface IExplorerInterestsWidgetProps {
   }
   profile: IProfile;
   interest: IInterest;
+  interestedStudents: IProfile[];
+  interestedFaculty: IProfile[];
+  interestedAlumni: IProfile[];
+  interestedMentor: IProfile[];
 }
 
+const getObjectsThatHaveInterest = (objects, interestID) => {
+  const interested = [];
+  _.map(objects, (num) => {
+    _.filter(num.interestIDs, (interests) => {
+      if (interests === interestID) {
+        interested.push(num);
+      }
+    });
+  });
+  return interested;
+};
+
+const participation = (role, interestID) => {
+  const interested = [];
+  switch (role) {
+    case 'student':
+      return getObjectsThatHaveInterest(StudentProfiles.findNonRetired({ isAlumni: false }), interestID);
+    case 'faculty':
+      return getObjectsThatHaveInterest(FacultyProfiles.findNonRetired(), interestID);
+    case 'mentor':
+      return getObjectsThatHaveInterest(MentorProfiles.findNonRetired(), interestID);
+    case 'alumni':
+      return getObjectsThatHaveInterest(StudentProfiles.findNonRetired({ isAlumni: true }), interestID);
+    default:
+      return interested;
+  }
+};
 
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps> {
   constructor(props: any) {
@@ -47,42 +78,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     // console.log('Explorer props %o', props);
   }
 
-  private getObjectsThatHaveInsterest = (profiles) => {
-    const interested = [];
-    _.map(profiles, (num) => {
-      _.filter(num.interestIDs, (interests) => {
-        if (interests === this.props.interest._id) {
-          interested.push(num);
-        }
-      });
-    });
-    return interested;
-  };
+  private getObjectsThatHaveInsterest = (profiles) => getObjectsThatHaveInterest(profiles, this.props.interest._id);
 
   private getRoleByUrl = (): string => this.props.match.url.split('/')[1];
 
-  /**
-   * return how many users participate in interest based on role
-   *  match the interest w/ the interest in a user profile
-   */
-  private participation = (role) => {
-    const interested = [];
-    switch (role) {
-      case 'student':
-        return this.getObjectsThatHaveInsterest(StudentProfiles.findNonRetired({ isAlumni: false }));
-      case 'faculty':
-        return this.getObjectsThatHaveInsterest(FacultyProfiles.findNonRetired());
-      case 'mentor':
-        return this.getObjectsThatHaveInsterest(MentorProfiles.findNonRetired());
-      case 'alumni':
-        return this.getObjectsThatHaveInsterest(StudentProfiles.findNonRetired({ isAlumni: true }));
-      default:
-        return interested;
-    }
-  };
-
-
-  private GetRelatedCourses = () => this.getObjectsThatHaveInsterest(Courses.findNonRetired());
+  private getRelatedCourses = () => this.getObjectsThatHaveInsterest(Courses.findNonRetired());
 
 
   /**
@@ -90,7 +90,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
    * @param courses
    * @constructor
    */
-  private GetAssociationRelatedCourses = (courses) => {
+  private getAssociationRelatedCourses = (courses) => {
     const inPlanInstance = CourseInstances.findNonRetired({
       studentID: this.props.profile.userID, verified: false,
     });
@@ -114,9 +114,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return relatedCourses;
   };
 
-  private GetRelatedOpportunities = () => this.getObjectsThatHaveInsterest(Opportunities.findNonRetired());
+  private getRelatedOpportunities = () => this.getObjectsThatHaveInsterest(Opportunities.findNonRetired());
 
-  private GetAssociationRelatedOpportunities = (opportunities) => {
+  private getAssociationRelatedOpportunities = (opportunities) => {
     const inPlanInstance = OpportunityInstances.findNonRetired({
       studentID: this.props.profile.userID, verified: false,
     });
@@ -138,36 +138,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       notInPlan: relatedNotInPlanIDs,
     };
     return relatedOpportunites;
-  };
-
-
-  private GenerateCourseRoute = (document) => {
-    // const variableSlug = Courses.findSlugByID(document._id);
-    const variableSlug = Slugs.getNameFromID(document.slugID);
-    const username = this.props.match.params.username;
-    const role = this.getRoleByUrl();
-    const partialSlug = [];
-    partialSlug.push(role);
-    partialSlug.push(username);
-    partialSlug.push('explorer');
-    partialSlug.push('courses');
-    partialSlug.push(variableSlug);
-    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`;
-    return fullSlug;
-  };
-
-  private GenerateOpportunityRoute = (document) => {
-    const variableSlug = Opportunities.findSlugByID(document._id);
-    const username = this.props.match.params.username;
-    const role = this.props.match.url.split('/')[1];
-    const partialSlug = [];
-    partialSlug.push(role);
-    partialSlug.push(username);
-    partialSlug.push('explorer');
-    partialSlug.push('opportunities');
-    partialSlug.push(variableSlug);
-    const fullSlug = `/${partialSlug.toString().split(',').join('/')}`;
-    return fullSlug;
   };
 
   private getBaseURL() {
@@ -241,15 +211,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
   };
 
   public render() {
-//     const interestDoc = this.getInterestDoc();
-//     const interestName = interestDoc.name;
-//     const interestDescription = interestDoc.description;
-    const relatedCourses = this.GetAssociationRelatedCourses(this.GetRelatedCourses());
-    const relatedOpportunities = this.GetAssociationRelatedOpportunities(this.GetRelatedOpportunities());
-    const interestedStudents = this.participation('student');
-    const interestedFaculty = this.participation('faculty');
-    const interestedAlumni = this.participation('alumni');
-    const interestedMentor = this.participation('mentor');
+    const relatedCourses = this.getAssociationRelatedCourses(this.getRelatedCourses());
+    const relatedOpportunities = this.getAssociationRelatedOpportunities(this.getRelatedOpportunities());
 
     /**
      * ToDo polish this UI
@@ -279,139 +242,11 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
             <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={this.getRoleByUrl() === 'student'} baseURL={this.getBaseURL()}/>
           </Grid.Column>
           <Grid.Column width={6}>
-            <InterestedProfilesWidget students={interestedStudents} faculty={interestedFaculty}
-                                      alumni={interestedAlumni} mentors={interestedMentor}/>
+            <InterestedProfilesWidget students={this.props.interestedStudents} faculty={this.props.interestedFaculty}
+                                      alumni={this.props.interestedAlumni} mentors={this.props.interestedMentor}/>
           </Grid.Column>
         </Grid>
       </div>
-//           <Grid.Row>
-//             <Grid divided='vertically' stackable>
-//               <Grid.Row>
-//                 <Grid.Column width={8}>
-//                   <Container fluid>
-//                     <Grid padded='horizontally' columns={1} stackable>
-//                       <Grid.Row>
-//                         <Grid.Column>
-//                           <Container>
-//                             <Segment>
-//                               <Header>Related Courses</Header>
-//                               <Divider/>
-//                               <Grid columns='equal'>
-//                                 <Grid.Row columns={3} divided>
-//                                   <Grid.Column>
-//                                     <Container textAlign='center'>
-//                                       <div>
-//                                         <Header as='h4'><i className='green checkmark icon'/>Completed</Header>
-//                                         {
-//                                           _.map(relatedCourses.completed, (value, index) => <Container key={index}
-//                                                                                                        textAlign='center'>
-//                                             <Link
-//                                               to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-//                                           </Container>)
-//                                         }</div>
-//                                     </Container>
-//                                   </Grid.Column>
-//                                   <Grid.Column>
-//                                     <Container textAlign='center'>
-//                                       <div>
-//                                         <Header as='h4'><i className='yellow warning sign icon'/>In Plan</Header>
-//                                         {
-//                                           _.map(relatedCourses.inPlan, (value, index) => <Container key={index}
-//                                                                                                     textAlign='center'>
-//                                             <Link
-//                                               to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-//                                           </Container>)
-//                                         }</div>
-//                                     </Container>
-//                                   </Grid.Column>
-//                                   <Grid.Column>
-//                                     <Container textAlign='center'>
-//                                       <div>
-//                                         <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
-//                                         {
-//                                           _.map(relatedCourses.notInPlan, (value, index) => <Container key={index}
-//                                                                                                        textAlign='center'>
-//                                             <Link
-//                                               to={this.GenerateCourseRoute(Courses.findDoc(value))}>{Courses.findDoc(value).name}</Link>
-//                                           </Container>)
-//                                         }</div>
-//                                     </Container>
-//                                   </Grid.Column>
-//                                 </Grid.Row>
-//                               </Grid>
-//                             </Segment>
-//                           </Container>
-//                         </Grid.Column>
-//                       </Grid.Row>
-//                       <Grid.Row>
-//                         <Grid.Column>
-//                           <Container fluid>
-//                             <Segment>
-//                               <Header>Related Opportunities</Header>
-//                               <Divider/>
-//                               <Grid padded columns='equal'>
-//                                 <Grid.Row columns={3} divided>
-//                                   <Grid.Column>
-//                                     <Container textAlign='center'>
-//                                       <div>
-//                                         <Header as='h4'><i className='green checkmark icon'></i>Completed</Header>
-//                                         {
-//                                           _.map(relatedOpportunities.completed, (value, index) => <Container key={index}
-//                                                                                                              textAlign='center'>
-//                                             <Link
-//                                               to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-//                                           </Container>)
-//                                         }</div>
-//                                     </Container>
-//                                   </Grid.Column>
-//                                   <Grid.Column>
-//                                     <Container textAlign='center'>
-//                                       <div>
-//                                         <Header as='h4'><i className='yellow warning sign icon'></i>In Plan</Header>
-//                                         {
-//                                           _.map(relatedOpportunities.inPlan, (value, index) => <Container key={index}
-//                                                                                                           textAlign='center'>
-//                                             <Link
-//                                               to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-//                                           </Container>)
-//                                         }</div>
-//                                     </Container>
-//                                   </Grid.Column>
-//                                   <Grid.Column>
-//                                     <Container textAlign='center'>
-//                                       <div>
-//                                         <Header as='h4'><i className='red warning circle icon'></i>Not In Plan</Header>
-//                                         {
-//                                           _.map(relatedOpportunities.notInPlan, (value, index) => <Container key={index}
-//                                                                                                              textAlign='center'>
-//                                             <Link
-//                                               to={this.GenerateOpportunityRoute(Opportunities.findDoc(value))}>{Opportunities.findDoc(value).name}</Link>
-//                                           </Container>)
-//                                         }</div>
-//                                     </Container>
-//                                   </Grid.Column>
-//                                 </Grid.Row>
-//                               </Grid>
-//                             </Segment>
-//                           </Container>
-//                         </Grid.Column>
-//                       </Grid.Row>
-//                     </Grid>
-//                   </Container>
-//                 </Grid.Column>
-//                 <Grid.Column width={4}>
-//                 </Grid.Column>
-//               </Grid.Row>
-//               <Grid.Row>
-//               </Grid.Row>
-//               <Grid.Row>
-//
-//               </Grid.Row>
-//
-//             </Grid>
-//           </Grid.Row>
-//         </Grid>
-//       </Container>
     );
   }
 }
@@ -421,9 +256,17 @@ const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
   const profile = Users.getProfile(username);
   const entityID = Slugs.getEntityID(match.params.interest, 'Interest');
   const interest = Interests.findDoc(entityID);
+  const interestedStudents = participation('student', entityID);
+  const interestedFaculty = participation('faculty', entityID);
+  const interestedAlumni = participation('alumni', entityID);
+  const interestedMentor = participation('mentor', entityID);
   return {
     profile,
     interest,
+    interestedStudents,
+    interestedFaculty,
+    interestedMentor,
+    interestedAlumni,
   };
 })(ExplorerInterestsWidget);
 
