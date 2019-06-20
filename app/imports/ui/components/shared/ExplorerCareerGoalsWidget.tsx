@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Divider, Image } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import InterestList from './InterestList';
+import { Users } from '../../../api/user/UserCollection';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
 
 interface IExplorerCareerGoalsWidgetProps {
@@ -12,6 +14,7 @@ interface IExplorerCareerGoalsWidgetProps {
   slug: string;
   descriptionPairs: any;
   item: object;
+  socialPairs: any;
 }
 
 class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidgetProps> {
@@ -33,20 +36,35 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 
   private getDescriptionPair = () => this.props.descriptionPairs;
 
+  private getSocialPair = () => this.props.socialPairs;
+
   private toUpper = (string) => string.toUpperCase();
 
   private isLabel = (descriptionPairLabel, comp) => descriptionPairLabel === comp;
+
+  private userPicture = (user) => {
+    const picture = Users.getProfile(user).picture;
+    return picture || defaultProfilePicture;
+  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginStyle = {
       marginTop: 5,
     };
 
+    const imageStyle = {
+      marginBottom: 7,
+      marginLeft: 3.5,
+      marginRight: 3.5,
+    };
+
     const divPadding = {
       marginTop: 0,
+      padding: 0,
     };
     const upperName = this.toUpper(this.getCareerGoalName());
     const descriptionPairs = this.getDescriptionPair();
+    const socialPairs = this.getSocialPair();
     const item = this.props.item;
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
@@ -80,14 +98,27 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
                   {
                     this.isLabel(descriptionPair.label, 'Interests') ?
                       <div style={{ marginTop: '5px' }}>
-                          <InterestList item={item} size="mini"/>
+                        <InterestList item={item} size='mini' align={'vertical'}/>
                       </div>
                       : ''
                   }
                 </React.Fragment>
               ))
               }
-            </Grid.Column>
+            </Grid.Column><br/>
+            <Divider/>
+            <Grid stackable={true} celled={'internally'} columns={'equal'}>
+              {socialPairs.map((socialPair, index) => (
+                <React.Fragment key={index}>
+                  <Grid.Column textAlign={'center'} style={divPadding}>
+                    <h5>{this.toUpper(socialPair.label)} - {socialPair.amount}</h5>
+                    {socialPair.value.map((user, index2) => (
+                      <Image src={this.userPicture(user)} circular size='mini' verticalAlign={'middle'} key={index2} style={imageStyle}/>
+                    ))}
+                  </Grid.Column>
+                </React.Fragment>
+              ))}
+            </Grid>
           </Segment>
         </Grid.Column>
       </Grid>

@@ -8,6 +8,8 @@ import ExplorerCareerGoalsWidgetContainer from '../../components/shared/Explorer
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { ROLE } from '../../../api/role/Role';
 
 interface IExplorerCareerGoalsPageProps {
   match: {
@@ -33,6 +35,40 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
     return careerGoal[0];
   }
 
+  private interestedUsers = (careerGoal, role) => {
+    const interested = [];
+    const profiles = Users.findProfilesWithRole(role, {}, {});
+    _.forEach(profiles, (profile) => {
+      if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+        interested.push(profile);
+      }
+    });
+    return interested;
+  }
+
+  private numUsers = (careerGoal, role) => this.interestedUsers(careerGoal, role).length
+
+  private socialPairs = (careerGoal) => [
+    {
+      label: 'students', amount: this.numUsers(careerGoal, ROLE.STUDENT),
+      value: this.interestedUsers(careerGoal, ROLE.STUDENT)
+    },
+    {
+      label: 'faculty members', amount: this.numUsers(careerGoal, ROLE.FACULTY),
+      value: this.interestedUsers(careerGoal, ROLE.FACULTY)
+    },
+    {
+      label: 'alumni',
+      amount: this.numUsers(careerGoal, ROLE.ALUMNI),
+      value: this.interestedUsers(careerGoal, ROLE.ALUMNI)
+    },
+    {
+      label: 'mentors',
+      amount: this.numUsers(careerGoal, ROLE.MENTOR),
+      value: this.interestedUsers(careerGoal, ROLE.MENTOR)
+    },
+  ]
+
   private descriptionPairs = (careerGoal) => [
     { label: 'Description', value: careerGoal.description },
     { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
@@ -43,9 +79,9 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
       marginTop: 5,
     };
     const careerGoal = this.careerGoal();
-    console.log('careerGoal: ', careerGoal);
     const careerName = careerGoal.name;
     const slugName = careerGoal.slugID;
+    const socialPairs = this.socialPairs(careerGoal);
     const descriptionPairs = this.descriptionPairs(careerGoal);
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
@@ -54,7 +90,8 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
         </Grid.Column>
 
         <Grid.Column width={13}>
-          <ExplorerCareerGoalsWidgetContainer name={careerName} slug={slugName} descriptionPairs={descriptionPairs} item={careerGoal}/>
+          <ExplorerCareerGoalsWidgetContainer name={careerName} slug={slugName} descriptionPairs={descriptionPairs}
+                                              item={careerGoal} socialPairs={socialPairs}/>
         </Grid.Column>
       </Grid>
     );
