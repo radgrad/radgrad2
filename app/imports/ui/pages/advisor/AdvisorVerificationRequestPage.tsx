@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Container, Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
@@ -14,6 +15,11 @@ import { IVerificationRequest } from '../../../typings/radgrad';
 
 interface IAdvisorVerificationRequestPageProps {
   verificationRequests: IVerificationRequest[];
+  match: {
+    params: {
+      username: string;
+    }
+  }
 }
 
 /** A simple static component to render some text for the landing page. */
@@ -58,7 +64,9 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
                 {activeItem === 'pending' ? <AdvisorPendingVerificationWidget
                   pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/> : undefined}
                 {activeItem === 'event' ? <AdvisorEventVerificationWidget/> : undefined}
-                {activeItem === 'completed' ? <AdvisorCompletedVerificationWidget/> : undefined}
+                {activeItem === 'completed' ?
+                  <AdvisorCompletedVerificationWidget username={this.props.match.params.username}
+                                                      completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/> : undefined}
               </Grid.Column>
             </Grid.Row>
             {/* </Grid.Column> */}
@@ -74,5 +82,6 @@ const AdvisorVerificationRequestPageContainer = withInstanceSubscriptions(Adviso
 const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
   verificationRequests: VerificationRequests.findNonRetired(),
 }))(AdvisorVerificationRequestPageContainer);
+const AdvisorVerificationRequestPageContainerTrackerRouter = withRouter(AdvisorVerificationRequestPageContainerTracker);
 
-export default AdvisorVerificationRequestPageContainerTracker;
+export default AdvisorVerificationRequestPageContainerTrackerRouter;
