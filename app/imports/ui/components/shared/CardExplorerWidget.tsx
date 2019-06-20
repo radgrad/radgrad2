@@ -31,6 +31,7 @@ import {
   setCardExplorerWidgetHiddenCourses,
   setCardExplorerWidgetHiddenOpportunities,
 } from '../../../redux/actions/cardExplorerPageActions';
+import PlanCard from './PlanCard';
 
 
 interface ICardExplorerWidgetProps {
@@ -582,13 +583,14 @@ class CardExplorerWidget extends React.Component
     /* Variables */
     const header = this.buildHeader(); // The header Title and Count
     const items = this.getItems(); // The items to map over
-    const { type, match } = this.props;
-    // const username = this.getUsername();
+    const { type } = this.props;
 
     // For the Academic Plans Card Explorer
-    // const buildPlanCard = this.isType('plans');
+    const buildPlanCard = this.isType('plans');
+
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
     const buildProfileCard = this.isType('interests') || this.isType('career-goals');
+
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
     const buildTermCard = this.isType('courses') || this.isType('opportunities');
     const isCoursesHidden = this.isCoursesHidden();
@@ -649,7 +651,7 @@ class CardExplorerWidget extends React.Component
     ];
 
     // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-    // const canAdd = this.isRoleStudent();
+    const canAdd = this.isRoleStudent();
 
     return (
       <React.Fragment>
@@ -715,27 +717,22 @@ class CardExplorerWidget extends React.Component
             !buildStudentUserCard ?
               <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable={true}>
                 {
-                  // buildPlanCard ?
-                  //   // TODO: Implement PlanCard
-                  //   items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}
-                  //                                        match={match}/>) : ''
+                  buildPlanCard ?
+                    items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}/>) : ''
                 }
                 {
                   buildProfileCard ?
-                    // TODO: Implement ProfileCard
-                    items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}
-                                                            match={match}/>) : ''
-
+                    items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}/>) : ''
                 }
                 {
                   buildTermCard ?
                     items.map((item) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent}
-                                                  canAdd={true} match={match}/>)
+                                                  canAdd={true}/>)
                     : ''
                 }
                 {
                   buildExplorerCard ?
-                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type} match={match}/>)
+                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type}/>)
                     : ''
                 }
               </Card.Group>
@@ -769,7 +766,7 @@ const CardExplorerWidgetCont = withTracker((props) => {
   const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});
   const reactiveSourceForTermCarTwo = OpportunityInstances.findNonRetired({});
 
-  /* Reactive sources to make Hiding a Course / Opportunity reactive */
+  /* Reactive sources to make Hiding a Course / Opportunity, ProfileCard reactive */
   const reactiveSourceProfile = Users.getProfile(username);
 
   return {

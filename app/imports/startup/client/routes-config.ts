@@ -66,13 +66,14 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
-import ExplorerInterestsPageContainer from '../../ui/pages/shared/ExplorerInterestsPage';
 /* Explorers */
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
 import ExplorerCoursesPageContainer from '../../ui/pages/shared/ExplorerCoursesPage';
+import ExplorerInterestsPageContainer from '../../ui/pages/shared/ExplorerInterestsPage';
 import ExplorerOpportunitiesPageContainer from '../../ui/pages/shared/ExplorerOpportunitiesPage';
+import ExplorerPlansPageContainer from '../../ui/pages/shared/ExplorerPlansPage';
 
 export const routes = {
   ADMIN: [
@@ -294,6 +295,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/faculty/:username/explorer/plans/:plan',
+      exact: true,
+      component: ExplorerPlansPageContainer,
+    },
+    {
       path: '/faculty/:username/explorer/career-goals',
       exact: true,
       component: CardExplorerPageContainer,
@@ -322,8 +328,8 @@ export const routes = {
       path: '/faculty/:username/explorer/interests',
       exact: true,
       component: CardExplorerPageContainer,
-    }, {
-
+    },
+    {
       path: '/faculty/:username/explorer/interests/:interest',
       exact: true,
       component: ExplorerInterestsPageContainer,
@@ -453,12 +459,23 @@ export const routes = {
     {
       path: '/mentor/:username/explorer/interests',
       exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+
+      path: '/mentor/:username/explorer/interests/:interest',
+      exact: true,
       component: ExplorerInterestsPageContainer,
     },
     {
       path: '/mentor/:username/explorer/plans',
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    {
+      path: '/mentor/:username/explorer/plans/:plan',
+      exact: true,
+      component: ExplorerPlansPageContainer,
     },
     {
       path: '/mentor/:username/explorer/career-goals',
@@ -528,6 +545,11 @@ export const routes = {
       path: '/student/:username/explorer/plans',
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/plans/:plan',
+      exact: true,
+      component: ExplorerPlansPageContainer,
     },
     {
       path: '/student/:username/explorer/career-goals',

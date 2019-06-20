@@ -5,6 +5,48 @@
       "name": "AcademicPlanCollection",
       "contents": [
         {
+          "slug": "ba-ics-2015",
+          "degreeSlug": "ba-ics",
+          "name": "B.A. in Information and Computer Sciences (2015)",
+          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
+          "academicTerm": "Fall-2015",
+          "coursesPerAcademicTerm": [
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_241-1",
+            "ics_212-1",
+            "ics_311-1",
+            "ics_312,ics_331-1",
+            "ics_321-1",
+            "ics_313,ics_361-1",
+            "ics_400+-1",
+            "ics_332-1",
+            "ics_400+-2",
+            "ics_400+-3",
+            "ics_400+-4"
+          ],
+          "retired": false
+        },
+        {
           "slug": "ba-ics-2016",
           "degreeSlug": "ba-ics",
           "name": "B.A. in Information and Computer Sciences (2016)",
@@ -45,6 +87,90 @@
           "retired": false
         },
         {
+          "slug": "ba-ics-2017",
+          "degreeSlug": "ba-ics",
+          "name": "B.A. in Information and Computer Sciences (2017)",
+          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
+          "academicTerm": "Fall-2017",
+          "coursesPerAcademicTerm": [
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_241-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_212-1",
+            "ics_321-1",
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-1",
+            "ics_332-1",
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
+            "ics_400+-1"
+          ],
+          "retired": false
+        },
+        {
+          "slug": "bs-cs-2015",
+          "degreeSlug": "bs-cs",
+          "name": "B.S. in Computer Science (2015)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
+          "academicTerm": "Fall-2015",
+          "coursesPerAcademicTerm": [
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_241-1",
+            "ics_212-1",
+            "ics_311-1",
+            "ics_312,ics_331-1",
+            "ics_321-1",
+            "ics_313,ics_361-1",
+            "ics_314-1",
+            "ics_332-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3",
+            "ics_400+-4",
+            "ics_400+-5"
+          ],
+          "retired": false
+        },
+        {
           "slug": "bs-cs-2016",
           "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Sciences (2016)",
@@ -79,6 +205,50 @@
             "ics_321-1",
             "ics_312,ics_331-1",
             "ics_313,ics_361-1",
+            "ics_332-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3",
+            "ics_400+-4",
+            "ics_400+-5"
+          ],
+          "retired": false
+        },
+        {
+          "slug": "bs-cs-2017",
+          "degreeSlug": "bs-cs",
+          "name": "B.S. in Computer Sciences (2017)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
+          "academicTerm": "Fall-2017",
+          "coursesPerAcademicTerm": [
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0,
+            2,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_241-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_212-1",
+            "ics_321-1",
+            "(ics_312,ics_331),(ics_313,ics_361),ics_355-1",
+            "(ics_312,ics_331),(ics_313,ics_361),ics_355-2",
             "ics_332-1",
             "ics_400+-1",
             "ics_400+-2",
@@ -3067,7 +3237,7 @@
           "shortName": "B.S. CE",
           "slug": "bs-ce",
           "description": "The Department of Information and Computer Sciences and the Department of Electrical Engineering offer a joint Bachelor of Science degree in Computer Engineering (BSCE).  The BSCE degree program provides you with the opportunity to learn about computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, embedded systems, computer-aided design, multi-core and parallel computing, wireless networks, and other topics.",
-          "retired": false
+          "retired": true
         },
         {
           "name": "B.S. in Computer Science",
@@ -3538,7 +3708,7 @@
           "text": "This page lists all completed verification requests. Verification requests are submitted by students when they would like RadGrad to acknowledge that they have successfully completed a particular opportunity. These verification requests are either accepted or declined by an advisor. You may reopen a verification request by clicking on the green \"REOPEN\" button. By doing this, the verification request will disappear from the \"COMPLETED VERIFICATIONS\" page, and will reappear on the \"VERIFICATION REQUESTS\" page. Then, you may go through the process of providing feedback and either accepting or declining the verification request again."
         },
         {
-          "routeName": "/advisor/:username/academic-plans",
+          "routeName": "/advisor/:username/academic-plan",
           "title": "Learn About Academic Plan Construction",
           "text": "This page allows you to manage Academic Plans. It has two tabs, Builder and Viewer.\n\n* The Builder tab allows you to create new Academic Plans. Choose the degree you are building a plan for. Enter the name of the plan and select the year that the plan is effective. The left side of the page has the four years of the plan. The right hand side has the different Course Choices. Below the Course Choices is the link field where you can create or choice. For example if you want the choice ICS 312 or ICS 331 drag the ICS 312 button into the link area. Then drag the ICS 331 button. This will create a 'ICS 312 or ICS 331' button. If you want to save the choice drag it back into the Course Choices area.\n\n To create a plan drag the choice to the year and academicTerm. You can rearange the choice by dragging.  To delete a choice drag it to the trash area. Once the plan is complete press the Save Academic Plan button.\n\n* The Viewer tab allows you to view defined Academic Plans. Choose the year then the plan name."
         },
@@ -6808,85 +6978,112 @@
           "choice": "ics_400+"
         },
         {
-          "choice": "ee_160"
+          "choice": "ee_160",
+          "retired": true
         },
         {
-          "choice": "ee_205"
+          "choice": "ee_205",
+          "retired": true
         },
         {
-          "choice": "ee_211"
+          "choice": "ee_211",
+          "retired": true
         },
         {
-          "choice": "ee_213"
+          "choice": "ee_213",
+          "retired": true
         },
         {
-          "choice": "ee_260"
+          "choice": "ee_260",
+          "retired": true
         },
         {
-          "choice": "ee_296"
+          "choice": "ee_296",
+          "retired": true
         },
         {
-          "choice": "ee_315"
+          "choice": "ee_315",
+          "retired": true
         },
         {
-          "choice": "ee_323"
+          "choice": "ee_323",
+          "retired": true
         },
         {
-          "choice": "ee_324"
+          "choice": "ee_324",
+          "retired": true
         },
         {
-          "choice": "ee_342"
+          "choice": "ee_342",
+          "retired": true
         },
         {
-          "choice": "ee_361"
+          "choice": "ee_361",
+          "retired": true
         },
         {
-          "choice": "ee_362"
+          "choice": "ee_362",
+          "retired": true
         },
         {
-          "choice": "ee_367"
+          "choice": "ee_367",
+          "retired": true
         },
         {
-          "choice": "ee_371"
+          "choice": "ee_371",
+          "retired": true
         },
         {
-          "choice": "ee_396"
+          "choice": "ee_396",
+          "retired": true
         },
         {
-          "choice": "ee_406"
+          "choice": "ee_406",
+          "retired": true
         },
         {
-          "choice": "ee_467"
+          "choice": "ee_467",
+          "retired": true
         },
         {
-          "choice": "ee_468"
+          "choice": "ee_468",
+          "retired": true
         },
         {
-          "choice": "ee_495"
+          "choice": "ee_495",
+          "retired": true
         },
         {
-          "choice": "ee_496"
+          "choice": "ee_496",
+          "retired": true
         },
         {
-          "choice": "ee_300+"
+          "choice": "ee_300+",
+          "retired": true
         },
         {
-          "choice": "cee_270"
+          "choice": "cee_270",
+          "retired": true
         },
         {
-          "choice": "me_311"
+          "choice": "me_311",
+          "retired": true
         },
         {
-          "choice": "cee_300+"
+          "choice": "cee_300+",
+          "retired": true
         },
         {
-          "choice": "me_300+"
+          "choice": "me_300+",
+          "retired": true
         },
         {
-          "choice": "oe_300+"
+          "choice": "oe_300+",
+          "retired": true
         },
         {
-          "choice": "be_300+"
+          "choice": "be_300+",
+          "retired": true
         }
       ]
     },
