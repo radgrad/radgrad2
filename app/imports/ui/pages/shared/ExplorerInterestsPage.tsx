@@ -64,7 +64,7 @@ class ExplorerInterestsPage extends React.Component<IExplorerInterestsPageProps>
                         <Menu.Item name='my career goals'/>
                       </Menu>
                     </Grid.Column>
-                    <Grid.Column>
+                    <Grid.Column width={13}>
                       <ExplorerInterestsWidget/>
                     </Grid.Column>
                   </Grid.Row>

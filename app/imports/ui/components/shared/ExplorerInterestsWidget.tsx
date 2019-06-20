@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { Container, Header, Button, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { Header, Button, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
@@ -22,6 +22,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
+import InterestedRelatedWidget from './InterestedRelatedWidget';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -43,7 +44,7 @@ interface IExplorerInterestsWidgetProps {
 class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetProps> {
   constructor(props: any) {
     super(props);
-    console.log('Explorer props %o', props);
+    // console.log('Explorer props %o', props);
   }
 
   private getObjectsThatHaveInsterest = (profiles) => {
@@ -169,6 +170,15 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return fullSlug;
   };
 
+  private getBaseURL() {
+    const split = this.props.match.url.split('/');
+    const temp = [];
+    temp.push(split[0]);
+    temp.push(split[1]);
+    temp.push(split[2]);
+    temp.push(split[3]);
+    return temp.join('/');
+  }
 
   /**
    * ToDo ask Gian about this or Moore when he gets back
@@ -228,7 +238,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       return 'remove from interests';
     }
     return 'add to interests';
-  }
+  };
 
   public render() {
 //     const interestDoc = this.getInterestDoc();
@@ -241,40 +251,39 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const interestedAlumni = this.participation('alumni');
     const interestedMentor = this.participation('mentor');
 
-    console.log(relatedCourses, relatedOpportunities, interestedAlumni, interestedFaculty, interestedStudents, interestedMentor);
     /**
      * ToDo polish this UI
      * ToDo add functionality for button
      */
     return (
-      <Container>
-         <Grid padded stackable>
-           <Grid.Row>
-             <Grid.Column>
-               <Container textAlign='left'>
-                 <Segment>
-                   <Header>{this.props.interest.name}<Button
-                     attatched='top'
-                     floated='right'
-                     size='mini'
-                     content={this.checkInterestStatus()}
-                     onClick={this.handleClick}/></Header>
-                   <Divider/>
-                   <div>
-                     <b>Description: </b>
-                   </div>
-                   <div>
-                     <Markdown escapeHtml={true} source={this.props.interest.description}/>
-                   </div>
-                 </Segment>
-               </Container>
-             </Grid.Column>
-           </Grid.Row>
-           <Grid.Row>
-             <InterestedProfilesWidget students={interestedStudents} faculty={interestedFaculty} alumni={interestedAlumni} mentors={interestedMentor}/>
-           </Grid.Row>
-         </Grid>
-      </Container>
+      <div>
+        <SegmentGroup>
+          <Segment>
+            <Header>{this.props.interest.name}<Button
+              attatched='top'
+              floated='right'
+              size='mini'
+              content={this.checkInterestStatus()}
+              onClick={this.handleClick}/></Header>
+            <Divider/>
+            <div>
+              <b>Description: </b>
+            </div>
+            <div>
+              <Markdown escapeHtml={true} source={this.props.interest.description}/>
+            </div>
+          </Segment>
+        </SegmentGroup>
+        <Grid stackable columns={2}>
+          <Grid.Column width={10}>
+            <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={this.getRoleByUrl() === 'student'} baseURL={this.getBaseURL()}/>
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <InterestedProfilesWidget students={interestedStudents} faculty={interestedFaculty}
+                                      alumni={interestedAlumni} mentors={interestedMentor}/>
+          </Grid.Column>
+        </Grid>
+      </div>
 //           <Grid.Row>
 //             <Grid divided='vertically' stackable>
 //               <Grid.Row>
@@ -391,93 +400,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 //                   </Container>
 //                 </Grid.Column>
 //                 <Grid.Column width={4}>
-//                   <Grid>
-//                     <Grid.Row centered>
-//                       <Grid.Column>
-//                         <Container fluid>
-//                           <Segment>
-//                             <Header textAlign='center'>Students &middot;  <b>{this.participation('student').length}</b></Header>
-//                             <Divider/>
-//                             <Container textAlign='center'>
-//                               <Image.Group size='mini'>
-//                                 {interestedStudents.map((student, index) => <Popup
-//                                   key={index}
-//                                   trigger={<Image src={student.picture} circular size='mini'></Image>}
-//                                   content='names'
-//                                 />)
-//                                 }
-//                               </Image.Group>
-//                             </Container>
-//                           </Segment>
-//                         </Container>
-//                       </Grid.Column>
-//                     </Grid.Row>
-//                     <Grid.Row>
-//                       <Grid.Column>
-//                         <Container fluid>
-//                           <Segment>
-//                             <Header textAlign='center'>Faculty Members &middot;
-//                               <b>{this.participation('faculty').length}</b>
-//                             </Header>
-//                             <Divider/>
-//
-//                             <Container textAlign='center'>
-//                               <Image.Group size='mini'>
-//                                 {interestedFaculty.map((faculty, index) => <Popup
-//                                   key={index}
-//                                   trigger={<Image src={faculty.picture} circular></Image>}
-//                                   content={faculty.name}
-//                                 />)
-//                                 }
-//                               </Image.Group>
-//                             </Container>
-//                           </Segment>
-//                         </Container>
-//                       </Grid.Column>
-//                     </Grid.Row>
-//                     <Grid.Row>
-//                       <Grid.Column>
-//                         <Container>
-//                           <Segment>
-//                             <Header textAlign='center'>Alumni &middot; <b>{this.participation('alumni').length}</b>
-//                             </Header>
-//                             <Divider/>
-//                             <Container textAlign='center'>
-//                               <Image.Group size='mini'>
-//                                 {interestedAlumni.map((alumni, index) => <Popup
-//                                   key={index}
-//                                   trigger={<Image src={alumni.picture} circular></Image>}
-//                                   content='names'
-//                                 />)
-//                                 }
-//                               </Image.Group>
-//                             </Container>
-//                           </Segment>
-//                         </Container>
-//                       </Grid.Column>
-//                     </Grid.Row>
-//                     <Grid.Row>
-//                       <Grid.Column>
-//                         <Container>
-//                           <Segment>
-//                             <Header textAlign='center'>Mentors &middot;  <b>{this.participation('mentor').length}</b>
-//                             </Header>
-//                             <Divider/>
-//                             <Container textAlign='center'>
-//                               <Image.Group size='mini'>
-//                                 {interestedMentor.map((mentors, index) => <Popup
-//                                   key={index}
-//                                   trigger={<Image src={mentors.picture} circular></Image>}
-//                                   content='names'
-//                                 />)
-//                                 }
-//                               </Image.Group>
-//                             </Container>
-//                           </Segment>
-//                         </Container>
-//                       </Grid.Column>
-//                     </Grid.Row>
-//                   </Grid>
 //                 </Grid.Column>
 //               </Grid.Row>
 //               <Grid.Row>
@@ -497,7 +419,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
   const username = match.params.username;
   const profile = Users.getProfile(username);
-  const interest = Interests.findDoc(match.params.interst);
+  const entityID = Slugs.getEntityID(match.params.interest, 'Interest');
+  const interest = Interests.findDoc(entityID);
   return {
     profile,
     interest,
