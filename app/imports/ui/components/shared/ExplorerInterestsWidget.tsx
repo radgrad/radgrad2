@@ -21,6 +21,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import InterestedProfilesWidget from './InterestedProfilesWidget';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -268,6 +269,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
                  </Segment>
                </Container>
              </Grid.Column>
+           </Grid.Row>
+           <Grid.Row>
+             <InterestedProfilesWidget students={interestedStudents} faculty={interestedFaculty} alumni={interestedAlumni} mentors={interestedMentor}/>
            </Grid.Row>
          </Grid>
       </Container>
