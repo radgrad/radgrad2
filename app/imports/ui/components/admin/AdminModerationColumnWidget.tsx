@@ -4,68 +4,55 @@ import { withRouter } from 'react-router-dom';
 import { IMentorQuestion, IReview } from '../../../typings/radgrad';
 import { Slugs } from "../../../api/slug/SlugCollection";
 import { withTracker } from "meteor/react-meteor-data"; // eslint-disable-line
-
+import { Grid, Header, Segment } from 'semantic-ui-react';
+import { _ } from 'meteor/erasaur:meteor-lodash';
+import AdminModerationReviewCardWidget from './AdminModerationReviewCardWidget'
+import AdminModerationQuestionCardWidget from './AdminModerationQuestionCardWidget'
+import Container from "semantic-ui-react/dist/commonjs/elements/Container";
 
 interface IAdminModerationColumn {
-  approve: (item) => any,
-  deny: (item) => any,
-  reviews: IReview[],
+  handleApprove: (item) => any,
+  handleDeny: (item) => any,
+  reviews: any,
+  isReview: boolean,
+
 }
 
-class AdminModerationColumnWidget extends React.Component {
+class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn> {
   constructor(props) {
     super(props)
     console.log('Admin Moderation Column Widget props constructor: ', props)
   }
 
   public render() {
-    console.log('Admin Moderation Column Widget Props: ', this.props);
     return (
-      <div> Hello World</div>
-    );
+      <div>
+        <Segment>
+
+
+          {
+            this.props.isReview === true ? (
+              <Container>
+                <Header as='h4'>PENDING {this.props.reviews[0].reviewType} REVIEWS </Header>
+                <AdminModerationReviewCardWidget item={this.props.reviews[0]} approve={this.props.handleApprove}
+                                                 deny={this.props.handleDeny}/>
+              </Container>
+
+            ) : (
+              <Container>
+                <Header as='h4'> PENDING MENTORSPACE QUESTIONS</Header>
+                <AdminModerationQuestionCardWidget question={this.props.reviews[0]} approve={this.props.handleApprove}
+                                                   deny={this.props.handleDeny}/>
+              </Container>
+            )
+          }
+
+        </Segment>
+      </div>
+    )
   }
 }
 
-const AdminModerationColumnWidgetContainer = withTracker((c) => ({
-  //item should be a Review
-  approve: (item) => {
-    const updateData = {
-      id: item._id,
-      data: {
-        moderated: true,
-        visible: true
-      }
-    }
-    // use slugID to get slug, then get Entitiy name from slug
-    const collectionName = `${Slugs.getNameFromID(item.slugID).entityName}Collection`;
 
-    console.log('your review has been approved! \n', item, 'update data: ', updateData, 'collection name: ', collectionName);
-    return {
-      updateData,
-      collectionName
-    }
-  },
-  deny: (item) => {
-    //set visible to false and moderated to true
-    const updateData = {
-      id: item._id,
-      data: {
-        moderated: true,
-        visible: false
-      }
-    }
-    const collectionName = `${Slugs.getNameFromID(item.slugID).entityName}Collection`;
-    console.log('your review has been denied...\n', item);
-
-    return {
-      updateData,
-      collectionName
-    }
-  },
-}))(AdminModerationColumnWidget);
-
-/*
-
-//item should be a Question*/
-export default AdminModerationColumnWidgetContainer;
+export default withRouter(AdminModerationColumnWidget);
 
