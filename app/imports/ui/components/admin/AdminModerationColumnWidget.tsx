@@ -11,8 +11,8 @@ import AdminModerationQuestionCardWidget from './AdminModerationQuestionCardWidg
 import Container from "semantic-ui-react/dist/commonjs/elements/Container";
 
 interface IAdminModerationColumn {
-  handleAccept: (item) => any,
-  handleReject: (item) => any,
+  handleAccept: (item, comment) => any,
+  handleReject: (item, comment) => any,
   reviews: any,
   isReview: boolean,
   type: string
@@ -25,33 +25,36 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
   }
 
   public render() {
+    console.log('how many reviews? ',this.props.reviews.length);
     return (
       <div>
         <Segment>
-
-
-          {
-            this.props.isReview === true ? (
-              <Container>
-                <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
+          <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
+          {this.props.isReview && this.props.reviews.length > 0 ? (
+                <Container>
                 {this.props.reviews.map((review, index) => <AdminModerationReviewCardWidget
                   key={index}
                   item={review} handleAccept={this.props.handleAccept} handleReject={this.props.handleReject}/>)
                 }
-              </Container>
+                </Container>
 
-            ) : (
+            ) :
+            (this.props.isReview === false && this.props.reviews.length) > 0 ?(
+                <Container>
+                  {this.props.reviews.map((review, index) => <AdminModerationQuestionCardWidget
+                    key={index}
+                    item={review} handleAccept={this.props.handleAccept} handleReject={this.props.handleReject}/>)
+                  }
+                </Container>
+              ):
+            (
               <Container>
-                <Header as='h4' textAlign='left' dividing> PENDING MENTORSPACE QUESTIONS</Header>
-                {this.props.reviews.map((question, index) =>
-                  <AdminModerationQuestionCardWidget key={index}
-                                                     question={question}
-                                                     handleAccept={this.props.handleAccept}
-                                                     handleReject={this.props.handleReject}/>)}
-
+                <i>No pending {this.props.type.toLowerCase()} reviews</i>
               </Container>
             )
+
           }
+
 
         </Segment>
       </div>

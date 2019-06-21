@@ -23,10 +23,10 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   }
 
   // handle approve by updateData.call
-  private handleAcceptReview = (item) => {
+  private handleAcceptReview = (item, comments) => {
     console.log('take in a review, give back an object w/ collection name and update data');
     console.log(item);
-    const updateInfo = { id: item._id, moderated: true};
+    const updateInfo = { id: item._id, moderated: true, mentorComment: comments };
     const collectionName = Reviews.getCollectionName();
     return {
       updateInfo,
@@ -35,10 +35,10 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
 
   }
 
-  private handleRejectReview = (item) => {
+  private handleRejectReview = (item, comments) => {
     console.log('take in a review, give back an object w/ collection name and update data');
     console.log(item);
-    const updateInfo = { id: item._id, moderated: true, visible: false };
+    const updateInfo = { id: item._id, moderated: true, visible: false, mentorComment: comments };
     const collectionName = Reviews.getCollectionName();
     return {
       updateInfo,
@@ -47,10 +47,10 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   }
 
 
-  private handleAcceptQuestion = (item) => {
+  private handleAcceptQuestion = (item, comments) => {
     console.log('take in a question, give back an object w/ collection name and update data');
     console.log(item);
-    const updateInfo = { id: item._id, moderated: true };
+    const updateInfo = { id: item._id, moderated: true, moderatorComment: comments };
     const collectionName = MentorQuestions.getCollectionName();
     return {
       updateInfo,
@@ -58,10 +58,10 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
     }
   }
 
-  private handleRejectQuestion = (item) => {
+  private handleRejectQuestion = (item, comments) => {
     console.log('take in a question, give back an object w/ collection name and update data');
     console.log(item);
-    const updateInfo = { id: item._id, moderated: true, visible: false };
+    const updateInfo = { id: item._id, moderated: true, visible: false, moderatorComment: comments };
     const collectionName = MentorQuestions.getCollectionName();
     return {
       updateInfo,
