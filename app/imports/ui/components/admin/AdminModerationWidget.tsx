@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Grid, Container, Header, Card, Segment, Button } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
+import { Grid, Container } from 'semantic-ui-react';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IMentorQuestion, IReview, IReviewUpdateData } from '../../../typings/radgrad';
-import { withTracker } from 'meteor/react-meteor-data'; // eslint-disable-line
-import AdminModerationColumnWidget from './AdminModerationColumnWidget'
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { withRouter } from 'react-router-dom';
-
+import { IMentorQuestion, IReview, IReviewUpdateData } from '../../../typings/radgrad'; // eslint-disable-line
+import AdminModerationColumnWidget from './AdminModerationColumnWidget';
 
 interface IAdminModerationWidget {
   opportunityReviews: IReview[],
@@ -30,9 +26,8 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
     const collectionName = Reviews.getCollectionName();
     return {
       updateInfo,
-      collectionName
-    }
-
+      collectionName,
+    };
   }
 
   private handleRejectReview = (item, comments) => {
@@ -42,9 +37,9 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
     const collectionName = Reviews.getCollectionName();
     return {
       updateInfo,
-      collectionName
-    }
-  }
+      collectionName,
+    };
+  };
 
 
   private handleAcceptQuestion = (item, comments) => {
@@ -54,9 +49,9 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
     const collectionName = MentorQuestions.getCollectionName();
     return {
       updateInfo,
-      collectionName
-    }
-  }
+      collectionName,
+    };
+  };
 
   private handleRejectQuestion = (item, comments) => {
     console.log('take in a question, give back an object w/ collection name and update data');
@@ -65,19 +60,15 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
     const collectionName = MentorQuestions.getCollectionName();
     return {
       updateInfo,
-      collectionName
-    }
-  }
+      collectionName,
+    };
+  };
 
-  // do I need this?
-  private getType = (item) => {
-
-  }
 
   public render() {
     return (
       <Container>
-        <Grid columns='equal' padded={true}>
+        <Grid columns='equal' divided='vertically'>
           <Grid.Column>
             <AdminModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
                                          reviews={this.props.courseReviews} isReview={true} type={'COURSE'}/>
@@ -93,11 +84,11 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
           </Grid.Column>
         </Grid>
       </Container>
-    )
+    );
   }
-};
+}
 
-const AdminModerationWidgetContainer = withTracker((c) => ({
+const AdminModerationWidgetContainer = withTracker(() => ({
   opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
   courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
   mentorQuestions: MentorQuestions.findNonRetired({ moderated: false }),

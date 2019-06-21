@@ -13,7 +13,7 @@ interface IInterestedRelatedWidgetProps {
   baseURL: string;
 }
 
-class  InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetProps> {
+class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetProps> {
   constructor(props) {
     super(props);
     // console.log(props);

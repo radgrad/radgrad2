@@ -1,28 +1,28 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Container, Divider, Segment } from 'semantic-ui-react';
-import Form from "semantic-ui-react/dist/commonjs/collections/Form";
-import { updateMethod } from "../../../api/base/BaseCollection.methods";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+import { Button, Container, Segment, Form } from 'semantic-ui-react';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IAdminModerationQuestionCardWidget {
   question: any;
   handleAccept: (item, comments) => any;
   handleReject: (item, comments) => any
 }
-interface IAdminModerationQuestionCardWidgetState{
+
+interface IAdminModerationQuestionCardWidgetState {
   moderatorComment: string
 }
 
 class AdminModerationQuestionCardWidget extends React.Component<IAdminModerationQuestionCardWidget, IAdminModerationQuestionCardWidgetState> {
   constructor(props) {
-    super(props)
-    this.state = { moderatorComment: ''}
+    super(props);
+    this.state = { moderatorComment: '' };
   }
 
   private handleAcceptClick = () => {
     const update = this.props.handleAccept(this.props.question, this.state);
-    this.setState({moderatorComment: ''});
+    this.setState({ moderatorComment: '' });
     console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
@@ -40,8 +40,8 @@ class AdminModerationQuestionCardWidget extends React.Component<IAdminModeration
           timer: 1500,
         });
       }
-    })
-  }
+    });
+  };
 
   private handleChange = (event, { value }) => {
     this.setState({ moderatorComment: value });
@@ -49,7 +49,7 @@ class AdminModerationQuestionCardWidget extends React.Component<IAdminModeration
 
   private handleRejectClick = () => {
     const update = this.props.handleReject(this.props.question, this.state);
-    this.setState({moderatorComment: ''});
+    this.setState({ moderatorComment: '' });
     console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
@@ -67,11 +67,10 @@ class AdminModerationQuestionCardWidget extends React.Component<IAdminModeration
           timer: 1500,
         });
       }
-    })
-  }
+    });
+  };
 
   public render() {
-    console.log(this.props.question)
     return (
       <Container textAlign='left'>
         <strong>Question: </strong> {this.props.question.question}
@@ -82,9 +81,8 @@ class AdminModerationQuestionCardWidget extends React.Component<IAdminModeration
             <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
           </Form>
         </Segment>
-        <Divider/>
       </Container>
-    )
+    );
   }
 }
 

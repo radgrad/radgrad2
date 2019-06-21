@@ -11,7 +11,6 @@ interface IStudentFeedWidgetProps {
 class StudentFeedWidget extends React.Component<IStudentFeedWidgetProps> {
   constructor(props) {
     super(props);
-    console.log(props)
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

@@ -32,7 +32,6 @@ interface IProfileCardProps {
 class ProfileCard extends React.Component<IProfileCardProps> {
   constructor(props) {
     super(props);
-    console.log(props)
   }
 
   private itemName = (item) => item.name;
