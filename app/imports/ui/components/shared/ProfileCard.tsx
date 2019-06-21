@@ -88,6 +88,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
       _.filter(num.interestIDs, (interests) => {
         if (interests === interestID) {
           participation.push(num);
+
         }
       });
     });

@@ -25,7 +25,7 @@ class InterestedProfilesWidget extends React.Component<IInterestedProfileWidgetP
                 <Header textAlign='center'>Students <span
                   className='radgrad-header-number'>&middot; {this.props.students.length}</span></Header>
                 <Divider/>
-                <Container textAlign='center'>
+                <Container texcdtAlign='center'>
                   <Image.Group size='mini'>
                     {this.props.students.map((student, index) => <Popup
                       key={index}
