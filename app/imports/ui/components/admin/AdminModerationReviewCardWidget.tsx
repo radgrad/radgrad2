@@ -86,6 +86,7 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
     this.setState({ moderatorComment: value });
   };
 
+
   public render() {
     // if findNonRetired and do not supply a selector, it will try do a find on that string
     const student = Users.getFullName(this.props.item.studentID);
@@ -94,23 +95,23 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
 
     return (
 
-          <Container textAlign='left'>
-            <strong>Student: </strong>{student}<br/>
-            <strong>Reviewee: </strong>{reviewee}<br/>
-            <strong>Semester: </strong> {`${termDoc.term}  ${termDoc.year}`} <br/>
-            <strong>Rating: </strong>
-            <Rating size='small' icon='star' rating={this.props.item.rating}
-                    maxRating='5' disabled={true}/><br/>
-            <strong>Comments: </strong>{this.props.item.comments}<br/>
-            <Segment>
-              <Form>
-                <Form.TextArea label='Moderator Comments' onChange={this.handleChange}
-                               value={this.state.moderatorComment}/>
-                <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
-                <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
-              </Form>
-            </Segment>
-          </Container>
+      <Container textAlign='left'>
+        <strong>Student: </strong>{student}<br/>
+        <strong>Reviewee: </strong>{reviewee}<br/>
+        <strong>Semester: </strong> {`${termDoc.term}  ${termDoc.year}`} <br/>
+        <strong>Rating: </strong>
+        <Rating size='small' icon='star' rating={this.props.item.rating}
+                maxRating='5' disabled={true}/><br/>
+        <strong>Comments: </strong>{this.props.item.comments}<br/>
+        <Segment>
+          <Form>
+            <Form.TextArea label='Moderator Comments' onChange={this.handleChange}
+                           value={this.state.moderatorComment}/>
+            <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
+            <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
+          </Form>
+        </Segment>
+      </Container>
 
     );
   }

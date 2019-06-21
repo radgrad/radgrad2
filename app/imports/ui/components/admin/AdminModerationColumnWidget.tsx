@@ -21,12 +21,10 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
   }
 
   public render() {
-    console.log('how many reviews? ', this.props.reviews.length);
     return (
       <div>
         <Segment>
           <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
-
           {this.props.isReview && this.props.reviews.length > 0 ?
             <Item.Group divided>
               {this.props.reviews.map((review, index) => <Item key={index}> <AdminModerationReviewCardWidget
@@ -51,6 +49,7 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
               }
             </React.Fragment>
           }
+
         </Segment>
       </div>
     );

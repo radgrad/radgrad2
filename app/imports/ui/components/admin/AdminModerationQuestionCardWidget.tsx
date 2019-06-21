@@ -7,7 +7,7 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 interface IAdminModerationQuestionCardWidget {
   question: any;
   handleAccept: (item, comments) => any;
-  handleReject: (item, comments) => any
+  handleReject: (item, comments) => any;
 }
 
 interface IAdminModerationQuestionCardWidgetState {
@@ -46,6 +46,7 @@ class AdminModerationQuestionCardWidget extends React.Component<IAdminModeration
   private handleChange = (event, { value }) => {
     this.setState({ moderatorComment: value });
   }
+
 
   private handleRejectClick = () => {
     const update = this.props.handleReject(this.props.question, this.state);
