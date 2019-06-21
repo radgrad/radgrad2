@@ -3,7 +3,6 @@ import { Divider, Grid } from 'semantic-ui-react';
 import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget'; // eslint-disable-line no-unused-vars
 import AdvisorAPBTermView from './AdvisorAPBTermView';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { getCourseListIndex } from '../../../api/degree-plan/AcademicPlanUtilities';
 
 interface IAdvisorAPBYearViewProps {
   yearNumber: number;
@@ -24,49 +23,42 @@ class AdvisorAPBYearView extends React.Component<IAdvisorAPBYearViewProps, IAdvi
     // console.log(this.props);
     const numTermsPerYear = this.props.quarterSystem ? 4 : 3;
     let termNum = (this.props.yearNumber - 1) * numTermsPerYear;
-    console.log('YearView props %o termNum=%o', this.props, termNum);
+    // console.log('YearView props %o termNum=%o', this.props, termNum);
     return (
       <Grid.Column key={this.props.yearNumber} style={academicYearStyle}>
         <Divider horizontal={true}>Year {this.props.yearNumber}</Divider>
         {this.props.quarterSystem ? (
           <div>
-            <AdvisorAPBTermView termName={AcademicTerms.FALL} termNumber={termNum}
+            <AdvisorAPBTermView termName={AcademicTerms.FALL} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
-            <AdvisorAPBTermView termName={AcademicTerms.WINTER} termNumber={termNum}
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
+            <AdvisorAPBTermView termName={AcademicTerms.WINTER} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
-            <AdvisorAPBTermView termName={AcademicTerms.SPRING} termNumber={termNum}
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
+            <AdvisorAPBTermView termName={AcademicTerms.SPRING} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
             <AdvisorAPBTermView termName={AcademicTerms.SUMMER} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
           </div>) : (
           <div>
-            <AdvisorAPBTermView termName={AcademicTerms.FALL} termNumber={termNum}
+            <AdvisorAPBTermView termName={AcademicTerms.FALL} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
-            <AdvisorAPBTermView termName={AcademicTerms.SPRING} termNumber={termNum}
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
+            <AdvisorAPBTermView termName={AcademicTerms.SPRING} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
             <AdvisorAPBTermView termName={AcademicTerms.SUMMER} termNumber={termNum++}
                                 yearNumber={this.props.yearNumber}
-                                choiceIndex={getCourseListIndex(this.props.coursesPerTerm, termNum)}
-                                numChoices={this.props.coursesPerTerm[termNum++]}
-                                choiceList={this.props.choiceList}/>
+                                choiceList={this.props.choiceList}
+                                coursesPerTerm={this.props.coursesPerTerm}/>
           </div>)}
       </Grid.Column>
     );

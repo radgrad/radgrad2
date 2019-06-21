@@ -15,13 +15,26 @@ import { docToShortName } from '../shared/AdminDataModelHelperFunctions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
-import { addChoiceToRaw, updateChoiceCounts } from '../../../api/degree-plan/AcademicPlanUtilities';
+import {
+  addChoiceToRaw, removeChoiceFromPlanRaw,
+  reorderChoicesInTermRaw,
+  updateChoiceCounts,
+} from '../../../api/degree-plan/AcademicPlanUtilities';
+import { stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
 
 interface IAdvisorAPBuilderWidgetProps {
   degrees: IDesiredDegree[];
   choices: IPlanChoiceDefine[],
   years: number[];
 }
+
+const stripPrefix = (str) => {
+  const index = str.indexOf('-');
+  if (index !== -1) {
+    return str.substring(index + 1);
+  }
+  return str;
+};
 
 interface IAdvisorAPBuilderWidgetState {
   choiceList: string[];
@@ -44,14 +57,32 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private onDragEnd = (result) => {
-    // console.log('onDragEnd %o', result);
+    console.log('onDragEnd %o', result);
     const dropTermNum = result.destination.droppableId.split('-')[2];
-    const choice = result.draggableId;
-    // console.log(dropTermNum, choice);
+    const termIndex = result.destination.index;
+    const source = result.source.droppableId;
+    const choice = stripCounter(stripPrefix(result.draggableId));
+    console.log(dropTermNum, termIndex, source, choice);
     const { choiceList, coursesPerTerm } = this.state;
-    addChoiceToRaw(choice, dropTermNum, choiceList, coursesPerTerm);
-    updateChoiceCounts(choiceList);
-    console.log('new state %o', { choiceList, coursesPerTerm });
+    if (source === 'AdvisorBuildPlanChoices') {
+      addChoiceToRaw(choice, dropTermNum, choiceList, coursesPerTerm, termIndex);
+      updateChoiceCounts(choiceList);
+      console.log('new state %o', { choiceList, coursesPerTerm });
+    } else if (source.startsWith('plan')) {
+      // changed a choice from in the plan.
+      const sourceTerm = source.split('-')[2];
+      if (sourceTerm === dropTermNum) {
+        // reorder in same term
+        reorderChoicesInTermRaw(choice, dropTermNum, termIndex, choiceList, coursesPerTerm);
+      } else {
+        // moved to new termNumber
+        console.log('moved term sourceTerm %o newTerm %o', sourceTerm, dropTermNum);
+        removeChoiceFromPlanRaw(choice, sourceTerm, choiceList, coursesPerTerm);
+        addChoiceToRaw(choice, dropTermNum, choiceList, coursesPerTerm, termIndex);
+        updateChoiceCounts(choiceList);
+      }
+    }
+    console.log('new state', { choiceList, coursesPerTerm });
     this.setState({ choiceList, coursesPerTerm });
   }
 

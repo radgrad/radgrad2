@@ -48,6 +48,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
               >
                 {_.map(column1, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
+                                       draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
               </div>)}
@@ -63,6 +64,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
               >
                 {_.map(column2, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
+                                       draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
               </div>)}
@@ -78,6 +80,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
               >
                 {_.map(column3, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
+                                       draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
               </div>)}
@@ -93,6 +96,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
               >
                 {_.map(column4, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
+                                       draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
               </div>)}
