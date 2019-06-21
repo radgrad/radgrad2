@@ -16,10 +16,14 @@ interface IAdminModerationReviewCardWidget {
   handleReject: (item) => any,
 }
 
+interface IAdminModerationReviewCardState {
+
+}
 
 class AdminModerationReviewCardWidget extends React.Component<IAdminModerationReviewCardWidget> {
   constructor(props) {
     super(props)
+    this.state ={moderatorComment: ""}
   }
 
   private getReviewee = () => {
@@ -33,6 +37,7 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
   }
 
   private handleAcceptClick = () => {
+    // make handle accept take in the moderator comments
     const update = this.props.handleAccept(this.props.item);
     console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
@@ -75,6 +80,10 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
       }
     })
   }
+  private handleChange = ({name, value}) => {
+    this.setState({[name]:value});
+    console.log(this.state);
+  }
 
   public render() {
     // if findNonRetired and do not supply a selector, it will try do a find on that string
@@ -86,7 +95,6 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
       <div>
         <Grid.Column>
           <Container textAlign='left'>
-
             <strong>Student: </strong>{student}<br/>
             <strong>Reviewee: </strong>{reviewee}<br/>
             <strong>Semester: </strong> {termDoc.term + ' ' + termDoc.year} <br/>
@@ -101,6 +109,7 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
                 <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
               </Form>
             </Segment>
+            <Divider/>
           </Container>
         </Grid.Column>
       </div>

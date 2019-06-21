@@ -26,9 +26,9 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   private handleAcceptReview = (item) => {
     console.log('take in a review, give back an object w/ collection name and update data');
     console.log(item);
-    const updateInfo = {id: item._id, moderated: true};
+    const updateInfo = { id: item._id, moderated: true};
     const collectionName = Reviews.getCollectionName();
-    return{
+    return {
       updateInfo,
       collectionName
     }
@@ -38,7 +38,7 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   private handleRejectReview = (item) => {
     console.log('take in a review, give back an object w/ collection name and update data');
     console.log(item);
-    const updateInfo = {id: item._id, moderated: true, visible: false};
+    const updateInfo = { id: item._id, moderated: true, visible: false };
     const collectionName = Reviews.getCollectionName();
     return {
       updateInfo,
@@ -48,10 +48,25 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
 
 
   private handleAcceptQuestion = (item) => {
-    console.log('Accept the Question');
+    console.log('take in a question, give back an object w/ collection name and update data');
+    console.log(item);
+    const updateInfo = { id: item._id, moderated: true };
+    const collectionName = MentorQuestions.getCollectionName();
+    return {
+      updateInfo,
+      collectionName
+    }
   }
+
   private handleRejectQuestion = (item) => {
-    console.log('Reject the Question');
+    console.log('take in a question, give back an object w/ collection name and update data');
+    console.log(item);
+    const updateInfo = { id: item._id, moderated: true, visible: false };
+    const collectionName = MentorQuestions.getCollectionName();
+    return {
+      updateInfo,
+      collectionName
+    }
   }
 
   // do I need this?

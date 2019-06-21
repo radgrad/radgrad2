@@ -11,7 +11,7 @@ import AdminModerationQuestionCardWidget from './AdminModerationQuestionCardWidg
 import Container from "semantic-ui-react/dist/commonjs/elements/Container";
 
 interface IAdminModerationColumn {
-  handleAccept:  (item) => any,
+  handleAccept: (item) => any,
   handleReject: (item) => any,
   reviews: any,
   isReview: boolean,
@@ -35,7 +35,7 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
               <Container>
                 <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
                 {this.props.reviews.map((review, index) => <AdminModerationReviewCardWidget
-                  key = {index}
+                  key={index}
                   item={review} handleAccept={this.props.handleAccept} handleReject={this.props.handleReject}/>)
                 }
               </Container>
@@ -43,8 +43,12 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
             ) : (
               <Container>
                 <Header as='h4' textAlign='left' dividing> PENDING MENTORSPACE QUESTIONS</Header>
-                <AdminModerationQuestionCardWidget question={this.props.reviews[0]} handleAccept={this.props.handleAccept}
-                                                   handleReject={this.props.handleReject}/>
+                {this.props.reviews.map((question, index) =>
+                  <AdminModerationQuestionCardWidget key={index}
+                                                     question={question}
+                                                     handleAccept={this.props.handleAccept}
+                                                     handleReject={this.props.handleReject}/>)}
+
               </Container>
             )
           }
