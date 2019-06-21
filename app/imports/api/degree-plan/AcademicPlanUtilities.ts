@@ -65,15 +65,16 @@ export function isAcademicPlanValid(academicPlan: IAcademicPlan): boolean {
   return true;
 }
 
-function getCourseListIndex(coursesPerAcademicTerm: number[], termNum: number) {
+export function getCourseListIndex(coursesPerAcademicTerm: number[], termNum: number) {
+  // console.log(coursesPerAcademicTerm, termNum);
   let index = 0;
   let i = 0;
   for (i = 0; i < termNum; i++) {
     index += coursesPerAcademicTerm[i];
   }
-  if (coursesPerAcademicTerm[i]) {
-    index += coursesPerAcademicTerm[i];
-  }
+  // if (coursesPerAcademicTerm[i]) {
+  //   index += coursesPerAcademicTerm[i];
+  // }
   return index;
 }
 

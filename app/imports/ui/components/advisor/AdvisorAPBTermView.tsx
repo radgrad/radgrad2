@@ -13,20 +13,24 @@ interface IAdvisorAPBTermViewProps {
   yearNumber: number;
   choiceIndex: number;
   numChoices: number;
+  choiceList: string[];
 }
 
 class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvisorAcademicPlanBuilderWidgetState> {
   constructor(props) {
     super(props);
+    // console.log('AdvisorAPBYermView %o', props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    console.log('TermView %o', this.props);
     return (
       <Segment>
         <Header dividing={true} as="h4">{this.props.termName}</Header>
-        <Droppable droppableId={`${this.props.yearNumber}-${this.props.termNumber}`}>
+        <Droppable droppableId={`plan-${this.props.yearNumber}-${this.props.termNumber}`}>
           {(provided, snapshot) => {
-            const choices = this.state.choiceList.slice(this.props.choiceIndex, this.props.choiceIndex + this.props.numChoices);
+            const choices = this.props.choiceList.slice(this.props.choiceIndex, this.props.choiceIndex + this.props.numChoices);
+            console.log(choices);
             return (
               <div
                 ref={provided.innerRef}
