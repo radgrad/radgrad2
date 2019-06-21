@@ -70,7 +70,6 @@ import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPag
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
-import CardExplorerCareerGoalsPageContainer from '../../ui/pages/shared/CardExplorerCareerGoalsPage';
 import ExplorerCareerGoalsPageContainer from '../../ui/pages/shared/ExplorerCareerGoalsPage';
 
 export const routes = {

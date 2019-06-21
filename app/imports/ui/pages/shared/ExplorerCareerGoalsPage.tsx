@@ -48,24 +48,29 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
 
   private numUsers = (careerGoal, role) => this.interestedUsers(careerGoal, role).length
 
+  private getUserIdFromRoute() {
+    const username = this.props.match.params.username;
+    return username && Users.getID(username);
+  }
+
   private socialPairs = (careerGoal) => [
     {
       label: 'students', amount: this.numUsers(careerGoal, ROLE.STUDENT),
-      value: this.interestedUsers(careerGoal, ROLE.STUDENT)
+      value: this.interestedUsers(careerGoal, ROLE.STUDENT),
     },
     {
       label: 'faculty members', amount: this.numUsers(careerGoal, ROLE.FACULTY),
-      value: this.interestedUsers(careerGoal, ROLE.FACULTY)
+      value: this.interestedUsers(careerGoal, ROLE.FACULTY),
     },
     {
       label: 'alumni',
       amount: this.numUsers(careerGoal, ROLE.ALUMNI),
-      value: this.interestedUsers(careerGoal, ROLE.ALUMNI)
+      value: this.interestedUsers(careerGoal, ROLE.ALUMNI),
     },
     {
       label: 'mentors',
       amount: this.numUsers(careerGoal, ROLE.MENTOR),
-      value: this.interestedUsers(careerGoal, ROLE.MENTOR)
+      value: this.interestedUsers(careerGoal, ROLE.MENTOR),
     },
   ]
 
@@ -79,6 +84,7 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
       marginTop: 5,
     };
     const careerGoal = this.careerGoal();
+    const username = this.props.match.params.username;
     const careerName = careerGoal.name;
     const slugName = careerGoal.slugID;
     const socialPairs = this.socialPairs(careerGoal);
@@ -91,7 +97,8 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
 
         <Grid.Column width={13}>
           <ExplorerCareerGoalsWidgetContainer name={careerName} slug={slugName} descriptionPairs={descriptionPairs}
-                                              item={careerGoal} socialPairs={socialPairs}/>
+                                              item={careerGoal} socialPairs={socialPairs} id={careerGoal._id}
+                                              username={username} careerGoal={careerGoal}/>
         </Grid.Column>
       </Grid>
     );

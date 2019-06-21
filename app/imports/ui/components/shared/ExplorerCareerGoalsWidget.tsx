@@ -1,20 +1,26 @@
 import * as React from 'react';
 import { Grid, Segment, Header, Button, Divider, Image } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
+import * as _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
   slug: string;
   descriptionPairs: any;
-  item: object;
+  profile: any;
+  item: { [key: string]: any };
   socialPairs: any;
+  id: any;
+  username: string;
+  careerGoal: any;
 }
 
 class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidgetProps> {
@@ -34,9 +40,13 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 
   private getCareerGoalName = () => this.props.name;
 
+  private getCareerGoal = () => this.props.careerGoal;
+
   private getDescriptionPair = () => this.props.descriptionPairs;
 
   private getSocialPair = () => this.props.socialPairs;
+
+  private getID = () => this.props.id;
 
   private toUpper = (string) => string.toUpperCase();
 
@@ -45,6 +55,51 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
   private userPicture = (user) => {
     const picture = Users.getProfile(user).picture;
     return picture || defaultProfilePicture;
+  }
+
+  private userStatus = (careerGoal) => {
+    let ret = false;
+    const profile = Users.getProfile(this.props.username);
+    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+      ret = true;
+    }
+    return ret;
+  }
+
+  private handleAdd = (event) => {
+    event.preventDefault();
+    const profile = Users.getProfile(this.props.username);
+    const id = this.getID();
+    const studentItems = profile.careerGoalIDs;
+    const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
+    const updateData: any = {};
+    updateData.id = profile._id;
+    studentItems.push(id);
+    updateData.careerGoals = studentItems;
+    console.log('update', collectionName, updateData);
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        console.log('Error updating career goals', error);
+      }
+    });
+  }
+
+  private handleDelete = (event) => {
+    event.preventDefault();
+    const profile = Users.getProfile(this.props.username);
+    const id = this.getID();
+    let studentItems = profile.careerGoalIDs;
+    const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
+    const updateData: { [key: string]: any } = {};
+    updateData.id = profile._id;
+    studentItems = _.without(studentItems, id);
+    updateData.careerGoals = studentItems;
+    console.log('update', collectionName, updateData);
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        console.log('Error updating career goals', error);
+      }
+    });
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -64,15 +119,25 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
     };
     const upperName = this.toUpper(this.getCareerGoalName());
     const descriptionPairs = this.getDescriptionPair();
+    const careerGoal = this.getCareerGoal();
     const socialPairs = this.getSocialPair();
     const item = this.props.item;
+    const userStatus = this.userStatus(careerGoal);
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
         <Grid.Column width={16}>
           <Segment>
             <Segment basic clearing={true} vertical>
               <Grid.Row verticalAlign={'middle'}>
-                <Button size={'mini'} color={'green'} floated={'right'} basic={true}>ADD TO CAREER GOALS</Button>
+                {
+                  userStatus ?
+                    <Button onClick={this.handleDelete} size={'mini'} color={'green'} floated={'right'} basic={true}>DELETE
+                      FROM CAREER
+                      GOALS</Button>
+                    :
+                    <Button size={'mini'} onClick={this.handleAdd} color={'green'} floated={'right'} basic={true}>ADD TO
+                      CAREER GOALS</Button>
+                }
                 <Header floated={'left'}>{upperName}</Header>
               </Grid.Row>
             </Segment>
@@ -113,7 +178,8 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
                   <Grid.Column textAlign={'center'} style={divPadding}>
                     <h5>{this.toUpper(socialPair.label)} - {socialPair.amount}</h5>
                     {socialPair.value.map((user, index2) => (
-                      <Image src={this.userPicture(user)} circular size='mini' verticalAlign={'middle'} key={index2} style={imageStyle}/>
+                      <Image src={this.userPicture(user)} circular size='mini' verticalAlign={'middle'} key={index2}
+                             style={imageStyle}/>
                     ))}
                   </Grid.Column>
                 </React.Fragment>
@@ -126,7 +192,11 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
   }
 }
 
-const ExplorerCareerGoalsWidgetCon = withGlobalSubscription(ExplorerCareerGoalsWidget);
-const ExplorerCareerGoalsWidgetContainer = withInstanceSubscriptions(ExplorerCareerGoalsWidgetCon);
-
+const ExplorerCareerGoalsWidgetContainer = withTracker((props) => {
+  const profile = Users.getProfile(props.username);
+  console.log('profile %o', profile);
+  return {
+    profile,
+  };
+})(ExplorerCareerGoalsWidget);
 export default ExplorerCareerGoalsWidgetContainer;
