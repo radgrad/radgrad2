@@ -12,18 +12,18 @@ import Swal from "sweetalert2";
 
 interface IAdminModerationReviewCardWidget {
   item: any;
-  handleAccept: (item) => any,
-  handleReject: (item) => any,
+  handleAccept: (item, comment) => any,
+  handleReject: (item, comment) => any,
 }
 
 interface IAdminModerationReviewCardState {
-
+  moderatorComment: string;
 }
 
-class AdminModerationReviewCardWidget extends React.Component<IAdminModerationReviewCardWidget> {
+class AdminModerationReviewCardWidget extends React.Component<IAdminModerationReviewCardWidget, IAdminModerationReviewCardState> {
   constructor(props) {
     super(props)
-    this.state ={moderatorComment: ""}
+    this.state = { moderatorComment: '' };
   }
 
   private getReviewee = () => {
@@ -38,7 +38,8 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
 
   private handleAcceptClick = () => {
     // make handle accept take in the moderator comments
-    const update = this.props.handleAccept(this.props.item);
+    const update = this.props.handleAccept(this.props.item, this.state);
+    this.setState({moderatorComment: ''});
     console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
@@ -60,7 +61,8 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
   }
 
   private handleRejectClick = () => {
-    const update = this.props.handleReject(this.props.item);
+    const update = this.props.handleReject(this.props.item, this.state);
+    this.setState({moderatorComment: ''});
     console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
@@ -80,9 +82,10 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
       }
     })
   }
-  private handleChange = ({name, value}) => {
-    this.setState({[name]:value});
-    console.log(this.state);
+
+
+  private handleChange = (event, { value }) => {
+    this.setState({ moderatorComment: value });
   }
 
   public render() {
@@ -104,7 +107,7 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
             <strong>Comments: </strong>{this.props.item.comments}<br/>
             <Segment>
               <Form>
-                <Form.TextArea label='Moderator Comments'/>
+                <Form.TextArea label='Moderator Comments' onChange={this.handleChange} value={this.state.moderatorComment}/>
                 <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
                 <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
               </Form>
