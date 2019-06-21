@@ -194,7 +194,6 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 
 const ExplorerCareerGoalsWidgetContainer = withTracker((props) => {
   const profile = Users.getProfile(props.username);
-  console.log('profile %o', profile);
   return {
     profile,
   };

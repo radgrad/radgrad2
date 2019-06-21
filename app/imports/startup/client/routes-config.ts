@@ -306,6 +306,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/faculty/:username/explorer/career-goals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
+    },
+    {
       path: '/faculty/:username/explorer/courses',
       exact: true,
       component: CardExplorerPageContainer,
@@ -349,11 +354,6 @@ export const routes = {
       path: '/faculty/:username/explorer/users',
       exact: true,
       component: CardExplorerPageContainer,
-    },
-    {
-      path: '/faculty/:username/explorer/careergoals/:careergoal',
-      exact: true,
-      component: ExplorerCareerGoalsPageContainer,
     },
     {
       path: '/faculty/:username/course-scoreboard',
@@ -489,6 +489,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/mentor/:username/explorer/career-goals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
+    },
+    {
       path: '/mentor/:username/explorer/courses',
       exact: true,
       component: CardExplorerPageContainer,
@@ -528,11 +533,6 @@ export const routes = {
       exact: true,
       component: CardExplorerPageContainer,
     },
-    {
-      path: '/mentor/:username/explorer/careergoals/:careergoal',
-      exact: true,
-      component: ExplorerCareerGoalsPageContainer,
-    },
   ],
   STUDENT: [
     {
@@ -566,6 +566,11 @@ export const routes = {
       path: '/student/:username/explorer/career-goals',
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/career-goals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
     },
     {
       path: '/student/:username/explorer/courses',
@@ -611,11 +616,6 @@ export const routes = {
       path: '/student/:username/explorer/users',
       exact: true,
       component: CardExplorerPageContainer,
-    },
-    {
-      path: '/student/:username/explorer/careergoals/:careergoal',
-      exact: true,
-      component: ExplorerCareerGoalsPageContainer,
     },
   ],
 };
