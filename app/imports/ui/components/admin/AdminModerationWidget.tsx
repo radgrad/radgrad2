@@ -4,7 +4,7 @@ import { Grid, Container, Header, Card, Segment, Button } from 'semantic-ui-reac
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IMentorQuestion, IReview } from '../../../typings/radgrad';
+import { IMentorQuestion, IReview, IReviewUpdateData } from '../../../typings/radgrad';
 import { withTracker } from 'meteor/react-meteor-data'; // eslint-disable-line
 import AdminModerationColumnWidget from './AdminModerationColumnWidget'
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -20,22 +20,38 @@ interface IAdminModerationWidget {
 class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   constructor(props) {
     super(props);
-    console.log('Admin Moderation Widget props constructor: ', props);
   }
 
   // handle approve by updateData.call
-  private handleApproveReview = (item) => {
-    console.log('Approve the Review');
+  private handleAcceptReview = (item) => {
+    console.log('take in a review, give back an object w/ collection name and update data');
+    console.log(item);
+    const updateInfo = {id: item._id, moderated: true};
+    const collectionName = Reviews.getCollectionName();
+    return{
+      updateInfo,
+      collectionName
+    }
+
   }
 
-  private handleDenyReview = (item) => {
-    console.log('Deny the Review');
-  }
-  private handleApproveQuestion = (item) => {
+  private handleRejectReview = (item) => {
+    console.log('take in a review, give back an object w/ collection name and update data');
     console.log(item);
+    const updateInfo = {id: item._id, moderated: true, visible: false};
+    const collectionName = Reviews.getCollectionName();
+    return {
+      updateInfo,
+      collectionName
+    }
   }
-  private handleDenyQuestion = (item) => {
-    console.log(item);
+
+
+  private handleAcceptQuestion = (item) => {
+    console.log('Accept the Question');
+  }
+  private handleRejectQuestion = (item) => {
+    console.log('Reject the Question');
   }
 
   // do I need this?
@@ -44,20 +60,20 @@ class AdminModerationWidget extends React.Component<IAdminModerationWidget> {
   }
 
   public render() {
-    console.log('Admin Moderation Widget props: ', this.props);
     return (
       <Container>
         <Grid columns='equal' padded={true}>
           <Grid.Column>
-            <AdminModerationColumnWidget handleApprove={this.handleApproveReview} handleDeny={this.handleDenyReview}
+            <AdminModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
                                          reviews={this.props.courseReviews} isReview={true} type={'COURSE'}/>
           </Grid.Column>
           <Grid.Column>
-            <AdminModerationColumnWidget handleApprove={this.handleApproveReview} handleDeny={this.handleDenyReview}
+            <AdminModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
                                          reviews={this.props.opportunityReviews} isReview={true} type={'OPPORTUNITY'}/>
           </Grid.Column>
           <Grid.Column>
-            <AdminModerationColumnWidget handleApprove={this.handleApproveQuestion} handleDeny={this.handleDenyQuestion}
+            <AdminModerationColumnWidget handleAccept={this.handleAcceptQuestion}
+                                         handleReject={this.handleRejectQuestion}
                                          reviews={this.props.mentorQuestions} isReview={false} type={'QUESTION'}/>
           </Grid.Column>
         </Grid>

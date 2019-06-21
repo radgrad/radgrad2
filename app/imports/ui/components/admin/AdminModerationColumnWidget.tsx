@@ -11,17 +11,17 @@ import AdminModerationQuestionCardWidget from './AdminModerationQuestionCardWidg
 import Container from "semantic-ui-react/dist/commonjs/elements/Container";
 
 interface IAdminModerationColumn {
-  handleApprove: (item) => any,
-  handleDeny: (item) => any,
+  handleAccept:  (item) => any,
+  handleReject: (item) => any,
   reviews: any,
   isReview: boolean,
+  type: string
 
 }
 
 class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn> {
   constructor(props) {
     super(props)
-    console.log('Admin Moderation Column Widget props constructor: ', props)
   }
 
   public render() {
@@ -33,16 +33,18 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
           {
             this.props.isReview === true ? (
               <Container>
-                <Header as='h4'>PENDING {this.props.reviews[0].reviewType} REVIEWS </Header>
-                <AdminModerationReviewCardWidget item={this.props.reviews[0]} approve={this.props.handleApprove}
-                                                 deny={this.props.handleDeny}/>
+                <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
+                {this.props.reviews.map((review, index) => <AdminModerationReviewCardWidget
+                  key = {index}
+                  item={review} handleAccept={this.props.handleAccept} handleReject={this.props.handleReject}/>)
+                }
               </Container>
 
             ) : (
               <Container>
-                <Header as='h4'> PENDING MENTORSPACE QUESTIONS</Header>
-                <AdminModerationQuestionCardWidget question={this.props.reviews[0]} approve={this.props.handleApprove}
-                                                   deny={this.props.handleDeny}/>
+                <Header as='h4' textAlign='left' dividing> PENDING MENTORSPACE QUESTIONS</Header>
+                <AdminModerationQuestionCardWidget question={this.props.reviews[0]} handleAccept={this.props.handleAccept}
+                                                   handleReject={this.props.handleReject}/>
               </Container>
             )
           }

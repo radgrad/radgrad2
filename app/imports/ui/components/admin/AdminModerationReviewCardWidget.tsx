@@ -6,18 +6,20 @@ import { StudentProfiles } from "../../../api/user/StudentProfileCollection";
 import { Courses } from "../../../api/course/CourseCollection";
 import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
 import { AcademicTerms } from "../../../api/academic-term/AcademicTermCollection";
+import { Users } from "../../../api/user/UserCollection";
+import { updateMethod } from "../../../api/base/BaseCollection.methods";
+import Swal from "sweetalert2";
 
 interface IAdminModerationReviewCardWidget {
   item: any;
-  approve: (item) => any,
-  deny: (item) => any,
+  handleAccept: (item) => any,
+  handleReject: (item) => any,
 }
 
 
 class AdminModerationReviewCardWidget extends React.Component<IAdminModerationReviewCardWidget> {
   constructor(props) {
     super(props)
-    console.log('Admin Moderation review card props constructor: ', props)
   }
 
   private getReviewee = () => {
@@ -30,44 +32,79 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
     return reviewee;
   }
 
+  private handleAcceptClick = () => {
+    const update = this.props.handleAccept(this.props.item);
+    console.log('handle accept click', update);
+    updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    })
+  }
+
+  private handleRejectClick = () => {
+    const update = this.props.handleReject(this.props.item);
+    console.log('handle accept click', update);
+    updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Update succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    })
+  }
+
   public render() {
     // if findNonRetired and do not supply a selector, it will try do a find on that string
-    const studentProfile = StudentProfiles.findDoc({ userID: this.props.item.studentID });
+    const student = Users.getFullName(this.props.item.studentID);
     const reviewee = this.getReviewee().name;
     const termDoc = AcademicTerms.findDoc(this.props.item.termID);
-    console.log('student profile', studentProfile);
-    console.log('review profile', reviewee);
-    console.log('semester', termDoc);
-
 
     return (
       <div>
-        <Container textAlign='left'>
-          <Divider/>
-          <b>Student: </b>{studentProfile.firstName} {studentProfile.lastName}<br/>
-          <b>Reviewee: </b>{reviewee}<br/>
-          <b>Semester: </b> {termDoc.term + ' ' + termDoc.year} <br/>
-          <b>Rating: </b>
-          <Rating size='small' icon='star' rating={this.props.item.rating}
-                  maxRating='5' disabled={true}/><br/>
-          <b>Comments: </b>{this.props.item.comments}<br/>
-          <Segment>
-            <Form>
-              <Form.Field>
-                <label>
-                  Moderator Comments:
-                </label>
-                <input/>
-              </Form.Field>
-            </Form>
-            <Button.Group size='tiny'>
-              <Button onClick={this.props.approve}>approve</Button>
-              <Button onClick={this.props.deny}>deny</Button>
-            </Button.Group>
-          </Segment>
+        <Grid.Column>
+          <Container textAlign='left'>
 
-        </Container>
+            <strong>Student: </strong>{student}<br/>
+            <strong>Reviewee: </strong>{reviewee}<br/>
+            <strong>Semester: </strong> {termDoc.term + ' ' + termDoc.year} <br/>
+            <strong>Rating: </strong>
+            <Rating size='small' icon='star' rating={this.props.item.rating}
+                    maxRating='5' disabled={true}/><br/>
+            <strong>Comments: </strong>{this.props.item.comments}<br/>
+            <Segment>
+              <Form>
+                <Form.TextArea label='Moderator Comments'/>
+                <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
+                <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
+              </Form>
+            </Segment>
+          </Container>
+        </Grid.Column>
       </div>
+
     )
   }
 }
