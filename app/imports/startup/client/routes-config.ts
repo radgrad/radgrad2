@@ -69,6 +69,7 @@ import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDa
 /* Explorers */
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
+import ExplorerCareerGoalsPageContainer from '../../ui/pages/shared/ExplorerCareerGoalsPage';
 import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
 import ExplorerCoursesPageContainer from '../../ui/pages/shared/ExplorerCoursesPage';
 import ExplorerInterestsPageContainer from '../../ui/pages/shared/ExplorerInterestsPage';
@@ -305,6 +306,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/faculty/:username/explorer/career-goals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
+    },
+    {
       path: '/faculty/:username/explorer/courses',
       exact: true,
       component: CardExplorerPageContainer,
@@ -483,6 +489,11 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
+      path: '/mentor/:username/explorer/career-goals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
+    },
+    {
       path: '/mentor/:username/explorer/courses',
       exact: true,
       component: CardExplorerPageContainer,
@@ -555,6 +566,11 @@ export const routes = {
       path: '/student/:username/explorer/career-goals',
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    {
+      path: '/student/:username/explorer/career-goals/:careergoal',
+      exact: true,
+      component: ExplorerCareerGoalsPageContainer,
     },
     {
       path: '/student/:username/explorer/courses',
