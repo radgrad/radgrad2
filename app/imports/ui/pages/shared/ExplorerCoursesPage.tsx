@@ -12,7 +12,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
 import ExplorerCoursesWidget from '../../components/shared/ExplorerCoursesWidget';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
@@ -85,8 +84,6 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     const course = Courses.findDoc({ slugID: slug[0]._id });
     return course;
   }
-
-  private slugName = (slugID: string): string => Slugs.findDoc(slugID).name;
 
   private descriptionPairs = (course: ICourse): object[] => [
     { label: 'Course Number', value: course.num },
@@ -166,18 +163,6 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     return ret;
   }
 
-  private reviewed = (course: ICourse): boolean => {
-    let ret = false;
-    const review = Reviews.find({
-      studentID: this.getUserIdFromRoute(),
-      revieweeID: course._id,
-    }).fetch();
-    if (review.length > 0) {
-      ret = true;
-    }
-    return ret;
-  }
-
   private getUserIdFromRoute = (): string => {
     const username = this.props.match.params.username;
     return username && Users.getID(username);
@@ -191,11 +176,8 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     const course = this.course();
     const name = course.name;
     const shortName = course.shortName;
-    const slug = this.slugName(course.slugID);
     const descriptionPairs = this.descriptionPairs(course);
-    const id = course._id;
     const completed = this.completed();
-    const reviewed = this.reviewed(course);
     const role = this.getRoleByUrl();
 
     return (
@@ -212,8 +194,8 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ExplorerCoursesWidget name={name} shortName={shortName} slug={slug} descriptionPairs={descriptionPairs}
-                                   id={id} item={course} completed={completed} reviewed={reviewed} role={role}/>
+            <ExplorerCoursesWidget name={name} shortName={shortName} descriptionPairs={descriptionPairs} role={role}
+                                   item={course} completed={completed}/>
           </Grid.Column>
         </Grid>
       </React.Fragment>

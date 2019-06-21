@@ -23,7 +23,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface ICardExplorerPageProps {
   match: {
@@ -325,7 +325,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
+    const menuWidget = Router.renderPageMenuWidget(this.props.match);
 
     const addedList = this.getAddedList();
     const isTypeInterest = this.getType() === 'interests'; // Only Interests takes in Career List for CardExplorerMenu
@@ -334,13 +334,11 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
     return (
       <React.Fragment>
-
-        {this.renderPageMenuWidget()}
-
+        {menuWidget}
 
         <Grid container={true} stackable={true}>
           <Grid.Row>
-            {helpMessage ? <HelpPanelWidget/> : ''}
+            <HelpPanelWidget/>
           </Grid.Row>
 
           <Grid.Column width={3}>

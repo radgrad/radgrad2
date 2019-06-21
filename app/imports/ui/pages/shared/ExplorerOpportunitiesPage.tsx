@@ -182,12 +182,8 @@ class ExplorerOpportunitiesPage extends React.Component<IExplorerOpportunitiesPa
 
     const opportunity = this.opportunity();
     const name = opportunity.name;
-    const slug = this.slugName(opportunity.slugID);
     const descriptionPairs = this.descriptionPairs(opportunity);
-    const id = opportunity._id;
-    const socialPairs = this.socialPairs(opportunity);
     const completed = this.completed();
-    const reviewed = this.reviewed(opportunity);
     const role = this.getRoleByUrl();
     return (
       <React.Fragment>
@@ -203,9 +199,8 @@ class ExplorerOpportunitiesPage extends React.Component<IExplorerOpportunitiesPa
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ExplorerOpportunitiesWidget name={name} slug={slug} descriptionPairs={descriptionPairs} id={id} role={role}
-                                         item={opportunity} socialPairs={socialPairs} completed={completed}
-                                         reviewed={reviewed}/>
+            <ExplorerOpportunitiesWidget name={name} descriptionPairs={descriptionPairs} role={role} item={opportunity}
+                                         completed={completed}/>
           </Grid.Column>
         </Grid>
       </React.Fragment>

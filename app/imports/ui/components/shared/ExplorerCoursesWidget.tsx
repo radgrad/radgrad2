@@ -20,12 +20,9 @@ import { UserInteractions } from '../../../api/analytic/UserInteractionCollectio
 interface IExplorerCoursesWidgetProps {
   name: string;
   shortName: string;
-  slug: string;
   descriptionPairs: any[];
-  id: string;
   item: ICourse;
   completed: boolean;
-  reviewed: boolean;
   role: string;
   match: {
     isExact: boolean;
