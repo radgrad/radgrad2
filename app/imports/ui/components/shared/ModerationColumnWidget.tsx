@@ -3,10 +3,10 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data'; // eslint-disable-line
 import { Header, Segment, Container, Item } from 'semantic-ui-react';
-import AdminModerationReviewCardWidget from './AdminModerationReviewCardWidget';
-import AdminModerationQuestionCardWidget from './AdminModerationQuestionCardWidget';
+import ModerationReviewCardWidget from './ModerationReviewCardWidget';
+import ModerationQuestionCardWidget from './ModerationQuestionCardWidget';
 
-interface IAdminModerationColumn {
+interface IModerationColumn {
   handleAccept: (item, comment) => any,
   handleReject: (item, comment) => any,
   reviews: any,
@@ -15,7 +15,7 @@ interface IAdminModerationColumn {
 
 }
 
-class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn> {
+class ModerationColumnWidget extends React.Component<IModerationColumn> {
   constructor(props) {
     super(props);
   }
@@ -27,7 +27,7 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
           <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
           {this.props.isReview && this.props.reviews.length > 0 ?
             <Item.Group divided>
-              {this.props.reviews.map((review, index) => <Item key={index}> <AdminModerationReviewCardWidget
+              {this.props.reviews.map((review, index) => <Item key={index}> <ModerationReviewCardWidget
                 item={review} handleAccept={this.props.handleAccept}
                 handleReject={this.props.handleReject}/></Item>)
               }
@@ -37,7 +37,7 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
               {
                 (this.props.isReview === false && this.props.reviews.length > 0) ?
                   <Item.Group divided>
-                    {this.props.reviews.map((question, index) => <Item key={index}> <AdminModerationQuestionCardWidget
+                    {this.props.reviews.map((question, index) => <Item key={index}> <ModerationQuestionCardWidget
                       question={question} handleAccept={this.props.handleAccept}
                       handleReject={this.props.handleReject}/></Item>)
                     }
@@ -56,4 +56,4 @@ class AdminModerationColumnWidget extends React.Component<IAdminModerationColumn
   }
 }
 
-export default withRouter(AdminModerationColumnWidget);
+export default withRouter(ModerationColumnWidget);
