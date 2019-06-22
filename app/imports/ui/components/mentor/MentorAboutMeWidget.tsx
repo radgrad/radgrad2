@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Container, Segment, Grid, Button, Label, Icon, Header } from 'semantic-ui-react';
+import SimpleSchema from 'simpl-schema';
+import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
+import Swal from 'sweetalert2';
+import { Container, Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -18,16 +22,21 @@ interface IMentorAboutMeWidgetProps {
       username: string;
     }
   };
-  state: {
-    id: 'not changed';
-    website: string;
-    picture: string;
-  }
 }
 
-class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps> {
+interface IMentorAboutMeWidgetState {
+  isEditingProfile: boolean;
+}
+
+class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMentorAboutMeWidgetState> {
+  private readonly formRef;
+
   constructor(props) {
     super(props);
+    this.formRef = React.createRef();
+    this.state = {
+      isEditingProfile: false,
+    };
   }
 
   private getUsername = (): string => this.props.match.params.username;
@@ -185,10 +194,81 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps> {
     return 'No website specified';
   }
 
+  private handleEdit = (event) => {
+    event.preventDefault();
+    this.setState({ isEditingProfile: true });
+  }
+
+  private handleCancel = (event) => {
+    event.preventDefault();
+    this.setState({ isEditingProfile: false });
+  }
+
+  private handleSubmit = (doc: { [key: string]: any }): void => {
+    const collectionName = MentorProfiles.getCollectionName();
+    const mentorProfile = MentorProfiles.findOne({ userID: this.getUserIdFromRoute() });
+    const updateData = doc;
+    updateData.id = mentorProfile._id;
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update Failed',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Update Succeeded',
+          type: 'success',
+          text: 'Your profile was successfully updated',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      }
+    });
+  }
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginStyle = {
       marginBottom: 0,
     };
+
+    const updateSchema = new SimpleSchema({
+      website: {
+        type: String,
+        optional: true,
+        label: 'Website URL',
+      },
+      company: {
+        type: String,
+        optional: true,
+      },
+      career: {
+        type: String,
+        optional: true,
+        label: 'Title',
+      },
+      location: {
+        type: String,
+        optional: true,
+      },
+      linkedin: {
+        type: String,
+        optional: true,
+        label: 'LinkedIn Username'
+      },
+      motivation: {
+        type: String,
+        optional: true,
+      },
+      picture: {
+        type: String,
+        optional: true,
+        label: 'Picture URL',
+      },
+    });
+
     const name = this.name();
     const email = this.email();
     const website = this.website();
@@ -202,6 +282,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps> {
     const firstCareerGoal = this.firstCareerGoal();
     const firstInterest = this.firstInterest();
     const interests = this.interests();
+    const isEditingProfile = this.state.isEditingProfile;
 
     return (
       <Container>
@@ -279,70 +360,96 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps> {
             </Grid.Row>
           </Grid>
 
-          <Grid stackable={true}>
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Website URL</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                {
-                  website ?
-                    <p>{website}</p>
-                    : 'No website specified.'
-                }
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Company</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{company}</p>
-              </Grid.Column>
-            </Grid.Row>
+          {
+            isEditingProfile ?
+              <AutoForm name={'mentorProfile'} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+                <Form.Group widths={'equal'}>
+                  <TextField name='website'/>
+                  <TextField name='company'/>
+                </Form.Group>
 
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Title</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{career}</p>
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Location</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{location}</p>
-              </Grid.Column>
-            </Grid.Row>
+                <Form.Group widths={'equal'}>
+                  <TextField name='career'/>
+                  <TextField name='location'/>
+                </Form.Group>
 
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>LinkedIn Username</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{linkedin}</p>
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Picture URL</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{picture}</p>
-              </Grid.Column>
-            </Grid.Row>
+                <Form.Group widths={'equal'}>
+                  <TextField name='linkedin'/>
+                  <TextField name='picture'/>
+                </Form.Group>
 
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Motivation</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={14}>
-                <p>{motivation}</p>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <br/>
-          <Button basic color={'green'}>Edit Profile</Button>
+                <LongTextField name='motivation'/>
+
+                <SubmitField value='Save Profile'/>
+                <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
+              </AutoForm>
+              :
+              <React.Fragment>
+                <Grid stackable={true}>
+                  <Grid.Row>
+                    <Grid.Column floated='left' width={2}>
+                      <b>Website URL</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={6}>
+                      {
+                        website ?
+                          <p>{website}</p>
+                          : 'No website specified.'
+                      }
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={2}>
+                      <b>Company</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={6}>
+                      <p>{company}</p>
+                    </Grid.Column>
+                  </Grid.Row>
+
+                  <Grid.Row>
+                    <Grid.Column floated='left' width={2}>
+                      <b>Title</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={6}>
+                      <p>{career}</p>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={2}>
+                      <b>Location</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={6}>
+                      <p>{location}</p>
+                    </Grid.Column>
+                  </Grid.Row>
+
+                  <Grid.Row>
+                    <Grid.Column floated='left' width={2}>
+                      <b>LinkedIn Username</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={6}>
+                      <p>{linkedin}</p>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={2}>
+                      <b>Picture URL</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={6}>
+                      <p>{picture}</p>
+                    </Grid.Column>
+                  </Grid.Row>
+
+                  <Grid.Row>
+                    <Grid.Column floated='left' width={2}>
+                      <b>Motivation</b>
+                    </Grid.Column>
+                    <Grid.Column floated='left' width={14}>
+                      <p>{motivation}</p>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+                <br/>
+                <Button basic color={'green'} onClick={this.handleEdit}>Edit Profile</Button>
+              </React.Fragment>
+          }
         </Segment>
-      </
-        Container>
+      </Container>
     );
   }
 }
