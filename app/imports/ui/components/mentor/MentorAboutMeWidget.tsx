@@ -227,6 +227,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
         });
       }
     });
+    this.setState({ isEditingProfile: false });
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -234,15 +235,20 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       marginBottom: 0,
     };
 
+    const defWebsite = this.website() !== null ? this.website() : '';
+    console.log(defWebsite);
+
     const updateSchema = new SimpleSchema({
       website: {
         type: String,
         optional: true,
         label: 'Website URL',
+        defaultValue: defWebsite,
       },
       company: {
         type: String,
         optional: true,
+        defaultValue: this.company(),
       },
       career: {
         type: String,
@@ -256,7 +262,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       linkedin: {
         type: String,
         optional: true,
-        label: 'LinkedIn Username'
+        label: 'LinkedIn Username',
       },
       motivation: {
         type: String,
@@ -318,7 +324,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                             {
                               _.map(interests, (interest, index) => (
                                 <Label size={'tiny'} key={index} as={Link}
-                                       to={this.buildRouteName('interest', this.slugName(interest))}>
+                                       to={this.buildRouteName('interests', this.slugName(interest))}>
                                   <Icon name='star'/>{this.goalName(interest)}
                                 </Label>
                               ))
