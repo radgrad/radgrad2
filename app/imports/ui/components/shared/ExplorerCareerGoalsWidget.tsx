@@ -9,11 +9,11 @@ import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
   descriptionPairs: any;
-  profile: any;
   item: { [key: string]: any };
   socialPairs: any;
   match: {
@@ -24,6 +24,7 @@ interface IExplorerCareerGoalsWidgetProps {
       username: string;
     }
   };
+  profile: IProfile;
 }
 
 class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidgetProps> {
@@ -31,21 +32,11 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     super(props);
   }
 
-  /*
-Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-*/
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
       ? <a href={props.href}>{props.children}</a>
       : <Link to={props.href}>{props.children}</Link>
   )
-
-  private getCareerGoalName = () => this.props.name;
-
-  private getDescriptionPair = () => this.props.descriptionPairs;
-
-  private getSocialPair = () => this.props.socialPairs;
 
   private toUpper = (string) => string.toUpperCase();
 
@@ -114,11 +105,10 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
       marginTop: 0,
       padding: 0,
     };
-    const upperName = this.toUpper(this.getCareerGoalName());
-    const descriptionPairs = this.getDescriptionPair();
-    const socialPairs = this.getSocialPair();
-    const item = this.props.item;
+    const { name, descriptionPairs, socialPairs, item } = this.props;
+    const upperName = this.toUpper(name);
     const userStatus = this.userStatus(item);
+
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
         <Grid.Column width={16}>
@@ -155,7 +145,6 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
                       </React.Fragment>
                       : ''
                   }
-
                   {
                     this.isLabel(descriptionPair.label, 'Interests') ?
                       <div style={{ marginTop: '5px' }}>
@@ -189,7 +178,8 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 }
 
 const ExplorerCareerGoalsWidgetContainer = withTracker((props) => {
-  const profile = Users.getProfile(props.username);
+  const profile = Users.getProfile(props.match.params.username);
+
   return {
     profile,
   };

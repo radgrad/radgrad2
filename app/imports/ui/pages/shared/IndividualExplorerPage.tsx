@@ -20,7 +20,6 @@ import ExplorerOpportunitiesWidget from '../../components/shared/ExplorerOpportu
 import ExplorerDegreesWidget from '../../components/shared/ExplorerDegreesWidget';
 import ExplorerCoursesWidget from '../../components/shared/ExplorerCoursesWidget';
 import ExplorerInterestsWidget from '../../components/shared/ExplorerInterestsWidget';
-import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { ROLE } from '../../../api/role/Role';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
@@ -29,6 +28,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -97,19 +97,19 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getItem = (): { [key: string]: any } => {
     const type = this.getType();
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLAN:
         return this.plan();
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOAL:
         return this.careerGoal();
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.course();
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return this.degree();
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.interest();
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.opportunity();
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return undefined;
       default:
         return undefined;
@@ -119,19 +119,19 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getDescriptionPairs = (item: { [key: string]: any }): object[] => {
     const type = this.getType();
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLAN:
         return this.descriptionPairsPlans(item as IAcademicPlan);
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOAL:
         return this.descriptionPairsCareerGoals(item as ICareerGoal);
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.descriptionPairsCourses(item as ICourse);
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return this.descriptionPairsDegrees(item as IDesiredDegree);
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return undefined; // Quinne implemented the descriptionPairs into their own components
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.descriptionPairsOpportunities(item as IOpportunity);
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return undefined;
       default:
         return undefined;
@@ -186,7 +186,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
     { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
   ]
 
-  private socialPairsCareerGoals = (careerGoal: ICareerGoal): { label: string, amount: number, value: any }[] => [
+  private socialPairsCareerGoals = (careerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
     {
       label: 'students', amount: this.numUsersCareerGoals(careerGoal, ROLE.STUDENT),
       value: this.interestedUsersCareerGoals(careerGoal, ROLE.STUDENT),
@@ -217,6 +217,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
     });
     return interested;
   }
+
   private numUsersCareerGoals = (careerGoal: ICareerGoal, role: string): number => this.interestedUsersCareerGoals(careerGoal, role).length
 
   /* ################################################# COURSES HELPER FUNCTIONS ##################################### */
@@ -522,7 +523,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
             }
             {
               type === EXPLORER_TYPE.OPPORTUNITIES ?
-                <ExplorerOpportunitiesWidget name={name} desriptionPairs={descriptionPairs} item={item}
+                <ExplorerOpportunitiesWidget name={name} descriptionPairs={descriptionPairs} item={item}
                                              completed={(isTypeOpportunities && isOpportunityCompleted !== undefined) ? isOpportunityCompleted : undefined}
                                              role={role}/>
                 : ''

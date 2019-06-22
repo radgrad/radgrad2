@@ -46,6 +46,14 @@ export const getBaseRoute = (match: IMatchProps): string => {
   return baseRoute;
 };
 
+// Builds a route name and returns it. Make sure routeName is preceeded by a forward slash ('/').
+// i.e., buildRouteName('/explorer/plans') => /role/:username/explorer/plans
+export const buildRouteName = (match: IMatchProps, routeName: string): string => {
+  const baseRoute = getBaseRoute(match);
+  const route = `${baseRoute}${routeName}`;
+  return route;
+};
+
 // Returns the parameter by index (the parameters AFTER the base route)
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 (index = 1 returns param1, index = 2 returns param2, etc...)
 export const getUrlParam = (match: IMatchProps, index: number) => {

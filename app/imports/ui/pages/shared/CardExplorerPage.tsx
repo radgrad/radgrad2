@@ -41,18 +41,11 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     super(props);
   }
 
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
-  private getType = (): string => {
-    const url = this.props.match.url;
-    const index = url.lastIndexOf('/');
-    return url.substr(index + 1);
-  }
+  private getType = (): string => Router.getLastUrlParam(this.props.match);
 
   private getCollection = (): object => {
     const type = this.getType();
