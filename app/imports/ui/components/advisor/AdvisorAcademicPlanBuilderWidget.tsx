@@ -228,7 +228,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
               </Grid>
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={''}/>
             </Grid.Column>
           </Grid>
         </DragDropContext>

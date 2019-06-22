@@ -157,8 +157,3 @@ export function removeChoiceFromPlanRaw(choice: string, termNumber: number, choi
   }
   coursesPerAcademicTerm[termNumber]--; // eslint-disable-line no-param-reassign
 }
-
-export function moveChoiceRaw(choice: string, oldTerm: number, newTerm: number, choiceList: string[], coursesPerAcademicTerm: number[]) {
-  const oldIndex = getListIndex(choice, choiceList);
-
-}

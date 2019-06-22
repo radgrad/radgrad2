@@ -5,9 +5,11 @@ import { Droppable } from 'react-beautiful-dnd';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import DraggableCoursePill from '../shared/DraggableCoursePill';
+import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './AcademicPlanBuilderUtilities';
 
 interface IAdvisorAPBPlanChoiceWidgetProps {
   choices: IPlanChoiceDefine[],
+  combineChoice: string,
 }
 
 const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => {
@@ -39,7 +41,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
       <Header dividing={true}>Course Choices</Header>
       <Grid columns="equal">
         <Grid.Column style={narrowStyle}>
-          <Droppable droppableId="AdvisorBuildPlanChoices">
+          <Droppable droppableId={CHOICE_AREA}>
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
@@ -55,7 +57,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
           </Droppable>
         </Grid.Column>
         <Grid.Column style={narrowStyle}>
-          <Droppable droppableId="AdvisorBuildPlanChoices">
+          <Droppable droppableId={CHOICE_AREA}>
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
@@ -71,7 +73,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
           </Droppable>
         </Grid.Column>
         <Grid.Column style={narrowStyle}>
-          <Droppable droppableId="AdvisorBuildPlanChoices">
+          <Droppable droppableId={CHOICE_AREA}>
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
@@ -87,7 +89,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
           </Droppable>
         </Grid.Column>
         <Grid.Column style={narrowStyle}>
-          <Droppable droppableId="AdvisorBuildPlanChoices">
+          <Droppable droppableId={CHOICE_AREA}>
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
@@ -105,20 +107,25 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
       </Grid>
       <Segment>
         <Icon name="linkify" size="big"/>
-        <Droppable droppableId='comboArea'>
+        <Droppable droppableId={COMBINE_AREA}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               // style={style}
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
+              {props.combineChoice ? (
+                <DraggableCoursePill key={props.combineChoice} index={0} choice={props.combineChoice}
+                                     draggableId={buildCombineAreaDraggableId(props.combineChoice)}
+                                     satisfied={true} studentID="fakeID"/>
+              ) : ''}
               {provided.placeholder}
             </div>)}
         </Droppable>
       </Segment>
       <Segment>
         <Icon name="trash alternate outline" size="big"/>
-        <Droppable droppableId='trash'>
+        <Droppable droppableId={DELETE_AREA}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}

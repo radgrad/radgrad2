@@ -20,7 +20,14 @@ import {
   reorderChoicesInTermRaw,
   updateChoiceCounts,
 } from '../../../api/degree-plan/AcademicPlanUtilities';
-import { stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
+import { combineChoices, stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
+import {
+  CHOICE_AREA,
+  COMBINE_AREA, DELETE_AREA,
+  getDropDestinationArea, getPlanAreaTermNumber,
+  PLAN_AREA,
+  stripPrefix,
+} from './AcademicPlanBuilderUtilities';
 
 interface IAdvisorAPBuilderWidgetProps {
   degrees: IDesiredDegree[];
@@ -28,17 +35,10 @@ interface IAdvisorAPBuilderWidgetProps {
   years: number[];
 }
 
-const stripPrefix = (str) => {
-  const index = str.indexOf('-');
-  if (index !== -1) {
-    return str.substring(index + 1);
-  }
-  return str;
-};
-
 interface IAdvisorAPBuilderWidgetState {
   choiceList: string[];
   coursesPerTerm: number[];
+  combineChoice: string;
 }
 
 class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProps, IAdvisorAPBuilderWidgetState> {
@@ -53,22 +53,20 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     for (let i = 0; i < numTerms; i++) {
       coursesPerTerm.push(0);
     }
-    this.state = { choiceList: [], coursesPerTerm };
+    this.state = { choiceList: [], coursesPerTerm, combineChoice: '' };
   }
 
-  private onDragEnd = (result) => {
-    console.log('onDragEnd %o', result);
-    const dropTermNum = result.destination.droppableId.split('-')[2];
-    const termIndex = result.destination.index;
-    const source = result.source.droppableId;
-    const choice = stripCounter(stripPrefix(result.draggableId));
+  private handleDropInPlanArea = (dropResult) => {
+    const dropTermNum = getPlanAreaTermNumber(dropResult.destination.droppableId);
+    const termIndex = dropResult.destination.index;
+    const source = dropResult.source.droppableId;
+    const choice = stripCounter(stripPrefix(dropResult.draggableId));
     console.log(dropTermNum, termIndex, source, choice);
     const { choiceList, coursesPerTerm } = this.state;
-    if (source === 'AdvisorBuildPlanChoices') {
+    if (source === CHOICE_AREA) {
       addChoiceToRaw(choice, dropTermNum, choiceList, coursesPerTerm, termIndex);
       updateChoiceCounts(choiceList);
-      console.log('new state %o', { choiceList, coursesPerTerm });
-    } else if (source.startsWith('plan')) {
+    } else if (source.startsWith(PLAN_AREA)) {
       // changed a choice from in the plan.
       const sourceTerm = source.split('-')[2];
       if (sourceTerm === dropTermNum) {
@@ -82,8 +80,50 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         updateChoiceCounts(choiceList);
       }
     }
-    console.log('new state', { choiceList, coursesPerTerm });
+    console.log('plan area new state', { choiceList, coursesPerTerm });
     this.setState({ choiceList, coursesPerTerm });
+  }
+
+  private handleDropInChoiceArea(dropResult) {
+    console.log(CHOICE_AREA, dropResult);
+  }
+
+  private handleDropInCombineArea(dropResult) {
+    console.log(COMBINE_AREA, dropResult);
+    const { combineChoice } = this.state;
+    const choice = stripCounter(stripPrefix(dropResult.draggableId));
+    if (combineChoice) {
+      const newCombineChoice = combineChoices(this.state.combineChoice, choice);
+      console.log(COMBINE_AREA, { newCombineChoice });
+      this.setState({ combineChoice: newCombineChoice });
+    } else {
+      this.setState({ combineChoice: choice });
+    }
+  }
+
+  private handleDropInDeleteArea(dropResult) {
+    console.log(DELETE_AREA, dropResult);
+  }
+
+  private onDragEnd = (result) => {
+    console.log('onDragEnd %o', result);
+    const dropArea = getDropDestinationArea(result.destination.droppableId);
+    switch (dropArea) {
+      case PLAN_AREA:
+        this.handleDropInPlanArea(result);
+        break;
+      case CHOICE_AREA:
+        this.handleDropInChoiceArea(result);
+        break;
+      case COMBINE_AREA:
+        this.handleDropInCombineArea(result);
+        break;
+      case DELETE_AREA:
+        this.handleDropInDeleteArea(result);
+        break;
+      default:
+        // do nothing?
+    }
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -112,7 +152,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
               <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList}/>
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice}/>
             </Grid.Column>
           </Grid>
         </DragDropContext>

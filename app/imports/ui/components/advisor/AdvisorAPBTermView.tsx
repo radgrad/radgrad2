@@ -7,6 +7,10 @@ import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBui
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import * as AcademicPlanUtilities from '../../../api/degree-plan/AcademicPlanUtilities';
+import {
+  buildPlanAreaDraggableId,
+  buildPlanAreaDroppableId,
+} from './AcademicPlanBuilderUtilities';
 
 interface IAdvisorAPBTermViewProps {
   termName: string;
@@ -27,10 +31,13 @@ class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvi
     return (
       <Segment>
         <Header dividing={true} as="h4">{this.props.termName}</Header>
-        <Droppable droppableId={`plan-${this.props.yearNumber}-${this.props.termNumber}`}>
+        <Droppable droppableId={buildPlanAreaDroppableId(this.props.yearNumber, this.props.termNumber)}>
           {(provided, snapshot) => {
             const choices = AcademicPlanUtilities.getPlanChoicesRaw(this.props.coursesPerTerm, this.props.choiceList, this.props.termNumber);
             // console.log(choices);
+            // if (choices.length > 0) {
+            //   console.log(choices, getPlanChoiceFromDraggableId(choices[0]));
+            // }
             return (
               <div
                 ref={provided.innerRef}
@@ -38,7 +45,7 @@ class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvi
                 style={getDroppableListStyle(snapshot.isDraggingOver)}
               >
                 {_.map(choices, (choice, idx) => (
-                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={`planchoice-${choice}`}
+                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={buildPlanAreaDraggableId(choice)}
                                        satisfied={true} studentID="fakeID"/>))}
                 {provided.placeholder}
               </div>
