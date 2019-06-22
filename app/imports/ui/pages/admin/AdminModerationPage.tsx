@@ -12,7 +12,6 @@ class AdminModerationPage extends React.Component {
     };
     return (
       <div>
-
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
           <Grid.Column>
