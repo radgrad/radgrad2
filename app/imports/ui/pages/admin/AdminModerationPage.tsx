@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminModerationWidget from '../../components/shared/ModerationWidget';
+import ModerationWidget from '../../components/shared/ModerationWidget';
 
 /** A simple static component to render some text for the landing page. */
 class AdminModerationPage extends React.Component {
@@ -15,7 +15,7 @@ class AdminModerationPage extends React.Component {
         <AdminPageMenuWidget/>
         <Grid container={true} stackable={true} style={paddedStyle}>
           <Grid.Column>
-            <AdminModerationWidget/>
+            <ModerationWidget/>
           </Grid.Column>
         </Grid>
       </div>
