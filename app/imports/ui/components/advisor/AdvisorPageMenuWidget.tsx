@@ -8,6 +8,7 @@ import SecondMenu from '../../pages/shared/SecondMenu';
 /** A simple static component to render some text for the landing page. */
 class AdvisorPageMenuWidget extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
+
   public render() {
     let numMod = 0;
     numMod += MentorQuestions.find({ moderated: false }).fetch().length;

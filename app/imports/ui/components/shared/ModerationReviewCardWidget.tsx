@@ -8,17 +8,17 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Users } from '../../../api/user/UserCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
-interface IAdminModerationReviewCardWidget {
+interface IModerationReviewCardWidget {
   item: any;
   handleAccept: (item, comment) => any,
   handleReject: (item, comment) => any,
 }
 
-interface IAdminModerationReviewCardState {
+interface IModerationReviewCardState {
   moderatorComment: string;
 }
 
-class AdminModerationReviewCardWidget extends React.Component<IAdminModerationReviewCardWidget, IAdminModerationReviewCardState> {
+class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWidget, IModerationReviewCardState> {
   constructor(props) {
     super(props);
     this.state = { moderatorComment: '' };
@@ -117,4 +117,4 @@ class AdminModerationReviewCardWidget extends React.Component<IAdminModerationRe
   }
 }
 
-export default withRouter(AdminModerationReviewCardWidget);
+export default withRouter(ModerationReviewCardWidget);

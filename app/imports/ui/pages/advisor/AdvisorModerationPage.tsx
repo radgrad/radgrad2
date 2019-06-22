@@ -5,6 +5,7 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import BeautifulExample from '../../components/student/BeautifulExample';
+import ModerationWidgetContainer from "../../components/shared/ModerationWidget";
 
 /** A simple static component to render some text for the landing page. */
 class AdvisorModerationPage extends React.Component {
@@ -17,17 +18,8 @@ class AdvisorModerationPage extends React.Component {
       <div>
         <AdvisorPageMenuWidget/>
         <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
-          <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
-          </Grid.Row>
-
-          <Grid.Column width={4}>
-            <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Advisor Moderation</h1>
-            <BeautifulExample/>
+          <Grid.Column>
+            <ModerationWidgetContainer/>
           </Grid.Column>
         </Grid>
       </div>

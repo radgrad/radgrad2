@@ -4,17 +4,17 @@ import Swal from 'sweetalert2';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
-interface IAdminModerationQuestionCardWidget {
+interface IModerationQuestionCardWidget {
   question: any;
   handleAccept: (item, comments) => any;
   handleReject: (item, comments) => any;
 }
 
-interface IAdminModerationQuestionCardWidgetState {
+interface IModerationQuestionCardWidgetState {
   moderatorComment: string
 }
 
-class AdminModerationQuestionCardWidget extends React.Component<IAdminModerationQuestionCardWidget, IAdminModerationQuestionCardWidgetState> {
+class ModerationQuestionCardWidget extends React.Component<IModerationQuestionCardWidget, IModerationQuestionCardWidgetState> {
   constructor(props) {
     super(props);
     this.state = { moderatorComment: '' };
@@ -87,4 +87,4 @@ class AdminModerationQuestionCardWidget extends React.Component<IAdminModeration
   }
 }
 
-export default withRouter(AdminModerationQuestionCardWidget);
+export default withRouter(ModerationQuestionCardWidget);
