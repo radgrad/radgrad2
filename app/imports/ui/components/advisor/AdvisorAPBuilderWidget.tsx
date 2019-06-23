@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
 import TextField from 'uniforms-semantic/TextField';
 import { DragDropContext } from 'react-beautiful-dnd';
+import Swal from 'sweetalert2';
 import { IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import { PlanChoiceCollection, PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { docToShortName } from '../shared/AdminDataModelHelperFunctions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
@@ -28,6 +29,7 @@ import {
   PLAN_AREA,
   stripPrefix,
 } from './AcademicPlanBuilderUtilities';
+import { defineMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IAdvisorAPBuilderWidgetProps {
   degrees: IDesiredDegree[];
@@ -39,6 +41,10 @@ interface IAdvisorAPBuilderWidgetState {
   choiceList: string[];
   coursesPerTerm: number[];
   combineChoice: string;
+  showConfirmAdd: boolean;
+  addPlanChoice: string;
+  showConfirmDelete: boolean;
+  deletePlanChoice: string;
 }
 
 class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProps, IAdvisorAPBuilderWidgetState> {
@@ -53,8 +59,47 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     for (let i = 0; i < numTerms; i++) {
       coursesPerTerm.push(0);
     }
-    this.state = { choiceList: [], coursesPerTerm, combineChoice: '' };
+    this.state = {
+      choiceList: [],
+      coursesPerTerm,
+      combineChoice: '',
+      showConfirmAdd: false,
+      addPlanChoice: '',
+      showConfirmDelete: false,
+      deletePlanChoice: '',
+    };
   }
+
+  private handleCancelAdd = () => {
+    this.setState({ showConfirmAdd: false });
+  };
+
+  private handleConfirmAdd = () => {
+    console.log('handleConfirmAdd %o', this.state);
+    const collectionName = PlanChoices.getCollectionName();
+    const choice = this.state.combineChoice;
+    const definitionData = { choice };
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Add succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        const combineChoice = '';
+        this.setState({ combineChoice });
+      }
+    });
+    const showConfirmAdd = false;
+    this.setState({ showConfirmAdd });
+  };
 
   private handleDropInPlanArea = (dropResult) => {
     const dropTermNum = getPlanAreaTermNumber(dropResult.destination.droppableId);
@@ -82,10 +127,12 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     }
     console.log('plan area new state', { choiceList, coursesPerTerm });
     this.setState({ choiceList, coursesPerTerm });
-  }
+  };
 
   private handleDropInChoiceArea(dropResult) {
     console.log(CHOICE_AREA, dropResult);
+    const choice = stripCounter(stripPrefix(dropResult.draggableId));
+    this.setState({ addPlanChoice: choice, showConfirmAdd: true });
   }
 
   private handleDropInCombineArea(dropResult) {
@@ -122,9 +169,9 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         this.handleDropInDeleteArea(result);
         break;
       default:
-        // do nothing?
+      // do nothing?
     }
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const degreeNames = _.map(this.props.degrees, docToShortName);
@@ -156,6 +203,8 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
             </Grid.Column>
           </Grid>
         </DragDropContext>
+        <Confirm open={this.state.showConfirmAdd} onCancel={this.handleCancelAdd} onConfirm={this.handleConfirmAdd}
+                 header="Add Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}/>
       </Segment>
     );
   }

@@ -39,72 +39,47 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
   return (
     <Segment>
       <Header dividing={true}>Course Choices</Header>
-      <Grid columns="equal">
-        <Grid.Column style={narrowStyle}>
-          <Droppable droppableId={CHOICE_AREA}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                // style={style}
-                style={getDroppableListStyle(snapshot.isDraggingOver)}
-              >
+      <Droppable droppableId={CHOICE_AREA}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            // style={style}
+            style={getDroppableListStyle(snapshot.isDraggingOver)}
+          >
+            <Grid columns="equal">
+              <Grid.Column style={narrowStyle}>
                 {_.map(column1, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
                                        draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
-              </div>)}
-          </Droppable>
-        </Grid.Column>
-        <Grid.Column style={narrowStyle}>
-          <Droppable droppableId={CHOICE_AREA}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                // style={style}
-                style={getDroppableListStyle(snapshot.isDraggingOver)}
-              >
+              </Grid.Column>
+              <Grid.Column style={narrowStyle}>
                 {_.map(column2, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
                                        draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
-              </div>)}
-          </Droppable>
-        </Grid.Column>
-        <Grid.Column style={narrowStyle}>
-          <Droppable droppableId={CHOICE_AREA}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                // style={style}
-                style={getDroppableListStyle(snapshot.isDraggingOver)}
-              >
+                {provided.placeholder}
+              </Grid.Column>
+              <Grid.Column style={narrowStyle}>
                 {_.map(column3, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
                                        draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
-              </div>)}
-          </Droppable>
-        </Grid.Column>
-        <Grid.Column style={narrowStyle}>
-          <Droppable droppableId={CHOICE_AREA}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                // style={style}
-                style={getDroppableListStyle(snapshot.isDraggingOver)}
-              >
+              </Grid.Column>
+              <Grid.Column style={narrowStyle}>
                 {_.map(column4, (choice, index) => (
                   <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
                                        draggableId={`courseChoices-${choice.choice}`}
                                        satisfied={true} studentID="fakeID"/>
                 ))}
-              </div>)}
-          </Droppable>
-        </Grid.Column>
-      </Grid>
+              </Grid.Column>
+              {provided.placeholder}
+            </Grid>
+          </div>)}
+      </Droppable>
       <Segment>
         <Icon name="linkify" size="big"/>
         <Droppable droppableId={COMBINE_AREA}>
