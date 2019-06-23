@@ -16,7 +16,6 @@ class AdvisorAPBPlanViewWidget extends React.Component<IAdvisorAPBPlanViewWidget
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
-    console.log(this.props);
     return (
       <Grid widths='equal' columns={5}>
         <AdvisorAPBYearView yearNumber={1} choiceList={this.props.choiceList} quarterSystem={quarterSystem}

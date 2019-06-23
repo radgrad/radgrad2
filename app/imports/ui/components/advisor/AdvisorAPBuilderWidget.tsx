@@ -21,7 +21,7 @@ import {
   reorderChoicesInTermRaw,
   updateChoiceCounts,
 } from '../../../api/degree-plan/AcademicPlanUtilities';
-import { combineChoices, stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
+import { combineChoices, isSingleChoice, stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
 import {
   CHOICE_AREA,
   COMBINE_AREA, DELETE_AREA,
@@ -29,7 +29,7 @@ import {
   PLAN_AREA,
   stripPrefix,
 } from './AcademicPlanBuilderUtilities';
-import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IAdvisorAPBuilderWidgetProps {
   degrees: IDesiredDegree[];
@@ -74,8 +74,12 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     this.setState({ showConfirmAdd: false });
   };
 
+  private handleCancelDelete = () => {
+    this.setState({ showConfirmDelete: false });
+  };
+
   private handleConfirmAdd = () => {
-    console.log('handleConfirmAdd %o', this.state);
+    // console.log('handleConfirmAdd %o', this.state);
     const collectionName = PlanChoices.getCollectionName();
     const choice = this.state.combineChoice;
     const definitionData = { choice };
@@ -101,12 +105,36 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     this.setState({ showConfirmAdd });
   };
 
+  private handleConfirmDelete = () => {
+    const collectionName = PlanChoices.getCollectionName();
+    const doc = PlanChoices.findDoc({ choice: this.state.deletePlanChoice });
+    const instance = doc._id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error deleting CareerGoal. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Delete succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+    const showConfirmDelete = false;
+    this.setState({ showConfirmDelete });
+  }
   private handleDropInPlanArea = (dropResult) => {
     const dropTermNum = getPlanAreaTermNumber(dropResult.destination.droppableId);
     const termIndex = dropResult.destination.index;
     const source = dropResult.source.droppableId;
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
-    console.log(dropTermNum, termIndex, source, choice);
+    // console.log(dropTermNum, termIndex, source, choice);
     const { choiceList, coursesPerTerm } = this.state;
     if (source === CHOICE_AREA) {
       addChoiceToRaw(choice, dropTermNum, choiceList, coursesPerTerm, termIndex);
@@ -119,20 +147,29 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         reorderChoicesInTermRaw(choice, dropTermNum, termIndex, choiceList, coursesPerTerm);
       } else {
         // moved to new termNumber
-        console.log('moved term sourceTerm %o newTerm %o', sourceTerm, dropTermNum);
+        // console.log('moved term sourceTerm %o newTerm %o', sourceTerm, dropTermNum);
         removeChoiceFromPlanRaw(choice, sourceTerm, choiceList, coursesPerTerm);
         addChoiceToRaw(choice, dropTermNum, choiceList, coursesPerTerm, termIndex);
         updateChoiceCounts(choiceList);
       }
     }
-    console.log('plan area new state', { choiceList, coursesPerTerm });
+    // console.log('plan area new state', { choiceList, coursesPerTerm });
     this.setState({ choiceList, coursesPerTerm });
   };
 
   private handleDropInChoiceArea(dropResult) {
     console.log(CHOICE_AREA, dropResult);
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
-    this.setState({ addPlanChoice: choice, showConfirmAdd: true });
+    const source = dropResult.source.droppableId;
+    console.log(source, choice);
+    if (source === COMBINE_AREA) {
+      this.setState({ addPlanChoice: choice, showConfirmAdd: true });
+    } else if (source.startsWith(PLAN_AREA)) {
+      const sourceTerm = source.split('-')[2];
+      const { choiceList, coursesPerTerm } = this.state;
+      removeChoiceFromPlanRaw(choice, sourceTerm, choiceList, coursesPerTerm);
+      this.setState({ choiceList, coursesPerTerm });
+    }
   }
 
   private handleDropInCombineArea(dropResult) {
@@ -149,7 +186,24 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private handleDropInDeleteArea(dropResult) {
-    console.log(DELETE_AREA, dropResult);
+    const choice = stripCounter(stripPrefix(dropResult.draggableId));
+    const source = dropResult.source.droppableId;
+    if (source.startsWith(PLAN_AREA)) {
+      const sourceTerm = source.split('-')[2];
+      const { choiceList, coursesPerTerm } = this.state;
+      removeChoiceFromPlanRaw(choice, sourceTerm, choiceList, coursesPerTerm);
+      this.setState({ choiceList, coursesPerTerm });
+    } else if (source === CHOICE_AREA) {
+      if (isSingleChoice(choice)) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: `Cannot delete the single choice ${PlanChoiceCollection.toStringFromSlug(choice)}.`,
+          type: 'error',
+        });
+      } else {
+        this.setState({ showConfirmDelete: true, deletePlanChoice: choice });
+      }
+    }
   }
 
   private onDragEnd = (result) => {
@@ -182,7 +236,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
       year: { type: SimpleSchema.Integer, allowedValues: this.props.years, defaultValue: currentYear },
     });
     const { choiceList, coursesPerTerm } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <Segment>
         <Header dividing={true}>ACADEMIC PLAN</Header>
@@ -205,6 +259,8 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         </DragDropContext>
         <Confirm open={this.state.showConfirmAdd} onCancel={this.handleCancelAdd} onConfirm={this.handleConfirmAdd}
                  header="Add Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}/>
+        <Confirm open={this.state.showConfirmDelete} onCancel={this.handleCancelDelete} onConfirm={this.handleConfirmDelete}
+                 header="Delete Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}/>
       </Segment>
     );
   }
