@@ -3,6 +3,8 @@ import { Grid, Image } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget'
 import AdminAnalyticsLoggedInUsersWidget from "../../components/admin/AdminAnalyticsLoggedInUsersWidget";
+import AdminAnalyticsLoggedInUsersWidgetContainer from "../../components/admin/AdminAnalyticsLoggedInUsersWidget";
+
 /** A simple static component to render some text for the landing page. */
 class AdminAnalyticsPage extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -13,12 +15,16 @@ class AdminAnalyticsPage extends React.Component {
     return (
       <div>
         <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle} columns={2}>
+        <Grid container={true} stackable={true} style={paddedStyle} columns={1}>
           <Grid.Column>
-            <AdminAnalyticsMenuWidget/>
-          </Grid.Column>
-          <Grid.Column>
-            <AdminAnalyticsLoggedInUsersWidget/>
+            <Grid>
+              <Grid.Column width={3}>
+                <AdminAnalyticsMenuWidget/>
+              </Grid.Column>
+              <Grid.Column width={13}>
+                <AdminAnalyticsLoggedInUsersWidgetContainer/>
+              </Grid.Column>
+            </Grid>
           </Grid.Column>
         </Grid>
       </div>
