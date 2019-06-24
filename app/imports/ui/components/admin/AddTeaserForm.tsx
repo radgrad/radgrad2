@@ -67,7 +67,7 @@ class AddTeaserForm extends React.Component<IAddTeaserFormProps> {
             <SelectField name="opportunity"/>
           </Form.Group>
           <BoolField name="retired"/>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

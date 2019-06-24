@@ -172,7 +172,7 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

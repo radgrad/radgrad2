@@ -40,7 +40,7 @@ class AddAcademicYearInstanceForm extends React.Component<IAddAcademicYearInstan
         <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
           <NumField name="year"/>
           <SelectField name="student"/>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

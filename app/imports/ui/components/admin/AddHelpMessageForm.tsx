@@ -22,7 +22,7 @@ const AddHelpMessageForm = (props: IAddHelpMessageFormProps) => (
       </Form.Group>
       <LongTextField name="text"/>
       <BoolField name="retired"/>
-      <SubmitField/>
+      <SubmitField className="basic green" value="Add"/>
     </AutoForm>
   </Segment>
 );

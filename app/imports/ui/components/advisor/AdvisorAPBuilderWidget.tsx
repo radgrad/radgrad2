@@ -5,6 +5,7 @@ import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
+import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
@@ -244,6 +245,10 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     }
   }
 
+  private handleSavePlan = (doc) => {
+    console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
+  }
+
   private onDragEnd = (result) => {
     console.log('onDragEnd %o', result);
     const dropArea = getDropDestinationArea(result.destination.droppableId);
@@ -275,18 +280,22 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     });
     const { choiceList, coursesPerTerm } = this.state;
     // console.log(this.state);
+    const paddingTopStyle = {
+      marginTop: 10,
+    };
     return (
       <Segment>
         <Header dividing={true}>ACADEMIC PLAN</Header>
-        <AutoForm schema={schema}>
+        <AutoForm schema={schema} onSubmit={this.handleSavePlan}>
           <Form.Group widths="equal">
             <SelectField name="degree"/>
             <TextField name="name"/>
             <SelectField name="year"/>
           </Form.Group>
+          <SubmitField className="basic green" value="Save Academic Plan"/>
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Grid stackable={true}>
+          <Grid stackable={true} style={paddingTopStyle}>
             <Grid.Column width={10}>
               <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList}/>
             </Grid.Column>

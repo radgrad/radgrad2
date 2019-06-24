@@ -72,7 +72,7 @@ class AddCourseForm extends React.Component<IAddCourseFormProps> {
             <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
             <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
           </Form.Group>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );
