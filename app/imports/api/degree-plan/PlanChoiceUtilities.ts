@@ -208,7 +208,11 @@ export function planIndexOf(planChoices: string[], courseSlug: string) {
   return -1;
 }
 
-export function combineChoices(choice1: string, choice2: string): string {
+export function simpleCombineChoices(choice1: string, choice2: string): string {
+  return `${choice1},${choice2}`;
+}
+
+export function compoundCombineChoices(choice1: string, choice2: string): string {
   let left = choice1;
   let right = choice2;
   if (!isSingleChoice(left)) {

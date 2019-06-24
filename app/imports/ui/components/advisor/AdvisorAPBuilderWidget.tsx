@@ -21,7 +21,12 @@ import {
   reorderChoicesInTermRaw,
   updateChoiceCounts,
 } from '../../../api/degree-plan/AcademicPlanUtilities';
-import { combineChoices, isSingleChoice, stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
+import {
+  compoundCombineChoices,
+  isSingleChoice,
+  simpleCombineChoices,
+  stripCounter,
+} from '../../../api/degree-plan/PlanChoiceUtilities';
 import {
   CHOICE_AREA,
   COMBINE_AREA, DELETE_AREA,
@@ -45,6 +50,9 @@ interface IAdvisorAPBuilderWidgetState {
   addPlanChoice: string;
   showConfirmDelete: boolean;
   deletePlanChoice: string;
+  showConfirmCombine: boolean;
+  combineLeftSide: string;
+  combineRightSide: string;
 }
 
 class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProps, IAdvisorAPBuilderWidgetState> {
@@ -67,6 +75,9 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
       addPlanChoice: '',
       showConfirmDelete: false,
       deletePlanChoice: '',
+      showConfirmCombine: false,
+      combineLeftSide: '',
+      combineRightSide: '',
     };
   }
 
@@ -76,6 +87,20 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
 
   private handleCancelDelete = () => {
     this.setState({ showConfirmDelete: false });
+  };
+
+  private handleSimpleCombine = () => {
+    console.log('simple combine', this.state);
+    const { combineLeftSide, combineRightSide } = this.state;
+    const combineChoice = simpleCombineChoices(combineLeftSide, combineRightSide);
+    this.setState({ showConfirmCombine: false, combineChoice });
+  };
+
+  private handleCompoundCombine = () => {
+    console.log('compound combine', this.state);
+    const { combineLeftSide, combineRightSide } = this.state;
+    const combineChoice = compoundCombineChoices(combineLeftSide, combineRightSide);
+    this.setState({ showConfirmCombine: false, combineChoice });
   };
 
   private handleConfirmAdd = () => {
@@ -128,7 +153,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     });
     const showConfirmDelete = false;
     this.setState({ showConfirmDelete });
-  }
+  };
   private handleDropInPlanArea = (dropResult) => {
     const dropTermNum = getPlanAreaTermNumber(dropResult.destination.droppableId);
     const termIndex = dropResult.destination.index;
@@ -176,10 +201,23 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     console.log(COMBINE_AREA, dropResult);
     const { combineChoice } = this.state;
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
+    const index = dropResult.destination.index;
+    let combineLeftSide = '';
+    let combineRightSide = '';
     if (combineChoice) {
-      const newCombineChoice = combineChoices(this.state.combineChoice, choice);
-      console.log(COMBINE_AREA, { newCombineChoice });
-      this.setState({ combineChoice: newCombineChoice });
+      if (index === 0) {
+        combineLeftSide = choice;
+        combineRightSide = combineChoice;
+      } else {
+        combineLeftSide = combineChoice;
+        combineRightSide = choice;
+      }
+      if (isSingleChoice(combineLeftSide) && isSingleChoice(combineRightSide)) {
+        const newCombineChoice = simpleCombineChoices(combineLeftSide, combineRightSide);
+        this.setState({ combineChoice: newCombineChoice });
+      } else {
+        this.setState({ showConfirmCombine: true, combineLeftSide, combineRightSide });
+      }
     } else {
       this.setState({ combineChoice: choice });
     }
@@ -258,9 +296,17 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
           </Grid>
         </DragDropContext>
         <Confirm open={this.state.showConfirmAdd} onCancel={this.handleCancelAdd} onConfirm={this.handleConfirmAdd}
+                 confirmButton='Add Choice'
                  header="Add Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}/>
-        <Confirm open={this.state.showConfirmDelete} onCancel={this.handleCancelDelete} onConfirm={this.handleConfirmDelete}
-                 header="Delete Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}/>
+        <Confirm open={this.state.showConfirmDelete} onCancel={this.handleCancelDelete}
+                 onConfirm={this.handleConfirmDelete}
+                 confirmButton='Delete Choice'
+                 header="Delete Plan Choice?"
+                 content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}/>
+        <Confirm open={this.state.showConfirmCombine} cancelButton='Simple Combine' confirmButton='Compound Combine'
+                 header='Simple or Compound Combine?' onCancel={this.handleSimpleCombine}
+                 onConfirm={this.handleCompoundCombine}
+                 content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}/>
       </Segment>
     );
   }
