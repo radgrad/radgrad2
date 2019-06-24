@@ -6,22 +6,24 @@ import { processVerificationEventMethod } from '../../../api/verification/Verifi
 import { IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
+/* global document */
+
 interface IAdvisorPendingVerificationWidgetProps {
   eventOpportunities: IOpportunity[];
 }
 
 class AdvisorEventVerificationWidget extends React.Component<IAdvisorPendingVerificationWidgetProps> {
-  logRef = React.createRef();
   state = { student: '', opportunity: '', log: '' };
 
   onChange = (e, { name, value }) => this.setState({ ...this.state, [name]: value });
 
-  onLog = (msg) => this.setState({ ...this.state, log: `${this.state.log}${msg}\n` })
+  onLog = (msg) => {
+    this.setState({ ...this.state, log: `${this.state.log}\n${msg}` });
+  }
 
   scrollToBottom = () => {
-    if (this.logRef) {
-      this.logRef.current.scrollTop = this.logRef.current.scrollHeight;
-    }
+    const textarea = document.getElementById('logTextArea');
+    textarea.scrollTop = textarea.scrollHeight;
   };
 
   onSubmit = () => {
@@ -34,12 +36,18 @@ class AdvisorEventVerificationWidget extends React.Component<IAdvisorPendingVeri
 
     processVerificationEventMethod.call({ student, opportunity: opportunityID, academicTerm }, (e, result) => {
       if (e) {
-        this.onLog(`Error: problem during processing: ${e}`);
+        this.onLog(`Error: problem during processing: ${e}\n`);
       } else {
         this.onLog(result);
       }
-      this.scrollToBottom();
     });
+  }
+
+
+  componentDidUpdate(prevProps: Readonly<IAdvisorPendingVerificationWidgetProps>, prevState: Readonly<{}>): void {
+    if (prevState !== this.state) {
+      this.scrollToBottom();
+    }
   }
 
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -65,7 +73,7 @@ class AdvisorEventVerificationWidget extends React.Component<IAdvisorPendingVeri
             <Form.Input placeholder={'Student Username'} name={'student'} onChange={this.onChange} value={student}/>
             <Form.Button basic color={'green'} content={'Verify Attendance'}/>
           </Form.Group>
-          <Form.TextArea ref={this.logRef} label={'Log'} rows={'10'} value={log} readOnly={true}/>
+          <Form.TextArea id={'logTextArea'} label={'Log'} rows={'10'} value={log} readOnly={true}/>
         </Form>
       </Segment>
     );

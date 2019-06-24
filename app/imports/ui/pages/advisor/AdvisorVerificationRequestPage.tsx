@@ -11,10 +11,12 @@ import AdvisorEventVerificationWidget from '../../components/advisor/AdvisorEven
 import AdvisorCompletedVerificationWidget from '../../components/advisor/AdvisorCompletedVerificationWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 // eslint-disable-next-line no-unused-vars
-import { IVerificationRequest } from '../../../typings/radgrad';
+import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 
 interface IAdvisorVerificationRequestPageProps {
   verificationRequests: IVerificationRequest[];
+  eventOpportunities: IOpportunity[];
   match: {
     params: {
       username: string;
@@ -63,7 +65,8 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
               <Grid.Column width={11}>
                 {activeItem === 'pending' ? <AdvisorPendingVerificationWidget
                   pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/> : undefined}
-                {activeItem === 'event' ? <AdvisorEventVerificationWidget/> : undefined}
+                {activeItem === 'event' ?
+                  <AdvisorEventVerificationWidget eventOpportunities={this.props.eventOpportunities}/> : undefined}
                 {activeItem === 'completed' ?
                   <AdvisorCompletedVerificationWidget username={this.props.match.params.username}
                                                       completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/> : undefined}
@@ -81,6 +84,7 @@ const AdvisorVerificationRequestPageCon = withGlobalSubscription(AdvisorVerifica
 const AdvisorVerificationRequestPageContainer = withInstanceSubscriptions(AdvisorVerificationRequestPageCon);
 const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
   verificationRequests: VerificationRequests.findNonRetired(),
+  eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
 }))(AdvisorVerificationRequestPageContainer);
 const AdvisorVerificationRequestPageContainerTrackerRouter = withRouter(AdvisorVerificationRequestPageContainerTracker);
 
