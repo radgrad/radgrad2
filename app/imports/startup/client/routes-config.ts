@@ -24,6 +24,10 @@ import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
 import AdminModerationPageContainer from '../../ui/pages/admin/AdminModerationPage';
 import AdminAnalyticsPageContainer from '../../ui/pages/admin/AdminAnalyticsPage';
+import AdminAnalyticsNewsletterPageContainer from '../../ui/pages/admin/AdminAnalyticsNewsletterPage';
+import AdminAnalyticsOverheadAnalysisPageContainer from '../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage';
+import AdminAnalyticsStudentSummaryPageContainer from '../../ui/pages/admin/AdminAnalyticsStudentSummaryPage';
+import AdminAnalyticsUserInteractionsPageContainer from '../../ui/pages/admin/AdminAnalyticsUserInteractionsPage';
 import AdminCourseScoreboardPageContainer from '../../ui/pages/admin/AdminCourseScoreboardPage';
 import AdvisorHomePageContainer from '../../ui/pages/advisor/AdvisorHomePage';
 import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/AdvisorVerificationRequestPage';
@@ -75,6 +79,8 @@ import ExplorerCoursesPageContainer from '../../ui/pages/shared/ExplorerCoursesP
 import ExplorerInterestsPageContainer from '../../ui/pages/shared/ExplorerInterestsPage';
 import ExplorerOpportunitiesPageContainer from '../../ui/pages/shared/ExplorerOpportunitiesPage';
 import ExplorerPlansPageContainer from '../../ui/pages/shared/ExplorerPlansPage';
+import AdminAnalyticsOverheadAnalysisPage from "../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage";
+import AdminAnalyticsStudentSummaryPage from "../../ui/pages/admin/AdminAnalyticsStudentSummaryPage";
 
 export const routes = {
   ADMIN: [
@@ -232,6 +238,26 @@ export const routes = {
       path: '/admin/:username/analytics',
       exact: true,
       component: AdminAnalyticsPageContainer,
+    },
+    {
+      path: '/admin/:username/analytics/newsletter',
+      exact: true,
+      component: AdminAnalyticsNewsletterPageContainer,
+    },
+    {
+      path: '/admin/:username/analytics/overhead-analysis',
+      exact: true,
+      component: AdminAnalyticsOverheadAnalysisPageContainer,
+    },
+    {
+      path: '/admin/:username/analytics/student-summary',
+      exact: true,
+      component: AdminAnalyticsStudentSummaryPageContainer,
+    },
+    {
+      path: '/admin/:username/analytics/user-interactions',
+      exact: true,
+      component: AdminAnalyticsUserInteractionsPageContainer,
     },
     {
       path: '/admin/:username/course-scoreboard',
