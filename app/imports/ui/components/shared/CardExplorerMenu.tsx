@@ -32,6 +32,7 @@ interface ICardExplorerMenuProps {
   };
 }
 
+// FIXME: Needs to be reactive
 class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   constructor(props) {
     super(props);

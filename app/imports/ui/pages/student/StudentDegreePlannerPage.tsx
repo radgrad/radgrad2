@@ -16,6 +16,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -31,9 +32,9 @@ interface IPageProps {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-    selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  });
+  selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
+});
 
 class StudentDegreePlannerPage extends React.Component<IPageProps> {
   constructor(props) {
@@ -94,7 +95,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
         }
       });
     }
-  }
+  };
 
   public render() {
     const paddedStyle = {
@@ -111,6 +112,9 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <StudentPageMenuWidget/>
         <Grid stackable={true} style={marginStyle}>
+          <Grid.Row>
+            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+          </Grid.Row>
           <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
             <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
           </Grid.Row>

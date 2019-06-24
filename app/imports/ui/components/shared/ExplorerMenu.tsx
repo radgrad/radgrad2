@@ -32,6 +32,7 @@ interface IExplorerMenuProps {
   };
 }
 
+// FIXME: Needs to be reactive
 class ExplorerMenu extends React.Component<IExplorerMenuProps> {
   constructor(props) {
     super(props);

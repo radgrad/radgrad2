@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslint-disable-line
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
 import IceHeader from './IceHeader';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -183,15 +183,13 @@ class TermCard extends React.Component<ITermCard> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, type, match } = this.props;
+    const { item, type, canAdd, isStudent } = this.props;
     const itemName = this.itemName(item);
     const isTypeOpportunity = this.isType('opportunities');
     const itemTerms = this.itemTerms();
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberStudents(item);
     const hidden = this.hidden() as SemanticCOLORS;
-    const isStudent = this.props.isStudent;
-    const canAdd = this.props.canAdd;
 
     return (
       <Card className="radgrad-interest-card">
@@ -215,23 +213,19 @@ class TermCard extends React.Component<ITermCard> {
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
         </Card.Content>
 
-        {/* FIXME: The three buttons are not all the same size. "View More" button is smaller compared to the other two
-                    buttons.  */}
         {
           isStudent ?
-            <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
-                          color={hidden || undefined}>
-              {
-                <Link to={this.buildRouteName(this.props.item, this.props.type)}>
-                  <Button><Icon name="chevron circle right"/><br/>View More</Button>
-                </Link>
-              }
+            <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" color={hidden || undefined}
+                          widths={3}>
+              <Link className="ui button" to={this.buildRouteName(this.props.item, this.props.type)}>
+                <Icon name="chevron circle right"/><br/>View More
+              </Link>
 
               {
                 isStudent ?
                   [
                     canAdd ?
-                      <TermAdd key={_.uniqueId()} item={item} type={type} match={match}/>
+                      <TermAdd key={_.uniqueId()} item={item} type={type}/>
                       : '',
                   ]
                   : ''
@@ -261,4 +255,4 @@ class TermCard extends React.Component<ITermCard> {
   }
 }
 
-export default TermCard;
+export default withRouter(TermCard);

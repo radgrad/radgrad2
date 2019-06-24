@@ -3,7 +3,7 @@ import { Container, Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import AdvisorPendingVerificationWidget from '../../components/advisor/AdvisorPendingVerificationWidget';
@@ -39,7 +39,7 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
           <Grid stackable={true}>
             <Grid.Column width={14}>
               <Grid.Row style={{ paddingBottom: '14px', paddingTop: '14px' }}>
-                <HelpPanelWidget/>
+                <HelpPanelWidgetContainer/>
               </Grid.Row>
             </Grid.Column>
             <Grid.Row>

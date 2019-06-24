@@ -780,6 +780,7 @@ export interface ICombinedProfileDefine extends IProfileDefine {
 }
 
 export interface IProfileUpdate {
+  id?: string;
   firstName?: string;
   lastName?: string;
   picture?: string;
@@ -890,6 +891,20 @@ export interface IStudentProfileUpdateData {
 }
 
 // Reviews
+export interface IReview {
+  slug?: string;
+  student: string;
+  reviewType: string;
+  reviewee: string;
+  academicTerm: string;
+  rating?: number;
+  comments: string;
+  moderated: boolean;
+  visible?: boolean;
+  moderatorComment?: string;
+  retired?: boolean;
+}
+
 export interface IReviewDefine extends IDumpOne {
   slug?: string;
   student: string;

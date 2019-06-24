@@ -6,20 +6,20 @@ import StudentMentorSpaceMentorDirectoryAccordion
 import MentorMentorSpaceQuestionsAccordion from '../../components/mentor/MentorMentorSpaceQuestionsAccordion';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 /** A simple static component to render some text for the landing page. */
 class MentorMentorSpacePage extends React.Component {
   public render() {
-    const marginStyle = {
-      marginTop: 5,
+    const moveDownStyle = {
+      marginTop: 10,
     };
-
     return (
       <div>
         <MentorPageMenuWidget/>
-        <Grid container={true} stackable={true} style={marginStyle}>
+        <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
           <Grid.Row>
-            <h3>Help Panel Widget goes here.</h3>
+            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
 
           <Grid.Column width={11}>
