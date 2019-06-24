@@ -85,6 +85,52 @@ export const getRoleByUrl = (match: IMatchProps): string => {
   return role;
 };
 
+// The  roles by URL (i.e. /student/abi@hawaii.edu (student being the URL role))
+export const URL_ROLE = {
+  ADMIN: 'admin',
+  ADVISOR: 'advisor',
+  ALUMNI: 'alumni',
+  FACULTY: 'faculty',
+  MENTOR: 'mentor',
+  STUDENT: 'student',
+};
+
+// Returns if the role by URL is Admin
+export const isUrlRoleAdmin = (match: IMatchProps): boolean => {
+  const role = getRoleByUrl(match);
+  return role === URL_ROLE.ADMIN;
+};
+
+// Returns if the role by URL is Advisor
+export const isUrlRoleAdvisor = (match: IMatchProps): boolean => {
+  const role = getRoleByUrl(match);
+  return role === URL_ROLE.ADVISOR;
+};
+
+// Returns if the role by URL is Alumni
+export const isUrlRoleAlumni = (match: IMatchProps): boolean => {
+  const role = getRoleByUrl(match);
+  return role === URL_ROLE.ALUMNI;
+};
+
+// Returns if the role by URL is Faculty
+export const isUrlRoleFaculty = (match: IMatchProps): boolean => {
+  const role = getRoleByUrl(match);
+  return role === URL_ROLE.FACULTY;
+};
+
+// Returns if the role by URL is Mentor
+export const isUrlRoleMentor = (match: IMatchProps): boolean => {
+  const role = getRoleByUrl(match);
+  return role === URL_ROLE.MENTOR;
+};
+
+// Returns if the role by URL is Student
+export const isUrlRoleStudent = (match: IMatchProps): boolean => {
+  const role = getRoleByUrl(match);
+  return role === URL_ROLE.STUDENT;
+};
+
 // Renders the Page Menu Widget based on the role.
 export const renderPageMenuWidget = (match: IMatchProps): JSX.Element => {
   const role = getRoleByUrl(match);
