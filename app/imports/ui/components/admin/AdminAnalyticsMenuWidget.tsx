@@ -1,30 +1,49 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Segment, Menu } from 'semantic-ui-react';
 
-interface IAdminAnalyticsMenuWidget{
+interface IAdminAnalyticsMenuWidget {
+  match: {
+    params: {
+      username: string,
+    }
+    isExact: boolean,
+    url: string,
+  }
 
 }
 
-class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidget>{
-  constructor(props){
+class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidget> {
+  constructor(props) {
     super(props)
     console.log('Admin Analytics Menu Widget props constructor', props)
   }
 
-  public render(){
+  private buildRoute = (slug) => {
+    console.log('menu widget url', this.props.match.url);
+    let helper: any = this.props.match.url.split('/');
+    console.log(helper);
+    const urlList = [helper[1], helper[2], helper[3],slug];
+    helper = urlList.join('/');
+    return `/${helper}`;
+  }
+
+  public render() {
     console.log('Admin Analytics Menu Widget props', this.props);
-    return(
+    let slug;
+    console.log(slug);
+    return (
       <div>
         <Menu text vertical>
-          <Menu.Item name='Logged In Users'/>
-          <Menu.Item name='Newsletter'/>
-          <Menu.Item name='Overhead Analysis'/>
-          <Menu.Item name='Student Summary'/>
-          <Menu.Item name='User Interactions'/>
+          <Menu.Item><Link to={this.buildRoute('')}>Logged In Students</Link></Menu.Item>
+          <Menu.Item><Link to={this.buildRoute('newsletter')}>Newsletter</Link></Menu.Item>
+          <Menu.Item><Link to={this.buildRoute('overhead-analysis')}>Overhead Analysis</Link></Menu.Item>
+          <Menu.Item><Link to={this.buildRoute('student-summary')}>Student Summary</Link></Menu.Item>
+          <Menu.Item><Link to={this.buildRoute('user-interactions')}>User Interactions</Link></Menu.Item>
         </Menu>
       </div>
     )
   }
 }
+
 export default withRouter(AdminAnalyticsMenuWidget);
