@@ -132,7 +132,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
   }
 
-  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length
+  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length;
 
   private interestedStudents = (course) => this.interestedStudentsHelper(course, this.props.type);
 

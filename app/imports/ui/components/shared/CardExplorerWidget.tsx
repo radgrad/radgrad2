@@ -20,6 +20,9 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
+
+import ProfileCard from './ProfileCard';
+
 // eslint-disable-next-line no-unused-vars
 import { IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
@@ -28,6 +31,8 @@ import {
   setCardExplorerWidgetHiddenCourses,
   setCardExplorerWidgetHiddenOpportunities,
 } from '../../../redux/actions/cardExplorerPageActions';
+import PlanCard from './PlanCard';
+
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -77,7 +82,8 @@ const mapStateToProps = (state) => ({
  *      career-goals is the type.)
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
-class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
+class CardExplorerWidget extends React.Component
+  <ICardExplorerWidgetProps> {
   constructor(props) {
     super(props);
   }
@@ -535,11 +541,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
   private getUsers = (role: string): IProfile[] => {
     const username = this.getUsername();
     const users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
-    // Temporarily commented because no students opted in: TODO -- Ask Cam about optedIn prop
-    // let users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
-    // if (role === ROLE.STUDENT) {
-    //   users = _.filter(users, (u) => u.optedIn);
-    // }
+
     if (username) {
       const profile = Users.getProfile(username);
       const filtered = _.filter(users, (u) => u.username !== profile.username);
@@ -547,8 +549,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
       const preferred = new PreferredChoice(filtered, interestIDs);
       return preferred.getOrderedChoices();
     }
-    // temporary fix. TODO -- real fix need to change UserCollection to enforce returning only an array (ask Cam)
-    return Array.isArray(users) ? users : [users];
+    return users;
   }
 
   private handleRoleTabClick = (e: any, { name }): void => this.setState({ activeRoleTab: name });
@@ -577,13 +578,14 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     /* Variables */
     const header = this.buildHeader(); // The header Title and Count
     const items = this.getItems(); // The items to map over
-    const { type, match } = this.props;
-    // const username = this.getUsername();
+    const { type } = this.props;
 
     // For the Academic Plans Card Explorer
-    // const buildPlanCard = this.isType('plans');
+    const buildPlanCard = this.isType('plans');
+
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-    // const buildProfileCard = this.isType('interests') || this.isType('career-goals');
+    const buildProfileCard = this.isType('interests') || this.isType('career-goals');
+
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
     const buildTermCard = this.isType('courses') || this.isType('opportunities');
     const isCoursesHidden = this.isCoursesHidden();
@@ -644,7 +646,7 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     ];
 
     // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-    // const canAdd = this.isRoleStudent();
+    const canAdd = this.isRoleStudent();
 
     return (
       <React.Fragment>
@@ -710,26 +712,22 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
             !buildStudentUserCard ?
               <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable={true}>
                 {
-                  // buildPlanCard ?
-                  //   // TODO: Implement PlanCard
-                  //   items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}
-                  //                                        match={match}/>) : ''
+                  buildPlanCard ?
+                    items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}/>) : ''
                 }
                 {
-                  // buildProfileCard ?
-                  //   // TODO: Implement ProfileCard
-                  //   items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd={true}
-                  //                                           match={match}/>) : ''
+                  buildProfileCard ?
+                    items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}/>) : ''
                 }
                 {
                   buildTermCard ?
                     items.map((item) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent}
-                                                  canAdd={true} match={match}/>)
+                                                  canAdd={true}/>)
                     : ''
                 }
                 {
                   buildExplorerCard ?
-                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type} match={match}/>)
+                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type}/>)
                     : ''
                 }
               </Card.Group>
@@ -750,10 +748,9 @@ const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {
   const { collection, type, match } = props;
   const username = match.params.username;
-  // TODO: Test to make sure this is enough to make things reactive
   let reactiveSource;
   if (type !== 'users') {
-    reactiveSource = collection.findNonRetired();
+    reactiveSource = collection.findNonRetired({});
   } else {
     reactiveSource = Users.getProfile(username);
   }
@@ -762,7 +759,7 @@ const CardExplorerWidgetCont = withTracker((props) => {
   const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});
   const reactiveSourceForTermCarTwo = OpportunityInstances.findNonRetired({});
 
-  /* Reactive sources to make Hiding a Course / Opportunity reactive */
+  /* Reactive sources to make Hiding a Course / Opportunity, ProfileCard reactive */
   const reactiveSourceProfile = Users.getProfile(username);
 
   return {

@@ -19,12 +19,9 @@ import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorer
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
-  slug: string;
   descriptionPairs: any[];
-  id: string;
   item: IOpportunity
   completed: boolean;
-  reviewed: boolean;
   role: string;
   match: {
     isExact: boolean;
@@ -281,7 +278,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
 
             <Grid stackable={true}>
               <Grid.Column style={zeroMarginTopStyle}>
-                {/*  TODO */}
                 {
                   descriptionPairs.map((descriptionPair, index) => (
                     <React.Fragment key={index}>

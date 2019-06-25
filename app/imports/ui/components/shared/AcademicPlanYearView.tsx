@@ -35,7 +35,6 @@ const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
                             id={`${AcademicTerms.SUMMER}-${props.yearNumber * 10 + termNum}`}
                             choices={getPlanChoices(props.academicPlan, termNum++)} studentID={studentID}
                             takenSlugs={props.takenSlugs}/>
-
     </div>
   );
 };
