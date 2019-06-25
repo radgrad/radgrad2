@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dropdown } from 'semantic-ui-react';
+import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import {
@@ -14,12 +14,10 @@ import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
-import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
-interface ICardExplorerMenuProps {
+interface ICardExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
@@ -34,7 +32,8 @@ interface ICardExplorerMenuProps {
   };
 }
 
-class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
+// FIXME: Needs to be reactive
+class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuNonMobileWidgetProps> {
   constructor(props) {
     super(props);
   }
@@ -193,43 +192,148 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
     return `${item.item.name} ${iceString}`;
   }
 
-  /* ####################################### MOBILE HELPER FUNCTIONS ############################################### */
-
-  // These are functions to help build the Dropdown for mobile
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-
-    const menuItems = [
-      { key: 'Academic Plans', route: 'plans' },
-      { key: 'Career Goals', route: 'career-goals' },
-      { key: 'Courses', route: 'courses' },
-      { key: 'Degrees', route: 'degrees' },
-      { key: 'Interests', route: 'interests' },
-      { key: 'Opportunities', route: 'opportunities' },
-      { key: 'Users', route: 'users' },
-    ];
+    const iconStyle: React.CSSProperties = {
+      position: 'absolute',
+      marginLeft: '-20px',
+    };
 
     const baseUrl = this.props.match.url;
     const username = this.getUsername();
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-    const menuOptions = menuItems.map((item) => ({
-      key: item.key,
-      text: item.key,
-      as: NavLink,
-      exact: true,
-      to: `${baseRoute}/explorer/${item.route}`,
-      style: { textDecoration: 'none' },
-    }));
+
+    const { menuAddedList, menuCareerList } = this.props;
+    const isStudent = this.isRoleStudent();
+    const adminEmail = 'radgrad@hawaii.edu';
     return (
       <React.Fragment>
-        {/* ####### Main Dropdown Menu ####### */}
-        <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
-        <br/>
-        <CardExplorerMenuNonMobileWidget/>
-        <CardExplorerMenuMobileWidget/>
+        {/* ####### The Menu underneath the Dropdown for NON mobile  ####### */}
+        {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. However,
+            FACULTY or MENTORS have a 'Suggest a Opportunity / Career Goal' mailto link. */}
+        <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+          {
+            this.isType('plans') ?
+              <React.Fragment>
+                {
+                  isStudent ?
+                    <Menu vertical={true} text={true}>
+                      <Header as="h4" dividing={true}>MY ACADEMIC PLAN</Header>
+                      {
+                        menuAddedList.map((listItem, index) => (
+                          <Menu.Item as={NavLink} key={index} exact={true}
+                                     to={`${baseRoute}/explorer/plans/${this.slugName(listItem.item)}`}>
+                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                            {this.itemName(listItem)}
+                          </Menu.Item>
+                        ))
+                      }
+                    </Menu>
+                    : ''
+                }
+              </React.Fragment>
+              : ''
+          }
+
+          {
+            this.isType('courses') ?
+              <React.Fragment>
+                {
+                  isStudent ?
+                    <Menu vertical={true} text={true}>
+                      <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
+                      {
+                        menuAddedList.map((listItem, index) => (
+                          <Menu.Item as={NavLink} key={index} exact={true}
+                                     to={`${baseRoute}/explorer/courses/${this.slugName(listItem.item)}`}>
+                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                            {this.courseName(listItem as { item: ICourse, count: number })}
+                          </Menu.Item>
+                        ))
+                      }
+                    </Menu>
+                    : ''
+                }
+              </React.Fragment>
+              : ''
+          }
+
+          {
+            this.isType('opportunities') ?
+              <React.Fragment>
+                <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
+                {
+                  isStudent ?
+                    <Menu vertical={true} text={true}>
+                      <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
+                      {
+                        menuAddedList.map((listItem, index) => (
+                          <Menu.Item as={NavLink} key={index} exact={true}
+                                     to={`${baseRoute}/explorer/opportunities/${this.slugName(listItem.item)}`}>
+                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                            {this.opportunityItemName(listItem as { item: IOpportunity, count: number })}
+                          </Menu.Item>
+                        ))
+                      }
+                    </Menu>
+                    : ''
+                }
+              </React.Fragment>
+              : ''
+          }
+
+          {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
+                don't map over menuAddedList or else we get undefined error. */}
+          {
+            this.isType('interests') ?
+              <Menu vertical={true} text={true}>
+                <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
+                <Header as="h4" dividing={true}>MY INTERESTS</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <Menu.Item as={NavLink} key={index} exact={true}
+                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                      {this.itemName(listItem)}
+                    </Menu.Item>
+                  ))
+                }
+
+                <Header as="h4" dividing={true}>CAREER GOAL INTERESTS</Header>
+                {
+                  menuCareerList.map((listItem, index) => (
+                    <Menu.Item as={NavLink} key={index} exact={true}
+                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                      {this.itemName(listItem)}
+                    </Menu.Item>
+                  ))
+                }
+              </Menu>
+              : ''
+          }
+
+          {
+            this.isType('career-goals') ?
+              <Menu vertical={true} text={true}>
+                <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
+                <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <Menu.Item as={NavLink} key={index} exact={true}
+                               to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}>
+                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
+                      {this.itemName(listItem)}
+                    </Menu.Item>
+                  ))
+                }
+              </Menu>
+              : ''
+          }
+        </Responsive>
       </React.Fragment>
     );
   }
 }
 
-export default withRouter(CardExplorerMenu);
+export default withRouter(CardExplorerMenuNonMobileWidget);
