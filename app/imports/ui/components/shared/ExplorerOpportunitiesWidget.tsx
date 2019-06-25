@@ -19,12 +19,9 @@ import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorer
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
-  slug: string;
   descriptionPairs: any[];
-  id: string;
   item: IOpportunity
   completed: boolean;
-  reviewed: boolean;
   role: string;
   match: {
     isExact: boolean;

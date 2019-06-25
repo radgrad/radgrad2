@@ -86,7 +86,6 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
     const careerGoal = this.careerGoal();
     const username = this.props.match.params.username;
     const careerName = careerGoal.name;
-    const slugName = careerGoal.slugID;
     const socialPairs = this.socialPairs(careerGoal);
     const descriptionPairs = this.descriptionPairs(careerGoal);
     return (
@@ -96,9 +95,8 @@ class ExplorerCareerGoalsPage extends React.Component<IExplorerCareerGoalsPagePr
         </Grid.Column>
 
         <Grid.Column width={13}>
-          <ExplorerCareerGoalsWidgetContainer name={careerName} slug={slugName} descriptionPairs={descriptionPairs}
-                                              item={careerGoal} socialPairs={socialPairs} id={careerGoal._id}
-                                              username={username} careerGoal={careerGoal}/>
+          <ExplorerCareerGoalsWidgetContainer name={careerName} descriptionPairs={descriptionPairs}
+                                              item={careerGoal} socialPairs={socialPairs} username={username}/>
         </Grid.Column>
       </Grid>
     );

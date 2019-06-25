@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Accordion, Icon, Grid } from 'semantic-ui-react';
+import { Accordion, Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
@@ -71,10 +71,7 @@ class StudentMentorSpaceQuestionsAccordion extends React.Component<IStudentMento
 
 const StudentMentorSpaceQuestionsAccordionContainer = withTracker(() => {
   const questions = MentorQuestions.find().fetch();
-  const answerCount = _.map(questions, (q) => {
-    console.log(q);
-    return MentorAnswers.find({ questionID: q._id }).fetch().length;
-  });
+  const answerCount = _.map(questions, (q) => MentorAnswers.find({ questionID: q._id }).fetch().length);
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', questions);
   // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', answerCount);
   return {

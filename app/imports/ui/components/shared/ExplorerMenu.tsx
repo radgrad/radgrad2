@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Dropdown, Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan, //eslint-disable-line
   ICareerGoal, //eslint-disable-line
@@ -9,11 +10,13 @@ import {
   IDesiredDegree, //eslint-disable-line
   IInterest, //eslint-disable-line
   IOpportunity, //eslint-disable-line
+  IProfile, // eslint-disable-line
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import * as Router from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -30,6 +33,7 @@ interface IExplorerMenuProps {
       username: string;
     }
   };
+  profile: IProfile;
 }
 
 // FIXME: Needs to be reactive
@@ -538,4 +542,12 @@ class ExplorerMenu extends React.Component<IExplorerMenuProps> {
   }
 }
 
-export default withRouter(ExplorerMenu);
+export const ExplorerMenuCon = withTracker((props) => {
+  const username = Router.getUsername(props.match);
+  const profile = Users.getProfile(username);
+  return {
+    profile,
+  };
+})(ExplorerMenu);
+export const ExplorerMenuContainer = withRouter(ExplorerMenuCon);
+export default ExplorerMenuContainer;

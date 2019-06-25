@@ -147,7 +147,7 @@ class VerificationRequestCollection extends BaseCollection {
   /**
    * Returns the Opportunity associated with the VerificationRequest with the given instanceID.
    * @param verificationRequestID The id of the VerificationRequest.
-   * @returns {Object} The associated Opportunity.
+   * @returns {IOpportunity} The associated Opportunity.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
   public getOpportunityDoc(verificationRequestID: string) {
@@ -172,7 +172,7 @@ class VerificationRequestCollection extends BaseCollection {
   /**
    * Returns the AcademicTerm associated with the VerificationRequest with the given instanceID.
    * @param instanceID The id of the VerificationRequest.
-   * @returns {Object} The associated AcademicTerm.
+   * @returns {IAcademicTerm} The associated AcademicTerm.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
   public getAcademicTermDoc(instanceID: string) {
