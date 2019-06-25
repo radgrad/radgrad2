@@ -116,6 +116,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
               </Grid.Column>
             </Grid.Row>
           </Grid>)}
+          {this.props.pendingVerifications.length < 1 && <i>No pending requests.</i>}
         </Container>
       </Segment>
     );
