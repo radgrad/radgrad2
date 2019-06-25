@@ -139,59 +139,51 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   private linkedin = () => {
-    if (this.getUsername()) {
-      const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
+    const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
+    if (profile.linkedin) {
       return profile.linkedin;
     }
     return 'No linkedin profile specified';
   }
 
   private location = () => {
-    if (this.getUsername()) {
-      const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
+    const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
+    if (profile.location) {
       return profile.location;
     }
     return 'No location specified.';
   }
 
   private motivation = () => {
-    if (this.getUsername()) {
-      const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
+    const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
+    if (profile.motivation) {
       return profile.motivation;
     }
     return 'No motivation specified.';
   }
 
   private name = () => {
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
+    const user = Users.getProfile(this.getUsername());
+    if (user.firstName && user.lastName) {
       return `${user.firstName} ${user.lastName}`;
     }
-    return '';
+    return 'No name specified';
   }
 
   private picture = () => {
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
-      return user.picture;
-    }
-    return 'No picture';
-  }
-
-  private studentPicture = () => {
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
+    const user = Users.getProfile(this.getUsername());
+    if (user.picture) {
       return user.picture;
     }
     return 'No picture';
   }
 
   private website = () => {
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
+    const user = Users.getProfile(this.getUsername());
+    if (user.website) {
       return user.website;
     }
-    return 'No website specified';
+    return 'No website';
   }
 
   private handleEdit = (event) => {
@@ -231,50 +223,6 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const marginStyle = {
-      marginBottom: 0,
-    };
-
-    const defWebsite = this.website() !== null ? this.website() : '';
-    console.log(defWebsite);
-
-    const updateSchema = new SimpleSchema({
-      website: {
-        type: String,
-        optional: true,
-        label: 'Website URL',
-        defaultValue: defWebsite,
-      },
-      company: {
-        type: String,
-        optional: true,
-        defaultValue: this.company(),
-      },
-      career: {
-        type: String,
-        optional: true,
-        label: 'Title',
-      },
-      location: {
-        type: String,
-        optional: true,
-      },
-      linkedin: {
-        type: String,
-        optional: true,
-        label: 'LinkedIn Username',
-      },
-      motivation: {
-        type: String,
-        optional: true,
-      },
-      picture: {
-        type: String,
-        optional: true,
-        label: 'Picture URL',
-      },
-    });
-
     const name = this.name();
     const email = this.email();
     const website = this.website();
@@ -289,6 +237,52 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     const firstInterest = this.firstInterest();
     const interests = this.interests();
     const isEditingProfile = this.state.isEditingProfile;
+
+    const marginStyle = {
+      marginBottom: 0,
+    };
+
+    const updateSchema = new SimpleSchema({
+      website: {
+        type: String,
+        optional: true,
+        label: 'Website URL',
+        defaultValue: website,
+      },
+      company: {
+        type: String,
+        optional: true,
+        defaultValue: company,
+      },
+      career: {
+        type: String,
+        optional: true,
+        label: 'Title',
+        defaultValue: career,
+      },
+      location: {
+        type: String,
+        optional: true,
+        defaultValue: location,
+      },
+      linkedin: {
+        type: String,
+        optional: true,
+        label: 'LinkedIn Username',
+        defaultValue: linkedin,
+      },
+      motivation: {
+        type: String,
+        optional: true,
+        defaultValue: motivation,
+      },
+      picture: {
+        type: String,
+        optional: true,
+        label: 'Picture URL',
+        defaultValue: picture,
+      },
+    });
 
     return (
       <Container>
@@ -397,11 +391,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                       <b>Website URL</b>
                     </Grid.Column>
                     <Grid.Column floated='left' width={6}>
-                      {
-                        website ?
-                          <p>{website}</p>
-                          : 'No website specified.'
-                      }
+                      {website}
                     </Grid.Column>
                     <Grid.Column floated='left' width={2}>
                       <b>Company</b>
