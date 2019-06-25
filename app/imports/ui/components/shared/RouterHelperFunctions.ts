@@ -1,11 +1,5 @@
-import * as React from 'react';
 import { Users } from '../../../api/user/UserCollection';
-import StudentPageMenuWidget from '../student/StudentPageMenuWidget';
-import MentorPageMenuWidget from '../mentor/MentorPageMenuWidget';
-import FacultyPageMenuWidget from '../faculty/FacultyPageMenuWidget';
-import AdminPageMenuWidget from '../admin/AdminPageMenuWidget';
-import AdvisorPageMenuWidget from '../advisor/AdvisorPageMenuWidget';
-import AlumniPageMenuWidget from '../alumni/AlumniPageMenuWidget';
+import { URL_ROLES } from '../../../startup/client/routes-config';
 
 interface IMatchProps {
   isExact: boolean;
@@ -26,7 +20,7 @@ export const getUserIdFromRoute = (match: IMatchProps): string => {
 };
 
 // Returns the URL based on React-Router's match object.
-export const getUrl = (match: IMatchProps): string => match.url;
+const getUrl = (match: IMatchProps): string => match.url;
 
 // Slits the URL into an array of parameter strings.
 // i.e., /student/abi@hawaii.edu/explorer => ["", "student", "abi@hawaii.edu", "explorer"]
@@ -85,69 +79,38 @@ export const getRoleByUrl = (match: IMatchProps): string => {
   return role;
 };
 
-// The  roles by URL (i.e. /student/abi@hawaii.edu (student being the URL role))
-export const URL_ROLE = {
-  ADMIN: 'admin',
-  ADVISOR: 'advisor',
-  ALUMNI: 'alumni',
-  FACULTY: 'faculty',
-  MENTOR: 'mentor',
-  STUDENT: 'student',
-};
-
 // Returns if the role by URL is Admin
 export const isUrlRoleAdmin = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
-  return role === URL_ROLE.ADMIN;
+  return role === URL_ROLES.ADMIN;
 };
 
 // Returns if the role by URL is Advisor
 export const isUrlRoleAdvisor = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
-  return role === URL_ROLE.ADVISOR;
+  return role === URL_ROLES.ADVISOR;
 };
 
 // Returns if the role by URL is Alumni
 export const isUrlRoleAlumni = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
-  return role === URL_ROLE.ALUMNI;
+  return role === URL_ROLES.ALUMNI;
 };
 
 // Returns if the role by URL is Faculty
 export const isUrlRoleFaculty = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
-  return role === URL_ROLE.FACULTY;
+  return role === URL_ROLES.FACULTY;
 };
 
 // Returns if the role by URL is Mentor
 export const isUrlRoleMentor = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
-  return role === URL_ROLE.MENTOR;
+  return role === URL_ROLES.MENTOR;
 };
 
 // Returns if the role by URL is Student
 export const isUrlRoleStudent = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
-  return role === URL_ROLE.STUDENT;
-};
-
-// Renders the Page Menu Widget based on the role.
-export const renderPageMenuWidget = (match: IMatchProps): JSX.Element => {
-  const role = getRoleByUrl(match);
-  switch (role) {
-    case 'admin':
-      return <AdminPageMenuWidget/>;
-    case 'advisor':
-      return <AdvisorPageMenuWidget/>;
-    case 'alumni':
-      return <AlumniPageMenuWidget/>;
-    case 'faculty':
-      return <FacultyPageMenuWidget/>;
-    case 'mentor':
-      return <MentorPageMenuWidget/>;
-    case 'student':
-      return <StudentPageMenuWidget/>;
-    default:
-      return <React.Fragment/>;
-  }
+  return role === URL_ROLES.STUDENT;
 };

@@ -7,7 +7,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { EXPLORER_TYPE } from './ExplorerConstants';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IProfileAddProps {
   item: IAcademicPlan;
@@ -51,13 +51,13 @@ class ProfileAdd extends React.Component<IProfileAddProps> {
       } else {
         collectionName = MentorProfiles.getCollectionName();
       }
-      if (type === EXPLORER_TYPE.CAREERGOAL) {
+      if (type === EXPLORER_TYPE.CAREERGOALS) {
         updateData.careerGoals = profile.careerGoalIDs;
         updateData.careerGoals.push(item._id);
-      } else if (type === EXPLORER_TYPE.CAREERGOAL) {
+      } else if (type === EXPLORER_TYPE.CAREERGOALS) {
         updateData.interests = profile.interestIDs;
         updateData.interests.push(item._id);
-      } else if (type === EXPLORER_TYPE.ACADEMICPLAN) {
+      } else if (type === EXPLORER_TYPE.ACADEMICPLANS) {
         updateData.academicPlan = item._id;
       }
       updateMethod.call({ collectionName, updateData }, (error) => {

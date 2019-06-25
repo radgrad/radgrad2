@@ -47,6 +47,22 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
   private getType = (): string => Router.getLastUrlParam(this.props.match);
 
+  private getRole = (): string => Router.getRoleByUrl(this.props.match);
+
+  private getMenuWidget = (): JSX.Element => {
+    const role = this.getRole();
+    switch (role) {
+      case 'student':
+        return <StudentPageMenuWidget/>;
+      case 'mentor':
+        return <MentorPageMenuWidget/>;
+      case 'faculty':
+        return <FacultyPageMenuWidget/>;
+      default:
+        return <React.Fragment/>;
+    }
+  }
+
   private getCollection = (): object => {
     const type = this.getType();
     switch (type) {
@@ -318,7 +334,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const menuWidget = Router.renderPageMenuWidget(this.props.match);
+    const menuWidget = this.getMenuWidget();
 
     const addedList = this.getAddedList();
     const isTypeInterest = this.getType() === 'interests'; // Only Interests takes in Career List for CardExplorerMenu

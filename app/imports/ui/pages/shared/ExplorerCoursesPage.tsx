@@ -42,7 +42,7 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
     return url.substring(1, indexUsername - 1);
   }
 
-  private renderPageMenuWidget = (): JSX.Element | string => {
+  private renderPageMenuWidget = (): JSX.Element => {
     const role = this.getRoleByUrl();
     switch (role) {
       case 'student':
@@ -52,7 +52,7 @@ class ExplorerCoursesPage extends React.Component<IExplorerCoursesPageProps> {
       case 'faculty':
         return <FacultyPageMenuWidget/>;
       default:
-        return '';
+        return <React.Fragment/>;
     }
   }
 

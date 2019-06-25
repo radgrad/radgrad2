@@ -4,7 +4,6 @@ import * as _ from 'lodash';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
-import { EXPLORER_TYPE } from '../../components/shared/ExplorerConstants';
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -29,6 +28,10 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -58,7 +61,19 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   private getRole = (): string => Router.getRoleByUrl(this.props.match);
 
-  private getMenuWidget = (): JSX.Element => Router.renderPageMenuWidget(this.props.match);
+  private getMenuWidget = (): JSX.Element => {
+    const role = this.getRole();
+    switch (role) {
+      case 'student':
+        return <StudentPageMenuWidget/>;
+      case 'mentor':
+        return <MentorPageMenuWidget/>;
+      case 'faculty':
+        return <FacultyPageMenuWidget/>;
+      default:
+        return <React.Fragment/>;
+    }
+  }
 
   /* ################################################# EXPLORER MENU HELPER FUNCTIONS ############################### */
   private getAddedList = (): { [key: string]: any }[] => {
@@ -97,9 +112,9 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getItem = (): { [key: string]: any } => {
     const type = this.getType();
     switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLAN:
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.plan();
-      case EXPLORER_TYPE.CAREERGOAL:
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.careerGoal();
       case EXPLORER_TYPE.COURSES:
         return this.course();
@@ -119,9 +134,9 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getDescriptionPairs = (item: { [key: string]: any }): object[] => {
     const type = this.getType();
     switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLAN:
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.descriptionPairsPlans(item as IAcademicPlan);
-      case EXPLORER_TYPE.CAREERGOAL:
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.descriptionPairsCareerGoals(item as ICareerGoal);
       case EXPLORER_TYPE.COURSES:
         return this.descriptionPairsCourses(item as ICourse);
@@ -471,7 +486,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
     const shortName = isTypeCourses ? item.shortName : undefined;
     const isCourseCompleted = isTypeCourses ? this.isCourseCompleted() : undefined;
     /* Explorer Career Goals Widget */
-    const isTypeCareerGoals = type === EXPLORER_TYPE.CAREERGOAL;
+    const isTypeCareerGoals = type === EXPLORER_TYPE.CAREERGOALS;
     const socialPairs = isTypeCareerGoals ? this.socialPairsCareerGoals(item as ICareerGoal) : undefined;
     /* Explorer Opportunities Widget */
     const isTypeOpportunities = type === EXPLORER_TYPE.OPPORTUNITIES;
@@ -494,12 +509,12 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
           <Grid.Column width={13}>
             {
-              type === EXPLORER_TYPE.ACADEMICPLAN ?
+              type === EXPLORER_TYPE.ACADEMICPLANS ?
                 <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item} role={role}/>
                 : ''
             }
             {
-              type === EXPLORER_TYPE.CAREERGOAL ?
+              type === EXPLORER_TYPE.CAREERGOALS ?
                 <ExplorerCareerGoalsWidget name={name} descriptionPairs={descriptionPairs} item={item}
                                            socialPairs={isTypeCareerGoals && socialPairs ? socialPairs : undefined}/>
                 : ''
