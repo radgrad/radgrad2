@@ -13,7 +13,8 @@ interface IAdminAnalyticsMenuWidget {
 
 }
 
-class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidget> {
+class AdminAnalyticsMenuWidget extends React.Component
+  <IAdminAnalyticsMenuWidget> {
   constructor(props) {
     super(props)
     console.log('Admin Analytics Menu Widget props constructor', props)
@@ -24,6 +25,7 @@ class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidget
     let helper: any = this.props.match.url.split('/');
     console.log(helper);
     const urlList = [helper[1], helper[2], helper[3], slug];
+
     helper = urlList.join('/');
     return `/${helper}`;
   }
@@ -40,7 +42,6 @@ class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidget
           <Menu.Item as={NavLink} to={this.buildRoute('overhead-analysis')}>Overhead Analysis</Menu.Item>
           <Menu.Item as={NavLink} to={this.buildRoute('student-summary')}>Student Summary</Menu.Item>
           <Menu.Item as={NavLink} to={this.buildRoute('user-interactions')}>User Interactions</Menu.Item>
-
         </Menu>
       </div>
     )
