@@ -8,7 +8,7 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
 import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
-import AdvisorCompletedVerificationWidget from '../../components/advisor/AdvisorCompletedVerificationWidget';
+import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 // eslint-disable-next-line no-unused-vars
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
@@ -63,13 +63,17 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
                 </Menu>
               </Grid.Column>
               <Grid.Column width={11}>
-                {activeItem === 'pending' ? <PendingVerificationsWidget
-                  pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/> : undefined}
+                {activeItem === 'pending' ?
+                  <PendingVerificationsWidget
+                    pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/>
+                  : undefined}
                 {activeItem === 'event' ?
-                  <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities}/> : undefined}
+                  <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities}/>
+                  : undefined}
                 {activeItem === 'completed' ?
-                  <AdvisorCompletedVerificationWidget username={this.props.match.params.username}
-                                                      completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/> : undefined}
+                  <CompletedVerificationsWidget username={this.props.match.params.username}
+                                                completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
+                  : undefined}
               </Grid.Column>
             </Grid.Row>
             {/* </Grid.Column> */}
