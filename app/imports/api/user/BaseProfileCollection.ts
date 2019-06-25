@@ -223,10 +223,10 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (lastName) {
       updateData.lastName = lastName; // eslint-disable-line
     }
-    if (picture) {
+    if (_.isString(picture)) {
       updateData.picture = picture; // eslint-disable-line
     }
-    if (website) {
+    if (_.isString(website)) {
       updateData.website = website; // eslint-disable-line
     }
     if (interests) {
