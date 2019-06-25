@@ -14,11 +14,11 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { processPendingVerificationMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';
 
-interface IAdvisorPendingVerificationWidgetProps {
+interface IPendingVerificationsWidgetProps {
   pendingVerifications: IVerificationRequest[];
 }
 
-class AdvisorPendingVerificationWidget extends React.Component<IAdvisorPendingVerificationWidgetProps> {
+class PendingVerificationsWidget extends React.Component<IPendingVerificationsWidgetProps> {
   cachedStudent = undefined;
   cachedSponsor = undefined;
 
@@ -115,4 +115,4 @@ class AdvisorPendingVerificationWidget extends React.Component<IAdvisorPendingVe
   }
 }
 
-export default AdvisorPendingVerificationWidget;
+export default PendingVerificationsWidget;

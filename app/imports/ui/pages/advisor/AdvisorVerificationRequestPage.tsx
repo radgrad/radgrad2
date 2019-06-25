@@ -6,8 +6,8 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import AdvisorPendingVerificationWidget from '../../components/advisor/AdvisorPendingVerificationWidget';
-import AdvisorEventVerificationWidget from '../../components/advisor/AdvisorEventVerificationWidget';
+import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
+import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
 import AdvisorCompletedVerificationWidget from '../../components/advisor/AdvisorCompletedVerificationWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 // eslint-disable-next-line no-unused-vars
@@ -63,10 +63,10 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
                 </Menu>
               </Grid.Column>
               <Grid.Column width={11}>
-                {activeItem === 'pending' ? <AdvisorPendingVerificationWidget
+                {activeItem === 'pending' ? <PendingVerificationsWidget
                   pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/> : undefined}
                 {activeItem === 'event' ?
-                  <AdvisorEventVerificationWidget eventOpportunities={this.props.eventOpportunities}/> : undefined}
+                  <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities}/> : undefined}
                 {activeItem === 'completed' ?
                   <AdvisorCompletedVerificationWidget username={this.props.match.params.username}
                                                       completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/> : undefined}
