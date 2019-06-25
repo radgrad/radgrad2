@@ -12,6 +12,13 @@ interface IEventVerificationsWidgetProps {
   eventOpportunities: IOpportunity[];
 }
 
+/**
+ * This component naively displays a supplied array of **IEventOpportunities** and a form to verify individual students.
+ * The parent component is expected to handle permissions and filtering (eventDate property **is not checked** in this
+ * component).
+ * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
+ * @returns {Segment}
+ */
 class EventVerificationsWidget extends React.Component<IEventVerificationsWidgetProps> {
   state = { student: '', opportunity: '', log: '' };
 
