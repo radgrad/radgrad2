@@ -38,11 +38,11 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
         <Container fluid={false}>
           <Grid stackable={true}>
             <Grid.Column width={14}>
-              <Grid.Row style={{ paddingBottom: '14px', paddingTop: '14px' }}>
+              <Grid.Row style={{ paddingBottom: '0px', paddingTop: '14px' }}>
                 <HelpPanelWidgetContainer/>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Row>
+            <Grid.Row style={{ paddingTop: '0px' }}>
               <Grid.Column width={3}>
                 <Menu vertical={true} text={true}>
                   <Menu.Item name={'pending'}
