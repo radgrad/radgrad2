@@ -337,7 +337,7 @@ class UserCollection {
       return MentorProfiles.find(theSelector, options).fetch();
     }
     if (role === ROLE.ADMIN) {
-      return this.getAdminID();
+      return [this.getAdminProfile()];
     }
     console.log(`Unknown role: ${role}`);
     throw new Meteor.Error(`Unknown role: ${role}`);

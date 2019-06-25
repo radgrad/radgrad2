@@ -63,7 +63,7 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
   }))
 
   /* ####################################### EXPLORER DEGREES WIDGET HELPER FUNCTIONS ############################### */
-  private degree = () => {
+  private degree = (): IDesiredDegree => {
     const degreeSlugName = this.props.match.params.degree;
     const slug = Slugs.find({ name: degreeSlugName }).fetch();
     const degree = DesiredDegrees.findNonRetired({ slugID: slug[0]._id });
@@ -103,10 +103,7 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
 
     const degree = this.degree();
     const name = degree.name;
-    const slug = this.slugName(degree.slugID);
     const descriptionPairs = this.descriptionPairs(degree);
-    const socialPairs = this.socialPairs(degree);
-    const id = degree._id;
 
     return (
       <React.Fragment>
@@ -122,8 +119,7 @@ class ExplorerDegreesPage extends React.Component<IExplorerDegreesPageProps> {
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ExplorerDegreesWidget name={name} slug={slug} descriptionPairs={descriptionPairs} socialPairs={socialPairs}
-                                   id={id} item={degree}/>
+            <ExplorerDegreesWidget name={name} descriptionPairs={descriptionPairs}/>
           </Grid.Column>
         </Grid>
       </React.Fragment>

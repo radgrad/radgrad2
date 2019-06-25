@@ -541,11 +541,7 @@ class CardExplorerWidget extends React.Component
   private getUsers = (role: string): IProfile[] => {
     const username = this.getUsername();
     const users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
-    // Temporarily commented because no students opted in: TODO -- Ask Cam about optedIn prop
-    // let users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
-    // if (role === ROLE.STUDENT) {
-    //   users = _.filter(users, (u) => u.optedIn);
-    // }
+
     if (username) {
       const profile = Users.getProfile(username);
       const filtered = _.filter(users, (u) => u.username !== profile.username);
@@ -553,8 +549,7 @@ class CardExplorerWidget extends React.Component
       const preferred = new PreferredChoice(filtered, interestIDs);
       return preferred.getOrderedChoices();
     }
-    // temporary fix. TODO -- real fix need to change UserCollection to enforce returning only an array (ask Cam)
-    return Array.isArray(users) ? users : [users];
+    return users;
   }
 
   private handleRoleTabClick = (e: any, { name }): void => this.setState({ activeRoleTab: name });
@@ -753,11 +748,9 @@ const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {
   const { collection, type, match } = props;
   const username = match.params.username;
-  // TODO: Test to make sure this is enough to make things reactive
-
   let reactiveSource;
   if (type !== 'users') {
-    reactiveSource = collection.findNonRetired();
+    reactiveSource = collection.findNonRetired({});
   } else {
     reactiveSource = Users.getProfile(username);
   }

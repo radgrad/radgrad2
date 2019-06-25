@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { Button, Card, Icon } from 'semantic-ui-react';
+import { Card, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import * as Markdown from 'react-markdown';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -10,6 +10,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import ProfileAdd from './ProfileAdd';
 
 
 interface IProfileCardProps {
@@ -88,6 +89,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
       _.filter(num.interestIDs, (interests) => {
         if (interests === interestID) {
           participation.push(num);
+
         }
       });
     });
@@ -118,8 +120,8 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     let name;
     switch (this.getRoleByUrl()) {
       case 'student':
-       name = StudentProfiles.getCollectionName();
-       break;
+        name = StudentProfiles.getCollectionName();
+        break;
       case 'faculty':
         name = FacultyProfiles.getCollectionName();
         break;
@@ -132,7 +134,6 @@ class ProfileCard extends React.Component<IProfileCardProps> {
       default:
         break;
     }
-    console.log('get collection name', name);
     return name;
 
   };
@@ -172,10 +173,11 @@ class ProfileCard extends React.Component<IProfileCardProps> {
    * a type, a canAdd method that returns true and match
    */
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item } = this.props;
+    const { item, type, canAdd } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
     const itemParticipation = this.studentsParticipating(item);
+
     return (
       <Card className='radgrad-interest-card'>
         <Card.Content>
@@ -190,15 +192,11 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         </Card.Content>
         <div className="radgrad-home-buttons ui center aligned two bottom attached buttons">
           <Link to={this.buildRouteName(this.props.item)} className='ui button'>
-            <Icon name='chevron circle right'></Icon>
+            <Icon name='chevron circle right'/>
             <br/>
             View More
           </Link>
-          <Button className="radgrad-home-buttons center aligned" attatched="bottom" onClick={this.handleClick}
-                  fluid><Icon
-            name="plus"></Icon>
-            <br/>Add to
-            Interests</Button>
+          {canAdd && <ProfileAdd item={item} type={type}/>}
         </div>
       </Card>
 
