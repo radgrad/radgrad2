@@ -748,11 +748,9 @@ const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {
   const { collection, type, match } = props;
   const username = match.params.username;
-  // TODO: Test to make sure this is enough to make things reactive
-
   let reactiveSource;
   if (type !== 'users') {
-    reactiveSource = collection.findNonRetired();
+    reactiveSource = collection.findNonRetired({});
   } else {
     reactiveSource = Users.getProfile(username);
   }

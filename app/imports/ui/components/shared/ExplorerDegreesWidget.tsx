@@ -5,11 +5,7 @@ import * as Markdown from 'react-markdown';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
-  slug: string;
   descriptionPairs: any;
-  socialPairs: object[];
-  id: string;
-  item: object;
 }
 
 class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps> {
