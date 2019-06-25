@@ -4,7 +4,6 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
-import AdvisorAPBuilderWidget from '../../components/advisor/AdvisorAPBuilderWidget';
 
 /** A simple static component to render some text for the landing page. */
 class AdvisorModerationPage extends React.Component {
@@ -22,7 +21,7 @@ class AdvisorModerationPage extends React.Component {
           </Grid.Row>
 
           <Grid.Column width={16}>
-            <AdvisorAPBuilderWidget/>
+            Temp
           </Grid.Column>
         </Grid>
       </div>

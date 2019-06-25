@@ -9,11 +9,11 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
-import { IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { PlanChoiceCollection, PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { docToShortName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermToName, docToShortName } from '../shared/AdminDataModelHelperFunctions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
@@ -40,7 +40,7 @@ import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.m
 interface IAdvisorAPBuilderWidgetProps {
   degrees: IDesiredDegree[];
   choices: IPlanChoiceDefine[],
-  years: number[];
+  terms: IAcademicTerm[];
 }
 
 interface IAdvisorAPBuilderWidgetState {
@@ -272,11 +272,16 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const degreeNames = _.map(this.props.degrees, docToShortName);
-    const currentYear = AcademicTerms.getCurrentAcademicTermDoc().year;
+    const termNames = _.map(this.props.terms, academicTermToName);
+    const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
       degree: { type: String, allowedValues: degreeNames },
       name: String,
-      year: { type: SimpleSchema.Integer, allowedValues: this.props.years, defaultValue: currentYear },
+      term: {
+        type: String,
+        allowedValues: termNames,
+        defaultValue: currentTermName,
+      },
     });
     const { choiceList, coursesPerTerm } = this.state;
     // console.log(this.state);
@@ -290,7 +295,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
           <Form.Group widths="equal">
             <SelectField name="degree"/>
             <TextField name="name"/>
-            <SelectField name="year"/>
+            <SelectField name="term"/>
           </Form.Group>
           <SubmitField className="basic green" value="Save Academic Plan"/>
         </AutoForm>
@@ -329,7 +334,7 @@ export default withTracker(() => {
   const years = _.uniq(_.map(terms, (t) => t.year));
   return {
     degrees,
-    years,
+    terms,
     choices,
   };
 })(AdvisorAPBuilderWidget);

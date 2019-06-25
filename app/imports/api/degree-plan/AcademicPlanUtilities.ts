@@ -157,3 +157,38 @@ export function removeChoiceFromPlanRaw(choice: string, termNumber: number, choi
   }
   coursesPerAcademicTerm[termNumber]--; // eslint-disable-line no-param-reassign
 }
+
+export function planHasCoursesRaw(coursesPerAcademicTerm: number[], yearNum: number): boolean {
+  const quarterSystem = coursesPerAcademicTerm.length % 4 === 0;
+  let start;
+  let end;
+  let courses;
+  if (quarterSystem) {
+    start = yearNum * 4;
+    end = start + 5;
+    courses = coursesPerAcademicTerm.slice(start, end);
+  } else {
+    start = yearNum * 3;
+    end = start + 4;
+    courses = coursesPerAcademicTerm.slice(start, end);
+  }
+  return _.some(courses);
+}
+
+// export function removeYearFromPlanRaw(coursesPerAcademicTerm: number[], yearNum: number): number[] {
+//   const quarterSystem = coursesPerAcademicTerm.length % 4 === 0;
+//   const start = quarterSystem ? yearNum * 4 : yearNum * 3;
+//   if (planHasCoursesRaw(coursesPerAcademicTerm, yearNum)) {
+//
+//   }
+// }
+
+// export function removeEmptyYearsRaw(coursesPerAcademicTerm: number[]): number[] {
+//   const quarterSystem = coursesPerAcademicTerm.length % 4 === 0;
+//   if (quarterSystem) {
+//
+//   } else {
+//
+//   }
+//   return [];
+// }
