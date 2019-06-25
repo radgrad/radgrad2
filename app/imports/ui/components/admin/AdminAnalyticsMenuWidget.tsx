@@ -32,8 +32,6 @@ class AdminAnalyticsMenuWidget extends React.Component
 
   public render() {
     console.log('Admin Analytics Menu Widget props', this.props);
-    let slug;
-    console.log(slug);
     return (
       <div>
         <Menu text vertical>

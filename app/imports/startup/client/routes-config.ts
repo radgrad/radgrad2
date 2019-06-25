@@ -92,6 +92,7 @@ const DATAMODEL = 'datamodel';
 const MODERATION = 'moderation';
 const COURSE_SCOREBOARD = 'course-scoreboard';
 const MENTOR_SPACE = 'mentor-space';
+const ANALYTICS = 'analytics';
 
 // The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
 export const URL_ROLES = {
@@ -275,27 +276,27 @@ export const routes = {
       component: AdminModerationPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}`,
       exact: true,
       component: AdminAnalyticsPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics/newsletter`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/newsletter`,
       exact: true,
       component: AdminAnalyticsNewsletterPageContainer,
     },
     {
-      path: '/admin/:username/analytics/overhead-analysis',
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/overhead-analysis`,
       exact: true,
       component: AdminAnalyticsOverheadAnalysisPageContainer,
     },
     {
-      path: '/admin/:username/analytics/student-summary',
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/student-summary`,
       exact: true,
       component: AdminAnalyticsStudentSummaryPageContainer,
     },
     {
-      path: '/admin/:username/analytics/user-interactions',
+      path:`/${URL_ROLES.ADMIN}/${USERNAME}/analytics/user-interactions`,
       exact: true,
       component: AdminAnalyticsUserInteractionsPageContainer,
     },
