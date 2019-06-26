@@ -49,7 +49,7 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
                 );
               }
               return (
-                <SatisfiedPlanChoicePill key={index} choice={choice} index={index} satisfied={satisfied}/>
+                <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
               );
             })}
             {provided.placeholder}
