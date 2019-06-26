@@ -8,12 +8,12 @@ import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import * as Router from './RouterHelperFunctions';
 
 interface IExplorerPlansWidgetProps {
   name: string;
   descriptionPairs: any[];
   item: IAcademicPlan;
-  role: string;
   profile: object;
   match: {
     isExact: boolean;
@@ -33,7 +33,9 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
 
   private toUpper = (string: string): string => string.toUpperCase();
 
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
+
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
   private userStatus = (plan: IAcademicPlan): boolean => {
     const profile = Users.getProfile(this.getUsername());
@@ -71,9 +73,9 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
     };
     const divierStyle = { marginTop: 0 };
 
-    const { name, descriptionPairs, item, role } = this.props;
+    const { name, descriptionPairs, item } = this.props;
     const upperName = this.toUpper(name);
-    const isStudent = role === 'student';
+    const isStudent = this.isRoleStudent();
     const userStatus = this.userStatus(item);
 
     return (

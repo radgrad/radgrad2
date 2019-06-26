@@ -6,7 +6,6 @@ import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollect
 
 interface ILandingPlanChoicePillProps {
   choice: string;
-  index: number;
 }
 
 const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (

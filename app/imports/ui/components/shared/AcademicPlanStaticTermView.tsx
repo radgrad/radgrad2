@@ -42,15 +42,15 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
             const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
             if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
               return (
-                <StaticPlanChoicePill key={index} choice={choice} index={index} satisfied={satisfied}/>
+                <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
               );
             }
             return (
-              <SatisfiedPlanChoicePill key={index} choice={choice} index={index} satisfied={satisfied}/>
+              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
             );
           })
           :
-          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill choice={choice} index={index}/>))
+          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice}/>))
       }
     </Segment>
   );

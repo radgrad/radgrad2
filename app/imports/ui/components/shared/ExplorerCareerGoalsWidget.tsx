@@ -10,6 +10,7 @@ import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { getUsername } from './RouterHelperFunctions';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -49,7 +50,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private userStatus = (careerGoal) => {
     let ret = false;
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
       ret = true;
     }
@@ -58,7 +59,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private handleAdd = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     const studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
@@ -75,7 +76,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private handleDelete = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     let studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);

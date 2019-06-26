@@ -4,7 +4,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
-import { Users } from '../../../api/user/UserCollection';
 import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
@@ -16,6 +15,7 @@ import InterestList from './InterestList';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorerOpportunitiesWidgetButton';
+import * as Router from './RouterHelperFunctions';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -41,12 +41,9 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
 
   private toUpper = (string: string): string => string.toUpperCase();
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.props.match.params.username;
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
   private isLabel = (label: string, str: string): boolean => label === str;
 
@@ -115,14 +112,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
       : <Link to={props.href}>{props.children}</Link>
   )
-
-  private buildRouteName = (slug: string) => {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    return `${baseRoute}explorer/courses/${slug}`;
-  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const segmentGroupStyle = { backgroundColor: 'white' };

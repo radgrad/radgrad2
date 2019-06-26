@@ -6,7 +6,6 @@ import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollect
 
 interface IPlanChoicePillProps {
   choice: string;
-  index: number;
   satisfied: boolean;
 }
 

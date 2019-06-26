@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerCoursesWidgetButtonContainer from '../student/StudentExplorerCoursesWidgetButton';
 import InterestList from './InterestList';
@@ -16,6 +15,8 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
+import * as Router from './RouterHelperFunctions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -23,7 +24,6 @@ interface IExplorerCoursesWidgetProps {
   descriptionPairs: any[];
   item: ICourse;
   completed: boolean;
-  role: string;
   match: {
     isExact: boolean;
     path: string;
@@ -45,12 +45,9 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
   private toUpper = (string: string): string => string.toUpperCase();
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.props.match.params.username;
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
   private userStatus = (course: ICourse): boolean => {
     let ret = false;
@@ -155,11 +152,8 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
   )
 
   private buildRouteName = (slug) => {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    return `${baseRoute}explorer/courses/${slug}`;
+    const route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
+    return route;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
