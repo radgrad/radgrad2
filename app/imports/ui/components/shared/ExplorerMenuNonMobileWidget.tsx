@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
-import { NavLink, withRouter, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
@@ -18,6 +18,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Slugs } from '../../../api/slug/SlugCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -190,10 +191,6 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
 
   // These are functions to help build the Dropdown for mobile
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const iconStyle: React.CSSProperties = {
-      position: 'absolute',
-      marginLeft: '-20px',
-    };
     const marginTopStyle = { marginTop: '5px' };
 
     const baseUrl = this.props.match.url;
@@ -219,11 +216,8 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                       <Header as="h4" dividing={true}>MY ACADEMIC PLAN</Header>
                       {
                         menuAddedList.map((listItem, index) => (
-                          <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${this.slugName(listItem.item)}`}>
-                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                            {this.itemName(listItem)}
-                          </Menu.Item>
+                          <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
+                                                     match={this.props.match}/>
                         ))
                       }
                     </Menu>
@@ -245,11 +239,8 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                       <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
                       {
                         menuAddedList.map((listItem, index) => (
-                          <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${this.slugName(listItem.item)}`}>
-                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                            {this.courseName(listItem as { item: ICourse, count: number })}
-                          </Menu.Item>
+                          <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
+                                                     match={this.props.match}/>
                         ))
                       }
                     </Menu>
@@ -272,11 +263,8 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                       <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
                       {
                         menuAddedList.map((listItem, index) => (
-                          <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${this.slugName(listItem.item)}`}>
-                            <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                            {this.opportunityItemName(listItem as { item: IOpportunity, count: number })}
-                          </Menu.Item>
+                          <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
+                                                     match={this.props.match}/>
                         ))
                       }
                     </Menu>
@@ -298,22 +286,16 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 <Header as="h4" dividing={true}>MY INTERESTS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
-                    <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}>
-                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                      {this.itemName(listItem)}
-                    </Menu.Item>
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
+                                               match={this.props.match}/>
                   ))
                 }
 
                 <Header as="h4" dividing={true}>CAREER GOAL INTERESTS</Header>
                 {
                   menuCareerList.map((listItem, index) => (
-                    <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}>
-                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                      {this.itemName(listItem)}
-                    </Menu.Item>
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
+                                               match={this.props.match}/>
                   ))
                 }
               </Menu>
@@ -330,11 +312,8 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
-                    <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${this.slugName(listItem.item)}`}>
-                      <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                      {this.itemName(listItem)}
-                    </Menu.Item>
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.CAREERGOALS} key={index}
+                                               match={this.props.match}/>
                   ))
                 }
               </Menu>
