@@ -44,14 +44,11 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
   private getTypeName = (): string => {
     const { type } = this.props;
@@ -211,9 +208,9 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
       <React.Fragment>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           {
-            this.isType('plans') ?
+            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
               <React.Fragment>
-                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
                 {
@@ -223,7 +220,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                       {
                         menuAddedList.map((listItem, index) => (
                           <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/plans/${this.slugName(listItem.item)}`}>
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${this.slugName(listItem.item)}`}>
                             <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                             {this.itemName(listItem)}
                           </Menu.Item>
@@ -237,9 +234,9 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
           }
 
           {
-            this.isType('courses') ?
+            this.isType(EXPLORER_TYPE.COURSES) ?
               <React.Fragment>
-                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
                 {
@@ -249,7 +246,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                       {
                         menuAddedList.map((listItem, index) => (
                           <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/courses/${this.slugName(listItem.item)}`}>
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${this.slugName(listItem.item)}`}>
                             <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                             {this.courseName(listItem as { item: ICourse, count: number })}
                           </Menu.Item>
@@ -263,10 +260,10 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
           }
 
           {
-            this.isType('opportunities') ?
+            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
               <React.Fragment>
                 <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
-                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
                 {
@@ -276,7 +273,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                       {
                         menuAddedList.map((listItem, index) => (
                           <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/opportunities/${this.slugName(listItem.item)}`}>
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${this.slugName(listItem.item)}`}>
                             <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                             {this.opportunityItemName(listItem as { item: IOpportunity, count: number })}
                           </Menu.Item>
@@ -292,17 +289,17 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
           {
-            this.isType('interests') ?
+            this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
-                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
                 <Header as="h4" dividing={true}>MY INTERESTS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
                     <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}>
                       <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                       {this.itemName(listItem)}
                     </Menu.Item>
@@ -313,7 +310,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 {
                   menuCareerList.map((listItem, index) => (
                     <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}>
                       <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                       {this.itemName(listItem)}
                     </Menu.Item>
@@ -324,17 +321,17 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
           }
 
           {
-            this.isType('career-goals') ?
+            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
-                <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
                 <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
                     <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}>
+                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${this.slugName(listItem.item)}`}>
                       <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                       {this.itemName(listItem)}
                     </Menu.Item>
@@ -345,8 +342,8 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
           }
 
           {
-            this.isType('degrees') ?
-              <Button as={Link} to={`${baseRoute}/explorer/${this.props.type}`} style={marginTopStyle}>
+            this.isType(EXPLORER_TYPE.DEGREES) ?
+              <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
               </Button>
               : ''

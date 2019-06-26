@@ -44,14 +44,11 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
   private getTypeName = (): string => {
     const { type } = this.props;
@@ -85,19 +82,19 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
   private getItemStatus = (item: explorerInterfaces): string => {
     const { type } = this.props;
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.userPlans(item as IAcademicPlan);
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.userCareerGoals(item as ICareerGoal);
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.userCourses(item as ICourse);
       // case 'degrees': users currently cannot add a desired degree to their profile
       //   return this.userDegrees(item.item as DesiredDegree);
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.userInterests(item as IInterest);
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.userOpportunities(item as IOpportunity);
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return '';
       default:
         return '';
@@ -209,7 +206,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
       <React.Fragment>
         <Responsive {...Responsive.onlyMobile}>
           {
-            this.isType('plans') ?
+            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -220,7 +217,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                         {
                           menuAddedList.map((listItem, index) => (
                             <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/explorer/plans/${this.slugName(listItem.item)}`}
+                                           to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${this.slugName(listItem.item)}`}
                                            text={(
                                              <React.Fragment>
                                                <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
@@ -238,7 +235,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
           }
 
           {
-            this.isType('courses') ?
+            this.isType(EXPLORER_TYPE.COURSES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -249,7 +246,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                         {
                           menuAddedList.map((listItem, index) => (
                             <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/explorer/courses/${this.slugName(listItem.item)}`}
+                                           to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${this.slugName(listItem.item)}`}
                                            text={(
                                              <React.Fragment>
                                                <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
@@ -267,7 +264,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
           }
 
           {
-            this.isType('opportunities') ?
+            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -278,7 +275,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                         {
                           menuAddedList.map((listItem, index) => (
                             <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/explorer/opportunities/${this.slugName(listItem.item)}`}
+                                           to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${this.slugName(listItem.item)}`}
                                            text={(
                                              <React.Fragment>
                                                <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
@@ -297,7 +294,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
 
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
           {
-            this.isType('interests') ?
+            this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
@@ -305,7 +302,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                   {
                     menuAddedList.map((listItem, index) => (
                       <Dropdown.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}
                                      text={(
                                        <React.Fragment>
                                          <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
@@ -320,7 +317,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                   {
                     menuCareerList.map((listItem, index) => (
                       <Dropdown.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}
                                      text={(
                                        <React.Fragment>
                                          <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
@@ -335,7 +332,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
           }
 
           {
-            this.isType('career-goals') ?
+            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
@@ -343,7 +340,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                   {
                     menuAddedList.map((listItem, index) => (
                       <Dropdown.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${this.slugName(listItem.item)}`}
                                      text={(
                                        <React.Fragment>
                                          <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>

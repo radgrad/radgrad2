@@ -15,6 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -40,14 +41,11 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
   private isType = (typeToCheck: string): boolean => {
     const { type } = this.props;
@@ -183,7 +181,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
             FACULTY or MENTORS have a 'Suggest a Opportunity / Career Goal' mailto link. */}
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           {
-            this.isType('plans') ?
+            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -206,7 +204,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
           }
 
           {
-            this.isType('courses') ?
+            this.isType(EXPLORER_TYPE.COURSES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -229,7 +227,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
           }
 
           {
-            this.isType('opportunities') ?
+            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
               <React.Fragment>
                 <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
                 {
@@ -255,7 +253,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
           {
-            this.isType('interests') ?
+            this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
                 <Header as="h4" dividing={true}>MY INTERESTS</Header>
@@ -284,7 +282,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
           }
 
           {
-            this.isType('career-goals') ?
+            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
                 <Header as="h4" dividing={true}>MY CAREER GOALS</Header>

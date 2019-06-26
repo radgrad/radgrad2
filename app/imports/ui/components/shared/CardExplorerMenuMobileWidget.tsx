@@ -182,7 +182,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
         {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
         <Responsive {...Responsive.onlyMobile}>
           {
-            this.isType('plans') ?
+            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -211,7 +211,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
           }
 
           {
-            this.isType('courses') ?
+            this.isType(EXPLORER_TYPE.COURSES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -240,7 +240,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
           }
 
           {
-            this.isType('opportunities') ?
+            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -270,7 +270,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
 
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
           {
-            this.isType('interests') ?
+            this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
@@ -308,7 +308,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
           }
 
           {
-            this.isType('career-goals') ?
+            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>

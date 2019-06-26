@@ -15,6 +15,7 @@ import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -41,30 +42,25 @@ class ExplorerMenu extends React.Component<IExplorerMenuProps> {
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
   private getTypeName = (): string => {
     const { type } = this.props;
     const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return names[0];
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return names[1];
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return names[2];
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return names[3];
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return names[4];
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return names[5];
-      case 'users':
+      case EXPLORER_TYPE.USERS:
         return names[6];
       default:
         return '';
@@ -92,7 +88,7 @@ class ExplorerMenu extends React.Component<IExplorerMenuProps> {
       text: item.key,
       as: NavLink,
       exact: true,
-      to: `${baseRoute}/explorer/${item.route}`,
+      to: `${baseRoute}/${EXPLORER_TYPE.HOME}/${item.route}`,
       style: { textDecoration: 'none' },
     }));
 

@@ -9,10 +9,10 @@ import {
   IInterest, //eslint-disable-line
   IOpportunity, //eslint-disable-line
 } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
 import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -38,14 +38,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
   private getTypeName = (): string => {
     const { type } = this.props;
@@ -71,7 +64,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const isTypeInterest = this.props.type === 'interests';
+    const isTypeInterest = this.props.type === EXPLORER_TYPE.INTERESTS;
 
     const menuItems = [
       { key: 'Academic Plans', route: 'plans' },
