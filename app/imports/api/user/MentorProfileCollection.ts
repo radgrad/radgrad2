@@ -82,19 +82,19 @@ class MentorProfileCollection extends BaseProfileCollection {
     this.assertDefined(docID);
     const updateData: IMentorProfileUpdate = {};
     this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
-    if (company) {
+    if (_.isString(company)) {
       updateData.company = company;
     }
-    if (career) {
+    if (_.isString(career)) {
       updateData.career = career;
     }
-    if (location) {
+    if (_.isString(location)) {
       updateData.location = location;
     }
-    if (linkedin) {
+    if (_.isString(linkedin)) {
       updateData.linkedin = linkedin;
     }
-    if (motivation) {
+    if (_.isString(motivation)) {
       updateData.motivation = motivation;
     }
     this.collection.update(docID, { $set: updateData });

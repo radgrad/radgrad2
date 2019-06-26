@@ -3,24 +3,28 @@ import { Grid, Segment, Header, Button, Divider, Image } from 'semantic-ui-react
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-
+import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
-  slug: string;
   descriptionPairs: any;
-  profile: any;
   item: { [key: string]: any };
   socialPairs: any;
-  id: any;
-  username: string;
-  careerGoal: any;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
+  profile: IProfile;
 }
 
 class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidgetProps> {
@@ -28,25 +32,11 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     super(props);
   }
 
-  /*
-Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-*/
   private routerLink = (props) => (
     props.href.match(/^(https?:)?\/\//)
       ? <a href={props.href}>{props.children}</a>
       : <Link to={props.href}>{props.children}</Link>
   )
-
-  private getCareerGoalName = () => this.props.name;
-
-  private getCareerGoal = () => this.props.careerGoal;
-
-  private getDescriptionPair = () => this.props.descriptionPairs;
-
-  private getSocialPair = () => this.props.socialPairs;
-
-  private getID = () => this.props.id;
 
   private toUpper = (string) => string.toUpperCase();
 
@@ -59,7 +49,7 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 
   private userStatus = (careerGoal) => {
     let ret = false;
-    const profile = Users.getProfile(this.props.username);
+    const profile = Users.getProfile(this.props.match.params.username);
     if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
       ret = true;
     }
@@ -68,15 +58,14 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 
   private handleAdd = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.username);
-    const id = this.getID();
+    const profile = Users.getProfile(this.props.match.params.username);
+    const id = this.props.item._id;
     const studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
     const updateData: any = {};
     updateData.id = profile._id;
     studentItems.push(id);
     updateData.careerGoals = studentItems;
-    console.log('update', collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         console.log('Error updating career goals', error);
@@ -86,15 +75,14 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 
   private handleDelete = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.username);
-    const id = this.getID();
+    const profile = Users.getProfile(this.props.match.params.username);
+    const id = this.props.item._id;
     let studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
     const updateData: { [key: string]: any } = {};
     updateData.id = profile._id;
     studentItems = _.without(studentItems, id);
     updateData.careerGoals = studentItems;
-    console.log('update', collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         console.log('Error updating career goals', error);
@@ -117,12 +105,10 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
       marginTop: 0,
       padding: 0,
     };
-    const upperName = this.toUpper(this.getCareerGoalName());
-    const descriptionPairs = this.getDescriptionPair();
-    const careerGoal = this.getCareerGoal();
-    const socialPairs = this.getSocialPair();
-    const item = this.props.item;
-    const userStatus = this.userStatus(careerGoal);
+    const { name, descriptionPairs, socialPairs, item } = this.props;
+    const upperName = this.toUpper(name);
+    const userStatus = this.userStatus(item);
+
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
         <Grid.Column width={16}>
@@ -159,7 +145,6 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
                       </React.Fragment>
                       : ''
                   }
-
                   {
                     this.isLabel(descriptionPair.label, 'Interests') ?
                       <div style={{ marginTop: '5px' }}>
@@ -193,9 +178,10 @@ See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
 }
 
 const ExplorerCareerGoalsWidgetContainer = withTracker((props) => {
-  const profile = Users.getProfile(props.username);
+  const profile = Users.getProfile(props.match.params.username);
+
   return {
     profile,
   };
 })(ExplorerCareerGoalsWidget);
-export default ExplorerCareerGoalsWidgetContainer;
+export default withRouter(ExplorerCareerGoalsWidgetContainer);

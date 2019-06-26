@@ -13,7 +13,6 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 interface IExplorerPlansWidgetProps {
   name: string;
   descriptionPairs: any[];
-  id: string;
   item: IAcademicPlan;
   role: string;
   profile: object;

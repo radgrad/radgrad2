@@ -66,7 +66,7 @@ class ExplorerPlansPage extends React.Component<IExplorerPlansPageProps> {
 
   /* ####################################### EXPLORER PLANS WIDGET HELPER FUNCTIONS ############################### */
 
-  private plan() {
+  private plan = (): IAcademicPlan => {
     const planSlugName = this.props.match.params.plan;
     const slug = Slugs.findDoc({ name: planSlugName });
     return AcademicPlans.findDoc({ slugID: slug._id });
@@ -93,7 +93,6 @@ class ExplorerPlansPage extends React.Component<IExplorerPlansPageProps> {
     const plan = this.plan();
     const name = plan.name;
     const descriptionPairs = this.descriptionPairs(plan);
-    const id = plan._id;
 
     return (
       <React.Fragment>
@@ -109,7 +108,7 @@ class ExplorerPlansPage extends React.Component<IExplorerPlansPageProps> {
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} id={id} item={plan}
+            <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={plan}
                                  role={this.getRoleByUrl()}/>
           </Grid.Column>
         </Grid>
