@@ -15,6 +15,8 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import TermAdd from './TermAdd';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 class TermCard extends React.Component<ITermCard> {
   constructor(props) {
@@ -167,19 +169,19 @@ class TermCard extends React.Component<ITermCard> {
 
   private buildRouteName = (item, type) => {
     const itemName = this.itemSlug(item);
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    let route = '';
     switch (type) {
-      case 'courses':
-        return `${baseRoute}explorer/courses/${itemName}`;
-      case 'opportunities':
-        return `${baseRoute}explorer/opportunities/${itemName}`;
+      case EXPLORER_TYPE.COURSES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
+        break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
+        break;
       default:
+        route = '#';
         break;
     }
-    return '#';
+    return route;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

@@ -14,6 +14,8 @@ import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -39,32 +41,27 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
   private getTypeName = (): string => {
     const { type } = this.props;
     const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return names[0];
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return names[1];
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return names[2];
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return names[3];
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return names[4];
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return names[5];
-      case 'users':
+      case EXPLORER_TYPE.USERS:
         return names[6];
       default:
         return '';
@@ -88,19 +85,19 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   private getItemStatus = (item: explorerInterfaces): string => {
     const { type } = this.props;
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.userPlans(item as IAcademicPlan);
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.userCareerGoals(item as ICareerGoal);
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.userCourses(item as ICourse);
-      // case 'degrees': users currently cannot add a desired degree to their profile
+      // case EXPLORER_TYPE.DEGREES: users currently cannot add a desired degree to their profile
       //   return this.userDegrees(item.item as DesiredDegree);
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.userInterests(item as IInterest);
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.userOpportunities(item as IOpportunity);
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return '';
       default:
         return '';
@@ -202,13 +199,13 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
     };
 
     const menuItems = [
-      { key: 'Academic Plans', route: 'plans' },
-      { key: 'Career Goals', route: 'career-goals' },
-      { key: 'Courses', route: 'courses' },
-      { key: 'Degrees', route: 'degrees' },
-      { key: 'Interests', route: 'interests' },
-      { key: 'Opportunities', route: 'opportunities' },
-      { key: 'Users', route: 'users' },
+      { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
+      { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
+      { key: 'Courses', route: EXPLORER_TYPE.COURSES },
+      { key: 'Degrees', route: EXPLORER_TYPE.DEGREES },
+      { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+      { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+      { key: 'Users', route: EXPLORER_TYPE.USERS },
     ];
 
     const baseUrl = this.props.match.url;
@@ -224,9 +221,10 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
       style: { textDecoration: 'none' },
     }));
 
-    const { menuAddedList, menuCareerList } = this.props;
-    const isStudent = this.isRoleStudent();
+    const { menuAddedList, menuCareerList, match } = this.props;
+    const isStudent = Router.isUrlRoleStudent(match);
     const adminEmail = 'radgrad@hawaii.edu';
+
     return (
       <React.Fragment>
         {/* ####### Main Dropdown Menu ####### */}
@@ -238,7 +236,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
             FACULTY or MENTORS have a 'Suggest a Opportunity / Career Goal' mailto link. */}
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           {
-            this.isType('plans') ?
+            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -261,7 +259,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           }
 
           {
-            this.isType('courses') ?
+            this.isType(EXPLORER_TYPE.COURSES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -284,7 +282,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           }
 
           {
-            this.isType('opportunities') ?
+            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
               <React.Fragment>
                 <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
                 {
@@ -310,7 +308,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
           {
-            this.isType('interests') ?
+            this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
                 <Header as="h4" dividing={true}>MY INTERESTS</Header>
@@ -339,7 +337,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           }
 
           {
-            this.isType('career-goals') ?
+            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
                 <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
@@ -361,7 +359,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
         {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
         <Responsive {...Responsive.onlyMobile}>
           {
-            this.isType('plans') ?
+            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -390,7 +388,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           }
 
           {
-            this.isType('courses') ?
+            this.isType(EXPLORER_TYPE.COURSES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -419,7 +417,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           }
 
           {
-            this.isType('opportunities') ?
+            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -449,7 +447,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
 
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
           {
-            this.isType('interests') ?
+            this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
@@ -487,7 +485,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
           }
 
           {
-            this.isType('career-goals') ?
+            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
