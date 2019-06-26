@@ -54,7 +54,7 @@ class ProfileAdd extends React.Component<IProfileAddProps> {
       if (type === EXPLORER_TYPE.CAREERGOALS) {
         updateData.careerGoals = profile.careerGoalIDs;
         updateData.careerGoals.push(item._id);
-      } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+      } else if (type === EXPLORER_TYPE.INTERESTS) {
         updateData.interests = profile.interestIDs;
         updateData.interests.push(item._id);
       } else if (type === EXPLORER_TYPE.ACADEMICPLANS) {

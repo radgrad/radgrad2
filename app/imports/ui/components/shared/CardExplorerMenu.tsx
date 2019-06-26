@@ -198,6 +198,7 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
 
   // These are functions to help build the Dropdown for mobile
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const isTypeInterest = this.props.type === 'interests';
 
     const menuItems = [
       { key: 'Academic Plans', route: 'plans' },
@@ -226,8 +227,12 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
         {/* ####### Main Dropdown Menu ####### */}
         <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
         <br/>
-        <CardExplorerMenuNonMobileWidget/>
-        <CardExplorerMenuMobileWidget/>
+        <CardExplorerMenuNonMobileWidget menuAddedList={this.props.menuAddedList} type={this.props.type}
+                                         role={this.props.role}
+                                         menuCareerList={isTypeInterest ? this.props.menuCareerList : undefined}/>
+        <CardExplorerMenuMobileWidget menuAddedList={this.props.menuAddedList} type={this.props.type}
+                                      role={this.props.role}
+                                      menuCareerList={isTypeInterest ? this.props.menuCareerList : undefined}/>
       </React.Fragment>
     );
   }
