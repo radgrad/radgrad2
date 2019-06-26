@@ -39,11 +39,6 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
     super(props);
   }
 
-  /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => Router.getUsername(this.props.match);
-
-  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
-
   private getTypeName = (): string => {
     const { type } = this.props;
     const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
@@ -70,10 +65,11 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { menuAddedList, menuCareerList, match, type, role } = this.props;
     const isTypeInterest = this.props.type === EXPLORER_TYPE.INTERESTS;
+    const typeName = this.getTypeName();
 
     return (
       <React.Fragment>
-        <ExplorerNavDropdown match={match} text={this.getTypeName()}/>
+        <ExplorerNavDropdown match={match} text={typeName}/>
         <br/>
 
         <CardExplorerMenuNonMobileWidget menuAddedList={menuAddedList} type={type} role={role}
