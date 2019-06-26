@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { DragDropContext } from 'react-beautiful-dnd';
 import { Card, Button, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
@@ -55,13 +54,6 @@ class PlanCard extends React.Component<IPlanCard> {
 
   private itemSlug = (item: IAcademicPlan): string => Slugs.findDoc(item.slugID).name;
 
-  // Note, in the context of PlanCard (/explorer/plans), this function doesn't do anything because the Draggables and
-  // Droppables are set to disabled when the user is in the /explorer/plans page. This is just to get rid of the error
-  // saying that onDragEnd field for <DragDropContext/> is required.
-  private handleDragEnd = () => {
-    //  do nothing
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { type, canAdd, item } = this.props;
     const itemName = this.itemName(item);
@@ -76,9 +68,7 @@ class PlanCard extends React.Component<IPlanCard> {
 
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}/>
-          <DragDropContext onDragEnd={this.handleDragEnd}>
-            <AcademicPlanStaticViewer plan={item}/>
-          </DragDropContext>
+          <AcademicPlanStaticViewer plan={item}/>
         </Card.Content>
 
         <Card.Content>

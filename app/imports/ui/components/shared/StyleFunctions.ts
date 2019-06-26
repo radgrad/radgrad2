@@ -46,15 +46,10 @@ const getNotSatisfiedStyle = () => ({
   color: '#FF0000',
 });
 
-const getNonStudentStyle = () => ({
-  color: '#348C72',
-});
-
 export {
   getDraggablePillStyle,
   getInspectorDraggablePillStyle,
   getDroppableListStyle,
   getNotSatisfiedStyle,
   getSatisfiedStyle,
-  getNonStudentStyle,
 };

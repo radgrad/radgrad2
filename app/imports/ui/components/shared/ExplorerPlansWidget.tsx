@@ -3,7 +3,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, Link } from 'react-router-dom';
 import { Segment, Header, Button, Divider, Grid } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { DragDropContext } from 'react-beautiful-dnd';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
@@ -46,13 +45,6 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
       ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
       : <Link to={props.href}>{props.children}</Link>
   )
-
-  // Note, in the context of PlanCard (/explorer/plans), this function doesn't do anything because the Draggables and
-  // Droppables are set to disabled when the user is in the /explorer/plans page. This is just to get rid of the error
-  // saying that onDragEnd field for <DragDropContext/> is required.
-  private handleDragEnd = () => {
-    // do nothing
-  }
 
   private handleAddPlan = (e: any): void => {
     e.preventDefault();
@@ -127,9 +119,7 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
         </Segment>
 
         <Segment>
-          <DragDropContext onDragEnd={this.handleDragEnd}>
-            <AcademicPlanStaticViewer plan={item}/>
-          </DragDropContext>
+          <AcademicPlanStaticViewer plan={item}/>
         </Segment>
       </Segment.Group>
     );
