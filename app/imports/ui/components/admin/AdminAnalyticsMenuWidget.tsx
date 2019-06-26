@@ -17,13 +17,10 @@ class AdminAnalyticsMenuWidget extends React.Component
   <IAdminAnalyticsMenuWidget> {
   constructor(props) {
     super(props)
-    console.log('Admin Analytics Menu Widget props constructor', props)
   }
 
   private buildRoute = (slug) => {
-    console.log('menu widget url', this.props.match.url);
     let helper: any = this.props.match.url.split('/');
-    console.log(helper);
     const urlList = [helper[1], helper[2], helper[3], slug];
 
     helper = urlList.join('/');
@@ -31,7 +28,6 @@ class AdminAnalyticsMenuWidget extends React.Component
   }
 
   public render() {
-    console.log('Admin Analytics Menu Widget props', this.props);
     return (
       <div>
         <Menu text vertical>

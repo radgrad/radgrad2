@@ -7,17 +7,27 @@ import TextField from 'uniforms-semantic/TextField';
 import BoolField from 'uniforms-semantic/BoolField';
 import NumField from 'uniforms-semantic/NumField';
 import SimpleSchema from 'simpl-schema';
+import AdminAnalyticsNewsletterMessagePreviewWidget from "./AdminAnalyticsNewsletterMessagePreviewWidget";
+import Swal from "sweetalert2";
 
 const schema = new SimpleSchema({
   inputMessage: String,
   bcc: { type: String, optional: true },
   subjectLine: String,
-  studentEmails: { type: String, optional: true },
-  level: { type: SimpleSchema.Integer, allowedValues: [1, 2, 3, 4, 5, 6] },
-  sendToStudents: { type: Boolean, optional: true },
+  studentEmails: { type: String, optional: true, label: 'Student Emails' },
+  level: { type: SimpleSchema.Integer, allowedValues: [1, 2, 3, 4, 5, 6], optional: true },
+  sendToStudentsToo: { type: Boolean, optional: true },
   sendToLevels: { type: Boolean, optional: true },
-  sendToAll: { type: Boolean, optional: true }
+  sendToAll: { type: Boolean, optional: true },
 })
+const options = [
+  { key: '1', text: 'Level 1', value: 1 },
+  { key: '2', text: 'Level 2', value: 2 },
+  { key: '3', text: 'Level 3', value: 3 },
+  { key: '4', text: 'Level 4', value: 4 },
+  { key: '5', text: 'Level 5', value: 5 },
+  { key: '6', text: 'Level 6', value: 6 },
+]
 
 interface IAdminAnalyticsNewsletterWidget {
 
@@ -37,15 +47,6 @@ interface IAdminAnalyticsNewsletterWidgetState {
   message: object,
 }
 
-const options = [
-  { key: '1', text: 'Level 1', value: '1' },
-  { key: '2', text: 'Level 2', value: '2' },
-  { key: '3', text: 'Level 3', value: '3' },
-  { key: '4', text: 'Level 4', value: '4' },
-  { key: '5', text: 'Level 5', value: '5' },
-  { key: '6', text: 'Level 6', value: '6' },
-]
-
 
 class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNewsletterWidget, IAdminAnalyticsNewsletterWidgetState> {
   constructor(props) {
@@ -64,147 +65,81 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     }
   }
 
-  // change to work w/ AutoForm
-  private handleChangeText = (e, { name, value }) => {
+  /**Auto Forms*/
+  // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
+  private handleChangeText = (name, value) => {
+    console.log('handle change', name, value);
     let intermediateState = {};
     intermediateState[name] = value;
+    console.log(intermediateState);
     this.setState(intermediateState);
-    console.log(this.state);
+    // console.log('after set state',this.state);
   }
 
   private onClickPreviewSave = () => {
+    // put in conditional to check if subject has been entered
+    console.log('on Click preview ')
     this.setState({ onSubmitInputMessage: this.state.inputMessage });
-    this.setState({
-      message: {
-        subjectLine: this.state.subjectLine,
-        bcc: this.state.bcc,
-        inputMessage: this.state.onSubmitInputMessage
-      }
-    });
+    console.log(this.state);
   }
 
-  private handleChangeCheckBox = (event, something) => {
-    console.log(event, something);
-  }
 
   private onClickSendToStudentsToo = () => {
-    // see if box is checked
+    if (this.state.sendToStudentsToo == true && this.state.onSubmitInputMessage.length !== 0) {
+      this.setState({
+        message: {
+          subjectLine: this.state.subjectLine,
+          bcc: this.state.bcc,
+          inputMessage: this.state.onSubmitInputMessage,
+          studentEmails: this.state.studentEmails
+        }
+      });
+      console.log('after set state', this.state.message);
+      this.generateEmail(this.state.message);
+      Swal.fire(
+        'Good Job!'
+      )
+    } else {
+      Swal.fire(
+        'You forgot to fill something out!'
+      )
+    }
+
+
   }
 
+  private generateEmail = (message) => {
+    console.log('generate emails', message);
+  }
 
   public render() {
+    console.log('after set state public render', this.state);
+    console.log(this.state.message);
     return (
       <div>
-        <Segment>
+        AutoForms
+        <Segment padded={true}>
           <Header dividing as='h4'>NEWSLETTER OPTIONS</Header>
-          <AutoForm schema={schema}>
-
-            <Form.Group>
-              <LongTextField name='inputMessage'/>
-              <Form.Field label='Message Preview'>
-                <div className='markdown'/>
-              </Form.Field>
-            </Form.Group>
-
-
-            <Button basic color='green' onClick={this.onClickPreviewSave}>Preview And Save</Button>
-            <TextField name='bcc'/>
+          <AutoForm schema={schema} onChange={this.handleChangeText}>
             <TextField name='subjectLine'/>
-
+            <TextField name='bcc'/>
+            <Form.Group widths='equal'>
+              <LongTextField name='inputMessage'/>
+              <div>
+                <AdminAnalyticsNewsletterMessagePreviewWidget message={this.state.onSubmitInputMessage}/>
+              </div>
+            </Form.Group>
+            <Button basic color='green' onClick={this.onClickPreviewSave}>Preview And Save</Button>
             <Header as='h4' dividing>SEND NEWSLETTER</Header>
             <TextField name='studentEmails'/>
-            <BoolField name='sendToStudents'></BoolField>
-            <Button basic color='green'>Send To Admin</Button>
-
-
+            <BoolField name='sendToStudentsToo'></BoolField>
+            <Button basic color='green' onClick={this.onClickSendToStudentsToo}>Send To Admin</Button>
             <NumField name='level'/>
             <BoolField name='sendToLevels'/>
             <Button basic color='green'>Send To Students</Button>
-
             <BoolField name='sendToAll'/>
             <Button basic color='green'>Send To All</Button>
-           
           </AutoForm>
-          {/* <div>
-            <Header as='h4' dividing>NEWSLETTER OPTIONS</Header>
-            <Grid padded>
-              <Grid.Row>
-                <Grid.Column width={8}>
-                  <Form>
-                    <Form.TextArea required label='Input admin message in markdown format'
-                                   input={this.state.inputMessage} onChange={this.handleChangeText}
-                                   name='inputMessage'/>
-                    <Button type='submit' color='green' basic onClick={this.onClickPreviewSave}>Preview And
-                      Save</Button>
-                  </Form>
-                </Grid.Column>
-                <Grid.Column width={8}>
-                  <Form>
-                    <Form.Field label='Message Preview'/>
-                    <p>Aloha Student!</p>
-                    <div className='markdown'>
-                      {this.state.onSubmitInputMessage}
-                    </div>
-                    <p>- The RadGrad Team</p>
-                  </Form>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Form>
-                    <Form.Input label='BCC recipients' placeholder='Input comma separated list of bcc recipients'
-                                onChange={this.handleChangeText} name='bcc'/>
-                    <Form.Input label='Subject line' placeholder='Input email subject line'
-                                onChange={this.handleChangeText}
-                                name='subjectLine' required/>
-                  </Form>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </div>
-          <div>
-            <Header as='h4' dividing>SEND NEWSLETTER</Header>
-            <Grid padded>
-              <Grid.Row>
-                <Grid.Column>
-                  <Form>
-                    <Form.Input label='Generate student newsletters and send to admin'
-                                placeholder='Input student emails seperated by commas' onChange={this.handleChangeText}
-                                name='studentEmails'/>
-                    <Form.Checkbox label='Send to students too' onChange={this.handleChangeCheckBox}
-                                   name='sendToStudentsToo'/>
-                    <Button color='green' basic onClick={this.onClickSendToStudentsToo}>Send to Admin</Button>
-                  </Form>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Form>
-                    <Form.Field>
-                      <Form.Select label='Generate and send newsletters to students of the specified level'
-                                   options={options}
-                                   placeholder='Level'/>
-                    </Form.Field>
-                    <Form.Field>
-                      <Form.Checkbox label='Check to confirm send' onChange={this.handleChangeText}
-                                     name='confirmSendLevel'/>
-                    </Form.Field>
-                    <Button color='green' basic>Send To Students</Button>
-                  </Form>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Form>
-                    <Form.Field label='Generate and send newsletters to ALL students'/>
-                    <Form.Checkbox label='Check to confirm send' onChange={this.handleChangeText}
-                                   name='confirmSendAll'/>
-                    <Button color='green' basic>Send To All Students</Button>
-                  </Form>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </div>*/}
         </Segment>
       </div>
     )
