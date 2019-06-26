@@ -104,6 +104,9 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
   private teaserUrlHelper = (): string => {
     const opportunityID = Slugs.getEntityID(this.props.match.params.opportunity, 'Opportunity');
     const oppTeaser = Teasers.find({ opportunityID }).fetch();
+    if (oppTeaser.length > 1) {
+      return undefined;
+    }
     return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
   }
 
@@ -286,7 +289,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
                       }
 
                       {
-                        this.isLabel(descriptionPair.label, 'Teaser') ?
+                        this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
                           <React.Fragment>
                             <b>{descriptionPair.label}:</b>
                             {

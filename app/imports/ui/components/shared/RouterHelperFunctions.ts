@@ -43,6 +43,10 @@ export const getBaseRoute = (match: IMatchProps): string => {
 // Builds a route name and returns it. Make sure routeName is preceeded by a forward slash ('/').
 // i.e., buildRouteName('/explorer/plans') => /role/:username/explorer/plans
 export const buildRouteName = (match: IMatchProps, routeName: string): string => {
+  const firstChar = routeName.charAt(0);
+  if (firstChar !== '/') {
+    throw new Error('buildRouteName() function from RouterHelperFunctions.tsx requires that the second parameter must have the forward slash (/) as the first character.');
+  }
   const baseRoute = getBaseRoute(match);
   const route = `${baseRoute}${routeName}`;
   return route;
