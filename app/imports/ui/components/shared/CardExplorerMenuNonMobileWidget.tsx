@@ -14,6 +14,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -48,59 +49,28 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
 
   private isRoleStudent = (): boolean => this.props.role === 'student';
 
-  private getTypeName = (): string => {
-    const { type } = this.props;
-    const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
-    switch (type) {
-      case 'plans':
-        return names[0];
-      case 'career-goals':
-        return names[1];
-      case 'courses':
-        return names[2];
-      case 'degrees':
-        return names[3];
-      case 'interests':
-        return names[4];
-      case 'opportunities':
-        return names[5];
-      case 'users':
-        return names[6];
-      default:
-        return '';
-    }
-  }
-
   private isType = (typeToCheck: string): boolean => {
     const { type } = this.props;
     return type === typeToCheck;
-  }
-
-  private equals = (a: string, b: string): boolean => {
-    const listArg = b.split(',');
-    if (listArg.indexOf(a) < 0) {
-      return false;
-    }
-    return true;
   }
 
   // Determines whether or not we show a "check green circle outline icon" for an item
   private getItemStatus = (item: explorerInterfaces): string => {
     const { type } = this.props;
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.userPlans(item as IAcademicPlan);
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.userCareerGoals(item as ICareerGoal);
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.userCourses(item as ICourse);
       // case 'degrees': users currently cannot add a desired degree to their profile
       //   return this.userDegrees(item.item as DesiredDegree);
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.userInterests(item as IInterest);
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.userOpportunities(item as IOpportunity);
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return '';
       default:
         return '';

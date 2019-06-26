@@ -17,6 +17,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import * as Router from './RouterHelperFunctions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -56,19 +57,19 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
     const { type } = this.props;
     const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return names[0];
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return names[1];
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return names[2];
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return names[3];
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return names[4];
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return names[5];
-      case 'users':
+      case EXPLORER_TYPE.USERS:
         return names[6];
       default:
         return '';
@@ -78,14 +79,6 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
   private isType = (typeToCheck: string): boolean => {
     const { type } = this.props;
     return type === typeToCheck;
-  }
-
-  private equals = (a: string, b: string): boolean => {
-    const listArg = b.split(',');
-    if (listArg.indexOf(a) < 0) {
-      return false;
-    }
-    return true;
   }
 
   // Determines whether or not we show a "check green circle outline icon" for an item
