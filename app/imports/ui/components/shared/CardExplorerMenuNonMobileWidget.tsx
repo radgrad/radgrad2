@@ -1,7 +1,9 @@
 import * as React from 'react';
+import * as _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import * as Router from './RouterHelperFunctions';
 import {
   IAcademicPlan, //eslint-disable-line
   ICareerGoal, //eslint-disable-line
@@ -15,7 +17,6 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-import * as Router from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -190,7 +191,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                       {
                         menuAddedList.map((listItem, index) => (
                           <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/plans/${this.slugName(listItem.item)}`}>
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${this.slugName(listItem.item)}`}>
                             <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                             {this.itemName(listItem)}
                           </Menu.Item>
@@ -213,7 +214,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                       {
                         menuAddedList.map((listItem, index) => (
                           <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/courses/${this.slugName(listItem.item)}`}>
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${this.slugName(listItem.item)}`}>
                             <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                             {this.courseName(listItem as { item: ICourse, count: number })}
                           </Menu.Item>
@@ -237,7 +238,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                       {
                         menuAddedList.map((listItem, index) => (
                           <Menu.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/explorer/opportunities/${this.slugName(listItem.item)}`}>
+                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${this.slugName(listItem.item)}`}>
                             <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                             {this.opportunityItemName(listItem as { item: IOpportunity, count: number })}
                           </Menu.Item>
@@ -260,7 +261,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                 {
                   menuAddedList.map((listItem, index) => (
                     <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}>
                       <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                       {this.itemName(listItem)}
                     </Menu.Item>
@@ -271,7 +272,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                 {
                   menuCareerList.map((listItem, index) => (
                     <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/explorer/interests/${this.slugName(listItem.item)}`}>
+                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}>
                       <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                       {this.itemName(listItem)}
                     </Menu.Item>
@@ -289,7 +290,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                 {
                   menuAddedList.map((listItem, index) => (
                     <Menu.Item as={NavLink} key={index} exact={true}
-                               to={`${baseRoute}/explorer/career-goals/${this.slugName(listItem.item)}`}>
+                               to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${this.slugName(listItem.item)}`}>
                       <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
                       {this.itemName(listItem)}
                     </Menu.Item>
@@ -304,4 +305,12 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
   }
 }
 
-export default withRouter(CardExplorerMenuNonMobileWidget);
+export const CardExplorerMenuNonMobileWidgetCon = withTracker((props) => {
+  const username = Router.getUsername(props.match);
+  const profile = Users.getProfile(username);
+  return {
+    profile,
+  };
+})(CardExplorerMenuNonMobileWidget);
+export const CardExplorerMenuNonMobileWidgetContainer = withRouter(CardExplorerMenuNonMobileWidgetCon);
+export default CardExplorerMenuNonMobileWidgetContainer;
