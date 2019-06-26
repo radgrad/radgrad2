@@ -227,10 +227,12 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
         {/* ####### Main Dropdown Menu ####### */}
         <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
         <br/>
-        <CardExplorerMenuNonMobileWidget menuAddedList={this.props.menuAddedList} type={this.props.type}
+        <CardExplorerMenuNonMobileWidget menuAddedList={this.props.menuAddedList}
+                                         type={this.props.type}
                                          role={this.props.role}
                                          menuCareerList={isTypeInterest ? this.props.menuCareerList : undefined}/>
-        <CardExplorerMenuMobileWidget menuAddedList={this.props.menuAddedList} type={this.props.type}
+        <CardExplorerMenuMobileWidget menuAddedList={this.props.menuAddedList}
+                                      type={this.props.type}
                                       role={this.props.role}
                                       menuCareerList={isTypeInterest ? this.props.menuCareerList : undefined}/>
       </React.Fragment>
