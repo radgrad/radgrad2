@@ -20,14 +20,6 @@ const schema = new SimpleSchema({
   sendToLevels: { type: Boolean, optional: true },
   sendToAll: { type: Boolean, optional: true },
 })
-const options = [
-  { key: '1', text: 'Level 1', value: 1 },
-  { key: '2', text: 'Level 2', value: 2 },
-  { key: '3', text: 'Level 3', value: 3 },
-  { key: '4', text: 'Level 4', value: 4 },
-  { key: '5', text: 'Level 5', value: 5 },
-  { key: '6', text: 'Level 6', value: 6 },
-]
 
 interface IAdminAnalyticsNewsletterWidget {
 
@@ -66,55 +58,96 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   /**Auto Forms*/
-  // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
+    // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
   private handleChangeText = (name, value) => {
-    console.log('handle change', name, value);
     let intermediateState = {};
     intermediateState[name] = value;
-    console.log(intermediateState);
-    this.setState(intermediateState);
-    // console.log('after set state',this.state);
+    this.setState(intermediateState, () => {
+      console.log('callback from set state handle change', this.state);
+    });
   }
 
   private onClickPreviewSave = () => {
     // put in conditional to check if subject has been entered
-    console.log('on Click preview ')
     this.setState({ onSubmitInputMessage: this.state.inputMessage });
     console.log(this.state);
   }
 
 
-  private onClickSendToStudentsToo = () => {
-    if (this.state.sendToStudentsToo == true && this.state.onSubmitInputMessage.length !== 0) {
+  private onClickSendStudentsToo = () => {
+    if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
       this.setState({
         message: {
           subjectLine: this.state.subjectLine,
-          bcc: this.state.bcc,
+          bcc: this.state.bcc.split(','),
           inputMessage: this.state.onSubmitInputMessage,
-          studentEmails: this.state.studentEmails
+          recipient: this.state.studentEmails.split(','),
         }
+      }, () => {
+        console.log('callback from set state on click send students', this.state.message);
+        this.generateEmail(this.state.message);
       });
-      console.log('after set state', this.state.message);
-      this.generateEmail(this.state.message);
       Swal.fire(
-        'Good Job!'
+        'Good Job, email sent!'
       )
     } else {
       Swal.fire(
         'You forgot to fill something out!'
       )
     }
+  }
+  private onClickSendLevels = () => {
+    if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
+      this.setState({
+        message: {
+          subjectLine: this.state.subjectLine,
+          bcc: this.state.bcc.split(','),
+          inputMessage: this.state.onSubmitInputMessage,
+          reicipent: this.state.level,
+        }
+      }, () => {
+        console.log('callback from set state on click send levels', this.state.message);
+        this.generateEmail(this.state.message);
+      });
+      Swal.fire(
+        'Good Job, email sent!'
+      )
+    } else {
+      Swal.fire(
+        'You forgot to fill something out!'
+      )
+    }
+  }
 
-
+  private onClickSendToAll = () => {
+    if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
+      this.setState({
+        message: {
+          subjectLine: this.state.subjectLine,
+          bcc: this.state.bcc.split(','),
+          inputMessage: this.state.onSubmitInputMessage,
+          reicipent: this.state.level,
+        }
+      }, () => {
+        console.log('callback from set state on click send all', this.state.message);
+        this.generateEmail(this.state.message);
+      });
+      Swal.fire(
+        'Good Job, email sent!'
+      )
+    } else {
+      Swal.fire(
+        'You forgot to fill something out!'
+      )
+    }
   }
 
   private generateEmail = (message) => {
+
     console.log('generate emails', message);
   }
 
   public render() {
-    console.log('after set state public render', this.state);
-    console.log(this.state.message);
     return (
       <div>
         AutoForms
@@ -129,16 +162,16 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
                 <AdminAnalyticsNewsletterMessagePreviewWidget message={this.state.onSubmitInputMessage}/>
               </div>
             </Form.Group>
-            <Button basic color='green' onClick={this.onClickPreviewSave}>Preview And Save</Button>
+            <Button color='green' basic onClick={this.onClickPreviewSave}>Preview And Save</Button>
             <Header as='h4' dividing>SEND NEWSLETTER</Header>
             <TextField name='studentEmails'/>
             <BoolField name='sendToStudentsToo'></BoolField>
-            <Button basic color='green' onClick={this.onClickSendToStudentsToo}>Send To Admin</Button>
+            <button disabled={!this.state.sendToStudentsToo} onClick={this.onClickSendStudentsToo}>Send To Admin</button>
             <NumField name='level'/>
             <BoolField name='sendToLevels'/>
-            <Button basic color='green'>Send To Students</Button>
+            <button disabled={!this.state.sendToLevels} onClick={this.onClickSendLevels}>Send To Students</button>
             <BoolField name='sendToAll'/>
-            <Button basic color='green'>Send To All</Button>
+            <button disabled={!this.state.sendToAll} onClick={this.onClickSendToAll}>Send To All</button>
           </AutoForm>
         </Segment>
       </div>
