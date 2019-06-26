@@ -8,11 +8,18 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 
 /* global document */
 
-interface IAdvisorPendingVerificationWidgetProps {
+interface IEventVerificationsWidgetProps {
   eventOpportunities: IOpportunity[];
 }
 
-class AdvisorEventVerificationWidget extends React.Component<IAdvisorPendingVerificationWidgetProps> {
+/**
+ * This component naively displays a supplied array of **IEventOpportunities** and a form to verify individual students.
+ * The parent component is expected to handle permissions and filtering (eventDate property **is not checked** in this
+ * component).
+ * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
+ * @returns {Segment}
+ */
+class EventVerificationsWidget extends React.Component<IEventVerificationsWidgetProps> {
   state = { student: '', opportunity: '', log: '' };
 
   onChange = (e, { name, value }) => this.setState({ ...this.state, [name]: value });
@@ -44,7 +51,7 @@ class AdvisorEventVerificationWidget extends React.Component<IAdvisorPendingVeri
   }
 
 
-  componentDidUpdate(prevProps: Readonly<IAdvisorPendingVerificationWidgetProps>, prevState: Readonly<{}>): void {
+  componentDidUpdate(prevProps: Readonly<IEventVerificationsWidgetProps>, prevState: Readonly<{}>): void {
     if (prevState !== this.state) {
       this.scrollToBottom();
     }
@@ -80,4 +87,4 @@ class AdvisorEventVerificationWidget extends React.Component<IAdvisorPendingVeri
   }
 }
 
-export default AdvisorEventVerificationWidget;
+export default EventVerificationsWidget;
