@@ -3607,6 +3607,57 @@
           ],
           "feedType": "new-user",
           "timestamp": "2017-07-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu",
+            "abi@hawaii.edu"
+          ],
+          "feedType": "new-user",
+          "timestamp": "2017-08-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2014",
+          "feedType": "verified-opportunity",
+          "timestamp": "2017-09-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu",
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2010",
+          "feedType": "verified-opportunity",
+          "timestamp": "2017-10-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu"
+          ],
+          "course": "ics111",
+          "feedType": "new-course-review",
+          "timestamp": "2017-11-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "google-summer-of-code",
+          "feedType": "new-opportunity-review",
+          "timestamp": "2017-12-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu"
+          ],
+          "level": 5,
+          "feedType": "new-level",
+          "timestamp": "2018-12-29T17:58:22.534Z"
         }
       ]
     },
