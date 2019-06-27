@@ -16,6 +16,7 @@ import { getOpportunityTypeName, semesters, teaser } from '../../components/land
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {
@@ -64,7 +65,8 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
                   </Grid.Column>
                 </Grid>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.opportunity.description}/>
+                <Markdown escapeHtml={true} source={this.props.opportunity.description}
+                          renderers={{ link: Router.renderLink }}/>
                 <b>Teaser:</b><br/>
                 {teaser(this.props.opportunity) ? <YouTube videoId={videoID} opts={opts}/> : <Label>N/A</Label>}
                 <Header as="h4" dividing={true}>Opportunity Interests</Header>

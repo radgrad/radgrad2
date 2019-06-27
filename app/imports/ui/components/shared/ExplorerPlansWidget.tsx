@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Segment, Header, Button, Divider, Grid } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
@@ -41,12 +41,6 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
     const profile = Users.getProfile(this.getUsername());
     return profile.academicPlanID !== plan._id;
   }
-
-  private routerLink = (props: any): JSX.Element => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
 
   private handleAddPlan = (e: any): void => {
     e.preventDefault();
@@ -109,7 +103,7 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
                     {
                       descriptionPair.value ?
                         <Markdown escapeHtml={true} source={descriptionPair.value}
-                                  renderers={{ link: this.routerLink }}/>
+                                  renderers={{ link: Router.renderLink }}/>
                         :
                         <React.Fragment> N/A <br/></React.Fragment>
                     }

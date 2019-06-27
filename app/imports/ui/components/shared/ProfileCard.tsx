@@ -51,12 +51,6 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     return description;
   };
 
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private getUsername = () => Router.getUsername(this.props.match);
 
   private buildRouteName = (item) => {
@@ -184,7 +178,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         </Card.Content>
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: this.routerLink }}/>
+                    renderers={{ link: Router.renderLink }}/>
         </Card.Content>
         <Card.Content>
           STUDENTS PARTICIPATING &middot; {itemParticipation}

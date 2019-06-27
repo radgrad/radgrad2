@@ -9,6 +9,7 @@ import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -133,7 +134,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                     <StudentExplorerReviewStarsWidget rating={rating}/>
                     <br/>
                     <div style={commentsStyle}>
-                      <Markdown escapeHtml={true} source={comments}/>
+                      <Markdown escapeHtml={true} source={comments} renderers={{ link: Router.renderLink }}/>
                     </div>
                   </Grid.Column>
                 </Grid>
@@ -187,7 +188,8 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                             <StudentExplorerReviewStarsWidget rating={aReview.rating}/>
                             <br/>
                             <div style={commentsStyle}>
-                              <Markdown escapeHtml={true} source={aReview.comments}/>
+                              <Markdown escapeHtml={true} source={aReview.comments}
+                                        renderers={{ link: Router.renderLink }}/>
                             </div>
                           </Grid.Column>
                         </Grid>

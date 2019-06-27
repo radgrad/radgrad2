@@ -157,15 +157,6 @@ class TermCard extends React.Component<ITermCard> {
       }
     });
   }
-  /*
-    Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-    See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
 
   private buildRouteName = (item, type) => {
     const itemName = this.itemSlug(item);
@@ -207,7 +198,7 @@ class TermCard extends React.Component<ITermCard> {
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={itemShortDescription} renderers={{ link: this.routerLink }}/>
+          <Markdown escapeHtml={true} source={itemShortDescription} renderers={{ link: Router.renderLink }}/>
           <InterestList item={item} size="mini"/>
         </Card.Content>
 

@@ -27,16 +27,6 @@ class ExplorerCard extends React.Component<IExplorerCard> {
     return description;
   }
 
-  /*
-  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private getUsername = () => this.props.match.params.username;
 
   private buildRouteName = (item) => {
@@ -80,7 +70,7 @@ class ExplorerCard extends React.Component<IExplorerCard> {
 
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: this.routerLink }}/>
+                    renderers={{ link: Router.renderLink }}/>
         </Card.Content>
 
         <Link to={this.buildRouteName(this.props.item)}>

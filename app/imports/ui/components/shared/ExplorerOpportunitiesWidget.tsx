@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
@@ -109,12 +109,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
     }
     return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
   }
-
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const segmentGroupStyle = { backgroundColor: 'white' };
@@ -280,7 +274,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: this.routerLink }}/>
+                                          renderers={{ link: Router.renderLink }}/>
                                 :
                                 <React.Fragment> N/A </React.Fragment>
                             }

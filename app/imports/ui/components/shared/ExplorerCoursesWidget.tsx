@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
@@ -145,12 +145,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     return review[0];
   }
 
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private buildRouteName = (slug) => {
     const route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
     return route;
@@ -265,7 +259,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <div style={breakWordStyle}>
-                                  <Markdown source={descriptionPair.value} renderers={{ link: this.routerLink }}/>
+                                  <Markdown source={descriptionPair.value} renderers={{ link: Router.renderLink }}/>
                                   <br/>
                                 </div>
                                 :
@@ -292,7 +286,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: this.routerLink }}/>
+                                          renderers={{ link: Router.renderLink }}/>
                                 :
                                 <React.Fragment> N/A <br/></React.Fragment>
                             }
