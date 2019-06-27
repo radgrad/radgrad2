@@ -20,6 +20,7 @@ import NamePill from '../shared/NamePill';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { selectOpportunity, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IInspectorOpportunityViewProps {
   opportunityID: string;
@@ -150,7 +151,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
 
         <b>When: {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}</b>
         <p><b>Description:</b></p>
-        <Markdown escapeHtml={true} source={opportunity.description}/>
+        <Markdown escapeHtml={true} source={opportunity.description} renderers={{ link: Router.renderLink }}/>
         <p/>
         <p><b>Interests:</b></p>
         <UserInterestList userID={this.props.studentID} interestIDs={opportunity.interestIDs}/>

@@ -3,6 +3,7 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminDataModelAccordionProps {
   id: string;
@@ -46,7 +47,8 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-            <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}/>
+              <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}
+                                                        renderers={{ link: Router.renderLink }}/>
             </React.Fragment>
           ))}
           <p>

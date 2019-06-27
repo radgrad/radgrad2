@@ -3,6 +3,7 @@ import { Accordion, Button } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminCollectionAccordionProps {
   id: string;
@@ -40,7 +41,9 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
               <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? // eslint-disable-line
-              <Markdown escapeHtml={true} source={descriptionPair.value}/> : typeof descriptionPair.value === 'undefined' ? ' ' : <p>{descriptionPair.value.join(', ')}</p>}
+              <Markdown escapeHtml={true} source={descriptionPair.value}
+                        renderers={{ link: Router.renderLink }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
+                <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
           <p>
