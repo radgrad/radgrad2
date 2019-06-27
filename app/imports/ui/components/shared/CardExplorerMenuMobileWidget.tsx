@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Dropdown, Responsive } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import * as Router from './RouterHelperFunctions';
 import {
@@ -17,6 +17,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
 
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -167,15 +168,6 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
 
   // These are functions to help build the Dropdown for mobile
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const iconStyle: React.CSSProperties = {
-      position: 'absolute',
-      marginLeft: '-20px',
-    };
-
-    const baseUrl = this.props.match.url;
-    const username = this.getUsername();
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
 
     const { menuAddedList, menuCareerList } = this.props;
     const isStudent = this.isRoleStudent();
@@ -195,14 +187,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
                         <Dropdown.Divider/>
                         {
                           menuAddedList.map((listItem, index) => (
-                            <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${this.slugName(listItem.item)}`}
-                                           text={(
-                                             <React.Fragment>
-                                               <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                               {this.itemName(listItem)}
-                                             </React.Fragment>
-                                           )}/>
+                            <ExplorerMenuMobileItem type={EXPLORER_TYPE.ACADEMICPLANS} listItem={listItem} key={index} match={this.props.match}/>
                           ))
                         }
                       </Dropdown.Menu>
@@ -224,14 +209,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
                         <Dropdown.Divider/>
                         {
                           menuAddedList.map((listItem, index) => (
-                            <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${this.slugName(listItem.item)}`}
-                                           text={(
-                                             <React.Fragment>
-                                               <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                               {this.courseName(listItem as { item: ICourse, count: number })}
-                                             </React.Fragment>
-                                           )}/>
+                            <ExplorerMenuMobileItem type={EXPLORER_TYPE.COURSES} listItem={listItem} key={index} match={this.props.match}/>
                           ))
                         }
                       </Dropdown.Menu>
@@ -253,14 +231,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
                         <Dropdown.Divider/>
                         {
                           menuAddedList.map((listItem, index) => (
-                            <Dropdown.Item as={NavLink} key={index} exact={true}
-                                           to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${this.slugName(listItem.item)}`}
-                                           text={(
-                                             <React.Fragment>
-                                               <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                               {this.itemName(listItem)}
-                                             </React.Fragment>
-                                           )}/>
+                            <ExplorerMenuMobileItem type={EXPLORER_TYPE.OPPORTUNITIES} listItem={listItem} key={index} match={this.props.match}/>
                           ))
                         }
                       </Dropdown.Menu>
@@ -280,14 +251,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
                   <Dropdown.Divider/>
                   {
                     menuAddedList.map((listItem, index) => (
-                      <Dropdown.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}
-                                     text={(
-                                       <React.Fragment>
-                                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                         {this.itemName(listItem)}
-                                       </React.Fragment>
-                                     )}/>
+                      <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={index} match={this.props.match}/>
                     ))
                   }
 
@@ -295,14 +259,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
                   <Dropdown.Divider/>
                   {
                     menuCareerList.map((listItem, index) => (
-                      <Dropdown.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${this.slugName(listItem.item)}`}
-                                     text={(
-                                       <React.Fragment>
-                                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                         {this.itemName(listItem)}
-                                       </React.Fragment>
-                                     )}/>
+                      <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={index} match={this.props.match}/>
                     ))
                   }
                 </Dropdown.Menu>
@@ -318,14 +275,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
                   <Dropdown.Divider/>
                   {
                     menuAddedList.map((listItem, index) => (
-                      <Dropdown.Item as={NavLink} key={index} exact={true}
-                                     to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${this.slugName(listItem.item)}`}
-                                     text={(
-                                       <React.Fragment>
-                                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                                         {this.itemName(listItem)}
-                                       </React.Fragment>
-                                     )}/>
+                      <ExplorerMenuMobileItem type={EXPLORER_TYPE.CAREERGOALS} listItem={listItem} key={index} match={this.props.match}/>
                     ))
                   }
                 </Dropdown.Menu>
