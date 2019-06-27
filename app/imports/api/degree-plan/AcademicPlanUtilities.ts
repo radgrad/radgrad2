@@ -159,36 +159,47 @@ export function removeChoiceFromPlanRaw(choice: string, termNumber: number, choi
 }
 
 export function planHasCoursesRaw(coursesPerAcademicTerm: number[], yearNum: number): boolean {
-  const quarterSystem = coursesPerAcademicTerm.length % 4 === 0;
+  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
   let start;
   let end;
   let courses;
   if (quarterSystem) {
     start = yearNum * 4;
-    end = start + 5;
+    end = start + 4;
     courses = coursesPerAcademicTerm.slice(start, end);
   } else {
     start = yearNum * 3;
-    end = start + 4;
+    end = start + 3;
     courses = coursesPerAcademicTerm.slice(start, end);
   }
+  // console.log('planHasCoursesRaw', start, end, courses, _.some(courses));
   return _.some(courses);
 }
 
-// export function removeYearFromPlanRaw(coursesPerAcademicTerm: number[], yearNum: number): number[] {
-//   const quarterSystem = coursesPerAcademicTerm.length % 4 === 0;
-//   const start = quarterSystem ? yearNum * 4 : yearNum * 3;
-//   if (planHasCoursesRaw(coursesPerAcademicTerm, yearNum)) {
-//
-//   }
-// }
+/**
+ * Removes the year from coursesPerAcademicTerm if the coursesPerAcademicTerm are all 0.
+ * @param {number[]} coursesPerAcademicTerm
+ * @param {number} yearNum
+ * @returns {number[]}
+ */
+export function removeYearFromPlanRaw(coursesPerAcademicTerm: number[], yearNum: number): number[] {
+  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const start = quarterSystem ? yearNum * 4 : yearNum * 3;
+  const numTerms = quarterSystem ? 4 : 3;
+  if (!planHasCoursesRaw(coursesPerAcademicTerm, yearNum)) {
+    return coursesPerAcademicTerm.splice(start, numTerms);
+  }
+  return coursesPerAcademicTerm;
+}
 
-// export function removeEmptyYearsRaw(coursesPerAcademicTerm: number[]): number[] {
-//   const quarterSystem = coursesPerAcademicTerm.length % 4 === 0;
-//   if (quarterSystem) {
-//
-//   } else {
-//
-//   }
-//   return [];
-// }
+/**
+ * Removes the empty years from coursesPerAcademicTerm.
+ * @param {number[]} coursesPerAcademicTerm
+ * @returns {number[]}
+ */
+export function removeEmptyYearsRaw(coursesPerAcademicTerm: number[]): number[] {
+  for (let i = 4; i >= 0; i--) {
+    removeYearFromPlanRaw(coursesPerAcademicTerm, i);
+  }
+  return coursesPerAcademicTerm;
+}

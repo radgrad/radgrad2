@@ -4,21 +4,27 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import AutoForm from 'uniforms-semantic/AutoForm';
+import LongTextField from 'uniforms-semantic/LongTextField';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
-import { IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { PlanChoiceCollection, PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { academicTermToName, docToShortName } from '../shared/AdminDataModelHelperFunctions';
+import {
+  academicTermNameToDoc,
+  academicTermToName,
+  degreeShortNameToSlug,
+  docToShortName,
+} from '../shared/AdminDataModelHelperFunctions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import {
-  addChoiceToRaw, removeChoiceFromPlanRaw,
+  addChoiceToRaw, removeChoiceFromPlanRaw, removeEmptyYearsRaw,
   reorderChoicesInTermRaw,
   updateChoiceCounts,
 } from '../../../api/degree-plan/AcademicPlanUtilities';
@@ -36,6 +42,8 @@ import {
   stripPrefix,
 } from './AcademicPlanBuilderUtilities';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import slugify, { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IAdvisorAPBuilderWidgetProps {
   degrees: IDesiredDegree[];
@@ -199,7 +207,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private handleDropInCombineArea(dropResult) {
-    console.log(COMBINE_AREA, dropResult);
+    // console.log(COMBINE_AREA, dropResult);
     const { combineChoice } = this.state;
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
     const index = dropResult.destination.index;
@@ -225,6 +233,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private handleDropInDeleteArea(dropResult) {
+    // console.log(DELETE_AREA, dropResult);
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
     const source = dropResult.source.droppableId;
     if (source.startsWith(PLAN_AREA)) {
@@ -242,15 +251,52 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
       } else {
         this.setState({ showConfirmDelete: true, deletePlanChoice: choice });
       }
+    } else if (source === COMBINE_AREA) {
+      this.setState({ combineChoice: '' });
     }
   }
 
   private handleSavePlan = (doc) => {
     console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
+    const truncatedCoursesPerTerm = removeEmptyYearsRaw(this.state.coursesPerTerm);
+    console.log(truncatedCoursesPerTerm, this.state.choiceList);
+    const collectionName = AcademicPlans.getCollectionName();
+    const name = doc.name;
+    const description = doc.description;
+    const term = academicTermNameToDoc(doc.term);
+    const academicTerm = Slugs.getNameFromID(term.slugID);
+    const degreeSlug = degreeShortNameToSlug(doc.degree);
+    const slug = `${slugify(name)}-${degreeSlug}-${academicTerm}`;
+    const definitionData: IAcademicPlanDefine = {
+      name,
+      description,
+      academicTerm,
+      degreeSlug,
+      courseList: this.state.choiceList,
+      coursesPerAcademicTerm: truncatedCoursesPerTerm,
+      slug,
+    };
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Add academic plan failed',
+          text: error.message,
+          type: 'error',
+        });
+        console.error('Error adding academic plan. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Add academic plan succeeded',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   }
 
   private onDragEnd = (result) => {
-    console.log('onDragEnd %o', result);
+    // console.log('onDragEnd %o', result);
     const dropArea = getDropDestinationArea(result.destination.droppableId);
     switch (dropArea) {
       case PLAN_AREA:
@@ -275,8 +321,9 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
-      degree: { type: String, allowedValues: degreeNames },
+      degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
       name: String,
+      description: String,
       term: {
         type: String,
         allowedValues: termNames,
@@ -284,7 +331,6 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
       },
     });
     const { choiceList, coursesPerTerm } = this.state;
-    // console.log(this.state);
     const paddingTopStyle = {
       marginTop: 10,
     };
@@ -297,6 +343,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
             <TextField name="name"/>
             <SelectField name="term"/>
           </Form.Group>
+          <LongTextField name="description"/>
           <SubmitField className="basic green" value="Save Academic Plan"/>
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -331,7 +378,6 @@ export default withTracker(() => {
   const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1, year: 1 } });
   const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
   const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
-  const years = _.uniq(_.map(terms, (t) => t.year));
   return {
     degrees,
     terms,
