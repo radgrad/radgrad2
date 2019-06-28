@@ -6,9 +6,9 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import AdvisorPendingVerificationWidget from '../../components/advisor/AdvisorPendingVerificationWidget';
-import AdvisorEventVerificationWidget from '../../components/advisor/AdvisorEventVerificationWidget';
-import AdvisorCompletedVerificationWidget from '../../components/advisor/AdvisorCompletedVerificationWidget';
+import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
+import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
+import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 // eslint-disable-next-line no-unused-vars
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
@@ -38,11 +38,11 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
         <Container fluid={false}>
           <Grid stackable={true}>
             <Grid.Column width={14}>
-              <Grid.Row style={{ paddingBottom: '14px', paddingTop: '14px' }}>
+              <Grid.Row style={{ paddingBottom: '0px', paddingTop: '14px' }}>
                 <HelpPanelWidgetContainer/>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Row>
+            <Grid.Row style={{ paddingTop: '0px' }}>
               <Grid.Column width={3}>
                 <Menu vertical={true} text={true}>
                   <Menu.Item name={'pending'}
@@ -63,13 +63,17 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
                 </Menu>
               </Grid.Column>
               <Grid.Column width={11}>
-                {activeItem === 'pending' ? <AdvisorPendingVerificationWidget
-                  pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/> : undefined}
+                {activeItem === 'pending' ?
+                  <PendingVerificationsWidget
+                    pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/>
+                  : undefined}
                 {activeItem === 'event' ?
-                  <AdvisorEventVerificationWidget eventOpportunities={this.props.eventOpportunities}/> : undefined}
+                  <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities}/>
+                  : undefined}
                 {activeItem === 'completed' ?
-                  <AdvisorCompletedVerificationWidget username={this.props.match.params.username}
-                                                      completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/> : undefined}
+                  <CompletedVerificationsWidget username={this.props.match.params.username}
+                                                completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
+                  : undefined}
               </Grid.Column>
             </Grid.Row>
             {/* </Grid.Column> */}

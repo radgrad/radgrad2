@@ -13,6 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface ICourseExplorerProps {
   course: ICourse;
@@ -54,7 +55,8 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
                   </Grid.Column>
                 </Grid>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.course.description}/>
+                <Markdown escapeHtml={true} source={this.props.course.description}
+                          renderers={{ link: Router.renderLink }}/>
                 <Header as="h4" dividing={true}>Prerequisites</Header>
                 <LandingPrerequisiteList prerequisites={this.props.course.prerequisites}/>
                 <Header as="h4" dividing={true}>Course Interests</Header>

@@ -6,13 +6,12 @@ import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollect
 
 interface ILandingPlanChoicePillProps {
   choice: string;
-  index: number;
 }
 
 const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (
-    <Grid.Row style={getSatisfiedStyle()}>
-      <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
-    </Grid.Row>
-  );
+  <Grid.Row style={getSatisfiedStyle()}>
+    <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+  </Grid.Row>
+);
 
 export default LandingPlanChoicePill;

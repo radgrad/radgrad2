@@ -14,11 +14,18 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { processPendingVerificationMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';
 
-interface IAdvisorPendingVerificationWidgetProps {
+interface IPendingVerificationsWidgetProps {
   pendingVerifications: IVerificationRequest[];
 }
 
-class AdvisorPendingVerificationWidget extends React.Component<IAdvisorPendingVerificationWidgetProps> {
+/**
+ * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
+ * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this
+ * component).
+ * @param pendingVerifications {IVerificationRequest[]}
+ * @returns {Segment}
+ */
+class PendingVerificationsWidget extends React.Component<IPendingVerificationsWidgetProps> {
   cachedStudent = undefined;
   cachedSponsor = undefined;
 
@@ -109,10 +116,11 @@ class AdvisorPendingVerificationWidget extends React.Component<IAdvisorPendingVe
               </Grid.Column>
             </Grid.Row>
           </Grid>)}
+          {this.props.pendingVerifications.length < 1 && <i>No pending requests.</i>}
         </Container>
       </Segment>
     );
   }
 }
 
-export default AdvisorPendingVerificationWidget;
+export default PendingVerificationsWidget;

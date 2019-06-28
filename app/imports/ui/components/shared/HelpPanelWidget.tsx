@@ -6,6 +6,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
 import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import * as Router from './RouterHelperFunctions';
 
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]
@@ -50,7 +51,7 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
                 <Icon name="help circle"/>
               </Accordion.Title>
               <Accordion.Content active={this.state.activeIndex === 0}>
-                <Markdown escapeHtml={false} source={helpText}/>
+                <Markdown escapeHtml={false} source={helpText} renderers={{ link: Router.renderLink }}/>
               </Accordion.Content>
             </Accordion>
           </Message>

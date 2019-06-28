@@ -28,7 +28,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -64,11 +64,11 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getMenuWidget = (): JSX.Element => {
     const role = this.getRole();
     switch (role) {
-      case 'student':
+      case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget/>;
-      case 'mentor':
+      case URL_ROLES.MENTOR:
         return <MentorPageMenuWidget/>;
-      case 'faculty':
+      case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget/>;
       default:
         return <React.Fragment/>;
@@ -79,19 +79,19 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getAddedList = (): { [key: string]: any }[] => {
     const type = this.getType();
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.addedPlans();
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.addedCareerGoals();
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.addedCourses();
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return this.addedDegrees();
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.addedInterests();
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.addedOpportunities();
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return undefined;
       default:
         return undefined;
@@ -101,7 +101,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getCareerList = (): { [key: string]: any }[] => {
     const type = this.getType();
     switch (type) {
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.addedCareerInterests();
       default:
         return undefined;
@@ -395,10 +395,10 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
     const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
     const userID = Router.getUserIdFromRoute(this.props.match);
     const role = Router.getRoleByUrl(this.props.match);
-    if (role === 'faculty') {
+    if (role === URL_ROLES.FACULTY) {
       return _.filter(allOpportunities, o => o.sponsorID === userID);
     }
-    if (role === 'student') {
+    if (role === URL_ROLES.STUDENT) {
       _.forEach(allOpportunities, (opportunity) => {
         const oi = OpportunityInstances.find({
           studentID: userID,
@@ -510,7 +510,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
           <Grid.Column width={13}>
             {
               type === EXPLORER_TYPE.ACADEMICPLANS ?
-                <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item} role={role}/>
+                <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item}/>
                 : ''
             }
             {
@@ -522,7 +522,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
             {
               type === EXPLORER_TYPE.COURSES ?
                 <ExplorerCoursesWidget name={name} shortName={isTypeCourses && shortName ? shortName : undefined}
-                                       descriptionPairs={descriptionPairs} item={item} role={role}
+                                       descriptionPairs={descriptionPairs} item={item}
                                        completed={(isTypeCourses && isCourseCompleted !== undefined) ? isCourseCompleted : undefined}/>
                 : ''
             }

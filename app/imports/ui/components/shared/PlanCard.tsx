@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { DragDropContext } from 'react-beautiful-dnd';
 import { Card, Button, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
@@ -10,6 +9,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import ProfileAdd from './ProfileAdd';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 class PlanCard extends React.Component<IPlanCard> {
   constructor(props) {
@@ -34,7 +35,7 @@ class PlanCard extends React.Component<IPlanCard> {
   private interestedStudentsHelper = (item: IAcademicPlan, type: string): object[] => {
     const interested = [];
     let instances = StudentProfiles.find({}).fetch();
-    if (type === 'plans') {
+    if (type === EXPLORER_TYPE.ACADEMICPLANS) {
       instances = _.filter(instances, (profile) => profile.academicPlanID === item._id);
     }
     _.forEach(instances, (p) => {
@@ -46,21 +47,11 @@ class PlanCard extends React.Component<IPlanCard> {
   }
 
   private buildRouteName = (slug: string): string => {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-    return `${baseRoute}/explorer/plans/${slug}`;
+    const route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slug}`);
+    return route;
   }
 
   private itemSlug = (item: IAcademicPlan): string => Slugs.findDoc(item.slugID).name;
-
-  // Note, in the context of PlanCard (/explorer/plans), this function doesn't do anything because the Draggables and
-  // Droppables are set to disabled when the user is in the /explorer/plans page. This is just to get rid of the error
-  // saying that onDragEnd field for <DragDropContext/> is required.
-  private handleDragEnd = () => {
-    //  do nothing
-  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { type, canAdd, item } = this.props;
@@ -76,9 +67,7 @@ class PlanCard extends React.Component<IPlanCard> {
 
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}/>
-          <DragDropContext onDragEnd={this.handleDragEnd}>
-            <AcademicPlanStaticViewer plan={item}/>
-          </DragDropContext>
+          <AcademicPlanStaticViewer plan={item}/>
         </Card.Content>
 
         <Card.Content>

@@ -8,12 +8,21 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { Users } from '../../../api/user/UserCollection';
 import { verificationRequestsUpdateStatusMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 
-interface IAdvisorCompletedVerificationWidgetProps {
+interface ICompletedVerificationsWidgetProps {
   completedVerifications: IVerificationRequest[];
   username: string;
 }
 
-class AdvisorCompletedVerificationWidget extends React.Component<IAdvisorCompletedVerificationWidgetProps> {
+/**
+ * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
+ * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this
+ * component).
+ * @param completedVerifications {IVerificationRequest[]}
+ * @param username {string} Current user's username. Used primarily for getting name of user when making changes to
+ * records.
+ * @returns {Segment}
+ */
+class CompletedVerificationsWidget extends React.Component<ICompletedVerificationsWidgetProps> {
   buildHeaderString = (verificationRequest: IVerificationRequest) => {
     const id = verificationRequest._id;
     const opp: IOpportunity = VerificationRequests.getOpportunityDoc(id);
@@ -86,10 +95,11 @@ class AdvisorCompletedVerificationWidget extends React.Component<IAdvisorComplet
               </Grid.Column>
             </Grid.Row>
           </Grid>)}
+          {this.props.completedVerifications.length < 1 && <i>No completed verifications in database.</i>}
         </Container>
       </Segment>
     );
   }
 }
 
-export default AdvisorCompletedVerificationWidget;
+export default CompletedVerificationsWidget;

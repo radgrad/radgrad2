@@ -7,7 +7,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 interface IProfileAddProps {
   item: IAcademicPlan;
@@ -27,12 +28,7 @@ class ProfileAdd extends React.Component<IProfileAddProps> {
     super(props);
   }
 
-  private getRoleByUrl = (): string => {
-    const url = this.props.match.url;
-    const username = this.props.match.params.username;
-    const indexUsername = url.indexOf(username);
-    return url.substring(1, indexUsername - 1);
-  }
+  private getRole = (): string => Router.getRoleByUrl(this.props.match);
 
   private handleAddToProfile = (e: any): void => {
     e.preventDefault();
@@ -42,11 +38,11 @@ class ProfileAdd extends React.Component<IProfileAddProps> {
       const updateData: { [key: string]: any } = {};
       const profile = Users.getProfile(username);
       updateData.id = profile._id;
-      const role = this.getRoleByUrl();
+      const role = this.getRole();
       let collectionName = '';
-      if (role === 'student') {
+      if (role === URL_ROLES.STUDENT) {
         collectionName = StudentProfiles.getCollectionName();
-      } else if (role === 'faculty') {
+      } else if (role === URL_ROLES.FACULTY) {
         collectionName = FacultyProfiles.getCollectionName();
       } else {
         collectionName = MentorProfiles.getCollectionName();
@@ -54,7 +50,7 @@ class ProfileAdd extends React.Component<IProfileAddProps> {
       if (type === EXPLORER_TYPE.CAREERGOALS) {
         updateData.careerGoals = profile.careerGoalIDs;
         updateData.careerGoals.push(item._id);
-      } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+      } else if (type === EXPLORER_TYPE.INTERESTS) {
         updateData.interests = profile.interestIDs;
         updateData.interests.push(item._id);
       } else if (type === EXPLORER_TYPE.ACADEMICPLANS) {
@@ -70,7 +66,7 @@ class ProfileAdd extends React.Component<IProfileAddProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { type } = this.props;
-    const isTypePlans = type === 'plans';
+    const isTypePlans = type === EXPLORER_TYPE.ACADEMICPLANS;
 
     return (
       isTypePlans ?

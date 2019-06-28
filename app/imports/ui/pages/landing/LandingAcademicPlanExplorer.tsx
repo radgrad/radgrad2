@@ -10,6 +10,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingAcademicPlanViewer from '../../components/landing/LandingAcademicPlanViewer';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface IAcademicPlanExplorerProps {
   plan: IAcademicPlan;
@@ -42,7 +43,8 @@ class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerP
                   <span>{this.props.plan.name}</span>
                 </Header>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.plan.description}/>
+                <Markdown escapeHtml={true} source={this.props.plan.description}
+                          renderers={{ link: Router.renderLink }}/>
                 <hr/>
                 <LandingAcademicPlanViewer plan={this.props.plan}/>
               </Segment>

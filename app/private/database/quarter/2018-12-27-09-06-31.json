@@ -3651,6 +3651,76 @@
           ],
           "feedType": "new-user",
           "timestamp": "2017-07-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "betty@hawaii.edu",
+            "abi@hawaii.edu"
+          ],
+          "feedType": "new-user",
+          "timestamp": "2017-08-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2014",
+          "feedType": "verified-opportunity",
+          "timestamp": "2017-09-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu",
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2010",
+          "feedType": "verified-opportunity",
+          "timestamp": "2017-10-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "level": 5,
+          "feedType": "new-level",
+          "timestamp": "2018-12-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "alfred@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2010",
+          "feedType": "verified-opportunity"
+        },
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "level": 5,
+          "feedType": "new-level"
+        },
+        {
+          "user": [
+            "betty@hawaii.edu"
+          ],
+          "feedType": "new-user"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "course": "ics_111",
+          "feedType": "new-course-review"
+        },
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "kaggle",
+          "feedType": "new-opportunity-review"
         }
       ]
     },
@@ -3732,7 +3802,7 @@
           "text": "Each time you meet with an ICS Advisor, they can summarize the results from your meeting as a RadGrad Advisor Log entry.\n\nYou can refer to this log to make sure you are following advisor recommendations. This also enables the advisor to follow up on issues raised in prior meetings."
         },
         {
-          "routeName": "/faculty/:username/verification",
+          "routeName": "/faculty/:username/verification-requests",
           "title": "Learn About Verification",
           "text": "Student participation in RadGrad opportunities consists of the following procedure:\n\n1. The student selects an opportunity, and adds it to their degree plan for a specific academicTerm. \n2. The student participates (or fails to participate) in the opportunity.\n3. The student requests verification that they participated in that opportunity.\n3. This verification request is accepted or declined by the sponsoring faculty member, advisor, or RadGrad admin.  Only after the verification request is accepted does the student earn the ICE points associated with that opportunity.\n\nThis page has several sections that enable you to manage verifications.\n\n**Event verification**:  This pane allows you to verify a student for successful completion of a particular opportunity (event). You can verify the student by selecting the event, inputing the student's UH username, and clicking on the \"VERIFY ATTENDANCE\" button.\n\n**Pending verification**: The pending verification requests for your sponsored opportunities. Verification requests are submitted by students when they would like RadGrad to acknowledge that they have successfully completed a particular opportunity. If you believe that the student has successfully completed this opportunity, you can accept a request by clicking the green \"ACCEPT\" button. If you believe that the student has NOT successfully completed this opportunity, you can decline a request by clicking the red \"DECLINE\" button. You may also provide any feedback for your response. The student will be able to see your response on their RadGrad site.\n\n**Completed verification**: Lists the verifications you have already accepted or declined. Enables you to reverse your prior decision if necessary."
         },

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IInterestedRelatedWidgetProps {
   relatedCourses: any;
@@ -16,7 +17,6 @@ interface IInterestedRelatedWidgetProps {
 class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetProps> {
   constructor(props) {
     super(props);
-    // console.log(props);
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -33,7 +33,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
                   _.map(this.props.relatedCourses.completed, (courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
-                  const url = `${this.props.baseURL}/courses/${slug}`;
+                    const url = `${this.props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                   return (
                     <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                   );
@@ -47,7 +47,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
                     _.map(this.props.relatedCourses.inPlan, (courseID) => {
                     const course = Courses.findDoc(courseID);
                     const slug = Slugs.getNameFromID(course.slugID);
-                    const url = `${this.props.baseURL}/courses/${slug}`;
+                      const url = `${this.props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                     return (
                       <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                     );
@@ -61,7 +61,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
                     _.map(this.props.relatedCourses.notInPlan, (courseID) => {
                       const course = Courses.findDoc(courseID);
                       const slug = Slugs.getNameFromID(course.slugID);
-                      const url = `${this.props.baseURL}/courses/${slug}`;
+                      const url = `${this.props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                       return (
                         <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                       );
@@ -74,7 +74,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
               {_.map(this.props.relatedCourses.notInPlan, (courseID) => {
                 const course = Courses.findDoc(courseID);
                 const slug = Slugs.getNameFromID(course.slugID);
-                const url = `${this.props.baseURL}/courses/${slug}`;
+                const url = `${this.props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                 return (
                   <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                 );
@@ -93,7 +93,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
                     _.map(this.props.relatedOpportunities.completed, (opportunityID) => {
                       const opportunity = Opportunities.findDoc(opportunityID);
                       const slug = Slugs.getNameFromID(opportunity.slugID);
-                      const url = `${this.props.baseURL}/opportunities/${slug}`;
+                      const url = `${this.props.baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
                       return (
                         <List.Item key={opportunity._id}><Link to={url}>{opportunity.shortName}</Link></List.Item>
                       );
@@ -107,7 +107,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
                     _.map(this.props.relatedOpportunities.inPlan, (opportunityID) => {
                       const opportunity = Opportunities.findDoc(opportunityID);
                       const slug = Slugs.getNameFromID(opportunity.slugID);
-                      const url = `${this.props.baseURL}/opportunities/${slug}`;
+                      const url = `${this.props.baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
                       return (
                         <List.Item key={opportunity._id}><Link to={url}>{opportunity.shortName}</Link></List.Item>
                       );
@@ -121,7 +121,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
                     _.map(this.props.relatedOpportunities.notInPlan, (opportunityID) => {
                       const opportunity = Opportunities.findDoc(opportunityID);
                       const slug = Slugs.getNameFromID(opportunity.slugID);
-                      const url = `${this.props.baseURL}/opportunities/${slug}`;
+                      const url = `${this.props.baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
                       return (
                         <List.Item key={opportunity._id}><Link to={url}>{opportunity.name}</Link></List.Item>
                       );
@@ -134,7 +134,7 @@ class InterestedRelatedWidget extends React.Component<IInterestedRelatedWidgetPr
               {_.map(this.props.relatedOpportunities.notInPlan, (opportunityID) => {
                 const opportunity = Opportunities.findDoc(opportunityID);
                 const slug = Slugs.getNameFromID(opportunity.slugID);
-                const url = `${this.props.baseURL}/courses/${slug}`;
+                const url = `${this.props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                 return (
                   <List.Item key={opportunity._id}><Link to={url}>{opportunity.name}</Link></List.Item>
                 );
