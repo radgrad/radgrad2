@@ -1,19 +1,25 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Random } from 'meteor/random';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 
-class RadGradLoginButtons extends React.Component {
+interface IRadGradLoginButtonsState {
+  justLoggedIn: boolean;
+  homePage: string;
+}
+
+class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState> {
   constructor(props) {
     super(props);
+    this.state = { justLoggedIn: false, homePage: '' };
   }
 
-  private static handleClick(e, instance) {
-    console.log(e, instance, Random.id());
+  private handleClick = (e, instance) => {
+    console.log(e, instance);
     e.preventDefault();
+    const inst = this;
     const callback = function loginCallback(error) {
       if (error) {
         console.log('Error during CAS Login: ', error);
@@ -30,6 +36,8 @@ class RadGradLoginButtons extends React.Component {
             role = 'Alumni';
           }
         }
+        const homePage = `/${role.toLowerCase()}/${username}/home`;
+        inst.setState({ justLoggedIn: true, homePage });
       }
     };
     Meteor.loginWithCas(callback);
@@ -38,14 +46,22 @@ class RadGradLoginButtons extends React.Component {
 
   public render() {
     const adminLabel = '... as admin';
+    const advisorLabel = '... as advisor';
+    const facultyLabel = '... as faculty';
     const mentorLabel = '... as mentor';
+    const studentLabel = '... as student';
+    if (this.state.justLoggedIn) {
+      return (<Redirect to={{
+        pathname: this.state.homePage,
+      }}/>);
+    }
     return (
       <Dropdown text="LOGIN" pointing={'top right'}>
         <Dropdown.Menu>
-          <Dropdown.Item id={'student'} onClick={RadGradLoginButtons.handleClick}>... as student</Dropdown.Item>
-          <Dropdown.Item id={'faculty'} text={'... as faculty'} onClick={RadGradLoginButtons.handleClick}/>
-          <Dropdown.Item id={'mentor'} as={NavLink} to="/signin" text={mentorLabel}/>
-          <Dropdown.Item id={'advisor'} text={'... as advisor'} onClick={RadGradLoginButtons.handleClick}/>
+          <Dropdown.Item id={'student'} text={studentLabel} onClick={this.handleClick}/>
+          <Dropdown.Item id={'faculty'} text={facultyLabel} onClick={this.handleClick}/>
+          <Dropdown.Item id={'mentor'} text={mentorLabel} as={NavLink} to="/signin"/>
+          <Dropdown.Item id={'advisor'} text={advisorLabel} onClick={this.handleClick}/>
           <Dropdown.Item id={'admin'} as={NavLink} exact={true} to="/signin" text={adminLabel}/>
         </Dropdown.Menu>
       </Dropdown>
