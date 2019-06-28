@@ -2,8 +2,6 @@ import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { Feed, Image } from 'semantic-ui-react';
-import { Users } from '../../../api/user/UserCollection';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
 interface IStudentFeedItemProps {
   feed: object;
@@ -14,16 +12,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     super(props);
   }
 
-  private getFeedPicture = (feed) => {
-    if (feed.userIDs.length === 0) {
-      return feed.picture;
-    }
-    const profile = Users.getProfile(feed.userIDs[0]);
-    if (profile.picture !== '') {
-      return profile.picture;
-    }
-    return defaultProfilePicture;
-  }
+  private getFeedPicture = (feed) => feed.picture;
 
   private multipleUsers = (feed) => feed.userIDs.length > 1;
 

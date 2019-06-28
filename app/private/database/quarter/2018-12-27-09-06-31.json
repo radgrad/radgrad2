@@ -3610,7 +3610,7 @@
         },
         {
           "user": [
-            "samplestudent@hawaii.edu",
+            "betty@hawaii.edu",
             "abi@hawaii.edu"
           ],
           "feedType": "new-user",
@@ -3618,7 +3618,7 @@
         },
         {
           "user": [
-            "samplestudent@hawaii.edu"
+            "charley@hawaii.edu"
           ],
           "opportunity": "cybersistahs",
           "academicTerm": "Summer-2014",
@@ -3637,27 +3637,46 @@
         },
         {
           "user": [
-            "samplestudent@hawaii.edu"
+            "charley@hawaii.edu"
           ],
-          "course": "ics111",
-          "feedType": "new-course-review",
-          "timestamp": "2017-11-29T17:58:22.534Z"
+          "level": 5,
+          "feedType": "new-level",
+          "timestamp": "2018-12-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "alfred@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2010",
+          "feedType": "verified-opportunity"
         },
         {
           "user": [
             "abi@hawaii.edu"
           ],
-          "opportunity": "google-summer-of-code",
-          "feedType": "new-opportunity-review",
-          "timestamp": "2017-12-29T17:58:22.534Z"
+          "level": 5,
+          "feedType": "new-level"
         },
         {
           "user": [
-            "samplestudent@hawaii.edu"
+            "betty@hawaii.edu"
           ],
-          "level": 5,
-          "feedType": "new-level",
-          "timestamp": "2018-12-29T17:58:22.534Z"
+          "feedType": "new-user"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "course": "ics_111",
+          "feedType": "new-course-review"
+        },
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "kaggle",
+          "feedType": "new-opportunity-review"
         }
       ]
     },
