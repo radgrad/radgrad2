@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
-import { Users } from '../../../api/user/UserCollection';
 import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
@@ -16,15 +15,13 @@ import InterestList from './InterestList';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorerOpportunitiesWidgetButton';
+import * as Router from './RouterHelperFunctions';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
-  slug: string;
   descriptionPairs: any[];
-  id: string;
   item: IOpportunity
   completed: boolean;
-  reviewed: boolean;
   role: string;
   match: {
     isExact: boolean;
@@ -44,12 +41,9 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
 
   private toUpper = (string: string): string => string.toUpperCase();
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.props.match.params.username;
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
   private isLabel = (label: string, str: string): boolean => label === str;
 
@@ -110,21 +104,10 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
   private teaserUrlHelper = (): string => {
     const opportunityID = Slugs.getEntityID(this.props.match.params.opportunity, 'Opportunity');
     const oppTeaser = Teasers.find({ opportunityID }).fetch();
+    if (oppTeaser.length > 1) {
+      return undefined;
+    }
     return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
-  }
-
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
-  private buildRouteName = (slug: string) => {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    return `${baseRoute}explorer/courses/${slug}`;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -281,7 +264,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
 
             <Grid stackable={true}>
               <Grid.Column style={zeroMarginTopStyle}>
-                {/*  TODO */}
                 {
                   descriptionPairs.map((descriptionPair, index) => (
                     <React.Fragment key={index}>
@@ -292,7 +274,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: this.routerLink }}/>
+                                          renderers={{ link: Router.renderLink }}/>
                                 :
                                 <React.Fragment> N/A </React.Fragment>
                             }
@@ -301,7 +283,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
                       }
 
                       {
-                        this.isLabel(descriptionPair.label, 'Teaser') ?
+                        this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
                           <React.Fragment>
                             <b>{descriptionPair.label}:</b>
                             {

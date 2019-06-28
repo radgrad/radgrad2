@@ -15,7 +15,6 @@ interface IPlanChoicePillProps {
 
 class DraggablePlanChoicePill extends React.Component<IPlanChoicePillProps> {
   constructor(props) {
-    // console.log(props.instance);
     super(props);
   }
 

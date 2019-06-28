@@ -14,6 +14,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import StudentOfInterestAdd from './StudentOfInterestAdd';
+import { renderLink } from '../shared/RouterHelperFunctions';
 
 interface IStudentOfInterestCardProps {
   type: string;
@@ -132,7 +133,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
   }
 
-  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length
+  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length;
 
   private interestedStudents = (course) => this.interestedStudentsHelper(course, this.props.type);
 
@@ -206,16 +207,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     return '#';
   }
 
-  /*
-  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { item } = this.props;
     const itemName = this.itemName(item);
@@ -237,7 +228,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={`${itemShortDescription}...`} renderers={{ link: this.routerLink }}/>
+          <Markdown escapeHtml={true} source={`${itemShortDescription}...`} renderers={{ link: renderLink }}/>
           <InterestList item={item} size='mini'/>
         </Card.Content>
 

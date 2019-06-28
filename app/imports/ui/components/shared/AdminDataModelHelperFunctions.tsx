@@ -38,6 +38,8 @@ export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.get
 
 export const docToName = (doc) => doc.name;
 
+export const docToShortName = (doc) => doc.shortName;
+
 export const interestIdToName = (id) => Interests.findDoc(id).name;
 
 export const interestNameToId = (name) => Interests.findDoc(name)._id;

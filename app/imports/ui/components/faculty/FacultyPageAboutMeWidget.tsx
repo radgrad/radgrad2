@@ -34,7 +34,7 @@ interface IFacultyPageAboutMeWidgetProps {
 /**
  * The Faculty About Me Widget should show basic information of the specified user.
  */
-class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps> {
+class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps, {id: string; website: string; picture: string;}> {
   // call the props constructor
   constructor(props: any) {
     super(props);
@@ -48,7 +48,9 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    */
   private handleChange = (event, { name, value }) => {
     console.log('handle change', event, { name, value });
-    this.setState({ [name]: value });
+    const change = {};
+    change[name] = value;
+    this.setState(change);
   };
 
   /**

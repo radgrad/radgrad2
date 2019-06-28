@@ -12,6 +12,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import { getSlugFromEntityID } from '../../components/landing/helper-functions';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface IInterestExplorerProps {
   interest: IInterest;
@@ -46,7 +47,8 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
                   <span>{this.props.interest.name}</span>
                 </Header>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.interest.description}/>
+                <Markdown escapeHtml={true} source={this.props.interest.description}
+                          renderers={{ link: Router.renderLink }}/>
               </Segment>
               <Segment padded={true}>
                 <Header as="h4" dividing={true}>Related Courses</Header>

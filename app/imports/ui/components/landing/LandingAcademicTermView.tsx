@@ -19,7 +19,7 @@ const LandingAcademicTermView = (props: ILandingAcademicTempViewProps) => {
       <Header dividing={true}>{props.title}</Header>
       <div>
         {_.map(props.choices, (choice, index) => (
-            <LandingPlanChoicePill key={index} choice={choice} index={index}/>
+          <LandingPlanChoicePill key={index} choice={choice}/>
           ))}
       </div>
     </Segment>

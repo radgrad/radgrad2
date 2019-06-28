@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 
@@ -12,11 +12,16 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 /** A simple static component to render some text for the landing page. */
 class StudentHomePage extends React.Component {
   public render() {
+    const moveDownStyle = {
+      marginTop: 10,
+    };
     return (
       <div className="layout-page">
         <StudentPageMenuWidget/>
-        <Grid centered={true} stackable={true} container={true}>
-          <HelpPanelWidget/>
+        <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
+          <Grid.Row>
+            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+          </Grid.Row>
 
           <Grid.Column width={2}>
             <StudentHomeMenu/>
@@ -25,6 +30,7 @@ class StudentHomePage extends React.Component {
           <Grid.Column width={14}>
             <StudentHomeWidget/>
           </Grid.Column>
+
         </Grid>
         <div>Back to Top Button</div>
       </div>
