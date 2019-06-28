@@ -17,7 +17,7 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
   }
 
   private handleClick = (e, instance) => {
-    console.log(e, instance);
+    // console.log(e, instance);
     e.preventDefault();
     const inst = this;
     const callback = function loginCallback(error) {
