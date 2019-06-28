@@ -1,9 +1,6 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
-import { Users } from '../../../api/user/UserCollection';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-import StudentFeedModal from './StudentFeedModal';
 import { renderLink } from '../shared/RouterHelperFunctions';
 
 interface IStudentFeedItemProps {
@@ -15,16 +12,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     super(props);
   }
 
-  private getFeedPicture = (feed) => {
-    if (feed.userIDs.length === 0) {
-      return feed.picture;
-    }
-    const profile = Users.getProfile(feed.userIDs[0]);
-    if (profile.picture !== '') {
-      return profile.picture;
-    }
-    return defaultProfilePicture;
-  }
+  private getFeedPicture = (feed) => feed.picture;
 
   private multipleUsers = (feed) => feed.userIDs.length > 1;
 
@@ -55,7 +43,6 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { feed }: any = this.props;
     const feedPicture = this.getFeedPicture(feed);
-    const multipleUsers: boolean = this.multipleUsers(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
       <React.Fragment>
@@ -69,12 +56,6 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
             </Feed.Summary>
 
             <Feed.Extra text={true}>
-              {multipleUsers ?
-                <Feed.Meta style={{ float: 'right', marginTop: '0px' }}>
-                  <StudentFeedModal feed={feed}/>
-                </Feed.Meta>
-                : ''
-              }
               <Feed.Date style={{ marginTop: '0px' }}>
                 {feedTimestamp}
               </Feed.Date>
