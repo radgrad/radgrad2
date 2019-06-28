@@ -33,24 +33,26 @@ class AdvisorAcademicPlanViewerWidget extends React.Component<IAdvisorAcademicPl
     // console.log('model=%o state=%o', model, this.state);
     const { year, name } = model;
     const yearInt = parseInt(year, 10);
-    if (yearInt !== this.state.year) {
-      const planNames = _.map(_.filter(this.props.plans, (p) => p.year === yearInt), (plan) => plan.name);
-      console.log(planNames);
-      this.setState({ planNames });
+    const yearChanged = yearInt !== this.state.year;
+    const newState: any = {};
+    if (yearChanged) {
+      newState.planNames = _.map(_.filter(this.props.plans, (p) => p.year === yearInt), (plan) => plan.name);
+      newState.year = yearInt;
+      newState.selectedPlan = _.find(this.props.plans, (p) => p.name === newState.planNames[0]);
+    } else {
+      newState.selectedPlan = _.find(this.props.plans, (p) => p.name === name);
     }
-    if (name) {
-      const selectedPlan = _.find(this.props.plans, (p) => p.name === name);
-      // console.log('name change v=%o selected=%o', name, selectedPlan);
-      this.setState({ selectedPlan });
-    }
-  }
+    // console.log('newState = %o', newState);
+    this.setState(newState);
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const years = _.uniq(_.map(this.props.plans, (p) => p.year));
     const schema = new SimpleSchema({
-      year: { type: SimpleSchema.Integer, allowedValues: years, defaultValue: years[0] },
+      year: { type: SimpleSchema.Integer, allowedValues: years, defaultValue: this.state.year },
       name: { type: String, allowedValues: this.state.planNames, defaultValue: this.state.planNames[0] },
     });
+    // console.log('APV render state', this.state);
     return (
       <Segment padded={true}>
         <AutoForm schema={schema} onChangeModel={this.handleModelChange}>
