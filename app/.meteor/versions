@@ -56,6 +56,7 @@ logging@1.1.20
 mdg:validated-method@1.2.0
 meteor@1.9.3
 meteor-base@1.4.0
+meteorhacks:ssr@2.2.0
 meteorhacks:subs-manager@1.6.4
 minifier-css@1.4.2
 minifier-js@2.4.1

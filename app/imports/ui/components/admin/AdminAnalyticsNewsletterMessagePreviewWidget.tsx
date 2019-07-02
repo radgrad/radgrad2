@@ -1,24 +1,28 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import * as Markdown from 'react-markdown';
+import { Form, Label } from 'semantic-ui-react';
 
 interface IAdminAnalyticsNewsletterWidget {
-message: string;
+  message: string;
 }
 
 class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdminAnalyticsNewsletterWidget> {
-  constructor(props){
+  constructor(props) {
     super(props)
-    console.log('Admin Analytics Newsletter Message Preview Widget',props)
   }
-  public render(){
-    return(
-      <div>
-        <p>Aloha Student! </p>
-        <div className='markdown'>
-          {this.props.message}
-        </div><br/>
+
+  public render() {
+    return (
+      <div className='field'>
+
+        <label htmlFor="example">Message Preview</label>
+        <input type='hidden' id='example'/>
+        <p>Aloha Student</p>
+        <Markdown source={this.props.message}/>
         <p>- The RadGrad Team</p>
       </div>
+
     )
   }
 }

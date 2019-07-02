@@ -6,11 +6,11 @@ declare module 'meteor/meteor' {
   namespace Accounts {
     function removeDefaultRateLimit(): any;
   }
-  namespace Assets {
-    function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
+ namespace Assets {
+     export function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
 
-    function getText(assetPath: string, asyncCallback?: () => void): string;
+     export function getText(assetPath: string, asyncCallback?: () => void): string;
 
-    function absoluteFilePath(assetPath: string): string;
+    export function absoluteFilePath(assetPath: string): string;
   }
 }

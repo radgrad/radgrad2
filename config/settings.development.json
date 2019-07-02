@@ -25,5 +25,8 @@
     "RadGrad": {
       "quarterSystem": true
     }
+  },
+  "env": {
+    "MAIL_URL": "smtps://postmaster%40mailgun.radgrad.org:472895e21201631d31e97600437dc561@smtp.mailgun.org:465"
   }
 }
