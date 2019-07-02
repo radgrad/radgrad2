@@ -383,7 +383,7 @@ export const routes = {
       component: IndividualExplorerPageContainer,
     },
     {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/`,
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
       exact: true,
       component: CardExplorerPageContainer,
     },

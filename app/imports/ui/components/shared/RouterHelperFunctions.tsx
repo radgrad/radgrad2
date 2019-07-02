@@ -1,3 +1,5 @@
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 
@@ -43,6 +45,10 @@ export const getBaseRoute = (match: IMatchProps): string => {
 // Builds a route name and returns it. Make sure routeName is preceeded by a forward slash ('/').
 // i.e., buildRouteName('/explorer/plans') => /role/:username/explorer/plans
 export const buildRouteName = (match: IMatchProps, routeName: string): string => {
+  const firstChar = routeName.charAt(0);
+  if (firstChar !== '/') {
+    throw new Error('buildRouteName() function from RouterHelperFunctions.tsx requires that the second parameter must have the forward slash (/) as the first character.');
+  }
   const baseRoute = getBaseRoute(match);
   const route = `${baseRoute}${routeName}`;
   return route;
@@ -113,4 +119,13 @@ export const isUrlRoleMentor = (match: IMatchProps): boolean => {
 export const isUrlRoleStudent = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.STUDENT;
+};
+
+// To be used in <Markdown>s. This makes it so that any external links are opened in a new tab when clicked.
+export const renderLink = (props: { href: string; children: React.ReactNode }) => {
+  const match = props.href.match(/^(https?:)?\/\//);
+  if (match) {
+    return <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>;
+  }
+  return <Link to={props.href}>{props.children}</Link>;
 };

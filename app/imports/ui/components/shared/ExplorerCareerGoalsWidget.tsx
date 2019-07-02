@@ -3,13 +3,14 @@ import { Grid, Segment, Header, Button, Divider, Image } from 'semantic-ui-react
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { getUsername, renderLink } from './RouterHelperFunctions';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -32,12 +33,6 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     super(props);
   }
 
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private toUpper = (string) => string.toUpperCase();
 
   private isLabel = (descriptionPairLabel, comp) => descriptionPairLabel === comp;
@@ -49,7 +44,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private userStatus = (careerGoal) => {
     let ret = false;
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
       ret = true;
     }
@@ -58,7 +53,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private handleAdd = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     const studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
@@ -75,7 +70,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private handleDelete = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     let studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
@@ -138,7 +133,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
                         {
                           descriptionPair.value ?
                             <Markdown escapeHtml={false} source={descriptionPair.value}
-                                      renderers={{ link: this.routerLink }}/>
+                                      renderers={{ link: renderLink }}/>
                             :
                             'N/A'
                         }

@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
@@ -138,11 +139,34 @@ export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
 }
 
 /**
+ * Checks the format of the courseSlug. Does not check to see if the slug is defined. Valid course
+ * slugs have the format <dept>_<number>.
+ * @param courseSlug the slug to check.
+ * @returns {boolean}
+ * @throws Meteor.Error if the slug doesn't have the right format.
+ */
+export function validateCourseSlugFormat(courseSlug): boolean {
+  if (courseSlug !== 'other' && courseSlug.indexOf('_') === -1) {
+    throw new Meteor.Error(`${courseSlug} is not a valid course slug.`);
+  }
+  return true;
+}
+
+/**
  * Returns the department from the given course slug.
  * @param courseSlug the course slug.
  * @returns {string}
  * @memberOf api/course
  */
-export function getDepartment(courseSlug) {
+export function getDepartment(courseSlug): string {
   return courseSlug.split('_')[0].toUpperCase();
+}
+
+/**
+ * Returns the number portion of the courseSlug.
+ * @param courseSlug the course slug.
+ * @returns {string}
+ */
+export function getCourseNumber(courseSlug): string {
+  return courseSlug.split('_')[1];
 }

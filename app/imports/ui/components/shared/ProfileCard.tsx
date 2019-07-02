@@ -11,7 +11,8 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import ProfileAdd from './ProfileAdd';
-
+import * as Router from './RouterHelperFunctions';
+import { URL_ROLES } from '../../../startup/client/routes-config';
 
 interface IProfileCardProps {
   item: {
@@ -50,12 +51,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     return description;
   };
 
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-  private getUsername = () => this.props.match.params.username;
+  private getUsername = () => Router.getUsername(this.props.match);
 
   private buildRouteName = (item) => {
     const itemSlug = this.itemSlug(item);
@@ -102,7 +98,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
   };
 
   private addInterest = () => {
-    const user = Users.getProfile(this.props.match.params.username);
+    const user = Users.getProfile(this.getUsername());
     const interestIDsOfUser = user.interestIDs;
     const interestID = this.getInterestDoc()._id;
     const currentInterestID = [interestID];
@@ -111,24 +107,21 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     return updateValue;
   };
 
-  private getRoleByUrl = (): string => {
-    const role = this.props.match.url.split('/')[1];
-    return role;
-  };
+  private getRoleByUrl = (): string => Router.getRoleByUrl(this.props.match)
 
   private getCollectionName = () => {
     let name;
     switch (this.getRoleByUrl()) {
-      case 'student':
+      case URL_ROLES.STUDENT:
         name = StudentProfiles.getCollectionName();
         break;
-      case 'faculty':
+      case URL_ROLES.FACULTY:
         name = FacultyProfiles.getCollectionName();
         break;
-      case 'alumni':
+      case URL_ROLES.ALUMNI:
         name = StudentProfiles.getCollectionName();
         break;
-      case 'mentor':
+      case URL_ROLES.MENTOR:
         name = MentorProfiles.getCollectionName();
         break;
       default:
@@ -142,7 +135,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
   private handleClick = () => {
     const newInterestsAfterAdd = this.addInterest();
     const updateDataAdd: any = {
-      id: Users.getProfile(this.props.match.params.username)._id,
+      id: Users.getProfile(this.getUsername())._id,
       interests: newInterestsAfterAdd,
     };
     const collectionNameAdd = this.getCollectionName();
@@ -185,7 +178,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         </Card.Content>
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: this.routerLink }}/>
+                    renderers={{ link: Router.renderLink }}/>
         </Card.Content>
         <Card.Content>
           STUDENTS PARTICIPATING &middot; {itemParticipation}

@@ -11,6 +11,7 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface ICareerGoalExplorerProps {
   careerGoal: ICareerGoal;
@@ -43,7 +44,8 @@ class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps
                   <span>{this.props.careerGoal.name}</span>
                 </Header>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.careerGoal.description}/>
+                <Markdown escapeHtml={true} source={this.props.careerGoal.description}
+                          renderers={{ link: Router.renderLink }}/>
                 <Header as="h4" dividing={true}>Career Goal Interests</Header>
                 <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
               </Segment>

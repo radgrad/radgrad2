@@ -51,7 +51,7 @@ class AddMentorQuestionForm extends React.Component<IAddMentorQuestionFormProps>
             <BoolField name="visible"/>
           <BoolField name="retired"/>
           </Form.Group>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

@@ -6,17 +6,21 @@ import { Slugs } from '../slug/SlugCollection';
 import * as PlanChoiceUtils from './PlanChoiceUtilities';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
-export function getPlanChoices(academicPlan: IAcademicPlan, termNum: number): string[] {
-  if (termNum < 0 || termNum > academicPlan.coursesPerAcademicTerm.length - 1) {
+export function getPlanChoicesRaw(coursesPerTerm: number[], choiceList: string[], termNum: number) {
+  if (termNum < 0 || termNum > coursesPerTerm.length - 1) {
     throw new Meteor.Error(`Bad termNum ${termNum}`);
   }
   let numChoices = 0;
   for (let i = 0; i < termNum; i++) {
-    numChoices += academicPlan.coursesPerAcademicTerm[i];
+    numChoices += coursesPerTerm[i];
   }
-  const numTermChoices = academicPlan.coursesPerAcademicTerm[termNum];
+  const numTermChoices = coursesPerTerm[termNum];
   // console.log(academicPlan.coursesPerAcademicTerm, termNum, numTermChoices, academicPlan.courseList.slice(numChoices, numChoices + numTermChoices));
-  return academicPlan.courseList.slice(numChoices, numChoices + numTermChoices);
+  return choiceList.slice(numChoices, numChoices + numTermChoices);
+}
+
+export function getPlanChoices(academicPlan: IAcademicPlan, termNum: number): string[] {
+  return getPlanChoicesRaw(academicPlan.coursesPerAcademicTerm, academicPlan.courseList, termNum);
 }
 
 export function passedCourse(ci: ICourseInstance): boolean {
@@ -65,15 +69,19 @@ export function isAcademicPlanValid(academicPlan: IAcademicPlan): boolean {
   return true;
 }
 
-function getCourseListIndex(coursesPerAcademicTerm: number[], termNum: number) {
+export function getCourseListIndex(coursesPerAcademicTerm: number[], termNum: number, termIndex?: number) {
+  // console.log(coursesPerAcademicTerm, termNum, termIndex);
   let index = 0;
   let i = 0;
   for (i = 0; i < termNum; i++) {
     index += coursesPerAcademicTerm[i];
   }
-  if (coursesPerAcademicTerm[i]) {
-    index += coursesPerAcademicTerm[i];
+  if (termIndex) {
+    index += termIndex;
   }
+  // if (coursesPerAcademicTerm[i]) {
+  //   index += coursesPerAcademicTerm[i];
+  // }
   return index;
 }
 
@@ -98,8 +106,8 @@ export function updateChoiceCounts(choiceList: string[]) {
   }
 }
 
-export function addChoiceToRaw(choice: string, termNum: number, choiceList: string[], coursesPerAcademicTerm: number[]) {
-  const listIndex = getCourseListIndex(coursesPerAcademicTerm, termNum);
+export function addChoiceToRaw(choice: string, termNum: number, choiceList: string[], coursesPerAcademicTerm: number[], termIndex?: number) {
+  const listIndex = getCourseListIndex(coursesPerAcademicTerm, termNum, termIndex);
   const choiceWithNum = `${choice}-1`;
   if (listIndex === 0) {
     choiceList.unshift(choiceWithNum);
@@ -118,4 +126,80 @@ export function addChoiceToRaw(choice: string, termNum: number, choiceList: stri
 
 export function addChoiceToPlan(academicPlan: IAcademicPlan, termNum: number, choice: string) {
   addChoiceToRaw(choice, termNum, academicPlan.courseList, academicPlan.coursesPerAcademicTerm);
+}
+
+function getListIndex(choice: string, choiceList: string[]) {
+  const stripped = _.map(choiceList, (c) => PlanChoiceUtils.stripCounter(c));
+  return stripped.indexOf(choice);
+}
+
+export function reorderChoicesInTermRaw(choice: string, termNumber: number, newIndex: number, choiceList: string[], coursesPerAcademicTerm: number[]) {
+  console.log('reorder', choice, termNumber, newIndex);
+  const termChoices = getPlanChoicesRaw(coursesPerAcademicTerm, choiceList, termNumber);
+  const oldTermIndex = getListIndex(choice, termChoices);
+  const diff = newIndex - oldTermIndex;
+  if (newIndex !== oldTermIndex) {
+    const oldPosition = getListIndex(choice, choiceList);
+    const newPosition = oldPosition + diff;
+    const temp = choiceList[oldPosition];
+    choiceList[oldPosition] = choiceList[newPosition]; // eslint-disable-line no-param-reassign
+    choiceList[newPosition] = temp; // eslint-disable-line no-param-reassign
+  }
+}
+
+export function removeChoiceFromPlanRaw(choice: string, termNumber: number, choiceList: string[], coursesPerAcademicTerm: number[]) {
+  const clIndex = getCourseListIndex(coursesPerAcademicTerm, termNumber);
+  for (let i = clIndex; i < choiceList.length; i++) {
+    if (PlanChoiceUtils.stripCounter(choiceList[i]) === choice) {
+      choiceList.splice(i, 1);
+      break;
+    }
+  }
+  coursesPerAcademicTerm[termNumber]--; // eslint-disable-line no-param-reassign
+}
+
+export function planHasCoursesRaw(coursesPerAcademicTerm: number[], yearNum: number): boolean {
+  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  let start;
+  let end;
+  let courses;
+  if (quarterSystem) {
+    start = yearNum * 4;
+    end = start + 4;
+    courses = coursesPerAcademicTerm.slice(start, end);
+  } else {
+    start = yearNum * 3;
+    end = start + 3;
+    courses = coursesPerAcademicTerm.slice(start, end);
+  }
+  // console.log('planHasCoursesRaw', start, end, courses, _.some(courses));
+  return _.some(courses);
+}
+
+/**
+ * Removes the year from coursesPerAcademicTerm if the coursesPerAcademicTerm are all 0.
+ * @param {number[]} coursesPerAcademicTerm
+ * @param {number} yearNum
+ * @returns {number[]}
+ */
+export function removeYearFromPlanRaw(coursesPerAcademicTerm: number[], yearNum: number): number[] {
+  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const start = quarterSystem ? yearNum * 4 : yearNum * 3;
+  const numTerms = quarterSystem ? 4 : 3;
+  if (!planHasCoursesRaw(coursesPerAcademicTerm, yearNum)) {
+    return coursesPerAcademicTerm.splice(start, numTerms);
+  }
+  return coursesPerAcademicTerm;
+}
+
+/**
+ * Removes the empty years from coursesPerAcademicTerm.
+ * @param {number[]} coursesPerAcademicTerm
+ * @returns {number[]}
+ */
+export function removeEmptyYearsRaw(coursesPerAcademicTerm: number[]): number[] {
+  for (let i = 4; i >= 0; i--) {
+    removeYearFromPlanRaw(coursesPerAcademicTerm, i);
+  }
+  return coursesPerAcademicTerm;
 }

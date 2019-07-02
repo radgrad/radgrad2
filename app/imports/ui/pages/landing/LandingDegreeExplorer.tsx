@@ -9,6 +9,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface IDesiredDegreeExplorerProps {
   desiredDegree: IDesiredDegree;
@@ -41,7 +42,8 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
                   <span>{this.props.desiredDegree.name}</span>
                 </Header>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.desiredDegree.description}/>
+                <Markdown escapeHtml={true} source={this.props.desiredDegree.description}
+                          renderers={{ link: Router.renderLink }}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>

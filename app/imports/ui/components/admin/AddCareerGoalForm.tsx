@@ -44,12 +44,12 @@ class AddCareerGoalForm extends React.Component<IAddCareerGoalFormProps> {
         <Header dividing={true}>Add Career Goal</Header>
         <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
           <Form.Group widths="equal">
-            <TextField name="name"/>
-            <TextField name="slug"/>
+            <TextField name="name" placeholder="Software Engineer"/>
+            <TextField name="slug" placeholder="software-engineer"/>
           </Form.Group>
-          <LongTextField name="description"/>
-          <MultiSelectField name="interests"/>
-          <SubmitField/>
+          <MultiSelectField name="interests" placeholder="Select interest(s)"/>
+          <LongTextField name="description" placeholder="Describe the Career Goal here"/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

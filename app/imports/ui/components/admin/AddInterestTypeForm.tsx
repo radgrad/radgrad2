@@ -22,7 +22,7 @@ const AddInterestTypeForm = (props: IAddInterestTypeFormProps) => (
       </Form.Group>
       <LongTextField name="description"/>
       <BoolField name="retired"/>
-      <SubmitField/>
+      <SubmitField className="basic green" value="Add"/>
     </AutoForm>
   </Segment>
 );

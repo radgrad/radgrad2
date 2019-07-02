@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Segment, Header, Button, Divider, Grid } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
@@ -8,12 +8,12 @@ import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import * as Router from './RouterHelperFunctions';
 
 interface IExplorerPlansWidgetProps {
   name: string;
   descriptionPairs: any[];
   item: IAcademicPlan;
-  role: string;
   profile: object;
   match: {
     isExact: boolean;
@@ -33,18 +33,14 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
 
   private toUpper = (string: string): string => string.toUpperCase();
 
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
+
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
   private userStatus = (plan: IAcademicPlan): boolean => {
     const profile = Users.getProfile(this.getUsername());
     return profile.academicPlanID !== plan._id;
   }
-
-  private routerLink = (props: any): JSX.Element => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
 
   private handleAddPlan = (e: any): void => {
     e.preventDefault();
@@ -71,9 +67,9 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
     };
     const divierStyle = { marginTop: 0 };
 
-    const { name, descriptionPairs, item, role } = this.props;
+    const { name, descriptionPairs, item } = this.props;
     const upperName = this.toUpper(name);
-    const isStudent = role === 'student';
+    const isStudent = this.isRoleStudent();
     const userStatus = this.userStatus(item);
 
     return (
@@ -107,7 +103,7 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
                     {
                       descriptionPair.value ?
                         <Markdown escapeHtml={true} source={descriptionPair.value}
-                                  renderers={{ link: this.routerLink }}/>
+                                  renderers={{ link: Router.renderLink }}/>
                         :
                         <React.Fragment> N/A <br/></React.Fragment>
                     }

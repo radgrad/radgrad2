@@ -15,6 +15,8 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import TermAdd from './TermAdd';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 class TermCard extends React.Component<ITermCard> {
   constructor(props) {
@@ -155,31 +157,22 @@ class TermCard extends React.Component<ITermCard> {
       }
     });
   }
-  /*
-    Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-    See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
 
   private buildRouteName = (item, type) => {
     const itemName = this.itemSlug(item);
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    let route = '';
     switch (type) {
-      case 'courses':
-        return `${baseRoute}explorer/courses/${itemName}`;
-      case 'opportunities':
-        return `${baseRoute}explorer/opportunities/${itemName}`;
+      case EXPLORER_TYPE.COURSES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
+        break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
+        break;
       default:
+        route = '#';
         break;
     }
-    return '#';
+    return route;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -205,7 +198,7 @@ class TermCard extends React.Component<ITermCard> {
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={itemShortDescription} renderers={{ link: this.routerLink }}/>
+          <Markdown escapeHtml={true} source={itemShortDescription} renderers={{ link: Router.renderLink }}/>
           <InterestList item={item} size="mini"/>
         </Card.Content>
 

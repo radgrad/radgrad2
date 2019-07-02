@@ -20,7 +20,7 @@ if (Meteor.isServer) {
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
       const name = 'Algorithms';
-      const slug = 'ics311';
+      const slug = 'ics_311';
       const num = 'ICS 311';
       const description = 'Study algorithms';
       const creditHrs = 3;
@@ -42,7 +42,7 @@ if (Meteor.isServer) {
     it('course shortname', function test() {
       const name = 'Algorithms';
       const shortName = 'Algo';
-      const slug = 'ics311';
+      const slug = 'ics_311';
       const num = 'ICS 311';
       const description = 'Study algorithms';
       const creditHrs = 3;

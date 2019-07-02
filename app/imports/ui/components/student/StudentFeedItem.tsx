@@ -1,10 +1,7 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
-import { Link } from 'react-router-dom';
 import { Feed, Image } from 'semantic-ui-react';
-import { Users } from '../../../api/user/UserCollection';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-import StudentFeedModal from './StudentFeedModal';
+import { renderLink } from '../shared/RouterHelperFunctions';
 
 interface IStudentFeedItemProps {
   feed: object;
@@ -15,16 +12,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     super(props);
   }
 
-  private getFeedPicture = (feed) => {
-    if (feed.userIDs.length === 0) {
-      return feed.picture;
-    }
-    const profile = Users.getProfile(feed.userIDs[0]);
-    if (profile.picture !== '') {
-      return profile.picture;
-    }
-    return defaultProfilePicture;
-  }
+  private getFeedPicture = (feed) => feed.picture;
 
   private multipleUsers = (feed) => feed.userIDs.length > 1;
 
@@ -52,20 +40,9 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
     return ret;
   }
 
-  /*
-  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { feed }: any = this.props;
     const feedPicture = this.getFeedPicture(feed);
-    const multipleUsers: boolean = this.multipleUsers(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
       <React.Fragment>
@@ -75,16 +52,10 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
           </Feed.Label>
           <Feed.Content style={{ marginTop: '0px' }}>
             <Feed.Summary>
-              <Markdown escapeHtml={true} source={feed.description} renderers={{ link: this.routerLink }}/>
+              <Markdown escapeHtml={true} source={feed.description} renderers={{ link: renderLink }}/>
             </Feed.Summary>
 
             <Feed.Extra text={true}>
-              {multipleUsers ?
-                <Feed.Meta style={{ float: 'right', marginTop: '0px' }}>
-                  <StudentFeedModal feed={feed}/>
-                </Feed.Meta>
-                : ''
-              }
               <Feed.Date style={{ marginTop: '0px' }}>
                 {feedTimestamp}
               </Feed.Date>

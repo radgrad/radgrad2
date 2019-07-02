@@ -9,6 +9,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import ProfileAdd from './ProfileAdd';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 class PlanCard extends React.Component<IPlanCard> {
   constructor(props) {
@@ -33,7 +35,7 @@ class PlanCard extends React.Component<IPlanCard> {
   private interestedStudentsHelper = (item: IAcademicPlan, type: string): object[] => {
     const interested = [];
     let instances = StudentProfiles.find({}).fetch();
-    if (type === 'plans') {
+    if (type === EXPLORER_TYPE.ACADEMICPLANS) {
       instances = _.filter(instances, (profile) => profile.academicPlanID === item._id);
     }
     _.forEach(instances, (p) => {
@@ -45,11 +47,8 @@ class PlanCard extends React.Component<IPlanCard> {
   }
 
   private buildRouteName = (slug: string): string => {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-    return `${baseRoute}/explorer/plans/${slug}`;
+    const route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slug}`);
+    return route;
   }
 
   private itemSlug = (item: IAcademicPlan): string => Slugs.findDoc(item.slugID).name;

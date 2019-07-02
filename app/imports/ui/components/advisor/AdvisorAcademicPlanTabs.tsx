@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Segment, Tab } from 'semantic-ui-react';
 import AdvisorAcademicPlanViewerWidget from './AdvisorAcademicPlanViewerWidget';
-import AdvisorAcademicPlanBuilderWidget from './AdvisorAcademicPlanBuilderWidget';
+import AdvisorAPBuilderWidget from './AdvisorAPBuilderWidget';
 
 const AdvisorAcademicPlanTabs = () => {
   const panes = [
@@ -14,7 +14,7 @@ const AdvisorAcademicPlanTabs = () => {
     {
       menuItem: 'Builder',
       render: () => ( // eslint-disable-line react/display-name
-        <Tab.Pane><AdvisorAcademicPlanBuilderWidget/></Tab.Pane>
+        <Tab.Pane><AdvisorAPBuilderWidget/></Tab.Pane>
       ),
     },
   ];
