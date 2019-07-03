@@ -1,10 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { $ } from 'meteor/jquery';
-// TODO -- get cloudinary working (issue-47)
-// import { cloudinary } from '../../../typings/radgrad';
 
-// /* global cloudinary */
-
+declare const cloudinary;
 /**
  * Opens the Cloudinary Upload widget and sets the value of the input field with name equal to nameAttribute to the
  * resulting URL of the uploaded picture.
@@ -12,8 +9,7 @@ import { $ } from 'meteor/jquery';
  * @memberOf ui/components/form-fields
  */
 export function openCloudinaryWidget(nameAttribute) {
-  import('../../../typings/radgrad').then(radgrad => {
-    radgrad.cloudinary.openUploadWidget(
+    cloudinary.openUploadWidget(
       {
         cloud_name: Meteor.settings.public.cloudinary.cloud_name,
         upload_preset: Meteor.settings.public.cloudinary.upload_preset,
@@ -32,10 +28,9 @@ export function openCloudinaryWidget(nameAttribute) {
           return;
         }
         // Otherwise get the form elements
-        // console.log('Cloudinary results: ', result);
+        console.log('Cloudinary results: ', result);
         const url = result[0].url;
         $(`input[name=${nameAttribute}]`).val(url);
       },
     );
-  }).catch((e) => console.log('issue-47: cloudinary import not working: ', e.message));
 }
