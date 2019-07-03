@@ -34,7 +34,8 @@ class PlanCard extends React.Component<IPlanCard> {
 
   private interestedStudentsHelper = (item: IAcademicPlan, type: string): object[] => {
     const interested = [];
-    let instances = StudentProfiles.find({}).fetch();
+    let instances = StudentProfiles.findNonRetired({ isAlumni: false });
+
     if (type === EXPLORER_TYPE.ACADEMICPLANS) {
       instances = _.filter(instances, (profile) => profile.academicPlanID === item._id);
     }
