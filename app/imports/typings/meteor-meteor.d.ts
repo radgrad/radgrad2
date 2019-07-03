@@ -8,10 +8,10 @@ declare module 'meteor/meteor' {
     function removeDefaultRateLimit(): any;
   }
  namespace Assets {
-     export function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
+     function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
 
-     export function getText(assetPath: string, asyncCallback?: () => void): string;
+     function getText(assetPath: string, asyncCallback?: () => void): string;
 
-    export function absoluteFilePath(assetPath: string): string;
+    function absoluteFilePath(assetPath: string): string;
   }
 }

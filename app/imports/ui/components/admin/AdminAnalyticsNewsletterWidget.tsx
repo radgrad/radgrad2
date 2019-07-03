@@ -15,6 +15,7 @@ import { Users } from "../../../api/user/UserCollection";
 import { Meteor } from 'meteor/meteor';
 import * as _ from 'lodash';
 import { sendEmailMethod } from "../../../api/analytic/Email.methods";
+import { getProjectedICE } from '../../../api/ice/IceProcessor';
 
 // app/imports/typings/meteor-meteor.d.ts
 const schema = new SimpleSchema({
@@ -90,7 +91,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
           subjectLine: this.state.subjectLine,
           bcc: this.state.bcc.split(','),
           inputMessage: this.state.onSubmitInputMessage,
-          recipient: this.state.studentEmails.split(','), // add admin too
+          recipients: this.state.studentEmails.split(','), // add admin too
         }
       }, () => {
         console.log('callback from set state on click send students', this.state.message);
@@ -105,6 +106,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       )
     }
   }
+
   private onClickSendLevels = () => {
     if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0 && this.state.level !== 0) {
       this.setState({
@@ -112,7 +114,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
           subjectLine: this.state.subjectLine,
           bcc: this.state.bcc.split(','),
           inputMessage: this.state.onSubmitInputMessage,
-          recipient: this.getStudentEmailsByLevel(this.state.level),
+          recipients: this.getStudentEmailsByLevel(this.state.level),
         }
       }, () => {
         console.log('callback from set state on click send levels', this.state.message);
@@ -135,7 +137,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
           subjectLine: this.state.subjectLine,
           bcc: this.state.bcc.split(','),
           inputMessage: this.state.onSubmitInputMessage,
-          recipient: this.getAllUsersEmails(),
+          recipients: this.getAllUsersEmails(),
         }
       }, () => {
         console.log('callback from set state on click send all', this.state.message);
@@ -152,35 +154,35 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private generateEmail = (message) => {
-    console.log('generate emails', message);
+
+    //console.log('this is the message: ',message)
     const emailData = {
-      to: message.recipient,
+      to: message.recipients,
       from: 'Phillip Johnson <donotreply@mail.gun.radgrad.org>',
       replyTo: 'radgrad@hawaii.edu',
-      subject: 'Newsletter View',
-      templateData: this.state.onSubmitInputMessage,
+      subject: '',
+      templateData: {
+        adminMessage: message.inputMessage,
+        firstName: '',
+      },
       filename: 'newsletter2.html'
     };
-    /* emailData.bcc = bccListArray;
-     emailData.from = 'Philip Johnson <donotreply@mailgun.radgrad.org>';
-     emailData.replyTo = 'radgrad@hawaii.edu';
-     emailData.subject = `Newsletter View For ${student.firstName} ${student.lastName}`;
-     emailData.templateData = {
-       adminMessage,
-       firstName: student.firstName,
-       firstRec: suggestedRecs[0],
-       secondRec: suggestedRecs[1],
-       thirdRec: suggestedRecs[2],
-     };
-     emailData.filename = 'newsletter2.html';*/
-    console.log(emailData);
-    sendEmailMethod.call(emailData, (error) => {
-      if (error) {
-        Swal.fire('Error sending email.');
-        console.log('error', error);
-      }
-    });
-
+    _.map(message.recipients, (student) => {
+      const studentProfile = StudentProfiles.findDoc(student);
+      const recommendations = this.getRecommendations(studentProfile.username);
+      emailData.templateData.firstName = studentProfile.firstName;
+      emailData.subject = `Newsletter View For ${studentProfile.firstName} ${studentProfile.lastName}`;
+      emailData.templateData['firstRec'] = recommendations[0];
+      emailData.templateData['secondRec'] = recommendations[1];
+      emailData.templateData['thirdRec'] = recommendations[2];
+      console.log(emailData);
+      sendEmailMethod.call(emailData, (error) => {
+        if (error) {
+          Swal.fire('Error sending email.');
+          console.log('error', error);
+        }
+      });
+    })
   }
 
   private getStudentEmailsByLevel = (level) => {
@@ -192,7 +194,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     _.map(students, (profile, index) => {
       emailaddresses.push(profile.username);
     })
-
     return emailaddresses;
   }
 
@@ -203,6 +204,53 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       emailAddresses.push(profile.username);
     })
     return emailAddresses;
+  }
+
+  private getRecommendations = (student) => {
+    const recommendations = [];
+    const projectedICE = StudentProfiles.getProjectedICE(student);
+    console.log(projectedICE);
+    if (projectedICE.i < 100) {
+      recommendations.push(this.getRecommendationsInnovation(projectedICE.i));
+    } else {
+      console.log('Yay, you\'ve completed the innovation points!')
+    }
+    if (projectedICE.c < 100) {
+      recommendations.push(this.getRecommendationsCompetency(projectedICE.c));
+    } else {
+      console.log('Yay, you\'ve completed the comptency points!');
+    }
+    if(projectedICE.e <100){
+      recommendations.push(this.getRecommendationsExperience(projectedICE.e));
+    } else {
+      console.log('Yay, you\'ve completed the experience points!');
+    }
+    return recommendations;
+  }
+
+  private getRecommendationsInnovation = (projectedICEi) => {
+    const innovationRec = {
+      header: `here are some recommendations because you need ${100 - projectedICEi} more Innovation points`,
+      info: `information on innovation opportunities`
+    };
+    return innovationRec;
+  }
+
+  private getRecommendationsCompetency = (projectedICEc) => {
+    const competencyRec = {
+      header: `here are some recommendations because you need ${100 - projectedICEc} more Compentency points`,
+      info: `information on competency opportunities`
+    };
+    return competencyRec;
+  }
+
+  private getRecommendationsExperience = (projectedICEe) => {
+    const experienceRec = {
+      header: `here are some recommendations because you need ${100 - projectedICEe} more Experience points`,
+      info: `information on experience opportunities`
+    };
+    return experienceRec;
+
   }
 
   public render() {

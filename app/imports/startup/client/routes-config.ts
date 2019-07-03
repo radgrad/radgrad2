@@ -73,12 +73,6 @@ import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDa
 /* Explorers */
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
-import ExplorerCareerGoalsPageContainer from '../../ui/pages/shared/ExplorerCareerGoalsPage';
-import ExplorerDegreesPageContainer from '../../ui/pages/shared/ExplorerDegreesPage';
-import ExplorerCoursesPageContainer from '../../ui/pages/shared/ExplorerCoursesPage';
-import ExplorerInterestsPageContainer from '../../ui/pages/shared/ExplorerInterestsPage';
-import ExplorerOpportunitiesPageContainer from '../../ui/pages/shared/ExplorerOpportunitiesPage';
-import ExplorerPlansPageContainer from '../../ui/pages/shared/ExplorerPlansPage';
 import AdminAnalyticsOverheadAnalysisPage from "../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage";
 import AdminAnalyticsStudentSummaryPage from "../../ui/pages/admin/AdminAnalyticsStudentSummaryPage";
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
