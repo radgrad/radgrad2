@@ -23,7 +23,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
-import { CourseAndOpportunityEnrollments } from '../../../api/public-stats/CourseAndOpportunityEnrollmentCollection';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 interface ILoading {
   loading: boolean;
@@ -52,7 +52,7 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       globalSubs.subscribe(CareerGoals.getPublicationName()),
-      globalSubs.subscribe(CourseAndOpportunityEnrollments.getPublicationName()),
+      globalSubs.subscribe(StudentParticipations.getPublicationName()),
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(DesiredDegrees.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),

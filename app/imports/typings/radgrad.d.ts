@@ -308,20 +308,20 @@ export interface ICareerGoalUpdate {
   retired?: boolean;
 }
 
-// CourseAndOpportunityEnrollments
-export interface ICourseAndOpportunityEnrollment {
+// StudentParticipations
+export interface IStudentParticipation {
   itemID: string;
   itemSlug: string;
   itemCount: number;
 }
 
-export interface ICourseAndOpportunityEnrollmentDefine extends IDumpOne {
+export interface IStudentParticipationDefine extends IDumpOne {
   itemID: string;
   itemSlug: string;
   itemCount: number;
 }
 
-export interface ICourseAndOpportunityEnrollmentUpdate {
+export interface IStudentParticipationUpdate {
   itemCount?: number;
 }
 
