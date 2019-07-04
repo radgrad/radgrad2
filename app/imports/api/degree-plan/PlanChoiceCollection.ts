@@ -119,7 +119,7 @@ export class PlanChoiceCollection extends BaseCollection {
           this.findDoc({ choice });
         } catch (e) {
           this.define({ choice });
-          console.log('defining ', choice);
+          // console.log('defining ', choice);
         }
       }
     });
