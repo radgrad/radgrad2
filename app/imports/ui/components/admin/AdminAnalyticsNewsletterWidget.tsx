@@ -34,6 +34,61 @@ const schema = new SimpleSchema({
   sendToAll: { type: Boolean, optional: true, label: 'Check to confirm send' },
 })
 
+const iceMap = {
+  i: {
+    name: 'Innovation', color: '#80ad27',
+    low: 'You are lacking in Innovation! Consider adding some research opportunities or other' +
+      ' innovation-related activities to strengthen this area.',
+    med: 'You are showing growth in Innovation. Consider adding some research opportunities or other' +
+      ' innovation-related activities to strengthen this area.',
+    high: 'You are close to achieving 100 points in Innovation! Add a few more innovation-related opportunities' +
+      ' to top this area off.',
+  },
+  c: {
+    name: 'Competency', color: '#26407c',
+    low: 'You are lacking in Competency. Go to your Degree Planner and flesh out your academic plan by adding' +
+      ' more courses to strengthen this area.',
+    med: 'You are showing some Competency in your degree plan. Go to your Degree Planner and flesh out your' +
+      ' academic plan by adding more courses.',
+    high: 'You are showing great Competency! Add a few more courses to get to 100 points.',
+  },
+  e: {
+    name: 'Experience', color: '#952263',
+    low: 'You are lacking in Experience! Add some profession-related opportunities to show' +
+      ' that you are ready to work in a professional environment.',
+    med: 'You have some professional development in your degree plan. To increase your Experience points' +
+      ' and show that you are ready to work in a professional environment, add some profession-related' +
+      ' opportunities.',
+    high: 'You are showing a great amount of Experience in your degree plan! Add a few more' +
+      ' profession-related opportunities to top this area off and reach 100 Experience points!',
+  },
+};
+
+const levelMap = {
+  1: 'You are currently level 1. To get to level 2, finish your first semester of ICS' +
+    ' coursework and then go see your advisor to confirm the completion of your courses and pick up' +
+    ' a new laptop sticker!',
+  2: 'You are currently level 2. To get to the next level, complete your second semester of ICS' +
+    ' coursework, though that alone may not be enough! Venture out and complete some opportunities, get them' +
+    ' verified by your advisor, and then you may find yourself at the next level.',
+  3: 'Now that you are well into your academic career, it\'s time to plan further' +
+    ' ahead. Complete your degree plan by adding enough courses and opportunities to reach 100 ICE points. Finish' +
+    ' a bit more coursework and get a few more verified opportunities, and you\'ll get to level 4! Don\'t forget' +
+    ' to update your RadGrad profile too... That new sticker depends on it.',
+  4: 'At level 4, you have not only shown great competency through your coursework, but you have also shown' +
+    ' innovation and experience through your opportunities. Continue with your curriculum, focus on verifying even' +
+    ' more opportunities, and help your peers out by leaving reviews for courses and opportunities' +
+    ' that you have completed. By doing so, you may find yourself at a rare level.',
+  5: 'You are a veteran in the ICS community. The finish line is in sight, at least for your undergraduate career.' +
+    ' But don\'t slow down! Take part in more opportunities to really show that you are ready for a professional life' +
+    ' after college, and don\'t forget to leave more reviews to help guide your peers to the next level. There is a' +
+    ' possibility that at the end of all this, you will achieve the rarest RadGrad honor.',
+  6: 'You have reached the level of ICS elites. At level 6, you have shown that there is little holding you back' +
+    ' from a successful future in computer science, whether it\'s joining the workforce or entering Graduate School.' +
+    ' Congratulations on your journey! If you have not already done so, pick up your new RadGrad sticker and show it' +
+    ' off proudly!',
+};
+
 interface IAdminAnalyticsNewsletterWidget {
   userID: string
 }
@@ -160,22 +215,20 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       to: message.recipients,
       from: 'Phillip Johnson <donotreply@mail.gun.radgrad.org>',
       replyTo: 'radgrad@hawaii.edu',
-      subject: '',
       templateData: {
         adminMessage: message.inputMessage,
-        firstName: '',
       },
       filename: 'newsletter2.html'
     };
-    _.map(message.recipients, (student) => {
-      const studentProfile = StudentProfiles.findDoc(student);
-      const recommendations = this.getRecommendations(studentProfile.username);
-      emailData.templateData.firstName = studentProfile.firstName;
-      emailData.subject = `Newsletter View For ${studentProfile.firstName} ${studentProfile.lastName}`;
-      emailData.templateData['firstRec'] = recommendations[0];
-      emailData.templateData['secondRec'] = recommendations[1];
-      emailData.templateData['thirdRec'] = recommendations[2];
-      console.log(emailData);
+    _.map(message.recipients, (username) => {
+      const informationForEmail = this.getInformationForEmail(username);
+      console.log('get information for email', informationForEmail);
+      emailData['subject'] = `Newsletter View For ${informationForEmail.studentInfo.firstName} ${informationForEmail.studentInfo.lastName}`;
+      emailData.templateData['firstName'] = informationForEmail.studentInfo.firstName;
+      emailData.templateData['lastName'] = informationForEmail.studentInfo.lastName;
+      emailData.templateData['firstRec'] = informationForEmail.emailInfo.recommendationOne;
+      emailData.templateData['secondRec'] = informationForEmail.emailInfo.recommendationTwo;
+      emailData.templateData['thirdRec'] = informationForEmail.emailInfo.recommendationThree;
       sendEmailMethod.call(emailData, (error) => {
         if (error) {
           Swal.fire('Error sending email.');
@@ -183,6 +236,99 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         }
       });
     })
+  }
+
+  private getInformationForEmail = (username) => {
+    console.log('users find profile from username', Users.findProfileFromUsername(username));
+    /**
+     *  I need to check if student.
+     *  If it is I need:
+     *  first & last name
+     *  innovation points
+     *  competency points
+     *  experience points
+     *  level
+     *  academic plan
+     *  missing requirements
+     * */
+    if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
+      const role = Users.findProfileFromUsername(username).role;
+      console.log('get information for email role: ', role);
+      // use role to find collection to search
+      // search for user and return first and last name
+    } else {
+      const student = StudentProfiles.findDoc(username); //doc
+      console.log('student should be doc', student);
+      const recommendations = this.getRecommendations(student); //array
+      console.log('recommendations: ', recommendations)
+      const informationForEmail = {
+        studentInfo: {
+          username: student.username,
+          firstName: student.firstName,
+          lastName: student.lastName,
+        },
+        emailInfo: {
+          recommendationOne: recommendations[0],
+          recommendationTwo: recommendations[1],
+          recommendationThree: recommendations[2]
+        }
+      }
+      return informationForEmail;
+    }
+  }
+
+  private getRecommendations = (student) => {
+    const recommendations = [];
+    const projectedICE = StudentProfiles.getProjectedICE(student.userID);
+    console.log(projectedICE);
+    recommendations.push(this.getRecommendationsICE(projectedICE));
+    recommendations.push(this.getRecommendationsLevel(student));
+    recommendations.push(this.getRecommendationsAcademicPlan(student));
+    return recommendations;
+  }
+
+  private getRecommendationsICE = (projectedICE) => {
+    if (projectedICE.i < 100 && projectedICE.c < 100 && projectedICE.e < 100) {
+      const firstRec = {
+        header: 'Finish Your Degree Plan',
+        info: 'recommendations for Innovation, Competency and Experience'
+      }
+      return firstRec;
+    } else {
+      const complete = {
+        header: 'You Have Completed Your Degree Plan'
+      };
+    }
+  }
+
+  private getRecommendationsInnovation = (projectedICEi) => {
+  }
+
+  private getRecommendationsCompetency = (projectedICEc) => {
+  }
+
+  private getRecommendationsExperience = (projectedICEe) => {
+  }
+
+  private getRecommendationsLevel = (student) => {
+    console.log('get recommendations level student: ', student);
+    return {
+      header: 'Level Up and Upgrade Your RadGrad Sticker',
+      info: `<img src="https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png" width="100" height="100" style="float: left; margin: 0 10px;">`
+        + `<p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p>` + `<p><em>Swing by your advisor's office or POST 307 to pick up a laptop sticker for your current level if you haven't already!</em></p>`
+        + `<p>${levelMap[student.level]}</p>` + `<a style="color: #6FBE44; font-weight: bold" href="https://radgrad.ics.hawaii.edu/">Take me to RadGrad!</a>`
+      /*'<img src=' +
+          `"https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png"` +
+        ' width="100" height="100" style="float: left; margin: 0 10px;">'*/
+    }
+  }
+
+  private getRecommendationsAcademicPlan = (student) => {
+    console.log('get recommendations academic plans student: ', student);
+    return {
+      header: 'Complete Your Academic Plan',
+      info: 'Missing requirements'
+    }
   }
 
   private getStudentEmailsByLevel = (level) => {
@@ -204,53 +350,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       emailAddresses.push(profile.username);
     })
     return emailAddresses;
-  }
-
-  private getRecommendations = (student) => {
-    const recommendations = [];
-    const projectedICE = StudentProfiles.getProjectedICE(student);
-    console.log(projectedICE);
-    if (projectedICE.i < 100) {
-      recommendations.push(this.getRecommendationsInnovation(projectedICE.i));
-    } else {
-      console.log('Yay, you\'ve completed the innovation points!')
-    }
-    if (projectedICE.c < 100) {
-      recommendations.push(this.getRecommendationsCompetency(projectedICE.c));
-    } else {
-      console.log('Yay, you\'ve completed the comptency points!');
-    }
-    if(projectedICE.e <100){
-      recommendations.push(this.getRecommendationsExperience(projectedICE.e));
-    } else {
-      console.log('Yay, you\'ve completed the experience points!');
-    }
-    return recommendations;
-  }
-
-  private getRecommendationsInnovation = (projectedICEi) => {
-    const innovationRec = {
-      header: `here are some recommendations because you need ${100 - projectedICEi} more Innovation points`,
-      info: `information on innovation opportunities`
-    };
-    return innovationRec;
-  }
-
-  private getRecommendationsCompetency = (projectedICEc) => {
-    const competencyRec = {
-      header: `here are some recommendations because you need ${100 - projectedICEc} more Compentency points`,
-      info: `information on competency opportunities`
-    };
-    return competencyRec;
-  }
-
-  private getRecommendationsExperience = (projectedICEe) => {
-    const experienceRec = {
-      header: `here are some recommendations because you need ${100 - projectedICEe} more Experience points`,
-      info: `information on experience opportunities`
-    };
-    return experienceRec;
-
   }
 
   public render() {
