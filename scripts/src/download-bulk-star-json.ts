@@ -1,8 +1,13 @@
-const request = require('request');
-const fs = require('fs');
-const inquirer = require('inquirer');
-const _ = require('lodash');
-const moment = require('moment');
+import * as request from 'request';
+// const request = require('request');
+import * as fs from 'fs';
+// const fs = require('fs');
+import * as inquirer from 'inquirer';
+// const inquirer = require('inquirer');
+import * as _ from 'lodash';
+// const _ = require('lodash');
+import * as moment from 'moment';
+// const moment = require('moment');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
