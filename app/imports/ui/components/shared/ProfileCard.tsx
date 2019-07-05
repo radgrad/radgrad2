@@ -80,9 +80,9 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     return '#';
   };
 
-  private numberStudents = (item) => {
-    const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
-    return participatingStudents.itemCount;
+  private numberUsers = (interest) => {
+    const participatingUsers = StudentParticipations.findDoc({ itemID: interest._id });
+    return participatingUsers.itemCount;
   }
 
   private interestedStudents = (item) => this.interestedStudentsHelper(item, this.props.type);
@@ -199,7 +199,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
     const { item, type, canAdd } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
-    const numberStudents = this.numberStudents(item);
+    const numberStudents = this.numberUsers(item);
     const interestedStudents = this.interestedStudents(item);
 
     return (
