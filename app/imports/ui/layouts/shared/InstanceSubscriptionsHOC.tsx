@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
@@ -12,9 +11,18 @@ import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';
 
 interface ILoading {
   loading: boolean;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 // cacheLimit default is 10, so no change.
@@ -34,12 +42,15 @@ function withInstanceSubscriptions(WrappedComponent) {
     }
   }
 
-  return withTracker(() => {
+  return withTracker((props) => {
     const handles = [];
-    if (Meteor.userId()) { // if logged out don't subscribe
-      handles.push(instanceSubs.subscribe(AcademicYearInstances.publicationNames.PerStudentID, Meteor.userId()));
-      handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, Meteor.userId()));
-      handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationNames().studentID, Meteor.userId()));
+    if (props.match) {
+      const userID = getUserIdFromRoute(props.match);
+      if (userID) { // if logged out don't subscribe
+        handles.push(instanceSubs.subscribe(AcademicYearInstances.publicationNames.PerStudentID, userID));
+        handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, userID));
+        handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationNames().studentID, userID));
+      }
     }
     handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName()));
     handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.scoreboard));
