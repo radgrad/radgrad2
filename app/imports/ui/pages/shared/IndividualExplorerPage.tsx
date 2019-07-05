@@ -33,6 +33,7 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -224,13 +225,18 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   ]
 
   private interestedUsersCareerGoals = (careerGoal: ICareerGoal, role: string): object[] => {
-    const interested = [];
+    let interested = [];
     const profiles = Users.findProfilesWithRole(role, {}, {});
     _.forEach(profiles, (profile) => {
       if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
         interested.push(profile);
       }
     });
+    interested = _.filter(interested, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+    // only allow 50 students randomly selected.
+    for (let i = interested.length - 1; i >= 50; i--) {
+      interested.splice(Math.floor(Math.random() * interested.length), 1);
+    }
     return interested;
   }
 
