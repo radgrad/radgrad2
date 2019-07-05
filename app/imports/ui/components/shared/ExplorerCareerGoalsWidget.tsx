@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider, Image } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Divider, Image, Popup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -11,6 +11,7 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { getUsername, renderLink } from './RouterHelperFunctions';
+import WidgetHeaderNumber from './WidgetHeaderNumber';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -51,6 +52,8 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     return ret;
   }
 
+  private fullName = (user) => Users.getFullName(user);
+
   private handleAdd = (event) => {
     event.preventDefault();
     const profile = Users.getProfile(getUsername(this.props.match));
@@ -89,17 +92,13 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const marginStyle = {
       marginTop: 5,
     };
-
-    const imageStyle = {
-      marginBottom: 7,
-      marginLeft: 3.5,
-      marginRight: 3.5,
-    };
-
+    const imageGroupStyle = { overflow: 'visible' };
     const divPadding = {
       marginTop: 0,
       padding: 0,
     };
+    const centerAlignedColumnStyle = { minWidth: '25%' };
+
     const { name, descriptionPairs, socialPairs, item } = this.props;
     const upperName = this.toUpper(name);
     const userStatus = this.userStatus(item);
@@ -152,17 +151,19 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
               }
             </Grid.Column><br/>
             <Divider/>
-            <Grid stackable={true} celled={'internally'} columns={'equal'}>
+            <Grid stackable={true} celled={'internally'}>
               {socialPairs.map((socialPair, index) => (
-                <React.Fragment key={index}>
-                  <Grid.Column textAlign={'center'} style={divPadding}>
-                    <h5>{this.toUpper(socialPair.label)} - {socialPair.amount}</h5>
-                    {socialPair.value.map((user, index2) => (
-                      <Image src={this.userPicture(user)} circular size='mini' verticalAlign={'middle'} key={index2}
-                             style={imageStyle}/>
-                    ))}
-                  </Grid.Column>
-                </React.Fragment>
+                <Grid.Column key={index} textAlign={'center'} style={centerAlignedColumnStyle}>
+                  <h5>{this.toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
+
+                  <Image.Group size="mini" style={imageGroupStyle}>
+                    {socialPair.value.map((user) => <Popup
+                      key={user._id}
+                      trigger={<Image src={this.userPicture(user)} circular={true} bordered={true}/>}
+                      content={this.fullName(user)}
+                    />)}
+                  </Image.Group>
+                </Grid.Column>
               ))}
             </Grid>
           </Segment>

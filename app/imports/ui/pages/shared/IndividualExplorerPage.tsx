@@ -32,6 +32,7 @@ import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config'
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -203,7 +204,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   private socialPairsCareerGoals = (careerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
     {
-      label: 'students', amount: this.numUsersCareerGoals(careerGoal, ROLE.STUDENT),
+      label: 'students', amount: this.numStudentsCareerGoals(careerGoal),
       value: this.interestedUsersCareerGoals(careerGoal, ROLE.STUDENT),
     },
     {
@@ -233,7 +234,12 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
     return interested;
   }
 
-  private numUsersCareerGoals = (careerGoal: ICareerGoal, role: string): number => this.interestedUsersCareerGoals(careerGoal, role).length
+  private numUsersCareerGoals = (careerGoal: ICareerGoal, role: string): number => this.interestedUsersCareerGoals(careerGoal, role).length;
+
+  private numStudentsCareerGoals = (careerGoal: ICareerGoal): number => {
+    const participatingStudents = StudentParticipations.findDoc({ itemID: careerGoal._id });
+    return participatingStudents.itemCount;
+  }
 
   /* ################################################# COURSES HELPER FUNCTIONS ##################################### */
   private addedCourses = (): { item: ICourse, count: number }[] => {

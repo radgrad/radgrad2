@@ -166,20 +166,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     return interested;
   }
 
-  private studentFullName = (studentID) => {
-    if (studentID === 'elispsis') {
-      return '';
-    }
-    return Users.getFullName(studentID);
-  }
-
-  private studentPicture = (studentID) => {
-    if (studentID === 'elipsis') {
-      return '/images/elipsis.png';
-    }
-    return Users.getProfile(studentID).picture;
-  }
-
   private isTypeCourse = () => this.props.type === EXPLORER_TYPE.COURSES;
 
   private hidden = () => {
@@ -221,8 +207,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const itemTerms = this.itemTerms();
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberStudents(item);
-    // TODO: Ask if we show profile pictures for Student Home page recommended opportunities and courses
-    const interestedStudents = this.interestedStudents(item);
     const hidden = this.hidden() as SemanticCOLORS;
 
     return (
@@ -241,15 +225,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
         <Card.Content>
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
-          <Image.Group size="mini">
-            {
-              interestedStudents.map((student, index) => <Popup
-                key={index}
-                trigger={<Image src={this.studentPicture(student)} circular={true} bordered={true}/>}
-                content={this.studentFullName(student)}
-              />)
-            }
-          </Image.Group>
         </Card.Content>
 
         {

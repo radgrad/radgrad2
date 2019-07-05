@@ -16,7 +16,7 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 
 class StudentParticipationCollection extends BaseCollection {
   constructor() {
-    super('CourseAndOpportunityEnrollment', new SimpleSchema({
+    super('StudentParticipationCollection', new SimpleSchema({
       itemID: SimpleSchema.RegEx.Id,
       itemSlug: String,
       itemCount: SimpleSchema.Integer,
@@ -49,6 +49,7 @@ class StudentParticipationCollection extends BaseCollection {
     return this.collection.insert({ itemID, itemSlug, itemCount });
   }
 
+  // TODO: should we be updating StudentParticipation everytime we add something to a collection?
   /**
    * Updates the enrollment data for the given item.
    * @param docID the ID of the record.
@@ -108,8 +109,8 @@ class StudentParticipationCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the CourseAndOpportunityEnrollment docID in a format acceptable to define().
-   * @param docID The docID of a CourseAndOpportunityEnrollment item.
+   * Returns an object representing the StudentParticipation docID in a format acceptable to define().
+   * @param docID The docID of a StudentParticipation item.
    * @returns { Object } An object representing the definition of docID.
    */
   dumpOne(docID: string): IStudentParticipationDefine {
