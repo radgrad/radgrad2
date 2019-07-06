@@ -133,6 +133,32 @@ const convertObject = (item) => {
   return result;
 };
 
+const fixRelativeLinks = (description: string): string => {
+  let fixed = description.replace(/..\/courses/gi, '/explorer/courses');
+  fixed = fixed.replace(/..\/opportunities/gi, '/explorer/opportunities');
+  fixed = fixed.replace(/data-scientist/g, '/explorer/career-goals/data-scientist');
+  fixed = fixed.replace(/graduate-school/g, '/explorer/career-goals/graduate-school');
+  fixed = fixed.replace(/mobile-app-developer/g, '/explorer/career-goals/mobile-app-developer');
+  fixed = fixed.replace(/game-developer/g, '/explorer/career-goals/game-developer');
+  fixed = fixed.replace(/full-stack-developer/g, '/explorer/career-goals/full-stack-developer');
+  fixed = fixed.replace(/vr-ar-engineer/g, '/explorer/career-goals/vr-ar-engineer');
+  fixed = fixed.replace(/hhttp/g, 'http');
+  fixed = fixed.replace(/ics(\d{3})/g, 'ics_' + '$1'); // eslint-disable-line no-useless-concat
+  return fixed;
+};
+
+const convertCareerGoal = (goal) => {
+  const result: any = {};
+  for (const key in goal) { // eslint-disable-line no-restricted-syntax
+    if (key === 'description') {
+      result.description = fixRelativeLinks(goal.description);
+    } else {
+      result[key] = goal[key];
+    }
+  }
+  return result;
+};
+
 function processRadGradCollection(collection: ICollection) {
   const result: any = {};
   // console.log(collection.name, collection.contents);
@@ -140,6 +166,9 @@ function processRadGradCollection(collection: ICollection) {
     result.name = 'AcademicTermCollection';
     result.contents = collection.contents;
     // console.log(result);
+  } else if (collection.name === 'CareerGoalCollection') {
+    result.name = collection.name;
+    result.contents = _.map(collection.contents, convertCareerGoal);
   } else {
     result.name = collection.name;
     result.contents = _.map(collection.contents, convertObject);
