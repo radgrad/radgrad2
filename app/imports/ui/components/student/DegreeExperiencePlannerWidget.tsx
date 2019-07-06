@@ -42,6 +42,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const username = props.match.params.username;
     const studentID = Users.getID(username);
     const years: IAcademicYear[] = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    console.log(years);
     let visibleYears;
     let visibleStartIndex = 0;
     if (years.length > 4) {

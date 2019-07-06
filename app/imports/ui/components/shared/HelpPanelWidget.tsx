@@ -11,8 +11,13 @@ import * as Router from './RouterHelperFunctions';
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]
   match: {
+    isExact: boolean;
     path: string;
-  }
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 interface IHelpPanelWidgetState {
@@ -36,6 +41,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   };
 
   public render() {
+    const { match } = this.props;
     const helpMessage = _.find(this.props.helpMessages, (m) => m.routeName === this.props.match.path);
     const helpText = helpMessage ? `${helpMessage.text}
 #### Need more help?
@@ -51,7 +57,8 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
                 <Icon name="help circle"/>
               </Accordion.Title>
               <Accordion.Content active={this.state.activeIndex === 0}>
-                <Markdown escapeHtml={false} source={helpText} renderers={{ link: Router.renderLink }}/>
+                <Markdown escapeHtml={false} source={helpText}
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
               </Accordion.Content>
             </Accordion>
           </Message>

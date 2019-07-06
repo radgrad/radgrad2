@@ -72,4 +72,4 @@ class IceSnapshotCollection extends BaseCollection {
   }
 }
 
-export const IceSnapshot = new IceSnapshotCollection();
+export const IceSnapshots = new IceSnapshotCollection();

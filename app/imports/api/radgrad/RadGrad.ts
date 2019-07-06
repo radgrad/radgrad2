@@ -13,6 +13,7 @@ import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { HelpMessages } from '../help/HelpMessageCollection';
+import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
 import { InterestTypes } from '../interest/InterestTypeCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
@@ -60,6 +61,7 @@ class RadGradClass {
       FeedbackInstances,
       HelpMessages,
       DesiredDegrees,
+      IceSnapshots,
       Interests,
       InterestTypes,
       MentorAnswers,
@@ -110,6 +112,7 @@ class RadGradClass {
       VerificationRequests,
       Feeds,
       AdvisorLogs,
+      IceSnapshots,
       UserInteractions,
       MentorQuestions,
       MentorAnswers,
