@@ -12,15 +12,12 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 /** A simple static component to render some text for the landing page. */
 class StudentHomePage extends React.Component {
   public render() {
-    const moveDownStyle = {
-      marginTop: 10,
-    };
     return (
       <div className="layout-page">
         <StudentPageMenuWidget/>
-        <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
+        <Grid verticalAlign="middle" container={true}>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+            <HelpPanelWidgetContainer/>
           </Grid.Row>
 
           <Grid.Column width={2}>
