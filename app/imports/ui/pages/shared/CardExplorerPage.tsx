@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { Roles } from 'meteor/alanning:roles';
+import { withRouter } from 'react-router-dom';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -157,7 +158,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
       // CAM: why are we filtering?
       if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
         const regex = /[1234]\d\d/g;
-        addedCourses = _.filter(addedCourses, (c) => c.item.number.match(regex));
+        addedCourses = _.filter(addedCourses, (c) => c.item.num.match(regex));
       }
     }
     return addedCourses;
@@ -253,4 +254,4 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 const CardExplorerPageCon = withGlobalSubscription(CardExplorerPage);
 const CardExplorerPageContainer = withInstanceSubscriptions(CardExplorerPageCon);
 
-export default CardExplorerPageContainer;
+export default withRouter(CardExplorerPageContainer);
