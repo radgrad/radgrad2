@@ -8,8 +8,6 @@ import IceHeader from './IceHeader';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from './InterestList';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -17,6 +15,7 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import TermAdd from './TermAdd';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 class TermCard extends React.Component<ITermCard> {
   constructor(props) {
@@ -29,7 +28,7 @@ class TermCard extends React.Component<ITermCard> {
   }
 
   private itemName = (item) => {
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       return `${item.name} (${item.num})`;
     }
     return item.name;
@@ -61,7 +60,7 @@ class TermCard extends React.Component<ITermCard> {
   private itemTerms = () => {
     const { item } = this.props;
     let ret = [];
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       // do nothing
     } else {
       ret = this.opportunityTerms(item);
@@ -80,20 +79,9 @@ class TermCard extends React.Component<ITermCard> {
     return `${description}...`;
   }
 
-  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length
-
-  private interestedStudentsHelper = (item, type) => {
-    let instances;
-    if (type === 'courses') {
-      instances = CourseInstances.find({
-        courseID: item._id,
-      }).fetch();
-    } else {
-      instances = OpportunityInstances.find({
-        opportunityID: item._id,
-      }).fetch();
-    }
-    return _.uniqBy(instances, i => i.studentID);
+  private numberStudents = (item) => {
+    const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
+    return participatingStudents.itemCount;
   }
 
   private getUsername = () => this.props.match.params.username;
@@ -102,7 +90,7 @@ class TermCard extends React.Component<ITermCard> {
     const username = this.getUsername();
     let ret = '';
     const profile = Users.getProfile(username);
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
         ret = 'grey';
       }
@@ -119,7 +107,7 @@ class TermCard extends React.Component<ITermCard> {
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       const studentItems = profile.hiddenCourseIDs;
       studentItems.push(id);
       updateData.hiddenCourses = studentItems;
@@ -142,7 +130,7 @@ class TermCard extends React.Component<ITermCard> {
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       let studentItems = profile.hiddenCourseIDs;
       studentItems = _.without(studentItems, id);
       updateData.hiddenCourses = studentItems;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { getSlug, itemShortDescription } from './helper-functions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IItemProps {
   name: string;
@@ -18,7 +19,7 @@ interface ILandingExplorerCardProps {
 const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
   const routeToItem = `#/explorer/${props.type}/${getSlug(props.item)}`;
   let title = props.item.name;
-  if (props.type === 'courses') {
+  if (props.type === EXPLORER_TYPE.COURSES) {
     title = `${title} (${props.item.num})`;
   }
   return (

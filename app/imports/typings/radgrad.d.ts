@@ -308,6 +308,23 @@ export interface ICareerGoalUpdate {
   retired?: boolean;
 }
 
+// StudentParticipations
+export interface IStudentParticipation {
+  itemID: string;
+  itemSlug: string;
+  itemCount: number;
+}
+
+export interface IStudentParticipationDefine extends IDumpOne {
+  itemID: string;
+  itemSlug: string;
+  itemCount: number;
+}
+
+export interface IStudentParticipationUpdate {
+  itemCount?: number;
+}
+
 // CourseInstances
 export interface ICourseInstance {
   _id: string;
