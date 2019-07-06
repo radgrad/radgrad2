@@ -108,7 +108,7 @@ const convertObject = (item) => {
     // console.log(key);
     switch (key) {
       case 'coursesPerSemester':
-        result.coursePerAcademicTerm = item[key];
+        result.coursesPerAcademicTerm = item[key];
         break;
       case 'declaredSemester':
         result.declaredAcademicTerm = item[key];
@@ -148,11 +148,20 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
+const addRadGradSettings = (result) => {
+  const coll: any = {};
+  coll.name = 'RadGradSettingsCollection';
+  coll.contents = [];
+  coll.contents.push({ quarterSystem: false }); // We know its false since RadGrad1 is tailored to UHM.
+  result.collections.push(coll);
+};
+
 function processRadGradCollections(data: IDataDump) {
   const result: any = {};
   result.timestamp = moment().format(databaseFileDateFormat);
   result.collections = [];
   _.forEach(data.collections, (c) => result.collections.push(processRadGradCollection(c)));
+  addRadGradSettings(result);
   return result;
 }
 
