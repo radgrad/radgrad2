@@ -122,10 +122,11 @@ export const isUrlRoleStudent = (match: IMatchProps): boolean => {
 };
 
 // To be used in <Markdown>s. This makes it so that any external links are opened in a new tab when clicked.
-export const renderLink = (props: { href: string; children: React.ReactNode }) => {
-  const match = props.href.match(/^(https?:)?\/\//);
-  if (match) {
+export const renderLink = (props: { href: string; children: React.ReactNode }, match) => {
+  const isExternal = props.href.match(/^(https?:)?\/\//);
+  const linkRoute = buildRouteName(match, props.href);
+  if (isExternal) {
     return <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>;
   }
-  return <Link to={props.href}>{props.children}</Link>;
+  return <Link to={linkRoute}>{props.children}</Link>;
 };
