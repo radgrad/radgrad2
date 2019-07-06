@@ -6,13 +6,11 @@ import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollect
 
 interface ISatisfiedPlanChoicePillProps {
   choice: string;
-  index: number;
   satisfied: boolean;
 }
 
 const SatisfiedPlanChoicePill = (props: ISatisfiedPlanChoicePillProps) => {
   const style = props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
-  // console.log(props.satisfied, style);
   return (
     <Grid.Row style={style}>
       <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>

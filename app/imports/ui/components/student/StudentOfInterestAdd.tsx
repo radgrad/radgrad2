@@ -5,6 +5,7 @@ import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IStudentOfInterestAddProps {
   item: any;
@@ -27,7 +28,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
 
   private getUsername = () => this.props.match.params.username;
 
-  private isTypeCourse = () => this.props.type === 'courses';
+  private isTypeCourse = () => this.props.type === EXPLORER_TYPE.COURSES;
 
   private nextYears = (amount) => {
     const nextYears = [];

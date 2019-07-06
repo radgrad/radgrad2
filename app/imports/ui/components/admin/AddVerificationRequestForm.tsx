@@ -67,7 +67,7 @@ class AddVerificationRequestForm extends React.Component<IAddVerificationRequest
             <SelectField name="academicTerm"/>
           </Form.Group>
           <BoolField name="retired"/>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

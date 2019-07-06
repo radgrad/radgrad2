@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
 import * as _ from 'lodash';
+import { withRouter } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface ITermAddProps {
   item: any;
@@ -21,7 +23,7 @@ interface ITermAddProps {
 class TermAdd extends React.Component<ITermAddProps> {
   private getUsername = () => this.props.match.params.username;
 
-  private isTypeCourse = () => this.props.type === 'courses';
+  private isTypeCourse = () => this.props.type === EXPLORER_TYPE.COURSES;
 
   private nextYears = (amount) => {
     const nextYears = [];
@@ -168,4 +170,4 @@ class TermAdd extends React.Component<ITermAddProps> {
   }
 }
 
-export default TermAdd;
+export default withRouter(TermAdd);

@@ -22,6 +22,7 @@ class StudentHomePage extends React.Component {
           <Grid.Row>
             <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
           </Grid.Row>
+
           <Grid.Column width={2}>
             <StudentHomeMenu/>
           </Grid.Column>
@@ -29,6 +30,7 @@ class StudentHomePage extends React.Component {
           <Grid.Column width={14}>
             <StudentHomeWidget/>
           </Grid.Column>
+
         </Grid>
         <div>Back to Top Button</div>
       </div>

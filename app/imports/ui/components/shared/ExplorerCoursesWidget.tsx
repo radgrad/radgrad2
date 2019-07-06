@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerCoursesWidgetButtonContainer from '../student/StudentExplorerCoursesWidgetButton';
 import InterestList from './InterestList';
@@ -16,17 +15,15 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
+import * as Router from './RouterHelperFunctions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
   shortName: string;
-  slug: string;
   descriptionPairs: any[];
-  id: string;
   item: ICourse;
   completed: boolean;
-  reviewed: boolean;
-  role: string;
   match: {
     isExact: boolean;
     path: string;
@@ -48,12 +45,9 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
   private toUpper = (string: string): string => string.toUpperCase();
 
-  private isRoleStudent = (): boolean => this.props.role === 'student';
+  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.props.match.params.username;
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
   private userStatus = (course: ICourse): boolean => {
     let ret = false;
@@ -151,18 +145,9 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     return review[0];
   }
 
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private buildRouteName = (slug) => {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    return `${baseRoute}explorer/courses/${slug}`;
+    const route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
+    return route;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -274,7 +259,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <div style={breakWordStyle}>
-                                  <Markdown source={descriptionPair.value} renderers={{ link: this.routerLink }}/>
+                                  <Markdown source={descriptionPair.value} renderers={{ link: Router.renderLink }}/>
                                   <br/>
                                 </div>
                                 :
@@ -301,7 +286,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: this.routerLink }}/>
+                                          renderers={{ link: Router.renderLink }}/>
                                 :
                                 <React.Fragment> N/A <br/></React.Fragment>
                             }

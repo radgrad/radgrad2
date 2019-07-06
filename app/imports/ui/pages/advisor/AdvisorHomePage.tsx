@@ -45,7 +45,7 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
         <Container fluid={false}>
           <Grid stackable>
             <Grid.Column width={14}>
-              <Grid.Row>
+              <Grid.Row style={{ paddingBottom: '14px', paddingTop: '14px' }}>
                 <HelpPanelWidget/>
               </Grid.Row>
               <Grid.Row>

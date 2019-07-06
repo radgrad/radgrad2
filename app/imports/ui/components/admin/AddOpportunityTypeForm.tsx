@@ -22,7 +22,7 @@ const AddOpportunityTypeForm = (props: IAddOpportunityTypeFormProps) => (
       </Form.Group>
       <LongTextField name="description"/>
       <BoolField name="retired"/>
-      <SubmitField/>
+      <SubmitField className="basic green" value="Add"/>
     </AutoForm>
   </Segment>
 );

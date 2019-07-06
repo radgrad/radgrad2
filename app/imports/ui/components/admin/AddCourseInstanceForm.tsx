@@ -72,7 +72,7 @@ class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps>
             <NumField name="creditHours"/>
             <SelectField name="grade"/>
           </Form.Group>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

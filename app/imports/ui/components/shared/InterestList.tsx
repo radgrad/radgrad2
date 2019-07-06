@@ -8,6 +8,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 // eslint-disable-next-line no-unused-vars
 import { IBaseProfile } from '../../../typings/radgrad';
+import * as Router from './RouterHelperFunctions';
 
 interface IInterestListProps {
   item: {
@@ -29,7 +30,7 @@ class InterestList extends React.Component<IInterestListProps> {
     super(props);
   }
 
-  private getUsername = () => this.props.match.params.username;
+  private getUsername = () => Router.getUsername(this.props.match);
 
   private interestName = (interest): string => interest.name;
 

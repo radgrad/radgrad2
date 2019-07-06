@@ -182,6 +182,7 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
               <HelpPanelWidgetContainer/>
             </Grid.Column>
           </Grid.Row>
+
           <Grid.Column width={16}>
             {this.state.showUpdateForm ? (
               <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}

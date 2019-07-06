@@ -195,7 +195,7 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

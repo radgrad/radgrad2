@@ -15,6 +15,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
+// @ts-ignore
 import CardExplorerMenu from '../../components/shared/CardExplorerMenu';
 // eslint-disable-next-line no-unused-vars
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
@@ -23,7 +24,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import * as Router from '../../components/shared/RouterHelperFunctions';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 
 interface ICardExplorerPageProps {
   match: {
@@ -41,103 +43,69 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     super(props);
   }
 
-  private getUsername = (): string => this.props.match.params.username;
+  private getUsername = (): string => Router.getUsername(this.props.match);
 
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
-  private getType = (): string => {
-    const url = this.props.match.url;
-    const index = url.lastIndexOf('/');
-    return url.substr(index + 1);
-  }
+  private getType = (): string => Router.getLastUrlParam(this.props.match);
 
-  private getCollection = (): object => {
-    const type = this.getType();
-    switch (type) {
-      case 'plans':
-        return AcademicPlans;
-      case 'career-goals':
-        return CareerGoals;
-      case 'courses':
-        return Courses;
-      case 'degrees':
-        return DesiredDegrees;
-      case 'interests':
-        return Interests;
-      case 'opportunities':
-        return Opportunities;
-      case 'users':
-        return Users;
-      default:
-        return {};
-    }
-  }
+  private getRole = (): string => Router.getRoleByUrl(this.props.match);
 
-  private getRoleByUrl = (): string => {
-    const url = this.props.match.url;
-    const username = this.getUsername();
-    const indexUsername = url.indexOf(username);
-    return url.substring(1, indexUsername - 1);
-  }
-
-  private renderPageMenuWidget = (): JSX.Element => {
-    const role = this.getRoleByUrl();
+  private getMenuWidget = (): JSX.Element => {
+    const role = this.getRole();
     switch (role) {
-      case 'student':
+      case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget/>;
-      case 'mentor':
+      case URL_ROLES.MENTOR:
         return <MentorPageMenuWidget/>;
-      case 'faculty':
+      case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget/>;
       default:
         return <React.Fragment/>;
     }
   }
 
-  private getAddedList = (): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
+  private getCollection = (): object => {
     const type = this.getType();
     switch (type) {
-      case 'plans':
-        return this.addedPlans();
-      case 'career-goals':
-        return this.addedCareerGoals();
-      case 'courses':
-        return this.addedCourses();
-      case 'degrees':
-        return this.addedDegrees();
-      case 'interests':
-        return this.addedInterests();
-      case 'opportunities':
-        return this.addedOpportunities();
-      case 'users': // do nothing
-        return undefined;
+      case EXPLORER_TYPE.ACADEMICPLANS:
+        return AcademicPlans;
+      case EXPLORER_TYPE.CAREERGOALS:
+        return CareerGoals;
+      case EXPLORER_TYPE.COURSES:
+        return Courses;
+      case EXPLORER_TYPE.DEGREES:
+        return DesiredDegrees;
+      case EXPLORER_TYPE.INTERESTS:
+        return Interests;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        return Opportunities;
+      case EXPLORER_TYPE.USERS:
+        return Users;
       default:
-        return undefined;
+        return {};
     }
   }
 
-  private getNonAddedList = (): (IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity)[] => {
+  private getAddedList = (): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
     const type = this.getType();
     switch (type) {
-      case 'plans':
-        return this.nonAddedPlans();
-      case 'career-goals':
-        return this.nonAddedCareerGoals();
-      case 'courses':
-        return this.nonAddedCourses();
-      case 'degrees':
-        return this.nonAddedDegrees();
-      case 'interests':
-        return this.nonAddedInterests();
-      case 'opportunities':
-        return this.nonAddedOpportunities();
-      case 'users': // do nothing
-        return undefined;
+      case EXPLORER_TYPE.ACADEMICPLANS:
+        return this.addedPlans();
+      case EXPLORER_TYPE.CAREERGOALS:
+        return this.addedCareerGoals();
+      case EXPLORER_TYPE.COURSES:
+        return this.addedCourses();
+      case EXPLORER_TYPE.DEGREES:
+        return this.addedDegrees();
+      case EXPLORER_TYPE.INTERESTS:
+        return this.addedInterests();
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        return this.addedOpportunities();
+      case EXPLORER_TYPE.USERS: // do nothing
+        return [];
       default:
-        return undefined;
+        return [];
     }
   }
 
@@ -154,15 +122,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return plan;
   }
 
-  nonAddedPlans = (): IAcademicPlan[] => {
-    const plans = AcademicPlans.findNonRetired({});
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      return _.filter(plans, p => profile.academicPlanID === p._id);
-    }
-    return plans;
-  }
-
   /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
   private addedCareerGoals = (): { item: ICareerGoal, count: number }[] => {
     const addedCareerGoals = [];
@@ -174,18 +133,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
       }
     });
     return addedCareerGoals;
-  }
-
-  private nonAddedCareerGoals = (): ICareerGoal[] => {
-    const profile = Users.getProfile(this.getUsername());
-    const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-    const nonAddedCareerGoals = _.filter(allCareerGoals, (careerGoal) => {
-      if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-        return false;
-      }
-      return true;
-    });
-    return nonAddedCareerGoals;
   }
 
   /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
@@ -216,32 +163,11 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return addedCourses;
   }
 
-  private nonAddedCourses = (): ICourse[] => {
-    const allCourses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
-    const userID = this.getUserIdFromRoute();
-    const nonAddedCourses = _.filter(allCourses, (course) => {
-      const ci = CourseInstances.find({
-        studentID: userID,
-        courseID: course._id,
-      }).fetch();
-      if (ci.length > 0) {
-        return false;
-      }
-      if (course.shortName === 'Non-CS Course') {
-        return false;
-      }
-      return true;
-    });
-    return nonAddedCourses;
-  }
-
   /* ####################################### DEGREES HELPER FUNCTIONS ############################################## */
   private addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
     item: d,
     count: 1,
   }))
-
-  private nonAddedDegrees = (): IDesiredDegree[] => []
 
   /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
   private addedInterests = (): { item: IInterest, count: number }[] => {
@@ -267,25 +193,16 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return [];
   }
 
-  private nonAddedInterests = (): IInterest[] => {
-    const interests = Interests.find({}).fetch();
-    if (this.getUserIdFromRoute()) {
-      const profile = Users.getProfile(this.getUserIdFromRoute());
-      return _.filter(interests, int => !_.includes(profile.interestIDs, int._id));
-    }
-    return interests;
-  }
-
   /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
   private addedOpportunities = (): { item: IOpportunity, count: number }[] => {
     const addedOpportunities = [];
     const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
     const userID = this.getUserIdFromRoute();
-    const group = this.getRoleByUrl();
-    if (group === 'faculty') {
+    const role = this.getRole();
+    if (role === URL_ROLES.FACULTY) {
       return _.filter(allOpportunities, o => o.sponsorID === userID);
     }
-    if (group === 'student') {
+    if (role === URL_ROLES.STUDENT) {
       _.forEach(allOpportunities, (opportunity) => {
         const oi = OpportunityInstances.find({
           studentID: userID,
@@ -299,58 +216,32 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     return addedOpportunities;
   }
 
-  private nonAddedOpportunities = (): IOpportunity[] => {
-    const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-    const userID = this.getUserIdFromRoute();
-    const group = this.getRoleByUrl();
-    if (group === 'faculty') {
-      return _.filter(allOpportunities, o => o.sponsorID !== userID);
-    }
-    if (group === 'student') {
-      const nonAddedOpportunities = _.filter(allOpportunities, (opportunity) => {
-        const oi = OpportunityInstances.find({
-          studentID: userID,
-          opportunityID: opportunity._id,
-        }).fetch();
-        if (oi.length > 0) {
-          return false;
-        }
-        return true;
-      });
-      return nonAddedOpportunities;
-    }
-    return allOpportunities;
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const helpMessage = HelpMessages.findOne({ routeName: this.props.match.path });
+    const menuWidget = this.getMenuWidget();
 
     const addedList = this.getAddedList();
-    // Decided not to implement rendering nonAddedList for now. In radgrad1, the nonAddedList only renders for mobile.
-    // I figured there's no point in implementing it then if it's only for mobile. I'll keep the functions to get nonAddedList
-    // in file just in case.
-    const nonAddedList = this.getNonAddedList();
-    const isTypeInterest = this.getType() === 'interests'; // Only Interests takes in Career List for CardExplorerMenu
-    type types = 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-    type roles = 'student' | 'faculty' | 'mentor';
+    const isTypeInterest = this.getType() === EXPLORER_TYPE.INTERESTS; // Only Interests takes in Career List for CardExplorerMenu
+    const role = this.getRole();
+    const collection = this.getCollection();
+    const type = this.getType();
 
     return (
       <React.Fragment>
-        {this.renderPageMenuWidget()}
+        {menuWidget}
 
         <Grid container={true} stackable={true}>
           <Grid.Row>
-            {helpMessage ? <HelpPanelWidget/> : ''}
+            <HelpPanelWidget/>
           </Grid.Row>
 
           <Grid.Column width={3}>
-            <CardExplorerMenu menuAddedList={addedList} menuNonAddedList={nonAddedList}
+            <CardExplorerMenu menuAddedList={addedList} type={type} role={role}
                               menuCareerList={isTypeInterest ? this.addedCareerInterests() : undefined}
-                              type={this.getType() as types} role={this.getRoleByUrl() as roles}/>
+            />
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <CardExplorerWidget collection={this.getCollection()} type={this.getType()} role={this.getRoleByUrl()}/>
+            <CardExplorerWidget collection={collection} type={type} role={role}/>
           </Grid.Column>
         </Grid>
 

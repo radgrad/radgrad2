@@ -77,7 +77,7 @@ class AddOpportunityInstanceForm extends React.Component<IAddOpportunityInstance
             <BoolField name="verified"/>
             <BoolField name="retired"/>
           </Form.Group>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

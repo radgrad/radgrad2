@@ -125,6 +125,8 @@ class AdminDataModelDesiredDegreesPage extends React.Component<{}, IAdminDataMod
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
+    updateData.id = doc._id;
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
