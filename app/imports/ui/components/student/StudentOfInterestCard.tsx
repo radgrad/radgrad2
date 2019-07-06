@@ -228,7 +228,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         </Card.Content>
 
         <Card.Content>
-          {console.log(`${itemShortDescription}...`)}
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
                     renderers={{ link: (props) => renderLink(props, match) }}/>
           <InterestList item={item} size='mini'/>
