@@ -45,10 +45,13 @@ export const getBaseRoute = (match: IMatchProps): string => {
 // Builds a route name and returns it. Make sure routeName is preceeded by a forward slash ('/').
 // i.e., buildRouteName('/explorer/plans') => /role/:username/explorer/plans
 export const buildRouteName = (match: IMatchProps, routeName: string): string => {
-  const firstChar = routeName.charAt(0);
-  if (firstChar !== '/') {
-    throw new Error('buildRouteName() function from RouterHelperFunctions.tsx requires that the second parameter must have the forward slash (/) as the first character.');
-  }
+  // I have commented the following code out because of an edge case with OpportunityCollection descriptions and renderLink.
+  // OpportunityCollection description contains links with the following format [Title](some http link). Because of this,
+  // this error always gets thrown.
+  // const firstChar = routeName.charAt(0);
+  // if (firstChar !== '/') {
+  //   throw new Error('buildRouteName() function from RouterHelperFunctions.tsx requires that the second parameter must have the forward slash (/) as the first character.');
+  // }
   const baseRoute = getBaseRoute(match);
   const route = `${baseRoute}${routeName}`;
   return route;
@@ -122,10 +125,11 @@ export const isUrlRoleStudent = (match: IMatchProps): boolean => {
 };
 
 // To be used in <Markdown>s. This makes it so that any external links are opened in a new tab when clicked.
-export const renderLink = (props: { href: string; children: React.ReactNode }) => {
-  const match = props.href.match(/^(https?:)?\/\//);
-  if (match) {
+export const renderLink = (props: { href: string; children: React.ReactNode }, match: IMatchProps): JSX.Element => {
+  const isExternal = props.href.match(/^(https?:)?\/\//);
+  const baseRoute = getBaseRoute(match);
+  if (isExternal) {
     return <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>;
   }
-  return <Link to={props.href}>{props.children}</Link>;
+  return <Link to={`${baseRoute}${props.href}`}>{props.children}</Link>;
 };

@@ -100,7 +100,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
       marginTop: 0,
       padding: 0,
     };
-    const { name, descriptionPairs, socialPairs, item } = this.props;
+    const { name, descriptionPairs, socialPairs, item, match } = this.props;
     const upperName = this.toUpper(name);
     const userStatus = this.userStatus(item);
 
@@ -133,7 +133,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
                         {
                           descriptionPair.value ?
                             <Markdown escapeHtml={false} source={descriptionPair.value}
-                                      renderers={{ link: renderLink }}/>
+                                      renderers={{ link: (props) => renderLink(props, match) }}/>
                             :
                             'N/A'
                         }

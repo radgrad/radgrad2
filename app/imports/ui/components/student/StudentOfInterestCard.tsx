@@ -208,7 +208,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item } = this.props;
+    const { item, match } = this.props;
     const itemName = this.itemName(item);
     const itemTerms = this.itemTerms();
     const itemShortDescription = this.itemShortDescription(item);
@@ -228,7 +228,8 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={`${itemShortDescription}...`} renderers={{ link: renderLink }}/>
+          <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
+                    renderers={{ link: (props) => renderLink(props, match) }}/>
           <InterestList item={item} size='mini'/>
         </Card.Content>
 

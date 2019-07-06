@@ -113,6 +113,7 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
       paddingTop: 15,
       paddingBottom: 15,
     };
+    const { match } = this.props;
     const username = this.props.match.params.username;
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
@@ -151,7 +152,8 @@ class InspectorOpportunityView extends React.Component<IInspectorOpportunityView
 
         <b>When: {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}</b>
         <p><b>Description:</b></p>
-        <Markdown escapeHtml={true} source={opportunity.description} renderers={{ link: Router.renderLink }}/>
+        <Markdown escapeHtml={true} source={opportunity.description}
+                  renderers={{ link: (props) => Router.renderLink(props, match) }}/>
         <p/>
         <p><b>Interests:</b></p>
         <UserInterestList userID={this.props.studentID} interestIDs={opportunity.interestIDs}/>

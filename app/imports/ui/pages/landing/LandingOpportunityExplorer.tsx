@@ -22,9 +22,16 @@ import * as Router from '../../components/shared/RouterHelperFunctions';
 interface IOpportunityExplorerProps {
   opportunity: IOpportunity;
   quarters: boolean;
-  match: object;
   location: object;
   history: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerProps> {
@@ -39,6 +46,7 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
       width: '640',
     };
     const videoID = teaser(this.props.opportunity);
+    const { match } = this.props;
     // console.log(videoID);
     return (
       <div>
@@ -66,7 +74,7 @@ class LandingOpportunityExplorer extends React.Component<IOpportunityExplorerPro
                 </Grid>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.opportunity.description}
-                          renderers={{ link: Router.renderLink }}/>
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                 <b>Teaser:</b><br/>
                 {teaser(this.props.opportunity) ? <YouTube videoId={videoID} opts={opts}/> : <Label>N/A</Label>}
                 <Header as="h4" dividing={true}>Opportunity Interests</Header>
