@@ -57,7 +57,7 @@ class ExplorerCard extends React.Component<IExplorerCard> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item } = this.props;
+    const { item, match } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
 
@@ -70,7 +70,7 @@ class ExplorerCard extends React.Component<IExplorerCard> {
 
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: Router.renderLink }}/>
+                    renderers={{ link: (props) => Router.renderLink(props, match) }}/>
         </Card.Content>
 
         <Link to={this.buildRouteName(this.props.item)}>

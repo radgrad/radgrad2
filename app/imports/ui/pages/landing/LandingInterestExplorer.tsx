@@ -18,7 +18,14 @@ interface IInterestExplorerProps {
   interest: IInterest;
   courses: ICourse[];
   opportunities: IOpportunity[];
-  match: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   location: object;
   history: object;
 }
@@ -30,6 +37,7 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
 
   public render() {
     // console.log(this.props.interest);
+    const { match } = this.props;
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -48,7 +56,7 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
                 </Header>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.interest.description}
-                          renderers={{ link: Router.renderLink }}/>
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
               </Segment>
               <Segment padded={true}>
                 <Header as="h4" dividing={true}>Related Courses</Header>

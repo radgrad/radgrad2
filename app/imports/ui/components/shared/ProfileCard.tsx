@@ -166,7 +166,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
    * a type, a canAdd method that returns true and match
    */
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, type, canAdd } = this.props;
+    const { item, type, canAdd, match } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
     const itemParticipation = this.studentsParticipating(item);
@@ -178,7 +178,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
         </Card.Content>
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: Router.renderLink }}/>
+                    renderers={{ link: (props) => Router.renderLink(props, match) }}/>
         </Card.Content>
         <Card.Content>
           STUDENTS PARTICIPATING &middot; {itemParticipation}

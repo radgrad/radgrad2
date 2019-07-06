@@ -67,7 +67,7 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
     };
     const divierStyle = { marginTop: 0 };
 
-    const { name, descriptionPairs, item } = this.props;
+    const { name, descriptionPairs, item, match } = this.props;
     const upperName = this.toUpper(name);
     const isStudent = this.isRoleStudent();
     const userStatus = this.userStatus(item);
@@ -103,7 +103,7 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
                     {
                       descriptionPair.value ?
                         <Markdown escapeHtml={true} source={descriptionPair.value}
-                                  renderers={{ link: Router.renderLink }}/>
+                                  renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                         :
                         <React.Fragment> N/A <br/></React.Fragment>
                     }

@@ -14,7 +14,14 @@ import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface IAcademicPlanExplorerProps {
   plan: IAcademicPlan;
-  match: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   location: object;
   history: object;
 }
@@ -26,6 +33,7 @@ class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerP
 
   public render() {
     // console.log(this.props.plan);
+    const { match } = this.props;
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -44,7 +52,7 @@ class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerP
                 </Header>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.plan.description}
-                          renderers={{ link: Router.renderLink }}/>
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                 <hr/>
                 <LandingAcademicPlanViewer plan={this.props.plan}/>
               </Segment>
