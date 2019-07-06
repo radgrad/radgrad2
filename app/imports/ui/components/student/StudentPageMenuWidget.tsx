@@ -18,8 +18,8 @@ class StudentPageMenuWidget extends React.Component<IStudentPageMenuWidgetProps>
   public render() {
     const menuItems = [
       { label: 'Home', route: 'home' },
-      { label: 'Degree Planner', route: 'degree-planner' },
       { label: 'Explorer', route: 'explorer' },
+      { label: 'Degree Planner', route: 'degree-planner' },
       { label: 'Mentor Space', route: 'mentor-space' },
     ];
     return (
