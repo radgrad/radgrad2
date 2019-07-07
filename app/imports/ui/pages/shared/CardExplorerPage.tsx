@@ -226,7 +226,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const type = this.getType();
 
     return (
-      <React.Fragment>
+      <div>
         {menuWidget}
 
         <Grid container={true} stackable={true}>
@@ -245,7 +245,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
           </Grid.Column>
         </Grid>
 
-      </React.Fragment>
+      </div>
     );
   }
 }

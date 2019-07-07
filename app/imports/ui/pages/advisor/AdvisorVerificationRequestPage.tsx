@@ -3,7 +3,7 @@ import { Container, Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
@@ -36,14 +36,13 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
       <div>
         <AdvisorPageMenuWidget/>
         <Container fluid={false}>
-          <Grid stackable={true}>
-            <Grid.Column width={14}>
-              <Grid.Row style={{ paddingBottom: '0px', paddingTop: '14px' }}>
-                <HelpPanelWidgetContainer/>
-              </Grid.Row>
-            </Grid.Column>
-            <Grid.Row style={{ paddingTop: '0px' }}>
-              <Grid.Column width={3}>
+          <Grid container={true} stackable={true}>
+            <Grid.Row>
+              <HelpPanelWidget/>
+            </Grid.Row>
+
+            <Grid.Row>
+              <Grid.Column width={4}>
                 <Menu vertical={true} text={true}>
                   <Menu.Item name={'pending'}
                              active={activeItem === 'pending'}
@@ -62,7 +61,7 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
                   </Menu.Item>
                 </Menu>
               </Grid.Column>
-              <Grid.Column width={11}>
+              <Grid.Column width={12}>
                 {activeItem === 'pending' ?
                   <PendingVerificationsWidget
                     pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/>

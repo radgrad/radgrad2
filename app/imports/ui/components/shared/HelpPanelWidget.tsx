@@ -36,9 +36,11 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
   };
 
   public render() {
-    const helpPanelWidgetStyle = {
-      marginTop: 10,
+    const helpPanelWidgetTitleStyle: React.CSSProperties = {
+      textTransform: 'uppercase',
+      color: '#409178',
     };
+
     const helpMessage = _.find(this.props.helpMessages, (m) => m.routeName === this.props.match.path);
     const helpText = helpMessage ? `${helpMessage.text}
 
@@ -46,12 +48,12 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
     return (helpMessage) ? (
-      <Grid.Column style={helpPanelWidgetStyle}>
+      <Grid.Column>
         <Message info={true} floating={true}>
           <Accordion>
             <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
               <Icon name="dropdown"/>
-              <span>{helpMessage.title}</span>
+              <span style={helpPanelWidgetTitleStyle}><strong>{helpMessage.title}</strong></span>
             </Accordion.Title>
             <Accordion.Content active={this.state.activeIndex === 0}>
               <Markdown escapeHtml={false} source={helpText} renderers={{ link: Router.renderLink }}/>

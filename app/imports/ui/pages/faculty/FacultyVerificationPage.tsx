@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
@@ -26,7 +26,6 @@ interface FacultyVerificationPageProps {
   }
 }
 
-/** A simple static component to render some text for the landing page. */
 class FacultyVerificationPage extends React.Component<FacultyVerificationPageProps> {
   state = { activeItem: 'pending' };
 
@@ -38,14 +37,13 @@ class FacultyVerificationPage extends React.Component<FacultyVerificationPagePro
       <div>
         <FacultyPageMenuWidget/>
         <Container fluid={false}>
-          <Grid stackable={true}>
-            <Grid.Column width={14}>
-              <Grid.Row style={{ paddingBottom: '0px', paddingTop: '14px' }}>
-                <HelpPanelWidgetContainer/>
-              </Grid.Row>
-            </Grid.Column>
-            <Grid.Row style={{ paddingTop: '0px' }}>
-              <Grid.Column width={3}>
+          <Grid container={true} stackable={true}>
+            <Grid.Row>
+              <HelpPanelWidget/>
+            </Grid.Row>
+
+            <Grid.Row>
+              <Grid.Column width={4}>
                 <Menu vertical={true} text={true}>
                   <Menu.Item name={'pending'}
                              active={activeItem === 'pending'}
@@ -64,7 +62,7 @@ class FacultyVerificationPage extends React.Component<FacultyVerificationPagePro
                   </Menu.Item>
                 </Menu>
               </Grid.Column>
-              <Grid.Column width={11}>
+              <Grid.Column width={12}>
                 {activeItem === 'pending' ?
                   <PendingVerificationsWidget
                     pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/>

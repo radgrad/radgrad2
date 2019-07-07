@@ -20,7 +20,7 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 const collection = Opportunities; // the collection to use.
 
@@ -167,20 +167,15 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
   };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
     const findOptions = {
       sort: { name: 1 }, // determine how you want to sort the items in the list
     };
     return (
       <div>
         <FacultyPageMenuWidget/>
-        <Grid container={true} meteostackable={true} style={paddedStyle}>
+        <Grid container={true} stackable={true}>
           <Grid.Row>
-            <Grid.Column width={16}>
-              <HelpPanelWidgetContainer/>
-            </Grid.Column>
+            <HelpPanelWidget/>
           </Grid.Row>
 
           <Grid.Column width={16}>
