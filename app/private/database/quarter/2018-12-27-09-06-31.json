@@ -1,5 +1,5 @@
 {
-  "timestamp": "2019-07-07-07-52-19",
+  "timestamp": "2018-12-27-09-06-31",
   "collections": [
     {
       "name": "AcademicPlanCollection",
@@ -3937,6 +3937,10 @@
           "text": "This page provides a browser for the users currently registered with RadGrad.\n\nRadGrad is not an open system. In order for someone to login to RadGrad, they must have been explicitly registered by a RadGrad advisor or admin.\n\nIf there is someone who you believe should have a RadGrad account, or if you believe there is a RadGrad user who should no longer have access to the system, please contact a RadGrad administrator."
         }
       ]
+    },
+    {
+      "name": "IceSnapshotCollection",
+    "contents": []
     },
     {
       "name": "InterestCollection",
