@@ -214,14 +214,14 @@ class VerificationRequestCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function publish() {
+      Meteor.publish(this.collectionName, function publish(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {
           return instance.collection.find();
         }
-        return instance.collection.find({ studentID: this.userId });
+        return instance.collection.find({ studentID });
       });
     }
   }
