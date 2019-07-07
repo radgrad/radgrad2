@@ -47,9 +47,9 @@ function withInstanceSubscriptions(WrappedComponent) {
     if (props.match) {
       const userID = getUserIdFromRoute(props.match);
       if (userID) { // if logged out don't subscribe
-        handles.push(instanceSubs.subscribe(AcademicYearInstances.publicationNames.PerStudentID, userID));
-        handles.push(instanceSubs.subscribe(CourseInstances.getPublicationNames().studentID, userID));
-        handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationNames().studentID, userID));
+        handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
       }
       handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName(), userID));
       handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));

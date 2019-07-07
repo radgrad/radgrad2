@@ -44,7 +44,7 @@ class CourseInstanceCollection extends BaseCollection {
     this.validGrades = ['', 'A', 'A+', 'A-',
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
-      studentID: `${this.collectionName}.studentID`,
+      studentID: this.collectionName,
       scoreboard: `${this.collectionName}.Scoreboard`,
     };
     this.defineSchema = new SimpleSchema({
@@ -367,11 +367,8 @@ class CourseInstanceCollection extends BaseCollection {
         ], { clientCollection: CourseScoreboardName });
       });
       Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        new SimpleSchema({
-          studentID: { type: String },
-        }).validate({ studentID });
         // console.log(Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]));
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID });

@@ -108,9 +108,6 @@ class AdvisorLogCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       Meteor.publish(this.collectionName, function publish(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        new SimpleSchema({
-          studentID: { type: String },
-        }).validate({ studentID });
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
