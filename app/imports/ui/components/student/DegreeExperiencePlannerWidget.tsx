@@ -61,18 +61,17 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       visibleStartIndex,
       visibleYears,
     };
+    console.log('initial state %o', this.state);
   }
 
   public handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
-    // console.log(`course instance id ${value}`);
     this.props.selectCourseInstance(value);
     this.props.selectInspectorTab();
   }
 
   public handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
-    // console.log(`opportunity instance id ${value}`);
     this.props.selectOpportunityInstance(value);
     this.props.selectInspectorTab();
   }
@@ -80,7 +79,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
   public handleClickPrevYear = (event) => {
     event.preventDefault();
     const visibleStartIndex = this.state.visibleStartIndex - 1;
-    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 5);
+    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       visibleStartIndex,
       visibleYears,
@@ -90,7 +89,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
   public handleClickNextYear = (event) => {
     event.preventDefault();
     const visibleStartIndex = this.state.visibleStartIndex + 1;
-    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 5);
+    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       visibleStartIndex,
       visibleYears,
@@ -124,12 +123,12 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     });
     const studentID = Users.getID(student);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
-    const visibleStartIndex = this.state.visibleStartIndex - 1;
-    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 5);
+    const visibleYears = this.state.years.slice(this.state.visibleStartIndex, this.state.visibleStartIndex + 5);
     this.setState({
       years,
       visibleYears,
     });
+    console.log('state after adding %o', this.state);
   }
 
   public handleDeleteYear = (event: any): void => {
@@ -158,11 +157,13 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const student = this.props.match.params.username;
     const studentID = Users.getID(student);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
-    const visibleYears = this.state.years.slice(this.state.visibleStartIndex, this.state.visibleStartIndex + 5);
+    const visibleStartIndex = this.state.visibleStartIndex - 1;
+    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       years,
       visibleYears,
     });
+    console.log('state after deletion %o', this.state);
   }
 
   public isTermEmpty = (termID: string): boolean => {
@@ -211,16 +212,17 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
               </Button>
             </Grid.Column>
             <Grid.Column>
-              {this.isYearEmpty(years[years.length - 1]) ?
-                <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
-                  <Icon name="minus circle"/> Delete Year
-                </Button>
-                :
-                (visibleStartIndex < years.length - 4 &&
+              {
+                visibleStartIndex < years.length - 4 ?
                   (<Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
                     <Icon name="arrow circle right"/>
                     Next Year
-                  </Button>))
+                  </Button>)
+                  :
+                  (this.isYearEmpty(years[years.length - 1]) &&
+                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
+                      <Icon name="minus circle"/> Delete Year
+                    </Button>)
               }
             </Grid.Column>
           </Grid.Row>
