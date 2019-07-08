@@ -21,6 +21,8 @@ interface IFacultyPageMenuWidgetProps {
 
 class FacultyPageMenuWidget extends React.Component<IFacultyPageMenuWidgetProps> {
   public render() {
+    const divStyle = { marginBottom: 30 };
+
     const username = this.props.match.params.username;
     const faculty = FacultyProfiles.findDoc(username);
     // const sponsorID = Users.getID(username);
@@ -43,7 +45,7 @@ class FacultyPageMenuWidget extends React.Component<IFacultyPageMenuWidgetProps>
       { label: 'Course Scoreboard', route: 'course-scoreboard' },
     ];
     return (
-      <div>
+      <div style={divStyle}>
         <FirstMenuContainer/>
         <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
       </div>

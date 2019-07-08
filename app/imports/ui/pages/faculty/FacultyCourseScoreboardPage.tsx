@@ -3,23 +3,21 @@ import { Grid } from 'semantic-ui-react';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
 
 /** A simple static component to render some text for the landing page. */
 class FacultyCourseScoreboardPage extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    const moveDownStyle = {
-      marginTop: 10,
-    };
     return (
       <div>
         <FacultyPageMenuWidget/>
-        <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
+        <Grid container={true} stackable={true}>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+            <HelpPanelWidget/>
           </Grid.Row>
+
           <Grid.Column width={16}>
             <CourseScoreboardWidget/>
           </Grid.Column>

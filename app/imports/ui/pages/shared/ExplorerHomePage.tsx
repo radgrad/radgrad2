@@ -43,7 +43,7 @@ class ExplorerHomePage extends React.Component<IExplorerHomePageProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
-      <React.Fragment>
+      <div>
         {this.renderPageMenuWidget()}
         <Grid container={true} stackable={true}>
           <Grid.Row>
@@ -54,7 +54,7 @@ class ExplorerHomePage extends React.Component<IExplorerHomePageProps> {
             <ExplorerNavDropdown match={this.props.match} text="Select Explorer"/>
           </Grid.Column>
         </Grid>
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -4,29 +4,24 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import AdvisorAcademicPlanTabs from '../../components/advisor/AdvisorAcademicPlanTabs';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
-const AdvisorAcademicPlanPage = () => {
-  const moveDownStyle = {
-    marginTop: 10,
-  };
-  return (
-    <div>
-      <AdvisorPageMenuWidget/>
-      <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
-        <Grid.Row>
-          <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
-        </Grid.Row>
-        < Grid.Row>
-          <Grid.Column width={16}>
-            <AdvisorAcademicPlanTabs/>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </
-      div>
-  );
-};
+const AdvisorAcademicPlanPage = () => (
+  <div>
+    <AdvisorPageMenuWidget/>
+    <Grid container={true} stackable={true}>
+      <Grid.Row>
+        <HelpPanelWidget/>
+      </Grid.Row>
+
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <AdvisorAcademicPlanTabs/>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  </div>
+);
 
 const AdvisorAcademicPlanPageCon = withGlobalSubscription(AdvisorAcademicPlanPage);
 const AdvisorAcademicPlanPageContainer = withInstanceSubscriptions(AdvisorAcademicPlanPageCon);
