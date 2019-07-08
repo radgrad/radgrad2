@@ -71,6 +71,7 @@ import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import { ROLE } from '../../api/role/Role';
+import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
 
 // Widely used params as constants
 const USERNAME = ':username';
@@ -78,7 +79,9 @@ const HOME = 'home';
 const GUIDEDTOUR = 'guidedtour';
 const DATAMODEL = 'datamodel';
 const MODERATION = 'moderation';
-const COURSE_SCOREBOARD = 'course-scoreboard';
+const SCOREBOARD = 'scoreboard';
+const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
+const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 const MENTOR_SPACE = 'mentor-space';
 
 // The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
@@ -268,7 +271,12 @@ export const routes = {
       component: AdminAnalyticsPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COURSE_SCOREBOARD}`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
       component: AdminCourseScoreboardPageContainer,
     },

@@ -21,7 +21,7 @@ class AdminPageMenuWidget extends React.Component {
       { label: 'Data Base', route: 'database', regex: 'database' },
       { label: moderationLabel, route: 'moderation', regex: 'moderation' },
       { label: 'Analytics', route: 'analytics', regex: 'analytics' },
-      { label: 'Course Scoreboard', route: 'course-scoreboard', regex: 'course-scoreboard' },
+      { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
     ];
     return (
       <div>
