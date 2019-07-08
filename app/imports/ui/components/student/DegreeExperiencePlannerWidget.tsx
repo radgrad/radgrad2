@@ -47,7 +47,6 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const username = props.match.params.username;
     const studentID = Users.getID(username);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
-    console.log(years);
     let visibleYears;
     let visibleStartIndex = 0;
     if (years.length > 4) {
@@ -61,7 +60,6 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       visibleStartIndex,
       visibleYears,
     };
-    console.log('initial state %o', this.state);
   }
 
   public handleClickCourseInstance = (event, { value }) => {
@@ -128,7 +126,6 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       years,
       visibleYears,
     });
-    console.log('state after adding %o', this.state);
   }
 
   public handleDeleteYear = (event: any): void => {
@@ -139,7 +136,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       if (error) {
         Swal.fire({
           title: 'Failed to delete Academic Year',
-          text: error.message,
+          text: `${error.message}. The page most likely didn't update properly fast enough. Refresh the page if you see this error.`,
           type: 'error',
         });
       } else {
@@ -163,7 +160,6 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       years,
       visibleYears,
     });
-    console.log('state after deletion %o', this.state);
   }
 
   public isTermEmpty = (termID: string): boolean => {
@@ -199,31 +195,28 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
                                 handleClickOpportunityInstance={this.handleClickOpportunityInstance}/>
             ))}
           </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>{visibleStartIndex > 0 ?
-              <Button color="green" icon={true} labelPosition="left" onClick={this.handleClickPrevYear}>
-                <Icon name="arrow circle left"/>
-                Prev Year
-              </Button> : ''}
+          <Grid.Row textAlign="center">
+            <Grid.Column textAlign="left">
+              {visibleStartIndex > 0 ?
+                <Button color="green" icon={true} labelPosition="left" onClick={this.handleClickPrevYear}>
+                  <Icon name="arrow circle left"/>Previous Year
+                </Button> : ''}
             </Grid.Column>
-            <Grid.Column>
-              <Button color="green" icon={true} labelPosition="left" onClick={this.handleAddYear}>
+            <Grid.Column textAlign="center">
+              <Button color="green" onClick={this.handleAddYear}>
                 <Icon name="plus circle"/> Add Academic Year
               </Button>
             </Grid.Column>
-            <Grid.Column>
-              {
-                visibleStartIndex < years.length - 4 ?
-                  (<Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
-                    <Icon name="arrow circle right"/>
-                    Next Year
-                  </Button>)
-                  :
-                  (this.isYearEmpty(years[years.length - 1]) &&
-                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
-                      <Icon name="minus circle"/> Delete Year
-                    </Button>)
-              }
+            <Grid.Column textAlign="right">
+              {visibleStartIndex < years.length - 4 ?
+                (<Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
+                  <Icon name="arrow circle right"/>Next Year
+                </Button>)
+                :
+                (this.isYearEmpty(years[years.length - 1]) &&
+                  <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
+                    <Icon name="minus circle"/>Delete Year
+                  </Button>)}
             </Grid.Column>
           </Grid.Row>
         </Grid>
