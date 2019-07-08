@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { moment } from 'meteor/momentjs:moment';
+import * as _ from 'lodash';
 import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/actions/actions';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
@@ -27,12 +28,12 @@ interface IDePProps {
   };
 }
 
-// FIXME: Figure out a way so we dont have to do "{[key: string]: any}". This is mainly have to do with the handleDeleteYear.
+// FIXME: Figure out a way so we dont have to do "{[key: string]: any}[]". This is mainly have to do with the handleDeleteYear.
 //        Can't call ._id on an AcademicYear type
 interface IDePState {
-  visibleYears: IAcademicYear[] | { [key: string]: any };
+  visibleYears: IAcademicYear[] | { [key: string]: any }[];
   visibleStartIndex: number;
-  years: IAcademicYear[] | { [key: string]: any };
+  years: IAcademicYear[] | { [key: string]: any }[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,7 +47,12 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     super(props);
     const username = props.match.params.username;
     const studentID = Users.getID(username);
-    const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    let years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    // Automatically generate 4 AcademicYearInstances if none exists
+    if (years.length === 0) {
+      this.generateAcademicYearInstances(4);
+      years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    }
     let visibleYears;
     let visibleStartIndex = 0;
     if (years.length > 4) {
@@ -60,6 +66,20 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       visibleStartIndex,
       visibleYears,
     };
+  }
+
+  public generateAcademicYearInstances = (number) => {
+    const student = this.props.match.params.username;
+    let currentYear = moment().year();
+    _.times(number, () => {
+      const definitionData: IAcademicYearDefine = { year: currentYear++, student };
+      const collectionName = AcademicYearInstances.getCollectionName();
+      defineMethod.call({ collectionName, definitionData }, (error) => {
+        if (error) {
+          console.error(`Error creating 4 automatically generated AcademicYearInstances from Degree Planner \n${error}`);
+        }
+      });
+    });
   }
 
   public handleClickCourseInstance = (event, { value }) => {
@@ -176,7 +196,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     return courseInstances.length === 0 && opportunityInstances.length === 0;
   }
 
-  public isYearEmpty = (year: IAcademicYear): boolean => {
+  public isYearEmpty = (year): boolean => {
     const mapped = year.termIDs.map((termID) => this.isTermEmpty(termID));
     return mapped.every(bool => bool === true);
   }
@@ -185,6 +205,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const { visibleYears, visibleStartIndex, years } = this.state;
     const username = this.props.match.params.username;
     const studentID = Users.getID(username);
+
     return (
       <Segment padded={true}>
         <Grid stackable={true} columns="equal">
@@ -208,15 +229,18 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
               </Button>
             </Grid.Column>
             <Grid.Column textAlign="right">
-              {visibleStartIndex < years.length - 4 ?
-                (<Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
-                  <Icon name="arrow circle right"/>Next Year
-                </Button>)
-                :
-                (this.isYearEmpty(years[years.length - 1]) &&
-                  <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
-                    <Icon name="minus circle"/>Delete Year
-                  </Button>)}
+              {years.length > 0 ?
+                <React.Fragment>
+                  {visibleStartIndex < years.length - 4 ?
+                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
+                      <Icon name="arrow circle right"/>Next Year
+                    </Button>
+                    :
+                    (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) &&
+                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
+                      <Icon name="minus circle"/>Delete Year
+                    </Button>}
+                </React.Fragment> : ''}
             </Grid.Column>
           </Grid.Row>
         </Grid>
