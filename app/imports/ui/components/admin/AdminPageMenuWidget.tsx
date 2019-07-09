@@ -8,6 +8,7 @@ import SecondMenu from '../../pages/shared/SecondMenu';
 class AdminPageMenuWidget extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
+    const divStyle = { marginBottom: 30 };
     let numMod = 0;
     numMod += MentorQuestions.find({ moderated: false }).fetch().length;
     numMod += Reviews.find({ moderated: false }).fetch().length;
@@ -24,7 +25,7 @@ class AdminPageMenuWidget extends React.Component {
       { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
     ];
     return (
-      <div>
+      <div style={divStyle}>
         <FirstMenuContainer/>
         <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
       </div>

@@ -5,7 +5,8 @@ import StudentMentorSpaceQuestionForm from '../../components/student/StudentMent
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentMentorSpaceQuestionsAccordion from '../../components/student/StudentMentorSpaceQuestionsAccordion';
-import StudentMentorSpaceMentorDirectoryAccordion from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
+import StudentMentorSpaceMentorDirectoryAccordion
+  from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 /** A simple static component to render some text for the landing page. */
@@ -37,7 +38,7 @@ class StudentMentorSpacePage extends React.Component {
               <Header dividing={true}>
                 <h4>MENTOR DIRECTORY</h4>
               </Header>
-            <StudentMentorSpaceMentorDirectoryAccordion/>
+              <StudentMentorSpaceMentorDirectoryAccordion/>
             </Segment>
           </Grid.Column>
 
