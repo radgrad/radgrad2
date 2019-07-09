@@ -9,6 +9,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityScoreboard } from '../../../startup/client/collections';
 import './course-scoreboard-widget.css';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface IOpportunityScoreboardWidgetProps {
   opportunities: IOpportunity[];
@@ -64,16 +65,17 @@ class OpportunityScoreboardWidget extends React.Component<IOpportunityScoreboard
       width: '100%',
     };
     return (
-      <Segment>
+      <Segment textAlign="center">
         <Header>Future Opportunity Scoreboard</Header>
-        <Grid padded={'vertically'}>
+        <Grid>
           <Grid.Row>
             <Table celled={true} fixed={true}>
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>Opportunity</Table.HeaderCell>
+                  <Table.HeaderCell width={1}>Opportunity</Table.HeaderCell>
                   {_.map(this.props.terms, (term) => (
-                    <Table.HeaderCell key={term._id}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
+                    <Table.HeaderCell width={1}
+                                      key={term._id}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
                 </Table.Row>
               </Table.Header>
             </Table>
@@ -82,12 +84,13 @@ class OpportunityScoreboardWidget extends React.Component<IOpportunityScoreboard
                 <Table.Body>
                   {_.map(this.props.opportunities, (c, index) => (
                     <Table.Row key={index}>
-                      <Table.Cell><Popup content={c.name} trigger={<Label>{c.name}</Label>}/></Table.Cell>
+                      <Table.Cell width={1}><Popup content={c.name} trigger={<Label>{c.name}</Label>}/></Table.Cell>
                       {_.map(this.props.terms, (t) => {
                         const score = this.getOpportunityScore(c._id, t._id);
                         return (
-                          <Table.Cell key={`${c._id}${t._id}`} negative={score > 0}>{score > 10 ?
-                            <Icon name='attention'/> : ''}{score}</Table.Cell>
+                          <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing={true}>
+                            {score > 10 ? <Icon name='attention'/> : ''}{score}
+                          </Table.Cell>
                         );
                       })}
                     </Table.Row>
@@ -109,9 +112,12 @@ class OpportunityScoreboardWidget extends React.Component<IOpportunityScoreboard
 const OpportunityScoreboardWidgetContainer = withTracker(() => {
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const start = currentTerm.termNumber;
-  const end = start + 9;
-  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: start, $lt: end } }, { sort: { termNumber: 1 } });
+  const isQuarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const limit = isQuarterSystem ? 12 : 9;
+  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: limit,
+  });
   const scores = OpportunityScoreboard.find().fetch();
   return {
     opportunities,

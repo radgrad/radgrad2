@@ -59,22 +59,17 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
     return (
       <React.Fragment>
         {this.renderPageMenuWidget()}
-        <Grid stackable={true} padded={'vertically'}>
+        <Grid container={true} stackable={true} padded={'vertically'}>
           <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}>
-              <HelpPanelWidget/>
-            </Grid.Column>
-            <Grid.Column width={1}/>
+            <HelpPanelWidget/>
           </Grid.Row>
-          <Grid.Column width={1}/>
+
           <Grid.Column width={3}>
             <ScoreboardPageMenu/>
           </Grid.Column>
-          <Grid.Column width={11}>
+          <Grid.Column width={13}>
             {content}
           </Grid.Column>
-          <Grid.Column width={1}/>
         </Grid>
       </React.Fragment>
     );
