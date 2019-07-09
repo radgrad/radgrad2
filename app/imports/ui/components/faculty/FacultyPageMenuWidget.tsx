@@ -40,7 +40,7 @@ class FacultyPageMenuWidget extends React.Component<IFacultyPageMenuWidgetProps>
       { label: requestsLabel, route: 'verification-requests' },
       { label: 'Manage Opportunities', route: 'manage-opportunities' },
       { label: 'Explorer', route: 'explorer' },
-      { label: 'Course Scoreboard', route: 'course-scoreboard' },
+      { label: 'Scoreboard', route: 'scoreboard' },
     ];
     return (
       <div>

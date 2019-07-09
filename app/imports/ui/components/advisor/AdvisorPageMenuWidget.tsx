@@ -28,7 +28,7 @@ class AdvisorPageMenuWidget extends React.Component {
       { label: requestsLabel, route: 'verification-requests' },
       { label: moderationLabel, route: 'moderation' },
       { label: 'Academic Plan', route: 'academic-plan' },
-      { label: 'Course Scoreboard', route: 'course-scoreboard' },
+      { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
     ];
     return (
       <div>

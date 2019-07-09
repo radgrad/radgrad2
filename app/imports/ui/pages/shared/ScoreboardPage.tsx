@@ -7,8 +7,12 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import ScoreboardPageMenu from '../../components/shared/ScoreboardPageMenu';
+import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/client/routes-config';
+import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
+import OpportunityScoreboardWidgetContainer from '../../components/shared/OpportunityScoreboardWidget';
 
-interface IScoreboardPageProps {
+export interface IScoreboardPageProps {
   match: {
     isExact: boolean;
     path: string;
@@ -43,6 +47,15 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
 
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    console.log(this.props);
+    let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
+    if (this.props.match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
+      content = <CourseScoreboardWidget/>;
+    }
+    if (this.props.match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
+      content = <OpportunityScoreboardWidgetContainer/>;
+    }
+    // console.log(this.props.match.path, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD);
     return (
       <React.Fragment>
         {this.renderPageMenuWidget()}
@@ -55,10 +68,10 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
             <Grid.Column width={1}/>
           </Grid.Row>
           <Grid.Column width={3}>
-            Scoreboard nav dropdown
+            <ScoreboardPageMenu/>
           </Grid.Column>
           <Grid.Column width={13}>
-            <Message>Choose a scoreboard from the menu to the left.</Message>
+            {content}
           </Grid.Column>
         </Grid>
       </React.Fragment>

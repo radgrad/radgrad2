@@ -284,7 +284,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
         ReactiveAggregate(this, instance.collection, [
           {
-            $addFields: { opportunityTerm: { $concat: ['$opportunityID', ' ', '$semesterID'] } },
+            $addFields: { opportunityTerm: { $concat: ['$opportunityID', ' ', '$termID'] } },
           },
           {
             $group: {
