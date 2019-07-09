@@ -8,7 +8,6 @@ import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad'; // eslin
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityScoreboard } from '../../../startup/client/collections';
-import './course-scoreboard-widget.css';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface IOpportunityScoreboardWidgetProps {
