@@ -12,9 +12,6 @@ interface IEmailData {
   }
 }
 
-// app/imports/typings/meteor-meteor.d.ts
-// find where assests is defined as
-// is it exported meteor node stubs?
 /* global Assets */
 // use typescript to your advantage and make an interface that requires those props passed in
 // utilizing the interfaces
@@ -29,8 +26,6 @@ interface IEmailData {
  */
 export function sendEmail({ to, bcc, from, replyTo, subject, templateData, filename }) {
   if (Meteor.isServer) {
-    console.log('Are you the Meteor Server', Meteor.isServer);
-    console.log('this is the filename', filename);
     SSR.compileTemplate('htmlEmail', Assets.getText(`email/${filename}`));
     const html = SSR.render('htmlEmail', templateData);
     Email.send({

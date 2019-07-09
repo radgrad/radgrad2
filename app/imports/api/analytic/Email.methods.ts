@@ -4,7 +4,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { sendEmail } from './Email';
 import { ROLE } from '../role/Role';
 
-/* home/qauchida/RadGrad/radgrad/app/imports/api/analytic/Email.methods.js */
 /**
  * The Email sendEmail ValidatedMethod.
  * @memberOf api/analytic

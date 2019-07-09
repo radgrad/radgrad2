@@ -15,7 +15,12 @@ import { Users } from "../../../api/user/UserCollection";
 import { Meteor } from 'meteor/meteor';
 import * as _ from 'lodash';
 import { sendEmailMethod } from "../../../api/analytic/Email.methods";
+import { getRemainingRequirementsMethod } from "../../../api/analytic/RemainingRequirements.methods";
 import { getProjectedICE } from '../../../api/ice/IceProcessor';
+import { AcademicPlans } from "../../../api/degree-plan/AcademicPlanCollection";
+import { Slugs } from "../../../api/slug/SlugCollection";
+import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
+import { Courses } from "../../../api/course/CourseCollection";
 
 // app/imports/typings/meteor-meteor.d.ts
 const schema = new SimpleSchema({
@@ -149,7 +154,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
           recipients: this.state.studentEmails.split(','), // add admin too
         }
       }, () => {
-        console.log('callback from set state on click send students', this.state.message);
         this.generateEmail(this.state.message);
       });
       Swal.fire(
@@ -172,7 +176,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
           recipients: this.getStudentEmailsByLevel(this.state.level),
         }
       }, () => {
-        console.log('callback from set state on click send levels', this.state.message);
         this.generateEmail(this.state.message);
       });
       Swal.fire(
@@ -195,7 +198,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
           recipients: this.getAllUsersEmails(),
         }
       }, () => {
-        console.log('callback from set state on click send all', this.state.message);
         this.generateEmail(this.state.message);
       });
       Swal.fire(
@@ -209,8 +211,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private generateEmail = (message) => {
-
-    //console.log('this is the message: ',message)
     const emailData = {
       to: message.recipients,
       from: 'Phillip Johnson <donotreply@mail.gun.radgrad.org>',
@@ -221,6 +221,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       filename: 'newsletter2.html'
     };
     _.map(message.recipients, (username) => {
+      console.log('username: ',username);
       const informationForEmail = this.getInformationForEmail(username);
       console.log('get information for email', informationForEmail);
       emailData['subject'] = `Newsletter View For ${informationForEmail.studentInfo.firstName} ${informationForEmail.studentInfo.lastName}`;
@@ -239,7 +240,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private getInformationForEmail = (username) => {
+    // ToDo: need to fire swal if user not found
     console.log('users find profile from username', Users.findProfileFromUsername(username));
+
     /**
      *  I need to check if student.
      *  If it is I need:
@@ -280,7 +283,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   private getRecommendations = (student) => {
     const recommendations = [];
     const projectedICE = StudentProfiles.getProjectedICE(student.userID);
-    console.log(projectedICE);
     recommendations.push(this.getRecommendationsICE(projectedICE));
     recommendations.push(this.getRecommendationsLevel(student));
     recommendations.push(this.getRecommendationsAcademicPlan(student));
@@ -311,25 +313,81 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private getRecommendationsLevel = (student) => {
-    console.log('get recommendations level student: ', student);
     return {
       header: 'Level Up and Upgrade Your RadGrad Sticker',
       info: `<img src="https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png" width="100" height="100" style="float: left; margin: 0 10px;">`
         + `<p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p>` + `<p><em>Swing by your advisor's office or POST 307 to pick up a laptop sticker for your current level if you haven't already!</em></p>`
         + `<p>${levelMap[student.level]}</p>` + `<a style="color: #6FBE44; font-weight: bold" href="https://radgrad.ics.hawaii.edu/">Take me to RadGrad!</a>`
-      /*'<img src=' +
-          `"https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png"` +
-        ' width="100" height="100" style="float: left; margin: 0 10px;">'*/
     }
   }
 
   private getRecommendationsAcademicPlan = (student) => {
     console.log('get recommendations academic plans student: ', student);
-    return {
+    const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
+    const academicPlanSlug = Slugs.getNameFromID(studentAcademicPlanDoc.slugID);
+    const remainingReqs = this.getRemainingRequirements(student, studentAcademicPlanDoc)
+    console.log('student\'s academic plan doc', studentAcademicPlanDoc);
+    //console.log('student\'s remaining reqs',remainingReqs);
+
+    const html = {
       header: 'Complete Your Academic Plan',
-      info: 'Missing requirements'
+      info: `<p>Your Current Academic Plan: <a style ="color: #6FBE44; font-weight: bold" href = "https://radgrad.ics.hawaii.edu/student/${student.username}
+       /explorer/plans/${academicPlanSlug}">${studentAcademicPlanDoc.name}</a></p>`
+    }
+    if (this.isAcademicPlanCompleted(remainingReqs) === false) {
+      html.info += '<p>Your degree planner shows that you do not' +
+        ' have all required coursework planned out yet. Head over to your' +
+        ' <a style="color: #6FBE44; font-weight: bold;"' +
+        ` href="https://radgrad.ics.hawaii.edu/student/${student.username}/degree-planner">RadGrad degree planner</a>` +
+        ' to complete your academic plan, or click on your plan above to find out more information.' +
+        ' Provided below is a list of required coursework that you are currently missing.' +
+        ' Make sure to double-check the requirements with your advisor!</p>';
+      /*if (remainingReqs.length > 0) {
+        html.info += '<p style="text-decoration: underline;">Missing Requirements: </p>';
+        html.info += '<ul>';
+        _.each(remainingReqs, function (req) {
+          const requirement = (req.toString().toUpperCase()).replace(/,/g, ' or ').replace(/_/g, ' ');
+          html.info += `<li style="color: red;">${requirement}</li>`;
+        });
+        html.info += '</ul>';
+      }*/
+    } else {
+      html.info = '<p>You have completed all your academic requirements</p>'
+    }
+    return html;
+  }
+
+  private getRemainingRequirements = (student, studentAcademicPlanDoc) => {
+    getRemainingRequirementsMethod.call({ student, studentAcademicPlanDoc }, (error) => {
+      if (error) {
+        Swal.fire('Error sending email.');
+        console.log('error', error);
+      }
+    })
+    //const studentCompletedCourses = CourseInstances.find({'verified': true, 'studentID': student.username})
+    // cannot access CourseInstances because client not subscribed
+    // write meteor method to do this and call on server side
+    // refer to Email.ts, Email.methods.ts
+    //console.log('student completed courses',studentCompletedCourses);
+
+    /*  const studentInPlanCourses = []
+      _.map(studentAcademicPlanDoc.courseList, (courseID) => {
+        studentInPlanCourses.push(Courses.findDoc(courseID));
+      });
+      console.log(studentInPlanCourses);
+      */
+    const remainingRequirements = ['remaining requirements'];
+    return remainingRequirements;
+  }
+
+  private isAcademicPlanCompleted = (remainingReqs) => {
+    if (remainingReqs.length === 0) {
+      return true;
+    } else {
+      return false;
     }
   }
+
 
   private getStudentEmailsByLevel = (level) => {
     const emailaddresses = [];
