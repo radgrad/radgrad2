@@ -169,6 +169,17 @@ class AcademicTermCollection extends BaseSlugCollection {
     }
   }
 
+  findIdBySlug(slug): { optional: boolean; type: any } | string | any {
+    // console.log('findIdBySlug', slug);
+    if (this.isDefined(slug)) {
+      return super.findIdBySlug(slug);
+    }
+    const split = slug.split('-');
+    const term = split[0];
+    const year = parseInt(split[1], 10);
+    return this.define({ term, year });
+  }
+
   /**
    * Returns the termID associated with the current academicTerm based upon the current timestamp.
    * See AcademicTerms.FALL_START_DATE, SPRING_START_DATE, and SUMMER_START_DATE.

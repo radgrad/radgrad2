@@ -16,7 +16,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -113,8 +113,9 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
         <StudentPageMenuWidget/>
         <Grid stackable={true} style={marginStyle}>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+            <HelpPanelWidget/>
           </Grid.Row>
+
           <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
             <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
           </Grid.Row>

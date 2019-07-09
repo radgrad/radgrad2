@@ -163,7 +163,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     };
     const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
-    const { name, shortName, descriptionPairs, item, completed } = this.props;
+    const { name, shortName, descriptionPairs, item, completed, match } = this.props;
     /* Header Variables */
     const upperShortName = this.toUpper(shortName);
     const isStudent = this.isRoleStudent();
@@ -259,7 +259,8 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <div style={breakWordStyle}>
-                                  <Markdown source={descriptionPair.value} renderers={{ link: Router.renderLink }}/>
+                                  <Markdown source={descriptionPair.value}
+                                            renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                                   <br/>
                                 </div>
                                 :
@@ -286,7 +287,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: Router.renderLink }}/>
+                                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                                 :
                                 <React.Fragment> N/A <br/></React.Fragment>
                             }

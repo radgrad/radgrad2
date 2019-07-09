@@ -398,7 +398,7 @@ class CardExplorerWidget extends React.Component
         const plan = AcademicPlans.findDoc(profile.academicPlanID);
         if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
           const regex = /[1234]\d\d/g;
-          filtered = _.filter(filtered, (c) => c.number.match(regex));
+          filtered = _.filter(filtered, (c) => c.num.match(regex));
         }
       }
       return filtered;

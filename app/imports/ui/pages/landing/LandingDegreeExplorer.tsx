@@ -13,7 +13,14 @@ import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface IDesiredDegreeExplorerProps {
   desiredDegree: IDesiredDegree;
-  match: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   location: object;
   history: object;
 }
@@ -24,7 +31,7 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
   }
 
   public render() {
-    // console.log(this.props.desiredDegree);
+    const { match } = this.props;
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -43,7 +50,7 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
                 </Header>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.desiredDegree.description}
-                          renderers={{ link: Router.renderLink }}/>
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>

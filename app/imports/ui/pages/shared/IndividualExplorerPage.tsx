@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Router from '../../components/shared/RouterHelperFunctions';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
@@ -509,10 +508,6 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
         {menuWidget}
 
         <Grid container={true} stackable={true}>
-          <Grid.Row>
-            {<HelpPanelWidgetContainer/>}
-          </Grid.Row>
-
           <Grid.Column width={3}>
             <ExplorerMenu menuAddedList={addedList}
                           menuCareerList={isTypeInterests && careerList ? careerList : undefined}

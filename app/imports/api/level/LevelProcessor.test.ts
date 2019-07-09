@@ -84,7 +84,7 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 4', function levelFour() {
-      this.timeout(5000);
+      this.timeout(10000);
       removeAllEntities();
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student.picture', 'betty.level1',
         'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3', 'betty.level4']);
@@ -95,7 +95,7 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 5', function levelFive() {
-      this.timeout(5000);
+      this.timeout(10000);
       removeAllEntities();
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student.picture', 'betty.level1',
         'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3', 'betty.level5']);
@@ -106,7 +106,7 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 6', function levelSix() {
-      this.timeout(5000);
+      this.timeout(10000);
       removeAllEntities();
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student.picture', 'betty.level1',
         'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3', 'betty.level6']);

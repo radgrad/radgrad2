@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
@@ -42,21 +42,20 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Container fluid={false}>
-          <Grid stackable>
-            <Grid.Column width={14}>
-              <Grid.Row style={{ paddingBottom: '14px', paddingTop: '14px' }}>
-                <HelpPanelWidget/>
-              </Grid.Row>
-              <Grid.Row>
-                <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
-                                              interests={this.props.interests}
-                                              advisorUsername={this.props.match.params.username}/>
-              </Grid.Row>
+        <Grid container={true} stackable={true}>
+          <Grid.Row>
+            <HelpPanelWidget/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
+                                            interests={this.props.interests}
+                                            advisorUsername={this.props.match.params.username}/>
             </Grid.Column>
-            {this.renderSelectedStudentWidgets()}
-          </Grid>
-        </Container>
+          </Grid.Row>
+          {this.renderSelectedStudentWidgets()}
+        </Grid>
       </div>
     );
   }
@@ -67,13 +66,14 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     }
     return (
       <Grid.Row>
-        <Grid.Column width={9} stretched={true}>
+        <Grid.Column width={10} stretched={true}>
           <AdvisorUpdateStudentWidget usernameDoc={this.props.usernameDoc}
                                       studentCollectionName={StudentProfiles.getCollectionName()}
                                       careerGoals={this.props.careerGoals}
                                       interests={this.props.interests}/>
         </Grid.Column>
-        <Grid.Column width={5} stretched={true}>
+
+        <Grid.Column width={6} stretched={true}>
           <AdvisorLogEntryWidget usernameDoc={this.props.usernameDoc}
                                  advisorLogs={this.props.advisorLogs}
                                  advisorUsername={this.props.match.params.username}/>
@@ -83,7 +83,6 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
         </Grid.Column>
       </Grid.Row>
     );
-
   }
 }
 

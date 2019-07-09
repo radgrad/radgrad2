@@ -164,7 +164,7 @@ class TermCard extends React.Component<ITermCard> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, type, canAdd, isStudent } = this.props;
+    const { item, type, canAdd, isStudent, match } = this.props;
     const itemName = this.itemName(item);
     const isTypeOpportunity = this.isType('opportunities');
     const itemTerms = this.itemTerms();
@@ -186,7 +186,8 @@ class TermCard extends React.Component<ITermCard> {
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={itemShortDescription} renderers={{ link: Router.renderLink }}/>
+          <Markdown escapeHtml={true} source={itemShortDescription}
+                    renderers={{ link: (props) => Router.renderLink(props, match) }}/>
           <InterestList item={item} size="mini"/>
         </Card.Content>
 

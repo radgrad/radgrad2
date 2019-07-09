@@ -2,12 +2,21 @@ import * as React from 'react';
 import { Accordion, Button } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
+import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminCollectionAccordionProps {
   id: string;
   title: React.ReactNode;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   descriptionPairs: IDescriptionPair[];
   updateDisabled: boolean;
   deleteDisabled: boolean;
@@ -32,6 +41,7 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
   }
 
   public render(): React.ReactNode {
+    const { match } = this.props;
     return (
       <Accordion fluid={true} styled={true}>
         <Accordion.Title active={this.state.active} onClick={this.handleClick}>
@@ -42,7 +52,7 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
             <React.Fragment key={index}>
               <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? // eslint-disable-line
               <Markdown escapeHtml={true} source={descriptionPair.value}
-                        renderers={{ link: Router.renderLink }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
+                        renderers={{ link: (props) => Router.renderLink(props, match) }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
                 <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
@@ -58,4 +68,4 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
   }
 }
 
-export default AdminCollectionAccordion;
+export default withRouter(AdminCollectionAccordion);
