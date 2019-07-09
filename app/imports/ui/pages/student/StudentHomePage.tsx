@@ -6,10 +6,8 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
-// TODO: Back to Top Button
-
-/** A simple static component to render some text for the landing page. */
 class StudentHomePage extends React.Component {
   public render() {
     return (
@@ -29,7 +27,8 @@ class StudentHomePage extends React.Component {
           </Grid.Column>
 
         </Grid>
-        <div>Back to Top Button</div>
+
+        <BackToTopButton/>
       </div>
     );
   }

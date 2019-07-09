@@ -13,6 +13,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 // eslint-disable-next-line no-unused-vars
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IAdvisorVerificationRequestPageProps {
   verificationRequests: IVerificationRequest[];
@@ -78,6 +79,8 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
             {/* </Grid.Column> */}
           </Grid>
         </Container>
+
+        <BackToTopButton/>
       </div>
     );
   }

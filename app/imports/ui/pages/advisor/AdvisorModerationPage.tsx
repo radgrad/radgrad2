@@ -5,6 +5,7 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import ModerationWidgetContainer from '../../components/shared/ModerationWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 class AdvisorModerationPage extends React.Component {
   public render() {
@@ -20,6 +21,8 @@ class AdvisorModerationPage extends React.Component {
             <ModerationWidgetContainer/>
           </Grid.Row>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

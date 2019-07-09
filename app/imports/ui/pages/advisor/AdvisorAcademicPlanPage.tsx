@@ -5,6 +5,7 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import AdvisorAcademicPlanTabs from '../../components/advisor/AdvisorAcademicPlanTabs';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdvisorAcademicPlanPage = () => (
   <div>
@@ -20,6 +21,8 @@ const AdvisorAcademicPlanPage = () => (
         </Grid.Column>
       </Grid.Row>
     </Grid>
+
+    <BackToTopButton/>
   </div>
 );
 

@@ -13,6 +13,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AddMentorQuestionForm from '../../components/admin/AddMentorQuestionForm';
 import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateMentorQuestionForm from '../../components/admin/UpdateMentorQuestionForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = MentorQuestions; // the collection to use.
 
@@ -186,6 +187,8 @@ class AdminDataModelMentorQuestionPage extends React.Component<{}, IAdminDataMod
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Mentor Question?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

@@ -21,6 +21,7 @@ import {
   opportunityNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Reviews; // the collection to use.
 
@@ -210,6 +211,8 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Review?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

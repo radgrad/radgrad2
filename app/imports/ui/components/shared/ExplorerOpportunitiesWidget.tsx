@@ -324,8 +324,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
             </Grid>
             : ''
         }
-
-        {/*  TODO: Back To Top Button */}
       </div>
     );
   }

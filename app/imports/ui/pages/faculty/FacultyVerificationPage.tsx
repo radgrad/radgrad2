@@ -15,6 +15,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface FacultyVerificationPageProps {
   verificationRequests: IVerificationRequest[];
@@ -78,6 +79,8 @@ class FacultyVerificationPage extends React.Component<FacultyVerificationPagePro
             </Grid.Row>
           </Grid>
         </Container>
+
+        <BackToTopButton/>
       </div>
     );
   }

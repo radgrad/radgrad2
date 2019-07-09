@@ -15,6 +15,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
     { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -175,6 +176,8 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Advisor Log?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

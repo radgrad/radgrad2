@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 class AdminDataModelPage extends React.Component {
   public render() {
@@ -21,6 +22,8 @@ class AdminDataModelPage extends React.Component {
             <Message floating={true} content={'Click on a data model element in the menu to the left to display those items.'}/>
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

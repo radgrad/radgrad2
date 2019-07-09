@@ -27,6 +27,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICardExplorerPageProps {
   match: {
@@ -246,6 +247,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
           </Grid.Column>
         </Grid>
 
+        <BackToTopButton/>
       </div>
     );
   }

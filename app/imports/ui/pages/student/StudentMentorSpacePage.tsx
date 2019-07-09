@@ -8,6 +8,7 @@ import StudentMentorSpaceQuestionsAccordion from '../../components/student/Stude
 import StudentMentorSpaceMentorDirectoryAccordion
   from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
 import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 /** A simple static component to render some text for the landing page. */
 class StudentMentorSpacePage extends React.Component {
@@ -41,8 +42,9 @@ class StudentMentorSpacePage extends React.Component {
               <StudentMentorSpaceMentorDirectoryAccordion/>
             </Segment>
           </Grid.Column>
-
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

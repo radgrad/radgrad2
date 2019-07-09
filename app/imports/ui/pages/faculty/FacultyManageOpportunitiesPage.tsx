@@ -21,6 +21,7 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Opportunities; // the collection to use.
 
@@ -199,6 +200,8 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
                  header="Delete Opportunity?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }
