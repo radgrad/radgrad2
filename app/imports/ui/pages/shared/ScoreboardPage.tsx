@@ -47,7 +47,7 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
 
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    console.log(this.props);
+    // console.log(this.props);
     let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
     if (this.props.match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
       content = <CourseScoreboardWidget/>;
@@ -59,7 +59,7 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
     return (
       <React.Fragment>
         {this.renderPageMenuWidget()}
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true} padded={'vertically'}>
           <Grid.Row>
             <Grid.Column width={1}/>
             <Grid.Column width={14}>
@@ -67,12 +67,14 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
             </Grid.Column>
             <Grid.Column width={1}/>
           </Grid.Row>
+          <Grid.Column width={1}/>
           <Grid.Column width={3}>
             <ScoreboardPageMenu/>
           </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column width={11}>
             {content}
           </Grid.Column>
+          <Grid.Column width={1}/>
         </Grid>
       </React.Fragment>
     );

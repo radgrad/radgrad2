@@ -10,11 +10,12 @@ const ScoreboardPageMenu = (props: any) => {
   const baseRoute = getBaseRoute(props.match);
   // console.log(baseRoute);
   return (
-    <Menu text={true} vertical={true}>
-      <Menu.Item key='courses' as={NavLink} exact={true} to={`${baseRoute}/${SCOREBOARD}/${COURSE_SCOREBOARD}`}>Courses</Menu.Item>
-      <Menu.Item key='opportunities' as={NavLink} exact={true}
-                 to={`${baseRoute}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`}>Opportunities</Menu.Item>
-    </Menu>
+      <Menu vertical={true} fluid={true}>
+        <Menu.Item key='courses' as={NavLink} exact={true}
+                   to={`${baseRoute}/${SCOREBOARD}/${COURSE_SCOREBOARD}`}>Courses</Menu.Item>
+        <Menu.Item key='opportunities' as={NavLink} exact={true}
+                   to={`${baseRoute}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`}>Opportunities</Menu.Item>
+      </Menu>
   );
 };
 
