@@ -6,6 +6,7 @@ import { IAcademicTerm, ICourse } from '../../../typings/radgrad'; // eslint-dis
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseScoreboard } from '../../../startup/client/collections';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface ICourseScoreboardWidgetProps {
   courses: ICourse[],
@@ -28,6 +29,7 @@ class CourseScoreboardWidget extends React.Component<ICourseScoreboardWidgetProp
     }
     return 0;
   }
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
       <Segment>
@@ -36,21 +38,23 @@ class CourseScoreboardWidget extends React.Component<ICourseScoreboardWidgetProp
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Course</Table.HeaderCell>
-              {_.map(this.props.terms, (term) => (<Table.HeaderCell key={term._id} collapsing={true}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
+              {_.map(this.props.terms, (term) => (<Table.HeaderCell key={term._id}
+                                                                    collapsing={true}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {_.map(this.props.courses, (c, index) => (
-                <Table.Row key={index}>
-                  <Table.Cell collapsing={true}><Label>{c.num}</Label></Table.Cell>
-                  {_.map(this.props.terms, (t) => {
-                    const score = this.getCourseScore(c._id, t._id);
-                    return (
-                    <Table.Cell key={`${c._id}${t._id}`} negative={score > 0} collapsing={true}>{score > 10 ? <Icon name='attention'/> : ''}{score}</Table.Cell>
+              <Table.Row key={index}>
+                <Table.Cell collapsing={true}><Label>{c.num}</Label></Table.Cell>
+                {_.map(this.props.terms, (t) => {
+                  const score = this.getCourseScore(c._id, t._id);
+                  return (
+                    <Table.Cell key={`${c._id}${t._id}`} negative={score > 0} collapsing={true}>{score > 10 ?
+                      <Icon name='attention'/> : ''}{score}</Table.Cell>
                   );
-                  })}
-                </Table.Row>
-              ))}
+                })}
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table>
       </Segment>
@@ -61,7 +65,12 @@ class CourseScoreboardWidget extends React.Component<ICourseScoreboardWidgetProp
 const CourseScoreboardWidgetContainer = withTracker(() => {
   const courses = Courses.findNonRetired({ num: { $ne: 'other' } }, { sort: { num: 1 } });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, { sort: { termNumber: 1 } });
+  const isQuarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const limit = isQuarterSystem ? 12 : 9;
+  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: limit,
+  });
   const scores = CourseScoreboard.find().fetch();
   return {
     courses,
