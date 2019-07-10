@@ -19,14 +19,24 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await userInteractionDefineMethod.callPromise(definitionData);
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await userInteractionDefineMethod.callPromise(definitionData);
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      await userInteractionRemoveUserMethod.callPromise(student);
+    it('Remove Method', async function (done) {
+      try {
+        await userInteractionRemoveUserMethod.callPromise(student);
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

@@ -31,7 +31,8 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define Method', async function (done) {
+      try {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const definitionData = { username, firstName, lastName, picture, website, interests, careerGoals, level };
@@ -42,21 +43,35 @@ if (Meteor.isClient) {
       expect(profile.username).to.equal(username);
       expect(profile.level).to.equal(level);
       expect(profile.userID).to.not.equal(StudentProfiles.getFakeUserId());
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
+    it('Update Method', async function (done) {
+      try {
       const id = StudentProfiles.getID(username);
       await updateMethod.callPromise({ collectionName, updateData: { id, level: 4 } });
       await sleep(delay); // give the system time to propagate the changes
       const profile = StudentProfiles.findDoc({ _id: id });
       expect(profile.level).to.equal(4);
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function (done) {
+      try {
       const instance = StudentProfiles.getID(username);
       // const profile = StudentProfiles.findDoc({ username });
       // console.log(instance, profile);
       await removeItMethod.callPromise({ collectionName, instance });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

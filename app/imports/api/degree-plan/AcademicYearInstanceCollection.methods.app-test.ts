@@ -18,24 +18,39 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const studentID = Users.getID(student);
-      const id = AcademicYearInstances.findDoc({ year, studentID })._id;
-      const springYear = 2018;
-      const termIDs = [];
-      await updateMethod.callPromise({ collectionName, updateData: { id, springYear, termIDs } });
+    it('Update Method', async function (done) {
+      try {
+        const studentID = Users.getID(student);
+        const id = AcademicYearInstances.findDoc({ year, studentID })._id;
+        const springYear = 2018;
+        const termIDs = [];
+        await updateMethod.callPromise({ collectionName, updateData: { id, springYear, termIDs } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      const studentID = Users.getID(student);
-      const instance = AcademicYearInstances.findDoc({ year, studentID })._id;
-      await removeItMethod.callPromise({ collectionName, instance });
+    it('Remove Method', async function (done) {
+      try {
+        const studentID = Users.getID(student);
+        const instance = AcademicYearInstances.findDoc({ year, studentID })._id;
+        await removeItMethod.callPromise({ collectionName, instance });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

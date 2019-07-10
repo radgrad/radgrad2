@@ -25,26 +25,41 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = AcademicPlans.findIdBySlug(definitionData.slug);
-      const degreeSlug = 'ba-ics';
-      const name = 'updated AcademicPlan name';
-      const academicTerm = 'Spring-2017';
-      const coursesPerAcademicTerm = [5, 5, 5, 5, 2, 0, 2, 2, 0, 2, 2, 0];
-      await updateMethod.callPromise({
-        collectionName,
-        updateData: { id, degreeSlug, name, academicTerm, coursesPerAcademicTerm },
-      });
+    it('Update Method', async function (done) {
+      try {
+        const id = AcademicPlans.findIdBySlug(definitionData.slug);
+        const degreeSlug = 'ba-ics';
+        const name = 'updated AcademicPlan name';
+        const academicTerm = 'Spring-2017';
+        const coursesPerAcademicTerm = [5, 5, 5, 5, 2, 0, 2, 2, 0, 2, 2, 0];
+        await updateMethod.callPromise({
+          collectionName,
+          updateData: { id, degreeSlug, name, academicTerm, coursesPerAcademicTerm },
+        });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+    it('Remove Method', async function (done) {
+      try {
+        await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

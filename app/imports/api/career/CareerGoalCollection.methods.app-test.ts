@@ -22,23 +22,38 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      const careerGoalID = await defineMethod.callPromise({ collectionName, definitionData });
-      expect(CareerGoals.isDefined(careerGoalID)).to.be.true;
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        const careerGoalID = await defineMethod.callPromise({ collectionName, definitionData });
+        expect(CareerGoals.isDefined(careerGoalID)).to.be.true;
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = CareerGoals.findIdBySlug(definitionData.slug);
-      const name = 'updated CareerGoal name';
-      const description = 'updated CareerGoal description';
-      const interests = ['algorithms', 'java'];
-      await updateMethod.callPromise({ collectionName, updateData: { id, name, description, interests } });
+    it('Update Method', async function (done) {
+      try {
+        const id = CareerGoals.findIdBySlug(definitionData.slug);
+        const name = 'updated CareerGoal name';
+        const description = 'updated CareerGoal description';
+        const interests = ['algorithms', 'java'];
+        await updateMethod.callPromise({ collectionName, updateData: { id, name, description, interests } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+    it('Remove Method', async function (done) {
+      try {
+        await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

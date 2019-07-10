@@ -16,22 +16,37 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = HelpMessages.findDocByRouteName(routeName)._id;
-      const title = 'new title';
-      const text = 'new help text';
-      await updateMethod.callPromise({ collectionName, updateData: { id, title, text } });
+    it('Update Method', async function (done) {
+      try {
+        const id = HelpMessages.findDocByRouteName(routeName)._id;
+        const title = 'new title';
+        const text = 'new help text';
+        await updateMethod.callPromise({ collectionName, updateData: { id, title, text } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      const instance = HelpMessages.findDocByRouteName(routeName)._id;
-      await removeItMethod.callPromise({ collectionName, instance });
+    it('Remove Method', async function (done) {
+      try {
+        const instance = HelpMessages.findDocByRouteName(routeName)._id;
+        await removeItMethod.callPromise({ collectionName, instance });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

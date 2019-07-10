@@ -19,20 +19,35 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'opportunities'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
-      await updateMethod.callPromise({ collectionName, updateData: { id, verified: false } });
+    it('Update Method', async function (done) {
+      try {
+        const id = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
+        await updateMethod.callPromise({ collectionName, updateData: { id, verified: false } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      const instance = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
-      await removeItMethod.callPromise({ collectionName, instance });
+    it('Remove Method', async function (done) {
+      try {
+        const instance = OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
+        await removeItMethod.callPromise({ collectionName, instance });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

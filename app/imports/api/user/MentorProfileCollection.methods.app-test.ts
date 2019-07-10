@@ -26,24 +26,39 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      const definitionData = {
-        username, firstName, lastName, picture, website, interests, careerGoals, company,
-        career, location, linkedin, motivation,
-      };
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        const definitionData = {
+          username, firstName, lastName, picture, website, interests, careerGoals, company,
+          career, location, linkedin, motivation,
+        };
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = MentorProfiles.getID(username);
-      await updateMethod.callPromise({ collectionName, updateData: { id, company: 'Google, Inc.' } });
+    it('Update Method', async function (done) {
+      try {
+        const id = MentorProfiles.getID(username);
+        await updateMethod.callPromise({ collectionName, updateData: { id, company: 'Google, Inc.' } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      const instance = MentorProfiles.getID(username);
-      await removeItMethod.callPromise({ collectionName, instance });
+    it('Remove Method', async function (done) {
+      try {
+        const instance = MentorProfiles.getID(username);
+        await removeItMethod.callPromise({ collectionName, instance });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

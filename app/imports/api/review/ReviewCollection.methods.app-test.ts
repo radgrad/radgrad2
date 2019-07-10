@@ -23,22 +23,37 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
-      const rating = 5;
-      const comments = 'new comments';
-      await updateMethod.callPromise({ collectionName, updateData: { id, rating, comments } });
+    it('Update Method', async function (done) {
+      try {
+        const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
+        const rating = 5;
+        const comments = 'new comments';
+        await updateMethod.callPromise({ collectionName, updateData: { id, rating, comments } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
-      await removeItMethod.callPromise({ collectionName, instance: id });
+    it('Remove Method', async function (done) {
+      try {
+        const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
+        await removeItMethod.callPromise({ collectionName, instance: id });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

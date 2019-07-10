@@ -21,21 +21,36 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      const definitionData = { username, firstName, lastName, picture, website, interests, careerGoals };
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        const definitionData = { username, firstName, lastName, picture, website, interests, careerGoals };
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = FacultyProfiles.getID(username);
-      await updateMethod.callPromise({ collectionName, updateData: { id, picture: 'esb2.jpg' } });
+    it('Update Method', async function (done) {
+      try {
+        const id = FacultyProfiles.getID(username);
+        await updateMethod.callPromise({ collectionName, updateData: { id, picture: 'esb2.jpg' } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      const instance = FacultyProfiles.getID(username);
-      await removeItMethod.callPromise({ collectionName, instance });
+    it('Remove Method', async function (done) {
+      try {
+        const instance = FacultyProfiles.getID(username);
+        await removeItMethod.callPromise({ collectionName, instance });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

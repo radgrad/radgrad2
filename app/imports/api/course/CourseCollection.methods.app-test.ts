@@ -30,59 +30,79 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = Courses.findIdBySlug(definitionData.slug);
-      const name = 'updated CareerGoal name';
-      const description = 'updated CareerGoal description';
-      const interests = ['algorithms', 'java'];
-      const prerequisites = ['ics_111', 'ics_141'];
-      await updateMethod.callPromise({
-        collectionName,
-        updateData: { id, name, description, interests, prerequisites },
-      });
+    it('Update Method', async function (done) {
+      try {
+        const id = Courses.findIdBySlug(definitionData.slug);
+        const name = 'updated CareerGoal name';
+        const description = 'updated CareerGoal description';
+        const interests = ['algorithms', 'java'];
+        const prerequisites = ['ics_111', 'ics_141'];
+        await updateMethod.callPromise({
+          collectionName,
+          updateData: { id, name, description, interests, prerequisites },
+        });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('getFutureEnrollment Methods', async function () {
-      // First, just call this expecting that there is no future enrollment data.
-      let id = Courses.findIdBySlug(definitionData.slug);
-      let data = await getFutureEnrollmentMethod.callPromise(id);
-      expect(data.courseID).to.equal(id);
-      expect(data.enrollmentData[0][1]).to.equal(0);
+    it('getFutureEnrollment Methods', async function (done) {
+      try {
+        // First, just call this expecting that there is no future enrollment data.
+        let id = Courses.findIdBySlug(definitionData.slug);
+        let data = await getFutureEnrollmentMethod.callPromise(id);
+        expect(data.courseID).to.equal(id);
+        expect(data.enrollmentData[0][1]).to.equal(0);
 
-      // Now make a course instance for next academicTerm
-      const academicTerm = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
-      const student = 'abi@hawaii.edu';
-      const course = 'ics_111';
-      const courseInstanceDefinitionData = {
-        academicTerm,
-        course,
-        student,
-        verified: true,
-        fromRegistrar: true,
-        grade: 'B',
-        note: '',
-        creditHrs: 3,
-      };
-      await defineMethod.callPromise({
-        collectionName: 'CourseInstanceCollection',
-        definitionData: courseInstanceDefinitionData,
-      });
+        // Now make a course instance for next academicTerm
+        const academicTerm = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
+        const student = 'abi@hawaii.edu';
+        const course = 'ics_111';
+        const courseInstanceDefinitionData = {
+          academicTerm,
+          course,
+          student,
+          verified: true,
+          fromRegistrar: true,
+          grade: 'B',
+          note: '',
+          creditHrs: 3,
+        };
+        await defineMethod.callPromise({
+          collectionName: 'CourseInstanceCollection',
+          definitionData: courseInstanceDefinitionData,
+        });
 
-      // We'll now expect next academicTerm to have enrollment of 1.
-      id = Courses.findIdBySlug('ics_111');
-      data = await getFutureEnrollmentMethod.callPromise(id);
-      expect(data.courseID).to.equal(id);
-      expect(data.enrollmentData[0][1]).to.equal(1);
+        // We'll now expect next academicTerm to have enrollment of 1.
+        id = Courses.findIdBySlug('ics_111');
+        data = await getFutureEnrollmentMethod.callPromise(id);
+        expect(data.courseID).to.equal(id);
+        expect(data.enrollmentData[0][1]).to.equal(1);
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+    it('Remove Method', async function (done) {
+      try {
+        await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }

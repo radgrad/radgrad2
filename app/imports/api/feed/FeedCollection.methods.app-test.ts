@@ -15,21 +15,36 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'opportunities'], done);
     });
 
-    it('Define Method (new-user)', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      const definitionData = { user: 'abi@hawaii.edu', feedType: Feeds.NEW_USER };
-      docID = await defineMethod.callPromise({ collectionName, definitionData });
+    it('Define Method (new-user)', async function (done) {
+      try {
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        const definitionData = { user: 'abi@hawaii.edu', feedType: Feeds.NEW_USER };
+        docID = await defineMethod.callPromise({ collectionName, definitionData });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Update Method', async function () {
-      const id = docID;
-      const description = 'updated Feed description';
-      await updateMethod.callPromise({ collectionName, updateData: { id, description } });
+    it('Update Method', async function (done) {
+      try {
+        const id = docID;
+        const description = 'updated Feed description';
+        await updateMethod.callPromise({ collectionName, updateData: { id, description } });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
 
-    it('Remove Method', async function () {
-      await removeItMethod.callPromise({ collectionName, instance: docID });
+    it('Remove Method', async function (done) {
+      try {
+        await removeItMethod.callPromise({ collectionName, instance: docID });
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 }
