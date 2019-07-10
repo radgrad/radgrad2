@@ -17,11 +17,6 @@ import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
  * @memberOf api/degree-plan
  */
 class AcademicYearInstanceCollection extends BaseCollection {
-  public publicationNames: {
-    Public: string;
-    PerStudentID: string;
-  };
-
   /**
    * Creates the AcademicYearInstance collection.
    */
@@ -33,10 +28,6 @@ class AcademicYearInstanceCollection extends BaseCollection {
       termIDs: [SimpleSchema.RegEx.Id],
       retired: { type: Boolean, optional: true },
     }));
-    this.publicationNames = {
-      Public: this.collectionName,
-      PerStudentID: `${this.collectionName}.studentID`,
-    };
     if (Meteor.isServer) {
       this.collection._ensureIndex({ studentID: 1 });
     }
@@ -204,23 +195,15 @@ class AcademicYearInstanceCollection extends BaseCollection {
   public publish(): void {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.publicationNames.Public, function publish() {
-        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
-          return this.ready();
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        if (!studentID) {
+          return this.ready;
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
+        console.log('Admin ', Roles.userIsInRole(studentID, [ROLE.ADMIN]), studentID);
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
           return instance.collection.find();
         }
-        return instance.collection.find({ studentID: this.userId });
-      });
-      Meteor.publish(this.publicationNames.PerStudentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        new SimpleSchema({
-          studentID: { type: String },
-        }).validate({ studentID });
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
-          return instance.collection.find();
-        }
-        return instance.collection.find({ studentID });
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
     }
   }

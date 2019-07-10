@@ -23,11 +23,6 @@ import { CourseScoreboardName } from '../../startup/both/names';
 class CourseInstanceCollection extends BaseCollection {
   public validGrades: string[];
   public readonly publicationNames: {
-    student: string;
-    perStudentAndAcademicTerm: string;
-    publicStudent: string;
-    publicSlugStudent: string;
-    studentID: string;
     scoreboard: string;
   };
 
@@ -50,11 +45,6 @@ class CourseInstanceCollection extends BaseCollection {
     this.validGrades = ['', 'A', 'A+', 'A-',
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
-      student: this.collectionName,
-      perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
-      publicStudent: `${this.collectionName}.PublicStudent`,
-      publicSlugStudent: `${this.collectionName}.PublicSlugStudent`,
-      studentID: `${this.collectionName}.studentID`,
       scoreboard: `${this.collectionName}.Scoreboard`,
     };
     this.defineSchema = new SimpleSchema({
@@ -362,56 +352,6 @@ class CourseInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.publicationNames.student, function publish() {
-        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
-          return this.ready();
-        }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {
-          return instance.collection.find();
-        }
-        return instance.collection.find({ studentID: this.userId });
-      });
-      Meteor.publish(this.publicationNames.perStudentAndAcademicTerm,
-        function perStudentAndAcademicTerm(studentID, termID) { // eslint-disable-line meteor/audit-argument-checks
-          new SimpleSchema({
-            studentID: { type: String },
-            termID: { type: String },
-          }).validate({ studentID, termID });
-          return instance.collection.find({ studentID, termID });
-        });
-      Meteor.publish(this.publicationNames.publicStudent, function publicStudentPublish() {
-        const userID = Meteor.userId();
-        const willingToShare = [];
-        const profiles = StudentProfiles.find().fetch();
-        _.forEach(profiles, (p) => {
-          if (p.shareCourses) {
-            willingToShare.push(p.userID);
-          }
-        });
-        // console.log(willingToShare);
-        ReactiveAggregate(this, instance.collection, [
-          {
-            $match: {
-              $expr: {
-                $or: [
-                  { $in: ['$studentID', willingToShare] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }],
-              },
-            },
-          },
-          { $project: { studentID: 1, termID: 1, courseID: 1 } },
-        ]);
-        // verified: Boolean,
-        //   fromRegistrar: { type: Boolean, optional: true },
-        // grade: { type: String, optional: true },
-        // creditHrs: Number,
-        //   note: { type: String, optional: true },
-        // studentID: SimpleSchema.RegEx.Id,
-        //   ice: { type: iceSchema, optional: true },
-        // retired: { type: Boolean, optional: true },
-        //
-        // return instance.collection.find({}, { fields: { studentID: 1, termID: 1, courseID: 1 } });
-      });
       Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
         ReactiveAggregate(this, instance.collection, [
           {
@@ -426,26 +366,15 @@ class CourseInstanceCollection extends BaseCollection {
           { $project: { count: 1, termID: 1, courseID: 1 } },
         ], { clientCollection: CourseScoreboardName });
       });
-      Meteor.publish(this.publicationNames.publicSlugStudent, function publicSlugPublish(courseSlug) { // eslint-disable-line meteor/audit-argument-checks
-        // check the courseID.
-        const slug = Slugs.findDoc({ name: courseSlug });
-        const course = Courses.findDoc({ slugID: slug._id });
-        const courseID = course._id;
-        new SimpleSchema({
-          courseID: { type: String },
-        }).validate({ courseID });
-
-        return instance.collection.find({ courseID }, { fields: { studentID: 1, termID: 1, courseID: 1 } });
-      });
-      Meteor.publish(this.publicationNames.studentID, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        new SimpleSchema({
-          studentID: { type: String },
-        }).validate({ studentID });
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        if (!studentID) {
+          return this.ready();
+        }
         // console.log(Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]));
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
           return instance.collection.find();
         }
-        return instance.collection.find({ studentID });
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
     }
   }
