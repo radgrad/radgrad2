@@ -199,7 +199,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
         if (!studentID) {
           return this.ready;
         }
-        console.log('Admin ', Roles.userIsInRole(studentID, [ROLE.ADMIN]), studentID);
+        // console.log('Admin ', Roles.userIsInRole(studentID, [ROLE.ADMIN]), studentID);
         if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
           return instance.collection.find();
         }
