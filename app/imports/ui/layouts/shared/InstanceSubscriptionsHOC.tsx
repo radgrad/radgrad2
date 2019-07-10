@@ -58,6 +58,7 @@ function withInstanceSubscriptions(WrappedComponent) {
     handles.push(instanceSubs.subscribe(Feeds.getPublicationName()));
     handles.push(instanceSubs.subscribe(MentorAnswers.getPublicationName()));
     handles.push(instanceSubs.subscribe(MentorQuestions.getPublicationName()));
+    handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.scoreboard));
     handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName()));
     const loading = handles.some((handle) => !handle.ready());
     return {

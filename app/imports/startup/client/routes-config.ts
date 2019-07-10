@@ -24,16 +24,13 @@ import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
 import AdminModerationPageContainer from '../../ui/pages/admin/AdminModerationPage';
 import AdminAnalyticsPageContainer from '../../ui/pages/admin/AdminAnalyticsPage';
-import AdminCourseScoreboardPageContainer from '../../ui/pages/admin/AdminCourseScoreboardPage';
 import AdvisorHomePageContainer from '../../ui/pages/advisor/AdvisorHomePage';
 import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorModerationPageContainer from '../../ui/pages/advisor/AdvisorModerationPage';
 import AdvisorAcademicPlanPageContainer from '../../ui/pages/advisor/AdvisorAcademicPlanPage';
-import AdvisorCourseScoreboardPageContainer from '../../ui/pages/advisor/AdvisorCourseScoreboardPage';
 import FacultyVerificationPageContainer from '../../ui/pages/faculty/FacultyVerificationPage';
 import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
-import FacultyCourseScoreboardPageContainer from '../../ui/pages/faculty/FacultyCourseScoreboardPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
@@ -71,6 +68,7 @@ import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import { ROLE } from '../../api/role/Role';
+import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
 
 // Widely used params as constants
 const USERNAME = ':username';
@@ -78,7 +76,9 @@ const HOME = 'home';
 const GUIDEDTOUR = 'guidedtour';
 const DATAMODEL = 'datamodel';
 const MODERATION = 'moderation';
-const COURSE_SCOREBOARD = 'course-scoreboard';
+export const SCOREBOARD = 'scoreboard';
+export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
+export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 const MENTOR_SPACE = 'mentor-space';
 
 // The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
@@ -268,9 +268,19 @@ export const routes = {
       component: AdminAnalyticsPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COURSE_SCOREBOARD}`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component: AdminCourseScoreboardPageContainer,
+      component: ScoreboardPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
     },
   ],
   ADVISOR: [
@@ -291,8 +301,19 @@ export const routes = {
       component: AdvisorAcademicPlanPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COURSE_SCOREBOARD}`,
-      component: AdvisorCourseScoreboardPageContainer,
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
     },
   ],
   ALUMNI: [
@@ -385,10 +406,20 @@ export const routes = {
       component: CardExplorerPageContainer,
     },
     {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COURSE_SCOREBOARD}`,
-      component: FacultyCourseScoreboardPageContainer,
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
     },
-
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
+      exact: true,
+      component: ScoreboardPageContainer,
+    },
   ],
   LANDING: [
     {
