@@ -1,9 +1,9 @@
-declare const Assets: any; // global for Meteor but you have to declare it in file to use it
-import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Email } from 'meteor/email'; //non-relative module
-import { SSR } from 'meteor/meteorhacks:ssr'; //non-relative module
-
+import { Email } from 'meteor/email'; // non-relative module
+import { SSR } from 'meteor/meteorhacks:ssr'; // non-relative module
+// global for Meteor but you have to declare it in file to use it
+/* eslint-disable no-unused-vars */
+declare const Assets: any;
 interface IEmailData {
   templateData: {
     firstName: string,
@@ -34,7 +34,7 @@ export function sendEmail({ to, bcc, from, replyTo, subject, templateData, filen
       replyTo,
       from,
       subject,
-      html
+      html,
     });
   }
 }

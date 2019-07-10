@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import * as Markdown from 'react-markdown';
-import { Form, Label } from 'semantic-ui-react';
 
 interface IAdminAnalyticsNewsletterWidget {
   message: string;
@@ -9,7 +8,7 @@ interface IAdminAnalyticsNewsletterWidget {
 
 class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdminAnalyticsNewsletterWidget> {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   public render() {
@@ -23,7 +22,7 @@ class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdmi
         <p>- The RadGrad Team</p>
       </div>
 
-    )
+    );
   }
 }
 

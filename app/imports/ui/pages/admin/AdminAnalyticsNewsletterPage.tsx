@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget'
-import AdminAnalyticsLoggedInUsersWidget from "../../components/admin/AdminAnalyticsLoggedInUsersWidget";
-import AdminAnalyticsNewsletterWidget from "../../components/admin/AdminAnalyticsNewsletterWidget";
+import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
+import AdminAnalyticsNewsletterWidget from '../../components/admin/AdminAnalyticsNewsletterWidget';
 
 /** A simple static component to render some text for the landing page. */
 class AdminAnalyticsNewsletterPage extends React.Component {

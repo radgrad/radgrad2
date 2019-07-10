@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { withRouter, Link, NavLink } from 'react-router-dom';
-import { Segment, Menu } from 'semantic-ui-react';
+import { withRouter, NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 interface IAdminAnalyticsMenuWidget {
   match: {
@@ -16,7 +16,7 @@ interface IAdminAnalyticsMenuWidget {
 class AdminAnalyticsMenuWidget extends React.Component
   <IAdminAnalyticsMenuWidget> {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   private buildRoute = (slug) => {
@@ -38,7 +38,7 @@ class AdminAnalyticsMenuWidget extends React.Component
           <Menu.Item as={NavLink} to={this.buildRoute('user-interactions')}>User Interactions</Menu.Item>
         </Menu>
       </div>
-    )
+    );
   }
 }
 

@@ -73,8 +73,6 @@ import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDa
 /* Explorers */
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
-import AdminAnalyticsOverheadAnalysisPage from "../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage";
-import AdminAnalyticsStudentSummaryPage from "../../ui/pages/admin/AdminAnalyticsStudentSummaryPage";
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import { ROLE } from '../../api/role/Role';
 
@@ -290,7 +288,7 @@ export const routes = {
       component: AdminAnalyticsStudentSummaryPageContainer,
     },
     {
-      path:`/${URL_ROLES.ADMIN}/${USERNAME}/analytics/user-interactions`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics/user-interactions`,
       exact: true,
       component: AdminAnalyticsUserInteractionsPageContainer,
     },

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget'
-import AdminAnalyticsStudentSummaryWidget from "../../components/admin/AdminAnalyticsStudentSummaryWidget";
+import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
+import AdminAnalyticsStudentSummaryWidget from '../../components/admin/AdminAnalyticsStudentSummaryWidget';
 
 /** A simple static component to render some text for the landing page. */
 class AdminAnalyticsStudentSummaryPage extends React.Component {
