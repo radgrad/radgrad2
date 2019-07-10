@@ -11,6 +11,7 @@ import ScoreboardPageMenu from '../../components/shared/ScoreboardPageMenu';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/client/routes-config';
 import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
 import OpportunityScoreboardWidgetContainer from '../../components/shared/OpportunityScoreboardWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 export interface IScoreboardPageProps {
   match: {
@@ -71,6 +72,8 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
             {content}
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </React.Fragment>
     );
   }
