@@ -419,8 +419,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
             </Grid>
             : ''
         }
-
-        {/*  TODO: Back To Top Button */}
       </div>
     );
   }

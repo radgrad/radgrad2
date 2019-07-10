@@ -17,6 +17,7 @@ import { Users } from '../../../api/user/UserCollection';
 import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceForm';
 import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -197,6 +198,8 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Feedback Instance?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

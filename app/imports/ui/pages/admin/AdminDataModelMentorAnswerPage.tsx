@@ -14,6 +14,7 @@ import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import AddMentorAnswerForm from '../../components/admin/AddMentorAnswerForm';
 import { mentorQuestionToSlug, profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateMentorAnswerForm from '../../components/admin/UpdateMentorAnswerForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = MentorAnswers; // the collection to use.
 
@@ -186,6 +187,8 @@ class AdminDataModelMentorAnswerPage extends React.Component<{}, IAdminDataModel
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Mentor Answer?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

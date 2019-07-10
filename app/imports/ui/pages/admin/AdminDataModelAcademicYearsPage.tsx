@@ -11,6 +11,7 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
     { label: 'Student', value: Users.getFullName(year.studentID) },
@@ -167,6 +168,8 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Year Instance?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

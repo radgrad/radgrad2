@@ -20,7 +20,13 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  * @memberOf api/opportunity
  */
 class OpportunityInstanceCollection extends BaseCollection {
-  public publicationNames: { student: string; perStudentAndAcademicTerm: string; studentID: string; publicStudent: string; };
+  public publicationNames: {
+    student: string;
+    perStudentAndAcademicTerm: string;
+    studentID: string;
+    publicStudent: string;
+    scoreboard: string;
+  };
 
   /**
    * Creates the OpportunityInstance collection.
@@ -40,6 +46,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
       studentID: `${this.collectionName}.studentID`,
       publicStudent: `${this.collectionName}.publicStudent`,
+      scoreboard: `${this.collectionName}.Scoreboard`,
     };
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, studentID: 1, termID: 1 });
@@ -103,7 +110,15 @@ class OpportunityInstanceCollection extends BaseCollection {
     const ice = Opportunities.findDoc(opportunityID).ice;
     // Define and return the new OpportunityInstance
     // console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
-    const opportunityInstanceID = this.collection.insert({ termID, opportunityID, verified, studentID, sponsorID, ice, retired });
+    const opportunityInstanceID = this.collection.insert({
+      termID,
+      opportunityID,
+      verified,
+      studentID,
+      sponsorID,
+      ice,
+      retired,
+    });
     return opportunityInstanceID;
   }
 
@@ -266,6 +281,20 @@ class OpportunityInstanceCollection extends BaseCollection {
         }
         return instance.collection.find({ studentID });
       });
+      Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
+        ReactiveAggregate(this, instance.collection, [
+          {
+            $addFields: { opportunityTerm: { $concat: ['$opportunityID', ' ', '$termID'] } },
+          },
+          {
+            $group: {
+              _id: '$opportunityTerm',
+              count: { $sum: 1 },
+            },
+          },
+          { $project: { count: 1, termID: 1, opportunityID: 1 } },
+        ], { clientCollection: 'OpportunityScoreboard' });
+      });
       Meteor.publish(this.publicationNames.publicStudent, function publicStudent() {
         const userID = Meteor.userId();
         const willingToShare = [];
@@ -277,9 +306,15 @@ class OpportunityInstanceCollection extends BaseCollection {
         });
         // console.log('sharing Opporutnities = %o', willingToShare);
         ReactiveAggregate(this, instance.collection, [
-          { $match: { $expr: { $or: [
+          {
+            $match: {
+              $expr: {
+                $or: [
                   { $in: ['$studentID', willingToShare] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] }] } } },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] }],
+              },
+            },
+          },
           { $project: { studentID: 1, opportunityID: 1, termID: 1 } },
         ]);
       });

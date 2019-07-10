@@ -33,6 +33,7 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -552,6 +553,8 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
             }
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </React.Fragment>
     );
   }

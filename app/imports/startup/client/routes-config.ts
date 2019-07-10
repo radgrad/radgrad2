@@ -28,16 +28,13 @@ import AdminAnalyticsNewsletterPageContainer from '../../ui/pages/admin/AdminAna
 import AdminAnalyticsOverheadAnalysisPageContainer from '../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage';
 import AdminAnalyticsStudentSummaryPageContainer from '../../ui/pages/admin/AdminAnalyticsStudentSummaryPage';
 import AdminAnalyticsUserInteractionsPageContainer from '../../ui/pages/admin/AdminAnalyticsUserInteractionsPage';
-import AdminCourseScoreboardPageContainer from '../../ui/pages/admin/AdminCourseScoreboardPage';
 import AdvisorHomePageContainer from '../../ui/pages/advisor/AdvisorHomePage';
 import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorModerationPageContainer from '../../ui/pages/advisor/AdvisorModerationPage';
 import AdvisorAcademicPlanPageContainer from '../../ui/pages/advisor/AdvisorAcademicPlanPage';
-import AdvisorCourseScoreboardPageContainer from '../../ui/pages/advisor/AdvisorCourseScoreboardPage';
 import FacultyVerificationPageContainer from '../../ui/pages/faculty/FacultyVerificationPage';
 import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
-import FacultyCourseScoreboardPageContainer from '../../ui/pages/faculty/FacultyCourseScoreboardPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
@@ -75,6 +72,7 @@ import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import { ROLE } from '../../api/role/Role';
+import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
 
 // Widely used params as constants
 const USERNAME = ':username';
@@ -82,7 +80,9 @@ const HOME = 'home';
 const GUIDEDTOUR = 'guidedtour';
 const DATAMODEL = 'datamodel';
 const MODERATION = 'moderation';
-const COURSE_SCOREBOARD = 'course-scoreboard';
+export const SCOREBOARD = 'scoreboard';
+export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
+export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 const MENTOR_SPACE = 'mentor-space';
 const ANALYTICS = 'analytics';
 
@@ -273,398 +273,482 @@ export const routes = {
       component: AdminAnalyticsPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/newsletter`,
-      exact: true,
-      component: AdminAnalyticsNewsletterPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/overhead-analysis`,
-      exact: true,
-      component: AdminAnalyticsOverheadAnalysisPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/student-summary`,
-      exact: true,
-      component: AdminAnalyticsStudentSummaryPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics/user-interactions`,
-      exact: true,
-      component: AdminAnalyticsUserInteractionsPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COURSE_SCOREBOARD}`,
-      exact: true,
-      component: AdminCourseScoreboardPageContainer,
-    },
-  ],
-  ADVISOR: [
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`,
-      component: AdvisorHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
-      component: AdvisorVerificationRequestPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,
-      component: AdvisorModerationPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/academic-plan`,
-      component: AdvisorAcademicPlanPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COURSE_SCOREBOARD}`,
-      component: AdvisorCourseScoreboardPageContainer,
-    },
-  ],
-  ALUMNI: [
-    {
-      path: `/${URL_ROLES.ALUMNI}/${USERNAME}/${HOME}`,
-      component: AlumniHomePageContainer,
-    },
-  ],
-  FACULTY: [
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`,
-      component: FacultyHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/verification-requests`,
-      component: FacultyVerificationPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/manage-opportunities`,
-      component: FacultyManageOpportunitiesPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
-      exact: true,
-      component: ExplorerHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COURSE_SCOREBOARD}`,
-      component: FacultyCourseScoreboardPageContainer,
-    },
+    < <<<<<< HEAD
+      path
+:
+`/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/newsletter`,
+  exact
+:
+true,
+  component
+:
+AdminAnalyticsNewsletterPageContainer,
+},
+{
+  path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/overhead-analysis`,
+    exact
+:
+  true,
+    component
+:
+  AdminAnalyticsOverheadAnalysisPageContainer,
+}
+,
+{
+  path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/student-summary`,
+    exact
+:
+  true,
+    component
+:
+  AdminAnalyticsStudentSummaryPageContainer,
+}
+,
+{
+  path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics/user-interactions`,
+    exact
+:
+  true,
+    component
+:
+  AdminAnalyticsUserInteractionsPageContainer,
+}
+,
+{
+  path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COURSE_SCOREBOARD}`,
+======
+  =
+    path
+:
+  `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
+>>>>>>>
+  master
+  exact: true,
+    component
+:
+  ScoreboardPageContainer,
+}
+,
+{
+  path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
+    exact
+:
+  true,
+    component
+:
+  ScoreboardPageContainer,
+}
+,
+{
+  path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
+    exact
+:
+  true,
+    component
+:
+  ScoreboardPageContainer,
+}
+,
+],
+ADVISOR: [
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`,
+    component: AdvisorHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
+    component: AdvisorVerificationRequestPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,
+    component: AdvisorModerationPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/academic-plan`,
+    component: AdvisorAcademicPlanPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`,
+    exact: true,
+    component: ScoreboardPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
+    exact: true,
+    component: ScoreboardPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
+    exact: true,
+    component: ScoreboardPageContainer,
+  },
+],
+  ALUMNI
+:
+[
+  {
+    path: `/${URL_ROLES.ALUMNI}/${USERNAME}/${HOME}`,
+    component: AlumniHomePageContainer,
+  },
+],
+  FACULTY
+:
+[
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`,
+    component: FacultyHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/verification-requests`,
+    component: FacultyVerificationPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/manage-opportunities`,
+    component: FacultyManageOpportunitiesPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
+    exact: true,
+    component: ExplorerHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`,
+    exact: true,
+    component: ScoreboardPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
+    exact: true,
+    component: ScoreboardPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
+    exact: true,
+    component: ScoreboardPageContainer,
+  },
+],
+  LANDING
+:
+[
+  {
+    path: '/',
+    exact: true,
+    component: LandingHomeContainer,
+  },
+  {
+    path: `/${GUIDEDTOUR}/${URL_ROLES.STUDENT}`,
+    exact: true,
+    component: GuidedTourStudentContainer,
+  },
+  {
+    path: `/${GUIDEDTOUR}/${URL_ROLES.ADVISOR}`,
+    exact: true,
+    component: GuidedTourAdvisor,
+  },
+  {
+    path: `/${GUIDEDTOUR}/${URL_ROLES.FACULTY}`,
+    exact: true,
+    component: GuidedTourFaculty,
+  },
+  {
+    path: `/${GUIDEDTOUR}/${URL_ROLES.MENTOR}`,
+    exact: true,
+    component: GuidedTourMentor,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
+    exact: true,
+    component: LandingCareerGoalsCardExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
+    exact: false,
+    component: LandingCareerGoalExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
+    exact: true,
+    component: LandingCoursesCardExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
+    exact: false,
+    component: LandingCourseExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
+    exact: true,
+    component: LandingDegreesCardExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
+    exact: false,
+    component: LandingDesiredDegreeExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
+    exact: true,
+    component: LandingInterestsCardExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
+    exact: false,
+    component: LandingInterestExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
+    exact: true,
+    component: LandingOpportunitiesCardExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
+    exact: false,
+    component: LandingOpportunityExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/academic-plans`,
+    exact: true,
+    component: LandingAcademicPlansCardExplorerContainer,
+  },
+  {
+    path: `/${EXPLORER_TYPE.HOME}/academic-plans/${EXPLORER_PARAM.ACADEMICPLAN}`,
+    exact: false,
+    component: LandingAcademicPlanExplorerContainer,
+  },
+],
+  MENTOR
+:
+[
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${HOME}`,
+    component: MentorHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${MENTOR_SPACE}`,
+    component: MentorMentorSpacePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
+    exact: true,
+    component: ExplorerHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
 
-  ],
-  LANDING: [
-    {
-      path: '/',
-      exact: true,
-      component: LandingHomeContainer,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.STUDENT}`,
-      exact: true,
-      component: GuidedTourStudentContainer,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.ADVISOR}`,
-      exact: true,
-      component: GuidedTourAdvisor,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.FACULTY}`,
-      exact: true,
-      component: GuidedTourFaculty,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.MENTOR}`,
-      exact: true,
-      component: GuidedTourMentor,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
-      exact: true,
-      component: LandingCareerGoalsCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
-      exact: false,
-      component: LandingCareerGoalExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
-      exact: true,
-      component: LandingCoursesCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
-      exact: false,
-      component: LandingCourseExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: LandingDegreesCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: false,
-      component: LandingDesiredDegreeExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
-      exact: true,
-      component: LandingInterestsCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
-      exact: false,
-      component: LandingInterestExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
-      exact: true,
-      component: LandingOpportunitiesCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
-      exact: false,
-      component: LandingOpportunityExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/academic-plans`,
-      exact: true,
-      component: LandingAcademicPlansCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/academic-plans/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: false,
-      component: LandingAcademicPlanExplorerContainer,
-    },
-  ],
-  MENTOR: [
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${HOME}`,
-      component: MentorHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${MENTOR_SPACE}`,
-      component: MentorMentorSpacePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
-      exact: true,
-      component: ExplorerHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-  ],
-  STUDENT: [
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
-      component: StudentHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/degree-planner`,
-      component: StudentDegreePlannerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${MENTOR_SPACE}`,
-      component: StudentMentorSpacePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
-      exact: true,
-      component: ExplorerHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-  ],
-};
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+],
+  STUDENT
+:
+[
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
+    component: StudentHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/degree-planner`,
+    component: StudentDegreePlannerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${MENTOR_SPACE}`,
+    component: StudentMentorSpacePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
+    exact: true,
+    component: ExplorerHomePageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
+    exact: true,
+    component: IndividualExplorerPageContainer,
+  },
+  {
+    path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
+    exact: true,
+    component: CardExplorerPageContainer,
+  },
+],
+}
+;

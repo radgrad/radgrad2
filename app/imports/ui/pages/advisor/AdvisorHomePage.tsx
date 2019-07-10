@@ -17,6 +17,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 // eslint-disable-next-line no-unused-vars
 import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 // Formatting for parameters
 export interface IFilterStudents {
@@ -81,6 +82,7 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
                                    advisorUsername={this.props.match.params.username}/>
 
         </Grid.Column>
+        <BackToTopButton/>
       </Grid.Row>
     );
   }

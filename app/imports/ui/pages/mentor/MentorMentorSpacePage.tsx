@@ -7,6 +7,7 @@ import MentorMentorSpaceQuestionsAccordion from '../../components/mentor/MentorM
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 /** A simple static component to render some text for the landing page. */
 class MentorMentorSpacePage extends React.Component {
@@ -32,6 +33,8 @@ class MentorMentorSpacePage extends React.Component {
             </Segment>
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

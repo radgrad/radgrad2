@@ -9,6 +9,7 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = null; // the collection to use.
 
@@ -172,6 +173,8 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Generic?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

@@ -10,6 +10,7 @@ import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = PlanChoices; // the collection to use.
 
@@ -174,6 +175,8 @@ class AdminDataModelPlanChoicesPage extends React.Component<{}, IAdminDataModelP
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Plan Choice?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

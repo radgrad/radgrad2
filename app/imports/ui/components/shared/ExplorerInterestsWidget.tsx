@@ -155,9 +155,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return temp.join('/');
   }
 
-  /**
-   * ToDo ask Gian about this or Moore when he gets back
-   */
   private handleClick = () => {
     // how do we know to add the interest or remove it.
     // get the user's interestIDs
