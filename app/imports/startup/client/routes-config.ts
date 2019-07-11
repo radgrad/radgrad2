@@ -69,6 +69,7 @@ import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import { ROLE } from '../../api/role/Role';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
+import StudentHomeLogPageContainer from '../../ui/pages/student/StudentHomeLogPage';
 
 // Widely used params as constants
 const USERNAME = ':username';
@@ -592,14 +593,22 @@ export const routes = {
   STUDENT: [
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
+      exact: true,
       component: StudentHomePageContainer,
     },
     {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/log`,
+      exact: true,
+      component: StudentHomeLogPageContainer,
+    },
+    {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/degree-planner`,
+      exact: true,
       component: StudentDegreePlannerPageContainer,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${MENTOR_SPACE}`,
+      exact: true,
       component: StudentMentorSpacePageContainer,
     },
     {
