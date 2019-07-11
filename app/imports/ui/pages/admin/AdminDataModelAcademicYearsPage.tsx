@@ -12,8 +12,6 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
     { label: 'Student', value: Users.getFullName(year.studentID) },
@@ -177,4 +175,4 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelAcademicYearsPage));
+export default AdminDataModelAcademicYearsPage;

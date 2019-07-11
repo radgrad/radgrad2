@@ -22,8 +22,6 @@ import {
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Opportunities; // the collection to use.
 
@@ -209,4 +207,4 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(FacultyManageOpportunitesPage));
+export default FacultyManageOpportunitesPage;

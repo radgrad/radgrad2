@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -79,7 +77,4 @@ class ScoreboardPage extends React.Component<IScoreboardPageProps> {
   }
 }
 
-const ScoreboardPageCon = withGlobalSubscription(ScoreboardPage);
-const ScoreboardPageContainer = withInstanceSubscriptions(ScoreboardPageCon);
-
-export default ScoreboardPageContainer;
+export default ScoreboardPage;

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import StudentHomeWidget from '../../components/student/StudentHomeWidget';
@@ -34,7 +32,4 @@ class StudentHomePage extends React.Component {
   }
 }
 
-const StudentHomePageCon = withGlobalSubscription(StudentHomePage);
-const StudentHomePageContainer = withInstanceSubscriptions(StudentHomePageCon);
-
-export default StudentHomePageContainer;
+export default StudentHomePage;

@@ -22,8 +22,6 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Opportunities; // the collection to use.
 
@@ -212,4 +210,4 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelOpportunitiesPage));
+export default AdminDataModelOpportunitiesPage;

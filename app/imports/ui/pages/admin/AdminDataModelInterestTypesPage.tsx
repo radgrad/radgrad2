@@ -14,8 +14,6 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import AddInterestTypeForm from '../../components/admin/AddInterestTypeForm';
 import UpdateInterestTypeForm from '../../components/admin/UpdateInterestTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = InterestTypes; // the collection to use.
 
@@ -200,4 +198,4 @@ class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataMode
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelInterestTypesPage));
+export default AdminDataModelInterestTypesPage;

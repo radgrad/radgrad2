@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import StudentMentorSpaceQuestionForm from '../../components/student/StudentMentorSpaceQuestionForm';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentMentorSpaceQuestionsAccordion from '../../components/student/StudentMentorSpaceQuestionsAccordion';
 import StudentMentorSpaceMentorDirectoryAccordion
   from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
@@ -50,7 +48,4 @@ class StudentMentorSpacePage extends React.Component {
   }
 }
 
-const StudentMentorSpacePageCon = withGlobalSubscription(StudentMentorSpacePage);
-const StudentMentorSpacePageContainer = withInstanceSubscriptions(StudentMentorSpacePageCon);
-
-export default StudentMentorSpacePageContainer;
+export default StudentMentorSpacePage;

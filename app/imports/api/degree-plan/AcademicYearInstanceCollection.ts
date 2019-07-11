@@ -196,12 +196,12 @@ class AcademicYearInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        if (!studentID) {
-          return this.ready;
-        }
         // console.log('Admin ', Roles.userIsInRole(studentID, [ROLE.ADMIN]), studentID);
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
           return instance.collection.find();
+        }
+        if (!studentID) {
+          return this.ready();
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });

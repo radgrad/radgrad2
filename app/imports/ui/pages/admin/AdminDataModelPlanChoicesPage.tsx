@@ -11,8 +11,6 @@ import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/rad
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = PlanChoices; // the collection to use.
 
@@ -184,4 +182,4 @@ class AdminDataModelPlanChoicesPage extends React.Component<{}, IAdminDataModelP
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelPlanChoicesPage));
+export default AdminDataModelPlanChoicesPage;

@@ -3,8 +3,6 @@ import { Container } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';
 import FilterUserWidget from '../../components/shared/FilterUserWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 export interface IFilterUsers {
   firstNameRegex?: string;
@@ -47,4 +45,4 @@ class AdminHomePage extends React.Component<{}, IFilterUsers> {
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminHomePage));
+export default AdminHomePage;

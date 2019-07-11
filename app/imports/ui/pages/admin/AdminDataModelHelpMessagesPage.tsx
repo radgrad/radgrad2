@@ -11,8 +11,6 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AddHelpMessageForm from '../../components/admin/AddHelpMessageForm';
 import UpdateHelpMessageForm from '../../components/admin/UpdateHelpMessageForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = HelpMessages; // the collection to use.
 
@@ -186,4 +184,4 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelHelpMessagesPage));
+export default AdminDataModelHelpMessagesPage;

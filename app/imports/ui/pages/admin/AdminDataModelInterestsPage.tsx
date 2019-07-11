@@ -13,8 +13,6 @@ import AddInterestForm from '../../components/admin/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/UpdateInterestForm';
 import { interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Interests; // the collection to use.
 
@@ -194,4 +192,4 @@ class AdminDataModelInterestsPage extends React.Component<{}, IAdminDataModelPag
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelInterestsPage));
+export default AdminDataModelInterestsPage;

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
 class AdminDatabasePage extends React.Component {
@@ -32,6 +30,4 @@ class AdminDatabasePage extends React.Component {
   }
 }
 
-const AdminDatabasePageContainer = withInstanceSubscriptions(withGlobalSubscription(AdminDatabasePage));
-
-export default AdminDatabasePageContainer;
+export default AdminDatabasePage;

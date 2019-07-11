@@ -10,8 +10,6 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },
@@ -122,4 +120,4 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelAcademicPlansPage));
+export default AdminDataModelAcademicPlansPage;

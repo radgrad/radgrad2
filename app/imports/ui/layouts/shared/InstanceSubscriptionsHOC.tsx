@@ -6,9 +6,6 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';

@@ -31,8 +31,6 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 interface IAdminDataModelUsersPageProps {
   advisors: IAdvisorProfile[];
@@ -331,4 +329,4 @@ export default withTracker(() => {
     mentors,
     students,
   };
-})(withInstanceSubscriptions(withGlobalSubscription(AdminDataModelUsersPage)));
+})(AdminDataModelUsersPage);

@@ -22,8 +22,6 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Reviews; // the collection to use.
 
@@ -220,4 +218,4 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelReviewsPage));
+export default AdminDataModelReviewsPage;

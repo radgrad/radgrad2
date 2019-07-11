@@ -3,8 +3,6 @@ import { Container, Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -86,8 +84,6 @@ class FacultyVerificationPage extends React.Component<FacultyVerificationPagePro
   }
 }
 
-const FacultyVerificationPageWithGSub = withGlobalSubscription(FacultyVerificationPage);
-const FacultyVerificationPageWithISub = withInstanceSubscriptions(FacultyVerificationPageWithGSub);
 const FacultyVerificationPageWithTracker = withTracker((props) => {
   const userID = Users.getID(props.match.params.username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
@@ -96,7 +92,7 @@ const FacultyVerificationPageWithTracker = withTracker((props) => {
     verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),
     eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
   };
-})(FacultyVerificationPageWithISub);
+})(FacultyVerificationPage);
 const FacultyVerificationPageWithRouter = withRouter(FacultyVerificationPageWithTracker);
 const FacultyVerificationPageContainer = FacultyVerificationPageWithRouter;
 

@@ -9,8 +9,6 @@ import AdvisorUpdateStudentWidget from '../../components/advisor/AdvisorUpdateSt
 import AdvisorLogEntryWidget from '../../components/advisor/AdvisorLogEntryWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/AdvisorStarUploadWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -88,8 +86,6 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
   }
 }
 
-const AdvisorHomePageGSub = withGlobalSubscription(AdvisorHomePage);
-const AdvisorHomePageISub = withInstanceSubscriptions(AdvisorHomePageGSub);
 const AdvisorHomePageTracker = withTracker((props) => {
   const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
   const userID = usernameDoc ? usernameDoc.userID : '';
@@ -99,6 +95,6 @@ const AdvisorHomePageTracker = withTracker((props) => {
     careerGoals: CareerGoals.findNonRetired(),
     advisorLogs: AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } }),
   };
-})(AdvisorHomePageISub);
+})(AdvisorHomePage);
 
 export default connect(mapStateToProps)(withRouter(AdvisorHomePageTracker));

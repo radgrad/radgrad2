@@ -15,8 +15,6 @@ import AddMentorAnswerForm from '../../components/admin/AddMentorAnswerForm';
 import { mentorQuestionToSlug, profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateMentorAnswerForm from '../../components/admin/UpdateMentorAnswerForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = MentorAnswers; // the collection to use.
 
@@ -196,4 +194,4 @@ class AdminDataModelMentorAnswerPage extends React.Component<{}, IAdminDataModel
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelMentorAnswerPage));
+export default AdminDataModelMentorAnswerPage;

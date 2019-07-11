@@ -12,8 +12,6 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AddDesiredDegreeForm from '../../components/admin/AddDesiredDegreeForm';
 import UpdateDesiredDegreeForm from '../../components/admin/UpdateDesiredDegreeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 function numReferences(desiredDegree) {
   return AcademicPlans.find({ degreeID: desiredDegree._id }).count();
@@ -193,4 +191,4 @@ class AdminDataModelDesiredDegreesPage extends React.Component<{}, IAdminDataMod
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelDesiredDegreesPage));
+export default AdminDataModelDesiredDegreesPage;

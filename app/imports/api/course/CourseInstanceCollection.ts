@@ -8,11 +8,9 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
-import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
 import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
-import { StudentProfiles } from '../user/StudentProfileCollection';
 import { CourseScoreboardName } from '../../startup/both/names';
 
 /**
@@ -367,12 +365,12 @@ class CourseInstanceCollection extends BaseCollection {
         ], { clientCollection: CourseScoreboardName });
       });
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        // console.log(Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]));
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
         if (!studentID) {
           return this.ready();
-        }
-        // console.log(Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]));
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
-          return instance.collection.find();
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });

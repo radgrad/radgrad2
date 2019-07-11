@@ -186,14 +186,14 @@ class FeedbackInstanceCollection extends BaseCollection {
       const instance = this;
       // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.collectionName, function publish(userID) {
+        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN]) || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
         if (!userID) {
           return this.ready();
-        }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
-          return instance.collection.find();
         }
         return instance.collection.find({ userID, retired: { $not: { $eq: true } } });
       });

@@ -12,7 +12,6 @@ import { VerificationRequests } from '../verification/VerificationRequestCollect
 import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { iceSchema } from '../ice/IceProcessor';
-import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
  * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
@@ -246,11 +245,11 @@ class OpportunityInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
         if (!studentID) {
           return this.ready();
-        }
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
-          return instance.collection.find();
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });

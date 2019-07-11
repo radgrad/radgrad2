@@ -219,7 +219,7 @@ class VerificationRequestCollection extends BaseCollection {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN]) || Meteor.isAppTest) {
           return instance.collection.find();
         }
         if (Roles.userIsInRole(this.userId, [ROLE.ADVISOR])) {

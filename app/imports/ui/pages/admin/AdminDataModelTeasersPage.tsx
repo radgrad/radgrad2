@@ -19,8 +19,6 @@ import {
   opportunityNameToSlug,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Teasers; // the collection to use.
 
@@ -202,4 +200,4 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelTeasersPage));
+export default AdminDataModelTeasersPage;

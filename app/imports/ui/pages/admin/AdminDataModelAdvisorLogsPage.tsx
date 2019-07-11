@@ -16,8 +16,6 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
     { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -186,4 +184,4 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
 
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelAdvisorLogsPage));
+export default AdminDataModelAdvisorLogsPage;

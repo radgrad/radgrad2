@@ -14,8 +14,6 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/UpdateOpportunityTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = OpportunityTypes; // the collection to use.
 
@@ -200,4 +198,4 @@ class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataM
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelOpportunityTypesPage));
+export default AdminDataModelOpportunityTypesPage;

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
@@ -59,7 +57,4 @@ class ExplorerHomePage extends React.Component<IExplorerHomePageProps> {
   }
 }
 
-const ExplorerHomePageCon = withGlobalSubscription(ExplorerHomePage);
-const ExplorerHomePageContainer = withInstanceSubscriptions(ExplorerHomePageCon);
-
-export default ExplorerHomePageContainer;
+export default ExplorerHomePage;

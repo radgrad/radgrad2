@@ -10,8 +10,6 @@ import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = null; // the collection to use.
 
@@ -182,4 +180,4 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelGenericTemplatePage));
+export default AdminDataModelGenericTemplatePage;

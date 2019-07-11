@@ -21,8 +21,6 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = VerificationRequests; // the collection to use.
 
@@ -220,4 +218,4 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
   }
 }
 
-export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelVerificationRequestsPage));
+export default AdminDataModelVerificationRequestsPage;
