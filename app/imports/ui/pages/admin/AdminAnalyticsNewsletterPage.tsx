@@ -32,3 +32,6 @@ class AdminAnalyticsNewsletterPage extends React.Component {
 }
 
 export default AdminAnalyticsNewsletterPage;
+// don't forget to wrap the AdminAnalyticsNewsletterPage just like the Admin Database Page
+// the page also needs the subsciption
+// multifactor

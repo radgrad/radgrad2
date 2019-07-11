@@ -9,7 +9,5 @@ export function remainingRequirements(student) {
      coursesCompleted.push(CourseInstances.find({'studentID': student.student.userID}).fetch());
       console.log(coursesCompleted);
       // check if user has taken courses in their academic plan
-    return coursesCompleted;
-
   }
 }
