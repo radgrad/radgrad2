@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
-import StudentLogWidget from '../../components/student/StudentLogWidget';
+import StudentIceWidget from '../../components/student/StudentIceWidget';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
-class StudentHomeLogPage extends React.Component {
+class StudentHomeIcePage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -27,7 +27,7 @@ class StudentHomeLogPage extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={14} stretched={true}>
-            <StudentLogWidget/>
+            <StudentIceWidget/>
           </Grid.Column>
         </Grid>
 
@@ -37,7 +37,7 @@ class StudentHomeLogPage extends React.Component {
   }
 }
 
-const StudentHomeLogPageCon = withGlobalSubscription(StudentHomeLogPage);
-const StudentHomeLogPageContainer = withInstanceSubscriptions(StudentHomeLogPageCon);
+const StudentHomeIcePageCon = withGlobalSubscription(StudentHomeIcePage);
+const StudentHomeIcePageContainer = withInstanceSubscriptions(StudentHomeIcePageCon);
 
-export default StudentHomeLogPageContainer;
+export default StudentHomeIcePageContainer;

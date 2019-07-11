@@ -246,6 +246,7 @@ export interface IAcademicPlanUpdate {
 
 // AcademicYearInstances
 export interface IAcademicYear {
+  _id: string;
   year: number;
   springYear: number;
   studentID: string;
