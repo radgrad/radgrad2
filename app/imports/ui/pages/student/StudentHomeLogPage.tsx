@@ -37,7 +37,7 @@ class StudentHomeLogPage extends React.Component<IStudentHomeLogPageProps> {
             <StudentHomeMenu/>
           </Grid.Column>
 
-          <Grid.Column width={14}>
+          <Grid.Column width={14} stretched={true}>
             <StudentLogWidget/>
           </Grid.Column>
         </Grid>
