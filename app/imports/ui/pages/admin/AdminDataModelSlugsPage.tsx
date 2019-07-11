@@ -8,6 +8,8 @@ import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/a
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Slugs; // the collection to use.
 
@@ -121,4 +123,4 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 }
 
-export default AdminDataModelSlugsPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelSlugsPage));

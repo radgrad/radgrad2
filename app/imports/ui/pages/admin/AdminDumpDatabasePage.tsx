@@ -12,6 +12,8 @@ import {
   dumpDatabaseDone, getStudentEmailsDone,
   startDumpDatabase, startGetStudentEmails,
 } from '../../../redux/actions/actions';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 interface Icollection {
   name?: string;
@@ -132,5 +134,5 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
   }
 }
 
-const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDumpDatabasePage);
+const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(withInstanceSubscriptions(withGlobalSubscription(AdminDumpDatabasePage)));
 export default AdminDumpDatabasePageContainer;

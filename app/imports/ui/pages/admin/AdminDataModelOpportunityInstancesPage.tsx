@@ -21,6 +21,8 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = OpportunityInstances; // the collection to use.
 
@@ -221,4 +223,4 @@ class AdminDataModelOpportunityInstancesPage extends React.Component<{}, IAdminD
   }
 }
 
-export default AdminDataModelOpportunityInstancesPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelOpportunityInstancesPage));

@@ -22,6 +22,8 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Feeds; // the collection to use.
 
@@ -255,4 +257,4 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 }
 
-export default AdminDataModelFeedsPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelFeedsPage));

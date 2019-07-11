@@ -14,6 +14,8 @@ import AddMentorQuestionForm from '../../components/admin/AddMentorQuestionForm'
 import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateMentorQuestionForm from '../../components/admin/UpdateMentorQuestionForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = MentorQuestions; // the collection to use.
 
@@ -194,4 +196,4 @@ class AdminDataModelMentorQuestionPage extends React.Component<{}, IAdminDataMod
   }
 }
 
-export default AdminDataModelMentorQuestionPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelMentorQuestionPage));

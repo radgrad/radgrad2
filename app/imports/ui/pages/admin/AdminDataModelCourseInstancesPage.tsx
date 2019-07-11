@@ -20,6 +20,8 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = CourseInstances;
 
@@ -221,4 +223,4 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
   }
 }
 
-export default AdminDataModelCourseInstancesPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelCourseInstancesPage));

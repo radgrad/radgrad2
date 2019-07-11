@@ -19,6 +19,8 @@ import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 function numReferences(careerGoal) {
   let references = 0;
@@ -195,4 +197,4 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
 
 }
 
-export default AdminDataModelCareerGoalsPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelCareerGoalsPage));

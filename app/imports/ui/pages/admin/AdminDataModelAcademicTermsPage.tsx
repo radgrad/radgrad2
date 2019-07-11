@@ -23,6 +23,8 @@ import {
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 function numReferences(term) {
   let references = 0;
@@ -203,4 +205,4 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
   }
 }
 
-export default AdminDataModelAcademicTermsPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelAcademicTermsPage));

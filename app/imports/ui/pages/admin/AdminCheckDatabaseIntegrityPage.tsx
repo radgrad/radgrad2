@@ -6,6 +6,8 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { checkIntegrityDone, startCheckIntegrity } from '../../../redux/actions/actions';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 interface IAdminCheckDatabaseIntegrityPageProps {
   startCheckIntegrity: () => any;
@@ -111,4 +113,4 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabas
 }
 
 const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPage);
-export default AdminCheckDatabaseIntegrityPageContainer;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminCheckDatabaseIntegrityPageContainer));

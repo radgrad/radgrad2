@@ -3,6 +3,8 @@ import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminModerationWidget from '../../components/shared/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 /** A simple static component to render some text for the landing page. */
 class AdminModerationPage extends React.Component {
@@ -26,4 +28,4 @@ class AdminModerationPage extends React.Component {
   }
 }
 
-export default AdminModerationPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminModerationPage));

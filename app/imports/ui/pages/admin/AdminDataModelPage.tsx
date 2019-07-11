@@ -3,6 +3,8 @@ import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 class AdminDataModelPage extends React.Component {
   public render() {
@@ -29,4 +31,4 @@ class AdminDataModelPage extends React.Component {
   }
 }
 
-export default AdminDataModelPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelPage));

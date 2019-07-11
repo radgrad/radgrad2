@@ -18,6 +18,8 @@ import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceF
 import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -205,4 +207,4 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
   }
 }
 
-export default AdminDataModelFeedbackInstancesPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelFeedbackInstancesPage));

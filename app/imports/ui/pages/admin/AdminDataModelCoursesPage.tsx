@@ -21,6 +21,8 @@ import AddCourseForm from '../../components/admin/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import UpdateCourseForm from '../../components/admin/UpdateCourseForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const collection = Courses; // the collection to use.
 
@@ -219,4 +221,4 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
   }
 }
 
-export default AdminDataModelCoursesPage;
+export default withInstanceSubscriptions(withGlobalSubscription(AdminDataModelCoursesPage));
