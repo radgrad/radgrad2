@@ -208,7 +208,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
   public getOpportunityDoc(instanceID: string) {
-    // this.assertDefined(instanceID);
+    this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findDoc(instance.opportunityID);
   }
