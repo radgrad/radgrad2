@@ -230,9 +230,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
           {canAdd && <ProfileAdd item={item} type={type}/>}
         </div>
       </Card>
-
     );
-
   }
 }
 

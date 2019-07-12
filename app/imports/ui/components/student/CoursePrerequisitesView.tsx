@@ -15,7 +15,7 @@ function missingPrerequisite(prereqSlug, studentID) {
   let ret = true;
   _.forEach(courseInstances, (ci) => {
     const courseSlug = CourseInstances.getCourseSlug(ci._id);
-    // console.log(prereqSlug, courseSlug, satisfiesPlanChoice(prereqSlug, courseSlug))
+    // console.log(prereqSlug, getCourseSlug, satisfiesPlanChoice(prereqSlug, getCourseSlug))
     if (satisfiesPlanChoice(prereqSlug, courseSlug)) {
       ret = false;
     }

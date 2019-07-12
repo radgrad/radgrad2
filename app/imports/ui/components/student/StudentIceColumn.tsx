@@ -6,6 +6,9 @@ import StudentIceColumnVerified from './StudentIceColumnVerified';
 import StudentIceColumnUnverified from './StudentIceColumnUnverified';
 import StudentIceColumnRecommended from './StudentIceColumnRecommended';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IStudentIceColumnProps {
@@ -88,6 +91,33 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
 
   private matchingPoints = (a: number, b: number): boolean => a <= b;
 
+  private icePoints = (ice: Ice): number => {
+    let ret;
+    const { type } = this.props;
+    if (type === 'Innovation') {
+      ret = ice.i;
+    } else if (type === 'Competency') {
+      ret = ice.c;
+    } else if (type === 'Experience') {
+      ret = ice.e;
+    }
+    return ret;
+  }
+
+  private getCourseSlug = (course) => {
+    if (course.courseID) {
+      return Slugs.findDoc(Courses.findDoc(course.courseID).slugID).name;
+    }
+    return Slugs.findDoc(course.slugID).name;
+  }
+
+  private getOpportunitySlug = (opportunity): string => {
+    if (opportunity.opportunityID) {
+      return Slugs.findDoc(Opportunities.findDoc(opportunity.opportunityID).slugID).name;
+    }
+    return Slugs.findDoc(opportunity.slugID).name;
+  }
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { activeIndex } = this.state;
     const { type } = this.props;
@@ -108,7 +138,9 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
           className={`ui right floated ${verifiedColor}`}>{earnedICEPoints} pts</div>
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
-          <StudentIceColumnVerified type={type} earnedICEPoints={earnedICEPoints} matchingPoints={this.matchingPoints}/>
+          <StudentIceColumnVerified type={type} earnedICEPoints={earnedICEPoints} getCourseSlug={this.getCourseSlug}
+                                    matchingPoints={this.matchingPoints} getOpportunitySlug={this.getOpportunitySlug}
+                                    icePoints={this.icePoints}/>
         </Accordion.Content>
 
         <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
@@ -116,16 +148,19 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
           className={`ui right floated ${unverifiedColor}`}>{unverifiedICEPoints} pts</div>
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          <StudentIceColumnUnverified type={type} projectedICEPoints={projectedICEPoints}
-                                      matchingPoints={this.matchingPoints}/>
+          <StudentIceColumnUnverified type={type} earnedICEPoints={earnedICEPoints} icePoints={this.icePoints}
+                                      projectedICEPoints={projectedICEPoints} getCourseSlug={this.getCourseSlug}
+                                      matchingPoints={this.matchingPoints} getOpportunitySlug={this.getOpportunitySlug}
+                                      remainingICEPoints={this.remainingICEPoints}/>
         </Accordion.Content>
 
         <Accordion.Title active={activeIndex === 2} index={2} onClick={this.handleClick}>
           <Icon name="dropdown"/>Get to 100
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 2}>
-          <StudentIceColumnRecommended type={type} earnedICEPoints={earnedICEPoints}
-                                       projectedICEPoints={projectedICEPoints} matchingPoints={this.matchingPoints}/>
+          <StudentIceColumnRecommended type={type} earnedICEPoints={earnedICEPoints} getCourseSlug={this.getCourseSlug}
+                                       projectedICEPoints={projectedICEPoints} matchingPoints={this.matchingPoints}
+                                       icePoints={this.icePoints} getOpportunitySlug={this.getOpportunitySlug}/>
         </Accordion.Content>
       </Accordion>
     );
