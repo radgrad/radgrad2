@@ -76,7 +76,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginBottomStyle = { marginBottom: 0 };
 
-    const { match } = this.props;
+    const { match, profile } = this.props;
     const name = this.name();
     const email = this.email();
     const careerGoals = this.careerGoals();
@@ -160,7 +160,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
             </Grid.Row>
           </Grid>
 
-          <StudentShareInfoWidget/>
+          <StudentShareInfoWidget profile={profile}/>
         </Container>
       </Segment>
     );
