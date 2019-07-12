@@ -14,6 +14,7 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -100,7 +101,10 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                                                picture={this.getProfile().picture}
                                                docID={this.getProfile()._id}
                                                collectionName={this.getCollectionName()}/>
-              {/* TODO: <StudentAboutMeUpdateWebsiteForm/> */}
+              <StudentAboutMeUpdateWebsiteForm username={this.getUsername()}
+                                               website={this.getProfile().website}
+                                               docID={this.getProfile()._id}
+                                               collectionName={this.getCollectionName()}/>
             </Grid.Row>
 
             <Grid.Row>
