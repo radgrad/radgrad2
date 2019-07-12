@@ -36,9 +36,10 @@ import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
-import StudentHomeLogPageContainer from '../../ui/pages/student/StudentHomeLogPage';
-import StudentHomeLevelsPageContainer from '../../ui/pages/student/StudentHomeLevelsPage';
+import StudentHomeAboutMePageContainer from '../../ui/pages/student/StudentHomeAboutMePage';
 import StudentHomeIcePageContainer from '../../ui/pages/student/StudentHomeIcePage';
+import StudentHomeLevelsPageContainer from '../../ui/pages/student/StudentHomeLevelsPage';
+import StudentHomeLogPageContainer from '../../ui/pages/student/StudentHomeLogPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
 import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
 import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
@@ -71,7 +72,6 @@ import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeaser
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
 import { ROLE } from '../../api/role/Role';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
-
 
 // Widely used params as constants
 const USERNAME = ':username';
@@ -597,6 +597,11 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
       component: StudentHomePageContainer,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/aboutme`,
+      exact: true,
+      component: StudentHomeAboutMePageContainer,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/ice`,

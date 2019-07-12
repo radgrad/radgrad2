@@ -287,7 +287,7 @@ export interface IAdvisorLogUpdate {
 export interface ICareerGoal {
   _id: string;
   name: string;
-  slug: string;
+  slugID: string;
   description: string;
   interestIDs: string[];
   retired?: boolean;

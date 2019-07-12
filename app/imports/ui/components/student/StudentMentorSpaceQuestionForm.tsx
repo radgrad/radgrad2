@@ -12,9 +12,13 @@ import { defineMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IStudentMentorSpaceQuestionFormProps {
   match: {
+    isExact: boolean;
+    path: string;
+    url: string;
     params: {
       username: string;
-    };
+      course: string;
+    }
   };
 }
 
