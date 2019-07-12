@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
-import AdminAnalyticsOverheadAnalysisWidget from '../../components/admin/AdminAnalyticsOverheadAnalysisWidget';
+import AdminAnalyticsOverheadAnalysisOverallWidget from '../../components/admin/AdminAnalyticsOverheadAnalysisOverallWidget';
 /** A simple static component to render some text for the landing page. */
 
 class AdminAnalyticsOverheadAnalysisPage extends React.Component {
@@ -21,7 +21,7 @@ class AdminAnalyticsOverheadAnalysisPage extends React.Component {
                 <AdminAnalyticsMenuWidget/>
               </Grid.Column>
               <Grid.Column width={13}>
-                <AdminAnalyticsOverheadAnalysisWidget/>
+                <AdminAnalyticsOverheadAnalysisOverallWidget/>
               </Grid.Column>
             </Grid>
           </Grid.Column>

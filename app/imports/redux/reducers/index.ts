@@ -170,6 +170,12 @@ const initialState = {
       hiddenOpportunities: true,
     },
   },
+  adminAnalyticsOverheadAnalysisPage: {
+    adminAnalyticsDateSelectionWidget: {
+      startDate: '',
+      endDate: ''
+    }
+  },
   page: {
     advisor: {
       home: {
