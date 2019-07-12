@@ -55,7 +55,7 @@ export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: str
   const courseTakenIDs = [];
   instances.forEach((courseInstance) => {
     if (CourseInstances.isInteresting(courseInstance._id)) {
-      if (courseInstance.note !== 'ICS 499') {
+      if (courseInstance.note !== 'ICS 499') { // TODO: hardcoded ICS string
         courseTakenIDs.push(courseInstance.courseID);
       }
     }
@@ -139,7 +139,7 @@ export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
 }
 
 /**
- * Checks the format of the courseSlug. Does not check to see if the slug is defined. Valid course
+ * Checks the format of the getCourseSlug. Does not check to see if the slug is defined. Valid course
  * slugs have the format <dept>_<number>.
  * @param courseSlug the slug to check.
  * @returns {boolean}
@@ -163,7 +163,7 @@ export function getDepartment(courseSlug): string {
 }
 
 /**
- * Returns the number portion of the courseSlug.
+ * Returns the number portion of the getCourseSlug.
  * @param courseSlug the course slug.
  * @returns {string}
  */

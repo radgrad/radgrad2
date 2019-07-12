@@ -19,6 +19,9 @@ import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/La
 import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorer';
 import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorer';
 import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorer';
+import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
+import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
+import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import AdminHomePageContainer from '../../ui/pages/admin/AdminHomePage';
 import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage';
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
@@ -33,6 +36,10 @@ import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
+import StudentHomeAboutMePageContainer from '../../ui/pages/student/StudentHomeAboutMePage';
+import StudentHomeIcePageContainer from '../../ui/pages/student/StudentHomeIcePage';
+import StudentHomeLevelsPageContainer from '../../ui/pages/student/StudentHomeLevelsPage';
+import StudentHomeLogPageContainer from '../../ui/pages/student/StudentHomeLogPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
 import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
 import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
@@ -63,10 +70,6 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
-/* Explorers */
-import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
-import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
-import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
 import { ROLE } from '../../api/role/Role';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
 
@@ -592,14 +595,37 @@ export const routes = {
   STUDENT: [
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
+      exact: true,
       component: StudentHomePageContainer,
     },
     {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/aboutme`,
+      exact: true,
+      component: StudentHomeAboutMePageContainer,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/ice`,
+      exact: true,
+      component: StudentHomeIcePageContainer,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/levels`,
+      exact: true,
+      component: StudentHomeLevelsPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/log`,
+      exact: true,
+      component: StudentHomeLogPageContainer,
+    },
+    {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/degree-planner`,
+      exact: true,
       component: StudentDegreePlannerPageContainer,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${MENTOR_SPACE}`,
+      exact: true,
       component: StudentMentorSpacePageContainer,
     },
     {

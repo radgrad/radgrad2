@@ -5,21 +5,18 @@ import StudentMentorSpaceQuestionForm from '../../components/student/StudentMent
 import StudentMentorSpaceQuestionsAccordion from '../../components/student/StudentMentorSpaceQuestionsAccordion';
 import StudentMentorSpaceMentorDirectoryAccordion
   from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 /** A simple static component to render some text for the landing page. */
 class StudentMentorSpacePage extends React.Component {
   public render() {
-    const marginStyle = {
-      marginTop: 5,
-    };
     return (
       <div>
         <StudentPageMenuWidget/>
-        <Grid container={true} stackable={true} style={marginStyle}>
+        <Grid container={true} stackable={true}>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+            <HelpPanelWidget/>
           </Grid.Row>
 
           <Grid.Column width={11}>
