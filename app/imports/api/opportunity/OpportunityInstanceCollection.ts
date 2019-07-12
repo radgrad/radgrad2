@@ -21,6 +21,7 @@ import { iceSchema } from '../ice/IceProcessor';
 class OpportunityInstanceCollection extends BaseCollection {
   public publicationNames: {
     scoreboard: string;
+    verification: string;
   };
 
   /**
@@ -38,6 +39,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     }));
     this.publicationNames = {
       scoreboard: `${this.collectionName}.Scoreboard`,
+      verification: `${this.collectionName}.Verification`,
     };
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, studentID: 1, termID: 1 });
@@ -267,6 +269,13 @@ class OpportunityInstanceCollection extends BaseCollection {
           { $project: { count: 1, termID: 1, opportunityID: 1 } },
         ], { clientCollection: 'OpportunityScoreboard' });
       });
+      Meteor.publish(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
+        console.log(this.userId);
+        if (Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        return instance.collection.find({ studentID: { $in: studentIDs } });
+      })
     }
   }
 

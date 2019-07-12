@@ -28,8 +28,11 @@ class FacultyPageMenuWidget extends React.Component<IFacultyPageMenuWidgetProps>
     // const sponsorID = Users.getID(username);
     let openRequests = VerificationRequests.find({ status: VerificationRequests.OPEN }).fetch();
     openRequests = _.filter(openRequests, (request) => {
-      const oi = OpportunityInstances.findDoc(request.opportunityInstanceID);
-      return Opportunities.findDoc(oi.opportunityID).sponsorID === faculty.userID;
+      if (OpportunityInstances.isDefined(request.opportunityInstanceID)) {
+        const oi = OpportunityInstances.findDoc(request.opportunityInstanceID);
+        return Opportunities.findDoc(oi.opportunityID).sponsorID === faculty.userID;
+      }
+      return false;
     });
 
     const numRequests = openRequests.length;

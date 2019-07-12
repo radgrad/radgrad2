@@ -6,10 +6,9 @@ import {
   IAcademicTerm,
   IOpportunity,
   IProcessed,
-  IStudentProfile,
   IVerificationRequest,
 } from '../../../typings/radgrad';
-/* eslint-disable no-unused-vars */
+/* eslint-enable no-unused-vars */
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { processPendingVerificationMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';
