@@ -25,25 +25,38 @@ interface IStudentIceColumnProps {
 }
 
 interface IStudentIceColumnState {
-  activeIndex: number;
+  verifiedColumnOpen: boolean;
+  unVerifiedColumnOpen: boolean;
+  recommendedColumnOpen: boolean;
 }
 
 class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentIceColumnState> {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 };
+    this.state = {
+      verifiedColumnOpen: true,
+      unVerifiedColumnOpen: false,
+      recommendedColumnOpen: false,
+    };
   }
 
   private getUsername = (): string => Router.getUsername(this.props.match);
 
   private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
-  public handleClick = (e, props): void => {
+  private handleVerifiedColumnClick = (e): void => {
     e.preventDefault();
-    const { index } = props;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex });
+    this.setState((prevState) => ({ verifiedColumnOpen: !prevState.verifiedColumnOpen }));
+  }
+
+  private handleUnVerifiedColumnClick = (e): void => {
+    e.preventDefault();
+    this.setState((prevState) => ({ unVerifiedColumnOpen: !prevState.unVerifiedColumnOpen }));
+  }
+
+  private handleRecommendedColumnClick = (e): void => {
+    e.preventDefault();
+    this.setState((prevState) => ({ recommendedColumnOpen: !prevState.recommendedColumnOpen }));
   }
 
   private getVerifiedColor = (): string => {
@@ -119,7 +132,7 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { activeIndex } = this.state;
+    const { verifiedColumnOpen, unVerifiedColumnOpen, recommendedColumnOpen } = this.state;
     const { type } = this.props;
     const verifiedColor = this.getVerifiedColor();
     const unverifiedColor = this.getUnverifiedColor();
@@ -133,31 +146,31 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
 
     return (
       <Accordion styled={true} fluid={true} exclusive={false}>
-        <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+        <Accordion.Title active={verifiedColumnOpen} onClick={this.handleVerifiedColumnClick}>
           <Icon name="dropdown"/>Verified <div
           className={`ui right floated ${verifiedColor}`}>{earnedICEPoints} pts</div>
         </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
+        <Accordion.Content active={verifiedColumnOpen}>
           <StudentIceColumnVerified type={type} earnedICEPoints={earnedICEPoints} getCourseSlug={this.getCourseSlug}
                                     matchingPoints={this.matchingPoints} getOpportunitySlug={this.getOpportunitySlug}
                                     icePoints={this.icePoints}/>
         </Accordion.Content>
 
-        <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
+        <Accordion.Title active={unVerifiedColumnOpen} onClick={this.handleUnVerifiedColumnClick}>
           <Icon name="dropdown"/>Unverified <div
           className={`ui right floated ${unverifiedColor}`}>{unverifiedICEPoints} pts</div>
         </Accordion.Title>
-        <Accordion.Content active={activeIndex === 1}>
+        <Accordion.Content active={unVerifiedColumnOpen}>
           <StudentIceColumnUnverified type={type} earnedICEPoints={earnedICEPoints} icePoints={this.icePoints}
                                       projectedICEPoints={projectedICEPoints} getCourseSlug={this.getCourseSlug}
                                       matchingPoints={this.matchingPoints} getOpportunitySlug={this.getOpportunitySlug}
                                       remainingICEPoints={this.remainingICEPoints}/>
         </Accordion.Content>
 
-        <Accordion.Title active={activeIndex === 2} index={2} onClick={this.handleClick}>
+        <Accordion.Title active={recommendedColumnOpen} onClick={this.handleRecommendedColumnClick}>
           <Icon name="dropdown"/>Get to 100
         </Accordion.Title>
-        <Accordion.Content active={activeIndex === 2}>
+        <Accordion.Content active={recommendedColumnOpen}>
           <StudentIceColumnRecommended type={type} earnedICEPoints={earnedICEPoints} getCourseSlug={this.getCourseSlug}
                                        projectedICEPoints={projectedICEPoints} matchingPoints={this.matchingPoints}
                                        icePoints={this.icePoints} getOpportunitySlug={this.getOpportunitySlug}/>

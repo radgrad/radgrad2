@@ -110,7 +110,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
             <Grid.Row>
               <Grid.Column width={2}><p><b>Career Goals</b></p></Grid.Column>
               <Grid.Column width={6}>
-                {careerGoals ?
+                {careerGoals.length !== 0 ?
                   careerGoals.map((careerGoal) => {
                     const slugName = this.slugName(careerGoal);
                     const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
@@ -124,13 +124,13 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                   <p style={marginBottomStyle}>No career goals added yet.</p>
                 }
                 <Link to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-                  <br/>View More Career Goals
+                  <p>View More Career Goals</p>
                 </Link>
               </Grid.Column>
 
               <Grid.Column width={2}><p><b>Interests</b></p></Grid.Column>
               <Grid.Column width={6}>
-                {interests ?
+                {interests.length !== 0 ?
                   interests.map((interest) => {
                     const slugName = this.slugName(interest);
                     const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
@@ -144,7 +144,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                   <p style={marginBottomStyle}>No interests added yet.</p>
                 }
                 <Link to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
-                  <br/>View More Interests
+                  <p>View More Interests</p>
                 </Link>
               </Grid.Column>
             </Grid.Row>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
@@ -27,17 +27,18 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
-          title: 'Update failed',
+          title: 'Update Failed',
           text: error.message,
           type: 'error',
         });
-        console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
-          title: 'Update succeeded',
+          title: 'Update Succeeded',
           type: 'success',
-          showConfirmButton: false,
-          timer: 1500,
+          text: 'Your website link has been successfully updated.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
         });
       }
     });
@@ -49,18 +50,19 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // TODO: Cloudinary functionality
     const { website } = this.state;
     return (
       <React.Fragment>
-        <Form onSubmit={this.handleUpdatePicture}>
-          <Form.Group inline>
-            <Form.Input label={'Website'}
-                        onChange={this.handleFormChange}
-                        value={website}/>
-            <Form.Button basic={true} color="green">Update</Form.Button>
-          </Form.Group>
-        </Form>
+        <Grid.Column width={2}><b>Website</b></Grid.Column>
+        <Grid.Column width={6}>
+          <Form onSubmit={this.handleUpdatePicture}>
+            <Form.Group>
+              <Form.Input onChange={this.handleFormChange}
+                          value={website}/>
+              <Form.Button basic={true} color="green"> Update</Form.Button>
+            </Form.Group>
+          </Form>
+        </Grid.Column>
       </React.Fragment>
     );
   }

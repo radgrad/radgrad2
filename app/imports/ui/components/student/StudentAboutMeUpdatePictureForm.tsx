@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
@@ -13,9 +13,9 @@ interface IStudentAboutMeUpdatePictureFormProps {
 class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpdatePictureFormProps> {
   state = { picture: this.props.picture };
 
-  private prePopulateForm = (picture) => {
-    this.setState({ picture: picture });
-  }
+  // private prePopulateForm = (picture) => {
+  //   this.setState({ picture: picture });
+  // }
 
   private handleFormChange = (e, { value }) => this.setState({ picture: value });
 
@@ -27,40 +27,44 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
-          title: 'Update failed',
+          title: 'Update Failed',
           text: error.message,
           type: 'error',
         });
-        console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
-          title: 'Update succeeded',
+          title: 'Update Succeeded',
           type: 'success',
-          showConfirmButton: false,
-          timer: 1500,
+          text: 'Your picture has been successfully updated.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
         });
       }
     });
   }
 
-  componentDidUpdate(prevProps: Readonly<IStudentAboutMeUpdatePictureFormProps>): void {
-    const prop = this.props.picture;
-    if (prop !== prevProps.picture) this.prePopulateForm(this.props.picture);
-  }
+  // componentDidUpdate(prevProps: Readonly<IStudentAboutMeUpdatePictureFormProps>): void {
+  //   const prop = this.props.picture;
+  //   if (prop !== prevProps.picture) this.prePopulateForm(this.props.picture);
+  // }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     // TODO: Cloudinary functionality
     const { picture } = this.state;
     return (
       <React.Fragment>
-        <Form onSubmit={this.handleUpdatePicture}>
-          <Form.Group inline>
-            <Form.Input label={<p><b>Picture</b>(<a id="image-upload-widget">Upload</a>)</p>}
-                        onChange={this.handleFormChange}
-                        value={picture}/>
-            <Form.Button basic={true} color="green">Update</Form.Button>
-          </Form.Group>
-        </Form>
+        <Grid.Column width={2}><b>Picture</b>(<a id="image-upload-widget">Upload</a>)</Grid.Column>
+        <Grid.Column width={6}>
+          <Form onSubmit={this.handleUpdatePicture}>
+            <Form.Group>
+              <Form.Input onChange={this.handleFormChange}
+                          value={picture}
+                          disabled={true}/>
+              <Form.Button basic={true} color="green">Update</Form.Button>
+            </Form.Group>
+          </Form>
+        </Grid.Column>
       </React.Fragment>
     );
   }
