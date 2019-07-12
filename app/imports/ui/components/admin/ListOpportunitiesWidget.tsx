@@ -6,8 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
-import BaseCollection from '../../../api/base/BaseCollection';
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-var
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
+import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Users } from '../../../api/user/UserCollection';

@@ -34,7 +34,7 @@ function withInstanceSubscriptions(WrappedComponent) {
 
     /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
     public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting data</Loader> :
+      return (this.props.loading) ? <Loader active={true}>Getting instance data</Loader> :
         <WrappedComponent {...this.props}/>;
     }
   }

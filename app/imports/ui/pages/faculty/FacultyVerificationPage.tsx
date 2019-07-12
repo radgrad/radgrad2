@@ -14,6 +14,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAdditionalSubscriptionsHOC';
 
 interface FacultyVerificationPageProps {
   verificationRequests: IVerificationRequest[];
@@ -94,6 +95,6 @@ const FacultyVerificationPageWithTracker = withTracker((props) => {
   };
 })(FacultyVerificationPage);
 const FacultyVerificationPageWithRouter = withRouter(FacultyVerificationPageWithTracker);
-const FacultyVerificationPageContainer = FacultyVerificationPageWithRouter;
+const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithRouter);
 
 export default FacultyVerificationPageContainer;

@@ -12,6 +12,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAdditionalSubscriptionsHOC';
 
 interface IAdvisorVerificationRequestPageProps {
   verificationRequests: IVerificationRequest[];
@@ -85,9 +86,9 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
 }
 
 const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
-  verificationRequests: VerificationRequests.findNonRetired(),
+  verificationRequests: VerificationRequests.find({}).fetch(),
   eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
 }))(AdvisorVerificationRequestPage);
 const AdvisorVerificationRequestPageContainerTrackerRouter = withRouter(AdvisorVerificationRequestPageContainerTracker);
 
-export default AdvisorVerificationRequestPageContainerTrackerRouter;
+export default withAdditionalSubscriptions(AdvisorVerificationRequestPageContainerTrackerRouter);

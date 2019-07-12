@@ -269,13 +269,13 @@ class OpportunityInstanceCollection extends BaseCollection {
           { $project: { count: 1, termID: 1, opportunityID: 1 } },
         ], { clientCollection: 'OpportunityScoreboard' });
       });
+      // eslint-disable-next-line
       Meteor.publish(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
-        console.log(this.userId);
         if (Meteor.isAppTest) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID: { $in: studentIDs } });
-      })
+      });
     }
   }
 
