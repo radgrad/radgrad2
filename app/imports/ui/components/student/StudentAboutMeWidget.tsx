@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
 import { Container, Grid, Segment, Header, Label } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
@@ -12,6 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -22,6 +24,7 @@ interface IStudentAboutMeWidgetProps {
       username: string;
     }
   };
+  profile: IStudentProfile;
 }
 
 class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
@@ -31,7 +34,9 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
 
   private getUsername = (): string => getUsername(this.props.match);
 
-  private getProfile = (): IStudentProfile => Users.getProfile(this.getUsername());
+  private getProfile = (): IStudentProfile => this.props.profile;
+
+  private getCollectionName = (): string => StudentProfiles.getCollectionName();
 
   private name = (): string => Users.getFullName(this.getUsername());
 
@@ -91,7 +96,10 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
             </Grid.Row>
 
             <Grid.Row>
-              <StudentAboutMeUpdatePictureForm/>
+              <StudentAboutMeUpdatePictureForm username={this.getUsername()}
+                                               picture={this.getProfile().picture}
+                                               docID={this.getProfile()._id}
+                                               collectionName={this.getCollectionName()}/>
               {/* TODO: <StudentAboutMeUpdateWebsiteForm/> */}
             </Grid.Row>
 
@@ -155,4 +163,6 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
   }
 }
 
-export default withRouter(StudentAboutMeWidget);
+export default withRouter(withTracker((props) => ({
+  profile: Users.getProfile(props.match.params.username),
+}))(StudentAboutMeWidget));
