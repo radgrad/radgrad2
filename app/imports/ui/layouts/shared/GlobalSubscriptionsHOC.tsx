@@ -24,6 +24,11 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { Feeds } from '../../../api/feed/FeedCollection';
+import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
+import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface ILoading {
   loading: boolean;
@@ -31,7 +36,7 @@ interface ILoading {
 
 // cacheLimit default is 10, so increased to handle all our subscriptions.
 // expireLimit set to 30 minutes because: why not.
-const globalSubs = new SubsManager({ cacheLimit: 22, expireIn: 30 });
+const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
   class GlobalSubscription extends React.Component<ILoading> {
@@ -41,7 +46,7 @@ function withGlobalSubscription(WrappedComponent) {
 
     /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
     public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting data</Loader> :
+      return (this.props.loading) ? <Loader active={true}>Getting global data</Loader> :
         <WrappedComponent {...this.props}/>;
     }
   }
@@ -52,20 +57,25 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       globalSubs.subscribe(CareerGoals.getPublicationName()),
-      globalSubs.subscribe(StudentParticipations.getPublicationName()),
+      globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(DesiredDegrees.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
+      globalSubs.subscribe(Feeds.getPublicationName()),
       globalSubs.subscribe(HelpMessages.getPublicationName()),
       globalSubs.subscribe(Interests.getPublicationName()),
       globalSubs.subscribe(InterestTypes.getPublicationName()),
+      globalSubs.subscribe(MentorAnswers.getPublicationName()),
       globalSubs.subscribe(MentorProfiles.getPublicationName()),
+      globalSubs.subscribe(MentorQuestions.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
+      globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PlanChoices.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
       globalSubs.subscribe(RadGradSettings.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
+      globalSubs.subscribe(StudentParticipations.getPublicationName()),
       globalSubs.subscribe(StudentProfiles.getPublicationName()),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),

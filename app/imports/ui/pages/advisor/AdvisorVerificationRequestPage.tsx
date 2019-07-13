@@ -4,8 +4,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
 import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
 import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
@@ -14,6 +12,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAdditionalSubscriptionsHOC';
 
 interface IAdvisorVerificationRequestPageProps {
   verificationRequests: IVerificationRequest[];
@@ -86,12 +85,10 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
   }
 }
 
-const AdvisorVerificationRequestPageCon = withGlobalSubscription(AdvisorVerificationRequestPage);
-const AdvisorVerificationRequestPageContainer = withInstanceSubscriptions(AdvisorVerificationRequestPageCon);
 const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
-  verificationRequests: VerificationRequests.findNonRetired(),
+  verificationRequests: VerificationRequests.find({}).fetch(),
   eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
-}))(AdvisorVerificationRequestPageContainer);
+}))(AdvisorVerificationRequestPage);
 const AdvisorVerificationRequestPageContainerTrackerRouter = withRouter(AdvisorVerificationRequestPageContainerTracker);
 
-export default AdvisorVerificationRequestPageContainerTrackerRouter;
+export default withAdditionalSubscriptions(AdvisorVerificationRequestPageContainerTrackerRouter);

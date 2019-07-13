@@ -4,8 +4,6 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
 import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -134,8 +132,6 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
   }
 }
 
-const StudentDegreePlannerPageCon = withGlobalSubscription(StudentDegreePlannerPage);
-const StudentDegreePlannerPageCont = withInstanceSubscriptions(StudentDegreePlannerPageCon);
-const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPageCont);
+const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPage);
 
 export default withRouter(StudentDegreePlannerPageContainer);

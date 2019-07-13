@@ -3,8 +3,6 @@ import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { Roles } from 'meteor/alanning:roles';
 import { withRouter } from 'react-router-dom';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -253,7 +251,4 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 }
 
-const CardExplorerPageCon = withGlobalSubscription(CardExplorerPage);
-const CardExplorerPageContainer = withInstanceSubscriptions(CardExplorerPageCon);
-
-export default withRouter(CardExplorerPageContainer);
+export default withRouter(CardExplorerPage);

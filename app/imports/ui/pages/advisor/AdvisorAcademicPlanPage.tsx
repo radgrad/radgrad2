@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import AdvisorAcademicPlanTabs from '../../components/advisor/AdvisorAcademicPlanTabs';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -26,7 +24,4 @@ const AdvisorAcademicPlanPage = () => (
   </div>
 );
 
-const AdvisorAcademicPlanPageCon = withGlobalSubscription(AdvisorAcademicPlanPage);
-const AdvisorAcademicPlanPageContainer = withInstanceSubscriptions(AdvisorAcademicPlanPageCon);
-
-export default AdvisorAcademicPlanPageContainer;
+export default AdvisorAcademicPlanPage;

@@ -57,8 +57,10 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-              <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}
-                                                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+              <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? // eslint-disable-line
+              <Markdown escapeHtml={true} source={descriptionPair.value}
+                        renderers={{ link: (props) => Router.renderLink(props, match) }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
+                <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
           <p>

@@ -24,8 +24,6 @@ import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -560,7 +558,4 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   }
 }
 
-const IndividualExplorerPageCon = withGlobalSubscription(IndividualExplorerPage);
-const IndividualExplorerPageContainer = withInstanceSubscriptions(IndividualExplorerPageCon);
-
-export default IndividualExplorerPageContainer;
+export default IndividualExplorerPage;

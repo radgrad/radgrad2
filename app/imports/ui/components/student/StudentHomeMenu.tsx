@@ -87,7 +87,6 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
                 as={NavLink}
                 exact={true}
                 to={`${baseRoute}home/${item.route}`}
-                active={this.isActiveRoute(item.route) ? true : undefined}
                 content={item.key}/>))
             }
           </Menu>

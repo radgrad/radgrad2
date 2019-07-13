@@ -12,7 +12,6 @@ import { VerificationRequests } from '../verification/VerificationRequestCollect
 import BaseCollection from '../base/BaseCollection';
 import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { iceSchema } from '../ice/IceProcessor';
-import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
  * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
@@ -21,11 +20,8 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  */
 class OpportunityInstanceCollection extends BaseCollection {
   public publicationNames: {
-    student: string;
-    perStudentAndAcademicTerm: string;
-    studentID: string;
-    publicStudent: string;
     scoreboard: string;
+    verification: string;
   };
 
   /**
@@ -42,11 +38,8 @@ class OpportunityInstanceCollection extends BaseCollection {
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
-      student: this.collectionName,
-      perStudentAndAcademicTerm: `${this.collectionName}.PerStudentAndAcademicTerm`,
-      studentID: `${this.collectionName}.studentID`,
-      publicStudent: `${this.collectionName}.publicStudent`,
       scoreboard: `${this.collectionName}.Scoreboard`,
+      verification: `${this.collectionName}.Verification`,
     };
     if (Meteor.isServer) {
       this.collection._ensureIndex({ _id: 1, studentID: 1, termID: 1 });
@@ -217,7 +210,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
   public getOpportunityDoc(instanceID: string) {
-    // this.assertDefined(instanceID);
+    this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findDoc(instance.opportunityID);
   }
@@ -253,33 +246,14 @@ class OpportunityInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.publicationNames.student, function publish() {
-        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
+      Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        if (!studentID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
-          return instance.collection.find();
-        }
-        if (Roles.userIsInRole(this.userId, [ROLE.STUDENT])) {
-          return instance.collection.find({ studentID: this.userId });
-        }
-        return instance.collection.find({ sponsorID: this.userId });
-      });
-      Meteor.publish(this.publicationNames.perStudentAndAcademicTerm, (studentID: string, termID: string) => { // eslint-disable-line meteor/audit-argument-checks
-        new SimpleSchema({
-          studentID: { type: String },
-          termID: { type: String },
-        }).validate({ studentID, termID });
-        return instance.collection.find({ studentID, termID });
-      });
-      Meteor.publish(this.publicationNames.studentID, (studentID) => { // eslint-disable-line
-        new SimpleSchema({
-          studentID: { type: String },
-        }).validate({ studentID });
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY])) {
-          return instance.collection.find();
-        }
-        return instance.collection.find({ studentID });
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
         ReactiveAggregate(this, instance.collection, [
@@ -295,28 +269,12 @@ class OpportunityInstanceCollection extends BaseCollection {
           { $project: { count: 1, termID: 1, opportunityID: 1 } },
         ], { clientCollection: 'OpportunityScoreboard' });
       });
-      Meteor.publish(this.publicationNames.publicStudent, function publicStudent() {
-        const userID = Meteor.userId();
-        const willingToShare = [];
-        const profiles = StudentProfiles.find().fetch();
-        _.forEach(profiles, (p) => {
-          if (p.shareOpportunities) {
-            willingToShare.push(p.userID);
-          }
-        });
-        // console.log('sharing Opporutnities = %o', willingToShare);
-        ReactiveAggregate(this, instance.collection, [
-          {
-            $match: {
-              $expr: {
-                $or: [
-                  { $in: ['$studentID', willingToShare] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR]), true] }],
-              },
-            },
-          },
-          { $project: { studentID: 1, opportunityID: 1, termID: 1 } },
-        ]);
+      // eslint-disable-next-line
+      Meteor.publish(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
+        if (Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        return instance.collection.find({ studentID: { $in: studentIDs } });
       });
     }
   }
