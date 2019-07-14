@@ -7,14 +7,20 @@ import FacultyPageAboutMeWidget from '../../components/faculty/FacultyPageAboutM
 const FacultyHomePage = () => (
   <div>
     <FacultyPageMenuWidget/>
-    <Grid container={true} stackable={true}>
+    <Grid stackable={true}>
       <Grid.Row>
-        <HelpPanelWidget/>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+        <Grid.Column width={1}/>
       </Grid.Row>
 
-      <Grid.Column width={16}>
-        <FacultyPageAboutMeWidget/>
-      </Grid.Column>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}>
+          <FacultyPageAboutMeWidget/>
+        </Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
     </Grid>
   </div>
 );

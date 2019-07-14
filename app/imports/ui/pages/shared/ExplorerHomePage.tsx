@@ -43,14 +43,19 @@ class ExplorerHomePage extends React.Component<IExplorerHomePageProps> {
     return (
       <div>
         {this.renderPageMenuWidget()}
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={3}>
-            <ExplorerNavDropdown match={this.props.match} text="Select Explorer"/>
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
+              <ExplorerNavDropdown match={this.props.match} text="Select Explorer"/>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </div>
     );
