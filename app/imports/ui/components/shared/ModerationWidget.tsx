@@ -67,23 +67,21 @@ class ModerationWidget extends React.Component<IModerationWidget> {
 
   public render() {
     return (
-      <Container>
-        <Grid columns='equal' divided='vertically'>
-          <Grid.Column>
-            <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
-                                         reviews={this.props.courseReviews} isReview={true} type={'COURSE'}/>
-          </Grid.Column>
-          <Grid.Column>
-            <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
-                                         reviews={this.props.opportunityReviews} isReview={true} type={'OPPORTUNITY'}/>
-          </Grid.Column>
-          <Grid.Column>
-            <ModerationColumnWidget handleAccept={this.handleAcceptQuestion}
-                                         handleReject={this.handleRejectQuestion}
-                                         reviews={this.props.mentorQuestions} isReview={false} type={'QUESTION'}/>
-          </Grid.Column>
-        </Grid>
-      </Container>
+      <Grid columns='equal' divided='vertically'>
+        <Grid.Column>
+          <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
+                                  reviews={this.props.courseReviews} isReview={true} type={'COURSE'}/>
+        </Grid.Column>
+        <Grid.Column>
+          <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
+                                  reviews={this.props.opportunityReviews} isReview={true} type={'OPPORTUNITY'}/>
+        </Grid.Column>
+        <Grid.Column>
+          <ModerationColumnWidget handleAccept={this.handleAcceptQuestion}
+                                  handleReject={this.handleRejectQuestion}
+                                  reviews={this.props.mentorQuestions} isReview={false} type={'QUESTION'}/>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

@@ -35,49 +35,51 @@ class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificatio
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Container fluid={false}>
-          <Grid container={true} stackable={true}>
-            <Grid.Row>
-              <HelpPanelWidget/>
-            </Grid.Row>
+        <Grid stackable={true}>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column width={4}>
-                <Menu vertical={true} text={true}>
-                  <Menu.Item name={'pending'}
-                             active={activeItem === 'pending'}
-                             onClick={this.handleMenu}>
-                    Pending Verifications
-                  </Menu.Item>
-                  <Menu.Item name={'event'}
-                             active={activeItem === 'event'}
-                             onClick={this.handleMenu}>
-                    Event Verifications
-                  </Menu.Item>
-                  <Menu.Item name={'completed'}
-                             active={activeItem === 'completed'}
-                             onClick={this.handleMenu}>
-                    Completed Verifications
-                  </Menu.Item>
-                </Menu>
-              </Grid.Column>
-              <Grid.Column width={12}>
-                {activeItem === 'pending' ?
-                  <PendingVerificationsWidget
-                    pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/>
-                  : undefined}
-                {activeItem === 'event' ?
-                  <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities}/>
-                  : undefined}
-                {activeItem === 'completed' ?
-                  <CompletedVerificationsWidget username={this.props.match.params.username}
-                                                completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
-                  : undefined}
-              </Grid.Column>
-            </Grid.Row>
-            {/* </Grid.Column> */}
-          </Grid>
-        </Container>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
+              <Menu vertical={true}>
+                <Menu.Item name={'pending'}
+                           active={activeItem === 'pending'}
+                           onClick={this.handleMenu}>
+                  Pending Verifications
+                </Menu.Item>
+                <Menu.Item name={'event'}
+                           active={activeItem === 'event'}
+                           onClick={this.handleMenu}>
+                  Event Verifications
+                </Menu.Item>
+                <Menu.Item name={'completed'}
+                           active={activeItem === 'completed'}
+                           onClick={this.handleMenu}>
+                  Completed Verifications
+                </Menu.Item>
+              </Menu>
+            </Grid.Column>
+            <Grid.Column width={11}>
+              {activeItem === 'pending' ?
+                <PendingVerificationsWidget
+                  pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}/>
+                : undefined}
+              {activeItem === 'event' ?
+                <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities}/>
+                : undefined}
+              {activeItem === 'completed' ?
+                <CompletedVerificationsWidget username={this.props.match.params.username}
+                                              completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
+                : undefined}
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+          {/* </Grid.Column> */}
+        </Grid>
 
         <BackToTopButton/>
       </div>

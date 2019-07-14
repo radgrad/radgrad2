@@ -41,17 +41,21 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}>
               <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
                                             interests={this.props.interests}
                                             advisorUsername={this.props.match.params.username}/>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
           {this.renderSelectedStudentWidgets()}
         </Grid>
