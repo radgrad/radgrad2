@@ -14,29 +14,35 @@ class StudentMentorSpacePage extends React.Component {
     return (
       <div>
         <StudentPageMenuWidget/>
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={11}>
-            <Segment padded={true}>
-              <Header dividing={true}>
-                <h4>QUESTIONS</h4>
-              </Header>
-              <StudentMentorSpaceQuestionsAccordion/>
-            </Segment>
-            <StudentMentorSpaceQuestionForm/>
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={10}>
+              <Segment padded={true}>
+                <Header dividing={true}>
+                  <h4>QUESTIONS</h4>
+                </Header>
+                <StudentMentorSpaceQuestionsAccordion/>
+              </Segment>
+              <StudentMentorSpaceQuestionForm/>
+            </Grid.Column>
 
-          <Grid.Column width={5}>
-            <Segment>
-              <Header dividing={true}>
-                <h4>MENTOR DIRECTORY</h4>
-              </Header>
-              <StudentMentorSpaceMentorDirectoryAccordion/>
-            </Segment>
-          </Grid.Column>
+            <Grid.Column width={4}>
+              <Segment>
+                <Header dividing={true}>
+                  <h4>MENTOR DIRECTORY</h4>
+                </Header>
+                <StudentMentorSpaceMentorDirectoryAccordion/>
+              </Segment>
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
         </Grid>
 
         <BackToTopButton/>
