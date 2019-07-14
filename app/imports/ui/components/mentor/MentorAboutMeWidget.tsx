@@ -285,167 +285,165 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     });
 
     return (
-      <Container>
-        <Segment padded>
-          <Header as='h3' dividing textAlign='left'>PROFILE</Header>
-          <Grid stackable={true}>
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Name</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{name}</p>
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Email</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{email}</p>
-              </Grid.Column>
-            </Grid.Row>
+      <Segment padded>
+        <Header as='h3' dividing textAlign='left'>PROFILE</Header>
+        <Grid stackable={true}>
+          <Grid.Row>
+            <Grid.Column floated='left' width={2}>
+              <b>Name</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <p>{name}</p>
+            </Grid.Column>
+            <Grid.Column floated='left' width={2}>
+              <b>Email</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <p>{email}</p>
+            </Grid.Column>
+          </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Interests</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <Grid>
-                  <Grid.Row divided textAlign='left'>
-                    <Label.Group>
-                      {
-                        interests ?
-                          <React.Fragment>
-                            {
-                              _.map(interests, (interest, index) => (
-                                <Label size={'tiny'} key={index} as={Link}
-                                       to={this.buildRouteName('interests', this.slugName(interest))}>
-                                  <Icon name='star'/>{this.goalName(interest)}
-                                </Label>
-                              ))
-                            }
-                          </React.Fragment>
-                          : <p style={marginStyle}>No interests added yet.</p>
-                      }
-                    </Label.Group>
-                  </Grid.Row>
-                  <Link to={this.buildRouteName('interests', firstInterest)}>Edit in Interests Explorer</Link>
-                </Grid>
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Career Goals</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <Grid>
-                  <Grid.Row divided textAlign='left'>
-                    <Label.Group>
-                      {
-                        careerGoals ?
-                          <React.Fragment>
-                            {
-                              _.map(careerGoals, (goal, index) => (
-                                <Label size={'tiny'} key={index} as={Link}
-                                       to={this.buildRouteName('career-goals', this.slugName(goal))}>
-                                  <Icon name='suitcase'/>{this.goalName(goal)}
-                                </Label>
-                              ))
-                            }
-                          </React.Fragment>
-                          : <p style={marginStyle}>No career goals added yet.</p>
-                      }
-                    </Label.Group>
-                  </Grid.Row>
-                  <Link to={this.buildRouteName('career-goals', firstCareerGoal)}>Edit in Career Goal Explorer</Link>
-                </Grid>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <Grid.Row>
+            <Grid.Column floated='left' width={2}>
+              <b>Interests</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <Grid>
+                <Grid.Row divided textAlign='left'>
+                  <Label.Group>
+                    {
+                      interests ?
+                        <React.Fragment>
+                          {
+                            _.map(interests, (interest, index) => (
+                              <Label size={'tiny'} key={index} as={Link}
+                                     to={this.buildRouteName('interests', this.slugName(interest))}>
+                                <Icon name='star'/>{this.goalName(interest)}
+                              </Label>
+                            ))
+                          }
+                        </React.Fragment>
+                        : <p style={marginStyle}>No interests added yet.</p>
+                    }
+                  </Label.Group>
+                </Grid.Row>
+                <Link to={this.buildRouteName('interests', firstInterest)}>Edit in Interests Explorer</Link>
+              </Grid>
+            </Grid.Column>
+            <Grid.Column floated='left' width={2}>
+              <b>Career Goals</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <Grid>
+                <Grid.Row divided textAlign='left'>
+                  <Label.Group>
+                    {
+                      careerGoals ?
+                        <React.Fragment>
+                          {
+                            _.map(careerGoals, (goal, index) => (
+                              <Label size={'tiny'} key={index} as={Link}
+                                     to={this.buildRouteName('career-goals', this.slugName(goal))}>
+                                <Icon name='suitcase'/>{this.goalName(goal)}
+                              </Label>
+                            ))
+                          }
+                        </React.Fragment>
+                        : <p style={marginStyle}>No career goals added yet.</p>
+                    }
+                  </Label.Group>
+                </Grid.Row>
+                <Link to={this.buildRouteName('career-goals', firstCareerGoal)}>Edit in Career Goal Explorer</Link>
+              </Grid>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
 
-          {
-            isEditingProfile ?
-              <AutoForm name={'mentorProfile'} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
-                <Form.Group widths={'equal'}>
-                  <TextField name='website'/>
-                  <TextField name='company'/>
-                </Form.Group>
+        {
+          isEditingProfile ?
+            <AutoForm name={'mentorProfile'} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+              <Form.Group widths={'equal'}>
+                <TextField name='website'/>
+                <TextField name='company'/>
+              </Form.Group>
 
-                <Form.Group widths={'equal'}>
-                  <TextField name='career'/>
-                  <TextField name='location'/>
-                </Form.Group>
+              <Form.Group widths={'equal'}>
+                <TextField name='career'/>
+                <TextField name='location'/>
+              </Form.Group>
 
-                <Form.Group widths={'equal'}>
-                  <TextField name='linkedin'/>
-                  <TextField name='picture'/>
-                </Form.Group>
+              <Form.Group widths={'equal'}>
+                <TextField name='linkedin'/>
+                <TextField name='picture'/>
+              </Form.Group>
 
-                <LongTextField name='motivation'/>
+              <LongTextField name='motivation'/>
 
-                <SubmitField value='Save Profile'/>
-                <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
-              </AutoForm>
-              :
-              <React.Fragment>
-                <Grid stackable={true}>
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Website URL</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      {website}
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Company</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{company}</p>
-                    </Grid.Column>
-                  </Grid.Row>
+              <SubmitField value='Save Profile'/>
+              <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
+            </AutoForm>
+            :
+            <React.Fragment>
+              <Grid stackable={true}>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Website URL</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    {website}
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Company</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{company}</p>
+                  </Grid.Column>
+                </Grid.Row>
 
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Title</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{career}</p>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Location</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{location}</p>
-                    </Grid.Column>
-                  </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Title</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{career}</p>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Location</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{location}</p>
+                  </Grid.Column>
+                </Grid.Row>
 
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>LinkedIn Username</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{linkedin}</p>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Picture URL</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{picture}</p>
-                    </Grid.Column>
-                  </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>LinkedIn Username</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{linkedin}</p>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Picture URL</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{picture}</p>
+                  </Grid.Column>
+                </Grid.Row>
 
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Motivation</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={14}>
-                      <p>{motivation}</p>
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-                <br/>
-                <Button basic color={'green'} onClick={this.handleEdit}>Edit Profile</Button>
-              </React.Fragment>
-          }
-        </Segment>
-      </Container>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Motivation</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={14}>
+                    <p>{motivation}</p>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <br/>
+              <Button basic color={'green'} onClick={this.handleEdit}>Edit Profile</Button>
+            </React.Fragment>
+        }
+      </Segment>
     );
   }
 }

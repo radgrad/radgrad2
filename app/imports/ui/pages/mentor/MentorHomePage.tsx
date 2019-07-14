@@ -8,14 +8,20 @@ import MentorAboutMeWidget from '../../components/mentor/MentorAboutMeWidget';
 const MentorHomePage = () => (
   <div>
     <MentorPageMenuWidget/>
-    <Grid container={true} stackable={true}>
+    <Grid stackable={true}>
       <Grid.Row>
-        <HelpPanelWidget/>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+        <Grid.Column width={1}/>
       </Grid.Row>
 
-      <Grid.Column width={16}>
-        <MentorAboutMeWidget/>
-      </Grid.Column>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}>
+          <MentorAboutMeWidget/>
+        </Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
     </Grid>
   </div>
 );
