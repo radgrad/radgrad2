@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Container, Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
+import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';

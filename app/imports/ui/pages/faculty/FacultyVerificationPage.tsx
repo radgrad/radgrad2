@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Grid, Menu } from 'semantic-ui-react';
+import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
