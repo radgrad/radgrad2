@@ -68,6 +68,7 @@ class ExplorerMenu extends React.Component<IExplorerMenuProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const { menuAddedList, menuCareerList, type, role } = this.props;
 
     const menuItems = [
       { key: 'Academic Plans', route: 'plans' },
@@ -97,14 +98,14 @@ class ExplorerMenu extends React.Component<IExplorerMenuProps> {
         {/* ####### Main Dropdown Menu ####### */}
         <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
         <br/>
-        <ExplorerMenuNonMobileWidget menuAddedList={this.props.menuAddedList}
-                                     menuCareerList={this.props.type && this.props.menuCareerList ? this.props.menuCareerList : undefined}
-                                     type={this.props.type}
-                                     role={this.props.role}/>
-        <ExplorerMenuMobileWidget menuAddedList={this.props.menuAddedList}
-                                  menuCareerList={this.props.type && this.props.menuCareerList ? this.props.menuCareerList : undefined}
-                                  type={this.props.type}
-                                  role={this.props.role}/>
+        <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList}
+                                     menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+                                     type={type}
+                                     role={role}/>
+        <ExplorerMenuMobileWidget menuAddedList={menuAddedList}
+                                  menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+                                  type={type}
+                                  role={role}/>
       </React.Fragment>
     );
   }

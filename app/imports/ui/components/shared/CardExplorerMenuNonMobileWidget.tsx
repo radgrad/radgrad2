@@ -14,6 +14,8 @@ import {
 import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
+import { _ } from "meteor/erasaur:meteor-lodash";
+import { CareerGoals } from "../../../api/career/CareerGoalCollection";
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -166,8 +168,10 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
 export const CardExplorerMenuNonMobileWidgetCon = withTracker((props) => {
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
+  const menuList = _.map(profile.careerGoalIDs, (c) => CareerGoals.findDoc(c).name);
   return {
     profile,
+    menuList,
   };
 })(CardExplorerMenuNonMobileWidget);
 export const CardExplorerMenuNonMobileWidgetContainer = withRouter(CardExplorerMenuNonMobileWidgetCon);
