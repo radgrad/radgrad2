@@ -9,6 +9,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IInterestsCardExplorerProps {
   ready: boolean;
@@ -58,6 +59,8 @@ class LandingInterestsCardExplorer extends React.Component<IInterestsCardExplore
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

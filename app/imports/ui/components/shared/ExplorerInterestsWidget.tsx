@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Header, Button, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import { IInterest, IProfile, IProfileUpdate } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -23,6 +23,8 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
+import { URL_ROLES } from '../../../startup/client/routes-config';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -45,27 +47,30 @@ interface IExplorerInterestsWidgetProps {
 }
 
 const getObjectsThatHaveInterest = (objects, interestID) => {
-  const interested = [];
-  _.map(objects, (num) => {
-    _.filter(num.interestIDs, (interests) => {
-      if (interests === interestID) {
-        interested.push(num);
-      }
-    });
+  let interested = [];
+  _.forEach(objects, (profile) => {
+    if (_.includes(profile.interestIDs, interestID)) {
+      interested.push(profile);
+    }
   });
+  interested = _.filter(interested, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+  // only allow 50 students randomly selected.
+  for (let i = interested.length - 1; i >= 50; i--) {
+    interested.splice(Math.floor(Math.random() * interested.length), 1);
+  }
   return interested;
 };
 
 const participation = (role, interestID) => {
   const interested = [];
   switch (role) {
-    case 'student':
+    case URL_ROLES.STUDENT:
       return getObjectsThatHaveInterest(StudentProfiles.findNonRetired({ isAlumni: false }), interestID);
-    case 'faculty':
+    case URL_ROLES.FACULTY:
       return getObjectsThatHaveInterest(FacultyProfiles.findNonRetired(), interestID);
-    case 'mentor':
+    case URL_ROLES.MENTOR:
       return getObjectsThatHaveInterest(MentorProfiles.findNonRetired(), interestID);
-    case 'alumni':
+    case URL_ROLES.ALUMNI:
       return getObjectsThatHaveInterest(StudentProfiles.findNonRetired({ isAlumni: true }), interestID);
     default:
       return interested;
@@ -150,9 +155,6 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     return temp.join('/');
   }
 
-  /**
-   * ToDo ask Gian about this or Moore when he gets back
-   */
   private handleClick = () => {
     // how do we know to add the interest or remove it.
     // get the user's interestIDs
@@ -168,13 +170,13 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
     const role = this.getRoleByUrl();
     let collectionName;
     switch (role) {
-      case 'faculty':
+      case URL_ROLES.FACULTY:
         collectionName = FacultyProfiles.getCollectionName();
         break;
-      case 'mentor':
+      case URL_ROLES.MENTOR:
         collectionName = MentorProfiles.getCollectionName();
         break;
-      case 'student':
+      case URL_ROLES.STUDENT:
         collectionName = StudentProfiles.getCollectionName();
         break;
       default:
@@ -205,9 +207,9 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
 
   private checkInterestStatus = (): string => {
     if (_.includes(this.props.profile.interestIDs, this.props.interest._id)) {
-      return 'remove from interests';
+      return 'Remove from Interests';
     }
-    return 'add to interests';
+    return 'Add to Interests';
   };
 
   public render() {
@@ -239,10 +241,12 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
         </SegmentGroup>
         <Grid stackable columns={2}>
           <Grid.Column width={10}>
-            <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={this.getRoleByUrl() === 'student'} baseURL={this.getBaseURL()}/>
+            <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities}
+                                     isStudent={this.getRoleByUrl() === 'student'} baseURL={this.getBaseURL()}/>
           </Grid.Column>
           <Grid.Column width={6}>
-            <InterestedProfilesWidget students={this.props.interestedStudents} faculty={this.props.interestedFaculty}
+            <InterestedProfilesWidget interest={this.props.interest} students={this.props.interestedStudents}
+                                      faculty={this.props.interestedFaculty}
                                       alumni={this.props.interestedAlumni} mentors={this.props.interestedMentor}/>
           </Grid.Column>
         </Grid>
@@ -256,10 +260,10 @@ const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
   const profile = Users.getProfile(username);
   const entityID = Slugs.getEntityID(match.params.interest, 'Interest');
   const interest = Interests.findDoc(entityID);
-  const interestedStudents = participation('student', entityID);
-  const interestedFaculty = participation('faculty', entityID);
-  const interestedAlumni = participation('alumni', entityID);
-  const interestedMentor = participation('mentor', entityID);
+  const interestedStudents = participation(URL_ROLES.STUDENT, entityID);
+  const interestedFaculty = participation(URL_ROLES.FACULTY, entityID);
+  const interestedAlumni = participation(URL_ROLES.ALUMNI, entityID);
+  const interestedMentor = participation(URL_ROLES.MENTOR, entityID);
   return {
     profile,
     interest,

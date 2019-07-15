@@ -11,6 +11,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
 
@@ -35,6 +36,8 @@ export const courseNameToCourseDoc = (name) => Courses.findDoc({ shortName: name
 export const courseNameToSlug = (name) => Slugs.getNameFromID(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }).slugID);
 
 export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.getEntityID(slug, 'Course')));
+
+export const degreeShortNameToSlug = (shortName) => Slugs.getNameFromID(DesiredDegrees.findDoc({ shortName }).slugID);
 
 export const docToName = (doc) => doc.name;
 

@@ -1,44 +1,41 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
-// TODO: Back to Top Button
-
-/** A simple static component to render some text for the landing page. */
 class StudentHomePage extends React.Component {
   public render() {
-    const moveDownStyle = {
-      marginTop: 10,
-    };
     return (
-      <div className="layout-page">
+      <div>
         <StudentPageMenuWidget/>
-        <Grid verticalAlign="middle" container={true} style={moveDownStyle}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidgetContainer/></Grid.Column>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={2}>
-            <StudentHomeMenu/>
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
+              <StudentHomeMenu/>
+            </Grid.Column>
 
-          <Grid.Column width={14}>
-            <StudentHomeWidget/>
-          </Grid.Column>
+            <Grid.Column width={11}>
+              <StudentHomeWidget/>
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
 
         </Grid>
-        <div>Back to Top Button</div>
+
+        <BackToTopButton/>
       </div>
     );
   }
 }
 
-const StudentHomePageCon = withGlobalSubscription(StudentHomePage);
-const StudentHomePageContainer = withInstanceSubscriptions(StudentHomePageCon);
-
-export default StudentHomePageContainer;
+export default StudentHomePage;

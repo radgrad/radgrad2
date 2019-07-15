@@ -30,6 +30,7 @@ import {
 } from '../../components/shared/FormHelperFunctions';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IAdminDataModelUsersPageProps {
   advisors: IAdvisorProfile[];
@@ -310,6 +311,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete User?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

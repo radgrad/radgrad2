@@ -88,16 +88,16 @@ if (Meteor.isServer) {
       expect(departments.indexOf('ics')).to.equal(0);
       expect(departments.indexOf('ee')).to.equal(1);
     });
-    it('#combineChoices', function () {
+    it('#compoundCombineChoices', function () {
       const choice1 = 'ics_111';
       const choice2 = 'ics_211';
       const choice3 = 'ics_141';
       const choice4 = 'ics_241';
-      const result1 = planChoiceUtilities.combineChoices(choice1, choice2);
+      const result1 = planChoiceUtilities.compoundCombineChoices(choice1, choice2);
       expect(result1).to.equal(`${choice1},${choice2}`);
-      const result2 = planChoiceUtilities.combineChoices(result1, choice3);
+      const result2 = planChoiceUtilities.compoundCombineChoices(result1, choice3);
       expect(result2).to.equal(`(${result1}),${choice3}`);
-      const result3 = planChoiceUtilities.combineChoices(choice4, result2);
+      const result3 = planChoiceUtilities.compoundCombineChoices(choice4, result2);
       expect(result3).to.equal(`${choice4},(${result2})`);
       console.log(result1, result2, result3);
     });

@@ -1,38 +1,45 @@
 import * as React from 'react';
 import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
-import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IInterest, IProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import WidgetHeaderNumber from './WidgetHeaderNumber';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 interface IInterestedProfileWidgetProps {
-  students: IProfile[],
-  faculty: IProfile[],
-  alumni: IProfile[],
-  mentors: IProfile[],
+  interest: IInterest;
+  students: IProfile[];
+  faculty: IProfile[];
+  alumni: IProfile[];
+  mentors: IProfile[];
 }
 
 class InterestedProfilesWidget extends React.Component<IInterestedProfileWidgetProps> {
   constructor(props) {
     super(props);
-    // console.log(props);
+  }
+
+  private numberStudents = (item) => {
+    const participatingUsers = StudentParticipations.findDoc({ itemID: item._id });
+    return participatingUsers.itemCount;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const { interest, students, faculty, alumni, mentors } = this.props;
+    const numberStudents = this.numberStudents(interest);
     return (
       <Grid>
         <Grid.Row centered>
           <Grid.Column>
             <Container fluid>
               <Segment>
-                <Header textAlign='center'>Students <span
-                  className='radgrad-header-number'>&middot; {this.props.students.length}</span></Header>
+                <Header as="h5" textAlign="center">STUDENTS <WidgetHeaderNumber inputValue={numberStudents}/></Header>
                 <Divider/>
-                <Container texcdtAlign='center'>
+                <Container textAlign='center'>
                   <Image.Group size='mini'>
-                    {this.props.students.map((student, index) => <Popup
+                    {students.map((student, index) => <Popup
                       key={index}
-                      trigger={<Image src={student.picture} circular size='mini'></Image>}
+                      trigger={<Image src={student.picture} circular size='mini'/>}
                       content={`${student.firstName} ${student.lastName}`}
-                    />)
-                    }
+                    />)}
                   </Image.Group>
                 </Container>
               </Segment>
@@ -43,18 +50,16 @@ class InterestedProfilesWidget extends React.Component<IInterestedProfileWidgetP
           <Grid.Column>
             <Container fluid>
               <Segment>
-                <Header textAlign='center'>Faculty Members <span className='radgrad-header-number'>&middot;
-                  {this.props.faculty.length}</span>
-                </Header>
+                <Header as="h5" textAlign="center">FACULTY MEMBERS <WidgetHeaderNumber
+                  inputValue={faculty.length}/></Header>
                 <Divider/>
                 <Container textAlign='center'>
                   <Image.Group size='mini'>
-                    {this.props.faculty.map((faculty, index) => <Popup
+                    {faculty.map((fac, index) => <Popup
                       key={index}
-                      trigger={<Image src={faculty.picture} circular></Image>}
-                      content={`${faculty.firstName} ${faculty.lastName}`}
-                    />)
-                    }
+                      trigger={<Image src={fac.picture} circular/>}
+                      content={`${fac.firstName} ${fac.lastName}`}
+                    />)}
                   </Image.Group>
                 </Container>
               </Segment>
@@ -65,18 +70,15 @@ class InterestedProfilesWidget extends React.Component<IInterestedProfileWidgetP
           <Grid.Column>
             <Container>
               <Segment>
-                <Header textAlign='center'>Alumni <span
-                  className='radgrad-header-number'>&middot; {this.props.alumni.length}</span>
-                </Header>
+                <Header as="h5" textAlign="center">ALUMNI <WidgetHeaderNumber inputValue={alumni.length}/></Header>
                 <Divider/>
                 <Container textAlign='center'>
                   <Image.Group size='mini'>
-                    {this.props.alumni.map((alumni, index) => <Popup
+                    {alumni.map((alum, index) => <Popup
                       key={index}
-                      trigger={<Image src={alumni.picture} circular></Image>}
-                      content={`${alumni.firstName} ${alumni.lastName}`}
-                    />)
-                    }
+                      trigger={<Image src={alum.picture} circular/>}
+                      content={`${alum.firstName} ${alum.lastName}`}
+                    />)}
                   </Image.Group>
                 </Container>
               </Segment>
@@ -87,18 +89,15 @@ class InterestedProfilesWidget extends React.Component<IInterestedProfileWidgetP
           <Grid.Column>
             <Container>
               <Segment>
-                <Header textAlign='center'>Mentors <span
-                  className='radgrad-header-number'>&middot;  {this.props.mentors.length}</span>
-                </Header>
+                <Header as="h5" textAlign="center">MENTORS <WidgetHeaderNumber inputValue={mentors.length}/></Header>
                 <Divider/>
                 <Container textAlign='center'>
                   <Image.Group size='mini'>
-                    {this.props.mentors.map((mentors, index) => <Popup
+                    {mentors.map((mentor, index) => <Popup
                       key={index}
-                      trigger={<Image src={mentors.picture} circular></Image>}
-                      content={`${mentors.firstName} ${mentors.lastName}`}
-                    />)
-                    }
+                      trigger={<Image src={mentor.picture} circular/>}
+                      content={`${mentor.firstName} ${mentor.lastName}`}
+                    />)}
                   </Image.Group>
                 </Container>
               </Segment>

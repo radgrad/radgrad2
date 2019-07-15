@@ -1,11 +1,20 @@
 import * as React from 'react';
 import { Container, Divider, Grid, Header, Segment } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import * as Markdown from 'react-markdown';
+import { withRouter } from 'react-router-dom';
+import { renderLink } from './RouterHelperFunctions';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
   descriptionPairs: any;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps> {
@@ -15,28 +24,18 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
 
   private toUpper = (string) => string.toUpperCase();
 
-  /*
-  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const segmentGroupStyle = { backgroundColor: 'white' };
     const segmentClearingBasicStyle = {
       margin: 0,
-      padidngLeft: 0,
+      paddingLeft: 0,
       paddingRight: 0,
       paddingTop: 0,
       paddingBottom: 0,
     };
     const dividerStyle = { marginTop: 0 };
 
-    const { name, descriptionPairs } = this.props;
+    const { name, descriptionPairs, match } = this.props;
 
     return (
       <Segment.Group style={segmentGroupStyle}>
@@ -55,7 +54,8 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
                     descriptionPair.value ?
                       <React.Fragment key={index}>
                         <b>{descriptionPair.label}:</b>
-                        <Markdown escapeHtml={false} source={descriptionPair.value}/>
+                        <Markdown escapeHtml={false} source={descriptionPair.value}
+                                  renderers={{ link: (props) => renderLink(props, match) }}/>
                       </React.Fragment>
                       :
                       <p key={index}><b>{descriptionPair.label}:</b> N/A</p>
@@ -70,4 +70,4 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
   }
 }
 
-export default ExplorerDegreesWidget;
+export default withRouter(ExplorerDegreesWidget);

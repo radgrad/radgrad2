@@ -8,13 +8,14 @@ import IceHeader from './IceHeader';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from './InterestList';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import TermAdd from './TermAdd';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 class TermCard extends React.Component<ITermCard> {
   constructor(props) {
@@ -27,7 +28,7 @@ class TermCard extends React.Component<ITermCard> {
   }
 
   private itemName = (item) => {
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       return `${item.name} (${item.num})`;
     }
     return item.name;
@@ -59,7 +60,7 @@ class TermCard extends React.Component<ITermCard> {
   private itemTerms = () => {
     const { item } = this.props;
     let ret = [];
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       // do nothing
     } else {
       ret = this.opportunityTerms(item);
@@ -78,20 +79,9 @@ class TermCard extends React.Component<ITermCard> {
     return `${description}...`;
   }
 
-  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length
-
-  private interestedStudentsHelper = (item, type) => {
-    let instances;
-    if (type === 'courses') {
-      instances = CourseInstances.find({
-        courseID: item._id,
-      }).fetch();
-    } else {
-      instances = OpportunityInstances.find({
-        opportunityID: item._id,
-      }).fetch();
-    }
-    return _.uniqBy(instances, i => i.studentID);
+  private numberStudents = (item) => {
+    const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
+    return participatingStudents.itemCount;
   }
 
   private getUsername = () => this.props.match.params.username;
@@ -100,7 +90,7 @@ class TermCard extends React.Component<ITermCard> {
     const username = this.getUsername();
     let ret = '';
     const profile = Users.getProfile(username);
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
         ret = 'grey';
       }
@@ -117,7 +107,7 @@ class TermCard extends React.Component<ITermCard> {
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       const studentItems = profile.hiddenCourseIDs;
       studentItems.push(id);
       updateData.hiddenCourses = studentItems;
@@ -140,7 +130,7 @@ class TermCard extends React.Component<ITermCard> {
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.isType('courses')) {
+    if (this.isType(EXPLORER_TYPE.COURSES)) {
       let studentItems = profile.hiddenCourseIDs;
       studentItems = _.without(studentItems, id);
       updateData.hiddenCourses = studentItems;
@@ -155,35 +145,26 @@ class TermCard extends React.Component<ITermCard> {
       }
     });
   }
-  /*
-    Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-    See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
 
   private buildRouteName = (item, type) => {
     const itemName = this.itemSlug(item);
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    let route = '';
     switch (type) {
-      case 'courses':
-        return `${baseRoute}explorer/courses/${itemName}`;
-      case 'opportunities':
-        return `${baseRoute}explorer/opportunities/${itemName}`;
+      case EXPLORER_TYPE.COURSES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
+        break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
+        break;
       default:
+        route = '#';
         break;
     }
-    return '#';
+    return route;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, type, canAdd, isStudent } = this.props;
+    const { item, type, canAdd, isStudent, match } = this.props;
     const itemName = this.itemName(item);
     const isTypeOpportunity = this.isType('opportunities');
     const itemTerms = this.itemTerms();
@@ -205,7 +186,8 @@ class TermCard extends React.Component<ITermCard> {
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={itemShortDescription} renderers={{ link: this.routerLink }}/>
+          <Markdown escapeHtml={true} source={itemShortDescription}
+                    renderers={{ link: (props) => Router.renderLink(props, match) }}/>
           <InterestList item={item} size="mini"/>
         </Card.Content>
 

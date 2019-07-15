@@ -16,13 +16,15 @@ interface IMentorPageMenuWidgetProps {
 
 class MentorPageMenuWidget extends React.Component<IMentorPageMenuWidgetProps> {
   public render() {
+    const divStyle = { marginBottom: 30 };
+
     const menuItems = [
       { label: 'Home', route: 'home' },
       { label: 'Mentor Space', route: 'mentor-space' },
       { label: 'Explorer', route: 'explorer' },
     ];
     return (
-      <div>
+      <div style={divStyle}>
         <FirstMenuContainer/>
         <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
       </div>

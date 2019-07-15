@@ -4,6 +4,8 @@ import * as Markdown from 'react-markdown';
 import { Link, withRouter } from 'react-router-dom';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { IExplorerCard } from '../../../typings/radgrad'; // eslint-disable-line
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import * as Router from './RouterHelperFunctions';
 
 class ExplorerCard extends React.Component<IExplorerCard> {
   constructor(props) {
@@ -25,44 +27,37 @@ class ExplorerCard extends React.Component<IExplorerCard> {
     return description;
   }
 
-  /*
-  Because we are using react-router, the converted markdown hyperlinks won't be redirected properly. This is a solution.
-  See https://github.com/rexxars/react-markdown/issues/29#issuecomment-231556543
-  */
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private getUsername = () => this.props.match.params.username;
 
   private buildRouteName = (item) => {
     const itemSlug = this.itemSlug(item);
-    const username = this.getUsername();
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
     const { type } = this.props;
+    let route = '';
     switch (type) {
-      case 'career-goals':
-        return `${baseRoute}explorer/career-goals/${itemSlug}`;
-      case 'courses':
-        return `${baseRoute}explorer/courses/${itemSlug}`;
-      case 'degrees':
-        return `${baseRoute}explorer/degrees/${itemSlug}`;
-      case 'interests':
-        return `${baseRoute}explorer/interests/${itemSlug}`;
-      case 'opportunities':
-        return `${baseRoute}explorer/opportunities/${itemSlug}`;
+      case EXPLORER_TYPE.CAREERGOALS:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${itemSlug}`);
+        break;
+      case EXPLORER_TYPE.COURSES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemSlug}`);
+        break;
+      case EXPLORER_TYPE.DEGREES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${itemSlug}`);
+        break;
+      case EXPLORER_TYPE.INTERESTS:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${itemSlug}`);
+        break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemSlug}`);
+        break;
       default:
+        route = '#';
         break;
     }
-    return '#';
+    return route;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item } = this.props;
+    const { item, match } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
 
@@ -75,7 +70,7 @@ class ExplorerCard extends React.Component<IExplorerCard> {
 
         <Card.Content>
           <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: this.routerLink }}/>
+                    renderers={{ link: (props) => Router.renderLink(props, match) }}/>
         </Card.Content>
 
         <Link to={this.buildRouteName(this.props.item)}>

@@ -80,14 +80,13 @@ class StudentHomeMenu extends React.Component<IStudentHomeMenuProps> {
     return (
       <React.Fragment>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-          <Menu vertical={true} text={true}>
+          <Menu vertical={true}>
             {
               menuItems.map((item, index) => (<Menu.Item
                 key={index}
                 as={NavLink}
                 exact={true}
                 to={`${baseRoute}home/${item.route}`}
-                active={this.isActiveRoute(item.route) ? true : undefined}
                 content={item.key}/>))
             }
           </Menu>

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { CircleArrow as ScrollUpButton } from 'react-scroll-up-button';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import LandingNavBarContainer from '../../components/landing/LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
@@ -15,6 +14,7 @@ import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ILandingHomeProps {
   careerGoalNames: string;
@@ -46,7 +46,6 @@ class LandingHome extends React.Component<ILandingHomeProps> {
   public render() {
     return (
       <div>
-        <ScrollUpButton />
         <LandingNavBarContainer/>
         <LandingSection1/>
         <LandingSection2 careerGoals={this.props.careerGoals} interests={this.props.interests}
@@ -63,6 +62,8 @@ class LandingHome extends React.Component<ILandingHomeProps> {
                          mentors={this.props.mentors}/>
         <LandingSection9Container/>
         <LandingFooter/>
+
+        <BackToTopButton/>
       </div>
     );
   }

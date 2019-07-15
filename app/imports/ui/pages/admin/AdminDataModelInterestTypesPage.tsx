@@ -13,6 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AddInterestTypeForm from '../../components/admin/AddInterestTypeForm';
 import UpdateInterestTypeForm from '../../components/admin/UpdateInterestTypeForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = InterestTypes; // the collection to use.
 
@@ -190,6 +191,8 @@ class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Interest Type?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

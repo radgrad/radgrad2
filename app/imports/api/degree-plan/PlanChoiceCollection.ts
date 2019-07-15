@@ -2,7 +2,9 @@ import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
-import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { Slugs } from '../slug/SlugCollection';
+import { Courses } from '../course/CourseCollection';
 
 /**
  * Represents a choice in an academic plan.
@@ -104,10 +106,23 @@ export class PlanChoiceCollection extends BaseCollection {
   }
 
   /**
-   * Returns an empty array (no integrity checking done on this collection.)
+   * Returns an empty array (no integrity checking done on this collection).
+   * This method will ensure that there is a single choice for each of the non retired courses.
    * @returns {Array} An empty array.
    */
   public checkIntegrity() {
+    const courses = Courses.findNonRetired();
+    const courseSlugs = _.map(courses, (c) => Slugs.getNameFromID(c.slugID));
+    _.forEach(courseSlugs, (choice) => {
+      if (choice !== 'other') {
+        try {
+          this.findDoc({ choice });
+        } catch (e) {
+          this.define({ choice });
+          // console.log('defining ', choice);
+        }
+      }
+    });
     const problems = [];
     return problems;
   }

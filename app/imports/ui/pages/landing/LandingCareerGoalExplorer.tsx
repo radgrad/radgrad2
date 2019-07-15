@@ -11,10 +11,18 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface ICareerGoalExplorerProps {
   careerGoal: ICareerGoal;
-  match: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   location: object;
   history: object;
 }
@@ -25,13 +33,13 @@ class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps
   }
 
   public render() {
-    // console.log(this.props.careerGoal);
+    const { match } = this.props;
     return (
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
           {/* <Grid.Row> */}
-            {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
+          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
           {/* </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width="three">
@@ -43,7 +51,8 @@ class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps
                   <span>{this.props.careerGoal.name}</span>
                 </Header>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.careerGoal.description}/>
+                <Markdown escapeHtml={true} source={this.props.careerGoal.description}
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                 <Header as="h4" dividing={true}>Career Goal Interests</Header>
                 <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
               </Segment>

@@ -2,6 +2,7 @@
 declare module 'meteor/meteor' {
   namespace Meteor {
     const isAppTest: boolean;
+    function loginWithCas(callback?: (error?: any, result?: any) => void): any;
   }
   namespace Accounts {
     function removeDefaultRateLimit(): any;

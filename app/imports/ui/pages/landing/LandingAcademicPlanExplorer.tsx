@@ -10,10 +10,18 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingAcademicPlanViewer from '../../components/landing/LandingAcademicPlanViewer';
+import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface IAcademicPlanExplorerProps {
   plan: IAcademicPlan;
-  match: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   location: object;
   history: object;
 }
@@ -25,6 +33,7 @@ class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerP
 
   public render() {
     // console.log(this.props.plan);
+    const { match } = this.props;
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -42,7 +51,8 @@ class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerP
                   <span>{this.props.plan.name}</span>
                 </Header>
                 <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.plan.description}/>
+                <Markdown escapeHtml={true} source={this.props.plan.description}
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                 <hr/>
                 <LandingAcademicPlanViewer plan={this.props.plan}/>
               </Segment>

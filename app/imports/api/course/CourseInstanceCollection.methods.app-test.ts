@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import {} from 'mocha';
+import { expect } from 'chai';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { CourseInstances } from './CourseInstanceCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
@@ -29,23 +30,21 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async function () {
+    it('Define, update, remove Methods', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
-    });
-
-    it('Update Method', async function () {
-      const id = CourseInstances.findCourseInstanceDoc(academicTerm, course, student)._id;
+      const id = await defineMethod.callPromise({ collectionName, definitionData });
+      expect(id).to.exist;
+      let instance = CourseInstances.findCourseInstanceDoc(academicTerm, course, student);
+      expect(instance.grade).to.equal('B');
       const verified = false;
       const grade = 'A';
       const creditHrs = 4;
       await updateMethod.callPromise({ collectionName, updateData: { id, verified, grade, creditHrs } });
-    });
-
-    it('Remove Method', async function () {
-      const instance = CourseInstances.findCourseInstanceDoc(academicTerm, course, student)._id;
+      instance = CourseInstances.findCourseInstanceDoc(academicTerm, course, student);
+      expect(instance.grade).to.equal('A');
       await removeItMethod.callPromise({ collectionName, instance });
+      expect(CourseInstances.count()).to.equal(0);
     });
   });
 }

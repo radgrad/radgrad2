@@ -9,8 +9,8 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { defaultProfilePicture } from '../user/BaseProfileCollection';
 import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { defaultProfilePicture } from '../user/BaseProfileCollection';
 
 /**
  * Returns the number of whole days between date a and b.
@@ -81,7 +81,7 @@ class FeedCollection extends BaseCollection {
       course: { type: String, optional: true },
       opportunity: { type: String, optional: true },
       academicTerm: { type: String, optional: true },
-      level: { type: SimpleSchema.Integer, optional: true },
+      level: { type: SimpleSchema.Integer, min: 1, max: 6, optional: true },
       feedType: String,
       timestamp: { type: Date, optional: true },
     });
@@ -191,8 +191,12 @@ class FeedCollection extends BaseCollection {
     // First, create an array of users if we weren't passed one initially.
     const users = (_.isArray(user)) ? user : [user];
     const userIDs = Users.getIDs(users);
-    const description = `${Users.getFullName(userIDs[0])} has joined RadGrad${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
-    const picture = Users.getProfile(userIDs[0]).picture;
+    let picture = Users.getProfile(userIDs[0]).picture;
+    let description = 'A new user has joined RadGrad';
+    if (userIDs.length > 1) {
+      description = 'Multiple users have joined RadGrad';
+      picture = defaultProfilePicture;
+    }
     const feedID = this.collection.insert({ userIDs, description, feedType, timestamp, picture, retired });
     return feedID;
   }
@@ -210,7 +214,7 @@ class FeedCollection extends BaseCollection {
   private defineNewCourse({ course, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
-    const description = `[${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)}) has been added to Courses`;
+    const description = `[${c.name}](/explorer/courses/${Slugs.getNameFromID(c.slugID)}) has been added to Courses`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [],
@@ -237,7 +241,7 @@ class FeedCollection extends BaseCollection {
   private defineNewOpportunity({ opportunity, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
-    const description = `[${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) has been added to Opportunities`;
+    const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) has been added to Opportunities`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [],
@@ -282,9 +286,8 @@ class FeedCollection extends BaseCollection {
     const termID = AcademicTerms.getID(academicTerm);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
-    const description = `${Users.getFullName(userIDs[0])}
-        has been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})
-        (${AcademicTerms.toString(termID, false)})${(userIDs.length > 1) ? ' along with some others.' : '.'}`;
+    const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(termID, false)})
+    ${(userIDs.length > 1) ? ' was verified for multiple RadGrad students' : ' was verified for a RadGrad student'}`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs,
@@ -312,15 +315,11 @@ class FeedCollection extends BaseCollection {
    * @throws {Meteor.Error} If not a valid course or user.
    */
   private defineNewCourseReview({ user, course, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
-    let picture;
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
-    const description = `${Users.getFullName(userID)} has added a course review for [${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)})`;
-    picture = Users.getProfile(userID).picture;
-    if (!picture) {
-      picture = defaultProfilePicture;
-    }
+    const description = `A new course review has been added for [${c.name}](/explorer/courses/${Slugs.getNameFromID(c.slugID)})`;
+    const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [userID],
       courseID,
@@ -346,15 +345,11 @@ class FeedCollection extends BaseCollection {
    * @throws {Meteor.Error} If not a valid opportunity or user.
    */
   private defineNewOpportunityReview({ user, opportunity, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
-    let picture;
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
-    const description = `${Users.getFullName(userID)} has added an opportunity review for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})`;
-    picture = Users.getProfile(userID).picture;
-    if (!picture) {
-      picture = defaultProfilePicture;
-    }
+    const description = `A new opportunity review has been added for [${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)})`;
+    const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [userID], opportunityID, description, timestamp, picture,
       feedType, retired,
@@ -384,10 +379,9 @@ class FeedCollection extends BaseCollection {
       return recentFeedID;
     }
 
-    let picture;
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
-    const description = `${Users.getFullName(userID)} has achieved level ${level}.`;
-    picture = Users.getProfile(userID).picture;
+    const description = `A RadGrad student has achieved Level ${level}`;
+    let picture = Users.getProfile(userID).picture;
     if (!picture) {
       picture = defaultProfilePicture;
     }
@@ -461,11 +455,8 @@ class FeedCollection extends BaseCollection {
     const existingFeed = this.findDoc(existingFeedID);
     const userIDs = existingFeed.userIDs;
     userIDs.push(userID);
-    const description = `${Users.getFullName(userIDs[0])} and ${userIDs.length - 1} others have joined RadGrad.`;
-    let picture = Users.getProfile(userIDs[0]).picture;
-    if (!picture) {
-      picture = defaultProfilePicture;
-    }
+    const description = 'Multiple users have joined RadGrad';
+    const picture = defaultProfilePicture;
     this.collection.update(existingFeedID, { $set: { userIDs, description, picture } });
   }
 
@@ -475,11 +466,8 @@ class FeedCollection extends BaseCollection {
     const existingFeed = this.findDoc(existingFeedID);
     const userIDs = existingFeed.userIDs;
     userIDs.push(userID);
-    const description = `${Users.getFullName(userIDs[0])} and ${userIDs.length - 1} others have achieved level ${level}.`;
-    let picture = Users.getProfile(userIDs[0]).picture;
-    if (!picture) {
-      picture = defaultProfilePicture;
-    }
+    const description = `Multiple RadGrad students have achieved level ${level}`;
+    const picture = defaultProfilePicture;
     this.collection.update(existingFeedID, { $set: { userIDs, description, picture } });
   }
 
@@ -495,7 +483,7 @@ class FeedCollection extends BaseCollection {
     const userIDs = existingFeed.userIDs;
     userIDs.push(userID);
     const o = Opportunities.findDoc(existingFeed.opportunityID);
-    const description = `${Users.getFullName(userIDs[0])} and ${userIDs.length - 1} others have been verified for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.termID, false)})`;
+    const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.termID, false)}) has been verified for multiple RadGrad students`;
     this.collection.update(existingFeedID, { $set: { userIDs, description } });
   }
 

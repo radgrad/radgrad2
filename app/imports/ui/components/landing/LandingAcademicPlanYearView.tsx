@@ -4,6 +4,7 @@ import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import { getPlanChoices } from '../../../api/degree-plan/AcademicPlanUtilities';
 import LandingAcademicTermView from './LandingAcademicTermView';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface ILandingAcademicPlanYearViewProps {
   yearNumber: number;
@@ -11,7 +12,7 @@ interface ILandingAcademicPlanYearViewProps {
 }
 
 const LandingAcademicPlanYearView = (props: ILandingAcademicPlanYearViewProps) => {
-  const quarter = props.academicPlan.coursesPerAcademicTerm.length % 4 === 0;
+  const quarter = RadGradSettings.findOne({}).quarterSystem;
   let termNum = quarter ? props.yearNumber * 4 : props.yearNumber * 3;
   // console.log('LandingAcademicPlanYearView props=%o quarter=%o', props, quarter);
   return (

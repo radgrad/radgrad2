@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Router from '../../components/shared/RouterHelperFunctions';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
@@ -25,13 +24,14 @@ import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -64,11 +64,11 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getMenuWidget = (): JSX.Element => {
     const role = this.getRole();
     switch (role) {
-      case 'student':
+      case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget/>;
-      case 'mentor':
+      case URL_ROLES.MENTOR:
         return <MentorPageMenuWidget/>;
-      case 'faculty':
+      case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget/>;
       default:
         return <React.Fragment/>;
@@ -79,19 +79,19 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getAddedList = (): { [key: string]: any }[] => {
     const type = this.getType();
     switch (type) {
-      case 'plans':
+      case EXPLORER_TYPE.ACADEMICPLANS:
         return this.addedPlans();
-      case 'career-goals':
+      case EXPLORER_TYPE.CAREERGOALS:
         return this.addedCareerGoals();
-      case 'courses':
+      case EXPLORER_TYPE.COURSES:
         return this.addedCourses();
-      case 'degrees':
+      case EXPLORER_TYPE.DEGREES:
         return this.addedDegrees();
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.addedInterests();
-      case 'opportunities':
+      case EXPLORER_TYPE.OPPORTUNITIES:
         return this.addedOpportunities();
-      case 'users': // do nothing
+      case EXPLORER_TYPE.USERS: // do nothing
         return undefined;
       default:
         return undefined;
@@ -101,7 +101,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getCareerList = (): { [key: string]: any }[] => {
     const type = this.getType();
     switch (type) {
-      case 'interests':
+      case EXPLORER_TYPE.INTERESTS:
         return this.addedCareerInterests();
       default:
         return undefined;
@@ -203,7 +203,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   private socialPairsCareerGoals = (careerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
     {
-      label: 'students', amount: this.numUsersCareerGoals(careerGoal, ROLE.STUDENT),
+      label: 'students', amount: this.numStudentsCareerGoals(careerGoal),
       value: this.interestedUsersCareerGoals(careerGoal, ROLE.STUDENT),
     },
     {
@@ -223,17 +223,27 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   ]
 
   private interestedUsersCareerGoals = (careerGoal: ICareerGoal, role: string): object[] => {
-    const interested = [];
+    let interested = [];
     const profiles = Users.findProfilesWithRole(role, {}, {});
     _.forEach(profiles, (profile) => {
       if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
         interested.push(profile);
       }
     });
+    interested = _.filter(interested, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+    // only allow 50 students randomly selected.
+    for (let i = interested.length - 1; i >= 50; i--) {
+      interested.splice(Math.floor(Math.random() * interested.length), 1);
+    }
     return interested;
   }
 
-  private numUsersCareerGoals = (careerGoal: ICareerGoal, role: string): number => this.interestedUsersCareerGoals(careerGoal, role).length
+  private numUsersCareerGoals = (careerGoal: ICareerGoal, role: string): number => this.interestedUsersCareerGoals(careerGoal, role).length;
+
+  private numStudentsCareerGoals = (careerGoal: ICareerGoal): number => {
+    const participatingStudents = StudentParticipations.findDoc({ itemID: careerGoal._id });
+    return participatingStudents.itemCount;
+  }
 
   /* ################################################# COURSES HELPER FUNCTIONS ##################################### */
   private addedCourses = (): { item: ICourse, count: number }[] => {
@@ -395,10 +405,10 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
     const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
     const userID = Router.getUserIdFromRoute(this.props.match);
     const role = Router.getRoleByUrl(this.props.match);
-    if (role === 'faculty') {
+    if (role === URL_ROLES.FACULTY) {
       return _.filter(allOpportunities, o => o.sponsorID === userID);
     }
-    if (role === 'student') {
+    if (role === URL_ROLES.STUDENT) {
       _.forEach(allOpportunities, (opportunity) => {
         const oi = OpportunityInstances.find({
           studentID: userID,
@@ -497,10 +507,6 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
         {menuWidget}
 
         <Grid container={true} stackable={true}>
-          <Grid.Row>
-            {<HelpPanelWidgetContainer/>}
-          </Grid.Row>
-
           <Grid.Column width={3}>
             <ExplorerMenu menuAddedList={addedList}
                           menuCareerList={isTypeInterests && careerList ? careerList : undefined}
@@ -510,7 +516,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
           <Grid.Column width={13}>
             {
               type === EXPLORER_TYPE.ACADEMICPLANS ?
-                <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item} role={role}/>
+                <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item}/>
                 : ''
             }
             {
@@ -522,7 +528,7 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
             {
               type === EXPLORER_TYPE.COURSES ?
                 <ExplorerCoursesWidget name={name} shortName={isTypeCourses && shortName ? shortName : undefined}
-                                       descriptionPairs={descriptionPairs} item={item} role={role}
+                                       descriptionPairs={descriptionPairs} item={item}
                                        completed={(isTypeCourses && isCourseCompleted !== undefined) ? isCourseCompleted : undefined}/>
                 : ''
             }
@@ -545,12 +551,11 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
             }
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </React.Fragment>
     );
   }
 }
 
-const IndividualExplorerPageCon = withGlobalSubscription(IndividualExplorerPage);
-const IndividualExplorerPageContainer = withInstanceSubscriptions(IndividualExplorerPageCon);
-
-export default IndividualExplorerPageContainer;
+export default IndividualExplorerPage;

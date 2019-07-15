@@ -48,7 +48,7 @@ class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
           <SelectField name="advisor"/>
           <SelectField name="student"/>
           <LongTextField name="text"/>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

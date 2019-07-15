@@ -27,7 +27,7 @@ class AddDesiredDegreeForm extends React.Component<IAddDesiredDegreeFormProps> {
             <TextField name="shortName" placeholder="B.S. S"/>
           </Form.Group>
           <LongTextField name="description"/>
-          <SubmitField/>
+          <SubmitField className="basic green" value="Add"/>
         </AutoForm>
       </Segment>
     );

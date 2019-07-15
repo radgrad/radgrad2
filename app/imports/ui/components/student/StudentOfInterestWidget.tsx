@@ -17,6 +17,7 @@ import {
   setStudentHomeWidgetHiddenCourses,
   setStudentHomeWidgetHiddenOpportunities,
 } from '../../../redux/actions/studentHomePageActions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -104,7 +105,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return ret;
   }
 
-  private isTypeCourse = (): boolean => this.props.type === 'courses';
+  private isTypeCourse = (): boolean => this.props.type === EXPLORER_TYPE.COURSES;
 
   private courses = () => {
     const courses = this.matchingCourses();
@@ -153,7 +154,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const { nonRetiredCourses } = this.props;
     if (nonRetiredCourses.length > 0) {
       const filtered = _.filter(nonRetiredCourses, (course) => {
-        if (course.number === 'ICS 499') {
+        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
           return true;
         }
         const ci = CourseInstances.find({

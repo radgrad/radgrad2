@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider, Image } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Divider, Image, Popup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { getUsername, renderLink } from './RouterHelperFunctions';
+import WidgetHeaderNumber from './WidgetHeaderNumber';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -32,12 +34,6 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     super(props);
   }
 
-  private routerLink = (props) => (
-    props.href.match(/^(https?:)?\/\//)
-      ? <a href={props.href}>{props.children}</a>
-      : <Link to={props.href}>{props.children}</Link>
-  )
-
   private toUpper = (string) => string.toUpperCase();
 
   private isLabel = (descriptionPairLabel, comp) => descriptionPairLabel === comp;
@@ -49,16 +45,18 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private userStatus = (careerGoal) => {
     let ret = false;
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
       ret = true;
     }
     return ret;
   }
 
+  private fullName = (user) => Users.getFullName(user);
+
   private handleAdd = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     const studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
@@ -75,7 +73,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
   private handleDelete = (event) => {
     event.preventDefault();
-    const profile = Users.getProfile(this.props.match.params.username);
+    const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     let studentItems = profile.careerGoalIDs;
     const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
@@ -94,18 +92,14 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const marginStyle = {
       marginTop: 5,
     };
-
-    const imageStyle = {
-      marginBottom: 7,
-      marginLeft: 3.5,
-      marginRight: 3.5,
-    };
-
+    const imageGroupStyle = { overflow: 'visible' };
     const divPadding = {
       marginTop: 0,
       padding: 0,
     };
-    const { name, descriptionPairs, socialPairs, item } = this.props;
+    const centerAlignedColumnStyle = { minWidth: '25%' };
+
+    const { name, descriptionPairs, socialPairs, item, match } = this.props;
     const upperName = this.toUpper(name);
     const userStatus = this.userStatus(item);
 
@@ -138,7 +132,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
                         {
                           descriptionPair.value ?
                             <Markdown escapeHtml={false} source={descriptionPair.value}
-                                      renderers={{ link: this.routerLink }}/>
+                                      renderers={{ link: (props) => renderLink(props, match) }}/>
                             :
                             'N/A'
                         }
@@ -157,17 +151,19 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
               }
             </Grid.Column><br/>
             <Divider/>
-            <Grid stackable={true} celled={'internally'} columns={'equal'}>
+            <Grid stackable={true} celled={'internally'}>
               {socialPairs.map((socialPair, index) => (
-                <React.Fragment key={index}>
-                  <Grid.Column textAlign={'center'} style={divPadding}>
-                    <h5>{this.toUpper(socialPair.label)} - {socialPair.amount}</h5>
-                    {socialPair.value.map((user, index2) => (
-                      <Image src={this.userPicture(user)} circular size='mini' verticalAlign={'middle'} key={index2}
-                             style={imageStyle}/>
-                    ))}
-                  </Grid.Column>
-                </React.Fragment>
+                <Grid.Column key={index} textAlign={'center'} style={centerAlignedColumnStyle}>
+                  <h5>{this.toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
+
+                  <Image.Group size="mini" style={imageGroupStyle}>
+                    {socialPair.value.map((user) => <Popup
+                      key={user._id}
+                      trigger={<Image src={this.userPicture(user)} circular={true} bordered={true}/>}
+                      content={this.fullName(user)}
+                    />)}
+                  </Image.Group>
+                </Grid.Column>
               ))}
             </Grid>
           </Segment>

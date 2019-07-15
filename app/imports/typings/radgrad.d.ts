@@ -246,6 +246,7 @@ export interface IAcademicPlanUpdate {
 
 // AcademicYearInstances
 export interface IAcademicYear {
+  _id: string;
   year: number;
   springYear: number;
   studentID: string;
@@ -286,7 +287,7 @@ export interface IAdvisorLogUpdate {
 export interface ICareerGoal {
   _id: string;
   name: string;
-  slug: string;
+  slugID: string;
   description: string;
   interestIDs: string[];
   retired?: boolean;
@@ -306,6 +307,23 @@ export interface ICareerGoalUpdate {
   description?: string;
   interests?: string[];
   retired?: boolean;
+}
+
+// StudentParticipations
+export interface IStudentParticipation {
+  itemID: string;
+  itemSlug: string;
+  itemCount: number;
+}
+
+export interface IStudentParticipationDefine extends IDumpOne {
+  itemID: string;
+  itemSlug: string;
+  itemCount: number;
+}
+
+export interface IStudentParticipationUpdate {
+  itemCount?: number;
 }
 
 // CourseInstances

@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Dropdown } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan, //eslint-disable-line
@@ -17,6 +16,7 @@ import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -40,9 +40,6 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   constructor(props) {
     super(props);
   }
-
-  /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => Router.getUsername(this.props.match);
 
   private getTypeName = (): string => {
     const { type } = this.props;
@@ -68,43 +65,19 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { menuAddedList, menuCareerList, type, role } = this.props;
+    const { menuAddedList, menuCareerList, match, type, role } = this.props;
     const isTypeInterest = this.props.type === EXPLORER_TYPE.INTERESTS;
+    const typeName = this.getTypeName();
 
-    const menuItems = [
-      { key: 'Academic Plans', route: 'plans' },
-      { key: 'Career Goals', route: 'career-goals' },
-      { key: 'Courses', route: 'courses' },
-      { key: 'Degrees', route: 'degrees' },
-      { key: 'Interests', route: 'interests' },
-      { key: 'Opportunities', route: 'opportunities' },
-      { key: 'Users', route: 'users' },
-    ];
-
-    const baseUrl = this.props.match.url;
-    const username = this.getUsername();
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-    const menuOptions = menuItems.map((item) => ({
-      key: item.key,
-      text: item.key,
-      as: NavLink,
-      exact: true,
-      to: `${baseRoute}/explorer/${item.route}`,
-      style: { textDecoration: 'none' },
-    }));
     return (
       <React.Fragment>
-        {/* ####### Main Dropdown Menu ####### */}
-        <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
+        <ExplorerNavDropdown match={match} text={typeName}/>
         <br/>
-        <CardExplorerMenuNonMobileWidget menuAddedList={menuAddedList}
-                                         type={type}
-                                         role={role}
+
+        <CardExplorerMenuNonMobileWidget menuAddedList={menuAddedList} type={type} role={role}
                                          menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
-        <CardExplorerMenuMobileWidget menuAddedList={menuAddedList}
-                                      type={type}
-                                      role={role}
+
+        <CardExplorerMenuMobileWidget menuAddedList={menuAddedList} type={type} role={role}
                                       menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
       </React.Fragment>
     );

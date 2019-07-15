@@ -140,7 +140,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                 style={getDroppableListStyle(snapshot.isDraggingOver)}
                               >
                                 {_.map(courses, (choice, idx) => (
-                                  <DraggableCoursePill key={choice} index={idx} choice={choice}
+                                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
                                                        satisfied={true} studentID="fakeID"/>))}
                                 {provided.placeholder}
                                 {provided.placeholder}
@@ -165,7 +165,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                     style={getDroppableListStyle(snapshot.isDraggingOver)}
                                   >
                                     {_.map(courses, (choice, idx) => (
-                                      <DraggableCoursePill key={choice} index={idx} choice={choice}
+                                      <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
                                                            satisfied={true} studentID="fakeID"/>))}
                                     {provided.placeholder}
                                     {provided.placeholder}
@@ -190,7 +190,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                 style={getDroppableListStyle(snapshot.isDraggingOver)}
                               >
                                 {_.map(courses, (choice, idx) => (
-                                  <DraggableCoursePill key={choice} index={idx} choice={choice}
+                                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
                                                        satisfied={true} studentID="fakeID"/>))}
                                 {provided.placeholder}
                                 {provided.placeholder}
@@ -213,7 +213,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                 style={getDroppableListStyle(snapshot.isDraggingOver)}
                               >
                                 {_.map(courses, (choice, idx) => (
-                                  <DraggableCoursePill key={choice} index={idx} choice={choice}
+                                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
                                                        satisfied={true} studentID="fakeID"/>))}
                                 {provided.placeholder}
                                 {provided.placeholder}
@@ -228,7 +228,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
               </Grid>
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={''}/>
             </Grid.Column>
           </Grid>
         </DragDropContext>

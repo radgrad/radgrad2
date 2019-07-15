@@ -2,7 +2,9 @@ import * as React from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Markdown from 'react-markdown';
+import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminDataModelAccordionProps {
   id: string;
@@ -15,6 +17,14 @@ interface IAdminDataModelAccordionProps {
   deleteDisabled: boolean;
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 interface IAdminDataModelAccordionState {
@@ -34,6 +44,7 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
   }
 
   public render() {
+    const { match } = this.props;
     return (
       <Accordion fluid={true} styled={true}>
         <Accordion.Title active={this.state.active} onClick={this.handleClick}>
@@ -46,7 +57,10 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-            <b>{descriptionPair.label}:</b> <Markdown escapeHtml={true} source={descriptionPair.value}/>
+              <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? // eslint-disable-line
+              <Markdown escapeHtml={true} source={descriptionPair.value}
+                        renderers={{ link: (props) => Router.renderLink(props, match) }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
+                <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
           <p>
@@ -60,4 +74,5 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
     );
   }
 }
-export default AdminDataModelAccordion;
+
+export default withRouter(AdminDataModelAccordion);

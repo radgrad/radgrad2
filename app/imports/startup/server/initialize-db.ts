@@ -15,6 +15,7 @@ import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
 import { ROLE } from '../../api/role/Role';
+import { StudentParticipations } from '../../api/public-stats/StudentParticipationCollection';
 
 /** global Assets */
 
@@ -108,7 +109,19 @@ function startupPublicStats() {
       PublicStats.generateStats();
     },
   });
-  SyncedCron.start();
+}
+
+function startupStudentParticipation() {
+  StudentParticipations.upsertEnrollmentData();
+  SyncedCron.add({
+    name: 'Run StudentParticipations.upsertEnrollmentData',
+    schedule(parser) {
+      return parser.text('every 24 hours');
+    },
+    job() {
+      StudentParticipations.upsertEnrollmentData();
+    },
+  });
 }
 
 /**
@@ -225,7 +238,9 @@ Meteor.startup(() => {
     loadDatabase();
     startupCheckIntegrity();
     startupPublicStats();
+    startupStudentParticipation();
     fixUserInteractions();
     ensureSettings();
+    SyncedCron.start();
   }
 });

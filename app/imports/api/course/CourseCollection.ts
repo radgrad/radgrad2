@@ -8,6 +8,7 @@ import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad'; // eslint-disable-line
 import { isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
+import { validateCourseSlugFormat } from './CourseUtilities';
 
 /**
  * Represents a specific course, such as "ICS 311".
@@ -68,13 +69,13 @@ class CourseCollection extends BaseSlugCollection {
    * @example
    * Courses.define({ name: 'Introduction to the theory and practice of scripting',
    *                  shortName: 'Intro to Scripting',
-   *                  slug: 'ics215',
+   *                  slug: 'ics_215',
    *                  num: 'ICS 215',
    *                  description: 'Introduction to scripting languages for the integration of applications.',
    *                  creditHrs: 4,
    *                  interests: ['perl', 'javascript', 'ruby'],
    *                  syllabus: 'http://courses.ics.hawaii.edu/syllabuses/ICS215.html',
-   *                  prerequisites: ['ics211'] });
+   *                  prerequisites: ['ics_211'] });
    * @param { Object } description Object with keys name, shortName, slug, num, description, creditHrs,
    *                   interests, syllabus, and prerequisites.
    * @param name is the official course name.
@@ -92,6 +93,8 @@ class CourseCollection extends BaseSlugCollection {
   public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [], retired = false }: ICourseDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
+    // Make sure the slug has the right format <dept>_<number>
+    validateCourseSlugFormat(slug);
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Make sure creditHrs is a num between 1 and 15.
@@ -101,6 +104,8 @@ class CourseCollection extends BaseSlugCollection {
     if (!Array.isArray(prerequisites)) {
       throw new Meteor.Error(`Prerequisites ${prerequisites} is not an array.`);
     }
+    // make sure each prerequisite has a valid format.
+    _.forEach(prerequisites, (p) => validateCourseSlugFormat(p));
     // Currently we don't dump the DB is a way that prevents forward referencing of prereqs, so we
     // can't check the validity of prereqs during a define, such as with:
     //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));

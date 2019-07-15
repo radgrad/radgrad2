@@ -10,6 +10,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AddHelpMessageForm from '../../components/admin/AddHelpMessageForm';
 import UpdateHelpMessageForm from '../../components/admin/UpdateHelpMessageForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = HelpMessages; // the collection to use.
 
@@ -176,6 +177,8 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Help Message?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }
