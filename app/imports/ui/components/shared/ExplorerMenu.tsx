@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Dropdown } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan, //eslint-disable-line
@@ -16,7 +15,7 @@ import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-import ExplorerNavDropdown from "./ExplorerNavDropdown";
+import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Router from './RouterHelperFunctions';
 import {
   IAcademicPlan, //eslint-disable-line
@@ -14,8 +15,7 @@ import {
 import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
-import { _ } from "meteor/erasaur:meteor-lodash";
-import { CareerGoals } from "../../../api/career/CareerGoalCollection";
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
