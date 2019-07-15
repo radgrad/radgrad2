@@ -20,7 +20,7 @@ const PageLoader = () => (
     <circle cx="476" cy="34" r="15" />
     <circle cx="33" cy="28" r="15" />
     <rect x="52" y="155" rx="0" ry="0" width="94" height="114" />
-    <rect x="161" y="153" rx="0" ry="0" width="566" height="302" />
+    <rect x="161" y="153" rx="0" ry="0" width="566" height="278" />
   </ContentLoader>
 );
 
