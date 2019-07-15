@@ -18,6 +18,7 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 function numReferences(careerGoal) {
   let references = 0;
@@ -186,6 +187,8 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

@@ -1,11 +1,20 @@
 import * as React from 'react';
 import { Container, Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
+import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
   descriptionPairs: any;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps> {
@@ -26,7 +35,7 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
     };
     const dividerStyle = { marginTop: 0 };
 
-    const { name, descriptionPairs } = this.props;
+    const { name, descriptionPairs, match } = this.props;
 
     return (
       <Segment.Group style={segmentGroupStyle}>
@@ -46,7 +55,7 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
                       <React.Fragment key={index}>
                         <b>{descriptionPair.label}:</b>
                         <Markdown escapeHtml={false} source={descriptionPair.value}
-                                  renderers={{ link: renderLink }}/>
+                                  renderers={{ link: (props) => renderLink(props, match) }}/>
                       </React.Fragment>
                       :
                       <p key={index}><b>{descriptionPair.label}:</b> N/A</p>
@@ -61,4 +70,4 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
   }
 }
 
-export default ExplorerDegreesWidget;
+export default withRouter(ExplorerDegreesWidget);

@@ -11,6 +11,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AddDesiredDegreeForm from '../../components/admin/AddDesiredDegreeForm';
 import UpdateDesiredDegreeForm from '../../components/admin/UpdateDesiredDegreeForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 function numReferences(desiredDegree) {
   return AcademicPlans.find({ degreeID: desiredDegree._id }).count();
@@ -183,6 +184,8 @@ class AdminDataModelDesiredDegreesPage extends React.Component<{}, IAdminDataMod
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Desired Degree?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

@@ -123,7 +123,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
     };
     const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
-    const { name, descriptionPairs, item, completed } = this.props;
+    const { name, descriptionPairs, item, completed, match } = this.props;
     /* Header Variables */
     const upperName = this.toUpper(name);
     const isStudent = this.isRoleStudent();
@@ -274,7 +274,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: Router.renderLink }}/>
+                                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                                 :
                                 <React.Fragment> N/A </React.Fragment>
                             }
@@ -324,8 +324,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
             </Grid>
             : ''
         }
-
-        {/*  TODO: Back To Top Button */}
       </div>
     );
   }

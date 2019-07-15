@@ -9,6 +9,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },
@@ -112,6 +113,8 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Plan?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

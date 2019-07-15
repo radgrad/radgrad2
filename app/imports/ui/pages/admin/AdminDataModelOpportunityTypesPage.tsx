@@ -13,6 +13,7 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/UpdateOpportunityTypeForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = OpportunityTypes; // the collection to use.
 
@@ -190,6 +191,8 @@ class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataM
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity Type?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

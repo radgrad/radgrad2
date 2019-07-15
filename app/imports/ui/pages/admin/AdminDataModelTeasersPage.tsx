@@ -18,6 +18,7 @@ import {
   interestNameToSlug,
   opportunityNameToSlug,
 } from '../../components/shared/AdminDataModelHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Teasers; // the collection to use.
 
@@ -192,6 +193,8 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Teaser?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

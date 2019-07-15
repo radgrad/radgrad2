@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Router from '../../components/shared/RouterHelperFunctions';
-import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
@@ -25,8 +24,6 @@ import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -34,6 +31,7 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -509,10 +507,6 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
         {menuWidget}
 
         <Grid container={true} stackable={true}>
-          <Grid.Row>
-            {<HelpPanelWidgetContainer/>}
-          </Grid.Row>
-
           <Grid.Column width={3}>
             <ExplorerMenu menuAddedList={addedList}
                           menuCareerList={isTypeInterests && careerList ? careerList : undefined}
@@ -557,12 +551,11 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
             }
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </React.Fragment>
     );
   }
 }
 
-const IndividualExplorerPageCon = withGlobalSubscription(IndividualExplorerPage);
-const IndividualExplorerPageContainer = withInstanceSubscriptions(IndividualExplorerPageCon);
-
-export default IndividualExplorerPageContainer;
+export default IndividualExplorerPage;

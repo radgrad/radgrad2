@@ -22,6 +22,7 @@ import {
 } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 function numReferences(term) {
   let references = 0;
@@ -195,6 +196,8 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Term?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

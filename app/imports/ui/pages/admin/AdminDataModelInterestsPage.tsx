@@ -12,6 +12,7 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/UpdateInterestForm';
 import { interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/AdminDataModelHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Interests; // the collection to use.
 
@@ -184,6 +185,8 @@ class AdminDataModelInterestsPage extends React.Component<{}, IAdminDataModelPag
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Interest?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

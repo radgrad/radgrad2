@@ -1,10 +1,20 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 import { renderLink } from '../shared/RouterHelperFunctions';
 
 interface IStudentFeedItemProps {
   feed: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+      opportunity: string;
+    }
+  };
 }
 
 class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
@@ -41,7 +51,7 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { feed }: any = this.props;
+    const { feed, match }: any = this.props;
     const feedPicture = this.getFeedPicture(feed);
     const feedTimestamp: string = this.feedTimestamp(feed);
     return (
@@ -52,7 +62,8 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
           </Feed.Label>
           <Feed.Content style={{ marginTop: '0px' }}>
             <Feed.Summary>
-              <Markdown escapeHtml={true} source={feed.description} renderers={{ link: renderLink }}/>
+              <Markdown escapeHtml={true} source={feed.description}
+                        renderers={{ link: (props) => renderLink(props, match) }}/>
             </Feed.Summary>
 
             <Feed.Extra text={true}>
@@ -67,4 +78,4 @@ class StudentFeedItem extends React.Component<IStudentFeedItemProps> {
   }
 }
 
-export default StudentFeedItem;
+export default withRouter(StudentFeedItem);

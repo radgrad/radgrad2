@@ -19,6 +19,7 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = CourseInstances;
 
@@ -213,6 +214,8 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Course Instance?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

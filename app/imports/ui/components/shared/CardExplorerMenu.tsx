@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan, //eslint-disable-line
@@ -14,6 +15,7 @@ import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -85,8 +87,11 @@ class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
 export const CardExplorerMenuCon = withTracker((props) => {
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
+  const menuList = _.map(profile.careerGoalIDs, (c) => CareerGoals.findDoc(c).name);
+  console.log('menuList: ', menuList);
   return {
     profile,
+    menuList,
   };
 })(CardExplorerMenu);
 export const CardExplorerMenuContainer = withRouter(CardExplorerMenuCon);

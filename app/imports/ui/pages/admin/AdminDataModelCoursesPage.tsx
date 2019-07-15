@@ -20,6 +20,7 @@ import {
 import AddCourseForm from '../../components/admin/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import UpdateCourseForm from '../../components/admin/UpdateCourseForm';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Courses; // the collection to use.
 
@@ -211,6 +212,8 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Course?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

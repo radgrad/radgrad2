@@ -10,6 +10,7 @@ class AdvisorPageMenuWidget extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
 
   public render() {
+    const divStyle = { marginBottom: 30 };
     let numMod = 0;
     numMod += MentorQuestions.find({ moderated: false }).fetch().length;
     numMod += Reviews.find({ moderated: false }).fetch().length;
@@ -28,10 +29,10 @@ class AdvisorPageMenuWidget extends React.Component {
       { label: requestsLabel, route: 'verification-requests' },
       { label: moderationLabel, route: 'moderation' },
       { label: 'Academic Plan', route: 'academic-plan' },
-      { label: 'Course Scoreboard', route: 'course-scoreboard' },
+      { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
     ];
     return (
-      <div>
+      <div style={divStyle}>
         <FirstMenuContainer/>
         <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
       </div>

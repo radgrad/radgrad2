@@ -17,7 +17,14 @@ import * as Router from '../../components/shared/RouterHelperFunctions';
 
 interface ICourseExplorerProps {
   course: ICourse;
-  match: object;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   location: object;
   history: object;
 }
@@ -28,7 +35,7 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
   }
 
   public render() {
-    // console.log(this.props.course);
+    const { match } = this.props;
     return (
       <div>
         <ExplorerMenuBarContainer/>
@@ -56,7 +63,7 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
                 </Grid>
                 <b>Description:</b>
                 <Markdown escapeHtml={true} source={this.props.course.description}
-                          renderers={{ link: Router.renderLink }}/>
+                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                 <Header as="h4" dividing={true}>Prerequisites</Header>
                 <LandingPrerequisiteList prerequisites={this.props.course.prerequisites}/>
                 <Header as="h4" dividing={true}>Course Interests</Header>

@@ -43,7 +43,7 @@ function courseStructureForMenu(userID) {
   }
   // console.log(courses.length);
   courses = _.filter(courses, (course) => {
-    if (course.number === 'ICS 499') {
+    if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
       return true;
     }
     const ci = CourseInstances.find({
