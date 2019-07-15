@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { Roles } from 'meteor/alanning:roles';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import { withRouter } from 'react-router-dom';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -26,6 +25,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICardExplorerPageProps {
   match: {
@@ -157,7 +157,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
       // CAM: why are we filtering?
       if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
         const regex = /[1234]\d\d/g;
-        addedCourses = _.filter(addedCourses, (c) => c.item.number.match(regex));
+        addedCourses = _.filter(addedCourses, (c) => c.item.num.match(regex));
       }
     }
     return addedCourses;
@@ -226,31 +226,34 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const type = this.getType();
 
     return (
-      <React.Fragment>
+      <div>
         {menuWidget}
 
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={3}>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
             <CardExplorerMenu menuAddedList={addedList} type={type} role={role}
                               menuCareerList={isTypeInterest ? this.addedCareerInterests() : undefined}
             />
           </Grid.Column>
 
-          <Grid.Column width={13}>
-            <CardExplorerWidget collection={collection} type={type} role={role}/>
-          </Grid.Column>
+            <Grid.Column width={11}>
+              <CardExplorerWidget collection={collection} type={type} role={role}/>
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
         </Grid>
-
-      </React.Fragment>
+        <BackToTopButton/>
+      </div>
     );
   }
 }
 
-const CardExplorerPageCon = withGlobalSubscription(CardExplorerPage);
-const CardExplorerPageContainer = withInstanceSubscriptions(CardExplorerPageCon);
-
-export default CardExplorerPageContainer;
+export default withRouter(CardExplorerPage);

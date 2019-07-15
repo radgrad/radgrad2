@@ -7,6 +7,7 @@ import ListSlugCollectionWidget from '../../components/admin/ListSlugCollectionW
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Slugs; // the collection to use.
 
@@ -113,6 +114,8 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
             />
           </Grid.Column>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

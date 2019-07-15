@@ -15,6 +15,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import StudentOfInterestAdd from './StudentOfInterestAdd';
 import { renderLink } from '../shared/RouterHelperFunctions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 interface IStudentOfInterestCardProps {
   type: string;
@@ -133,14 +135,17 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
 
   }
 
-  private numberStudents = (course) => this.interestedStudentsHelper(course, this.props.type).length;
+  private numberStudents = (item) => {
+    const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
+    return participatingStudents.itemCount;
+  }
 
-  private interestedStudents = (course) => this.interestedStudentsHelper(course, this.props.type);
+  private interestedStudents = (item) => this.interestedStudentsHelper(item, this.props.type);
 
   private interestedStudentsHelper = (item, type) => {
     const interested = [];
     let instances;
-    if (type === 'courses') {
+    if (type === EXPLORER_TYPE.COURSES) {
       instances = CourseInstances.find({
         courseID: item._id,
       }).fetch();
@@ -149,30 +154,19 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         opportunityID: item._id,
       }).fetch();
     }
-    // console.log(instances.length);
     _.forEach(instances, (c) => {
       if (!_.includes(interested, c.studentID)) {
         interested.push(c.studentID);
       }
     });
+    // only allow 50 students randomly selected.
+    for (let i = interested.length - 1; i >= 50; i--) {
+      interested.splice(Math.floor(Math.random() * interested.length), 1);
+    }
     return interested;
   }
 
-  private studentFullName = (studentID) => {
-    if (studentID === 'elispsis') {
-      return '';
-    }
-    return Users.getFullName(studentID);
-  }
-
-  private studentPicture = (studentID) => {
-    if (studentID === 'elipsis') {
-      return '/images/elipsis.png';
-    }
-    return Users.getProfile(studentID).picture;
-  }
-
-  private isTypeCourse = () => this.props.type === 'courses'
+  private isTypeCourse = () => this.props.type === EXPLORER_TYPE.COURSES;
 
   private hidden = () => {
     const username = this.props.match.params.username;
@@ -195,12 +189,12 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const username = this.props.match.params.username;
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
     switch (type) {
-      case 'courses':
-        return `${baseRoute}explorer/courses/${itemName}`;
-      case 'opportunities':
-        return `${baseRoute}explorer/opportunities/${itemName}`;
+      case EXPLORER_TYPE.COURSES:
+        return `${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        return `${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`;
       default:
         break;
     }
@@ -208,12 +202,11 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item } = this.props;
+    const { item, match } = this.props;
     const itemName = this.itemName(item);
     const itemTerms = this.itemTerms();
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberStudents(item);
-    const interestedStudents = this.interestedStudents(item);
     const hidden = this.hidden() as SemanticCOLORS;
 
     return (
@@ -221,28 +214,18 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         <Card.Content>
           <Header>{itemName}</Header>
           <Card.Meta>
-            {
-              itemTerms ? this.replaceTermString(itemTerms) : ''
-            }
+            {itemTerms ? this.replaceTermString(itemTerms) : ''}
           </Card.Meta>
         </Card.Content>
 
         <Card.Content>
-          <Markdown escapeHtml={true} source={`${itemShortDescription}...`} renderers={{ link: renderLink }}/>
+          <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
+                    renderers={{ link: (props) => renderLink(props, match) }}/>
           <InterestList item={item} size='mini'/>
         </Card.Content>
 
         <Card.Content>
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
-          <Image.Group size="mini">
-            {
-              interestedStudents.map((student, index) => <Popup
-                key={index}
-                trigger={<Image src={this.studentPicture(student)} circular={true} bordered={true}/>}
-                content={this.studentFullName(student)}
-              />)
-            }
-          </Image.Group>
         </Card.Content>
 
         {

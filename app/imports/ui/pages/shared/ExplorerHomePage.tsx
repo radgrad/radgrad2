@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
@@ -43,23 +41,25 @@ class ExplorerHomePage extends React.Component<IExplorerHomePageProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
-      <React.Fragment>
+      <div>
         {this.renderPageMenuWidget()}
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={3}>
-            <ExplorerNavDropdown match={this.props.match} text="Select Explorer"/>
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
+              <ExplorerNavDropdown match={this.props.match} text="Select Explorer"/>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
-const ExplorerHomePageCon = withGlobalSubscription(ExplorerHomePage);
-const ExplorerHomePageContainer = withInstanceSubscriptions(ExplorerHomePageCon);
-
-export default ExplorerHomePageContainer;
+export default ExplorerHomePage;

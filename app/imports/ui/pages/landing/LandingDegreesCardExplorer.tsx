@@ -9,6 +9,7 @@ import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-lin
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IDegreesCardExplorerProps {
   ready: boolean;
@@ -57,8 +58,9 @@ class LandingDegreesCardExplorer extends React.Component<IDegreesCardExplorerPro
               </Segment>
             </Grid.Column>
           </Grid.Row>
-
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

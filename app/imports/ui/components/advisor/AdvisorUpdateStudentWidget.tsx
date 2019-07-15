@@ -300,10 +300,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
           </Form.Group>
         </Form>
         <b>{`View ${this.props.usernameDoc.firstName}'s degree plan: `}</b>
-        <Link
-          target={'_blank'}
-          rel={'noopener noreferrer'}
-          to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
+        <Link target={'_blank'} rel={'noopener noreferrer'} to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
           /student/{this.props.usernameDoc.username}/degree-planner
         </Link>
       </Segment>

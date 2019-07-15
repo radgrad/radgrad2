@@ -214,7 +214,7 @@ class FeedCollection extends BaseCollection {
   private defineNewCourse({ course, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
-    const description = `[${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)}) has been added to Courses`;
+    const description = `[${c.name}](/explorer/courses/${Slugs.getNameFromID(c.slugID)}) has been added to Courses`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [],
@@ -241,7 +241,7 @@ class FeedCollection extends BaseCollection {
   private defineNewOpportunity({ opportunity, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
-    const description = `[${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) has been added to Opportunities`;
+    const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) has been added to Opportunities`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [],
@@ -286,7 +286,7 @@ class FeedCollection extends BaseCollection {
     const termID = AcademicTerms.getID(academicTerm);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
-    const description = `[${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(termID, false)})
+    const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(termID, false)})
     ${(userIDs.length > 1) ? ' was verified for multiple RadGrad students' : ' was verified for a RadGrad student'}`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
@@ -318,7 +318,7 @@ class FeedCollection extends BaseCollection {
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
-    const description = `A new course review has been added for [${c.name}](./explorer/courses/${Slugs.getNameFromID(c.slugID)})`;
+    const description = `A new course review has been added for [${c.name}](/explorer/courses/${Slugs.getNameFromID(c.slugID)})`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [userID],
@@ -348,7 +348,7 @@ class FeedCollection extends BaseCollection {
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
-    const description = `A new opportunity review has been added for [${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)})`;
+    const description = `A new opportunity review has been added for [${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)})`;
     const picture = '/images/radgrad_logo.png';
     const feedID = this.collection.insert({
       userIDs: [userID], opportunityID, description, timestamp, picture,
@@ -483,7 +483,7 @@ class FeedCollection extends BaseCollection {
     const userIDs = existingFeed.userIDs;
     userIDs.push(userID);
     const o = Opportunities.findDoc(existingFeed.opportunityID);
-    const description = `[${o.name}](./explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.termID, false)}) has been verified for multiple RadGrad students`;
+    const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) (${AcademicTerms.toString(existingFeed.termID, false)}) has been verified for multiple RadGrad students`;
     this.collection.update(existingFeedID, { $set: { userIDs, description } });
   }
 

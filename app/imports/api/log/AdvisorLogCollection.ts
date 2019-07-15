@@ -107,14 +107,21 @@ class AdvisorLogCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function publish() {
+      // eslint-disable-next-line meteor/audit-argument-checks
+      Meteor.publish(this.collectionName, function publish(studentID) {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
+        if (!studentID) {
+          return this.ready();
+        }
+        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
           return instance.collection.find();
         }
-        return instance.collection.find({ studentID: this.userId });
+        if (Roles.userIsInRole(this.userId, [ROLE.ADVISOR])) {
+          return instance.collection.find({ retired: { $not: { $eq: true } } });
+        }
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
     }
   }

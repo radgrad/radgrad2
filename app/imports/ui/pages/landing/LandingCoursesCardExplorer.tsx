@@ -9,6 +9,7 @@ import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICoursesCardExplorerProps {
   ready: boolean;
@@ -58,6 +59,8 @@ class LandingCoursesCardExplorer extends React.Component<ICoursesCardExplorerPro
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

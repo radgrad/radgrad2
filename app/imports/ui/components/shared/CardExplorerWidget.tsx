@@ -383,8 +383,7 @@ class CardExplorerWidget extends React.Component
     if (courses.length > 0) {
       const studentID = this.getUserIdFromRoute();
       let filtered = _.filter(courses, (course) => {
-        // TODO: hardcoded ICS string
-        if (course.number === 'ICS 499') {
+        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
           return true;
         }
         const ci = CourseInstances.find({
@@ -398,7 +397,7 @@ class CardExplorerWidget extends React.Component
         const plan = AcademicPlans.findDoc(profile.academicPlanID);
         if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
           const regex = /[1234]\d\d/g;
-          filtered = _.filter(filtered, (c) => c.number.match(regex));
+          filtered = _.filter(filtered, (c) => c.num.match(regex));
         }
       }
       return filtered;

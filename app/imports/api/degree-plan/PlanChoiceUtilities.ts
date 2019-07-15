@@ -156,7 +156,7 @@ export function getDepartments(planChoice: string) {
 }
 
 /**
- * Returns true if the courseSlug satisfies the planChoice.
+ * Returns true if the getCourseSlug satisfies the planChoice.
  * @param planChoice a plan choice.
  * @param courseSlug a course's slug.
  * @returns {*}
@@ -174,7 +174,7 @@ function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
 }
 
 /**
- * Returns true if the courseSlug satisfies the plan choice.
+ * Returns true if the getCourseSlug satisfies the plan choice.
  * @param planChoice The plan choice.
  * @param courseSlug The course slug.
  * @return {Boolean}
@@ -188,15 +188,15 @@ export function satisfiesPlanChoice(planChoice: string, courseSlug: string) {
       ret = true;
     }
   });
-  // console.log('satisfiesPlanChoice %s, %s returns %o', planChoice, courseSlug, ret);
+  // console.log('satisfiesPlanChoice %s, %s returns %o', planChoice, getCourseSlug, ret);
   return ret;
 }
 
 /**
- * Returns the index of the courseSlug in the array of plan choices.
+ * Returns the index of the getCourseSlug in the array of plan choices.
  * @param planChoices an array of plan choices.
  * @param courseSlug the course slug.
- * @return {Number} the index of courseSlug in the array.
+ * @return {Number} the index of getCourseSlug in the array.
  * @memberOf api/degree-plan
  */
 export function planIndexOf(planChoices: string[], courseSlug: string) {

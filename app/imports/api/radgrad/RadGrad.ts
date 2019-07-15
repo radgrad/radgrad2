@@ -5,6 +5,7 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
+import { StudentParticipations } from '../public-stats/StudentParticipationCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { DesiredDegrees } from '../degree-plan/DesiredDegreeCollection';
@@ -12,6 +13,7 @@ import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { HelpMessages } from '../help/HelpMessageCollection';
+import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
 import { InterestTypes } from '../interest/InterestTypeCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
@@ -51,6 +53,7 @@ class RadGradClass {
       AdvisorLogs,
       AdvisorProfiles,
       CareerGoals,
+      StudentParticipations,
       Courses,
       CourseInstances,
       FacultyProfiles,
@@ -58,6 +61,7 @@ class RadGradClass {
       FeedbackInstances,
       HelpMessages,
       DesiredDegrees,
+      IceSnapshots,
       Interests,
       InterestTypes,
       MentorAnswers,
@@ -108,6 +112,7 @@ class RadGradClass {
       VerificationRequests,
       Feeds,
       AdvisorLogs,
+      IceSnapshots,
       UserInteractions,
       MentorQuestions,
       MentorAnswers,

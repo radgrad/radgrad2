@@ -9,6 +9,7 @@ import { ICareerGoal } from '../../../typings/radgrad'; // eslint-disable-line
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICareerGoalsCardExplorerProps {
   ready: boolean;
@@ -57,8 +58,9 @@ class LandingCareerGoalsCardExplorer extends React.Component<ICareerGoalsCardExp
               </Segment>
             </Grid.Column>
           </Grid.Row>
-
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

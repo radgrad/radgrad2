@@ -21,6 +21,7 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Opportunities; // the collection to use.
 
@@ -202,6 +203,8 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

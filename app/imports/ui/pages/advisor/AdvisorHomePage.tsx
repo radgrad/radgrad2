@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
@@ -9,14 +9,13 @@ import AdvisorUpdateStudentWidget from '../../components/advisor/AdvisorUpdateSt
 import AdvisorLogEntryWidget from '../../components/advisor/AdvisorLogEntryWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/AdvisorStarUploadWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 // eslint-disable-next-line no-unused-vars
 import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 // Formatting for parameters
 export interface IFilterStudents {
@@ -42,21 +41,24 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Container fluid={false}>
-          <Grid stackable>
+        <Grid stackable={true}>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
             <Grid.Column width={14}>
-              <Grid.Row style={{ paddingBottom: '14px', paddingTop: '14px' }}>
-                <HelpPanelWidget/>
-              </Grid.Row>
-              <Grid.Row>
-                <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
-                                              interests={this.props.interests}
-                                              advisorUsername={this.props.match.params.username}/>
-              </Grid.Row>
+              <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
+                                            interests={this.props.interests}
+                                            advisorUsername={this.props.match.params.username}/>
             </Grid.Column>
-            {this.renderSelectedStudentWidgets()}
-          </Grid>
-        </Container>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+          {this.renderSelectedStudentWidgets()}
+        </Grid>
       </div>
     );
   }
@@ -67,13 +69,14 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     }
     return (
       <Grid.Row>
-        <Grid.Column width={9} stretched={true}>
+        <Grid.Column width={10} stretched={true}>
           <AdvisorUpdateStudentWidget usernameDoc={this.props.usernameDoc}
                                       studentCollectionName={StudentProfiles.getCollectionName()}
                                       careerGoals={this.props.careerGoals}
                                       interests={this.props.interests}/>
         </Grid.Column>
-        <Grid.Column width={5} stretched={true}>
+
+        <Grid.Column width={6} stretched={true}>
           <AdvisorLogEntryWidget usernameDoc={this.props.usernameDoc}
                                  advisorLogs={this.props.advisorLogs}
                                  advisorUsername={this.props.match.params.username}/>
@@ -81,14 +84,12 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
                                    advisorUsername={this.props.match.params.username}/>
 
         </Grid.Column>
+        <BackToTopButton/>
       </Grid.Row>
     );
-
   }
 }
 
-const AdvisorHomePageGSub = withGlobalSubscription(AdvisorHomePage);
-const AdvisorHomePageISub = withInstanceSubscriptions(AdvisorHomePageGSub);
 const AdvisorHomePageTracker = withTracker((props) => {
   const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
   const userID = usernameDoc ? usernameDoc.userID : '';
@@ -98,6 +99,6 @@ const AdvisorHomePageTracker = withTracker((props) => {
     careerGoals: CareerGoals.findNonRetired(),
     advisorLogs: AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } }),
   };
-})(AdvisorHomePageISub);
+})(AdvisorHomePage);
 
 export default connect(mapStateToProps)(withRouter(AdvisorHomePageTracker));

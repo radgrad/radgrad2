@@ -20,6 +20,7 @@ import {
   opportunityInstanceNameToId, opportunityNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = VerificationRequests; // the collection to use.
 
@@ -210,6 +211,8 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Verification Request?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }

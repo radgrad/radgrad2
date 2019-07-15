@@ -106,7 +106,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
     const uppercaseStyle = { textTransform: 'uppercase' };
     const commentsStyle = { paddingTop: '5px' };
 
-    const { event, userReview, completed, reviewType } = this.props;
+    const { event, userReview, completed, reviewType, match } = this.props;
     const { name, picture, term, rating, comments } = this.reviewData(userReview);
     const currentUserPicture = this.currentUserPicture();
     const currentUserName = this.currentUserName();
@@ -134,7 +134,8 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                     <StudentExplorerReviewStarsWidget rating={rating}/>
                     <br/>
                     <div style={commentsStyle}>
-                      <Markdown escapeHtml={true} source={comments} renderers={{ link: Router.renderLink }}/>
+                      <Markdown escapeHtml={true} source={comments}
+                                renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                     </div>
                   </Grid.Column>
                 </Grid>
@@ -189,7 +190,7 @@ class StudentExplorerReviewWidget extends React.Component<IStudentExplorerReview
                             <br/>
                             <div style={commentsStyle}>
                               <Markdown escapeHtml={true} source={aReview.comments}
-                                        renderers={{ link: Router.renderLink }}/>
+                                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
                             </div>
                           </Grid.Column>
                         </Grid>

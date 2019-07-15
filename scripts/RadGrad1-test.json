@@ -1,0 +1,399 @@
+{
+  "timestamp": "2018-11-19T23:44:35.561Z",
+  "collections": [
+    {
+      "name": "AcademicPlanCollection",
+      "contents": [
+        {
+          "slug": "ba-ics-2015",
+          "degreeSlug": "ba-ics",
+          "name": "B.A. in Information and Computer Sciences (2015)",
+          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
+          "semester": "Fall-2015",
+          "coursesPerSemester": [
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            1,
+            1,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "ics_141-1",
+            "ics_211-1",
+            "ics_241-1",
+            "ics_212-1",
+            "ics_311-1",
+            "ics_312,ics_331-1",
+            "ics_321-1",
+            "ics_313,ics_361-1",
+            "ics_400+-1",
+            "ics_332-1",
+            "ics_400+-2",
+            "ics_400+-3",
+            "ics_400+-4"
+          ],
+          "retired": false
+        }
+      ]
+    },
+    {
+      "name": "AdvisorLogCollection",
+      "contents": [
+        {
+          "student": "abi@hawaii.edu",
+          "advisor": "glau@hawaii.edu",
+          "text": "Set up RadGrad account. Congratulations on your Level 1 RadGrad sticker! Check out the GreyHats meeting every Friday afternoon if you are still interested in learning about security.",
+          "createdOn": "2014-08-26T20:52:13.660Z"
+        }
+      ]
+    },
+    {
+      "name": "AdvisorProfileCollection",
+      "contents": [
+        {
+          "username": "glau@hawaii.edu",
+          "firstName": "Gerald",
+          "lastName": "Lau",
+          "picture": "/images/mockup/glau.jpg",
+          "website": null,
+          "interests": [
+            "teaching"
+          ],
+          "careerGoals": [
+            "teacher"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CareerGoalCollection",
+      "contents": [
+        {
+          "name": "Teacher",
+          "slug": "teacher",
+          "interests": [
+            "teaching"
+          ],
+          "description": "Teaching often appears in lists of [the top 10 most satisfying careers](http://www.careercast.com/jobs-rated/whistling-while-you-work-10-most-satisfying-careers), and it's easy to see why: you are helping others, you are benefitting society, and you get summers off, among [other things](https://www.buzzfeed.com/mrloganrhoades/the-24-best-parts-about-being-a-teacher?utm_term=.arAKJwPVrG#.txpklaR2Bx).\n\nIf you are interested in teaching high school computer science, we recommend that you complete either the B.A. or B.S. in computer science degree program, then plan to obtain a [Certificate in Secondary Education](https://coe.hawaii.edu/academics/institute-teacher-education/pbc-secondary).  This certificate can be obtained in 18 months after graduation, and you can take classes in the evening or online. \n\nYou don't have to wait until you obtain a teaching certificate to get started teaching. Consider programs such as [Teach for America](https://hawaii.teachforamerica.org/teaching-here). In addition, many private schools in Hawaii do not require a teaching certificate. [View more information here.](http://tobecomeateacher.org/becoming-a-cs-teacher/)"
+        }
+      ]
+    },
+    {
+      "name": "CourseCollection",
+      "contents": [
+        {
+          "name": "Digital Tools for the Information World",
+          "shortName": "Digital Tools",
+          "slug": "ics_101",
+          "number": "ICS 101",
+          "description": "Fundamental information technology concepts and computing terminology, productivity software for problem solving, computer technology trends and impact on individuals and society. Emphasizes the utilization of operating systems and the production of professional documents, spreadsheets, etc.",
+          "creditHrs": 4,
+          "interests": [
+            "teaching"
+          ],
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "name": "CourseInstanceCollection",
+      "contents": [
+        {
+          "semester": "Fall-2015",
+          "course": "ics_101",
+          "note": "ICS 101",
+          "verified": true,
+          "fromSTAR": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "abi@hawaii.edu"
+        }
+      ]
+    },
+    {
+      "name": "DesiredDegreeCollection",
+      "contents": [
+        {
+          "name": "B.S. in Computer Science",
+          "shortName": "B.S. CS",
+          "slug": "bs-cs",
+          "description": "The Bachelor of Science in Computer Science provides you with an in-depth foundation in software technology, science, and math. You may find this degree of interest if you want to pursue software development as a career path or go to graduate school in computer science. \n\nIn general, the BS requires you to complete the ICS core curriculum, plus (312 or 331), plus (313 or 361), 321, 332, plus five ICS 400-level courses.\n\nFor more details, see the [ICS BS Degree Page](http://www.ics.hawaii.edu/academics/undergraduate-degree-programs/bs-ics/).",
+          "retired": false
+        }
+      ]
+    },
+    {
+      "name": "FacultyProfileCollection",
+      "contents": [
+        {
+          "username": "johnson@hawaii.edu",
+          "firstName": "Philip",
+          "lastName": "Johnson",
+          "picture": "/images/mockup/johnson.jpg",
+          "website": "http://philipmjohnson.org",
+          "interests": [
+            "teaching"
+          ],
+          "careerGoals": [
+            "teacher"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FeedCollection",
+      "contents": [
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "feedType": "new-user",
+          "timestamp": "2017-07-29T17:58:22.534Z"
+        }
+      ]
+    },
+    {
+      "name": "FeedbackInstanceCollection",
+      "contents": []
+    },
+    {
+      "name": "HelpMessageCollection",
+      "contents": [
+        {
+          "routeName": "Mentor_Explorer_Users_Page",
+          "title": "About users",
+          "text": "This page provides a browser for the users currently registered with RadGrad.\n\nRadGrad is not an open system. In order for someone to login to RadGrad, they must have been explicitly registered by a RadGrad advisor or admin.\n\nIf there is someone who you believe should have a RadGrad account, or if you believe there is a RadGrad user who should no longer have access to the system, please contact a RadGrad administrator."
+        }
+      ]
+    },
+    {
+      "name": "IceSnapshotCollection",
+      "contents": []
+    },
+    {
+      "name": "InterestCollection",
+      "contents": [
+        {
+          "name": "Teaching",
+          "slug": "teaching",
+          "description": "Teaching is the process of facilitating learning, or the acquisition of knowledge, skills, values, beliefs, and habits. Educational methods include storytelling, discussion, teaching, training, and directed research. [Learn more here.](https://en.wikipedia.org/wiki/Education)",
+          "interestType": "cs-disciplines"
+        }
+      ]
+    },
+    {
+      "name": "InterestTypeCollection",
+      "contents": [
+        {
+          "name": "CS Disciplines",
+          "slug": "cs-disciplines",
+          "description": "Computer science and engineering areas of interest, not including languages, tools, technologies."
+        }
+      ]
+    },
+    {
+      "name": "MentorAnswerCollection",
+      "contents": [
+        {
+          "question": "question-abi-0",
+          "mentor": "rbrewer@excitedcuriosity.org",
+          "text": "Understanding the incredible amount of data that humankind is constantly producing is one of the fundamental challenges facing society. The best way to learn is to pick a topic that interests you, find a public source of data in that area, and start actually looking at the data. What patterns can you see? Start asking questions, and figure out how to answer them from the data. Quick plug: Tableau is great for exploring data graphically, and answering questions about data. It's free for students (http://www.tableau.com/academic/students), and Tableau Public (https://public.tableau.com/s/) is a great place to find interesting public data sets and visual analytics based on the data."
+        }
+      ]
+    },
+    {
+      "name": "MentorProfileCollection",
+      "contents": [
+        {
+          "username": "rbrewer@excitedcuriosity.org",
+          "firstName": "Robert",
+          "lastName": "Brewer",
+          "picture": "/images/mentors/brewer.jpg",
+          "website": null,
+          "interests": [
+            "teaching"
+          ],
+          "careerGoals": [
+            "teacher"
+          ],
+          "company": "Tableau",
+          "career": "Software Engineer",
+          "location": "Palo Alto, CA",
+          "linkedin": "robertsbrewer",
+          "motivation": "I founded a startup in Hawaii and now work in Silicon Valley. I am happy to share my experiences with new grads."
+        }
+      ]
+    },
+    {
+      "name": "MentorQuestionCollection",
+      "contents": [
+        {
+          "question": "I'm interested in a career in data science. What should I be doing as an undergrad to prepare?",
+          "slug": "question-abi-0",
+          "student": "abi@hawaii.edu",
+          "moderated": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "OpportunityCollection",
+      "contents": [
+        {
+          "name": "Teaching or Tutoring",
+          "slug": "teaching-or-tutoring",
+          "description": "There are opportunities to be a [lab assistant in the ICS Department](http://courses.ics.hawaii.edu/syllabuses/ICS390.html), or serve as a tutor in the [Nat Sci Learning emporium](http://natsci.manoa.hawaii.edu/learningemporium.php).  If you want to gain experience teaching or tutoring, this opportunity is for you! \n\n[Learn more here.](http://cacm.acm.org/blogs/blog-cacm/189498-top-10-myths-about-teaching-computer-science/fulltext)\n\n#### Verification criteria\nAt the conclusion of the internship, request that this Opportunity's sponsor login to RadGrad to verify your participation. You should be able to supply evidence of participation, and contact details for your supervisor at the organization.",
+          "opportunityType": "project",
+          "sponsor": "johnson@hawaii.edu",
+          "ice": {
+            "i": 0,
+            "c": 0,
+            "e": 20
+          },
+          "interests": [
+            "teaching"
+          ],
+          "semesters": [
+            "Fall-2015"
+          ],
+          "retired": false
+        }
+      ]
+    },
+    {
+      "name": "OpportunityInstanceCollection",
+      "contents": [
+        {
+          "semester": "Fall-2015",
+          "opportunity": "teaching-or-tutoring",
+          "verified": true,
+          "student": "abi@hawaii.edu",
+          "sponsor": "glau@hawaii.edu"
+        }
+      ]
+    },
+    {
+      "name": "OpportunityTypeCollection",
+      "contents": [
+        {
+          "name": "Project",
+          "slug": "project",
+          "description": "A project related to computer science."
+        }
+      ]
+    },
+    {
+      "name": "PlanChoiceCollection",
+      "contents": [
+        {
+          "choice": "ics_101"
+        }
+      ]
+    },
+    {
+      "name": "ReviewCollection",
+      "contents": [
+        {
+          "slug": "review-course-ics101-aaronvil",
+          "student": "abi@hawaii.edu",
+          "reviewType": "course",
+          "reviewee": "ics_101",
+          "semester": "Fall-2015",
+          "rating": 4,
+          "comments": "The course was very fun in learning how to do the projects we did in ICS 111. The projects weren't hard for beginner programmers and were interesting to get them to have more fun with programming. The only downside was that the class didn't fully prepare you for ICS 211 where the fun little projects became assignments focused on the next stage of programming. There isn't much new students can do in terms of preparing for ICS 211 from ICS 111 since it is based on what you learn, but the things that you do learn may prove useful.",
+          "moderated": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "SemesterCollection",
+      "contents": [
+        {
+          "term": "Fall",
+          "year": 2015
+        }
+      ]
+    },
+    {
+      "name": "StudentProfileCollection",
+      "contents": [
+        {
+          "username": "abi@hawaii.edu",
+          "firstName": "Abigail",
+          "lastName": "Kealoha",
+          "website": "http://abi.github.io",
+          "interests": [
+            "teaching"
+          ],
+          "careerGoals": [
+            "teacher"
+          ],
+          "level": 5,
+          "academicPlan": "ba-ics-2015",
+          "declaredSemester": "Fall-2015",
+          "hiddenCourses": [],
+          "hiddenOpportunities": [],
+          "isAlumni": false
+        }
+      ]
+    },
+    {
+      "name": "TeaserCollection",
+      "contents": [
+        {
+          "title": "ACManoa Webmaster",
+          "slug": "acmanoa-webmaster-teaser",
+          "author": "Torlief Nielson",
+          "url": "OI4CXULK3tw",
+          "description": "Opportunity to learn about web development while developing the ACManoa website.",
+          "duration": "1:25",
+          "interests": [
+            "teaching"
+          ],
+          "opportunity": "teaching-or-tutoring"
+        }
+      ]
+    },
+    {
+      "name": "UserInteractionCollection",
+      "contents": [
+        {
+          "username": "abi@hawaii.edu",
+          "type": "login",
+          "typeData": [
+            "login"
+          ],
+          "timestamp": "2018-11-19T23:13:58.414Z"
+        }
+      ]
+    },
+    {
+      "name": "VerificationRequestCollection",
+      "contents": [
+        {
+          "student": "abi@hawaii.edu",
+          "semester": "Fall-2015",
+          "opportunity": "teaching-or-tutoring",
+          "submittedOn": "2014-11-18T00:35:00.432Z",
+          "status": "Accepted",
+          "processed": [
+            {
+              "date": "2014-11-19T00:35:00.432Z",
+              "status": "Accepted",
+              "verifier": "glau@hawaii.edu"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

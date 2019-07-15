@@ -16,14 +16,15 @@ interface IStudentPageMenuWidgetProps {
 
 class StudentPageMenuWidget extends React.Component<IStudentPageMenuWidgetProps> {
   public render() {
+    const divStyle = { marginBottom: 30 };
     const menuItems = [
       { label: 'Home', route: 'home' },
-      { label: 'Degree Planner', route: 'degree-planner' },
       { label: 'Explorer', route: 'explorer' },
+      { label: 'Degree Planner', route: 'degree-planner' },
       { label: 'Mentor Space', route: 'mentor-space' },
     ];
     return (
-      <div>
+      <div style={divStyle}>
         <FirstMenuContainer/>
         <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
       </div>

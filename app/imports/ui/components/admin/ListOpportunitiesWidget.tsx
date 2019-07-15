@@ -6,16 +6,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
+import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AdminDataModelAccordion from './AdminDataModelAccordion';
 
 interface IListOpportunitiesWidgetProps {
@@ -54,25 +51,13 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
     return Opportunities.find({ sponsorID: { $ne: this.getUserIdFromRoute() } }).count();
   }
 
-  private descriptionPairs(opportunity) {
-    return [
-      { label: 'Description', value: opportunity.description },
-      { label: 'Opportunity Type', value: OpportunityTypes.findDoc(opportunity.opportunityTypeID).name },
-      { label: 'Sponsor', value: Users.getProfile(opportunity.sponsorID).username },
-      { label: 'Interests', value: _.sortBy(Interests.findNames(opportunity.interestIDs)) },
-      { label: 'Terms', value: _.map(opportunity.termIDs, id => AcademicTerms.toString(id)) },
-      { label: 'ICE', value: `${opportunity.ice.i}, ${opportunity.ice.c}, ${opportunity.ice.e}` },
-      { label: 'Retired', value: opportunity.retired ? 'true' : 'false' },
-    ];
-  }
-
   private isInRole() {
     const userID = this.getUserIdFromRoute();
     return Roles.userIsInRole(userID, [ROLE.FACULTY]);
   }
 
   facultyOpportunities() {
-    console.log('stuff ', Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch());
+    // console.log('stuff ', Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch());
     return Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch();
   }
 

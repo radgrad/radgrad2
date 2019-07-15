@@ -15,9 +15,13 @@ interface IMentorMentorSpaceAnswerFormState {
 interface IMentorMentorSpaceAnswerFormProps {
   question: IMentorQuestion;
   match: {
+    isExact: boolean;
+    path: string;
+    url: string;
     params: {
       username: string;
-    };
+      opportunity: string;
+    }
   };
 }
 

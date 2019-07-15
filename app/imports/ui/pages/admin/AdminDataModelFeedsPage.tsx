@@ -21,6 +21,7 @@ import {
   opportunityNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Feeds; // the collection to use.
 
@@ -247,6 +248,8 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
           </Grid.Column>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Feed?"/>
+
+        <BackToTopButton/>
       </div>
     );
   }
