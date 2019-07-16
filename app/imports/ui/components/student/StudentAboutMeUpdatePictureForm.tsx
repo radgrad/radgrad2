@@ -3,10 +3,8 @@ import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import { Users } from '../../../api/user/UserCollection';
 
 interface IStudentAboutMeUpdatePictureFormProps {
-  username: string;
   picture: string;
   docID: string;
   collectionName: string;
@@ -22,19 +20,14 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
     this.state = { picture: this.props.picture };
   }
 
-  // private prePopulateForm = (picture) => {
-  //   this.setState({ picture: picture });
-  // }
-
   private handleFormChange = (e, { value }) => this.setState({ picture: value });
 
-  private handleUpdatePicture = async (e): Promise<void> => {
+  private handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
-    const { username, collectionName } = this.props;
+    const { collectionName, docID } = this.props;
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      const profile = Users.getProfile(username);
-      const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+      const updateData: { id: string; picture: string; } = { id: docID, picture: cloudinaryResult.info.url };
       updateMethod.call({ collectionName, updateData }, (error) => {
         if (error) {
           Swal.fire({
@@ -57,11 +50,6 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
     }
   }
 
-  // componentDidUpdate(prevProps: Readonly<IStudentAboutMeUpdatePictureFormProps>): void {
-  //   const prop = this.props.picture;
-  //   if (prop !== prevProps.picture) this.prePopulateForm(this.props.picture);
-  // }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { picture } = this.state;
     const imageStyle = {
@@ -75,7 +63,7 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
         <Grid.Column width={2}><b>Picture</b></Grid.Column>
         <Grid.Column width={6}>
           <Image src={picture} style={imageStyle} floated="left"/>
-          <Button basic={true} color="green" floated="right" onClick={this.handleUpdatePicture}>Upload</Button>
+          <Button basic={true} color="green" onClick={this.handleUploadPicture}>Upload</Button>
         </Grid.Column>
       </React.Fragment>
     );

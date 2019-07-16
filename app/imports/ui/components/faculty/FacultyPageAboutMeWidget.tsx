@@ -6,13 +6,16 @@
 import * as React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
+import { Grid, Header, Label, Icon, Form, Segment, Image, Button } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
+import { withTracker } from 'meteor/react-meteor-data';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-
-/* global alert */
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { IFacultyProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 /**
  * The Faculty
@@ -23,21 +26,26 @@ interface IFacultyPageAboutMeWidgetProps {
       username: string;
       url: string;
     },
-    state: {
-      id: 'not changed';
-      website: string;
-      picture: string;
-    }
   }
+  profile: IFacultyProfile;
+}
+
+interface IFacultyPageAboutMeWidgetState {
+  website: string;
+  picture: string;
 }
 
 /**
  * The Faculty About Me Widget should show basic information of the specified user.
  */
-class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps, { id: string; website: string; picture: string; }> {
+class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps, IFacultyPageAboutMeWidgetState> {
   // call the props constructor
   constructor(props: any) {
     super(props);
+    this.state = {
+      website: this.props.profile.website,
+      picture: this.props.profile.picture,
+    };
   }
 
   /**
@@ -47,51 +55,41 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * @param value User input
    */
   private handleChange = (event, { name, value }) => {
-    console.log('handle change', event, { name, value });
-    const change = {};
-    change[name] = value;
-    this.setState(change);
+    const newState = {
+      ...this.state,
+      [name]: value,
+    };
+    this.setState(newState);
   };
 
   /**
    * Updates the website of specified user to match the current state.
    * @param event Details of the event
    */
-  private handleSubmitWebsite = (event) => {
+  private handleSubmitWebsite = (event): void => {
+    event.preventDefault();
     const username = this.props.match.params.username;
-    // gets the doc object containing information on desired profile based on username
-    const facultyDoc = FacultyProfiles.findDoc(username);
-    console.log('handle Submit Website');
-    this.setState({ id: 'changed' });
-    console.log(this.state);
-    console.log(FacultyProfiles.findDoc(this.props.match.params.username).website);
-    // updates faculty profile's website entry
-    FacultyProfiles.update(facultyDoc._id, this.state);
-    console.log(Users.getProfile(facultyDoc.userID));
-    // need to alert userif their update was sucessful
-    // also need to update the placeholder text
-    console.log(event);
-    // create an update data object examples:
-  };
-
-  /**
-   * Updates the photo of specified user to match current state.
-   * @param event Details of the event
-   */
-  private handleSubmitPhoto = (event) => {
-    const username = this.props.match.params.username;
-    // gets the doc object containing information on desired profile based on username
-    const facultyDoc = FacultyProfiles.findDoc(username);
-    console.log('handle Submit Photo');
-    this.setState({ id: 'changed' });
-    console.log(this.state);
-    console.log(FacultyProfiles.findDoc(this.props.match.params.username).picture);
-    // updates faculty profile's website entry
-    FacultyProfiles.update(facultyDoc._id, this.state);
-    console.log(Users.getProfile(facultyDoc.userID));
-    // need to alert userif their update was sucessful
-    // also need to update the placeholder text
-    alert(event); // eslint-disable-line no-alert
+    const profile = Users.getProfile(username);
+    const collectionName = FacultyProfiles.getCollectionName();
+    const updateData: { id: string; website: string } = { id: profile._id, website: this.state.website };
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update Failed',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Update Succeeded',
+          type: 'success',
+          text: 'Your website link has been successfully updated.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      }
+    });
   };
 
   /**
@@ -140,10 +138,45 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     return (exploreRoute);
   };
 
+  private handleUploadPicture = async (e): Promise<void> => {
+    e.preventDefault();
+    const collectionName = FacultyProfiles.getCollectionName();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      const profile = Users.getProfile(this.props.match.params.username);
+      const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+      updateMethod.call({ collectionName, updateData }, (error) => {
+        if (error) {
+          Swal.fire({
+            title: 'Update Failed',
+            text: error.message,
+            type: 'error',
+          });
+        } else {
+          this.setState({ picture: cloudinaryResult.info.url });
+          Swal.fire({
+            title: 'Update Succeeded',
+            type: 'success',
+            text: 'Your picture has been successfully updated.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          });
+        }
+      });
+    }
+  }
+
   /**
    * Renders all components
    */
   public render() {
+    const imageStyle = {
+      maxHeight: 90,
+      maxWidth: 150,
+      paddingRight: 30,
+    };
+
     const username = this.props.match.params.username;
     // gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
@@ -153,8 +186,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const facultyUserProfile = Users.getProfile(facultyUserID);
     // gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
-    // gets the faculty website address
-    const facultyWebsite = facultyUserProfile.website;
     // get the career goal IDs based on the userID
     const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
     // map the career goal IDs to their names
@@ -173,6 +204,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     const careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
     let careerRoute = careerPath.join('/');
     careerRoute = `/${careerRoute}`;
+
+    const { picture, website } = this.state;
 
     return (
       <Segment>
@@ -207,7 +240,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                     {_.map(facultyInterests, (interests, index) => (
                       <Label size='small' key={index} as={NavLink} exact={true}
                              to={this.generateInterestRoute(interests)}><Icon
-                        name='star'>{interests}</Icon></Label>
+                        name='star'/>{interests}</Label>
                     ))}
                   </Label.Group>
                 </Grid.Row>
@@ -224,7 +257,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
                     {_.map(facultyCareerGoals, (careerGoals, index) => (
                       <Label size='small' key={index} as={NavLink} exact={true}
                              to={this.generateCareerGoalsRoute(careerGoals)}><Icon
-                        name='suitcase'>{careerGoals}</Icon></Label>
+                        name='suitcase'/>{careerGoals}</Label>
                     ))}
                   </Label.Group>
                 </Grid.Row>
@@ -237,13 +270,12 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Website</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form onSubmit={this.handleSubmitWebsite} success>
+              <Form onSubmit={this.handleSubmitWebsite}>
                 <Form.Group>
-                  <Form.Input width={10}
-                              name='website'
+                  <Form.Input name='website'
                               onChange={this.handleChange}
-                              placeholder={facultyWebsite}/>
-                  <Form.Button content='Update'/>
+                              value={website}/>
+                  <Form.Button basic={true} color="green">Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
@@ -251,28 +283,19 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Picture</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Form onSubmit={this.handleSubmitPhoto} success>
-                <Form.Group>
-                  <Form.Input
-                    onChange={this.handleChange} width={10}
-                    name='picture'
-                    placeholder={facultyUserProfile.picture}/>
-                  <Form.Button content='Update'/>
-                </Form.Group>
-              </Form>
-              <input type='file' onChange={this.fileSelectedHandler}/>
+              <Image src={picture} style={imageStyle} floated="left"/>
+              <Button basic={true} color="green" onClick={this.handleUploadPicture}>Upload</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Segment>
     );
-
   }
-
-
 }
 
-export default withRouter(FacultyPageAboutMeWidget);
+export default withRouter(withTracker((props) => ({
+  profile: Users.getProfile(props.match.params.username),
+}))(FacultyPageAboutMeWidget));
 
 /**
  * Addtional Notes:
