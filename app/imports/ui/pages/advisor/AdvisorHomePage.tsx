@@ -41,24 +41,26 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+        <div className="pusher">
+          <Grid stackable={true}>
+            <Grid.Row>
+              <Grid.Column width={1}/>
+              <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+              <Grid.Column width={1}/>
+            </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}>
-              <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
-                                            interests={this.props.interests}
-                                            advisorUsername={this.props.match.params.username}/>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-          {this.renderSelectedStudentWidgets()}
-        </Grid>
+            <Grid.Row>
+              <Grid.Column width={1}/>
+              <Grid.Column width={14}>
+                <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
+                                              interests={this.props.interests}
+                                              advisorUsername={this.props.match.params.username}/>
+              </Grid.Column>
+              <Grid.Column width={1}/>
+            </Grid.Row>
+            {this.renderSelectedStudentWidgets()}
+          </Grid>
+        </div>
       </div>
     );
   }
