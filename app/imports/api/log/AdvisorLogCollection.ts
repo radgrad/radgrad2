@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { moment } from 'meteor/momentjs:moment';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';

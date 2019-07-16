@@ -2,6 +2,7 @@ import { check } from 'meteor/check';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { Slugs } from '../slug/SlugCollection';
 import BaseCollection from './BaseCollection';
 

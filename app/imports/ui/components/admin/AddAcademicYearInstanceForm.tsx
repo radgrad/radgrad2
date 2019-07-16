@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor'; // eslint-disable-line
 import { Header, Segment } from 'semantic-ui-react';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import AutoForm from 'uniforms-semantic/AutoForm';
 import NumField from 'uniforms-semantic/NumField';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';

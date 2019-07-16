@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { moment } from 'meteor/momentjs:moment';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';

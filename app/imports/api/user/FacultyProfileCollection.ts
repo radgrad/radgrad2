@@ -1,6 +1,7 @@
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
