@@ -5,12 +5,12 @@ const PageLoader = () => (
   <ContentLoader
     height={460}
     width={790}
-    speed={0}
+    speed={2}
     primaryColor="#f3f3f3"
-    secondaryColor="#737375"
+    secondaryColor="#b6b6ba"
   >
     <rect x="600" y="20" rx="0" ry="0" width="1" height="30" />
-    <rect x="612" y="24" rx="0" ry="0" width="31" height="22" />
+    <rect x="612" y="20" rx="0" ry="0" width="29" height="28" />
     <rect x="152" y="84" rx="0" ry="0" width="0" height="0" />
     <circle cx="572" cy="34" r="15" />
     <rect x="-19" y="60" rx="0" ry="0" width="807" height="22" />
