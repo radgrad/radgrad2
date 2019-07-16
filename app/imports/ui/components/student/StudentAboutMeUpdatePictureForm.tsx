@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Form, Grid } from 'semantic-ui-react';
+import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { Users } from '../../../api/user/UserCollection';
 
 interface IStudentAboutMeUpdatePictureFormProps {
   username: string;
@@ -10,8 +12,15 @@ interface IStudentAboutMeUpdatePictureFormProps {
   collectionName: string;
 }
 
-class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpdatePictureFormProps> {
-  state = { picture: this.props.picture };
+interface IStudentAboutMeUpdatePictureFormState {
+  picture: string;
+}
+
+class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpdatePictureFormProps, IStudentAboutMeUpdatePictureFormState> {
+  constructor(props) {
+    super(props);
+    this.state = { picture: this.props.picture };
+  }
 
   // private prePopulateForm = (picture) => {
   //   this.setState({ picture: picture });
@@ -19,29 +28,33 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
 
   private handleFormChange = (e, { value }) => this.setState({ picture: value });
 
-  private handleUpdatePicture = (e): void => {
+  private handleUpdatePicture = async (e): Promise<void> => {
     e.preventDefault();
-    const collectionName = this.props.collectionName;
-    const updateData = { id: this.props.docID, picture: this.state.picture };
-
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          type: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Update Succeeded',
-          type: 'success',
-          text: 'Your picture has been successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      }
-    });
+    const { username, collectionName } = this.props;
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      const profile = Users.getProfile(username);
+      const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+      updateMethod.call({ collectionName, updateData }, (error) => {
+        if (error) {
+          Swal.fire({
+            title: 'Update Failed',
+            text: error.message,
+            type: 'error',
+          });
+        } else {
+          this.setState({ picture: cloudinaryResult.info.url });
+          Swal.fire({
+            title: 'Update Succeeded',
+            type: 'success',
+            text: 'Your picture has been successfully updated.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          });
+        }
+      });
+    }
   }
 
   // componentDidUpdate(prevProps: Readonly<IStudentAboutMeUpdatePictureFormProps>): void {
@@ -50,20 +63,19 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
   // }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // TODO: Cloudinary functionality
     const { picture } = this.state;
+    const imageStyle = {
+      maxHeight: 90,
+      maxWidth: 150,
+      paddingRight: 30,
+    };
+
     return (
       <React.Fragment>
-        <Grid.Column width={2}><b>Picture</b>(<a id="image-upload-widget">Upload</a>)</Grid.Column>
+        <Grid.Column width={2}><b>Picture</b></Grid.Column>
         <Grid.Column width={6}>
-          <Form onSubmit={this.handleUpdatePicture}>
-            <Form.Group>
-              <Form.Input onChange={this.handleFormChange}
-                          value={picture}
-                          disabled={true}/>
-              <Form.Button basic={true} color="green">Update</Form.Button>
-            </Form.Group>
-          </Form>
+          <Image src={picture} style={imageStyle} floated="left"/>
+          <Button basic={true} color="green" floated="right" onClick={this.handleUpdatePicture}>Upload</Button>
         </Grid.Column>
       </React.Fragment>
     );

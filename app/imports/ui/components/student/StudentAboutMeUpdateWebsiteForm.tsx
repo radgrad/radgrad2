@@ -10,11 +10,18 @@ interface IStudentAboutMeUpdateWebsiteFormProps {
   collectionName: string;
 }
 
-class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpdateWebsiteFormProps> {
-  state = { website: this.props.website };
+interface IStudentAboutMeUpdateWebsiteFormState {
+  website: string;
+}
 
-  private prePopulateForm = (picture) => {
-    this.setState({ picture: picture });
+class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpdateWebsiteFormProps, IStudentAboutMeUpdateWebsiteFormState> {
+  constructor(props) {
+    super(props);
+    this.state = { website: this.props.website };
+  }
+
+  private prePopulateForm = (website) => {
+    this.setState({ website: website });
   }
 
   private handleFormChange = (e, { value }) => this.setState({ website: value });

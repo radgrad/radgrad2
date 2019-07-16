@@ -69,7 +69,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
   }
 
   private handleUploadClick = () => {
-    openCloudinaryWidget('picture');
+    openCloudinaryWidget();
   }
 
   private prePopulateForm = (doc) => {
