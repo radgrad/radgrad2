@@ -173,7 +173,10 @@ const initialState = {
   adminAnalyticsOverheadAnalysisPage: {
     adminAnalyticsDateSelectionWidget: {
       startDate: '',
-      endDate: ''
+      endDate: '',
+      submittedStartDate: '',
+      submittedEndDate: '',
+      renderOverheadAnalysis:false,
     }
   },
   page: {

@@ -2,41 +2,40 @@ import * as React from 'react';
 import { Form, Segment, Button, Header } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { connect } from 'react-redux';
+import { withTracker } from "meteor/react-meteor-data";
+import { setDateSelectionWidgetStartDate } from "../../../redux/actions/adminAnalyticsDateSelectionActions";
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
-
-}
-
-interface IAdminAnalyticsDateSelectionWidgetState {
   startDate: any,
   endDate: any,
-  submittedStartDate: any,
-  submittedEndDate: any,
-  renderOverheadAnalysis: boolean,
+  dispatch: any,
 }
 
-class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps, IAdminAnalyticsDateSelectionWidgetState> {
+const mapStatetoProps = (state) => ({
+  startDate: state.adminAnalyticsOverheadAnalysisPage.adminAnalyticsDateSelectionWidget.startDate,
+  endDate: state.adminAnalyticsOverheadAnalysisPage.adminAnalyticsDateSelectionWidget.endDate
+});
+
+
+class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps> {
   constructor(props) {
     super(props);
-    this.state = {
-      startDate: '',
-      endDate: '',
-      submittedStartDate: '',
-      submittedEndDate: '',
-      renderOverheadAnalysis: false,
-    }
+    console.log('props from AdminAnalyicsDateSelectionWidget: ', props)
   }
 
-  private handleChangeStart = (date) => {
-    this.setState({ startDate: date })
+  private handleChangeStart = (e: any): any => {
+    //e.preventDefault();
+    console.log('handle change start', e, typeof e);
+    this.props.dispatch(setDateSelectionWidgetStartDate(e));
+    console.log(this.props);
   }
   private handleChangeEnd = (date) => {
-    this.setState({ endDate: date })
+    this.setState({ endDate: date }, () => {
+      console.log('after handle change end', this.state)
+    })
   }
-  private handleOnClick = () => {
-    this.setState({ submittedStartDate: this.state.startDate, submittedEndDate: this.state.endDate, renderOverheadAnalysis: true}, () =>
-      console.log('handle on click state',this.state))
-  }
+
 
   public render() {
     return (
@@ -46,13 +45,13 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
           <Form>
             <Form.Group>
               <Form.Input label='Start Date' required>
-                <DatePicker onChange={this.handleChangeStart} selected={this.state.startDate}/>
+                <DatePicker onChange={this.handleChangeStart} selected={this.props.startDate}/>
               </Form.Input>
               <Form.Input label='End Date' required>
-                <DatePicker onChange={this.handleChangeEnd} selected={this.state.endDate}/>
+                <DatePicker onChange={this.handleChangeEnd} selected={this.props.endDate}/>
               </Form.Input>
             </Form.Group>
-            <Button onClick={this.handleOnClick} basic color='green'>Submit</Button>
+            <Button basic color='green'>Submit</Button>
           </Form>
         </Segment>
       </div>
@@ -60,6 +59,9 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
   }
 }
 
-export default AdminAnalyticsDateSelectionWidget;
+const AdminAnalyticsDateSelectionWidgetCon = connect(mapStatetoProps)(AdminAnalyticsDateSelectionWidget);
+
+export default (AdminAnalyticsDateSelectionWidgetCon);
+
 
 // tomorrow, implement redux. want to track the state of the date selection widget in the overhead analysis widget
