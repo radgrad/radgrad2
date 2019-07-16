@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';

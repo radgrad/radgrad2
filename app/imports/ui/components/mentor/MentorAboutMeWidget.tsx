@@ -2,6 +2,7 @@ import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
 import Swal from 'sweetalert2';
 import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';

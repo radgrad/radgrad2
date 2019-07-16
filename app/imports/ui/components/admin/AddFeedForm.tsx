@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import AutoForm from 'uniforms-semantic/AutoForm';
 import DateField from 'uniforms-semantic/DateField';
 import NumberField from 'uniforms-semantic/NumField';

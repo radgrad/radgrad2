@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import * as _ from 'lodash';
