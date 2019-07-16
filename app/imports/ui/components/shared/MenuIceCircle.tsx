@@ -8,12 +8,13 @@ interface IMenuIceCircleProps {
 
 export default class MenuIceCircle extends React.Component<IMenuIceCircleProps, {}> {
   public render() {
+    const marginRight = { marginRight: 5 };
     const p = (this.props.planned < 100) ? this.props.planned : 100;
     const e = (this.props.earned < 100) ? this.props.earned : 100;
     const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${this.props.type}`;
     const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${this.props.type}`;
     return (
-      <div className="radgrad-ice menu">
+      <div className="radgrad-ice menu" style={marginRight}>
         <a className={classNamesPlanned} href="{{pathFor iceRouteName username=routeUserName}}">
           <div className="radgrad-ice-stat">
             <span>{e}</span>

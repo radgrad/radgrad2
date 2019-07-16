@@ -107,9 +107,9 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
 
   private hasNewLevel = () => {
     const student = this.props.usernameDoc;
-    console.log('calcLevel', RadGrad.calcLevel);
-    console.log('radgrad.calcLevel, student.level, defaultCalcLevel()',
-      RadGrad.calcLevel, student.level, defaultCalcLevel(student.userID));
+    // console.log('calcLevel', RadGrad.calcLevel);
+    // console.log('radgrad.calcLevel, student.level, defaultCalcLevel()',
+    //   RadGrad.calcLevel, student.level, defaultCalcLevel(student.userID));
     return RadGrad.calcLevel ? student.level !== RadGrad.calcLevel(student.userID) : student.level !== defaultCalcLevel(student.userID);
   }
 
