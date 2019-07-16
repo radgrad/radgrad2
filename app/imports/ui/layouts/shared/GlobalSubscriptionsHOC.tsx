@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
+import { Responsive } from 'semantic-ui-react';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -24,11 +24,14 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import PageLoader from '../../components/shared/PageLoader';
+import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+
 
 interface ILoading {
   loading: boolean;
@@ -46,7 +49,17 @@ function withGlobalSubscription(WrappedComponent) {
 
     /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
     public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting global data</Loader> :
+      return (this.props.loading) ?
+        <React.Fragment>
+          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+            <PageLoader/>
+          </Responsive>
+
+          <Responsive {...Responsive.onlyMobile}>
+            <PageLoaderMobile/>
+          </Responsive>
+        </React.Fragment>
+        :
         <WrappedComponent {...this.props}/>;
     }
   }

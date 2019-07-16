@@ -99,10 +99,11 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
     return (
       <div>
         <AutoForm schema={ChooseSchema} onSubmit={this.submit} model={plan}>
-          <Form.Group widths="equal" style={noBottomMargin}>
-            <SelectField allowedValues={planYears} name="year" onChange={this.handleChangeYear}/>
-            <SelectField allowedValues={names} name="name" onChange={this.handleChangeName}/>
+          <Form.Group style={noBottomMargin}>
+            <SelectField allowedValues={planYears} name="year" onChange={this.handleChangeYear} width={4}/>
+            <SelectField allowedValues={names} name="name" onChange={this.handleChangeName} width={12}/>
           </Form.Group>
+          <br/>
           <SubmitField value="Choose this Plan"/>
         </AutoForm>
         <hr/><p/>
