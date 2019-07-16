@@ -11,7 +11,7 @@
       "popupHeight": 610
     },
     "fixUserInteractions": false,
-    "databaseRestoreFileName": "database/quarter/2018-12-27-09-06-31.json",
+    "databaseRestoreFileName": "database/snapshot/2018-12-10-11-05-04.json",
     "appLogging": { "enable": true, "filter": ["*"], "client": true, "server": true },
     "admin": { "username": "radgrad@hawaii.edu", "development": true },
     "cloudinary": {"cloud_name": "radgrad", "upload_preset": "CHANGEME"},
