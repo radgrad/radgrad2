@@ -9394,6 +9394,25 @@
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
+        },
+        {
+          "username": "mercedez@hawaii.edu",
+          "firstName": "Mercedez",
+          "lastName": "Castro",
+          "picture": "/images/default-profile-picture.png",
+          "website": "http://mercedezcastro.github.io",
+          "interests": [
+            "algorithms"
+          ],
+          "careerGoals": [
+            "full-stack-developer"
+          ],
+          "level": 6,
+          "academicPlan": "bs-cs-2016",
+          "declaredAcademicTerm": "Spring-2016",
+          "hiddenCourses": [],
+          "hiddenOpportunities": [],
+          "isAlumni": false
         }
       ]
     },
