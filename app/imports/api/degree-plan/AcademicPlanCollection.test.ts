@@ -63,7 +63,7 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #findIdBySlug, #removeIt, #dumpOne, #restoreOne #checkIntegrity', function test() {
+    it('#define, #isDefined, #findIdBySlug, #update, #removeIt, #dumpOne, #restoreOne #checkIntegrity', function test() {
       AcademicTerms.define({ term: 'Spring', year: 2017 });
       DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
       const docID = AcademicPlans.define({
