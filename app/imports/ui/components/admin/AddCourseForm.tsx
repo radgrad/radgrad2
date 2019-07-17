@@ -7,7 +7,6 @@ import NumField from 'uniforms-semantic/NumField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';

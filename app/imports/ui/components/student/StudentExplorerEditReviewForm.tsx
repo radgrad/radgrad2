@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';
 import { withRouter } from 'react-router-dom';

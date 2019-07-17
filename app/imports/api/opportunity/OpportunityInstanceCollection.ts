@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Opportunities } from './OpportunityCollection';
 import { ROLE } from '../role/Role';

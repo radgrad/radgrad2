@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 
@@ -22,7 +21,7 @@ class AdminDataModelAddForm extends React.Component<IAdminDataModelAddFormProps>
         <AutoForm
         ref={this.props.formRef}
         onSubmit={this.props.handleAdd}
-        schema={new SimpleSchema2Bridge(this.props.collection.getDefineSchema())}/>
+        schema={this.props.collection.getDefineSchema()}/>
       </Segment>
     );
   }

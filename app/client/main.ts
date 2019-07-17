@@ -1,3 +1,5 @@
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
 import '../imports/api/academic-term';
 import '../imports/api/analytic';
 import '../imports/api/base';
@@ -29,3 +31,6 @@ import '../imports/startup/both';
 import '../imports/startup/client';
 
 import './style.css';
+
+const schema = new SimpleSchema();
+const bridge = new SimpleSchema2Bridge(schema);

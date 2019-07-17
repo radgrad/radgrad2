@@ -1,5 +1,4 @@
 import SimpleSchema from 'simpl-schema';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2'; // eslint-disable-line no-unused-vars
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
 import { IIceSnapshotDefine } from '../../typings/radgrad'; // eslint-disable-line
