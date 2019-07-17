@@ -34,9 +34,9 @@ interface IAdvisorStudentSelectorWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  firstName: state.page.advisor.home.firstName,
-  lastName: state.page.advisor.home.lastName,
-  username: state.page.advisor.home.username,
+  firstName: state.advisor.home.firstName,
+  lastName: state.advisor.home.lastName,
+  username: state.advisor.home.username,
 });
 
 class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelectorWidgetProps> {

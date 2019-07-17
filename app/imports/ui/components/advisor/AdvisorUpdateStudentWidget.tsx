@@ -47,8 +47,8 @@ interface IAdvisorUpdateStudentWidgetState {
 }
 
 const mapStateToProps = (state) => ({
-  selectedUsername: state.page.advisor.home.selectedUsername,
-  isLoaded: state.page.advisor.home.isLoaded,
+  selectedUsername: state.advisor.home.selectedUsername,
+  isLoaded: state.advisor.home.isLoaded,
 });
 
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
