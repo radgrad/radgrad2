@@ -1198,7 +1198,7 @@
           ]
         },
         {
-          "slug": "bs-ms-cs",
+          "slug": "bs-ms-cs-2018",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science (2018)",
           "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
@@ -1249,7 +1249,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-cs",
+          "slug": "bs-ms-cs-2019",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science (2019)",
           "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
@@ -1300,7 +1300,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-cs",
+          "slug": "bs-ms-cs-2020",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science (2020)",
           "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
@@ -1351,7 +1351,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-cs",
+          "slug": "bs-ms-cs-2021",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science (2021)",
           "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
@@ -1402,7 +1402,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-cs",
+          "slug": "bs-ms-cs-2022",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science (2022)",
           "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
@@ -1453,7 +1453,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ds",
+          "slug": "bs-ms-ds-2018",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Data Science (2018)",
           "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
@@ -1502,7 +1502,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ds",
+          "slug": "bs-ms-ds-2019",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Data Science (2019)",
           "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
@@ -1551,7 +1551,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ds",
+          "slug": "bs-ms-ds-2020",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Data Science (2020)",
           "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
@@ -1600,7 +1600,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ds",
+          "slug": "bs-ms-ds-2021",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Data Science (2021)",
           "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
@@ -1649,7 +1649,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ds",
+          "slug": "bs-ms-ds-2022",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Data Science (2022)",
           "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
@@ -1698,7 +1698,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ss",
+          "slug": "bs-ms-ss-2018",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Security Science (2018)",
           "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
@@ -1749,7 +1749,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ss",
+          "slug": "bs-ms-ss-2019",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Security Science (2019)",
           "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
@@ -1800,7 +1800,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ss",
+          "slug": "bs-ms-ss-2020",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Security Science (2020)",
           "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
@@ -1851,7 +1851,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ss",
+          "slug": "bs-ms-ss-2021",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Security Science (2021)",
           "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
@@ -1902,7 +1902,7 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ss",
+          "slug": "bs-ms-ss-2022",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Security Science (2022)",
           "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
@@ -2100,6 +2100,22 @@
         {
           "term": "Summer",
           "year": 2021
+        },
+        {
+          "term": "Fall",
+          "year": 2021
+        },
+        {
+          "term": "Spring",
+          "year": 2022
+        },
+        {
+          "term": "Summer",
+          "year": 2022
+        },
+        {
+          "term": "Fall",
+          "year": 2022
         }
       ]
     },
@@ -10199,7 +10215,7 @@
             "data-scientist"
           ],
           "level": 2,
-          "academicPlan": "ba-ics-2016",
+          "academicPlan": "ba-ics-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -10289,7 +10305,7 @@
             "full-stack-developer"
           ],
           "level": 1,
-          "academicPlan": "ba-ics-2016",
+          "academicPlan": "ba-ics-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": true
@@ -10344,7 +10360,7 @@
             "data-scientist"
           ],
           "level": 1,
-          "academicPlan": "ba-ics-2016",
+          "academicPlan": "ba-ics-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -10622,7 +10638,7 @@
             "software-developer"
           ],
           "level": 2,
-          "academicPlan": "ba-ics-2016",
+          "academicPlan": "ba-ics-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -11018,14 +11034,6 @@
           "submittedOn": "2017-07-24T23:29:24.657Z",
           "status": "Open",
           "processed": []
-        }
-      ]
-    },
-    {
-      "name": "RadGradSettingsCollection",
-      "contents": [
-        {
-          "quarterSystem": false
         }
       ]
     }
