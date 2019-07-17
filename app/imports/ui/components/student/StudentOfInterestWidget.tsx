@@ -40,8 +40,8 @@ interface IStudentOfInterestWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  hiddenCourses: state.studentHomePage.studentOfInterestWidget.hiddenCourses,
-  hiddenOpportunities: state.studentHomePage.studentOfInterestWidget.hiddenOpportunities,
+  hiddenCourses: state.student.home.hiddenCourses,
+  hiddenOpportunities: state.student.home.hiddenOpportunities,
 });
 
 class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetProps> {
