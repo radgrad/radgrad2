@@ -28,12 +28,10 @@ interface IDePProps {
   };
 }
 
-// FIXME: Figure out a way so we dont have to do "{[key: string]: any}[]". This is mainly have to do with the handleDeleteYear.
-//        Can't call ._id on an AcademicYear type
 interface IDePState {
-  visibleYears: IAcademicYear[] | { [key: string]: any }[];
+  visibleYears: IAcademicYear[];
   visibleStartIndex: number;
-  years: IAcademicYear[] | { [key: string]: any }[];
+  years: IAcademicYear[];
 }
 
 const mapDispatchToProps = (dispatch) => ({

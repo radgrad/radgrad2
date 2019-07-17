@@ -8,6 +8,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 
 export interface IAdvisorAddStudentWidgetProps {
   // These are parameters for reactivity
@@ -104,6 +105,13 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
     });
   }
 
+  private handleUploadClick = async (): Promise<void> => {
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.setState({ picture: cloudinaryResult.info.url });
+    }
+  }
+
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const {
       firstName,
@@ -174,15 +182,17 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
           <Header as={'h4'} dividing={true}>Optional Fields</Header>
           <Form.Group>
             <Form.Field>
-              <Form.Input name={'picture'}
-                          label={'Picture'}
-                          value={picture}
-                          onChange={this.handleFormChange}/>
+              <Form.Input name="picture"
+                          label={<React.Fragment>
+                            Picture (<a onClick={this.handleUploadClick}>Upload</a>)
+                          </React.Fragment>}
+                          onChange={this.handleFormChange}
+                          value={picture || ''}/>
             </Form.Field>
             <Form.Field>
               <Form.Input name={'website'}
                           label={'Website'}
-                          value={website}
+                          value={website || ''}
                           onChange={this.handleFormChange}/>
             </Form.Field>
           </Form.Group>

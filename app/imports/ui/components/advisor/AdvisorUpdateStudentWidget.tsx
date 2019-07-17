@@ -68,8 +68,11 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     };
   }
 
-  private handleUploadClick = () => {
-    openCloudinaryWidget();
+  private handleUploadClick = async (): Promise<void> => {
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.setState({ picture: cloudinaryResult.info.url });
+    }
   }
 
   private prePopulateForm = (doc) => {
@@ -199,14 +202,10 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
           <Header as={'h4'} dividing={true}>Optional fields (all users)</Header>
           <Form.Group widths={'equal'}>
             <Form.Input name="picture"
-                        label={
-                          <div>
-                            Picture (<a onClick={(e) => {
-                            e.preventDefault();
-                            this.handleUploadClick();
-                          }}
-                                        href={''}>Upload</a>)
-                          </div>}
+                        label={<React.Fragment>
+                          Picture (<a onClick={this.handleUploadClick}>Upload</a>)
+                        </React.Fragment>}
+                        onChange={this.handleFormChange}
                         value={picture}/>
             <Form.Input name="website"
                         label={'Website'}
@@ -300,7 +299,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
           </Form.Group>
         </Form>
         <b>{`View ${this.props.usernameDoc.firstName}'s degree plan: `}</b>
-        <Link target={'_blank'} rel={'noopener noreferrer'} to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
+        <Link target={'_blank'} rel={'noopener noreferrer'}
+              to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
           /student/{this.props.usernameDoc.username}/degree-planner
         </Link>
       </Segment>

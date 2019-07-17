@@ -18,7 +18,7 @@ interface cloudinaryObject {
     resource_type: string;
     secure_url: string;
     signature: string;
-    tags: [];
+    tags: string[];
     thumbnail_url: string;
     type: string;
     url: string;

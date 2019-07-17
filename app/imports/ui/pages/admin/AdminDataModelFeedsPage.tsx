@@ -51,8 +51,10 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
     { label: 'Feed Type', value: item.feedType },
     { label: 'Description', value: item.description },
     { label: 'Timestamp', value: item.timestamp.toString() },
-    { label: 'Picture',
-      value: `![${item.picture}](${item.picture})` },
+    {
+      label: 'Picture',
+      value: `![${item.picture}](${item.picture})`,
+    },
     { label: 'Users', value: users.toString() },
     { label: 'Opportunity', value: opportunityName },
     { label: 'Course', value: courseName },
@@ -72,12 +74,12 @@ const itemTitleString = (item: any): string => `${item.feedType} ${item.descript
  * @param item an item from the collection.
  */
 const itemTitle = (item: any): React.ReactNode => (
-    <React.Fragment>
-      {item.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(item)}
-    </React.Fragment>
-  );
+  <React.Fragment>
+    {item.retired ? <Icon name="eye slash"/> : ''}
+    <Icon name="dropdown"/>
+    {itemTitleString(item)}
+  </React.Fragment>
+);
 
 class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -231,8 +233,8 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <UpdateFeedForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+                              handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                              itemTitleString={itemTitleString}/>
             ) : (
               <AddFeedForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
@@ -247,7 +249,8 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Feed?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
+                 header="Delete Feed?"/>
 
         <BackToTopButton/>
       </div>

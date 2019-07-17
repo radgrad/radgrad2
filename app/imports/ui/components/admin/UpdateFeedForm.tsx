@@ -26,8 +26,9 @@ import {
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 
-interface IUpdateFeedFromProps {
+interface IUpdateFeedFormProps {
   academicTerms: IAcademicTerm[];
   courses: ICourse[];
   opportunities: IOpportunity[];
@@ -40,9 +41,27 @@ interface IUpdateFeedFromProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
+interface IUpdateFeedFormState {
+  pictureURL: string;
+}
+
+class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
+  private readonly pictureFormRef;
+
   constructor(props) {
     super(props);
+    this.pictureFormRef = React.createRef();
+    this.state = {
+      pictureURL: this.props.collection.findDoc(this.props.id).picture,
+    };
+  }
+
+  private handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.setState({ pictureURL: cloudinaryResult.info.url });
+    }
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -55,6 +74,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
     const courseNames = _.map(this.props.courses, courseToName);
     const opportunityNames = _.map(this.props.opportunities, docToName);
     const studentNames = _.map(this.props.students, profileToName);
+    const picture = model.picture;
     const schema = new SimpleSchema({
       timestamp: Date,
       feedType: String,
@@ -87,7 +107,12 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
     const newUserSchema = new SimpleSchema({
       users: { type: Array, optional: true },
       'users.$': { type: String, allowedValues: studentNames },
-      picture: { type: String, optional: true },
+      picture: {
+        type: String,
+        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        optional: true,
+        defaultValue: picture,
+      },
     });
     const verifiedOpportunitySchema = new SimpleSchema({
       user: {
@@ -189,7 +214,8 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
                 <MultiSelectField name="users"/>
-                <TextField name="picture" placeholder="No picture URL specified"/>
+                <TextField name="picture" inputRef={this.pictureFormRef}/>
+                {console.log(this.pictureFormRef.current)}
               </Form.Group>
             </div>
           ) : ''}
@@ -216,10 +242,10 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
 }
 
 const UpdateFeedFormContainer = withTracker(() => ({
-    academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-    courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-    opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-    students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  }))(UpdateFeedForm);
+  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
+  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
+  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+}))(UpdateFeedForm);
 
 export default UpdateFeedFormContainer;
