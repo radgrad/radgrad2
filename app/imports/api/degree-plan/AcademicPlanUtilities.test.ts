@@ -77,6 +77,18 @@ if (Meteor.isServer) {
       };
     });
 
+    it('getPlanChoicesRaw', function () {
+      const quarters = RadGradSettings.findOne({}).quarterSystem;
+      const courses = AcademicPlanUtilities.getPlanChoicesRaw(goodPlan.coursesPerAcademicTerm, goodPlan.courseList, 1);
+      if (quarters) {
+        expect(courses.length).to.equal(1);
+        expect(courses[0]).to.equal('ics_141-1');
+      } else {
+        expect(courses.length).to.equal(2);
+        expect(courses[0]).to.equal('ics_211-1');
+      }
+    });
+
     it('isAcademicPlanValid', function () {
       expect(AcademicPlanUtilities.isAcademicPlanValid(goodPlan)).to.be.true;
       expect(AcademicPlanUtilities.isAcademicPlanValid(badPlan)).to.be.false;
