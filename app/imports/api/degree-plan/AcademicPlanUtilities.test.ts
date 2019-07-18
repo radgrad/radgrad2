@@ -77,9 +77,9 @@ if (Meteor.isServer) {
       };
     });
 
-    it('getPlanChoicesRaw', function () {
+    it('getPlanChoices', function () {
       const quarters = RadGradSettings.findOne({}).quarterSystem;
-      const courses = AcademicPlanUtilities.getPlanChoicesRaw(goodPlan.coursesPerAcademicTerm, goodPlan.courseList, 1);
+      const courses = AcademicPlanUtilities.getPlanChoices(goodPlan, 1);
       if (quarters) {
         expect(courses.length).to.equal(1);
         expect(courses[0]).to.equal('ics_141-1');
@@ -93,6 +93,7 @@ if (Meteor.isServer) {
       expect(AcademicPlanUtilities.isAcademicPlanValid(goodPlan)).to.be.true;
       expect(AcademicPlanUtilities.isAcademicPlanValid(badPlan)).to.be.false;
     });
+
     it('addChoiceToPlan', function () {
       // console.log('before %o', badPlan);
       AcademicPlanUtilities.addChoiceToPlan(badPlan, 2, 'ics_314');
@@ -102,6 +103,7 @@ if (Meteor.isServer) {
       expect(AcademicPlanUtilities.isAcademicPlanValid(goodPlan)).to.be.true;
       // console.log('updated good %o', goodPlan);
     });
+
     it('addDuplicateChoice', function () {
       AcademicPlanUtilities.addChoiceToPlan(badPlan, 0, 'ics_314');
       // console.log('after duplicate %o', badPlan);
