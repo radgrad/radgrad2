@@ -33,7 +33,7 @@ interface IListOpportunitiesWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  pagination: state.pagination,
+  pagination: state.admin.dataModel.pagination,
 });
 
 class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetProps, {}> {

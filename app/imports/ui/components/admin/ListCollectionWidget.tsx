@@ -22,7 +22,7 @@ interface IListCollectionWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  pagination: state.pagination,
+  pagination: state.admin.dataModel.pagination,
 });
 
 class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {}> {

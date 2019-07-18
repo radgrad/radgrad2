@@ -1,12 +1,14 @@
 import { createStore, combineReducers } from 'redux';
+import admin from './admin';
 import advisor from './advisor';
-import student from './student';
 import shared from './shared';
+import student from './student';
 
 const rootReducer = combineReducers({
+  admin,
   advisor,
-  student,
   shared,
+  student,
 });
 
 const store = createStore(rootReducer);

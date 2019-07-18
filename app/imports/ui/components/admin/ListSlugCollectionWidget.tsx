@@ -22,7 +22,7 @@ interface IListSlugCollectionWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-    pagination: state.pagination,
+    pagination: state.admin.dataModel.pagination,
   });
 
 class ListSlugCollectionWidget extends React.Component<IListSlugCollectionWidgetProps, {}> {
