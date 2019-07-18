@@ -6578,7 +6578,8 @@
             "Spring-2018",
             "Spring-2019",
             "Spring-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "ACM Manoa",
@@ -6600,12 +6601,15 @@
             "Spring-2014",
             "Summer-2014",
             "Fall-2014",
+            "Winter-2015",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
+            "Winter-2016",
             "Spring-2016",
             "Summer-2016",
             "Fall-2016",
+            "Winter-2017",
             "Spring-2017",
             "Summer-2017",
             "Fall-2017",
@@ -6617,10 +6621,12 @@
             "Fall-2019",
             "Spring-2020",
             "Fall-2020",
+            "Winter-2020",
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "ACM Manoa (Hardware)",
@@ -6640,9 +6646,11 @@
             "Spring-2014",
             "Summer-2014",
             "Fall-2014",
+            "Winter-2015",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
+            "Winter-2016",
             "Spring-2016",
             "Summer-2016",
             "Fall-2016",
@@ -6655,12 +6663,14 @@
             "Spring-2019",
             "Summer-2019",
             "Fall-2019",
+            "Winter-2020",
             "Spring-2020",
             "Fall-2020",
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "ACM Manoa (VR)",
@@ -6695,8 +6705,10 @@
             "Fall-2020",
             "Summer-2020",
             "Spring-2021",
-            "Summer-2021"
-          ]
+            "Summer-2021",
+            "Spring-2022"
+          ],
+          "retired": false
         },
         {
           "name": "ACM Manoa (Web Development)",
@@ -6734,7 +6746,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "AllNet",
@@ -6772,7 +6785,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Aloha.rb",
@@ -6803,7 +6817,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "HI-SEAS",
@@ -6839,7 +6854,8 @@
             "Spring-2020",
             "Fall-2020",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "ASECOLab",
@@ -6867,8 +6883,11 @@
             "Summer-2019",
             "Fall-2019",
             "Spring-2020",
-            "Summer-2020"
-          ]
+            "Summer-2020",
+            "Fall-2021",
+            "Spring-2022"
+          ],
+          "retired": false
         },
         {
           "name": "AT&T Hackathon",
@@ -6894,9 +6913,11 @@
             "Spring-2019",
             "Fall-2019",
             "Spring-2020",
+            "Fall-2020",
             "Spring-2021"
           ],
-          "eventDate": "2016-11-18T00:00:00.000Z"
+          "eventDate": "2016-11-18T00:00:00.000Z",
+          "retired": false
         },
         {
           "name": "Booz Allen Ideas Festival",
@@ -6919,8 +6940,11 @@
             "Spring-2017",
             "Spring-2018",
             "Spring-2019",
-            "Spring-2020"
-          ]
+            "Spring-2020",
+            "Spring-2021",
+            "Spring-2022"
+          ],
+          "retired": false
         },
         {
           "name": "Booz Allen Internship",
@@ -6944,7 +6968,8 @@
             "Summer-2018",
             "Summer-2019",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "CCDC",
@@ -6970,7 +6995,8 @@
             "Spring-2020",
             "Spring-2012",
             "Spring-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Code for Hawaii",
@@ -6999,7 +7025,8 @@
             "Fall-2019",
             "Spring-2020",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "CoE Career Day",
@@ -7028,7 +7055,8 @@
             "Fall-2019",
             "Spring-2020",
             "Fall-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Customer Analytics",
@@ -7055,8 +7083,10 @@
             "Summer-2019",
             "Fall-2019",
             "Spring-2020",
-            "Summer-2020"
-          ]
+            "Summer-2020",
+            "Summer-2022"
+          ],
+          "retired": false
         },
         {
           "name": "Graphic Design",
@@ -7080,7 +7110,8 @@
             "Summer-2017",
             "Summer-2018",
             "Summer-2019"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Introduction to Big Data",
@@ -7102,7 +7133,8 @@
             "Summer-2018",
             "Summer-2019",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "R Programming",
@@ -7126,7 +7158,8 @@
             "Spring-2018",
             "Summer-2018",
             "Fall-2018"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "CS-related job",
@@ -7165,7 +7198,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Cyber Security for Automated Processes",
@@ -7187,8 +7221,10 @@
             "Fall-2017",
             "Spring-2018",
             "Summer-2018",
-            "Fall-2018"
-          ]
+            "Fall-2018",
+            "Summer-2022"
+          ],
+          "retired": false
         },
         {
           "name": "CyberSistahs",
@@ -7211,7 +7247,8 @@
             "Summer-2018",
             "Fall-2018",
             "Spring-2019"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "DAHI Internship",
@@ -7231,8 +7268,10 @@
           ],
           "academicTerms": [
             "Spring-2017",
-            "Summer-2017"
-          ]
+            "Summer-2017",
+            "Summer-2018"
+          ],
+          "retired": false
         },
         {
           "name": "Solar Energy Analytics",
@@ -7276,7 +7315,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Gen Cyber Internship",
@@ -7300,7 +7340,8 @@
             "Summer-2019",
             "Summer-2020",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Internship",
@@ -7340,7 +7381,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Research Project",
@@ -7380,7 +7422,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Workshop or Conference",
@@ -7420,7 +7463,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Global Game Jam",
@@ -7445,7 +7489,8 @@
             "Spring-2019",
             "Spring-2020",
             "Spring-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Google Summer of Code",
@@ -7480,7 +7525,8 @@
             "Summer-2019",
             "Summer-2020",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Greyhats",
@@ -7520,8 +7566,10 @@
             "Fall-2020",
             "Summer-2020",
             "Spring-2021",
-            "Summer-2021"
-          ]
+            "Summer-2021",
+            "Fall-2021"
+          ],
+          "retired": false
         },
         {
           "name": "HACC",
@@ -7542,8 +7590,10 @@
             "Fall-2017",
             "Fall-2018",
             "Fall-2019",
-            "Fall-2020"
-          ]
+            "Fall-2020",
+            "Fall-2021"
+          ],
+          "retired": false
         },
         {
           "name": "Hawaii Hacker Hours",
@@ -7566,13 +7616,10 @@
             "Spring-2018",
             "Summer-2018",
             "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
             "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020"
-          ]
+            "Spring-2021"
+          ],
+          "retired": false
         },
         {
           "name": "Hawaii Open Data",
@@ -7600,11 +7647,9 @@
             "Fall-2018",
             "Spring-2019",
             "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020"
-          ]
+            "Fall-2019"
+          ],
+          "retired": false
         },
         {
           "name": "Hawaii Virtual Reality",
@@ -7627,13 +7672,10 @@
             "Spring-2018",
             "Summer-2018",
             "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
             "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020"
-          ]
+            "Spring-2020"
+          ],
+          "retired": false
         },
         {
           "name": "HI Capacity",
@@ -7667,7 +7709,8 @@
             "Fall-2019",
             "Spring-2020",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "HNL Tech4Good",
@@ -7690,14 +7733,9 @@
             "Fall-2017",
             "Spring-2018",
             "Summer-2018",
-            "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020"
-          ]
+            "Fall-2018"
+          ],
+          "retired": false
         },
         {
           "name": "Hon New Tech",
@@ -7719,14 +7757,9 @@
             "Fall-2017",
             "Spring-2018",
             "Summer-2018",
-            "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020"
-          ]
+            "Fall-2018"
+          ],
+          "retired": false
         },
         {
           "name": "Apple iOS Dev Meetup",
@@ -7755,7 +7788,8 @@
             "Spring-2020",
             "Fall-2020",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "ITMA",
@@ -7783,10 +7817,9 @@
             "Spring-2019",
             "Summer-2019",
             "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020"
-          ]
+            "Spring-2020"
+          ],
+          "retired": false
         },
         {
           "name": "Kaggle",
@@ -7809,16 +7842,6 @@
             "research"
           ],
           "academicTerms": [
-            "Fall-2009",
-            "Spring-2010",
-            "Summer-2010",
-            "Fall-2010",
-            "Spring-2011",
-            "Summer-2011",
-            "Fall-2011",
-            "Spring-2012",
-            "Summer-2012",
-            "Fall-2012",
             "Spring-2013",
             "Summer-2013",
             "Fall-2013",
@@ -7843,9 +7866,20 @@
             "Spring-2020",
             "Fall-2020",
             "Summer-2020",
+            "Fall-2012",
+            "Summer-2012",
+            "Spring-2012",
+            "Fall-2011",
+            "Spring-2011",
+            "Summer-2010",
+            "Fall-2010",
+            "Summer-2011",
+            "Fall-2009",
+            "Spring-2010",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Lava Lab",
@@ -7885,7 +7919,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Open Power Quality",
@@ -7922,7 +7957,8 @@
             "Fall-2019",
             "Spring-2020",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Purple Mai'a",
@@ -7945,7 +7981,8 @@
             "Summer-2018",
             "Summer-2019",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Purple Prize",
@@ -7965,10 +8002,9 @@
           ],
           "academicTerms": [
             "Fall-2017",
-            "Fall-2018",
-            "Fall-2019",
-            "Fall-2020"
-          ]
+            "Fall-2018"
+          ],
+          "retired": false
         },
         {
           "name": "PyHawaii",
@@ -7999,7 +8035,8 @@
             "Fall-2019",
             "Spring-2020",
             "Fall-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "SARP Internship",
@@ -8016,15 +8053,16 @@
             "data-visualization"
           ],
           "academicTerms": [
-            "Summer-2012",
             "Summer-2014",
             "Summer-2015",
             "Summer-2016",
             "Summer-2017",
             "Summer-2018",
             "Summer-2019",
-            "Summer-2020"
-          ]
+            "Summer-2020",
+            "Summer-2012"
+          ],
+          "retired": false
         },
         {
           "name": "Airline Security",
@@ -8061,7 +8099,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Business Plan Competition",
@@ -8085,8 +8124,11 @@
             "Spring-2017",
             "Spring-2018",
             "Spring-2019",
-            "Spring-2020"
-          ]
+            "Spring-2020",
+            "Spring-2021",
+            "Spring-2022"
+          ],
+          "retired": false
         },
         {
           "name": "Teaching or Tutoring",
@@ -8126,7 +8168,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Learn Linux",
@@ -8150,7 +8193,8 @@
             "Summer-2018",
             "Summer-2019",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Learn Unity",
@@ -8175,7 +8219,8 @@
             "Summer-2018",
             "Summer-2019",
             "Summer-2020"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Career Fair",
@@ -8199,7 +8244,8 @@
             "Fall-2019",
             "Fall-2020"
           ],
-          "eventDate": "2016-10-11T00:00:00.000Z"
+          "eventDate": "2016-10-11T00:00:00.000Z",
+          "retired": false
         },
         {
           "name": "UROP Funding",
@@ -8216,8 +8262,6 @@
             "research"
           ],
           "academicTerms": [
-            "Spring-2011",
-            "Spring-2012",
             "Spring-2014",
             "Fall-2014",
             "Spring-2015",
@@ -8231,8 +8275,11 @@
             "Fall-2019",
             "Spring-2020",
             "Fall-2020",
+            "Spring-2012",
+            "Spring-2011",
             "Spring-2021"
-          ]
+          ],
+          "retired": false
         },
         {
           "name": "Virtual Art",
@@ -8258,8 +8305,10 @@
             "Fall-2018",
             "Spring-2019",
             "Summer-2019",
-            "Fall-2019"
-          ]
+            "Fall-2019",
+            "Spring-2022"
+          ],
+          "retired": false
         },
         {
           "name": "Wetware Wednesday",
@@ -8296,7 +8345,8 @@
             "Summer-2020",
             "Spring-2021",
             "Summer-2021"
-          ]
+          ],
+          "retired": false
         }
       ]
     },
@@ -8304,444 +8354,484 @@
       "name": "OpportunityInstanceCollection",
       "contents": [
         {
-          "academicTerm": "Fall-2014",
-          "opportunity": "greyhats",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2015",
-          "opportunity": "greyhats",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2015",
-          "opportunity": "hawaii-hacker-hours",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
-          "opportunity": "greyhats",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
-          "opportunity": "hawaii-hacker-hours",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2015",
-          "opportunity": "ccdc",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "opportunity": "ccdc",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "opportunity": "greyhats",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "opportunity": "hawaii-hacker-hours",
-          "verified": true,
-          "student": "abi@hawaii.edu"
-        },
-        {
           "academicTerm": "Fall-2016",
+          "opportunity": "att-iot-hackathon",
+          "verified": true,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
           "opportunity": "greyhats",
           "verified": true,
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Spring-2017",
           "opportunity": "hawaii-hacker-hours",
           "verified": true,
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
-          "opportunity": "asecolab",
+          "academicTerm": "Summer-2018",
+          "opportunity": "dahi-internship",
           "verified": true,
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Fall-2018",
           "opportunity": "greyhats",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "opportunity": "asecolab",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "opportunity": "hawaii-hacker-hours",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "opportunity": "ccdc",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "opportunity": "asecolab",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "opportunity": "greyhats",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "opportunity": "asecolab",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "opportunity": "greyhats",
-          "verified": false,
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2015",
-          "opportunity": "coursera-graphic-design",
           "verified": true,
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2016",
+          "academicTerm": "Summer-2019",
           "opportunity": "gen-cyber-internship",
           "verified": true,
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2013",
+          "academicTerm": "Fall-2019",
+          "opportunity": "hawaii-hacker-hours",
+          "verified": true,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "opportunity": "asecolab",
+          "verified": true,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "opportunity": "greyhats",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "opportunity": "asecolab",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "opportunity": "hawaii-hacker-hours",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "opportunity": "ccdc",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "opportunity": "asecolab",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "opportunity": "greyhats",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "opportunity": "asecolab",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "opportunity": "greyhats",
+          "verified": false,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2022",
+          "opportunity": "coursera-customer-analytics",
+          "verified": true,
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
           "opportunity": "acm-manoa-hardware",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2013",
+          "academicTerm": "Fall-2017",
           "opportunity": "hawaii-virtual-reality",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2014",
+          "academicTerm": "Spring-2018",
           "opportunity": "acm-manoa-hardware",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2014",
+          "academicTerm": "Spring-2018",
           "opportunity": "hawaii-virtual-reality",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2014",
-          "opportunity": "udacity-learn-unity",
+          "academicTerm": "Summer-2018",
+          "opportunity": "code-for-hawaii",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2014",
+          "academicTerm": "Summer-2019",
+          "opportunity": "booz-allen-internship",
+          "verified": true,
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
           "opportunity": "acm-manoa-hardware",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2014",
+          "academicTerm": "Fall-2019",
           "opportunity": "hawaii-virtual-reality",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2015",
+          "academicTerm": "Spring-2020",
           "opportunity": "acm-manoa-hardware",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2015",
+          "academicTerm": "Spring-2020",
           "opportunity": "hawaii-virtual-reality",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2015",
-          "opportunity": "virtual-art-meetup",
-          "verified": true,
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2016",
-          "opportunity": "coursera-graphic-design",
-          "verified": true,
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
+          "academicTerm": "Fall-2020",
           "opportunity": "att-iot-hackathon",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2016",
+          "academicTerm": "Spring-2021",
           "opportunity": "shidler-bpc",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2016",
+          "academicTerm": "Spring-2021",
           "opportunity": "acm-manoa-vr",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Fall-2021",
           "opportunity": "hacc",
           "verified": true,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Spring-2022",
           "opportunity": "booz-allen-ideas-festival",
           "verified": false,
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
-          "opportunity": "uh-career-fair",
+          "academicTerm": "Spring-2022",
+          "opportunity": "virtual-art-meetup",
           "verified": false,
           "student": "alfred@hawaii.edu"
         },
-
-
         {
-          "academicTerm": "Summer-2015",
-          "opportunity": "coursera-introduction-to-big-data",
+          "academicTerm": "Summer-2022",
+          "opportunity": "cyber-security-for-automated-processes",
+          "verified": true,
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2018",
+          "opportunity": "dahi-internship",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2015",
+          "academicTerm": "Fall-2018",
           "opportunity": "lava-lab",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2016",
-          "opportunity": "coursera-r-programming",
-          "verified": true,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Spring-2019",
           "opportunity": "lava-lab",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2016",
-          "opportunity": "lava-lab",
+          "academicTerm": "Summer-2019",
+          "opportunity": "gen-cyber-internship",
           "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Spring-2020",
           "opportunity": "wetware-wednesday",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Spring-2021",
           "opportunity": "booz-allen-ideas-festival",
           "verified": false,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2017",
-          "opportunity": "sarp-internship",
-          "verified": false,
+          "academicTerm": "Summer-2022",
+          "opportunity": "coursera-customer-analytics",
+          "verified": true,
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
-          "opportunity": "acm-manoa",
-          "verified": true,
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2017",
-          "opportunity": "hawaii-open-data",
-          "verified": false,
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2017",
+          "academicTerm": "Fall-2019",
           "opportunity": "code-for-hawaii",
           "verified": false,
           "student": "charley@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2018",
+          "academicTerm": "Spring-2020",
           "opportunity": "itma",
           "verified": false,
           "student": "charley@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2018",
-          "opportunity": "open-power-quality",
-          "verified": false,
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2018",
+          "academicTerm": "Fall-2020",
           "opportunity": "att-iot-hackathon",
           "verified": false,
           "student": "charley@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2019",
+          "academicTerm": "Spring-2021",
           "opportunity": "booz-allen-ideas-festival",
           "verified": false,
           "student": "charley@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2019",
-          "opportunity": "booz-allen-internship",
-          "verified": false,
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2019",
+          "academicTerm": "Spring-2022",
           "opportunity": "acm-manoa-vr",
           "verified": false,
           "student": "charley@hawaii.edu"
         },
         {
+          "academicTerm": "Fall-2016",
+          "opportunity": "att-iot-hackathon",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
+          "opportunity": "greyhats",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
+          "opportunity": "hawaii-hacker-hours",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2018",
+          "opportunity": "dahi-internship",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
           "academicTerm": "Fall-2018",
-          "opportunity": "acm-manoa",
+          "opportunity": "greyhats",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2019",
+          "opportunity": "gen-cyber-internship",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "opportunity": "hawaii-hacker-hours",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "opportunity": "asecolab",
+          "verified": true,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "opportunity": "greyhats",
           "verified": false,
           "student": "samplestudent@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2019",
-          "opportunity": "acm-manoa",
+          "academicTerm": "Spring-2020",
+          "opportunity": "asecolab",
           "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "opportunity": "hawaii-hacker-hours",
+          "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "opportunity": "ccdc",
+          "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "opportunity": "asecolab",
+          "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "opportunity": "greyhats",
+          "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "opportunity": "asecolab",
+          "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "opportunity": "greyhats",
+          "verified": false,
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2022",
+          "opportunity": "coursera-customer-analytics",
+          "verified": true,
           "student": "samplestudent@hawaii.edu"
         },
         {
           "academicTerm": "Fall-2017",
-          "opportunity": "acm-manoa",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
+          "opportunity": "acm-manoa-hardware",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "opportunity": "hawaii-virtual-reality",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
         },
         {
           "academicTerm": "Spring-2018",
-          "opportunity": "acm-manoa",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
+          "opportunity": "acm-manoa-hardware",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2020",
-          "opportunity": "generic-project",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
+          "academicTerm": "Spring-2018",
+          "opportunity": "hawaii-virtual-reality",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2021",
-          "opportunity": "generic-project",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "opportunity": "wetware-wednesday",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "opportunity": "wetware-wednesday",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "opportunity": "wetware-wednesday",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "opportunity": "hnl-tech4good",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "opportunity": "cs-job",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2019",
-          "opportunity": "cs-job",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "opportunity": "coe-career-day",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2020",
-          "opportunity": "generic-internship",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "opportunity": "aloha-rb",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2019",
+          "academicTerm": "Summer-2018",
           "opportunity": "code-for-hawaii",
-          "verified": false,
-          "student": "samplestudent@hawaii.edu"
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
         },
         {
           "academicTerm": "Summer-2019",
-          "opportunity": "udacity-learn-unity",
+          "opportunity": "booz-allen-internship",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "opportunity": "acm-manoa-hardware",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "opportunity": "hawaii-virtual-reality",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "opportunity": "acm-manoa-hardware",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "opportunity": "hawaii-virtual-reality",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2020",
+          "opportunity": "att-iot-hackathon",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "opportunity": "shidler-bpc",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "opportunity": "acm-manoa-vr",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "opportunity": "hacc",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "opportunity": "booz-allen-ideas-festival",
           "verified": false,
-          "student": "samplestudent@hawaii.edu"
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "opportunity": "virtual-art-meetup",
+          "verified": false,
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2022",
+          "opportunity": "cyber-security-for-automated-processes",
+          "verified": true,
+          "student": "gcalica@hawaii.edu"
         }
       ]
     },
@@ -9400,247 +9490,80 @@
       "contents": [
         {
           "student": "abi@hawaii.edu",
-          "academicTerm": "Fall-2014",
-          "opportunity": "greyhats",
-          "submittedOn": "2014-11-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2014-11-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2015",
-          "opportunity": "greyhats",
-          "submittedOn": "2015-02-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2015-02-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2015",
-          "opportunity": "hawaii-hacker-hours",
-          "submittedOn": "2015-02-18T00:35:00.432Z",
-          "status": "Open",
-          "processed": [
-            {
-              "date": "2015-02-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            },
-            {
-              "date": "2017-07-27T23:34:09.790Z",
-              "status": "Open",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Fall-2015",
-          "opportunity": "greyhats",
-          "submittedOn": "2015-10-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2015-10-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Fall-2015",
-          "opportunity": "hawaii-hacker-hours",
-          "submittedOn": "2015-10-18T00:35:00.432Z",
-          "status": "Open",
-          "processed": [
-            {
-              "date": "2015-10-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            },
-            {
-              "date": "2017-07-27T23:34:17.502Z",
-              "status": "Open",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2015",
-          "opportunity": "ccdc",
-          "submittedOn": "2015-04-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2015-04-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2016",
-          "opportunity": "ccdc",
-          "submittedOn": "2016-04-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2016-04-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2016",
-          "opportunity": "greyhats",
-          "submittedOn": "2016-02-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2016-03-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2016",
-          "opportunity": "hawaii-hacker-hours",
-          "submittedOn": "2016-01-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2016-02-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Fall-2016",
-          "opportunity": "greyhats",
-          "submittedOn": "2016-09-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2016-09-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Fall-2016",
-          "opportunity": "hawaii-hacker-hours",
-          "submittedOn": "2016-10-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2016-11-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Fall-2016",
-          "opportunity": "asecolab",
-          "submittedOn": "2016-10-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2016-11-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "academicTerm": "Spring-2017",
-          "opportunity": "asecolab",
-          "submittedOn": "2017-01-18T00:35:00.432Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2017-02-19T00:35:00.432Z",
-              "status": "Accepted",
-              "verifier": "johnson@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "charley@hawaii.edu",
-          "academicTerm": "Spring-2017",
-          "opportunity": "acm-manoa",
-          "submittedOn": "2017-01-19T00:36:15.511Z",
-          "status": "Open",
-          "processed": []
-        },
-        {
-          "student": "betty@hawaii.edu",
-          "academicTerm": "Spring-2017",
-          "opportunity": "wetware-wednesday",
-          "submittedOn": "2017-01-19T00:36:58.741Z",
-          "status": "Open",
-          "processed": []
-        },
-        {
-          "student": "charley@hawaii.edu",
-          "academicTerm": "Spring-2017",
-          "opportunity": "acm-manoa",
-          "submittedOn": "2017-01-19T00:36:15.516Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2017-01-19T00:37:20.397Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "betty@hawaii.edu",
-          "academicTerm": "Spring-2017",
-          "opportunity": "wetware-wednesday",
-          "submittedOn": "2017-01-19T00:36:58.746Z",
-          "status": "Accepted",
-          "processed": [
-            {
-              "date": "2017-01-19T00:37:22.175Z",
-              "status": "Accepted",
-              "verifier": "glau@hawaii.edu"
-            }
-          ]
-        },
-        {
-          "student": "abi@hawaii.edu",
           "academicTerm": "Spring-2017",
           "opportunity": "hawaii-hacker-hours",
           "submittedOn": "2017-07-24T23:29:24.657Z",
           "status": "Open",
           "processed": []
+        },
+        {
+          "student": "abi@hawaii.edu",
+          "academicTerm": "Spring-2017",
+          "opportunity": "greyhats",
+          "submittedOn": "2017-11-18T00:35:00.432Z",
+          "status": "Accepted",
+          "processed": [
+            {
+              "date": "2017-11-19T00:35:00.432Z",
+              "status": "Accepted",
+              "verifier": "glau@hawaii.edu"
+            }
+          ]
+        },
+        {
+          "student": "abi@hawaii.edu",
+          "academicTerm": "Fall-2018",
+          "opportunity": "greyhats",
+          "submittedOn": "2019-02-18T00:35:00.432Z",
+          "status": "Accepted",
+          "processed": [
+            {
+              "date": "2019-02-19T00:35:00.432Z",
+              "status": "Accepted",
+              "verifier": "glau@hawaii.edu"
+            }
+          ]
+        },
+        {
+          "student": "abi@hawaii.edu",
+          "academicTerm": "Summer-2018",
+          "opportunity": "dahi-internship",
+          "submittedOn": "2019-02-18T00:35:00.432Z",
+          "status": "Open",
+          "processed": [
+            {
+              "date": "2019-02-19T00:35:00.432Z",
+              "status": "Accepted",
+              "verifier": "johnson@hawaii.edu"
+            },
+            {
+              "date": "2019-05-27T23:34:09.790Z",
+              "status": "Open",
+              "verifier": "glau@hawaii.edu"
+            }
+          ]
+        },
+        {
+          "student": "betty@hawaii.edu",
+          "academicTerm": "Fall-2018",
+          "opportunity": "lava-lab",
+          "submittedOn": "2019-01-19T00:36:58.741Z",
+          "status": "Open",
+          "processed": []
+        },
+        {
+          "student": "betty@hawaii.edu",
+          "academicTerm": "Spring-2019",
+          "opportunity": "lava-lab",
+          "submittedOn": "2019-07-02T00:36:58.746Z",
+          "status": "Accepted",
+          "processed": [
+            {
+              "date": "2019-07-10T00:37:22.175Z",
+              "status": "Accepted",
+              "verifier": "glau@hawaii.edu"
+            }
+          ]
         }
       ]
     }
