@@ -51,6 +51,7 @@ class PreferredChoice {
     // console.log(choices);
     return choices;
   }
+
   /**
    * Returns true if there are any preferences.
    * @return {boolean} true if max !== 0.
