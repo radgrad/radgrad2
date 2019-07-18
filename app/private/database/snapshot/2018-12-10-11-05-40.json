@@ -1958,70 +1958,6 @@
       "name": "AcademicTermCollection",
       "contents": [
         {
-          "term": "Fall",
-          "year": 2009
-        },
-        {
-          "term": "Spring",
-          "year": 2010
-        },
-        {
-          "term": "Summer",
-          "year": 2010
-        },
-        {
-          "term": "Fall",
-          "year": 2010
-        },
-        {
-          "term": "Spring",
-          "year": 2011
-        },
-        {
-          "term": "Summer",
-          "year": 2011
-        },
-        {
-          "term": "Fall",
-          "year": 2011
-        },
-        {
-          "term": "Spring",
-          "year": 2012
-        },
-        {
-          "term": "Summer",
-          "year": 2012
-        },
-        {
-          "term": "Fall",
-          "year": 2012
-        },
-        {
-          "term": "Spring",
-          "year": 2013
-        },
-        {
-          "term": "Summer",
-          "year": 2013
-        },
-        {
-          "term": "Fall",
-          "year": 2013
-        },
-        {
-          "term": "Spring",
-          "year": 2014
-        },
-        {
-          "term": "Summer",
-          "year": 2014
-        },
-        {
-          "term": "Fall",
-          "year": 2014
-        },
-        {
           "term": "Spring",
           "year": 2015
         },
@@ -5584,12 +5520,12 @@
         },
         {
           "user": [
-            "charley@hawaii.edu"
+            "abi@hawaii.edu"
           ],
-          "opportunity": "cybersistahs",
-          "academicTerm": "Summer-2014",
+          "opportunity": "dahi-internship",
+          "academicTerm": "Summer-2018",
           "feedType": "verified-opportunity",
-          "timestamp": "2019-05-29T17:58:22.534Z"
+          "timestamp": "2019-05-27T17:58:22.534Z"
         },
         {
           "user": [
@@ -5597,7 +5533,7 @@
             "abi@hawaii.edu"
           ],
           "opportunity": "cybersistahs",
-          "academicTerm": "Summer-2010",
+          "academicTerm": "Summer-2019",
           "feedType": "verified-opportunity",
           "timestamp": "2019-06-29T17:58:22.534Z"
         },
@@ -5614,7 +5550,7 @@
             "alfred@hawaii.edu"
           ],
           "opportunity": "cybersistahs",
-          "academicTerm": "Summer-2010",
+          "academicTerm": "Summer-2019",
           "feedType": "verified-opportunity"
         },
         {
@@ -6598,9 +6534,6 @@
             "hardware"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Winter-2015",
             "Spring-2015",
             "Summer-2015",
@@ -6643,9 +6576,6 @@
             "hardware"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Winter-2015",
             "Spring-2015",
             "Summer-2015",
@@ -6986,14 +6916,12 @@
             "security"
           ],
           "academicTerms": [
-            "Spring-2014",
             "Spring-2015",
             "Spring-2016",
             "Spring-2017",
             "Spring-2018",
             "Spring-2019",
             "Spring-2020",
-            "Spring-2012",
             "Spring-2021"
           ],
           "retired": false
@@ -7043,7 +6971,6 @@
             "application-development"
           ],
           "academicTerms": [
-            "Fall-2014",
             "Spring-2015",
             "Spring-2016",
             "Fall-2016",
@@ -7103,7 +7030,6 @@
             "graphic-design"
           ],
           "academicTerms": [
-            "Summer-2014",
             "Summer-2015",
             "Summer-2016",
             "Summer-2017",
@@ -7175,9 +7101,6 @@
             "application-development"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
@@ -7356,9 +7279,6 @@
             "application-development"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
@@ -7397,9 +7317,6 @@
             "research"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
@@ -7438,9 +7355,6 @@
             "application-development"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
@@ -7479,7 +7393,6 @@
             "game-design"
           ],
           "academicTerms": [
-            "Spring-2014",
             "Spring-2015",
             "Spring-2016",
             "Spring-2017",
@@ -7541,10 +7454,6 @@
             "security"
           ],
           "academicTerms": [
-            "Fall-2013",
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
@@ -7840,15 +7749,6 @@
             "research"
           ],
           "academicTerms": [
-            "Spring-2013",
-            "Summer-2013",
-            "Fall-2013",
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
-            "Spring-2015",
-            "Summer-2015",
-            "Fall-2015",
             "Spring-2016",
             "Summer-2016",
             "Fall-2016",
@@ -7864,16 +7764,6 @@
             "Spring-2020",
             "Fall-2020",
             "Summer-2020",
-            "Fall-2012",
-            "Summer-2012",
-            "Spring-2012",
-            "Fall-2011",
-            "Spring-2011",
-            "Summer-2010",
-            "Fall-2010",
-            "Summer-2011",
-            "Fall-2009",
-            "Spring-2010",
             "Spring-2021",
             "Summer-2021"
           ],
@@ -8051,14 +7941,12 @@
             "data-visualization"
           ],
           "academicTerms": [
-            "Summer-2014",
             "Summer-2015",
             "Summer-2016",
             "Summer-2017",
             "Summer-2018",
             "Summer-2019",
-            "Summer-2020",
-            "Summer-2012"
+            "Summer-2020"
           ],
           "retired": false
         },
@@ -8115,8 +8003,6 @@
             "entrepreneurship"
           ],
           "academicTerms": [
-            "Spring-2013",
-            "Spring-2014",
             "Spring-2015",
             "Spring-2016",
             "Spring-2017",
@@ -8143,9 +8029,6 @@
             "teaching"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
             "Spring-2015",
             "Summer-2015",
             "Fall-2015",
@@ -8260,8 +8143,6 @@
             "research"
           ],
           "academicTerms": [
-            "Spring-2014",
-            "Fall-2014",
             "Spring-2015",
             "Fall-2015",
             "Fall-2016",
@@ -8273,8 +8154,6 @@
             "Fall-2019",
             "Spring-2020",
             "Fall-2020",
-            "Spring-2012",
-            "Spring-2011",
             "Spring-2021"
           ],
           "retired": false
