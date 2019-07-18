@@ -20,6 +20,7 @@ if (Meteor.isServer) {
     let opportunityInstance;
     let opportunity;
     const verified = false;
+    let docID;
     before(function setup() {
       removeAllEntities();
       academicTerm = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
@@ -45,12 +46,29 @@ if (Meteor.isServer) {
 
     it('#define with opportunity instance using student, academicTerm and opportunity', function test() {
       opportunityInstance = OpportunityInstances.define({ academicTerm, opportunity, sponsor: faculty, student, verified });
-      const docID = VerificationRequests.define({ student, academicTerm, opportunity });
+      docID = VerificationRequests.define({ student, academicTerm, opportunity });
       expect(VerificationRequests.isDefined(docID)).to.be.true;
     });
 
+    it('get documents', function test() {
+      const opportunityDoc = VerificationRequests.getOpportunityDoc(docID);
+      expect(opportunityDoc).to.exist;
+      expect(opportunityDoc.name).to.equal('Sample Opportunity');
+      const studentDoc = VerificationRequests.getStudentDoc(docID);
+      expect(studentDoc).to.exist;
+      expect(studentDoc.firstName).to.equal('Amy');
+      const sponsorDoc = VerificationRequests.getSponsorDoc(docID);
+      expect(sponsorDoc).to.exist;
+      expect(sponsorDoc.firstName).to.equal('Edo');
+      const opportunityInstanceDoc = VerificationRequests.getOpportunityInstanceDoc(docID);
+      expect(opportunityInstanceDoc).to.exist;
+      expect(opportunityInstanceDoc.studentID).to.equal(studentDoc.userID);
+      expect(opportunityDoc.sponsorID).to.equal(sponsorDoc.userID);
+      expect(opportunityInstanceDoc.opportunityID).to.equal(opportunityDoc._id);
+    });
+
     it('#define with opportunity instance, #isDefined, #findOne, #dumpOne, #removeIt, #restoreOne, #update, #removeUser', function test() {
-      let docID = VerificationRequests.define({ student, opportunityInstance });
+      docID = VerificationRequests.define({ student, opportunityInstance });
       expect(VerificationRequests.isDefined(docID)).to.be.true;
       expect(VerificationRequests.findOne({ opportunityInstanceID: opportunityInstance })).to.exist;
       const dumpObject = VerificationRequests.dumpOne(docID);
