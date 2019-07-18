@@ -21,7 +21,7 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #toStringFromSlug', function test() {
+    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #checkIntegrity, #toStringFromSlug, #update', function test() {
       const docID = PlanChoices.define({ choice: simple });
       expect(PlanChoices.isDefined(docID)).to.be.true;
       const dumpObject = PlanChoices.dumpOne(docID);
@@ -33,11 +33,18 @@ if (Meteor.isServer) {
       expect(PlanChoices.isDefined(choiceID)).to.be.true;
       const complexID = PlanChoices.define({ choice: complex });
       expect(PlanChoices.isDefined(complexID)).to.be.true;
+      const errors = PlanChoices.checkIntegrity();
+      expect(errors.length).to.equal(0);
       expect(PlanChoiceCollection.toStringFromSlug(simple) === 'ICS 111').to.be.true;
       expect(PlanChoiceCollection.toStringFromSlug(choice) === 'ICS 313 or ICS 361').to.be.true;
       expect(PlanChoiceCollection.toStringFromSlug(complex) === 'ICS 321 or ICS 332 or (ICS 415 or ICS 351)').to.be.true;
       expect(PlanChoiceCollection.toStringFromSlug(complex2) ===
           '(ICS 312 or ICS 331) or (ICS 313 or ICS 361) or ICS 355').to.be.true;
+      let choices = PlanChoices.findNonRetired();
+      expect(choices.length).to.equal(3);
+      PlanChoices.update(complexID, { retired: true });
+      choices = PlanChoices.findNonRetired();
+      expect(choices.length).to.equal(2);
     });
   });
 }
