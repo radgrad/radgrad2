@@ -57,8 +57,8 @@ interface ICardExplorerWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  hiddenCourses: state.cardExplorerPage.cardExplorerWidget.hiddenCourses,
-  hiddenOpportunities: state.cardExplorerPage.cardExplorerWidget.hiddenOpportunities,
+  hiddenCourses: state.shared.explorer.hiddenCourses,
+  hiddenOpportunities: state.shared.explorer.hiddenOpportunities,
 });
 
 /**
