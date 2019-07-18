@@ -127,10 +127,10 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param studentID the student's ID.
    * @param termIDs the 3 or 4 academic terms in the year.
    */
-  public update(docID: string, { year, springYear, studentID, termIDs }:
-    { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; }) {
+  public update(docID: string, { year, springYear, studentID, termIDs, retired }:
+    { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean }) {
     this.assertDefined(docID);
-    const updateData: { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; } = {};
+    const updateData: { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean } = {};
     if (_.isNumber(year)) {
       updateData.year = year;
     }
@@ -153,6 +153,9 @@ class AcademicYearInstanceCollection extends BaseCollection {
         }
       });
       updateData.termIDs = termIDs;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
     }
     this.collection.update(docID, { $set: updateData });
   }

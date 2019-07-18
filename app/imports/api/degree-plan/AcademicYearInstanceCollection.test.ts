@@ -19,7 +19,7 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #toString', function test() {
+    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #toString, #update, #removeUser', function test() {
       const studentID = makeSampleUser();
       const student = Users.getProfile(studentID).username;
       const year = 2016;
@@ -31,7 +31,7 @@ if (Meteor.isServer) {
       docID = AcademicYearInstances.restoreOne(dumpObject);
       expect(AcademicYearInstances.isDefined(docID)).to.be.true;
       expect(AcademicYearInstances.toString(docID)).to.equal(`[AY 2016-2017 ${student}]`);
-      const errors = AcademicYearInstances.checkIntegrity();
+      let errors = AcademicYearInstances.checkIntegrity();
       expect(errors.length).to.equal(0);
       // Create a gap in the future to see if it gets filled in.
       const futureYear = AcademicYearInstances.define({ year: 2019, student });
@@ -43,7 +43,16 @@ if (Meteor.isServer) {
       expect(AcademicYearInstances.isDefined(pastYear)).to.be.true;
       years = AcademicYearInstances.find({ studentID }).fetch();
       expect(years.length).to.equal(6);
-      AcademicYearInstances.removeIt(docID);
+      errors = AcademicYearInstances.checkIntegrity();
+      expect(errors.length).to.equal(0);
+      years = AcademicYearInstances.findNonRetired();
+      expect(years.length).to.equal(6);
+      AcademicYearInstances.update(docID, { retired: true });
+      years = AcademicYearInstances.findNonRetired();
+      expect(years.length).to.equal(5);
+      AcademicYearInstances.removeUser(student);
+      years = AcademicYearInstances.find({ studentID }).fetch();
+      expect(years.length).to.equal(0);
     });
 
     // In Meteor 1.6.1, this fails with UnhandledPromiseRejectionWarning..
