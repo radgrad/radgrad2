@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
+import { Responsive } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -9,6 +9,8 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';
+import PageLoader from '../../components/shared/PageLoader';
+import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 
 interface ILoading {
   loading: boolean;
@@ -33,8 +35,18 @@ function withInstanceSubscriptions(WrappedComponent) {
     }
 
     /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-    public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting instance data</Loader> :
+    public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+      return (this.props.loading) ?
+        <React.Fragment>
+          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+            <PageLoader/>
+          </Responsive>
+
+          <Responsive {...Responsive.onlyMobile}>
+            <PageLoaderMobile/>
+          </Responsive>
+        </React.Fragment>
+        :
         <WrappedComponent {...this.props}/>;
     }
   }
