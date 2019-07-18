@@ -5559,20 +5559,90 @@
           "user": [],
           "opportunity": "cybersistahs",
           "feedType": "new-opportunity",
-          "timestamp": "2017-07-29T17:45:54.532Z"
+          "timestamp": "2019-01-29T17:45:54.532Z"
         },
         {
           "user": [],
           "opportunity": "google-summer-of-code",
           "feedType": "new-opportunity",
-          "timestamp": "2017-07-29T17:48:49.583Z"
+          "timestamp": "2019-02-29T17:48:49.583Z"
         },
         {
           "user": [
             "samplestudent@hawaii.edu"
           ],
           "feedType": "new-user",
-          "timestamp": "2017-07-29T17:58:22.534Z"
+          "timestamp": "2019-03-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "betty@hawaii.edu",
+            "abi@hawaii.edu"
+          ],
+          "feedType": "new-user",
+          "timestamp": "2019-04-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2014",
+          "feedType": "verified-opportunity",
+          "timestamp": "2019-05-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "samplestudent@hawaii.edu",
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2010",
+          "feedType": "verified-opportunity",
+          "timestamp": "2019-06-29T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "level": 5,
+          "feedType": "new-level",
+          "timestamp": "2019-07-15T17:58:22.534Z"
+        },
+        {
+          "user": [
+            "alfred@hawaii.edu"
+          ],
+          "opportunity": "cybersistahs",
+          "academicTerm": "Summer-2010",
+          "feedType": "verified-opportunity"
+        },
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "level": 5,
+          "feedType": "new-level"
+        },
+        {
+          "user": [
+            "betty@hawaii.edu"
+          ],
+          "feedType": "new-user"
+        },
+        {
+          "user": [
+            "charley@hawaii.edu"
+          ],
+          "course": "ics_111",
+          "feedType": "new-course-review"
+        },
+        {
+          "user": [
+            "abi@hawaii.edu"
+          ],
+          "opportunity": "kaggle",
+          "feedType": "new-opportunity-review"
         }
       ]
     },
@@ -8366,54 +8436,6 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Summer-2015",
-          "opportunity": "coursera-introduction-to-big-data",
-          "verified": true,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
-          "opportunity": "lava-lab",
-          "verified": true,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2016",
-          "opportunity": "coursera-r-programming",
-          "verified": true,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2016",
-          "opportunity": "lava-lab",
-          "verified": true,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "opportunity": "lava-lab",
-          "verified": true,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "opportunity": "wetware-wednesday",
-          "verified": false,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "opportunity": "booz-allen-ideas-festival",
-          "verified": false,
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Summer-2017",
-          "opportunity": "sarp-internship",
-          "verified": false,
-          "student": "betty@hawaii.edu"
-        },
-        {
           "academicTerm": "Fall-2013",
           "opportunity": "acm-manoa-hardware",
           "verified": true,
@@ -8514,6 +8536,56 @@
           "opportunity": "uh-career-fair",
           "verified": false,
           "student": "alfred@hawaii.edu"
+        },
+
+
+        {
+          "academicTerm": "Summer-2015",
+          "opportunity": "coursera-introduction-to-big-data",
+          "verified": true,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2015",
+          "opportunity": "lava-lab",
+          "verified": true,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2016",
+          "opportunity": "coursera-r-programming",
+          "verified": true,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2016",
+          "opportunity": "lava-lab",
+          "verified": true,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2016",
+          "opportunity": "lava-lab",
+          "verified": true,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
+          "opportunity": "wetware-wednesday",
+          "verified": false,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
+          "opportunity": "booz-allen-ideas-festival",
+          "verified": false,
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Summer-2017",
+          "opportunity": "sarp-internship",
+          "verified": false,
+          "student": "betty@hawaii.edu"
         },
         {
           "academicTerm": "Spring-2017",
