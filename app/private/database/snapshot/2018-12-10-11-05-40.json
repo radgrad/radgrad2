@@ -2126,43 +2126,43 @@
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Set up RadGrad account. Congratulations on your Level 1 RadGrad sticker! Check out the GreyHats meeting every Friday afternoon if you are still interested in learning about security.",
-          "createdOn": "2014-08-26T20:52:13.660Z"
+          "createdOn": "2017-08-26T20:52:13.660Z"
         },
         {
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 2! Keep up the good work.",
-          "createdOn": "2015-01-09T19:15:13.660Z"
+          "createdOn": "2018-01-09T19:15:13.660Z"
         },
         {
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 3!",
-          "createdOn": "2015-08-24T22:19:13.660Z"
+          "createdOn": "2018-08-24T22:19:13.660Z"
         },
         {
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Make sure to sign up for ICS212 and ICS321 next academicTerm to fulfill prerequisites for upper level courses.",
-          "createdOn": "2015-11-06T20:56:13.660Z"
+          "createdOn": "2018-11-06T20:56:13.660Z"
         },
         {
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 4! I recommend you check out the GenCyber Internship for this summer.",
-          "createdOn": "2016-01-26T20:32:13.660Z"
+          "createdOn": "2019-01-26T20:32:13.660Z"
         },
         {
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 5!",
-          "createdOn": "2016-08-30T19:56:13.660Z"
+          "createdOn": "2019-03-30T19:56:13.660Z"
         },
         {
           "student": "abi@hawaii.edu",
           "advisor": "glau@hawaii.edu",
           "text": "Updated RadGrad STAR data. Keep up the good work! Still on track to graduate Spring 2018.",
-          "createdOn": "2017-01-11T21:54:13.660Z"
+          "createdOn": "2019-04-11T21:54:13.660Z"
         }
       ]
     },
@@ -4078,7 +4078,7 @@
       "name": "CourseInstanceCollection",
       "contents": [
         {
-          "academicTerm": "Fall-2014",
+          "academicTerm": "Fall-2016",
           "course": "ics_111",
           "note": "ICS 111",
           "verified": true,
@@ -4088,7 +4088,7 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2014",
+          "academicTerm": "Fall-2016",
           "course": "ics_141",
           "note": "ICS 141",
           "verified": true,
@@ -4098,7 +4098,7 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2015",
+          "academicTerm": "Spring-2017",
           "course": "ics_211",
           "note": "ICS 211",
           "verified": true,
@@ -4108,9 +4108,49 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2015",
+          "academicTerm": "Spring-2017",
           "course": "ics_241",
           "note": "ICS 241",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B+",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "course": "ics_311",
+          "note": "ICS 311",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "course": "ics_314",
+          "note": "ICS 314",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B+",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2018",
+          "course": "ics_212",
+          "note": "ICS 212",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2018",
+          "course": "ics_321",
+          "note": "ICS 321",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
@@ -4118,67 +4158,27 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2015",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Fall-2018",
           "course": "ics_313",
           "note": "ICS 313",
           "verified": true,
           "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
+          "creditHrs": 4,
+          "grade": "B",
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Fall-2018",
           "course": "ics_331",
           "note": "ICS 331",
           "verified": true,
           "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
+          "creditHrs": 4,
+          "grade": "B",
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Spring-2019",
           "course": "ics_332",
           "note": "ICS 332",
           "verified": true,
@@ -4188,7 +4188,7 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Spring-2019",
           "course": "ics_464",
           "note": "ICS 464",
           "verified": true,
@@ -4198,7 +4198,47 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2017",
+          "academicTerm": "Fall-2019",
+          "course": "ics_431",
+          "note": "ICS 431",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_426",
+          "note": "ICS 426",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_425",
+          "note": "ICS 425",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2020",
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
@@ -4207,7 +4247,7 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2017",
+          "academicTerm": "Fall-2020",
           "course": "ics_415",
           "note": "ICS 415",
           "verified": false,
@@ -4216,7 +4256,7 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2018",
+          "academicTerm": "Spring-2021",
           "course": "ics_432",
           "note": "ICS 432",
           "verified": false,
@@ -4225,9 +4265,54 @@
           "student": "abi@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2013",
-          "course": "ics_111",
-          "note": "ICS 111",
+          "academicTerm": "Spring-2021",
+          "course": "ics_435",
+          "note": "ICS 435",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_441",
+          "note": "ICS 441",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_442",
+          "note": "ICS 442",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_443",
+          "note": "ICS 443",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_451",
+          "note": "ICS 451",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "abi@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "course": "ics_311",
+          "note": "ICS 311",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 4,
@@ -4235,19 +4320,19 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2013",
-          "course": "ics_141",
-          "note": "ICS 141",
+          "academicTerm": "Fall-2017",
+          "course": "ics_314",
+          "note": "ICS 314",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B+",
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2014",
-          "course": "ics_211",
-          "note": "ICS 211",
+          "academicTerm": "Spring-2018",
+          "course": "ics_212",
+          "note": "ICS 212",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 4,
@@ -4255,9 +4340,9 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2014",
-          "course": "ics_241",
-          "note": "ICS 241",
+          "academicTerm": "Spring-2018",
+          "course": "ics_321",
+          "note": "ICS 321",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
@@ -4265,19 +4350,9 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2014",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2014",
-          "course": "ics_314",
-          "note": "ICS 314",
+          "academicTerm": "Fall-2018",
+          "course": "ics_313",
+          "note": "ICS 313",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 4,
@@ -4285,69 +4360,39 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2015",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2015",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
+          "academicTerm": "Fall-2018",
           "course": "ics_331",
           "note": "ICS 331",
           "verified": true,
           "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
+          "creditHrs": 4,
+          "grade": "B",
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2016",
+          "academicTerm": "Spring-2019",
           "course": "ics_332",
           "note": "ICS 332",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2016",
+          "academicTerm": "Spring-2019",
           "course": "ics_464",
           "note": "ICS 464",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
-          "course": "ics_414",
-          "note": "ICS 414",
+          "academicTerm": "Fall-2019",
+          "course": "ics_431",
+          "note": "ICS 431",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
@@ -4355,9 +4400,9 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
-          "course": "ics_415",
-          "note": "ICS 415",
+          "academicTerm": "Fall-2019",
+          "course": "ics_426",
+          "note": "ICS 426",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
@@ -4365,19 +4410,9 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
-          "course": "ics_466",
-          "note": "ICS 466",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "alfred@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "course": "ics_432",
-          "note": "ICS 432",
+          "academicTerm": "Spring-2020",
+          "course": "ics_425",
+          "note": "ICS 425",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
@@ -4385,119 +4420,131 @@
           "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2014",
-          "course": "ics_111",
-          "note": "ICS 111",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2014",
-          "course": "ics_141",
-          "note": "ICS 141",
+          "academicTerm": "Spring-2020",
+          "course": "ics_464",
+          "note": "ICS 464",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2015",
-          "course": "ics_211",
-          "note": "ICS 211",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2015",
-          "course": "ics_241",
-          "note": "ICS 241",
-          "verified": true,
-          "fromRegistrar": true,
+          "academicTerm": "Fall-2020",
+          "course": "ics_414",
+          "note": "ICS 414",
+          "verified": false,
           "creditHrs": 3,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2015",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2015",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2016",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
+          "academicTerm": "Fall-2020",
+          "course": "ics_415",
+          "note": "ICS 415",
+          "verified": false,
           "creditHrs": 3,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2016",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
+          "academicTerm": "Spring-2021",
+          "course": "ics_432",
+          "note": "ICS 432",
+          "verified": false,
           "creditHrs": 3,
-          "grade": "A",
-          "student": "betty@hawaii.edu"
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Spring-2021",
+          "course": "ics_435",
+          "note": "ICS 435",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_441",
+          "note": "ICS 441",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_442",
+          "note": "ICS 442",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_443",
+          "note": "ICS 443",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_451",
+          "note": "ICS 451",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "alfred@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2018",
           "course": "ics_313",
           "note": "ICS 313",
           "verified": true,
           "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
+          "creditHrs": 4,
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
+          "academicTerm": "Fall-2018",
           "course": "ics_331",
           "note": "ICS 331",
           "verified": true,
           "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
+          "creditHrs": 4,
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
+          "academicTerm": "Spring-2019",
           "course": "ics_332",
           "note": "ICS 332",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2017",
-          "course": "ics_422",
-          "note": "ICS 422",
+          "academicTerm": "Spring-2019",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_431",
+          "note": "ICS 431",
           "verified": true,
           "fromRegistrar": true,
           "creditHrs": 3,
@@ -4505,155 +4552,212 @@
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2017",
+          "academicTerm": "Fall-2019",
+          "course": "ics_426",
+          "note": "ICS 426",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_425",
+          "note": "ICS 425",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2020",
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2017",
-          "course": "ics_471",
-          "note": "ICS 471",
+          "academicTerm": "Fall-2020",
+          "course": "ics_415",
+          "note": "ICS 415",
           "verified": false,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2018",
-          "course": "ics_475",
-          "note": "ICS 475",
+          "academicTerm": "Spring-2021",
+          "course": "ics_432",
+          "note": "ICS 432",
           "verified": false,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2018",
-          "course": "ics_484",
-          "note": "ICS 484",
+          "academicTerm": "Spring-2021",
+          "course": "ics_435",
+          "note": "ICS 435",
           "verified": false,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Fall-2016",
-          "course": "ics_111",
-          "note": "ICS 111",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2016",
-          "course": "ics_141",
-          "note": "ICS 141",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "course": "ics_211",
-          "note": "ICS 211",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2017",
-          "course": "ics_241",
-          "note": "ICS 241",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": false,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": false,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_212",
-          "note": "ICS 212",
+          "academicTerm": "Fall-2021",
+          "course": "ics_441",
+          "note": "ICS 441",
           "verified": false,
           "creditHrs": 3,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
+          "grade": "B",
+          "student": "betty@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2018",
-          "course": "ics_321",
-          "note": "ICS 321",
+          "academicTerm": "Fall-2021",
+          "course": "ics_442",
+          "note": "ICS 442",
           "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_443",
+          "note": "ICS 443",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_451",
+          "note": "ICS 451",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "betty@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_431",
+          "note": "ICS 431",
+          "verified": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
         },
         {
           "academicTerm": "Fall-2019",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": false,
+          "course": "ics_426",
+          "note": "ICS 426",
+          "verified": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "charley@hawaii.edu"
         },
         {
           "academicTerm": "Spring-2020",
-          "course": "ics_422",
-          "note": "ICS 422",
-          "verified": false,
+          "course": "ics_425",
+          "note": "ICS 425",
+          "verified": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "charley@hawaii.edu"
         },
         {
           "academicTerm": "Spring-2020",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2020",
+          "course": "ics_414",
+          "note": "ICS 414",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2020",
+          "course": "ics_415",
+          "note": "ICS 415",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "course": "ics_432",
+          "note": "ICS 432",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "course": "ics_435",
+          "note": "ICS 435",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_441",
+          "note": "ICS 441",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_442",
+          "note": "ICS 442",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_443",
+          "note": "ICS 443",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "charley@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
           "course": "ics_451",
           "note": "ICS 451",
           "verified": false,
@@ -4662,115 +4766,167 @@
           "student": "charley@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2020",
-          "course": "ics_452",
-          "note": "ICS 452",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2017",
+          "academicTerm": "Fall-2016",
           "course": "ics_111",
           "note": "ICS 111",
-          "verified": false,
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2016",
+          "course": "ics_141",
+          "note": "ICS 141",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B+",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
+          "course": "ics_211",
+          "note": "ICS 211",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2017",
+          "course": "ics_241",
+          "note": "ICS 241",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B+",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "course": "ics_311",
+          "note": "ICS 311",
+          "verified": true,
+          "fromRegistrar": true,
           "creditHrs": 4,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
         },
         {
           "academicTerm": "Fall-2017",
-          "course": "ics_141",
-          "note": "ICS 141",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_211",
-          "note": "ICS 211",
-          "verified": false,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_241",
-          "note": "ICS 241",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": false,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2018",
           "course": "ics_314",
           "note": "ICS 314",
-          "verified": false,
+          "verified": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
-          "grade": "B",
+          "grade": "B+",
           "student": "samplestudent@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2019",
+          "academicTerm": "Spring-2018",
           "course": "ics_212",
           "note": "ICS 212",
-          "verified": false,
-          "creditHrs": 3,
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
           "grade": "A",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2018",
+          "course": "ics_321",
+          "note": "ICS 321",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A-",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2018",
+          "course": "ics_313",
+          "note": "ICS 313",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2018",
+          "course": "ics_331",
+          "note": "ICS 331",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "B",
           "student": "samplestudent@hawaii.edu"
         },
         {
           "academicTerm": "Spring-2019",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_312",
-          "note": "ICS 312",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_361",
-          "note": "ICS 361",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2020",
           "course": "ics_332",
           "note": "ICS 332",
-          "verified": false,
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2019",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_431",
+          "note": "ICS 431",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_426",
+          "note": "ICS 426",
+          "verified": true,
+          "fromRegistrar": true,
           "creditHrs": 3,
           "grade": "A",
           "student": "samplestudent@hawaii.edu"
         },
         {
           "academicTerm": "Spring-2020",
+          "course": "ics_425",
+          "note": "ICS 425",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2020",
           "course": "ics_414",
           "note": "ICS 414",
           "verified": false,
@@ -4780,39 +4936,258 @@
         },
         {
           "academicTerm": "Fall-2020",
+          "course": "ics_415",
+          "note": "ICS 415",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "course": "ics_432",
+          "note": "ICS 432",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "course": "ics_435",
+          "note": "ICS 435",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_441",
+          "note": "ICS 441",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_442",
+          "note": "ICS 442",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
           "course": "ics_443",
           "note": "ICS 443",
           "verified": false,
           "creditHrs": 3,
-          "grade": "A",
+          "grade": "B",
           "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_451",
+          "note": "ICS 451",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "samplestudent@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "course": "ics_311",
+          "note": "ICS 311",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2017",
+          "course": "ics_314",
+          "note": "ICS 314",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B+",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2018",
+          "course": "ics_212",
+          "note": "ICS 212",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "A",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2018",
+          "course": "ics_321",
+          "note": "ICS 321",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A-",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2018",
+          "course": "ics_313",
+          "note": "ICS 313",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2018",
+          "course": "ics_331",
+          "note": "ICS 331",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 4,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2019",
+          "course": "ics_332",
+          "note": "ICS 332",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2019",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_431",
+          "note": "ICS 431",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2019",
+          "course": "ics_426",
+          "note": "ICS 426",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "A",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_425",
+          "note": "ICS 425",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2020",
+          "course": "ics_464",
+          "note": "ICS 464",
+          "verified": true,
+          "fromRegistrar": true,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
         },
         {
           "academicTerm": "Fall-2020",
-          "course": "ics_461",
-          "note": "ICS 461",
+          "course": "ics_414",
+          "note": "ICS 414",
           "verified": false,
           "creditHrs": 3,
           "grade": "B",
-          "student": "samplestudent@hawaii.edu"
+          "student": "gcalica@hawaii.edu"
         },
         {
-          "academicTerm": "Spring-2021",
-          "course": "ics_491",
-          "note": "ICS 491",
-          "verified": false,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu"
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_499",
-          "note": "ICS 499",
+          "academicTerm": "Fall-2020",
+          "course": "ics_415",
+          "note": "ICS 415",
           "verified": false,
           "creditHrs": 3,
           "grade": "B",
-          "student": "samplestudent@hawaii.edu"
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "course": "ics_432",
+          "note": "ICS 432",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2021",
+          "course": "ics_435",
+          "note": "ICS 435",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_441",
+          "note": "ICS 441",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_442",
+          "note": "ICS 442",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_443",
+          "note": "ICS 443",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
+        },
+        {
+          "academicTerm": "Spring-2022",
+          "course": "ics_451",
+          "note": "ICS 451",
+          "verified": false,
+          "creditHrs": 3,
+          "grade": "B",
+          "student": "gcalica@hawaii.edu"
         }
       ]
     },
@@ -8702,7 +9077,7 @@
           ],
           "level": 5,
           "academicPlan": "bs-cs-2019",
-          "declaredAcademicTerm": "Fall-2014",
+          "declaredAcademicTerm": "Fall-2017",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -8722,6 +9097,7 @@
           ],
           "level": 6,
           "academicPlan": "bs-cs-2019",
+          "declaredAcademicTerm": "Fall-2018",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -8743,6 +9119,7 @@
           ],
           "level": 4,
           "academicPlan": "bs-cs-2019",
+          "declaredAcademicTerm": "Fall-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -8810,7 +9187,6 @@
           ],
           "level": 6,
           "academicPlan": "bs-cs-2019",
-          "declaredAcademicTerm": "Spring-2016",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -8829,7 +9205,6 @@
           ],
           "level": 6,
           "academicPlan": "bs-cs-2019",
-          "declaredAcademicTerm": "Spring-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
