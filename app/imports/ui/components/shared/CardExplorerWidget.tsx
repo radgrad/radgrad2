@@ -732,10 +732,6 @@ class CardExplorerWidget extends React.Component
               <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle}/>
           }
         </Segment>
-
-        {/* TODO: Add Back To Top Button. I'm not sure if we should put this in the Widget level or the Page level.
-              It is currently on the widget level on the original radgrad but it doesn't even appear properly.
-              It seems to only appear if you have Google Chrome DevTools window active. - Gian */}
       </React.Fragment>
     );
   }

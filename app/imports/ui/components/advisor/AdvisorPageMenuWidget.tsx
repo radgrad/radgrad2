@@ -11,6 +11,7 @@ class AdvisorPageMenuWidget extends React.Component {
 
   public render() {
     const divStyle = { marginBottom: 30 };
+    const firstMenuStyle = { minHeight: 78 };
     let numMod = 0;
     numMod += MentorQuestions.find({ moderated: false }).fetch().length;
     numMod += Reviews.find({ moderated: false }).fetch().length;
@@ -25,7 +26,7 @@ class AdvisorPageMenuWidget extends React.Component {
       requestsLabel = `${requestsLabel} (${numRequests})`;
     }
     const menuItems = [
-      { label: 'Home', route: 'home' },
+      { label: 'Student Configuration', route: 'home' },
       { label: requestsLabel, route: 'verification-requests' },
       { label: moderationLabel, route: 'moderation' },
       { label: 'Academic Plan', route: 'academic-plan' },
@@ -33,7 +34,7 @@ class AdvisorPageMenuWidget extends React.Component {
     ];
     return (
       <div style={divStyle}>
-        <FirstMenuContainer/>
+        <FirstMenuContainer style={firstMenuStyle}/>
         <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
       </div>
     );

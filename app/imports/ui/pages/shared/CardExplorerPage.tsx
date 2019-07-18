@@ -229,22 +229,27 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
       <div>
         {menuWidget}
 
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={3}>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
             <CardExplorerMenu menuAddedList={addedList} type={type} role={role}
                               menuCareerList={isTypeInterest ? this.addedCareerInterests() : undefined}
             />
           </Grid.Column>
 
-          <Grid.Column width={13}>
-            <CardExplorerWidget collection={collection} type={type} role={role}/>
-          </Grid.Column>
+            <Grid.Column width={11}>
+              <CardExplorerWidget collection={collection} type={type} role={role}/>
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
         </Grid>
-
         <BackToTopButton/>
       </div>
     );

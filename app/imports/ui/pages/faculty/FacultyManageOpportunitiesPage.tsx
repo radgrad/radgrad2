@@ -174,29 +174,35 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
     return (
       <div>
         <FacultyPageMenuWidget/>
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={16}>
-            {this.state.showUpdateForm ? (
-              <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                     handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                     itemTitleString={itemTitleString}/>
-            ) : (
-              <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
-            )}
-            <ListOpportunitiesWidget collection={collection}
-                                     findOptions={findOptions}
-                                     descriptionPairs={descriptionPairs}
-                                     itemTitle={itemTitle}
-                                     handleOpenUpdate={this.handleOpenUpdate}
-                                     handleDelete={this.handleDelete}
-                                     setShowIndex={setCollectionShowIndex}
-                                     setShowCount={setCollectionShowCount}
-            />
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}>
+              {this.state.showUpdateForm ? (
+                <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}
+                                       handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                                       itemTitleString={itemTitleString}/>
+              ) : (
+                <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              )}
+              <ListOpportunitiesWidget collection={collection}
+                                       findOptions={findOptions}
+                                       descriptionPairs={descriptionPairs}
+                                       itemTitle={itemTitle}
+                                       handleOpenUpdate={this.handleOpenUpdate}
+                                       handleDelete={this.handleDelete}
+                                       setShowIndex={setCollectionShowIndex}
+                                       setShowCount={setCollectionShowCount}
+              />
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
         </Grid>
         <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
                  header="Delete Opportunity?"/>
