@@ -13,7 +13,7 @@ interface ITabbedPlanInspectorProps {
 }
 
 const mapStateToProps = (state) => ({
-    selectedTab: state.depTab.selectedTab,
+    selectedTab: state.student.degreePlanner.tab.selectedTab,
   });
 
 const mapDispatchToProps = (dispatch) => ({
