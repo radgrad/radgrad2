@@ -22,17 +22,25 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #getSlug, #findNames', function test() {
+    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #getSlug, #findNames, #hasInterest, #update', function test() {
       const interests = [makeSampleInterest()];
-      const docID = CareerGoals.define({ name, slug, description, interests });
+      let docID = CareerGoals.define({ name, slug, description, interests });
       expect(CareerGoals.isDefined(slug)).to.be.true;
       expect(CareerGoals.getSlug(docID)).to.equal(slug);
       expect(CareerGoals.findNames([docID])[0]).to.equal(name);
+      let errors = CareerGoals.checkIntegrity();
+      expect(errors.length).to.equal(0);
       const dumpObject = CareerGoals.dumpOne(docID);
       CareerGoals.removeIt(slug);
       expect(CareerGoals.isDefined(slug)).to.be.false;
-      CareerGoals.restoreOne(dumpObject);
+      docID = CareerGoals.restoreOne(dumpObject);
       expect(CareerGoals.isDefined(slug)).to.be.true;
+      expect(CareerGoals.hasInterest(docID, interests[0])).to.be.true;
+      expect(CareerGoals.countNonRetired()).to.equal(1);
+      errors = CareerGoals.checkIntegrity();
+      expect(errors.length).to.equal(0);
+      CareerGoals.update(docID, { retired: true });
+      expect(CareerGoals.countNonRetired()).to.equal(0);
     });
   });
 }
