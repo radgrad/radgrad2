@@ -23,7 +23,7 @@
       "two": {"i": 0, "c": 12, "e": 0, "reviews": 0}
     },
     "RadGrad": {
-      "quarterSystem": true
+      "quarterSystem": false
     }
   }
 }
