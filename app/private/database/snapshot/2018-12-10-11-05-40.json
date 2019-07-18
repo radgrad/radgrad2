@@ -9196,25 +9196,7 @@
           ],
           "level": 6,
           "academicPlan": "bs-cs-2019",
-          "hiddenCourses": [],
-          "hiddenOpportunities": [],
-          "isAlumni": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "firstName": "Gian",
-          "lastName": "Calica",
-          "picture": "/images/default-profile-picture.png",
-          "website": "http://gcalica.github.io",
-          "interests": [
-            "algorithms"
-          ],
-          "careerGoals": [
-            "full-stack-developer"
-          ],
-          "level": 6,
-          "academicPlan": "bs-cs-2016",
-          "declaredAcademicTerm": "Spring-2016",
+          "declaredAcademicTerm": "Fall-2017",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
@@ -9232,8 +9214,28 @@
             "full-stack-developer"
           ],
           "level": 6,
-          "academicPlan": "bs-cs-2016",
-          "declaredAcademicTerm": "Spring-2016",
+          "academicPlan": "bs-cs-2019",
+          "declaredAcademicTerm": "Fall-2018",
+          "hiddenCourses": [],
+          "hiddenOpportunities": [],
+          "isAlumni": false
+        },
+        {
+          "username": "qauchida@hawaii.edu",
+          "firstName": "Quinne",
+          "lastName": "Uchida",
+          "picture": "https://qauchida.github.io/images/quinne.jpg",
+          "website": "http://qauchida.github.io",
+          "interests": [
+            "application-development",
+            "research"
+          ],
+          "careerGoals": [
+            "data-scientist",
+            "software-developer"
+          ],
+          "level": 3,
+          "academicPlan": "bs-cs-2019",
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
