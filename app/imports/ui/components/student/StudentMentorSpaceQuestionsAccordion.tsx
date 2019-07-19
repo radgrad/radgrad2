@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
-import QuestionAnswersWidget from './QuestionAnswersWidget';
+import MentorQuestionAnswerWidget from './MentorQuestionAnswerWidget';
 // eslint-disable-next-line no-unused-vars
 import { IMentorAnswer } from '../../../typings/radgrad';
 
@@ -34,22 +34,14 @@ class StudentMentorSpaceQuestionsAccordion extends React.Component<IStudentMento
     this.setState({ activeIndex: newIndex });
   }
 
-  public answerAmt(answerCount) {
-    const print1 = ' answer';
-    const print2 = ' answers';
-    if (answerCount === 1) {
-      return print1;
-    }
-    return print2;
-  }
-
   public render() {
     const { activeIndex } = this.state;
     const accordionStyle = { overflow: 'hidden' };
+    const { questions, answers, answerCount } = this.props;
     return (
       <div>
-        {_.map(this.props.questions, (q, ind) => {
-          const answers = _.filter(this.props.answers, (ans) => ans.questionID === q._id);
+        {_.map(questions, (q, ind) => {
+          const mentorAnswers = _.filter(answers, (ans) => ans.questionID === q._id);
           return (
             <Accordion fluid={true} styled={true} key={ind} style={accordionStyle}>
               <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
@@ -60,18 +52,18 @@ class StudentMentorSpaceQuestionsAccordion extends React.Component<IStudentMento
                       {q.question}
                     </Grid.Column>
                     <Grid.Column width={2} textAlign={'right'}>
-                      {this.props.answerCount[ind]} {this.answerAmt(this.props.answerCount[ind])}
+                      {answerCount[ind]} {answerCount[ind] > 1 ? ' answers' : ' answer'}
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === ind}>
                 <React.Fragment>
-                  {_.map(answers, (answer, index) => {
+                  {_.map(mentorAnswers, (answer, index) => {
                     const mentor = MentorProfiles.findDoc({ userID: answer.mentorID });
                     return (
                       <React.Fragment key={index}>
-                        <QuestionAnswersWidget answer={answer} mentor={mentor}/>
+                        <MentorQuestionAnswerWidget answer={answer} mentor={mentor}/>
                       </React.Fragment>
                     );
                   })}
