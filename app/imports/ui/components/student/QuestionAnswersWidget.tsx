@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Divider, Image, List } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { IMentorQuestion, IMentorAnswer } from '../../../typings/radgrad'; // eslint-disable-line
-import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import { IMentorQuestion, IMentorAnswer, IMentorProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IQuestionAnswersWidgetProps {
-  question: IMentorQuestion;
-  answers: IMentorAnswer[];
+  mentor: any;
+  answer: any;
 }
 
 class QuestionAnswersWidget extends React.Component<IQuestionAnswersWidgetProps> {
@@ -17,36 +13,24 @@ class QuestionAnswersWidget extends React.Component<IQuestionAnswersWidgetProps>
   }
 
   public render() {
-    const answers = _.filter(this.props.answers, (ans) => ans.questionID === this.props.question._id);
+    const answer = this.props.answer;
+    console.log('Answer: ', this.props.answer);
+    const mentor = this.props.mentor;
     return (
-      <div>
-        {_.map(answers, (a, index) => {
-          const mentor = MentorProfiles.findDoc({ userID: a.mentorID });
-          return (
-          <div key={index}>
-            <Divider/>
-            <List horizontal={true} relaxed={true}>
-              <List.Item>
-                <Image src={mentor.picture} size={'mini'}/>
-                <List.Content>
-                  <a href="#">{mentor.firstName} {mentor.lastName} </a> answered:
-                </List.Content>
-              </List.Item>
-            </List>
-            <p>{a.text}</p>
-          </div>
-          );
-        })}
-      </div>
+      <React.Fragment>
+        <Divider/>
+        <List horizontal={true} relaxed={true}>
+          <List.Item>
+            <Image src={mentor.picture} size={'mini'}/>
+            <List.Content>
+              <a href="#">{mentor.firstName} {mentor.lastName} </a> answered:
+            </List.Content>
+          </List.Item>
+        </List>
+        <p>{answer.text}</p>
+      </React.Fragment>
     );
   }
 }
 
-const QuestionAnswersWidgetContainer = withTracker(() => {
-  const answers = MentorAnswers.find().fetch();
-  // console.log('QuestionAnswersWidget withTracker items=%o', answers);
-  return {
-    answers,
-  };
-})(QuestionAnswersWidget);
-export default QuestionAnswersWidgetContainer;
+export default QuestionAnswersWidget;
