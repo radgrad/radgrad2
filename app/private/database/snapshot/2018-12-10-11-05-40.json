@@ -9239,6 +9239,26 @@
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
+        },
+        {
+          "username": "gbarcelo@hawaii.edu",
+          "firstName": "Glen",
+          "lastName": "Barcelo",
+          "picture": "",
+          "website": "",
+          "interests": [
+            "data-science",
+            "data-visualization"
+          ],
+          "careerGoals": [
+            "data-scientist"
+          ],
+          "level": 3,
+          "academicPlan": "bs-cs-2019",
+          "declaredAcademicTerm": "Fall-2019",
+          "hiddenCourses": [],
+          "hiddenOpportunities": [],
+          "isAlumni": false
         }
       ]
     },
