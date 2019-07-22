@@ -7486,6 +7486,27 @@
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
+        },
+        {
+          "username": "qauchida@hawaii.edu",
+          "firstName": "Quinne",
+          "lastName": "Uchida",
+          "picture": "https://qauchida.github.io/images/quinne.jpg",
+          "website": "http://qauchida.github.io",
+          "interests": [
+            "application-development",
+            "research"
+          ],
+          "careerGoals": [
+            "data-scientist",
+            "software-developer"
+          ],
+          "level": 3,
+          "academicPlan": "bs-cs-2016",
+          "declaredAcademicTerm": "Fall-2014",
+          "hiddenCourses": [],
+          "hiddenOpportunities": [],
+          "isAlumni": false
         }
       ]
     },
