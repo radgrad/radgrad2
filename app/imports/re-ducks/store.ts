@@ -4,6 +4,8 @@ import advisor from './advisor';
 import shared from './shared';
 import student from './student';
 
+/* global window */
+
 const rootReducer = combineReducers({
   admin,
   advisor,
@@ -11,5 +13,9 @@ const rootReducer = combineReducers({
   student,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  // @ts-ignore
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 export default store;
