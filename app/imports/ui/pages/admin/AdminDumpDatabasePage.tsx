@@ -8,10 +8,8 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/AdminDatabaseAccordion';
-import {
-  dumpDatabaseDone, getStudentEmailsDone,
-  startDumpDatabase, startGetStudentEmails,
-} from '../../../redux/actions/actions';
+import { dumpDatabaseDone, startDumpDatabase } from '../../../re-ducks/admin/database/actions';
+import { startGetStudentEmails, getStudentEmailsDone } from '../../../re-ducks/admin/analytics/actions';
 
 interface Icollection {
   name?: string;
@@ -35,8 +33,8 @@ interface IAdminDumpDatabasePageProps {
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
 const mapStateToProps = (state) => ({
-    dumpDatabaseWorking: state.radgradWorking.dumpDatabase,
-    getStudentEmailsWorking: state.radgradWorking.getStudentEmails,
+    dumpDatabaseWorking: state.admin.database.dumpDatabase,
+    getStudentEmailsWorking: state.admin.analytics.getStudentEmails,
   });
 
 const mapDispatchToProps = (dispatch) => ({
