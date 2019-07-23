@@ -7,11 +7,11 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../re-ducks/admin/data-model/actions';
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
     { label: 'Student', value: Users.getFullName(year.studentID) },
