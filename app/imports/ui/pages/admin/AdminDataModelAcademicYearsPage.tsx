@@ -11,7 +11,7 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../re-ducks/admin/data-model/actions';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
     { label: 'Student', value: Users.getFullName(year.studentID) },

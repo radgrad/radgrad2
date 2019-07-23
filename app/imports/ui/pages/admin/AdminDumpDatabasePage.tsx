@@ -8,8 +8,8 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/AdminDatabaseAccordion';
-import { dumpDatabaseDone, startDumpDatabase } from '../../../re-ducks/admin/database/actions';
-import { startGetStudentEmails, getStudentEmailsDone } from '../../../re-ducks/admin/analytics/actions';
+import { dumpDatabaseDone, startDumpDatabase } from '../../../redux/admin/database/actions';
+import { startGetStudentEmails, getStudentEmailsDone } from '../../../redux/admin/analytics/actions';
 
 interface Icollection {
   name?: string;

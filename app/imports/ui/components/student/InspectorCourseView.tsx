@@ -16,7 +16,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
-import { selectCourse } from '../../../re-ducks/student/degree-planner/actions';
+import { selectCourse } from '../../../redux/student/degree-planner/actions';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IInspectorCourseViewProps {

@@ -19,7 +19,7 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../re-ducks/admin/data-model/actions';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 const collection = CourseInstances;
 
