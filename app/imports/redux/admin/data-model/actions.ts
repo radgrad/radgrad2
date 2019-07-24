@@ -28,7 +28,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 
 export const setCollectionShowCount = (collectionName: string, count: number) => {
-  const retVal: {type?: string, payload?: number} = {};
+  const retVal: { type?: string, payload?: number } = {};
   retVal.payload = count;
   switch (collectionName) {
     case AcademicPlans.getCollectionName():
@@ -113,13 +113,13 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
       retVal.type = TYPES.SET_VERIFICATION_REQUESTS_SHOW_COUNT;
       break;
     default:
-    // do nothing
+      break;
   }
   return retVal;
 };
 
 export const setCollectionShowIndex = (collectionName: string, index: number) => {
-  const retVal: {type?: string, payload?: number} = {};
+  const retVal: { type?: string, payload?: number } = {};
   retVal.payload = index;
   switch (collectionName) {
     case AcademicPlans.getCollectionName():
@@ -204,7 +204,39 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
       retVal.type = TYPES.SET_VERIFICATION_REQUESTS_SHOW_INDEX;
       break;
     default:
-    // do nothing
+      break;
+  }
+  return retVal;
+};
+
+export const setIsCloudinaryUsed = (pageType: 'Feeds' | 'Users', isCloudinaryUsed: boolean) => {
+  const retVal: { type?: string, payload?: boolean } = {};
+  retVal.payload = isCloudinaryUsed;
+  switch (pageType) {
+    case 'Feeds':
+      retVal.type = TYPES.SET_FEEDS_IS_CLOUDINARY_USED;
+      break;
+    case 'Users':
+      retVal.type = TYPES.SET_USERS_IS_CLOUDINARY_USED;
+      break;
+    default:
+      break;
+  }
+  return retVal;
+};
+
+export const setCloudinaryUrl = (pageType: 'Feeds' | 'Users', cloudinaryUrl: string) => {
+  const retVal: { type?: string, payload?: string } = {};
+  retVal.payload = cloudinaryUrl;
+  switch (pageType) {
+    case 'Feeds':
+      retVal.type = TYPES.SET_FEEDS_CLOUDINARY_URL;
+      break;
+    case 'Users':
+      retVal.type = TYPES.SET_FEEDS_CLOUDINARY_URL;
+      break;
+    default:
+      break;
   }
   return retVal;
 };

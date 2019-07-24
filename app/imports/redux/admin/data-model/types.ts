@@ -53,3 +53,8 @@ export const SET_STUDENTS_SHOW_INDEX = 'radgrad/admin/data-model/SET_STUDENTS_SH
 export const SET_STUDENTS_SHOW_COUNT = 'radgrad/admin/data-model/SET_STUDENTS_SHOW_COUNT';
 export const SET_VERIFICATION_REQUESTS_SHOW_INDEX = 'radgrad/admin/data-model/SET_VERIFICATION_REQUESTS_SHOW_INDEX';
 export const SET_VERIFICATION_REQUESTS_SHOW_COUNT = 'radgrad/admin/data-model/SET_VERIFICATION_REQUESTS_SHOW_COUNT';
+// Cloudinary-related things
+export const SET_FEEDS_IS_CLOUDINARY_USED = 'radgrad/admin/data-model/SET_FEEDS_IS_CLOUDINARY_USED';
+export const SET_FEEDS_CLOUDINARY_URL = 'radgrad/admin/data-model/SET_FEEDS_CLOUDINARY_URL';
+export const SET_USERS_IS_CLOUDINARY_USED = 'radgrad/admin/data-model/SET_USERS_IS_CLOUDINARY_USED';
+export const SET_USERS_CLOUDINARY_URL = 'radgrad/admin/data-model/SET_USERS_CLOUDINARY_URL';

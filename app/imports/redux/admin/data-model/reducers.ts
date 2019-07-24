@@ -1,6 +1,11 @@
 import * as TYPES from './types';
 
-const initialState = {
+interface initialState {
+  pagination: { [key: string]: object };
+  cloudinary: { [key: string]: object };
+}
+
+const initialState: initialState = {
   pagination: {
     AcademicPlanCollection: {
       showIndex: 0,
@@ -111,13 +116,25 @@ const initialState = {
       showCount: 25,
     },
   },
+  cloudinary: {
+    Feeds: {
+      isCloudinaryUsed: false,
+      cloudinaryUrl: '',
+    },
+    Users: {
+      isCloudinaryUsed: false,
+      cloudinaryUrl: '',
+    },
+  },
 };
 
-export function reducer(state: any = initialState, action) {
+export function reducer(state: initialState = initialState, action): object {
   // console.log('paginationReducer state=%o, action=%o', state, action);
-  let collect;
   let s;
+  let collect;
+  let otherKeys;
   const paginationState = state.pagination;
+  const cloudinaryState = state.cloudinary;
   switch (action.type) {
     case TYPES.SET_ACADEMIC_PLANS_SHOW_INDEX:
       collect = paginationState.AcademicPlanCollection;
@@ -817,6 +834,58 @@ export function reducer(state: any = initialState, action) {
           VerificationRequestCollection: {
             ...collect,
             showCount: action.payload,
+          },
+        },
+      };
+      return s;
+    case TYPES.SET_FEEDS_IS_CLOUDINARY_USED:
+      otherKeys = cloudinaryState.Feeds;
+      s = {
+        ...state,
+        cloudinary: {
+          ...cloudinaryState,
+          Feeds: {
+            ...otherKeys,
+            isCloudinaryUsed: action.payload,
+          },
+        },
+      };
+      return s;
+    case TYPES.SET_FEEDS_CLOUDINARY_URL:
+      otherKeys = cloudinaryState.Feeds;
+      s = {
+        ...state,
+        cloudinary: {
+          ...cloudinaryState,
+          Feeds: {
+            ...otherKeys,
+            cloudinaryUrl: action.payload,
+          },
+        },
+      };
+      return s;
+    case TYPES.SET_USERS_IS_CLOUDINARY_USED:
+      otherKeys = cloudinaryState.Users;
+      s = {
+        ...state,
+        cloudinary: {
+          ...cloudinaryState,
+          Users: {
+            ...otherKeys,
+            isCloudinaryUsed: action.payload,
+          },
+        },
+      };
+      return s;
+    case TYPES.SET_USERS_CLOUDINARY_URL:
+      otherKeys = cloudinaryState.Users;
+      s = {
+        ...state,
+        cloudinary: {
+          ...cloudinaryState,
+          Users: {
+            ...otherKeys,
+            cloudinaryUrl: action.payload,
           },
         },
       };

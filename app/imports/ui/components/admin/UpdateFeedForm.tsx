@@ -45,6 +45,10 @@ interface IUpdateFeedFormState {
   pictureURL: string;
 }
 
+const mapDispatchToProps = (dispatch) => {
+
+};
+
 class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
   private readonly pictureFormRef;
 
@@ -214,7 +218,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
                 <MultiSelectField name="users"/>
-                <TextField name="picture" inputRef={this.pictureFormRef}/>
+                <TextField name="picture"/>
                 {console.log(this.pictureFormRef.current)}
               </Form.Group>
             </div>

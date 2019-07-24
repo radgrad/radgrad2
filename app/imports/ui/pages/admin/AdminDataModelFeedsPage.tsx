@@ -22,8 +22,14 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { connect } from 'react-redux';
 
 const collection = Feeds; // the collection to use.
+
+interface IAdminDataModelFeedsPageProps {
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
+}
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
@@ -81,7 +87,12 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageState> {
+const mapStateToProps = (state) => ({
+  isCloudinaryUsed: state.admin.dataModel.cloudinary.Feeds.isCloudinaryUsed,
+  cloudinaryUrl: state.admin.dataModel.cloudinary.Feeds.cloudinaryUrl,
+});
+
+class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPageProps, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -193,6 +204,10 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
     updateData.feedType = doc.feedType;
     updateData.users = doc.userIDs;
     updateData.opportunity = opportunityNameToSlug(doc.opportunity);
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -258,4 +273,4 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 }
 
-export default AdminDataModelFeedsPage;
+export default connect(mapStateToProps)(AdminDataModelFeedsPage);
