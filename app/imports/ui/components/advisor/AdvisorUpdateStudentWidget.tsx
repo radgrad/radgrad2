@@ -13,15 +13,12 @@ import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import {
-  advisorHomeSetIsLoaded,
-  advisorHomeSetSelectedStudentUsername,
-} from '../../../redux/actions/pageAdvisorActions';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
+import { advisorHomeSetIsLoaded, advisorHomeSetSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;

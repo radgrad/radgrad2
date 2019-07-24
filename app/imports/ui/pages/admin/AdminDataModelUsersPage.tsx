@@ -4,7 +4,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/admin/data-model/actions';
 import {
   IAdminDataModelPageState, IAdvisorProfile, // eslint-disable-line
   IBaseProfile, ICombinedProfileDefine, IFacultyProfile, IMentorProfile, IStudentProfile, // eslint-disable-line

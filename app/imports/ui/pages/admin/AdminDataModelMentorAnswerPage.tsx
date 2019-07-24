@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
@@ -15,6 +14,7 @@ import AddMentorAnswerForm from '../../components/admin/AddMentorAnswerForm';
 import { mentorQuestionToSlug, profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateMentorAnswerForm from '../../components/admin/UpdateMentorAnswerForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 const collection = MentorAnswers; // the collection to use.
 

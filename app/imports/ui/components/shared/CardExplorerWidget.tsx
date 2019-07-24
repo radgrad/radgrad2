@@ -27,13 +27,10 @@ import ProfileCard from './ProfileCard';
 import { IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
-import {
-  setCardExplorerWidgetHiddenCourses,
-  setCardExplorerWidgetHiddenOpportunities,
-} from '../../../redux/actions/cardExplorerPageActions';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
+import { setCardExplorerWidgetHiddenCourses, setCardExplorerWidgetHiddenOpportunities } from '../../../redux/shared/explorer/actions';
 
 interface ICardExplorerWidgetProps {
   collection: any;

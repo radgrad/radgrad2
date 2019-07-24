@@ -4,13 +4,13 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AddHelpMessageForm from '../../components/admin/AddHelpMessageForm';
 import UpdateHelpMessageForm from '../../components/admin/UpdateHelpMessageForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 const collection = HelpMessages; // the collection to use.
 

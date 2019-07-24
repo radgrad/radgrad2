@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
-import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
@@ -15,6 +14,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Users } from '../../../api/user/UserCollection';
 import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/student/degree-planner/actions';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
