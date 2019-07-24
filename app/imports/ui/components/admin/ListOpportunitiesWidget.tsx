@@ -9,11 +9,11 @@ import { ROLE } from '../../../api/role/Role';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import AdminPaginationWidget from './AdminPaginationWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from './AdminDataModelAccordion';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -33,7 +33,7 @@ interface IListOpportunitiesWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  pagination: state.pagination,
+  pagination: state.admin.dataModel.pagination,
 });
 
 class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetProps, {}> {

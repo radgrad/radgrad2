@@ -11,8 +11,8 @@ export default class RadGradLogoText extends React.Component<IRadGradLogoProps> 
     super(props);
   }
   public render() {
-    const radStyle = { fontWeight: 700, color: this.props.color };
-    const gradStyle = { fontWeight: 400, color: this.props.color };
+    const radStyle = { fontWeight: 700 };
+    const gradStyle = { fontWeight: 400 };
     return (
       <div style={this.props.style}><span className="radgrad-brand-font" style={radStyle}>RAD</span>
         <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>

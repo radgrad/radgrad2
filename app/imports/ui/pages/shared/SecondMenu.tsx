@@ -33,7 +33,7 @@ class SecondMenu extends React.Component<ISecondMenuProps> {
     const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
     // console.log(this.props, baseRoute);
     return (
-      <Menu attached="top" borderless={true} widths={this.props.numItems} className="radgrad-second-menu mobile hidden">
+      <Menu attached={'top'} borderless={true} widths={this.props.numItems} secondary={true} pointing={true} className="radgrad-second-menu mobile hidden">
         {this.props.menuItems.map((item, index) => (
           <Menu.Item key={index} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
             {item.label}

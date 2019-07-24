@@ -7,7 +7,7 @@ import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
@@ -22,7 +22,7 @@ interface IListCollectionWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  pagination: state.pagination,
+  pagination: state.admin.dataModel.pagination,
 });
 
 class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {}> {

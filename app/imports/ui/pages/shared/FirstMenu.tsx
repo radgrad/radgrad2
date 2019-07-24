@@ -28,18 +28,19 @@ class FirstMenu extends React.Component<IFirstMenuProps> {
     const imageStyle = { width: '50px' };
     const signoutStyle = { marginTop: '32px' };
     const flexStyle = { display: 'flex' };
+    const noPadding = { paddingTop: 0, paddingBottom: 0 };
     return (
-      <Menu attached="top" borderless={true}>
-        <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
+      <Menu attached="top" borderless={true} className="radgrad-first-menu">
+        <Menu.Item as={NavLink} activeClassName="" exact={true} to="/" style={noPadding}>
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">
-            <Header as="h2">
+            <Header as="h1">
               <RadGradLogoText/>
             </Header>
           </div>
         </Menu.Item>
 
-        <Menu.Item position="right" className="right menu">
+        <Menu.Item position="right" className="right menu" style={noPadding}>
           {this.props.currentUser === '' ? (
             <div>
               <Dropdown text="Login" pointing="top right" icon={'user'}>

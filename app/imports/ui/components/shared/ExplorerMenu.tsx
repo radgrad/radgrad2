@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Dropdown } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan, //eslint-disable-line
@@ -16,6 +15,7 @@ import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -68,43 +68,21 @@ class ExplorerMenu extends React.Component<IExplorerMenuProps> {
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-
-    const menuItems = [
-      { key: 'Academic Plans', route: 'plans' },
-      { key: 'Career Goals', route: 'career-goals' },
-      { key: 'Courses', route: 'courses' },
-      { key: 'Degrees', route: 'degrees' },
-      { key: 'Interests', route: 'interests' },
-      { key: 'Opportunities', route: 'opportunities' },
-      { key: 'Users', route: 'users' },
-    ];
-
-    const baseUrl = this.props.match.url;
-    const username = this.getUsername();
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-    const menuOptions = menuItems.map((item) => ({
-      key: item.key,
-      text: item.key,
-      as: NavLink,
-      exact: true,
-      to: `${baseRoute}/${EXPLORER_TYPE.HOME}/${item.route}`,
-      style: { textDecoration: 'none' },
-    }));
+    const { menuAddedList, menuCareerList, match, type, role } = this.props;
 
     return (
       <React.Fragment>
-        {/* ####### Main Dropdown Menu ####### */}
-        <Dropdown selection={true} fluid={true} options={menuOptions} text={this.getTypeName()}/>
+        <ExplorerNavDropdown match={match} text={this.getTypeName()}/>
         <br/>
-        <ExplorerMenuNonMobileWidget menuAddedList={this.props.menuAddedList}
-                                     menuCareerList={this.props.type && this.props.menuCareerList ? this.props.menuCareerList : undefined}
-                                     type={this.props.type}
-                                     role={this.props.role}/>
-        <ExplorerMenuMobileWidget menuAddedList={this.props.menuAddedList}
-                                  menuCareerList={this.props.type && this.props.menuCareerList ? this.props.menuCareerList : undefined}
-                                  type={this.props.type}
-                                  role={this.props.role}/>
+
+        <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList}
+                                     menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+                                     type={type}
+                                     role={role}/>
+        <ExplorerMenuMobileWidget menuAddedList={menuAddedList}
+                                  menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+                                  type={type}
+                                  role={role}/>
       </React.Fragment>
     );
   }

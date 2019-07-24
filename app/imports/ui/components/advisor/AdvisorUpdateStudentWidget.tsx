@@ -13,15 +13,12 @@ import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import {
-  advisorHomeSetIsLoaded,
-  advisorHomeSetSelectedStudentUsername,
-} from '../../../redux/actions/pageAdvisorActions';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
+import { advisorHomeSetIsLoaded, advisorHomeSetSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -47,8 +44,8 @@ interface IAdvisorUpdateStudentWidgetState {
 }
 
 const mapStateToProps = (state) => ({
-  selectedUsername: state.page.advisor.home.selectedUsername,
-  isLoaded: state.page.advisor.home.isLoaded,
+  selectedUsername: state.advisor.home.selectedUsername,
+  isLoaded: state.advisor.home.isLoaded,
 });
 
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
@@ -110,9 +107,9 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
 
   private hasNewLevel = () => {
     const student = this.props.usernameDoc;
-    console.log('calcLevel', RadGrad.calcLevel);
-    console.log('radgrad.calcLevel, student.level, defaultCalcLevel()',
-      RadGrad.calcLevel, student.level, defaultCalcLevel(student.userID));
+    // console.log('calcLevel', RadGrad.calcLevel);
+    // console.log('radgrad.calcLevel, student.level, defaultCalcLevel()',
+    //   RadGrad.calcLevel, student.level, defaultCalcLevel(student.userID));
     return RadGrad.calcLevel ? student.level !== RadGrad.calcLevel(student.userID) : student.level !== defaultCalcLevel(student.userID);
   }
 

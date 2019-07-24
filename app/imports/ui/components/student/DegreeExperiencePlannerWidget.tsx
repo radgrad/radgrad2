@@ -5,7 +5,6 @@ import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { moment } from 'meteor/momentjs:moment';
 import * as _ from 'lodash';
-import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/actions/actions';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
@@ -13,6 +12,7 @@ import { IAcademicYear, IAcademicYearDefine, ICourseInstance, IOpportunityInstan
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/student/degree-planner/actions';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;

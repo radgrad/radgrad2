@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import {
   IAdminDataModelPageState, // eslint-disable-line
   IDescriptionPair, // eslint-disable-line
@@ -18,6 +17,7 @@ import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceF
 import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 const collection = FeedbackInstances; // the collection to use.
 

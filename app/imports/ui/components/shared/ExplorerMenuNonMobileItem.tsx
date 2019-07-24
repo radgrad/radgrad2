@@ -156,7 +156,7 @@ class ExplorerMenuNonMobileItem extends React.Component<IExplorerMenuNonMobileIt
         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
         {type === EXPLORER_TYPE.OPPORTUNITIES && this.opportunityItemName(listItem as { item: IOpportunity, count: number })}
         {type === EXPLORER_TYPE.COURSES && this.courseName(listItem as { item: ICourse, count: number })}
-        {(type !== EXPLORER_TYPE.COURSES || type !== EXPLORER_TYPE.OPPORTUNITIES) && this.itemName(listItem)}
+        {(type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES) && this.itemName(listItem)}
       </Menu.Item>
     );
   }

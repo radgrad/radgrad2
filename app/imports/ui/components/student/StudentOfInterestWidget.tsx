@@ -13,11 +13,8 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import {
-  setStudentHomeWidgetHiddenCourses,
-  setStudentHomeWidgetHiddenOpportunities,
-} from '../../../redux/actions/studentHomePageActions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { setStudentHomeWidgetHiddenCourses, setStudentHomeWidgetHiddenOpportunities } from '../../../redux/student/home/actions';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -40,8 +37,8 @@ interface IStudentOfInterestWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  hiddenCourses: state.studentHomePage.studentOfInterestWidget.hiddenCourses,
-  hiddenOpportunities: state.studentHomePage.studentOfInterestWidget.hiddenOpportunities,
+  hiddenCourses: state.student.home.hiddenCourses,
+  hiddenOpportunities: state.student.home.hiddenOpportunities,
 });
 
 class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetProps> {

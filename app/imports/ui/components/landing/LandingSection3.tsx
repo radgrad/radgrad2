@@ -22,9 +22,9 @@ const LandingSection3 = (props: ILandingSection3Props) => (
             advisor, and they will set up your account and answer your questions.</p>
 
           <p style={styles['inverted-description']}>To start, you&apos;ll select one of
-            the <strong>{props.degrees}</strong> <a href="/">degree programs</a>, one out
-            of <strong>{props.careerGoals}</strong> <a href="/">career directions</a>, and a few of
-            the <strong>{props.interests}</strong> <a href="/">interest areas</a>. Don&apos;t worry, you can change
+            the <strong style={styles['green-text']}>{props.degrees}</strong> <a href="#/explorer/degrees">degree programs</a>, one out
+            of <strong>{props.careerGoals}</strong> <a href="#/explorer/career-goals">career directions</a>, and a few of
+            the <strong>{props.interests}</strong> <a href="#/explorer/interests">interest areas</a>. Don&apos;t worry, you can change
             them later!</p>
         </Grid.Column>
       </Grid>

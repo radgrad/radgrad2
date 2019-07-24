@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Segment, Tab } from 'semantic-ui-react';
 import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
 import AcademicPlanViewerContainer from './AcademicPlanViewer';
-import { DepSelectedTabs } from '../../../redux/actions/actionTypes';
-import { selectInspectorTab, selectPlanTab } from '../../../redux/actions/actions';
+import { selectPlanTab, selectInspectorTab } from '../../../redux/student/degree-planner/actions';
+import { SELECT_PLAN } from '../../../redux/student/degree-planner/types';
 
 interface ITabbedPlanInspectorProps {
   selectedTab: string;
@@ -13,7 +13,7 @@ interface ITabbedPlanInspectorProps {
 }
 
 const mapStateToProps = (state) => ({
-    selectedTab: state.depTab.selectedTab,
+    selectedTab: state.student.degreePlanner.tab.selectedTab,
   });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,7 +42,7 @@ class TabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {
   }
 
   public render() {
-    const activeIndex = this.props.selectedTab === DepSelectedTabs.SELECT_PLAN ? 0 : 1;
+    const activeIndex = this.props.selectedTab === SELECT_PLAN ? 0 : 1;
     // console.log('TabbedPlanInspector.render props=%o, activeIndex=%o', this.props, activeIndex);
     const panes = [
       {

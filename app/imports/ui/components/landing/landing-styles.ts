@@ -5,7 +5,7 @@ export default {
   'inverted-section': {
     backgroundColor: 'rgba(0,0,0,.8)',
     paddingTop: 68,
-    paddingBottom: 70,
+    paddingBottom: 17,
     marginTop: 0,
   },
   'inverted-main-header': {

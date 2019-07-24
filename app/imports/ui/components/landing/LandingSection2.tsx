@@ -57,7 +57,7 @@ const LandingSection2 = (props: ILandingSection2Props) => (
               {props.users}
             </div>
             <div className="label">
-              Students, Faculty, Mentors
+              Students, Faculty, Mentors, Alumni
             </div>
           </div>
         </div>
