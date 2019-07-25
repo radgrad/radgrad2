@@ -1,11 +1,42 @@
 import * as TYPES from './types';
 
-interface initialState {
-  pagination: { [key: string]: object };
-  cloudinary: { [key: string]: object };
+interface IState {
+  pagination: {
+    AcademicPlanCollection: { [key: string]: number };
+    AcademicTermCollection: { [key: string]: number };
+    AcademicYearInstanceCollection: { [key: string]: number };
+    AdvisorLogCollection: { [key: string]: number };
+    CareerGoalCollection: { [key: string]: number };
+    CourseInstanceCollection: { [key: string]: number };
+    CourseCollection: { [key: string]: number };
+    DesiredDegreeCollection: { [key: string]: number };
+    FeedCollection: { [key: string]: number };
+    FeedbackInstanceCollection: { [key: string]: number };
+    HelpMessageCollection: { [key: string]: number };
+    InterestCollection: { [key: string]: number };
+    InterestTypeCollection: { [key: string]: number };
+    MentorAnswerCollection: { [key: string]: number };
+    MentorQuestionCollection: { [key: string]: number };
+    OpportunityCollection: { [key: string]: number };
+    OpportunityInstanceCollection: { [key: string]: number };
+    OpportunityTypeCollection: { [key: string]: number };
+    PlanChoiceCollection: { [key: string]: number };
+    ReviewCollection: { [key: string]: number };
+    SlugCollection: { [key: string]: number };
+    AdvisorProfileCollection: { [key: string]: number };
+    FacultyProfileCollection: { [key: string]: number };
+    MentorProfileCollection: { [key: string]: number };
+    StudentProfileCollection: { [key: string]: number };
+    TeaserCollection: { [key: string]: number };
+    VerificationRequestCollection: { [key: string]: number };
+  };
+  cloudinary: {
+    Feeds: { [key: string]: any };
+    Users: { [key: string]: any };
+  };
 }
 
-const initialState: initialState = {
+const initialState: IState = {
   pagination: {
     AcademicPlanCollection: {
       showIndex: 0,
@@ -128,7 +159,7 @@ const initialState: initialState = {
   },
 };
 
-export function reducer(state: initialState = initialState, action): object {
+export function reducer(state: IState = initialState, action): IState {
   // console.log('paginationReducer state=%o, action=%o', state, action);
   let s;
   let collect;

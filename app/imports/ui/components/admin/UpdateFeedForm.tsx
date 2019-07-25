@@ -41,6 +41,8 @@ interface IUpdateFeedFormProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
   setIsCloudinaryUsed: (pageType: 'Feeds', isCloudinaryUsed: boolean) => any;
   setCloudinaryUrl: (pageType: 'Feeds', cloudinaryUrl: string) => any;
 }
@@ -48,6 +50,11 @@ interface IUpdateFeedFormProps {
 interface IUpdateFeedFormState {
   pictureURL: string;
 }
+
+const mapStateToProps = (state) => ({
+  isCloudinaryUsed: state.admin.dataModel.cloudinary.Feeds.isCloudinaryUsed,
+  cloudinaryUrl: state.admin.dataModel.cloudinary.Feeds.cloudinaryUrl,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   setIsCloudinaryUsed: (pageType: 'Feeds', isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(pageType, isCloudinaryUsed)),
@@ -70,6 +77,10 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       this.props.setCloudinaryUrl('Feeds', cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
+  }
+
+  private handlePictureUrlChange = (value) => {
+    this.setState({ pictureURL: value });
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -117,6 +128,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       picture: {
         type: String,
         label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        defaultValue: model.picture,
         optional: true,
       },
     });
@@ -158,7 +170,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
         break;
       default:
     }
-    // console.log(schema);
+    const { pictureURL } = this.state;
     return (
       <Segment padded={true}>
         <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
@@ -220,7 +232,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
                 <MultiSelectField name="users"/>
-                <TextField name="picture" value={this.state.pictureURL}/>
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
               </Form.Group>
             </div>
           ) : ''}
@@ -253,4 +265,4 @@ const UpdateFeedFormContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(UpdateFeedForm);
 
-export default connect(null, mapDispatchToProps)(UpdateFeedFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateFeedFormContainer);

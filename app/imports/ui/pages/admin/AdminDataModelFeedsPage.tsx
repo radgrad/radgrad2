@@ -204,11 +204,11 @@ class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPagePr
     updateData.feedType = doc.feedType;
     updateData.users = doc.userIDs;
     updateData.opportunity = opportunityNameToSlug(doc.opportunity);
-    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
-    if (isCloudinaryUsed) {
-      updateData.picture = cloudinaryUrl;
-    }
-    // console.log(collectionName, updateData);
+    // const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    // if (isCloudinaryUsed) {
+    //   updateData.picture = cloudinaryUrl;
+    // }
+    console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
