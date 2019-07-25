@@ -6228,7 +6228,6 @@
           "firstName": "Robert",
           "lastName": "Brewer",
           "picture": "/images/mentors/brewer.jpg",
-          "website": null,
           "interests": [
             "algorithms",
             "data-science",
@@ -6264,7 +6263,6 @@
           "firstName": "Jennifer",
           "lastName": "Geis",
           "picture": "/images/mentors/geis.jpg",
-          "website": null,
           "interests": [
             "application-development",
             "civic-engagement",
@@ -6290,7 +6288,6 @@
           "firstName": "Austen",
           "lastName": "Ito",
           "picture": "/images/mentors/ito.png",
-          "website": null,
           "interests": [
             "entrepreneurship",
             "game-design",
@@ -6317,7 +6314,6 @@
           "firstName": "Aaron",
           "lastName": "Kagawa",
           "picture": "/images/mentors/kagawa.jpg",
-          "website": null,
           "interests": [
             "application-development",
             "civic-engagement",
@@ -6345,7 +6341,6 @@
           "firstName": "Patrick",
           "lastName": "Karjala",
           "picture": "/images/mentors/karjala.jpg",
-          "website": null,
           "interests": [
             "application-development",
             "it-management",
@@ -6366,7 +6361,6 @@
           "firstName": "George",
           "lastName": "Lee",
           "picture": "/images/mentors/lee.jpg",
-          "website": null,
           "interests": [
             "algorithms",
             "application-development",
@@ -6400,7 +6394,6 @@
           "firstName": "Daniel",
           "lastName": "Leuck",
           "picture": "/images/mentors/leuck.jpg",
-          "website": null,
           "interests": [
             "algorithms",
             "application-development",
@@ -6436,7 +6429,6 @@
           "firstName": "Yuka",
           "lastName": "Nagashima",
           "picture": "/images/mentors/nagashima.jpg",
-          "website": null,
           "interests": [
             "application-development",
             "civic-engagement",

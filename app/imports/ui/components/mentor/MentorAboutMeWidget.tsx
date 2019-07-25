@@ -25,6 +25,8 @@ interface IMentorAboutMeWidgetProps {
       username: string;
     }
   };
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
   setIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
   setCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
@@ -33,6 +35,11 @@ interface IMentorAboutMeWidgetState {
   isEditingProfile: boolean;
   pictureURL: string;
 }
+
+const mapStateToProps = (state) => ({
+  isCloudinaryUsed: state.mentor.home.isCloudinaryUsed,
+  cloudinaryUrl: state.mentor.home.cloudinaryUrl,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   setIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(isCloudinaryUsed)),
@@ -227,6 +234,11 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     const mentorProfile = MentorProfiles.findOne({ userID: this.getUserIdFromRoute() });
     const updateData = doc;
     updateData.id = mentorProfile._id;
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
+    console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -234,6 +246,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
           text: error.message,
           type: 'error',
         });
+        this.formRef.current.reset();
       } else {
         Swal.fire({
           title: 'Update Succeeded',
@@ -268,6 +281,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       marginBottom: 0,
     };
 
+    const model = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
     const updateSchema = new SimpleSchema({
       website: {
         type: String,
@@ -388,7 +402,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
         {
           isEditingProfile ?
-            <AutoForm name={'mentorProfile'} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+            <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
               <Form.Group widths={'equal'}>
                 <TextField name='website'/>
                 <TextField name='company'/>
@@ -475,4 +489,4 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(MentorAboutMeWidget));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MentorAboutMeWidget));
