@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IFeedDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -104,7 +104,7 @@ class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPagePr
   private handleAdd = (doc) => {
     // console.log('Feeds.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData: any = {}; // create the definitionData may need to modify doc's values
+    const definitionData: IFeedDefine = doc; // create the definitionData may need to modify doc's values
     definitionData.feedType = doc.feedType;
     switch (doc.feedType) {
       case Feeds.NEW_USER:
@@ -119,7 +119,6 @@ class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPagePr
         break;
       case Feeds.NEW_LEVEL:
         definitionData.user = profileNameToUsername(doc.user);
-        definitionData.level = parseInt(doc.level, 10);
         break;
       case Feeds.NEW_OPPORTUNITY:
         definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
@@ -134,8 +133,9 @@ class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPagePr
         definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
         break;
       default:
+        break;
     }
-    // console.log(collectionName, definitionData);
+    console.log('definitionData %o', definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({

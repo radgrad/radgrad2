@@ -66,8 +66,8 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      setIsCloudinaryUsed('Feeds', true);
-      setCloudinaryUrl('Feeds', cloudinaryResult.info.url);
+      this.props.setIsCloudinaryUsed('Feeds', true);
+      this.props.setCloudinaryUrl('Feeds', cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }
