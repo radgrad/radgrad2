@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import Swal from 'sweetalert2';
+import { connect } from 'react-redux';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -22,7 +23,6 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
-import { connect } from 'react-redux';
 
 const collection = Feeds; // the collection to use.
 

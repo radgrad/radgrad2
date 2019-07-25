@@ -11,6 +11,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import { connect } from 'react-redux';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -27,6 +28,7 @@ import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/admin/data-model/actions';
 
 interface IUpdateFeedFormProps {
   academicTerms: IAcademicTerm[];
@@ -39,22 +41,22 @@ interface IUpdateFeedFormProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
+  setIsCloudinaryUsed: (pageType: 'Feeds', isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (pageType: 'Feeds', cloudinaryUrl: string) => any;
 }
 
 interface IUpdateFeedFormState {
   pictureURL: string;
 }
 
-const mapDispatchToProps = (dispatch) => {
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  setIsCloudinaryUsed: (pageType: 'Feeds', isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(pageType, isCloudinaryUsed)),
+  setCloudinaryUrl: (pageType: 'Feeds', cloudinaryUrl: string) => dispatch(setCloudinaryUrl(pageType, cloudinaryUrl)),
+});
 
 class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
-  private readonly pictureFormRef;
-
   constructor(props) {
     super(props);
-    this.pictureFormRef = React.createRef();
     this.state = {
       pictureURL: this.props.collection.findDoc(this.props.id).picture,
     };
@@ -64,6 +66,8 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
+      setIsCloudinaryUsed('Feeds', true);
+      setCloudinaryUrl('Feeds', cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }
@@ -78,7 +82,6 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
     const courseNames = _.map(this.props.courses, courseToName);
     const opportunityNames = _.map(this.props.opportunities, docToName);
     const studentNames = _.map(this.props.students, profileToName);
-    const picture = model.picture;
     const schema = new SimpleSchema({
       timestamp: Date,
       feedType: String,
@@ -115,7 +118,6 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
         type: String,
         label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
         optional: true,
-        defaultValue: picture,
       },
     });
     const verifiedOpportunitySchema = new SimpleSchema({
@@ -218,8 +220,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
                 <MultiSelectField name="users"/>
-                <TextField name="picture"/>
-                {console.log(this.pictureFormRef.current)}
+                <TextField name="picture" value={this.state.pictureURL}/>
               </Form.Group>
             </div>
           ) : ''}
@@ -252,4 +253,4 @@ const UpdateFeedFormContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(UpdateFeedForm);
 
-export default UpdateFeedFormContainer;
+export default connect(null, mapDispatchToProps)(UpdateFeedFormContainer);
