@@ -46,8 +46,6 @@ interface IUpdateFeedFormProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
-  isCloudinaryUsed: boolean;
-  cloudinaryUrl: string;
   setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
   setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
 }
@@ -56,12 +54,7 @@ interface IUpdateFeedFormState {
   pictureURL: string;
 }
 
-const mapStateToProps = (state: ReduxState) => ({
-  isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
-  cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
-});
-
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any): object => ({
   setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(type, isCloudinaryUsed)),
   setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(setCloudinaryUrl(type, cloudinaryUrl)),
 });
@@ -270,4 +263,4 @@ const UpdateFeedFormContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(UpdateFeedForm);
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateFeedFormContainer);
+export default connect(null, mapDispatchToProps)(UpdateFeedFormContainer);

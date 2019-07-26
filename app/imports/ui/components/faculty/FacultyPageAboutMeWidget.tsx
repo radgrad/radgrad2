@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Grid, Header, Label, Icon, Form, Segment, Image, Button } from 'semantic-ui-react';
+import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withTracker } from 'meteor/react-meteor-data';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -171,12 +171,6 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * Renders all components
    */
   public render() {
-    const imageStyle = {
-      maxHeight: 90,
-      maxWidth: 150,
-      paddingRight: 30,
-    };
-
     const username = this.props.match.params.username;
     // gets the doc object containing information on desired profile based on username
     const facultyDoc = FacultyProfiles.findDoc(username);
@@ -283,8 +277,14 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               <Header as='h5' textAlign='left'>Picture</Header>
             </Grid.Column>
             <Grid.Column floated='left' width={6}>
-              <Image src={picture} style={imageStyle} floated="left"/>
-              <Button basic={true} color="green" onClick={this.handleUploadPicture}>Upload</Button>
+              <Form onSubmit={this.handleUploadPicture}>
+                <Form.Group>
+                  <Form.Input name='picture'
+                              onChange={this.handleChange}
+                              value={picture}/>
+                  <Form.Button basic={true} color="green">Upload</Form.Button>
+                </Form.Group>
+              </Form>
             </Grid.Column>
           </Grid.Row>
         </Grid>
