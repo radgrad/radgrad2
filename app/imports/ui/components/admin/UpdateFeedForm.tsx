@@ -28,7 +28,12 @@ import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/admin/data-model/actions';
+import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/shared/cloudinary/actions';
+import {
+  SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL,
+  SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED,
+} from '../../../redux/shared/cloudinary/types';
 
 interface IUpdateFeedFormProps {
   academicTerms: IAcademicTerm[];
@@ -43,22 +48,22 @@ interface IUpdateFeedFormProps {
   itemTitleString: (item) => React.ReactNode;
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  setIsCloudinaryUsed: (pageType: 'Feeds', isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (pageType: 'Feeds', cloudinaryUrl: string) => any;
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
 }
 
 interface IUpdateFeedFormState {
   pictureURL: string;
 }
 
-const mapStateToProps = (state) => ({
-  isCloudinaryUsed: state.admin.dataModel.cloudinary.Feeds.isCloudinaryUsed,
-  cloudinaryUrl: state.admin.dataModel.cloudinary.Feeds.cloudinaryUrl,
+const mapStateToProps = (state: ReduxState) => ({
+  isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
+  cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setIsCloudinaryUsed: (pageType: 'Feeds', isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(pageType, isCloudinaryUsed)),
-  setCloudinaryUrl: (pageType: 'Feeds', cloudinaryUrl: string) => dispatch(setCloudinaryUrl(pageType, cloudinaryUrl)),
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(setCloudinaryUrl(type, cloudinaryUrl)),
 });
 
 class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
@@ -73,8 +78,8 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      this.props.setIsCloudinaryUsed('Feeds', true);
-      this.props.setCloudinaryUrl('Feeds', cloudinaryResult.info.url);
+      this.props.setIsCloudinaryUsed(SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED, true);
+      this.props.setCloudinaryUrl(SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL, cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }

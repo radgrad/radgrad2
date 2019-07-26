@@ -208,35 +208,3 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
   }
   return retVal;
 };
-
-export const setIsCloudinaryUsed = (pageType: 'Feeds' | 'Users', isCloudinaryUsed: boolean) => {
-  const retVal: { type?: string, payload?: boolean } = {};
-  retVal.payload = isCloudinaryUsed;
-  switch (pageType) {
-    case 'Feeds':
-      retVal.type = TYPES.SET_FEEDS_IS_CLOUDINARY_USED;
-      break;
-    case 'Users':
-      retVal.type = TYPES.SET_USERS_IS_CLOUDINARY_USED;
-      break;
-    default:
-      break;
-  }
-  return retVal;
-};
-
-export const setCloudinaryUrl = (pageType: 'Feeds' | 'Users', cloudinaryUrl: string) => {
-  const retVal: { type?: string, payload?: string } = {};
-  retVal.payload = cloudinaryUrl;
-  switch (pageType) {
-    case 'Feeds':
-      retVal.type = TYPES.SET_FEEDS_CLOUDINARY_URL;
-      break;
-    case 'Users':
-      retVal.type = TYPES.SET_FEEDS_CLOUDINARY_URL;
-      break;
-    default:
-      break;
-  }
-  return retVal;
-};

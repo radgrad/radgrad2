@@ -1,7 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import admin from './admin';
 import advisor from './advisor';
-import mentor from './mentor';
 import shared from './shared';
 import student from './student';
 
@@ -10,10 +9,10 @@ import student from './student';
 const rootReducer = combineReducers({
   admin,
   advisor,
-  mentor,
   shared,
   student,
 });
+export type ReduxState = ReturnType<typeof rootReducer>;
 
 const store = createStore(
   rootReducer,

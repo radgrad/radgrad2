@@ -23,6 +23,7 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 
 const collection = Feeds; // the collection to use.
 
@@ -87,9 +88,9 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state) => ({
-  isCloudinaryUsed: state.admin.dataModel.cloudinary.Feeds.isCloudinaryUsed,
-  cloudinaryUrl: state.admin.dataModel.cloudinary.Feeds.cloudinaryUrl,
+const mapStateToProps = (state: ReduxState): object => ({
+  isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
+  cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
 
 class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPageProps, IAdminDataModelPageState> {
@@ -135,7 +136,6 @@ class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPagePr
       default:
         break;
     }
-    console.log('definitionData %o', definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -208,7 +208,6 @@ class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPagePr
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

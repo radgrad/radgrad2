@@ -1,38 +1,39 @@
 import * as TYPES from './types';
 
+interface IPaginationState {
+  showIndex: number;
+  showCount: number;
+}
+
 interface IState {
   pagination: {
-    AcademicPlanCollection: { [key: string]: number };
-    AcademicTermCollection: { [key: string]: number };
-    AcademicYearInstanceCollection: { [key: string]: number };
-    AdvisorLogCollection: { [key: string]: number };
-    CareerGoalCollection: { [key: string]: number };
-    CourseInstanceCollection: { [key: string]: number };
-    CourseCollection: { [key: string]: number };
-    DesiredDegreeCollection: { [key: string]: number };
-    FeedCollection: { [key: string]: number };
-    FeedbackInstanceCollection: { [key: string]: number };
-    HelpMessageCollection: { [key: string]: number };
-    InterestCollection: { [key: string]: number };
-    InterestTypeCollection: { [key: string]: number };
-    MentorAnswerCollection: { [key: string]: number };
-    MentorQuestionCollection: { [key: string]: number };
-    OpportunityCollection: { [key: string]: number };
-    OpportunityInstanceCollection: { [key: string]: number };
-    OpportunityTypeCollection: { [key: string]: number };
-    PlanChoiceCollection: { [key: string]: number };
-    ReviewCollection: { [key: string]: number };
-    SlugCollection: { [key: string]: number };
-    AdvisorProfileCollection: { [key: string]: number };
-    FacultyProfileCollection: { [key: string]: number };
-    MentorProfileCollection: { [key: string]: number };
-    StudentProfileCollection: { [key: string]: number };
-    TeaserCollection: { [key: string]: number };
-    VerificationRequestCollection: { [key: string]: number };
-  };
-  cloudinary: {
-    Feeds: { [key: string]: any };
-    Users: { [key: string]: any };
+    AcademicPlanCollection: IPaginationState;
+    AcademicTermCollection: IPaginationState;
+    AcademicYearInstanceCollection: IPaginationState;
+    AdvisorLogCollection: IPaginationState;
+    CareerGoalCollection: IPaginationState;
+    CourseInstanceCollection: IPaginationState;
+    CourseCollection: IPaginationState;
+    DesiredDegreeCollection: IPaginationState;
+    FeedCollection: IPaginationState;
+    FeedbackInstanceCollection: IPaginationState;
+    HelpMessageCollection: IPaginationState;
+    InterestCollection: IPaginationState;
+    InterestTypeCollection: IPaginationState;
+    MentorAnswerCollection: IPaginationState;
+    MentorQuestionCollection: IPaginationState;
+    OpportunityCollection: IPaginationState;
+    OpportunityInstanceCollection: IPaginationState;
+    OpportunityTypeCollection: IPaginationState;
+    PlanChoiceCollection: IPaginationState;
+    ReviewCollection: IPaginationState;
+    SlugCollection: IPaginationState;
+    AdvisorProfileCollection: IPaginationState;
+    FacultyProfileCollection: IPaginationState;
+    MentorProfileCollection: IPaginationState;
+    StudentProfileCollection: IPaginationState;
+    TeaserCollection: IPaginationState;
+    VerificationRequestCollection: IPaginationState;
   };
 }
 
@@ -147,25 +148,13 @@ const initialState: IState = {
       showCount: 25,
     },
   },
-  cloudinary: {
-    Feeds: {
-      isCloudinaryUsed: false,
-      cloudinaryUrl: '',
-    },
-    Users: {
-      isCloudinaryUsed: false,
-      cloudinaryUrl: '',
-    },
-  },
 };
 
 export function reducer(state: IState = initialState, action): IState {
   // console.log('paginationReducer state=%o, action=%o', state, action);
-  let s;
+  let s: IState;
   let collect;
-  let otherKeys;
   const paginationState = state.pagination;
-  const cloudinaryState = state.cloudinary;
   switch (action.type) {
     case TYPES.SET_ACADEMIC_PLANS_SHOW_INDEX:
       collect = paginationState.AcademicPlanCollection;
@@ -865,58 +854,6 @@ export function reducer(state: IState = initialState, action): IState {
           VerificationRequestCollection: {
             ...collect,
             showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_FEEDS_IS_CLOUDINARY_USED:
-      otherKeys = cloudinaryState.Feeds;
-      s = {
-        ...state,
-        cloudinary: {
-          ...cloudinaryState,
-          Feeds: {
-            ...otherKeys,
-            isCloudinaryUsed: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_FEEDS_CLOUDINARY_URL:
-      otherKeys = cloudinaryState.Feeds;
-      s = {
-        ...state,
-        cloudinary: {
-          ...cloudinaryState,
-          Feeds: {
-            ...otherKeys,
-            cloudinaryUrl: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_USERS_IS_CLOUDINARY_USED:
-      otherKeys = cloudinaryState.Users;
-      s = {
-        ...state,
-        cloudinary: {
-          ...cloudinaryState,
-          Users: {
-            ...otherKeys,
-            isCloudinaryUsed: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_USERS_CLOUDINARY_URL:
-      otherKeys = cloudinaryState.Users;
-      s = {
-        ...state,
-        cloudinary: {
-          ...cloudinaryState,
-          Users: {
-            ...otherKeys,
-            cloudinaryUrl: action.payload,
           },
         },
       };
