@@ -235,7 +235,10 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
-    console.log(collectionName, updateData);
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
