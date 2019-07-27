@@ -11,7 +11,6 @@ import {
   ICareerGoal, ICareerGoalUpdate, // eslint-disable-line
   IDescriptionPair, // eslint-disable-line
 } from '../../../typings/radgrad';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
@@ -19,6 +18,7 @@ import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 function numReferences(careerGoal) {
   let references = 0;

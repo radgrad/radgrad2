@@ -34,10 +34,10 @@ interface ICOInspectorWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-    selectedCourseID: state.depInspector.selectedCourseID,
-    selectedCourseInstanceID: state.depInspector.selectedCourseInstanceID,
-    selectedOpportunityID: state.depInspector.selectedOpportunityID,
-    selectedOpportunityInstanceID: state.depInspector.selectedOpportunityInstanceID,
+    selectedCourseID: state.student.degreePlanner.inspector.selectedCourseID,
+    selectedCourseInstanceID: state.student.degreePlanner.inspector.selectedCourseInstanceID,
+    selectedOpportunityID: state.student.degreePlanner.inspector.selectedOpportunityID,
+    selectedOpportunityInstanceID: state.student.degreePlanner.inspector.selectedOpportunityInstanceID,
   });
 
 class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidgetProps> {

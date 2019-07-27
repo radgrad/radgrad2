@@ -10,9 +10,8 @@ declare global {
   }
 }
 
-// TODO -- get cloudinary working (issue-47)
-export namespace cloudinary {
-  function openUploadWidget(options: any, callback: (error: any, result?: any) => any);
+declare namespace cloudinary {
+  function openUploadWidget(options: any, resultCallback?: (error: null | string, result: { event: string; info?: { [key: string]: any } }) => any): any;
 }
 
 export interface Ice {
@@ -200,7 +199,8 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IUserProfileCard extends ICardExplorerCards {}
+export interface IUserProfileCard extends ICardExplorerCards {
+}
 
 
 export interface IDescriptionPair {

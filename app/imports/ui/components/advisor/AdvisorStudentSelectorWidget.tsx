@@ -9,16 +9,12 @@ import { moment } from 'meteor/momentjs:moment';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
-import {
-  advisorHomeSetFirstName,
-  advisorHomeSetLastName,
-  advisorHomeSetUsername,
-  advisorHomeClearFilter,
-  advisorHomeSetSelectedStudentUsername,
-} from '../../../redux/actions/pageAdvisorActions';
 import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../api/star/StarProcessor.methods';
+import { advisorHomeSetSelectedStudentUsername, advisorHomeSetFirstName, advisorHomeSetUsername, advisorHomeSetLastName,
+  advisorHomeClearFilter } from '../../../redux/advisor/home/actions';
+
 /* global FileReader */
 
 interface IAdvisorStudentSelectorWidgetProps {
@@ -34,9 +30,9 @@ interface IAdvisorStudentSelectorWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  firstName: state.page.advisor.home.firstName,
-  lastName: state.page.advisor.home.lastName,
-  username: state.page.advisor.home.username,
+  firstName: state.advisor.home.firstName,
+  lastName: state.advisor.home.lastName,
+  username: state.advisor.home.username,
 });
 
 class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelectorWidgetProps> {

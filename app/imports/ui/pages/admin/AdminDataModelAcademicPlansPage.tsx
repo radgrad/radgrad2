@@ -6,10 +6,10 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },

@@ -11,6 +11,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import { connect } from 'react-redux';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -26,8 +27,15 @@ import {
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/shared/cloudinary/actions';
+import {
+  SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL,
+  SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED,
+} from '../../../redux/shared/cloudinary/types';
 
-interface IUpdateFeedFromProps {
+interface IUpdateFeedFormProps {
   academicTerms: IAcademicTerm[];
   courses: ICourse[];
   opportunities: IOpportunity[];
@@ -38,11 +46,39 @@ interface IUpdateFeedFromProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
 }
 
-class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
+interface IUpdateFeedFormState {
+  pictureURL: string;
+}
+
+const mapDispatchToProps = (dispatch: any): object => ({
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(setCloudinaryUrl(type, cloudinaryUrl)),
+});
+
+class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
   constructor(props) {
     super(props);
+    this.state = {
+      pictureURL: this.props.collection.findDoc(this.props.id).picture,
+    };
+  }
+
+  private handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.props.setIsCloudinaryUsed(SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED, true);
+      this.props.setCloudinaryUrl(SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.setState({ pictureURL: cloudinaryResult.info.url });
+    }
+  }
+
+  private handlePictureUrlChange = (value) => {
+    this.setState({ pictureURL: value });
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -87,7 +123,12 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
     const newUserSchema = new SimpleSchema({
       users: { type: Array, optional: true },
       'users.$': { type: String, allowedValues: studentNames },
-      picture: { type: String, optional: true },
+      picture: {
+        type: String,
+        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        defaultValue: model.picture,
+        optional: true,
+      },
     });
     const verifiedOpportunitySchema = new SimpleSchema({
       user: {
@@ -127,7 +168,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
         break;
       default:
     }
-    // console.log(schema);
+    const { pictureURL } = this.state;
     return (
       <Segment padded={true}>
         <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
@@ -189,7 +230,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
                 <MultiSelectField name="users"/>
-                <TextField name="picture" placeholder="No picture URL specified"/>
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
               </Form.Group>
             </div>
           ) : ''}
@@ -216,10 +257,10 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
 }
 
 const UpdateFeedFormContainer = withTracker(() => ({
-    academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-    courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-    opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-    students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  }))(UpdateFeedForm);
+  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
+  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
+  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+}))(UpdateFeedForm);
 
-export default UpdateFeedFormContainer;
+export default connect(null, mapDispatchToProps)(UpdateFeedFormContainer);

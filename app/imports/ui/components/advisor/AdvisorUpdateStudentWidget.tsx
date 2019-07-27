@@ -13,15 +13,12 @@ import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import {
-  advisorHomeSetIsLoaded,
-  advisorHomeSetSelectedStudentUsername,
-} from '../../../redux/actions/pageAdvisorActions';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
+import { advisorHomeSetIsLoaded, advisorHomeSetSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -47,8 +44,8 @@ interface IAdvisorUpdateStudentWidgetState {
 }
 
 const mapStateToProps = (state) => ({
-  selectedUsername: state.page.advisor.home.selectedUsername,
-  isLoaded: state.page.advisor.home.isLoaded,
+  selectedUsername: state.advisor.home.selectedUsername,
+  isLoaded: state.advisor.home.isLoaded,
 });
 
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
@@ -68,8 +65,11 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     };
   }
 
-  private handleUploadClick = () => {
-    openCloudinaryWidget('picture');
+  private handleUploadClick = async (): Promise<void> => {
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.setState({ picture: cloudinaryResult.info.url });
+    }
   }
 
   private prePopulateForm = (doc) => {
@@ -199,14 +199,10 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
           <Header as={'h4'} dividing={true}>Optional fields (all users)</Header>
           <Form.Group widths={'equal'}>
             <Form.Input name="picture"
-                        label={
-                          <div>
-                            Picture (<a onClick={(e) => {
-                            e.preventDefault();
-                            this.handleUploadClick();
-                          }}
-                                        href={''}>Upload</a>)
-                          </div>}
+                        label={<React.Fragment>
+                          Picture (<a onClick={this.handleUploadClick}>Upload</a>)
+                        </React.Fragment>}
+                        onChange={this.handleFormChange}
                         value={picture}/>
             <Form.Input name="website"
                         label={'Website'}
@@ -300,10 +296,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
           </Form.Group>
         </Form>
         <b>{`View ${this.props.usernameDoc.firstName}'s degree plan: `}</b>
-        <Link
-          target={'blank'}
-          rel={'noopener noreferrer'}
-          to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
+        <Link target={'_blank'} rel={'noopener noreferrer'}
+              to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
           /student/{this.props.usernameDoc.username}/degree-planner
         </Link>
       </Segment>

@@ -12,7 +12,7 @@ interface IAdminPaginationWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-    pagination: state.pagination,
+    pagination: state.admin.dataModel.pagination,
   });
 
 class AdminPaginationWidget extends React.Component<IAdminPaginationWidgetProps> {

@@ -16,13 +16,10 @@ import {
   IDescriptionPair, // eslint-disable-line
 } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import {
-  setCollectionShowCount,
-  setCollectionShowIndex,
-} from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
 
 function numReferences(term) {
   let references = 0;

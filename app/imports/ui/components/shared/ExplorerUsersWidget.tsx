@@ -42,7 +42,7 @@ class ExplorerUsersWidget extends React.Component<IExplorerUsersWidgetProps> {
 
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     if (!(this.props.userProfile)) return undefined;
-    const cardStyle = { textAlign: 'left', color: 'black', lineHeight: '1.5', width: 'fit-content' };
+    const cardStyle = { textAlign: 'left', color: 'black', lineHeight: '1.5', width: '300px' };
     const p = this.props.userProfile;
     const level = p.level;
     const planID = p.academicPlanID;
