@@ -5632,9 +5632,39 @@
           "retired": false
         },
         {
+          "routeName": "/explorer/plans",
+          "title": "So. You want to explore?",
+          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "retired": false
+        },
+        {
           "routeName": "/explorer/career-goals",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Academic Plans, Interests, Opportunities, and Users.\n\nJust click the pull-down menu to the left to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "retired": false
+        },
+        {
+          "routeName": "/explorer/courses",
+          "title": "So. You want to explore?",
+          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "retired": false
+        },
+        {
+          "routeName": "/explorer/degrees",
+          "title": "So. You want to explore?",
+          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "retired": false
+        },
+        {
+          "routeName": "/explorer/interests",
+          "title": "So. You want to explore?",
+          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "retired": false
+        },
+        {
+          "routeName": "/explorer/opportunities",
+          "title": "So. You want to explore?",
+          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
@@ -5674,7 +5704,7 @@
           "retired": false
         },
         {
-          "routeName": "/faculty/:username/explorer/academic-plans",
+          "routeName": "/faculty/:username/explorer/plans",
           "title": "About academic plans",
           "text": "RadGrad distinguishes between \"degree programs\" and \"academic plans\":\n\n* A \"degree program\" is a course of study toward a specific degree (and, optionally, specialization). For example, \"B.A. in Computer Science\" or \"B.S. in Computer Sciences/Security Sciences\" are degree programs.\n\n* An \"academic plan\" is the set of departmental course requirements that must be fulfilled in order to complete a degree program.  Departments can change the requirements once a year, and so academic plans have a year associated with them that indicates the year that they became the default requirements for their associated degree program.\n\nOnce students declare our major, they can choose the current academic plan associated with a degree program, or any future update to the academic plan.  For example, say a student wants to get a B.S. in Computer Science, and they declare our major in 2016.  Then, they can choose the B.S. in Computer Science academic plan from 2015 (since that was the one currently in effect when they declared their major).  They can also choose any future updated version of the academic plan, such as the B.S. in Computer Science from 2017.\n\nThis page lists all of the currently defined academic plans.  If you discover that an academic plan is missing or that it does not accurately represent the degree requirements, please contact a RadGrad administrator.",
           "retired": false
@@ -5734,7 +5764,7 @@
           "retired": false
         },
         {
-          "routeName": "/mentor/:username/explorer/academic-plans",
+          "routeName": "/mentor/:username/explorer/plans",
           "title": "About academic plans",
           "text": "RadGrad distinguishes between \"degree programs\" and \"academic plans\":\n\n*  A \"degree program\" is a course of study toward a specific degree (and, optionally, specialization). For example, \"B.A. in Computer Science\" or \"B.S. in Computer Sciences/Security Sciences\" are degree programs.\n\n* An \"academic plan\" is the set of departmental course requirements that must be fulfilled in order to complete a degree program. Departments can change the requirements once a year, and so academic plans have a year associated with them that indicates the year that they became the default requirements for their associated degree program.\n\nOnce students declare our major, they can choose the current academic plan associated with a degree program, or any future update to the academic plan. For example, say a student wants to get a B.S. in Computer Science, and they declare our major in 2016. Then, they can choose the B.S. in Computer Science academic plan from 2015 (since that was the one currently in effect when they declared their major). They can also choose any future updated version of the academic plan, such as the B.S. in Computer Science from 2017.\n\nThis page lists all of the currently defined academic plans. If you discover that an academic plan is missing or that it does not accurately represent the degree requirements, please contact a RadGrad administrator.",
           "retired": false
@@ -5836,7 +5866,7 @@
           "retired": false
         },
         {
-          "routeName": "/student/:username/explorer/academic-plans",
+          "routeName": "/student/:username/explorer/plans",
           "title": "What are Academic Plans, and why do I need one?",
           "text": "When you meet with your Advisor, you will normally discuss the pros and cons of various \"Degree Programs\", such as a \"B.S. in Computer Science\". \n\nWhat you don't normally discuss, at least at your first meeting, is the fact that there exist multiple versions of every Degree Program.  Every so often, the faculty meet and approve changes to a given Degree Program, dropping some requirements and adding others, in order for the Degree Program to stay modern and useful to students. \n\nThus, the specific requirements for any Degree Program are \"time stamped\": there is a B.S. in Computer Science approved in 2015 with one set of requirements, and another B.S. in Computer Science approved in 2017 with a slightly different set of requirements.\n\nIn RadGrad, we use \"Degree Program\" to refer to the general degree (i.e. B.S. in Computer Science), and \"Academic Plan\" to refer to a Degree Program with a specific set of requirements approved in a given academic year. (i.e. B.S. in Computer Science (2015)).\n\nThe set of Academic Plans available to you depend upon the academicTerm in which you declared yourself in this major.  All of the Academic Plans in effect at that point in time are available to you, as well as any Academic Plans the faculty create during the remainder of your time as a student. \n\nWhen you select an Academic Plan in this explorer, it shows the requirements over the course of eight academicTerms, and displays in red any requirements that your current Degree Plan does not satisfy.",
           "retired": false

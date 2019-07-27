@@ -293,10 +293,12 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
+      exact: true,
       component: AdvisorVerificationRequestPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,
+      exacT: true,
       component: AdvisorModerationPageContainer,
     },
     {
@@ -332,10 +334,12 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/verification-requests`,
+      exact: true,
       component: FacultyVerificationPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/manage-opportunities`,
+      exact: true,
       component: FacultyManageOpportunitiesPageContainer,
     },
     {
@@ -501,12 +505,12 @@ export const routes = {
       component: LandingOpportunityExplorerContainer,
     },
     {
-      path: `/${EXPLORER_TYPE.HOME}/academic-plans`,
+      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
       component: LandingAcademicPlansCardExplorerContainer,
     },
     {
-      path: `/${EXPLORER_TYPE.HOME}/academic-plans/${EXPLORER_PARAM.ACADEMICPLAN}`,
+      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: false,
       component: LandingAcademicPlanExplorerContainer,
     },
