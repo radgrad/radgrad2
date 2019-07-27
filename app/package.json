@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.3.1",
+    "@types/react-slick": "^0.23.4",
     "acorn": "^6.1.1",
     "bcrypt": "^3.0.4",
     "chart.js": "^2.8.0",
