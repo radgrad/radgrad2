@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/admin/ListOpportunitiesWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -197,8 +197,8 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
                                        itemTitle={itemTitle}
                                        handleOpenUpdate={this.handleOpenUpdate}
                                        handleDelete={this.handleDelete}
-                                       setShowIndex={setCollectionShowIndex}
-                                       setShowCount={setCollectionShowCount}
+                                       setShowIndex={dataModelActions.setCollectionShowIndex}
+                                       setShowCount={dataModelActions.setCollectionShowCount}
               />
             </Grid.Column>
             <Grid.Column width={1}/>

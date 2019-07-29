@@ -10,7 +10,7 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AddHelpMessageForm from '../../components/admin/AddHelpMessageForm';
 import UpdateHelpMessageForm from '../../components/admin/UpdateHelpMessageForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = HelpMessages; // the collection to use.
 
@@ -171,8 +171,8 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

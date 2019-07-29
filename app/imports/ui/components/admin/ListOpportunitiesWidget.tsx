@@ -13,7 +13,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from './AdminDataModelAccordion';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -109,8 +109,8 @@ class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetPr
         }
 
         <Grid>
-          <AdminPaginationWidget collection={this.props.collection} setShowIndex={setCollectionShowIndex}
-                                 setShowCount={setCollectionShowCount}/>
+          <AdminPaginationWidget collection={this.props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
+                                 setShowCount={dataModelActions.setCollectionShowCount}/>
           {_.map(items, (item) => (
             <AdminDataModelAccordion key={item._id} id={item._id} retired={this.retired(item)} name={item.name}
                                      slug={this.slugName(item.slugID)}

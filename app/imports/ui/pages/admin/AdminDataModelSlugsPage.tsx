@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListSlugCollectionWidget from '../../components/admin/ListSlugCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -109,8 +109,8 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

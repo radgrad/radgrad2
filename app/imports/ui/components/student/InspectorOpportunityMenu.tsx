@@ -4,7 +4,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
-import { selectOpportunity } from '../../../redux/student/degree-planner/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IInpectorOpportunityMenuProps {
   studentID: string;
@@ -16,7 +16,7 @@ interface IInspectorOpportunityMenuState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectOpportunity: (courseID) => dispatch(selectOpportunity(courseID)),
+    selectOpportunity: (courseID) => dispatch(degreePlannerActions.selectOpportunity(courseID)),
   });
 
 function opportunityStructureForMenu() {

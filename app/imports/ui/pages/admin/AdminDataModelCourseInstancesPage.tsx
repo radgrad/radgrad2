@@ -19,7 +19,7 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = CourseInstances;
 
@@ -208,8 +208,8 @@ class AdminDataModelCourseInstancesPage extends React.Component<{}, IAdminDataMo
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

@@ -9,7 +9,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },
@@ -107,8 +107,8 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

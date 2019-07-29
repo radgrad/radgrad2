@@ -8,13 +8,13 @@ const initialState = {
 function reducer(state: any = initialState, action) {
   let s;
   switch (action.type) {
-    case TYPES.SET_STUDENT_HOME_WIDGET_HIDDEN_COURSES:
+    case TYPES.SET_WIDGET_HIDDEN_COURSES:
       s = {
         ...state,
         hiddenCourses: action.payload,
       };
       return s;
-    case TYPES.SET_STUDENT_HOME_WIDGET_HIDDEN_OPPORTUNITIES:
+    case TYPES.SET_WIDGET_HIDDEN_OPPORTUNITIES:
       s = {
         ...state,
         hiddenOpportunities: action.payload,

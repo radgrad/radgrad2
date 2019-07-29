@@ -30,7 +30,7 @@ import TermCard from './TermCard';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
-import { setCardExplorerWidgetHiddenCourses, setCardExplorerWidgetHiddenOpportunities } from '../../../redux/shared/explorer/actions';
+import { explorerActions } from '../../../redux/shared/explorer';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -344,12 +344,12 @@ class CardExplorerWidget extends React.Component
 
   private handleShowHiddenCourses = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenCourses(false));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(false));
   }
 
   private handleHideHiddenCourses = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenCourses(true));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(true));
   }
 
   private courses = (): object[] => {
@@ -450,12 +450,12 @@ class CardExplorerWidget extends React.Component
 
   private handleShowHiddenOpportunities = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(false));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenOpportunities(false));
   }
 
   private handleHideHiddenOpportunities = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(true));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenOpportunities(true));
   }
 
   private opportunities = (): object[] => {

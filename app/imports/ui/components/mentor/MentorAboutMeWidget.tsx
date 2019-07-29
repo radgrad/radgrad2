@@ -14,7 +14,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/shared/cloudinary/actions';
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import {
   SET_MENTOR_HOME_CLOUDINARY_URL,
   SET_MENTOR_HOME_IS_CLOUDINARY_USED,
@@ -47,8 +47,8 @@ const mapStateToProps = (state: ReduxState): object => ({
 });
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(setCloudinaryUrl(type, cloudinaryUrl)),
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
 });
 
 class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMentorAboutMeWidgetState> {

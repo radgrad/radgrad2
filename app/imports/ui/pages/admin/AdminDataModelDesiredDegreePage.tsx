@@ -11,7 +11,7 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AddDesiredDegreeForm from '../../components/admin/AddDesiredDegreeForm';
 import UpdateDesiredDegreeForm from '../../components/admin/UpdateDesiredDegreeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 function numReferences(desiredDegree) {
   return AcademicPlans.find({ degreeID: desiredDegree._id }).count();
@@ -178,8 +178,8 @@ class AdminDataModelDesiredDegreesPage extends React.Component<{}, IAdminDataMod
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

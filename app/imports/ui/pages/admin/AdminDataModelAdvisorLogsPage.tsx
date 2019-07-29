@@ -15,7 +15,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
     { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -170,8 +170,8 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

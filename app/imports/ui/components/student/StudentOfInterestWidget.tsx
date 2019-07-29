@@ -14,7 +14,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-import { setStudentHomeWidgetHiddenCourses, setStudentHomeWidgetHiddenOpportunities } from '../../../redux/student/home/actions';
+import { homeActions } from '../../../redux/student/home';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -67,22 +67,22 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
 
   private handleShowHiddenCourses = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenCourses(false));
+    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(false));
   }
 
   private handleHideHiddenCourses = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenCourses(true));
+    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(true));
   }
 
   private handleShowHiddenOpportunities = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(false));
+    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(false));
   }
 
   private handleHideHiddenOpportunities = (e) => {
     e.preventDefault();
-    this.props.dispatch(setStudentHomeWidgetHiddenOpportunities(true));
+    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(true));
   }
 
   private getUsername = () => this.props.match.params.username;

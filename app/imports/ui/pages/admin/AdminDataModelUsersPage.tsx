@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   IAdminDataModelPageState, IAdvisorProfile, // eslint-disable-line
   IBaseProfile, ICombinedProfileDefine, IFacultyProfile, IMentorProfile, IStudentProfile, // eslint-disable-line
@@ -271,8 +271,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
       {
         menuItem: `Faculty (${this.props.faculty.length})`, render: () => (
@@ -281,8 +281,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
       {
         menuItem: `Mentors (${this.props.mentors.length})`, render: () => (
@@ -291,8 +291,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
       {
         menuItem: `Students (${this.props.students.length})`, render: () => (
@@ -301,8 +301,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
     ];
     return (

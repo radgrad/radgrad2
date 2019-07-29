@@ -17,7 +17,7 @@ import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceF
 import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -192,8 +192,8 @@ class AdminDataModelFeedbackInstancesPage extends React.Component<{}, IAdminData
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

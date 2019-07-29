@@ -35,7 +35,7 @@ import {
   SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,
   SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED,
 } from '../../../redux/shared/cloudinary/types';
-import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/shared/cloudinary/actions';
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 
 interface IUpdateUserProps {
   interests: IInterest[];
@@ -57,8 +57,8 @@ interface IUpdateUserState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(setCloudinaryUrl(type, cloudinaryUrl)),
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
 });
 
 class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState> {

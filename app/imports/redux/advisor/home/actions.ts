@@ -1,30 +1,30 @@
 import * as TYPES from './types';
 
-export const advisorHomeSetFirstName = (firstName) => ({
-  type: TYPES.ADVISOR_HOME_SET_FIRST_NAME,
+export const setFirstName = (firstName) => ({
+  type: TYPES.SET_FIRST_NAME,
   payload: firstName,
 });
 
-export const advisorHomeSetLastName = (lastName) => ({
-  type: TYPES.ADVISOR_HOME_SET_LAST_NAME,
+export const setLastName = (lastName) => ({
+  type: TYPES.SET_LAST_NAME,
   payload: lastName,
 });
 
-export const advisorHomeSetUsername = (username) => ({
-  type: TYPES.ADVISOR_HOME_SET_USERNAME,
+export const setUsername = (username) => ({
+  type: TYPES.SET_USERNAME,
   payload: username,
 });
 
-export const advisorHomeClearFilter = () => ({
-  type: TYPES.ADVISOR_HOME_CLEAR_FILTER,
+export const clearFilter = () => ({
+  type: TYPES.CLEAR_FILTER,
 });
 
-export const advisorHomeSetSelectedStudentUsername = (username) => ({
-  type: TYPES.ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME,
+export const setSelectedStudentUsername = (username) => ({
+  type: TYPES.SET_SELECTED_STUDENT_USERNAME,
   payload: username,
 });
 
-export const advisorHomeSetIsLoaded = (bool) => ({
-  type: TYPES.ADVISOR_HOME_SET_IS_LOADED,
+export const setIsLoaded = (bool) => ({
+  type: TYPES.SET_IS_LOADED,
   payload: bool,
 });

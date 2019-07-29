@@ -18,7 +18,7 @@ import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
-import { advisorHomeSetIsLoaded, advisorHomeSetSelectedStudentUsername } from '../../../redux/advisor/home/actions';
+import { setIsLoaded, setSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -84,7 +84,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       declaredAcademicTerm: doc.declaredAcademicTerm || '',
       academicPlanID: doc.academicPlanID,
     });
-    this.props.dispatch(advisorHomeSetIsLoaded(true));
+    this.props.dispatch(setIsLoaded(true));
   }
 
   private handleFormChange = (e, { name, value }: { name: string, value: string }): void => {
@@ -149,7 +149,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
   }
 
   public handleCancel = () => {
-    this.props.dispatch(advisorHomeSetSelectedStudentUsername(''));
+    this.props.dispatch(setSelectedStudentUsername(''));
   }
 
   componentDidUpdate(prevProps: Readonly<IAdvisorUpdateStudentWidgetProps>): void {

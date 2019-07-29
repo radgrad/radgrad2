@@ -20,7 +20,7 @@ import AddCourseForm from '../../components/admin/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import UpdateCourseForm from '../../components/admin/UpdateCourseForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { setCollectionShowIndex, setCollectionShowCount } from '../../../redux/admin/data-model/actions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = Courses; // the collection to use.
 
@@ -206,8 +206,8 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

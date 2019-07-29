@@ -29,7 +29,7 @@ import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable
 import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
-import { setCloudinaryUrl, setIsCloudinaryUsed } from '../../../redux/shared/cloudinary/actions';
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import {
   SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL,
   SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED,
@@ -55,8 +55,8 @@ interface IUpdateFeedFormState {
 }
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(setCloudinaryUrl(type, cloudinaryUrl)),
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
 });
 
 class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {

@@ -14,7 +14,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Users } from '../../../api/user/UserCollection';
 import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { selectCourseInstance, selectOpportunityInstance } from '../../../redux/student/degree-planner/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -30,8 +30,8 @@ interface IPageProps {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
+  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
 });
 
 class StudentDegreePlannerPage extends React.Component<IPageProps> {

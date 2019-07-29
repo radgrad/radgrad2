@@ -10,25 +10,25 @@ const initialState = {
 
 function reducer(state: any = initialState, action) {
   switch (action.type) {
-    case TYPES.ADVISOR_HOME_SET_FIRST_NAME:
+    case TYPES.SET_FIRST_NAME:
       return {
         ...state,
         firstName: action.payload,
 
       };
-    case TYPES.ADVISOR_HOME_SET_LAST_NAME:
+    case TYPES.SET_LAST_NAME:
       return {
         ...state,
         lastName: action.payload,
 
       };
-    case TYPES.ADVISOR_HOME_SET_USERNAME:
+    case TYPES.SET_USERNAME:
       return {
         ...state,
         username: action.payload,
 
       };
-    case TYPES.ADVISOR_HOME_CLEAR_FILTER:
+    case TYPES.CLEAR_FILTER:
       return {
         ...state,
         firstName: '',
@@ -36,14 +36,14 @@ function reducer(state: any = initialState, action) {
         username: '',
 
       };
-    case TYPES.ADVISOR_HOME_SET_SELECTED_STUDENT_USERNAME:
+    case TYPES.SET_SELECTED_STUDENT_USERNAME:
       return {
         ...state,
         selectedUsername: action.payload,
         isLoaded: false,
 
       };
-    case TYPES.ADVISOR_HOME_SET_IS_LOADED:
+    case TYPES.SET_IS_LOADED:
       return {
         ...state,
         isLoaded: action.payload,

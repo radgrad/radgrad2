@@ -12,7 +12,7 @@ import { IAcademicYear, IAcademicYearDefine, ICourseInstance, IOpportunityInstan
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/student/degree-planner/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -35,9 +35,9 @@ interface IDePState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  selectInspectorTab: () => dispatch(selectInspectorTab()),
+  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+  selectInspectorTab: () => dispatch(degreePlannerActions.selectInspectorTab()),
 });
 
 class DEPWidget extends React.Component<IDePProps, IDePState> {

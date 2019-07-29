@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Segment, Tab } from 'semantic-ui-react';
 import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
 import AcademicPlanViewerContainer from './AcademicPlanViewer';
-import { selectPlanTab, selectInspectorTab } from '../../../redux/student/degree-planner/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { SELECT_PLAN } from '../../../redux/student/degree-planner/types';
 
 interface ITabbedPlanInspectorProps {
@@ -17,8 +17,8 @@ const mapStateToProps = (state) => ({
   });
 
 const mapDispatchToProps = (dispatch) => ({
-    selectPlanTab: () => dispatch(selectPlanTab()),
-    selectInspectorTab: () => dispatch(selectInspectorTab()),
+    selectPlanTab: () => dispatch(degreePlannerActions.selectPlanTab()),
+    selectInspectorTab: () => dispatch(degreePlannerActions.selectInspectorTab()),
   });
 
 class TabbedPlanInspector extends React.Component<ITabbedPlanInspectorProps> {

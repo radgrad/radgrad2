@@ -10,7 +10,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
-import { selectCourse } from '../../../redux/student/degree-planner/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IInpectorCourseMenuProps {
   studentID: string;
@@ -22,7 +22,7 @@ interface IInspectorCourseMenuState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(selectCourse(courseID)),
+    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
   });
 
 function courseStructureForMenu(userID) {

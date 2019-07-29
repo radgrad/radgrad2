@@ -8,7 +8,7 @@ import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { Users } from '../../../api/user/UserCollection';
-import { selectCourseInstance } from '../../../redux/student/degree-planner/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IConnectedCourseInstanceSelectorTempProps {
   courseInstances: ICourse[];
@@ -28,7 +28,7 @@ interface IConnectedCourseInstanceSelectorTempState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
+    selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
   });
 
 class ConnectedCourseInstanceSelectorTemp extends React.Component<IConnectedCourseInstanceSelectorTempProps, IConnectedCourseInstanceSelectorTempState> {
