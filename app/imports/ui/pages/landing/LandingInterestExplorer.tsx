@@ -13,6 +13,7 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import { getSlugFromEntityID } from '../../components/landing/helper-functions';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IInterestExplorerProps {
   interest: IInterest;
@@ -41,15 +42,20 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
     return (
       <div>
         <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width="three">
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
               <LandingExplorerMenuContainer/>
             </Grid.Column>
-            <Grid.Column width="thirteen">
+
+            <Grid.Column width={11}>
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>{this.props.interest.name}</span>
@@ -73,6 +79,7 @@ class LandingInterestExplorer extends React.Component<IInterestExplorerProps> {
                 </List>
               </Segment>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
         </Grid>
       </div>

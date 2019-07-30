@@ -58,7 +58,7 @@ export function semesters(opportunity) {
 }
 
 export function getRouteName(path: string): string {
-  let regex = /academic-plans/;
+  let regex = /plans/;
   if (regex.test(path)) {
     return 'Academic Plans';
   }

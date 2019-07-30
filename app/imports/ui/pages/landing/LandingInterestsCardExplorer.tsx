@@ -10,6 +10,7 @@ import LandingExplorerCardContainer from '../../components/landing/LandingExplor
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IInterestsCardExplorerProps {
   ready: boolean;
@@ -38,25 +39,31 @@ class LandingInterestsCardExplorer extends React.Component<IInterestsCardExplore
       <div>
         <ExplorerMenuBarContainer/>
         <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
           <Grid.Row>
-            <Grid.Column width="three">
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
               <LandingExplorerMenuContainer/>
             </Grid.Column>
-            <Grid.Column width="thirteen">
+
+            <Grid.Column width={11}>
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>INTERESTS</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
                   {this.props.interests.map((interest) => (
-                      <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
-                    ))}
+                    <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
+                  ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
         </Grid>
 

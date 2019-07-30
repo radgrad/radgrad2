@@ -14,8 +14,10 @@ class LandingExplorerMenuBar extends React.Component<INavBarProps> {
 
   public render() {
     const imageStyle = { width: '45px' };
+    const menuStyle = { marginBottom: 30 };
+
     return (
-      <Menu attached="top" borderless={true} size="small">
+      <Menu style={menuStyle} attached="top" borderless={true} size="small">
         <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
           <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
           <div className="mobile hidden item">

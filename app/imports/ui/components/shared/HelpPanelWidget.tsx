@@ -72,12 +72,9 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
   }
 }
 
-
-const HelpPanelWidgetContainer = withTracker((props) => {
+export default withRouter(withTracker((props) => {
   const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };
-})(HelpPanelWidget);
-
-export default withRouter(HelpPanelWidgetContainer);
+})(HelpPanelWidget));
