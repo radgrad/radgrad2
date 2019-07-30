@@ -18,9 +18,9 @@ import { termIDsToString } from '../../../api/academic-term/AcademicTermUtilitie
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { selectOpportunity, selectOpportunityInstance } from '../../../redux/actions/actions';
 import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IInspectorOpportunityViewProps {
   opportunityID: string;
@@ -39,8 +39,8 @@ interface IInspectorOpportunityViewProps {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectOpportunity: (opportunityID) => dispatch(selectOpportunity(opportunityID)),
-    selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
+    selectOpportunity: (opportunityID) => dispatch(degreePlannerActions.selectOpportunity(opportunityID)),
+    selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
   });
 
 class InspectorOpportunityView extends React.Component<IInspectorOpportunityViewProps> {

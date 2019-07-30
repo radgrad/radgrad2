@@ -4,22 +4,24 @@ import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IStudentAboutMeUpdateWebsiteFormProps {
-  username: string;
   website: string;
   docID: string;
   collectionName: string;
 }
 
-class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpdateWebsiteFormProps> {
-  state = { website: this.props.website };
+interface IStudentAboutMeUpdateWebsiteFormState {
+  website: string;
+}
 
-  private prePopulateForm = (picture) => {
-    this.setState({ picture: picture });
+class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpdateWebsiteFormProps, IStudentAboutMeUpdateWebsiteFormState> {
+  constructor(props) {
+    super(props);
+    this.state = { website: this.props.website };
   }
 
   private handleFormChange = (e, { value }) => this.setState({ website: value });
 
-  private handleUpdatePicture = (e): void => {
+  private handleUpdateWebsite = (e): void => {
     e.preventDefault();
     const collectionName = this.props.collectionName;
     const updateData = { id: this.props.docID, website: this.state.website };
@@ -44,18 +46,13 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
     });
   }
 
-  componentDidUpdate(prevProps: Readonly<IStudentAboutMeUpdateWebsiteFormProps>): void {
-    const prop = this.props.website;
-    if (prop !== prevProps.website) this.prePopulateForm(this.props.website);
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { website } = this.state;
     return (
       <React.Fragment>
         <Grid.Column width={2}><b>Website</b></Grid.Column>
         <Grid.Column width={6}>
-          <Form onSubmit={this.handleUpdatePicture}>
+          <Form onSubmit={this.handleUpdateWebsite}>
             <Form.Group>
               <Form.Input onChange={this.handleFormChange}
                           value={website}/>

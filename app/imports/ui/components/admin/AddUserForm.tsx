@@ -10,6 +10,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import { connect } from 'react-redux';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IAcademicPlan, IAcademicTerm, ICareerGoal, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -18,6 +19,12 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { academicTermToName, docToName } from '../shared/AdminDataModelHelperFunctions';
 import MultiSelectField from '../shared/MultiSelectField';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import {
+  SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,
+  SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED,
+} from '../../../redux/shared/cloudinary/types';
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 
 interface IAddUserProps {
   interests: IInterest[];
@@ -26,33 +33,61 @@ interface IAddUserProps {
   academicPlans: IAcademicPlan[];
   formRef: any;
   handleAdd: (doc) => any;
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
 }
 
 interface IAddUserState {
   role: string;
+  pictureURL: string;
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+});
 
 class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
   constructor(props) {
     super(props);
-    // console.log('AddUserForm props=%o', props);
-    this.state = { role: '' };
+    this.state = {
+      role: '',
+      pictureURL: '',
+    };
   }
 
   private handleModelChange = (model) => {
-    // console.log('change %o', model);
     const role = model.role;
     this.setState({ role });
   }
 
+  private handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.props.setIsCloudinaryUsed(SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED, true);
+      this.props.setCloudinaryUrl(SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.setState({ pictureURL: cloudinaryResult.info.url });
+    }
+  }
+
+  private handlePictureUrlChange = (value) => {
+    this.setState({ pictureURL: value });
+  }
+
+  // Hacky way of resetting pictureURL to be empty
+  private handleAddUser = (doc) => {
+    this.props.handleAdd(doc);
+    this.setState({ pictureURL: '' });
+  }
+
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // console.log(this.props);
     const interestNames = _.map(this.props.interests, docToName);
     const careerGoalNames = _.map(this.props.careerGoals, docToName);
     const academicTermNames = _.map(this.props.academicTerms, academicTermToName);
     const academicPlanNames = _.map(this.props.academicPlans, docToName);
     const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
-    // console.log(academicTermNames);
+    const { role, pictureURL } = this.state;
     const schema = new SimpleSchema({
       username: String,
       firstName: String,
@@ -62,7 +97,11 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
         allowedValues: roles,
         defaultValue: roles[3],
       },
-      picture: { type: String, optional: true },
+      picture: {
+        type: String,
+        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        optional: true,
+      },
       website: { type: String, optional: true },
       interests: { type: Array, optional: true },
       'interests.$': {
@@ -106,17 +145,17 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
       shareLevel: { type: Boolean, optional: true },
       isAlumni: { type: Boolean, optional: true },
     });
-    if (this.state.role === ROLE.MENTOR) {
+    if (role === ROLE.MENTOR) {
       schema.extend(mentorSchema);
     }
-    if (this.state.role === ROLE.STUDENT) {
+    if (role === ROLE.STUDENT) {
       schema.extend(studentSchema);
     }
-    // console.log(schema);
     return (
       <Segment padded={true}>
         <Header dividing={true}>Add User</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}
+        <AutoForm schema={schema} onSubmit={(doc) => this.handleAddUser(doc)} ref={this.props.formRef}
+                  showInlineError={true}
                   onChangeModel={this.handleModelChange}>
           <Form.Group widths="equal">
             <TextField name="username" placeholder="johndoe@foo.edu"/>
@@ -128,8 +167,8 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
           </Form.Group>
           <Header dividing={true} as="h4">Optional fields (all users)</Header>
           <Form.Group widths="equal">
-            <TextField name="picture" placeholder="http://johndoe.github.io/images/johndoe.jpg"/>
-            <TextField name="website" placeholder="http://johndoe.github.io/"/>
+            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
+            <TextField name="website"/>
           </Form.Group>
           <Form.Group widths="equal">
             <MultiSelectField name="interests"/>
@@ -185,7 +224,6 @@ const AddUserFormContainter = withTracker(() => {
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   academicTerms = _.filter(academicTerms, (term) => (term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8));
-  // console.log(academicTerms, currentTerm);
   const academicPlans = AcademicPlans.getLatestPlans();
   return {
     interests,
@@ -195,4 +233,4 @@ const AddUserFormContainter = withTracker(() => {
   };
 })(AddUserForm);
 
-export default AddUserFormContainter;
+export default connect(null, mapDispatchToProps)(AddUserFormContainter);

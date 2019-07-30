@@ -14,26 +14,32 @@ class StudentHomeLevelsPage extends React.Component {
     return (
       <div>
         <StudentPageMenuWidget/>
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
-          <Grid.Column width={2}>
-            <StudentHomeMenu/>
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
+              <StudentHomeMenu/>
+            </Grid.Column>
 
-          <Grid.Column width={14}>
-            <Grid container={true} stackable={true} columns="equal">
-              <Grid.Column stretched={true}>
-                <StudentLevelsWidget/>
-              </Grid.Column>
+            <Grid.Column width={11}>
+              <Grid container={true} stackable={true} columns="equal">
+                <Grid.Column stretched={true}>
+                  <StudentLevelsWidget/>
+                </Grid.Column>
 
-              <Grid.Column stretched={true}>
-                <StudentLevelsOthersWidget/>
-              </Grid.Column>
-            </Grid>
-          </Grid.Column>
+                <Grid.Column stretched={true}>
+                  <StudentLevelsOthersWidget/>
+                </Grid.Column>
+              </Grid>
+            </Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
         </Grid>
 
         <BackToTopButton/>

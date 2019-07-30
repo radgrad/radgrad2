@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { IMentorQuestion, IReview, IReviewUpdateData } from '../../../typings/radgrad'; // eslint-disable-line
@@ -67,23 +67,21 @@ class ModerationWidget extends React.Component<IModerationWidget> {
 
   public render() {
     return (
-      <Container>
-        <Grid columns='equal' divided='vertically'>
-          <Grid.Column>
-            <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
-                                         reviews={this.props.courseReviews} isReview={true} type={'COURSE'}/>
-          </Grid.Column>
-          <Grid.Column>
-            <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
-                                         reviews={this.props.opportunityReviews} isReview={true} type={'OPPORTUNITY'}/>
-          </Grid.Column>
-          <Grid.Column>
-            <ModerationColumnWidget handleAccept={this.handleAcceptQuestion}
-                                         handleReject={this.handleRejectQuestion}
-                                         reviews={this.props.mentorQuestions} isReview={false} type={'QUESTION'}/>
-          </Grid.Column>
-        </Grid>
-      </Container>
+      <Grid columns='equal' divided='vertically'>
+        <Grid.Column>
+          <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
+                                  reviews={this.props.courseReviews} isReview={true} type={'COURSE'}/>
+        </Grid.Column>
+        <Grid.Column>
+          <ModerationColumnWidget handleAccept={this.handleAcceptReview} handleReject={this.handleRejectReview}
+                                  reviews={this.props.opportunityReviews} isReview={true} type={'OPPORTUNITY'}/>
+        </Grid.Column>
+        <Grid.Column>
+          <ModerationColumnWidget handleAccept={this.handleAcceptQuestion}
+                                  handleReject={this.handleRejectQuestion}
+                                  reviews={this.props.mentorQuestions} isReview={false} type={'QUESTION'}/>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

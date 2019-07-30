@@ -97,12 +97,10 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
             </Grid.Row>
 
             <Grid.Row>
-              <StudentAboutMeUpdatePictureForm username={this.getUsername()}
-                                               picture={this.getProfile().picture}
+              <StudentAboutMeUpdatePictureForm picture={this.getProfile().picture}
                                                docID={this.getProfile()._id}
                                                collectionName={this.getCollectionName()}/>
-              <StudentAboutMeUpdateWebsiteForm username={this.getUsername()}
-                                               website={this.getProfile().website}
+              <StudentAboutMeUpdateWebsiteForm website={this.getProfile().website}
                                                docID={this.getProfile()._id}
                                                collectionName={this.getCollectionName()}/>
             </Grid.Row>

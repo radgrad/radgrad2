@@ -10,13 +10,17 @@ class AdvisorModerationPage extends React.Component {
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Grid container={true} stackable={true}>
+        <Grid stackable={true}>
           <Grid.Row>
-            <HelpPanelWidget/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
           <Grid.Row>
-            <ModerationWidgetContainer/>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><ModerationWidgetContainer/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
         </Grid>
 

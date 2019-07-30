@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Roles } from 'meteor/alanning:roles';
-import { selectCourse } from '../../../redux/actions/actions';
 import { Courses } from '../../../api/course/CourseCollection';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { ROLE } from '../../../api/role/Role';
@@ -11,6 +10,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IInpectorCourseMenuProps {
   studentID: string;
@@ -22,7 +22,7 @@ interface IInspectorCourseMenuState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(selectCourse(courseID)),
+    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
   });
 
 function courseStructureForMenu(userID) {

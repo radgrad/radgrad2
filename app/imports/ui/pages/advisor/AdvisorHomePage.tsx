@@ -32,7 +32,7 @@ export interface IFilterStudents {
 }
 
 const mapStateToProps = (state) => ({
-  selectedUsername: state.page.advisor.home.selectedUsername,
+  selectedUsername: state.advisor.home.selectedUsername,
 });
 
 /** A simple static component to render some text for the landing page. */
@@ -41,20 +41,26 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     return (
       <div>
         <AdvisorPageMenuWidget/>
-        <Grid container={true} stackable={true}>
-          <Grid.Row>
-            <HelpPanelWidget/>
-          </Grid.Row>
+        <div className="pusher">
+          <Grid stackable={true}>
+            <Grid.Row>
+              <Grid.Column width={1}/>
+              <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+              <Grid.Column width={1}/>
+            </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column>
-              <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
-                                            interests={this.props.interests}
-                                            advisorUsername={this.props.match.params.username}/>
-            </Grid.Column>
-          </Grid.Row>
-          {this.renderSelectedStudentWidgets()}
-        </Grid>
+            <Grid.Row>
+              <Grid.Column width={1}/>
+              <Grid.Column width={14}>
+                <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
+                                              interests={this.props.interests}
+                                              advisorUsername={this.props.match.params.username}/>
+              </Grid.Column>
+              <Grid.Column width={1}/>
+            </Grid.Row>
+            {this.renderSelectedStudentWidgets()}
+          </Grid>
+        </div>
       </div>
     );
   }
@@ -65,14 +71,15 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
     }
     return (
       <Grid.Row>
-        <Grid.Column width={10} stretched={true}>
+        <Grid.Column width={1}/>
+        <Grid.Column width={9} stretched={true}>
           <AdvisorUpdateStudentWidget usernameDoc={this.props.usernameDoc}
                                       studentCollectionName={StudentProfiles.getCollectionName()}
                                       careerGoals={this.props.careerGoals}
                                       interests={this.props.interests}/>
         </Grid.Column>
 
-        <Grid.Column width={6} stretched={true}>
+        <Grid.Column width={5} stretched={true}>
           <AdvisorLogEntryWidget usernameDoc={this.props.usernameDoc}
                                  advisorLogs={this.props.advisorLogs}
                                  advisorUsername={this.props.match.params.username}/>
@@ -80,6 +87,7 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
                                    advisorUsername={this.props.match.params.username}/>
 
         </Grid.Column>
+        <Grid.Column width={1}/>
         <BackToTopButton/>
       </Grid.Row>
     );

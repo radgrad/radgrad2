@@ -11,23 +11,29 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 const MentorMentorSpacePage = () => (
   <div>
     <MentorPageMenuWidget/>
-    <Grid container={true} stackable={true}>
+    <Grid stackable={true}>
       <Grid.Row>
-        <HelpPanelWidget/>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+        <Grid.Column width={1}/>
       </Grid.Row>
 
-      <Grid.Column width={11}>
-        <MentorMentorSpaceQuestionsAccordion/>
-      </Grid.Column>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={10}>
+          <MentorMentorSpaceQuestionsAccordion/>
+        </Grid.Column>
 
-      <Grid.Column width={5}>
-        <Segment>
-          <Header dividing={true}>
-            <h4>MENTOR DIRECTORY</h4>
-          </Header>
-          <StudentMentorSpaceMentorDirectoryAccordion/>
-        </Segment>
-      </Grid.Column>
+        <Grid.Column width={4}>
+          <Segment>
+            <Header dividing={true}>
+              <h4>MENTOR DIRECTORY</h4>
+            </Header>
+            <StudentMentorSpaceMentorDirectoryAccordion/>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
     </Grid>
 
     <BackToTopButton/>

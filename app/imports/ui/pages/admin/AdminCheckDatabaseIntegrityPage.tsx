@@ -5,7 +5,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
-import { checkIntegrityDone, startCheckIntegrity } from '../../../redux/actions/actions';
+import { databaseActions } from '../../../redux/admin/database';
 
 interface IAdminCheckDatabaseIntegrityPageProps {
   startCheckIntegrity: () => any;
@@ -25,12 +25,12 @@ interface IAdminCheckDatabaseIntegrityPageState {
 }
 
 const mapStateToProps = (state) => ({
-    checkIntegrityWorking: state.radgradWorking.checkIntegrity,
+    checkIntegrityWorking: state.admin.database.checkIntegrity,
   });
 
 const mapDispatchToProps = (dispatch) => ({
-    startCheckIntegrity: () => dispatch(startCheckIntegrity()),
-    checkIntegrityDone: () => dispatch(checkIntegrityDone()),
+    startCheckIntegrity: () => dispatch(databaseActions.startCheckIntegrity()),
+    checkIntegrityDone: () => dispatch(databaseActions.checkIntegrityDone()),
   });
 
 class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabaseIntegrityPageProps, IAdminCheckDatabaseIntegrityPageState> {

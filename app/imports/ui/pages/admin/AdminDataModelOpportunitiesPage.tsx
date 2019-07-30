@@ -5,7 +5,6 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -22,6 +21,7 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = Opportunities; // the collection to use.
 
@@ -197,8 +197,8 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

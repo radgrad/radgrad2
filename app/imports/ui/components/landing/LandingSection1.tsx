@@ -10,7 +10,7 @@ const headerStyle = { fontSize: '72px', display: 'inline' };
 const LandingSection1 = () => (
       <div id="landing-section-1" style={styles['inverted-section']}>
         <Container textAlign={'center'}>
-          <Header as="h1" inverted={true} style={styles['inverted-main-header']}>Welcome to <span color="green"><RadGradLogoText color={'green'} style={headerStyle}/></span></Header>
+          <Header as="h1" inverted={true} style={styles['inverted-main-header']}>Welcome to <span style={styles['green-text']}><RadGradLogoText style={headerStyle}/></span></Header>
           <Header as="h2" inverted={true} className="mobile only" style={styles['mobile-header']}>Welcome to <span className="green-text"><RadGradLogoText/></span></Header>
           <br/>
           <span style={styles['inverted-main-description']}>Developing awesome computer scientists, <b>one</b> graduate at a time.</span>

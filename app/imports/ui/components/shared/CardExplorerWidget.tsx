@@ -27,13 +27,10 @@ import ProfileCard from './ProfileCard';
 import { IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
-import {
-  setCardExplorerWidgetHiddenCourses,
-  setCardExplorerWidgetHiddenOpportunities,
-} from '../../../redux/actions/cardExplorerPageActions';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
+import { explorerActions } from '../../../redux/shared/explorer';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -57,8 +54,8 @@ interface ICardExplorerWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  hiddenCourses: state.cardExplorerPage.cardExplorerWidget.hiddenCourses,
-  hiddenOpportunities: state.cardExplorerPage.cardExplorerWidget.hiddenOpportunities,
+  hiddenCourses: state.shared.explorer.hiddenCourses,
+  hiddenOpportunities: state.shared.explorer.hiddenOpportunities,
 });
 
 /**
@@ -347,12 +344,12 @@ class CardExplorerWidget extends React.Component
 
   private handleShowHiddenCourses = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenCourses(false));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(false));
   }
 
   private handleHideHiddenCourses = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenCourses(true));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(true));
   }
 
   private courses = (): object[] => {
@@ -453,12 +450,12 @@ class CardExplorerWidget extends React.Component
 
   private handleShowHiddenOpportunities = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(false));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenOpportunities(false));
   }
 
   private handleHideHiddenOpportunities = (e: any): void => {
     e.preventDefault();
-    this.props.dispatch(setCardExplorerWidgetHiddenOpportunities(true));
+    this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenOpportunities(true));
   }
 
   private opportunities = (): object[] => {
@@ -732,10 +729,6 @@ class CardExplorerWidget extends React.Component
               <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle}/>
           }
         </Segment>
-
-        {/* TODO: Add Back To Top Button. I'm not sure if we should put this in the Widget level or the Page level.
-              It is currently on the widget level on the original radgrad but it doesn't even appear properly.
-              It seems to only appear if you have Google Chrome DevTools window active. - Gian */}
       </React.Fragment>
     );
   }

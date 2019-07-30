@@ -8,15 +8,19 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 const AdvisorAcademicPlanPage = () => (
   <div>
     <AdvisorPageMenuWidget/>
-    <Grid container={true} stackable={true}>
+    <Grid stackable={true}>
       <Grid.Row>
-        <HelpPanelWidget/>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+        <Grid.Column width={1}/>
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={16}>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}>
           <AdvisorAcademicPlanTabs/>
         </Grid.Column>
+        <Grid.Column width={1}/>
       </Grid.Row>
     </Grid>
 

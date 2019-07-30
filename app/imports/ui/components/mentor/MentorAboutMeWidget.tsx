@@ -4,7 +4,8 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
 import Swal from 'sweetalert2';
-import { Container, Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
+import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -12,6 +13,13 @@ import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
+import {
+  SET_MENTOR_HOME_CLOUDINARY_URL,
+  SET_MENTOR_HOME_IS_CLOUDINARY_USED,
+} from '../../../redux/shared/cloudinary/types';
+import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -22,11 +30,26 @@ interface IMentorAboutMeWidgetProps {
       username: string;
     }
   };
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
 }
 
 interface IMentorAboutMeWidgetState {
   isEditingProfile: boolean;
+  pictureURL: string;
 }
+
+const mapStateToProps = (state: ReduxState): object => ({
+  isCloudinaryUsed: state.shared.cloudinary.mentorHome.isCloudinaryUsed,
+  cloudinaryUrl: state.shared.cloudinary.mentorHome.cloudinaryUrl,
+});
+
+const mapDispatchToProps = (dispatch: any): object => ({
+  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
+  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+});
 
 class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMentorAboutMeWidgetState> {
   private readonly formRef;
@@ -36,7 +59,18 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     this.formRef = React.createRef();
     this.state = {
       isEditingProfile: false,
+      pictureURL: MentorProfiles.findOne({ userID: this.getUserIdFromRoute() }).picture,
     };
+  }
+
+  private handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.props.setIsCloudinaryUsed(SET_MENTOR_HOME_IS_CLOUDINARY_USED, true);
+      this.props.setCloudinaryUrl(SET_MENTOR_HOME_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.setState({ pictureURL: cloudinaryResult.info.url });
+    }
   }
 
   private getUsername = (): string => this.props.match.params.username;
@@ -196,11 +230,20 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     this.setState({ isEditingProfile: false });
   }
 
+  private handlePictureUrlChange = (value) => {
+    this.setState({ pictureURL: value });
+  }
+
   private handleSubmit = (doc: { [key: string]: any }): void => {
     const collectionName = MentorProfiles.getCollectionName();
     const mentorProfile = MentorProfiles.findOne({ userID: this.getUserIdFromRoute() });
     const updateData = doc;
     updateData.id = mentorProfile._id;
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
+    console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -208,6 +251,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
           text: error.message,
           type: 'error',
         });
+        this.formRef.current.reset();
       } else {
         Swal.fire({
           title: 'Update Succeeded',
@@ -242,6 +286,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       marginBottom: 0,
     };
 
+    const model = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
     const updateSchema = new SimpleSchema({
       website: {
         type: String,
@@ -279,175 +324,174 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       picture: {
         type: String,
         optional: true,
-        label: 'Picture URL',
+        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
         defaultValue: picture,
       },
     });
+    const { pictureURL } = this.state;
 
     return (
-      <Container>
-        <Segment padded>
-          <Header as='h3' dividing textAlign='left'>PROFILE</Header>
-          <Grid stackable={true}>
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Name</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{name}</p>
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Email</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <p>{email}</p>
-              </Grid.Column>
-            </Grid.Row>
+      <Segment padded>
+        <Header as='h3' dividing textAlign='left'>PROFILE</Header>
+        <Grid stackable={true}>
+          <Grid.Row>
+            <Grid.Column floated='left' width={2}>
+              <b>Name</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <p>{name}</p>
+            </Grid.Column>
+            <Grid.Column floated='left' width={2}>
+              <b>Email</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <p>{email}</p>
+            </Grid.Column>
+          </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column floated='left' width={2}>
-                <b>Interests</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <Grid>
-                  <Grid.Row divided textAlign='left'>
-                    <Label.Group>
-                      {
-                        interests ?
-                          <React.Fragment>
-                            {
-                              _.map(interests, (interest, index) => (
-                                <Label size={'tiny'} key={index} as={Link}
-                                       to={this.buildRouteName('interests', this.slugName(interest))}>
-                                  <Icon name='star'/>{this.goalName(interest)}
-                                </Label>
-                              ))
-                            }
-                          </React.Fragment>
-                          : <p style={marginStyle}>No interests added yet.</p>
-                      }
-                    </Label.Group>
-                  </Grid.Row>
-                  <Link to={this.buildRouteName('interests', firstInterest)}>Edit in Interests Explorer</Link>
-                </Grid>
-              </Grid.Column>
-              <Grid.Column floated='left' width={2}>
-                <b>Career Goals</b>
-              </Grid.Column>
-              <Grid.Column floated='left' width={6}>
-                <Grid>
-                  <Grid.Row divided textAlign='left'>
-                    <Label.Group>
-                      {
-                        careerGoals ?
-                          <React.Fragment>
-                            {
-                              _.map(careerGoals, (goal, index) => (
-                                <Label size={'tiny'} key={index} as={Link}
-                                       to={this.buildRouteName('career-goals', this.slugName(goal))}>
-                                  <Icon name='suitcase'/>{this.goalName(goal)}
-                                </Label>
-                              ))
-                            }
-                          </React.Fragment>
-                          : <p style={marginStyle}>No career goals added yet.</p>
-                      }
-                    </Label.Group>
-                  </Grid.Row>
-                  <Link to={this.buildRouteName('career-goals', firstCareerGoal)}>Edit in Career Goal Explorer</Link>
-                </Grid>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <Grid.Row>
+            <Grid.Column floated='left' width={2}>
+              <b>Interests</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <Grid>
+                <Grid.Row divided textAlign='left'>
+                  <Label.Group>
+                    {
+                      interests ?
+                        <React.Fragment>
+                          {
+                            _.map(interests, (interest, index) => (
+                              <Label size={'tiny'} key={index} as={Link}
+                                     to={this.buildRouteName('interests', this.slugName(interest))}>
+                                <Icon name='star'/>{this.goalName(interest)}
+                              </Label>
+                            ))
+                          }
+                        </React.Fragment>
+                        : <p style={marginStyle}>No interests added yet.</p>
+                    }
+                  </Label.Group>
+                </Grid.Row>
+                <Link to={this.buildRouteName('interests', firstInterest)}>Edit in Interests Explorer</Link>
+              </Grid>
+            </Grid.Column>
+            <Grid.Column floated='left' width={2}>
+              <b>Career Goals</b>
+            </Grid.Column>
+            <Grid.Column floated='left' width={6}>
+              <Grid>
+                <Grid.Row divided textAlign='left'>
+                  <Label.Group>
+                    {
+                      careerGoals ?
+                        <React.Fragment>
+                          {
+                            _.map(careerGoals, (goal, index) => (
+                              <Label size={'tiny'} key={index} as={Link}
+                                     to={this.buildRouteName('career-goals', this.slugName(goal))}>
+                                <Icon name='suitcase'/>{this.goalName(goal)}
+                              </Label>
+                            ))
+                          }
+                        </React.Fragment>
+                        : <p style={marginStyle}>No career goals added yet.</p>
+                    }
+                  </Label.Group>
+                </Grid.Row>
+                <Link to={this.buildRouteName('career-goals', firstCareerGoal)}>Edit in Career Goal Explorer</Link>
+              </Grid>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
 
-          {
-            isEditingProfile ?
-              <AutoForm name={'mentorProfile'} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
-                <Form.Group widths={'equal'}>
-                  <TextField name='website'/>
-                  <TextField name='company'/>
-                </Form.Group>
+        {
+          isEditingProfile ?
+            <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+              <Form.Group widths={'equal'}>
+                <TextField name='website'/>
+                <TextField name='company'/>
+              </Form.Group>
 
-                <Form.Group widths={'equal'}>
-                  <TextField name='career'/>
-                  <TextField name='location'/>
-                </Form.Group>
+              <Form.Group widths={'equal'}>
+                <TextField name='career'/>
+                <TextField name='location'/>
+              </Form.Group>
 
-                <Form.Group widths={'equal'}>
-                  <TextField name='linkedin'/>
-                  <TextField name='picture'/>
-                </Form.Group>
+              <Form.Group widths={'equal'}>
+                <TextField name='linkedin'/>
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
+              </Form.Group>
 
-                <LongTextField name='motivation'/>
+              <LongTextField name='motivation'/>
 
-                <SubmitField value='Save Profile'/>
-                <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
-              </AutoForm>
-              :
-              <React.Fragment>
-                <Grid stackable={true}>
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Website URL</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      {website}
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Company</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{company}</p>
-                    </Grid.Column>
-                  </Grid.Row>
+              <SubmitField value='Save Profile'/>
+              <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
+            </AutoForm>
+            :
+            <React.Fragment>
+              <Grid stackable={true}>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Website URL</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    {website}
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Company</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{company}</p>
+                  </Grid.Column>
+                </Grid.Row>
 
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Title</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{career}</p>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Location</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{location}</p>
-                    </Grid.Column>
-                  </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Title</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{career}</p>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Location</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{location}</p>
+                  </Grid.Column>
+                </Grid.Row>
 
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>LinkedIn Username</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{linkedin}</p>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Picture URL</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={6}>
-                      <p>{picture}</p>
-                    </Grid.Column>
-                  </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>LinkedIn Username</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{linkedin}</p>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Picture URL</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={6}>
+                    <p>{picture}</p>
+                  </Grid.Column>
+                </Grid.Row>
 
-                  <Grid.Row>
-                    <Grid.Column floated='left' width={2}>
-                      <b>Motivation</b>
-                    </Grid.Column>
-                    <Grid.Column floated='left' width={14}>
-                      <p>{motivation}</p>
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-                <br/>
-                <Button basic color={'green'} onClick={this.handleEdit}>Edit Profile</Button>
-              </React.Fragment>
-          }
-        </Segment>
-      </Container>
+                <Grid.Row>
+                  <Grid.Column floated='left' width={2}>
+                    <b>Motivation</b>
+                  </Grid.Column>
+                  <Grid.Column floated='left' width={14}>
+                    <p>{motivation}</p>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <br/>
+              <Button basic color={'green'} onClick={this.handleEdit}>Edit Profile</Button>
+            </React.Fragment>
+        }
+      </Segment>
     );
   }
 }
 
-export default withRouter(MentorAboutMeWidget);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MentorAboutMeWidget));

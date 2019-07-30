@@ -5,7 +5,6 @@ import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { moment } from 'meteor/momentjs:moment';
 import * as _ from 'lodash';
-import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/actions/actions';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
@@ -13,6 +12,7 @@ import { IAcademicYear, IAcademicYearDefine, ICourseInstance, IOpportunityInstan
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -28,18 +28,16 @@ interface IDePProps {
   };
 }
 
-// FIXME: Figure out a way so we dont have to do "{[key: string]: any}[]". This is mainly have to do with the handleDeleteYear.
-//        Can't call ._id on an AcademicYear type
 interface IDePState {
-  visibleYears: IAcademicYear[] | { [key: string]: any }[];
+  visibleYears: IAcademicYear[];
   visibleStartIndex: number;
-  years: IAcademicYear[] | { [key: string]: any }[];
+  years: IAcademicYear[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  selectInspectorTab: () => dispatch(selectInspectorTab()),
+  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+  selectInspectorTab: () => dispatch(degreePlannerActions.selectInspectorTab()),
 });
 
 class DEPWidget extends React.Component<IDePProps, IDePState> {
