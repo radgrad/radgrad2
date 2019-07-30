@@ -6,3 +6,9 @@ export const LEVEL_EMAIL_WORKING = 'radgrad/admin/analytics/LEVEL_EMAIL_WORKING'
 export const LEVEL_EMAIL_DONE = 'radgrad/admin/analytics/LEVEL_EMAIL_DONE';
 export const ALL_EMAIL_WORKING = 'radgrad/admin/analytics/ALL_EMAIL_WORKING';
 export const ALL_EMAIL_DONE = 'radgrad/admin/analytics/ALL_EMAIL_DONE';
+// Admin Analytics Overhead Analysis
+export const SET_OVERHEAD_ANALYSIS_START_DATE = 'radgrad/shared/datepicker/SET_OVERHEAD_ANALYSIS_START_DATE';
+export const SET_OVERHEAD_ANALYSIS_END_DATE = 'radgrad/shared/datepicker/SET_OVERHEAD_ANALYSIS_END_DATE';
+// Admin Analytics Student Summary
+export const SET_STUDENT_SUMMARY_START_DATE = 'radgrad/shared/datepicker/SET_STUDENT_SUMMARY_OVERHEAD_ANALYSIS_START_DATE';
+export const SET_STUDENT_SUMMARY_END_DATE = 'radgrad/shared/datepicker/SET_STUDENT_SUMMARY_OVERHEAD_ANALYSIS_END_DATE';

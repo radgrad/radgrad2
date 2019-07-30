@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
-import AdminAnalyticsOverheadAnalysisWidget from "./AdminAnalyticsOverheadAnalysisWidget";
+import AdminAnalyticsOverheadAnalysisWidget from './AdminAnalyticsOverheadAnalysisWidget';
 
-class AdminAnalyticsOverheadAnalysisOverallWidget extends React.Component{
+class AdminAnalyticsOverheadAnalysisOverallWidget extends React.Component {
 
   public render() {
     return (
@@ -11,7 +11,7 @@ class AdminAnalyticsOverheadAnalysisOverallWidget extends React.Component{
         <AdminAnalyticsDateSelectionWidget/>
         <AdminAnalyticsOverheadAnalysisWidget/>
       </div>
-    )
+    );
   }
 }
 

@@ -1,39 +1,80 @@
 import * as React from 'react';
 import { Form, Segment, Button, Header } from 'semantic-ui-react';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
-import { withTracker } from "meteor/react-meteor-data";
-import { setDateSelectionWidgetStartDate } from "../../../redux/actions/adminAnalyticsDateSelectionActions";
+import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { ANALYTICS } from '../../../startup/client/routes-config';
+import { analyticsActions } from '../../../redux/admin/analytics';
+import {
+  SET_OVERHEAD_ANALYSIS_END_DATE,
+  SET_OVERHEAD_ANALYSIS_START_DATE, SET_STUDENT_SUMMARY_END_DATE,
+  SET_STUDENT_SUMMARY_START_DATE,
+} from '../../../redux/admin/analytics/types';
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   startDate: any,
   endDate: any,
-  dispatch: any,
+  page: string;
+  setDatePickerStartDate: (type: string, startDate: any) => any;
+  setDatePickerEndDate: (type: string, endDate: any) => any;
 }
 
-const mapStatetoProps = (state) => ({
-  startDate: state.adminAnalyticsOverheadAnalysisPage.adminAnalyticsDateSelectionWidget.startDate,
-  endDate: state.adminAnalyticsOverheadAnalysisPage.adminAnalyticsDateSelectionWidget.endDate
-});
+const mapStateToProps = (state: ReduxState): object => {
+  switch (this.props.page) {
+    case ANALYTICS.OVERHEADANALYSIS:
+      return {
+        startDate: state.admin.analytics.overheadAnalysis.startDate,
+        endDate: state.admin.analytics.overheadAnalysis.endDate,
+      };
+    case ANALYTICS.STUDENTSUMMARY:
+      return {
+        startDate: state.admin.analytics.studentSummary.startDate,
+        endDate: state.admin.analytics.studentSummary.endDate,
+      };
+    default:
+      return {};
+  }
+};
 
+const mapDispatchToProps = (dispatch: any): object => ({
+  setDatePickerStartDate: (type: string, startDate: any) => dispatch(analyticsActions.setDatePickerStartDate(type, startDate)),
+  setDatePickerEndDate: (type: string, endDate: any) => dispatch(analyticsActions.setDatePickerEndDate(type, endDate)),
+});
 
 class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps> {
   constructor(props) {
     super(props);
-    console.log('props from AdminAnalyicsDateSelectionWidget: ', props)
+    console.log('props from AdminAnalyicsDateSelectionWidget: ', props);
   }
 
-  private handleChangeStart = (e: any): any => {
-    //e.preventDefault();
-    console.log('handle change start', e, typeof e);
-    this.props.dispatch(setDateSelectionWidgetStartDate(e));
-    console.log(this.props);
+  private handleChangeStart = (date) => {
+    // e.preventDefault();
+    console.log('handle change start ', date, typeof date);
+    switch (this.props.page) {
+      case ANALYTICS.OVERHEADANALYSIS:
+        this.props.setDatePickerStartDate(SET_OVERHEAD_ANALYSIS_START_DATE, date);
+        break;
+      case ANALYTICS.STUDENTSUMMARY:
+        this.props.setDatePickerStartDate(SET_STUDENT_SUMMARY_START_DATE, date);
+        break;
+      default:
+        break;
+    }
   }
+
   private handleChangeEnd = (date) => {
-    this.setState({ endDate: date }, () => {
-      console.log('after handle change end', this.state)
-    })
+    console.log('handle change end ', date, typeof date);
+    switch (this.props.page) {
+      case ANALYTICS.OVERHEADANALYSIS:
+        this.props.setDatePickerEndDate(SET_OVERHEAD_ANALYSIS_END_DATE, date);
+        break;
+      case ANALYTICS.STUDENTSUMMARY:
+        this.props.setDatePickerEndDate(SET_STUDENT_SUMMARY_END_DATE, date);
+        break;
+      default:
+        break;
+    }
   }
 
 
@@ -55,11 +96,11 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
           </Form>
         </Segment>
       </div>
-    )
+    );
   }
 }
 
-const AdminAnalyticsDateSelectionWidgetCon = connect(mapStatetoProps)(AdminAnalyticsDateSelectionWidget);
+const AdminAnalyticsDateSelectionWidgetCon = connect(mapStateToProps, mapDispatchToProps)(AdminAnalyticsDateSelectionWidget);
 
 export default (AdminAnalyticsDateSelectionWidgetCon);
 

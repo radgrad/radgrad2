@@ -87,7 +87,14 @@ export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 const MENTOR_SPACE = 'mentor-space';
-const ANALYTICS = 'analytics';
+
+export const ANALYTICS = {
+  HOME: 'analytics',
+  NEWSLETTER: 'newsletter',
+  OVERHEADANALYSIS: 'overhead-analysis',
+  STUDENTSUMMARY: 'student-summary',
+  USERINTERACTIONS: 'user-interactions',
+};
 
 // The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
 export const URL_ROLES = {
@@ -271,65 +278,59 @@ export const routes = {
       component: AdminModerationPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`,
       exact: true,
       component: AdminAnalyticsPageContainer,
     },
     {
       path:
-        `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/newsletter`,
+        `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
       exact:
         true,
       component:
       AdminAnalyticsNewsletterPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/overhead-analysis`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`,
       exact:
         true,
       component:
       AdminAnalyticsOverheadAnalysisPageContainer,
-    }
-    ,
+    },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS}/student-summary`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`,
       exact:
         true,
       component:
       AdminAnalyticsStudentSummaryPageContainer,
-    }
-    ,
+    },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics/user-interactions`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`,
       exact:
         true,
       component:
       AdminAnalyticsUserInteractionsPageContainer,
-    }
-    ,
+    },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
       component:
       ScoreboardPageContainer,
-    }
-    ,
+    },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact:
         true,
       component:
       ScoreboardPageContainer,
-    }
-    ,
+    },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact:
         true,
       component:
       ScoreboardPageContainer,
-    }
-    ,
+    },
   ],
   ADVISOR: [
     {
@@ -749,4 +750,3 @@ export const routes = {
     },
   ],
 };
-
