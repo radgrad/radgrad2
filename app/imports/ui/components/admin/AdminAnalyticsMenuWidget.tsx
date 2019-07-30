@@ -26,11 +26,13 @@ class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidget
       <div>
         <Menu text={true} vertical={true}>
           <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}`)}>Logged In Users</Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.NEWSLETTER}`)}>Newsletter</Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.OVERHEADANALYSIS}`)}>Overhead
+          <Menu.Item as={NavLink}
+                     to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`)}>Newsletter</Menu.Item>
+          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`)}>Overhead
             Analysis</Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.STUDENTSUMMARY}`)}>Student Summary</Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.USERINTERACTIONS}`)}>User
+          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`)}>Student
+            Summary</Menu.Item>
+          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`)}>User
             Interactions</Menu.Item>
         </Menu>
       </div>

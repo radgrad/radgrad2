@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.3.1",
+    "@types/node": "^12.6.8",
     "@types/react-slick": "^0.23.4",
     "acorn": "^6.1.1",
     "bcrypt": "^3.0.4",
@@ -17,8 +18,8 @@
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-beautiful-dnd": "^10.0.4",
     "react-chartjs-2": "^2.7.6",
-    "react-datepicker": "^2.8.0",
     "react-content-loader": "^4.2.1",
+    "react-datepicker": "^2.8.0",
     "react-dnd": "^7.0.2",
     "react-dnd-html5-backend": "^7.0.2",
     "react-dom": "^16.8.1",

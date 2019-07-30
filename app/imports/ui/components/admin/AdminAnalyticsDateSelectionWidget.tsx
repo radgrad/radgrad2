@@ -6,22 +6,19 @@ import { connect } from 'react-redux';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 import { ANALYTICS } from '../../../startup/client/routes-config';
 import { analyticsActions } from '../../../redux/admin/analytics';
-import {
-  SET_OVERHEAD_ANALYSIS_END_DATE,
-  SET_OVERHEAD_ANALYSIS_START_DATE, SET_STUDENT_SUMMARY_END_DATE,
-  SET_STUDENT_SUMMARY_START_DATE,
-} from '../../../redux/admin/analytics/types';
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   startDate: any,
   endDate: any,
   page: string;
-  setDatePickerStartDate: (type: string, startDate: any) => any;
-  setDatePickerEndDate: (type: string, endDate: any) => any;
+  setOverheadAnalysisStartDate: (startDate: Date) => any;
+  setOverheadAnalysisEndDate: (endDate: Date) => any;
+  setStudentSummaryStartDate: (startDate: Date) => any;
+  setStudentSummaryEndDate: (endDate: Date) => any;
 }
 
-const mapStateToProps = (state: ReduxState): object => {
-  switch (this.props.page) {
+const mapStateToProps = (state: ReduxState, props): object => {
+  switch (props.page) {
     case ANALYTICS.OVERHEADANALYSIS:
       return {
         startDate: state.admin.analytics.overheadAnalysis.startDate,
@@ -38,45 +35,44 @@ const mapStateToProps = (state: ReduxState): object => {
 };
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setDatePickerStartDate: (type: string, startDate: any) => dispatch(analyticsActions.setDatePickerStartDate(type, startDate)),
-  setDatePickerEndDate: (type: string, endDate: any) => dispatch(analyticsActions.setDatePickerEndDate(type, endDate)),
+  setOverheadAnalysisStartDate: (startDate: Date) => dispatch(analyticsActions.setOverheadAnalysisStartDate(startDate)),
+  setOverheadAnalysisEndDate: (endDate: Date) => dispatch(analyticsActions.setOverheadAnalysisEndDate(endDate)),
+  setStudentSummaryStartDate: (startDate: Date) => dispatch(analyticsActions.setStudentSummaryStartDate(startDate)),
+  setStudentSummaryEndDate: (endDate: Date) => dispatch(analyticsActions.setStudentSummaryEndDate(endDate)),
 });
 
 class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps> {
   constructor(props) {
     super(props);
-    console.log('props from AdminAnalyicsDateSelectionWidget: ', props);
   }
 
-  private handleChangeStart = (date) => {
-    // e.preventDefault();
-    console.log('handle change start ', date, typeof date);
+  private dateRange = (): string => ''
+
+  private handleChangeStart = (date: Date) => {
     switch (this.props.page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        this.props.setDatePickerStartDate(SET_OVERHEAD_ANALYSIS_START_DATE, date);
+        this.props.setOverheadAnalysisStartDate(date);
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        this.props.setDatePickerStartDate(SET_STUDENT_SUMMARY_START_DATE, date);
+        this.props.setStudentSummaryStartDate(date);
         break;
       default:
         break;
     }
   }
 
-  private handleChangeEnd = (date) => {
-    console.log('handle change end ', date, typeof date);
+  private handleChangeEnd = (date: Date) => {
     switch (this.props.page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        this.props.setDatePickerEndDate(SET_OVERHEAD_ANALYSIS_END_DATE, date);
+        this.props.setOverheadAnalysisEndDate(date);
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        this.props.setDatePickerEndDate(SET_STUDENT_SUMMARY_END_DATE, date);
+        this.props.setStudentSummaryEndDate(date);
         break;
       default:
         break;
     }
   }
-
 
   public render() {
     return (
@@ -102,7 +98,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
 
 const AdminAnalyticsDateSelectionWidgetCon = connect(mapStateToProps, mapDispatchToProps)(AdminAnalyticsDateSelectionWidget);
 
-export default (AdminAnalyticsDateSelectionWidgetCon);
+export default AdminAnalyticsDateSelectionWidgetCon;
 
 
 // tomorrow, implement redux. want to track the state of the date selection widget in the overhead analysis widget

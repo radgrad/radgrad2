@@ -285,29 +285,25 @@ export const routes = {
     {
       path:
         `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
-      exact:
-        true,
+      exact: true,
       component:
       AdminAnalyticsNewsletterPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`,
-      exact:
-        true,
+      exact: true,
       component:
       AdminAnalyticsOverheadAnalysisPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`,
-      exact:
-        true,
+      exact: true,
       component:
       AdminAnalyticsStudentSummaryPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`,
-      exact:
-        true,
+      exact: true,
       component:
       AdminAnalyticsUserInteractionsPageContainer,
     },
@@ -319,15 +315,13 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
-      exact:
-        true,
+      exact: true,
       component:
       ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
-      exact:
-        true,
+      exact: true,
       component:
       ScoreboardPageContainer,
     },

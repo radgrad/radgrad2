@@ -5,7 +5,7 @@ interface IAction {
 }
 
 interface ISetDatePickerAction extends IAction {
-  payload: any;
+  payload: Date;
 }
 
 interface INewsletterAction extends IAction {
@@ -13,13 +13,23 @@ interface INewsletterAction extends IAction {
 
 }
 
-export const setDatePickerStartDate = (type: string, startDate: any): ISetDatePickerAction => ({
-  type: type,
+export const setOverheadAnalysisStartDate = (startDate: Date): ISetDatePickerAction => ({
+  type: TYPES.SET_OVERHEAD_ANALYSIS_START_DATE,
   payload: startDate,
 });
 
-export const setDatePickerEndDate = (type: string, endDate: any): ISetDatePickerAction => ({
-  type: type,
+export const setOverheadAnalysisEndDate = (endDate: Date): ISetDatePickerAction => ({
+  type: TYPES.SET_OVERHEAD_ANALYSIS_END_DATE,
+  payload: endDate,
+});
+
+export const setStudentSummaryStartDate = (startDate: Date): ISetDatePickerAction => ({
+  type: TYPES.SET_STUDENT_SUMMARY_START_DATE,
+  payload: startDate,
+});
+
+export const setStudentSummaryEndDate = (endDate: Date): ISetDatePickerAction => ({
+  type: TYPES.SET_STUDENT_SUMMARY_END_DATE,
   payload: endDate,
 });
 
