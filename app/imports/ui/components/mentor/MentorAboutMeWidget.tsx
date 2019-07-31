@@ -15,10 +15,6 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import {
-  SET_MENTOR_HOME_CLOUDINARY_URL,
-  SET_MENTOR_HOME_IS_CLOUDINARY_USED,
-} from '../../../redux/shared/cloudinary/types';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 
 interface IMentorAboutMeWidgetProps {
@@ -32,8 +28,8 @@ interface IMentorAboutMeWidgetProps {
   };
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
+  setMentorHomeIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setMentorHomeCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
 interface IMentorAboutMeWidgetState {
@@ -47,8 +43,8 @@ const mapStateToProps = (state: ReduxState): object => ({
 });
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+  setMentorHomeIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setMentorHomeIsCloudinaryUsed(isCloudinaryUsed)),
+  setMentorHomeCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setMentorHomeCloudinaryUrl(cloudinaryUrl)),
 });
 
 class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMentorAboutMeWidgetState> {
@@ -67,8 +63,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      this.props.setIsCloudinaryUsed(SET_MENTOR_HOME_IS_CLOUDINARY_USED, true);
-      this.props.setCloudinaryUrl(SET_MENTOR_HOME_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.props.setMentorHomeIsCloudinaryUsed(true);
+      this.props.setMentorHomeCloudinaryUrl(cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }

@@ -30,10 +30,6 @@ import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import {
-  SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL,
-  SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED,
-} from '../../../redux/shared/cloudinary/types';
 
 interface IUpdateFeedFormProps {
   academicTerms: IAcademicTerm[];
@@ -46,8 +42,8 @@ interface IUpdateFeedFormProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
+  setAdminDataModelFeedsIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
 interface IUpdateFeedFormState {
@@ -55,8 +51,8 @@ interface IUpdateFeedFormState {
 }
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+  setAdminDataModelFeedsIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelFeedsIsCloudinaryUsed(isCloudinaryUsed)),
+  setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelFeedsCloudinaryUrl(cloudinaryUrl)),
 });
 
 class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
@@ -71,8 +67,8 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      this.props.setIsCloudinaryUsed(SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED, true);
-      this.props.setCloudinaryUrl(SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.props.setAdminDataModelFeedsIsCloudinaryUsed(true);
+      this.props.setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }
