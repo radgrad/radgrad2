@@ -1,8 +1,8 @@
 import * as TYPES from './types';
 
 interface IDatePickerState {
-  startDate: any;
-  endDate: any;
+  startDate: Date;
+  endDate: Date;
 }
 
 interface IState {
@@ -24,12 +24,12 @@ const initialState: IState = {
     allNewsletter: false,
   },
   overheadAnalysis: {
-    startDate: '',
-    endDate: '',
+    startDate: undefined,
+    endDate: undefined,
   },
   studentSummary: {
-    startDate: '',
-    endDate: '',
+    startDate: undefined,
+    endDate: undefined,
   },
 };
 
