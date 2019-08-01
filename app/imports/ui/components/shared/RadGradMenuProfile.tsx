@@ -8,10 +8,11 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
 // eslint-disable-next-line no-unused-vars
-import { Ice } from '../../../typings/radgrad';
+import { Ice, IStudentProfile } from '../../../typings/radgrad';
 
 interface IRadGradMenuProfileProps {
   userName: string;
+  profile: IStudentProfile;
   displayLevelAndIce: boolean;
   earnedICE: Ice;
   projectedICE: Ice;
@@ -24,18 +25,9 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    const { userName } = this.props;
-    const profile = Users.getProfile(userName);
-    // console.log(profile);
-    const displayLevelAndIce = Roles.userIsInRole(profile.userID, [ROLE.STUDENT]);
-    let earnedICE;
-    let projectedICE;
-    if (displayLevelAndIce) {
-      earnedICE = StudentProfiles.getEarnedICE(userName);
-      projectedICE = StudentProfiles.getProjectedICE(userName);
-    }
+    const { profile, displayLevelAndIce, earnedICE, projectedICE } = this.props;
+
     const level = profile.level;
-    // console.log(displayLevelAndIce);
     const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
     const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };
     const imageStyle = { width: '50px', borderRadius: '2px' };
@@ -64,11 +56,15 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
 const RadGradMenuProfileContainer = withTracker((props) => {
   const profile = Users.getProfile(props.userName);
   const displayLevelAndIce = Roles.userIsInRole(profile.userID, [ROLE.STUDENT]);
-  const earnedICE = StudentProfiles.getEarnedICE(props.userName);
-  const projectedICE = StudentProfiles.getProjectedICE(props.userName);
-  // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', questions);
-  // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', answerCount);
+  let earnedICE;
+  let projectedICE;
+  if (displayLevelAndIce) {
+    earnedICE = StudentProfiles.getEarnedICE(props.userName);
+    projectedICE = StudentProfiles.getProjectedICE(props.userName);
+  }
+
   return {
+    profile,
     displayLevelAndIce,
     earnedICE,
     projectedICE,
