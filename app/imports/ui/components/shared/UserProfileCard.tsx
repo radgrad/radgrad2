@@ -14,13 +14,21 @@ import ExplorerUsersWidget from './ExplorerUsersWidget';
 
 /* global window */
 
+interface IUserProfileCardState {
+  isActive: boolean;
+}
+
 /**
  * Component that displays a <Card> given a user profile. Although the interface accepts type <b>any</b>,
  * this component expects an <b>IBaseProfile</b> and will not render without certain required information.
  * @param item {IBaseProfile} A user profile to process for display on the card
  * @return {Card} */
-class UserProfileCard extends React.Component<IUserProfileCard> {
-  state = { isActive: false }
+
+class UserProfileCard extends React.Component<IUserProfileCard, IUserProfileCardState> {
+  constructor(props) {
+    super(props);
+    this.state = { isActive: false };
+  }
 
   private isRole = (compareRole: string, ...otherRoles: string[]): boolean => this.props.item.role === compareRole || _.includes(otherRoles, this.props.item.role);
 
@@ -59,8 +67,10 @@ class UserProfileCard extends React.Component<IUserProfileCard> {
             {this.capitalizeFirstOnly(p.role)}<br/>
             {desiredDegree ? <React.Fragment>{desiredDegree.shortName}<br/></React.Fragment> : undefined}
             {level ?
-              <Image style={ { padding: '5px' } } size={'mini'} src={`/images/level-icons/radgrad-level-${level}-icon.png`}/> : undefined}
-            {this.isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? <React.Fragment>{p.username}<br/></React.Fragment> : undefined}
+              <Image style={{ padding: '5px' }} size={'mini'}
+                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}/> : undefined}
+            {this.isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ?
+              <React.Fragment>{p.username}<br/></React.Fragment> : undefined}
             {sharedUsername}
             <br/>
           </Card.Meta>

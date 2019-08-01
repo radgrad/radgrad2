@@ -1,21 +1,33 @@
 import * as React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { buildRouteName } from './RouterHelperFunctions';
 
 interface IMenuIceCircleProps {
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   earned: number;
   planned: number;
   type: string;
 }
 
-export default class MenuIceCircle extends React.Component<IMenuIceCircleProps, {}> {
+class MenuIceCircle extends React.Component<IMenuIceCircleProps, {}> {
   public render() {
     const marginRight = { marginRight: 5 };
-    const p = (this.props.planned < 100) ? this.props.planned : 100;
-    const e = (this.props.earned < 100) ? this.props.earned : 100;
-    const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${this.props.type}`;
-    const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${this.props.type}`;
+    const { planned, type, earned, match } = this.props;
+    const p = (planned < 100) ? planned : 100;
+    const e = (earned < 100) ? earned : 100;
+    const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
+    const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;
+    const routeToIcePage = buildRouteName(match, '/home/ice');
     return (
       <div className="radgrad-ice menu" style={marginRight}>
-        <a className={classNamesPlanned} href="{{pathFor iceRouteName username=routeUserName}}">
+        <Link to={routeToIcePage} className={classNamesPlanned}>
           <div className="radgrad-ice-stat">
             <span>{e}</span>
           </div>
@@ -23,7 +35,7 @@ export default class MenuIceCircle extends React.Component<IMenuIceCircleProps, 
             <div className="bar"/>
             <div className="fill"/>
           </div>
-        </a>
+        </Link>
         <a className={classNamesEarned}>
           <span/>
           <div className="slice">
@@ -35,3 +47,5 @@ export default class MenuIceCircle extends React.Component<IMenuIceCircleProps, 
     );
   }
 }
+
+export default withRouter(MenuIceCircle);

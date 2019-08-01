@@ -1,15 +1,21 @@
 import * as React from 'react';
 import { Roles } from 'meteor/alanning:roles';
 import { Header, Image } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import RadGradMenuLevel from './RadGradMenuLevel';
-
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
+// eslint-disable-next-line no-unused-vars
+import { Ice, IStudentProfile } from '../../../typings/radgrad';
 
 interface IRadGradMenuProfileProps {
   userName: string;
+  profile: IStudentProfile;
+  displayLevelAndIce: boolean;
+  earnedICE: Ice;
+  projectedICE: Ice;
 }
 
 class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
@@ -19,17 +25,9 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
-    const profile = Users.getProfile(this.props.userName);
-    // console.log(profile);
-    const displayLevelAndIce = Roles.userIsInRole(profile.userID, [ROLE.STUDENT]);
-    let earnedICE;
-    let projectedICE;
-    if (displayLevelAndIce) {
-      earnedICE = StudentProfiles.getEarnedICE(this.props.userName);
-      projectedICE = StudentProfiles.getProjectedICE(this.props.userName);
-    }
+    const { profile, displayLevelAndIce, earnedICE, projectedICE } = this.props;
+
     const level = profile.level;
-    // console.log(displayLevelAndIce);
     const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
     const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };
     const imageStyle = { width: '50px', borderRadius: '2px' };
@@ -55,4 +53,21 @@ class RadGradMenuProfile extends React.Component<IRadGradMenuProfileProps, {}> {
   }
 }
 
-export default RadGradMenuProfile;
+const RadGradMenuProfileContainer = withTracker((props) => {
+  const profile = Users.getProfile(props.userName);
+  const displayLevelAndIce = Roles.userIsInRole(profile.userID, [ROLE.STUDENT]);
+  let earnedICE;
+  let projectedICE;
+  if (displayLevelAndIce) {
+    earnedICE = StudentProfiles.getEarnedICE(props.userName);
+    projectedICE = StudentProfiles.getProjectedICE(props.userName);
+  }
+
+  return {
+    profile,
+    displayLevelAndIce,
+    earnedICE,
+    projectedICE,
+  };
+})(RadGradMenuProfile);
+export default RadGradMenuProfileContainer;
