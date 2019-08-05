@@ -15,6 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { homeActions } from '../../../redux/student/home';
+import { ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -27,8 +28,8 @@ interface IStudentOfInterestWidgetProps {
     }
   };
   profile: any;
-  nonRetiredCourses: object[];
-  nonRetiredOpportunities: object[];
+  nonRetiredCourses: ICourse[];
+  nonRetiredOpportunities: IOpportunity[];
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
   dispatch: any;
@@ -115,7 +116,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return visibleCourses;
   }
 
-  private matchingCourses = () => {
+  private matchingCourses = (): ICourse[] => {
     const username = this.getUsername();
     if (username) {
       const allCourses = this.availableCourses();
@@ -151,7 +152,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const { nonRetiredCourses } = this.props;
     if (nonRetiredCourses.length > 0) {
       const filtered = _.filter(nonRetiredCourses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
+        if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
           return true;
         }
         const ci = CourseInstances.find({
@@ -196,7 +197,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return visibleOpportunities;
   }
 
-  private matchingOpportunities = () => {
+  private matchingOpportunities = (): IOpportunity[] => {
     const allOpportunities = this.availableOpps();
     const matching: any = [];
     const { profile } = this.props;
@@ -224,7 +225,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return (matching < 7) ? matching : matching.slice(0, 6);
   }
 
-  private availableOpps = () => {
+  private availableOpps = (): IOpportunity[] => {
     const { nonRetiredOpportunities } = this.props;
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     if (nonRetiredOpportunities.length > 0) {
@@ -250,7 +251,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     return [];
   }
 
-  private hiddenOpportunitiesHelper = () => {
+  private hiddenOpportunitiesHelper = (): IOpportunity[] => {
     if (this.getUsername()) {
       const opportunities = this.matchingOpportunities();
       let nonHiddenOpportunities;
