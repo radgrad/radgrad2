@@ -28,7 +28,7 @@ import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 
 interface IUpdateFeedFormProps {

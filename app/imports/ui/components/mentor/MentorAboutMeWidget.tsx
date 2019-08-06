@@ -15,7 +15,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -37,7 +37,7 @@ interface IMentorAboutMeWidgetState {
   pictureURL: string;
 }
 
-const mapStateToProps = (state: ReduxState): object => ({
+const mapStateToProps = (state: ReduxTypes.State): object => ({
   isCloudinaryUsed: state.shared.cloudinary.mentorHome.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.mentorHome.cloudinaryUrl,
 });

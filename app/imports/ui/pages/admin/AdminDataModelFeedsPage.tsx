@@ -23,7 +23,7 @@ import {
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
 
 const collection = Feeds; // the collection to use.
 
@@ -88,7 +88,7 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state: ReduxState): object => ({
+const mapStateToProps = (state: ReduxTypes.State): object => ({
   isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
