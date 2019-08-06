@@ -1,4 +1,7 @@
+// eslint-disable-next-line no-unused-vars
+import { Dictionary } from 'lodash';
 import * as TYPES from './types';
+
 
 interface IAction {
   type: string;
@@ -8,9 +11,16 @@ interface ISetDatePickerAction extends IAction {
   payload: Date;
 }
 
+interface ISetOverheadBucketsAction extends IAction {
+  payload: any[];
+}
+
+interface ISetUserInteractionsAction extends IAction {
+  payload: Dictionary<any[]>;
+}
+
 interface INewsletterAction extends IAction {
   payload: boolean;
-
 }
 
 export const setOverheadAnalysisStartDate = (startDate: Date): ISetDatePickerAction => ({
@@ -21,6 +31,16 @@ export const setOverheadAnalysisStartDate = (startDate: Date): ISetDatePickerAct
 export const setOverheadAnalysisEndDate = (endDate: Date): ISetDatePickerAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_END_DATE,
   payload: endDate,
+});
+
+export const setOverheadBuckets = (overheadBuckets: any[]): ISetOverheadBucketsAction => ({
+  type: TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS,
+  payload: overheadBuckets,
+});
+
+export const setUserInteractions = (userInteractions: Dictionary<any[]>): ISetUserInteractionsAction => ({
+  type: TYPES.SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS,
+  payload: userInteractions,
 });
 
 export const setStudentSummaryStartDate = (startDate: Date): ISetDatePickerAction => ({

@@ -1,18 +1,21 @@
 import * as React from 'react';
-import { Form, Segment, Header, Container } from 'semantic-ui-react';
+import { Container, Form, Header, Segment } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import * as _ from 'lodash';
 import { ANALYTICS } from '../../../startup/client/routes-config';
 import { analyticsActions } from '../../../redux/admin/analytics';
+import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   page: string;
   setOverheadAnalysisStartDate: (startDate: Date) => any;
   setOverheadAnalysisEndDate: (endDate: Date) => any;
+  setOverheadBuckets: (overheadBuckets: any[]) => any;
+  setUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
   setStudentSummaryStartDate: (startDate: Date) => any;
   setStudentSummaryEndDate: (endDate: Date) => any;
 }
@@ -25,6 +28,8 @@ interface IAdminAnalyticsDateSelectionWidgetState {
 const mapDispatchToProps = (dispatch: any): object => ({
   setOverheadAnalysisStartDate: (startDate: Date) => dispatch(analyticsActions.setOverheadAnalysisStartDate(startDate)),
   setOverheadAnalysisEndDate: (endDate: Date) => dispatch(analyticsActions.setOverheadAnalysisEndDate(endDate)),
+  setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
+  setUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
   setStudentSummaryStartDate: (startDate: Date) => dispatch(analyticsActions.setStudentSummaryStartDate(startDate)),
   setStudentSummaryEndDate: (endDate: Date) => dispatch(analyticsActions.setStudentSummaryEndDate(endDate)),
 });
@@ -57,19 +62,105 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
     if (endDate === undefined) {
       this.setState({ endDate: moment().toDate() });
     }
+    const startDateFormatted = moment(startDate, 'MMMM D, YYYY').toDate();
+    const endDateFormatted = moment(endDate, 'MMMM D, YYYY').endOf('day').toDate();
     switch (this.props.page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        this.props.setOverheadAnalysisStartDate(startDate);
-        this.props.setOverheadAnalysisEndDate(endDate);
+        this.props.setOverheadAnalysisStartDate(startDateFormatted);
+        this.props.setOverheadAnalysisEndDate(endDateFormatted);
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        this.props.setStudentSummaryStartDate(startDate);
-        this.props.setStudentSummaryEndDate(endDate);
+        this.props.setStudentSummaryStartDate(startDateFormatted);
+        this.props.setStudentSummaryEndDate(endDateFormatted);
         break;
       default:
         break;
     }
+    // TODO: set DateRange
+    const selector = { timestamp: { $gte: startDate, $lte: endDate } };
+    const options = { sort: { username: 1, timestamp: 1 } };
+    userInteractionFindMethod.call({ selector, options }, (error, result) => {
+      if (error) {
+        Swal.fire({
+          title: 'Failed to Find User Interactions',
+          text: error.message,
+          type: 'error',
+        });
+      } else {
+        const timeGroups = _.groupBy(result, function (interaction) {
+          return moment(interaction.timestamp).utc().format('MMDDYYYYHHmm');
+        });
+        const docsPerMinGroups = _.groupBy(timeGroups, function (time) {
+          return time.length;
+        });
+        console.log('docsPerMinGroups %o', docsPerMinGroups);
+        // const overheadBuckets = this.createBucket(docsPerMinGroups);
+        // this.props.setOverheadBuckets(overheadBuckets);
+        const userInteractions = _.groupBy(result, 'username');
+        console.log('userInteractions %o', userInteractions);
+        this.props.setUserInteractions(userInteractions);
+        const overheadData = [];
+        _.each(userInteractions, (interactions, username) => {
+          const sessions = [];
+          let totalTime = 0;
+          let slicedIndex = 0;
+          const userData = {
+            username,
+            'num-sessions': 1,
+            'num-docs': interactions.length,
+            'docs-per-min': 0,
+            'total-time': 0,
+          };
+          _.each(interactions, (interaction, index) => {
+            if (index !== 0) {
+              const prevTimestamp = moment(new Date(interactions[index - 1].timestamp));
+              const timestamp = moment(new Date(interaction.timestamp));
+              const difference = moment.duration(timestamp.diff(prevTimestamp)).asMinutes();
+              const gap = 10;
+              if (difference >= gap) {
+                sessions.push(_.slice(interactions, slicedIndex, index));
+                slicedIndex = index;
+                userData['num-sessions']++;
+              }
+              if (index === interactions.length - 1) {
+                sessions.push(_.slice(interactions, slicedIndex));
+              }
+            }
+          });
+          _.each(sessions, (session) => {
+            const firstTimestamp = moment(new Date(session[0].timestamp));
+            const lastTimestamp = moment(new Date(session[session.length - 1].timestamp));
+            let difference = Math.ceil(moment.duration(lastTimestamp.diff(firstTimestamp)).asMinutes());
+            if (difference === 0) {
+              difference = 1;
+            }
+            totalTime += difference;
+          });
+          userData['docs-per-min'] = parseFloat((userData['num-docs'] / totalTime).toFixed(2));
+          userData['total-time'] = totalTime;
+          overheadData.push(userData);
+        });
+      }
+    });
   }
+
+  // private createBucket = (groups) => {
+  //   let buckets = [];
+  //   _.each(groups, (group, docsPerMin) => {
+  //     const bucket = (docsPerMin - (docsPerMin % 10)) / 10;
+  //     if (!buckets[bucket]) {
+  //       buckets[bucket] = 0;
+  //     }
+  //     buckets[bucket] += group.length;
+  //   });
+  //   buckets = _.map(buckets, (value) => {
+  //     if (value) {
+  //       return value;
+  //     }
+  //     return 0;
+  //   });
+  //   return buckets;
+  // }
 
   public render() {
     const { startDate, endDate } = this.state;

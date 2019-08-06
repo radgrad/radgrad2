@@ -482,7 +482,6 @@ class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps> {
     const profile = Users.getProfile(username);
     const interestIDs = Users.getInterestIDs(profile.userID);
     const preferred = new PreferredChoice(allOpportunities, interestIDs);
-    console.log('preferred ordered choices opportunities %o', preferred.getOrderedChoices());
     return preferred.getOrderedChoices();
   }
 

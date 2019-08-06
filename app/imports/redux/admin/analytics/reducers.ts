@@ -1,8 +1,15 @@
+// eslint-disable-next-line no-unused-vars
+import { Dictionary } from 'lodash';
 import * as TYPES from './types';
 
 interface IDatePickerState {
   startDate: Date;
   endDate: Date;
+}
+
+interface IOverheadAnalysisState extends IDatePickerState {
+  overheadBuckets: any[];
+  userInteractions: Dictionary<any[]>;
 }
 
 interface IState {
@@ -12,7 +19,7 @@ interface IState {
     levelNewsletter: boolean;
     allNewsletter: boolean;
   }
-  overheadAnalysis: IDatePickerState;
+  overheadAnalysis: IOverheadAnalysisState;
   studentSummary: IDatePickerState;
 }
 
@@ -26,6 +33,8 @@ const initialState: IState = {
   overheadAnalysis: {
     startDate: undefined,
     endDate: undefined,
+    overheadBuckets: [],
+    userInteractions: {},
   },
   studentSummary: {
     startDate: undefined,
@@ -134,6 +143,26 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         overheadAnalysis: {
           ...otherKeys,
           endDate: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          overheadBuckets: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          userInteractions: action.payload,
         },
       };
       return s;

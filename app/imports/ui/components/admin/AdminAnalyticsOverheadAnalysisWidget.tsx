@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Segment, Header } from 'semantic-ui-react';
+import { Header, Segment, Tab } from 'semantic-ui-react';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
 import { ANALYTICS } from '../../../startup/client/routes-config';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+// eslint-disable-next-line no-unused-vars
+import { ReduxState } from '../../../redux/store';
+import UserSessionOverheadWidget from './UserSessionOverheadWidget';
+import OverallServerLoadWidget from './OverallServerLoadWidget';
 
 interface IAdminAnalyticsOverheadAnalysisWidgetProps {
   startDate: Date;
@@ -20,14 +23,13 @@ const mapStateToProps = (state: ReduxState): { startDate?: Date; endDate?: Date;
 });
 
 const getDateRange = (props): string => {
-  console.log('props %o', props);
   const { startDate, endDate } = props;
   if (startDate === undefined || endDate === undefined) {
     return '';
   }
   const start = moment(startDate).format('MM-DD-YYYY');
   const end = moment(endDate).format('MM-DD-YYYY');
-  return `${start} to ${end}`;
+  return `${start} twwo ${end}`;
 };
 
 class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyticsOverheadAnalysisWidgetProps> {
@@ -47,12 +49,28 @@ class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyti
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { dateRange } = this.props;
+    const tabMenuSettings = {
+      pointing: true,
+      secondary: true,
+    };
+    const panes = [
+      {
+        menuItem: 'User Session Overhead',
+        render: () => <UserSessionOverheadWidget/>,
+      },
+      {
+        menuItem: 'Overall Server Load',
+        render: () => <OverallServerLoadWidget/>,
+      },
+    ];
     return (
       <React.Fragment>
         <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS}/>
 
         <Segment padded={true} className="container">
+          {/* TODO: Make this reactive */}
           <Header dividing={true}>{`${dateRange} ${_.uniqueId()}`}</Header>
+          <Tab panes={panes} menu={tabMenuSettings}/>
         </Segment>
       </React.Fragment>
     );
