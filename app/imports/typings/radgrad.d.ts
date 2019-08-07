@@ -1038,6 +1038,14 @@ export interface ITeaserUpdateData {
 }
 
 // UserInteractions
+export interface IUserInteraction {
+  _id: string;
+  username: string;
+  type: string;
+  typeData: string[];
+  timestamp: Date;
+}
+
 export interface IUserInteractionDefine extends IDumpOne {
   username: string;
   type: string;

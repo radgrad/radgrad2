@@ -12,12 +12,10 @@ import { userInteractionFindMethod } from '../../../api/analytic/UserInteraction
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   page: string;
-  setOverheadAnalysisStartDate: (startDate: Date) => any;
-  setOverheadAnalysisEndDate: (endDate: Date) => any;
+  setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
   setOverheadBuckets: (overheadBuckets: any[]) => any;
   setUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
-  setStudentSummaryStartDate: (startDate: Date) => any;
-  setStudentSummaryEndDate: (endDate: Date) => any;
+  setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
 }
 
 interface IAdminAnalyticsDateSelectionWidgetState {
@@ -26,12 +24,10 @@ interface IAdminAnalyticsDateSelectionWidgetState {
 }
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setOverheadAnalysisStartDate: (startDate: Date) => dispatch(analyticsActions.setOverheadAnalysisStartDate(startDate)),
-  setOverheadAnalysisEndDate: (endDate: Date) => dispatch(analyticsActions.setOverheadAnalysisEndDate(endDate)),
+  setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
   setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
   setUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
-  setStudentSummaryStartDate: (startDate: Date) => dispatch(analyticsActions.setStudentSummaryStartDate(startDate)),
-  setStudentSummaryEndDate: (endDate: Date) => dispatch(analyticsActions.setStudentSummaryEndDate(endDate)),
+  setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
 });
 
 class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps, IAdminAnalyticsDateSelectionWidgetState> {
@@ -50,6 +46,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
   private handleSubmit = (e): void => {
     e.preventDefault();
     const { startDate, endDate } = this.state;
+    /* Setting the Date Range */
     if (startDate === undefined) {
       Swal.fire({
         title: 'Start Date Required',
@@ -66,17 +63,16 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
     const endDateFormatted = moment(endDate, 'MMMM D, YYYY').endOf('day').toDate();
     switch (this.props.page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        this.props.setOverheadAnalysisStartDate(startDateFormatted);
-        this.props.setOverheadAnalysisEndDate(endDateFormatted);
+        this.props.setOverheadAnalysisDateRange({ startDate: startDateFormatted, endDate: endDateFormatted });
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        this.props.setStudentSummaryStartDate(startDateFormatted);
-        this.props.setStudentSummaryEndDate(endDateFormatted);
+        this.props.setStudentSummaryDateRange({ startDate: startDateFormatted, endDate: endDateFormatted });
         break;
       default:
         break;
     }
-    // TODO: set DateRange
+
+    /* Getting Overhead Data */
     const selector = { timestamp: { $gte: startDate, $lte: endDate } };
     const options = { sort: { username: 1, timestamp: 1 } };
     userInteractionFindMethod.call({ selector, options }, (error, result) => {
@@ -93,14 +89,16 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
         const docsPerMinGroups = _.groupBy(timeGroups, function (time) {
           return time.length;
         });
-        console.log('docsPerMinGroups %o', docsPerMinGroups);
-        // const overheadBuckets = this.createBucket(docsPerMinGroups);
-        // this.props.setOverheadBuckets(overheadBuckets);
+        console.log('docsPerMinGroups ', docsPerMinGroups);
+        const overheadBuckets = this.createBucket(docsPerMinGroups);
+        console.log('overheadBuckets ', overheadBuckets);
+        this.props.setOverheadBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
-        console.log('userInteractions %o', userInteractions);
+        console.log('userInteractions ', userInteractions);
         this.props.setUserInteractions(userInteractions);
+        /* Generating Overhead Data */
         const overheadData = [];
-        _.each(userInteractions, (interactions, username) => {
+        _.forEach(userInteractions, (interactions, username) => {
           const sessions = [];
           let totalTime = 0;
           let slicedIndex = 0;
@@ -111,7 +109,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
             'docs-per-min': 0,
             'total-time': 0,
           };
-          _.each(interactions, (interaction, index) => {
+          _.forEach(interactions, (interaction, index) => {
             if (index !== 0) {
               const prevTimestamp = moment(new Date(interactions[index - 1].timestamp));
               const timestamp = moment(new Date(interaction.timestamp));
@@ -127,7 +125,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
               }
             }
           });
-          _.each(sessions, (session) => {
+          _.forEach(sessions, (session) => {
             const firstTimestamp = moment(new Date(session[0].timestamp));
             const lastTimestamp = moment(new Date(session[session.length - 1].timestamp));
             let difference = Math.ceil(moment.duration(lastTimestamp.diff(firstTimestamp)).asMinutes());
@@ -140,27 +138,30 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
           userData['total-time'] = totalTime;
           overheadData.push(userData);
         });
+        console.log('overheadData ', overheadData);
       }
     });
   }
 
-  // private createBucket = (groups) => {
-  //   let buckets = [];
-  //   _.each(groups, (group, docsPerMin) => {
-  //     const bucket = (docsPerMin - (docsPerMin % 10)) / 10;
-  //     if (!buckets[bucket]) {
-  //       buckets[bucket] = 0;
-  //     }
-  //     buckets[bucket] += group.length;
-  //   });
-  //   buckets = _.map(buckets, (value) => {
-  //     if (value) {
-  //       return value;
-  //     }
-  //     return 0;
-  //   });
-  //   return buckets;
-  // }
+  private createBucket = (groups: { [key: number]: any }): number[] => {
+    let buckets = [];
+    // iteratee of a foreach is (value, key)
+    _.forEach(groups, (group, key) => {
+      const docsPerMin: number = parseInt(key, 10);
+      const bucket = (docsPerMin - (docsPerMin % 10)) / 10;
+      if (!buckets[bucket]) {
+        buckets[bucket] = 0;
+      }
+      buckets[bucket] += group.length;
+    });
+    buckets = _.map(buckets, (value) => {
+      if (value) {
+        return value;
+      }
+      return 0;
+    });
+    return buckets;
+  }
 
   public render() {
     const { startDate, endDate } = this.state;

@@ -7,12 +7,20 @@ interface IAction {
   type: string;
 }
 
-interface ISetDatePickerAction extends IAction {
-  payload: Date;
+export interface ISetDateRangeProps {
+  startDate: Date;
+  endDate: Date;
+}
+
+interface ISetDateRangeAction extends IAction {
+  payload: {
+    startDate: Date;
+    endDate: Date;
+  };
 }
 
 interface ISetOverheadBucketsAction extends IAction {
-  payload: any[];
+  payload: number[];
 }
 
 interface ISetUserInteractionsAction extends IAction {
@@ -23,14 +31,10 @@ interface INewsletterAction extends IAction {
   payload: boolean;
 }
 
-export const setOverheadAnalysisStartDate = (startDate: Date): ISetDatePickerAction => ({
-  type: TYPES.SET_OVERHEAD_ANALYSIS_START_DATE,
-  payload: startDate,
-});
-
-export const setOverheadAnalysisEndDate = (endDate: Date): ISetDatePickerAction => ({
-  type: TYPES.SET_OVERHEAD_ANALYSIS_END_DATE,
-  payload: endDate,
+// Admin Analytics Overhead Analysis
+export const setOverheadAnalysisDateRange = (dateRange: ISetDateRangeProps): ISetDateRangeAction => ({
+  type: TYPES.SET_OVERHEAD_ANALYSIS_DATE_RANGE,
+  payload: dateRange,
 });
 
 export const setOverheadBuckets = (overheadBuckets: any[]): ISetOverheadBucketsAction => ({
@@ -43,16 +47,18 @@ export const setUserInteractions = (userInteractions: Dictionary<any[]>): ISetUs
   payload: userInteractions,
 });
 
-export const setStudentSummaryStartDate = (startDate: Date): ISetDatePickerAction => ({
-  type: TYPES.SET_STUDENT_SUMMARY_START_DATE,
-  payload: startDate,
+export const setOverheadData = (overheadData) => ({
+  type: TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA,
+  payload: overheadData,
 });
 
-export const setStudentSummaryEndDate = (endDate: Date): ISetDatePickerAction => ({
-  type: TYPES.SET_STUDENT_SUMMARY_END_DATE,
-  payload: endDate,
+// Admin Analytics Student Summary
+export const setStudentSummaryDateRange = (dateRange: ISetDateRangeProps): ISetDateRangeAction => ({
+  type: TYPES.SET_STUDENT_SUMMARY_DATE_RANGE,
+  payload: dateRange,
 });
 
+// Admin Analytics Newsletter
 export const startGetStudentEmails = (): INewsletterAction => ({
   type: TYPES.GET_EMAILS_WORKING,
   payload: true,

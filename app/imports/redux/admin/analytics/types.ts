@@ -7,10 +7,9 @@ export const LEVEL_EMAIL_DONE = 'radgrad/admin/analytics/LEVEL_EMAIL_DONE';
 export const ALL_EMAIL_WORKING = 'radgrad/admin/analytics/ALL_EMAIL_WORKING';
 export const ALL_EMAIL_DONE = 'radgrad/admin/analytics/ALL_EMAIL_DONE';
 // Admin Analytics Overhead Analysis
-export const SET_OVERHEAD_ANALYSIS_START_DATE = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_START_DATE';
-export const SET_OVERHEAD_ANALYSIS_END_DATE = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_END_DATE';
+export const SET_OVERHEAD_ANALYSIS_DATE_RANGE = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_DATE_RANGE';
 export const SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS';
 export const SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS';
+export const SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA';
 // Admin Analytics Student Summary
-export const SET_STUDENT_SUMMARY_START_DATE = 'radgrad/shared/datepicker/SET_STUDENT_SUMMARY_OVERHEAD_ANALYSIS_START_DATE';
-export const SET_STUDENT_SUMMARY_END_DATE = 'radgrad/shared/datepicker/SET_STUDENT_SUMMARY_OVERHEAD_ANALYSIS_END_DATE';
+export const SET_STUDENT_SUMMARY_DATE_RANGE = 'radgrad/shared/datepicker/SET_STUDENT_SUMMARY_DATE_RANGE';
