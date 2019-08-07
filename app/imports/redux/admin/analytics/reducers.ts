@@ -2,14 +2,9 @@
 import { Dictionary } from 'lodash';
 import * as TYPES from './types';
 
-interface IDatePickerState {
+interface IDateRangeState {
   startDate: Date;
   endDate: Date;
-}
-
-interface IOverheadAnalysisState extends IDatePickerState {
-  overheadBuckets: any[];
-  userInteractions: Dictionary<any[]>;
 }
 
 interface IState {
@@ -19,8 +14,14 @@ interface IState {
     levelNewsletter: boolean;
     allNewsletter: boolean;
   }
-  overheadAnalysis: IOverheadAnalysisState;
-  studentSummary: IDatePickerState;
+  overheadAnalysis: {
+    dateRange: IDateRangeState;
+    overheadBuckets: any[];
+    userInteractions: Dictionary<any[]>;
+  }
+  studentSummary: {
+    dateRange: IDateRangeState;
+  };
 }
 
 const initialState: IState = {
@@ -31,14 +32,18 @@ const initialState: IState = {
     allNewsletter: false,
   },
   overheadAnalysis: {
-    startDate: undefined,
-    endDate: undefined,
+    dateRange: {
+      startDate: undefined,
+      endDate: undefined,
+    },
     overheadBuckets: [],
     userInteractions: {},
   },
   studentSummary: {
-    startDate: undefined,
-    endDate: undefined,
+    dateRange: {
+      startDate: undefined,
+      endDate: undefined,
+    },
   },
 };
 
@@ -126,23 +131,13 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         },
       };
       return s;
-    case TYPES.SET_OVERHEAD_ANALYSIS_START_DATE:
+    case TYPES.SET_OVERHEAD_ANALYSIS_DATE_RANGE:
       otherKeys = state.overheadAnalysis;
       s = {
         ...state,
         overheadAnalysis: {
           ...otherKeys,
-          startDate: action.payload,
-        },
-      };
-      return s;
-    case TYPES.SET_OVERHEAD_ANALYSIS_END_DATE:
-      otherKeys = state.overheadAnalysis;
-      s = {
-        ...state,
-        overheadAnalysis: {
-          ...otherKeys,
-          endDate: action.payload,
+          dateRange: action.payload,
         },
       };
       return s;
@@ -166,23 +161,13 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         },
       };
       return s;
-    case TYPES.SET_STUDENT_SUMMARY_START_DATE:
+    case TYPES.SET_STUDENT_SUMMARY_DATE_RANGE:
       otherKeys = state.studentSummary;
       s = {
         ...state,
         studentSummary: {
           ...otherKeys,
-          startDate: action.payload,
-        },
-      };
-      return s;
-    case TYPES.SET_STUDENT_SUMMARY_END_DATE:
-      otherKeys = state.studentSummary;
-      s = {
-        ...state,
-        studentSummary: {
-          ...otherKeys,
-          endDate: action.payload,
+          dateRange: action.payload,
         },
       };
       return s;

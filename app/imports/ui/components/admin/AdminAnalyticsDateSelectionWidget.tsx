@@ -47,33 +47,29 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
     e.preventDefault();
     const { startDate, endDate } = this.state;
     /* Setting the Date Range */
-    if (startDate === undefined) {
+    if (startDate === undefined || endDate === undefined) {
       Swal.fire({
-        title: 'Start Date Required',
-        text: 'You must pick a date for the Start Date',
+        title: 'Date Selection Required',
+        text: 'A Start and End Date selection is required.',
         type: 'error',
       });
       return;
     }
-    // End Date is not required, we default it to current date.
-    if (endDate === undefined) {
-      this.setState({ endDate: moment().toDate() });
-    }
-    const startDateFormatted = moment(startDate, 'MMMM D, YYYY').toDate();
-    const endDateFormatted = moment(endDate, 'MMMM D, YYYY').endOf('day').toDate();
+    const startDateMutated = moment(startDate).startOf('day').toDate();
+    const endDateMutated = moment(endDate).endOf('day').toDate();
     switch (this.props.page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        this.props.setOverheadAnalysisDateRange({ startDate: startDateFormatted, endDate: endDateFormatted });
+        this.props.setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        this.props.setStudentSummaryDateRange({ startDate: startDateFormatted, endDate: endDateFormatted });
+        this.props.setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       default:
         break;
     }
 
     /* Getting Overhead Data */
-    const selector = { timestamp: { $gte: startDate, $lte: endDate } };
+    const selector = { timestamp: { $gte: startDateMutated, $lte: endDateMutated } };
     const options = { sort: { username: 1, timestamp: 1 } };
     userInteractionFindMethod.call({ selector, options }, (error, result) => {
       if (error) {
