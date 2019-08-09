@@ -7,9 +7,7 @@ interface IMatchProps {
   isExact: boolean;
   path: string;
   url: string;
-  params?: {
-    username: string;
-  }
+  params?: { [key: string]: any };
 }
 
 // Returns the USERNAME param based on React-Router's match object
@@ -68,6 +66,16 @@ export const getUrlParam = (match: IMatchProps, index: number) => {
   const usernameIndex = parameters.indexOf(username);
   const param = parameters[usernameIndex + index];
   return param;
+};
+
+// Returns all the parameters AFTER the base route
+// i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
+export const getAllUrlParams = (match: IMatchProps) => {
+  const parameters = splitUrlIntoArray(match);
+  const username = getUsername(match);
+  const usernameIndex = parameters.indexOf(username);
+  const allParams = parameters.slice(usernameIndex + 1);
+  return allParams;
 };
 
 // Returns the last param of the URL

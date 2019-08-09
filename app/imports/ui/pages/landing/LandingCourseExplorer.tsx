@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';

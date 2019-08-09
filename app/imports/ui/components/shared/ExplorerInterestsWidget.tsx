@@ -25,7 +25,7 @@ import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-
+import { renderLink } from './RouterHelperFunctions';
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -235,7 +235,8 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
               <b>Description: </b>
             </div>
             <div>
-              <Markdown escapeHtml={true} source={this.props.interest.description}/>
+              <Markdown escapeHtml={true} source={this.props.interest.description}
+                        renderers={{ link: (props) => renderLink(props, this.props.match) }}/>
             </div>
           </Segment>
         </SegmentGroup>

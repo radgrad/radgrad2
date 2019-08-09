@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
 import YouTube from 'react-youtube';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Label, Segment } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -18,8 +18,6 @@ import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection'
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-
-// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {
   opportunity: IOpportunity;

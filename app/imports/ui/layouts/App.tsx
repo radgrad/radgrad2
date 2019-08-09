@@ -1,8 +1,9 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import '/public/semantic.min.css';
+import Swal from 'sweetalert2';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
@@ -10,6 +11,8 @@ import { ROLE } from '../../api/role/Role';
 import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
+import { getAllUrlParams } from '../components/shared/RouterHelperFunctions';
+import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 class App extends React.Component {
@@ -140,8 +143,66 @@ const MentorProtectedRoute = ({ component: Component, ...rest }) => { // eslint-
   );
 };
 
+// This is a way to be able to track route visits for STUDENT UserInteractions
+// Currently, it only tracks page visits if they were directly visited. If a page is navigated to using the browser's forward
+// and back buttons, it is not tracked. This is due to some weird behavior where as soon as we start navigating using the browser's
+// navigation buttons, the history's POP and PUSH actions are duplicated which leads to a lot of duplicates when defining UserInteractions.
+function withHistoryListen(WrappedComponent) {
+  interface IHistoryListenProps {
+    history: {
+      listen: (...args) => any;
+    };
+    match: {
+      isExact: boolean;
+      path: string;
+      url: string;
+      params?: { [key: string]: any };
+    };
+  }
+
+  class HistoryListen extends React.Component<IHistoryListenProps> {
+    private unlisten;
+
+    constructor(props) {
+      super(props);
+      const { history, match } = props;
+      this.unlisten = history.listen(() => {
+        const parameters = getAllUrlParams(match);
+        const typeData = parameters.join('/');
+        const username = Meteor.user().username;
+        const type = 'pageView';
+        const interactionData = { username, type, typeData };
+        userInteractionDefineMethod.call(interactionData, (error) => {
+          if (error) {
+            Swal.fire({
+              title: 'Something went wrong',
+              text: error.message,
+              type: 'error',
+            });
+          }
+        });
+      });
+    }
+
+    componentWillUnmount(): void {
+      this.unlisten();
+    }
+
+    public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+      return <WrappedComponent {...this.props}/>;
+    }
+  }
+
+  return withRouter(HistoryListen);
+}
+
 const StudentProtectedRoute = ({ component: Component, ...rest }) => { // eslint-disable-line react/prop-types
-  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
+  const ComponentWithSubscriptions = withInstanceSubscriptions(withGlobalSubscription(Component));
+  const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
+  // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the userInteractionDefineMethod.call()
+  // inside of withHistoryListen. Since we only want to track the pageViews of STUDENTS, we should only use withHistoryListen
+  // if LOGGED IN user is a student.
+  const WrappedComponent = isStudent ? withHistoryListen(ComponentWithSubscriptions) : ComponentWithSubscriptions;
   return (
     <Route
       {...rest}
@@ -157,5 +218,6 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => { // eslint
     />
   );
 };
+
 
 export default withInstanceSubscriptions(withGlobalSubscription(App));

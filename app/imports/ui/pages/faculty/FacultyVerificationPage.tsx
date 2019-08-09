@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';

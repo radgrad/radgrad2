@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Markdown from 'react-markdown';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
