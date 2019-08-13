@@ -12,6 +12,8 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from '../shared/RatingField';
+// eslint-disable-next-line no-unused-vars
+import { IAcademicTerm } from '../../../typings/radgrad';
 
 interface IStudentExplorerEditReviewWidgetProps {
   review: {
@@ -131,7 +133,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     return username && Users.getID(username);
   }
 
-  private academicTerm = (): object[] => {
+  private academicTerm = (): IAcademicTerm[] => {
     const academicTerms = [];
     let instances;
     if (this.props.review.reviewType === 'course') {

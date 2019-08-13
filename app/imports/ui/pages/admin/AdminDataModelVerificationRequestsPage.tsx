@@ -5,7 +5,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
@@ -205,8 +205,8 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

@@ -6,10 +6,10 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },
@@ -107,8 +107,8 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

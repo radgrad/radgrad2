@@ -16,7 +16,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
-import { selectCourse } from '../../../redux/actions/actions';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 
 interface IInspectorCourseViewProps {
@@ -35,7 +35,7 @@ interface IInspectorCourseViewProps {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(selectCourse(courseID)),
+    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
   });
 
 class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {

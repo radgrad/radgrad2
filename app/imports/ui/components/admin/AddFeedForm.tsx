@@ -3,10 +3,9 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import DateField from 'uniforms-semantic/DateField';
-import NumberField from 'uniforms-semantic/NumField';
+import NumField from 'uniforms-semantic/NumField';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -33,12 +32,12 @@ interface IAddFeedFormState {
 class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> {
   constructor(props) {
     super(props);
-    // console.log('AddFeedForm props=%o', props);
-    this.state = { feedType: Feeds.NEW_USER };
+    this.state = {
+      feedType: Feeds.NEW_USER,
+    };
   }
 
   private handleModelChange = (model) => {
-    // console.log('change %o', model);
     const feedType = model.feedType;
     this.setState({ feedType });
   }
@@ -63,7 +62,7 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
     });
     const newCourseReviewSchema = new SimpleSchema({
       course: { type: String, allowedValues: courseNames, defaultValue: courseNames[22], optional: true },
-      user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0], optional: true },
+      user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
     });
     const newOpportunitySchema = new SimpleSchema({
       opportunity: {
@@ -75,21 +74,19 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
     });
     const newOpportunityReviewSchema = new SimpleSchema({
       opportunity: { type: String, allowedValues: opportunityNames, optional: true },
-      user: { type: String, allowedValues: studentNames, optional: true },
+      user: { type: String, allowedValues: studentNames },
     });
     const newLevelSchema = new SimpleSchema({
-      user: { type: String, allowedValues: studentNames, optional: true },
+      user: { type: String, allowedValues: studentNames },
       level: { type: SimpleSchema.Integer, min: 1, max: 6, defaultValue: 1, optional: true },
     });
     const newUserSchema = new SimpleSchema({
-      user: { type: String, allowedValues: studentNames, optional: true },
-      picture: { type: String, optional: true },
+      user: { type: String, allowedValues: studentNames },
     });
     const verifiedOpportunitySchema = new SimpleSchema({
       user: {
         type: String,
         allowedValues: studentNames,
-        optional: true,
       },
       academicTerm: { type: String, allowedValues: academicTermNames, defaultValue: currentTermName, optional: true },
       opportunity: {
@@ -155,7 +152,7 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
               <Header dividing={true} as="h4">New course review fields</Header>
               <Form.Group widths="equal">
                 <SelectField name="user"/>
-                <NumberField name="level"/>
+                <NumField name="level"/>
               </Form.Group>
             </div>
           ) : ''}
@@ -181,7 +178,6 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
               <Header dividing={true} as="h4">New user fields</Header>
               <Form.Group widths="equal">
                 <SelectField name="user"/>
-                <TextField name="picture" placeholder="No picture URL specified"/>
               </Form.Group>
             </div>
           ) : ''}
@@ -203,10 +199,10 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
 }
 
 const AddFeedFormContainer = withTracker(() => ({
-    academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-    courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-    opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-    students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  }))(AddFeedForm);
+  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
+  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
+  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+}))(AddFeedForm);
 
 export default AddFeedFormContainer;

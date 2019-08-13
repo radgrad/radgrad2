@@ -9,6 +9,7 @@ import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunitiesCardExplorerProps {
   ready: boolean;
@@ -36,15 +37,20 @@ class LandingOpportunitiesCardExplorer extends React.Component<IOpportunitiesCar
     return (
       <div>
         <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width="three">
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
               <LandingExplorerMenuContainer/>
             </Grid.Column>
-            <Grid.Column width="thirteen">
+
+            <Grid.Column width={11}>
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>OPPORTUNITIES</span> ({this.props.count})
@@ -56,6 +62,7 @@ class LandingOpportunitiesCardExplorer extends React.Component<IOpportunitiesCar
                 </Card.Group>
               </Segment>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
         </Grid>
       </div>

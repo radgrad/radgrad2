@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import Swal from 'sweetalert2';
+import { connect } from 'react-redux';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IFeedDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -22,8 +22,15 @@ import {
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { dataModelActions } from '../../../redux/admin/data-model';
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
 
 const collection = Feeds; // the collection to use.
+
+interface IAdminDataModelFeedsPageProps {
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
+}
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
@@ -51,8 +58,10 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
     { label: 'Feed Type', value: item.feedType },
     { label: 'Description', value: item.description },
     { label: 'Timestamp', value: item.timestamp.toString() },
-    { label: 'Picture',
-      value: `![${item.picture}](${item.picture})` },
+    {
+      label: 'Picture',
+      value: `![${item.picture}](${item.picture})`,
+    },
     { label: 'Users', value: users.toString() },
     { label: 'Opportunity', value: opportunityName },
     { label: 'Course', value: courseName },
@@ -72,14 +81,19 @@ const itemTitleString = (item: any): string => `${item.feedType} ${item.descript
  * @param item an item from the collection.
  */
 const itemTitle = (item: any): React.ReactNode => (
-    <React.Fragment>
-      {item.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(item)}
-    </React.Fragment>
-  );
+  <React.Fragment>
+    {item.retired ? <Icon name="eye slash"/> : ''}
+    <Icon name="dropdown"/>
+    {itemTitleString(item)}
+  </React.Fragment>
+);
 
-class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageState> {
+const mapStateToProps = (state: ReduxTypes.State): object => ({
+  isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
+  cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
+});
+
+class AdminDataModelFeedsPage extends React.Component<IAdminDataModelFeedsPageProps, IAdminDataModelPageState> {
   private readonly formRef;
 
   constructor(props) {
@@ -91,7 +105,7 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   private handleAdd = (doc) => {
     // console.log('Feeds.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData: any = {}; // create the definitionData may need to modify doc's values
+    const definitionData: IFeedDefine = doc; // create the definitionData may need to modify doc's values
     definitionData.feedType = doc.feedType;
     switch (doc.feedType) {
       case Feeds.NEW_USER:
@@ -106,7 +120,6 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
         break;
       case Feeds.NEW_LEVEL:
         definitionData.user = profileNameToUsername(doc.user);
-        definitionData.level = parseInt(doc.level, 10);
         break;
       case Feeds.NEW_OPPORTUNITY:
         definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
@@ -121,8 +134,8 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
         definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
         break;
       default:
+        break;
     }
-    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -191,7 +204,10 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
     updateData.feedType = doc.feedType;
     updateData.users = doc.userIDs;
     updateData.opportunity = opportunityNameToSlug(doc.opportunity);
-    // console.log(collectionName, updateData);
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -231,8 +247,8 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <UpdateFeedForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+                              handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                              itemTitleString={itemTitleString}/>
             ) : (
               <AddFeedForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
@@ -242,12 +258,13 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Feed?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
+                 header="Delete Feed?"/>
 
         <BackToTopButton/>
       </div>
@@ -255,4 +272,4 @@ class AdminDataModelFeedsPage extends React.Component<{}, IAdminDataModelPageSta
   }
 }
 
-export default AdminDataModelFeedsPage;
+export default connect(mapStateToProps)(AdminDataModelFeedsPage);

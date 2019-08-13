@@ -88,7 +88,6 @@ export const CardExplorerMenuCon = withTracker((props) => {
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
   const menuList = _.map(profile.careerGoalIDs, (c) => CareerGoals.findDoc(c).name);
-  console.log('menuList: ', menuList);
   return {
     profile,
     menuList,

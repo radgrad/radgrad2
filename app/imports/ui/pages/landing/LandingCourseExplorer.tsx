@@ -14,6 +14,8 @@ import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICourseExplorerProps {
   course: ICourse;
@@ -39,15 +41,20 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
     return (
       <div>
         <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width="three">
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
               <LandingExplorerMenuContainer/>
             </Grid.Column>
-            <Grid.Column width="thirteen">
+
+            <Grid.Column width={11}>
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>{this.props.course.shortName} ({this.props.course.name})</span>
@@ -58,7 +65,8 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
                     <b>Credit Hours:</b> {this.props.course.creditHrs}
                   </Grid.Column>
                   <Grid.Column width={'ten'}>
-                    <b>Syllabus</b> {this.props.course.syllabus ? < a href={this.props.course.syllabus}>{this.props.course.syllabus}</a> : 'None available'}
+                    <b>Syllabus</b> {this.props.course.syllabus ?
+                    < a href={this.props.course.syllabus}>{this.props.course.syllabus}</a> : 'None available'}
                   </Grid.Column>
                 </Grid>
                 <b>Description:</b>
@@ -70,9 +78,11 @@ class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
                 <LandingInterestList interestIDs={this.props.course.interestIDs}/>
               </Segment>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
-
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

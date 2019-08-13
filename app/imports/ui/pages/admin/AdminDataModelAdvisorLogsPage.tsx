@@ -10,12 +10,12 @@ import {
   IAdvisorLog, IAdvisorLogUpdate, // eslint-disable-line
   IDescriptionPair, // eslint-disable-line
 } from '../../../typings/radgrad';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
     { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -170,8 +170,8 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

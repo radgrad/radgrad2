@@ -6,7 +6,7 @@ export function remainingRequirements(student) {
   if (Meteor.isServer) {
     console.log('student: ', student.student, 'academic plan: ', student.studentAcademicPlanDoc);
     const coursesCompleted = [];
-     coursesCompleted.push(CourseInstances.find({'studentID': student.student.userID}).fetch());
+    coursesCompleted.push(CourseInstances.find({ studentID: student.student.userID }).fetch());
       console.log(coursesCompleted);
       // check if user has taken courses in their academic plan
   }

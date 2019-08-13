@@ -10,6 +10,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import LandingAcademicPlanCardContainer from '../../components/landing/LandingAcademicPlanCard';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IAcademicPlansCardExplorerProps {
   ready: boolean;
@@ -37,26 +38,32 @@ class LandingAcademicPlansCardExplorer extends React.Component<IAcademicPlansCar
     return (
       <div>
         <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width="three">
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
               <LandingExplorerMenuContainer/>
             </Grid.Column>
-            <Grid.Column width="thirteen">
+
+            <Grid.Column width={11}>
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>ACADEMIC PLANS</span> ({this.props.count})
                 </Header>
                 <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
                   {this.props.academicPlans.map((plan) => (
-                      <LandingAcademicPlanCardContainer key={plan._id} plan={plan}/>
-                    ))}
+                    <LandingAcademicPlanCardContainer key={plan._id} plan={plan}/>
+                  ))}
                 </Card.Group>
               </Segment>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
         </Grid>
 

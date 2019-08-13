@@ -7,7 +7,7 @@ import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
@@ -22,7 +22,7 @@ interface IListCollectionWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-  pagination: state.pagination,
+  pagination: state.admin.dataModel.pagination,
 });
 
 class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {}> {
@@ -43,8 +43,8 @@ class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {
       <Segment padded={true}>
         <Header dividing={true}>{this.props.collection.getCollectionName()} ({count})</Header>
         <Grid>
-          <AdminPaginationWidget collection={this.props.collection} setShowIndex={setCollectionShowIndex}
-                                 setShowCount={setCollectionShowCount}/>
+          <AdminPaginationWidget collection={this.props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
+                                 setShowCount={dataModelActions.setCollectionShowCount}/>
           {_.map(items, (item) => (
             <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
                                       descriptionPairs={this.props.descriptionPairs(item)}

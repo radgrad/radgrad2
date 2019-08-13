@@ -12,11 +12,9 @@ interface IAdminAnalyticsLoggedInUsersWidget {
 class AdminAnalyticsLoggedInUsersWidget extends React.Component <IAdminAnalyticsLoggedInUsersWidget> {
   constructor(props) {
     super(props);
-    console.log('Admin Analytics Logged In Users Widget Props Constructor', props);
   }
 
   public render() {
-    console.log('Admin Analytics Logged In Users Widget Props Constructor', this.props);
     return (
       <Segment>
         <Header as='h4' dividing>LOGGED IN USERS</Header>

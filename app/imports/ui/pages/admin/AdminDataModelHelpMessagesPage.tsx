@@ -4,13 +4,13 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AddHelpMessageForm from '../../components/admin/AddHelpMessageForm';
 import UpdateHelpMessageForm from '../../components/admin/UpdateHelpMessageForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = HelpMessages; // the collection to use.
 
@@ -136,7 +136,8 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ showUpdateForm: false, id: '' });
+        // TODO: Uncomment this after done with issue-113
+        // this.setState({ showUpdateForm: false, id: '' });
       }
     });
   };
@@ -171,8 +172,8 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

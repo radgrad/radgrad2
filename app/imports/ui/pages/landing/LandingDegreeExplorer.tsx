@@ -10,6 +10,8 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IDesiredDegreeExplorerProps {
   desiredDegree: IDesiredDegree;
@@ -35,15 +37,20 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
     return (
       <div>
         <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width="three">
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={3}>
               <LandingExplorerMenuContainer/>
             </Grid.Column>
-            <Grid.Column width="thirteen">
+
+            <Grid.Column width={11}>
               <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
                 <Header as="h4" dividing={true}>
                   <span>{this.props.desiredDegree.name}</span>
@@ -53,9 +60,11 @@ class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps>
                           renderers={{ link: (props) => Router.renderLink(props, match) }}/>
               </Segment>
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
-
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

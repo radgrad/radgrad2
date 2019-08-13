@@ -18,7 +18,7 @@ import { sendEmailMethod } from '../../../api/analytic/Email.methods';
 import { getRemainingRequirementsMethod } from '../../../api/analytic/RemainingRequirements.methods';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { remainingRequirements } from "../../../api/analytic/RemainingRequirements";
+import { remainingRequirements } from '../../../api/analytic/RemainingRequirements';
 
 // app/imports/typings/meteor-meteor.d.ts
 const schema = new SimpleSchema({
@@ -308,12 +308,12 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         info: 'recommendations for Innovation, Competency and Experience',
       };
       return firstRec;
-    } else {
-      const complete = {
-        header: 'You Have Completed Your Degree Plan',
-      };
-      return complete;
     }
+    const complete = {
+      header: 'You Have Completed Your Degree Plan',
+    };
+    return complete;
+
 
   }
 
@@ -331,7 +331,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
   private getRecommendationsLevel = (student) => ({
     header: 'Level Up and Upgrade Your RadGrad Sticker',
-    info: `<img src="https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png" width="100" height="100" style="float: left; margin: 0 10px;"/> <p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p> <p><em>Swing by your advisor's office or POST 307 to pick up a laptop sticker for your current level if you haven't already!</em></p> <p>${levelMap[student.level]}</p><a style="color: #6FBE44; font-weight: bold" href="https://radgrad.ics.hawaii.edu/">Take me to RadGrad!</a>`,
+    info: `<img alt="radgrad icon" src="https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png" width="100" height="100" style="float: left; margin: 0 10px;"/> <p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p> <p><em>Swing by your advisor's office or POST 307 to pick up a laptop sticker for your current level if you haven't already!</em></p> <p>${levelMap[student.level]}</p><a style="color: #6FBE44; font-weight: bold" href="https://radgrad.ics.hawaii.edu/">Take me to RadGrad!</a>`,
   })
 
   private getRecommendationsAcademicPlan = (student) => {
@@ -340,7 +340,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     const academicPlanSlug = Slugs.getNameFromID(studentAcademicPlanDoc.slugID);
     console.log('student\'s academic plan doc', studentAcademicPlanDoc);
     const remainingReqs = this.getRemainingRequirements(student, studentAcademicPlanDoc);
-    console.log('remaining requirements from get recommendations Academic plan', remainingReqs)
+    console.log('remaining requirements from get recommendations Academic plan', remainingReqs);
     // console.log('student\'s remaining reqs',remainingReqs);
 
     const html = {
@@ -357,18 +357,18 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         ' Provided below is a list of required coursework that you are currently missing.' +
         ' Make sure to double-check the requirements with your advisor!</p>';
     }
-    /*     if (remainingReqs.length > 0) {*/
-    /*       html.info += '<p style="text-decoration: underline;">Missing Requirements: </p>';*/
-    /*       html.info += '<ul>';*/
-    /*       _.each(remainingReqs, function (req) {*/
-    /*         const requirement = (req.toString().toUpperCase()).replace(/,/g, ' or ').replace(/_/g, ' ');*/
-    /*         html.info += `<li style="color: red;">${requirement}</li>`;*/
-    /*       });*/
-    /*       html.info += '</ul>';*/
-    /*     }*/
-    /*   } else {*/
-    /*     html.info = '<p>You have completed all your academic requirements</p>';*/
-    /*   }*/
+    /*     if (remainingReqs.length > 0) { */
+    /*       html.info += '<p style="text-decoration: underline;">Missing Requirements: </p>'; */
+    /*       html.info += '<ul>'; */
+    /*       _.each(remainingReqs, function (req) { */
+    /*         const requirement = (req.toString().toUpperCase()).replace(/,/g, ' or ').replace(/_/g, ' '); */
+    /*         html.info += `<li style="color: red;">${requirement}</li>`; */
+    /*       }); */
+    /*       html.info += '</ul>'; */
+    /*     } */
+    /*   } else { */
+    /*     html.info = '<p>You have completed all your academic requirements</p>'; */
+    /*   } */
     return html;
   }
 
@@ -397,11 +397,8 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       */
   }
 
-  private isAcademicPlanCompleted = (remainingReqs) => {
-    return false;
-    // put in condition checking if academic plan is completed
-
-  }
+  private isAcademicPlanCompleted = (remainingReqs) => false
+  // put in condition checking if academic plan is completed
 
 
   private getStudentEmailsByLevel = (level) => {
@@ -443,7 +440,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
             <Button color='green' basic onClick={this.onClickPreviewSave}>Preview And Save</Button>
             <Header as='h4' dividing>SEND NEWSLETTER</Header>
             <TextField name='studentEmails'/>
-            <BoolField name='sendToStudentsToo'></BoolField>
+            <BoolField name='sendToStudentsToo'/>
             <Button basic color='green' onClick={this.onClickSendStudentsToo}>Send To Admin</Button>
 
             <NumField name='level' placeholder='level'/>

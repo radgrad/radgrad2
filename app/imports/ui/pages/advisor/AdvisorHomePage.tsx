@@ -32,7 +32,7 @@ export interface IFilterStudents {
 }
 
 const mapStateToProps = (state) => ({
-  selectedUsername: state.page.advisor.home.selectedUsername,
+  selectedUsername: state.advisor.home.selectedUsername,
 });
 
 /** A simple static component to render some text for the landing page. */

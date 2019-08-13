@@ -5,6 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
 import Swal from 'sweetalert2';
 import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -12,6 +13,9 @@ import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -22,11 +26,26 @@ interface IMentorAboutMeWidgetProps {
       username: string;
     }
   };
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
+  setMentorHomeIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setMentorHomeCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
 interface IMentorAboutMeWidgetState {
   isEditingProfile: boolean;
+  pictureURL: string;
 }
+
+const mapStateToProps = (state: ReduxTypes.State): object => ({
+  isCloudinaryUsed: state.shared.cloudinary.mentorHome.isCloudinaryUsed,
+  cloudinaryUrl: state.shared.cloudinary.mentorHome.cloudinaryUrl,
+});
+
+const mapDispatchToProps = (dispatch: any): object => ({
+  setMentorHomeIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setMentorHomeIsCloudinaryUsed(isCloudinaryUsed)),
+  setMentorHomeCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setMentorHomeCloudinaryUrl(cloudinaryUrl)),
+});
 
 class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMentorAboutMeWidgetState> {
   private readonly formRef;
@@ -36,7 +55,18 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     this.formRef = React.createRef();
     this.state = {
       isEditingProfile: false,
+      pictureURL: MentorProfiles.findOne({ userID: this.getUserIdFromRoute() }).picture,
     };
+  }
+
+  private handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.props.setMentorHomeIsCloudinaryUsed(true);
+      this.props.setMentorHomeCloudinaryUrl(cloudinaryResult.info.url);
+      this.setState({ pictureURL: cloudinaryResult.info.url });
+    }
   }
 
   private getUsername = (): string => this.props.match.params.username;
@@ -196,11 +226,20 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     this.setState({ isEditingProfile: false });
   }
 
+  private handlePictureUrlChange = (value) => {
+    this.setState({ pictureURL: value });
+  }
+
   private handleSubmit = (doc: { [key: string]: any }): void => {
     const collectionName = MentorProfiles.getCollectionName();
     const mentorProfile = MentorProfiles.findOne({ userID: this.getUserIdFromRoute() });
     const updateData = doc;
     updateData.id = mentorProfile._id;
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
+    console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -208,6 +247,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
           text: error.message,
           type: 'error',
         });
+        this.formRef.current.reset();
       } else {
         Swal.fire({
           title: 'Update Succeeded',
@@ -242,6 +282,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       marginBottom: 0,
     };
 
+    const model = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
     const updateSchema = new SimpleSchema({
       website: {
         type: String,
@@ -279,10 +320,11 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       picture: {
         type: String,
         optional: true,
-        label: 'Picture URL',
+        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
         defaultValue: picture,
       },
     });
+    const { pictureURL } = this.state;
 
     return (
       <Segment padded>
@@ -361,7 +403,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
         {
           isEditingProfile ?
-            <AutoForm name={'mentorProfile'} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+            <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
               <Form.Group widths={'equal'}>
                 <TextField name='website'/>
                 <TextField name='company'/>
@@ -374,7 +416,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
               <Form.Group widths={'equal'}>
                 <TextField name='linkedin'/>
-                <TextField name='picture'/>
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
               </Form.Group>
 
               <LongTextField name='motivation'/>
@@ -448,4 +490,4 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 }
 
-export default withRouter(MentorAboutMeWidget);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MentorAboutMeWidget));

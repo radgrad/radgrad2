@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -179,8 +179,8 @@ class AdminDataModelInterestsPage extends React.Component<{}, IAdminDataModelPag
                                   itemTitle={itemTitle}
                                   handleOpenUpdate={this.handleOpenUpdate}
                                   handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+                                  setShowIndex={dataModelActions.setCollectionShowIndex}
+                                  setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>

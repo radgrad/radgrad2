@@ -12,6 +12,8 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICareerGoalExplorerProps {
   careerGoal: ICareerGoal;
@@ -37,29 +39,34 @@ class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps
     return (
       <div>
         <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
+        <Grid stackable={true}>
           <Grid.Row>
-            <Grid.Column width="three">
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
-            <Grid.Column width="thirteen">
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>{this.props.careerGoal.name}</span>
-                </Header>
-                <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.careerGoal.description}
-                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                <Header as="h4" dividing={true}>Career Goal Interests</Header>
-                <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
-              </Segment>
-            </Grid.Column>
+            <Grid.Column width={1}/>
+            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
 
+          <Grid.Column width={1}/>
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer/>
+          </Grid.Column>
+
+          <Grid.Column width={11}>
+            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing={true}>
+                <span>{this.props.careerGoal.name}</span>
+              </Header>
+              <b>Description:</b>
+              <Markdown escapeHtml={true} source={this.props.careerGoal.description}
+                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+              <Header as="h4" dividing={true}>Career Goal Interests</Header>
+              <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1}/>
         </Grid>
+
+        <BackToTopButton/>
       </div>
     );
   }

@@ -8,19 +8,17 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/AdminDatabaseAccordion';
-import {
-  dumpDatabaseDone, getStudentEmailsDone,
-  startDumpDatabase, startGetStudentEmails,
-} from '../../../redux/actions/actions';
+import { databaseActions } from '../../../redux/admin/database';
+import { analyticsActions } from '../../../redux/admin/analytics';
 
-interface Icollection {
+interface ICollection {
   name?: string;
   contents?: string[];
 }
 
 interface IAdminDumpDatabasePageState {
   isError: boolean;
-  results: Icollection[];
+  results: ICollection[];
 }
 
 interface IAdminDumpDatabasePageProps {
@@ -35,15 +33,15 @@ interface IAdminDumpDatabasePageProps {
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
 const mapStateToProps = (state) => ({
-    dumpDatabaseWorking: state.radgradWorking.dumpDatabase,
-    getStudentEmailsWorking: state.radgradWorking.getStudentEmails,
+    dumpDatabaseWorking: state.admin.database.dumpDatabase,
+    getStudentEmailsWorking: state.admin.analytics.getStudentEmails,
   });
 
 const mapDispatchToProps = (dispatch) => ({
-    startDumpDatabase: () => dispatch(startDumpDatabase()),
-    dumpDatabaseDone: () => dispatch(dumpDatabaseDone()),
-    startGetStudentEmails: () => dispatch(startGetStudentEmails()),
-    getStudentEmailsDone: () => dispatch(getStudentEmailsDone()),
+    startDumpDatabase: () => dispatch(databaseActions.startDumpDatabase()),
+    dumpDatabaseDone: () => dispatch(databaseActions.dumpDatabaseDone()),
+    startGetStudentEmails: () => dispatch(analyticsActions.startGetStudentEmails()),
+    getStudentEmailsDone: () => dispatch(analyticsActions.getStudentEmailsDone()),
   });
 
 class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps, IAdminDumpDatabasePageState> {
@@ -80,7 +78,7 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
         this.setState({ isError: true });
       }
       // console.log(error, result);
-      const data: Icollection = {};
+      const data: ICollection = {};
       data.name = 'Students';
       data.contents = result.students;
       this.setState({

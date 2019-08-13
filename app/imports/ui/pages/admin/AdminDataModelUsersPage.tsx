@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
+import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   IAdminDataModelPageState, IAdvisorProfile, // eslint-disable-line
   IBaseProfile, ICombinedProfileDefine, IFacultyProfile, IMentorProfile, IStudentProfile, // eslint-disable-line
@@ -31,12 +32,15 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { ReduxTypes } from '../../../redux/'; // eslint-disable-line
 
 interface IAdminDataModelUsersPageProps {
   advisors: IAdvisorProfile[];
   faculty: IFacultyProfile[];
   mentors: IMentorProfile[];
   students: IStudentProfile[];
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
 }
 
 const descriptionPairs = (user: IBaseProfile) => {
@@ -87,6 +91,11 @@ const itemTitle = (user: IBaseProfile): React.ReactNode => (
   </React.Fragment>
 );
 
+const mapStateToProps = (state: ReduxTypes.State): object => ({
+  isCloudinaryUsed: state.shared.cloudinary.adminDataModelUsers.isCloudinaryUsed,
+  cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
+});
+
 class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPageProps, IAdminDataModelPageState> {
   private readonly formRef;
 
@@ -119,8 +128,11 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
         definitionData.level = 1;
       }
     }
-    // console.log('collectionName=%o definitionData=%o', collectionName, definitionData);
     const inst = this;
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      definitionData.picture = cloudinaryUrl;
+    }
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         console.error('Failed adding User', error);
@@ -223,7 +235,10 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
-    console.log(collectionName, updateData);
+    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    if (isCloudinaryUsed) {
+      updateData.picture = cloudinaryUrl;
+    }
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -256,8 +271,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
       {
         menuItem: `Faculty (${this.props.faculty.length})`, render: () => (
@@ -266,8 +281,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
       {
         menuItem: `Mentors (${this.props.mentors.length})`, render: () => (
@@ -276,8 +291,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
       {
         menuItem: `Students (${this.props.students.length})`, render: () => (
@@ -286,8 +301,8 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
                                           itemTitle={itemTitle}
                                           handleOpenUpdate={this.handleOpenUpdate}
                                           handleDelete={this.handleDelete}
-                                          setShowIndex={setCollectionShowIndex}
-                                          setShowCount={setCollectionShowCount}/></Tab.Pane>),
+                                          setShowIndex={dataModelActions.setCollectionShowIndex}
+                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
       },
     ];
     return (
@@ -302,15 +317,16 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
               <UpdateUserForm id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+                              handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
+                              itemTitleString={itemTitleString}/>
             ) : (
               <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd}/>
             )}
             <Tab panes={panes} defaultActiveIndex={3}/>
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete User?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
+                 header="Delete User?"/>
 
         <BackToTopButton/>
       </div>
@@ -318,6 +334,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
   }
 }
 
+const AdminDataModelUsersPageCon = connect(mapStateToProps, null)(AdminDataModelUsersPage);
 export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
@@ -329,4 +346,4 @@ export default withTracker(() => {
     mentors,
     students,
   };
-})(AdminDataModelUsersPage);
+})(AdminDataModelUsersPageCon);

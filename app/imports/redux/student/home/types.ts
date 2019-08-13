@@ -1,0 +1,2 @@
+export const SET_WIDGET_HIDDEN_COURSES = 'radgrad/student/home/SET_WIDGET_HIDDEN_COURSES';
+export const SET_WIDGET_HIDDEN_OPPORTUNITIES = 'radgrad/student/home/SET_WIDGET_HIDDEN_OPPORTUNITIES';

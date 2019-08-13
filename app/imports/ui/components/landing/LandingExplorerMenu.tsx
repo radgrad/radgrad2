@@ -3,6 +3,7 @@ import { Dropdown, Header, Icon, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { getRouteName } from './helper-functions';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 const LandingExplorerMenu = (props: { match: { path: string; params: string;}, location: { pathname: string;}}) => {
   // console.log(props);
@@ -14,12 +15,16 @@ const LandingExplorerMenu = (props: { match: { path: string; params: string;}, l
         <Header as="h4" dividing={true}>Select Explorer</Header>
         <Dropdown text={getRouteName(props.location.pathname)}>
           <Dropdown.Menu>
-            <Dropdown.Item as={NavLink} to="/explorer/academic-plans">Academic Plans</Dropdown.Item>
-            <Dropdown.Item as={NavLink} to="/explorer/career-goals">Career Goals</Dropdown.Item>
-            <Dropdown.Item as={NavLink} to="/explorer/courses">Courses</Dropdown.Item>
-            <Dropdown.Item as={NavLink} to="/explorer/degrees">Degrees</Dropdown.Item>
-            <Dropdown.Item as={NavLink} to="/explorer/interests">Interests</Dropdown.Item>
-            <Dropdown.Item as={NavLink} to="/explorer/opportunities">Opportunities</Dropdown.Item>
+            <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`}>Academic
+              Plans</Dropdown.Item>
+            <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`}>Career
+              Goals</Dropdown.Item>
+            <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`}>Courses</Dropdown.Item>
+            <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`}>Degrees</Dropdown.Item>
+            <Dropdown.Item as={NavLink}
+                           to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`}>Interests</Dropdown.Item>
+            <Dropdown.Item as={NavLink}
+                           to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`}>Opportunities</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Segment>
