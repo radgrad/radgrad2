@@ -164,19 +164,19 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
               <Form.Group inline>
                 <Form.Field>
                   <Form.Input name="firstName"
-                              label={{ basic: 'true', children: 'First Name:' }}
+                              label={{ basic: true, children: 'First Name:' }}
                               value={this.props.firstName}
                               onChange={this.handleChangeFirstName}/>
                 </Form.Field>
                 <Form.Field>
                   <Form.Input name="lastName"
-                              label={{ basic: 'true', children: 'Last Name:' }}
+                              label={{ basic: true, children: 'Last Name:' }}
                               value={this.props.lastName}
                               onChange={this.handleChangeLastName}/>
                 </Form.Field>
                 <Form.Field>
                   <Form.Input name="userName"
-                              label={{ basic: 'true', children: 'Username:' }}
+                              label={{ basic: true, children: 'Username:' }}
                               value={this.props.username}
                               onChange={this.handleChangeUserName}/>
                 </Form.Field>

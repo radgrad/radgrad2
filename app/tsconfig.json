@@ -14,7 +14,8 @@
     ],
     "allowJs": false,
     "noImplicitAny": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "types": ["meteor"]
   },
   "include": [
     "client/**/*.ts",

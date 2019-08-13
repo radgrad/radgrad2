@@ -68,6 +68,7 @@
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-react": "^3.6.0",
+    "typedoc": "^0.15.0",
     "typescript": "^3.4.5",
     "typescript-eslint-parser": "^19.0.2",
     "typescript-estree": "^1.1.0"
@@ -83,6 +84,7 @@
     "pretest-win": "npm run lint",
     "test-win": "meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
     "test-app-win": "meteor test --full-app --once --driver-package dispatch:mocha --no-release-check --port 3300",
+    "tsdoc": "./node_modules/typedoc/bin/typedoc --mode modules --exclude **/node_modules/* --out ../tsdocs ./imports/",
     "clean:js": "del-cli ./imports/**/*.js ./imports/**/*.js.map ./imports/**/*.jsx ./client/**/*.js ./client/**/*.js.map ./server/**/*.js ./server/**/*.js.map"
   }
 }
