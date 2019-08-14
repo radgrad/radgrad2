@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Container, Tab, Table } from 'semantic-ui-react';
 
 interface IUserSessionOverheadWidgetProps {
-
 }
 
 
@@ -31,6 +30,7 @@ class UserSessionOverheadWidget extends React.Component<IUserSessionOverheadWidg
                 <Table.HeaderCell>Total Time</Table.HeaderCell>
                 <Table.HeaderCell>Show Docs</Table.HeaderCell>
               </Table.Row>
+              {}
             </Table.Header>
             <Table.Body style={tableBodyStyle}>
 

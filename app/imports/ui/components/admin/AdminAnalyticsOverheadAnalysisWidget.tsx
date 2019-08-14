@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { Header, Segment, Tab } from 'semantic-ui-react';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
 import { ANALYTICS } from '../../../startup/client/routes-config';
+import { moment } from 'meteor/momentjs:moment';
 // eslint-disable-next-line no-unused-vars
 import { ReduxTypes } from '../../../redux';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
@@ -27,6 +28,8 @@ class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyti
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { dateRange } = this.props;
+    console.log('date range object',dateRange);
+    console.log(moment(dateRange.startDate, 'MMMM DD, YYYY').toDate())
     const tabMenuSettings = {
       pointing: true,
       secondary: true,

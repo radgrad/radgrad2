@@ -15,10 +15,10 @@ import { getProjectedICE } from '../../../api/ice/IceProcessor';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { sendEmailMethod } from '../../../api/analytic/Email.methods';
-import { getRemainingRequirementsMethod } from '../../../api/analytic/RemainingRequirements.methods';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { remainingRequirements } from '../../../api/analytic/RemainingRequirements';
+import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
+import { Courses } from "../../../api/course/CourseCollection";
 
 // app/imports/typings/meteor-meteor.d.ts
 const schema = new SimpleSchema({
@@ -356,49 +356,64 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         ' to complete your academic plan, or click on your plan above to find out more information.' +
         ' Provided below is a list of required coursework that you are currently missing.' +
         ' Make sure to double-check the requirements with your advisor!</p>';
+      html.info += '<p style="text-decoration: underline;">Missing Requirements: </p>';
+      html.info += '<ul>';
+      _.each(remainingReqs, function (req) {
+        const requirement = (req.toString().toUpperCase()).replace(/,/g, ' or ').replace(/_/g, ' ');
+        html.info += `<li style="color: red;">${requirement}</li>`;
+      });
+      html.info += '</ul>';
+    } else {
+      html.info = '<p>You have completed all your academic requirements</p>';
     }
-    /*     if (remainingReqs.length > 0) { */
-    /*       html.info += '<p style="text-decoration: underline;">Missing Requirements: </p>'; */
-    /*       html.info += '<ul>'; */
-    /*       _.each(remainingReqs, function (req) { */
-    /*         const requirement = (req.toString().toUpperCase()).replace(/,/g, ' or ').replace(/_/g, ' '); */
-    /*         html.info += `<li style="color: red;">${requirement}</li>`; */
-    /*       }); */
-    /*       html.info += '</ul>'; */
-    /*     } */
-    /*   } else { */
-    /*     html.info = '<p>You have completed all your academic requirements</p>'; */
-    /*   } */
     return html;
   }
 
-  private getRemainingRequirements = (student, studentAcademicPlanDoc) => {
-
-    getRemainingRequirementsMethod.call({ student, studentAcademicPlanDoc }, (error, result) => {
-
-      if (error) {
-        Swal.fire('Error getting requirements.');
-        console.log('error', error);
-      } else {
-        console.log('this is the result of the get remaining requirements', result);
+  private
+  getRemainingRequirements = (student, studentAcademicPlanDoc) => {
+    console.log('student: ', student._id, student.username);
+    const studentCompletedCourses = CourseInstances.find({ 'verified': true, 'studentID': student.userID }).fetch();
+    if (studentCompletedCourses.length < 1) {
+      console.log('you havent completed any courses');
+    } else {
+      console.log('you have completed: ', studentCompletedCourses);
+    }
+    console.log('student academic plan doc', studentAcademicPlanDoc.courseList);
+    let inPlanCourseSlugs400 = [];
+    let inPlanCourseSlugs = [];
+    _.map(studentAcademicPlanDoc.courseList, (course) => {
+      if (_.includes(course, '-') && _.includes(course, '_4')) {
+        inPlanCourseSlugs400.push(course.substring(0, course.indexOf('-')));
+      } else if (_.includes(course, '-')) {
+        inPlanCourseSlugs.push(course.substring(0, course.indexOf('-')));
       }
-    });
-    // const studentCompletedCourses = CourseInstances.find({'verified': true, 'studentID': student.username})
-    // cannot access CourseInstances because client not subscribed
-    // write meteor method to do this and call on server side
-    // refer to Email.ts, Email.methods.ts
-    // console.log('student completed courses',studentCompletedCourses);
+    })
+    console.log("in plan slugs 400 level", inPlanCourseSlugs400, "in plan slugs non 400 level", inPlanCourseSlugs);
+    const studentCompletedCourseSlugs = [];
+    const studentCompletedCourseSlugs400 = [];
+    _.map(studentCompletedCourses, (course) => {
+      let slugName = CourseInstances.getCourseSlug(course._id);
+      if (_.includes(slugName, "_4")) {
+        studentCompletedCourseSlugs400.push(slugName);
+      } else {
+        studentCompletedCourseSlugs .push(slugName)
+      }
+    })
 
-    /*  const studentInPlanCourses = []
-      _.map(studentAcademicPlanDoc.courseList, (courseID) => {
-        studentInPlanCourses.push(Courses.findDoc(courseID));
-      });
-      console.log(studentInPlanCourses);
-      */
+    _.each(studentCompletedCourseSlugs400, () => {
+      inPlanCourseSlugs400.pop();
+      console.log('after pop', inPlanCourseSlugs400)
+    });
+    console.log(inPlanCourseSlugs400);
+    const needsWork = _.difference(inPlanCourseSlugs, studentCompletedCourseSlugs);
+    console.log('Needs Work: ', needsWork)
+    const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
+    console.log("missing requirements: ", missingRequirements);
+    return missingRequirements;
   }
 
   private isAcademicPlanCompleted = (remainingReqs) => false
-  // put in condition checking if academic plan is completed
+// put in condition checking if academic plan is completed
 
 
   private getStudentEmailsByLevel = (level) => {
