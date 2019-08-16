@@ -19,6 +19,8 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
 import { Courses } from "../../../api/course/CourseCollection";
+import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
+import { OpportunityInstances } from "../../../api/opportunity/OpportunityInstanceCollection";
 
 // app/imports/typings/meteor-meteor.d.ts
 const schema = new SimpleSchema({
@@ -36,7 +38,6 @@ const schema = new SimpleSchema({
   sendToLevels: { type: Boolean, optional: true, label: 'Check to confirm send' },
   sendToAll: { type: Boolean, optional: true, label: 'Check to confirm send' },
 });
-/*
 const iceMap = {
   i: {
     name: 'Innovation', color: '#80ad27',
@@ -65,7 +66,7 @@ const iceMap = {
     high: 'You are showing a great amount of Experience in your degree plan! Add a few more' +
       ' profession-related opportunities to top this area off and reach 100 Experience points!',
   },
-}; */
+};
 
 const levelMap = {
   1: 'You are currently level 1. To get to level 2, finish your first semester of ICS' +
@@ -293,28 +294,110 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
   private getRecommendations = (student) => {
     const recommendations = [];
-    const projectedICE = StudentProfiles.getProjectedICE(student.userID);
-    recommendations.push(this.getRecommendationsICE(projectedICE));
+    recommendations.push(this.getRecommendationsICE(student));
     recommendations.push(this.getRecommendationsLevel(student));
     recommendations.push(this.getRecommendationsAcademicPlan(student));
     return recommendations;
   }
 
-  private getRecommendationsICE = (projectedICE) => {
+  private getRecommendationsICE = (student) => {
+    const projectedICE = StudentProfiles.getProjectedICE(student.userID);
     if (projectedICE.i < 100 && projectedICE.c < 100 && projectedICE.e < 100) {
       console.log(projectedICE.i, projectedICE.c, projectedICE.e);
-      const firstRec = {
+      const iCERec = {
         header: 'Finish Your Degree Plan',
-        info: 'recommendations for Innovation, Competency and Experience',
+        info: '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>',
       };
-      return firstRec;
+      _.each(projectedICE, (value, component) => {
+        let iceLevel = '';
+        if (value < 30) {
+          iceLevel = '<span style="color: red;"><strong>NEEDS WORK</strong></span>';
+        } else if (value < 60) {
+          iceLevel = '<span style="color: orange;"><strong>NEEDS WORK</strong></span>';
+        } else {
+          iceLevel = '<span style="color: green;"><strong>GOOD</strong></span>';
+        }
+        iCERec.info += `<p><span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)</span>
+        : ${iceLevel}</p>`;
+         iCERec.info += `<ul><li>${this.iceRecHelper(student, value, component)}</li></ul>`;
+      })
+      return iCERec;
     }
     const complete = {
       header: 'You Have Completed Your Degree Plan',
     };
     return complete;
-
-
+  }
+  private iceRecHelper = (student, value, component) => {
+    let html = '';
+    if (value >= 100) {
+      html += `Congratulations! You have achieved 100 ${iceMap[component].name} points!`;
+      return html;
+    } else if (value < 30) {
+      html += iceMap[component].low;
+         } else if (value < 60) {
+          html += iceMap[component].med;
+         } else {
+           html += iceMap[component].high;
+         }
+         const studentInterests = Users.getInterestIDs(student.userID);
+         if (component === 'c') {
+           if (studentInterests.length === 0) {
+             html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+               ' Add some interests so we can provide course recommendations!</a></em>';
+             return html;
+           }
+           const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
+             if (_.some(course.interestIDs, interest => _.includes(studentInterests, interest))) {
+               return true;
+             }
+             return false;
+           });
+           const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
+           const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
+           if (recommendedCourses.length === 0) {
+             html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
+               ' Add more interests so we can provide course recommendations!</a></em>';
+             return html;
+           }
+           const recCourse = recommendedCourses[0];
+           html += ' Check out';
+           html += '<a style="color: #6FBE44; font-weight: bold;"' +
+             ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
+             `/explorer/courses/${Courses.getSlug(recCourse._id)}"> ${recCourse.shortName}</a>`;
+         } else {
+           if (studentInterests.length === 0) {
+             html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+               ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
+             return html;
+           }
+          const opps = _.filter(Opportunities.findNonRetired(), function (opp) {
+            return opp.ice[component] > 0;
+          });
+          const relevantOpps = _.filter(opps, function (opp) {
+            if (_.some(opp.interestIDs, interest => _.includes(studentInterests, interest))) {
+              return true;
+            }
+            return false;
+          });
+          if (relevantOpps.length === 0) {
+            return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+              ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
+          }
+          const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
+          const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
+          let recOpp;
+          if (recommendedOpps.length === 0) {
+            recOpp = relevantOpps[0];
+          } else {
+            recOpp = recommendedOpps[0];
+          }
+          html += ' Check out';
+          html += '<a style="color: #6FBE44; font-weight: bold;"' +
+            ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
+            `/explorer/opportunities/${Opportunities.getSlug(recOpp._id)}"> ${recOpp.name}</a>`;
+       }
+      return html;
   }
 
   private getRecommendationsInnovation = (projectedICEi) => {
@@ -348,7 +431,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       info: `<p>Your Current Academic Plan: <a style ="color: #6FBE44; font-weight: bold" href = "https://radgrad.ics.hawaii.edu/student/${student.username}
        /explorer/plans/${academicPlanSlug}">${studentAcademicPlanDoc.name}</a></p>`,
     };
-    if (this.isAcademicPlanCompleted(remainingReqs) === false) {
+    if (this.isAcademicPlanCompleted(student.userID) === false) {
       html.info += '<p>Your degree planner shows that you do not' +
         ' have all required coursework planned out yet. Head over to your' +
         ' <a style="color: #6FBE44; font-weight: bold;"' +
@@ -396,7 +479,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       if (_.includes(slugName, "_4")) {
         studentCompletedCourseSlugs400.push(slugName);
       } else {
-        studentCompletedCourseSlugs .push(slugName)
+        studentCompletedCourseSlugs.push(slugName)
       }
     })
 
@@ -412,7 +495,14 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     return missingRequirements;
   }
 
-  private isAcademicPlanCompleted = (remainingReqs) => false
+  private isAcademicPlanCompleted = (userID) => {
+    const earnedICE = StudentProfiles.getEarnedICE(userID);
+    if (earnedICE.c === 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 // put in condition checking if academic plan is completed
 
 
