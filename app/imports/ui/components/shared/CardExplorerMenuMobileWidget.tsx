@@ -271,7 +271,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
             this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
+                  <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
                   <Dropdown.Divider/>
                   {
                     menuAddedList.map((listItem, index) => (

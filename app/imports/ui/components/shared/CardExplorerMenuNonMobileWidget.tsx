@@ -149,7 +149,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
             this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
-                <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
+                <Header as="h4" dividing={true}>MY FAVORITE CAREER GOALS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
                     <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.CAREERGOALS} key={index}

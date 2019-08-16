@@ -26,6 +26,8 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface ICardExplorerPageProps {
   match: {
@@ -111,28 +113,34 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
   /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
   private addedPlans = (): { item: IAcademicPlan, count: number }[] => {
-    const plan = [];
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      const thePlan = AcademicPlans.findOne({ _id: profile.academicPlanID });
-      if (thePlan) {
-        plan.push({ item: thePlan, count: 1 });
-      }
-    }
-    return plan;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
+    // const plan = [];
+    // if (this.getUsername()) {
+    //   const profile = Users.getProfile(this.getUsername());
+    //   const thePlan = AcademicPlans.findOne({ _id: profile.academicPlanID });
+    //   if (thePlan) {
+    //     plan.push({ item: thePlan, count: 1 });
+    //   }
+    // }
+    // return plan;
   }
 
   /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
   private addedCareerGoals = (): { item: ICareerGoal, count: number }[] => {
-    const addedCareerGoals = [];
-    const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-    const profile = Users.getProfile(this.getUsername());
-    _.forEach(allCareerGoals, (careerGoal) => {
-      if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-        addedCareerGoals.push({ item: careerGoal, count: 1 });
-      }
-    });
-    return addedCareerGoals;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteCareerGoals.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
+    // const addedCareerGoals = [];
+    // const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
+    // const profile = Users.getProfile(this.getUsername());
+    // _.forEach(allCareerGoals, (careerGoal) => {
+    //   if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+    //     addedCareerGoals.push({ item: careerGoal, count: 1 });
+    //   }
+    // });
+    // return addedCareerGoals;
   }
 
   /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
