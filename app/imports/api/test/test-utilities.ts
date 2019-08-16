@@ -90,9 +90,9 @@ export const defineTestFixturesMethod = new ValidatedMethod({
  * @see {@link https://guide.meteor.com/testing.html#full-app-integration-test}
  * @memberOf api/test
  */
-export function withRadGradSubscriptions() {
+export function withRadGradSubscriptions(userID?: string) {
   return new Promise((resolve) => {
-    _.each(RadGrad.collections, (collection) => collection.subscribe());
+    _.each(RadGrad.collections, (collection) => collection.subscribe(userID));
     Users.subscribe();
     const poll = Meteor.setInterval(() => {
       if (DDP._allSubscriptionsReady()) {

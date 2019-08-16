@@ -74,9 +74,9 @@ class BaseCollection {
    * Default subscription method for entities.
    * It subscribes to the entire collection.
    */
-  public subscribe() {
+  public subscribe(userID = undefined) {
     if (Meteor.isClient) {
-      Meteor.subscribe(this.collectionName);
+      Meteor.subscribe(this.collectionName, userID);
     }
   }
 

@@ -11,6 +11,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';
 import PageLoader from '../../components/shared/PageLoader';
 import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface ILoading {
   loading: boolean;
@@ -62,6 +63,7 @@ function withInstanceSubscriptions(WrappedComponent) {
         handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(FavoriteAcademicPlans.getPublicationName(), userID));
       }
     }
     const loading = handles.some((handle) => !handle.ready());

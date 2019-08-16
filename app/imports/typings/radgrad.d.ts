@@ -202,7 +202,6 @@ export interface IExplorerCard extends ICardExplorerCards {
 export interface IUserProfileCard extends ICardExplorerCards {
 }
 
-
 export interface IDescriptionPair {
   label: string;
   value: string | string[] | any[];
@@ -427,6 +426,41 @@ export interface IDesiredDegreeUpdate {
   name?: string;
   shortName?: string;
   description?: string;
+  retired?: boolean;
+}
+
+// Favoirites
+export interface IFavoriteAcademicPlanDefine extends IDumpOne {
+  academicPlan: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteCareerGoalDefine extends IDumpOne {
+  careerGoal: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteCourseDefine extends IDumpOne {
+  course: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteInterestDefine extends IDumpOne {
+  interest: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteOpportunityDefine extends IDumpOne {
+  opportunity: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteUpdate {
   retired?: boolean;
 }
 

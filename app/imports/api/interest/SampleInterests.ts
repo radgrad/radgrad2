@@ -2,13 +2,16 @@ import { moment } from 'meteor/momentjs:moment';
 import { InterestTypes } from './InterestTypeCollection';
 import { Interests } from './InterestCollection';
 
+export const sampleInterestTypeName = 'Sample Interest Type';
+export const sampleInterestName = 'Sample Interest';
+
 /**
  * Creates an InterestType with a unique slug and returns its docID.
  * @returns { String } The docID of the newly generated InterestType.
  * @memberOf api/interest
  */
 export function makeSampleInterestType() {
-  const name = 'Sample Interest Type';
+  const name = sampleInterestTypeName;
   const slug = `interest-type-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
   const description = 'Sample Interest Type Description';
   return InterestTypes.define({ name, slug, description });
@@ -22,7 +25,7 @@ export function makeSampleInterestType() {
  */
 export function makeSampleInterest() {
   const interestType = makeSampleInterestType();
-  const name = 'Sample Interest';
+  const name = sampleInterestName;
   const slug = `interest-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
   const description = 'Sample Interest Description';
   return Interests.define({ name, slug, description, interestType });
