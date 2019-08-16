@@ -436,10 +436,22 @@ export interface IFavoriteAcademicPlanDefine extends IDumpOne {
   retired?: boolean;
 }
 
+export interface IFavoriteAcademicPlan {
+  academicPlanID: string;
+  studentID: string;
+  retired: boolean;
+}
+
 export interface IFavoriteCareerGoalDefine extends IDumpOne {
   careerGoal: string;
   student: string;
   retired?: boolean;
+}
+
+export interface IFavoriteCareerGoal {
+  careerGoalID: string;
+  studentID: string;
+  retired: boolean;
 }
 
 export interface IFavoriteCourseDefine extends IDumpOne {
@@ -448,16 +460,34 @@ export interface IFavoriteCourseDefine extends IDumpOne {
   retired?: boolean;
 }
 
+export interface IFavoriteCourse {
+  courseID: string;
+  studentID: string;
+  retired: boolean;
+}
+
 export interface IFavoriteInterestDefine extends IDumpOne {
   interest: string;
   student: string;
   retired?: boolean;
 }
 
+export interface IFavoriteInterest {
+  interestID: string;
+  studentID: string;
+  retired: boolean;
+}
+
 export interface IFavoriteOpportunityDefine extends IDumpOne {
   opportunity: string;
   student: string;
   retired?: boolean;
+}
+
+export interface IFavoriteOpportunity {
+  opportunityID: string;
+  studentID: string;
+  retired: boolean;
 }
 
 export interface IFavoriteUpdate {

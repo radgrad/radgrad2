@@ -5,7 +5,13 @@ import { Container, Grid, Segment, Header, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
-import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  ICareerGoal, IFavoriteAcademicPlan, // eslint-disable-line
+  IFavoriteCareerGoal, // eslint-disable-line
+  IFavoriteInterest, // eslint-disable-line
+  IInterest, // eslint-disable-line
+  IStudentProfile // eslint-disable-line
+} from '../../../typings/radgrad'; // eslint-disable-line
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -15,6 +21,9 @@ import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -26,6 +35,9 @@ interface IStudentAboutMeWidgetProps {
     }
   };
   profile: IStudentProfile;
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 
 class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
@@ -45,43 +57,15 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
 
   private slugName = (item: { slugID: string }) => Slugs.findDoc(item.slugID).name;
 
-  private careerGoals = (): ICareerGoal[] => {
-    const ret = [];
-    const profile = Users.getProfile(this.getUsername());
-    _.forEach(profile.careerGoalIDs, (id) => {
-      ret.push(CareerGoals.findDoc(id));
-    });
-    return ret;
-  }
-
-  private interests = (): IInterest[] => {
-    const ret = [];
-    const profile = Users.getProfile(this.getUsername());
-    _.forEach(profile.interestIDs, (id) => {
-      ret.push(Interests.findDoc(id));
-    });
-    return ret;
-  }
-
-  private desiredDegree = (): string => {
-    let ret = 'Not yet specified.';
-    const profile = Users.getProfile(this.getUsername());
-    if (profile.academicPlanID) {
-      const plan = AcademicPlans.findDoc(profile.academicPlanID);
-      ret = plan.name;
-    }
-    return ret;
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginBottomStyle = { marginBottom: 0 };
-
+    console.log(this.props);
     const { match, profile } = this.props;
     const name = this.name();
     const email = this.email();
-    const careerGoals = this.careerGoals();
-    const interests = this.interests();
-    const desiredDegree = this.desiredDegree();
+    const careerGoals = _.map(this.props.favoriteCareerGoals, (f) => CareerGoals.findDoc(f.careerGoalID));
+    const interests = _.map(this.props.favoriteInterests, (f) => Interests.findDoc(f.interestID));
+    const academicPlans = _.map(this.props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
     return (
       <Segment padded={true}>
         <Container>
@@ -106,7 +90,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
             </Grid.Row>
 
             <Grid.Row>
-              <Grid.Column width={2}><p><b>Career Goals</b></p></Grid.Column>
+              <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
               <Grid.Column width={6}>
                 {careerGoals.length !== 0 ?
                   careerGoals.map((careerGoal) => {
@@ -119,14 +103,14 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                     );
                   })
                   :
-                  <p style={marginBottomStyle}>No career goals added yet.</p>
+                  <p style={marginBottomStyle}>No career goals favorited yet.</p>
                 }
                 <Link to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-                  <p>View More Career Goals</p>
+                  <p>Update in career goal explorer</p>
                 </Link>
               </Grid.Column>
 
-              <Grid.Column width={2}><p><b>Interests</b></p></Grid.Column>
+              <Grid.Column width={2}><p><b>My Favorite Interests</b></p></Grid.Column>
               <Grid.Column width={6}>
                 {interests.length !== 0 ?
                   interests.map((interest) => {
@@ -139,20 +123,32 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                     );
                   })
                   :
-                  <p style={marginBottomStyle}>No interests added yet.</p>
+                  <p style={marginBottomStyle}>No interests favorited yet.</p>
                 }
                 <Link to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
-                  <p>View More Interests</p>
+                  <p>Update in interest explorer</p>
                 </Link>
               </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
-              <Grid.Column width={2}><p><b>Desired Academic Plan</b></p></Grid.Column>
+              <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
               <Grid.Column width={6}>
-                <p style={marginBottomStyle}>{desiredDegree}</p>
-                <Link to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`)}>
-                  View More Degrees
+                {academicPlans.length !== 0 ?
+                  academicPlans.map((plan) => {
+                    const slugName = this.slugName(plan);
+                    const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
+                    return (
+                      <Label key={plan._id} as={Link} to={route} size="tiny">
+                        <i className="fitted map outline"/> {plan.name}
+                      </Label>
+                    );
+                  })
+                  :
+                  <p style={marginBottomStyle}>No academic plans favorited yet.</p>
+                }
+                <Link to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                  Update in academic plan explorer
                 </Link>
               </Grid.Column>
             </Grid.Row>
@@ -167,4 +163,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
 
 export default withRouter(withTracker((props) => ({
   profile: Users.getProfile(props.match.params.username),
+  favoriteAcademicPlans: FavoriteAcademicPlans.findNonRetired({}),
+  favoriteCareerGoals: FavoriteCareerGoals.findNonRetired({}),
+  favoriteInterests: FavoriteInterests.findNonRetired({}),
 }))(StudentAboutMeWidget));
