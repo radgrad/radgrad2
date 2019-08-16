@@ -113,8 +113,6 @@ class PlanCard extends React.Component<IPlanCard> {
           <Link className="ui button" to={this.buildRouteName(itemSlug)}>
             <Icon name="chevron circle right"/><br/>View More
           </Link>
-
-          {canAdd ? <ProfileAdd item={item} type={type}/> : ''}
         </Button.Group>
       </Card>
     );

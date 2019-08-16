@@ -25,14 +25,14 @@ class TermCard extends React.Component<ITermCard> {
   private isType = (typeToCheck) => {
     const { type } = this.props;
     return type === typeToCheck;
-  }
+  };
 
   private itemName = (item) => {
     if (this.isType(EXPLORER_TYPE.COURSES)) {
       return `${item.name} (${item.num})`;
     }
     return item.name;
-  }
+  };
 
   private itemSlug = (item) => Slugs.findDoc(item.slugID).name;
 
@@ -66,7 +66,7 @@ class TermCard extends React.Component<ITermCard> {
       ret = this.opportunityTerms(item);
     }
     return ret;
-  }
+  };
 
   private itemShortDescription = (item) => {
     let description = item.description;
@@ -77,12 +77,12 @@ class TermCard extends React.Component<ITermCard> {
       }
     }
     return `${description}...`;
-  }
+  };
 
   private numberStudents = (item) => {
     const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
     return participatingStudents.itemCount;
-  }
+  };
 
   private getUsername = () => this.props.match.params.username;
 
@@ -98,7 +98,7 @@ class TermCard extends React.Component<ITermCard> {
       ret = 'grey';
     }
     return ret;
-  }
+  };
 
   private handleHideItem = (e) => {
     e.preventDefault();
@@ -121,7 +121,7 @@ class TermCard extends React.Component<ITermCard> {
         console.log('Error hiding course/opportunity', error);
       }
     });
-  }
+  };
 
   private handleUnHideItem = (e) => {
     e.preventDefault();
@@ -144,7 +144,7 @@ class TermCard extends React.Component<ITermCard> {
         console.log('Error unhiding course/opportunity', error);
       }
     });
-  }
+  };
 
   private buildRouteName = (item, type) => {
     const itemName = this.itemSlug(item);
@@ -161,7 +161,7 @@ class TermCard extends React.Component<ITermCard> {
         break;
     }
     return route;
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { item, type, canAdd, isStudent, match } = this.props;
@@ -195,43 +195,11 @@ class TermCard extends React.Component<ITermCard> {
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
         </Card.Content>
 
-        {
-          isStudent ?
-            <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" color={hidden || undefined}
-                          widths={3}>
-              <Link className="ui button" to={this.buildRouteName(this.props.item, this.props.type)}>
-                <Icon name="chevron circle right"/><br/>View More
-              </Link>
-
-              {
-                isStudent ?
-                  [
-                    canAdd ?
-                      <TermAdd key={_.uniqueId()} item={item} type={type}/>
-                      : '',
-                  ]
-                  : ''
-              }
-
-              {
-                isStudent ?
-                  [
-                    hidden ?
-                      <Button key={_.uniqueId()} onClick={this.handleUnHideItem}><Icon
-                        name="unhide"/><br/>Unhide</Button>
-                      :
-                      <Button key={_.uniqueId()} onClick={this.handleHideItem}><Icon name="hide"/><br/>Hide</Button>,
-                  ]
-                  : ''
-              }
-            </Button.Group>
-            :
-            <Link to={this.buildRouteName(this.props.item, this.props.type)}>
-              <Button className="radgrad-home-buttons center aligned" attached="bottom" color={hidden || undefined}>
-                <Icon name="chevron circle right"/><br/>View More
-              </Button>
-            </Link>
-        }
+        <Link to={this.buildRouteName(this.props.item, this.props.type)}>
+          <Button className="radgrad-home-buttons center aligned" attached="bottom" color={hidden || undefined}>
+            <Icon name="chevron circle right"/><br/>View More
+          </Button>
+        </Link>
       </Card>
     );
   }

@@ -227,7 +227,6 @@ class ProfileCard extends React.Component<IProfileCardProps> {
             <br/>
             View More
           </Link>
-          {canAdd && <ProfileAdd item={item} type={type}/>}
         </div>
       </Card>
     );
