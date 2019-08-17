@@ -12,7 +12,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import TermAdd from './TermAdd';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
@@ -164,7 +163,7 @@ class TermCard extends React.Component<ITermCard> {
   };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, type, canAdd, isStudent, match } = this.props;
+    const { item, match } = this.props;
     const itemName = this.itemName(item);
     const isTypeOpportunity = this.isType('opportunities');
     const itemTerms = this.itemTerms();

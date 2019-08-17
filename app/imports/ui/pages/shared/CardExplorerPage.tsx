@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
-import { Roles } from 'meteor/alanning:roles';
 import { withRouter } from 'react-router-dom';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
@@ -18,16 +17,15 @@ import { Users } from '../../../api/user/UserCollection';
 import CardExplorerMenu from '../../components/shared/CardExplorerMenu';
 // eslint-disable-next-line no-unused-vars
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { ROLE } from '../../../api/role/Role';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 interface ICardExplorerPageProps {
   match: {
@@ -145,30 +143,33 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
   /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
   private addedCourses = (): { item: ICourse, count: number }[] => {
-    let addedCourses = [];
-    const allCourses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
-    const userID = this.getUserIdFromRoute();
-    _.forEach(allCourses, (course) => {
-      const ci = CourseInstances.find({
-        studentID: userID,
-        courseID: course._id,
-      }).fetch();
-      if (ci.length > 0) {
-        if (course.shortName !== 'Non-CS Course') {
-          addedCourses.push({ item: course, count: ci.length });
-        }
-      }
-    });
-    if (Roles.userIsInRole(userID, [ROLE.STUDENT])) {
-      const profile = StudentProfiles.findDoc({ userID });
-      const plan = AcademicPlans.findDoc(profile.academicPlanID);
-      // CAM: why are we filtering?
-      if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
-        const regex = /[1234]\d\d/g;
-        addedCourses = _.filter(addedCourses, (c) => c.item.num.match(regex));
-      }
-    }
-    return addedCourses;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteCourses.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
+    // let addedCourses = [];
+    // const allCourses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
+    // const userID = this.getUserIdFromRoute();
+    // _.forEach(allCourses, (course) => {
+    //   const ci = CourseInstances.find({
+    //     studentID: userID,
+    //     courseID: course._id,
+    //   }).fetch();
+    //   if (ci.length > 0) {
+    //     if (course.shortName !== 'Non-CS Course') {
+    //       addedCourses.push({ item: course, count: ci.length });
+    //     }
+    //   }
+    // });
+    // if (Roles.userIsInRole(userID, [ROLE.STUDENT])) {
+    //   const profile = StudentProfiles.findDoc({ userID });
+    //   const plan = AcademicPlans.findDoc(profile.academicPlanID);
+    //   CAM: why are we filtering?
+      // if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
+      //   const regex = /[1234]\d\d/g;
+      //   addedCourses = _.filter(addedCourses, (c) => c.item.num.match(regex));
+      // }
+    // }
+    // return addedCourses;
   }
 
   /* ####################################### DEGREES HELPER FUNCTIONS ############################################## */
@@ -179,17 +180,20 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
   /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
   private addedInterests = (): { item: IInterest, count: number }[] => {
-    const addedInterests = [];
-    if (this.getUserIdFromRoute()) {
-      const allInterests = Interests.find({}, { sort: { name: 1 } }).fetch();
-      const profile = Users.getProfile(this.getUserIdFromRoute());
-      _.forEach(allInterests, (interest) => {
-        if (_.includes(profile.interestIDs, interest._id)) {
-          addedInterests.push({ item: interest, count: 1 });
-        }
-      });
-    }
-    return addedInterests;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteInterests.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
+    // const addedInterests = [];
+    // if (this.getUserIdFromRoute()) {
+    //   const allInterests = Interests.find({}, { sort: { name: 1 } }).fetch();
+    //   const profile = Users.getProfile(this.getUserIdFromRoute());
+    //   _.forEach(allInterests, (interest) => {
+    //     if (_.includes(profile.interestIDs, interest._id)) {
+    //       addedInterests.push({ item: interest, count: 1 });
+    //     }
+    //   });
+    // }
+    // return addedInterests;
   }
 
   private addedCareerInterests = (): { item: IInterest, count: number }[] => {
@@ -203,25 +207,28 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
 
   /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
   private addedOpportunities = (): { item: IOpportunity, count: number }[] => {
-    const addedOpportunities = [];
-    const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-    const userID = this.getUserIdFromRoute();
-    const role = this.getRole();
-    if (role === URL_ROLES.FACULTY) {
-      return _.filter(allOpportunities, o => o.sponsorID === userID);
-    }
-    if (role === URL_ROLES.STUDENT) {
-      _.forEach(allOpportunities, (opportunity) => {
-        const oi = OpportunityInstances.find({
-          studentID: userID,
-          opportunityID: opportunity._id,
-        }).fetch();
-        if (oi.length > 0) {
-          addedOpportunities.push({ item: opportunity, count: oi.length });
-        }
-      });
-    }
-    return addedOpportunities;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteOpportunities.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
+    // const addedOpportunities = [];
+    // const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+    // const userID = this.getUserIdFromRoute();
+    // const role = this.getRole();
+    // if (role === URL_ROLES.FACULTY) {
+    //   return _.filter(allOpportunities, o => o.sponsorID === userID);
+    // }
+    // if (role === URL_ROLES.STUDENT) {
+    //   _.forEach(allOpportunities, (opportunity) => {
+    //     const oi = OpportunityInstances.find({
+    //       studentID: userID,
+    //       opportunityID: opportunity._id,
+    //     }).fetch();
+    //     if (oi.length > 0) {
+    //       addedOpportunities.push({ item: opportunity, count: oi.length });
+    //     }
+    //   });
+    // }
+    // return addedOpportunities;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

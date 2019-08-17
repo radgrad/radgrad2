@@ -538,9 +538,8 @@ class CardExplorerWidget extends React.Component
 
     if (username) {
       const profile = Users.getProfile(username);
-      const filtered = _.filter(users, (u) => u.username !== profile.username);
       const interestIDs = Users.getInterestIDs(profile.userID);
-      const preferred = new PreferredChoice(filtered, interestIDs);
+      const preferred = new PreferredChoice(users, interestIDs);
       return preferred.getOrderedChoices();
     }
     return users;

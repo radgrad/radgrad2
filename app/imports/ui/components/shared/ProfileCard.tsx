@@ -10,7 +10,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
-import ProfileAdd from './ProfileAdd';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
@@ -196,7 +195,7 @@ class ProfileCard extends React.Component<IProfileCardProps> {
    * a type, a canAdd method that returns true and match
    */
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, type, canAdd, match } = this.props;
+    const { item, match } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberUsers(item);

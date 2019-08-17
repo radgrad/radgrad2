@@ -65,7 +65,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>MY ACADEMIC PLAN</Header>
+                      <Header as="h4" dividing={true}>MY FAVORITE ACADEMIC PLANS</Header>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
@@ -85,7 +85,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
+                      <Header as="h4" dividing={true}>MY FAVORITE COURSES</Header>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
@@ -106,7 +106,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
+                      <Header as="h4" dividing={true}>MY FAVORITE OPPORTUNITIES</Header>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
@@ -126,7 +126,7 @@ class CardExplorerMenuNonMobileWidget extends React.Component<ICardExplorerMenuN
             this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Menu vertical={true} text={true}>
                 <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
-                <Header as="h4" dividing={true}>MY INTERESTS</Header>
+                <Header as="h4" dividing={true}>MY FAVORITE INTERESTS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
                     <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
