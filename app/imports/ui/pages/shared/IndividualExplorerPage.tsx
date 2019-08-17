@@ -32,6 +32,11 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -60,6 +65,8 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
   private getSlug = (): string => Router.getLastUrlParam(this.props.match);
 
   private getRole = (): string => Router.getRoleByUrl(this.props.match);
+
+  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
 
   private getMenuWidget = (): JSX.Element => {
     const role = this.getRole();
@@ -155,11 +162,9 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   /* ################################################# ACADEMIC PLAN HELPER FUNCTIONS ############################### */
   private addedPlans = (): { item: IAcademicPlan, count: number }[] => {
-    const profile = Users.getProfile(Router.getUsername(this.props.match));
-    if (profile.academicPlanID) {
-      return [{ item: AcademicPlans.findDoc(profile.academicPlanID), count: 1 }];
-    }
-    return [];
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
   }
 
   private plan = (): IAcademicPlan => {
@@ -178,22 +183,16 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   /* ################################################# CAREER GOALS HELPER FUNCTIONS ################################ */
   private addedCareerGoals = (): { item: ICareerGoal, count: number }[] => {
-    const addedCareerGoals = [];
-    const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-    const profile = Users.getProfile(Router.getUsername(this.props.match));
-    _.forEach(allCareerGoals, (careerGoal) => {
-      if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-        addedCareerGoals.push({ item: careerGoal, count: 1 });
-      }
-    });
-    return addedCareerGoals;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteCareerGoals.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
   }
 
   private careerGoal = (): ICareerGoal => {
     const careerGoalSlugName = this.props.match.params.careergoal;
-    const slug = Slugs.find({ name: careerGoalSlugName }).fetch();
-    const careerGoal = CareerGoals.find({ slugID: slug[0]._id }).fetch();
-    return careerGoal[0];
+    const slug = Slugs.findDoc({ name: careerGoalSlugName });
+    const careerGoal = CareerGoals.findDoc({ slugID: slug._id });
+    return careerGoal;
   }
 
   private descriptionPairsCareerGoals = (careerGoal: ICareerGoal): { label: string, value: any }[] => [
@@ -247,29 +246,15 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   /* ################################################# COURSES HELPER FUNCTIONS ##################################### */
   private addedCourses = (): { item: ICourse, count: number }[] => {
-    const addedCourses = [];
-    const allCourses = _.filter(Courses.find({}, { sort: { shortName: 1 } })
-      .fetch(), (c) => !c.retired);
-    const userID = Router.getUserIdFromRoute(this.props.match);
-    _.forEach(allCourses, (course) => {
-      const ci = CourseInstances.find({
-        studentID: userID,
-        courseID: course._id,
-      })
-        .fetch();
-      if (ci.length > 0) {
-        if (course.shortName !== 'Non-CS Course') {
-          addedCourses.push({ item: course, count: ci.length });
-        }
-      }
-    });
-    return addedCourses;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteCourses.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
   }
 
   private course = (): ICourse => {
     const courseSlugName = this.props.match.params.course;
-    const slug = Slugs.find({ name: courseSlugName }).fetch();
-    const course = Courses.findDoc({ slugID: slug[0]._id });
+    const slug = Slugs.findDoc({ name: courseSlugName });
+    const course = Courses.findDoc({ slugID: slug._id });
     return course;
   }
 
@@ -370,17 +355,9 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   /* ################################################# INTERESTS HELPER FUNCTIONS ################################### */
   private addedInterests = (): { item: IInterest, count: number }[] => {
-    const addedInterests = [];
-    if (Router.getUserIdFromRoute(this.props.match)) {
-      const allInterests = Interests.find({}, { sort: { name: 1 } }).fetch();
-      const profile = Users.getProfile(Router.getUserIdFromRoute(this.props.match));
-      _.forEach(allInterests, (interest) => {
-        if (_.includes(profile.interestIDs, interest._id)) {
-          addedInterests.push({ item: interest, count: 1 });
-        }
-      });
-    }
-    return addedInterests;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteInterests.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
   }
 
   private addedCareerInterests = (): { item: IInterest, count: number }[] => {
@@ -394,39 +371,23 @@ class IndividualExplorerPage extends React.Component<IIndividualExplorerPageProp
 
   private interest = (): IInterest => {
     const interestSlugName = this.props.match.params.interest;
-    const slug = Slugs.find({ name: interestSlugName }).fetch();
-    const interest = Interests.find({ slugID: slug[0]._id }).fetch();
-    return interest[0];
+    const slug = Slugs.findDoc({ name: interestSlugName });
+    const interest = Interests.findDoc({ slugID: slug._id });
+    return interest;
   }
 
   /* ################################################# OPPORTUNITIES HELPER FUNCTIONS ############################### */
   private addedOpportunities = (): { item: IOpportunity, count: number }[] => {
-    const addedOpportunities = [];
-    const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-    const userID = Router.getUserIdFromRoute(this.props.match);
-    const role = Router.getRoleByUrl(this.props.match);
-    if (role === URL_ROLES.FACULTY) {
-      return _.filter(allOpportunities, o => o.sponsorID === userID);
-    }
-    if (role === URL_ROLES.STUDENT) {
-      _.forEach(allOpportunities, (opportunity) => {
-        const oi = OpportunityInstances.find({
-          studentID: userID,
-          opportunityID: opportunity._id,
-        }).fetch();
-        if (oi.length > 0) {
-          addedOpportunities.push({ item: opportunity, count: oi.length });
-        }
-      });
-    }
-    return addedOpportunities;
+    const studentID = this.getUserIdFromRoute();
+    const favorites = FavoriteOpportunities.findNonRetired({ studentID });
+    return _.map(favorites, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
   }
 
   private opportunity = (): IOpportunity => {
     const opportunitySlugName = this.props.match.params.opportunity;
-    const slug = Slugs.find({ name: opportunitySlugName }).fetch();
-    const opportunity = Opportunities.find({ slugID: slug[0]._id }).fetch();
-    return opportunity[0];
+    const slug = Slugs.findDoc({ name: opportunitySlugName });
+    const opportunity = Opportunities.findDoc({ slugID: slug._id });
+    return opportunity;
   }
 
   private isOpportunityCompleted = (): boolean => {

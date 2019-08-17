@@ -96,7 +96,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>MY ACADEMIC PLAN</Header>
+                      <Header as="h4" dividing={true}>MY FAVORITE ACADEMIC PLANS</Header>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
@@ -119,7 +119,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
+                      <Header as="h4" dividing={true}>MY FAVORITE COURSES</Header>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
@@ -143,7 +143,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 {
                   isStudent ?
                     <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
+                      <Header as="h4" dividing={true}>MY FAVORITE OPPORTUNITIES</Header>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
@@ -166,7 +166,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
-                <Header as="h4" dividing={true}>MY INTERESTS</Header>
+                <Header as="h4" dividing={true}>MY FAVORITE INTERESTS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
                     <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
@@ -192,7 +192,7 @@ class ExplorerMenuNonMobileWidget extends React.Component<IExplorerMenuNonMobile
                 <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${this.props.type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left"/><br/>Back to {this.getTypeName()}
                 </Button>
-                <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
+                <Header as="h4" dividing={true}>MY FAVORITE CAREER GOALS</Header>
                 {
                   menuAddedList.map((listItem, index) => (
                     <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.CAREERGOALS} key={index}

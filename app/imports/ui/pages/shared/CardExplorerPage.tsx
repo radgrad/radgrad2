@@ -114,31 +114,13 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const studentID = this.getUserIdFromRoute();
     const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
     return _.map(favorites, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
-    // const plan = [];
-    // if (this.getUsername()) {
-    //   const profile = Users.getProfile(this.getUsername());
-    //   const thePlan = AcademicPlans.findOne({ _id: profile.academicPlanID });
-    //   if (thePlan) {
-    //     plan.push({ item: thePlan, count: 1 });
-    //   }
-    // }
-    // return plan;
-  }
+   }
 
   /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
   private addedCareerGoals = (): { item: ICareerGoal, count: number }[] => {
     const studentID = this.getUserIdFromRoute();
     const favorites = FavoriteCareerGoals.findNonRetired({ studentID });
     return _.map(favorites, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
-    // const addedCareerGoals = [];
-    // const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-    // const profile = Users.getProfile(this.getUsername());
-    // _.forEach(allCareerGoals, (careerGoal) => {
-    //   if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-    //     addedCareerGoals.push({ item: careerGoal, count: 1 });
-    //   }
-    // });
-    // return addedCareerGoals;
   }
 
   /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
@@ -146,31 +128,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const studentID = this.getUserIdFromRoute();
     const favorites = FavoriteCourses.findNonRetired({ studentID });
     return _.map(favorites, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
-    // let addedCourses = [];
-    // const allCourses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
-    // const userID = this.getUserIdFromRoute();
-    // _.forEach(allCourses, (course) => {
-    //   const ci = CourseInstances.find({
-    //     studentID: userID,
-    //     courseID: course._id,
-    //   }).fetch();
-    //   if (ci.length > 0) {
-    //     if (course.shortName !== 'Non-CS Course') {
-    //       addedCourses.push({ item: course, count: ci.length });
-    //     }
-    //   }
-    // });
-    // if (Roles.userIsInRole(userID, [ROLE.STUDENT])) {
-    //   const profile = StudentProfiles.findDoc({ userID });
-    //   const plan = AcademicPlans.findDoc(profile.academicPlanID);
-    //   CAM: why are we filtering?
-      // if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
-      //   const regex = /[1234]\d\d/g;
-      //   addedCourses = _.filter(addedCourses, (c) => c.item.num.match(regex));
-      // }
-    // }
-    // return addedCourses;
-  }
+   }
 
   /* ####################################### DEGREES HELPER FUNCTIONS ############################################## */
   private addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
@@ -183,17 +141,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const studentID = this.getUserIdFromRoute();
     const favorites = FavoriteInterests.findNonRetired({ studentID });
     return _.map(favorites, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
-    // const addedInterests = [];
-    // if (this.getUserIdFromRoute()) {
-    //   const allInterests = Interests.find({}, { sort: { name: 1 } }).fetch();
-    //   const profile = Users.getProfile(this.getUserIdFromRoute());
-    //   _.forEach(allInterests, (interest) => {
-    //     if (_.includes(profile.interestIDs, interest._id)) {
-    //       addedInterests.push({ item: interest, count: 1 });
-    //     }
-    //   });
-    // }
-    // return addedInterests;
   }
 
   private addedCareerInterests = (): { item: IInterest, count: number }[] => {
@@ -210,25 +157,6 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
     const studentID = this.getUserIdFromRoute();
     const favorites = FavoriteOpportunities.findNonRetired({ studentID });
     return _.map(favorites, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
-    // const addedOpportunities = [];
-    // const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-    // const userID = this.getUserIdFromRoute();
-    // const role = this.getRole();
-    // if (role === URL_ROLES.FACULTY) {
-    //   return _.filter(allOpportunities, o => o.sponsorID === userID);
-    // }
-    // if (role === URL_ROLES.STUDENT) {
-    //   _.forEach(allOpportunities, (opportunity) => {
-    //     const oi = OpportunityInstances.find({
-    //       studentID: userID,
-    //       opportunityID: opportunity._id,
-    //     }).fetch();
-    //     if (oi.length > 0) {
-    //       addedOpportunities.push({ item: opportunity, count: oi.length });
-    //     }
-    //   });
-    // }
-    // return addedOpportunities;
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

@@ -64,7 +64,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                   isStudent ?
                     <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                       <Dropdown.Menu>
-                        <Dropdown.Header as="h4">MY ACADEMIC PLAN</Dropdown.Header>
+                        <Dropdown.Header as="h4">MY FAVORITE ACADEMIC PLANS</Dropdown.Header>
                         <Dropdown.Divider/>
                         {
                           menuAddedList.map((listItem, index) => (
@@ -86,7 +86,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                   isStudent ?
                     <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                       <Dropdown.Menu>
-                        <Dropdown.Header as="h4">COURSES IN MY PLAN</Dropdown.Header>
+                        <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
                         <Dropdown.Divider/>
                         {
                           menuAddedList.map((listItem, index) => (
@@ -108,7 +108,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
                   isStudent ?
                     <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                       <Dropdown.Menu>
-                        <Dropdown.Header as="h4">OPPORTUNITIES IN MY PLAN</Dropdown.Header>
+                        <Dropdown.Header as="h4">MY FAVORITE OPPORTUNITIES</Dropdown.Header>
                         <Dropdown.Divider/>
                         {
                           menuAddedList.map((listItem, index) => (
@@ -128,7 +128,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
             this.isType(EXPLORER_TYPE.INTERESTS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
+                  <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
                   <Dropdown.Divider/>
                   {
                     menuAddedList.map((listItem, index) => (
@@ -152,7 +152,7 @@ class ExplorerMenuMobileWidget extends React.Component<IExplorerMenuMobileWidget
             this.isType(EXPLORER_TYPE.CAREERGOALS) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
+                  <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
                   <Dropdown.Divider/>
                   {
                     menuAddedList.map((listItem, index) => (
