@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider, Image, Popup } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Divider, Icon, Image, Popup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -7,11 +7,13 @@ import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IFavoriteCareerGoalDefine, IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { getUsername, renderLink } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -59,14 +61,27 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     const studentItems = profile.careerGoalIDs;
-    const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
+    let collectionName = StudentProfiles.getCollectionNameForProfile(profile);
     const updateData: any = {};
     updateData.id = profile._id;
     studentItems.push(id);
     updateData.careerGoals = studentItems;
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        console.log('Error updating career goals', error);
+        console.error('Error updating career goals', error);
+      }
+    });
+    collectionName = FavoriteCareerGoals.getCollectionName();
+    const student = profile.username;
+    const careerGoal = Slugs.getNameFromID(this.props.item.slugID);
+    const definitionData: IFavoriteCareerGoalDefine = {
+      careerGoal,
+      student,
+      retired: false,
+    };
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        console.error('Error updating favorite career goals', error);
       }
     });
   }
@@ -76,7 +91,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const profile = Users.getProfile(getUsername(this.props.match));
     const id = this.props.item._id;
     let studentItems = profile.careerGoalIDs;
-    const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
+    let collectionName = StudentProfiles.getCollectionNameForProfile(profile);
     const updateData: { [key: string]: any } = {};
     updateData.id = profile._id;
     studentItems = _.without(studentItems, id);
@@ -84,6 +99,14 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         console.log('Error updating career goals', error);
+      }
+    });
+    collectionName = FavoriteCareerGoals.getCollectionName();
+    const favorite = FavoriteCareerGoals.findDoc({ careerGoalID: id });
+    const instance = favorite._id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        console.error('Failed to remove favorite career goal', error);
       }
     });
   }
@@ -111,12 +134,10 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
               <Grid.Row verticalAlign={'middle'}>
                 {
                   userStatus ?
-                    <Button onClick={this.handleDelete} size={'mini'} color={'green'} floated={'right'} basic={true}>DELETE
-                      FROM CAREER
-                      GOALS</Button>
+                    <Button onClick={this.handleDelete} size={'mini'} color={'green'} floated={'right'} basic={true}><Icon name="heart outline" color='red'/><Icon name="minus"/>REMOVE FROM FAVORITES</Button>
                     :
-                    <Button size={'mini'} onClick={this.handleAdd} color={'green'} floated={'right'} basic={true}>ADD TO
-                      CAREER GOALS</Button>
+                    <Button size={'mini'} onClick={this.handleAdd} color={'green'} floated={'right'} basic={true}><Icon name="heart" color="red"/><Icon name="plus"/>ADD TO
+                      FAVORITES</Button>
                 }
                 <Header floated={'left'}>{upperName}</Header>
               </Grid.Row>

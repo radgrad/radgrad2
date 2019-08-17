@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Grid, Segment, Header, Label } from 'semantic-ui-react';
+import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
@@ -98,7 +98,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                     const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
                     return (
                       <Label key={careerGoal._id} as={Link} to={route} size="tiny">
-                        <i className="fitted suitcase"/> {careerGoal.name}
+                        <Icon name="suitcase" fitted={true}/> {careerGoal.name}
                       </Label>
                     );
                   })
@@ -118,7 +118,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                     const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
                     return (
                       <Label key={interest._id} as={Link} to={route} size="tiny">
-                        <i className="fitted star"/> {interest.name}
+                        <Icon name="star" fitted={true}/> {interest.name}
                       </Label>
                     );
                   })
@@ -140,7 +140,7 @@ class StudentAboutMeWidget extends React.Component<IStudentAboutMeWidgetProps> {
                     const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
                     return (
                       <Label key={plan._id} as={Link} to={route} size="tiny">
-                        <i className="fitted map outline"/> {plan.name}
+                        <Icon name="map outline" fitted={true}/> {plan.name}
                       </Label>
                     );
                   })
