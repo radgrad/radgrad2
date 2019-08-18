@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -36,11 +37,17 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
+  favoritePlans: IAcademicPlan[];
+  favoriteCareerGoals: ICareerGoal[];
+  favoriteCourses: ICourse[];
+  favoriteInterests: IInterest[];
+  favoriteOpportunities: IOpportunity[];
 }
 
 class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   constructor(props) {
     super(props);
+    // console.log('CardExplorerPage ', props);
   }
 
   private getUsername = (): string => Router.getUsername(this.props.match);
@@ -110,25 +117,13 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 
   /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-  private addedPlans = (): { item: IAcademicPlan, count: number }[] => {
-    const studentID = this.getUserIdFromRoute();
-    const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
-    return _.map(favorites, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
-   }
+  private addedPlans = (): { item: IAcademicPlan, count: number }[] => _.map(this.props.favoritePlans, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
 
   /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
-  private addedCareerGoals = (): { item: ICareerGoal, count: number }[] => {
-    const studentID = this.getUserIdFromRoute();
-    const favorites = FavoriteCareerGoals.findNonRetired({ studentID });
-    return _.map(favorites, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
-  }
+  private addedCareerGoals = (): { item: ICareerGoal, count: number }[] => _.map(this.props.favoriteCareerGoals, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
 
   /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
-  private addedCourses = (): { item: ICourse, count: number }[] => {
-    const studentID = this.getUserIdFromRoute();
-    const favorites = FavoriteCourses.findNonRetired({ studentID });
-    return _.map(favorites, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
-   }
+  private addedCourses = (): { item: ICourse, count: number }[] => _.map(this.props.favoriteCourses, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
   /* ####################################### DEGREES HELPER FUNCTIONS ############################################## */
   private addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
@@ -137,11 +132,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }))
 
   /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
-  private addedInterests = (): { item: IInterest, count: number }[] => {
-    const studentID = this.getUserIdFromRoute();
-    const favorites = FavoriteInterests.findNonRetired({ studentID });
-    return _.map(favorites, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
-  }
+  private addedInterests = (): { item: IInterest, count: number }[] => _.map(this.props.favoriteInterests, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 
   private addedCareerInterests = (): { item: IInterest, count: number }[] => {
     if (this.getUserIdFromRoute()) {
@@ -153,11 +144,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 
   /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
-  private addedOpportunities = (): { item: IOpportunity, count: number }[] => {
-    const studentID = this.getUserIdFromRoute();
-    const favorites = FavoriteOpportunities.findNonRetired({ studentID });
-    return _.map(favorites, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
-  }
+  private addedOpportunities = (): { item: IOpportunity, count: number }[] => _.map(this.props.favoriteOpportunities, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const menuWidget = this.getMenuWidget();
@@ -199,4 +186,18 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
   }
 }
 
-export default withRouter(CardExplorerPage);
+export default withRouter(withTracker((props) => {
+  const studentID = Router.getUserIdFromRoute(props.match);
+  const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  return {
+    favoritePlans,
+    favoriteCareerGoals,
+    favoriteCourses,
+    favoriteInterests,
+    favoriteOpportunities,
+  };
+})(CardExplorerPage));
