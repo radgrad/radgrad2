@@ -16,6 +16,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorerOpportunitiesWidgetButton';
 import * as Router from './RouterHelperFunctions';
+import FavoritesButton from './FavoritesButton';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -140,27 +141,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
               {
                 isStudent ?
                   <React.Fragment>
-                    {
-                      userStatus ?
-                        <React.Fragment>
-                          {
-                            futureInstance ?
-                              <StudentExplorerOpportunitiesWidgetButton buttonType="remove" opportunity={item}/>
-                              :
-                              <React.Fragment>
-                                {
-                                  unverified ?
-                                    <StudentExplorerOpportunitiesWidgetButton buttonType="remove" opportunity={item}/>
-                                    : ''
-                                }
-                              </React.Fragment>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-
-                    <StudentExplorerOpportunitiesWidgetButton buttonType="add" opportunity={item}/>
-
+                    <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(this.props.match)} type='opportunity'/>
                     {
                       descriptionPairs.map((descriptionPair, index) => (
                         <React.Fragment key={index}>

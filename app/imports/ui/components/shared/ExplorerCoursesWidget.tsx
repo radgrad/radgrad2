@@ -6,7 +6,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import StudentExplorerCoursesWidgetButtonContainer from '../student/StudentExplorerCoursesWidgetButton';
 import InterestList from './InterestList';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -17,6 +16,7 @@ import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import FavoritesButton from './FavoritesButton';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -41,6 +41,7 @@ interface IExplorerCoursesWidgetProps {
 class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps> {
   constructor(props) {
     super(props);
+    console.log('ExplorerCourseWidget ', props);
   }
 
   private toUpper = (string: string): string => string.toUpperCase();
@@ -167,9 +168,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     /* Header Variables */
     const upperShortName = this.toUpper(shortName);
     const isStudent = this.isRoleStudent();
-    const userStatus = this.userStatus(item);
-    const futureInstance = this.futureInstance(item);
-    const passedCourse = this.passedCourse(item);
 
     return (
       <div>
@@ -177,36 +175,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
           <Segment padded={true} className="container">
             <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
               <Header as="h4" floated="left">{upperShortName} ({name})</Header>
-              {
-                isStudent ?
-                  <React.Fragment>
-                    {
-                      userStatus ?
-                        <React.Fragment>
-                          {
-                            futureInstance ?
-                              <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="remove"
-                                                                           course={item}/>
-                              :
-                              <React.Fragment>
-                                {
-                                  passedCourse ?
-                                    <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="taken"
-                                                                                 course={item}/>
-                                    :
-                                    <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="add"
-                                                                                 course={item}/>
-                                }
-                              </React.Fragment>
-                          }
-                        </React.Fragment>
-                        :
-                        <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="add"
-                                                                     course={item}/>
-                    }
-                  </React.Fragment>
-                  : ''
-              }
+              <FavoritesButton item={item} studentID={this.getUserIdFromRoute()} type='course'/>
             </Segment>
 
             <Divider style={zeroMarginTopStyle}/>

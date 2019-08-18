@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Header, Button, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
+import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
@@ -25,6 +25,7 @@ import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import FavoritesButton from './FavoritesButton';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -224,12 +225,7 @@ class ExplorerInterestsWidget extends React.Component <IExplorerInterestsWidgetP
       <div>
         <SegmentGroup>
           <Segment>
-            <Header>{this.props.interest.name}<Button
-              attatched='top'
-              floated='right'
-              size='mini'
-              content={this.checkInterestStatus()}
-              onClick={this.handleClick}/></Header>
+            <Header>{this.props.interest.name}<FavoritesButton type='interest' studentID={this.props.profile.userID} item={this.props.interest}/></Header>
             <Divider/>
             <div>
               <b>Description: </b>

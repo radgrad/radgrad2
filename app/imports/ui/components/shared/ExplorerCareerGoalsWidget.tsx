@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider, Icon, Image, Popup } from 'semantic-ui-react';
+import { Grid, Segment, Header, Divider, Image, Popup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -10,10 +10,11 @@ import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IFavoriteCareerGoalDefine, IProfile } from '../../../typings/radgrad'; // eslint-disable-line
-import { getUsername, renderLink } from './RouterHelperFunctions';
+import { getUsername, renderLink, getUserIdFromRoute } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import FavoritesButton from './FavoritesButton';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -124,7 +125,6 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
 
     const { name, descriptionPairs, socialPairs, item, match } = this.props;
     const upperName = this.toUpper(name);
-    const userStatus = this.userStatus(item);
 
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
@@ -132,13 +132,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
           <Segment>
             <Segment basic clearing={true} vertical>
               <Grid.Row verticalAlign={'middle'}>
-                {
-                  userStatus ?
-                    <Button onClick={this.handleDelete} size={'mini'} color={'green'} floated={'right'} basic={true}><Icon name="heart outline" color='red'/><Icon name="minus"/>REMOVE FROM FAVORITES</Button>
-                    :
-                    <Button size={'mini'} onClick={this.handleAdd} color={'green'} floated={'right'} basic={true}><Icon name="heart" color="red"/><Icon name="plus"/>ADD TO
-                      FAVORITES</Button>
-                }
+                <FavoritesButton item={this.props.item} studentID={getUserIdFromRoute(this.props.match)} type='careerGoal'/>
                 <Header floated={'left'}>{upperName}</Header>
               </Grid.Row>
             </Segment>

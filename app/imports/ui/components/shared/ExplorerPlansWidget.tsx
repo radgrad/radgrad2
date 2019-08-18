@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { Segment, Header, Button, Divider, Grid } from 'semantic-ui-react';
+import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
@@ -9,6 +9,7 @@ import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import * as Router from './RouterHelperFunctions';
+import FavoritesButton from './FavoritesButton';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -70,8 +71,6 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
     const { name, descriptionPairs, item, match } = this.props;
     const upperName = this.toUpper(name);
     const isStudent = this.isRoleStudent();
-    const userStatus = this.userStatus(item);
-
     return (
       <Segment.Group style={backgroundColorWhiteStyle}>
         <Segment padded={true} className="container">
@@ -79,15 +78,8 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
             <Header floated="left">{upperName}</Header>
             {
               isStudent ?
-                <React.Fragment>
-                  {
-                    userStatus ?
-                      <Button basic={true} color="green" size="mini" floated="right" onClick={this.handleAddPlan}>
-                        SET AS ACADEMIC PLAN
-                      </Button>
-                      : ''
-                  }
-                </React.Fragment>
+                <FavoritesButton item={item} type='academicPlan'
+                                 studentID={Router.getUserIdFromRoute(this.props.match)}/>
                 : ''
             }
           </Segment>
