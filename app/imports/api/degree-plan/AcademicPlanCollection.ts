@@ -230,13 +230,21 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @return {number}
    */
   public getLatestAcademicTermNumber() {
-    const plans = this.collection.find().fetch();
+    const plans = this.collection.find({}, { sort: { termNumber: 1 } }).fetch();
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     let max = 0;
+    let latest = 0;
     _.forEach(plans, (p) => {
       if (max < p.termNumber) {
         max = p.termNumber;
       }
+      if (p.termNumber <= currentTerm.termNumber && latest < p.termNumber) {
+        latest = p.termNumber;
+      }
     });
+    if (latest !== 0) {
+      return latest;
+    }
     return max;
   }
 
@@ -258,6 +266,17 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const plan = this.findDoc(planID);
     const academicTerm = AcademicTerms.findDoc(plan.effectiveAcademicTermID);
     return `${plan.name} (${academicTerm.year})`;
+  }
+
+  /**
+   * Returns true if the give academic plan includes graduate classes.
+   * @param {string} planID the id of the academic plan.
+   * @returns {boolean}
+   */
+  public isGraduatePlan(planID: string): boolean {
+    const plan = this.findDoc(planID);
+    // console.log('isGraduatePlan', planID, plan.coursesPerAcademicTerm, plan.coursesPerAcademicTerm.length >= 15);
+    return plan.coursesPerAcademicTerm.length >= 15;
   }
 
   /**

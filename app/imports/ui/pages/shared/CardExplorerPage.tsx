@@ -175,7 +175,7 @@ class CardExplorerPage extends React.Component<ICardExplorerPageProps> {
           </Grid.Column>
 
             <Grid.Column width={11}>
-              <CardExplorerWidget collection={collection} type={type} role={role}/>
+              <CardExplorerWidget collection={collection} type={type} role={role} menuList={addedList}/>
             </Grid.Column>
             <Grid.Column width={1}/>
           </Grid.Row>

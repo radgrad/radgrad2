@@ -24,13 +24,15 @@ import ExplorerCard from './ExplorerCard';
 import ProfileCard from './ProfileCard';
 
 // eslint-disable-next-line no-unused-vars
-import { IProfile } from '../../../typings/radgrad';
+import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity, IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { explorerActions } from '../../../redux/shared/explorer';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 
 interface ICardExplorerWidgetProps {
   collection: any;
@@ -51,6 +53,7 @@ interface ICardExplorerWidgetProps {
   dispatch: any;
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
+  menuList: IAcademicPlan[] | ICareerGoal[] | ICourse[] | IInterest[] | IOpportunity[];
 }
 
 const mapStateToProps = (state) => ({
@@ -107,7 +110,7 @@ class CardExplorerWidget extends React.Component
       default:
         return 'UNDEFINED TITLE';
     }
-  }
+  };
 
   private getHeaderCount = (): number => {
     const { type } = this.props;
@@ -130,7 +133,7 @@ class CardExplorerWidget extends React.Component
       default:
         return -1;
     }
-  }
+  };
 
   private buildHeader = (): { title: string; count: number; } => {
     const header = {
@@ -138,7 +141,7 @@ class CardExplorerWidget extends React.Component
       count: this.getHeaderCount(),
     };
     return header;
-  }
+  };
 
   private checkForNoItems = (): Element | JSX.Element | string => {
     const { type } = this.props;
@@ -166,7 +169,7 @@ class CardExplorerWidget extends React.Component
         return '';
 
     }
-  }
+  };
   private noItems = (noItemsType): boolean => {
     switch (noItemsType) {
       case 'noPlan':
@@ -178,7 +181,7 @@ class CardExplorerWidget extends React.Component
       default:
         return true;
     }
-  }
+  };
 
   private buildNoItemsMessage = (noItemsMessageType): Element | JSX.Element | string => {
     switch (noItemsMessageType) {
@@ -206,7 +209,7 @@ class CardExplorerWidget extends React.Component
       default:
         return '';
     }
-  }
+  };
   /* ####################################### GENERAL HELPER FUNCTIONS ####################################### */
   private getUsername = (): string => Router.getUsername(this.props.match);
 
@@ -217,7 +220,7 @@ class CardExplorerWidget extends React.Component
   private isType = (typeToCheck: string): boolean => {
     const { type } = this.props;
     return type === typeToCheck;
-  }
+  };
 
   private getItems = (): { [key: string]: any }[] => {
     const { type } = this.props;
@@ -242,7 +245,7 @@ class CardExplorerWidget extends React.Component
       default:
         return [];
     }
-  }
+  };
 
   // Used in both Courses and Opportunities Card Explorer
   private hiddenExists(): boolean {
@@ -271,7 +274,7 @@ class CardExplorerWidget extends React.Component
       }
     }
     return false;
-  }
+  };
 
   private availableAcademicPlans = (): object[] => {
     let plans = AcademicPlans.findNonRetired({}, { sort: { year: 1, name: 1 } });
@@ -288,14 +291,15 @@ class CardExplorerWidget extends React.Component
           },
         }).fetch(), (ap) => !ap.retired);
       }
-      if (profile.academicPlanID) {
-        return _.filter(plans, p => profile.academicPlanID !== p._id);
-      }
+      const studentID = profile.userID;
+      const favoritePlanIDs = _.map(FavoriteAcademicPlans.findNonRetired({ studentID }), (f) => f.academicPlanID);
+      console.log(favoritePlanIDs);
+      return _.filter(plans, (p) => !_.includes(favoritePlanIDs, p._id));
     }
     return plans;
-  }
+  };
 
-  private academicPlansItemCount = (): number => this.availableAcademicPlans().length
+  private academicPlansItemCount = (): number => this.availableAcademicPlans().length;
 
   /* ####################################### CAREER GOALS HELPER FUNCTIONS ####################################### */
   private availableCareerGoals = (): object[] => {
@@ -306,7 +310,7 @@ class CardExplorerWidget extends React.Component
       return _.filter(careers, c => !_.includes(careerGoalIDs, c._id));
     }
     return careers;
-  }
+  };
 
   private matchingCareerGoals = (): object[] => {
     const allCareers = this.availableCareerGoals();
@@ -317,7 +321,7 @@ class CardExplorerWidget extends React.Component
       return preferred.getOrderedChoices();
     }
     return allCareers;
-  }
+  };
 
   private careerGoalsItemCount = (): number => this.matchingCareerGoals().length;
 
@@ -329,7 +333,7 @@ class CardExplorerWidget extends React.Component
       return interestIDs.length === 0;
     }
     return true;
-  }
+  };
 
   private noCareerGoals = (): boolean => {
     if (this.getUsername()) {
@@ -337,7 +341,7 @@ class CardExplorerWidget extends React.Component
       return profile.careerGoalIDs.length === 0;
     }
     return true;
-  }
+  };
 
   /* ####################################### COURSES HELPER FUNCTIONS ####################################### */
   private isCoursesHidden = (): boolean => this.props.hiddenCourses;
@@ -345,12 +349,12 @@ class CardExplorerWidget extends React.Component
   private handleShowHiddenCourses = (e: any): void => {
     e.preventDefault();
     this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(false));
-  }
+  };
 
   private handleHideHiddenCourses = (e: any): void => {
     e.preventDefault();
     this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(true));
-  }
+  };
 
   private courses = (): object[] => {
     const courses = this.matchingCourses();
@@ -373,30 +377,28 @@ class CardExplorerWidget extends React.Component
       return preferred.getOrderedChoices();
     }
     return [];
-  }
+  };
 
   private availableCourses = (): object[] => {
     const courses = Courses.findNonRetired({});
     if (courses.length > 0) {
       const studentID = this.getUserIdFromRoute();
-      let filtered = _.filter(courses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
-          return true;
-        }
-        const ci = CourseInstances.find({
-          studentID,
-          courseID: course._id,
-        }).fetch();
-        return ci.length === 0;
-      });
+      let filtered = courses;
       if (Roles.userIsInRole(studentID, [ROLE.STUDENT])) {
-        const profile = StudentProfiles.findDoc({ userID: studentID });
-        const plan = AcademicPlans.findDoc(profile.academicPlanID);
-        if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
+        const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
+        // console.log(favorites);
+        let isGraduate = false;
+        _.forEach(favorites, (f) => {
+          const grad = AcademicPlans.isGraduatePlan(f.academicPlanID);
+          isGraduate = isGraduate || grad;
+        });
+        if (!isGraduate) { // not bachelors and masters
           const regex = /[1234]\d\d/g;
           filtered = _.filter(filtered, (c) => c.num.match(regex));
         }
       }
+      const favCourseIDs = _.map(FavoriteCourses.findNonRetired({ studentID }), (f) => f.courseID);
+      filtered = _.filter(filtered, (c) => !_.includes(favCourseIDs, c._id));
       return filtered;
     }
     return [];
@@ -421,7 +423,7 @@ class CardExplorerWidget extends React.Component
       return nonHiddenCourses;
     }
     return [];
-  }
+  };
 
   private coursesItemCount = (): number => this.hiddenCoursesHelper().length;
 
@@ -441,7 +443,7 @@ class CardExplorerWidget extends React.Component
       interests = _.filter(interests, i => !_.includes(allInterests[1], i._id));
     }
     return interests;
-  }
+  };
 
   private interestsItemCount = (): number => this.availableInterests().length;
 
@@ -451,12 +453,12 @@ class CardExplorerWidget extends React.Component
   private handleShowHiddenOpportunities = (e: any): void => {
     e.preventDefault();
     this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenOpportunities(false));
-  }
+  };
 
   private handleHideHiddenOpportunities = (e: any): void => {
     e.preventDefault();
     this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenOpportunities(true));
-  }
+  };
 
   private opportunities = (): object[] => {
     const opportunities = this.matchingOpportunities();
@@ -467,7 +469,7 @@ class CardExplorerWidget extends React.Component
       visibleOpportunities = opportunities;
     }
     return visibleOpportunities;
-  }
+  };
 
   private matchingOpportunities = (): object[] => {
     const allOpportunities = this.availableOpps();
@@ -476,7 +478,7 @@ class CardExplorerWidget extends React.Component
     const interestIDs = Users.getInterestIDs(profile.userID);
     const preferred = new PreferredChoice(allOpportunities, interestIDs);
     return preferred.getOrderedChoices();
-  }
+  };
 
   private availableOpps = (): object[] => {
     const notRetired = Opportunities.findNonRetired({});
@@ -527,7 +529,7 @@ class CardExplorerWidget extends React.Component
       return nonHiddenOpportunities;
     }
     return [];
-  }
+  };
 
   private opportunitiesItemCount = (): number => this.hiddenOpportunitiesHelper().length;
 
@@ -543,7 +545,7 @@ class CardExplorerWidget extends React.Component
       return preferred.getOrderedChoices();
     }
     return users;
-  }
+  };
 
   private handleRoleTabClick = (e: any, { name }): void => this.setState({ activeRoleTab: name });
 
@@ -735,11 +737,15 @@ class CardExplorerWidget extends React.Component
 
 const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {
-  const { collection, type, match } = props;
+  const { collection, type, match, menuList } = props;
+  const favoriteIDs = _.map(menuList, (m) => m.item._id);
   const username = match.params.username;
   let reactiveSource;
   if (type !== EXPLORER_TYPE.USERS) {
-    reactiveSource = collection.findNonRetired({});
+    const allItems = collection.findNonRetired({});
+    reactiveSource = _.filter(allItems, (item) => {
+      return _.includes(favoriteIDs, item._id);
+    });
   } else {
     reactiveSource = Users.getProfile(username);
   }
