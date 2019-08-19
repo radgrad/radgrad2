@@ -16,7 +16,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
@@ -53,7 +52,7 @@ interface ICardExplorerWidgetProps {
   dispatch: any;
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
-  menuList: IAcademicPlan[] | ICareerGoal[] | ICourse[] | IInterest[] | IOpportunity[];
+  menuList: object[];
 }
 
 const mapStateToProps = (state) => ({
@@ -743,9 +742,7 @@ const CardExplorerWidgetCont = withTracker((props) => {
   let reactiveSource;
   if (type !== EXPLORER_TYPE.USERS) {
     const allItems = collection.findNonRetired({});
-    reactiveSource = _.filter(allItems, (item) => {
-      return _.includes(favoriteIDs, item._id);
-    });
+    reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
   } else {
     reactiveSource = Users.getProfile(username);
   }

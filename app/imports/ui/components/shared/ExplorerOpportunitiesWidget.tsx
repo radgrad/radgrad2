@@ -14,7 +14,6 @@ import IceHeader from './IceHeader';
 import InterestList from './InterestList';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorerOpportunitiesWidgetButton';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 
@@ -128,9 +127,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
     /* Header Variables */
     const upperName = this.toUpper(name);
     const isStudent = this.isRoleStudent();
-    const userStatus = this.userStatus(item);
-    const futureInstance = this.futureInstance(item);
-    const unverified = this.unverified(item);
 
     return (
       <div>
