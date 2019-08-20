@@ -74,6 +74,7 @@
   },
   "scripts": {
     "start": "meteor --no-release-check --settings ../config/settings.development.json --port 3200",
+    "start-custom": "meteor --no-release-check --settings ../custom/settings.development.json --port 3200",
     "start-production": "meteor --production --no-release-check --settings ../config/settings.development.json --port 3200",
     "lint": "eslint --quiet --ext .tsx --ext .ts ./imports",
     "lint-fix": "eslint --fix --quiet --ext .tsx --ext .ts ./imports",
