@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
+import * as _ from 'lodash';
 import { IInterest, IProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
 interface IInterestedProfileWidgetProps {
   interest: IInterest;
@@ -17,25 +19,25 @@ class InterestedProfilesWidget extends React.Component<IInterestedProfileWidgetP
     super(props);
   }
 
-  private numberStudents = (item) => {
-    const participatingUsers = StudentParticipations.findDoc({ itemID: item._id });
-    return participatingUsers.itemCount;
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { interest, students, faculty, alumni, mentors } = this.props;
-    const numberStudents = this.numberStudents(interest);
+    // Don't show students with default picture
+    let interested = _.filter(students, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+    // only allow 50 students randomly selected.
+    for (let i = interested.length - 1; i >= 50; i--) {
+      interested.splice(Math.floor(Math.random() * interested.length), 1);
+    }
     return (
       <Grid>
         <Grid.Row centered>
           <Grid.Column>
             <Container fluid>
               <Segment>
-                <Header as="h5" textAlign="center">STUDENTS <WidgetHeaderNumber inputValue={numberStudents}/></Header>
+                <Header as="h5" textAlign="center">STUDENTS <WidgetHeaderNumber inputValue={students.length}/></Header>
                 <Divider/>
                 <Container textAlign='center'>
                   <Image.Group size='mini'>
-                    {students.map((student, index) => <Popup
+                    {interested.map((student, index) => <Popup
                       key={index}
                       trigger={<Image src={student.picture} circular size='mini'/>}
                       content={`${student.firstName} ${student.lastName}`}

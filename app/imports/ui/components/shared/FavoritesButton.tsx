@@ -27,7 +27,7 @@ interface IFavoriteButtonProps {
 class FavoritesButton extends React.Component<IFavoriteButtonProps> {
   constructor(props) {
     super(props);
-    console.log('FavoritesButton ', props);
+    // console.log('FavoritesButton ', props);
   }
 
   private handleAdd = () => {
