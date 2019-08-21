@@ -9,6 +9,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 
 interface IStudentExplorerOpportunitiesWidgetButtonProps {
   buttonType: 'remove' | 'add';
@@ -92,7 +93,7 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     const collection = OpportunityInstances;
     const collectionName = collection.getCollectionName();
     defineMethod.call({ collectionName, definitionData });
-    const interactionData = { username, type: 'addOpportunity', typeData: oppSlug.name };
+    const interactionData = { username, type: USERINTERACTIONSTYPE.ADDOPPORTUNITY, typeData: oppSlug.name };
     userInteractionDefineMethod.call(interactionData, (err) => {
       if (err) {
         console.log('Error creating UserInteraction', err);
@@ -118,8 +119,10 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     const collection = OpportunityInstances;
     const collectionName = collection.getCollectionName();
     removeItMethod.call({ collectionName, instance: oi[0]._id });
+    const username = this.getUsername();
     const interactionData = {
-      username: this.getUsername(), type: 'removeOpportunity',
+      username,
+      type: USERINTERACTIONSTYPE.REMOVEOPPORTUNITY,
       typeData: Slugs.getNameFromID(opportunity.slugID),
     };
     userInteractionDefineMethod.call(interactionData, (err) => {

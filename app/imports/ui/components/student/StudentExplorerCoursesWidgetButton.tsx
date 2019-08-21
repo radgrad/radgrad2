@@ -10,6 +10,7 @@ import { ICourse, ICourseInstanceDefine } from '../../../typings/radgrad'; // es
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 
 interface IStudentExplorerCoursesWidgetButtonProps {
   buttonType: 'remove' | 'add' | 'taken';
@@ -77,7 +78,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
         FeedbackFunctions.generateRecommendedCourse(this.getUserIdFromRoute());
       }
     });
-    const interactionData = { username, type: 'addCourse', typeData: courseSlug.name };
+    const interactionData = { username, type: USERINTERACTIONSTYPE.ADDCOURSE, typeData: courseSlug.name };
     userInteractionDefineMethod.call(interactionData, (err) => {
       if (err) {
         console.log('Error creating UserInteraction', err);

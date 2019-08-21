@@ -5,6 +5,7 @@ import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
 import { IIceSnapshotDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { USERINTERACTIONSTYPE } from '../../api/analytic/UserInteractionsType';
 
 function createSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -43,7 +44,7 @@ SyncedCron.add({
           console.log('Updating snapshot for user: ', username);
           IceSnapshots.getCollection().update({ username }, { $set: { level, updated: moment().toDate() } });
           if (level > iceSnap.level) {
-            UserInteractions.define({ username, type: 'level', typeData: [level] });
+            UserInteractions.define({ username, type: USERINTERACTIONSTYPE.LEVEL, typeData: [level] });
           }
         }
         const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -52,7 +53,11 @@ SyncedCron.add({
           IceSnapshots.getCollection().update({ username }, { $set: { i: ice.i, c: ice.c, e: ice.e, updated: moment().toDate() } });
           if ((iceSnap.i < 100) || (iceSnap.co < 100) || (iceSnap.e < 100)) {
             if ((ice.i > 100) && (ice.c > 100) && (ice.e > 100)) {
-              UserInteractions.define({ username, type: 'completePlan', typeData: [ice.i, ice.c, ice.e] });
+              UserInteractions.define({
+                username,
+                type: USERINTERACTIONSTYPE.COMPLETEPLAN,
+                typeData: [ice.i, ice.c, ice.e],
+              });
             }
           }
         }

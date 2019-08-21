@@ -5,7 +5,8 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+// eslint-disable-next-line no-unused-vars
+import { IStudentProfile } from '../../../typings/radgrad';
 
 interface IStudentShareInfoWidgetProps {
   profile: IStudentProfile;

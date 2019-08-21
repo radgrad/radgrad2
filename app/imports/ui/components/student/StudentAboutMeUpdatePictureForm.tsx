@@ -1,10 +1,22 @@
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { getUsername } from '../shared/RouterHelperFunctions';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 
 interface IStudentAboutMeUpdatePictureFormProps {
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   picture: string;
   docID: string;
   collectionName: string;
@@ -45,6 +57,13 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
             allowEscapeKey: false,
             allowEnterKey: false,
           });
+          const username = getUsername(this.props.match);
+          const interactionData = { username, type: USERINTERACTIONSTYPE.WEBSITE, typeData: cloudinaryResult.info.url };
+          userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+            if (userInteractionError) {
+              console.log('Error creating UserInteraction.', userInteractionError);
+            }
+          });
         }
       });
     }
@@ -70,4 +89,4 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
   }
 }
 
-export default StudentAboutMeUpdatePictureForm;
+export default withRouter(StudentAboutMeUpdatePictureForm);

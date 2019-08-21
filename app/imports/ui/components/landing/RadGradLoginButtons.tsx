@@ -5,6 +5,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 
 interface IRadGradLoginButtonsState {
   justLoggedIn: boolean;
@@ -37,7 +38,7 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
             role = 'Alumni';
           } else {
             // Track Student Login
-            const interactionData = { username, type: 'login', typeData: 'N/A' };
+            const interactionData = { username, type: USERINTERACTIONSTYPE.LOGIN, typeData: 'N/A' };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {
                 console.log('Error creating UserInteraction.', userInteractionError);

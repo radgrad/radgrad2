@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import '/public/semantic.min.css';
-import Swal from 'sweetalert2';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
@@ -13,6 +12,7 @@ import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 import { getAllUrlParams } from '../components/shared/RouterHelperFunctions';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
+import { USERINTERACTIONSTYPE } from '../../api/analytic/UserInteractionsType';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 class App extends React.Component {
@@ -170,15 +170,10 @@ function withHistoryListen(WrappedComponent) {
         const parameters = getAllUrlParams(match);
         const typeData = parameters.join('/');
         const username = Meteor.user().username;
-        const type = 'pageView';
-        const interactionData = { username, type, typeData };
+        const interactionData = { username, type: USERINTERACTIONSTYPE.PAGEVIEW, typeData };
         userInteractionDefineMethod.call(interactionData, (error) => {
           if (error) {
-            Swal.fire({
-              title: 'Something went wrong',
-              text: error.message,
-              type: 'error',
-            });
+            console.log('Error creating UserInteraction.', error);
           }
         });
       });

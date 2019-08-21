@@ -15,7 +15,7 @@ import { IUserInteractionDefine } from '../../typings/radgrad'; // eslint-disabl
  * type is one of the following:
  *   pageView: the user is now visiting a page.  (typeData: path to page)
  *   login: the user has just logged in. (typeData: "N/A").
- *   interestIDs, careerGoalIDs, academicPlanIDs, declaredAcademicTermID, picture, website: user modifies fields.
+ *   interestIDs, careerGoalIDs, academicPlanID, declaredAcademicTermID, picture, website: user modifies fields.
  *   (typeData: shows the new set of IDs after the modification).
  *   addCourse, addOpportunity, removeCourse, removeOpportunity: user added/removed an instance
  * @extends api/base.BaseCollection
