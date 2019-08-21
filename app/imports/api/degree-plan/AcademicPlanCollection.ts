@@ -6,7 +6,8 @@ import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
-import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
+import { RadGradSettings } from '../radgrad/RadGradSettingsCollection'; // eslint-disable-line
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -276,7 +277,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public isGraduatePlan(planID: string): boolean {
     const plan = this.findDoc(planID);
     // console.log('isGraduatePlan', planID, plan.coursesPerAcademicTerm, plan.coursesPerAcademicTerm.length >= 15);
-    return plan.coursesPerAcademicTerm.length >= 15;
+    const quarters = RadGradSettings.findOne({}).quarterSystem;
+    return quarters ? plan.coursesPerAcademicTerm > 16 : plan.coursesPerAcademicTerm.length > 12;
   }
 
   /**
