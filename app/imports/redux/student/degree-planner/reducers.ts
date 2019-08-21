@@ -60,6 +60,23 @@ function tabReducer(state: any = initialState, action) {
       return {
         selectedTab: TYPES.SELECT_INSPECTOR,
       };
+    case TYPES.SELECT_FAVORITE_OPPORTUNITIES:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_OPPORTUNITIES,
+      }
+    case TYPES.SELECT_FAVORITE_PLANS:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_PLANS,
+      }
+    case TYPES.SELECT_FAVORITE_COURSES:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_COURSES,
+      }
+    case TYPES.SELECT_FAVORITE_DETAILS:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_DETAILS,
+      }
+
     default:
       return state;
   }

@@ -12,9 +12,10 @@ import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typi
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
+// import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import TabbedFavoritesWidget from '../../components/student/TabbedFavoritesWidget';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -123,7 +124,7 @@ class StudentDegreePlannerPage extends React.Component<IPageProps> {
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
-              <TabbedPlanInspectorContainer/>
+              <TabbedFavoritesWidget/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
