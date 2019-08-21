@@ -76,7 +76,7 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
     const interests = _.map(doc.interests, interestSlugFromName);
     definitionData.slug = doc.slug;
     definitionData.name = doc.name;
-    definitionData.num = doc.number;
+    definitionData.num = doc.num;
     definitionData.description = doc.description;
     if (doc.shortName) {
       definitionData.shortName = doc.shortName;

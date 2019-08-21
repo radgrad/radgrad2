@@ -147,7 +147,7 @@ class StudentIceColumnRecommended extends React.Component<IStudentIceColumnRecom
     const courses = Courses.findNonRetired({});
     if (courses.length > 0) {
       const filtered = _.filter(courses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
+        if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
           return true;
         }
         const ci = CourseInstances.findNonRetired({

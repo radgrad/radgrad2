@@ -6,6 +6,8 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+// eslint-disable-next-line no-unused-vars
+import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad';
 
 interface IStudentOfInterestAddProps {
   item: any;
@@ -71,11 +73,11 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
     const username = this.getUsername();
 
     if (this.isTypeCourse()) {
-      const definitionData = {
+      const definitionData: ICourseInstanceDefine = {
         academicTerm: termSlug,
         course: itemSlug,
         verified: false,
-        note: item.number,
+        note: item.num,
         grade: 'B',
         student: username,
       };
@@ -85,7 +87,7 @@ class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
         }
       });
     } else {
-      const definitionData = {
+      const definitionData: IOpportunityInstanceDefine = {
         academicTerm: termSlug,
         opportunity: itemSlug.name,
         verified: false,

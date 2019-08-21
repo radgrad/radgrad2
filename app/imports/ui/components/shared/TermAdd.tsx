@@ -70,7 +70,7 @@ class TermAdd extends React.Component<ITermAddProps> {
         academicTerm: termSlug,
         course: itemSlug,
         verified: false,
-        note: item.number,
+        note: item.num,
         grade: 'B',
         student: username,
       };

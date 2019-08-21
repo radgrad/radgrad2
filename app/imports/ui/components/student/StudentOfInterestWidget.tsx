@@ -151,7 +151,7 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     const { nonRetiredCourses } = this.props;
     if (nonRetiredCourses.length > 0) {
       const filtered = _.filter(nonRetiredCourses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
+        if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
           return true;
         }
         const ci = CourseInstances.find({
