@@ -363,6 +363,11 @@ export interface ICourseInstanceUpdate {
   retired?: boolean;
 }
 
+export interface IScoreboard {
+  _id: string;
+  count: number;
+}
+
 // Courses
 export interface ICourse {
   _id: string;

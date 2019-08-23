@@ -15,6 +15,7 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import FutureParticipation from './FutureParticipation';
 
 class TermCard extends React.Component<ITermCard> {
   constructor(props) {
@@ -189,7 +190,9 @@ class TermCard extends React.Component<ITermCard> {
                     renderers={{ link: (props) => Router.renderLink(props, match) }}/>
           <InterestList item={item} size="mini"/>
         </Card.Content>
-
+        <Card.Content>
+          <FutureParticipation type={this.props.type} item={this.props.item}/>
+        </Card.Content>
         <Card.Content>
           <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
         </Card.Content>
