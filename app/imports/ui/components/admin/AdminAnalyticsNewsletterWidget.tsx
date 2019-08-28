@@ -21,8 +21,12 @@ import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
 import { Courses } from "../../../api/course/CourseCollection";
 import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
 import { OpportunityInstances } from "../../../api/opportunity/OpportunityInstanceCollection";
+import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
 
-// app/imports/typings/meteor-meteor.d.ts
+// TODO: bug hunting
+// check if user completed one of the "or" courses: 312 or 331, 313 or 361
+// check if check box is checked
+// take out unneccessary console logs
 const schema = new SimpleSchema({
   inputMessage: String,
   bcc: { type: String, optional: true },
@@ -142,27 +146,59 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     this.setState({ onSubmitInputMessage: this.state.inputMessage });
   }
 
-
   private onClickSendStudentsToo = () => {
-    if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
+    const trimmedEmails = [];
+    const studentEmails = this.state.studentEmails.split(',');
+
+    if (this.state.sendToStudentsToo === false) {
       this.setState({
         message: {
           subjectLine: this.state.subjectLine,
           bcc: this.state.bcc.split(','),
           inputMessage: this.state.onSubmitInputMessage,
-          recipients: this.state.studentEmails.split(','), // add admin too
-        },
+          recipients: ['radgrad@hawaii.edu'],
+        }
       }, () => {
         this.generateEmail(this.state.message);
-      });
-      Swal.fire(
-        'Good Job, email sent!',
-      );
+        Swal.fire('Email sent to admin');
+      })
     } else {
-      Swal.fire(
-        'You forgot to fill something out!',
-      );
+      _.map(studentEmails, (emails) => {
+        emails.toString();
+        trimmedEmails.push(emails.trim());
+      })
+      // send copy to admin
+      trimmedEmails.push('radgrad@hawaii.edu');
+      console.log('trimmed emails: ', trimmedEmails);
+      _.map(trimmedEmails, (trimmedEmail) => {
+        if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
+          if (Users.isDefined(trimmedEmail) === true) {
+            this.setState({
+              message: {
+                subjectLine: this.state.subjectLine,
+                bcc: this.state.bcc.split(','),
+                inputMessage: this.state.onSubmitInputMessage,
+                recipients: [trimmedEmail],
+              },
+            }, () => {
+              this.generateEmail(this.state.message);
+            });
+            Swal.fire(
+              'Email sent to Admin and students',
+            );
+          } else {
+            Swal.fire(
+              'User: ' + trimmedEmail + ' is NOT in the Student Profile Collection'
+            );
+          }
+        } else {
+          Swal.fire(
+            'You forgot to fill something out...'
+          );
+        }
+      })
     }
+
   }
 
   private onClickSendLevels = () => {
@@ -226,19 +262,16 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       filename: 'newsletter2.html',
     };
     _.map(message.recipients, (username) => {
-      console.log('username: ', username);
       const informationForEmail = this.getInformationForEmail(username);
-      console.log('get information for email', informationForEmail);
-      emailData.subject = `Newsletter View For ${informationForEmail.studentInfo.firstName} ${informationForEmail.studentInfo.lastName}`;
-      emailData.templateData.firstName = informationForEmail.studentInfo.firstName;
-      emailData.templateData.lastName = informationForEmail.studentInfo.lastName;
+      emailData.subject = `Newsletter View For ${informationForEmail.recipientInfo.firstName} ${informationForEmail.recipientInfo.lastName}`;
+      emailData.templateData.firstName = informationForEmail.recipientInfo.firstName;
+      emailData.templateData.lastName = informationForEmail.recipientInfo.lastName;
       emailData.templateData.firstRec = informationForEmail.emailInfo.recommendationOne;
       emailData.templateData.secondRec = informationForEmail.emailInfo.recommendationTwo;
       emailData.templateData.thirdRec = informationForEmail.emailInfo.recommendationThree;
       sendEmailMethod.call(emailData, (error) => {
         if (error) {
           Swal.fire('Error sending email.');
-          console.log('error', error);
         }
       });
     });
@@ -248,7 +281,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     // ToDo: need to fire swal if user not found
     console.log('users find profile from username', Users.findProfileFromUsername(username));
     const informationForEmail = {
-      studentInfo: {
+      recipientInfo: {
         username: '',
         firstName: '',
         lastName: '',
@@ -260,34 +293,39 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       },
     };
 
-    /**
-     *  I need to check if student.
-     *  If it is I need:
-     *  first & last name
-     *  innovation points
-     *  competency points
-     *  experience points
-     *  level
-     *  academic plan
-     *  missing requirements
-     * */
-    if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
-      const role = Users.findProfileFromUsername(username).role;
-      console.log('get information for email role: ', role);
-      // use role to find collection to search
-      // search for user and return first and last name
-      // put in conditional if user is not found in Users Collections
+    if (username === 'radgrad@hawaii.edu') {
+      informationForEmail.recipientInfo.username = username;
+      informationForEmail.recipientInfo.firstName = 'Admin';
     } else {
-      const student = StudentProfiles.findDoc(username); // doc
-      console.log('student should be doc', student);
-      const recommendations = this.getRecommendations(student); // array
-      console.log('recommendations: ', recommendations);
-      informationForEmail.studentInfo.username = student.username;
-      informationForEmail.studentInfo.firstName = student.firstName;
-      informationForEmail.studentInfo.lastName = student.lastName;
-      informationForEmail.emailInfo.recommendationOne = recommendations[0];
-      informationForEmail.emailInfo.recommendationTwo = recommendations[1];
-      informationForEmail.emailInfo.recommendationThree = recommendations[2];
+      if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
+        const role = Users.findProfileFromUsername(username).role;
+        console.log('get information for email role: ', role);
+        switch (role) {
+          case 'FACULTY':
+            const faculty = FacultyProfiles.findDoc(username);
+            informationForEmail.recipientInfo.username = faculty.username;
+            informationForEmail.recipientInfo.firstName = faculty.firstName;
+            informationForEmail.recipientInfo.lastName = faculty.lastName;
+          case 'ADVISOR':
+            break;
+          default:
+            break;
+        }
+        // use role to find collection to search
+        // search for user and return first and last name
+        // put in conditional if user is not found in Users Collections
+      } else {
+        const student = StudentProfiles.findDoc(username); // doc
+        console.log('student should be doc', student);
+        const recommendations = this.getRecommendations(student); // array
+        console.log('recommendations: ', recommendations);
+        informationForEmail.recipientInfo.username = student.username;
+        informationForEmail.recipientInfo.firstName = student.firstName;
+        informationForEmail.recipientInfo.lastName = student.lastName;
+        informationForEmail.emailInfo.recommendationOne = recommendations[0];
+        informationForEmail.emailInfo.recommendationTwo = recommendations[1];
+        informationForEmail.emailInfo.recommendationThree = recommendations[2];
+      }
     }
     return informationForEmail;
   }
@@ -303,7 +341,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   private getRecommendationsICE = (student) => {
     const projectedICE = StudentProfiles.getProjectedICE(student.userID);
     if (projectedICE.i < 100 && projectedICE.c < 100 && projectedICE.e < 100) {
-      console.log(projectedICE.i, projectedICE.c, projectedICE.e);
       const iCERec = {
         header: 'Finish Your Degree Plan',
         info: '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>',
@@ -319,7 +356,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         }
         iCERec.info += `<p><span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)</span>
         : ${iceLevel}</p>`;
-         iCERec.info += `<ul><li>${this.iceRecHelper(student, value, component)}</li></ul>`;
+        iCERec.info += `<ul><li>${this.iceRecHelper(student, value, component)}</li></ul>`;
       })
       return iCERec;
     }
@@ -335,81 +372,69 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       return html;
     } else if (value < 30) {
       html += iceMap[component].low;
-         } else if (value < 60) {
-          html += iceMap[component].med;
-         } else {
-           html += iceMap[component].high;
-         }
-         const studentInterests = Users.getInterestIDs(student.userID);
-         if (component === 'c') {
-           if (studentInterests.length === 0) {
-             html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
-               ' Add some interests so we can provide course recommendations!</a></em>';
-             return html;
-           }
-           const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
-             if (_.some(course.interestIDs, interest => _.includes(studentInterests, interest))) {
-               return true;
-             }
-             return false;
-           });
-           const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
-           const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
-           if (recommendedCourses.length === 0) {
-             html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
-               ' Add more interests so we can provide course recommendations!</a></em>';
-             return html;
-           }
-           const recCourse = recommendedCourses[0];
-           html += ' Check out';
-           html += '<a style="color: #6FBE44; font-weight: bold;"' +
-             ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-             `/explorer/courses/${Courses.getSlug(recCourse._id)}"> ${recCourse.shortName}</a>`;
-         } else {
-           if (studentInterests.length === 0) {
-             html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
-               ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
-             return html;
-           }
-          const opps = _.filter(Opportunities.findNonRetired(), function (opp) {
-            return opp.ice[component] > 0;
-          });
-          const relevantOpps = _.filter(opps, function (opp) {
-            if (_.some(opp.interestIDs, interest => _.includes(studentInterests, interest))) {
-              return true;
-            }
-            return false;
-          });
-          if (relevantOpps.length === 0) {
-            return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
-              ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
-          }
-          const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
-          const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
-          let recOpp;
-          if (recommendedOpps.length === 0) {
-            recOpp = relevantOpps[0];
-          } else {
-            recOpp = recommendedOpps[0];
-          }
-          html += ' Check out';
-          html += '<a style="color: #6FBE44; font-weight: bold;"' +
-            ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-            `/explorer/opportunities/${Opportunities.getSlug(recOpp._id)}"> ${recOpp.name}</a>`;
-       }
-      return html;
-  }
-
-  private getRecommendationsInnovation = (projectedICEi) => {
-    console.log('get recommendations innovation', projectedICEi);
-  }
-
-  private getRecommendationsCompetency = (projectedICEc) => {
-    console.log('get recommendations competency', projectedICEc);
-  }
-
-  private getRecommendationsExperience = (projectedICEe) => {
-    console.log('get recommendations experience', projectedICEe);
+    } else if (value < 60) {
+      html += iceMap[component].med;
+    } else {
+      html += iceMap[component].high;
+    }
+    const studentInterests = Users.getInterestIDs(student.userID);
+    if (component === 'c') {
+      if (studentInterests.length === 0) {
+        html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+          ' Add some interests so we can provide course recommendations!</a></em>';
+        return html;
+      }
+      const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
+        if (_.some(course.interestIDs, interest => _.includes(studentInterests, interest))) {
+          return true;
+        }
+        return false;
+      });
+      const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
+      const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
+      if (recommendedCourses.length === 0) {
+        html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
+          ' Add more interests so we can provide course recommendations!</a></em>';
+        return html;
+      }
+      const recCourse = recommendedCourses[0];
+      html += ' Check out';
+      html += '<a style="color: #6FBE44; font-weight: bold;"' +
+        ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
+        `/explorer/courses/${Courses.getSlug(recCourse._id)}"> ${recCourse.shortName}</a>`;
+    } else {
+      if (studentInterests.length === 0) {
+        html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+          ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
+        return html;
+      }
+      const opps = _.filter(Opportunities.findNonRetired(), function (opp) {
+        return opp.ice[component] > 0;
+      });
+      const relevantOpps = _.filter(opps, function (opp) {
+        if (_.some(opp.interestIDs, interest => _.includes(studentInterests, interest))) {
+          return true;
+        }
+        return false;
+      });
+      if (relevantOpps.length === 0) {
+        return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+          ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
+      }
+      const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
+      const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
+      let recOpp;
+      if (recommendedOpps.length === 0) {
+        recOpp = relevantOpps[0];
+      } else {
+        recOpp = recommendedOpps[0];
+      }
+      html += ' Check out';
+      html += '<a style="color: #6FBE44; font-weight: bold;"' +
+        ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
+        `/explorer/opportunities/${Opportunities.getSlug(recOpp._id)}"> ${recOpp.name}</a>`;
+    }
+    return html;
   }
 
   private getRecommendationsLevel = (student) => ({
@@ -418,13 +443,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   })
 
   private getRecommendationsAcademicPlan = (student) => {
-    console.log('get recommendations academic plans student: ', student);
     const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
     const academicPlanSlug = Slugs.getNameFromID(studentAcademicPlanDoc.slugID);
-    console.log('student\'s academic plan doc', studentAcademicPlanDoc);
     const remainingReqs = this.getRemainingRequirements(student, studentAcademicPlanDoc);
-    console.log('remaining requirements from get recommendations Academic plan', remainingReqs);
-    // console.log('student\'s remaining reqs',remainingReqs);
 
     const html = {
       header: 'Complete Your Academic Plan',
@@ -454,14 +475,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
   private
   getRemainingRequirements = (student, studentAcademicPlanDoc) => {
-    console.log('student: ', student._id, student.username);
+
     const studentCompletedCourses = CourseInstances.find({ 'verified': true, 'studentID': student.userID }).fetch();
     if (studentCompletedCourses.length < 1) {
-      console.log('you havent completed any courses');
     } else {
-      console.log('you have completed: ', studentCompletedCourses);
     }
-    console.log('student academic plan doc', studentAcademicPlanDoc.courseList);
     let inPlanCourseSlugs400 = [];
     let inPlanCourseSlugs = [];
     _.map(studentAcademicPlanDoc.courseList, (course) => {
@@ -471,7 +489,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         inPlanCourseSlugs.push(course.substring(0, course.indexOf('-')));
       }
     })
-    console.log("in plan slugs 400 level", inPlanCourseSlugs400, "in plan slugs non 400 level", inPlanCourseSlugs);
     const studentCompletedCourseSlugs = [];
     const studentCompletedCourseSlugs400 = [];
     _.map(studentCompletedCourses, (course) => {
@@ -485,13 +502,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
     _.each(studentCompletedCourseSlugs400, () => {
       inPlanCourseSlugs400.pop();
-      console.log('after pop', inPlanCourseSlugs400)
     });
-    console.log(inPlanCourseSlugs400);
     const needsWork = _.difference(inPlanCourseSlugs, studentCompletedCourseSlugs);
-    console.log('Needs Work: ', needsWork)
     const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
-    console.log("missing requirements: ", missingRequirements);
     return missingRequirements;
   }
 
@@ -508,12 +521,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
   private getStudentEmailsByLevel = (level) => {
     const emailaddresses = [];
-    console.log(level);
     const studentLevel = parseInt(level, 10);
     const students = StudentProfiles.findNonRetired({ level: studentLevel }); // array of objects
-    console.log(students);
     _.map(students, (profile, index) => {
-      console.log(index);
       emailaddresses.push(profile.username);
     });
     return emailaddresses;
@@ -523,7 +533,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     const allUsers = Meteor.users.find().fetch();
     const emailAddresses = [];
     _.map(allUsers, (profile, index) => {
-      console.log(index);
       emailAddresses.push(profile.username);
     });
     return emailAddresses;
