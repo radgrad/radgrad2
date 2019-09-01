@@ -24,7 +24,6 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import { URL_ROLES } from '../../../startup/client/routes-config';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import FavoritesButton from './FavoritesButton';
 
 
@@ -48,7 +47,7 @@ interface IExplorerInterestsWidgetProps {
 }
 
 const getObjectsThatHaveInterest = (objects, interestID) => {
-  let interested = [];
+  const interested = [];
   _.forEach(objects, (profile) => {
     if (_.includes(profile.interestIDs, interestID)) {
       interested.push(profile);

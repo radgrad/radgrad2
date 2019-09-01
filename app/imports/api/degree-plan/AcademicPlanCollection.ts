@@ -6,8 +6,8 @@ import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
-import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection'; // eslint-disable-line
+import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import * as TYPES from '../../../redux/student/degree-planner/types';
-import { instanceOf } from 'prop-types';
 import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
+import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const activeIndex = (props) => {
+const active = (props) => {
   switch (props.selectedTab) {
     case TYPES.SELECT_FAVORITE_OPPORTUNITIES:
       return 0;
@@ -69,7 +69,7 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key='FavoriteOpportunities'><Icon name='heart' fitted={true} color={'red'}/> OPPS</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteOpportunitiesPane' active={activeIndex(props) === 0}><FavoriteOpportunitiesWidget/></Tab.Pane>
+        <Tab.Pane key='FavoriteOpportunitiesPane' active={active(props) === 0}><FavoriteOpportunitiesWidget/></Tab.Pane>
       ),
     },
     {
@@ -77,7 +77,7 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key='FavoritePlans'><Icon name='heart' fitted={true} color={'red'}/> PLAN</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoritePlansPane' active={activeIndex(props) === 1}>Academic Plans</Tab.Pane>
+        <Tab.Pane key='FavoritePlansPane' active={active(props) === 1}>Academic Plans</Tab.Pane>
       ),
     },
     {
@@ -85,7 +85,7 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key='FavoriteCourses'><Icon name='heart' fitted={true} color={'red'}/> COUR</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteCoursesPane' active={activeIndex(props) === 2}>Courses</Tab.Pane>
+        <Tab.Pane key='FavoriteCoursesPane' active={active(props) === 2}><FavoriteCoursesWidget/></Tab.Pane>
       ),
     },
     {
@@ -93,13 +93,13 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key='FavoriteDetails'>DETAILS</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteDetailsPane' active={activeIndex(props) === 3}>Details</Tab.Pane>
+        <Tab.Pane key='FavoriteDetailsPane' active={active(props) === 3}>Details</Tab.Pane>
       ),
     },
   ];
   return (
     <Segment padded={true}>
-      <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(props, event, instance)} activeIndex={activeIndex(props)}/>
+      <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(props, event, instance)} activeIndex={active(props)}/>
     </Segment>
   );
 };

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { IAcademicTerm } from '../../../typings/radgrad';
+import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
@@ -14,9 +14,7 @@ interface IFutureParticipationProps {
   scores: number;
 }
 
-const termName = (termID) => {
-  return AcademicTerms.getShortName(termID);
-}
+const termName = (termID) => (AcademicTerms.getShortName(termID));
 
 const columnColor = (count) => {
   if (count > 29) {
@@ -26,25 +24,24 @@ const columnColor = (count) => {
     return 'yellow';
   }
   return undefined;
-}
-
-const FutureParticipation = (props: IFutureParticipationProps) => {
-  console.log('FutureParticipation', props);
-  return (
-    <Grid columns="equal" padded={false}>
-      {_.map(props.academicTerms, (term, index) => (<Grid.Column key={term._id} color={columnColor(props.scores[index])}><b>{termName(term._id)}</b><br/>{props.scores[index]}</Grid.Column>))}
-    </Grid>
-  );
 };
+
+const FutureParticipation = (props: IFutureParticipationProps) => (
+  <Grid columns="equal" padded={false}>
+    {_.map(props.academicTerms, (term, index) => (<Grid.Column key={term._id}
+                                                               color={columnColor(props.scores[index])}><b>{termName(term._id)}</b><br/>{props.scores[index]}
+    </Grid.Column>))}
+  </Grid>
+);
 
 export default withTracker((props) => {
   const quarter = RadGradSettings.findOne({}).quarterSystem;
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  console.log(currentTerm);
+  // console.log(currentTerm);
   const numTerms = quarter ? 12 : 9;
   const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
     sort: { termNumber: 1 },
-    limit: numTerms
+    limit: numTerms,
   });
   const scores = [];
   _.forEach(academicTerms, (term: any) => {
