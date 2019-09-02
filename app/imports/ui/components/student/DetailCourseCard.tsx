@@ -48,29 +48,29 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
-  const maxWidth: React.CSSProperties = {
-    width: '100%',
-  };
   return (
-    <Card style={maxWidth}>
-      <Card.Content>
-        <IceHeader ice={props.instance.ice}/>
-        <Card.Header><h4>{course.num}: {course.name}</h4></Card.Header>
-      </Card.Content>
-      <Card.Content>
-        {futureP ? (<React.Fragment>
-          <p><b>Scheduled:</b> {termName}</p>
-          <FutureParticipation item={course} type='courses'/>
-          <Button floated="right" basic={true} color="green" value={props.instance._id} onClick={handleRemove}
-                  size="tiny">remove</Button>
-        </React.Fragment>) : (<p><b>Taken:</b> {termName}</p>)}
-      </Card.Content>
-      <Card.Content>
-        <p style={textAlignRight}><Link to={buildRouteName(props.match, course, EXPLORER_TYPE.COURSES)} target="_blank">View
-          in
-          Explorer <Icon name="arrow right"/></Link></p>
-      </Card.Content>
-    </Card>
+    <Card.Group itemsPerRow={1}>
+      <Card>
+        <Card.Content>
+          <IceHeader ice={props.instance.ice}/>
+          <Card.Header><h4>{course.num}: {course.name}</h4></Card.Header>
+        </Card.Content>
+        <Card.Content>
+          {futureP ? (<React.Fragment>
+            <p><b>Scheduled:</b> {termName}</p>
+            <FutureParticipation item={course} type='courses'/>
+            <Button floated="right" basic={true} color="green" value={props.instance._id} onClick={handleRemove}
+                    size="tiny">remove</Button>
+          </React.Fragment>) : (<p><b>Taken:</b> {termName}</p>)}
+        </Card.Content>
+        <Card.Content>
+          <p style={textAlignRight}><Link to={buildRouteName(props.match, course, EXPLORER_TYPE.COURSES)}
+                                          target="_blank">View
+            in
+            Explorer <Icon name="arrow right"/></Link></p>
+        </Card.Content>
+      </Card>
+    </Card.Group>
   );
 };
 
