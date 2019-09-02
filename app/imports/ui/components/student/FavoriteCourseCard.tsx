@@ -14,7 +14,7 @@ import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import FutureParticipation from '../shared/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-import * as Router from '../shared/RouterHelperFunctions';
+import { buildRouteName } from './DepUtilityFunctions';
 
 interface IFavoriteCourseCardProps {
   match: any;
@@ -23,28 +23,8 @@ interface IFavoriteCourseCardProps {
   instances: ICourseInstance[];
 }
 
-const itemSlug = (item) => Slugs.findDoc(item.slugID).name;
-
-const buildRouteName = (match, item, type) => {
-  const itemName = itemSlug(item);
-  let route = '';
-  switch (type) {
-    case EXPLORER_TYPE.COURSES:
-      route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
-      break;
-    case EXPLORER_TYPE.OPPORTUNITIES:
-      route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
-      break;
-    default:
-      route = '#';
-      break;
-  }
-  return route;
-};
-
-
 const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
-  console.log('FavoriteCourseCard', props);
+  // console.log('FavoriteCourseCard', props);
   const instances = props.instances;
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');

@@ -14,21 +14,31 @@ const initialState = {
 };
 
 function inspectorReducer(state: any = initialState, action) {
+  // console.log('inspectorReducer', action, state);
+  const depInspector = state.depInspector;
+  let newState;
   switch (action.type) {
     case TYPES.SELECT_COURSE: // TODO: CAM not sure which way to go Object.assign or ...state.
-      return Object.assign({}, state, {
+      newState = Object.assign({}, state, {
         selectedCourseID: action.payload,
         selectedCourseInstanceID: '',
         selectedOpportunityID: '',
         selectedOpportunityInstanceID: '',
       });
+      return newState;
     case TYPES.SELECT_COURSE_INSTANCE:
-      return Object.assign({}, state, {
-        selectedCourseID: '',
-        selectedCourseInstanceID: action.payload,
-        selectedOpportunityID: '',
-        selectedOpportunityInstanceID: '',
-      });
+      newState = {
+        ...state,
+        depInspector: {
+          ...depInspector,
+          selectedCourseID: '',
+          selectedCourseInstanceID: action.payload,
+          selectedOpportunityID: '',
+          selectedOpportunityInstanceID: '',
+        },
+      };
+      // console.log('newState', newState);
+      return newState;
     case TYPES.SELECT_OPPORTUNITY:
       return {
         ...state,
@@ -40,10 +50,13 @@ function inspectorReducer(state: any = initialState, action) {
     case TYPES.SELECT_OPPORTUNITY_INSTANCE:
       return {
         ...state,
-        selectedCourseID: '',
-        selectedCourseInstanceID: '',
-        selectedOpportunityID: '',
-        selectedOpportunityInstanceID: action.payload,
+        depInspector: {
+          ...depInspector,
+          selectedCourseID: '',
+          selectedCourseInstanceID: '',
+          selectedOpportunityID: '',
+          selectedOpportunityInstanceID: action.payload,
+        },
       };
     default:
       return state;

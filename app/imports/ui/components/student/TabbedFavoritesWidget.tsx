@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
-import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import * as TYPES from '../../../redux/student/degree-planner/types';
+import { degreePlannerActions, degreePlannerTypes } from '../../../redux/student/degree-planner';
 import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
+import DepDetailsWidget from './DepDetailsWidget';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;
@@ -26,14 +26,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const active = (props) => {
+  // console.log(props);
   switch (props.selectedTab) {
-    case TYPES.SELECT_FAVORITE_OPPORTUNITIES:
+    case degreePlannerTypes.SELECT_FAVORITE_OPPORTUNITIES:
       return 0;
-    case TYPES.SELECT_FAVORITE_PLANS:
+    case degreePlannerTypes.SELECT_FAVORITE_PLANS:
       return 1;
-    case TYPES.SELECT_FAVORITE_COURSES:
+    case degreePlannerTypes.SELECT_FAVORITE_COURSES:
       return 2;
-    case TYPES.SELECT_FAVORITE_DETAILS:
+    case degreePlannerTypes.SELECT_FAVORITE_DETAILS:
       return 3;
     default:
       return 0;
@@ -93,7 +94,7 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key='FavoriteDetails'>DETAILS</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteDetailsPane' active={active(props) === 3}>Details</Tab.Pane>
+        <Tab.Pane key='FavoriteDetailsPane' active={active(props) === 3}><DepDetailsWidget/></Tab.Pane>
       ),
     },
   ];

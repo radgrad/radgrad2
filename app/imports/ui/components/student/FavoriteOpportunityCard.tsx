@@ -10,10 +10,10 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../shared/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-import * as Router from '../shared/RouterHelperFunctions';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
+import { buildRouteName } from './DepUtilityFunctions';
 
 interface IFavoriteOpportunityCardProps {
   match: any;
@@ -22,27 +22,8 @@ interface IFavoriteOpportunityCardProps {
   instances: IOpportunityInstance[];
 }
 
-const itemSlug = (item) => Slugs.findDoc(item.slugID).name;
-
-const buildRouteName = (match, item, type) => {
-  const itemName = itemSlug(item);
-  let route = '';
-  switch (type) {
-    case EXPLORER_TYPE.COURSES:
-      route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
-      break;
-    case EXPLORER_TYPE.OPPORTUNITIES:
-      route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
-      break;
-    default:
-      route = '#';
-      break;
-  }
-  return route;
-};
-
 const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
-  console.log('FavoriteOpportunityCard', props);
+  // console.log('FavoriteOpportunityCard', props);
   const instances = props.instances;
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
