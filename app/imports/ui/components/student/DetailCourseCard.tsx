@@ -39,7 +39,7 @@ const handleRemove = (event, { value }) => {
 };
 
 const DetailCourseCard = (props: IDetailCourseCardProps) => {
-  console.log('DetailCourseCard', props);
+  // console.log('DetailCourseCard', props);
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
