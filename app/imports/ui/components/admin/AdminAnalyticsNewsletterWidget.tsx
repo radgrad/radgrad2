@@ -484,22 +484,28 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
     const studentCompletedCourses = CourseInstances.find({ 'verified': true, 'studentID': student.userID }).fetch();
     let inPlanCourseSlugs400 = [];
+    let inPlanCourseSlugs300opt = [];
     let inPlanCourseSlugs = [];
     _.map(studentAcademicPlanDoc.courseList, (course) => {
       if (_.includes(course, '-') && _.includes(course, '_4')) {
         inPlanCourseSlugs400.push(course.substring(0, course.indexOf('-')));
+      } else if (_.includes(course, ',')) {
+        inPlanCourseSlugs300opt.push([course.substring(0, course.indexOf(',')), course.substring(course.indexOf(',') + 1, course.indexOf('-'))]);
       } else if (_.includes(course, '-')) {
         inPlanCourseSlugs.push(course.substring(0, course.indexOf('-')));
       }
     })
     const studentCompletedCourseSlugs = [];
-    const studentCompletedCourseSlugs300op1 = [];
-    const studentCompletedCoursesSlugs300op2 = [];
+    const studentCompletedCourseSlugs300op = [];
     const studentCompletedCourseSlugs400 = [];
     _.map(studentCompletedCourses, (course) => {
       let slugName = CourseInstances.getCourseSlug(course._id);
       if (_.includes(slugName, "_4")) {
         studentCompletedCourseSlugs400.push(slugName);
+      } else if (_.includes(slugName, '312' || '331')) {
+        studentCompletedCourseSlugs300op.push([slugName]);
+      } else if (_.includes(slugName, '313' || '361')) {
+        studentCompletedCourseSlugs300op.push([slugName]);
       } else {
         studentCompletedCourseSlugs.push(slugName)
       }
@@ -508,11 +514,52 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     _.each(studentCompletedCourseSlugs400, () => {
       inPlanCourseSlugs400.pop();
     });
+    console.log('in plan course slugs left', inPlanCourseSlugs400);
+    console.log('student completed 300 level slugs: ', studentCompletedCourseSlugs300op);
 
     const needsWork = _.difference(inPlanCourseSlugs, studentCompletedCourseSlugs);
-    const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
-    console.log('missing requirements', missingRequirements);
-    return missingRequirements;
+    if ((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length == 2 && (_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length == 2) {
+      //return "ics_312, ics_331"
+      console.log('ics_312,ics_331');
+      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1],inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1] , inPlanCourseSlugs400);
+      console.log(missingRequirements);
+      return missingRequirements;
+    } else if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length == 2)) {
+      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1], inPlanCourseSlugs400);
+      console.log(missingRequirements);
+      return missingRequirements;
+    } else if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length == 2)) {
+      // return "ics_313, ics_361"
+      console.log('in plan course slugs 300 level option: ', inPlanCourseSlugs300opt[1]);
+      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1], inPlanCourseSlugs400);
+      console.log(missingRequirements);
+      return missingRequirements;
+
+    } else {
+      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
+      console.log(missingRequirements);
+      return missingRequirements;
+
+    }
+
+
+    /*let missingRequirements;
+    if (missingpt1.length > 1 && missingpt2.length > 1) {
+      return missingRequirements = _.concat(needsWork, missingpt1, missingpt2, inPlanCourseSlugs400)
+    } else if (missingpt1.length > 1) {
+      missingRequirements = _.concat(needsWork, missingpt1, inPlanCourseSlugs400);
+      console.log(missingRequirements);
+      return missingRequirements;
+    } else if (missingpt2.length > 1) {
+      missingRequirements = _.concat(needsWork, missingpt2, inPlanCourseSlugs400);
+      console.log(missingRequirements);
+      return missingRequirements;
+    } else {
+
+      missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
+      console.log(missingRequirements);*/
+
+
   }
 
   private isAcademicPlanCompleted = (student) => {
