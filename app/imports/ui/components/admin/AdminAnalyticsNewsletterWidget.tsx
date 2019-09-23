@@ -25,9 +25,9 @@ import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
 import { AdvisorProfiles } from "../../../api/user/AdvisorProfileCollection";
 
 // TODO: bug hunting
-// check if user completed one of the "or" courses: 312 or 331, 313 or 361
-// check if check box is checked
-// take out unneccessary console logs
+// admin should be recieving copy of newsletter 09/16/19
+// currenty, admin recieves copy, but without student's information
+// should probably try to handle if the "send to student's too" checkbox is not checked
 const schema = new SimpleSchema({
   inputMessage: String,
   bcc: { type: String, optional: true },
@@ -155,7 +155,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       this.setState({
         message: {
           subjectLine: this.state.subjectLine,
-          bcc: this.state.bcc.split(','),
+          bcc: this.state.bcc.split(',') + 'radgrad@hawaii.edu',
           inputMessage: this.state.onSubmitInputMessage,
           recipients: [/*'radgrad@hawaii.edu'*/],
         }
@@ -170,17 +170,15 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       })
       // send copy to admin
       //trimmedEmails.push('radgrad@hawaii.edu');
-      console.log(trimmedEmails);
       _.map(trimmedEmails, (trimmedEmail) => {
         if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
           if (Users.isDefined(trimmedEmail) === true) {
-            console.log('trimmed email: ', trimmedEmail)
             const trimmedRecipients = [];
             trimmedRecipients.push(trimmedEmail)
             this.setState({
               message: {
                 subjectLine: this.state.subjectLine,
-                bcc: this.state.bcc.split(','),
+                bcc: this.state.bcc.split(',')  /* + 'radgrad@hawaii.edu'*/,
                 inputMessage: this.state.onSubmitInputMessage,
                 recipients: trimmedRecipients
               },
@@ -250,7 +248,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private generateEmail = (message) => {
-    console.log('generate email method message: ', message)
     const emailData = {
       to: message.recipients,
       from: 'Phillip Johnson <donotreply@mail.gun.radgrad.org>',
@@ -267,7 +264,6 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       filename: 'newsletter2.html',
     };
     _.map(message.recipients, (username) => {
-      console.log('generate email method: ', username)
       const informationForEmail = this.getInformationForEmail(username);
       emailData.subject = `Newsletter View For ${informationForEmail.recipientInfo.firstName} ${informationForEmail.recipientInfo.lastName}`;
       emailData.templateData.firstName = informationForEmail.recipientInfo.firstName;
@@ -284,10 +280,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private getInformationForEmail = (username) => {
-    // ToDo: need to fire swal if user not found
     const informationForEmail = {
       recipientInfo: {
-        username: '',
+        username: [],
         firstName: '',
         lastName: '',
       },
@@ -302,38 +297,37 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     //   informationForEmail.recipientInfo.username = username;
     //   informationForEmail.recipientInfo.firstName = 'Admin';
     // } else {
-    if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
-      const role = Users.findProfileFromUsername(username).role;
-      switch (role) {
-        case 'FACULTY':
-          const faculty = FacultyProfiles.findDoc(username);
-          informationForEmail.recipientInfo.username = faculty.username;
-          informationForEmail.recipientInfo.firstName = faculty.firstName;
-          informationForEmail.recipientInfo.lastName = faculty.lastName;
-        case 'ADVISOR':
-          const advisor = AdvisorProfiles.findDoc(username);
-          informationForEmail.recipientInfo.username = advisor.username;
-          informationForEmail.recipientInfo.firstName = advisor.firstName;
-          informationForEmail.recipientInfo.lastName = advisor.lastName;
-          break;
-        default:
-          break;
+      if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
+        const role = Users.findProfileFromUsername(username).role;
+        switch (role) {
+          case 'FACULTY':
+            const faculty = FacultyProfiles.findDoc(username);
+            informationForEmail.recipientInfo.username = faculty.username;
+            informationForEmail.recipientInfo.firstName = faculty.firstName;
+            informationForEmail.recipientInfo.lastName = faculty.lastName;
+          case 'ADVISOR':
+            const advisor = AdvisorProfiles.findDoc(username);
+            informationForEmail.recipientInfo.username = advisor.username;
+            informationForEmail.recipientInfo.firstName = advisor.firstName;
+            informationForEmail.recipientInfo.lastName = advisor.lastName;
+            break;
+          default:
+            break;
+        }
+        // use role to find collection to search
+        // search for user and return first and last name
+        // put in conditional if user is not found in Users Collections
+      } else {
+        const student = StudentProfiles.findDoc(username); // doc
+        const recommendations = this.getRecommendations(student); // array
+        informationForEmail.recipientInfo.username = student.username;
+        informationForEmail.recipientInfo.firstName = student.firstName;
+        informationForEmail.recipientInfo.lastName = student.lastName;
+        informationForEmail.emailInfo.recommendationOne = recommendations[0];
+        informationForEmail.emailInfo.recommendationTwo = recommendations[1];
+        informationForEmail.emailInfo.recommendationThree = recommendations[2];
       }
-      // use role to find collection to search
-      // search for user and return first and last name
-      // put in conditional if user is not found in Users Collections
-    } else {
-      const student = StudentProfiles.findDoc(username); // doc
-      const recommendations = this.getRecommendations(student); // array
-      informationForEmail.recipientInfo.username = student.username;
-      informationForEmail.recipientInfo.firstName = student.firstName;
-      informationForEmail.recipientInfo.lastName = student.lastName;
-      informationForEmail.emailInfo.recommendationOne = recommendations[0];
-      informationForEmail.emailInfo.recommendationTwo = recommendations[1];
-      informationForEmail.emailInfo.recommendationThree = recommendations[2];
-    }
-    // }
-    console.log('Information for email: ', informationForEmail);
+    //}
     return informationForEmail;
   }
 
@@ -480,7 +474,8 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     return html;
   }
 
-  private getRemainingRequirements = (student, studentAcademicPlanDoc) => {
+  private
+  getRemainingRequirements = (student, studentAcademicPlanDoc) => {
 
     const studentCompletedCourses = CourseInstances.find({ 'verified': true, 'studentID': student.userID }).fetch();
     let inPlanCourseSlugs400 = [];
@@ -514,52 +509,25 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     _.each(studentCompletedCourseSlugs400, () => {
       inPlanCourseSlugs400.pop();
     });
-    console.log('in plan course slugs left', inPlanCourseSlugs400);
-    console.log('student completed 300 level slugs: ', studentCompletedCourseSlugs300op);
 
     const needsWork = _.difference(inPlanCourseSlugs, studentCompletedCourseSlugs);
     if ((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length == 2 && (_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length == 2) {
       //return "ics_312, ics_331"
-      console.log('ics_312,ics_331');
-      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1],inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1] , inPlanCourseSlugs400);
-      console.log(missingRequirements);
+      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1], inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1], inPlanCourseSlugs400);
       return missingRequirements;
     } else if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length == 2)) {
       let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1], inPlanCourseSlugs400);
-      console.log(missingRequirements);
       return missingRequirements;
     } else if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length == 2)) {
       // return "ics_313, ics_361"
-      console.log('in plan course slugs 300 level option: ', inPlanCourseSlugs300opt[1]);
       let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1], inPlanCourseSlugs400);
-      console.log(missingRequirements);
       return missingRequirements;
 
     } else {
       let missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
-      console.log(missingRequirements);
       return missingRequirements;
 
     }
-
-
-    /*let missingRequirements;
-    if (missingpt1.length > 1 && missingpt2.length > 1) {
-      return missingRequirements = _.concat(needsWork, missingpt1, missingpt2, inPlanCourseSlugs400)
-    } else if (missingpt1.length > 1) {
-      missingRequirements = _.concat(needsWork, missingpt1, inPlanCourseSlugs400);
-      console.log(missingRequirements);
-      return missingRequirements;
-    } else if (missingpt2.length > 1) {
-      missingRequirements = _.concat(needsWork, missingpt2, inPlanCourseSlugs400);
-      console.log(missingRequirements);
-      return missingRequirements;
-    } else {
-
-      missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
-      console.log(missingRequirements);*/
-
-
   }
 
   private isAcademicPlanCompleted = (student) => {
