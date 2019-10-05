@@ -1011,13 +1011,14 @@ export interface ITeaserDefine extends IDumpOne {
   description: string;
   duration: string;
   interests: string[];
-  opportunity: string;
+  opportunity?: string;
+  targetSlug?: string;
   retired?: boolean;
 }
 
 export interface ITeaserUpdate {
   title?: string;
-  opportunity?: string;
+  targetSlug?: string;
   interests?: string[];
   author?: string;
   url?: string;
@@ -1028,7 +1029,7 @@ export interface ITeaserUpdate {
 
 export interface ITeaserUpdateData {
   title?: string;
-  opportunityID?: string;
+  targetSlugID?: string;
   interestIDs?: string[];
   author?: string;
   url?: string;

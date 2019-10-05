@@ -7,8 +7,6 @@ import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { IStarDataObject } from '../../typings/radgrad'; // eslint-disable-line
 
-/* global isNaN */
-
 /**
  * Given the semester string from STAR (for example, 'Fall 2015 ext'), parses it, defines the corresponding academicTerm,
  * and returns the AcademicTerm slug.

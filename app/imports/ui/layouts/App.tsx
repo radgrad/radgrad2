@@ -55,7 +55,7 @@ class App extends React.Component {
 const ProtectedRoute = ({ component: Component, ...rest }) => ( // eslint-disable-line
   <Route
     {...rest}
-    render={(props) => {
+    render={(props: any) => {
       const isLogged = Meteor.userId() !== null;
       return isLogged ?
         (<Component {...props} />) :
@@ -75,7 +75,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => { // eslint-d
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
@@ -93,7 +93,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => { // eslint
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return (isLogged && isAllowed) ?
@@ -111,7 +111,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => { // eslint
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return (isLogged && isAllowed) ?
@@ -128,7 +128,7 @@ const MentorProtectedRoute = ({ component: Component, ...rest }) => { // eslint-
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.MENTOR]);
         return (isLogged && isAllowed) ?
@@ -145,7 +145,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => { // eslint
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         const isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
