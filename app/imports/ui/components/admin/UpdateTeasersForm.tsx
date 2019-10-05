@@ -9,14 +9,23 @@ import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { IAcademicTerm, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
-import { docToName, interestIdToName, opportunityIdToName } from '../shared/AdminDataModelHelperFunctions';
+import {
+  docToName, docToSlugName,
+  docToSlugNameAndType,
+  interestIdToName,
+  opportunityIdToName,
+} from '../shared/AdminDataModelHelperFunctions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import MultiSelectField from '../shared/MultiSelectField';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Courses } from '../../../api/course/CourseCollection';
 
 interface IUpdateTeaserFormProps {
+  careerGoals: ICareerGoal[];
+  courses: ICourse[];
   interests: IInterest[];
   opportunities: IOpportunity[];
   collection: BaseCollection;
@@ -35,14 +44,20 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const model = this.props.collection.findDoc(this.props.id);
+    model.slug = docToSlugName(model);
     model.opportunity = opportunityIdToName(model.opportunityID);
     model.interests = _.map(model.interestIDs, interestIdToName);
-    const opportunityNames = _.map(this.props.opportunities, docToName);
+    model.youtubeID = model.url;
     const interestNames = _.map(this.props.interests, docToName);
+    const opportunitySlugs = _.map(this.props.opportunities, docToSlugNameAndType);
+    const courseSlugs = _.map(this.props.courses, docToSlugNameAndType);
+    const interestSlugs = _.map(this.props.interests, docToSlugNameAndType);
+    const careerGoalSlugs = _.map(this.props.careerGoals, docToSlugNameAndType);
     const schema = new SimpleSchema({
-      title: { type: String, optional: true },
+      title: String,
+      slug: String,
       author: { type: String, optional: true },
-      url: { type: String, optional: true },
+      youtubeID: { type: String, optional: true },
       description: { type: String, optional: true },
       duration: { type: String, optional: true },
       interests: {
@@ -53,7 +68,7 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
         type: String,
         allowedValues: interestNames,
       },
-      opportunity: { type: String, allowedValues: opportunityNames, optional: true },
+      targetSlug: { type: String, allowedValues: opportunitySlugs.concat(courseSlugs.concat(interestSlugs.concat(careerGoalSlugs))), optional: true },
       retired: { type: Boolean, optional: true },
     });
     return (
@@ -63,16 +78,17 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
                   showInlineError={true} model={model}>
           <Form.Group widths="equal">
             <TextField name="title"/>
+            <TextField name="slug" disabled={true}/>
             <TextField name="author"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <TextField name="url"/>
+            <SelectField name="targetSlug"/>
+            <TextField name="youtubeID"/>
             <TextField name="duration"/>
           </Form.Group>
           <LongTextField name="description"/>
           <Form.Group widths="equal">
             <MultiSelectField name="interests"/>
-            <SelectField name="opportunity"/>
           </Form.Group>
           <BoolField name="retired"/>
           <SubmitField/>
@@ -84,9 +100,13 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
 }
 
 const UpdateTeaserFormContainer = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
+  const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
+  const courses = Courses.findNonRetired({}, { sort: { num: 1 } });
+  const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
+  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   return {
+    careerGoals,
+    courses,
     interests,
     opportunities,
   };

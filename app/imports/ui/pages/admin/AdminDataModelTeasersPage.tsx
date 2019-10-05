@@ -10,7 +10,7 @@ import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/rad
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { makeMarkdownLink } from './datamodel-utilities';
+import { makeYoutubeLink } from './datamodel-utilities';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddTeaserForm from '../../components/admin/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
@@ -31,7 +31,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
   { label: 'Author', value: item.author },
   { label: 'Duration', value: item.duration },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-  { label: 'URL', value: makeMarkdownLink(item.url) },
+  { label: 'Youtube ID', value: makeYoutubeLink(item.url) },
   { label: 'Opportunity', value: Opportunities.findDoc(item.opportunityID).name },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
@@ -68,7 +68,9 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     definitionData.interests = _.map(doc.interests, interestNameToSlug);
-    definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+    definitionData.targetSlug = doc.targetSlug.split(' ')[0];
+    definitionData.url = doc.youtubeID;
+    // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
