@@ -3,6 +3,7 @@ import { Container, Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
+import { toUpper } from './helper-functions';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
@@ -22,8 +23,6 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
     super(props);
   }
 
-  private toUpper = (string) => string.toUpperCase();
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const segmentGroupStyle = { backgroundColor: 'white' };
     const segmentClearingBasicStyle = {
@@ -42,7 +41,7 @@ class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps>
         <Container>
           <Segment padded={true}>
             <Segment clearing={true} basic={true} style={segmentClearingBasicStyle}>
-              <Header floated="left" as="h4">{this.toUpper(name)}</Header>
+              <Header floated="left" as="h4">{toUpper(name)}</Header>
             </Segment>
 
             <Divider style={dividerStyle}/>

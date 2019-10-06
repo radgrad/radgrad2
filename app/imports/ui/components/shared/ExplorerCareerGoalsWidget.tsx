@@ -12,6 +12,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { getUsername, renderLink } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
+import { toUpper } from './helper-functions';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -33,8 +34,6 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
   constructor(props) {
     super(props);
   }
-
-  private toUpper = (string) => string.toUpperCase();
 
   private isLabel = (descriptionPairLabel, comp) => descriptionPairLabel === comp;
 
@@ -100,7 +99,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const centerAlignedColumnStyle = { minWidth: '25%' };
 
     const { name, descriptionPairs, socialPairs, item, match } = this.props;
-    const upperName = this.toUpper(name);
+    const upperName = toUpper(name);
     const userStatus = this.userStatus(item);
 
     return (
@@ -154,7 +153,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
             <Grid stackable={true} celled={'internally'}>
               {socialPairs.map((socialPair, index) => (
                 <Grid.Column key={index} textAlign={'center'} style={centerAlignedColumnStyle}>
-                  <h5>{this.toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
+                  <h5>{toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
 
                   <Image.Group size="mini" style={imageGroupStyle}>
                     {socialPair.value.map((user) => <Popup

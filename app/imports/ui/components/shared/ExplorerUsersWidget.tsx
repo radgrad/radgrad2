@@ -10,6 +10,7 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import InterestList from './InterestList';
 import UserAnswersComponent from './UserAnswersComponent';
+import { capitalizeFirstOnly } from './helper-functions';
 
 /* global window */
 
@@ -29,11 +30,6 @@ interface IExplorerUsersWidgetProps {
  * @return {Dimmer} */
 class ExplorerUsersWidget extends React.Component<IExplorerUsersWidgetProps> {
   private isRole = (compareRole: string, ...otherRoles: string[]): boolean => this.props.userProfile.role === compareRole || _.includes(otherRoles, this.props.userProfile.role);
-
-  private capitalizeFirstOnly = (str) => {
-    const firstLetter = str.substr(0, 1);
-    return firstLetter.toUpperCase() + str.substr(1).toLowerCase();
-  };
 
   private openInNewTab = () => {
     const win = window.open(this.props.userProfile.website, '_blank');
@@ -60,7 +56,7 @@ class ExplorerUsersWidget extends React.Component<IExplorerUsersWidgetProps> {
             <Image src={p.picture ? p.picture : defaultProfilePicture} floated={'right'} size={'tiny'}/>
             <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
             <Card.Meta>
-              {this.capitalizeFirstOnly(p.role)}<br/>
+              {capitalizeFirstOnly(p.role)}<br/>
               {desiredDegree ? <React.Fragment>{desiredDegree.shortName}<br/></React.Fragment> : undefined}
               {level ?
                 <Image style={{ padding: '5px' }} size={'mini'}
