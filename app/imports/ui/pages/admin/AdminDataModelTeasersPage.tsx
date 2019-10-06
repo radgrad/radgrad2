@@ -11,7 +11,6 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { makeYoutubeLink } from './datamodel-utilities';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddTeaserForm from '../../components/admin/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
 import {
@@ -20,6 +19,7 @@ import {
   slugNameAndTypeToName,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 const collection = Teasers; // the collection to use.
 
@@ -33,7 +33,7 @@ const descriptionPairs = (item: ITeaser): IDescriptionPair[] => [
   { label: 'Duration', value: item.duration },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
   { label: 'Youtube ID', value: makeYoutubeLink(item.url) },
-  { label: 'Opportunity', value: Opportunities.findDoc(item.opportunityID).name },
+  { label: 'Target Slug', value: Slugs.findDoc(item.targetSlugID).name },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
 
@@ -138,13 +138,13 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
   };
 
   private handleUpdate = (doc) => {
-    console.log('Teasers.handleUpdate doc=%o', doc);
+    // console.log('Teasers.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.interests = _.map(doc.interests, interestNameToSlug);
     updateData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
-    console.log(collectionName, updateData);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
