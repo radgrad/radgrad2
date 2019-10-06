@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IInterestType } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -14,6 +14,7 @@ import AddInterestTypeForm from '../../components/admin/AddInterestTypeForm';
 import UpdateInterestTypeForm from '../../components/admin/UpdateInterestTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { docToSlugName } from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = InterestTypes; // the collection to use.
 
@@ -31,7 +32,7 @@ function numReferences(interestType) {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IInterestType): IDescriptionPair[] => [
   { label: 'Name', value: item.name },
   { label: 'Slug', value: `${Slugs.findDoc(item.slugID).name}` },
   { label: 'Description', value: item.description },
@@ -43,7 +44,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}`;
+const itemTitleString = (item: IInterestType): string => `${item.name} (${docToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

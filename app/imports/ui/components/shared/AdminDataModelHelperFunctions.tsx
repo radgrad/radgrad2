@@ -45,6 +45,8 @@ export const docToShortName = (doc) => doc.shortName;
 
 export const docToSlugName = (doc) => Slugs.findDoc(doc.slugID).name;
 
+export const docToSlugNameAndType = (doc) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
+
 export const interestIdToName = (id) => Interests.findDoc(id).name;
 
 export const interestNameToId = (name) => Interests.findDoc(name)._id;
@@ -104,9 +106,11 @@ export const profileToUsername = (profile) => profile.username;
 
 export const profileNameToUsername = (name) => name.substring(name.indexOf('(') + 1, name.indexOf(')'));
 
+export const slugIDToSlugNameAndType = (slugID) => `${Slugs.findDoc(slugID).name} (${Slugs.findDoc(slugID).entityName})`;
+
+export const slugNameAndTypeToName = (slugAndType) => slugAndType.split(' ')[0];
+
 export const userIdToName = (userID) => {
   const profile = Users.getProfile(userID);
   return `${Users.getFullName(userID)} (${profile.username})`;
 };
-
-export const docToSlugNameAndType = (doc) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;

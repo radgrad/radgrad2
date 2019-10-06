@@ -19,6 +19,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { docToSlugName } from '../../components/shared/AdminDataModelHelperFunctions';
 
 function numReferences(careerGoal) {
   let references = 0;
@@ -36,7 +37,7 @@ const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => [
     { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
   ];
 
-const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name}`;
+const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name} (${docToSlugName(careerGoal)})`;
 
 const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
     <React.Fragment>

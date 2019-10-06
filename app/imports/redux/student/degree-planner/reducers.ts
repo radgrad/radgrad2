@@ -15,20 +15,22 @@ const initialState = {
 
 function inspectorReducer(state: any = initialState, action) {
   switch (action.type) {
-    case TYPES.SELECT_COURSE: // TODO: CAM not sure which way to go Object.assign or ...state.
-      return Object.assign({}, state, {
+    case TYPES.SELECT_COURSE:
+      return {
+        ...state,
         selectedCourseID: action.payload,
         selectedCourseInstanceID: '',
         selectedOpportunityID: '',
         selectedOpportunityInstanceID: '',
-      });
+      };
     case TYPES.SELECT_COURSE_INSTANCE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         selectedCourseID: '',
         selectedCourseInstanceID: action.payload,
         selectedOpportunityID: '',
         selectedOpportunityInstanceID: '',
-      });
+      };
     case TYPES.SELECT_OPPORTUNITY:
       return {
         ...state,

@@ -1003,6 +1003,19 @@ export interface IStarDataObject {
 }
 
 // Teasers
+export interface ITeaser {
+  title: string;
+  slugID: string;
+  author: string;
+  url: string;
+  description: string;
+  interestIDs: string[];
+  opportunityID?: string;
+  targetSlugID?: string;
+  duration?: string;
+  retired?: boolean;
+}
+
 export interface ITeaserDefine extends IDumpOne {
   title: string;
   slug: string;

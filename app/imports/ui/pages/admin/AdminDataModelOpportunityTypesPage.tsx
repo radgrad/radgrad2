@@ -6,7 +6,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IOpportunityType } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -14,6 +14,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/UpdateOpportunityTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { docToSlugName } from '../../components/shared/AdminDataModelHelperFunctions';
 
 const collection = OpportunityTypes; // the collection to use.
 
@@ -31,7 +32,7 @@ function numReferences(opportunityType) {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IOpportunityType): IDescriptionPair[] => [
   { label: 'Name', value: item.name },
   { label: 'Slug', value: `${Slugs.findDoc(item.slugID).name}` },
   { label: 'Description', value: item.description },
@@ -43,13 +44,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}`;
+const itemTitleString = (item: IOpportunityType): string => `${item.name} (${docToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IOpportunityType): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash"/> : ''}
     <Icon name="dropdown"/>

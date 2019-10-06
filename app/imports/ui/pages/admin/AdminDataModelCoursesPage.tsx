@@ -5,7 +5,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, ICourse, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -13,7 +13,7 @@ import { makeMarkdownLink } from './datamodel-utilities';
 import { Interests } from '../../../api/interest/InterestCollection';
 import {
   courseNameToSlug,
-  courseToName,
+  courseToName, docToSlugName,
   interestNameToId,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import AddCourseForm from '../../components/admin/AddCourseForm';
@@ -46,13 +46,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => courseToName(item);
+const itemTitleString = (item: ICourse): string => `${courseToName(item)} (${docToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: ICourse): React.ReactNode => (
     <React.Fragment>
       {item.retired ? <Icon name="eye slash"/> : ''}
       <Icon name="dropdown"/>

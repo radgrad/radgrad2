@@ -5,7 +5,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -15,7 +15,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import AddOpportunityForm from '../../components/admin/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/UpdateOpportunityForm';
 import {
-  academicTermNameToSlug,
+  academicTermNameToSlug, docToSlugName,
   opportunityTypeNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/AdminDataModelHelperFunctions';
@@ -43,13 +43,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}`;
+const itemTitleString = (item: IOpportunity): string => `${item.name} (${docToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IOpportunity): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash"/> : ''}
     <Icon name="dropdown"/>

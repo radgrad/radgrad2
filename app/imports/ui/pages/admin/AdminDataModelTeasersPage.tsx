@@ -6,7 +6,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, ITeaser } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -15,8 +15,9 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddTeaserForm from '../../components/admin/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
 import {
+  docToSlugName,
   interestNameToSlug,
-  opportunityNameToSlug,
+  slugNameAndTypeToName,
 } from '../../components/shared/AdminDataModelHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
@@ -26,7 +27,7 @@ const collection = Teasers; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: ITeaser): IDescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Author', value: item.author },
   { label: 'Duration', value: item.duration },
@@ -40,13 +41,17 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => item.title;
+const itemTitleString = (item: ITeaser): string => {
+  const slugName = docToSlugName(item);
+  const title = `${item.title} (${slugName})`;
+  return title;
+};
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: ITeaser): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash"/> : ''}
     <Icon name="dropdown"/>
@@ -68,7 +73,7 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
     definitionData.interests = _.map(doc.interests, interestNameToSlug);
-    definitionData.targetSlug = doc.targetSlug.split(' ')[0];
+    definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
     definitionData.url = doc.youtubeID;
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
@@ -133,12 +138,13 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
   };
 
   private handleUpdate = (doc) => {
-    // console.log('Teasers.handleUpdate doc=%o', doc);
+    console.log('Teasers.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.interests = _.map(doc.interests, interestNameToSlug);
-    updateData.opportunity = opportunityNameToSlug(doc.opportunity);
+    updateData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

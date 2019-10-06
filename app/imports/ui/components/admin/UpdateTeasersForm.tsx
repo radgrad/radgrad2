@@ -15,7 +15,7 @@ import {
   docToName, docToSlugName,
   docToSlugNameAndType,
   interestIdToName,
-  opportunityIdToName,
+  opportunityIdToName, slugIDToSlugNameAndType,
 } from '../shared/AdminDataModelHelperFunctions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -48,6 +48,7 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
     model.opportunity = opportunityIdToName(model.opportunityID);
     model.interests = _.map(model.interestIDs, interestIdToName);
     model.youtubeID = model.url;
+    const modelSlugAndType = slugIDToSlugNameAndType(model.targetSlugID);
     const interestNames = _.map(this.props.interests, docToName);
     const opportunitySlugs = _.map(this.props.opportunities, docToSlugNameAndType);
     const courseSlugs = _.map(this.props.courses, docToSlugNameAndType);
@@ -68,7 +69,7 @@ class UpdateTeaserForm extends React.Component<IUpdateTeaserFormProps> {
         type: String,
         allowedValues: interestNames,
       },
-      targetSlug: { type: String, allowedValues: opportunitySlugs.concat(courseSlugs.concat(interestSlugs.concat(careerGoalSlugs))), optional: true },
+      targetSlug: { type: String, allowedValues: opportunitySlugs.concat(courseSlugs.concat(interestSlugs.concat(careerGoalSlugs))), optional: true, defaultValue: modelSlugAndType },
       retired: { type: Boolean, optional: true },
     });
     return (
