@@ -18,6 +18,7 @@ import { UserInteractions } from '../../../api/analytic/UserInteractionCollectio
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { toUpper } from './helper-functions';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -169,6 +170,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
     const userStatus = this.userStatus(item);
     const futureInstance = this.futureInstance(item);
     const passedCourse = this.passedCourse(item);
+    const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
 
     return (
       <div>
@@ -209,7 +211,10 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
             </Segment>
 
             <Divider style={zeroMarginTopStyle}/>
-
+            <div style={fiveMarginTopStyle}><InterestList item={item} size="mini"/></div>
+            {
+              hasTeaser ? 'teaser' : 'no teaser'
+            }
             <Grid stackable={true} columns={2}>
               <Grid.Column width={6}>
                 {
@@ -291,12 +296,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
                                 <React.Fragment> N/A <br/></React.Fragment>
                             }
                           </React.Fragment>
-                          : ''
-                      }
-
-                      {
-                        this.isLabel(descriptionPair.label, 'Interests') ?
-                          <div style={fiveMarginTopStyle}><InterestList item={item} size="mini"/></div>
                           : ''
                       }
                     </React.Fragment>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider, Image, Popup } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Divider, Image, Popup, Embed } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -53,6 +53,14 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
   };
 
   private fullName = (user) => Users.getFullName(user);
+
+  private teaserUrlHelper = (): string => {
+    const teaser = Teasers.findNonRetired({ targetSlugID: this.props.item.slugID });
+    if (teaser.length > 1) {
+      return undefined;
+    }
+    return teaser && teaser[0] && teaser[0].url;
+  };
 
   private handleAdd = (event) => {
     event.preventDefault();
@@ -151,7 +159,26 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
                       }
                     </Grid.Column>
                     <Grid.Column width={7}>
-
+                      {
+                        descriptionPairs.map((descriptionPair, index) => (
+                          <React.Fragment key={index}>
+                            {
+                              this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
+                                <React.Fragment>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <Embed active={true} autoplay={false} source="youtube"
+                                             id={this.teaserUrlHelper()}/>
+                                      :
+                                      <p> N/A </p>
+                                  }
+                                </React.Fragment>
+                                : ''
+                            }
+                          </React.Fragment>
+                        ))
+                      }
                     </Grid.Column>
                   </Grid>
                 )
