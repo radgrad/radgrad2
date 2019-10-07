@@ -7,7 +7,6 @@ import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-d
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import ProfileAdd from './ProfileAdd';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
@@ -80,7 +79,7 @@ class PlanCard extends React.Component<IPlanCard> {
   private itemSlug = (item: IAcademicPlan): string => Slugs.findDoc(item.slugID).name;
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { type, canAdd, item } = this.props;
+    const { type, item } = this.props;
     const itemName = this.itemName(item);
     const itemShortDescription = this.itemShortDescription(item);
     const numberStudents = this.numberStudents(item);
@@ -113,8 +112,6 @@ class PlanCard extends React.Component<IPlanCard> {
           <Link className="ui button" to={this.buildRouteName(itemSlug)}>
             <Icon name="chevron circle right"/><br/>View More
           </Link>
-
-          {canAdd ? <ProfileAdd item={item} type={type}/> : ''}
         </Button.Group>
       </Card>
     );

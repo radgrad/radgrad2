@@ -56,7 +56,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       ret = true;
     }
     return ret;
-  }
+  };
 
   private futureInstance = (opportunity: IOpportunity): boolean => {
     let ret = false;
@@ -71,7 +71,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       }
     });
     return ret;
-  }
+  };
 
   private unverified = (opportunity: IOpportunity): boolean => {
     let ret = false;
@@ -85,12 +85,12 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       }
     });
     return ret;
-  }
+  };
 
   private replaceTermString = (array: string[]): string => {
     const termString = array.join(', ');
     return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
-  }
+  };
 
   private review = (): object => {
     const review = Reviews.find({
@@ -98,7 +98,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       revieweeID: this.props.item._id,
     }).fetch();
     return review[0];
-  }
+  };
 
   private teaserUrlHelper = (): string => {
     const opportunityID = Slugs.getEntityID(this.props.match.params.opportunity, 'Opportunity');
@@ -107,7 +107,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       return undefined;
     }
     return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const segmentGroupStyle = { backgroundColor: 'white' };
@@ -129,7 +129,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
     const userStatus = this.userStatus(item);
     const futureInstance = this.futureInstance(item);
     const unverified = this.unverified(item);
-
+    const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
     return (
       <div>
         <Segment.Group style={segmentGroupStyle}>
@@ -177,137 +177,248 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
             </Segment>
 
             <Divider style={zeroMarginTopStyle}/>
-
-            <Grid stackable={true} columns={2}>
-              <Grid.Column width={5}>
-                {
-                  descriptionPairs.map((descriptionPair, index) => (
-                    <React.Fragment key={index}>
+            <div style={fiveMarginTopStyle}>
+              <InterestList item={item} size="mini"/>
+            </div>
+            {
+              hasTeaser ?
+                (
+                  <Grid stackable={true} columns={2}>
+                    <Grid.Column width={9}>
                       {
-                        this.isLabel(descriptionPair.label, 'Opportunity Type') ?
-                          <React.Fragment>
-                            <b>{descriptionPair.label}:</b>
+                        descriptionPairs.map((descriptionPair, index) => (
+                          <React.Fragment key={index}>
                             {
-                              descriptionPair.value ?
-                                <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
-                                :
-                                <React.Fragment> N/A <br/></React.Fragment>
-                            }
-                          </React.Fragment>
-                          : ''
-                      }
-
-                      {
-                        this.isLabel(descriptionPair.label, 'Sponsor') ?
-                          <React.Fragment>
-                            <b>{descriptionPair.label}:</b>
-                            {
-                              descriptionPair.value ?
+                              this.isLabel(descriptionPair.label, 'Opportunity Type') ?
                                 <React.Fragment>
-                                  <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
+                                      :
+                                      <React.Fragment> N/A <br/></React.Fragment>
+                                  }
                                 </React.Fragment>
-                                :
-                                <React.Fragment> N/A <br/></React.Fragment>
+                                : ''
                             }
-                          </React.Fragment>
-                          : ''
-                      }
-                    </React.Fragment>
-
-                  ))
-                }
-              </Grid.Column>
-
-              <Grid.Column width={11}>
-                {
-                  descriptionPairs.map((descriptionPair, index) => (
-                    <React.Fragment key={index}>
-                      {
-                        this.isLabel(descriptionPair.label, 'Semesters') ?
-                          <React.Fragment>
-                            <b>{descriptionPair.label}:</b>
                             {
-                              descriptionPair.value ?
+                              this.isLabel(descriptionPair.label, 'Semesters') ?
                                 <React.Fragment>
-                                  <span style={breakWordStyle}> {this.replaceTermString(descriptionPair.value)}</span>
-                                  <br/>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <React.Fragment>
+                                        <span
+                                          style={breakWordStyle}> {this.replaceTermString(descriptionPair.value)}</span>
+                                        <br/>
+                                      </React.Fragment>
+                                      :
+                                      <React.Fragment> N/A <br/></React.Fragment>
+                                  }
                                 </React.Fragment>
-                                :
-                                <React.Fragment> N/A <br/></React.Fragment>
+                                : ''
                             }
-                          </React.Fragment>
-                          : ''
-                      }
-
-                      {
-                        this.isLabel(descriptionPair.label, 'Event Date') ?
-                          <React.Fragment>
-                            <b>{descriptionPair.label}:</b>
                             {
-                              descriptionPair.value ?
+                              this.isLabel(descriptionPair.label, 'Sponsor') ?
                                 <React.Fragment>
-                                  <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <React.Fragment>
+                                        <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
+                                      </React.Fragment>
+                                      :
+                                      <React.Fragment> N/A <br/></React.Fragment>
+                                  }
                                 </React.Fragment>
-                                :
-                                <React.Fragment> N/A <br/></React.Fragment>
+                                : ''
                             }
-                          </React.Fragment>
-                          : ''
-                      }
-                    </React.Fragment>
-
-                  ))
-                }
-              </Grid.Column>
-            </Grid>
-
-            <Grid stackable={true}>
-              <Grid.Column style={zeroMarginTopStyle}>
-                {
-                  descriptionPairs.map((descriptionPair, index) => (
-                    <React.Fragment key={index}>
-                      {
-                        this.isLabel(descriptionPair.label, 'Description') ?
-                          <React.Fragment>
-                            <b>{descriptionPair.label}:</b>
                             {
-                              descriptionPair.value ?
-                                <Markdown escapeHtml={true} source={descriptionPair.value}
-                                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                                :
-                                <React.Fragment> N/A </React.Fragment>
+                              this.isLabel(descriptionPair.label, 'Description') ?
+                                <React.Fragment>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <Markdown escapeHtml={true} source={descriptionPair.value}
+                                                renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+                                      :
+                                      <React.Fragment> N/A </React.Fragment>
+                                  }
+                                </React.Fragment>
+                                : ''
                             }
                           </React.Fragment>
-                          : ''
+                        ))
                       }
-
+                    </Grid.Column>
+                    <Grid.Column width={7}>
                       {
-                        this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
-                          <React.Fragment>
-                            <b>{descriptionPair.label}:</b>
+                        descriptionPairs.map((descriptionPair, index) => (
+                          <React.Fragment key={index}>
                             {
-                              descriptionPair.value ?
-                                <Embed active={true} autoplay={false} source="youtube" id={this.teaserUrlHelper()}/>
-                                :
-                                <p> N/A </p>
+                              this.isLabel(descriptionPair.label, 'Event Date') ?
+                                <React.Fragment>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <React.Fragment>
+                                        <span style={breakWordStyle}> {descriptionPair.value.toString()}</span> <br/>
+                                      </React.Fragment>
+                                      :
+                                      <React.Fragment> N/A <br/></React.Fragment>
+                                  }
+                                </React.Fragment>
+                                : ''
+                            }
+                            {
+                              this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
+                                <React.Fragment>
+                                  <b>{descriptionPair.label}:</b>
+                                  {
+                                    descriptionPair.value ?
+                                      <Embed active={true} autoplay={false} source="youtube"
+                                             id={this.teaserUrlHelper()}/>
+                                      :
+                                      <p> N/A </p>
+                                  }
+                                </React.Fragment>
+                                : ''
                             }
                           </React.Fragment>
-                          : ''
+                        ))
                       }
+                    </Grid.Column>
+                  </Grid>
+                )
+                :
+                (
+                  <React.Fragment>
+                    <Grid stackable={true} columns={2}>
+                      <Grid.Column width={5}>
+                        {
+                          descriptionPairs.map((descriptionPair, index) => (
+                            <React.Fragment key={index}>
+                              {
+                                this.isLabel(descriptionPair.label, 'Opportunity Type') ?
+                                  <React.Fragment>
+                                    <b>{descriptionPair.label}:</b>
+                                    {
+                                      descriptionPair.value ?
+                                        <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
+                                        :
+                                        <React.Fragment> N/A <br/></React.Fragment>
+                                    }
+                                  </React.Fragment>
+                                  : ''
+                              }
 
-                      {
-                        this.isLabel(descriptionPair.label, 'Interests') ?
-                          <div style={fiveMarginTopStyle}>
-                            <InterestList item={item} size="mini"/>
-                          </div>
-                          : ''
-                      }
-                    </React.Fragment>
+                              {
+                                this.isLabel(descriptionPair.label, 'Sponsor') ?
+                                  <React.Fragment>
+                                    <b>{descriptionPair.label}:</b>
+                                    {
+                                      descriptionPair.value ?
+                                        <React.Fragment>
+                                          <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
+                                        </React.Fragment>
+                                        :
+                                        <React.Fragment> N/A <br/></React.Fragment>
+                                    }
+                                  </React.Fragment>
+                                  : ''
+                              }
+                            </React.Fragment>
 
-                  ))
-                }
-              </Grid.Column>
-            </Grid>
+                          ))
+                        }
+                      </Grid.Column>
+
+                      <Grid.Column width={11}>
+                        {
+                          descriptionPairs.map((descriptionPair, index) => (
+                            <React.Fragment key={index}>
+                              {
+                                this.isLabel(descriptionPair.label, 'Semesters') ?
+                                  <React.Fragment>
+                                    <b>{descriptionPair.label}:</b>
+                                    {
+                                      descriptionPair.value ?
+                                        <React.Fragment>
+                                          <span
+                                            style={breakWordStyle}> {this.replaceTermString(descriptionPair.value)}</span>
+                                          <br/>
+                                        </React.Fragment>
+                                        :
+                                        <React.Fragment> N/A <br/></React.Fragment>
+                                    }
+                                  </React.Fragment>
+                                  : ''
+                              }
+
+                              {
+                                this.isLabel(descriptionPair.label, 'Event Date') ?
+                                  <React.Fragment>
+                                    <b>{descriptionPair.label}:</b>
+                                    {
+                                      descriptionPair.value ?
+                                        <React.Fragment>
+                                          <span style={breakWordStyle}> {descriptionPair.value.toString()}</span> <br/>
+                                        </React.Fragment>
+                                        :
+                                        <React.Fragment> N/A <br/></React.Fragment>
+                                    }
+                                  </React.Fragment>
+                                  : ''
+                              }
+                            </React.Fragment>
+
+                          ))
+                        }
+                      </Grid.Column>
+                    </Grid>
+                    <Grid stackable={true}>
+                      <Grid.Column style={zeroMarginTopStyle}>
+                        {
+                          descriptionPairs.map((descriptionPair, index) => (
+                            <React.Fragment key={index}>
+                              {
+                                this.isLabel(descriptionPair.label, 'Description') ?
+                                  <React.Fragment>
+                                    <b>{descriptionPair.label}:</b>
+                                    {
+                                      descriptionPair.value ?
+                                        <Markdown escapeHtml={true} source={descriptionPair.value}
+                                                  renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+                                        :
+                                        <React.Fragment> N/A </React.Fragment>
+                                    }
+                                  </React.Fragment>
+                                  : ''
+                              }
+
+                              {
+                                this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
+                                  <React.Fragment>
+                                    <b>{descriptionPair.label}:</b>
+                                    {
+                                      descriptionPair.value ?
+                                        <Embed active={true} autoplay={false} source="youtube"
+                                               id={this.teaserUrlHelper()}/>
+                                        :
+                                        <p> N/A </p>
+                                    }
+                                  </React.Fragment>
+                                  : ''
+                              }
+                            </React.Fragment>
+
+                          ))
+                        }
+                      </Grid.Column>
+                    </Grid>
+                  </React.Fragment>
+                )
+            }
           </Segment>
         </Segment.Group>
 
