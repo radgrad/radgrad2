@@ -13,6 +13,14 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
+interface IHasName {
+  name: string;
+}
+
+interface IHasSlugID {
+  slugID: string;
+}
+
 export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
 
 export const academicPlanNameToSlug = (name) => Slugs.getNameFromID(AcademicPlans.findDoc(name).slugID);
@@ -39,13 +47,13 @@ export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.get
 
 export const degreeShortNameToSlug = (shortName) => Slugs.getNameFromID(DesiredDegrees.findDoc({ shortName }).slugID);
 
-export const docToName = (doc) => doc.name;
+export const docToName = (doc: IHasName) => doc.name;
 
 export const docToShortName = (doc) => doc.shortName;
 
-export const docToSlugName = (doc) => Slugs.findDoc(doc.slugID).name;
+export const docToSlugName = (doc: IHasSlugID) => Slugs.findDoc(doc.slugID).name;
 
-export const docToSlugNameAndType = (doc) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
+export const docToSlugNameAndType = (doc: IHasSlugID) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
 
 export const interestIdToName = (id) => Interests.findDoc(id).name;
 
