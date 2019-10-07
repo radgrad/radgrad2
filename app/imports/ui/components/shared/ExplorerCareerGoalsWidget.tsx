@@ -13,6 +13,7 @@ import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { getUsername, renderLink } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { toUpper } from './helper-functions';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -40,7 +41,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
   private userPicture = (user) => {
     const picture = Users.getProfile(user).picture;
     return picture || defaultProfilePicture;
-  }
+  };
 
   private userStatus = (careerGoal) => {
     let ret = false;
@@ -49,7 +50,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
       ret = true;
     }
     return ret;
-  }
+  };
 
   private fullName = (user) => Users.getFullName(user);
 
@@ -68,7 +69,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
         console.log('Error updating career goals', error);
       }
     });
-  }
+  };
 
   private handleDelete = (event) => {
     event.preventDefault();
@@ -85,7 +86,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
         console.log('Error updating career goals', error);
       }
     });
-  }
+  };
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const marginStyle = {
@@ -101,7 +102,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const { name, descriptionPairs, socialPairs, item, match } = this.props;
     const upperName = toUpper(name);
     const userStatus = this.userStatus(item);
-
+    const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
     return (
       <Grid container={true} stackable={true} style={marginStyle}>
         <Grid.Column width={16}>
@@ -121,34 +122,65 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
               </Grid.Row>
             </Segment>
             <Divider style={divPadding}/>
-            <Grid.Column>
-              {descriptionPairs.map((descriptionPair, index) => (
-                <React.Fragment key={index}>
-                  {
-                    this.isLabel(descriptionPair.label, 'Description') ?
-                      <React.Fragment>
-                        <b>{descriptionPair.label}:<br/></b>
+            <div style={{ marginTop: '5px' }}>
+              <InterestList item={item} size='mini' align={'vertical'}/>
+            </div>
+            {
+              hasTeaser ?
+                (
+                  <Grid stackable={true} columns={2}>
+                    <Grid.Column width={9}>
+                      {descriptionPairs.map((descriptionPair, index) => (
+                        <React.Fragment key={index}>
+                          {
+                            this.isLabel(descriptionPair.label, 'Description') ?
+                              <React.Fragment>
+                                <b>{descriptionPair.label}:<br/></b>
+                                {
+                                  descriptionPair.value ?
+                                    <Markdown escapeHtml={false} source={descriptionPair.value}
+                                              renderers={{ link: (props) => renderLink(props, match) }}/>
+                                    :
+                                    'N/A'
+                                }
+                              </React.Fragment>
+                              : ''
+                          }
+                        </React.Fragment>
+                      ))
+                      }
+                    </Grid.Column>
+                    <Grid.Column width={7}>
+
+                    </Grid.Column>
+                  </Grid>
+                )
+                :
+                (
+                  <Grid.Column>
+                    {descriptionPairs.map((descriptionPair, index) => (
+                      <React.Fragment key={index}>
                         {
-                          descriptionPair.value ?
-                            <Markdown escapeHtml={false} source={descriptionPair.value}
-                                      renderers={{ link: (props) => renderLink(props, match) }}/>
-                            :
-                            'N/A'
+                          this.isLabel(descriptionPair.label, 'Description') ?
+                            <React.Fragment>
+                              <b>{descriptionPair.label}:<br/></b>
+                              {
+                                descriptionPair.value ?
+                                  <Markdown escapeHtml={false} source={descriptionPair.value}
+                                            renderers={{ link: (props) => renderLink(props, match) }}/>
+                                  :
+                                  'N/A'
+                              }
+                            </React.Fragment>
+                            : ''
                         }
                       </React.Fragment>
-                      : ''
-                  }
-                  {
-                    this.isLabel(descriptionPair.label, 'Interests') ?
-                      <div style={{ marginTop: '5px' }}>
-                        <InterestList item={item} size='mini' align={'vertical'}/>
-                      </div>
-                      : ''
-                  }
-                </React.Fragment>
-              ))
-              }
-            </Grid.Column><br/>
+                    ))
+                    }
+                  </Grid.Column>
+                )
+            }
+            <br/>
             <Divider/>
             <Grid stackable={true} celled={'internally'}>
               {socialPairs.map((socialPair, index) => (
