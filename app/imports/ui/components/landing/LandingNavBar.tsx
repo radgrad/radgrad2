@@ -14,47 +14,41 @@ export interface INavBarProps {
   role: string;
 }
 
+const onClick = () => {
+  const el = document.getElementById('landing-section-9'); // eslint-disable-line
+  window.scrollTo(0, el.offsetTop); // eslint-disable-line
+};
+
 /**
  * LandingNavBar rendered on each of the landing pages.
  */
-class LandingNavBar extends React.Component<INavBarProps, object> {
-  constructor(props) {
-    super(props);
-  }
-
-  public static onClick() {
-    const el = document.getElementById('landing-section-9'); // eslint-disable-line
-    window.scrollTo(0, el.offsetTop); // eslint-disable-line
-  }
-
-  public render() {
-    const imageStyle = { width: 45 };
-    // console.log(this.props);
-    const url = `/#/${this.props.role}/${this.props.currentUser}/home`;
-    return (
-      <Menu attached="top" borderless={true} size="small">
-        <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
-          <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
-          <div className="mobile hidden item">
-            <Header as="h2">
-              <RadGradLogoText/>
-            </Header>
+const LandingNavBar = (props: INavBarProps) => {
+  const imageStyle = { width: 45 };
+  // console.log(props);
+  const url = `/#/${props.role}/${props.currentUser}/home`;
+  return (
+    <Menu attached="top" borderless={true} size="small">
+      <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
+        <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
+        <div className="mobile hidden item">
+          <Header as="h2">
+            <RadGradLogoText/>
+          </Header>
+        </div>
+      </Menu.Item>
+      <Menu.Item position="right"><Button onClick={onClick}>GUIDED TOURS</Button></Menu.Item>
+      <Menu.Item>
+        {props.currentUser ? (
+          <div>
+            <Button basic={true} color="green" compact={true}><a href={url}>Home</a></Button>
           </div>
-        </Menu.Item>
-        <Menu.Item position="right"><Button onClick={LandingNavBar.onClick}>GUIDED TOURS</Button></Menu.Item>
-        <Menu.Item>
-          {this.props.currentUser ? (
-            <div>
-              <Button basic={true} color="green" compact={true}><a href={url}>Home</a></Button>
-            </div>
-          ) : (
-            <RadGradLoginButtons/>
-          )}
-        </Menu.Item>
-      </Menu>
-    );
-  }
-}
+        ) : (
+          <RadGradLoginButtons/>
+        )}
+      </Menu.Item>
+    </Menu>
+  );
+};
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingNavBarContainer = withTracker(() => {

@@ -38,24 +38,24 @@ const handleUpdateLevelButton = (event) => {
 
 
 const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
-  let advisors = this.props.advisors;
-  let faculty = this.props.faculty;
-  let mentors = this.props.mentors;
-  let students = this.props.students;
-  let alumni = this.props.alumni;
-  let regex = new RegExp(this.props.firstNameRegex);
+  let advisors = props.advisors;
+  let faculty = props.faculty;
+  let mentors = props.mentors;
+  let students = props.students;
+  let alumni = props.alumni;
+  let regex = new RegExp(props.firstNameRegex);
   advisors = _.filter(advisors, (u) => regex.test(u.firstName));
   faculty = _.filter(faculty, (u) => regex.test(u.firstName));
   mentors = _.filter(mentors, (u) => regex.test(u.firstName));
   students = _.filter(students, (u) => regex.test(u.firstName));
   alumni = _.filter(alumni, (u) => regex.test(u.firstName));
-  regex = new RegExp(this.props.lastNameRegex);
+  regex = new RegExp(props.lastNameRegex);
   advisors = _.filter(advisors, (u) => regex.test(u.lastName));
   faculty = _.filter(faculty, (u) => regex.test(u.lastName));
   mentors = _.filter(mentors, (u) => regex.test(u.lastName));
   students = _.filter(students, (u) => regex.test(u.lastName));
   alumni = _.filter(alumni, (u) => regex.test(u.lastName));
-  regex = new RegExp(this.props.userNameRegex);
+  regex = new RegExp(props.userNameRegex);
   advisors = _.filter(advisors, (u) => regex.test(u.username));
   faculty = _.filter(faculty, (u) => regex.test(u.username));
   mentors = _.filter(mentors, (u) => regex.test(u.username));
