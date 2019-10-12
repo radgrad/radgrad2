@@ -19,33 +19,27 @@ interface IAddAcademicYearInstanceProps {
   handleAdd: (doc) => any;
 }
 
-class AddAcademicYearInstanceForm extends React.Component<IAddAcademicYearInstanceProps> {
-  constructor(props) {
-    super(props);
-  }
+const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+  const studentNames = _.map(props.students, profileToUsername);
+  const schema = new SimpleSchema({
+    student: {
+      type: String,
+      allowedValues: studentNames,
+    },
+    year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
+  });
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const studentNames = _.map(this.props.students, profileToUsername);
-    const schema = new SimpleSchema({
-      student: {
-        type: String,
-        allowedValues: studentNames,
-      },
-      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
-    });
-
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Academic Year Instance</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <NumField name="year"/>
-          <SelectField name="student"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Academic Year Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+        <NumField name="year"/>
+        <SelectField name="student"/>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddAcademicYearInstanceFormContainer = withTracker(() => {
   const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();

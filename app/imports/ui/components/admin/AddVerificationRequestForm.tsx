@@ -29,50 +29,43 @@ interface IAddVerificationRequestFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddVerificationRequestForm extends React.Component<IAddVerificationRequestFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('AddVerificationRequestForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const termNames = _.map(this.props.academicTerms, academicTermToName);
-    const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-    const opportunityNames = _.map(this.props.opportunities, docToName);
-    const opportunityInstanceNames = _.map(this.props.opportunityInstances, opportunityInstanceToName);
-    const studentNames = _.map(this.props.students, profileToName);
-    const schema = new SimpleSchema({
-      student: { type: String, allowedValues: studentNames },
-      status: {
-        type: String,
-        optional: true,
-        allowedValues: [VerificationRequests.OPEN, VerificationRequests.ACCEPTED, VerificationRequests.REJECTED],
-      },
-      academicTerm: { type: String, optional: true, allowedValues: termNames, defaultValue: currentTermName },
-      opportunityInstance: { type: String, optional: true, allowedValues: opportunityInstanceNames },
-      opportunity: { type: String, optional: true, allowedValues: opportunityNames },
-      retired: { type: Boolean, optional: true },
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Verification Request</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <Form.Group widths="equal">
-            <SelectField name="student" placeholder="Choose the student"/>
-            <SelectField name="status" placeholder="Choose the status"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <SelectField name="opportunityInstance"/>
-            <SelectField name="opportunity"/>
-            <SelectField name="academicTerm"/>
-          </Form.Group>
-          <BoolField name="retired"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => {
+  const termNames = _.map(props.academicTerms, academicTermToName);
+  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
+  const opportunityNames = _.map(props.opportunities, docToName);
+  const opportunityInstanceNames = _.map(props.opportunityInstances, opportunityInstanceToName);
+  const studentNames = _.map(props.students, profileToName);
+  const schema = new SimpleSchema({
+    student: { type: String, allowedValues: studentNames },
+    status: {
+      type: String,
+      optional: true,
+      allowedValues: [VerificationRequests.OPEN, VerificationRequests.ACCEPTED, VerificationRequests.REJECTED],
+    },
+    academicTerm: { type: String, optional: true, allowedValues: termNames, defaultValue: currentTermName },
+    opportunityInstance: { type: String, optional: true, allowedValues: opportunityInstanceNames },
+    opportunity: { type: String, optional: true, allowedValues: opportunityNames },
+    retired: { type: Boolean, optional: true },
+  });
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Verification Request</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+        <Form.Group widths="equal">
+          <SelectField name="student" placeholder="Choose the student"/>
+          <SelectField name="status" placeholder="Choose the status"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="opportunityInstance"/>
+          <SelectField name="opportunity"/>
+          <SelectField name="academicTerm"/>
+        </Form.Group>
+        <BoolField name="retired"/>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddVerificationRequestFormContainer = withTracker(() => {
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();

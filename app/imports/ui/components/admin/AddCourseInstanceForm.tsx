@@ -22,62 +22,55 @@ interface IAddCourseInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddCourseInstanceForm extends React.Component<IAddCourseInstanceFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('AddCourseInstanceForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const termNames = _.map(this.props.terms, academicTermToName);
-    const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-    const courseNames = _.map(this.props.courses, courseToName);
-    const studentNames = _.map(this.props.students, profileToName);
-    const schema = new SimpleSchema({
-      term: {
-        type: String,
-        allowedValues: termNames,
-        defaultValue: currentTermName,
-      },
-      course: {
-        type: String,
-        allowedValues: courseNames,
-        defaultValue: courseNames[0],
-      },
-      student: {
-        type: String,
-        allowedValues: studentNames,
-        defaultValue: studentNames[0],
-      },
-      creditHours: {
-        type: SimpleSchema.Integer,
-        optional: true,
-      },
-      grade: {
-        type: String,
-        allowedValues: CourseInstances.validGrades,
-      },
-    });
-    // console.log(termNames, courseNames, studentNames);
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Course Instance</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <Form.Group widths="equal">
-            <SelectField name="term"/>
-            <SelectField name="course"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <SelectField name="student"/>
-            <NumField name="creditHours"/>
-            <SelectField name="grade"/>
-          </Form.Group>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+  const termNames = _.map(props.terms, academicTermToName);
+  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
+  const courseNames = _.map(props.courses, courseToName);
+  const studentNames = _.map(props.students, profileToName);
+  const schema = new SimpleSchema({
+    term: {
+      type: String,
+      allowedValues: termNames,
+      defaultValue: currentTermName,
+    },
+    course: {
+      type: String,
+      allowedValues: courseNames,
+      defaultValue: courseNames[0],
+    },
+    student: {
+      type: String,
+      allowedValues: studentNames,
+      defaultValue: studentNames[0],
+    },
+    creditHours: {
+      type: SimpleSchema.Integer,
+      optional: true,
+    },
+    grade: {
+      type: String,
+      allowedValues: CourseInstances.validGrades,
+    },
+  });
+  // console.log(termNames, courseNames, studentNames);
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Course Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+        <Form.Group widths="equal">
+          <SelectField name="term"/>
+          <SelectField name="course"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="student"/>
+          <NumField name="creditHours"/>
+          <SelectField name="grade"/>
+        </Form.Group>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddCourseInstanceFormContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();

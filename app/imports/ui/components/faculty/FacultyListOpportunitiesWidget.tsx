@@ -8,11 +8,11 @@ import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import AdminPaginationWidget from './AdminPaginationWidget';
+import AdminPaginationWidget from '../admin/AdminPaginationWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import AdminDataModelAccordion from './AdminDataModelAccordion';
+import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
 
 interface IListOpportunitiesWidgetProps {

@@ -19,41 +19,35 @@ interface IAddAdvisorLogFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // console.log(this.props);
-    const advisorNames = _.map(this.props.advisors, profileToUsername);
-    const studentNames = _.map(this.props.students, profileToUsername);
-    const schema = new SimpleSchema({
-      advisor: {
-        type: String,
-        allowedValues: advisorNames,
-        defaultValue: advisorNames[0],
-      },
-      student: {
-        type: String,
-        allowedValues: studentNames,
-        defaultValue: studentNames[0],
-      },
-      text: String,
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Advisor Log</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef}>
-          <SelectField name="advisor"/>
-          <SelectField name="student"/>
-          <LongTextField name="text"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+  // console.log(props);
+  const advisorNames = _.map(props.advisors, profileToUsername);
+  const studentNames = _.map(props.students, profileToUsername);
+  const schema = new SimpleSchema({
+    advisor: {
+      type: String,
+      allowedValues: advisorNames,
+      defaultValue: advisorNames[0],
+    },
+    student: {
+      type: String,
+      allowedValues: studentNames,
+      defaultValue: studentNames[0],
+    },
+    text: String,
+  });
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Advisor Log</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
+        <SelectField name="advisor"/>
+        <SelectField name="student"/>
+        <LongTextField name="text"/>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddAdvisorLogFormContainer = withTracker(() => {
   const advisors = Roles.getUsersInRole(ROLE.ADVISOR).fetch();

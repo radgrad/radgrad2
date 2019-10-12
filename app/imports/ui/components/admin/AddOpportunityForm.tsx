@@ -30,59 +30,52 @@ interface IAddOpportunityFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddOpportunityForm extends React.Component<IAddOpportunityFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('AddOpportunityType props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // console.log(this.props);
-    const sponsorNames = _.map(this.props.sponsors, profileToName);
-    const termNames = _.map(this.props.terms, academicTermToName);
-    const opportunityTypeNames = _.map(this.props.opportunityTypes, docToName);
-    const interestNames = _.map(this.props.interests, docToName);
-    // console.log(opportunityTypeNames);
-    const schema = new SimpleSchema({
-      name: String,
-      slug: String,
-      description: String,
-      opportunityType: { type: String, allowedValues: opportunityTypeNames, defaultValue: opportunityTypeNames[0] },
-      sponsor: { type: String, allowedValues: sponsorNames, defaultValue: sponsorNames[0] },
-      terms: Array,
-      'terms.$': { type: String, allowedValues: termNames },
-      interests: Array,
-      'interests.$': { type: String, allowedValues: interestNames },
-      eventDate: { type: Date, optional: true },
-      ice: iceSchema,
-      retired: { type: Boolean, optional: true },
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Opportunity</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <Form.Group widths="equal">
-            <TextField name="slug"/>
-            <TextField name="name"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <SelectField name="opportunityType"/>
-            <SelectField name="sponsor"/>
-          </Form.Group>
-          <LongTextField name="description"/>
-          <Form.Group widths="equal">
-            <MultiSelectField name="terms"/>
-            <MultiSelectField name="interests"/>
-          </Form.Group>
-          <DateField name="eventDate"/>
-          <AutoField name="ice"/>
-          <BoolField name="retired"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
+  // console.log(props);
+  const sponsorNames = _.map(props.sponsors, profileToName);
+  const termNames = _.map(props.terms, academicTermToName);
+  const opportunityTypeNames = _.map(props.opportunityTypes, docToName);
+  const interestNames = _.map(props.interests, docToName);
+  // console.log(opportunityTypeNames);
+  const schema = new SimpleSchema({
+    name: String,
+    slug: String,
+    description: String,
+    opportunityType: { type: String, allowedValues: opportunityTypeNames, defaultValue: opportunityTypeNames[0] },
+    sponsor: { type: String, allowedValues: sponsorNames, defaultValue: sponsorNames[0] },
+    terms: Array,
+    'terms.$': { type: String, allowedValues: termNames },
+    interests: Array,
+    'interests.$': { type: String, allowedValues: interestNames },
+    eventDate: { type: Date, optional: true },
+    ice: iceSchema,
+    retired: { type: Boolean, optional: true },
+  });
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Opportunity</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+        <Form.Group widths="equal">
+          <TextField name="slug"/>
+          <TextField name="name"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="opportunityType"/>
+          <SelectField name="sponsor"/>
+        </Form.Group>
+        <LongTextField name="description"/>
+        <Form.Group widths="equal">
+          <MultiSelectField name="terms"/>
+          <MultiSelectField name="interests"/>
+        </Form.Group>
+        <DateField name="eventDate"/>
+        <AutoField name="ice"/>
+        <BoolField name="retired"/>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddOpportunityTypeFormContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();

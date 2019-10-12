@@ -164,18 +164,21 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
               <Form.Group inline>
                 <Form.Field>
                   <Form.Input name="firstName"
+                    // @ts-ignore
                               label={{ basic: 'true', children: 'First Name:' }}
                               value={this.props.firstName}
                               onChange={this.handleChangeFirstName}/>
                 </Form.Field>
                 <Form.Field>
                   <Form.Input name="lastName"
+                    // @ts-ignore
                               label={{ basic: 'true', children: 'Last Name:' }}
                               value={this.props.lastName}
                               onChange={this.handleChangeLastName}/>
                 </Form.Field>
                 <Form.Field>
                   <Form.Input name="userName"
+                    // @ts-ignore
                               label={{ basic: 'true', children: 'Username:' }}
                               value={this.props.username}
                               onChange={this.handleChangeUserName}/>

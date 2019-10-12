@@ -3,7 +3,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import ListOpportunitiesWidget from '../../components/admin/ListOpportunitiesWidget';
+import ListOpportunitiesWidget from '../../components/faculty/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';

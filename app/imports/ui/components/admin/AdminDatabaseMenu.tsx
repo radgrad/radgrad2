@@ -16,26 +16,20 @@ interface IAdminDatabaseMenuProps {
   };
 }
 
-class AdminDatabaseMenu extends React.Component<IAdminDatabaseMenuProps> {
-  constructor(props) {
-    super(props);
-  }
+const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {
+  const username = props.match.params.username;
+  const baseUrl = props.match.url;
+  const baseIndex = baseUrl.indexOf(username);
+  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/database/`;
+  // console.log(props, baseRoute);
 
-  public render() {
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/database/`;
-    // console.log(this.props, baseRoute);
-
-    return (
-      <Menu vertical={true}>
-        <Menu.Item as={NavLink} exact={true} to={`${baseRoute}integrity-check`}>Integrity Check</Menu.Item>
-        <Menu.Item as={NavLink} exact={true} to={`${baseRoute}dump`}>Dump DB</Menu.Item>
-      </Menu>
-    );
-  }
-}
+  return (
+    <Menu vertical={true}>
+      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}integrity-check`}>Integrity Check</Menu.Item>
+      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}dump`}>Dump DB</Menu.Item>
+    </Menu>
+  );
+};
 
 const AdminDatabaseMenuContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',

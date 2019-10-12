@@ -19,38 +19,31 @@ interface IAddInterestFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddInterestForm extends React.Component<IAddInterestFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('AddInterestForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const interestTypeNames = _.map(this.props.interestTypes, docToName);
-    const schema = new SimpleSchema({
-      name: String,
-      slug: String,
-      interestType: { type: String, allowedValues: interestTypeNames, defaultValue: interestTypeNames[0] },
-      description: String,
-      retired: { type: Boolean, optional: true },
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Interest</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <Form.Group widths="equal">
-            <TextField name="slug" placeholder="rust"/>
-            <TextField name="name" placeholder="Rust Programming Language"/>
-            <SelectField name="interestType"/>
-          </Form.Group>
-          <LongTextField name="description"/>
-          <BoolField name="retired"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddInterestForm = (props: IAddInterestFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+  const interestTypeNames = _.map(props.interestTypes, docToName);
+  const schema = new SimpleSchema({
+    name: String,
+    slug: String,
+    interestType: { type: String, allowedValues: interestTypeNames, defaultValue: interestTypeNames[0] },
+    description: String,
+    retired: { type: Boolean, optional: true },
+  });
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Interest</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+        <Form.Group widths="equal">
+          <TextField name="slug" placeholder="rust"/>
+          <TextField name="name" placeholder="Rust Programming Language"/>
+          <SelectField name="interestType"/>
+        </Form.Group>
+        <LongTextField name="description"/>
+        <BoolField name="retired"/>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddInterestFormContainer = withTracker(() => (
   { interestTypes: InterestTypes.find({}).fetch() }
