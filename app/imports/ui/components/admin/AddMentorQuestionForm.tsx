@@ -20,7 +20,7 @@ interface IAddMentorQuestionFormProps {
 }
 
 const AddMentorQuestionForm = (props: IAddMentorQuestionFormProps) => {
-  const studentNames = _.map(this.props.students, profileToName);
+  const studentNames = _.map(props.students, profileToName);
   const schema = new SimpleSchema({
     student: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
     slug: String,
@@ -33,7 +33,7 @@ const AddMentorQuestionForm = (props: IAddMentorQuestionFormProps) => {
   return (
     <Segment padded={true}>
       <Header dividing={true}>Add Mentor Question</Header>
-      <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef}>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
           <SelectField name="student"/>
           <TextField name="slug" placeholder="question-student-0"/>
