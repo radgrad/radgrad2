@@ -25,53 +25,46 @@ interface IUpdateFeedbackInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-class UpdateFeedbackInstanceForm extends React.Component<IUpdateFeedbackInstanceFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('UpdateFeedbackInstance props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const model = this.props.collection.findDoc(this.props.id);
-    model.user = userIdToName(model.userID);
-    const studentNames = _.map(this.props.students, profileToName);
-    const schema = new SimpleSchema({
-      user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
-      functionName: {
-        type: String,
-        allowedValues: FeedbackFunctions.feedbackFunctionNames,
-        defaultValue: FeedbackFunctions.feedbackFunctionNames[0],
-      },
-      description: String,
-      feedbackType: {
-        type: String,
-        allowedValues: FeedbackInstances.feedbackTypes,
-        defaultValue: FeedbackInstances.feedbackTypes[0],
-      },
-      retired: { type: Boolean, optional: true },
-    });
-    // console.log(model);
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
-        <AutoForm
-          ref={this.props.formRef}
-          schema={schema}
-          model={model}
-          onSubmit={this.props.handleUpdate}>
-          <Form.Group>
-            <SelectField name="user"/>
-            <SelectField name="functionName"/>
-            <SelectField name="feedbackType"/>
-          </Form.Group>
-          <LongTextField name="description"/>
-          <BoolField name="retired"/>
-          <SubmitField/>
-          <Button onClick={this.props.handleCancel}>Cancel</Button>
-        </AutoForm>
-      </Segment>);
-  }
-}
+const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => {
+  const model = props.collection.findDoc(props.id);
+  model.user = userIdToName(model.userID);
+  const studentNames = _.map(props.students, profileToName);
+  const schema = new SimpleSchema({
+    user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
+    functionName: {
+      type: String,
+      allowedValues: FeedbackFunctions.feedbackFunctionNames,
+      defaultValue: FeedbackFunctions.feedbackFunctionNames[0],
+    },
+    description: String,
+    feedbackType: {
+      type: String,
+      allowedValues: FeedbackInstances.feedbackTypes,
+      defaultValue: FeedbackInstances.feedbackTypes[0],
+    },
+    retired: { type: Boolean, optional: true },
+  });
+  // console.log(model);
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+      <AutoForm
+        ref={props.formRef}
+        schema={schema}
+        model={model}
+        onSubmit={props.handleUpdate}>
+        <Form.Group>
+          <SelectField name="user"/>
+          <SelectField name="functionName"/>
+          <SelectField name="feedbackType"/>
+        </Form.Group>
+        <LongTextField name="description"/>
+        <BoolField name="retired"/>
+        <SubmitField/>
+        <Button onClick={props.handleCancel}>Cancel</Button>
+      </AutoForm>
+    </Segment>);
+};
 
 const UpdateFeedbackInstanceFormContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),

@@ -24,45 +24,38 @@ interface IUpdateOpportunityInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-class UpdateOpportunityInstanceForm extends React.Component<IUpdateOpportunityInstanceFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('UpdateOpportunityInstanceForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const model = this.props.collection.findDoc(this.props.id);
-    model.academicTerm = academicTermIdToName(model.termID);
-    const termNames = _.map(this.props.terms, academicTermToName);
-    const schema = new SimpleSchema({
-      academicTerm: {
-        type: String,
-        allowedValues: termNames,
-      },
-      verified: { type: Boolean, optional: true },
-      ice: iceSchema,
-      retired: { type: Boolean, optional: true },
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleUpdate} ref={this.props.formRef}
-                  showInlineError={true} model={model}>
-          <Form.Group widths="equal">
-            <SelectField name="academicTerm"/>
-            <AutoField name="ice"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <BoolField name="verified"/>
-            <BoolField name="retired"/>
-          </Form.Group>
-          <SubmitField/>
-          <Button onClick={this.props.handleCancel}>Cancel</Button>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProps) => {
+  const model = props.collection.findDoc(props.id);
+  model.academicTerm = academicTermIdToName(model.termID);
+  const termNames = _.map(props.terms, academicTermToName);
+  const schema = new SimpleSchema({
+    academicTerm: {
+      type: String,
+      allowedValues: termNames,
+    },
+    verified: { type: Boolean, optional: true },
+    ice: iceSchema,
+    retired: { type: Boolean, optional: true },
+  });
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
+                showInlineError={true} model={model}>
+        <Form.Group widths="equal">
+          <SelectField name="academicTerm"/>
+          <AutoField name="ice"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <BoolField name="verified"/>
+          <BoolField name="retired"/>
+        </Form.Group>
+        <SubmitField/>
+        <Button onClick={props.handleCancel}>Cancel</Button>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const UpdateOpportunityInstanceFormContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();

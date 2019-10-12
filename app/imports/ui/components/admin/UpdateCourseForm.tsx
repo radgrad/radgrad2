@@ -31,69 +31,62 @@ interface IUpdateCourseFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-class UpdateCourseForm extends React.Component<IUpdateCourseFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('UpdateCourseForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const model = this.props.id ? this.props.collection.findDoc(this.props.id) : undefined;
-    model.interests = _.map(model.interestIDs, interestIdToName);
-    model.prerequisiteNames = _.map(model.prerequisites, courseSlugToName);
-    const interestNames = _.map(this.props.interests, docToName);
-    const courseNames = _.map(this.props.courses, courseToName);
-    const schema = new SimpleSchema({
-      name: { type: String, optional: true },
-      shortName: { type: String, optional: true },
-      creditHrs: {
-        type: SimpleSchema.Integer,
-        optional: true,
-        min: 1,
-        max: 15,
-        defaultValue: 3,
-      },
-      num: { type: String, optional: true },
-      description: { type: String, optional: true },
-      syllabus: { type: String, optional: true },
-      interests: Array,
-      'interests.$': {
-        type: String,
-        allowedValues: interestNames,
-      },
-      prerequisiteNames: { type: Array, optional: true },
-      'prerequisiteNames.$': { type: String, allowedValues: courseNames },
-      retired: { type: Boolean, optional: true },
-    });
-    // console.log(model, schema);
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleUpdate} ref={this.props.formRef}
-                  showInlineError={true} model={model}>
-          <Form.Group widths="equal">
-            <TextField name="name"/>
-            <TextField name="shortName"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <NumField name="creditHrs"/>
-            <TextField name="num"/>
-          </Form.Group>
-          <LongTextField name="description"/>
-          <TextField name="syllabus"/>
-          <Form.Group widths="equal">
-            <MultiSelectField name="interests"/>
-            <MultiSelectField name="prerequisiteNames"/>
-          </Form.Group>
-          <BoolField name="retired"/>
-          <p/>
-          <SubmitField/>
-          <Button onClick={this.props.handleCancel}>Cancel</Button>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
+  const model = props.id ? props.collection.findDoc(props.id) : undefined;
+  model.interests = _.map(model.interestIDs, interestIdToName);
+  model.prerequisiteNames = _.map(model.prerequisites, courseSlugToName);
+  const interestNames = _.map(props.interests, docToName);
+  const courseNames = _.map(props.courses, courseToName);
+  const schema = new SimpleSchema({
+    name: { type: String, optional: true },
+    shortName: { type: String, optional: true },
+    creditHrs: {
+      type: SimpleSchema.Integer,
+      optional: true,
+      min: 1,
+      max: 15,
+      defaultValue: 3,
+    },
+    num: { type: String, optional: true },
+    description: { type: String, optional: true },
+    syllabus: { type: String, optional: true },
+    interests: Array,
+    'interests.$': {
+      type: String,
+      allowedValues: interestNames,
+    },
+    prerequisiteNames: { type: Array, optional: true },
+    'prerequisiteNames.$': { type: String, allowedValues: courseNames },
+    retired: { type: Boolean, optional: true },
+  });
+  // console.log(model, schema);
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
+                showInlineError={true} model={model}>
+        <Form.Group widths="equal">
+          <TextField name="name"/>
+          <TextField name="shortName"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <NumField name="creditHrs"/>
+          <TextField name="num"/>
+        </Form.Group>
+        <LongTextField name="description"/>
+        <TextField name="syllabus"/>
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests"/>
+          <MultiSelectField name="prerequisiteNames"/>
+        </Form.Group>
+        <BoolField name="retired"/>
+        <p/>
+        <SubmitField/>
+        <Button onClick={props.handleCancel}>Cancel</Button>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const UpdateCourseFormContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();

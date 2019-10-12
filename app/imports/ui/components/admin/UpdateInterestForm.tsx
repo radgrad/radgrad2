@@ -25,42 +25,40 @@ interface IUpdateInterestFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-class UpdateInterestForm extends React.Component<IUpdateInterestFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('UpdateInterestForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const interestTypeNames = _.map(this.props.interestTypes, docToName);
-    const model = this.props.collection.findDoc(this.props.id);
-    model.slug = Slugs.getNameFromID(model.slugID);
-    model.interestType = InterestTypes.findDoc(model.interestTypeID).name;
-    const schema = new SimpleSchema({
-      name: { type: String, optional: true },
-      slug: { type: String, optional: true },
-      interestType: { type: String, allowedValues: interestTypeNames, defaultValue: interestTypeNames[0], optional: true },
-      description: { type: String, optional: true },
-      retired: { type: Boolean, optional: true },
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleUpdate} ref={this.props.formRef}
-                  showInlineError={true} model={model}>
-          <Form.Group widths="equal">
-            <TextField name="slug" disabled={true}/>
-            <TextField name="name"/>
-            <SelectField name="interestType"/>
-          </Form.Group>
-          <LongTextField name="description"/>
-          <BoolField name="retired"/>
-          <SubmitField/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
+  const interestTypeNames = _.map(props.interestTypes, docToName);
+  const model = props.collection.findDoc(props.id);
+  model.slug = Slugs.getNameFromID(model.slugID);
+  model.interestType = InterestTypes.findDoc(model.interestTypeID).name;
+  const schema = new SimpleSchema({
+    name: { type: String, optional: true },
+    slug: { type: String, optional: true },
+    interestType: {
+      type: String,
+      allowedValues: interestTypeNames,
+      defaultValue: interestTypeNames[0],
+      optional: true,
+    },
+    description: { type: String, optional: true },
+    retired: { type: Boolean, optional: true },
+  });
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
+                showInlineError={true} model={model}>
+        <Form.Group widths="equal">
+          <TextField name="slug" disabled={true}/>
+          <TextField name="name"/>
+          <SelectField name="interestType"/>
+        </Form.Group>
+        <LongTextField name="description"/>
+        <BoolField name="retired"/>
+        <SubmitField/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const UpdateInterestFormContainer = withTracker(() => (
   { interestTypes: InterestTypes.find({}).fetch() }
