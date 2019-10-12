@@ -5,7 +5,7 @@ import styles from '../../../pages/landing/guidedtour-style';
 interface IInterestsProps {
   interests: number;
 }
-const Interests = (props: IInterestsProps) => (
+const GuidedTourStudentInterests = (props: IInterestsProps) => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'nine'}>
@@ -24,4 +24,4 @@ const Interests = (props: IInterestsProps) => (
   </div>
 );
 
-export default Interests;
+export default GuidedTourStudentInterests;

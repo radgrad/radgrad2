@@ -6,7 +6,7 @@ interface IMentorProps {
   mentors: number;
   mentorLocations: string;
 }
-const Mentor = (props: IMentorProps) => (
+const GuidedTourStudentMentor = (props: IMentorProps) => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'ten'}>
@@ -23,4 +23,4 @@ const Mentor = (props: IMentorProps) => (
   </div>
 );
 
-export default Mentor;
+export default GuidedTourStudentMentor;
