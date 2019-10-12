@@ -10,7 +10,7 @@ import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { IMentorQuestion, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
-import { profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { profileToName } from '../shared/data-model-helper-functions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface IAddMentorQuestionFormProps {

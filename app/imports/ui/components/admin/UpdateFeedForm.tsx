@@ -23,7 +23,7 @@ import {
   docToName,
   opportunityIdToName,
   profileToName, userIdToName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';

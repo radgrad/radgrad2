@@ -11,7 +11,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/UpdateInterestForm';
-import { interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/AdminDataModelHelperFunctions';
+import { interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Interests; // the collection to use.

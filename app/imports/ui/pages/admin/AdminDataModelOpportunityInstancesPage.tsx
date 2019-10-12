@@ -18,7 +18,7 @@ import {
   academicTermNameToDoc,
   opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

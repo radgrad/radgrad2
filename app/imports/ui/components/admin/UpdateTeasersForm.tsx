@@ -11,7 +11,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { IAcademicTerm, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
-import { docToName, interestIdToName, opportunityIdToName } from '../shared/AdminDataModelHelperFunctions';
+import { docToName, interestIdToName, opportunityIdToName } from '../shared/data-model-helper-functions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import MultiSelectField from '../shared/MultiSelectField';

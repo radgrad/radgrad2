@@ -10,7 +10,7 @@ import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
-import { docToName } from '../shared/AdminDataModelHelperFunctions';
+import { docToName } from '../shared/data-model-helper-functions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import MultiSelectField from '../shared/MultiSelectField';

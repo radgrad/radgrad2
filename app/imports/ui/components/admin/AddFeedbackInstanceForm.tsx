@@ -9,7 +9,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { profileToName } from '../shared/data-model-helper-functions';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line

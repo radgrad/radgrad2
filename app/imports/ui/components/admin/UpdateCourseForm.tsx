@@ -16,7 +16,7 @@ import {
   courseSlugToName, courseToName,
   docToName,
   interestIdToName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import MultiSelectField from '../shared/MultiSelectField';
 import { Courses } from '../../../api/course/CourseCollection';
 

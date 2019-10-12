@@ -11,7 +11,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { moment } from 'meteor/momentjs:moment';
 import { ROLE } from '../../../api/role/Role';
-import { profileToUsername } from '../shared/AdminDataModelHelperFunctions';
+import { profileToUsername } from '../shared/data-model-helper-functions';
 
 interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];

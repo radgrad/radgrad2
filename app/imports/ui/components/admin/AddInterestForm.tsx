@@ -11,7 +11,7 @@ import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IInterestType } from '../../../typings/radgrad'; // eslint-disable-line
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { docToName } from '../shared/AdminDataModelHelperFunctions';
+import { docToName } from '../shared/data-model-helper-functions';
 
 interface IAddInterestFormProps {
   interestTypes: IInterestType[];

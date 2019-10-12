@@ -15,7 +15,7 @@ import {
   courseNameToSlug,
   courseToName,
   interestNameToId,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import AddCourseForm from '../../components/admin/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import UpdateCourseForm from '../../components/admin/UpdateCourseForm';

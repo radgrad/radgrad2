@@ -19,7 +19,7 @@ import {
   docToName, interestIdToName,
   opportunityTypeIdToName,
   profileToName, userIdToName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';

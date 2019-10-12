@@ -13,7 +13,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
-import { academicTermToName, courseToName, docToName, profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermToName, courseToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IAddFeedFromProps {

@@ -10,7 +10,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { academicTermToName, docToName, profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';

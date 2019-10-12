@@ -12,7 +12,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { academicTermToName, courseToName, profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermToName, courseToName, profileToName } from '../shared/data-model-helper-functions';
 
 interface IAddCourseInstanceFormProps {
   terms: IAcademicTerm[];

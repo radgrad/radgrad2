@@ -11,7 +11,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { ICourse, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
-import { courseToName, docToName } from '../shared/AdminDataModelHelperFunctions';
+import { courseToName, docToName } from '../shared/data-model-helper-functions';
 import { Courses } from '../../../api/course/CourseCollection';
 
 interface IAddCourseFormProps {

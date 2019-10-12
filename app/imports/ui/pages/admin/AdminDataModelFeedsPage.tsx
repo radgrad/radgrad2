@@ -20,7 +20,7 @@ import {
   courseNameToSlug,
   opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line

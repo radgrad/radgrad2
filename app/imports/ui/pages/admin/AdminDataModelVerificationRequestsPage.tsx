@@ -19,7 +19,7 @@ import {
   academicTermNameToSlug,
   opportunityInstanceNameToId, opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = VerificationRequests; // the collection to use.

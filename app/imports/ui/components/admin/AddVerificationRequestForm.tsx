@@ -17,7 +17,7 @@ import {
   docToName,
   opportunityInstanceToName,
   profileToName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 
 interface IAddVerificationRequestFormProps {

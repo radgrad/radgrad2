@@ -13,7 +13,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash';
 import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { academicTermIdToName, academicTermToName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermIdToName, academicTermToName } from '../shared/data-model-helper-functions';
 import { iceSchema } from '../../../api/ice/IceProcessor';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 

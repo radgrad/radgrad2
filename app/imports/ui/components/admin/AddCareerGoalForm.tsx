@@ -10,7 +10,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
-import { docToName } from '../shared/AdminDataModelHelperFunctions';
+import { docToName } from '../shared/data-model-helper-functions';
 
 interface IAddCareerGoalFormProps {
   interests: IInterest[];
