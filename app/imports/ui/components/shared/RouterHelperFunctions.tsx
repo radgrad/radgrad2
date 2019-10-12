@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 
-interface IMatchProps {
+export interface IMatchProps {
   isExact: boolean;
   path: string;
   url: string;

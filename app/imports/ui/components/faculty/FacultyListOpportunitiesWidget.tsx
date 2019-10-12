@@ -9,11 +9,11 @@ import { ROLE } from '../../../api/role/Role';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import AdminPaginationWidget from '../admin/AdminPaginationWidget';
-import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -25,107 +25,75 @@ interface IListOpportunitiesWidgetProps {
   itemTitle: (item) => React.ReactNode;
   dispatch: any;
   pagination: any;
-  match: {
-    params: {
-      username: string;
-    };
-  };
+  match: IMatchProps;
 }
 
 const mapStateToProps = (state) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
-class ListOpportunitiesWidget extends React.Component<IListOpportunitiesWidgetProps, {}> {
-  constructor(props) {
-    super(props);
-    // console.log('ListOpportunitiesWidget(%o)', props);
-  }
+const count = (props: IListOpportunitiesWidgetProps) => Opportunities.find({ sponsorID: { $ne: getUserIdFromRoute(props.match) } }).count();
 
-  private getUserIdFromRoute() {
-    const username = this.props.match.params.username;
-    return username && Users.getID(username);
-  }
+const isInRole = (props: IListOpportunitiesWidgetProps) => {
+  const userID = getUserIdFromRoute(props.match);
+  return Roles.userIsInRole(userID, [ROLE.FACULTY]);
+};
 
-  private count() {
-    return Opportunities.find({ sponsorID: { $ne: this.getUserIdFromRoute() } }).count();
-  }
+const facultyOpportunities = (props: IListOpportunitiesWidgetProps) => Opportunities.findNonRetired({ sponsorID: getUserIdFromRoute(props.match) }, { sort: { name: 1 } });
 
-  private isInRole() {
-    const userID = this.getUserIdFromRoute();
-    return Roles.userIsInRole(userID, [ROLE.FACULTY]);
-  }
+const facultyCount = (props: IListOpportunitiesWidgetProps) => facultyOpportunities(props).length;
 
-  facultyOpportunities() {
-    // console.log('stuff ', Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch());
-    return Opportunities.find({ sponsorID: this.getUserIdFromRoute() }, { sort: { name: 1 } }).fetch();
-  }
+const titleICE = (opportunity) => ` (ICE: ${opportunity.ice.i}/${opportunity.ice.c}/${opportunity.ice.e})`;
 
-  private facultyCount() {
-    return Opportunities.find({ sponsorID: this.getUserIdFromRoute() }).count();
-  }
+const slugName = (slugID) => ` (${Slugs.findDoc(slugID).name})`;
 
-  private titleICE(opportunity) {
-    return ` (ICE: ${opportunity.ice.i}/${opportunity.ice.c}/${opportunity.ice.e})`;
-  }
+const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
+  // console.log('ListOpportunitiesWidget.render props=%o', props);
+  const facultyCounter = facultyCount(props);
+  const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
+  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
+  const endIndex = startIndex + showCount;
+  const items = _.slice(props.items, startIndex, endIndex);
+  const factoryOpp = facultyOpportunities(props);
+  // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
+  return (
+    <Segment padded={true}>
+      {
+        isInRole(props) ?
+          <div>
+            <Header dividing={true}> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
+            {_.map(factoryOpp, (item) => (
+              <AdminDataModelAccordion key={item._id} id={item._id} retired={item.retired} name={item.name}
+                                       slug={slugName(item.slugID)}
+                                       descriptionPairs={props.descriptionPairs(item)}
+                                       updateDisabled={false}
+                                       deleteDisabled={false}
+                                       handleOpenUpdate={props.handleOpenUpdate}
+                                       handleDelete={props.handleDelete}
+                                       additionalTitleInfo={titleICE(item)}/>
+            ))}
+            <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count(props)})</Header> <br/>
+          </div>
+          : <Header dividing={true}>OPPORTUNITIES ({count})</Header>
+      }
 
-  private retired(opportunity) {
-    return opportunity.retired;
-  }
-
-  private slugName(slugID) {
-    return ` (${Slugs.findDoc(slugID).name})`;
-  }
-
-  public render(): React.ReactNode {
-    // console.log('ListOpportunitiesWidget.render props=%o', this.props);
-    const count = this.count();
-    const facultyCounter = this.facultyCount();
-    const startIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
-    const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
-    const endIndex = startIndex + showCount;
-    const items = _.slice(this.props.items, startIndex, endIndex);
-    const factoryOpp = this.facultyOpportunities();
-    // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
-    return (
-      <Segment padded={true}>
-        {
-          this.isInRole() ?
-            <div>
-              <Header dividing={true}> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
-              {_.map(factoryOpp, (item) => (
-                <AdminDataModelAccordion key={item._id} id={item._id} retired={this.retired(item)} name={item.name}
-                                         slug={this.slugName(item.slugID)}
-                                         descriptionPairs={this.props.descriptionPairs(item)}
-                                         updateDisabled={false}
-                                         deleteDisabled={false}
-                                         handleOpenUpdate={this.props.handleOpenUpdate}
-                                         handleDelete={this.props.handleDelete}
-                                         additionalTitleInfo={this.titleICE(item)}/>
-              ))}
-              <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count})</Header> <br/>
-            </div>
-            : <Header dividing={true}>OPPORTUNITIES ({count})</Header>
-        }
-
-        <Grid>
-          <AdminPaginationWidget collection={this.props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
-                                 setShowCount={dataModelActions.setCollectionShowCount}/>
-          {_.map(items, (item) => (
-            <AdminDataModelAccordion key={item._id} id={item._id} retired={this.retired(item)} name={item.name}
-                                     slug={this.slugName(item.slugID)}
-                                     descriptionPairs={this.props.descriptionPairs(item)}
-                                     updateDisabled={true}
-                                     deleteDisabled={true}
-                                     handleOpenUpdate={this.props.handleOpenUpdate}
-                                     handleDelete={this.props.handleDelete}
-                                     additionalTitleInfo={this.titleICE(item)}/>
-          ))}
-        </Grid>
-      </Segment>
-    );
-  }
-}
+      <Grid>
+        <AdminPaginationWidget collection={props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
+                               setShowCount={dataModelActions.setCollectionShowCount}/>
+        {_.map(items, (item) => (
+          <AdminDataModelAccordion key={item._id} id={item._id} retired={item.retired} name={item.name}
+                                   slug={slugName(item.slugID)}
+                                   descriptionPairs={props.descriptionPairs(item)}
+                                   updateDisabled={true}
+                                   deleteDisabled={true}
+                                   handleOpenUpdate={props.handleOpenUpdate}
+                                   handleDelete={props.handleDelete}
+                                   additionalTitleInfo={titleICE(item)}/>
+        ))}
+      </Grid>
+    </Segment>
+  );
+};
 
 const ListOpportunitiesWidgetCon = connect(mapStateToProps)(ListOpportunitiesWidget);
 
