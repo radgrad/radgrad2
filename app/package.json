@@ -53,6 +53,7 @@
     "@types/react-dom": "^16.8.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.8.0",
+    "@typescript-eslint/typescript-estree": "^2.3.3",
     "babel-eslint": "^8.2.6",
     "chai": "^4.2.0",
     "del-cli": "^1.1.0",
@@ -69,16 +70,14 @@
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.6.4",
-    "typescript-eslint-parser": "^19.0.2",
-    "typescript-estree": "^1.1.0"
+    "typescript": "^3.6.4"
   },
   "scripts": {
     "start": "meteor --no-release-check --settings ../config/settings.development.json --port 3200",
     "start-custom": "meteor --no-release-check --settings ../custom/settings.development.json --port 3200",
     "start-production": "meteor --production --no-release-check --settings ../config/settings.development.json --port 3200",
-    "lint": "eslint --quiet --ext .tsx --ext .ts ./imports",
-    "lint-fix": "eslint --fix --quiet --ext .tsx --ext .ts ./imports",
+    "lint": "./node_modules/.bin/eslint --quiet --ext .tsx --ext .ts ./imports",
+    "lint-fix": "./node_modules/.bin/eslint --fix --quiet --ext .tsx --ext .ts ./imports",
     "pretest": "npm run lint",
     "test": "TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
     "test-app": "METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package dispatch:mocha --port 3300",
