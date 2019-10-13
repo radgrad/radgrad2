@@ -13,9 +13,11 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
+export const itemToSlugName = (doc) => Slugs.getNameFromID(doc.slugID);
+
 export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
 
-export const academicPlanNameToSlug = (name) => Slugs.getNameFromID(AcademicPlans.findDoc(name).slugID);
+export const academicPlanNameToSlug = (name) => itemToSlugName(AcademicPlans.findDoc(name));
 
 export const academicTermIdToName = (id) => AcademicTerms.toString(id, false);
 
@@ -23,21 +25,21 @@ export const academicTermToName = (term) => AcademicTerms.toString(term._id, fal
 
 export const academicTermNameToDoc = (name) => AcademicTerms.getAcademicTermFromToString(name);
 
-export const academicTermNameToSlug = (name) => Slugs.getNameFromID(AcademicTerms.getAcademicTermFromToString(name).slugID);
+export const academicTermNameToSlug = (name) => itemToSlugName(AcademicTerms.getAcademicTermFromToString(name));
 
 export const careerGoalIdToName = (id) => CareerGoals.findDoc(id).name;
 
-export const careerGoalNameToSlug = (name) => Slugs.getNameFromID(CareerGoals.findDoc(name).slugID);
+export const careerGoalNameToSlug = (name) => itemToSlugName(CareerGoals.findDoc(name));
 
 export const courseToName = (course) => `${course.num}: ${course.shortName}`;
 
 export const courseNameToCourseDoc = (name) => Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) });
 
-export const courseNameToSlug = (name) => Slugs.getNameFromID(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }).slugID);
+export const courseNameToSlug = (name) => itemToSlugName(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }));
 
 export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.getEntityID(slug, 'Course')));
 
-export const degreeShortNameToSlug = (shortName) => Slugs.getNameFromID(DesiredDegrees.findDoc({ shortName }).slugID);
+export const degreeShortNameToSlug = (shortName) => itemToSlugName(DesiredDegrees.findDoc({ shortName }));
 
 export const docToName = (doc) => doc.name;
 
@@ -47,26 +49,17 @@ export const interestIdToName = (id) => Interests.findDoc(id).name;
 
 export const interestNameToId = (name) => Interests.findDoc(name)._id;
 
-export const interestNameToSlug = (name) => {
-  const interestDoc = Interests.findDoc(name);
-  return Slugs.getNameFromID(interestDoc.slugID);
-};
+export const interestNameToSlug = (name) => itemToSlugName(Interests.findDoc(name));
 
-export const interestTypeNameToSlug = (name) => {
-  const typeDoc = InterestTypes.findDoc(name);
-  return Slugs.getNameFromID(typeDoc.slugID);
-};
+export const interestTypeNameToSlug = (name) => itemToSlugName(InterestTypes.findDoc(name));
 
 export const interestTypeNameToId = (name) => InterestTypes.findDoc(name)._id;
 
-export const mentorQuestionToSlug = (question) => {
-  const qDoc = MentorQuestions.findDoc({ question });
-  return Slugs.getNameFromID(qDoc.slugID);
-};
+export const mentorQuestionToSlug = (question) => itemToSlugName(MentorQuestions.findDoc({ question }));
 
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 
-export const opportunityNameToSlug = (name) => Slugs.getNameFromID(Opportunities.findDoc(name).slugID);
+export const opportunityNameToSlug = (name) => itemToSlugName(Opportunities.findDoc(name));
 
 export const opportunityInstanceToName = (oi) => {
   const student = StudentProfiles.findDoc({ userID: oi.studentID }).username;
@@ -89,10 +82,7 @@ export const opportunityInstanceNameToId = (name) => {
   return OpportunityInstances.findDoc({ opportunityID, termID, studentID })._id;
 };
 
-export const opportunityTypeNameToSlug = (name) => {
-  const doc = OpportunityTypes.findDoc(name);
-  return Slugs.getNameFromID(doc.slugID);
-};
+export const opportunityTypeNameToSlug = (name) => itemToSlugName(OpportunityTypes.findDoc(name));
 
 export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name;
 

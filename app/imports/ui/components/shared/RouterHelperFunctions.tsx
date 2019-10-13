@@ -13,7 +13,7 @@ export interface IMatchProps {
 }
 
 // Returns the USERNAME param based on React-Router's match object
-export const getUsername = (match: IMatchProps): string => match.params.username;
+export const getUsername = (match: IMatchProps): string => match.params.username; // TODO should we use _.get here? What would we default to?
 
 // Returns the User ID based off of the USERNAME param
 export const getUserIdFromRoute = (match: IMatchProps): string => {

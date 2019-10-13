@@ -15,9 +15,12 @@ import {
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
+import {
+  userPlans,
+  userCareerGoals,
+} from './explorer-helper-functions';
 
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -36,6 +39,10 @@ interface ICardExplorerMenuMobileWidgetProps {
     }
   };
 }
+const isType = (typeToCheck: string, props: ICardExplorerMenuMobileWidgetProps) => {
+  const { type } = props;
+  return type === typeToCheck;
+};
 
 // FIXME: Needs to be reactive
 class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobileWidgetProps> {
@@ -44,28 +51,15 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
   }
 
   /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
-  private isRoleStudent = (): boolean => this.props.role === 'student';
-
-  private isType = (typeToCheck: string): boolean => {
-    const { type } = this.props;
-    return type === typeToCheck;
-  }
 
   // Determines whether or not we show a "check green circle outline icon" for an item
   private getItemStatus = (item: explorerInterfaces): string => {
     const { type } = this.props;
     switch (type) {
       case EXPLORER_TYPE.ACADEMICPLANS:
-        return this.userPlans(item as IAcademicPlan);
+        return userPlans(item as IAcademicPlan, this.props.match);
       case EXPLORER_TYPE.CAREERGOALS:
-        return this.userCareerGoals(item as ICareerGoal);
+        return userCareerGoals(item as ICareerGoal, this.props.match);
       case EXPLORER_TYPE.COURSES:
         return this.userCourses(item as ICourse);
       // case 'degrees': users currently cannot add a desired degree to their profile
@@ -81,41 +75,11 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
     }
   }
 
-  private itemName = (item: { item: explorerInterfaces, count: number }): string => {
-    const countStr = `x${item.count}`;
-    if (item.count > 1) {
-      return `${item.item.name} ${countStr}`;
-    }
-    return `${item.item.name}`;
-  }
-
-  private slugName = (item: { [key: string]: any }): string => Slugs.findDoc(item.slugID).name;
-
-  /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-  private userPlans = (plan: IAcademicPlan): string => {
-    let ret = '';
-    const profile = Users.getProfile(this.getUsername());
-    if (_.includes(profile.academicPlanID, plan._id)) {
-      ret = 'check green circle outline icon';
-    }
-    return ret;
-  }
-
-  /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
-  private userCareerGoals = (careerGoal: ICareerGoal): string => {
-    let ret = '';
-    const profile = Users.getProfile(this.getUsername());
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-      ret = 'check green circle outline icon';
-    }
-    return ret;
-  }
-
   /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
   private userCourses = (course: ICourse): string => {
     let ret = '';
     const ci = CourseInstances.find({
-      studentID: this.getUserIdFromRoute(),
+      studentID: Router.getUserIdFromRoute(this.props.match),
       courseID: course._id,
     }).fetch();
     if (ci.length > 0) {
@@ -136,7 +100,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
   /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
   private userInterests = (interest: IInterest): string => {
     let ret = '';
-    const profile = Users.getProfile(this.getUsername());
+    const profile = Users.getProfile(Router.getUsername(this.props.match));
     if (_.includes(Users.getInterestIDs(profile.userID), interest._id)) {
       ret = 'check green circle outline icon';
     }
@@ -147,7 +111,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
   private userOpportunities = (opportunity: IOpportunity): string => {
     let ret = '';
     const oi = OpportunityInstances.find({
-      studentID: this.getUserIdFromRoute(),
+      studentID: Router.getUserIdFromRoute(this.props.match),
       opportunityID: opportunity._id,
     }).fetch();
     if (oi.length > 0) {
@@ -170,14 +134,14 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
     const { menuAddedList, menuCareerList } = this.props;
-    const isStudent = this.isRoleStudent();
+    const isStudent = Router.isUrlRoleStudent(this.props.match);
     return (
       <React.Fragment>
         {/* ####### The Menu underneath the Dropdown for MOBILE ONLY ####### */}
         {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
         <Responsive {...Responsive.onlyMobile}>
           {
-            this.isType(EXPLORER_TYPE.ACADEMICPLANS) ?
+            isType(EXPLORER_TYPE.ACADEMICPLANS, this.props) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -199,7 +163,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
           }
 
           {
-            this.isType(EXPLORER_TYPE.COURSES) ?
+            isType(EXPLORER_TYPE.COURSES, this.props) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -221,7 +185,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
           }
 
           {
-            this.isType(EXPLORER_TYPE.OPPORTUNITIES) ?
+            isType(EXPLORER_TYPE.OPPORTUNITIES, this.props) ?
               <React.Fragment>
                 {
                   isStudent ?
@@ -244,7 +208,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
 
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
           {
-            this.isType(EXPLORER_TYPE.INTERESTS) ?
+            isType(EXPLORER_TYPE.INTERESTS, this.props) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
@@ -268,7 +232,7 @@ class CardExplorerMenuMobileWidget extends React.Component<ICardExplorerMenuMobi
           }
 
           {
-            this.isType(EXPLORER_TYPE.CAREERGOALS) ?
+            isType(EXPLORER_TYPE.CAREERGOALS, this.props) ?
               <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
                   <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
