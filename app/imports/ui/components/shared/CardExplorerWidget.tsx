@@ -4,19 +4,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
-import { Roles } from 'meteor/alanning:roles';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { ROLE } from '../../../api/role/Role';
-import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
@@ -24,26 +19,28 @@ import ExplorerCard from './ExplorerCard';
 import ProfileCard from './ProfileCard';
 
 // eslint-disable-next-line no-unused-vars
-import { IProfile } from '../../../typings/radgrad';
+import { IInterest, IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { explorerActions } from '../../../redux/shared/explorer';
+import {
+  ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
+  availableAcademicPlans,
+  availableCourses,
+  getHeaderTitle,
+  getHeaderCount,
+  isType,
+  matchingCareerGoals,
+  noCareerGoals,
+  noInterests,
+  noPlan,
+} from './explorer-helper-functions';
 
-interface ICardExplorerWidgetProps {
+interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps{
   collection: any;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  role: 'student' | 'faculty' | 'mentor';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   reactiveSource: object[];
   reactiveSourceProfile: object;
   reactiveSourceForTermCarOne: object[];
@@ -57,6 +54,7 @@ const mapStateToProps = (state) => ({
   hiddenCourses: state.shared.explorer.hiddenCourses,
   hiddenOpportunities: state.shared.explorer.hiddenOpportunities,
 });
+
 
 /**
  * Process to build a new Card Explorer Widget
@@ -87,55 +85,11 @@ class CardExplorerWidget extends React.Component
   }
 
   /* ####################################### HEADER FUNCTIONS ####################################### */
-  private getHeaderTitle = (): string => {
-    const { type } = this.props;
-    switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLANS:
-        return 'ACADEMIC PLANS';
-      case EXPLORER_TYPE.CAREERGOALS:
-        return 'CAREER GOALS';
-      case EXPLORER_TYPE.COURSES:
-        return 'COURSES';
-      case EXPLORER_TYPE.DEGREES:
-        return 'DESIRED DEGREES';
-      case EXPLORER_TYPE.INTERESTS:
-        return 'INTERESTS';
-      case EXPLORER_TYPE.OPPORTUNITIES:
-        return 'OPPORTUNITIES';
-      case EXPLORER_TYPE.USERS:
-        return 'USERS';
-      default:
-        return 'UNDEFINED TITLE';
-    }
-  }
-
-  private getHeaderCount = (): number => {
-    const { type } = this.props;
-    switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLANS:
-        return this.academicPlansItemCount();
-      case EXPLORER_TYPE.CAREERGOALS:
-        return this.careerGoalsItemCount();
-      case EXPLORER_TYPE.COURSES:
-        return this.coursesItemCount();
-      case EXPLORER_TYPE.DEGREES:
-        return this.degreesItemCount();
-      case EXPLORER_TYPE.INTERESTS:
-        return this.interestsItemCount();
-      case EXPLORER_TYPE.OPPORTUNITIES:
-        return this.opportunitiesItemCount();
-      case EXPLORER_TYPE.USERS:
-        // do nothing; we do not track user count
-        return -1;
-      default:
-        return -1;
-    }
-  }
 
   private buildHeader = (): { title: string; count: number; } => {
     const header = {
-      title: this.getHeaderTitle(),
-      count: this.getHeaderCount(),
+      title: getHeaderTitle(this.props),
+      count: getHeaderCount(this.props),
     };
     return header;
   }
@@ -170,11 +124,11 @@ class CardExplorerWidget extends React.Component
   private noItems = (noItemsType): boolean => {
     switch (noItemsType) {
       case 'noPlan':
-        return this.noPlan();
+        return noPlan(this.props.match);
       case 'noInterests':
-        return this.noInterests();
+        return noInterests(this.props.match);
       case 'noCareerGoals':
-        return this.noCareerGoals();
+        return noCareerGoals(this.props.match);
       default:
         return true;
     }
@@ -185,18 +139,18 @@ class CardExplorerWidget extends React.Component
       case 'noPlan':
         return <p>You have no Academic Plan, select add to profile to select a plan.</p>;
       case 'noInterests':
-        if (this.isType(EXPLORER_TYPE.CAREERGOALS)) {
+        if (isType(EXPLORER_TYPE.CAREERGOALS, this.props)) {
           return <p>Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
             menu on the left.</p>;
         }
-        if (this.isType(EXPLORER_TYPE.COURSES)) {
+        if (isType(EXPLORER_TYPE.COURSES, this.props)) {
           return <p>Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
             menu on the left.</p>;
         }
-        if (this.isType(EXPLORER_TYPE.INTERESTS)) {
+        if (isType(EXPLORER_TYPE.INTERESTS, this.props)) {
           return <p>You have no Interests, select add to profile to add an interest.</p>;
         }
-        if (this.isType(EXPLORER_TYPE.OPPORTUNITIES)) {
+        if (isType(EXPLORER_TYPE.OPPORTUNITIES, this.props)) {
           return <p>Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
             pull-down menu on the left.</p>;
         }
@@ -208,26 +162,16 @@ class CardExplorerWidget extends React.Component
     }
   }
   /* ####################################### GENERAL HELPER FUNCTIONS ####################################### */
-  private getUsername = (): string => Router.getUsername(this.props.match);
-
-  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
-
-  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
-
-  private isType = (typeToCheck: string): boolean => {
-    const { type } = this.props;
-    return type === typeToCheck;
-  }
 
   private getItems = (): { [key: string]: any }[] => {
     const { type } = this.props;
     switch (type) {
       case EXPLORER_TYPE.ACADEMICPLANS:
-        return this.availableAcademicPlans();
+        return availableAcademicPlans(this.props.match);
       case EXPLORER_TYPE.CAREERGOALS:
-        return this.matchingCareerGoals();
+        return matchingCareerGoals(this.props.match);
       case EXPLORER_TYPE.COURSES:
-        return this.courses();
+        return availableCourses(this.props.match);
       case EXPLORER_TYPE.DEGREES:
         return this.degrees();
       case EXPLORER_TYPE.INTERESTS:
@@ -246,13 +190,13 @@ class CardExplorerWidget extends React.Component
 
   // Used in both Courses and Opportunities Card Explorer
   private hiddenExists(): boolean {
-    if (!this.isRoleStudent()) return false;
+    if (!Router.isUrlRoleStudent(this.props.match)) return false;
 
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     if (username) {
       const profile = Users.getProfile(username);
       let ret;
-      if (this.isType(EXPLORER_TYPE.COURSES)) {
+      if (isType(EXPLORER_TYPE.COURSES, this.props)) {
         ret = profile.hiddenCourseIDs.length !== 0;
       } else {
         ret = profile.hiddenOpportunityIDs.length !== 0;
@@ -260,83 +204,6 @@ class CardExplorerWidget extends React.Component
       return ret;
     }
     return false;
-  }
-
-  /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-  private noPlan = (): boolean => {
-    const username = this.getUsername();
-    if (this.isRoleStudent()) {
-      if (this.getUsername()) {
-        return _.isNil(Users.getProfile(username).academicPlanID);
-      }
-    }
-    return false;
-  }
-
-  private availableAcademicPlans = (): object[] => {
-    let plans = AcademicPlans.findNonRetired({}, { sort: { year: 1, name: 1 } });
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      if (!profile.declaredAcademicTermID) {
-        plans = AcademicPlans.getLatestPlans();
-      } else {
-        const declaredTerm = AcademicTerms.findDoc(profile.declaredAcademicTermID);
-        plans = _.filter(AcademicPlans.find({ termNumber: { $gte: declaredTerm.termNumber } }, {
-          sort: {
-            year: 1,
-            name: 1,
-          },
-        }).fetch(), (ap) => !ap.retired);
-      }
-      if (profile.academicPlanID) {
-        return _.filter(plans, p => profile.academicPlanID !== p._id);
-      }
-    }
-    return plans;
-  }
-
-  private academicPlansItemCount = (): number => this.availableAcademicPlans().length
-
-  /* ####################################### CAREER GOALS HELPER FUNCTIONS ####################################### */
-  private availableCareerGoals = (): object[] => {
-    const careers = CareerGoals.find({}).fetch();
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      const careerGoalIDs = profile.careerGoalIDs;
-      return _.filter(careers, c => !_.includes(careerGoalIDs, c._id));
-    }
-    return careers;
-  }
-
-  private matchingCareerGoals = (): object[] => {
-    const allCareers = this.availableCareerGoals();
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      const interestIDs = Users.getInterestIDs(profile.userID);
-      const preferred = new PreferredChoice(allCareers, interestIDs);
-      return preferred.getOrderedChoices();
-    }
-    return allCareers;
-  }
-
-  private careerGoalsItemCount = (): number => this.matchingCareerGoals().length;
-
-  // This is used both in Career Goals and Interests
-  private noInterests = (): boolean => {
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      const interestIDs = Users.getInterestIDs(profile.userID);
-      return interestIDs.length === 0;
-    }
-    return true;
-  }
-
-  private noCareerGoals = (): boolean => {
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
-      return profile.careerGoalIDs.length === 0;
-    }
-    return true;
   }
 
   /* ####################################### COURSES HELPER FUNCTIONS ####################################### */
@@ -352,21 +219,10 @@ class CardExplorerWidget extends React.Component
     this.props.dispatch(explorerActions.setCardExplorerWidgetHiddenCourses(true));
   }
 
-  private courses = (): object[] => {
-    const courses = this.matchingCourses();
-    let visibleCourses;
-    if (this.isCoursesHidden()) {
-      visibleCourses = this.hiddenCoursesHelper();
-    } else {
-      visibleCourses = courses;
-    }
-    return visibleCourses;
-  };
-
   private matchingCourses = (): object[] => {
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     if (username) {
-      const allCourses = this.availableCourses();
+      const allCourses = availableCourses(this.props.match);
       const profile = Users.getProfile(username);
       const interestIDs = Users.getInterestIDs(profile.userID);
       const preferred = new PreferredChoice(allCourses, interestIDs);
@@ -375,35 +231,9 @@ class CardExplorerWidget extends React.Component
     return [];
   }
 
-  private availableCourses = (): object[] => {
-    const courses = Courses.findNonRetired({});
-    if (courses.length > 0) {
-      const studentID = this.getUserIdFromRoute();
-      let filtered = _.filter(courses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
-          return true;
-        }
-        const ci = CourseInstances.find({
-          studentID,
-          courseID: course._id,
-        }).fetch();
-        return ci.length === 0;
-      });
-      if (Roles.userIsInRole(studentID, [ROLE.STUDENT])) {
-        const profile = StudentProfiles.findDoc({ userID: studentID });
-        const plan = AcademicPlans.findDoc(profile.academicPlanID);
-        if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
-          const regex = /[1234]\d\d/g;
-          filtered = _.filter(filtered, (c) => c.num.match(regex));
-        }
-      }
-      return filtered;
-    }
-    return [];
-  };
 
   private hiddenCoursesHelper = (): object[] => {
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     if (username) {
       const courses = this.matchingCourses();
       let nonHiddenCourses;
@@ -433,7 +263,7 @@ class CardExplorerWidget extends React.Component
   /* ####################################### INTERESTS HELPER FUNCTIONS ####################################### */
   private availableInterests = (): object[] => {
     let interests = Interests.find({}).fetch();
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     if (username) {
       const profile = Users.getProfile(username);
       const allInterests = Users.getInterestIDsByType(profile.userID);
@@ -471,7 +301,7 @@ class CardExplorerWidget extends React.Component
 
   private matchingOpportunities = (): object[] => {
     const allOpportunities = this.availableOpps();
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     const profile = Users.getProfile(username);
     const interestIDs = Users.getInterestIDs(profile.userID);
     const preferred = new PreferredChoice(allOpportunities, interestIDs);
@@ -481,11 +311,11 @@ class CardExplorerWidget extends React.Component
   private availableOpps = (): object[] => {
     const notRetired = Opportunities.findNonRetired({});
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    if (this.isRoleStudent()) {
+    if (Router.isUrlRoleStudent(this.props.match)) {
       if (notRetired.length > 0) {
         const filteredByTerm = _.filter(notRetired, (opp) => {
           const oi = OpportunityInstances.find({
-            studentID: this.getUserIdFromRoute(),
+            studentID: Router.getUserIdFromRoute(this.props.match),
             opportunityID: opp._id,
           }).fetch();
           return oi.length === 0;
@@ -503,13 +333,13 @@ class CardExplorerWidget extends React.Component
         return filteredByInstance;
       }
     } else if (this.props.role === URL_ROLES.FACULTY) {
-      return _.filter(notRetired, o => o.sponsorID !== this.getUserIdFromRoute());
+      return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(this.props.match));
     }
     return notRetired;
   };
 
   private hiddenOpportunitiesHelper = (): object[] => {
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     if (username) {
       const opportunities = this.matchingOpportunities();
       let nonHiddenOpportunities;
@@ -533,7 +363,7 @@ class CardExplorerWidget extends React.Component
 
   /* ####################################### USERS HELPER FUNCTIONS ####################################### */
   private getUsers = (role: string): IProfile[] => {
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     const users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
 
     if (username) {
@@ -575,23 +405,23 @@ class CardExplorerWidget extends React.Component
     const { type } = this.props;
 
     // For the Academic Plans Card Explorer
-    const buildPlanCard = this.isType(EXPLORER_TYPE.ACADEMICPLANS);
+    const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, this.props);
 
     // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-    const buildProfileCard = this.isType(EXPLORER_TYPE.INTERESTS) || this.isType(EXPLORER_TYPE.CAREERGOALS);
+    const buildProfileCard = isType(EXPLORER_TYPE.INTERESTS, this.props) || isType(EXPLORER_TYPE.CAREERGOALS, this.props);
 
     // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
-    const buildTermCard = this.isType(EXPLORER_TYPE.COURSES) || this.isType(EXPLORER_TYPE.OPPORTUNITIES);
+    const buildTermCard = isType(EXPLORER_TYPE.COURSES, this.props) || isType(EXPLORER_TYPE.OPPORTUNITIES, this.props);
     const isCoursesHidden = this.isCoursesHidden();
     const isOpportunitiesHidden = this.isOpportunitiesHidden();
     const hiddenExists = this.hiddenExists();
-    const isStudent = this.isRoleStudent();
+    const isStudent = Router.isUrlRoleStudent(this.props.match);
 
     // For Degrees (or any future Card Explore that only has a "View More" functionality)
-    const buildExplorerCard = this.isType(EXPLORER_TYPE.DEGREES);
+    const buildExplorerCard = isType(EXPLORER_TYPE.DEGREES, this.props);
 
     // For the Users Card Explorer
-    const buildStudentUserCard = this.isType(EXPLORER_TYPE.USERS);
+    const buildStudentUserCard = isType(EXPLORER_TYPE.USERS, this.props);
     const advisorRoleUsers = this.getUsers(ROLE.ADVISOR);
     const facultyRoleUsers = this.getUsers(ROLE.FACULTY);
     const mentorRoleUsers = this.getUsers(ROLE.MENTOR);
@@ -640,7 +470,7 @@ class CardExplorerWidget extends React.Component
     ];
 
     // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-    const canAdd = this.isRoleStudent();
+    const canAdd = Router.isUrlRoleStudent(this.props.match);
 
     return (
       <React.Fragment>
@@ -664,7 +494,7 @@ class CardExplorerWidget extends React.Component
               [
                 hiddenExists ?
                   [
-                    this.isType(EXPLORER_TYPE.COURSES) ?
+                    isType(EXPLORER_TYPE.COURSES, this.props) ?
                       [
                         isCoursesHidden ?
                           <Button key={_.uniqueId()} basic={true} color="green" size="mini"
