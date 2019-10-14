@@ -8,8 +8,6 @@ import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
 import { ROLE } from '../../../api/role/Role';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -30,13 +28,12 @@ import {
   ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
   availableAcademicPlans,
   availableCourses,
-  getHeaderTitle,
-  getHeaderCount,
+  availableInterests,
+  buildHeader,
+  degrees,
   isType,
   matchingCareerGoals,
-  noCareerGoals,
-  noInterests,
-  noPlan,
+  noItems,
 } from './explorer-helper-functions';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps{
@@ -86,51 +83,31 @@ class CardExplorerWidget extends React.Component
 
   /* ####################################### HEADER FUNCTIONS ####################################### */
 
-  private buildHeader = (): { title: string; count: number; } => {
-    const header = {
-      title: getHeaderTitle(this.props),
-      count: getHeaderCount(this.props),
-    };
-    return header;
-  }
-
-  private checkForNoItems = (): Element | JSX.Element | string => {
+   private checkForNoItems = (): Element | JSX.Element | string => {
     const { type } = this.props;
     switch (type) {
       case EXPLORER_TYPE.ACADEMICPLANS:
-        return this.noItems('noPlan') ? this.buildNoItemsMessage('noPlan') : '';
+        return noItems('noPlan', this.props.match) ? this.buildNoItemsMessage('noPlan') : '';
       case EXPLORER_TYPE.CAREERGOALS:
         return <React.Fragment>
-          {this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : ''}
-          {this.noItems('noCareerGoals') ? this.buildNoItemsMessage('noCareerGoals') : ''}
+          {noItems('noInterests', this.props.match) ? this.buildNoItemsMessage('noInterests') : ''}
+          {noItems('noCareerGoals', this.props.match) ? this.buildNoItemsMessage('noCareerGoals') : ''}
         </React.Fragment>;
       case EXPLORER_TYPE.COURSES:
-        return this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : '';
+        return noItems('noInterests', this.props.match) ? this.buildNoItemsMessage('noInterests') : '';
       case EXPLORER_TYPE.DEGREES:
         //  do nothing; users cannot add their own desired degrees to their profile
         return '';
       case EXPLORER_TYPE.INTERESTS:
-        return this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : '';
+        return noItems('noInterests', this.props.match) ? this.buildNoItemsMessage('noInterests') : '';
       case EXPLORER_TYPE.OPPORTUNITIES:
-        return this.noItems('noInterests') ? this.buildNoItemsMessage('noInterests') : '';
+        return noItems('noInterests', this.props.match) ? this.buildNoItemsMessage('noInterests') : '';
       case EXPLORER_TYPE.USERS:
         // do nothing; we do not track if there are no users
         return '';
       default:
         return '';
 
-    }
-  }
-  private noItems = (noItemsType): boolean => {
-    switch (noItemsType) {
-      case 'noPlan':
-        return noPlan(this.props.match);
-      case 'noInterests':
-        return noInterests(this.props.match);
-      case 'noCareerGoals':
-        return noCareerGoals(this.props.match);
-      default:
-        return true;
     }
   }
 
@@ -173,9 +150,9 @@ class CardExplorerWidget extends React.Component
       case EXPLORER_TYPE.COURSES:
         return availableCourses(this.props.match);
       case EXPLORER_TYPE.DEGREES:
-        return this.degrees();
+        return degrees();
       case EXPLORER_TYPE.INTERESTS:
-        return this.availableInterests();
+        return availableInterests(this.props.match);
       case EXPLORER_TYPE.OPPORTUNITIES:
         return this.opportunities();
       case EXPLORER_TYPE.USERS:
@@ -254,26 +231,6 @@ class CardExplorerWidget extends React.Component
   }
 
   private coursesItemCount = (): number => this.hiddenCoursesHelper().length;
-
-  /* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
-  private degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
-
-  private degreesItemCount = (): number => this.degrees().length;
-
-  /* ####################################### INTERESTS HELPER FUNCTIONS ####################################### */
-  private availableInterests = (): object[] => {
-    let interests = Interests.find({}).fetch();
-    const username = Router.getUsername(this.props.match);
-    if (username) {
-      const profile = Users.getProfile(username);
-      const allInterests = Users.getInterestIDsByType(profile.userID);
-      interests = _.filter(interests, i => !_.includes(allInterests[0], i._id));
-      interests = _.filter(interests, i => !_.includes(allInterests[1], i._id));
-    }
-    return interests;
-  }
-
-  private interestsItemCount = (): number => this.availableInterests().length;
 
   /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ####################################### */
   private isOpportunitiesHidden = (): boolean => this.props.hiddenOpportunities;
@@ -400,7 +357,7 @@ class CardExplorerWidget extends React.Component
     };
 
     /* Variables */
-    const header = this.buildHeader(); // The header Title and Count
+    const header = buildHeader(this.props); // The header Title and Count
     const items = this.getItems(); // The items to map over
     const { type } = this.props;
 

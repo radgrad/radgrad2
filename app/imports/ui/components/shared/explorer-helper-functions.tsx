@@ -13,6 +13,8 @@ import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
 import { Courses } from '../../../api/course/CourseCollection';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -200,6 +202,12 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
   return [];
 };
 
+/* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
+export const degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
+
+export const degreesItemCount = (): number => degrees().length;
+
+
 /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
 export const userInterests = (interest: IInterest, match: Router.IMatchProps): string => {
   let ret = '';
@@ -220,6 +228,19 @@ export const noInterests = (match: Router.IMatchProps): boolean => {
   return true;
 };
 
+export const availableInterests = (match: Router.IMatchProps): object[] => {
+  let interests = Interests.find({}).fetch();
+  const username = Router.getUsername(match);
+  if (username) {
+    const profile = Users.getProfile(username);
+    const allInterests = Users.getInterestIDsByType(profile.userID);
+    interests = _.filter(interests, i => !_.includes(allInterests[0], i._id));
+    interests = _.filter(interests, i => !_.includes(allInterests[1], i._id));
+  }
+  return interests;
+};
+
+export const interestsItemCount = (match: Router.IMatchProps): number => availableInterests(match).length;
 
 /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
 export const userOpportunities = (opportunity: IOpportunity, match: Router.IMatchProps): string => {
@@ -289,5 +310,27 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
       return -1;
     default:
       return -1;
+  }
+};
+
+export const buildHeader = (props: ICardExplorerMenuWidgetProps): { title: string; count: number; } => {
+  const header = {
+    title: getHeaderTitle(props),
+    count: getHeaderCount(props),
+  };
+  return header;
+};
+
+
+export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean => {
+  switch (noItemsType) {
+    case 'noPlan':
+      return noPlan(match);
+    case 'noInterests':
+      return noInterests(match);
+    case 'noCareerGoals':
+      return noCareerGoals(match);
+    default:
+      return true;
   }
 };
