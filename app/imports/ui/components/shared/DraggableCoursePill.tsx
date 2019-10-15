@@ -13,32 +13,23 @@ interface ICoursePillProps {
   satisfied: boolean;
 }
 
-class DraggableCoursePill extends React.Component<ICoursePillProps> {
-  constructor(props) {
-    // console.log('DraggableCoursePill %o', props);
-    super(props);
-  }
-
-  public render() {
-    return (
-      <Draggable key={this.props.choice} draggableId={this.props.draggableId} index={this.props.index}>
-        {(prov, snap) => (
-          <div
-            ref={prov.innerRef}
-            {...prov.draggableProps}
-            {...prov.dragHandleProps}
-            style={getDraggablePillStyle(
-              snap.isDragging,
-              prov.draggableProps.style,
-            )}
-          >
-              <CoursePill name={PlanChoiceCollection.toStringFromSlug(this.props.choice)}/>
-
-          </div>
+const DraggableCoursePill = (props: ICoursePillProps) => (
+  <Draggable key={props.choice} draggableId={props.draggableId} index={props.index}>
+    {(prov, snap) => (
+      <div
+        ref={prov.innerRef}
+        {...prov.draggableProps}
+        {...prov.dragHandleProps}
+        style={getDraggablePillStyle(
+          snap.isDragging,
+          prov.draggableProps.style,
         )}
-      </Draggable>
-    );
-  }
-}
+      >
+        <CoursePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+
+      </div>
+    )}
+  </Draggable>
+);
 
 export default DraggableCoursePill;

@@ -1,11 +1,20 @@
+import * as React from 'react';
 import * as _ from 'lodash';
 import { Roles } from 'meteor/alanning:roles';
-import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import {
+  IAcademicPlan, // eslint-disable-line no-unused-vars
+  ICareerGoal, // eslint-disable-line no-unused-vars
+  ICourse, // eslint-disable-line no-unused-vars
+  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IInterest, // eslint-disable-line no-unused-vars
+  IOpportunity, // eslint-disable-line no-unused-vars
+  IProfile, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -15,6 +24,7 @@ import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -118,7 +128,7 @@ export const userCareerGoals = (careerGoal: ICareerGoal, match: Router.IMatchPro
   return ret;
 };
 
-export const availableCareerGoals = (match: Router.IMatchProps): object[] => {
+const availableCareerGoals = (match: Router.IMatchProps): object[] => {
   const careers = CareerGoals.findNonRetired({});
   const username = Router.getUsername(match);
   if (username) {
@@ -202,6 +212,20 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
   return [];
 };
 
+export const matchingCourses = (match: Router.IMatchProps): object[] => {
+  const username = Router.getUsername(match);
+  if (username) {
+    const allCourses = availableCourses(match);
+    const profile = Users.getProfile(username);
+    const interestIDs = Users.getInterestIDs(profile.userID);
+    const preferred = new PreferredChoice(allCourses, interestIDs);
+    return preferred.getOrderedChoices();
+  }
+  return [];
+};
+
+export const coursesItemCount = (match: Router.IMatchProps): number => availableCourses(match).length;
+
 /* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
 export const degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
 
@@ -229,7 +253,7 @@ export const noInterests = (match: Router.IMatchProps): boolean => {
 };
 
 export const availableInterests = (match: Router.IMatchProps): object[] => {
-  let interests = Interests.find({}).fetch();
+  let interests = Interests.findNonRetired({});
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
@@ -265,24 +289,78 @@ export const opportunityItemName = (item: { item: IOpportunity, count: number })
   return `${item.item.name} ${iceString}`;
 };
 
+export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => {
+  const notRetired = Opportunities.findNonRetired({});
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  if (Router.isUrlRoleStudent(props.match)) {
+    if (notRetired.length > 0) {
+      const filteredByTerm = _.filter(notRetired, (opp) => {
+        const oi = OpportunityInstances.find({
+          studentID: Router.getUserIdFromRoute(props.match),
+          opportunityID: opp._id,
+        }).fetch();
+        return oi.length === 0;
+      });
+      const filteredByInstance = _.filter(filteredByTerm, (opp) => {
+        let inFuture = false;
+        _.forEach(opp.termIDs, (termID) => {
+          const term = AcademicTerms.findDoc(termID);
+          if (term.termNumber >= currentTerm.termNumber) {
+            inFuture = true;
+          }
+        });
+        return inFuture;
+      });
+      return filteredByInstance;
+    }
+  } else if (props.role === URL_ROLES.FACULTY) {
+    return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(props.match));
+  }
+  return notRetired;
+};
+
+export const matchingOpportunities = (props: ICardExplorerMenuWidgetProps): object[] => {
+  const allOpportunities = availableOpps(props);
+  const username = Router.getUsername(props.match);
+  const profile = Users.getProfile(username);
+  const interestIDs = Users.getInterestIDs(profile.userID);
+  const preferred = new PreferredChoice(allOpportunities, interestIDs);
+  return preferred.getOrderedChoices();
+};
+/* ####################################### USERS HELPER FUNCTIONS ####################################### */
+export const getUsers = (role: string, match: Router.IMatchProps): IProfile[] => {
+  const username = Router.getUsername(match);
+  const users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
+
+  if (username) {
+    const profile = Users.getProfile(username);
+    const filtered = _.filter(users, (u) => u.username !== profile.username);
+    const interestIDs = Users.getInterestIDs(profile.userID);
+    const preferred = new PreferredChoice(filtered, interestIDs);
+    return preferred.getOrderedChoices();
+  }
+  return users;
+};
+
+
 /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
 
 // Determines whether or not we show a "check green circle outline icon" for an item
-export const getItemStatus = (item: explorerInterfaces, match: Router.IMatchProps): string => {
-  const { type } = this.props;
+export const getItemStatus = (item: explorerInterfaces, props: ICardExplorerMenuWidgetProps): string => {
+  const { type } = props;
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return userPlans(item as IAcademicPlan, match);
+      return userPlans(item as IAcademicPlan, props.match);
     case EXPLORER_TYPE.CAREERGOALS:
-      return userCareerGoals(item as ICareerGoal, match);
+      return userCareerGoals(item as ICareerGoal, props.match);
     case EXPLORER_TYPE.COURSES:
-      return userCourses(item as ICourse, match);
+      return userCourses(item as ICourse, props.match);
     // case 'degrees': users currently cannot add a desired degree to their profile
     //   return this.userDegrees(item.item as DesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
-      return userInterests(item as IInterest, match);
+      return userInterests(item as IInterest, props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return userOpportunities(item as IOpportunity, match);
+      return userOpportunities(item as IOpportunity, props.match);
     case EXPLORER_TYPE.USERS: // do nothing
       return '';
     default:
@@ -298,7 +376,7 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
     case EXPLORER_TYPE.CAREERGOALS:
       return careerGoalsItemCount(props.match);
     case EXPLORER_TYPE.COURSES:
-      return this.coursesItemCount();
+      return coursesItemCount(props.match);
     case EXPLORER_TYPE.DEGREES:
       return this.degreesItemCount();
     case EXPLORER_TYPE.INTERESTS:
@@ -332,5 +410,86 @@ export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean
       return noCareerGoals(match);
     default:
       return true;
+  }
+};
+
+export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenuWidgetProps): Element | JSX.Element | string => {
+  switch (noItemsMessageType) {
+    case 'noPlan':
+      return <p>You have no Academic Plan, select add to profile to select a plan.</p>;
+    case 'noInterests':
+      if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
+        return <p>Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
+          menu on the left.</p>;
+      }
+      if (isType(EXPLORER_TYPE.COURSES, props)) {
+        return <p>Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
+          menu on the left.</p>;
+      }
+      if (isType(EXPLORER_TYPE.INTERESTS, props)) {
+        return <p>You have no Interests, select add to profile to add an interest.</p>;
+      }
+      if (isType(EXPLORER_TYPE.OPPORTUNITIES, props)) {
+        return <p>Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
+          pull-down menu on the left.</p>;
+      }
+      return '';
+    case 'noCareerGoals':
+      return <p>You have no Career Goals, select &quot;Add to Profile&quot; to add a career goal.</p>;
+    default:
+      return '';
+  }
+};
+
+export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | JSX.Element | string => {
+  const { type } = props;
+  switch (type) {
+    case EXPLORER_TYPE.ACADEMICPLANS:
+      return noItems('noPlan', props.match) ? buildNoItemsMessage('noPlan', props) : '';
+    case EXPLORER_TYPE.CAREERGOALS:
+      return <React.Fragment>
+        {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
+        {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
+      </React.Fragment>;
+    case EXPLORER_TYPE.COURSES:
+      return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
+    case EXPLORER_TYPE.DEGREES:
+      //  do nothing; users cannot add their own desired degrees to their profile
+      return '';
+    case EXPLORER_TYPE.INTERESTS:
+      return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
+    case EXPLORER_TYPE.USERS:
+      // do nothing; we do not track if there are no users
+      return '';
+    default:
+      return '';
+
+  }
+};
+
+export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: any }[] => {
+  const { type } = props;
+  switch (type) {
+    case EXPLORER_TYPE.ACADEMICPLANS:
+      return availableAcademicPlans(props.match);
+    case EXPLORER_TYPE.CAREERGOALS:
+      return matchingCareerGoals(props.match);
+    case EXPLORER_TYPE.COURSES:
+      return availableCourses(props.match);
+    case EXPLORER_TYPE.DEGREES:
+      return degrees();
+    case EXPLORER_TYPE.INTERESTS:
+      return availableInterests(props.match);
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      return matchingOpportunities(props);
+    case EXPLORER_TYPE.USERS:
+      //  do nothing. For other Card Explorers, we only need one constant variable to hold an item array.
+      //  However, we need multiple constant variables to hold the users for each of the invidual roles
+      //  (faculty, advisor, etc...). See the function @getUsers(role) instead.
+      return [];
+    default:
+      return [];
   }
 };
