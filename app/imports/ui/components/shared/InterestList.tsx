@@ -5,10 +5,10 @@ import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 // eslint-disable-next-line no-unused-vars
 import { IBaseProfile } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
+import { docToName, itemToSlugName } from './data-model-helper-functions';
 
 interface IInterestListProps {
   item: {
@@ -30,10 +30,6 @@ class InterestList extends React.Component<IInterestListProps> {
     super(props);
   }
 
-  private getUsername = () => Router.getUsername(this.props.match);
-
-  private interestName = (interest): string => interest.name;
-
   private matchingUserInterests = (course) => {
     try {
       return this.matchingUserInterestsHelper(course);
@@ -44,7 +40,7 @@ class InterestList extends React.Component<IInterestListProps> {
 
   private matchingUserInterestsHelper = (item) => {
     const matchingInterests = [];
-    const userInterestIDs = Users.getInterestIDsByType(this.getUsername());
+    const userInterestIDs = Users.getInterestIDsByType(Router.getUsername(this.props.match));
     const userInterests = _.map(userInterestIDs[0], (id) => Interests.findDoc(id));
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
     _.forEach(itemInterests, (itemInterest) => {
@@ -67,7 +63,7 @@ class InterestList extends React.Component<IInterestListProps> {
 
   private matchingCareerInterestsHelper = (item) => {
     const matchingInterests = [];
-    const userInterestIDs = Users.getInterestIDsByType(this.getUsername());
+    const userInterestIDs = Users.getInterestIDsByType(Router.getUsername(this.props.match));
     const userInterests = _.map(userInterestIDs[1], (id) => Interests.findDoc(id));
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
     _.forEach(itemInterests, (itemInterest) => {
@@ -100,7 +96,7 @@ class InterestList extends React.Component<IInterestListProps> {
 
   private matchingInterestsHelper = (item) => {
     const matchingInterests = [];
-    const userInterestIDs = Users.getInterestIDs(this.getUsername());
+    const userInterestIDs = Users.getInterestIDs(Router.getUsername(this.props.match));
     const userInterests = _.map(userInterestIDs, (id) => Interests.findDoc(id));
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
     _.forEach(itemInterests, (itemInterest) => {
@@ -114,15 +110,13 @@ class InterestList extends React.Component<IInterestListProps> {
   }
 
   private buildInterestsRouteName = (interest) => {
-    const interestName = this.interestSlug(interest);
+    const interestName = itemToSlugName(interest);
     const username = this.props.match.params.username;
     const baseUrl = this.props.match.url;
     const baseIndex = baseUrl.indexOf(username);
     const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
     return `${baseRoute}explorer/interests/${interestName}`;
   }
-
-  private interestSlug = (interest) => Slugs.findDoc(interest.slugID).name;
 
   public render():
     React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -134,7 +128,7 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           matchingUserInterests.map((interest) => (
             <Label as={Link} key={interest._id} to={this.buildInterestsRouteName(interest)} size={this.props.size}>
-              <i className="fitted star icon"/> {this.interestName(interest)}
+              <i className="fitted star icon"/> {docToName(interest)}
             </Label>
           ))
         }
@@ -142,7 +136,7 @@ class InterestList extends React.Component<IInterestListProps> {
         {
           matchingCareerInterests.map((interest) => (
             <Label as={Link} key={interest._id} to={this.buildInterestsRouteName(interest)} size={this.props.size}>
-              <i className="fitted suitcase icon"/> {this.interestName(interest)}
+              <i className="fitted suitcase icon"/> {docToName(interest)}
             </Label>
           ))
         }
@@ -151,7 +145,7 @@ class InterestList extends React.Component<IInterestListProps> {
           otherInterests.map((interest) => (
             <Label as={Link} key={interest._id} to={this.buildInterestsRouteName(interest)} size={this.props.size}
                    color="grey">
-              {this.interestName(interest)}
+              {docToName(interest)}
             </Label>
           ))
         }

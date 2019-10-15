@@ -16,6 +16,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorerOpportunitiesWidgetButton';
 import * as Router from './RouterHelperFunctions';
+import { toUpper } from './helper-functions';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -38,8 +39,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
   constructor(props) {
     super(props);
   }
-
-  private toUpper = (string: string): string => string.toUpperCase();
 
   private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
@@ -125,7 +124,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
 
     const { name, descriptionPairs, item, completed, match } = this.props;
     /* Header Variables */
-    const upperName = this.toUpper(name);
+    const upperName = toUpper(name);
     const isStudent = this.isRoleStudent();
     const userStatus = this.userStatus(item);
     const futureInstance = this.futureInstance(item);

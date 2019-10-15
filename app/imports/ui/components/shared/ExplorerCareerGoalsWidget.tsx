@@ -6,12 +6,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { getUsername, renderLink } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
+import { toUpper, isSame } from './helper-functions';
+import { userToFullName, userToPicture } from './data-model-helper-functions';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -34,15 +35,6 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     super(props);
   }
 
-  private toUpper = (string) => string.toUpperCase();
-
-  private isLabel = (descriptionPairLabel, comp) => descriptionPairLabel === comp;
-
-  private userPicture = (user) => {
-    const picture = Users.getProfile(user).picture;
-    return picture || defaultProfilePicture;
-  }
-
   private userStatus = (careerGoal) => {
     let ret = false;
     const profile = Users.getProfile(getUsername(this.props.match));
@@ -51,8 +43,6 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     }
     return ret;
   }
-
-  private fullName = (user) => Users.getFullName(user);
 
   private handleAdd = (event) => {
     event.preventDefault();
@@ -100,7 +90,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
     const centerAlignedColumnStyle = { minWidth: '25%' };
 
     const { name, descriptionPairs, socialPairs, item, match } = this.props;
-    const upperName = this.toUpper(name);
+    const upperName = toUpper(name);
     const userStatus = this.userStatus(item);
 
     return (
@@ -126,7 +116,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
               {descriptionPairs.map((descriptionPair, index) => (
                 <React.Fragment key={index}>
                   {
-                    this.isLabel(descriptionPair.label, 'Description') ?
+                    isSame(descriptionPair.label, 'Description') ?
                       <React.Fragment>
                         <b>{descriptionPair.label}:<br/></b>
                         {
@@ -140,7 +130,7 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
                       : ''
                   }
                   {
-                    this.isLabel(descriptionPair.label, 'Interests') ?
+                    isSame(descriptionPair.label, 'Interests') ?
                       <div style={{ marginTop: '5px' }}>
                         <InterestList item={item} size='mini' align={'vertical'}/>
                       </div>
@@ -154,13 +144,13 @@ class ExplorerCareerGoalsWidget extends React.Component<IExplorerCareerGoalsWidg
             <Grid stackable={true} celled={'internally'}>
               {socialPairs.map((socialPair, index) => (
                 <Grid.Column key={index} textAlign={'center'} style={centerAlignedColumnStyle}>
-                  <h5>{this.toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
+                  <h5>{toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
 
                   <Image.Group size="mini" style={imageGroupStyle}>
                     {socialPair.value.map((user) => <Popup
                       key={user._id}
-                      trigger={<Image src={this.userPicture(user)} circular={true} bordered={true}/>}
-                      content={this.fullName(user)}
+                      trigger={<Image src={userToPicture(user)} circular={true} bordered={true}/>}
+                      content={userToFullName(user)}
                     />)}
                   </Image.Group>
                 </Grid.Column>

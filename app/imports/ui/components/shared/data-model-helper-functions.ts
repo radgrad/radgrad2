@@ -12,6 +12,8 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 export const itemToSlugName = (doc) => Slugs.getNameFromID(doc.slugID);
 
@@ -44,6 +46,17 @@ export const degreeShortNameToSlug = (shortName) => itemToSlugName(DesiredDegree
 export const docToName = (doc) => doc.name;
 
 export const docToShortName = (doc) => doc.shortName;
+
+export const docToShortDescription = (doc) => {
+  let description = doc.description;
+  if (description.length > 200) {
+    description = `${description.substring(0, 200)}`;
+    if (description.charAt(description.length - 1) === ' ') {
+      description = `${description.substring(0, 199)}`;
+    }
+  }
+  return description;
+};
 
 export const interestIdToName = (id) => Interests.findDoc(id).name;
 
@@ -92,7 +105,19 @@ export const profileToUsername = (profile) => profile.username;
 
 export const profileNameToUsername = (name) => name.substring(name.indexOf('(') + 1, name.indexOf(')'));
 
+export const studentsParticipating = (item) => {
+  const participatingUsers = StudentParticipations.findDoc({ itemID: item._id });
+  return participatingUsers.itemCount;
+};
+
 export const userIdToName = (userID) => {
   const profile = Users.getProfile(userID);
   return `${Users.getFullName(userID)} (${profile.username})`;
+};
+
+export const userToFullName = (user) => Users.getFullName(user);
+
+export const userToPicture = (user) => {
+  const picture = Users.getProfile(user).picture;
+  return picture || defaultProfilePicture;
 };

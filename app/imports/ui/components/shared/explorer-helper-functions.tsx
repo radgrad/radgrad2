@@ -5,7 +5,7 @@ import {
   IAcademicPlan, // eslint-disable-line no-unused-vars
   ICareerGoal, // eslint-disable-line no-unused-vars
   ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IDesiredDegree, IExplorerCard, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
   IOpportunity, // eslint-disable-line no-unused-vars
   IProfile, // eslint-disable-line no-unused-vars
@@ -25,6 +25,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { itemToSlugName } from './data-model-helper-functions';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -492,4 +493,34 @@ export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: 
     default:
       return [];
   }
+};
+
+export const buildExplorerRoute = (item, props: IExplorerCard) => {
+  const { type } = props;
+  let route = '';
+  switch (type) {
+    case EXPLORER_TYPE.CAREERGOALS:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/`);
+      break;
+    case EXPLORER_TYPE.COURSES:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/`);
+      break;
+    case EXPLORER_TYPE.DEGREES:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/`);
+      break;
+    case EXPLORER_TYPE.INTERESTS:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/`);
+      break;
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/`);
+      break;
+    default:
+      route = '#';
+      break;
+  }
+  if (item) {
+    const itemSlug = itemToSlugName(item);
+    route = `${route}${itemSlug}`;
+  }
+  return route;
 };
