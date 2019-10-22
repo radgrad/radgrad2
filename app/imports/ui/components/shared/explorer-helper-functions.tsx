@@ -26,6 +26,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { itemToSlugName } from './data-model-helper-functions';
+import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -118,6 +119,29 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
 
 export const academicPlansItemCount = (match: Router.IMatchProps): number => availableAcademicPlans(match).length;
 
+export const interestedStudents = (item: {_id: string}, type: string): object[] => {
+  const interested = [];
+  let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
+
+  if (type === EXPLORER_TYPE.ACADEMICPLANS) {
+    profiles = _.filter(profiles, (profile) => profile.academicPlanID === item._id);
+  } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+    profiles = _.filter(profiles, (profile) => _.includes(profile.careerGoalIDs, item._id));
+  } else if (type === EXPLORER_TYPE.INTERESTS) {
+    profiles = _.filter(profiles, (profile) => _.includes(profile.interestIDs, item._id));
+  }
+  profiles = _.filter(profiles, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+  _.forEach(profiles, (p) => {
+    if (!_.includes(interested, p.userID)) {
+      interested.push(p.userID);
+    }
+  });
+  // only allow 50 students randomly selected.
+  for (let i = interested.length - 1; i >= 50; i--) {
+    interested.splice(Math.floor(Math.random() * interested.length), 1);
+  }
+  return interested;
+};
 
 /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
 export const userCareerGoals = (careerGoal: ICareerGoal, match: Router.IMatchProps): string => {
@@ -328,6 +352,9 @@ export const matchingOpportunities = (props: ICardExplorerMenuWidgetProps): obje
   const preferred = new PreferredChoice(allOpportunities, interestIDs);
   return preferred.getOrderedChoices();
 };
+
+const opportunitiesItemCount = (props: ICardExplorerMenuWidgetProps) => availableOpps(props).length;
+
 /* ####################################### USERS HELPER FUNCTIONS ####################################### */
 export const getUsers = (role: string, match: Router.IMatchProps): IProfile[] => {
   const username = Router.getUsername(match);
@@ -378,12 +405,10 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
       return careerGoalsItemCount(props.match);
     case EXPLORER_TYPE.COURSES:
       return coursesItemCount(props.match);
-    case EXPLORER_TYPE.DEGREES:
-      return this.degreesItemCount();
     case EXPLORER_TYPE.INTERESTS:
-      return this.interestsItemCount();
+      return interestsItemCount(props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return this.opportunitiesItemCount();
+      return opportunitiesItemCount(props);
     case EXPLORER_TYPE.USERS:
       // do nothing; we do not track user count
       return -1;

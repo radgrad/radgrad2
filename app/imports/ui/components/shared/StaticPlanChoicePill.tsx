@@ -9,19 +9,13 @@ interface IPlanChoicePillProps {
   satisfied: boolean;
 }
 
-class StaticPlanChoicePill extends React.Component<IPlanChoicePillProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    const style = this.props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
-    return (
-      <Grid.Row style={style}>
-        <NamePill name={PlanChoiceCollection.toStringFromSlug(this.props.choice)}/>
-      </Grid.Row>
-    );
-  }
-}
+const StaticPlanChoicePill = (props: IPlanChoicePillProps) => {
+  const style = props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
+  return (
+    <Grid.Row style={style}>
+      <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+    </Grid.Row>
+  );
+};
 
 export default StaticPlanChoicePill;

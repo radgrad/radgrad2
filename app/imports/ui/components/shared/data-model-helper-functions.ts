@@ -103,6 +103,21 @@ export const profileToName = (profile) => `${Users.getFullName(profile.userID)} 
 
 export const profileToUsername = (profile) => profile.username;
 
+export const profileIDToFullname = (profileID) => {
+  if (profileID === 'elispsis') {
+    return '';
+  }
+  return Users.getFullName(profileID);
+
+};
+
+export const profileIDToPicture = (profileID) => {
+  if (profileID === 'elipsis') {
+    return '/images/elipsis.png';
+  }
+  return Users.getProfile(profileID).picture;
+};
+
 export const profileNameToUsername = (name) => name.substring(name.indexOf('(') + 1, name.indexOf(')'));
 
 export const studentsParticipating = (item) => {
