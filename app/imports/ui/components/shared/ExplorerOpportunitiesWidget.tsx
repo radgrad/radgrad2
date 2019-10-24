@@ -16,7 +16,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import StudentExplorerOpportunitiesWidgetButton from '../student/StudentExplorerOpportunitiesWidgetButton';
 import * as Router from './RouterHelperFunctions';
-import { toUpper } from './helper-functions';
+import { toUpper, replaceTermString } from './helper-functions';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -85,11 +85,6 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
       }
     });
     return ret;
-  }
-
-  private replaceTermString = (array: string[]): string => {
-    const termString = array.join(', ');
-    return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
   }
 
   private review = (): object => {
@@ -229,7 +224,7 @@ class ExplorerOpportunitiesWidget extends React.Component<IExplorerOpportunities
                             {
                               descriptionPair.value ?
                                 <React.Fragment>
-                                  <span style={breakWordStyle}> {this.replaceTermString(descriptionPair.value)}</span>
+                                  <span style={breakWordStyle}> {replaceTermString(descriptionPair.value)}</span>
                                   <br/>
                                 </React.Fragment>
                                 :

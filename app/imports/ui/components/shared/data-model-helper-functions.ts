@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -15,7 +17,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
-export const itemToSlugName = (doc) => Slugs.getNameFromID(doc.slugID);
+export const itemToSlugName = (doc) => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
 
 export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
 
@@ -73,6 +75,12 @@ export const mentorQuestionToSlug = (question) => itemToSlugName(MentorQuestions
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 
 export const opportunityNameToSlug = (name) => itemToSlugName(Opportunities.findDoc(name));
+
+export const opportunityTerms = (opportuntiy) => {
+  const academicTermIDs = opportuntiy.termIDs;
+  const upcomingAcademicTerms = _.filter(academicTermIDs, (termID) => AcademicTerms.isUpcomingTerm(termID));
+  return _.map(upcomingAcademicTerms, (termID) => AcademicTerms.toString(termID));
+};
 
 export const opportunityInstanceToName = (oi) => {
   const student = StudentProfiles.findDoc({ userID: oi.studentID }).username;

@@ -17,6 +17,7 @@ import StudentOfInterestAdd from './StudentOfInterestAdd';
 import { renderLink } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { replaceTermStringNextFour } from '../shared/helper-functions';
 
 interface IStudentOfInterestCardProps {
   type: string;
@@ -123,18 +124,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     return description;
   }
 
-  private replaceTermString(array) {
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    const currentYear = currentTerm.year;
-    let fourRecentTerms = _.filter(array, function isRecent(termYear) {
-      return termYear.split(' ')[1] >= currentYear;
-    });
-    fourRecentTerms = array.slice(0, 4);
-    const termString = fourRecentTerms.join(' - ');
-    return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
-
-  }
-
   private numberStudents = (item) => {
     const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
     return participatingStudents.itemCount;
@@ -214,7 +203,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         <Card.Content>
           <Header>{itemName}</Header>
           <Card.Meta>
-            {itemTerms ? this.replaceTermString(itemTerms) : ''}
+            {itemTerms ? replaceTermStringNextFour(itemTerms) : ''}
           </Card.Meta>
         </Card.Content>
 
