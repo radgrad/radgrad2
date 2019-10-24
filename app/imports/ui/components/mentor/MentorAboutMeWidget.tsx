@@ -6,6 +6,7 @@ import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semant
 import Swal from 'sweetalert2';
 import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -20,6 +21,7 @@ import {
   SET_MENTOR_HOME_IS_CLOUDINARY_USED,
 } from '../../../redux/shared/cloudinary/types';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -73,10 +75,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     }
   }
 
-  private getUsername = (): string => this.props.match.params.username;
-
   private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     return username && Users.getID(username);
   }
 
@@ -91,7 +91,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   private slugName = (item) => Slugs.findDoc(item.slugID).name
 
   private career = () => {
-    if (this.getUsername) {
+    if (Router.getUsername(this.props.match)) {
       const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
       return profile.career;
     }
@@ -99,15 +99,15 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   private careerGoals = () => {
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
+    if (Router.getUsername(this.props.match)) {
+      const user = Users.getProfile(Router.getUsername(this.props.match));
       return _.map(user.careerGoalIDs, (id) => CareerGoals.findDoc(id));
     }
     return [];
   }
 
   private company = () => {
-    if (this.getUsername()) {
+    if (Router.getUsername(this.props.match)) {
       const profile = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
       return profile.company;
     }
@@ -116,8 +116,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
   private desiredDegree = () => {
     let ret = '';
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
+    if (Router.getUsername(this.props.match)) {
+      const user = Users.getProfile(Router.getUsername(this.props.match));
       if (user.desiredDegreeID) {
         ret = DesiredDegrees.findDoc(user.desiredDegreeID).name;
       }
@@ -126,8 +126,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   private email = () => {
-    if (this.getUsername()) {
-      const user = Users.getProfile(this.getUsername());
+    if (Router.getUsername(this.props.match)) {
+      const user = Users.getProfile(Router.getUsername(this.props.match));
       return user.username;
     }
     return '';
@@ -165,8 +165,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   private interestName = (interest) => interest.name
 
   private interests = () => {
-    if (this.getUsername()) {
-      const profile = Users.getProfile(this.getUsername());
+    if (Router.getUsername(this.props.match)) {
+      const profile = Users.getProfile(Router.getUsername(this.props.match));
       return _.map(profile.interestIDs, (id) => Interests.findDoc(id));
     }
     return [];
@@ -197,7 +197,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   private name = () => {
-    const user = Users.getProfile(this.getUsername());
+    const user = Users.getProfile(Router.getUsername(this.props.match));
     if (user.firstName && user.lastName) {
       return `${user.firstName} ${user.lastName}`;
     }
@@ -205,7 +205,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   private picture = () => {
-    const user = Users.getProfile(this.getUsername());
+    const user = Users.getProfile(Router.getUsername(this.props.match));
     if (user.picture) {
       return user.picture;
     }
@@ -213,7 +213,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   }
 
   private website = () => {
-    const user = Users.getProfile(this.getUsername());
+    const user = Users.getProfile(Router.getUsername(this.props.match));
     if (user.website) {
       return user.website;
     }
