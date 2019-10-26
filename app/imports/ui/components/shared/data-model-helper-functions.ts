@@ -16,6 +16,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+// import * as Router from './RouterHelperFunctions';
 
 export const itemToSlugName = (doc) => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
 
@@ -28,6 +29,29 @@ export const academicTermIdToName = (id) => AcademicTerms.toString(id, false);
 export const academicTermToName = (term) => AcademicTerms.toString(term._id, false);
 
 export const academicTermNameToDoc = (name) => AcademicTerms.getAcademicTermFromToString(name);
+
+export const academicTermNameToShortName = (name) => {
+  const termNameYear = name.split(' ');
+  let termName = '';
+  switch (termNameYear[0]) {
+    case 'Spring':
+      termName = 'Spr';
+      break;
+    case 'Fall':
+      termName = 'Fall';
+      break;
+    case 'Summer':
+      termName = 'Sum';
+      break;
+    case 'Winter':
+      termName = 'Win';
+      break;
+    default:
+      termName = 'N/A';
+      break;
+  }
+  return `${termName} ${termNameYear[1]}`;
+};
 
 export const academicTermNameToSlug = (name) => itemToSlugName(AcademicTerms.getAcademicTermFromToString(name));
 
@@ -82,6 +106,36 @@ export const opportunityTerms = (opportuntiy) => {
   return _.map(upcomingAcademicTerms, (termID) => AcademicTerms.toString(termID));
 };
 
+export const opportunityTermsNotTaken = (opportunity, studentID) => {
+  const termIDs = opportunity.termIDs;
+  const takenTermIDs = [];
+  const termNames = [];
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
+  _.forEach(ois, (o) => {
+    takenTermIDs.push(o.termID);
+  });
+  _.forEach(termIDs, (termID) => {
+    if (AcademicTerms.findDoc(termID).termNumber >= currentTerm.termNumber) {
+      if (!_.includes(takenTermIDs, termID)) {
+        termNames.push(AcademicTerms.toString(termID));
+      }
+    }
+  });
+  return termNames.slice(0, 8);
+};
+
+export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
+  const termNames = [];
+  const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
+  _.forEach(ois, (o) => {
+    if (!o.verified) {
+      termNames.push(AcademicTerms.toString(o.termID, false));
+    }
+  });
+  return termNames;
+};
+
 export const opportunityInstanceToName = (oi) => {
   const student = StudentProfiles.findDoc({ userID: oi.studentID }).username;
   const opportunity = Opportunities.findDoc(oi.opportunityID).name;
@@ -107,7 +161,32 @@ export const opportunityTypeNameToSlug = (name) => itemToSlugName(OpportunityTyp
 
 export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name;
 
-export const profileToName = (profile) => `${Users.getFullName(profile.userID)} (${profile.username})`;
+export const profileGetCareerGoals = (profile) => {
+  const ret = [];
+  _.forEach(profile.careerGoalIDs, (id) => {
+    ret.push(CareerGoals.findDoc(id));
+  });
+  return ret;
+};
+
+export const profileGetDesiredDegreeName = (profile) => {
+  if (profile.academicPlanID) {
+    return docToName(AcademicPlans.findDoc(profile.academicPlanID));
+  }
+  return 'Not yet specified.';
+};
+
+export const profileGetInterests = (profile) => {
+  const ret = [];
+  _.forEach(profile.interestIDs, (id) => {
+    ret.push(Interests.findDoc(id));
+  });
+  return ret;
+};
+
+export const profileToFullName = (profile) => Users.getFullName(profile.userID);
+
+export const profileToName = (profile) => `${profileToFullName(profile)} (${profile.username})`;
 
 export const profileToUsername = (profile) => profile.username;
 
@@ -116,14 +195,13 @@ export const profileIDToFullname = (profileID) => {
     return '';
   }
   return Users.getFullName(profileID);
-
 };
 
-export const profileIDToPicture = (profileID) => {
+export const profileIDToPicture = (profileID: string): string => {
   if (profileID === 'elipsis') {
     return '/images/elipsis.png';
   }
-  return Users.getProfile(profileID).picture;
+  return Users.getProfile(profileID).picture || defaultProfilePicture;
 };
 
 export const profileNameToUsername = (name) => name.substring(name.indexOf('(') + 1, name.indexOf(')'));

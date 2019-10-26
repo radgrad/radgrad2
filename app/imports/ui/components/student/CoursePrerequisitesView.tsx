@@ -23,19 +23,16 @@ const missingPrerequisite = (prereqSlug, studentID) => {
   return ret;
 };
 
-const CoursePrerequisitesView = (props: ICoursePrerequisitesViewProps) => {
-  // console.log(props);
-  return (
-    <List bulleted={true}>
-      {_.map(props.prerequisites, (p) => (
-        <List.Item key={p}>
-          {PlanChoiceCollection.toStringFromSlug(p)}
-          {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red"/> :
-            <Icon name="checkmark" color="green"/>}
-        </List.Item>
-      ))}
-    </List>
-  );
-};
+const CoursePrerequisitesView = (props: ICoursePrerequisitesViewProps) => (
+  <List bulleted={true}>
+    {_.map(props.prerequisites, (p) => (
+      <List.Item key={p}>
+        {PlanChoiceCollection.toStringFromSlug(p)}
+        {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red"/> :
+          <Icon name="checkmark" color="green"/>}
+      </List.Item>
+    ))}
+  </List>
+);
 
 export default CoursePrerequisitesView;
