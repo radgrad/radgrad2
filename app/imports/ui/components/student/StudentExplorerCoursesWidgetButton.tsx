@@ -10,6 +10,7 @@ import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.m
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import * as Router from '../shared/RouterHelperFunctions';
+import { academicTermNameToSlug, itemToSlugName } from '../shared/data-model-helper-functions';
 
 interface IStudentExplorerCoursesWidgetButtonProps {
   buttonType: 'remove' | 'add' | 'taken';
@@ -50,9 +51,8 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     e.preventDefault();
     const course = this.props.course;
     const term = e.target.text;
-    const courseSlug = Slugs.findDoc({ _id: course.slugID });
-    const termSplit = term.split(' ');
-    const termSlug = `${termSplit[0]}-${termSplit[1]}`;
+    const courseSlug = itemToSlugName(course);
+    const termSlug = academicTermNameToSlug(term);
     const username = Router.getUsername(this.props.match);
     const collectionName = CourseInstances.getCollectionName();
     const definitionData: ICourseInstanceDefine = {

@@ -190,7 +190,7 @@ export const profileToName = (profile) => `${profileToFullName(profile)} (${prof
 
 export const profileToUsername = (profile) => profile.username;
 
-export const profileIDToFullname = (profileID) => {
+export const profileIDToFullname = (profileID: string): string => {
   if (profileID === 'elispsis') {
     return '';
   }

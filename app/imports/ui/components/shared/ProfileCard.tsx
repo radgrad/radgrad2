@@ -131,8 +131,8 @@ class ProfileCard extends React.Component<IProfileCardProps> {
           <Image.Group size="mini">
             {interested.map((student, index) => <Popup
               key={index}
-              trigger={<Image src={profileIDToPicture(student)} circular={true} bordered={true}/>}
-              content={profileIDToFullname(student)}
+              trigger={<Image src={profileIDToPicture(student.userID)} circular={true} bordered={true}/>}
+              content={profileIDToFullname(student.userID)}
             />)}
           </Image.Group>
         </Card.Content>

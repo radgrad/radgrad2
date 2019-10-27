@@ -8,7 +8,12 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import * as Router from '../shared/RouterHelperFunctions';
-import { opportunityTermsNotTaken, unverifiedOpportunityTermNames } from '../shared/data-model-helper-functions';
+import {
+  academicTermNameToSlug,
+  itemToSlugName,
+  opportunityTermsNotTaken,
+  unverifiedOpportunityTermNames,
+} from '../shared/data-model-helper-functions';
 
 interface IStudentExplorerOpportunitiesWidgetButtonProps {
   buttonType: 'remove' | 'add';
@@ -33,9 +38,8 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     e.preventDefault();
     const opportunity = this.props.opportunity;
     const term = e.target.text;
-    const oppSlug = Slugs.findDoc({ _id: opportunity.slugID });
-    const termSplit = term.split(' ');
-    const termSlug = `${termSplit[0]}-${termSplit[1]}`;
+    const oppSlug = itemToSlugName(opportunity);
+    const termSlug = academicTermNameToSlug(term);
     const username = Router.getUsername(this.props.match);
     const definitionData: IOpportunityInstanceDefine = {
       academicTerm: termSlug,

@@ -8,7 +8,7 @@ import {
   IDesiredDegree, IExplorerCard, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
   IOpportunity, // eslint-disable-line no-unused-vars
-  IProfile, // eslint-disable-line no-unused-vars
+  IProfile, IStudentProfile, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
@@ -119,7 +119,7 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
 
 export const academicPlansItemCount = (match: Router.IMatchProps): number => availableAcademicPlans(match).length;
 
-export const interestedStudents = (item: {_id: string}, type: string): object[] => {
+export const interestedStudents = (item: {_id: string}, type: string): IStudentProfile[] => {
   const interested = [];
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
