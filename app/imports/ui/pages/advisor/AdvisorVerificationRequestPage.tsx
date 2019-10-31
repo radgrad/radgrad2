@@ -24,9 +24,17 @@ interface IAdvisorVerificationRequestPageProps {
   }
 }
 
+interface IAdvisorVerificationRequestPageState {
+  activeItem: string;
+}
+
 /** A simple static component to render some text for the landing page. */
-class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificationRequestPageProps> {
-  state = { activeItem: 'pending' };
+class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificationRequestPageProps, IAdvisorVerificationRequestPageState> {
+  constructor(props) {
+    super(props);
+    this.state = { activeItem: 'pending' };
+  }
+
 
   handleMenu = (e, { name }) => this.setState({ activeItem: name });
 

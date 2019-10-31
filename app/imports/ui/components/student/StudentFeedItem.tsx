@@ -54,7 +54,7 @@ const StudentFeedItem = (props: IStudentFeedItemProps) => {
         <Feed.Content style={{ marginTop: '0px' }}>
           <Feed.Summary>
             <Markdown escapeHtml={true} source={feed.description}
-                      renderers={{ link: (props) => renderLink(props, match) }}/>
+                      renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
           </Feed.Summary>
 
           <Feed.Extra text={true}>
