@@ -38,19 +38,19 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
     const change = {};
     change[e.target.name] = e.target.value;
     this.setState(change);
-  }
+  };
 
   /** Handle Signin submission using Meteor's account mechanism. */
   public handleSubmit = () => {
     const { email, password } = this.state;
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
-        this.setState({ error: err.reason });
+        this.setState({ error: err.message });
       } else {
         this.setState({ error: '', redirectToReferer: true });
       }
     });
-  }
+  };
 
   /** Render the signin form. */
   public render() {

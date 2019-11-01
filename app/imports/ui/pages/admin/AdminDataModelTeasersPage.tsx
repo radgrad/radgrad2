@@ -17,7 +17,7 @@ import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
 import {
   interestNameToSlug,
   opportunityNameToSlug,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Teasers; // the collection to use.

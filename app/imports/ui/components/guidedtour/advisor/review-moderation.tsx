@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const ReviewModeration = () => (
+const GuidedTourAdvisorReviewModeration = () => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'six'}>
@@ -22,4 +22,4 @@ const ReviewModeration = () => (
   </div>
 );
 
-export default ReviewModeration;
+export default GuidedTourAdvisorReviewModeration;

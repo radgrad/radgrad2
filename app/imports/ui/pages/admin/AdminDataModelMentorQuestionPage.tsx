@@ -11,7 +11,7 @@ import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AddMentorQuestionForm from '../../components/admin/AddMentorQuestionForm';
-import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
+import { profileNameToUsername } from '../../components/shared/data-model-helper-functions';
 import UpdateMentorQuestionForm from '../../components/admin/UpdateMentorQuestionForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

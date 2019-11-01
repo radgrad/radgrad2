@@ -17,7 +17,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { academicTermToName, docToName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermToName, docToName } from '../shared/data-model-helper-functions';
 import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import {

@@ -21,57 +21,49 @@ interface IInterestsCardExplorerProps {
   history: object;
 }
 
-class LandingInterestsCardExplorer extends React.Component<IInterestsCardExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const renderPage = (props: IInterestsCardExplorerProps) => {
+  const inlineStyle = {
+    maxHeight: 750,
+    marginTop: 10,
+  };
+  return (
+    <div>
+      <ExplorerMenuBarContainer/>
+      <Grid stackable={true} container={true} padded="vertically">
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
 
-  public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Interests</Loader>;
-  }
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer/>
+          </Grid.Column>
 
-  private renderPage() {
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+          <Grid.Column width={11}>
+            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing={true}>
+                <span>INTERESTS</span> ({props.count})
+              </Header>
+              <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
+                {props.interests.map((interest) => (
+                  <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
+                ))}
+              </Card.Group>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
+      </Grid>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
+      <BackToTopButton/>
+    </div>
+  );
+};
 
-            <Grid.Column width={11}>
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>INTERESTS</span> ({this.props.count})
-                </Header>
-                <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.interests.map((interest) => (
-                    <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
-                  ))}
-                </Card.Group>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+const LandingInterestsCardExplorer = (props: IInterestsCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Interests</Loader>);
 
 const LandingInterestsCardExplorerCon = withRouter(LandingInterestsCardExplorer);
 

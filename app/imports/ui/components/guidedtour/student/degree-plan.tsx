@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const DegreePlan = () => (
+const GuidedTourStudentDegreePlan = () => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'ten'}>
@@ -21,4 +21,4 @@ const DegreePlan = () => (
   </div>
 );
 
-export default DegreePlan;
+export default GuidedTourStudentDegreePlan;

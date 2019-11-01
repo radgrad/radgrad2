@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const ICE = () => (
+const GuidedTourStudentICE = () => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'nine'}>
@@ -25,4 +25,4 @@ const ICE = () => (
   </div>
 );
 
-export default ICE;
+export default GuidedTourStudentICE;

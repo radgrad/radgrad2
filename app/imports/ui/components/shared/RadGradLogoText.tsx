@@ -6,17 +6,14 @@ interface IRadGradLogoProps {
   style?: any;
 }
 
-export default class RadGradLogoText extends React.Component<IRadGradLogoProps> {
-  constructor(props) {
-    super(props);
-  }
-  public render() {
-    const radStyle = { fontWeight: 700 };
-    const gradStyle = { fontWeight: 400 };
-    return (
-      <div style={this.props.style}><span className="radgrad-brand-font" style={radStyle}>RAD</span>
-        <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>
-      </div>
-    );
-  }
-}
+const RadGradLogoText = (props: IRadGradLogoProps) => {
+  const radStyle = { fontWeight: 700 };
+  const gradStyle = { fontWeight: 400 };
+  return (
+    <div style={props.style}><span className="radgrad-brand-font" style={radStyle}>RAD</span>
+      <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>
+    </div>
+  );
+};
+
+export default RadGradLogoText;

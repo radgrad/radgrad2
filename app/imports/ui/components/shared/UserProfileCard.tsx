@@ -11,6 +11,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import InterestList from './InterestList';
 import UserAnswersComponent from './UserAnswersComponent';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
+import { capitalizeFirstLetter } from './helper-functions';
 
 /* global window */
 
@@ -31,11 +32,6 @@ class UserProfileCard extends React.Component<IUserProfileCard, IUserProfileCard
   }
 
   private isRole = (compareRole: string, ...otherRoles: string[]): boolean => this.props.item.role === compareRole || _.includes(otherRoles, this.props.item.role);
-
-  private capitalizeFirstOnly = (str) => {
-    const firstLetter = str.substr(0, 1);
-    return firstLetter.toUpperCase() + str.substr(1).toLowerCase();
-  };
 
   private openInNewTab = () => {
     const win = window.open(this.props.item.website, '_blank');
@@ -64,7 +60,7 @@ class UserProfileCard extends React.Component<IUserProfileCard, IUserProfileCard
           <Image src={p.picture ? p.picture : defaultProfilePicture} floated={'right'} size={'tiny'}/>
           <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
           <Card.Meta>
-            {this.capitalizeFirstOnly(p.role)}<br/>
+            {capitalizeFirstLetter(p.role)}<br/>
             {desiredDegree ? <React.Fragment>{desiredDegree.shortName}<br/></React.Fragment> : undefined}
             {level ?
               <Image style={{ padding: '5px' }} size={'mini'}

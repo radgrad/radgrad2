@@ -9,22 +9,14 @@ interface IAdminDataModelAddFormProps {
   handleAdd: (doc) => any;
 }
 
-class AdminDataModelAddForm extends React.Component<IAdminDataModelAddFormProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add {this.props.collection.getType()}</Header>
-        <AutoForm
-        ref={this.props.formRef}
-        onSubmit={this.props.handleAdd}
-        schema={this.props.collection.getDefineSchema()}/>
-      </Segment>
-    );
-  }
-}
+const AdminDataModelAddForm = (props: IAdminDataModelAddFormProps) => (
+  <Segment padded={true}>
+    <Header dividing={true}>Add {props.collection.getType()}</Header>
+    <AutoForm
+      ref={props.formRef}
+      onSubmit={props.handleAdd}
+      schema={props.collection.getDefineSchema()}/>
+  </Segment>
+);
 
 export default AdminDataModelAddForm;

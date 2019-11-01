@@ -15,7 +15,7 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { Users } from '../../../api/user/UserCollection';
 import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceForm';
 import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
-import { profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
+import { profileNameToUsername } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 
