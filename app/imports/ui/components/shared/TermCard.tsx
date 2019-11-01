@@ -21,6 +21,7 @@ import {
 } from './data-model-helper-functions';
 import { replaceTermStringNextFour } from './helper-functions';
 import FutureParticipation from './FutureParticipation';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 
 const isType = (typeToCheck: string, props: ITermCard) => {
   const { type } = props;
