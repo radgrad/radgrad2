@@ -191,6 +191,9 @@ export const profileToName = (profile) => `${profileToFullName(profile)} (${prof
 export const profileToUsername = (profile) => profile.username;
 
 export const profileIDToFullname = (profileID: string): string => {
+  if (_.isUndefined(profileID)) {
+    return '';
+  }
   if (profileID === 'elispsis') {
     return '';
   }
@@ -198,6 +201,9 @@ export const profileIDToFullname = (profileID: string): string => {
 };
 
 export const profileIDToPicture = (profileID: string): string => {
+  if (_.isUndefined(profileID)) {
+    return '';
+  }
   if (profileID === 'elipsis') {
     return '/images/elipsis.png';
   }

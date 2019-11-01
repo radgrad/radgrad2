@@ -42,8 +42,8 @@ const PlanCard = (props: IPlanCard) => {
         <Image.Group size="mini">
           {interested.map((student, index) => <Popup
             key={index}
-            trigger={<Image src={profileIDToPicture(student.userID)} circular={true} bordered={true}/>}
-            content={profileIDToFullname(student.userID)}
+            trigger={<Image src={profileIDToPicture(student._id)} circular={true} bordered={true}/>}
+            content={profileIDToFullname(student._id)}
           />)}
         </Image.Group>
       </Card.Content>
