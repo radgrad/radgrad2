@@ -57,7 +57,7 @@ const LandingInterestExplorer = (props: IInterestExplorerProps) => {
               </Header>
               <b>Description:</b>
               <Markdown escapeHtml={true} source={props.interest.description}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
             </Segment>
             <Segment padded={true}>
               <Header as="h4" dividing={true}>Related Courses</Header>
