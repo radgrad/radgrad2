@@ -8,40 +8,32 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import StudentLogWidget from '../../components/student/StudentLogWidget';
 
-class StudentHomeLogPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const StudentHomeLogPage = () => (
+  <div>
+    <StudentPageMenuWidget/>
+    <Grid stackable={true}>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    return (
-      <div>
-        <StudentPageMenuWidget/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={3}>
+          <StudentHomeMenu/>
+        </Grid.Column>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <StudentHomeMenu/>
-            </Grid.Column>
+        <Grid.Column width={11} stretched={true}>
+          <StudentLogWidget/>
+        </Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
+    </Grid>
 
-            <Grid.Column width={11} stretched={true}>
-              <StudentLogWidget/>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+    <BackToTopButton/>
+  </div>
+);
 
 const StudentHomeLogPageCon = withGlobalSubscription(StudentHomeLogPage);
 const StudentHomeLogPageContainer = withInstanceSubscriptions(StudentHomeLogPageCon);
