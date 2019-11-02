@@ -96,7 +96,7 @@ const descriptionPairsPlans = (thePlan: IAcademicPlan): { label: string, value: 
   ];
 };
 
-const addedCareerGoals = (): { item: ICareerGoal, count: number }[] => _.map(this.props.favoriteCareerGoals, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
+const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
 
 
 const careerGoal = (props: IIndividualExplorerPageProps): ICareerGoal => {
@@ -152,7 +152,7 @@ const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, am
   },
 ];
 
-const addedCourses = (): { item: ICourse, count: number }[] => _.map(this.props.favoriteCourses, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
+const addedCourses = (props: IIndividualExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
 const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
@@ -255,7 +255,7 @@ const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, va
   value: theDegree.description,
 }];
 
-const addedInterests = (): { item: IInterest, count: number }[] => _.map(this.props.favoriteInterests, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
+const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 
 const addedCareerInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => {
   if (Router.getUserIdFromRoute(props.match)) {
@@ -273,7 +273,7 @@ const interest = (props: IIndividualExplorerPageProps): IInterest => {
   return theInterest;
 };
 
-const addedOpportunities = (): { item: IOpportunity, count: number }[] => _.map(this.props.favoriteOpportunities, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
+const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
 
 const opportunity = (props: IIndividualExplorerPageProps): IOpportunity => {
   const opportunitySlugName = props.match.params.opportunity;
@@ -335,15 +335,15 @@ const getAddedList = (props: IIndividualExplorerPageProps): { [key: string]: any
     case EXPLORER_TYPE.ACADEMICPLANS:
       return addedPlans(props);
     case EXPLORER_TYPE.CAREERGOALS:
-      return addedCareerGoals();
+      return addedCareerGoals(props);
     case EXPLORER_TYPE.COURSES:
-      return addedCourses();
+      return addedCourses(props);
     case EXPLORER_TYPE.DEGREES:
       return addedDegrees();
     case EXPLORER_TYPE.INTERESTS:
-      return addedInterests();
+      return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return addedOpportunities();
+      return addedOpportunities(props);
     case EXPLORER_TYPE.USERS: // do nothing
       return undefined;
     default:

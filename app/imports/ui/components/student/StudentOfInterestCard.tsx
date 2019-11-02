@@ -13,7 +13,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import StudentOfInterestAdd from './StudentOfInterestAdd';
 import { renderLink } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
@@ -208,23 +207,11 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         </Card.Content>
 
         {
-          <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
+          <Button.Group className="radgrad-home-buttons center aligned" attached="bottom"
                         color={hidden || undefined}>
             <Link to={this.buildRouteName(this.props.item, this.props.type)}>
               <Button><Icon name="chevron circle right"/><br/>View More</Button>
             </Link>
-
-            {this.props.canAdd ?
-              <StudentOfInterestAdd item={this.props.item} type={this.props.type}/>
-              : ''
-            }
-
-            {
-              hidden ?
-                <Button onClick={this.handleUnHideStudentInterest}><Icon name="unhide"/><br/>Unhide</Button>
-                :
-                <Button onClick={this.handleHideStudentInterest}><Icon name="hide"/><br/>Hide</Button>
-            }
           </Button.Group>
         }
       </Card>
