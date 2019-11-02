@@ -2,14 +2,14 @@ import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import * as _ from 'lodash';
-import { Users } from '../../../api/user/UserCollection';
-import { buildRouteName, getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
+import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
 interface IStudentIceColumnRecommendedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
@@ -30,8 +30,9 @@ interface IStudentIceColumnRecommendedProps {
 }
 
 const hasNoInterests = (props: IStudentIceColumnRecommendedProps): boolean => {
-  const user = Users.getProfile(getUsername(props.match));
-  return user.interestIDs.length === 0;
+  const studentID = getUserIdFromRoute(props.match);
+  const interests = FavoriteInterests.findNonRetired({ studentID });
+  return interests.length === 0;
 };
 
 const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
@@ -55,12 +56,13 @@ const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =
 const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOpportunity[] => {
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
-  const profile = Users.getProfile(getUsername(props.match));
+  const studentID = getUserIdFromRoute(props.match);
+  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
   const userInterests = [];
-  let opportunityInterests = [];
-  _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-    userInterests.push(Interests.findDoc(id));
+  _.forEach(favoriteInterests, (f) => {
+    userInterests.push(Interests.findDoc(f.interestID));
   });
+  let opportunityInterests = [];
   _.forEach(allOpportunities, (opp) => {
     opportunityInterests = [];
     _.forEach(opp.interestIDs, (id) => {
@@ -82,12 +84,13 @@ const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOppor
 const matchingCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
   const allCourses = availableCourses(props);
   const matching = [];
-  const profile = Users.getProfile(getUsername(props.match));
+  const studentID = getUserIdFromRoute(props.match);
+  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
   const userInterests = [];
-  let courseInterests = [];
-  _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-    userInterests.push(Interests.findDoc(id));
+  _.forEach(favoriteInterests, (f) => {
+    userInterests.push(Interests.findDoc(f.interestID));
   });
+  let courseInterests = [];
   _.forEach(allCourses, (course) => {
     courseInterests = [];
     _.forEach(course.interestIDs, (id) => {
