@@ -10,7 +10,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { academicTermToName, docToName, profileToName } from '../shared/AdminDataModelHelperFunctions';
+import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -24,65 +24,58 @@ interface IAddOpportunityInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddOpportunityInstanceForm extends React.Component<IAddOpportunityInstanceFormProps> {
-  constructor(props) {
-    super(props);
-    // console.log('AddOpportunityInstanceForm props=%o', props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const termNames = _.map(this.props.terms, academicTermToName);
-    const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-    const opportunityNames = _.map(this.props.opportunities, docToName);
-    const studentNames = _.map(this.props.students, profileToName);
-    const sponsorNames = _.map(this.props.sponsors, profileToName);
-    const schema = new SimpleSchema({
-      term: {
-        type: String,
-        allowedValues: termNames,
-        defaultValue: currentTermName,
-      },
-      opportunity: {
-        type: String,
-        allowedValues: opportunityNames,
-        defaultValue: opportunityNames[0],
-      },
-      student: {
-        type: String,
-        allowedValues: studentNames,
-        defaultValue: studentNames[0],
-      },
-      sponsor: {
-        type: String,
-        allowedValues: sponsorNames,
-        defaultValue: sponsorNames[0],
-      },
-      verified: { type: Boolean, optional: true },
-      retired: { type: Boolean, optional: true },
-    });
-    // console.log(termNames, courseNames, studentNames);
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Opportunity Instance</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <Form.Group widths="equal">
-            <SelectField name="term"/>
-            <SelectField name="student"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <SelectField name="opportunity"/>
-            <SelectField name="sponsor"/>
-          </Form.Group>
-          <Form.Group widths="equal">
-            <BoolField name="verified"/>
-            <BoolField name="retired"/>
-          </Form.Group>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => {
+  const termNames = _.map(props.terms, academicTermToName);
+  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
+  const opportunityNames = _.map(props.opportunities, docToName);
+  const studentNames = _.map(props.students, profileToName);
+  const sponsorNames = _.map(props.sponsors, profileToName);
+  const schema = new SimpleSchema({
+    term: {
+      type: String,
+      allowedValues: termNames,
+      defaultValue: currentTermName,
+    },
+    opportunity: {
+      type: String,
+      allowedValues: opportunityNames,
+      defaultValue: opportunityNames[0],
+    },
+    student: {
+      type: String,
+      allowedValues: studentNames,
+      defaultValue: studentNames[0],
+    },
+    sponsor: {
+      type: String,
+      allowedValues: sponsorNames,
+      defaultValue: sponsorNames[0],
+    },
+    verified: { type: Boolean, optional: true },
+    retired: { type: Boolean, optional: true },
+  });
+  // console.log(termNames, courseNames, studentNames);
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>Add Opportunity Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+        <Form.Group widths="equal">
+          <SelectField name="term"/>
+          <SelectField name="student"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="opportunity"/>
+          <SelectField name="sponsor"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <BoolField name="verified"/>
+          <BoolField name="retired"/>
+        </Form.Group>
+        <SubmitField className="basic green" value="Add"/>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddOpportunityInstanceFormContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();

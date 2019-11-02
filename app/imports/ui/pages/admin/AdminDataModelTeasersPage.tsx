@@ -14,10 +14,9 @@ import { makeYoutubeLink } from './datamodel-utilities';
 import AddTeaserForm from '../../components/admin/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
 import {
-  docToSlugName,
+  itemToSlugName,
   interestNameToSlug,
-  slugNameAndTypeToName,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
@@ -42,7 +41,7 @@ const descriptionPairs = (item: ITeaser): IDescriptionPair[] => [
  * @param item an item from the collection.
  */
 const itemTitleString = (item: ITeaser): string => {
-  const slugName = docToSlugName(item);
+  const slugName = itemToSlugName(item);
   const title = `${item.title} (${slugName})`;
   return title;
 };

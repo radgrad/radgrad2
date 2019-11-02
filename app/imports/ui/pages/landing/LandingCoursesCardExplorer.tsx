@@ -21,57 +21,49 @@ interface ICoursesCardExplorerProps {
   history: object;
 }
 
-class LandingCoursesCardExplorer extends React.Component<ICoursesCardExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const renderPage = (props:ICoursesCardExplorerProps) => {
+  const inlineStyle = {
+    maxHeight: 750,
+    marginTop: 10,
+  };
+  return (
+    <div>
+      <ExplorerMenuBarContainer/>
+      <Grid stackable={true}>
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
 
-  public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Courses</Loader>;
-  }
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer/>
+          </Grid.Column>
 
-  private renderPage() {
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+          <Grid.Column width={11}>
+            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing={true}>
+                <span>COURSES</span> ({props.count})
+              </Header>
+              <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
+                {props.courses.map((goal) => (
+                  <LandingExplorerCardContainer key={goal._id} type="courses" item={goal}/>
+                ))}
+              </Card.Group>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
+      </Grid>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
+      <BackToTopButton/>
+    </div>
+  );
+};
 
-            <Grid.Column width={11}>
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>COURSES</span> ({this.props.count})
-                </Header>
-                <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.courses.map((goal) => (
-                    <LandingExplorerCardContainer key={goal._id} type="courses" item={goal}/>
-                  ))}
-                </Card.Group>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+const LandingCoursesCardExplorer = (props: ICoursesCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Courses</Loader>);
 
 const LandingCoursesCardExplorerCon = withRouter(LandingCoursesCardExplorer);
 

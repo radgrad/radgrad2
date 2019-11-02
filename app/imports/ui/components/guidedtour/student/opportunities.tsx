@@ -6,7 +6,7 @@ interface IOpportunitiesProps {
   opportunties: number;
 }
 
-const Opportunities = (props: IOpportunitiesProps) => (
+const GuidedTourStudentOpportunities = (props: IOpportunitiesProps) => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'ten'}>
@@ -47,4 +47,4 @@ const Opportunities = (props: IOpportunitiesProps) => (
   </div>
 );
 
-export default Opportunities;
+export default GuidedTourStudentOpportunities;

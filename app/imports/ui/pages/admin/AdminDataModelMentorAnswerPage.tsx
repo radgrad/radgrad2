@@ -11,7 +11,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import AddMentorAnswerForm from '../../components/admin/AddMentorAnswerForm';
-import { mentorQuestionToSlug, profileNameToUsername } from '../../components/shared/AdminDataModelHelperFunctions';
+import { mentorQuestionToSlug, profileNameToUsername } from '../../components/shared/data-model-helper-functions';
 import UpdateMentorAnswerForm from '../../components/admin/UpdateMentorAnswerForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';

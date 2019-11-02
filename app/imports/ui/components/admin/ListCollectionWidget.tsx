@@ -25,39 +25,32 @@ const mapStateToProps = (state) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
-class ListCollectionWidget extends React.Component<IListCollectionWidgetProps, {}> {
-  constructor(props) {
-    super(props);
-    // console.log('ListCollectionWidget(%o)', props);
-  }
-
-  public render(): React.ReactNode {
-    // console.log('ListCollectionWidget.render props=%o', this.props);
-    const count = this.props.collection.count();
-    const startIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
-    const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
-    const endIndex = startIndex + showCount;
-    const items = _.slice(this.props.items, startIndex, endIndex);
-    // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>{this.props.collection.getCollectionName()} ({count})</Header>
-        <Grid>
-          <AdminPaginationWidget collection={this.props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
-                                 setShowCount={dataModelActions.setCollectionShowCount}/>
-          {_.map(items, (item) => (
-            <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
-                                      descriptionPairs={this.props.descriptionPairs(item)}
-                                      updateDisabled={false}
-                                      deleteDisabled={false}
-                                      handleOpenUpdate={this.props.handleOpenUpdate}
-                                      handleDelete={this.props.handleDelete}/>
-          ))}
-        </Grid>
-      </Segment>
-    );
-  }
-}
+const ListCollectionWidget = (props: IListCollectionWidgetProps) => {
+  // console.log('ListCollectionWidget.render props=%o', props);
+  const count = props.collection.count();
+  const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
+  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
+  const endIndex = startIndex + showCount;
+  const items = _.slice(props.items, startIndex, endIndex);
+  // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
+  return (
+    <Segment padded={true}>
+      <Header dividing={true}>{props.collection.getCollectionName()} ({count})</Header>
+      <Grid>
+        <AdminPaginationWidget collection={props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
+                               setShowCount={dataModelActions.setCollectionShowCount}/>
+        {_.map(items, (item) => (
+          <AdminCollectionAccordion key={item._id} id={item._id} title={props.itemTitle(item)}
+                                    descriptionPairs={props.descriptionPairs(item)}
+                                    updateDisabled={false}
+                                    deleteDisabled={false}
+                                    handleOpenUpdate={props.handleOpenUpdate}
+                                    handleDelete={props.handleDelete}/>
+        ))}
+      </Grid>
+    </Segment>
+  );
+};
 
 const ListCollectionWidgetCon = connect(mapStateToProps)(ListCollectionWidget);
 

@@ -15,45 +15,37 @@ interface IModerationColumn {
 
 }
 
-class ModerationColumnWidget extends React.Component<IModerationColumn> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    return (
-      <div>
-        <Segment>
-          <Header as='h4' textAlign='left' dividing>PENDING {this.props.type} REVIEWS </Header>
-          {this.props.isReview && this.props.reviews.length > 0 ?
-            <Item.Group divided>
-              {this.props.reviews.map((review, index) => <Item key={index}> <ModerationReviewCardWidget
-                item={review} handleAccept={this.props.handleAccept}
-                handleReject={this.props.handleReject}/></Item>)
-              }
-            </Item.Group>
-            :
-            <React.Fragment>
-              {
-                (this.props.isReview === false && this.props.reviews.length > 0) ?
-                  <Item.Group divided>
-                    {this.props.reviews.map((question, index) => <Item key={index}> <ModerationQuestionCardWidget
-                      question={question} handleAccept={this.props.handleAccept}
-                      handleReject={this.props.handleReject}/></Item>)
-                    }
-                  </Item.Group>
-                  :
-                  <Container textAlign='left'>
-                    <i>No pending {this.props.type.toLowerCase()} reviews</i>
-                  </Container>
-              }
-            </React.Fragment>
+const ModerationColumnWidget = (props: IModerationColumn) => (
+  <div>
+    <Segment>
+      <Header as='h4' textAlign='left' dividing>PENDING {props.type} REVIEWS </Header>
+      {props.isReview && props.reviews.length > 0 ?
+        <Item.Group divided>
+          {props.reviews.map((review, index) => <Item key={index}> <ModerationReviewCardWidget
+            item={review} handleAccept={props.handleAccept}
+            handleReject={props.handleReject}/></Item>)
           }
+        </Item.Group>
+        :
+        <React.Fragment>
+          {
+            (props.isReview === false && props.reviews.length > 0) ?
+              <Item.Group divided>
+                {props.reviews.map((question, index) => <Item key={index}> <ModerationQuestionCardWidget
+                  question={question} handleAccept={props.handleAccept}
+                  handleReject={props.handleReject}/></Item>)
+                }
+              </Item.Group>
+              :
+              <Container textAlign='left'>
+                <i>No pending {props.type.toLowerCase()} reviews</i>
+              </Container>
+          }
+        </React.Fragment>
+      }
 
-        </Segment>
-      </div>
-    );
-  }
-}
+    </Segment>
+  </div>
+);
 
 export default withRouter(ModerationColumnWidget);

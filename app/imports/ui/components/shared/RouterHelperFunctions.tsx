@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 
-interface IMatchProps {
+export interface IMatchProps {
   isExact: boolean;
   path: string;
   url: string;
@@ -13,7 +13,7 @@ interface IMatchProps {
 }
 
 // Returns the USERNAME param based on React-Router's match object
-export const getUsername = (match: IMatchProps): string => match.params.username;
+export const getUsername = (match: IMatchProps): string => match.params.username; // TODO should we use _.get here? What would we default to?
 
 // Returns the User ID based off of the USERNAME param
 export const getUserIdFromRoute = (match: IMatchProps): string => {

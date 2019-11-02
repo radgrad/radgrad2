@@ -8,40 +8,34 @@ interface IStudentFeedWidgetProps {
   feeds: object[];
 }
 
-class StudentFeedWidget extends React.Component<IStudentFeedWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
+const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
+  const feedStyle = {
+    maxHeight: '488px',
+    overflow: 'scroll',
+    marginTop: '10px',
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const feedStyle = {
-      maxHeight: '488px',
-      overflow: 'scroll',
-      marginTop: '10px',
-    };
-
-    return (
-      <Container>
-        <Segment padded={true}>
-          <Header dividing={true}>RADGRAD COMMUNITY ACTIVITY</Header>
-          {
-            this.props.feeds ?
-              <Feed style={feedStyle}>
-                {this.props.feeds.map((feed, index) => (
-                  <React.Fragment key={index}>
-                    <StudentFeedItem feed={feed}/>
-                    <Divider/>
-                  </React.Fragment>
-                ))}
-              </Feed>
-              :
-              <p>No recent feeds.</p>
-          }
-        </Segment>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <Segment padded={true}>
+        <Header dividing={true}>RADGRAD COMMUNITY ACTIVITY</Header>
+        {
+          props.feeds ?
+            <Feed style={feedStyle}>
+              {props.feeds.map((feed, index) => (
+                <React.Fragment key={index}>
+                  <StudentFeedItem feed={feed}/>
+                  <Divider/>
+                </React.Fragment>
+              ))}
+            </Feed>
+            :
+            <p>No recent feeds.</p>
+        }
+      </Segment>
+    </Container>
+  );
+};
 
 const StudentFeedWidgetContainer = withTracker(() => ({
   feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),

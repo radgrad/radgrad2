@@ -23,76 +23,70 @@ interface IAcademicPlanStaticViewerProps {
   takenSlugs: string[];
 }
 
-class AcademicPlanStaticViewer extends React.Component<IAcademicPlanStaticViewerProps> {
-  constructor(props) {
-    super(props);
-  }
+const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
+  const equalWidthGridStyle = { margin: 0 };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const equalWidthGridStyle = { margin: 0 };
+  const { plan } = props;
+  const fiveYear = (props.plan.coursesPerAcademicTerm.length % 5) === 0;
+  let yearNumber = 0;
+  const littlePadding = {
+    paddingLeft: 2,
+    paddingRight: 2,
+  };
+  const username = props.match.params.username;
 
-    const { plan } = this.props;
-    const fiveYear = (this.props.plan.coursesPerAcademicTerm.length % 5) === 0;
-    let yearNumber = 0;
-    const littlePadding = {
-      paddingLeft: 2,
-      paddingRight: 2,
-    };
-    const username = this.props.match.params.username;
+  return (
+    <div className="ui padded container">
+      <Grid stackable={true}>
+        <Grid.Column>
+          <Grid columns="equal" style={equalWidthGridStyle}>
+            <Grid.Row columns={fiveYear ? 5 : 4}>
+              <Grid.Column style={littlePadding}>
+                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
+                                            username={username}
+                                            takenSlugs={props.takenSlugs}/>
+              </Grid.Column>
+              <Grid.Column style={littlePadding}>
+                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
+                                            username={username}
 
-    return (
-      <div className="ui padded container">
-        <Grid stackable={true}>
-          <Grid.Column>
-            <Grid columns="equal" style={equalWidthGridStyle}>
-              <Grid.Row columns={fiveYear ? 5 : 4}>
+                                            takenSlugs={props.takenSlugs}/>
+              </Grid.Column>
+              <Grid.Column style={littlePadding}>
+                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
+                                            username={username}
+
+                                            takenSlugs={props.takenSlugs}/>
+              </Grid.Column>
+              <Grid.Column style={littlePadding}>
+                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
+                                            username={username}
+
+                                            takenSlugs={props.takenSlugs}/>
+              </Grid.Column>
+              {fiveYear ? (
                 <Grid.Column style={littlePadding}>
                   <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
                                               username={username}
-                                              takenSlugs={this.props.takenSlugs}/>
+                                              takenSlugs={props.takenSlugs}/>
                 </Grid.Column>
-                <Grid.Column style={littlePadding}>
-                  <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                              username={username}
+              ) : ''}
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
+};
 
-                                              takenSlugs={this.props.takenSlugs}/>
-                </Grid.Column>
-                <Grid.Column style={littlePadding}>
-                  <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                              username={username}
-
-                                              takenSlugs={this.props.takenSlugs}/>
-                </Grid.Column>
-                <Grid.Column style={littlePadding}>
-                  <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                              username={username}
-
-                                              takenSlugs={this.props.takenSlugs}/>
-                </Grid.Column>
-                {fiveYear ? (
-                  <Grid.Column style={littlePadding}>
-                    <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                                username={username}
-                                                takenSlugs={this.props.takenSlugs}/>
-                  </Grid.Column>
-                ) : ''}
-              </Grid.Row>
-            </Grid>
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
-}
-
-function takenSlugs(courseInstances: ICourseInstance[]): ICourseInstance {
+const takenSlugs = (courseInstances: ICourseInstance[]): ICourseInstance => {
   const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
   // console.log(courseInstances, passedCourseInstances);
   return _.map(passedCourseInstances, (ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
     return Slugs.getNameFromID(doc.slugID);
   });
-}
+};
 
 const AcademicPlanStaticViewerContainer = withTracker((props) => {
   const profile = Users.findProfileFromUsername(props.match.params.username);

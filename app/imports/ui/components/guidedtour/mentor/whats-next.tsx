@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const WhatsNext = () => (
+const GuidedTourMentorWhatsNext = () => (
   <div>
     <Grid container={true}>
       <Grid.Row centered={true}>
@@ -30,4 +30,4 @@ const WhatsNext = () => (
   </div>
 );
 
-export default WhatsNext;
+export default GuidedTourMentorWhatsNext;

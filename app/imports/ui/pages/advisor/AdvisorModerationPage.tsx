@@ -5,29 +5,25 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import ModerationWidgetContainer from '../../components/shared/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-class AdvisorModerationPage extends React.Component {
-  public render() {
-    return (
-      <div>
-        <AdvisorPageMenuWidget/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+const AdvisorModerationPage = () => (
+  <div>
+    <AdvisorPageMenuWidget/>
+    <Grid stackable={true}>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><ModerationWidgetContainer/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
+      <Grid.Row>
+        <Grid.Column width={1}/>
+        <Grid.Column width={14}><ModerationWidgetContainer/></Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid.Row>
+    </Grid>
 
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+    <BackToTopButton/>
+  </div>
+);
 
 export default AdvisorModerationPage;

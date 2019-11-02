@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const MentorSpace = () => (
+const GuidedTourMentorMentorSpace = () => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'nine'}>
@@ -26,4 +26,4 @@ const MentorSpace = () => (
   </div>
 );
 
-export default MentorSpace;
+export default GuidedTourMentorMentorSpace;

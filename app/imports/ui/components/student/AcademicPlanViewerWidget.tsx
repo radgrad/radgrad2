@@ -15,48 +15,42 @@ interface IAcademicPlanViewerWidgetProps {
   takenSlugs: string[];
 }
 
-class AcademicPlanViewerWidget extends React.Component<IAcademicPlanViewerWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    const fiveYear = (this.props.academicPlan.coursesPerAcademicTerm.length % 5) === 0;
-    let yearNumber = 0;
-    const littlePadding = {
-      paddingLeft: 2,
-      paddingRight: 2,
-    };
-    return (
-      <Grid>
-        <Grid.Row columns={fiveYear ? 5 : 4}>
+const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
+  const fiveYear = (props.academicPlan.coursesPerAcademicTerm.length % 5) === 0;
+  let yearNumber = 0;
+  const littlePadding = {
+    paddingLeft: 2,
+    paddingRight: 2,
+  };
+  return (
+    <Grid>
+      <Grid.Row columns={fiveYear ? 5 : 4}>
+        <Grid.Column style={littlePadding}>
+          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
+                                username={props.username} takenSlugs={props.takenSlugs}/>
+        </Grid.Column>
+        <Grid.Column style={littlePadding}>
+          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
+                                username={props.username} takenSlugs={props.takenSlugs}/>
+        </Grid.Column>
+        <Grid.Column style={littlePadding}>
+          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
+                                username={props.username} takenSlugs={props.takenSlugs}/>
+        </Grid.Column>
+        <Grid.Column style={littlePadding}>
+          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
+                                username={props.username} takenSlugs={props.takenSlugs}/>
+        </Grid.Column>
+        {fiveYear ? (
           <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
+            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
+                                  username={props.username} takenSlugs={props.takenSlugs}/>
           </Grid.Column>
-          <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
-          </Grid.Column>
-          <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
-          </Grid.Column>
-          <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                  username={this.props.username} takenSlugs={this.props.takenSlugs}/>
-          </Grid.Column>
-          {fiveYear ? (
-            <Grid.Column style={littlePadding}>
-              <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={this.props.academicPlan}
-                                    username={this.props.username} takenSlugs={this.props.takenSlugs}/>
-            </Grid.Column>
-          ) : ''}
-        </Grid.Row>
-      </Grid>
-    );
-  }
-}
+        ) : ''}
+      </Grid.Row>
+    </Grid>
+  );
+};
 
 function takenSlugs(courseInstances) {
   const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));

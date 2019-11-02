@@ -35,10 +35,35 @@ const mapStateToProps = (state) => ({
   selectedUsername: state.advisor.home.selectedUsername,
 });
 
-/** A simple static component to render some text for the landing page. */
-class AdvisorHomePage extends React.Component<IFilterStudents> {
-  public render() {
-    return (
+const renderSelectedStudentWidgets = (props: IFilterStudents) => {
+  if (props.selectedUsername === '') {
+    return undefined;
+  }
+  return (
+    <Grid.Row>
+      <Grid.Column width={1}/>
+      <Grid.Column width={9} stretched={true}>
+        <AdvisorUpdateStudentWidget usernameDoc={props.usernameDoc}
+                                    studentCollectionName={StudentProfiles.getCollectionName()}
+                                    careerGoals={props.careerGoals}
+                                    interests={props.interests}/>
+      </Grid.Column>
+
+      <Grid.Column width={5} stretched={true}>
+        <AdvisorLogEntryWidget usernameDoc={props.usernameDoc}
+                               advisorLogs={props.advisorLogs}
+                               advisorUsername={props.match.params.username}/>
+        <AdvisorStarUploadWidget usernameDoc={props.usernameDoc}
+                                 advisorUsername={props.match.params.username}/>
+
+      </Grid.Column>
+      <Grid.Column width={1}/>
+      <BackToTopButton/>
+    </Grid.Row>
+  );
+};
+
+const AdvisorHomePage = (props: IFilterStudents) => (
       <div>
         <AdvisorPageMenuWidget/>
         <div className="pusher">
@@ -52,47 +77,18 @@ class AdvisorHomePage extends React.Component<IFilterStudents> {
             <Grid.Row>
               <Grid.Column width={1}/>
               <Grid.Column width={14}>
-                <AdvisorStudentSelectorWidget careerGoals={this.props.careerGoals}
-                                              interests={this.props.interests}
-                                              advisorUsername={this.props.match.params.username}/>
+                <AdvisorStudentSelectorWidget careerGoals={props.careerGoals}
+                                              interests={props.interests}
+                                              advisorUsername={props.match.params.username}/>
               </Grid.Column>
               <Grid.Column width={1}/>
             </Grid.Row>
-            {this.renderSelectedStudentWidgets()}
+            {renderSelectedStudentWidgets(props)}
           </Grid>
         </div>
       </div>
     );
-  }
 
-  public renderSelectedStudentWidgets() {
-    if (this.props.selectedUsername === '') {
-      return undefined;
-    }
-    return (
-      <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={9} stretched={true}>
-          <AdvisorUpdateStudentWidget usernameDoc={this.props.usernameDoc}
-                                      studentCollectionName={StudentProfiles.getCollectionName()}
-                                      careerGoals={this.props.careerGoals}
-                                      interests={this.props.interests}/>
-        </Grid.Column>
-
-        <Grid.Column width={5} stretched={true}>
-          <AdvisorLogEntryWidget usernameDoc={this.props.usernameDoc}
-                                 advisorLogs={this.props.advisorLogs}
-                                 advisorUsername={this.props.match.params.username}/>
-          <AdvisorStarUploadWidget usernameDoc={this.props.usernameDoc}
-                                   advisorUsername={this.props.match.params.username}/>
-
-        </Grid.Column>
-        <Grid.Column width={1}/>
-        <BackToTopButton/>
-      </Grid.Row>
-    );
-  }
-}
 
 const AdvisorHomePageTracker = withTracker((props) => {
   const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);

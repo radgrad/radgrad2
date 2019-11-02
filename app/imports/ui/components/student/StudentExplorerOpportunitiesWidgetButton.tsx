@@ -1,14 +1,19 @@
 import * as React from 'react';
 import { Button, Menu, Popup } from 'semantic-ui-react';
-import * as _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { IOpportunity, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import * as Router from '../shared/RouterHelperFunctions';
+import {
+  academicTermNameToSlug,
+  itemToSlugName,
+  opportunityTermsNotTaken,
+  unverifiedOpportunityTermNames,
+} from '../shared/data-model-helper-functions';
 
 interface IStudentExplorerOpportunitiesWidgetButtonProps {
   buttonType: 'remove' | 'add';
@@ -29,60 +34,13 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     super(props);
   }
 
-  private getUsername = () => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
-  private opportunityTerms = (): string[] => {
-    const opp = this.props.opportunity;
-    const terms = opp.termIDs;
-    const takenTerms = [];
-    const termNames = [];
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    const opportunity = this.props.opportunity;
-    const oi = OpportunityInstances.find({
-      studentID: this.getUserIdFromRoute(),
-      opportunityID: opportunity._id,
-    }).fetch();
-    _.forEach(oi, (o) => {
-      takenTerms.push(o.termID);
-    });
-    _.forEach(terms, (term) => {
-      if (AcademicTerms.findDoc(term).termNumber >= currentTerm.termNumber) {
-        if (!_.includes(takenTerms, term)) {
-          termNames.push(AcademicTerms.toString(term));
-        }
-      }
-    });
-    return termNames.slice(0, 8);
-  }
-
-  private existingTerms = (): string[] => {
-    const terms = [];
-    const opportunity = this.props.opportunity;
-    const oi = OpportunityInstances.find({
-      studentID: this.getUserIdFromRoute(),
-      opportunityID: opportunity._id,
-    }).fetch();
-    _.forEach(oi, (o) => {
-      if (!o.verified) {
-        terms.push(AcademicTerms.toString(o.termID, false));
-      }
-    });
-    return terms;
-  }
-
   private handleAddToPlan = (e: any): void => {
     e.preventDefault();
     const opportunity = this.props.opportunity;
     const term = e.target.text;
-    const oppSlug = Slugs.findDoc({ _id: opportunity.slugID });
-    const termSplit = term.split(' ');
-    const termSlug = `${termSplit[0]}-${termSplit[1]}`;
-    const username = this.getUsername();
+    const oppSlug = itemToSlugName(opportunity);
+    const termSlug = academicTermNameToSlug(term);
+    const username = Router.getUsername(this.props.match);
     const definitionData: IOpportunityInstanceDefine = {
       academicTerm: termSlug,
       opportunity: oppSlug.name,
@@ -108,7 +66,7 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     const termSlug = `${termSplit[0]}-${termSplit[1]}`;
     const termID = AcademicTerms.getID(termSlug);
     const oi = OpportunityInstances.find({
-      studentID: this.getUserIdFromRoute(),
+      studentID: Router.getUserIdFromRoute(this.props.match),
       opportunityID: opportunity._id,
       termID: termID,
     }).fetch();
@@ -119,7 +77,7 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     const collectionName = collection.getCollectionName();
     removeItMethod.call({ collectionName, instance: oi[0]._id });
     const interactionData = {
-      username: this.getUsername(), type: 'removeOpportunity',
+      username: Router.getUsername(this.props.match), type: 'removeOpportunity',
       typeData: Slugs.getNameFromID(opportunity.slugID),
     };
     userInteractionDefineMethod.call(interactionData, (err) => {
@@ -133,9 +91,9 @@ class StudentExplorerOpportunitiesWidgetButton extends React.Component<IStudentE
     const { buttonType } = this.props;
     const isAddButtonType = buttonType === 'add';
     const isRemoveButtonType = buttonType === 'remove';
-    const opportunityTerms = this.opportunityTerms();
+    const opportunityTerms = opportunityTermsNotTaken(this.props.opportunity, Router.getUserIdFromRoute(this.props.match));
     const empty = opportunityTerms.length === 0;
-    const existingTerms = this.existingTerms();
+    const existingTerms = unverifiedOpportunityTermNames(this.props.opportunity, Router.getUserIdFromRoute(this.props.match));
 
     // FIXME: Remove from Plan Button doesn't go away if you removed everything
     // FIXME: Only one Popup should be open at a time and they need to close once an item has been picked

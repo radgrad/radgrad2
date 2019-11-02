@@ -18,7 +18,7 @@ import {
   academicTermNameToSlug, docToSlugName,
   opportunityTypeNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';

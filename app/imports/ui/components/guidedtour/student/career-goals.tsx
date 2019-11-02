@@ -6,7 +6,7 @@ interface ICareerPathProps {
   careerGoals: string;
 }
 
-const CareerPath = (props: ICareerPathProps) => (
+const GuidedTourStudentCareerPath = (props: ICareerPathProps) => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'ten'}>
@@ -23,4 +23,4 @@ const CareerPath = (props: ICareerPathProps) => (
   </div>
 );
 
-export default CareerPath;
+export default GuidedTourStudentCareerPath;

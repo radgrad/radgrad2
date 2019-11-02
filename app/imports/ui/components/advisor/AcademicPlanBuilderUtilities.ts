@@ -5,34 +5,22 @@ export const DELETE_AREA = 'DELETE';
 export const PLAN_CHOICE = 'PLAN_CHOICE';
 const SEPARATOR = '-';
 
-export function getDropDestinationArea(destinationId) {
-  return destinationId.split(SEPARATOR)[0];
-}
+export const getDropDestinationArea = (destinationId) => destinationId.split(SEPARATOR)[0];
 
-export function getPlanAreaTermYear(planDroppableId) {
-  return planDroppableId.split(SEPARATOR)[1];
-}
+export const getPlanAreaTermYear = (planDroppableId) => planDroppableId.split(SEPARATOR)[1];
 
-export function getPlanAreaTermNumber(planDroppableId) {
-  return planDroppableId.split(SEPARATOR)[2];
-}
+export const getPlanAreaTermNumber = (planDroppableId) => planDroppableId.split(SEPARATOR)[2];
 
-export function buildPlanAreaDroppableId(year: number, termNumber: number): string {
-  return `${PLAN_AREA}-${year}-${termNumber}`;
-}
+export const buildPlanAreaDroppableId = (year: number, termNumber: number): string => `${PLAN_AREA}-${year}-${termNumber}`;
 
-export function buildPlanAreaDraggableId(choice: string): string {
-  return `${PLAN_CHOICE}-${choice}`;
-}
+export const buildPlanAreaDraggableId = (choice: string): string => `${PLAN_CHOICE}-${choice}`;
 
-export function buildCombineAreaDraggableId(choice: string): string {
-  return `${COMBINE_AREA}-${choice}`;
-}
+export const buildCombineAreaDraggableId = (choice: string): string => `${COMBINE_AREA}-${choice}`;
 
-export function getPlanChoiceFromDraggableId(draggableId) {
+export const getPlanChoiceFromDraggableId = (draggableId) => {
   const index = draggableId.indexOf(SEPARATOR);
   return draggableId.substring(index + 1);
-}
+};
 
 export const stripPrefix = (str) => {
   const index = str.indexOf(SEPARATOR);

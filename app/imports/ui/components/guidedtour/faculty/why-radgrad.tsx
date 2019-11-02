@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const WhyRadGrad = () => (
+const GuidedTourFacultyWhyRadGrad = () => (
   <div>
     <Grid container={true}>
       <Grid.Row centered={true}>
@@ -28,4 +28,4 @@ const WhyRadGrad = () => (
   </div>
 );
 
-export default WhyRadGrad;
+export default GuidedTourFacultyWhyRadGrad;

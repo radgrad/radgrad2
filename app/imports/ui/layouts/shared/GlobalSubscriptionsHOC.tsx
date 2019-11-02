@@ -42,14 +42,7 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
-  class GlobalSubscription extends React.Component<ILoading> {
-    constructor(props) {
-      super(props);
-    }
-
-    /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-    public render() {
-      return (this.props.loading) ?
+  const GlobalSubscription = (props: ILoading) => ((props.loading) ?
         <React.Fragment>
           <Responsive minWidth={Responsive.onlyTablet.minWidth}>
             <PageLoader/>
@@ -60,9 +53,7 @@ function withGlobalSubscription(WrappedComponent) {
           </Responsive>
         </React.Fragment>
         :
-        <WrappedComponent {...this.props}/>;
-    }
-  }
+        <WrappedComponent {...props}/>);
 
   return withTracker(() => {
     const handles = [

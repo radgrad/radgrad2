@@ -4,12 +4,13 @@ import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { ICourse, ICourseInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import * as Router from '../shared/RouterHelperFunctions';
+import { academicTermNameToSlug, itemToSlugName } from '../shared/data-model-helper-functions';
 
 interface IStudentExplorerCoursesWidgetButtonProps {
   buttonType: 'remove' | 'add' | 'taken';
@@ -25,42 +26,34 @@ interface IStudentExplorerCoursesWidgetButtonProps {
   };
 }
 
+const nextYears = (amount: number): number[] => {
+  const years = [];
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  let currentYear = currentTerm.year;
+  for (let i = 0; i < amount; i += 1) {
+    years.push(currentYear);
+    currentYear += 1;
+  }
+  return years;
+};
+
+const yearTerms = (year: number): string[] => {
+  const terms = [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
+  return terms;
+};
+
 class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplorerCoursesWidgetButtonProps> {
   constructor(props) {
     super(props);
-  }
-
-  private nextYears = (amount: number): number[] => {
-    const nextYears = [];
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    let currentYear = currentTerm.year;
-    for (let i = 0; i < amount; i += 1) {
-      nextYears.push(currentYear);
-      currentYear += 1;
-    }
-    return nextYears;
-  }
-
-  private yearTerms = (year: number): string[] => {
-    const terms = [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
-    return terms;
-  }
-
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
   }
 
   private handleAddToPlan = (e: any): void => {
     e.preventDefault();
     const course = this.props.course;
     const term = e.target.text;
-    const courseSlug = Slugs.findDoc({ _id: course.slugID });
-    const termSplit = term.split(' ');
-    const termSlug = `${termSplit[0]}-${termSplit[1]}`;
-    const username = this.getUsername();
+    const courseSlug = itemToSlugName(course);
+    const termSlug = academicTermNameToSlug(term);
+    const username = Router.getUsername(this.props.match);
     const collectionName = CourseInstances.getCollectionName();
     const definitionData: ICourseInstanceDefine = {
       academicTerm: termSlug,
@@ -72,9 +65,9 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     };
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (!error) {
-        FeedbackFunctions.checkPrerequisites(this.getUserIdFromRoute());
-        FeedbackFunctions.checkCompletePlan(this.getUserIdFromRoute());
-        FeedbackFunctions.generateRecommendedCourse(this.getUserIdFromRoute());
+        FeedbackFunctions.checkPrerequisites(Router.getUserIdFromRoute(this.props.match));
+        FeedbackFunctions.checkCompletePlan(Router.getUserIdFromRoute(this.props.match));
+        FeedbackFunctions.generateRecommendedCourse(Router.getUserIdFromRoute(this.props.match));
       }
     });
     const interactionData = { username, type: 'addCourse', typeData: courseSlug.name };
@@ -95,7 +88,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     const termID = AcademicTerms.getID(termSlug);
     const collectionName = CourseInstances.getCollectionName();
     const ci = CourseInstances.find({
-      studentID: this.getUserIdFromRoute(),
+      studentID: Router.getUserIdFromRoute(this.props.match),
       courseID: course._id,
       termID: termID,
     }).fetch();
@@ -104,13 +97,13 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     }
     removeItMethod.call({ collectionName, instance: ci[0]._id }, (error) => {
       if (!error) {
-        FeedbackFunctions.checkPrerequisites(this.getUserIdFromRoute());
-        FeedbackFunctions.checkCompletePlan(this.getUserIdFromRoute());
-        FeedbackFunctions.generateRecommendedCourse(this.getUserIdFromRoute());
+        FeedbackFunctions.checkPrerequisites(Router.getUserIdFromRoute(this.props.match));
+        FeedbackFunctions.checkCompletePlan(Router.getUserIdFromRoute(this.props.match));
+        FeedbackFunctions.generateRecommendedCourse(Router.getUserIdFromRoute(this.props.match));
       }
     });
     const interactionData = {
-      username: this.getUsername(),
+      username: Router.getUsername(this.props.match),
       type: 'removeCourse',
       typeData: Slugs.getNameFromID(course.slugID),
     };
@@ -125,7 +118,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     const terms = [];
     const course = this.props.course;
     const ci = CourseInstances.find({
-      studentID: this.getUserIdFromRoute(),
+      studentID: Router.getUserIdFromRoute(this.props.match),
       courseID: course._id,
     }).fetch();
     _.forEach(ci, (c) => {
@@ -148,7 +141,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
     const isAddButtonType = buttonType === 'add';
     const isRemoveButtonType = buttonType === 'remove';
     const isTakenButtonType = buttonType === 'taken';
-    const nextYears = this.nextYears(4);
+    const years = nextYears(4);
     const existingTerms = this.existingTerms();
 
     // FIXME: Only one Popup should be open at a time and they need to close once an Item has been picked
@@ -167,7 +160,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
               <Popup.Content>
                 <Menu vertical={true}>
                   {
-                    nextYears.map((year, index) => (
+                    years.map((year, index) => (
                       <React.Fragment key={index}>
                         <Popup
                           trigger={
@@ -180,7 +173,7 @@ class StudentExplorerCoursesWidgetButton extends React.Component<IStudentExplore
                           <Popup.Content>
                             <Menu vertical={true}>
                               {
-                                this.yearTerms(year).map((term) => (
+                                yearTerms(year).map((term) => (
                                   <Menu.Item as="a" key={term} onClick={this.handleAddToPlan}>
                                     {term}
                                   </Menu.Item>

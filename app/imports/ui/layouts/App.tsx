@@ -12,40 +12,36 @@ import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
-class App extends React.Component {
-  public render() {
-    return (
-      <Router>
-        <Switch>
-          {routes.LANDING.map((route, i) => (
-            <Route key={i} {...route} />
-          ))}
-          {routes.ADMIN.map((route, i) => (
-            <AdminProtectedRoute key={i} {...route} />
-          ))}
-          {routes.ADVISOR.map((route, i) => (
-            <AdvisorProtectedRoute key={i} {...route} />
-          ))}
-          {routes.FACULTY.map((route, i) => (
-            <FacultyProtectedRoute key={i} {...route} />
-          ))}
-          {routes.MENTOR.map((route, i) => (
-            <MentorProtectedRoute key={i} {...route} />
-          ))}
-          {routes.STUDENT.map((route, i) => (
-            <StudentProtectedRoute key={i} {...route} />
-          ))}
-          {routes.ALUMNI.map((route, i) => (
-            <StudentProtectedRoute key={i} {...route} />
-          ))}
-          <Route path="/signin" component={Signin}/>
-          <ProtectedRoute path="/signout" component={Signout}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </Router>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <Switch>
+      {routes.LANDING.map((route, i) => (
+        <Route key={i} {...route} />
+      ))}
+      {routes.ADMIN.map((route, i) => (
+        <AdminProtectedRoute key={i} {...route} />
+      ))}
+      {routes.ADVISOR.map((route, i) => (
+        <AdvisorProtectedRoute key={i} {...route} />
+      ))}
+      {routes.FACULTY.map((route, i) => (
+        <FacultyProtectedRoute key={i} {...route} />
+      ))}
+      {routes.MENTOR.map((route, i) => (
+        <MentorProtectedRoute key={i} {...route} />
+      ))}
+      {routes.STUDENT.map((route, i) => (
+        <StudentProtectedRoute key={i} {...route} />
+      ))}
+      {routes.ALUMNI.map((route, i) => (
+        <StudentProtectedRoute key={i} {...route} />
+      ))}
+      <Route path="/signin" component={Signin}/>
+      <ProtectedRoute path="/signout" component={Signout}/>
+      <Route component={NotFound}/>
+    </Switch>
+  </Router>
+);
 
 /**
  * ProtectedRoute (see React Router v4 sample)

@@ -15,17 +15,8 @@ interface ILoading {
 const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
 function withAdditionalSubscriptions(WrappedComponent) {
-  class AdditionalSubscriptions extends React.Component<ILoading> {
-    constructor(props) {
-      super(props);
-    }
-
-    /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-    public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting additional data</Loader> :
-        <WrappedComponent {...this.props}/>;
-    }
-  }
+  const AdditionalSubscriptions = (props: ILoading) => ((props.loading) ? <Loader active={true}>Getting additional data</Loader> :
+      <WrappedComponent {...this.props}/>);
 
   return withTracker(() => {
     const requests = VerificationRequests.find({}).fetch();
@@ -37,5 +28,4 @@ function withAdditionalSubscriptions(WrappedComponent) {
     };
   })(AdditionalSubscriptions);
 }
-
 export default withAdditionalSubscriptions;
