@@ -18,6 +18,14 @@ import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 // import * as Router from './RouterHelperFunctions';
 
+interface IHasName {
+  name: string;
+}
+
+interface IHasSlugID {
+  slugID: string;
+}
+
 export const itemToSlugName = (doc) => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
 
 export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
@@ -69,7 +77,9 @@ export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.get
 
 export const degreeShortNameToSlug = (shortName) => itemToSlugName(DesiredDegrees.findDoc({ shortName }));
 
-export const docToName = (doc) => doc.name;
+export const docToName = (doc: IHasName) => doc.name;
+
+export const docToSlugNameAndType = (doc: IHasSlugID) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
 
 export const docToShortName = (doc) => doc.shortName;
 
@@ -211,6 +221,10 @@ export const profileIDToPicture = (profileID: string): string => {
 };
 
 export const profileNameToUsername = (name) => name.substring(name.indexOf('(') + 1, name.indexOf(')'));
+
+export const slugIDToSlugNameAndType = (slugID) => `${Slugs.findDoc(slugID).name} (${Slugs.findDoc(slugID).entityName})`;
+
+export const slugNameAndTypeToName = (slugAndType) => slugAndType.split(' ')[0];
 
 export const studentsParticipating = (item) => {
   const participatingUsers = StudentParticipations.findDoc({ itemID: item._id });

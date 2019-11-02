@@ -6,7 +6,10 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, IDescriptionPair, ITeaser } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, // eslint-disable-line no-unused-vars
+  IDescriptionPair, // eslint-disable-line no-unused-vars
+  ITeaser, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -16,6 +19,7 @@ import UpdateTeaserForm from '../../components/admin/UpdateTeasersForm';
 import {
   itemToSlugName,
   interestNameToSlug,
+  slugNameAndTypeToName,
 } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Slugs } from '../../../api/slug/SlugCollection';

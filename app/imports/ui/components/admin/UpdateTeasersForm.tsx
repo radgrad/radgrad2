@@ -15,6 +15,8 @@ import {
   docToName,
   interestIdToName, itemToSlugName,
   opportunityIdToName,
+  slugIDToSlugNameAndType,
+  docToSlugNameAndType,
 } from '../shared/data-model-helper-functions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
