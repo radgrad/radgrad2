@@ -196,13 +196,11 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
                                 isTypeCourse(props) ?
                                     courses(props).map((course, index) => <StudentOfInterestCard key={index}
                                                                                                  item={course}
-                                                                                                 type={type}
-                                                                                                 canAdd={true}/>)
+                                                                                                 type={type}/>)
                                     :
                                     opportunities(props).map((opp, index) => <StudentOfInterestCard key={index}
                                                                                                     item={opp}
-                                                                                                    type={type}
-                                                                                                    canAdd={true}/>)
+                                                                                                    type={type}/>)
                             }
                         </Card.Group>
                     </div>

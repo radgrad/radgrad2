@@ -1,15 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-// @ts-ignore
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Roles } from 'meteor/alanning:roles';
-// @ts-ignore
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { IFavoriteCareerGoalDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { StudentProfiles } from '../user/StudentProfileCollection';
 
 class FavoriteCareerGoalCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -183,6 +182,19 @@ class FavoriteCareerGoalCollection extends BaseCollection {
           problems.push(`Bad studentID: ${doc.studentID}`);
         }
       });
+    // make sure that we have a favorite for all the students
+    const students = StudentProfiles.findNonRetired({ isAlumni: false });
+    students.forEach((s) => {
+      const studentID = s.userID;
+      const favorites = this.findNonRetired({ studentID });
+      if (favorites.length === 0) {
+        const careerGoalIDs = s.careerGoalIDs;
+        careerGoalIDs.forEach((careerGoalID) => {
+          this.collection.insert({ careerGoalID, studentID, retired: false });
+        });
+      }
+    });
+
     return problems;
   }
 

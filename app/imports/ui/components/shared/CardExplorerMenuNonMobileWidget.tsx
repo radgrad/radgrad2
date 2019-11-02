@@ -2,28 +2,38 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+// import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Router from './RouterHelperFunctions';
 import {
   IAcademicPlan, // eslint-disable-line no-unused-vars
   ICareerGoal, // eslint-disable-line no-unused-vars
   ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
   IOpportunity, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import {
   ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
   isType,
 } from './explorer-helper-functions';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
+interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetProps {
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
+}
 
-// FIXME: Needs to be reactive
-const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
+const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
+  // console.log(props);
   const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(props.match);
   const adminEmail = 'radgrad@hawaii.edu';
@@ -84,7 +94,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
                       {
                         menuAddedList.map((listItem, index) => (
                           <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
-                                                     match={this.props.match}/>
+                                                     match={props.match}/>
                         ))
                       }
                     </Menu>
@@ -139,12 +149,18 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
 };
 
 export const CardExplorerMenuNonMobileWidgetCon = withTracker((props) => {
-  const username = Router.getUsername(props.match);
-  const profile = Users.getProfile(username);
-  const menuList = _.map(profile.careerGoalIDs, (c) => CareerGoals.findDoc(c).name);
+  const studentID = Router.getUserIdFromRoute(props.match);
+  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   return {
-    profile,
-    menuList,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteCourses,
+    favoriteInterests,
+    favoriteOpportunities,
   };
 })(CardExplorerMenuNonMobileWidget);
 export const CardExplorerMenuNonMobileWidgetContainer = withRouter(CardExplorerMenuNonMobileWidgetCon);

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
-import { Roles } from 'meteor/alanning:roles';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -17,12 +16,15 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 // @ts-ignore
 import CardExplorerMenu from '../../components/shared/CardExplorerMenu';
-// eslint-disable-next-line no-unused-vars
-import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { ROLE } from '../../../api/role/Role';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import {
+  IAcademicPlan, // eslint-disable-line no-unused-vars
+  ICareerGoal, // eslint-disable-line no-unused-vars
+  ICourse, // eslint-disable-line no-unused-vars
+  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IFavoriteCourse, // eslint-disable-line no-unused-vars
+  IInterest, // eslint-disable-line no-unused-vars
+  IOpportunity, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
@@ -85,76 +87,18 @@ const getCollection = (props: ICardExplorerPageProps): object => {
   }
 };
 
-const addedPlans = (props: ICardExplorerPageProps): { item: IAcademicPlan, count: number }[] => {
-  const plan = [];
-  if (Router.getUsername(props.match)) {
-    const profile = Users.getProfile(Router.getUsername(props.match));
-    const thePlan = AcademicPlans.findOne({ _id: profile.academicPlanID });
-    if (thePlan) {
-      plan.push({ item: thePlan, count: 1 });
-    }
-  }
-  return plan;
-};
+const addedPlans = (props: ICardExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
 
-const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, count: number }[] => {
-  const careerGoals = [];
-  const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-  const profile = Users.getProfile(Router.getUsername(props.match));
-  _.forEach(allCareerGoals, (careerGoal) => {
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-      careerGoals.push({ item: careerGoal, count: 1 });
-    }
-  });
-  return careerGoals;
-};
+const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
 
-const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => {
-  let courses = [];
-  const allCourses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
-  const userID = Router.getUserIdFromRoute(props.match);
-  _.forEach(allCourses, (course) => {
-    const ci = CourseInstances.find({
-      studentID: userID,
-      courseID: course._id,
-    }).fetch();
-    if (ci.length > 0) {
-      if (course.shortName !== 'Non-CS Course') {
-        courses.push({ item: course, count: ci.length });
-      }
-    }
-  });
-  if (Roles.userIsInRole(userID, [ROLE.STUDENT])) {
-    const profile = StudentProfiles.findDoc({ userID });
-    const plan = AcademicPlans.findDoc(profile.academicPlanID);
-    // CAM: why are we filtering?
-    if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
-      const regex = /[1234]\d\d/g;
-      courses = _.filter(addedCourses, (c) => c.item.num.match(regex));
-    }
-  }
-  return courses;
-};
+const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
 const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
   item: d,
   count: 1,
 }));
 
-
-const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => {
-  const interests = [];
-  if (Router.getUserIdFromRoute(props.match)) {
-    const allInterests = Interests.find({}, { sort: { name: 1 } }).fetch();
-    const profile = Users.getProfile(Router.getUserIdFromRoute(props.match));
-    _.forEach(allInterests, (interest) => {
-      if (_.includes(profile.interestIDs, interest._id)) {
-        interests.push({ item: interest, count: 1 });
-      }
-    });
-  }
-  return interests;
-};
+const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 
 const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => {
   if (Router.getUserIdFromRoute(props.match)) {
@@ -165,27 +109,7 @@ const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest,
   return [];
 };
 
-const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => {
-  const opportunities = [];
-  const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-  const userID = Router.getUserIdFromRoute(props.match);
-  const role = Router.getRoleByUrl(props.match);
-  if (role === URL_ROLES.FACULTY) {
-    return _.filter(allOpportunities, o => o.sponsorID === userID);
-  }
-  if (role === URL_ROLES.STUDENT) {
-    _.forEach(allOpportunities, (opportunity) => {
-      const oi = OpportunityInstances.find({
-        studentID: userID,
-        opportunityID: opportunity._id,
-      }).fetch();
-      if (oi.length > 0) {
-        opportunities.push({ item: opportunity, count: oi.length });
-      }
-    });
-  }
-  return opportunities;
-};
+const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
 
 const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
   const type = Router.getLastUrlParam(props.match);

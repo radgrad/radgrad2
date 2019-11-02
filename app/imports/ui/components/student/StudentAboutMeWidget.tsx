@@ -49,7 +49,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const email = props.profile.username;
   const careerGoals = profileGetCareerGoals(props.profile);
   const interests = profileGetInterests(props.profile);
-  const academicPlans = _.map(this.props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
+  const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   return (
     <Segment padded={true}>
       <Container>
@@ -120,7 +120,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
               <Grid.Column width={6}>
                 {academicPlans.length !== 0 ?
                   academicPlans.map((plan) => {
-                    const slugName = this.slugName(plan);
+                    const slugName = itemToSlugName(plan);
                     const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
                     return (
                       <Label key={plan._id} as={Link} to={route} size="tiny">

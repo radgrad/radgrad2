@@ -138,6 +138,7 @@ class InterestCollection extends BaseSlugCollection {
    * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
    */
   public findNames(instanceIDs: string[]) {
+    // console.log('Interests.findNames(%o)', instanceIDs);
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
 
