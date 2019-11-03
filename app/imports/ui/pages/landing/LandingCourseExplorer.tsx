@@ -31,62 +31,56 @@ interface ICourseExplorerProps {
   history: object;
 }
 
-class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const LandingCourseExplorer = (props: ICourseExplorerProps) => {
+  const { match } = props;
+  return (
+    <div>
+      <ExplorerMenuBarContainer/>
+      <Grid stackable={true}>
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
 
-  public render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer/>
+          </Grid.Column>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
+          <Grid.Column width={11}>
+            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing={true}>
+                <span>{props.course.shortName} ({props.course.name})</span>
+              </Header>
+              <Grid columns={2} stackable={true}>
+                <Grid.Column width={'six'}>
+                  <b>Course Number:</b> {props.course.num}<br/>
+                  <b>Credit Hours:</b> {props.course.creditHrs}
+                </Grid.Column>
+                <Grid.Column width={'ten'}>
+                  <b>Syllabus</b> {props.course.syllabus ?
+                  < a href={props.course.syllabus}>{props.course.syllabus}</a> : 'None available'}
+                </Grid.Column>
+              </Grid>
+              <b>Description:</b>
+              <Markdown escapeHtml={true} source={props.course.description}
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+              <Header as="h4" dividing={true}>Prerequisites</Header>
+              <LandingPrerequisiteList prerequisites={props.course.prerequisites}/>
+              <Header as="h4" dividing={true}>Course Interests</Header>
+              <LandingInterestList interestIDs={props.course.interestIDs}/>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
+      </Grid>
 
-            <Grid.Column width={11}>
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>{this.props.course.shortName} ({this.props.course.name})</span>
-                </Header>
-                <Grid columns={2} stackable={true}>
-                  <Grid.Column width={'six'}>
-                    <b>Course Number:</b> {this.props.course.num}<br/>
-                    <b>Credit Hours:</b> {this.props.course.creditHrs}
-                  </Grid.Column>
-                  <Grid.Column width={'ten'}>
-                    <b>Syllabus</b> {this.props.course.syllabus ?
-                    < a href={this.props.course.syllabus}>{this.props.course.syllabus}</a> : 'None available'}
-                  </Grid.Column>
-                </Grid>
-                <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.course.description}
-                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                <Header as="h4" dividing={true}>Prerequisites</Header>
-                <LandingPrerequisiteList prerequisites={this.props.course.prerequisites}/>
-                <Header as="h4" dividing={true}>Course Interests</Header>
-                <LandingInterestList interestIDs={this.props.course.interestIDs}/>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+      <BackToTopButton/>
+    </div>
+  );
+};
 
 const WithSubs = withListSubscriptions(LandingCourseExplorer, [
   Courses.getPublicationName(),

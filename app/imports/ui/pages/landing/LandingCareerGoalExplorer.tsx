@@ -29,48 +29,42 @@ interface ICareerGoalExplorerProps {
   history: object;
 }
 
-class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-
+const LandingCareerGoalExplorer = (props: ICareerGoalExplorerProps) => {
+  const { match } = props;
+  return (
+    <div>
+      <ExplorerMenuBarContainer/>
+      <Grid stackable={true}>
+        <Grid.Row>
           <Grid.Column width={1}/>
-          <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
-          </Grid.Column>
-
-          <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
-                <span>{this.props.careerGoal.name}</span>
-              </Header>
-              <b>Description:</b>
-              <Markdown escapeHtml={true} source={this.props.careerGoal.description}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-              <Header as="h4" dividing={true}>Career Goal Interests</Header>
-              <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
-            </Segment>
-          </Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
           <Grid.Column width={1}/>
-        </Grid>
+        </Grid.Row>
 
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+        <Grid.Column width={1}/>
+        <Grid.Column width={3}>
+          <LandingExplorerMenuContainer/>
+        </Grid.Column>
+
+        <Grid.Column width={11}>
+          <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
+            <Header as="h4" dividing={true}>
+              <span>{props.careerGoal.name}</span>
+            </Header>
+            <b>Description:</b>
+            <Markdown escapeHtml={true} source={props.careerGoal.description}
+                      renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+            <Header as="h4" dividing={true}>Career Goal Interests</Header>
+            <LandingInterestList interestIDs={props.careerGoal.interestIDs}/>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column width={1}/>
+      </Grid>
+
+      <BackToTopButton/>
+    </div>
+  );
+};
 
 const WithSubs = withListSubscriptions(LandingCareerGoalExplorer, [
   CareerGoals.getPublicationName(),

@@ -17,56 +17,49 @@ interface IStudentLogWidgetProps {
   };
 }
 
-class StudentLogWidget extends React.Component<IStudentLogWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
+const getAdvisorLogs = (props: IStudentLogWidgetProps): IAdvisorLog[] => AdvisorLogs.findNonRetired({ studentID: getUserIdFromRoute(props.match) }, { sort: { createdOn: -1 } });
 
-  private getUserIdFromRoute = (): string => getUserIdFromRoute(this.props.match);
+const getAdvisorImage = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).picture;
 
-  private getAdvisorLogs = (): IAdvisorLog[] => AdvisorLogs.findNonRetired({ studentID: this.getUserIdFromRoute() }, { sort: { createdOn: -1 } });
+const getAdvisorName = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).firstName;
 
-  public getAdvisorImage = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).picture;
+const getDisplayDate = (log: IAdvisorLog): string => {
+  const date = log.createdOn;
+  return `${date.toDateString()}`;
+};
 
-  public getAdvisorName = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).firstName;
 
-  public displayDate = (log: IAdvisorLog): string => {
-    const date = log.createdOn;
-    return `${date.toDateString()}`;
-  }
+const StudentLogWidget = (props: IStudentLogWidgetProps) => {
+  const advisorLogs = getAdvisorLogs(props);
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const advisorLogs = this.getAdvisorLogs();
-
-    return (
-      <Container>
-        <Segment padded={true}>
-          <Header as="h4" dividing={true}>ADVISOR MEETING LOG</Header>
-          {
-            advisorLogs ?
-              advisorLogs.map((log, index) => {
-                const advisorImage = this.getAdvisorImage(log);
-                const advisorName = this.getAdvisorName(log);
-                const displayDate = this.displayDate(log);
-                return (
-                  <Item.Group key={index} relaxed={true} divided={true}>
-                    <Item>
-                      <Image size="tiny" src={advisorImage}/>
-                      <Item.Content>
-                        <Item.Header>{displayDate}</Item.Header>
-                        <Item.Meta><span>Results from the meeting with {advisorName}: </span></Item.Meta>
-                        <Item.Description><p>{log.text}</p></Item.Description>
-                      </Item.Content>
-                    </Item>
-                  </Item.Group>);
-              })
-              :
-              <p><i>There are no advisor logs.</i></p>
-          }
-        </Segment>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <Segment padded={true}>
+        <Header as="h4" dividing={true}>ADVISOR MEETING LOG</Header>
+        {
+          advisorLogs ?
+            advisorLogs.map((log, index) => {
+              const advisorImage = getAdvisorImage(log);
+              const advisorName = getAdvisorName(log);
+              const displayDate = getDisplayDate(log);
+              return (
+                <Item.Group key={index} relaxed={true} divided={true}>
+                  <Item>
+                    <Image size="tiny" src={advisorImage}/>
+                    <Item.Content>
+                      <Item.Header>{displayDate}</Item.Header>
+                      <Item.Meta><span>Results from the meeting with {advisorName}: </span></Item.Meta>
+                      <Item.Description><p>{log.text}</p></Item.Description>
+                    </Item.Content>
+                  </Item>
+                </Item.Group>);
+            })
+            :
+            <p><i>There are no advisor logs.</i></p>
+        }
+      </Segment>
+    </Container>
+  );
+};
 
 export default withRouter(StudentLogWidget);

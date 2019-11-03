@@ -17,6 +17,8 @@ import StudentOfInterestAdd from './StudentOfInterestAdd';
 import { renderLink } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { replaceTermStringNextFour } from '../shared/helper-functions';
+import { docToShortDescription } from '../shared/data-model-helper-functions';
 
 interface IStudentOfInterestCardProps {
   type: string;
@@ -112,29 +114,6 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     return ret;
   }
 
-  private itemShortDescription = (item) => {
-    let description = item.description;
-    if (description.length > 200) {
-      description = `${description.substring(0, 200)}`;
-      if (description.charAt(description.length - 1) === ' ') {
-        description = `${description.substring(0, 199)}`;
-      }
-    }
-    return description;
-  }
-
-  private replaceTermString(array) {
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    const currentYear = currentTerm.year;
-    let fourRecentTerms = _.filter(array, function isRecent(termYear) {
-      return termYear.split(' ')[1] >= currentYear;
-    });
-    fourRecentTerms = array.slice(0, 4);
-    const termString = fourRecentTerms.join(' - ');
-    return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
-
-  }
-
   private numberStudents = (item) => {
     const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
     return participatingStudents.itemCount;
@@ -205,7 +184,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
     const { item, match } = this.props;
     const itemName = this.itemName(item);
     const itemTerms = this.itemTerms();
-    const itemShortDescription = this.itemShortDescription(item);
+    const itemShortDescription = docToShortDescription(item);
     const numberStudents = this.numberStudents(item);
     const hidden = this.hidden() as SemanticCOLORS;
 
@@ -214,7 +193,7 @@ class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps>
         <Card.Content>
           <Header>{itemName}</Header>
           <Card.Meta>
-            {itemTerms ? this.replaceTermString(itemTerms) : ''}
+            {itemTerms ? replaceTermStringNextFour(itemTerms) : ''}
           </Card.Meta>
         </Card.Content>
 

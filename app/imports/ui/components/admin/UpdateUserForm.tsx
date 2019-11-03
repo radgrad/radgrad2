@@ -24,7 +24,7 @@ import {
   careerGoalIdToName,
   docToName,
   interestIdToName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';

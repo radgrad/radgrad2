@@ -4,13 +4,14 @@ import { withRouter } from 'react-router-dom';
 import { getSlug, itemShortDescription } from './helper-functions';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import LandingAcademicPlanViewer from './LandingAcademicPlanViewer';
+import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 
 interface ILandingAcademicPlanCardProps {
   plan: IAcademicPlan;
 }
 
 const LandingAcademicPlanCard = (props: ILandingAcademicPlanCardProps) => {
-  const routeToItem = `#/explorer/academic-plans/${getSlug(props.plan)}`;
+  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${getSlug(props.plan)}`;
   const title = props.plan.name;
   return (
     <Card className="ui card radgrad-interest-card">

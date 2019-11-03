@@ -7,7 +7,7 @@ interface ICoursesProps {
   courseReviews: number;
 }
 
-const Courses = (props: ICoursesProps) => (
+const GuidedTourStudentCourses = (props: ICoursesProps) => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'ten'}>
@@ -36,4 +36,4 @@ const Courses = (props: ICoursesProps) => (
   </div>
 );
 
-export default Courses;
+export default GuidedTourStudentCourses;

@@ -28,13 +28,25 @@ interface IAdvisorStudentSelectorWidgetProps {
   careerGoals: ICareerGoal[];
 }
 
+interface IAdvisorStudentSelectorWidgetState {
+  fileData: string;
+  isEmailWorking: boolean;
+  isUploadWorking: boolean;
+  generatedData: string;
+}
+
 const mapStateToProps = (state) => ({
   firstName: state.advisor.home.firstName,
   lastName: state.advisor.home.lastName,
   username: state.advisor.home.username,
 });
 
-class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelectorWidgetProps> {
+class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelectorWidgetProps, IAdvisorStudentSelectorWidgetState> {
+  constructor(props) {
+    super(props);
+    this.state = { fileData: '', isEmailWorking: false, isUploadWorking: false, generatedData: '' };
+  }
+
   private handleTabChange = () => {
     this.props.dispatch(homeActions.setSelectedStudentUsername(''));
     this.setState({ fileData: '', generatedData: '' });
@@ -62,7 +74,6 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
   };
 
   // Functionality for 'Bulk STAR Upload' tab
-  state = { fileData: '', isEmailWorking: false, isUploadWorking: false, generatedData: '' };
 
   private readFile = (e) => {
     const files = e.target.files;

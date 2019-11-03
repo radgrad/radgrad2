@@ -10,7 +10,7 @@ interface ICoursePrerequisitesViewProps {
   studentID: string;
 }
 
-function missingPrerequisite(prereqSlug, studentID) {
+const missingPrerequisite = (prereqSlug, studentID) => {
   const courseInstances = CourseInstances.find({ studentID }).fetch();
   let ret = true;
   _.forEach(courseInstances, (ci) => {
@@ -21,28 +21,18 @@ function missingPrerequisite(prereqSlug, studentID) {
     }
   });
   return ret;
-}
+};
 
-class CoursePrerequisitesView extends React.Component<ICoursePrerequisitesViewProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    // console.log(this.props);
-    return (
-      <List bulleted={true}>
-        {_.map(this.props.prerequisites, (p) => (
-              <List.Item key={p}>
-                {PlanChoiceCollection.toStringFromSlug(p)}
-                {missingPrerequisite(p, this.props.studentID) ? <Icon name="warning" color="red"/> :
-                  <Icon name="checkmark" color="green"/>}
-              </List.Item>
-          ))}
-      </List>
-    );
-  }
-
-}
+const CoursePrerequisitesView = (props: ICoursePrerequisitesViewProps) => (
+  <List bulleted={true}>
+    {_.map(props.prerequisites, (p) => (
+      <List.Item key={p}>
+        {PlanChoiceCollection.toStringFromSlug(p)}
+        {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red"/> :
+          <Icon name="checkmark" color="green"/>}
+      </List.Item>
+    ))}
+  </List>
+);
 
 export default CoursePrerequisitesView;

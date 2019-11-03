@@ -3,94 +3,59 @@ import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslin
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { Link, withRouter } from 'react-router-dom';
+
 import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
 import IceHeader from './IceHeader';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from './InterestList';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import TermAdd from './TermAdd';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
-import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import {
+  docToShortDescription,
+  itemToSlugName,
+  opportunityTerms,
+  studentsParticipating,
+} from './data-model-helper-functions';
+import { replaceTermStringNextFour } from './helper-functions';
+
+const isType = (typeToCheck: string, props: ITermCard) => {
+  const { type } = props;
+  return type === typeToCheck;
+};
+
+const itemName = (item, props: ITermCard) => {
+  if (isType(EXPLORER_TYPE.COURSES, props)) {
+    return `${item.name} (${item.num})`;
+  }
+  return item.name;
+};
+
 
 class TermCard extends React.Component<ITermCard> {
   constructor(props) {
     super(props);
   }
 
-  private isType = (typeToCheck) => {
-    const { type } = this.props;
-    return type === typeToCheck;
-  }
-
-  private itemName = (item) => {
-    if (this.isType(EXPLORER_TYPE.COURSES)) {
-      return `${item.name} (${item.num})`;
-    }
-    return item.name;
-  }
-
-  private itemSlug = (item) => Slugs.findDoc(item.slugID).name;
-
-  // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
-  // Should move it to one if one is made - Gian.
-  private opportunityTerms(opportunityInstance) {
-    const academicTermIDs = opportunityInstance.termIDs;
-    const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
-    return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
-
-  }
-
-  private replaceTermString(array) {
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    const currentYear = currentTerm.year;
-    let fourRecentTerms = _.filter(array, function isRecent(termYear) {
-      return termYear.split(' ')[1] >= currentYear;
-    });
-    fourRecentTerms = array.slice(0, 4);
-    const termString = fourRecentTerms.join(' - ');
-    return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
-
-  }
-
   private itemTerms = () => {
     const { item } = this.props;
     let ret = [];
-    if (this.isType(EXPLORER_TYPE.COURSES)) {
+    if (isType(EXPLORER_TYPE.COURSES, this.props)) {
       // do nothing
     } else {
-      ret = this.opportunityTerms(item);
+      ret = opportunityTerms(item);
     }
     return ret;
   }
 
-  private itemShortDescription = (item) => {
-    let description = item.description;
-    if (description.length > 200) {
-      description = `${description.substring(0, 200)}`;
-      if (description.charAt(description.length - 1) === ' ') {
-        description = `${description.substring(0, 199)}`;
-      }
-    }
-    return `${description}...`;
-  }
-
-  private numberStudents = (item) => {
-    const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
-    return participatingStudents.itemCount;
-  }
-
-  private getUsername = () => this.props.match.params.username;
-
   private hidden = () => {
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     let ret = '';
     const profile = Users.getProfile(username);
-    if (this.isType(EXPLORER_TYPE.COURSES)) {
+    if (isType(EXPLORER_TYPE.COURSES, this.props)) {
       if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
         ret = 'grey';
       }
@@ -102,12 +67,12 @@ class TermCard extends React.Component<ITermCard> {
 
   private handleHideItem = (e) => {
     e.preventDefault();
-    const profile = Users.getProfile(this.getUsername());
+    const profile = Users.getProfile(Router.getUsername(this.props.match));
     const id = this.props.item._id;
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.isType(EXPLORER_TYPE.COURSES)) {
+    if (isType(EXPLORER_TYPE.COURSES, this.props)) {
       const studentItems = profile.hiddenCourseIDs;
       studentItems.push(id);
       updateData.hiddenCourses = studentItems;
@@ -125,12 +90,12 @@ class TermCard extends React.Component<ITermCard> {
 
   private handleUnHideItem = (e) => {
     e.preventDefault();
-    const profile = Users.getProfile(this.getUsername());
+    const profile = Users.getProfile(Router.getUsername(this.props.match));
     const id = this.props.item._id;
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: any = {};
     updateData.id = profile._id;
-    if (this.isType(EXPLORER_TYPE.COURSES)) {
+    if (isType(EXPLORER_TYPE.COURSES, this.props)) {
       let studentItems = profile.hiddenCourseIDs;
       studentItems = _.without(studentItems, id);
       updateData.hiddenCourses = studentItems;
@@ -147,14 +112,14 @@ class TermCard extends React.Component<ITermCard> {
   }
 
   private buildRouteName = (item, type) => {
-    const itemName = this.itemSlug(item);
+    const itemSlug = itemToSlugName(item);
     let route = '';
     switch (type) {
       case EXPLORER_TYPE.COURSES:
-        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemSlug}`);
         break;
       case EXPLORER_TYPE.OPPORTUNITIES:
-        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
+        route = Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemSlug}`);
         break;
       default:
         route = '#';
@@ -165,23 +130,23 @@ class TermCard extends React.Component<ITermCard> {
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { item, type, canAdd, isStudent, match } = this.props;
-    const itemName = this.itemName(item);
-    const isTypeOpportunity = this.isType('opportunities');
+    const name = itemName(item, this.props);
+    const isTypeOpportunity = isType('opportunities', this.props);
     const itemTerms = this.itemTerms();
-    const itemShortDescription = this.itemShortDescription(item);
-    const numberStudents = this.numberStudents(item);
+    const itemShortDescription = docToShortDescription(item);
+    const numberStudents = studentsParticipating(item);
     const hidden = this.hidden() as SemanticCOLORS;
 
     return (
       <Card className="radgrad-interest-card">
         <Card.Content>
           <Card.Header>
-            {itemName}
+            {name}
             {isTypeOpportunity ? <IceHeader ice={item.ice}/> : ''}
           </Card.Header>
 
           <Card.Meta>
-            {itemTerms ? this.replaceTermString(itemTerms) : ''}
+            {itemTerms ? replaceTermStringNextFour(itemTerms) : ''}
           </Card.Meta>
         </Card.Content>
 

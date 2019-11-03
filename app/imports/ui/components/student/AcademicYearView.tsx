@@ -12,24 +12,18 @@ interface IAcademicYearViewProps {
   handleClickOpportunityInstance: (event, { value }) => any;
 }
 
-class AcademicYearView extends React.Component<IAcademicYearViewProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    const termIDs = this.props.academicYear.termIDs;
-    const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
-    return (
-      <Grid.Column stretched={true}>
-        {_.map(terms, (term) => (
-          <AcademicTermViewContainer key={term._id} term={term} studentID={this.props.studentID}
-                            handleClickCourseInstance={this.props.handleClickCourseInstance}
-                            handleClickOpportunityInstance={this.props.handleClickOpportunityInstance}/>
-        ))}
-      </Grid.Column>
-    );
-  }
-}
+const AcademicYearView = (props: IAcademicYearViewProps) => {
+  const termIDs = props.academicYear.termIDs;
+  const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
+  return (
+    <Grid.Column stretched={true}>
+      {_.map(terms, (term) => (
+        <AcademicTermViewContainer key={term._id} term={term} studentID={props.studentID}
+                                   handleClickCourseInstance={props.handleClickCourseInstance}
+                                   handleClickOpportunityInstance={props.handleClickOpportunityInstance}/>
+      ))}
+    </Grid.Column>
+  );
+};
 
 export default AcademicYearView;

@@ -17,6 +17,7 @@ import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { toUpper } from './helper-functions';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -42,8 +43,6 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
   constructor(props) {
     super(props);
   }
-
-  private toUpper = (string: string): string => string.toUpperCase();
 
   private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
 
@@ -165,7 +164,7 @@ class ExplorerCoursesWidget extends React.Component<IExplorerCoursesWidgetProps>
 
     const { name, shortName, descriptionPairs, item, completed, match } = this.props;
     /* Header Variables */
-    const upperShortName = this.toUpper(shortName);
+    const upperShortName = toUpper(shortName);
     const isStudent = this.isRoleStudent();
     const userStatus = this.userStatus(item);
     const futureInstance = this.futureInstance(item);

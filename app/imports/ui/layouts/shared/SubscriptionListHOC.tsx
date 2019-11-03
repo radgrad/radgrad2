@@ -12,16 +12,8 @@ export function withListSubscriptions(WrappedComponent, subscriptionNames: strin
   // expireLimit set to 30 minutes because: why not.
   const localSubs = new SubsManager({ cacheLimit: subscriptionNames.length, expireIn: 30 });
 
-  class GenericSubscription extends React.Component<ILoading> {
-    constructor(props) {
-      super(props);
-    }
+  const GenericSubscription = (props: ILoading) => ((props.loading) ? <Loader active={true}>Getting data</Loader> : <WrappedComponent {...props}/>);
 
-    /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-    public render() {
-      return (this.props.loading) ? <Loader active={true}>Getting data</Loader> : <WrappedComponent {...this.props}/>;
-    }
-  }
   return withTracker(() => {
     const handles = [];
     // console.log(subscriptionNames);

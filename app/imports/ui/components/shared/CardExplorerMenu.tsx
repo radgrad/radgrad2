@@ -35,54 +35,48 @@ interface ICardExplorerMenuProps {
   };
 }
 
+const getTypeName = (props: ICardExplorerMenuProps): string => {
+  const { type } = props;
+  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
+  switch (type) {
+    case EXPLORER_TYPE.ACADEMICPLANS:
+      return names[0];
+    case EXPLORER_TYPE.CAREERGOALS:
+      return names[1];
+    case EXPLORER_TYPE.COURSES:
+      return names[2];
+    case EXPLORER_TYPE.DEGREES:
+      return names[3];
+    case EXPLORER_TYPE.INTERESTS:
+      return names[4];
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      return names[5];
+    case EXPLORER_TYPE.USERS:
+      return names[6];
+    default:
+      return '';
+  }
+};
+
 // FIXME: Needs to be reactive
-class CardExplorerMenu extends React.Component<ICardExplorerMenuProps> {
-  constructor(props) {
-    super(props);
-  }
+const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
+  const { menuAddedList, menuCareerList, match, type, role } = props;
+  const isTypeInterest = props.type === EXPLORER_TYPE.INTERESTS;
+  const typeName = getTypeName(props);
 
-  private getTypeName = (): string => {
-    const { type } = this.props;
-    const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
-    switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLANS:
-        return names[0];
-      case EXPLORER_TYPE.CAREERGOALS:
-        return names[1];
-      case EXPLORER_TYPE.COURSES:
-        return names[2];
-      case EXPLORER_TYPE.DEGREES:
-        return names[3];
-      case EXPLORER_TYPE.INTERESTS:
-        return names[4];
-      case EXPLORER_TYPE.OPPORTUNITIES:
-        return names[5];
-      case EXPLORER_TYPE.USERS:
-        return names[6];
-      default:
-        return '';
-    }
-  }
+  return (
+    <React.Fragment>
+      <ExplorerNavDropdown match={match} text={typeName}/>
+      <br/>
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { menuAddedList, menuCareerList, match, type, role } = this.props;
-    const isTypeInterest = this.props.type === EXPLORER_TYPE.INTERESTS;
-    const typeName = this.getTypeName();
+      <CardExplorerMenuNonMobileWidget menuAddedList={menuAddedList} type={type} role={role}
+                                       menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
 
-    return (
-      <React.Fragment>
-        <ExplorerNavDropdown match={match} text={typeName}/>
-        <br/>
-
-        <CardExplorerMenuNonMobileWidget menuAddedList={menuAddedList} type={type} role={role}
-                                         menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
-
-        <CardExplorerMenuMobileWidget menuAddedList={menuAddedList} type={type} role={role}
-                                      menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
-      </React.Fragment>
-    );
-  }
-}
+      <CardExplorerMenuMobileWidget menuAddedList={menuAddedList} type={type} role={role}
+                                    menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
+    </React.Fragment>
+  );
+};
 
 export const CardExplorerMenuCon = withTracker((props) => {
   const username = Router.getUsername(props.match);
@@ -93,5 +87,4 @@ export const CardExplorerMenuCon = withTracker((props) => {
     menuList,
   };
 })(CardExplorerMenu);
-export const CardExplorerMenuContainer = withRouter(CardExplorerMenuCon);
-export default CardExplorerMenuContainer;
+export default withRouter(CardExplorerMenuCon);

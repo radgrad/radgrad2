@@ -16,7 +16,7 @@ import {
   academicTermNameToDoc,
   courseNameToCourseDoc,
   profileNameToUsername,
-} from '../../components/shared/AdminDataModelHelperFunctions';
+} from '../../components/shared/data-model-helper-functions';
 import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';

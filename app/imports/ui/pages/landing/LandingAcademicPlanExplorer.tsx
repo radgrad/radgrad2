@@ -28,51 +28,45 @@ interface IAcademicPlanExplorerProps {
   history: object;
 }
 
-class LandingAcademicPlanExplorer extends React.Component<IAcademicPlanExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const LandingAcademicPlanExplorer = (props: IAcademicPlanExplorerProps) => {
+  // console.log(props.plan);
+  const { match } = props;
+  return (
+    <div>
+      <ExplorerMenuBarContainer/>
+      <Grid stackable={true}>
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
 
-  public render() {
-    // console.log(this.props.plan);
-    const { match } = this.props;
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={1}/>
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer/>
+          </Grid.Column>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
+          <Grid.Column width={11}>
+            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing={true}>
+                <span>{props.plan.name}</span>
+              </Header>
+              <b>Description:</b>
+              <Markdown escapeHtml={true} source={props.plan.description}
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+              <hr/>
+              <LandingAcademicPlanViewer plan={props.plan}/>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1}/>
+        </Grid.Row>
+      </Grid>
 
-            <Grid.Column width={11}>
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>{this.props.plan.name}</span>
-                </Header>
-                <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.plan.description}
-                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                <hr/>
-                <LandingAcademicPlanViewer plan={this.props.plan}/>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+      <BackToTopButton/>
+    </div>
+  );
+};
 
 const WithSubs = withListSubscriptions(LandingAcademicPlanExplorer, [
   AcademicPlans.getPublicationName(),

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const Explorer = () => (
+const GuidedTourMentorExplorer = () => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'nine'}>
@@ -20,4 +20,4 @@ const Explorer = () => (
   </div>
 );
 
-export default Explorer;
+export default GuidedTourMentorExplorer;

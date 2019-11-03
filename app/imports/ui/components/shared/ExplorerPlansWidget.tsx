@@ -9,6 +9,7 @@ import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import * as Router from './RouterHelperFunctions';
+import { toUpper } from './helper-functions';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -30,8 +31,6 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
   constructor(props) {
     super(props);
   }
-
-  private toUpper = (string: string): string => string.toUpperCase();
 
   private getUsername = (): string => Router.getUsername(this.props.match);
 
@@ -68,7 +67,7 @@ class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
     const divierStyle = { marginTop: 0 };
 
     const { name, descriptionPairs, item, match } = this.props;
-    const upperName = this.toUpper(name);
+    const upperName = toUpper(name);
     const isStudent = this.isRoleStudent();
     const userStatus = this.userStatus(item);
 

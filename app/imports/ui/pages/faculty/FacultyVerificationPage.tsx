@@ -26,8 +26,15 @@ interface FacultyVerificationPageProps {
   }
 }
 
-class FacultyVerificationPage extends React.Component<FacultyVerificationPageProps> {
-  state = { activeItem: 'pending' };
+interface IFacultyVerificationPageState {
+  activeItem: string;
+}
+
+class FacultyVerificationPage extends React.Component<FacultyVerificationPageProps, IFacultyVerificationPageState> {
+  constructor(props) {
+    super(props);
+    this.state = { activeItem: 'pending' };
+  }
 
   handleMenu = (e, { name }) => this.setState({ activeItem: name });
 

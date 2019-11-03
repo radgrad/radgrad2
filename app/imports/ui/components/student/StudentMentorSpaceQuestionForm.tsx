@@ -54,8 +54,6 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
     });
   }
 
-  public public;
-
   public render()
     :
     React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

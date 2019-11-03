@@ -17,6 +17,9 @@ interface IPendingVerificationsWidgetProps {
   pendingVerifications: IVerificationRequest[];
 }
 
+interface IPendingVerificationWidgetState {
+  feedback: string[];
+}
 /**
  * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
  * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this
@@ -24,11 +27,14 @@ interface IPendingVerificationsWidgetProps {
  * @param pendingVerifications {IVerificationRequest[]}
  * @returns {Segment}
  */
-class PendingVerificationsWidget extends React.Component<IPendingVerificationsWidgetProps> {
+class PendingVerificationsWidget extends React.Component<IPendingVerificationsWidgetProps, IPendingVerificationWidgetState> {
   cachedStudent = undefined;
   cachedSponsor = undefined;
 
-  state = { feedback: [] };
+  constructor(props) {
+    super(props);
+    this.state = { feedback: [] };
+  }
 
   buildHeaderString = (verificationRequest: IVerificationRequest) => {
     const id = verificationRequest._id;

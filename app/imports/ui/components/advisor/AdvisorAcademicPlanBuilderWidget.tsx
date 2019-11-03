@@ -11,7 +11,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { docToShortName } from '../shared/AdminDataModelHelperFunctions';
+import { docToShortName } from '../shared/data-model-helper-functions';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';

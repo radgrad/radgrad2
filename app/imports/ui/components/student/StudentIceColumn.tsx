@@ -40,10 +40,6 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
     };
   }
 
-  private getUsername = (): string => Router.getUsername(this.props.match);
-
-  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
-
   private handleVerifiedColumnClick = (e): void => {
     e.preventDefault();
     this.setState((prevState) => ({ verifiedColumnOpen: !prevState.verifiedColumnOpen }));
@@ -137,7 +133,7 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
     const verifiedColor = this.getVerifiedColor();
     const unverifiedColor = this.getUnverifiedColor();
 
-    const username = this.getUsername();
+    const username = Router.getUsername(this.props.match);
     const earnedICE = StudentProfiles.getEarnedICE(username);
     const projectedICE = StudentProfiles.getProjectedICE(username);
     const earnedICEPoints = this.getPoints(earnedICE);

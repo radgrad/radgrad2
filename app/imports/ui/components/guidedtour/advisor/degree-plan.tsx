@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const DegreePlan = () => (
+const GuidedTourAdvisorDegreePlan = () => (
   <div>
     <Grid container={true} columns={2}>
       <Grid.Column width={'ten'}>
@@ -20,4 +20,4 @@ const DegreePlan = () => (
   </div>
 );
 
-export default DegreePlan;
+export default GuidedTourAdvisorDegreePlan;
