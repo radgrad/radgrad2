@@ -1,0 +1,42 @@
+/* Config file for the docdash theme for jsdoc . */
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "exclude": [
+      ".git",
+      ".meteor",
+      "node_modules",
+      "imports/typings"
+    ],
+    "includePattern": ".+\\.ts(x|doc)?$",
+    "excludePattern": ".+\\app-test.ts(x|doc)?$"
+  },
+  "plugins": ["plugins/markdown",
+    "node_modules/jsdoc-babel"],
+  "opts": {
+    "encoding": "utf8",
+    "template": "node_modules/radgrad-jsdoc-template",
+    "destination": "../docs",
+    "recurse": true,
+    "verbose": true,
+    "readme": "jsdoc-readme.md"
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": true
+    }
+  },
+  "docdash": {
+    "static": false,
+    "sort": true
+  }
+}

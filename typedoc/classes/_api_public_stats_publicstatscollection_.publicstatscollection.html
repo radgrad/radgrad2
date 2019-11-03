@@ -1,0 +1,2427 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>PublicStatsCollection | RadGrad2</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">RadGrad2</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_api_public_stats_publicstatscollection_.html">&quot;api/public-stats/PublicStatsCollection&quot;</a>
+				</li>
+				<li>
+					<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html">PublicStatsCollection</a>
+				</li>
+			</ul>
+			<h1>Class PublicStatsCollection</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>PublicStats holds statistics about RadGrad that can be accessed without logging in.
+							These are referenced in the landing page and the guided tour.
+							Basically, the collection is a set of documents with two fields: key and value.
+							The field this.stats holds a list of strings which define the set of legal keys.
+							Each of these strings is also the name of a method in this class which is responsible for calculating the value
+						associated with the key and then upserting the key-value pair into the collection.</p>
+					</div>
+					<p>See startup/server/initialize-db.js for the code that starts a cron job that updates this collection when the
+					system starts up and once a day thereafter.</p>
+					<dl class="tsd-comment-tags">
+						<dt>extends</dt>
+						<dd><p>api/base.BaseCollection</p>
+						</dd>
+						<dt>memberof</dt>
+						<dd><p>api/public-stats</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="_api_base_basecollection_.basecollection.html" class="tsd-signature-type">BaseCollection</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">PublicStatsCollection</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalslistkey" class="tsd-kind-icon">career<wbr>Goals<wbr>List<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalstotalkey" class="tsd-kind-icon">career<wbr>Goals<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#collection" class="tsd-kind-icon">collection</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#collectionname" class="tsd-kind-icon">collection<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewscourseskey" class="tsd-kind-icon">course<wbr>Reviews<wbr>Courses<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewstotalkey" class="tsd-kind-icon">course<wbr>Reviews<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursestotalkey" class="tsd-kind-icon">courses<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#defineschema" class="tsd-kind-icon">define<wbr>Schema</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreeslistkey" class="tsd-kind-icon">desired<wbr>Degrees<wbr>List<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreestotalkey" class="tsd-kind-icon">desired<wbr>Degrees<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstacademicplankey" class="tsd-kind-icon">first<wbr>Academic<wbr>Plan<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstcareergoalkey" class="tsd-kind-icon">first<wbr>Career<wbr>Goal<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstdegreekey" class="tsd-kind-icon">first<wbr>Degree<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstinterestkey" class="tsd-kind-icon">first<wbr>Interest<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstopportunitykey" class="tsd-kind-icon">first<wbr>Opportunity<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#interestslistkey" class="tsd-kind-icon">interests<wbr>List<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#intereststotalkey" class="tsd-kind-icon">interests<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfivetotalkey" class="tsd-kind-icon">level<wbr>Five<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfourtotalkey" class="tsd-kind-icon">level<wbr>Four<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelonetotalkey" class="tsd-kind-icon">level<wbr>One<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelsixtotalkey" class="tsd-kind-icon">level<wbr>Six<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelthreetotalkey" class="tsd-kind-icon">level<wbr>Three<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#leveltwototalkey" class="tsd-kind-icon">level<wbr>Two<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectslistkey" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>List<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectstotalkey" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiestotalkey" class="tsd-kind-icon">opportunities<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#schema" class="tsd-kind-icon">schema</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#updateschema" class="tsd-kind-icon">update<wbr>Schema</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersfacultytotalkey" class="tsd-kind-icon">users<wbr>Faculty<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorslocationskey" class="tsd-kind-icon">users<wbr>Mentors<wbr>Locations<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorsprofessionslistkey" class="tsd-kind-icon">users<wbr>Mentors<wbr>Professions<wbr>List<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorstotalkey" class="tsd-kind-icon">users<wbr>Mentors<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersstudentstotalkey" class="tsd-kind-icon">users<wbr>Students<wbr>Total<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#userstotalkey" class="tsd-kind-icon">users<wbr>Total<wbr>Key</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#assertalldefined" class="tsd-kind-icon">assert<wbr>All<wbr>Defined</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#assertdefined" class="tsd-kind-icon">assert<wbr>Defined</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#assertvalidroleformethod" class="tsd-kind-icon">assert<wbr>Valid<wbr>Role<wbr>For<wbr>Method</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalslist" class="tsd-kind-icon">career<wbr>Goals<wbr>List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalstotal" class="tsd-kind-icon">career<wbr>Goals<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#checkintegrity" class="tsd-kind-icon">check<wbr>Integrity</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#count" class="tsd-kind-icon">count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#countnonretired" class="tsd-kind-icon">count<wbr>Non<wbr>Retired</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewscourses" class="tsd-kind-icon">course<wbr>Reviews<wbr>Courses</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewstotal" class="tsd-kind-icon">course<wbr>Reviews<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursestotal" class="tsd-kind-icon">courses<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#define" class="tsd-kind-icon">define</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreeslist" class="tsd-kind-icon">desired<wbr>Degrees<wbr>List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreestotal" class="tsd-kind-icon">desired<wbr>Degrees<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#dumpall" class="tsd-kind-icon">dump<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#dumpone" class="tsd-kind-icon">dump<wbr>One</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#find" class="tsd-kind-icon">find</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#finddoc" class="tsd-kind-icon">find<wbr>Doc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#findnonretired" class="tsd-kind-icon">find<wbr>Non<wbr>Retired</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#findone" class="tsd-kind-icon">find<wbr>One</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstacademicplan" class="tsd-kind-icon">first<wbr>Academic<wbr>Plan</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstcareergoal" class="tsd-kind-icon">first<wbr>Career<wbr>Goal</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstdegree" class="tsd-kind-icon">first<wbr>Degree</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstinterest" class="tsd-kind-icon">first<wbr>Interest</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstopportunity" class="tsd-kind-icon">first<wbr>Opportunity</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#generatestats" class="tsd-kind-icon">generate<wbr>Stats</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getcollection" class="tsd-kind-icon">get<wbr>Collection</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getcollectionname" class="tsd-kind-icon">get<wbr>Collection<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getcollectionschema" class="tsd-kind-icon">get<wbr>Collection<wbr>Schema</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getdefineschema" class="tsd-kind-icon">get<wbr>Define<wbr>Schema</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getpublicstat" class="tsd-kind-icon">get<wbr>Public<wbr>Stat</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getpublicationname" class="tsd-kind-icon">get<wbr>Publication<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#gettype" class="tsd-kind-icon">get<wbr>Type</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getupdateschema" class="tsd-kind-icon">get<wbr>Update<wbr>Schema</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#interestslist" class="tsd-kind-icon">interests<wbr>List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#intereststotal" class="tsd-kind-icon">interests<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#isdefined" class="tsd-kind-icon">is<wbr>Defined</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfivetotal" class="tsd-kind-icon">level<wbr>Five<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfourtotal" class="tsd-kind-icon">level<wbr>Four<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelonetotal" class="tsd-kind-icon">level<wbr>One<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelsixtotal" class="tsd-kind-icon">level<wbr>Six<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelthreetotal" class="tsd-kind-icon">level<wbr>Three<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#leveltwototal" class="tsd-kind-icon">level<wbr>Two<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectslist" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectstotal" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiestotal" class="tsd-kind-icon">opportunities<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#publish" class="tsd-kind-icon">publish</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#removeall" class="tsd-kind-icon">remove<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#removeit" class="tsd-kind-icon">remove<wbr>It</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#restoreall" class="tsd-kind-icon">restore<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#restoreone" class="tsd-kind-icon">restore<wbr>One</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#upsertleveltotal" class="tsd-kind-icon">upsert<wbr>Level<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersfacultytotal" class="tsd-kind-icon">users<wbr>Faculty<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorslocations" class="tsd-kind-icon">users<wbr>Mentors<wbr>Locations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorsprofessionslist" class="tsd-kind-icon">users<wbr>Mentors<wbr>Professions<wbr>List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorstotal" class="tsd-kind-icon">users<wbr>Mentors<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersstudentstotal" class="tsd-kind-icon">users<wbr>Students<wbr>Total</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#userstotal" class="tsd-kind-icon">users<wbr>Total</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Public<wbr>Stats<wbr>Collection<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_api_public_stats_publicstatscollection_.publicstatscollection.html" class="tsd-signature-type">PublicStatsCollection</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L63">api/public-stats/PublicStatsCollection.ts:63</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates the PublicStats collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_api_public_stats_publicstatscollection_.publicstatscollection.html" class="tsd-signature-type">PublicStatsCollection</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="careergoalslistkey" class="tsd-anchor"></a>
+					<h3>career<wbr>Goals<wbr>List<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">career<wbr>Goals<wbr>List<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L37">api/public-stats/PublicStatsCollection.ts:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="careergoalstotalkey" class="tsd-anchor"></a>
+					<h3>career<wbr>Goals<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">career<wbr>Goals<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L36">api/public-stats/PublicStatsCollection.ts:36</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="collection" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> collection</h3>
+					<div class="tsd-signature tsd-kind-icon">collection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Collection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#collection">collection</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L17">api/base/BaseCollection.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="collectionname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> collection<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">collection<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#collectionname">collectionName</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L18">api/base/BaseCollection.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="coursereviewscourseskey" class="tsd-anchor"></a>
+					<h3>course<wbr>Reviews<wbr>Courses<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">course<wbr>Reviews<wbr>Courses<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L52">api/public-stats/PublicStatsCollection.ts:52</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="coursereviewstotalkey" class="tsd-anchor"></a>
+					<h3>course<wbr>Reviews<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">course<wbr>Reviews<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L51">api/public-stats/PublicStatsCollection.ts:51</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="coursestotalkey" class="tsd-anchor"></a>
+					<h3>courses<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">courses<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L35">api/public-stats/PublicStatsCollection.ts:35</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="defineschema" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> define<wbr>Schema</h3>
+					<div class="tsd-signature tsd-kind-icon">define<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#defineschema">defineSchema</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L21">api/base/BaseCollection.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="desireddegreeslistkey" class="tsd-anchor"></a>
+					<h3>desired<wbr>Degrees<wbr>List<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">desired<wbr>Degrees<wbr>List<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L39">api/public-stats/PublicStatsCollection.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="desireddegreestotalkey" class="tsd-anchor"></a>
+					<h3>desired<wbr>Degrees<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">desired<wbr>Degrees<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L38">api/public-stats/PublicStatsCollection.ts:38</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstacademicplankey" class="tsd-anchor"></a>
+					<h3>first<wbr>Academic<wbr>Plan<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">first<wbr>Academic<wbr>Plan<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L59">api/public-stats/PublicStatsCollection.ts:59</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstcareergoalkey" class="tsd-anchor"></a>
+					<h3>first<wbr>Career<wbr>Goal<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">first<wbr>Career<wbr>Goal<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L60">api/public-stats/PublicStatsCollection.ts:60</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstdegreekey" class="tsd-anchor"></a>
+					<h3>first<wbr>Degree<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">first<wbr>Degree<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L63">api/public-stats/PublicStatsCollection.ts:63</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstinterestkey" class="tsd-anchor"></a>
+					<h3>first<wbr>Interest<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">first<wbr>Interest<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L61">api/public-stats/PublicStatsCollection.ts:61</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstopportunitykey" class="tsd-anchor"></a>
+					<h3>first<wbr>Opportunity<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">first<wbr>Opportunity<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L62">api/public-stats/PublicStatsCollection.ts:62</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="interestslistkey" class="tsd-anchor"></a>
+					<h3>interests<wbr>List<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">interests<wbr>List<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L41">api/public-stats/PublicStatsCollection.ts:41</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="intereststotalkey" class="tsd-anchor"></a>
+					<h3>interests<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">interests<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L40">api/public-stats/PublicStatsCollection.ts:40</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelfivetotalkey" class="tsd-anchor"></a>
+					<h3>level<wbr>Five<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>Five<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L57">api/public-stats/PublicStatsCollection.ts:57</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelfourtotalkey" class="tsd-anchor"></a>
+					<h3>level<wbr>Four<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>Four<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L56">api/public-stats/PublicStatsCollection.ts:56</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelonetotalkey" class="tsd-anchor"></a>
+					<h3>level<wbr>One<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>One<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L53">api/public-stats/PublicStatsCollection.ts:53</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelsixtotalkey" class="tsd-anchor"></a>
+					<h3>level<wbr>Six<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>Six<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L58">api/public-stats/PublicStatsCollection.ts:58</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelthreetotalkey" class="tsd-anchor"></a>
+					<h3>level<wbr>Three<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>Three<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L55">api/public-stats/PublicStatsCollection.ts:55</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="leveltwototalkey" class="tsd-anchor"></a>
+					<h3>level<wbr>Two<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>Two<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L54">api/public-stats/PublicStatsCollection.ts:54</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="opportunitiesprojectslistkey" class="tsd-anchor"></a>
+					<h3>opportunities<wbr>Projects<wbr>List<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">opportunities<wbr>Projects<wbr>List<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L44">api/public-stats/PublicStatsCollection.ts:44</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="opportunitiesprojectstotalkey" class="tsd-anchor"></a>
+					<h3>opportunities<wbr>Projects<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">opportunities<wbr>Projects<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L43">api/public-stats/PublicStatsCollection.ts:43</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="opportunitiestotalkey" class="tsd-anchor"></a>
+					<h3>opportunities<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">opportunities<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L42">api/public-stats/PublicStatsCollection.ts:42</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="schema" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> schema</h3>
+					<div class="tsd-signature tsd-kind-icon">schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#schema">schema</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L19">api/base/BaseCollection.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="type" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#type">type</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L20">api/base/BaseCollection.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="updateschema" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> update<wbr>Schema</h3>
+					<div class="tsd-signature tsd-kind-icon">update<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#updateschema">updateSchema</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L22">api/base/BaseCollection.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersfacultytotalkey" class="tsd-anchor"></a>
+					<h3>users<wbr>Faculty<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Faculty<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L47">api/public-stats/PublicStatsCollection.ts:47</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersmentorslocationskey" class="tsd-anchor"></a>
+					<h3>users<wbr>Mentors<wbr>Locations<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Mentors<wbr>Locations<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L50">api/public-stats/PublicStatsCollection.ts:50</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersmentorsprofessionslistkey" class="tsd-anchor"></a>
+					<h3>users<wbr>Mentors<wbr>Professions<wbr>List<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Mentors<wbr>Professions<wbr>List<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L49">api/public-stats/PublicStatsCollection.ts:49</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersmentorstotalkey" class="tsd-anchor"></a>
+					<h3>users<wbr>Mentors<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Mentors<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L48">api/public-stats/PublicStatsCollection.ts:48</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersstudentstotalkey" class="tsd-anchor"></a>
+					<h3>users<wbr>Students<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Students<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L46">api/public-stats/PublicStatsCollection.ts:46</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="userstotalkey" class="tsd-anchor"></a>
+					<h3>users<wbr>Total<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Total<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L45">api/public-stats/PublicStatsCollection.ts:45</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="assertalldefined" class="tsd-anchor"></a>
+					<h3>assert<wbr>All<wbr>Defined</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">assert<wbr>All<wbr>Defined<span class="tsd-signature-symbol">(</span>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#assertalldefined">assertAllDefined</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L277">api/base/BaseCollection.ts:277</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Verifies that the list of passed instances are all members of this collection.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>{ Meteor.Error } If instances is not an array, or if any instance is not in this collection.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>names: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Should be a list of docs and/or docIDs.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="assertdefined" class="tsd-anchor"></a>
+					<h3>assert<wbr>Defined</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">assert<wbr>Defined<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#assertdefined">assertDefined</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L266">api/base/BaseCollection.ts:266</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Verifies that the passed object is one of this collection&#39;s instances.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>{ Meteor.Error } If not defined.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Should be a defined ID or doc in this collection.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="assertvalidroleformethod" class="tsd-anchor"></a>
+					<h3>assert<wbr>Valid<wbr>Role<wbr>For<wbr>Method</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">assert<wbr>Valid<wbr>Role<wbr>For<wbr>Method<span class="tsd-signature-symbol">(</span>userId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#assertvalidroleformethod">assertValidRoleForMethod</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L290">api/base/BaseCollection.ts:290</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Default implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin or Advisor.
+									This is used in the define, update, and removeIt Meteor methods associated with each class.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>{ Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>userId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The userId of the logged in user. Can be null or undefined</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="careergoalslist" class="tsd-anchor"></a>
+					<h3>career<wbr>Goals<wbr>List</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">career<wbr>Goals<wbr>List<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L143">api/public-stats/PublicStatsCollection.ts:143</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="careergoalstotal" class="tsd-anchor"></a>
+					<h3>career<wbr>Goals<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">career<wbr>Goals<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L133">api/public-stats/PublicStatsCollection.ts:133</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+					<a name="checkintegrity" class="tsd-anchor"></a>
+					<h3>check<wbr>Integrity</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Integrity<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#checkintegrity">checkIntegrity</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L338">api/public-stats/PublicStatsCollection.ts:338</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns an empty array to indicate no integrity checking.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>An empty array.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="count" class="tsd-anchor"></a>
+					<h3>count</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#count">count</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L51">api/base/BaseCollection.ts:51</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the number of documents in this collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>The number of elements in this collection.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="countnonretired" class="tsd-anchor"></a>
+					<h3>count<wbr>Non<wbr>Retired</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">count<wbr>Non<wbr>Retired<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#countnonretired">countNonRetired</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L59">api/base/BaseCollection.ts:59</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the number of non-retired documents in this collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>The number of non-retired elements in this collection.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="coursereviewscourses" class="tsd-anchor"></a>
+					<h3>course<wbr>Reviews<wbr>Courses</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">course<wbr>Reviews<wbr>Courses<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L257">api/public-stats/PublicStatsCollection.ts:257</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="coursereviewstotal" class="tsd-anchor"></a>
+					<h3>course<wbr>Reviews<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">course<wbr>Reviews<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L252">api/public-stats/PublicStatsCollection.ts:252</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="coursestotal" class="tsd-anchor"></a>
+					<h3>courses<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">courses<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L138">api/public-stats/PublicStatsCollection.ts:138</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="define" class="tsd-anchor"></a>
+					<h3>define</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">define<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#define">define</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L43">api/base/BaseCollection.ts:43</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Define documents for the collection.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Meteor.Error since shouldn&#39;t call this method on the base class.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>obj: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the document.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="desireddegreeslist" class="tsd-anchor"></a>
+					<h3>desired<wbr>Degrees<wbr>List</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">desired<wbr>Degrees<wbr>List<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L154">api/public-stats/PublicStatsCollection.ts:154</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="desireddegreestotal" class="tsd-anchor"></a>
+					<h3>desired<wbr>Degrees<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">desired<wbr>Degrees<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L149">api/public-stats/PublicStatsCollection.ts:149</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="dumpall" class="tsd-anchor"></a>
+					<h3>dump<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">dump<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#dumpall">dumpAll</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L309">api/base/BaseCollection.ts:309</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns an object with two fields: name and contents.
+										Name is the name of this collection.
+									Contents is an array of objects suitable for passing to the restore() method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<p>An object representing the contents of this collection.</p>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>contents<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IDumpOne</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="dumpone" class="tsd-anchor"></a>
+					<h3>dump<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">dump<wbr>One<span class="tsd-signature-symbol">(</span>docID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IDumpOne</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#dumpone">dumpOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L329">api/base/BaseCollection.ts:329</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns an object representing the definition of docID in a format appropriate to the restoreOne function.
+									Must be overridden by each collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>docID: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A docID from this collection.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IDumpOne</span></h4>
+							<p>An object representing this document.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="find" class="tsd-anchor"></a>
+					<h3>find</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">find<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Cursor</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#find">find</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L112">api/base/BaseCollection.ts:112</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Runs find on this collection.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="http://docs.meteor.com/#/full/find" class="external">Meteor Docs on Mongo Find</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> selector: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A MongoDB selector.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>MongoDB options.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Cursor</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="finddoc" class="tsd-anchor"></a>
+					<h3>find<wbr>Doc</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>Doc<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#finddoc">findDoc</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L89">api/base/BaseCollection.ts:89</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A stricter form of findOne, in that it throws an exception if the entity isn&#39;t found in the collection.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>{ Meteor.Error } If the document cannot be found.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Either the docID, or an object selector, or the &#39;name&#39; field value.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>The document associated with name.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="findnonretired" class="tsd-anchor"></a>
+					<h3>find<wbr>Non<wbr>Retired</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>Non<wbr>Retired<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#findnonretired">findNonRetired</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L124">api/base/BaseCollection.ts:124</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Runs find on this collection and returns the non-retired documents.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="http://docs.meteor.com/#/full/find" class="external">Meteor Docs on Mongo Find</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> selector: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A MongoDB selector.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>MongoDB options.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>non-retired documents.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="findone" class="tsd-anchor"></a>
+					<h3>find<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>One<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#findone">findOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L136">api/base/BaseCollection.ts:136</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Runs findOne on this collection.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="http://docs.meteor.com/#/full/findOne" class="external">Meteor Docs on Mongo Find</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A MongoDB selector.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>MongoDB options.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstacademicplan" class="tsd-anchor"></a>
+					<h3>first<wbr>Academic<wbr>Plan</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">first<wbr>Academic<wbr>Plan<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L270">api/public-stats/PublicStatsCollection.ts:270</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstcareergoal" class="tsd-anchor"></a>
+					<h3>first<wbr>Career<wbr>Goal</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">first<wbr>Career<wbr>Goal<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L280">api/public-stats/PublicStatsCollection.ts:280</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstdegree" class="tsd-anchor"></a>
+					<h3>first<wbr>Degree</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">first<wbr>Degree<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L304">api/public-stats/PublicStatsCollection.ts:304</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstinterest" class="tsd-anchor"></a>
+					<h3>first<wbr>Interest</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">first<wbr>Interest<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L288">api/public-stats/PublicStatsCollection.ts:288</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="firstopportunity" class="tsd-anchor"></a>
+					<h3>first<wbr>Opportunity</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">first<wbr>Opportunity<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L296">api/public-stats/PublicStatsCollection.ts:296</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="generatestats" class="tsd-anchor"></a>
+					<h3>generate<wbr>Stats</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Stats<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L312">api/public-stats/PublicStatsCollection.ts:312</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="getcollection" class="tsd-anchor"></a>
+					<h3>get<wbr>Collection</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Collection<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Collection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#getcollection">getCollection</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L249">api/base/BaseCollection.ts:249</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the Mongo collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Collection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The collection.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="getcollectionname" class="tsd-anchor"></a>
+					<h3>get<wbr>Collection<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Collection<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#getcollectionname">getCollectionName</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L241">api/base/BaseCollection.ts:241</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the collection name.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>The collection name as a string.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="getcollectionschema" class="tsd-anchor"></a>
+					<h3>get<wbr>Collection<wbr>Schema</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Collection<wbr>Schema<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#getcollectionschema">getCollectionSchema</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L209">api/base/BaseCollection.ts:209</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the schema applied to the collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="getdefineschema" class="tsd-anchor"></a>
+					<h3>get<wbr>Define<wbr>Schema</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Define<wbr>Schema<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#getdefineschema">getDefineSchema</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L217">api/base/BaseCollection.ts:217</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a schema for the define method&#39;s parameter.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>the define method&#39;s parameter.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getpublicstat" class="tsd-anchor"></a>
+					<h3>get<wbr>Public<wbr>Stat</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Public<wbr>Stat<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L326">api/public-stats/PublicStatsCollection.ts:326</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the value for the given key, or empty string if invalid key.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="getpublicationname" class="tsd-anchor"></a>
+					<h3>get<wbr>Publication<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Publication<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#getpublicationname">getPublicationName</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L233">api/base/BaseCollection.ts:233</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return the publication name.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>The publication name, as a string.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="gettype" class="tsd-anchor"></a>
+					<h3>get<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Type<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#gettype">getType</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L201">api/base/BaseCollection.ts:201</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return the type of this collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>The type, as a string.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="getupdateschema" class="tsd-anchor"></a>
+					<h3>get<wbr>Update<wbr>Schema</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Update<wbr>Schema<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#getupdateschema">getUpdateSchema</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L225">api/base/BaseCollection.ts:225</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a schema for the update method&#39;s second parameter.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="interestslist" class="tsd-anchor"></a>
+					<h3>interests<wbr>List</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">interests<wbr>List<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L165">api/public-stats/PublicStatsCollection.ts:165</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="intereststotal" class="tsd-anchor"></a>
+					<h3>interests<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">interests<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L160">api/public-stats/PublicStatsCollection.ts:160</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="isdefined" class="tsd-anchor"></a>
+					<h3>is<wbr>Defined</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Defined<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#isdefined">isDefined</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L159">api/base/BaseCollection.ts:159</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns true if the passed entity is in this collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The docID, or an object specifying a documennt.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>True if name exists in this collection.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelfivetotal" class="tsd-anchor"></a>
+					<h3>level<wbr>Five<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">level<wbr>Five<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L210">api/public-stats/PublicStatsCollection.ts:210</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelfourtotal" class="tsd-anchor"></a>
+					<h3>level<wbr>Four<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">level<wbr>Four<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L206">api/public-stats/PublicStatsCollection.ts:206</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelonetotal" class="tsd-anchor"></a>
+					<h3>level<wbr>One<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">level<wbr>One<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L194">api/public-stats/PublicStatsCollection.ts:194</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelsixtotal" class="tsd-anchor"></a>
+					<h3>level<wbr>Six<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">level<wbr>Six<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L214">api/public-stats/PublicStatsCollection.ts:214</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="levelthreetotal" class="tsd-anchor"></a>
+					<h3>level<wbr>Three<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">level<wbr>Three<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L202">api/public-stats/PublicStatsCollection.ts:202</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="leveltwototal" class="tsd-anchor"></a>
+					<h3>level<wbr>Two<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">level<wbr>Two<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L198">api/public-stats/PublicStatsCollection.ts:198</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="opportunitiesprojectslist" class="tsd-anchor"></a>
+					<h3>opportunities<wbr>Projects<wbr>List</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">opportunities<wbr>Projects<wbr>List<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L182">api/public-stats/PublicStatsCollection.ts:182</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="opportunitiesprojectstotal" class="tsd-anchor"></a>
+					<h3>opportunities<wbr>Projects<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">opportunities<wbr>Projects<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L176">api/public-stats/PublicStatsCollection.ts:176</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="opportunitiestotal" class="tsd-anchor"></a>
+					<h3>opportunities<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">opportunities<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L171">api/public-stats/PublicStatsCollection.ts:171</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="publish" class="tsd-anchor"></a>
+					<h3>publish</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">publish<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#publish">publish</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L67">api/base/BaseCollection.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Default publication method for entities.
+									It publishes the entire collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="removeall" class="tsd-anchor"></a>
+					<h3>remove<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#removeall">removeAll</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L188">api/base/BaseCollection.ts:188</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Removes all elements of this collection.
+										This is implemented by mapping through all elements because mini-mongo does not implement the remove operation.
+										So this approach can be used on both client and server side.
+									removeAll should only used for testing purposes, so it doesn&#39;t need to be efficient.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="removeit" class="tsd-anchor"></a>
+					<h3>remove<wbr>It</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>It<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#removeit">removeIt</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L174">api/base/BaseCollection.ts:174</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A stricter form of remove that throws an error if the document or docID could not be found in this collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A document or docID in this collection.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">void</span>
+							</h4>
+							<p>true</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="restoreall" class="tsd-anchor"></a>
+					<h3>restore<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">restore<wbr>All<span class="tsd-signature-symbol">(</span>dumpObjects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#restoreall">restoreAll</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L350">api/base/BaseCollection.ts:350</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Defines all the entities in the passed array of objects.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dumpObjects: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The array of objects representing the definition of a document in this collection.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="restoreone" class="tsd-anchor"></a>
+					<h3>restore<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">restore<wbr>One<span class="tsd-signature-symbol">(</span>dumpObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#restoreone">restoreOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L339">api/base/BaseCollection.ts:339</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Defines the entity represented by dumpObject.
+									Defaults to calling the define() method if it exists.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dumpObject: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An object representing one document in this collection.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>The docID of the newly created document.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="subscribe" class="tsd-anchor"></a>
+					<h3>subscribe</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">subscribe<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#subscribe">subscribe</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L77">api/base/BaseCollection.ts:77</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Default subscription method for entities.
+									It subscribes to the entire collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>rest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_api_base_basecollection_.basecollection.html">BaseCollection</a>.<a href="_api_base_basecollection_.basecollection.html#tostring">toString</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/base/BaseCollection.ts#L257">api/base/BaseCollection.ts:257</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a string representing all of the documents in this collection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>rest: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="upsertleveltotal" class="tsd-anchor"></a>
+					<h3>upsert<wbr>Level<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">upsert<wbr>Level<wbr>Total<span class="tsd-signature-symbol">(</span>level<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L189">api/public-stats/PublicStatsCollection.ts:189</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>level: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>key: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersfacultytotal" class="tsd-anchor"></a>
+					<h3>users<wbr>Faculty<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">users<wbr>Faculty<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L228">api/public-stats/PublicStatsCollection.ts:228</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersmentorslocations" class="tsd-anchor"></a>
+					<h3>users<wbr>Mentors<wbr>Locations</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">users<wbr>Mentors<wbr>Locations<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L245">api/public-stats/PublicStatsCollection.ts:245</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersmentorsprofessionslist" class="tsd-anchor"></a>
+					<h3>users<wbr>Mentors<wbr>Professions<wbr>List</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">users<wbr>Mentors<wbr>Professions<wbr>List<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L238">api/public-stats/PublicStatsCollection.ts:238</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersmentorstotal" class="tsd-anchor"></a>
+					<h3>users<wbr>Mentors<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">users<wbr>Mentors<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L233">api/public-stats/PublicStatsCollection.ts:233</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="usersstudentstotal" class="tsd-anchor"></a>
+					<h3>users<wbr>Students<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">users<wbr>Students<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L223">api/public-stats/PublicStatsCollection.ts:223</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="userstotal" class="tsd-anchor"></a>
+					<h3>users<wbr>Total</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">users<wbr>Total<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/radgrad/radgrad2/blob/89b6b90/app/imports/api/public-stats/PublicStatsCollection.ts#L218">api/public-stats/PublicStatsCollection.ts:218</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_api_public_stats_publicstatscollection_.html">"api/public-<wbr>stats/<wbr>Public<wbr>Stats<wbr>Collection"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html" class="tsd-kind-icon">Public<wbr>Stats<wbr>Collection</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalslistkey" class="tsd-kind-icon">career<wbr>Goals<wbr>List<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalstotalkey" class="tsd-kind-icon">career<wbr>Goals<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#collection" class="tsd-kind-icon">collection</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#collectionname" class="tsd-kind-icon">collection<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewscourseskey" class="tsd-kind-icon">course<wbr>Reviews<wbr>Courses<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewstotalkey" class="tsd-kind-icon">course<wbr>Reviews<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursestotalkey" class="tsd-kind-icon">courses<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#defineschema" class="tsd-kind-icon">define<wbr>Schema</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreeslistkey" class="tsd-kind-icon">desired<wbr>Degrees<wbr>List<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreestotalkey" class="tsd-kind-icon">desired<wbr>Degrees<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstacademicplankey" class="tsd-kind-icon">first<wbr>Academic<wbr>Plan<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstcareergoalkey" class="tsd-kind-icon">first<wbr>Career<wbr>Goal<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstdegreekey" class="tsd-kind-icon">first<wbr>Degree<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstinterestkey" class="tsd-kind-icon">first<wbr>Interest<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstopportunitykey" class="tsd-kind-icon">first<wbr>Opportunity<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#interestslistkey" class="tsd-kind-icon">interests<wbr>List<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#intereststotalkey" class="tsd-kind-icon">interests<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfivetotalkey" class="tsd-kind-icon">level<wbr>Five<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfourtotalkey" class="tsd-kind-icon">level<wbr>Four<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelonetotalkey" class="tsd-kind-icon">level<wbr>One<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelsixtotalkey" class="tsd-kind-icon">level<wbr>Six<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelthreetotalkey" class="tsd-kind-icon">level<wbr>Three<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#leveltwototalkey" class="tsd-kind-icon">level<wbr>Two<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectslistkey" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>List<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectstotalkey" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiestotalkey" class="tsd-kind-icon">opportunities<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#schema" class="tsd-kind-icon">schema</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#updateschema" class="tsd-kind-icon">update<wbr>Schema</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersfacultytotalkey" class="tsd-kind-icon">users<wbr>Faculty<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorslocationskey" class="tsd-kind-icon">users<wbr>Mentors<wbr>Locations<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorsprofessionslistkey" class="tsd-kind-icon">users<wbr>Mentors<wbr>Professions<wbr>List<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorstotalkey" class="tsd-kind-icon">users<wbr>Mentors<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersstudentstotalkey" class="tsd-kind-icon">users<wbr>Students<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#userstotalkey" class="tsd-kind-icon">users<wbr>Total<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#assertalldefined" class="tsd-kind-icon">assert<wbr>All<wbr>Defined</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#assertdefined" class="tsd-kind-icon">assert<wbr>Defined</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#assertvalidroleformethod" class="tsd-kind-icon">assert<wbr>Valid<wbr>Role<wbr>For<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalslist" class="tsd-kind-icon">career<wbr>Goals<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#careergoalstotal" class="tsd-kind-icon">career<wbr>Goals<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#checkintegrity" class="tsd-kind-icon">check<wbr>Integrity</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#count" class="tsd-kind-icon">count</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#countnonretired" class="tsd-kind-icon">count<wbr>Non<wbr>Retired</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewscourses" class="tsd-kind-icon">course<wbr>Reviews<wbr>Courses</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursereviewstotal" class="tsd-kind-icon">course<wbr>Reviews<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#coursestotal" class="tsd-kind-icon">courses<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#define" class="tsd-kind-icon">define</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreeslist" class="tsd-kind-icon">desired<wbr>Degrees<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#desireddegreestotal" class="tsd-kind-icon">desired<wbr>Degrees<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#dumpall" class="tsd-kind-icon">dump<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#dumpone" class="tsd-kind-icon">dump<wbr>One</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#find" class="tsd-kind-icon">find</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#finddoc" class="tsd-kind-icon">find<wbr>Doc</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#findnonretired" class="tsd-kind-icon">find<wbr>Non<wbr>Retired</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#findone" class="tsd-kind-icon">find<wbr>One</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstacademicplan" class="tsd-kind-icon">first<wbr>Academic<wbr>Plan</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstcareergoal" class="tsd-kind-icon">first<wbr>Career<wbr>Goal</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstdegree" class="tsd-kind-icon">first<wbr>Degree</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstinterest" class="tsd-kind-icon">first<wbr>Interest</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#firstopportunity" class="tsd-kind-icon">first<wbr>Opportunity</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#generatestats" class="tsd-kind-icon">generate<wbr>Stats</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getcollection" class="tsd-kind-icon">get<wbr>Collection</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getcollectionname" class="tsd-kind-icon">get<wbr>Collection<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getcollectionschema" class="tsd-kind-icon">get<wbr>Collection<wbr>Schema</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getdefineschema" class="tsd-kind-icon">get<wbr>Define<wbr>Schema</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getpublicstat" class="tsd-kind-icon">get<wbr>Public<wbr>Stat</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getpublicationname" class="tsd-kind-icon">get<wbr>Publication<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#gettype" class="tsd-kind-icon">get<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#getupdateschema" class="tsd-kind-icon">get<wbr>Update<wbr>Schema</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#interestslist" class="tsd-kind-icon">interests<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#intereststotal" class="tsd-kind-icon">interests<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#isdefined" class="tsd-kind-icon">is<wbr>Defined</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfivetotal" class="tsd-kind-icon">level<wbr>Five<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelfourtotal" class="tsd-kind-icon">level<wbr>Four<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelonetotal" class="tsd-kind-icon">level<wbr>One<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelsixtotal" class="tsd-kind-icon">level<wbr>Six<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#levelthreetotal" class="tsd-kind-icon">level<wbr>Three<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#leveltwototal" class="tsd-kind-icon">level<wbr>Two<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectslist" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiesprojectstotal" class="tsd-kind-icon">opportunities<wbr>Projects<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#opportunitiestotal" class="tsd-kind-icon">opportunities<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#publish" class="tsd-kind-icon">publish</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#removeall" class="tsd-kind-icon">remove<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#removeit" class="tsd-kind-icon">remove<wbr>It</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#restoreall" class="tsd-kind-icon">restore<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#restoreone" class="tsd-kind-icon">restore<wbr>One</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#subscribe" class="tsd-kind-icon">subscribe</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#upsertleveltotal" class="tsd-kind-icon">upsert<wbr>Level<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersfacultytotal" class="tsd-kind-icon">users<wbr>Faculty<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorslocations" class="tsd-kind-icon">users<wbr>Mentors<wbr>Locations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorsprofessionslist" class="tsd-kind-icon">users<wbr>Mentors<wbr>Professions<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersmentorstotal" class="tsd-kind-icon">users<wbr>Mentors<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#usersstudentstotal" class="tsd-kind-icon">users<wbr>Students<wbr>Total</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_api_public_stats_publicstatscollection_.publicstatscollection.html#userstotal" class="tsd-kind-icon">users<wbr>Total</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_api_public_stats_publicstatscollection_.html#publicstats" class="tsd-kind-icon">Public<wbr>Stats</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

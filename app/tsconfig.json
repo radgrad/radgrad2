@@ -28,5 +28,10 @@
   "exclude": [
     "node_modules",
     ".meteor"
-  ]
+  ],
+  "typedocOptions": {
+    "mode": "modules",
+    "excludePrivate": true,
+    "name": "RadGrad2"
+  }
 }

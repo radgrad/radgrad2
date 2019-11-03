@@ -1,1 +1,3 @@
-/** @namespace api */
+/** @module api */
+
+import 'academic-term';

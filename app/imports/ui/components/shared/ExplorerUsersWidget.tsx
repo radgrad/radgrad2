@@ -26,7 +26,7 @@ interface IExplorerUsersWidgetProps {
  * being displayed instead of a button and the IBaseProfile.motivation field being displayed if it exists.
  * @param userProfile {IBaseProfile} User profile to be displayed
  * @param isActive {boolean} This component expects the parent to manage state
- * @param handleClose {()=>any} Handler to close component (dimmer) when clicking outside of the component
+ * @param handleClose  Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
 class ExplorerUsersWidget extends React.Component<IExplorerUsersWidgetProps> {
   private isRole = (compareRole: string, ...otherRoles: string[]): boolean => this.props.userProfile.role === compareRole || _.includes(otherRoles, this.props.userProfile.role);
