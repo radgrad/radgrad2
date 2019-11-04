@@ -15,6 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { homeActions } from '../../../redux/student/home';
+import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -41,179 +42,85 @@ const mapStateToProps = (state) => ({
   hiddenOpportunities: state.student.home.hiddenOpportunities,
 });
 
-class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
+const isTypeCourse = (props: IStudentOfInterestWidgetProps): boolean => props.type === EXPLORER_TYPE.COURSES;
 
-  private hiddenExists() {
-    const username = this.getUsername();
-    if (username) {
-      const { profile } = this.props;
-      let ret;
-      if (this.isTypeCourse()) {
-        ret = profile.hiddenCourseIDs.length !== 0;
-      } else {
-        ret = profile.hiddenOpportunityIDs.length !== 0;
-      }
-      return ret;
-    }
-    return false;
-  }
-
-  private isCoursesHidden = (): boolean => this.props.hiddenCourses
-
-  private isOpportunitiesHidden = (): boolean => this.props.hiddenOpportunities
-
-  private handleShowHiddenCourses = (e) => {
-    e.preventDefault();
-    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(false));
-  }
-
-  private handleHideHiddenCourses = (e) => {
-    e.preventDefault();
-    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(true));
-  }
-
-  private handleShowHiddenOpportunities = (e) => {
-    e.preventDefault();
-    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(false));
-  }
-
-  private handleHideHiddenOpportunities = (e) => {
-    e.preventDefault();
-    this.props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(true));
-  }
-
-  private getUsername = () => this.props.match.params.username;
-
-  private getUserIdFromRoute = () => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
-  private itemCount = () => {
+const hiddenExists = (props: IStudentOfInterestWidgetProps) => {
+  const username = getUsername(props.match);
+  if (username) {
+    const { profile } = props;
     let ret;
-    if (this.isTypeCourse()) {
-      ret = this.hiddenCoursesHelper().length;
+    if (isTypeCourse(props)) {
+      ret = profile.hiddenCourseIDs.length !== 0;
     } else {
-      ret = this.hiddenOpportunitiesHelper().length;
+      ret = profile.hiddenOpportunityIDs.length !== 0;
     }
     return ret;
   }
+  return false;
+};
 
-  private isTypeCourse = (): boolean => this.props.type === EXPLORER_TYPE.COURSES;
+const isCoursesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenCourses;
 
-  private courses = () => {
-    const courses = this.matchingCourses();
-    let visibleCourses;
-    if (this.isCoursesHidden()) {
-      visibleCourses = this.hiddenCoursesHelper();
-    } else {
-      visibleCourses = courses;
-    }
-    return visibleCourses;
-  }
+const isOpportunitiesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenOpportunities;
 
-  private matchingCourses = () => {
-    const username = this.getUsername();
-    if (username) {
-      const allCourses = this.availableCourses();
-      const matching: any = [];
-      const { profile } = this.props;
-      const userInterests = [];
-      let courseInterests = [];
-      _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-        userInterests.push(Interests.findDoc(id));
-      });
-      _.forEach(allCourses, (course) => {
-        courseInterests = [];
-        _.forEach(course.interestIDs, (id) => {
-          courseInterests.push(Interests.findDoc(id));
-          _.forEach(courseInterests, (courseInterest) => {
-            _.forEach(userInterests, (userInterest) => {
-              if (_.isEqual(courseInterest, userInterest)) {
-                if (!_.includes(matching, course)) {
-                  matching.push(course);
-                }
-              }
-            });
-          });
-        });
-      });
-      // Only display up to the first six matches.
-      return (matching < 7) ? matching : matching.slice(0, 6);
-    }
-    return [];
-  }
+const handleShowHiddenCourses = (props: IStudentOfInterestWidgetProps) => (e) => {
+  e.preventDefault();
+  props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(false));
+};
 
-  private availableCourses = () => {
-    const { nonRetiredCourses } = this.props;
-    if (nonRetiredCourses.length > 0) {
-      const filtered = _.filter(nonRetiredCourses, (course) => {
-        if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
-          return true;
-        }
-        const ci = CourseInstances.find({
-          studentID: this.getUserIdFromRoute(),
-          courseID: course._id,
-        }).fetch();
-        return ci.length === 0;
-      });
-      return filtered;
-    }
-    return [];
-  }
+const handleHideHiddenCourses = (props: IStudentOfInterestWidgetProps) => (e) => {
+  e.preventDefault();
+  props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(true));
+};
 
-  private hiddenCoursesHelper = () => {
-    if (this.getUsername()) {
-      const courses = this.matchingCourses();
-      let nonHiddenCourses;
-      if (this.isCoursesHidden()) {
-        const { profile } = this.props;
-        nonHiddenCourses = _.filter(courses, (course) => {
-          if (_.includes(profile.hiddenCourseIDs, course._id)) {
-            return false;
-          }
-          return true;
-        });
-      } else {
-        nonHiddenCourses = courses;
+const handleShowHiddenOpportunities = (props: IStudentOfInterestWidgetProps) => (e) => {
+  e.preventDefault();
+  props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(false));
+};
+
+const handleHideHiddenOpportunities = (props: IStudentOfInterestWidgetProps) => (e) => {
+  e.preventDefault();
+  props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(true));
+};
+
+const availableCourses = (props: IStudentOfInterestWidgetProps) => {
+  const { nonRetiredCourses } = props;
+  if (nonRetiredCourses.length > 0) {
+    const filtered = _.filter(nonRetiredCourses, (course) => {
+      if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
+        return true;
       }
-      return nonHiddenCourses;
-    }
-    return [];
+      const ci = CourseInstances.find({
+        studentID: getUserIdFromRoute(props.match),
+        courseID: course._id,
+      }).fetch();
+      return ci.length === 0;
+    });
+    return filtered;
   }
+  return [];
+};
 
-  private opportunities = () => {
-    const opportunities = this.matchingOpportunities();
-    let visibleOpportunities;
-    if (this.isOpportunitiesHidden()) {
-      visibleOpportunities = this.hiddenOpportunitiesHelper();
-    } else {
-      visibleOpportunities = opportunities;
-    }
-    return visibleOpportunities;
-  }
-
-  private matchingOpportunities = () => {
-    const allOpportunities = this.availableOpps();
+const matchingCourses = (props: IStudentOfInterestWidgetProps) => {
+  const username = getUsername(props.match);
+  if (username) {
+    const allCourses = availableCourses(props);
     const matching: any = [];
-    const { profile } = this.props;
+    const { profile } = props;
     const userInterests = [];
-    let opportunityInterests = [];
+    let courseInterests = [];
     _.forEach(Users.getInterestIDs(profile.userID), (id) => {
       userInterests.push(Interests.findDoc(id));
     });
-    _.forEach(allOpportunities, (opp) => {
-      opportunityInterests = [];
-      _.forEach(opp.interestIDs, (id) => {
-        opportunityInterests.push(Interests.findDoc(id));
-        _.forEach(opportunityInterests, (oppInterest) => {
+    _.forEach(allCourses, (course) => {
+      courseInterests = [];
+      _.forEach(course.interestIDs, (id) => {
+        courseInterests.push(Interests.findDoc(id));
+        _.forEach(courseInterests, (courseInterest) => {
           _.forEach(userInterests, (userInterest) => {
-            if (_.isEqual(oppInterest, userInterest)) {
-              if (!_.includes(matching, opp)) {
-                matching.push(opp);
+            if (_.isEqual(courseInterest, userInterest)) {
+              if (!_.includes(matching, course)) {
+                matching.push(course);
               }
             }
           });
@@ -223,139 +130,215 @@ class StudentOfInterestWidget extends React.Component<IStudentOfInterestWidgetPr
     // Only display up to the first six matches.
     return (matching < 7) ? matching : matching.slice(0, 6);
   }
+  return [];
+};
 
-  private availableOpps = () => {
-    const { nonRetiredOpportunities } = this.props;
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    if (nonRetiredOpportunities.length > 0) {
-      const filteredByTerm = _.filter(nonRetiredOpportunities, (opp) => {
-        const oi = OpportunityInstances.find({
-          studentID: this.getUserIdFromRoute(),
-          opportunityID: opp._id,
-        }).fetch();
-        return oi.length === 0;
+const hiddenCoursesHelper = (props: IStudentOfInterestWidgetProps) => {
+  if (getUsername(props.match)) {
+    const courses = matchingCourses(props);
+    let nonHiddenCourses;
+    if (isCoursesHidden(props)) {
+      const { profile } = props;
+      nonHiddenCourses = _.filter(courses, (course) => {
+        if (_.includes(profile.hiddenCourseIDs, course._id)) {
+          return false;
+        }
+        return true;
       });
-      const ret = _.filter(filteredByTerm, (opp) => {
-        let inFuture = false;
-        _.forEach(opp.termIDs, (termID) => {
-          const term = AcademicTerms.findDoc(termID);
-          if (term.termNumber >= currentTerm.termNumber) {
-            inFuture = true;
+    } else {
+      nonHiddenCourses = courses;
+    }
+    return nonHiddenCourses;
+  }
+  return [];
+};
+
+const availableOpps = (props: IStudentOfInterestWidgetProps) => {
+  const { nonRetiredOpportunities } = props;
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  if (nonRetiredOpportunities.length > 0) {
+    const filteredByTerm = _.filter(nonRetiredOpportunities, (opp) => {
+      const oi = OpportunityInstances.find({
+        studentID: getUserIdFromRoute(props.match),
+        opportunityID: opp._id,
+      }).fetch();
+      return oi.length === 0;
+    });
+    const ret = _.filter(filteredByTerm, (opp) => {
+      let inFuture = false;
+      _.forEach(opp.termIDs, (termID) => {
+        const term = AcademicTerms.findDoc(termID);
+        if (term.termNumber >= currentTerm.termNumber) {
+          inFuture = true;
+        }
+      });
+      return inFuture;
+    });
+    return ret;
+  }
+  return [];
+};
+
+const matchingOpportunities = (props: IStudentOfInterestWidgetProps) => {
+  const allOpportunities = availableOpps(props);
+  const matching: any = [];
+  const { profile } = props;
+  const userInterests = [];
+  let opportunityInterests = [];
+  _.forEach(Users.getInterestIDs(profile.userID), (id) => {
+    userInterests.push(Interests.findDoc(id));
+  });
+  _.forEach(allOpportunities, (opp) => {
+    opportunityInterests = [];
+    _.forEach(opp.interestIDs, (id) => {
+      opportunityInterests.push(Interests.findDoc(id));
+      _.forEach(opportunityInterests, (oppInterest) => {
+        _.forEach(userInterests, (userInterest) => {
+          if (_.isEqual(oppInterest, userInterest)) {
+            if (!_.includes(matching, opp)) {
+              matching.push(opp);
+            }
           }
         });
-        return inFuture;
       });
-      return ret;
+    });
+  });
+  // Only display up to the first six matches.
+  return (matching < 7) ? matching : matching.slice(0, 6);
+};
+
+const hiddenOpportunitiesHelper = (props: IStudentOfInterestWidgetProps) => {
+  if (getUsername(props.match)) {
+    const opportunities = matchingOpportunities(props);
+    let nonHiddenOpportunities;
+    if (isOpportunitiesHidden(props)) {
+      const { profile } = props;
+      nonHiddenOpportunities = _.filter(opportunities, (opp) => {
+        if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
+          return false;
+        }
+        return true;
+      });
+    } else {
+      nonHiddenOpportunities = opportunities;
     }
-    return [];
+    return nonHiddenOpportunities;
   }
+  return [];
+};
 
-  private hiddenOpportunitiesHelper = () => {
-    if (this.getUsername()) {
-      const opportunities = this.matchingOpportunities();
-      let nonHiddenOpportunities;
-      if (this.isOpportunitiesHidden()) {
-        const { profile } = this.props;
-        nonHiddenOpportunities = _.filter(opportunities, (opp) => {
-          if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
-            return false;
-          }
-          return true;
-        });
-      } else {
-        nonHiddenOpportunities = opportunities;
-      }
-      return nonHiddenOpportunities;
-    }
-    return [];
+const itemCount = (props: IStudentOfInterestWidgetProps) => {
+  let ret;
+  if (isTypeCourse(props)) {
+    ret = hiddenCoursesHelper(props).length;
+  } else {
+    ret = hiddenOpportunitiesHelper(props).length;
   }
+  return ret;
+};
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    /*
-     Had to declare the styles as React.CSSProperties to fix the "Type X is not assignable to Type Y" errors
-     See https://github.com/microsoft/TypeScript/issues/11465#issuecomment-252453037
-     */
-    const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
-    const cardsStackableStyle: React.CSSProperties = {
-      maxHeight: '500px',
-      overflowX: 'hidden',
-      overflowY: 'scroll',
-      marginTop: '10px',
-    };
+const courses = (props: IStudentOfInterestWidgetProps) => {
+  const cs = matchingCourses(props);
+  let visibleCourses;
+  if (isCoursesHidden(props)) {
+    visibleCourses = hiddenCoursesHelper(props);
+  } else {
+    visibleCourses = cs;
+  }
+  return visibleCourses;
+};
 
-    const { type } = this.props;
-    const hiddenExists = this.hiddenExists();
-    const isCoursesHidden = this.isCoursesHidden();
-    const isOpportunitiesHidden = this.isOpportunitiesHidden();
-    const isTypeCourse = this.isTypeCourse();
-    const courses = this.courses();
-    const opportunities = this.opportunities();
+const opportunities = (props: IStudentOfInterestWidgetProps) => {
+  const os = matchingOpportunities(props);
+  let visibleOpportunities;
+  if (isOpportunitiesHidden(props)) {
+    visibleOpportunities = hiddenOpportunitiesHelper(props);
+  } else {
+    visibleOpportunities = os;
+  }
+  return visibleOpportunities;
+};
 
-    return (
-      <Segment padded={true}>
-        {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
+
+const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
+  /*
+   Had to declare the styles as React.CSSProperties to fix the "Type X is not assignable to Type Y" errors
+   See https://github.com/microsoft/TypeScript/issues/11465#issuecomment-252453037
+   */
+  const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
+  const cardsStackableStyle: React.CSSProperties = {
+    maxHeight: '500px',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    marginTop: '10px',
+  };
+
+  const { type } = props;
+
+  return (
+    <Segment padded={true}>
+      {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
         complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
         had to use the className attribute instead so it renders as "ui dividing header". - Gian */}
-        <Header className="dividing">
-          <h4>
-            RECOMMENDED <span style={uppercaseTextTransformStyle}>{type}</span> <WidgetHeaderNumber
-            inputValue={this.itemCount()}/>
-          </h4>
-        </Header>
+      <Header className="dividing">
+        <h4>
+          RECOMMENDED <span style={uppercaseTextTransformStyle}>{type}</span> <WidgetHeaderNumber
+          inputValue={itemCount(props)}/>
+        </h4>
+      </Header>
 
-        {
-          hiddenExists ?
-            [
-              isTypeCourse ?
-                [
-                  isCoursesHidden ?
-                    <Button key='one' basic={true} color="green" size="mini" onClick={this.handleShowHiddenCourses}>
-                      <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>COURSES</span>
-                    </Button>
-                    :
-                    <Button key='two' basic={true} color="green" size="mini" onClick={this.handleHideHiddenCourses}>
-                      <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>COURSES</span>
-                    </Button>,
-                ]
-                :
-                [
-                  isOpportunitiesHidden ?
-                    <Button key='one' basic={true} color="green" size="mini"
-                            onClick={this.handleShowHiddenOpportunities}>
-                      <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
-                    </Button>
-                    :
-                    <Button key='two' basic={true} color="green" size="mini"
-                            onClick={this.handleHideHiddenOpportunities}>
-                      <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
-                    </Button>,
-                ],
-            ]
-            : ''
-        }
+      {
+        hiddenExists(props) ?
+          [
+            isTypeCourse(props) ?
+              [
+                isCoursesHidden(props) ?
+                  <Button key='one' basic={true} color="green" size="mini" onClick={handleShowHiddenCourses(props)}>
+                    <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>COURSES</span>
+                  </Button>
+                  :
+                  <Button key='two' basic={true} color="green" size="mini" onClick={handleHideHiddenCourses(props)}>
+                    <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>COURSES</span>
+                  </Button>,
+              ]
+              :
+              [
+                isOpportunitiesHidden(props) ?
+                  <Button key='one' basic={true} color="green" size="mini"
+                          onClick={handleShowHiddenOpportunities(props)}>
+                    <Icon name="chevron up"/> HIDDEN <span style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                  </Button>
+                  :
+                  <Button key='two' basic={true} color="green" size="mini"
+                          onClick={handleHideHiddenOpportunities(props)}>
+                    <Icon name="chevron down"/> HIDDEN <span style={uppercaseTextTransformStyle}>OPPORTUNITIES</span>
+                  </Button>,
+              ],
+          ]
+          : ''
+      }
 
-        {
-          courses ?
-            <div style={cardsStackableStyle}>
-              <Card.Group stackable={true} itemsPerRow={2}>
-                {
-                  isTypeCourse ?
-                    courses.map((course, index) => <StudentOfInterestCard key={index} item={course}
-                                                                          type={type} canAdd={true}/>)
-                    :
-                    opportunities.map((opp, index) => <StudentOfInterestCard key={index} item={opp}
-                                                                             type={type} canAdd={true}/>)
-                }
-              </Card.Group>
-            </div>
-            :
-            <p>Add interests to see recommendations here. To add interests, click on the &quot;Explorer&quot; tab,
-              then select &quot;Interests&quot; in the pull-down menu on that page.</p>
-        }
-      </Segment>
-    );
-  }
-}
+      {
+        courses(props) ?
+          <div style={cardsStackableStyle}>
+            <Card.Group stackable={true} itemsPerRow={2}>
+              {
+                isTypeCourse(props) ?
+                  courses(props).map((course, index) => <StudentOfInterestCard key={index} item={course}
+                                                                               type={type} canAdd={true}/>)
+                  :
+                  opportunities(props).map((opp, index) => <StudentOfInterestCard key={index} item={opp}
+                                                                                  type={type} canAdd={true}/>)
+              }
+            </Card.Group>
+          </div>
+          :
+          <p>Add interests to see recommendations here. To add interests, click on the &quot;Explorer&quot; tab,
+            then select &quot;Interests&quot; in the pull-down menu on that page.</p>
+      }
+    </Segment>
+  );
+};
 
 const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWidget);
 const StudentOfInterestWidgetCont = withTracker(({ match }) => {

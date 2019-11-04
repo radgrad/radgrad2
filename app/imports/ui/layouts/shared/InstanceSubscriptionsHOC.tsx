@@ -29,27 +29,18 @@ interface ILoading {
 const instanceSubs = new SubsManager({ cacheLimit: 10, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
-  class InstanceSubscriptions extends React.Component<ILoading> {
-    constructor(props) {
-      super(props);
-    }
+  const InstanceSubscriptions = (props: ILoading) => ((this.props.loading) ?
+    <React.Fragment>
+      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+        <PageLoader/>
+      </Responsive>
 
-    /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-    public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-      return (this.props.loading) ?
-        <React.Fragment>
-          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-            <PageLoader/>
-          </Responsive>
-
-          <Responsive {...Responsive.onlyMobile}>
-            <PageLoaderMobile/>
-          </Responsive>
-        </React.Fragment>
-        :
-        <WrappedComponent {...this.props}/>;
-    }
-  }
+      <Responsive {...Responsive.onlyMobile}>
+        <PageLoaderMobile/>
+      </Responsive>
+    </React.Fragment>
+    :
+    <WrappedComponent {...props}/>);
 
   return withTracker((props) => {
     const handles = [];

@@ -6,6 +6,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { getUsername } from '../shared/RouterHelperFunctions';
 
 interface IStudentOfInterestAddProps {
   item: any;
@@ -21,160 +22,150 @@ interface IStudentOfInterestAddProps {
   profile: object;
 }
 
-class StudentOfInterestAdd extends React.Component<IStudentOfInterestAddProps> {
-  constructor(props) {
-    super(props);
+const isTypeCourse = (props: IStudentOfInterestAddProps) => props.type === EXPLORER_TYPE.COURSES;
+
+const nextYears = (amount) => {
+  const years = [];
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  let currentYear = currentTerm.year;
+  for (let i = 0; i < amount; i += 1) {
+    years.push(currentYear);
+    currentYear += 1;
   }
+  return years;
+};
 
-  private getUsername = () => this.props.match.params.username;
+// FIXME: needs to support quarter system
+const yearTerms = (year) => [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
 
-  private isTypeCourse = () => this.props.type === EXPLORER_TYPE.COURSES;
+// This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
+// Should move it to one if one is made - Gian.
+const opportunityTerms = (opportunityInstance) => {
+  const academicTermIDs = opportunityInstance.termIDs;
+  const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
+  return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
+};
 
-  private nextYears = (amount) => {
-    const nextYears = [];
-    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    let currentYear = currentTerm.year;
-    for (let i = 0; i < amount; i += 1) {
-      nextYears.push(currentYear);
-      currentYear += 1;
-    }
-    return nextYears;
+const itemTerms = (props: IStudentOfInterestAddProps) => {
+  let ret = [];
+  if (isTypeCourse(props)) {
+    // do nothing
+  } else {
+    ret = opportunityTerms(props.item);
   }
+  return ret.slice(0, 8);
+};
 
-  private yearTerms = (year) => [`Spring ${year}`, `Summer ${year}`, `Fall ${year}`];
+const handleAddToPlan = (props: IStudentOfInterestAddProps) => (e) => {
+  e.preventDefault();
+  const term = e.target.text;
+  const { item } = props;
+  const itemSlug = Slugs.findDoc({ _id: item.slugID });
+  const termSplit = term.split(' ');
+  const termSlug = `${termSplit[0]}-${termSplit[1]}`;
+  const username = getUsername(props.match);
 
-  private itemTerms = () => {
-    let ret = [];
-    if (this.isTypeCourse()) {
-      // do nothing
-    } else {
-      ret = this.opportunityTerms(this.props.item);
-    }
-    return ret.slice(0, 8);
+  if (isTypeCourse(props)) {
+    const definitionData = {
+      academicTerm: termSlug,
+      course: itemSlug,
+      verified: false,
+      note: item.number,
+      grade: 'B',
+      student: username,
+    };
+    defineMethod.call({ collectionName: 'CourseInstanceCollection', definitionData }, (error) => {
+      if (error) {
+        console.log('Error defining CourseInstance', error);
+      }
+    });
+  } else {
+    const definitionData = {
+      academicTerm: termSlug,
+      opportunity: itemSlug.name,
+      verified: false,
+      student: username,
+    };
+    defineMethod.call({ collectionName: 'OpportunityInstanceCollection', definitionData }, (error) => {
+      if (error) {
+        console.log('Error defining CourseInstance', error);
+      }
+    });
   }
+};
 
-  // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
-  // Should move it to one if one is made - Gian.
-  private opportunityTerms(opportunityInstance) {
-    const academicTermIDs = opportunityInstance.termIDs;
-    const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
-    return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
-  }
-
-  private handleAddToPlan = (e) => {
-    e.preventDefault();
-    const term = e.target.text;
-    const { item } = this.props;
-    const itemSlug = Slugs.findDoc({ _id: item.slugID });
-    const termSplit = term.split(' ');
-    const termSlug = `${termSplit[0]}-${termSplit[1]}`;
-    const username = this.getUsername();
-
-    if (this.isTypeCourse()) {
-      const definitionData = {
-        academicTerm: termSlug,
-        course: itemSlug,
-        verified: false,
-        note: item.number,
-        grade: 'B',
-        student: username,
-      };
-      defineMethod.call({ collectionName: 'CourseInstanceCollection', definitionData }, (error) => {
-        if (error) {
-          console.log('Error defining CourseInstance', error);
-        }
-      });
-    } else {
-      const definitionData = {
-        academicTerm: termSlug,
-        opportunity: itemSlug.name,
-        verified: false,
-        student: username,
-      };
-      defineMethod.call({ collectionName: 'OpportunityInstanceCollection', definitionData }, (error) => {
-        if (error) {
-          console.log('Error defining CourseInstance', error);
-        }
-      });
-    }
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const nextYears = this.nextYears(4);
-    // FIXME: Only one Popup should be open at a time and they need to close once an Item has been picked
-    return (
-      <React.Fragment>
-        {
-          this.isTypeCourse() ?
-            <Popup
-              className="transition"
-              trigger={
-                <Button>
-                  <Icon name="plus"/><br/>Add to Plan
-                </Button>
-              }
-              on="click"
-            >
-              <Popup.Content>
-                <Menu size="mini" secondary={true} vertical={true}>
-                  {
-                    nextYears.map((year, index) => (
-                      <React.Fragment key={index}>
-                        <Popup
-                          trigger={
-                            <Menu.Item as="a" className={`${this.props.item} chooseSemester`}>
-                              {year}
-                            </Menu.Item>
+// FIXME: Only one Popup should be open at a time and they need to close once an Item has been picked
+const StudentOfInterestAdd = (props: IStudentOfInterestAddProps) => (
+  <React.Fragment>
+    {
+      isTypeCourse(props) ?
+        <Popup
+          className="transition"
+          trigger={
+            <Button>
+              <Icon name="plus"/><br/>Add to Plan
+            </Button>
+          }
+          on="click"
+        >
+          <Popup.Content>
+            <Menu size="mini" secondary={true} vertical={true}>
+              {
+                nextYears(4).map((year, index) => (
+                  <React.Fragment key={index}>
+                    <Popup
+                      trigger={
+                        <Menu.Item as="a" className={`${props.item} chooseSemester`}>
+                          {year}
+                        </Menu.Item>
+                      }
+                      on="click"
+                    >
+                      <Popup.Content>
+                        <Menu size="mini" secondary={true} vertical={true}>
+                          {
+                            yearTerms(year).map((term) => (
+                              <Menu.Item as="a" className={`${props.item}`}
+                                         key={term}
+                                         onClick={handleAddToPlan(props)}>
+                                {term}
+                              </Menu.Item>
+                            ))
                           }
-                          on="click"
-                        >
-                          <Popup.Content>
-                            <Menu size="mini" secondary={true} vertical={true}>
-                              {
-                                this.yearTerms(year).map((term) => (
-                                  <Menu.Item as="a" className={`${this.props.item}`}
-                                             key={term}
-                                             onClick={this.handleAddToPlan}>
-                                    {term}
-                                  </Menu.Item>
-                                ))
-                              }
-                            </Menu>
-                          </Popup.Content>
-                        </Popup>
-                      </React.Fragment>
-                    ))
-                  }
-                </Menu>
-              </Popup.Content>
-            </Popup>
-            :
-            <Popup
-              trigger={
-                <Button>
-                  <Icon name="plus"/><br/>Add to Plan
-                </Button>
+                        </Menu>
+                      </Popup.Content>
+                    </Popup>
+                  </React.Fragment>
+                ))
               }
-              on="click"
-            >
-              <Popup.Content position="right center">
-                <Menu size="mini" secondary={true} vertical={true}>
-                  {
-                    this.itemTerms().map((term, index) => (
-                      <Menu.Item
-                        key={index}
-                        as="a" className={`${this.props.item}`} onClick={this.handleAddToPlan}>
-                        {term}
-                      </Menu.Item>
-                    ))
-                  }
-                </Menu>
-              </Popup.Content>
-            </Popup>
-        }
-      </React.Fragment>
-    );
-  }
-}
+            </Menu>
+          </Popup.Content>
+        </Popup>
+        :
+        <Popup
+          trigger={
+            <Button>
+              <Icon name="plus"/><br/>Add to Plan
+            </Button>
+          }
+          on="click"
+        >
+          <Popup.Content position="right center">
+            <Menu size="mini" secondary={true} vertical={true}>
+              {
+                itemTerms(props).map((term, index) => (
+                  <Menu.Item
+                    key={index}
+                    as="a" className={`${props.item}`} onClick={handleAddToPlan(props)}>
+                    {term}
+                  </Menu.Item>
+                ))
+              }
+            </Menu>
+          </Popup.Content>
+        </Popup>
+    }
+  </React.Fragment>
+);
 
 export default withRouter(StudentOfInterestAdd);

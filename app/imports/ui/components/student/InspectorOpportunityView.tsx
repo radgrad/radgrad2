@@ -148,7 +148,7 @@ const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
       <b>When: {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}</b>
       <p><b>Description:</b></p>
       <Markdown escapeHtml={true} source={opportunity.description}
-                renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
       <p/>
       <p><b>Interests:</b></p>
       <UserInterestList userID={props.studentID} interestIDs={opportunity.interestIDs}/>

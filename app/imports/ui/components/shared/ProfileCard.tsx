@@ -69,33 +69,6 @@ const getCollectionName = (props: IProfileCardProps) => {
   return name;
 };
 
-const handleClick = (props: IProfileCardProps) => () => {
-  const newInterestsAfterAdd = addInterest(props);
-  const updateDataAdd: any = {
-    id: Users.getProfile(Router.getUsername(props.match))._id,
-    interests: newInterestsAfterAdd,
-  };
-  const collectionNameAdd = getCollectionName(props);
-  updateMethod.call({ collectionName: collectionNameAdd, updateData: updateDataAdd }, (error) => {
-    if (error) {
-      Swal.fire({
-        title: 'Update failed',
-        text: error.message,
-        type: 'error',
-      });
-      console.error('Error in updating. %o', error);
-    } else {
-      Swal.fire({
-        title: 'Update succeeded',
-        type: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
-};
-
-
 const ProfileCard = (props: IProfileCardProps) => {
   const { item, type, canAdd, match } = props;
   const itemName = docToName(item);
