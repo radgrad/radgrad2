@@ -17,43 +17,33 @@ const getName = (courseInstance) => {
   return course.name;
 };
 
-class DraggableCourseInstancePill extends React.Component<ICourseInstancePillProps> {
-  constructor(props) {
-    // console.log(props.instance);
-    super(props);
-  }
+const handleClick = (props: ICourseInstancePillProps) => (event) => {
+  event.preventDefault();
+  props.handleClickCourseInstance(event, { value: props.instance._id });
+};
 
-  private handleClick = (event) => {
-    event.preventDefault();
-    this.props.handleClickCourseInstance(event, { value: this.props.instance._id });
-  }
-
-  public render() {
-    // console.log('DraggableCourseInstancePill ci=%o', this.props.instance.note);
-    return (
-      <Popup trigger={
-        <div>
-          <Draggable key={this.props.instance._id} draggableId={this.props.instance._id} index={this.props.index}>
-            {(prov, snap) => (
-              <div
-                ref={prov.innerRef}
-                {...prov.draggableProps}
-                {...prov.dragHandleProps}
-                style={getDraggablePillStyle(
-                  snap.isDragging,
-                  prov.draggableProps.style,
-                )}
-              >
-                <Grid.Row onClick={this.handleClick}>
-                  <NamePill name={this.props.instance.note}/>
-                </Grid.Row>
-
-              </div>
+const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
+  <Popup trigger={
+    <div>
+      <Draggable key={props.instance._id} draggableId={props.instance._id} index={props.index}>
+        {(prov, snap) => (
+          <div
+            ref={prov.innerRef}
+            {...prov.draggableProps}
+            {...prov.dragHandleProps}
+            style={getDraggablePillStyle(
+              snap.isDragging,
+              prov.draggableProps.style,
             )}
-          </Draggable>
-        </div>} content={getName(this.props.instance)}/>
-    );
-  }
-}
+          >
+            <Grid.Row onClick={handleClick(props)}>
+              <NamePill name={props.instance.note}/>
+            </Grid.Row>
+
+          </div>
+        )}
+      </Draggable>
+    </div>} content={getName(props.instance)}/>
+);
 
 export default DraggableCourseInstancePill;

@@ -27,99 +27,88 @@ interface IExplorerPlansWidgetProps {
   };
 }
 
-class ExplorerPlansWidget extends React.Component<IExplorerPlansWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
+const userStatus = (plan: IAcademicPlan, props: IExplorerPlansWidgetProps): boolean => {
+  const profile = Users.getProfile(Router.getUsername(props.match));
+  return profile.academicPlanID !== plan._id;
+};
 
-  private getUsername = (): string => Router.getUsername(this.props.match);
+const handleAddPlan = (props: IExplorerPlansWidgetProps) => (e: any): void => {
+  e.preventDefault();
+  const profile = Users.getProfile(Router.getUsername(props.match));
+  const updateData: { [key: string]: any } = {};
+  const collectionName = StudentProfiles.getCollectionName();
+  updateData.id = profile._id;
+  updateData.academicPlan = props.item._id;
+  updateMethod.call({ collectionName, updateData }, (error) => {
+    if (error) {
+      console.log(`Error updating ${Router.getUsername(props.match)}'s academic plan ${JSON.stringify(error)}`);
+    }
+  });
+};
 
-  private isRoleStudent = (): boolean => Router.isUrlRoleStudent(this.props.match);
+const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
+  const backgroundColorWhiteStyle = { backgroundColor: 'white' };
+  const clearingBasicSegmentStyle = {
+    margin: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+  };
+  const divierStyle = { marginTop: 0 };
 
-  private userStatus = (plan: IAcademicPlan): boolean => {
-    const profile = Users.getProfile(this.getUsername());
-    return profile.academicPlanID !== plan._id;
-  }
+  const { name, descriptionPairs, item, match } = props;
+  const upperName = toUpper(name);
+  const isStudent = Router.isUrlRoleStudent(props.match);
 
-  private handleAddPlan = (e: any): void => {
-    e.preventDefault();
-    const profile = Users.getProfile(this.getUsername());
-    const updateData: { [key: string]: any } = {};
-    const collectionName = StudentProfiles.getCollectionName();
-    updateData.id = profile._id;
-    updateData.academicPlan = this.props.item._id;
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        console.log(`Error updating ${this.getUsername()}'s academic plan ${JSON.stringify(error)}`);
-      }
-    });
-  }
+  return (
+    <Segment.Group style={backgroundColorWhiteStyle}>
+      <Segment padded={true} className="container">
+        <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
+          <Header floated="left">{upperName}</Header>
+          {
+            isStudent ?
+              <React.Fragment>
+                {
+                  userStatus(item, props) ?
+                    <Button basic={true} color="green" size="mini" floated="right" onClick={handleAddPlan(props)}>
+                      SET AS ACADEMIC PLAN
+                    </Button>
+                    : ''
+                }
+              </React.Fragment>
+              : ''
+          }
+        </Segment>
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const backgroundColorWhiteStyle = { backgroundColor: 'white' };
-    const clearingBasicSegmentStyle = {
-      margin: 0,
-      paddingLeft: 0,
-      paddingRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
-    };
-    const divierStyle = { marginTop: 0 };
+        <Divider style={divierStyle}/>
 
-    const { name, descriptionPairs, item, match } = this.props;
-    const upperName = toUpper(name);
-    const isStudent = this.isRoleStudent();
-    const userStatus = this.userStatus(item);
-
-    return (
-      <Segment.Group style={backgroundColorWhiteStyle}>
-        <Segment padded={true} className="container">
-          <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
-            <Header floated="left">{upperName}</Header>
+        <Grid stackable={true}>
+          <Grid.Column>
             {
-              isStudent ?
-                <React.Fragment>
+              descriptionPairs.map((descriptionPair, index) => (
+                <React.Fragment key={index}>
+                  <b>{descriptionPair.label}:</b>
                   {
-                    userStatus ?
-                      <Button basic={true} color="green" size="mini" floated="right" onClick={this.handleAddPlan}>
-                        SET AS ACADEMIC PLAN
-                      </Button>
-                      : ''
+                    descriptionPair.value ?
+                      <Markdown escapeHtml={true} source={descriptionPair.value}
+                                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+                      :
+                      <React.Fragment> N/A <br/></React.Fragment>
                   }
                 </React.Fragment>
-                : ''
+              ))
             }
-          </Segment>
+          </Grid.Column>
+        </Grid>
+      </Segment>
 
-          <Divider style={divierStyle}/>
-
-          <Grid stackable={true}>
-            <Grid.Column>
-              {
-                descriptionPairs.map((descriptionPair, index) => (
-                  <React.Fragment key={index}>
-                    <b>{descriptionPair.label}:</b>
-                    {
-                      descriptionPair.value ?
-                        <Markdown escapeHtml={true} source={descriptionPair.value}
-                                  renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                        :
-                        <React.Fragment> N/A <br/></React.Fragment>
-                    }
-                  </React.Fragment>
-                ))
-              }
-            </Grid.Column>
-          </Grid>
-        </Segment>
-
-        <Segment>
-          <AcademicPlanStaticViewer plan={item}/>
-        </Segment>
-      </Segment.Group>
-    );
-  }
-}
+      <Segment>
+        <AcademicPlanStaticViewer plan={item}/>
+      </Segment>
+    </Segment.Group>
+  );
+};
 
 const ExplorerPlansWidgetContainer = withTracker((props) => {
   const profile = Users.getProfile(props.match.params.username);
