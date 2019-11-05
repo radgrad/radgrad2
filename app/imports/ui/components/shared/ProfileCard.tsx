@@ -1,17 +1,9 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withRouter, Link } from 'react-router-dom';
 import { Card, Icon, Image, Popup } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import * as Markdown from 'react-markdown';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import ProfileAdd from './ProfileAdd';
 import * as Router from './RouterHelperFunctions';
-import { URL_ROLES } from '../../../startup/client/routes-config';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import {
   docToName,
@@ -37,37 +29,6 @@ interface IProfileCardProps {
   };
   profile: object;
 }
-
-const addInterest = (props: IProfileCardProps) => {
-  const user = Users.getProfile(Router.getUsername(props.match));
-  const interestIDsOfUser = user.interestIDs;
-  const interestID = props.item._id;
-  const currentInterestID = [interestID];
-  const dataValue = [interestIDsOfUser, currentInterestID];
-  const updateValue = _.flatten(dataValue);
-  return updateValue;
-};
-
-const getCollectionName = (props: IProfileCardProps) => {
-  let name;
-  switch (Router.getRoleByUrl(props.match)) {
-    case URL_ROLES.STUDENT:
-      name = StudentProfiles.getCollectionName();
-      break;
-    case URL_ROLES.FACULTY:
-      name = FacultyProfiles.getCollectionName();
-      break;
-    case URL_ROLES.ALUMNI:
-      name = StudentProfiles.getCollectionName();
-      break;
-    case URL_ROLES.MENTOR:
-      name = MentorProfiles.getCollectionName();
-      break;
-    default:
-      break;
-  }
-  return name;
-};
 
 const ProfileCard = (props: IProfileCardProps) => {
   const { item, type, canAdd, match } = props;

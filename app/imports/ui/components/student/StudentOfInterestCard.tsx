@@ -7,8 +7,6 @@ import * as Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -110,31 +108,6 @@ const numberStudents = (item) => {
   const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
   return participatingStudents.itemCount;
 };
-
-const interestedStudentsHelper = (item, type) => {
-  const interested = [];
-  let instances;
-  if (type === EXPLORER_TYPE.COURSES) {
-    instances = CourseInstances.find({
-      courseID: item._id,
-    }).fetch();
-  } else {
-    instances = OpportunityInstances.find({
-      opportunityID: item._id,
-    }).fetch();
-  }
-  _.forEach(instances, (c) => {
-    if (!_.includes(interested, c.studentID)) {
-      interested.push(c.studentID);
-    }
-  });
-  // only allow 50 students randomly selected.
-  for (let i = interested.length - 1; i >= 50; i--) {
-    interested.splice(Math.floor(Math.random() * interested.length), 1);
-  }
-  return interested;
-};
-
 
 const hidden = (props: IStudentOfInterestCardProps) => {
   const username = getUsername(props.match);
