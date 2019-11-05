@@ -7,50 +7,42 @@ interface IUpdateRegex {
   updateUserNameRegex: (regex: string) => void;
 }
 
-class FilterUserWidget extends React.Component<IUpdateRegex> {
-  constructor(props) {
-    super(props);
-  }
+const handleChangeFirstNameRegex = (props: IUpdateRegex) => (event, value) => {
+  console.log(event, value);
+  props.updateFirstNameRegex(event.target.value);
+};
 
-  public handleChangeFirstNameRegex = (event, value) => {
-    console.log(event, value);
-    this.props.updateFirstNameRegex(event.target.value);
-  }
+const handleChangeLastNameRegex = (props: IUpdateRegex) => (event) => {
+  props.updateLastNameRegex(event.target.value);
+};
 
-  public handleChangeLastNameRegex = (event) => {
-    this.props.updateLastNameRegex(event.target.value);
-  }
+const handleChangeUserNameRegex = (props: IUpdateRegex) => (event) => {
+  props.updateUserNameRegex(event.target.value);
+};
 
-  public handleChangeUserNameRegex = (event) => {
-    this.props.updateUserNameRegex(event.target.value);
-  }
-
-  public render() {
-    return (
-      <Segment>
-        <Header as="h4" dividing={true}>FILTER USERS</Header>
-        <Form>
-          <Form.Group widths="equal">
-            <Form.Field>
-              <label>First Name</label>
-              <Form.Input placeholder="First Name Regex" name="firstNameRegex"
-                          onChange={this.handleChangeFirstNameRegex}/>
-            </Form.Field>
-            <Form.Field>
-              <label>Last Name</label>
-              <Form.Input placeholder="Last Name Regex" name="lastNameRegex"
-                          onChange={this.handleChangeLastNameRegex}/>
-            </Form.Field>
-            <Form.Field>
-              <label>Username</label>
-              <Form.Input placeholder="Username Regex" name="userNameRegex"
-                          onChange={this.handleChangeUserNameRegex}/>
-            </Form.Field>
-          </Form.Group>
-        </Form>
-      </Segment>
-    );
-  }
-}
+const FilterUserWidget = (props: IUpdateRegex) => (
+  <Segment>
+    <Header as="h4" dividing={true}>FILTER USERS</Header>
+    <Form>
+      <Form.Group widths="equal">
+        <Form.Field>
+          <label>First Name</label>
+          <Form.Input placeholder="First Name Regex" name="firstNameRegex"
+                      onChange={handleChangeFirstNameRegex(props)}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Last Name</label>
+          <Form.Input placeholder="Last Name Regex" name="lastNameRegex"
+                      onChange={handleChangeLastNameRegex(props)}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Username</label>
+          <Form.Input placeholder="Username Regex" name="userNameRegex"
+                      onChange={handleChangeUserNameRegex(props)}/>
+        </Form.Field>
+      </Form.Group>
+    </Form>
+  </Segment>
+);
 
 export default FilterUserWidget;

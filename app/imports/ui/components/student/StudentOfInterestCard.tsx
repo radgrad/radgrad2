@@ -31,6 +31,8 @@ interface IStudentOfInterestCardProps {
   };
 }
 
+const isTypeCourse = (props: IStudentOfInterestCardProps) => props.type === EXPLORER_TYPE.COURSES;
+
 // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
 // Should move it to one if one is made - Gian.
 const opportunityTerms = (opportunityInstance) => {
@@ -38,8 +40,6 @@ const opportunityTerms = (opportunityInstance) => {
   const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
   return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
 };
-
-const isTypeCourse = (props: IStudentOfInterestCardProps) => isSame(props.type, EXPLORER_TYPE.COURSES);
 
 const itemTerms = (props: IStudentOfInterestCardProps) => {
   let ret = [];
@@ -69,6 +69,7 @@ const buildRouteName = (props: IStudentOfInterestCardProps) => {
   return '#';
 };
 
+
 const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
   const { item, match } = props;
   const itemName = docToName(item);
@@ -94,9 +95,10 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
       </Card.Content>
 
       {
-          <Link to={buildRouteName(props)}>
-            <Button attached={'bottom'} fluid={true}><Icon name="chevron circle right"/><br/>View More</Button>
-          </Link>
+
+        <Link to={this.buildRouteName(this.props.item, this.props.type)}>
+          <Button><Icon name="chevron circle right"/><br/>View More</Button>
+        </Link>
       }
     </Card>
   );

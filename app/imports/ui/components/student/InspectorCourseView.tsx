@@ -35,103 +35,96 @@ interface IInspectorCourseViewProps {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
-  });
+  selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
+});
 
-class InspectorCourseView extends React.Component<IInspectorCourseViewProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  private handleRemove = (event, { value }) => {
-    event.preventDefault();
-    // console.log(`Remove CI ${value}`);
-    const ci = CourseInstances.findDoc(value);
-    const collectionName = CourseInstances.getCollectionName();
-    const instance = value;
-    const inst = this;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        console.error(`Remove courseInstance ${instance} failed.`, error);
-      } else {
-        inst.props.selectCourse(ci.courseID);
-      }
-    });
-  }
-
-  public render() {
-    const course = Courses.findDoc(this.props.courseID);
-    const courseSlug = Slugs.getNameFromID(course.slugID);
-    const courseName = buildSimpleName(courseSlug);
-    let courseInstance;
-    let grade = 'C';
-    let plannedCourse = false;
-    let pastCourse = false;
-    if (this.props.courseInstanceID) {
-      courseInstance = CourseInstances.findDoc(this.props.courseInstanceID);
-      grade = courseInstance.grade;
-      const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-      const courseTerm = AcademicTerms.findDoc(courseInstance.termID);
-      plannedCourse = currentTerm.termNumber <= courseTerm.termNumber;
-      pastCourse = currentTerm.termNumber > courseTerm.termNumber;
+const handleRemove = (props: IInspectorCourseViewProps) => (event, { value }) => {
+  event.preventDefault();
+  // console.log(`Remove CI ${value}`);
+  const ci = CourseInstances.findDoc(value);
+  const collectionName = CourseInstances.getCollectionName();
+  const instance = value;
+  removeItMethod.call({ collectionName, instance }, (error) => {
+    if (error) {
+      console.error(`Remove courseInstance ${instance} failed.`, error);
+    } else {
+      props.selectCourse(ci.courseID);
     }
-    const paddingStyle = {
-      paddingTop: 15,
-      paddingBottom: 15,
-    };
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/courses/${courseSlug}`;
-    // console.log(course);
-    return (
-      <Container fluid={true} style={paddingStyle}>
-        <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
-          ice={makeCourseICE(courseSlug, grade)}/></Header>
-        {plannedCourse ? // eslint-disable-line
-          <Button floated="right" basic={true} color="green" value={courseInstance._id} onClick={this.handleRemove}
-                  size="tiny">remove</Button> : (pastCourse ?
-            <Button floated="right" basic={true} color="green"
-                    size="tiny">taken</Button> :
-            <Droppable droppableId={'inspector-course'}>
-              {(provided) => (
-                <div
-                  ref={provided.innerRef}
-                >
-                  <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
-                    {(prov, snap) => (
-                      <div
-                        ref={prov.innerRef}
-                        {...prov.draggableProps}
-                        {...prov.dragHandleProps}
-                        style={getInspectorDraggablePillStyle(
-                          snap.isDragging,
-                          prov.draggableProps.style,
-                        )}
-                      >
-                        <NamePill name={courseName}/>
-                      </div>
-                    )}
-                  </Draggable>
-                </div>)}
-            </Droppable>)}
+  });
+};
 
-        <b>Scheduled: {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}</b>
-        <p><b>Prerequisites:</b></p>
-        <CoursePrerequisitesView prerequisites={course.prerequisites} studentID={this.props.studentID}/>
-        <p><b>Catalog Description:</b></p>
-        <Markdown escapeHtml={true} source={course.description}/>
-        <p/>
-        <FutureCourseEnrollmentWidget courseID={course._id}/>
-        <p><b>Interests:</b></p>
-        <UserInterestList userID={this.props.studentID} interestIDs={course.interestIDs}/>
-        <p/>
-        <a href={baseRoute}>View in Explorer <Icon name="arrow right"/></a>
-        <p/>
-      </Container>
-    );
+const InspectorCourseView = (props: IInspectorCourseViewProps) => {
+  const course = Courses.findDoc(props.courseID);
+  const courseSlug = Slugs.getNameFromID(course.slugID);
+  const courseName = buildSimpleName(courseSlug);
+  let courseInstance;
+  let grade = 'C';
+  let plannedCourse = false;
+  let pastCourse = false;
+  if (props.courseInstanceID) {
+    courseInstance = CourseInstances.findDoc(props.courseInstanceID);
+    grade = courseInstance.grade;
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const courseTerm = AcademicTerms.findDoc(courseInstance.termID);
+    plannedCourse = currentTerm.termNumber <= courseTerm.termNumber;
+    pastCourse = currentTerm.termNumber > courseTerm.termNumber;
   }
-}
+  const paddingStyle = {
+    paddingTop: 15,
+    paddingBottom: 15,
+  };
+  const username = props.match.params.username;
+  const baseUrl = props.match.url;
+  const baseIndex = baseUrl.indexOf(username);
+  const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/courses/${courseSlug}`;
+  // console.log(course);
+  return (
+    <Container fluid={true} style={paddingStyle}>
+      <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
+        ice={makeCourseICE(courseSlug, grade)}/></Header>
+      {plannedCourse ? // eslint-disable-line
+        <Button floated="right" basic={true} color="green" value={courseInstance._id} onClick={handleRemove(props)}
+                size="tiny">remove</Button> : (pastCourse ?
+          <Button floated="right" basic={true} color="green"
+                  size="tiny">taken</Button> :
+          <Droppable droppableId={'inspector-course'}>
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+              >
+                <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
+                  {(prov, snap) => (
+                    <div
+                      ref={prov.innerRef}
+                      {...prov.draggableProps}
+                      {...prov.dragHandleProps}
+                      style={getInspectorDraggablePillStyle(
+                        snap.isDragging,
+                        prov.draggableProps.style,
+                      )}
+                    >
+                      <NamePill name={courseName}/>
+                    </div>
+                  )}
+                </Draggable>
+              </div>)}
+          </Droppable>)}
+
+      <b>Scheduled: {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}</b>
+      <p><b>Prerequisites:</b></p>
+      <CoursePrerequisitesView prerequisites={course.prerequisites} studentID={props.studentID}/>
+      <p><b>Catalog Description:</b></p>
+      <Markdown escapeHtml={true} source={course.description}/>
+      <p/>
+      <FutureCourseEnrollmentWidget courseID={course._id}/>
+      <p><b>Interests:</b></p>
+      <UserInterestList userID={props.studentID} interestIDs={course.interestIDs}/>
+      <p/>
+      <a href={baseRoute}>View in Explorer <Icon name="arrow right"/></a>
+      <p/>
+    </Container>
+  );
+};
 
 const InspectorCourseViewContainer = connect(null, mapDispatchToProps)(InspectorCourseView);
 export default withRouter(InspectorCourseViewContainer);
