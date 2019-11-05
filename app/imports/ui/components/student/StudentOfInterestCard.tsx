@@ -9,7 +9,7 @@ import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-import { isSame, replaceTermStringNextFour } from '../shared/helper-functions';
+import { replaceTermStringNextFour } from '../shared/helper-functions';
 import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';
 import * as Router from '../shared/RouterHelperFunctions';
 
@@ -69,7 +69,6 @@ const buildRouteName = (props: IStudentOfInterestCardProps) => {
   return '#';
 };
 
-
 const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
   const { item, match } = props;
   const itemName = docToName(item);
@@ -94,12 +93,9 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
         <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents(item)}/></span>
       </Card.Content>
 
-      {
-
-        <Link to={this.buildRouteName(this.props.item, this.props.type)}>
-          <Button><Icon name="chevron circle right"/><br/>View More</Button>
-        </Link>
-      }
+      <Link to={buildRouteName(props)}>
+        <Button attached={'bottom'} fluid={true}><Icon name="chevron circle right"/><br/>View More</Button>
+      </Link>
     </Card>
   );
 };

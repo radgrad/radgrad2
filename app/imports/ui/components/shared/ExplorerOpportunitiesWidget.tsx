@@ -2,14 +2,12 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import IceHeader from './IceHeader';
 import InterestList from './InterestList';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -35,51 +33,13 @@ interface IExplorerOpportunitiesWidgetProps {
   };
 }
 
-const userStatus = (opportunity: IOpportunity, props: IExplorerOpportunitiesWidgetProps): boolean => {
-  let ret = false;
-  const oi = OpportunityInstances.find({
+const review = (props: IExplorerOpportunitiesWidgetProps): object => {
+  const reviews = Reviews.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
-    opportunityID: opportunity._id,
-  }).fetch();
-  if (oi.length > 0) {
-    ret = true;
-  }
-  return ret;
-};
-
-const futureInstance = (opportunity: IOpportunity, props: IExplorerOpportunitiesWidgetProps): boolean => {
-  let ret = false;
-  const oi = OpportunityInstances.find({
-    studentID: Router.getUserIdFromRoute(props.match),
-    opportunityID: opportunity._id,
-  }).fetch();
-  _.forEach(oi, (opportunityInstance) => {
-    if (AcademicTerms.findDoc(opportunityInstance.termID).termNumber >=
-      AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
-      ret = true;
-    }
+    revieweeID: props.item._id,
   });
-  return ret;
+  return reviews[0];
 };
-
-const unverified = (opportunity: IOpportunity, props: IExplorerOpportunitiesWidgetProps): boolean => {
-  let ret = false;
-  const oi = OpportunityInstances.find({
-    studentID: Router.getUserIdFromRoute(props.match),
-    opportunityID: opportunity._id,
-  }).fetch();
-  _.forEach(oi, (opportunityInstance) => {
-    if (!opportunityInstance.verified) {
-      ret = true;
-    }
-  });
-  return ret;
-};
-
-const review = (props: IExplorerOpportunitiesWidgetProps): object => Reviews.findDoc({
-  studentID: Router.getUserIdFromRoute(props.match),
-  revieweeID: props.item._id,
-});
 
 const teaserUrlHelper = (props: IExplorerOpportunitiesWidgetProps): string => {
   const opportunityID = Slugs.getEntityID(props.match.params.opportunity, 'Opportunity');
@@ -118,7 +78,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
             {
               isStudent ?
                 <React.Fragment>
-                  <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(this.props.match)} type='opportunity'/>
+                  <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(props.match)} type='opportunity'/>
                   {
                     descriptionPairs.map((descriptionPair, index) => (
                       <React.Fragment key={index}>

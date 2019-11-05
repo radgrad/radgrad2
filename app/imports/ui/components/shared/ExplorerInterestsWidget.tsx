@@ -4,7 +4,6 @@ import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react'
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
-import Swal from 'sweetalert2';
 import { IInterest, IProfile, IProfileUpdate } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Interests } from '../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -16,12 +15,10 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 import FavoritesButton from './FavoritesButton';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { getRoleByUrl } from './RouterHelperFunctions';
 
 
@@ -132,62 +129,6 @@ const getBaseURL = (props: IExplorerInterestsWidgetProps) => {
   temp.push(split[2]);
   temp.push(split[3]);
   return temp.join('/');
-};
-
-const handleClick = (props: IExplorerInterestsWidgetProps) => () => {
-  // how do we know to add the interest or remove it.
-  // get the user's interestIDs
-  // if props.interest._id is in the interestIDs remove it.
-  let interests = [];
-  if (_.includes(props.profile.interestIDs, props.interest._id)) {
-    // remove it.
-    interests = _.difference(props.profile.interestIDs, [props.interest._id]);
-  } else {
-    // add it.
-    interests = _.concat(props.profile.interestIDs, [props.interest._id]);
-  }
-  const role = getRoleByUrl(props.match);
-  let collectionName;
-  switch (role) {
-    case URL_ROLES.FACULTY:
-      collectionName = FacultyProfiles.getCollectionName();
-      break;
-    case URL_ROLES.MENTOR:
-      collectionName = MentorProfiles.getCollectionName();
-      break;
-    case URL_ROLES.STUDENT:
-      collectionName = StudentProfiles.getCollectionName();
-      break;
-    default:
-      collectionName = StudentProfiles.getCollectionName();
-  }
-  const updateData: IProfileUpdate = {};
-  updateData.id = props.profile._id;
-  updateData.interests = interests;
-  updateMethod.call({ collectionName, updateData }, (error) => {
-    if (error) {
-      Swal.fire({
-        title: 'Update failed',
-        text: error.message,
-        type: 'error',
-      });
-      console.error('Error in updating. %o', error);
-    } else {
-      Swal.fire({
-        title: 'Update succeeded',
-        type: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
-};
-
-const checkInterestStatus = (props: IExplorerInterestsWidgetProps): string => {
-  if (_.includes(props.profile.interestIDs, props.interest._id)) {
-    return 'Remove from Interests';
-  }
-  return 'Add to Interests';
 };
 
 const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {

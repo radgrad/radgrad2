@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from './InterestList';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
@@ -37,48 +36,6 @@ interface IExplorerCoursesWidgetProps {
   reactiveSourceTwo: object[];
   reactiveSourceThree: object[];
 }
-
-const userStatus = (course: ICourse, props: IExplorerCoursesWidgetProps): boolean => {
-  let ret = false;
-  const ci = CourseInstances.find({
-    studentID: Router.getUserIdFromRoute(props.match),
-    courseID: course._id,
-  }).fetch();
-  if (ci.length > 0) {
-    ret = true;
-  }
-  return ret;
-};
-
-const futureInstance = (course: ICourse, props: IExplorerCoursesWidgetProps): boolean => {
-  let ret = false;
-  const ci = CourseInstances.find({
-    studentID: Router.getUserIdFromRoute(props.match),
-    courseID: course._id,
-  }).fetch();
-  _.forEach(ci, (courseInstance) => {
-    if (AcademicTerms.findDoc(courseInstance.termID).termNumber >=
-      AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
-      ret = true;
-    }
-  });
-  return ret;
-};
-
-const passedCourse = (course: ICourse, props: IExplorerCoursesWidgetProps): boolean => {
-  let ret = false;
-  const ci = CourseInstances.find({
-    studentID: Router.getUserIdFromRoute(props.match),
-    courseID: course._id,
-  }).fetch();
-  _.forEach(ci, (c) => {
-    if (c.grade === 'A+' || c.grade === 'A' || c.grade === 'A-' ||
-      c.grade === 'B+' || c.grade === 'B') {
-      ret = true;
-    }
-  });
-  return ret;
-};
 
 const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | String => {
   const greyColorStyle = { color: 'grey' };
@@ -148,36 +105,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
         <Segment padded={true} className="container">
           <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
             <Header as="h4" floated="left">{upperShortName} ({name})</Header>
-            {
-              isStudent ?
-                <React.Fragment>
-                  {
-                    userStatus(item, props) ?
-                      <React.Fragment>
-                        {
-                          futureInstance(item, props) ?
-                            <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="remove"
-                                                                         course={item}/>
-                            :
-                            <React.Fragment>
-                              {
-                                passedCourse(item, props) ?
-                                  <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="taken"
-                                                                               course={item}/>
-                                  :
-                                  <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="add"
-                                                                               course={item}/>
-                              }
-                            </React.Fragment>
-                        }
-                      </React.Fragment>
-                      :
-                      <StudentExplorerCoursesWidgetButtonContainer key={_.uniqueId()} buttonType="add"
-                                                                   course={item}/>
-                  }
-                </React.Fragment>
-                : ''
-            }
+            <FavoritesButton item={props.item} studentID={Router.getUserIdFromRoute(props.match)} type='course'/>
           </Segment>
 
           <Divider style={zeroMarginTopStyle}/>

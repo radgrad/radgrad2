@@ -6,8 +6,6 @@ import * as Markdown from 'react-markdown';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper } from './helper-functions';
@@ -27,25 +25,6 @@ interface IExplorerPlansWidgetProps {
     }
   };
 }
-
-const userStatus = (plan: IAcademicPlan, props: IExplorerPlansWidgetProps): boolean => {
-  const profile = Users.getProfile(Router.getUsername(props.match));
-  return profile.academicPlanID !== plan._id;
-};
-
-const handleAddPlan = (props: IExplorerPlansWidgetProps) => (e: any): void => {
-  e.preventDefault();
-  const profile = Users.getProfile(Router.getUsername(props.match));
-  const updateData: { [key: string]: any } = {};
-  const collectionName = StudentProfiles.getCollectionName();
-  updateData.id = profile._id;
-  updateData.academicPlan = props.item._id;
-  updateMethod.call({ collectionName, updateData }, (error) => {
-    if (error) {
-      console.log(`Error updating ${Router.getUsername(props.match)}'s academic plan ${JSON.stringify(error)}`);
-    }
-  });
-};
 
 const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
   const backgroundColorWhiteStyle = { backgroundColor: 'white' };

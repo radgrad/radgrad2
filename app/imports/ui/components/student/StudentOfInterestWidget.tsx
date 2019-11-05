@@ -15,8 +15,6 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from '../shared/RouterHelperFunctions';
-import { isSame } from '../shared/helper-functions';
-import { homeActions } from '../../../redux/student/home';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -45,34 +43,10 @@ const mapStateToProps = (state) => ({
 
 const isTypeCourse = (props: IStudentOfInterestWidgetProps): boolean => props.type === EXPLORER_TYPE.COURSES;
 
-const hiddenExists = (props: IStudentOfInterestWidgetProps) => {
-  const username = Router.getUsername(props.match);
-  if (username) {
-    const { profile } = props;
-    let ret;
-    if (isTypeCourse(props)) {
-      ret = profile.hiddenCourseIDs.length !== 0;
-    } else {
-      ret = profile.hiddenOpportunityIDs.length !== 0;
-    }
-    return ret;
-  }
-  return false;
-};
-
 const isCoursesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenCourses;
 
 const isOpportunitiesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenOpportunities;
 
-const handleShowHiddenCourses = (props: IStudentOfInterestWidgetProps) => (e) => {
-  e.preventDefault();
-  props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(false));
-};
-
-const handleHideHiddenCourses = (props: IStudentOfInterestWidgetProps) => (e) => {
-  e.preventDefault();
-  props.dispatch(homeActions.setStudentHomeWidgetHiddenCourses(true));
-};
 const availableCourses = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredCourses } = props;
   if (nonRetiredCourses.length > 0) {
@@ -89,16 +63,6 @@ const availableCourses = (props: IStudentOfInterestWidgetProps) => {
     return filtered;
   }
   return [];
-};
-
-const handleShowHiddenOpportunities = (props: IStudentOfInterestWidgetProps) => (e) => {
-  e.preventDefault();
-  props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(false));
-};
-
-const handleHideHiddenOpportunities = (props: IStudentOfInterestWidgetProps) => (e) => {
-  e.preventDefault();
-  props.dispatch(homeActions.setStudentHomeWidgetHiddenOpportunities(true));
 };
 
 const matchingCourses = (props: IStudentOfInterestWidgetProps) => {

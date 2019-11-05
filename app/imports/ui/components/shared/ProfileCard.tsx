@@ -2,11 +2,6 @@ import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Card, Icon, Image, Popup } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import * as Router from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import {
@@ -35,7 +30,7 @@ interface IProfileCardProps {
 }
 
 const ProfileCard = (props: IProfileCardProps) => {
-  const { item, type, canAdd, match } = props;
+  const { item, type, match } = props;
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
