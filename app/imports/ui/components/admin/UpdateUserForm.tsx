@@ -36,6 +36,8 @@ import {
   SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED,
 } from '../../../redux/shared/cloudinary/types';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 
 interface IUpdateUserProps {
   interests: IInterest[];
@@ -121,10 +123,15 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       collection = AdvisorProfiles;
     }
     const model = collection.findDoc(id);
-    model.interests = _.map(model.interestIDs, interestIdToName);
-    model.careerGoals = _.map(model.careerGoalIDs, careerGoalIdToName);
+    const userID = model.userID;
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const favInterestIDs = _.map(favInterests, (fav) => fav.interestID);
+    model.interests = _.map(favInterestIDs, interestIdToName);
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+    model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
     if (model.academicPlanID) {
-      model.academicPlan = academicPlanIdToName(model.academicPlanID);
+      model.academicPlans = [academicPlanIdToName(model.academicPlanID)];
     }
     if (model.declaredAcademicTermID) {
       model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
@@ -169,9 +176,12 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         optional: true,
         allowedValues: academicTermNames,
       },
-      academicPlan: {
-        type: String,
+      academicPlans: {
+        type: Array,
         optional: true,
+      },
+      'academicPlans.$': {
+        type: String,
         allowedValues: academicPlanNames,
       },
       shareUsername: { type: Boolean, optional: true },
@@ -232,7 +242,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
               <Form.Group widths="equal">
                 <NumberField name="level"/>
                 <SelectField name="declaredAcademicTerm"/>
-                <SelectField name="academicPlan"/>
+                <MultiSelectField name="academicPlan"/>
               </Form.Group>
               <Form.Group widths="equal">
                 <BoolField name="shareUsername"/>

@@ -16,6 +16,9 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 // import * as Router from './RouterHelperFunctions';
 
 export const itemToSlugName = (doc) => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
@@ -161,13 +164,21 @@ export const opportunityTypeNameToSlug = (name) => itemToSlugName(OpportunityTyp
 
 export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name;
 
-export const profileGetCareerGoals = (profile) => {
-  const ret = [];
-  _.forEach(profile.careerGoalIDs, (id) => {
-    ret.push(CareerGoals.findDoc(id));
-  });
-  return ret;
+export const profileGetFavoriteAcademicPlans = (profile) => {
+  const studentID = profile.userID;
+  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  return _.map(favPlans, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
 };
+
+export const profileGetFavoriteAcademicPlanIDs = (profile) => _.map(profileGetFavoriteAcademicPlans(profile), (plan) => plan._id);
+
+export const profileGetCareerGoals = (profile) => {
+  const userID = profile.userID;
+  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
+};
+
+export const profileGetCareerGoalIDs = (profile) => _.map(profileGetCareerGoals(profile), (goal) => goal._id);
 
 export const profileGetDesiredDegreeName = (profile) => {
   if (profile.academicPlanID) {
@@ -177,12 +188,12 @@ export const profileGetDesiredDegreeName = (profile) => {
 };
 
 export const profileGetInterests = (profile) => {
-  const ret = [];
-  _.forEach(profile.interestIDs, (id) => {
-    ret.push(Interests.findDoc(id));
-  });
-  return ret;
+  const userID = profile.userID;
+  const favInterests = FavoriteInterests.findNonRetired({ userID });
+  return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
 };
+
+export const profileGetInterestIDs = (profile) => _.map(profileGetInterests(profile), (interest) => interest._id);
 
 export const profileToFullName = (profile) => Users.getFullName(profile.userID);
 

@@ -16,8 +16,12 @@ import { Users } from './UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
-import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad'; // eslint-disable-line
-import { StudentParticipations } from '../public-stats/StudentParticipationCollection';
+import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
+import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
 
 /**
  * Represents a Student Profile.
@@ -28,10 +32,7 @@ class StudentProfileCollection extends BaseProfileCollection {
   constructor() {
     super('StudentProfile', new SimpleSchema({
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-      academicPlanID: { type: SimpleSchema.RegEx.Id, optional: true },
       declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
-      hiddenCourseIDs: [SimpleSchema.RegEx.Id],
-      hiddenOpportunityIDs: [SimpleSchema.RegEx.Id],
       isAlumni: Boolean,
       shareAcademicPlan: { type: Boolean, optional: true },
       shareOpportunities: { type: Boolean, optional: true },
@@ -50,13 +51,14 @@ class StudentProfileCollection extends BaseProfileCollection {
       'careerGoals.$': String,
       retired: { type: Boolean, optional: true },
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-      academicPlanID: { type: String, optional: true },
-      declaredAcademicTermID: { type: String, optional: true },
-      // 'hiddenCourseIDs': { type: Array, optional: true },
-      // 'hiddenCourseIDs.$': String,
-      // 'hiddenOpportunityIDs': { type: Array, optional: true },
-      // 'hiddenOpportunityIDs.$': String,
+      favoriteAcademicPlans: { type: Array, optional: true },
+      'favoriteAcademicPlans.$': String,
+      declaredAcademicTerm: { type: String, optional: true },
       isAlumni: { type: Boolean, optional: true },
+      favoriteCourses: { type: Array, optional: true },
+      'favoriteCourses.$': String,
+      favoriteOpportunities: { type: Array, optional: true },
+      'favoriteOpportunities.$': String,
       shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
@@ -78,13 +80,14 @@ class StudentProfileCollection extends BaseProfileCollection {
       'careerGoals.$': String,
       retired: { type: Boolean, optional: true },
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-      academicPlanID: { type: String, optional: true },
+      favoriteAcademicPlans: { type: Array, optional: true },
+      'favoriteAcademicPlans.$': String,
       declaredAcademicTermID: { type: String, optional: true },
-      hiddenCourseIDs: { type: Array, optional: true },
-      'hiddenCourseIDs.$': String,
-      hiddenOpportunityIDs: { type: Array, optional: true },
-      'hiddenOpportunityIDs.$': String,
       isAlumni: { type: Boolean, optional: true },
+      favoriteCourses: { type: Array, optional: true },
+      'favoriteCourses.$': String,
+      favoriteOpportunities: { type: Array, optional: true },
+      'favoriteOpportunities.$': String,
       shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
@@ -127,21 +130,17 @@ class StudentProfileCollection extends BaseProfileCollection {
    * academicPlan, declaredAcademicTerm, hiddenCourses, or hiddenOpportunities are invalid.
    * @return { String } The docID of the StudentProfile.
    */
+
   public define({
                   username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-                  careerGoals, level, academicPlan, declaredAcademicTerm, hiddenCourses = [], hiddenOpportunities = [],
+                  careerGoals, level, favoriteAcademicPlans = [], declaredAcademicTerm, favoriteCourses = [], favoriteOpportunities = [],
                   isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
                   shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
                   shareOpportunities = false, shareLevel = false,
                 }: IStudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
-      const interestIDs = Interests.getIDs(interests);
-      const careerGoalIDs = CareerGoals.getIDs(careerGoals);
-      const academicPlanID = (academicPlan) ? AcademicPlans.getID(academicPlan) : undefined;
       const declaredAcademicTermID = (declaredAcademicTerm) ? AcademicTerms.getID(declaredAcademicTerm) : undefined;
-      const hiddenCourseIDs = Courses.getIDs(hiddenCourses);
-      const hiddenOpportunityIDs = Opportunities.getIDs(hiddenOpportunities);
       this.assertValidLevel(level);
       if (!_.isBoolean(isAlumni)) {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
@@ -157,13 +156,8 @@ class StudentProfileCollection extends BaseProfileCollection {
         role,
         picture,
         website,
-        interestIDs,
-        careerGoalIDs,
         level,
-        academicPlanID,
         declaredAcademicTermID,
-        hiddenCourseIDs,
-        hiddenOpportunityIDs,
         isAlumni,
         userID: this.getFakeUserId(),
         retired,
@@ -179,6 +173,27 @@ class StudentProfileCollection extends BaseProfileCollection {
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
+      if (interests) {
+        interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+      }
+      if (careerGoals) {
+        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+      }
+      if (favoriteAcademicPlans) {
+        favoriteAcademicPlans.forEach((academicPlan) => FavoriteAcademicPlans.define({
+          academicPlan,
+          student: username,
+        }));
+      }
+      if (favoriteCourses) {
+        favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
+      }
+      if (favoriteOpportunities) {
+        favoriteOpportunities.forEach((opportunity) => FavoriteOpportunities.define({
+          opportunity,
+          student: username,
+        }));
+      }
       return profileID;
     }
     return undefined;
@@ -213,31 +228,17 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareLevel
    */
   public update(docID, {
-    firstName, lastName, picture, website, interests, careerGoals, level, academicPlan, declaredAcademicTerm,
-    hiddenCourses, hiddenOpportunities, isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests,
+    firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans, favoriteCourses,
+    favoriteOpportunities, declaredAcademicTerm,
+    isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests,
     shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel,
   }: IStudentProfileUpdate) {
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
     const updateData: IStudentProfileUpdateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
-    if (academicPlan) {
-      updateData.academicPlanID = AcademicPlans.getID(academicPlan);
-      if (profile.academicPlanID !== updateData.academicPlanID) {
-        const oldItem = StudentParticipations.findOne({ itemID: profile.academicPlanID });
-        if (oldItem) {
-          // TODO: update the old and new AcademicPlan participation
-        }
-      }
-    }
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
-    }
-    if (hiddenCourses) {
-      updateData.hiddenCourseIDs = Courses.getIDs(hiddenCourses);
-    }
-    if (hiddenOpportunities) {
-      updateData.hiddenOpportunityIDs = Opportunities.getIDs(hiddenOpportunities);
     }
     // Only Admins and Advisors can update the isAlumni and level fields.
     // Or if no one is logged in when this is executed (i.e. for testing) then it's cool.
@@ -292,6 +293,30 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
+    const username = profile.username;
+    if (interests) {
+      FavoriteInterests.removeUser(username);
+      interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+    }
+    if (careerGoals) {
+      FavoriteCareerGoals.removeUser(username);
+      careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+    }
+    if (favoriteAcademicPlans) {
+      FavoriteAcademicPlans.removeUser(username);
+      favoriteAcademicPlans.forEach((academicPlan) => FavoriteAcademicPlans.define({
+        academicPlan,
+        student: username,
+      }));
+    }
+    if (favoriteCourses) {
+      FavoriteCourses.removeUser(username);
+      favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
+    }
+    if (favoriteOpportunities) {
+      FavoriteOpportunities.removeUser(username);
+      favoriteOpportunities.forEach((opportunity) => FavoriteOpportunities.define({ opportunity, student: username }));
+    }
   }
 
   /**
@@ -408,11 +433,14 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @returns {Array}
    */
   public getInterestIDs(userID: string) {
-    const user = this.collection.findOne({ _id: userID });
     let interestIDs = [];
-    interestIDs = _.union(interestIDs, user.interestIDs);
-    _.forEach(user.careerGoalIDs, (goalID) => {
-      const goal = CareerGoals.findDoc(goalID);
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      interestIDs.push(fav.interestID);
+    });
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
       interestIDs = _.union(interestIDs, goal.interestIDs);
     });
     return interestIDs;
@@ -424,15 +452,20 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param userID The user's ID.
    */
   public getInterestIDsByType(userID: string) {
-    const user = this.collection.findOne({ _id: userID });
     const interestIDs = [];
-    interestIDs.push(user.interestIDs);
+    const userInterests = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      userInterests.push(fav.interestID);
+    });
+    interestIDs.push(userInterests);
     let careerInterestIDs = [];
-    _.forEach(user.careerGoalIDs, (goalID) => {
-      const goal = CareerGoals.findDoc(goalID);
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
       careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
     });
-    careerInterestIDs = _.difference(careerInterestIDs, user.interestIDs);
+    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
     interestIDs.push(careerInterestIDs);
     return interestIDs;
   }
@@ -568,13 +601,19 @@ class StudentProfileCollection extends BaseProfileCollection {
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
+    const userID = Users.getID(username);
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
-    const academicPlan = doc.academicPlanID && AcademicPlans.findSlugByID(doc.academicPlanID);
+    const favAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+    const favoriteAcademicPlans = _.map(favAcademicPlans, (fav) => AcademicPlans.findSlugByID(fav.academicPlanID));
+    const favCourses = FavoriteCourses.findNonRetired({ studentID: userID });
+    const favoriteCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
+    const favOpps = FavoriteOpportunities.findNonRetired({ studentID: userID });
+    const favoriteOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
-    const hiddenCourses = _.map(doc.hiddenCourseIDs, (hiddenCourseID) => Courses.findSlugByID(hiddenCourseID));
-    const hiddenOpportunities = _.map(doc.hiddenOpportunityIDs, (hiddenOpportunityID) => Opportunities.findSlugByID(hiddenOpportunityID));
     const isAlumni = doc.isAlumni;
     const retired = doc.retired;
     const shareUsername = doc.shareUsername;
@@ -586,8 +625,8 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareCourses = doc.shareCourses;
     const shareLevel = doc.shareLevel;
     return {
-      username, firstName, lastName, picture, website, interests, careerGoals, level, academicPlan,
-      declaredAcademicTerm, hiddenCourses, hiddenOpportunities, isAlumni, retired, shareUsername, sharePicture,
+      username, firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans,
+      favoriteCourses, favoriteOpportunities, declaredAcademicTerm, isAlumni, retired, shareUsername, sharePicture,
       shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel,
     };
   }

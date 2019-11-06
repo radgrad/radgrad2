@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import {
@@ -19,6 +20,9 @@ import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { setIsLoaded, setSelectedStudentUsername } from '../../../redux/advisor/home/actions';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -40,7 +44,7 @@ interface IAdvisorUpdateStudentWidgetState {
   userInterests: string[];
   isAlumni: boolean;
   declaredAcademicTerm?: string;
-  academicPlanID: string;
+  favoriteAcademicPlans: string[];
 }
 
 const mapStateToProps = (state) => ({
@@ -51,18 +55,27 @@ const mapStateToProps = (state) => ({
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
   constructor(props) {
     super(props);
+    console.log('AdvisorUpdateStudentWidget', props);
     const doc = this.props.usernameDoc;
+    const userID = doc.userID;
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const interestIDs = _.map(favInterests, (fav) => fav.interestID);
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+    const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
     this.state = {
       firstName: doc.firstName,
       lastName: doc.lastName,
       picture: doc.picture,
       website: doc.website,
-      careerGoals: doc ? doc.careerGoalIDs : [],
-      userInterests: doc ? doc.interestIDs : [],
+      careerGoals: careerGoalIDs,
+      userInterests: interestIDs,
       isAlumni: doc.isAlumni,
       declaredAcademicTerm: doc.declaredAcademicTerm || '',
-      academicPlanID: doc.academicPlanID,
+      favoriteAcademicPlans: favPlanIDs,
     };
+    console.log(this.state);
   }
 
   private handleUploadClick = async (): Promise<void> => {
@@ -82,7 +95,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       userInterests: doc ? doc.interestIDs : [],
       isAlumni: doc.isAlumni,
       declaredAcademicTerm: doc.declaredAcademicTerm || '',
-      academicPlanID: doc.academicPlanID,
+      favoriteAcademicPlans: [],
     });
     this.props.dispatch(setIsLoaded(true));
   }
@@ -121,11 +134,9 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     updateData.lastName = this.state.lastName;
     updateData.picture = this.state.picture;
     updateData.website = this.state.website;
-    updateData.careerGoals = this.state.careerGoals;
-    updateData.userInterests = this.state.userInterests;
     updateData.isAlumni = this.state.isAlumni;
     updateData.level = this.calcLevel();
-    updateData.academicPlanID = this.state.academicPlanID;
+    updateData.favoriteAcademicPlans = this.state.favoriteAcademicPlans;
     const prop = this.state.declaredAcademicTerm;
     if ((prop !== '') && (prop)) updateData.declaredAcademicTerm = prop;
 
@@ -167,7 +178,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       userInterests,
       isAlumni,
       declaredAcademicTerm,
-      academicPlanID,
+      favoriteAcademicPlans,
     } = this.state;
 
     return (
@@ -275,15 +286,15 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
                              value={declaredAcademicTerm}/>
             </Form.Field>
             <Form.Field>
-              <Form.Dropdown name="academicPlanID"
-                             label={'Academic Plan'}
-                             selection={true}
+              <Form.Dropdown name="favoriteAcademicPlans"
+                             label={'Academic Plans'}
+                             selection multiple
                              placeholder={'Select Academic Plan'}
                              onChange={this.handleFormChange}
                              options={AcademicPlans.findNonRetired().map(
                                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                              )}
-                             value={academicPlanID}/>
+                             value={favoriteAcademicPlans}/>
             </Form.Field>
           </Form.Group>
           {// TODO -- Find a way to test RadGrad.calcLevel

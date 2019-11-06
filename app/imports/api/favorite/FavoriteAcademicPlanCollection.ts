@@ -8,7 +8,6 @@ import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { IDumpOne, IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import { StudentProfiles } from '../user/StudentProfileCollection';
 
 class FavoriteAcademicPlanCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -89,7 +88,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
         if (!studentID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR])) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID });
@@ -182,16 +181,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
           problems.push(`Bad studentID: ${doc.studentID}`);
         }
       });
-    // make sure that we have a favorite for all the students
-    const students = StudentProfiles.findNonRetired({ isAlumni: false });
-    students.forEach((s) => {
-      const studentID = s.userID;
-      const favorites = this.findNonRetired({ studentID });
-      if (favorites.length === 0) {
-        this.collection.insert({ academicPlanID: s.academicPlanID, studentID, retired: false });
-      }
-    });
-    return problems;
+     return problems;
   }
 
   /**

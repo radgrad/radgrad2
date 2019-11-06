@@ -45,6 +45,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { profileGetCareerGoalIDs } from '../../components/shared/data-model-helper-functions';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -117,7 +118,7 @@ const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): o
   let interested = [];
   const profiles = Users.findProfilesWithRole(role, {}, {});
   _.forEach(profiles, (profile) => {
-    if (_.includes(profile.careerGoalIDs, theCareerGoal._id)) {
+    if (_.includes(profileGetCareerGoalIDs(profile), theCareerGoal._id)) {
       interested.push(profile);
     }
   });

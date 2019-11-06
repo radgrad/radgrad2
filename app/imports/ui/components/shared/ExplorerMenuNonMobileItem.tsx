@@ -9,7 +9,7 @@ import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpport
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { itemToSlugName } from './data-model-helper-functions';
+import { itemToSlugName, profileGetCareerGoalIDs } from './data-model-helper-functions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -47,7 +47,7 @@ const userPlans = (plan: IAcademicPlan, props: IExplorerMenuNonMobileItemProps):
 const userCareerGoals = (careerGoal: ICareerGoal, props: IExplorerMenuNonMobileItemProps): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(props.match));
-  if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+  if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
     ret = 'check green circle outline icon';
   }
   return ret;

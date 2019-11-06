@@ -19,11 +19,12 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { profileGetCareerGoalIDs } from '../../components/shared/data-model-helper-functions';
 
 function numReferences(careerGoal) {
   let references = 0;
   Users.findProfiles({}, {}).forEach((profile) => {
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+    if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
       references += 1;
     }
   });

@@ -22,6 +22,8 @@ import {
 } from '../../../redux/shared/cloudinary/types';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -101,7 +103,9 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   private careerGoals = () => {
     if (Router.getUsername(this.props.match)) {
       const user = Users.getProfile(Router.getUsername(this.props.match));
-      return _.map(user.careerGoalIDs, (id) => CareerGoals.findDoc(id));
+      const userID = user.userID;
+      const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+      return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
     }
     return [];
   }
@@ -167,7 +171,9 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
   private interests = () => {
     if (Router.getUsername(this.props.match)) {
       const profile = Users.getProfile(Router.getUsername(this.props.match));
-      return _.map(profile.interestIDs, (id) => Interests.findDoc(id));
+      const userID = profile.userID;
+      const favInterests = FavoriteInterests.findNonRetired({ userID });
+      return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
     }
     return [];
   }

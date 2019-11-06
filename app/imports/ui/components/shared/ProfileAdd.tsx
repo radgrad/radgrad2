@@ -9,6 +9,7 @@ import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
+import { profileGetCareerGoalIDs, profileGetInterestIDs } from './data-model-helper-functions';
 
 interface IProfileAddProps {
   item: IAcademicPlan;
@@ -41,10 +42,10 @@ const handleAddToProfile = (props: IProfileAddProps) => (e: any): void => {
       collectionName = MentorProfiles.getCollectionName();
     }
     if (type === EXPLORER_TYPE.CAREERGOALS) {
-      updateData.careerGoals = profile.careerGoalIDs;
+      updateData.careerGoals = profileGetCareerGoalIDs(profile);
       updateData.careerGoals.push(item._id);
     } else if (type === EXPLORER_TYPE.INTERESTS) {
-      updateData.interests = profile.interestIDs;
+      updateData.interests = profileGetInterestIDs(profile);
       updateData.interests.push(item._id);
     } else if (type === EXPLORER_TYPE.ACADEMICPLANS) {
       updateData.academicPlan = item._id;

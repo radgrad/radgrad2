@@ -15,6 +15,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import * as Router from './RouterHelperFunctions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { profileGetCareerGoalIDs, profileGetInterestIDs } from './data-model-helper-functions';
 
 interface IFavoriteButtonProps {
   studentID: string;
@@ -53,7 +54,7 @@ class FavoritesButton extends React.Component<IFavoriteButtonProps> {
           careerGoal: Slugs.getNameFromID(this.props.item.slugID),
           retired: false,
         };
-        const careerGoals = profile.careerGoalIDs; // eslint-disable-line no-case-declarations
+        const careerGoals = profileGetCareerGoalIDs(profile); // eslint-disable-line no-case-declarations
         careerGoals.push(this.props.item._id);
         updateData = {
           id: profile._id,
@@ -87,7 +88,7 @@ class FavoritesButton extends React.Component<IFavoriteButtonProps> {
           interest: Slugs.getNameFromID(this.props.item.slugID),
           retired: false,
         };
-        const interests = profile.interestIDs; // eslint-disable-line no-case-declarations
+        const interests = profileGetInterestIDs(profile); // eslint-disable-line no-case-declarations
         interests.push(this.props.item._id);
         updateData = {
           id: profile._id,
@@ -143,7 +144,7 @@ class FavoritesButton extends React.Component<IFavoriteButtonProps> {
         })[0]._id;
         updateData = {
           id: profile._id,
-          careerGoals: _.without(profile.careerGoalIDs, this.props.item._id),
+          careerGoals: _.without(profileGetCareerGoalIDs(profile), this.props.item._id),
         };
         switch (this.props.role) {
           case 'student':

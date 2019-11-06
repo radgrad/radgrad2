@@ -13,13 +13,13 @@ import { Slugs } from '../slug/SlugCollection';
 if (Meteor.isServer) {
   describe('FavoriteCareerGoalCollection', function testSuite() {
     let careerGoal;
-    let student;
+    let username;
 
     before(function setup() {
       this.timeout(5000);
       removeAllEntities();
       careerGoal = makeSampleCareerGoal();
-      student = makeSampleUser();
+      username = makeSampleUser();
     });
 
     after(function teardown() {
@@ -27,7 +27,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #update, #checkIntegrity', function test() {
-      let docID = FavoriteCareerGoals.define({ careerGoal, student });
+      let docID = FavoriteCareerGoals.define({ careerGoal, username });
       expect(FavoriteCareerGoals.isDefined(docID)).to.be.true;
       let problems = FavoriteCareerGoals.checkIntegrity();
       expect(problems.length).to.equal(0);
@@ -45,7 +45,7 @@ if (Meteor.isServer) {
     });
 
     it('#getCareerGoalDoc, #getCareerGoalSlug, #getStudentDoc, #getStudentUsername', function test() {
-      const docID = FavoriteCareerGoals.define({ careerGoal, student });
+      const docID = FavoriteCareerGoals.define({ careerGoal, username });
       const courseDoc = FavoriteCareerGoals.getCareerGoalDoc(docID);
       expect(courseDoc).to.exist;
       expect(courseDoc.name).to.equal(sampleCareerGoalName);

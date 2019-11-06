@@ -25,8 +25,15 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { itemToSlugName } from './data-model-helper-functions';
+import {
+  itemToSlugName, profileGetCareerGoalIDs,
+  profileGetFavoriteAcademicPlanIDs,
+  profileGetFavoriteAcademicPlans,
+} from './data-model-helper-functions';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -78,20 +85,15 @@ export const getHeaderTitle = (props: { type: string }): string => {
 export const userPlans = (plan: IAcademicPlan, match: Router.IMatchProps): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
-  if (_.includes(profile.academicPlanID, plan._id)) {
+  if (_.includes(profileGetFavoriteAcademicPlanIDs(profile), plan._id)) {
     ret = 'check green circle outline icon';
   }
   return ret;
 };
 
 export const noPlan = (match: Router.IMatchProps): boolean => {
-  const username = Router.getUsername(match);
-  if (Router.isUrlRoleStudent(match)) {
-    if (username) {
-      return _.isNil(Users.getProfile(username).academicPlanID);
-    }
-  }
-  return false;
+  const profile = Users.getProfile(Router.getUsername(match));
+  return profileGetFavoriteAcademicPlans(profile).length === 0;
 };
 
 export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
@@ -110,25 +112,39 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
         },
       }).fetch(), (ap) => !ap.retired);
     }
-    if (profile.academicPlanID) {
-      return _.filter(plans, p => profile.academicPlanID !== p._id);
-    }
+    const profilePlanIDs = profileGetFavoriteAcademicPlanIDs(profile);
+    return _.filter(plans, p => _.includes(profilePlanIDs, p._id));
   }
   return plans;
 };
 
 export const academicPlansItemCount = (match: Router.IMatchProps): number => availableAcademicPlans(match).length;
 
-export const interestedStudents = (item: {_id: string}, type: string): IStudentProfile[] => {
+export const interestedStudents = (item: { _id: string }, type: string): IStudentProfile[] => {
   const interested = [];
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
   if (type === EXPLORER_TYPE.ACADEMICPLANS) {
-    profiles = _.filter(profiles, (profile) => profile.academicPlanID === item._id);
+    profiles = _.filter(profiles, (profile) => {
+      const studentID = profile.userID;
+      const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+      const favIDs = _.map(favPlans, (fav) => fav.academicPlanID);
+      return _.includes(favIDs, item._id);
+    });
   } else if (type === EXPLORER_TYPE.CAREERGOALS) {
-    profiles = _.filter(profiles, (profile) => _.includes(profile.careerGoalIDs, item._id));
+    profiles = _.filter(profiles, (profile) => {
+      const userID = profile.userID;
+      const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+      const favIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+      return _.includes(favIDs, item._id);
+    });
   } else if (type === EXPLORER_TYPE.INTERESTS) {
-    profiles = _.filter(profiles, (profile) => _.includes(profile.interestIDs, item._id));
+    profiles = _.filter(profiles, (profile) => {
+      const userID = profile.userID;
+      const favInterests = FavoriteInterests.findNonRetired({ userID });
+      const favIDs = _.map(favInterests, (fav) => fav.interestID);
+      _.includes(favIDs, item._id);
+    });
   }
   profiles = _.filter(profiles, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
   _.forEach(profiles, (p) => {
@@ -147,7 +163,7 @@ export const interestedStudents = (item: {_id: string}, type: string): IStudentP
 export const userCareerGoals = (careerGoal: ICareerGoal, match: Router.IMatchProps): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
-  if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+  if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
     ret = 'check green circle outline icon';
   }
   return ret;
@@ -158,7 +174,7 @@ const availableCareerGoals = (match: Router.IMatchProps): object[] => {
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
-    const careerGoalIDs = profile.careerGoalIDs;
+    const careerGoalIDs = profileGetCareerGoalIDs(profile);
     return _.filter(careers, c => !_.includes(careerGoalIDs, c._id));
   }
   return careers;
@@ -182,7 +198,7 @@ export const noCareerGoals = (match: Router.IMatchProps): boolean => {
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
-    return profile.careerGoalIDs.length === 0;
+    return profileGetCareerGoalIDs(profile).length === 0;
   }
   return true;
 };

@@ -12,13 +12,13 @@ import { Slugs } from '../slug/SlugCollection';
 if (Meteor.isServer) {
   describe('FavoriteInterestCollection', function testSuite() {
     let interest;
-    let student;
+    let username;
 
     before(function setup() {
       this.timeout(5000);
       removeAllEntities();
       interest = makeSampleInterest();
-      student = makeSampleUser();
+      username = makeSampleUser();
     });
 
     after(function teardown() {
@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     });
 
     it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #update, #checkIntegrity', function test() {
-      let docID = FavoriteInterests.define({ interest, student });
+      let docID = FavoriteInterests.define({ interest, username });
       expect(FavoriteInterests.isDefined(docID)).to.be.true;
       let problems = FavoriteInterests.checkIntegrity();
       expect(problems.length).to.equal(0);
@@ -44,7 +44,7 @@ if (Meteor.isServer) {
     });
 
     it('#getInterestDoc, #getInterestSlug, #getStudentDoc, #getStudentUsername', function test() {
-      const docID = FavoriteInterests.define({ interest, student });
+      const docID = FavoriteInterests.define({ interest, username });
       const interestDoc = FavoriteInterests.getInterestDoc(docID);
       expect(interestDoc).to.exist;
       expect(interestDoc.name).to.equal(sampleInterestName);

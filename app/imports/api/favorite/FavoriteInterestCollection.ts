@@ -8,7 +8,6 @@ import { Interests } from '../interest/InterestCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { IFavoriteInterestDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import { StudentProfiles } from '../user/StudentProfileCollection';
 
 class FavoriteInterestCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -19,7 +18,7 @@ class FavoriteInterestCollection extends BaseCollection {
   constructor() {
     super('FavoriteInterest', new SimpleSchema({
       interestID: SimpleSchema.RegEx.Id,
-      studentID: SimpleSchema.RegEx.Id,
+      userID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
@@ -34,14 +33,14 @@ class FavoriteInterestCollection extends BaseCollection {
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ interest, student, retired = false }) {
+  define({ interest, username, retired = false }) {
     const interestID = Interests.getID(interest);
-    const studentID = Users.getID(student);
-    const doc = this.collection.findOne({ studentID, interestID });
+    const userID = Users.getID(username);
+    const doc = this.collection.findOne({ userID, interestID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ interestID, studentID, retired });
+    return this.collection.insert({ interestID, userID, retired });
   }
 
   /**
@@ -73,8 +72,8 @@ class FavoriteInterestCollection extends BaseCollection {
    * @param user the username.
    */
   removeUser(user) {
-    const studentID = Users.getID(user);
-    this.collection.remove({ studentID });
+    const userID = Users.getID(user);
+    this.collection.remove({ userID });
   }
 
   /**
@@ -89,7 +88,7 @@ class FavoriteInterestCollection extends BaseCollection {
         if (!studentID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR])) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID });
@@ -151,24 +150,24 @@ class FavoriteInterestCollection extends BaseCollection {
   getStudentDoc(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID);
+    return Users.getProfile(instance.userID);
   }
 
   /**
-   * Returns the username associated with the studentID.
+   * Returns the username associated with the userID.
    * @param instanceID the FavoriteInterest id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID).username;
+    return Users.getProfile(instance.userID).username;
   }
 
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks semesterID, interestID, and studentID.
+   * Checks semesterID, interestID, and userID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   checkIntegrity() {
@@ -178,38 +177,25 @@ class FavoriteInterestCollection extends BaseCollection {
         if (!Interests.isDefined(doc.interestID)) {
           problems.push(`Bad interestID: ${doc.interestID}`);
         }
-        if (!Users.isDefined(doc.studentID)) {
-          problems.push(`Bad studentID: ${doc.studentID}`);
+        if (!Users.isDefined(doc.userID)) {
+          problems.push(`Bad userID: ${doc.userID}`);
         }
       });
-    // make sure that we have a favorite for all the students
-    const students = StudentProfiles.findNonRetired({ isAlumni: false });
-    students.forEach((s) => {
-      const studentID = s.userID;
-      const favorites = this.findNonRetired({ studentID });
-      if (favorites.length === 0) {
-        const interestIDs = s.interestIDs;
-        interestIDs.forEach((interestID) => {
-          this.collection.insert({ interestID, studentID, retired: false });
-        });
-      }
-    });
-    return problems;
+     return problems;
   }
 
   /**
-   * Returns an object representing the FavoriteInterest docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteInterest.
-   * @returns { Object } An object representing the definition of docID.
+   * Returns an object representing the FavoriteInterest with given docID in a format acceptable to define().
+   * @param docID the docID of a FavoriteInterest
+   * @returns {IFavoriteInterestDefine}
    */
   dumpOne(docID): IFavoriteInterestDefine {
     const doc = this.findDoc(docID);
     const interest = Interests.findSlugByID(doc.interestID);
-    const student = Users.getProfile(doc.studentID).username;
+    const username = Users.getProfile(doc.userID).username;
     const retired = doc.retired;
-    return { interest, student, retired };
+    return { interest, username, retired };
   }
-
 }
 
 export const FavoriteInterests = new FavoriteInterestCollection();

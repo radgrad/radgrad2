@@ -88,7 +88,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
         if (!studentID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR])) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID });

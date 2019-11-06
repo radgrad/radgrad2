@@ -6,20 +6,19 @@ import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Users } from '../user/UserCollection';
-import { ROLE } from '../role/Role';
 import { IFavoriteCareerGoalDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import { StudentProfiles } from '../user/StudentProfileCollection';
+import { ROLE } from '../role/Role';
 
 class FavoriteCareerGoalCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
-  }
+  };
 
   /** Creates the FavoriteCareerGoal collection */
   constructor() {
     super('FavoriteCareerGoal', new SimpleSchema({
       careerGoalID: SimpleSchema.RegEx.Id,
-      studentID: SimpleSchema.RegEx.Id,
+      userID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
@@ -30,18 +29,18 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   /**
    * Defines a new FavoriteCareerGoal.
    * @param careerGoal the careerGoal slug.
-   * @param student the student's username.
+   * @param username the user's username.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ careerGoal, student, retired = false }: IFavoriteCareerGoalDefine) {
+  define({ careerGoal, username, retired = false }: IFavoriteCareerGoalDefine) {
     const careerGoalID = CareerGoals.getID(careerGoal);
-    const studentID = Users.getID(student);
-    const doc = this.collection.findOne({ studentID, careerGoalID });
+    const userID = Users.getID(username);
+    const doc = this.collection.findOne({ userID, careerGoalID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ careerGoalID, studentID, retired });
+    return this.collection.insert({ careerGoalID, userID, retired });
   }
 
   /**
@@ -73,26 +72,26 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * @param user the username.
    */
   removeUser(user) {
-    const studentID = Users.getID(user);
-    this.collection.remove({ studentID });
+    const userID = Users.getID(user);
+    this.collection.remove({ userID });
   }
 
   /**
    * Publish CareerGoalFavorites. If logged in as ADMIN get all, otherwise only get the CareerGoalFavorites for the
-   * studentID.
+   * userID.
    * Also publishes the CareerGoalFavorites scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line
-        if (!studentID) {
+      Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line
+        if (!userID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN])) {
+        if (Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR])) {
           return instance.collection.find();
         }
-        return instance.collection.find({ studentID });
+        return instance.collection.find({ userID });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
         ReactiveAggregate(this, instance.collection, [
@@ -151,24 +150,24 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   getStudentDoc(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID);
+    return Users.getProfile(instance.userID);
   }
 
   /**
-   * Returns the username associated with the studentID.
+   * Returns the username associated with the userID.
    * @param instanceID the FavoriteCareerGoal id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID).username;
+    return Users.getProfile(instance.userID).username;
   }
 
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks semesterID, careerGoalID, and studentID.
+   * Checks semesterID, careerGoalID, and userID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   checkIntegrity() {
@@ -178,38 +177,26 @@ class FavoriteCareerGoalCollection extends BaseCollection {
         if (!CareerGoals.isDefined(doc.careerGoalID)) {
           problems.push(`Bad careerGoalID: ${doc.careerGoalID}`);
         }
-        if (!Users.isDefined(doc.studentID)) {
-          problems.push(`Bad studentID: ${doc.studentID}`);
+        if (!Users.isDefined(doc.userID)) {
+          problems.push(`Bad userID: ${doc.userID}`);
         }
       });
-    // make sure that we have a favorite for all the students
-    const students = StudentProfiles.findNonRetired({ isAlumni: false });
-    students.forEach((s) => {
-      const studentID = s.userID;
-      const favorites = this.findNonRetired({ studentID });
-      if (favorites.length === 0) {
-        const careerGoalIDs = s.careerGoalIDs;
-        careerGoalIDs.forEach((careerGoalID) => {
-          this.collection.insert({ careerGoalID, studentID, retired: false });
-        });
-      }
-    });
-
-    return problems;
+     return problems;
   }
 
   /**
-   * Returns an object representing the FavoriteCareerGoal docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteCareerGoal.
+   * Returns an object representing the FavoriteAcademicPlan docID in a format acceptable to define().
+   * @param docID The docID of a FavoriteAcademicPlan.
    * @returns { Object } An object representing the definition of docID.
    */
   dumpOne(docID): IFavoriteCareerGoalDefine {
     const doc = this.findDoc(docID);
     const careerGoal = CareerGoals.findSlugByID(doc.careerGoalID);
-    const student = Users.getProfile(doc.studentID).username;
+    const username = Users.getProfile(doc.userID).username;
     const retired = doc.retired;
-    return { careerGoal, student, retired };
+    return { careerGoal, username, retired };
   }
+
 
 }
 

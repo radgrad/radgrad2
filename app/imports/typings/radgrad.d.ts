@@ -449,7 +449,7 @@ export interface IFavoriteAcademicPlan {
 
 export interface IFavoriteCareerGoalDefine extends IDumpOne {
   careerGoal: string;
-  student: string;
+  username: string;
   retired?: boolean;
 }
 
@@ -473,7 +473,7 @@ export interface IFavoriteCourse {
 
 export interface IFavoriteInterestDefine extends IDumpOne {
   interest: string;
-  student: string;
+  username: string;
   retired?: boolean;
 }
 
@@ -922,9 +922,9 @@ export interface IStudentProfile extends IProfile {
 export interface IStudentProfileDefine extends IProfileDefine {
   level: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
+  favoriteAcademicPlans?: string[];
+  favoriteCourses?: string[];
+  favoriteOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -941,9 +941,9 @@ export interface IStudentProfileDefine extends IProfileDefine {
 export interface IStudentProfileUpdate extends IProfileUpdate {
   level?: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
+  favoriteAcademicPlans?: string[];
+  favoriteCourses?: string[];
+  favoriteOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;

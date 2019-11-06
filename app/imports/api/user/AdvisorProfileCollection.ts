@@ -7,7 +7,9 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
  * Represents a Advisor Profile.
@@ -35,14 +37,17 @@ class AdvisorProfileCollection extends BaseProfileCollection {
            careerGoals, retired = false }: IProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
-      const interestIDs = Interests.getIDs(interests);
-      const careerGoalIDs = CareerGoals.getIDs(careerGoals);
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, interestIDs,
-        careerGoalIDs, userID: this.getFakeUserId(), retired });
+        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), retired });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
+      if (interests) {
+        interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+      }
+      if (careerGoals) {
+        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+      }
       return profileID;
     }
     return undefined;
@@ -56,8 +61,18 @@ class AdvisorProfileCollection extends BaseProfileCollection {
   public update(docID, { firstName, lastName, picture, website, interests, careerGoals, retired }: IProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
     this.collection.update(docID, { $set: updateData });
+    const profile = this.findDoc(docID);
+    const username = profile.username;
+    if (interests) {
+      FavoriteInterests.removeUser(username);
+      interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+    }
+    if (careerGoals) {
+      FavoriteCareerGoals.removeUser(username);
+      careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+    }
   }
 
   /**
@@ -99,8 +114,11 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
+    const userID = Users.getID(username);
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const retired = doc.retired;
     return { username, firstName, lastName, picture, website, interests, careerGoals, retired };
   }

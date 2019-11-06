@@ -4,7 +4,7 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { ROLE } from '../role/Role';
-import { Users } from './UserCollection';
+// import { Users } from './UserCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 
 /**
@@ -22,11 +22,12 @@ export const updateAcademicPlanMethod = new ValidatedMethod({
       if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT])) {
         throw new Meteor.Error('unauthorized', 'You must be an admin, advisor, or student to update the academic plan.');
       }
+      console.log(academicPlan);
     // Don't update except on server side (disable client-side simulation).
     if (Meteor.isServer) {
-      const profile = Users.getProfile(this.userId);
-      const docID = profile._id;
-      StudentProfiles.update(docID, { academicPlan });
+      // const profile = Users.getProfile(this.userId);
+      // const docID = profile._id;
+      // StudentProfiles.update(docID, { academicPlan });
       return null;
     }
     return null;

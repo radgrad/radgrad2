@@ -49,7 +49,7 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
           {
             isStudent ?
               <FavoritesButton item={item} type='academicPlan'
-                               studentID={Router.getUserIdFromRoute(this.props.match)}/>
+                               studentID={Router.getUserIdFromRoute(props.match)}/>
               : ''
           }
         </Segment>
