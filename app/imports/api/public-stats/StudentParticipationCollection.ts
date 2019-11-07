@@ -14,6 +14,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Interests } from '../interest/InterestCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
 
 class StudentParticipationCollection extends BaseCollection {
   constructor() {
@@ -169,7 +170,7 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(interests, (i) => {
         const itemID = i._id;
         const itemSlug = Slugs.getNameFromID(i.slugID);
-        const filterd = _.filter(students, (s) => _.includes(s.interestIDs, itemID));
+        const filterd = _.filter(students, (s) => _.includes(profileGetInterestIDs(s), itemID));
         const itemCount = filterd.length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });

@@ -6,6 +6,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { getStudentsCurrentAcademicTermNumber } from '../degree-plan/AcademicYearUtilities';
+import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
 
 /**
  * Returns a random int between min and max.
@@ -37,7 +38,8 @@ export function clearPlannedOpportunityInstances(studentID: string) {
 
 export function calculateOpportunityCompatibility(opportunityID: string, studentID: string) {
   const course = Opportunities.findDoc(opportunityID);
-  const studentInterests = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const studentInterests = profileGetInterestIDs(profile);
   const intersection = _.intersection(course.interestIDs, studentInterests);
   return intersection.length;
 }
@@ -78,7 +80,8 @@ export function getStudentAcademicTermOpportunityChoices(academicTerm: string, a
 
 export function chooseStudentAcademicTermOpportunity(academicTerm: string, academicTermNumber: number, studentID: string) {
   const choices = getStudentAcademicTermOpportunityChoices(academicTerm, academicTermNumber, studentID);
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   const best = preferred.getBestChoices();
   if (best) {
@@ -95,7 +98,8 @@ export function getStudentCurrentAcademicTermOpportunityChoices(studentID: strin
 
 export function getRecommendedCurrentAcademicTermOpportunityChoices(studentID) {
   const choices = getStudentCurrentAcademicTermOpportunityChoices(studentID);
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   const best = preferred.getBestChoices();
   return best;

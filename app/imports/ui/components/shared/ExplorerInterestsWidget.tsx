@@ -20,6 +20,7 @@ import InterestedRelatedWidget from './InterestedRelatedWidget';
 import { URL_ROLES } from '../../../startup/client/routes-config';
 import FavoritesButton from './FavoritesButton';
 import { getRoleByUrl } from './RouterHelperFunctions';
+import { profileGetInterestIDs } from './data-model-helper-functions';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -44,7 +45,7 @@ interface IExplorerInterestsWidgetProps {
 const getObjectsThatHaveInterest = (objects, interestID) => {
   const interested = [];
   _.forEach(objects, (profile) => {
-    if (_.includes(profile.interestIDs, interestID)) {
+    if (_.includes(profileGetInterestIDs(profile), interestID)) {
       interested.push(profile);
     }
   });
@@ -143,7 +144,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
     <div>
       <SegmentGroup>
         <Segment>
-          <Header>{props.interest.name}<FavoritesButton type='interest' studentID={this.props.profile.userID} item={this.props.interest}/></Header>
+          <Header>{props.interest.name}<FavoritesButton type='interest' studentID={props.profile.userID} item={props.interest}/></Header>
           <Divider/>
           <div>
             <b>Description: </b>

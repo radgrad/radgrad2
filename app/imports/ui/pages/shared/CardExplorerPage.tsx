@@ -175,9 +175,9 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
   const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
   const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   return {
     favoritePlans,

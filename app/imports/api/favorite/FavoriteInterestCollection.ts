@@ -91,7 +91,7 @@ class FavoriteInterestCollection extends BaseCollection {
         if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR])) {
           return instance.collection.find();
         }
-        return instance.collection.find({ studentID });
+        return instance.collection.find({ userID: studentID });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishInterestScoreboard() {
         ReactiveAggregate(this, instance.collection, [

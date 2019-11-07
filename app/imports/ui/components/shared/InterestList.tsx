@@ -27,35 +27,43 @@ const InterestList = (props: IInterestListProps) => {
   const matchingUserInterests = MatchingInterests.matchingUserInterests(Router.getUsername(props.match), props.item);
   const matchingCareerInterests = MatchingInterests.matchingCareerGoalInterests(Router.getUsername(props.match), props.item);
   const otherInterests = MatchingInterests.notMatchingInterests(Router.getUsername(props.match), props.item);
-  const itemSlug = itemToSlugName(props.item);
   return (
     <Label.Group size={props.size}>
       {
-        matchingUserInterests.map((interest) => (
-          <Label as={Link} key={interest._id}
-                 to={Router.buildRouteName(props.match, `/explorer/interests/${itemSlug}`)} size={props.size}>
-            <i className="fitted star icon"/> {docToName(interest)}
-          </Label>
-        ))
+        matchingUserInterests.map((interest) => {
+          const interestSlug = itemToSlugName(interest);
+          return (
+            <Label as={Link} key={interest._id}
+                   to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)} size={props.size}>
+              <i className="fitted star icon"/> {docToName(interest)}
+            </Label>
+          );
+        })
       }
 
       {
-        matchingCareerInterests.map((interest) => (
-          <Label as={Link} key={interest._id}
-                 to={Router.buildRouteName(props.match, `/explorer/interests/${itemSlug}`)} size={props.size}>
-            <i className="fitted suitcase icon"/> {docToName(interest)}
-          </Label>
-        ))
+        matchingCareerInterests.map((interest) => {
+          const interestSlug = itemToSlugName(interest);
+          return (
+            <Label as={Link} key={interest._id}
+                   to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)} size={props.size}>
+              <i className="fitted suitcase icon"/> {docToName(interest)}
+            </Label>
+          );
+        })
       }
 
       {
-        otherInterests.map((interest) => (
-          <Label as={Link} key={interest._id}
-                 to={Router.buildRouteName(props.match, `/explorer/interests/${itemSlug}`)} size={props.size}
-                 color="grey">
-            {docToName(interest)}
-          </Label>
-        ))
+        otherInterests.map((interest) => {
+          const interestSlug = itemToSlugName(interest);
+          return (
+            <Label as={Link} key={interest._id}
+                   to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)} size={props.size}
+                   color="grey">
+              {docToName(interest)}
+            </Label>
+          );
+        })
       }
     </Label.Group>
   );

@@ -4,6 +4,7 @@ import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
+import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
 // import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 // import { clearFeedbackInstancesMethod, feedbackInstancesDefineMethod,
 //   feedbackInstancesRemoveItMethod } from '../feedback/FeedbackInstanceCollection.methods';
@@ -67,7 +68,8 @@ export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: str
 
 export function bestStudent300LevelCourses(studentID: string, coursesTakenSlugs: string[]) {
   const choices = getStudent300LevelDocs(studentID, coursesTakenSlugs);
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
 }
@@ -100,7 +102,8 @@ export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: str
 
 export function bestStudent400LevelCourses(studentID, coursesTakenSlugs) {
   const choices = getStudent400LevelDocs(studentID, coursesTakenSlugs);
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
 }
@@ -128,7 +131,8 @@ export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
       courses.push(Courses.findDoc(courseID));
     }
   });
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(courses, interestIDs);
   const best = preferred.getBestChoices();
   if (best) {
