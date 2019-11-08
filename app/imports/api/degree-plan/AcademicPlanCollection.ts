@@ -5,9 +5,9 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
-import { Users } from '../user/UserCollection';
 import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -169,7 +169,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const academicPlanID = this.getID(instance);
     // Check that no student is using this AcademicPlan.
-    const isReferenced = Users.someProfiles((profile) => profile.academicPlanID === academicPlanID);
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ academicPlanID });
+    const isReferenced = favPlans.length > 0;
     if (isReferenced) {
       throw new Meteor.Error(`AcademicPlan ${instance} is referenced.`);
     }

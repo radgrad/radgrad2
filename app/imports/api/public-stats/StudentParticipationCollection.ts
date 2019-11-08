@@ -15,6 +15,7 @@ import { Interests } from '../interest/InterestCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 class StudentParticipationCollection extends BaseCollection {
   constructor() {
@@ -150,7 +151,11 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(academicPlans, (p) => {
         const itemID = p._id;
         const itemSlug = Slugs.getNameFromID(p.slugID);
-        const filterd = _.filter(students, (s) => s.academicPlanID === itemID);
+        const filterd = _.filter(students, (s) => {
+          const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: s.userID });
+          const planIDs = _.map(favPlans, (fav) => fav.academicPlanID);
+          return _.includes(planIDs, itemID);
+        });
         // console.log('students with academicplan %o = %o', itemID, filterd);
         const itemCount = filterd.length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
