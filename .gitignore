@@ -7,5 +7,5 @@ settings.production.json
 *.js
 *.js.map
 *.jsx
-tests_output
+tests_output/
 chromedriver.log
