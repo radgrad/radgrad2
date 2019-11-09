@@ -79,7 +79,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                 isStudent ?
                   <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                     <Dropdown.Menu>
-                      <Dropdown.Header as="h4">COURSES IN MY PLAN</Dropdown.Header>
+                      <Dropdown.Header as="h4">FAVORITE COURSES</Dropdown.Header>
                       <Dropdown.Divider/>
                       {
                         menuAddedList.map((listItem, index) => (
@@ -102,7 +102,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                 isStudent ?
                   <Dropdown className="selection" fluid={true} text="Select Item" style={{ marginTop: '1rem' }}>
                     <Dropdown.Menu>
-                      <Dropdown.Header as="h4">OPPORTUNITIES IN MY PLAN</Dropdown.Header>
+                      <Dropdown.Header as="h4">FAVORITE OPPORTUNITIES</Dropdown.Header>
                       <Dropdown.Divider/>
                       {
                         menuAddedList.map((listItem, index) => (

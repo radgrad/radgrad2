@@ -38,6 +38,7 @@ import {
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface IUpdateUserProps {
   interests: IInterest[];
@@ -66,6 +67,7 @@ const mapDispatchToProps = (dispatch) => ({
 class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState> {
   constructor(props) {
     super(props);
+    console.log('UpdateUserForm', props);
     let collection;
     const { id } = props;
     if (StudentProfiles.isDefined(id)) {
@@ -102,6 +104,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
 
   // Hacky way of resetting pictureURL to be empty
   private handleUpdateUser = (doc) => {
+    console.log('UpdateUserForm.handleUpdateUser', doc);
     this.props.handleUpdate(doc);
     this.setState({ pictureURL: '' });
   }
@@ -130,16 +133,16 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
     model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
-    if (model.academicPlanID) {
-      model.academicPlans = [academicPlanIdToName(model.academicPlanID)];
-    }
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+    const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
+    model.academicPlans = _.map(favPlanIDs, (academicPlanID) => academicPlanIdToName(academicPlanID));
     if (model.declaredAcademicTermID) {
       model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
     }
     const interestNames = _.map(this.props.interests, docToName);
     const careerGoalNames = _.map(this.props.careerGoals, docToName);
     const academicTermNames = _.map(this.props.academicTerms, academicTermToName);
-    const academicPlanNames = _.map(this.props.academicPlans, docToName);
+    // const academicPlanNames = _.map(this.props.academicPlans, docToName);
     const schema = new SimpleSchema({
       username: { type: String, optional: true },
       firstName: { type: String, optional: true },
@@ -176,14 +179,14 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         optional: true,
         allowedValues: academicTermNames,
       },
-      academicPlans: {
-        type: Array,
-        optional: true,
-      },
-      'academicPlans.$': {
-        type: String,
-        allowedValues: academicPlanNames,
-      },
+      // academicPlans: {
+      //   type: Array,
+      //   optional: true,
+      // },
+      // 'academicPlans.$': {
+      //   type: String,
+      //   allowedValues: academicPlanNames,
+      // },
       shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
@@ -202,10 +205,11 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       schema.extend(studentSchema);
     }
     const { pictureURL } = this.state;
+    console.log(schema);
     return (
       <Segment padded={true}>
         <Header dividing={true}>Update {collection.getType()}: {this.props.itemTitleString(model)}</Header>
-        <AutoForm schema={schema} onSubmit={(doc) => this.handleUpdateUser(doc)} ref={this.props.formRef}
+        <AutoForm schema={schema} onSubmit={this.props.handleUpdate} ref={this.props.formRef}
                   showInlineError={true} model={model}>
           <Form.Group widths="equal">
             <TextField name="username" placeholder="johndoe@foo.edu"/>
@@ -242,7 +246,6 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
               <Form.Group widths="equal">
                 <NumberField name="level"/>
                 <SelectField name="declaredAcademicTerm"/>
-                <MultiSelectField name="academicPlan"/>
               </Form.Group>
               <Form.Group widths="equal">
                 <BoolField name="shareUsername"/>

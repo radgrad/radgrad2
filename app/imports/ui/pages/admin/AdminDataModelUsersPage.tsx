@@ -229,7 +229,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
   };
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate(%o)', doc);
+    console.log('UsersPage.handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     let collectionName;
@@ -247,9 +247,6 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     }
     updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
-    if (!_.isNil(doc.academicPlan)) {
-      updateData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
-    }
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
@@ -257,6 +254,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

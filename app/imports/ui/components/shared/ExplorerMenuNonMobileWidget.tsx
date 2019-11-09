@@ -109,7 +109,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               {
                 isStudent ?
                   <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
+                    <Header as="h4" dividing={true}>FAVORITE COURSES</Header>
                     {
                       menuAddedList.map((listItem, index) => (
                         <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
@@ -133,7 +133,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               {
                 isStudent ?
                   <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
+                    <Header as="h4" dividing={true}>FAVORITE OPPORTUNITIES</Header>
                     {
                       menuAddedList.map((listItem, index) => (
                         <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
