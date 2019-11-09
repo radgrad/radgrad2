@@ -1,5 +1,5 @@
 {
-  "src_folders" : ["nightwatch"],
+  "src_folders" : ["tests"],
 
   "webdriver" : {
     "start_process": true,
