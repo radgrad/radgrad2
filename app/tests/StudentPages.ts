@@ -10,9 +10,15 @@ module.exports = {
       .click('div.field button.ui.button');
   },
   'Step 2 Student Home': function (browser) {
-    browser.click('a.ui.basic.grey.fluid.label:nth-child(4)');
+    browser.waitForElementVisible('body', 5000);
+    browser.click('#abi');
+    browser.windowHandles(function (result) {
+      // console.log(result);
+        const newHandle = result.value[1];
+        this.switchWindow(newHandle);
+      });
     browser.expect.elements('.secondary a.item').count.to.equal(4); // second menu
-    browser.pause(2000);
+    // browser.pause(5000);
   },
   'End tests': function (browser) {
     browser.end();
