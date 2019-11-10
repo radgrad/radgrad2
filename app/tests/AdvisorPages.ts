@@ -69,7 +69,7 @@ module.exports = {
     browser.click('.ui.attached.tabular.menu .item:nth-child(2)');
     browser.assert.containsText('.ui.attached.tabular.menu .active.item', 'Builder');
   },
-  'Check Scoreboard Page': function (browser) {
+  'Advisor Scoreboard Page': function (browser) {
     browser.click('.secondary.menu .item:nth-child(5)');
     // help widget
     browser.assert.containsText('.ui.floating.info.message .title', 'LEARN ABOUT SCOREBOARDS');
