@@ -9,15 +9,16 @@ module.exports = {
       .setValue('input[name=password]', 'foo')
       .click('div.field button.ui.button');
   },
-  'Student Home Page': function (browser) {
+  'Alumni Home Page': function (browser) {
     browser.waitForElementVisible('body', 5000);
-    browser.click('#abi');
+    browser.click('div.ui.attached.tabular.menu .item:nth-child(5)');
+    browser.click('#ella');
     browser.windowHandles(function (result) {
       // console.log(result);
-        const newHandle = result.value[1];
-        this.switchWindow(newHandle);
-      });
-    browser.expect.elements('.secondary a.item').count.to.equal(4); // second menu
+      const newHandle = result.value[1];
+      this.switchWindow(newHandle);
+    });
+    browser.assert.containsText('div.ui.dividing.header', 'WELCOME BACK');
   },
   'End tests': function (browser) {
     browser.end();
