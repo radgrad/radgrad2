@@ -18,7 +18,6 @@ module.exports = {
         this.switchWindow(newHandle);
       });
     browser.expect.elements('.secondary a.item').count.to.equal(4); // second menu
-    // browser.pause(5000);
   },
   'End tests': function (browser) {
     browser.end();
