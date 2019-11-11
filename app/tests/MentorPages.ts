@@ -50,22 +50,27 @@ module.exports = {
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:first-child'); // ACADEMIC PLANS
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'ACADEMIC PLANS');
+    browser.click('.card:first-child a.ui.button'); // Individual Explorer Page
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:nth-child(2)'); // CAREER GOALS
-    browser.pause(2000);
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'CAREER GOALS');
+    browser.click('.card:first-child a.ui.button'); // Individual Explorer Page
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:nth-child(3)'); // COURSES
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'COURSES');
+    browser.click('.card:first-child a.ui.button'); // Individual Explorer Page
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:nth-child(4)'); // DESIRED DEGREES
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'DESIRED DEGREES');
+    browser.click('.card:first-child a.ui.button'); // Individual Explorer Page
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:nth-child(5)'); // INTERESTS
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'INTERESTS');
+    browser.click('.card:first-child a.ui.button'); // Individual Explorer Page
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:nth-child(6)'); // OPPORTUNITIES
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'OPPORTUNITIES');
+    browser.click('.card:first-child a.ui.button'); // Individual Explorer Page
     browser.click('.ui.fluid.selection.dropdown');
     browser.click('.visible.menu.transition a.item:nth-child(7)'); // USERS
     browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'USERS');

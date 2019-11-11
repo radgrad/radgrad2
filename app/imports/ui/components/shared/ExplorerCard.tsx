@@ -24,9 +24,8 @@ const ExplorerCard = (props: IExplorerCard) => {
                   renderers={{ link: (p) => Router.renderLink(p, match) }}/>
       </Card.Content>
 
-      <Link to={buildExplorerRoute(props.item, props)}>
-        <Button className="radgrad-home-buttons center aligned" attached="bottom"><Icon
-          name="chevron circle right"/><br/>View More</Button>
+      <Link className="ui button" to={buildExplorerRoute(props.item, props)}>
+        <Icon name="chevron circle right"/><br/>View More
       </Link>
     </Card>
   );
