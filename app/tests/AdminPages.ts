@@ -10,6 +10,8 @@ module.exports = {
       .click('div.field button.ui.button');
   },
   'Check Home Page': function (browser) {
+    browser.waitForElementVisible('body', 5000);
+    browser.pause(2000);
     browser.assert.containsText('div.ui.top.right.pointing.dropdown div.text', 'radgrad@hawaii.edu'); // logged in dropdown
     browser.expect.elements('.secondary a.item').count.to.equal(6); // second menu
     browser.assert.containsText('.container .segment:first-child .header', 'FILTER USERS');

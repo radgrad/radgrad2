@@ -15,6 +15,7 @@ import {
   docToShortDescription,
   opportunityTerms,
   studentsParticipating,
+  itemToSlugName,
 } from './data-model-helper-functions';
 import { replaceTermStringNextFour } from './helper-functions';
 import FutureParticipation from './FutureParticipation';
@@ -56,6 +57,23 @@ const hidden = (props: ITermCard) => {
   return ret;
 };
 
+const buildRouteName = (item, type, props: ITermCard) => {
+  const itemSlug = itemToSlugName(item);
+  let route = '';
+  switch (type) {
+    case EXPLORER_TYPE.COURSES:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemSlug}`);
+      break;
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemSlug}`);
+      break;
+    default:
+      route = '#';
+      break;
+  }
+  return route;
+};
+
 const TermCard = (props: ITermCard) => {
   const { item, match } = props;
   const name = itemName(item, props);
@@ -83,13 +101,13 @@ const TermCard = (props: ITermCard) => {
         <InterestList item={item} size="mini"/>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation type={this.props.type} item={this.props.item}/>
+        <FutureParticipation type={props.type} item={props.item}/>
       </Card.Content>
       <Card.Content>
         <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
       </Card.Content>
 
-      <Link to={this.buildRouteName(this.props.item, this.props.type)}>
+      <Link to={buildRouteName(props.item, props.type, props)}>
         <Button className="radgrad-home-buttons center aligned" attached="bottom" color={hide || undefined}>
           <Icon name="chevron circle right"/><br/>View More
         </Button>

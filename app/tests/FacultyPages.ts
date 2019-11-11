@@ -64,7 +64,27 @@ module.exports = {
     // explorer menu
     browser.assert.containsText('.three.wide.column .text', 'Select Explorer');
     browser.click('.ui.fluid.selection.dropdown');
-    browser.click('.visible.menu.transition .item:first-child');
+    browser.click('.visible.menu.transition a.item:first-child'); // ACADEMIC PLANS
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'ACADEMIC PLANS');
+    browser.click('.ui.fluid.selection.dropdown');
+    browser.click('.visible.menu.transition a.item:nth-child(2)'); // CAREER GOALS
+    browser.pause(2000);
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'CAREER GOALS');
+    browser.click('.ui.fluid.selection.dropdown');
+    browser.click('.visible.menu.transition a.item:nth-child(3)'); // COURSES
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'COURSES');
+    browser.click('.ui.fluid.selection.dropdown');
+    browser.click('.visible.menu.transition a.item:nth-child(4)'); // DESIRED DEGREES
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'DESIRED DEGREES');
+    browser.click('.ui.fluid.selection.dropdown');
+    browser.click('.visible.menu.transition a.item:nth-child(5)'); // INTERESTS
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'INTERESTS');
+    browser.click('.ui.fluid.selection.dropdown');
+    browser.click('.visible.menu.transition a.item:nth-child(6)'); // OPPORTUNITIES
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'OPPORTUNITIES');
+    browser.click('.ui.fluid.selection.dropdown');
+    browser.click('.visible.menu.transition a.item:nth-child(7)'); // USERS
+    browser.assert.containsText('.ui.dividing.header h4 span:first-child', 'USERS');
     // browser.pause(2000);
   },
   'Faculty Scoreboard Page': function (browser) {
