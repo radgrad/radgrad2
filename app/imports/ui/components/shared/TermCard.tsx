@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslint-disable-line
-import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -8,7 +7,6 @@ import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
 import IceHeader from './IceHeader';
 import InterestList from './InterestList';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import {
@@ -43,20 +41,6 @@ const itemTerms = (props: ITermCard) => {
   return ret;
 };
 
-const hidden = (props: ITermCard) => {
-  const username = Router.getUsername(props.match);
-  let ret = '';
-  const profile = Users.getProfile(username);
-  if (isType(EXPLORER_TYPE.COURSES, props)) {
-    if (_.includes(profile.hiddenCourseIDs, props.item._id)) {
-      ret = 'grey';
-    }
-  } else if (_.includes(profile.hiddenOpportunityIDs, props.item._id)) {
-    ret = 'grey';
-  }
-  return ret;
-};
-
 const buildRouteName = (item, type, props: ITermCard) => {
   const itemSlug = itemToSlugName(item);
   let route = '';
@@ -80,7 +64,6 @@ const TermCard = (props: ITermCard) => {
   const isTypeOpportunity = isType('opportunities', props);
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
-  const hide = hidden(props) as SemanticCOLORS;
 
   return (
     <Card className="radgrad-interest-card">
