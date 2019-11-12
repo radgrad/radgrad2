@@ -113,7 +113,8 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
       }).fetch(), (ap) => !ap.retired);
     }
     const profilePlanIDs = profileGetFavoriteAcademicPlanIDs(profile);
-    return _.filter(plans, p => _.includes(profilePlanIDs, p._id));
+    // console.log(plans, profilePlanIDs, _.filter(plans, p => !_.includes(profilePlanIDs, p._id)));
+    return _.filter(plans, p => !_.includes(profilePlanIDs, p._id));
   }
   return plans;
 };
