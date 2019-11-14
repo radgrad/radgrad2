@@ -26,5 +26,5 @@ test('Home Page', async (browser:any) => {
   await browser.expect(helpFirstParagraphSelector.textContent).eql('This page presents RadGrad\'s recommendations for courses and opportunities based on your interests, as well as new events in the RadGrad community.');
   await browser.click(helpAccordionSelector);
   await browser.expect(leftHandMenuSelector.count).eql(5);
-  await browser.expect(studentRecommendedOpportunitiesWidgetSelector.textContent)
+  await browser.expect(studentRecommendedOpportunitiesWidgetSelector.textContent);
 });
