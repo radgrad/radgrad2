@@ -58,7 +58,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
   return (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <Menu vertical={true}>
+        <Menu vertical={true} id="leftHandMenu">
           {
             menuItems.map((item, index) => (<Menu.Item
               key={index}

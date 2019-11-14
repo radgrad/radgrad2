@@ -15,6 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from '../shared/RouterHelperFunctions';
+import { capitalizeFirstLetter } from '../shared/helper-functions';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -50,8 +51,8 @@ const isOpportunitiesHidden = (props: IStudentOfInterestWidgetProps): boolean =>
 const availableCourses = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredCourses } = props;
   if (nonRetiredCourses.length > 0) {
-    const filtered = _.filter(nonRetiredCourses, (course) => {
-      if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
+    const filtered = _.filter(nonRetiredCourses, (course: any) => {
+      if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
       const ci = CourseInstances.find({
@@ -121,7 +122,7 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredOpportunities } = props;
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   if (nonRetiredOpportunities.length > 0) {
-    const filteredByTerm = _.filter(nonRetiredOpportunities, (opp) => {
+    const filteredByTerm = _.filter(nonRetiredOpportunities, (opp: any) => {
       const oi = OpportunityInstances.find({
         studentID: Router.getUserIdFromRoute(props.match),
         opportunityID: opp._id,
@@ -240,7 +241,7 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   const { type } = props;
 
   return (
-    <Segment padded={true}>
+    <Segment padded={true} id={`recommended${capitalizeFirstLetter(type)}`}>
       {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
         complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
         had to use the className attribute instead so it renders as "ui dividing header". - Gian */}

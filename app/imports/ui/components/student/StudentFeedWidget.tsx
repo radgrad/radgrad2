@@ -16,7 +16,7 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
   };
 
   return (
-    <Container>
+    <Container id="studentFeedWidget">
       <Segment padded={true}>
         <Header dividing={true}>RADGRAD COMMUNITY ACTIVITY</Header>
         {

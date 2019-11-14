@@ -54,7 +54,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
     return (helpMessage) ? (
-      <Grid.Column>
+      <Grid.Column id="helpPanelWidget">
         <Message info={true} floating={true}>
           <Accordion>
             <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
