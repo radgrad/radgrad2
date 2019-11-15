@@ -15,7 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from '../shared/RouterHelperFunctions';
-import { capitalizeFirstLetter } from '../shared/helper-functions';
+import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -239,9 +239,14 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   };
 
   const { type } = props;
-
+  let id = '';
+  if (type === 'opportunities') {
+    id = recommendedOpportunities;
+  } else {
+    id = recommendedCourses;
+  }
   return (
-    <Segment padded={true} id={`recommended${capitalizeFirstLetter(type)}`}>
+    <Segment padded={true} id={id}>
       {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
         complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
         had to use the className attribute instead so it renders as "ui dividing header". - Gian */}

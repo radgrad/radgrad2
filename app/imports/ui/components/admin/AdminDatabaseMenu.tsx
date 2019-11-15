@@ -3,6 +3,7 @@ import { Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
+import { leftHandMenu } from '../shared/shared-widget-names';
 
 interface IAdminDatabaseMenuProps {
   currentUser: string;
@@ -24,7 +25,7 @@ const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {
   // console.log(props, baseRoute);
 
   return (
-    <Menu vertical={true}>
+    <Menu vertical={true} id={`${leftHandMenu}`}>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}integrity-check`}>Integrity Check</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}dump`}>Dump DB</Menu.Item>
     </Menu>

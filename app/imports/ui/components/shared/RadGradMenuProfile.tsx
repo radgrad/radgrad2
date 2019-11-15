@@ -9,6 +9,7 @@ import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
 // eslint-disable-next-line no-unused-vars
 import { Ice, IStudentProfile } from '../../../typings/radgrad';
+import { radgradMenuProfile } from './shared-widget-names';
 
 interface IRadGradMenuProfileProps {
   userName: string;
@@ -28,7 +29,7 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
   const nameStyle = { lineHeight: '20px', paddingLeft: '10px', marginTop: '0px' };
   const pictureSrc = (profile.picture) ? profile.picture : '/images/default-profile-picture.png';
   return (
-    <div style={flexStyle}>
+    <div style={flexStyle} id={`${radgradMenuProfile}`}>
       {displayLevelAndIce ? (
         <div style={flexStyle}>
           <RadGradMenuLevel level={level}/>

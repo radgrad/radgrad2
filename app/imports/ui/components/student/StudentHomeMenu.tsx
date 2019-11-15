@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Menu, Responsive } from 'semantic-ui-react';
+import { leftHandMenu } from '../shared/shared-widget-names';
 
 interface IStudentHomeMenuProps {
   match: {
@@ -58,7 +59,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
   return (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <Menu vertical={true} id="leftHandMenu">
+        <Menu vertical={true} id={`${leftHandMenu}`}>
           {
             menuItems.map((item, index) => (<Menu.Item
               key={index}
@@ -71,7 +72,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
       </Responsive>
 
       <Responsive {...Responsive.onlyMobile}>
-        <Dropdown selection={true} fluid={true} options={menuMobileItems} text={buildRouteName(props)}/>
+        <Dropdown id="leftHandMenu" selection={true} fluid={true} options={menuMobileItems} text={buildRouteName(props)}/>
       </Responsive>
     </React.Fragment>
   );

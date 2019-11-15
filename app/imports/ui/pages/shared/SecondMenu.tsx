@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react'; // eslint-disable-line
 import { NavLink, withRouter } from 'react-router-dom';
+import { secondMenu } from '../../components/shared/shared-widget-names';
 
 interface IMenuItem {
   label: string;
@@ -32,7 +33,7 @@ const SecondMenu = (props: ISecondMenuProps) => {
   // console.log(props, baseRoute);
   return (
     <Menu attached={'top'} borderless={true} widths={props.numItems} secondary={true} pointing={true}
-          className="radgrad-second-menu mobile hidden">
+          className="radgrad-second-menu mobile hidden" id={`${secondMenu}`}>
       {props.menuItems.map((item, index) => (
         <Menu.Item key={index} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
           {item.label}

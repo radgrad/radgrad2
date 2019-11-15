@@ -4,6 +4,7 @@ import * as Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
+import { studentLevelsWidget } from './student-widget-names';
 
 // import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
@@ -70,7 +71,7 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   const studentLevelName = getStudentLevelName(props);
   const studentLevelHint = getStudentLevelHint(props);
   return (
-    <Segment padded={true}>
+    <Segment padded={true} id={`${studentLevelsWidget}`}>
       <Header as="h4" dividing={true}>CURRENT LEVEL</Header>
       <Grid stackable={true}>
         <Grid.Column width={16}>

@@ -11,6 +11,7 @@ import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { studentTeaserWidget } from './student-widget-names';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -92,7 +93,7 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
   const chevronCircleRightIconStyle = { marginRight: '1px' };
 
   return (
-    <Container id="studentTeaserWidget">
+    <Container id={`${studentTeaserWidget}`}>
       <Segment padded={true}>
         <Header dividing={true}>
           <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>

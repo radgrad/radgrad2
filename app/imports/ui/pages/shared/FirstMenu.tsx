@@ -7,6 +7,7 @@ import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 import { getUsername } from '../../components/shared/RouterHelperFunctions';
+import { firstMenu } from '../../components/shared/shared-widget-names';
 
 interface IFirstMenuProps {
   currentUser: string;
@@ -28,7 +29,7 @@ const FirstMenu = (props: IFirstMenuProps) => {
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   return (
-    <Menu attached="top" borderless={true} className="radgrad-first-menu">
+    <Menu attached="top" borderless={true} className="radgrad-first-menu" id={`${firstMenu}`}>
       <Menu.Item as={NavLink} activeClassName="" exact={true} to="/" style={noPadding}>
         <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
         <div className="mobile hidden item">

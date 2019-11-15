@@ -85,12 +85,8 @@
     "pretest": "npm run lint",
     "test": "cross-env TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
     "test-app": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package dispatch:mocha --port 3300",
-    "pretest-win": "npm run lint",
-    "test-win": "meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
-    "test-app-win": "meteor test --full-app --once --driver-package dispatch:mocha --no-release-check --port 3300",
-    "test-e2e": "testcafe chrome imports/ui/**/*.e2e.ts",
-    "clean:js": "del-cli ./imports/**/*.js ./imports/**/*.js.map ./imports/**/*.jsx ./client/**/*.js ./client/**/*.js.map ./server/**/*.js ./server/**/*.js.map",
-    "compile-nightwatch": "tsc tests/*.ts",
-    "nightwatch": "./node_modules/.bin/nightwatch"
+    "test-e2e": "testcafe chrome:headless imports/ui/**/*.e2e.ts",
+    "test-e2e-v": "testcafe chrome imports/ui/**/*.e2e.ts",
+    "clean:js": "del-cli ./imports/**/*.js ./imports/**/*.js.map ./imports/**/*.jsx ./client/**/*.js ./client/**/*.js.map ./server/**/*.js ./server/**/*.js.map"
   }
 }
