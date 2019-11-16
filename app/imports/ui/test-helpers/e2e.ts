@@ -1,5 +1,13 @@
 import { ClientFunction, Selector } from 'testcafe';
-import { firstMenu, helpPanelWidget, leftHandMenu, secondMenu } from '../components/shared/shared-widget-names';
+import {
+  cardExplorerWidget,
+  explorerPlanWidget,
+  firstMenu,
+  helpPanelWidget,
+  leftHandMenu,
+  secondMenu,
+  selectExplorerMenu,
+} from '../components/shared/shared-widget-names';
 import { recommendedOpportunities, recommendedCourses, studentFeedWidget, studentTeaserWidget, studentAboutMeWidget, studentIceWidget, studentLevelsWidget, studentLevelsOthersWidget, studentLogWidget } from '../components/student/student-widget-names';
 
 export const adminLogin = async ({ email, password, browser }) => {
@@ -17,9 +25,18 @@ export const firstMenuSelector = Selector(`#${firstMenu}`);
 export const secondMenuSelector = Selector(`#${secondMenu}`).child('a.item');
 export const leftHandMenuSelector = Selector(`#${leftHandMenu}`).child('.item');
 
+/* ======== SHARED ======== */
 export const helpTitleSelector = Selector(`#${helpPanelWidget} .ui.floating.info.message .title`);
 export const helpAccordionSelector = Selector(`#${helpPanelWidget} .ui.floating.info.message`).child('.accordion');
 export const helpFirstParagraphSelector = Selector(`#${helpPanelWidget} .accordion`).child('.content.active').child('p').nth(0);
+export const selectExplorerMenuSelector = Selector(`#${selectExplorerMenu}`);
+export const selectExplorerMenuItemsSelector = selectExplorerMenuSelector.child('.visible.menu.transition').child('.item');
+export const cardExplorerWidgetSelector = Selector(`#${cardExplorerWidget}`);
+export const cardExplorerWidgetTitleSelector = cardExplorerWidgetSelector.child('.header').child('h4');
+export const cardExplorerWidgetCardSelector = cardExplorerWidgetSelector.child('.two.cards').child('.radgrad-interest-card');
+export const explorerPlansWidgetSelector = Selector(`#${explorerPlanWidget}`);
+export const explorerPlansWidgetTitleSelector = explorerPlansWidgetSelector.child('.container').child('.segment').child('.header');
+export const explorerPlansWidgetFavoriteButtonSelector = explorerPlansWidgetSelector.child('.container').child('.segment').child('.button');
 
 /* ======== STUDENT ======== */
 export const student2ndMenuHomePageSelector = secondMenuSelector.nth(0);

@@ -28,6 +28,7 @@ import {
   getUsers,
   isType,
 } from './explorer-helper-functions';
+import { cardExplorerWidget } from './shared-widget-names';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   collection: any;
@@ -166,7 +167,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   return (
     <React.Fragment>
-      <Segment padded={true}>
+      <Segment padded={true} id={`${cardExplorerWidget}`}>
         <Header dividing={true}>
           <h4>
             {

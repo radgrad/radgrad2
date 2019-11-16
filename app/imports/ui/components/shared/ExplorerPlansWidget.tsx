@@ -9,6 +9,7 @@ import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper } from './helper-functions';
+import { explorerPlanWidget } from './shared-widget-names';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -42,7 +43,7 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
   const isStudent = Router.isUrlRoleStudent(props.match);
 
   return (
-    <Segment.Group style={backgroundColorWhiteStyle}>
+    <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
       <Segment padded={true} className="container">
         <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
           <Header floated="left">{upperName}</Header>

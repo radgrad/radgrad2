@@ -3,6 +3,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
+import { selectExplorerMenu } from './shared-widget-names';
 
 interface IExplorerNavDropdownProps {
   match: {
@@ -36,7 +37,7 @@ const ExplorerNavDropdown = (props: IExplorerNavDropdownProps) => {
     style: { textDecoration: 'none' },
   }));
   return (
-    <Dropdown selection={true} fluid={true} options={menuOptions} text={props.text}/>
+    <Dropdown selection={true} fluid={true} options={menuOptions} text={props.text} id={`${selectExplorerMenu}`}/>
   );
 };
 

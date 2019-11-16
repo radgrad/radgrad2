@@ -9,6 +9,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityScoreboard } from '../../../startup/client/collections';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { opportunityScoreboardWidget } from './shared-widget-names';
 
 interface IOpportunityScoreboardWidgetProps {
   opportunities: IOpportunity[];
@@ -59,7 +60,7 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
     width: '100%',
   };
   return (
-    <Segment textAlign="center">
+    <Segment textAlign="center" id={`${opportunityScoreboardWidget}`}>
       <Header>Future Opportunity Scoreboard</Header>
       <Grid>
         <Grid.Row>

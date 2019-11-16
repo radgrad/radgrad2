@@ -9,6 +9,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseScoreboard } from '../../../startup/client/collections';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { courseScoreboardWidget } from './shared-widget-names';
 
 interface ICourseScoreboardWidgetProps {
   courses: ICourse[],
@@ -59,7 +60,7 @@ const CourseScoreboardWidget = (props: ICourseScoreboardWidgetProps) => {
     width: '100%',
   };
   return (
-    <Segment textAlign="center">
+    <Segment textAlign="center" id={`${courseScoreboardWidget}`}>
       <Header>Future Course Scoreboard</Header>
       <Grid>
         <Grid.Row>

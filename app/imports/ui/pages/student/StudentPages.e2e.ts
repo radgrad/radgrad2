@@ -1,13 +1,18 @@
 import { Selector } from 'testcafe'; // eslint-disable-line no-unused-vars
 import {
-  adminLogin,
+  adminLogin, cardExplorerWidgetCardSelector, cardExplorerWidgetTitleSelector, explorerPlansWidgetTitleSelector,
   helpAccordionSelector,
   helpFirstParagraphSelector,
   helpTitleSelector,
   leftHandMenuSelector,
-  secondMenuSelector, student2ndMenuExplorerPageSelector, student2ndMenuHomePageSelector,
+  secondMenuSelector,
+  selectExplorerMenuItemsSelector,
+  selectExplorerMenuSelector,
+  student2ndMenuExplorerPageSelector,
+  student2ndMenuHomePageSelector,
   studentAboutMePageSelector,
-  studentAboutMeWidgetTitleSelector, studentAdvisorLogPageSelector,
+  studentAboutMeWidgetTitleSelector,
+  studentAdvisorLogPageSelector,
   studentFeedWidgetTitleSelector,
   studentIceCompetencyColumnSelector,
   studentIceExperienceColumnSelector,
@@ -16,7 +21,8 @@ import {
   studentIceWidgetTitleSelector,
   studentLevelsOtherWigetTitleSelector,
   studentLevelsPageSelector,
-  studentLevelsWidgetTitleSelector, studentLogWidgetTitleSelector,
+  studentLevelsWidgetTitleSelector,
+  studentLogWidgetTitleSelector,
   studentRecommendedCoursesTitleSelector,
   studentRecommendedOpportunitiesTitleSelector,
   studentTeaserWidgetTitleSelector,
@@ -87,8 +93,14 @@ test('Home Page', async (browser:any) => {
 test('Explorer Page', async (browser: any) => {
   await browser.click('#abi');
   await browser.click(student2ndMenuExplorerPageSelector);
-  await browser.click(studentAdvisorLogPageSelector);
   await browser.expect(helpTitleSelector.textContent).eql('So. You want to explore?');
   await browser.click(helpAccordionSelector);
   await browser.expect(helpFirstParagraphSelector.textContent).eql('The Explorer provides detailed information about Career Goals, Courses, Academic Plans, Interests, Opportunities, and Users.');
+  await browser.expect(selectExplorerMenuSelector.textContent).eql('Select ExplorerAcademic PlansCareer GoalsCoursesDegreesInterestsOpportunitiesUsers');
+  await browser.click(selectExplorerMenuSelector);
+  await browser.expect(selectExplorerMenuItemsSelector.count).eql(7);
+  await browser.click(selectExplorerMenuItemsSelector.nth(0)); // Academic Plans
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('ACADEMIC PLANS · 41 ');
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('.buttons').child('a')); // Go to first plan
+  await browser.expect(explorerPlansWidgetTitleSelector.textContent).eql('B.A. In COMPUTER SCIENCES IT FOCUS (2018)');
 });
