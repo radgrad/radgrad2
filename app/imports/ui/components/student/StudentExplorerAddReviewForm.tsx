@@ -12,6 +12,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentExplorerAddReviewFormProps {
   event: {
@@ -95,7 +96,7 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     });
   }
 
-  private academicTerm = (): object[] => {
+  private academicTerm = (): IAcademicTerm[] => {
     const academicTerms = [];
     let instances;
     if (this.props.reviewType === 'course') {

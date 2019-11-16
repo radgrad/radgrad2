@@ -144,7 +144,7 @@ export const interestedStudents = (item: { _id: string }, type: string): IStuden
       const userID = profile.userID;
       const favInterests = FavoriteInterests.findNonRetired({ userID });
       const favIDs = _.map(favInterests, (fav) => fav.interestID);
-      _.includes(favIDs, item._id);
+      return _.includes(favIDs, item._id);
     });
   }
   profiles = _.filter(profiles, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
