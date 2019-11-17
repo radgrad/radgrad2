@@ -11,6 +11,7 @@ import WidgetHeaderNumber from './WidgetHeaderNumber';
 import FavoritesButton from './FavoritesButton';
 import { toUpper, isSame } from './helper-functions';
 import { userToFullName, userToPicture } from './data-model-helper-functions';
+import { explorerCareerGoalWidget } from './shared-widget-names';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -43,7 +44,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   const upperName = toUpper(name);
 
   return (
-    <Grid container={true} stackable={true} style={marginStyle}>
+    <Grid container={true} stackable={true} style={marginStyle} id={explorerCareerGoalWidget}>
       <Grid.Column width={16}>
         <Segment>
           <Segment basic clearing={true} vertical>

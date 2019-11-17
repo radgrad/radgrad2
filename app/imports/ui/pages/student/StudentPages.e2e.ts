@@ -1,6 +1,11 @@
 import { Selector } from 'testcafe'; // eslint-disable-line no-unused-vars
 import {
-  adminLogin, cardExplorerWidgetCardSelector, cardExplorerWidgetTitleSelector, explorerPlansWidgetTitleSelector,
+  academicPlansExplorerSelector,
+  adminLogin,
+  cardExplorerWidgetCardSelector,
+  cardExplorerWidgetTitleSelector,
+  careerGoalsExplorerSelector, explorerCareerGoalWidgetTitleSelector,
+  explorerPlansWidgetTitleSelector,
   helpAccordionSelector,
   helpFirstParagraphSelector,
   helpTitleSelector,
@@ -99,8 +104,13 @@ test('Explorer Page', async (browser: any) => {
   await browser.expect(selectExplorerMenuSelector.textContent).eql('Select ExplorerAcademic PlansCareer GoalsCoursesDegreesInterestsOpportunitiesUsers');
   await browser.click(selectExplorerMenuSelector);
   await browser.expect(selectExplorerMenuItemsSelector.count).eql(7);
-  await browser.click(selectExplorerMenuItemsSelector.nth(0)); // Academic Plans
+  await browser.click(academicPlansExplorerSelector); // Academic Plans
   await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('ACADEMIC PLANS · 41 ');
   await browser.click(cardExplorerWidgetCardSelector.nth(0).child('.buttons').child('a')); // Go to first plan
-  await browser.expect(explorerPlansWidgetTitleSelector.textContent).eql('B.A. In COMPUTER SCIENCES IT FOCUS (2018)');
+  await browser.expect(explorerPlansWidgetTitleSelector.textContent).eql('B.A. IN COMPUTER SCIENCES IT FOCUS (2018)');
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(careerGoalsExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('CAREER GOALS · 14 ');
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('.buttons').child('a')); // Go to first career goal
+  await browser.expect(explorerCareerGoalWidgetTitleSelector.textContent).eql('DEVOPS ENGINEER');
 });
