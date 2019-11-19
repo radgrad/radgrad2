@@ -4,7 +4,6 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import SecondMenu from '../../pages/shared/SecondMenu';
-import { leftHandMenu } from '../shared/shared-widget-names';
 
 const AdvisorPageMenuWidget = () => {
   const divStyle = { marginBottom: 30 };

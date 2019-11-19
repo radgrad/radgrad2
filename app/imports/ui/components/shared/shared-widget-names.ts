@@ -9,4 +9,3 @@ export const selectExplorerMenu = 'selectExplorerMenu';
 export const cardExplorerWidget = 'cardExplorerWidget';
 export const explorerPlanWidget = 'explorerPlanWidget';
 export const explorerCareerGoalWidget = 'explorerCareerGoalWidget';
-
