@@ -5,6 +5,7 @@ import { degreePlannerActions, degreePlannerTypes } from '../../../redux/student
 import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
+import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;
@@ -78,7 +79,7 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key='FavoritePlans'><Icon name='heart' fitted={true} color={'red'}/> PLAN</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoritePlansPane' active={active(props) === 1}>Academic Plans</Tab.Pane>
+        <Tab.Pane key='FavoritePlansPane' active={active(props) === 1}><FavoriteAcademicPlansWidget/></Tab.Pane>
       ),
     },
     {
