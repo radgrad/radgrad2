@@ -33,9 +33,8 @@ interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetP
 }
 
 const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
-  // console.log(props);
+  // console.log('CardExplorerMenuNonMobile', props);
   const { menuAddedList, menuCareerList } = props;
-  const isStudent = Router.isUrlRoleStudent(props.match);
   const adminEmail = 'radgrad@hawaii.edu';
   return (
     <React.Fragment>
@@ -46,19 +45,15 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
         {
           isType(EXPLORER_TYPE.ACADEMICPLANS, props) ?
             <React.Fragment>
-              {
-                isStudent ?
-                  <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>MY FAVORITE ACADEMIC PLAN</Header>
-                    {
-                      menuAddedList.map((listItem, index) => (
-                        <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
-                                                   match={props.match}/>
-                      ))
-                    }
-                  </Menu>
-                  : ''
-              }
+              <Menu vertical={true} text={true}>
+                <Header as="h4" dividing={true}>MY FAVORITE ACADEMIC PLAN</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
+                                               match={props.match}/>
+                  ))
+                }
+              </Menu>
             </React.Fragment>
             : ''
         }
@@ -66,57 +61,49 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
         {
           isType(EXPLORER_TYPE.COURSES, props) ?
             <React.Fragment>
-              {
-                isStudent ?
-                  <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>MY FAVORITE COURSES</Header>
-                    {
-                      menuAddedList.map((listItem, index) => (
-                        <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
-                                                   match={props.match}/>
-                      ))
-                    }
-                  </Menu>
-                  : ''
-              }
+              <Menu vertical={true} text={true}>
+                <Header as="h4" dividing={true}>MY FAVORITE COURSES</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
+                                               match={props.match}/>
+                  ))
+                }
+              </Menu>
             </React.Fragment>
             : ''
         }
 
-          {
-            isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
-              <React.Fragment>
-                <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
-                {
-                  isStudent ?
-                    <Menu vertical={true} text={true}>
-                      <Header as="h4" dividing={true}>MY FAVORITE OPPORTUNITIES</Header>
-                      {
-                        menuAddedList.map((listItem, index) => (
-                          <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
-                                                     match={props.match}/>
-                        ))
-                      }
-                    </Menu>
-                    : ''
-                }
-              </React.Fragment>
-              : ''
-          }
-
-        {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
-                don't map over menuAddedList or else we get undefined error. */}
-          {
-            isType(EXPLORER_TYPE.INTERESTS, props) ?
+        {
+          isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
+            <React.Fragment>
+              <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
               <Menu vertical={true} text={true}>
-                <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
-                <Header as="h4" dividing={true}>MY FAVORITE INTERESTS</Header>
+                <Header as="h4" dividing={true}>MY FAVORITE OPPORTUNITIES</Header>
                 {
                   menuAddedList.map((listItem, index) => (
-                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
                                                match={props.match}/>
                   ))
                 }
+              </Menu>
+            </React.Fragment>
+            : ''
+        }
+
+        {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
+                don't map over menuAddedList or else we get undefined error. */}
+        {
+          isType(EXPLORER_TYPE.INTERESTS, props) ?
+            <Menu vertical={true} text={true}>
+              <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
+              <Header as="h4" dividing={true}>MY FAVORITE INTERESTS</Header>
+              {
+                menuAddedList.map((listItem, index) => (
+                  <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
+                                             match={props.match}/>
+                ))
+              }
 
               <Header as="h4" dividing={true}>CAREER GOAL INTERESTS</Header>
               {
