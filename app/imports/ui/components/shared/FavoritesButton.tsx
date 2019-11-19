@@ -68,7 +68,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
         retired: false,
       };
   }
-  console.log(collectionName, definitionData);
+  // console.log(collectionName, definitionData);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
       console.error('Failed to add favorites ', error);

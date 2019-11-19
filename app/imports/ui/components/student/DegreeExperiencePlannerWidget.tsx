@@ -89,7 +89,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   public handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
-    console.log('click opportunity instance', value);
+    // console.log('click opportunity instance', value);
     this.props.selectOpportunityInstance(value);
     this.props.selectFavoriteDetailsTab();
   }

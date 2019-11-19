@@ -34,6 +34,8 @@ import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -249,6 +251,9 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
         filtered = _.filter(filtered, (c) => c.num.match(regex));
       }
     }
+    const favorites = FavoriteCourses.findNonRetired({ studentID });
+    const favIDs = _.map(favorites, (fav) => fav.courseID);
+    filtered = _.filter(filtered, (f) => !_.includes(favIDs, f._id));
     return filtered;
   }
   return [];
@@ -335,15 +340,16 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
   const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   if (Router.isUrlRoleStudent(props.match)) {
+    const studentID = Router.getUserIdFromRoute(props.match);
     if (notRetired.length > 0) {
-      const filteredByTerm = _.filter(notRetired, (opp) => {
+      let filteredOpps = _.filter(notRetired, (opp) => {
         const oi = OpportunityInstances.find({
-          studentID: Router.getUserIdFromRoute(props.match),
+          studentID,
           opportunityID: opp._id,
         }).fetch();
         return oi.length === 0;
       });
-      const filteredByInstance = _.filter(filteredByTerm, (opp) => {
+      filteredOpps = _.filter(filteredOpps, (opp) => {
         let inFuture = false;
         _.forEach(opp.termIDs, (termID) => {
           const term = AcademicTerms.findDoc(termID);
@@ -353,7 +359,10 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
         });
         return inFuture;
       });
-      return filteredByInstance;
+      const favorites = FavoriteOpportunities.findNonRetired({ studentID });
+      const favIDs = _.map(favorites, (fav) => fav.opportunityID);
+      filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
+      return filteredOpps;
     }
   } else if (props.role === URL_ROLES.FACULTY) {
     return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(props.match));

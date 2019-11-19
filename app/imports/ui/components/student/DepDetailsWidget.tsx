@@ -5,6 +5,7 @@ import { ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad'
 import DetailCourseCard from './DetailCourseCard';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import DetailOpportunityCard from './DetailOpportunityCard';
 
 interface IDepDetailsWidgetProps {
   selectedCourseInstanceID: string;
@@ -28,7 +29,7 @@ const DepDetailsWidget = (props: IDepDetailsWidgetProps) => {
   } else {
     return <Message>No course or opportunity selected. Please click on a course or opportunity to the left.</Message>;
   }
-  return (courseP ? <DetailCourseCard instance={instance}/> : 'Opportunity Instance');
+  return (courseP ? <DetailCourseCard instance={instance}/> : <DetailOpportunityCard instance={instance}/>);
 };
 
 export default connect(mapStateToProps, null)(DepDetailsWidget);

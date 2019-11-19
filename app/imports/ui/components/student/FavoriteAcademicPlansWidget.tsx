@@ -36,7 +36,7 @@ class FavoriteAcademicPlansWidget extends React.Component<IFavoriteAcademicPlans
   }
 
   private handleOnChangeModel = (model) => {
-    console.log(model);
+    // console.log(model);
     const selectedPlan = getPlan(model.academicPlan, this.props);
     this.setState({ selectedPlan });
   }
