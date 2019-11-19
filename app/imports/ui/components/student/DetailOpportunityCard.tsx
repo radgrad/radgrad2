@@ -15,6 +15,7 @@ import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import VerificationRequestStatus from './VerificationRequestStatus';
 
 
 interface IDetailOpportunityCardProps {
@@ -54,7 +55,7 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
   };
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
-      console.error(`Verificatino Request define ${definitionData} failed.`);
+      console.error(`Verification Request define ${definitionData} failed.`);
     } else {
       Swal.fire({
         title: 'Verification request sent.',
@@ -67,12 +68,11 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
 };
 
 const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
+  // console.log('DetailOpportuntiyCard', props);
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
-  const studentID = getUserIdFromRoute(props.match);
-  const vr = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID: props.instance._id });
-  const verificationRequested = props.instance.verified && vr.length > 0;
+  const verificationRequested = props.requests.length > 0;
   const termName = AcademicTerms.getShortName(props.instance.termID);
   const opportunity = Opportunities.findDoc(props.instance.opportunityID);
   const textAlignRight: React.CSSProperties = {
@@ -97,7 +97,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                                      size="tiny">remove</Button>}
           </React.Fragment>)}
         </Card.Content>
-        {verificationRequested ? '' : <Card.Content>
+        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]}/> : <Card.Content>
           <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)}/>
         </Card.Content>}
         <Card.Content>
@@ -112,5 +112,10 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
 };
 
 export default withRouter(withTracker((props) => {
-
+  const studentID = getUserIdFromRoute(props.match);
+  const opportunityInstanceID = props.instance._id;
+  const requests = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID });
+  return {
+    requests,
+  };
 })(DetailOpportunityCard));
