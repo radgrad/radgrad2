@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     const collectionName = FavoriteInterests.getCollectionName();
     const definitionData = {
       interest: 'algorithms',
-      student: 'abi@hawaii.edu',
+      username: 'abi@hawaii.edu',
     };
     const updateData: any = { retired: true };
 

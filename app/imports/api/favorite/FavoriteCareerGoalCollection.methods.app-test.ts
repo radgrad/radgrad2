@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     const collectionName = FavoriteCareerGoals.getCollectionName();
     const definitionData = {
       careerGoal: 'data-scientist',
-      student: 'abi@hawaii.edu',
+      username: 'abi@hawaii.edu',
     };
     const updateData: any = { retired: true };
 
