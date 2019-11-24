@@ -4,12 +4,21 @@ import {
   adminLogin,
   cardExplorerWidgetCardSelector,
   cardExplorerWidgetTitleSelector,
-  careerGoalsExplorerSelector, explorerCareerGoalWidgetTitleSelector,
+  careerGoalsExplorerSelector,
+  coursesExplorerSelector,
+  degreesExplorerSelector,
+  explorerCareerGoalWidgetTitleSelector,
+  explorerCourseWidgetTitleSelector,
+  explorerDegreeWidgetTitleSelector,
+  explorerInterestWidgetTitleSelector,
+  explorerOpportunityWidgetTitleSelector,
   explorerPlansWidgetTitleSelector,
   helpAccordionSelector,
   helpFirstParagraphSelector,
   helpTitleSelector,
+  interestsExplorerSelector,
   leftHandMenuSelector,
+  opportunitiesExplorerSelector,
   secondMenuSelector,
   selectExplorerMenuItemsSelector,
   selectExplorerMenuSelector,
@@ -31,6 +40,7 @@ import {
   studentRecommendedCoursesTitleSelector,
   studentRecommendedOpportunitiesTitleSelector,
   studentTeaserWidgetTitleSelector,
+  usersExplorerSelector,
 } from '../../test-helpers/e2e';
 
 /* global fixture, test */
@@ -106,11 +116,34 @@ test('Explorer Page', async (browser: any) => {
   await browser.expect(selectExplorerMenuItemsSelector.count).eql(7);
   await browser.click(academicPlansExplorerSelector); // Academic Plans
   await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('ACADEMIC PLANS · 41 ');
-  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('.buttons').child('a')); // Go to first plan
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first plan
   await browser.expect(explorerPlansWidgetTitleSelector.textContent).eql('B.A. IN COMPUTER SCIENCES IT FOCUS (2018)');
   await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
   await browser.click(careerGoalsExplorerSelector);
   await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('CAREER GOALS · 14 ');
-  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('.buttons').child('a')); // Go to first career goal
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first career goal
   await browser.expect(explorerCareerGoalWidgetTitleSelector.textContent).eql('DEVOPS ENGINEER');
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(coursesExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('COURSES · 31 ');
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first course
+  await browser.expect(explorerCourseWidgetTitleSelector.textContent).eql('DIGITAL TOOLS (Digital Tools for the Information World)');
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(degreesExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('DESIRED DEGREES · 3 ');
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first degree
+  await browser.expect(explorerDegreeWidgetTitleSelector.textContent).eql('B.A. IN INFORMATION AND COMPUTER SCIENCES');
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(interestsExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('INTERESTS · 41 ');
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first course
+  await browser.expect(explorerInterestWidgetTitleSelector.textContent).eql('Artificial IntelligenceADD TO FAVORITES');
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(opportunitiesExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('OPPORTUNITIES · 42 ');
+  await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first course
+  await browser.expect(explorerOpportunityWidgetTitleSelector.textContent).eql('GOOGLE SUMMER OF CODE');
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(usersExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('USERS');
 });

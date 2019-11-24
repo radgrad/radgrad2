@@ -21,6 +21,7 @@ import { URL_ROLES } from '../../../startup/client/routes-config';
 import FavoritesButton from './FavoritesButton';
 import { getRoleByUrl } from './RouterHelperFunctions';
 import { profileGetInterestIDs } from './data-model-helper-functions';
+import { explorerInterestWidget } from './shared-widget-names';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -141,7 +142,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
    * ToDo add functionality for button
    */
   return (
-    <div>
+    <div id={explorerInterestWidget}>
       <SegmentGroup>
         <Segment>
           <Header>{props.interest.name}<FavoritesButton type='interest' studentID={props.profile.userID} item={props.interest}/></Header>

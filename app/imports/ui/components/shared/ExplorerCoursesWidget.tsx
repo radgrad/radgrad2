@@ -16,6 +16,7 @@ import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import FavoritesButton from './FavoritesButton';
 import { isSame, toUpper } from './helper-functions';
 import { courseSlugToName } from './data-model-helper-functions';
+import { explorerCourseWidget } from './shared-widget-names';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -100,7 +101,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
   const isStudent = Router.isUrlRoleStudent(props.match);
 
   return (
-    <div>
+    <div id={explorerCourseWidget}>
       <Segment.Group style={segmentGroupStyle}>
         <Segment padded={true} className="container">
           <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>

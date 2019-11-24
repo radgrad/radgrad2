@@ -55,13 +55,11 @@ const ProfileCard = (props: IProfileCardProps) => {
           />)}
         </Image.Group>
       </Card.Content>
-      <div className="radgrad-home-buttons ui center aligned two bottom attached buttons">
-        <Link to={buildExplorerRoute(props.item, props)} className='ui button'>
-          <Icon name='chevron circle right'/>
-          <br/>
-          View More
-        </Link>
-      </div>
+      <Link to={buildExplorerRoute(props.item, props)} className='ui button'>
+        <Icon name='chevron circle right'/>
+        <br/>
+        View More
+      </Link>
     </Card>
   );
 };

@@ -1,6 +1,11 @@
 import { ClientFunction, Selector } from 'testcafe';
 import {
-  cardExplorerWidget, explorerCareerGoalWidget,
+  cardExplorerWidget,
+  explorerCareerGoalWidget,
+  explorerCourseWidget,
+  explorerDegreeWidget,
+  explorerInterestWidget,
+  explorerOpportuntityWidget,
   explorerPlanWidget,
   firstMenu,
   helpPanelWidget,
@@ -42,12 +47,26 @@ export const cardExplorerWidgetSelector = Selector(`#${cardExplorerWidget}`);
 export const cardExplorerWidgetTitleSelector = cardExplorerWidgetSelector.child('.header').child('h4');
 export const cardExplorerWidgetCardSelector = cardExplorerWidgetSelector.child('.two.cards').child('.radgrad-interest-card');
 export const explorerPlansWidgetSelector = Selector(`#${explorerPlanWidget}`);
-export const explorerPlansWidgetTitleSelector = explorerPlansWidgetSelector.child('.container').child('.segment').child('.header');
-export const explorerPlansWidgetFavoriteButtonSelector = explorerPlansWidgetSelector.child('.container').child('.segment').child('.button');
-export const explorerCareerGoalWidgetSelector = Selector(`#${explorerCareerGoalWidget}`);
-export const explorerCareerGoalWidgetTitleSelector = explorerCareerGoalWidgetSelector.child('.column').child('.segment').child('.vertical.segment')
-  .child('.row')
+export const explorerPlansWidgetTitleSelector = explorerPlansWidgetSelector.child('.container').child('.segment')
   .child('.header');
+export const explorerPlansWidgetFavoriteButtonSelector = explorerPlansWidgetSelector.child('.container').child('.segment')
+  .child('.button');
+export const explorerCareerGoalWidgetSelector = Selector(`#${explorerCareerGoalWidget}`);
+export const explorerCareerGoalWidgetTitleSelector = explorerCareerGoalWidgetSelector.child('.column').child('.segment')
+  .child('.vertical.segment').child('.row')
+  .child('.header');
+export const explorerCourseWidgetSelector = Selector(`#${explorerCourseWidget}`);
+export const explorerCourseWidgetTitleSelector = explorerCourseWidgetSelector.child('.segments').child('.segment.container')
+  .child('.clearing.segment').child('h4');
+export const explorerDegreeWidgetSelector = Selector(`#${explorerDegreeWidget}`);
+export const explorerDegreeWidgetTitleSelector = explorerDegreeWidgetSelector.child('.container').child('.segment')
+  .child('.clearing.segment').child('h4');
+export const explorerInterestWidgetSelector = Selector(`#${explorerInterestWidget}`);
+export const explorerInterestWidgetTitleSelector = explorerInterestWidgetSelector.child('.segments').child('.segment')
+  .child('.header');
+export const explorerOpportunityWidgetSelector = Selector(`#${explorerOpportuntityWidget}`);
+export const explorerOpportunityWidgetTitleSelector = explorerOpportunityWidgetSelector.child('.segments')
+  .child('.segment').child('.clearing.segment').child('h4');
 
 /* ======== STUDENT ======== */
 export const student2ndMenuHomePageSelector = secondMenuSelector.nth(0);

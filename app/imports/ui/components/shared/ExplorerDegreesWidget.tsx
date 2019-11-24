@@ -4,6 +4,7 @@ import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';
+import { explorerDegreeWidget } from './shared-widget-names';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
@@ -32,7 +33,7 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
   const { name, descriptionPairs, match } = props;
 
   return (
-    <Segment.Group style={segmentGroupStyle}>
+    <Segment.Group style={segmentGroupStyle} id={explorerDegreeWidget}>
       <Container>
         <Segment padded={true}>
           <Segment clearing={true} basic={true} style={segmentClearingBasicStyle}>

@@ -11,6 +11,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import InterestList from './InterestList';
 import UserAnswersComponent from './UserAnswersComponent';
 import { capitalizeFirstLetter } from './helper-functions';
+import { explorerUserWidget } from './shared-widget-names';
 
 interface IExplorerUsersWidgetProps {
   userProfile: IBaseProfile;
@@ -42,7 +43,7 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   }
 
   return (
-    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page={true}>
+    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page={true} id={explorerUserWidget}>
       <Grid centered={true}><Grid.Column width={12}><Card fluid style={cardStyle}>
         <Card.Content>
           <Image src={p.picture ? p.picture : defaultProfilePicture} floated={'right'} size={'tiny'}/>

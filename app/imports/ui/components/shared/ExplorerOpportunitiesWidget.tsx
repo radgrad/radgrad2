@@ -15,6 +15,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper, replaceTermString, isSame } from './helper-functions';
+import { explorerOpportuntityWidget } from './shared-widget-names';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -70,7 +71,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
   const isStudent = Router.isUrlRoleStudent(props.match);
 
   return (
-    <div>
+    <div id={explorerOpportuntityWidget}>
       <Segment.Group style={segmentGroupStyle}>
         <Segment padded={true} className="container">
           <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>

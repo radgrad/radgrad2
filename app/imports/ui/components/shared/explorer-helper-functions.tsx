@@ -431,6 +431,8 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
       return careerGoalsItemCount(props.match);
     case EXPLORER_TYPE.COURSES:
       return coursesItemCount(props.match);
+    case EXPLORER_TYPE.DEGREES:
+      return degreesItemCount();
     case EXPLORER_TYPE.INTERESTS:
       return interestsItemCount(props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:

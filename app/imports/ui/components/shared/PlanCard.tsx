@@ -47,11 +47,9 @@ const PlanCard = (props: IPlanCard) => {
         </Image.Group>
       </Card.Content>
 
-      <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={2}>
-        <Link className="ui button" to={route}>
-          <Icon name="chevron circle right"/><br/>View More
-        </Link>
-      </Button.Group>
+      <Link className="ui button" to={route}>
+        <Icon name="chevron circle right"/><br/>View More
+      </Link>
     </Card>
   );
 };
