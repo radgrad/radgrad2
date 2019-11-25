@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Card, Button, Icon, Popup, Image } from 'semantic-ui-react';
+import { Card, Icon, Popup, Image } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-disable-line
 import WidgetHeaderNumber from './WidgetHeaderNumber';
