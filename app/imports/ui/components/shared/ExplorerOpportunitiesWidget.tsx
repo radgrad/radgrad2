@@ -2,7 +2,6 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
@@ -17,6 +16,7 @@ import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper, replaceTermString, isSame } from './helper-functions';
 import { explorerOpportuntityWidget } from './shared-widget-names';
+import FutureParticipation from './FutureParticipation';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -69,7 +69,6 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
   const { name, descriptionPairs, item, completed, match } = props;
   /* Header Variables */
   const upperName = toUpper(name);
-  const isStudent = Router.isUrlRoleStudent(props.match);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
 
   return (
@@ -78,317 +77,144 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
         <Segment padded={true} className="container">
           <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
             <Header as="h4" floated="left">{upperName}</Header>
-            {
-              isStudent ?
-                <React.Fragment>
-                  <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(props.match)} type='opportunity'/>
-                  {
-                    descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
-                        {
-                          isSame(descriptionPair.label, 'ICE') ?
-                            <IceHeader ice={descriptionPair.value}/>
-                            : ''
-                        }
-                      </React.Fragment>
-                    ))
-                  }
-                </React.Fragment>
-                : ''
-            }
+            <React.Fragment>
+              <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(props.match)} type='opportunity'/>
+              {
+                descriptionPairs.map((descriptionPair, index) => (
+                  <React.Fragment key={index}>
+                    {
+                      isSame(descriptionPair.label, 'ICE') ?
+                        <IceHeader ice={descriptionPair.value}/>
+                        : ''
+                    }
+                  </React.Fragment>
+                ))
+              }
+            </React.Fragment>
           </Segment>
 
           <Divider style={zeroMarginTopStyle}/>
-
-          <Grid stackable={true} columns={2}>
-            <Grid.Column width={5}>
-              {
-                descriptionPairs.map((descriptionPair, index) => (
-                  <React.Fragment key={index}>
-                    {
-                      isSame(descriptionPair.label, 'Opportunity Type') ?
-                        <React.Fragment>
-                          <b>{descriptionPair.label}:</b>
-                          {
-                            descriptionPair.value ?
-                              <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
-                              :
-                              <React.Fragment> N/A <br/></React.Fragment>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-            <Divider style={zeroMarginTopStyle}/>
-            <div style={fiveMarginTopStyle}>
-              <InterestList item={item} size="mini"/>
-            </div>
-            {
-              hasTeaser ?
-                (
-                  <Grid stackable={true} columns={2}>
-                    <Grid.Column width={9}>
+          <div style={fiveMarginTopStyle}>
+            <InterestList item={item} size="mini"/>
+          </div>
+          {hasTeaser ?
+            <Grid stackable={true} columns={2}>
+              <Grid.Column width={9}>
+                {
+                  descriptionPairs.map((descriptionPair, index) => (
+                    <React.Fragment key={index}>
                       {
-                        descriptionPairs.map((descriptionPair, index) => (
-                          <React.Fragment key={index}>
+                        isSame(descriptionPair.label, 'Opportunity Type') ?
+                          <React.Fragment>
+                            <b>{descriptionPair.label}:</b>
                             {
-                              this.isLabel(descriptionPair.label, 'Opportunity Type') ?
-                                <React.Fragment>
-                                  <b>{descriptionPair.label}:</b>
-                                  {
-                                    descriptionPair.value ?
-                                      <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
-                                      :
-                                      <React.Fragment> N/A <br/></React.Fragment>
-                                  }
-                                </React.Fragment>
-                                : ''
+                              descriptionPair.value ?
+                                <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
+                                :
+                                <React.Fragment> N/A <br/></React.Fragment>
                             }
+                          </React.Fragment>
+                          : ''
+                      }
+                      {
+                        isSame(descriptionPair.label, 'Sponsor') ?
+                          <React.Fragment>
+                            <b>{descriptionPair.label}:</b>
                             {
-                              this.isLabel(descriptionPair.label, 'Semesters') ?
+                              descriptionPair.value ?
                                 <React.Fragment>
-                                  <b>{descriptionPair.label}:</b>
-                                  {
-                                    descriptionPair.value ?
-                                      <React.Fragment>
+                                  <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
+                                </React.Fragment>
+                                :
+                                <React.Fragment> N/A <br/></React.Fragment>
+                            }
+                          </React.Fragment>
+                          : ''
+                      }
+                      {
+                        isSame(descriptionPair.label, 'Semesters') ?
+                          <React.Fragment>
+                            <b>{descriptionPair.label}:</b>
+                            {
+                              descriptionPair.value ?
+                                <React.Fragment>
                                         <span
                                           style={breakWordStyle}> {replaceTermString(descriptionPair.value)}</span>
-                                        <br/>
-                                      </React.Fragment>
-                                      :
-                                      <React.Fragment> N/A <br/></React.Fragment>
-                                  }
+                                  <br/>
                                 </React.Fragment>
-                                : ''
-                            }
-                            {
-                              this.isLabel(descriptionPair.label, 'Sponsor') ?
-                                <React.Fragment>
-                                  <b>{descriptionPair.label}:</b>
-                                  {
-                                    descriptionPair.value ?
-                                      <React.Fragment>
-                                        <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
-                                      </React.Fragment>
-                                      :
-                                      <React.Fragment> N/A <br/></React.Fragment>
-                                  }
-                                </React.Fragment>
-                                : ''
-                            }
-                            {
-                              this.isLabel(descriptionPair.label, 'Description') ?
-                                <React.Fragment>
-                                  <b>{descriptionPair.label}:</b>
-                                  {
-                                    descriptionPair.value ?
-                                      <Markdown escapeHtml={true} source={descriptionPair.value}
-                                                renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                                      :
-                                      <React.Fragment> N/A </React.Fragment>
-                                  }
-                                </React.Fragment>
-                                : ''
+                                :
+                                <React.Fragment> N/A <br/></React.Fragment>
                             }
                           </React.Fragment>
-                        ))
+                          : ''
                       }
-                    </Grid.Column>
-                    <Grid.Column width={7}>
                       {
-                        descriptionPairs.map((descriptionPair, index) => (
-                          <React.Fragment key={index}>
+                        isSame(descriptionPair.label, 'Description') ?
+                          <React.Fragment>
+                            <b>{descriptionPair.label}:</b>
                             {
-                              this.isLabel(descriptionPair.label, 'Event Date') ?
-                                <React.Fragment>
-                                  <b>{descriptionPair.label}:</b>
-                                  {
-                                    descriptionPair.value ?
-                                      <React.Fragment>
-                                        <span style={breakWordStyle}> {descriptionPair.value.toString()}</span> <br/>
-                                      </React.Fragment>
-                                      :
-                                      <React.Fragment> N/A <br/></React.Fragment>
-                                  }
-                                </React.Fragment>
-                                : ''
-                            }
-                            {
-                              this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
-                                <React.Fragment>
-                                  <b>{descriptionPair.label}:</b>
-                                  {
-                                    descriptionPair.value ?
-                                      <Embed active={true} autoplay={false} source="youtube"
-                                             id={this.teaserUrlHelper()}/>
-                                      :
-                                      <p> N/A </p>
-                                  }
-                                </React.Fragment>
-                                : ''
+                              descriptionPair.value ?
+                                <Markdown escapeHtml={true} source={descriptionPair.value}
+                                          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+                                :
+                                <React.Fragment> N/A </React.Fragment>
                             }
                           </React.Fragment>
-                        ))
+                          : ''
                       }
-                    </Grid.Column>
-                  </Grid>
-                )
-                :
-                (
-                  <React.Fragment>
-                    <Grid stackable={true} columns={2}>
-                      <Grid.Column width={5}>
-                        {
-                          descriptionPairs.map((descriptionPair, index) => (
-                            <React.Fragment key={index}>
-                              {
-                                this.isLabel(descriptionPair.label, 'Opportunity Type') ?
-                                  <React.Fragment>
-                                    <b>{descriptionPair.label}:</b>
-                                    {
-                                      descriptionPair.value ?
-                                        <React.Fragment> {descriptionPair.value} <br/></React.Fragment>
-                                        :
-                                        <React.Fragment> N/A <br/></React.Fragment>
-                                    }
-                                  </React.Fragment>
-                                  : ''
-                              }
+                    </React.Fragment>
+                  ))
+                }
+              </Grid.Column>
+              <Grid.Column width={7}>
+                {
+                  descriptionPairs.map((descriptionPair, index) => (
+                    <React.Fragment key={index}>
+                      {
+                        isSame(descriptionPair.label, 'Event Date') ?
+                          <React.Fragment>
+                            <b>{descriptionPair.label}:</b>
+                            {
+                              descriptionPair.value ?
+                                <React.Fragment>
+                                  <span style={breakWordStyle}> {descriptionPair.value.toString()}</span>
+                                  <br/>
+                                </React.Fragment>
+                                :
+                                <React.Fragment> N/A <br/></React.Fragment>
+                            }
+                          </React.Fragment>
+                          : ''
+                      }
+                      {
+                        isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ?
+                          <React.Fragment>
+                            <b>{descriptionPair.label}:</b>
+                            {
+                              descriptionPair.value ?
+                                <Embed active={true} autoplay={false} source="youtube"
+                                       id={teaserUrlHelper(props)}/>
+                                :
+                                <p> N/A </p>
+                            }
+                          </React.Fragment>
+                          : ''
+                      }
+                      <FutureParticipation type='opportunity' item={props.item}/>
+                    </React.Fragment>
+                  ))
+                }
+              </Grid.Column>
+            </Grid> :
+            <Grid stackable={true} columns={2}>
 
-                    {
-                      isSame(descriptionPair.label, 'Sponsor') ?
-                        <React.Fragment>
-                          <b>{descriptionPair.label}:</b>
-                          {
-                            descriptionPair.value ?
-                              <React.Fragment>
-                                <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
-                              </React.Fragment>
-                              :
-                              <React.Fragment> N/A <br/></React.Fragment>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-                  </React.Fragment>
-
-                ))
-              }
-            </Grid.Column>
-
-            <Grid.Column width={11}>
-              {
-                descriptionPairs.map((descriptionPair, index) => (
-                  <React.Fragment key={index}>
-                    {
-                      isSame(descriptionPair.label, 'Semesters') ?
-                        <React.Fragment>
-                          <b>{descriptionPair.label}:</b>
-                          {
-                            descriptionPair.value ?
-                              <React.Fragment>
-                                <span style={breakWordStyle}> {replaceTermString(descriptionPair.value)}</span>
-                                <br/>
-                              </React.Fragment>
-                              :
-                              <React.Fragment> N/A <br/></React.Fragment>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-
-                    {
-                      isSame(descriptionPair.label, 'Event Date') ?
-                        <React.Fragment>
-                          <b>{descriptionPair.label}:</b>
-                          {
-                            descriptionPair.value ?
-                              <React.Fragment>
-                                <span style={breakWordStyle}> {descriptionPair.value}</span> <br/>
-                              </React.Fragment>
-                              :
-                              <React.Fragment> N/A <br/></React.Fragment>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-                  </React.Fragment>
-
-                ))
-              }
-            </Grid.Column>
-          </Grid>
-
-          <Grid stackable={true}>
-            <Grid.Column style={zeroMarginTopStyle}>
-              {
-                descriptionPairs.map((descriptionPair, index) => (
-                  <React.Fragment key={index}>
-                    {
-                      isSame(descriptionPair.label, 'Description') ?
-                        <React.Fragment>
-                          <b>{descriptionPair.label}:</b>
-                          {
-                            descriptionPair.value ?
-                              <Markdown escapeHtml={true} source={descriptionPair.value}
-                                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-                              :
-                              <React.Fragment> N/A </React.Fragment>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-
-                    {
-                      isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ?
-                        <React.Fragment>
-                          <b>{descriptionPair.label}:</b>
-                          {
-                            descriptionPair.value ?
-                              <Embed active={true} autoplay={false} source="youtube" id={teaserUrlHelper(props)}/>
-                              :
-                              <p> N/A </p>
-                          }
-                        </React.Fragment>
-                        : ''
-                    }
-
-                    {
-                      isSame(descriptionPair.label, 'Interests') ?
-                        <div style={fiveMarginTopStyle}>
-                          <InterestList item={item} size="mini"/>
-                        </div>
-                        : ''
-                    }
-                  </React.Fragment>
-
-                ))
-              }
-            </Grid.Column>
-          </Grid>
+            </Grid>}
+        </Segment>
+        <Segment>
+          <StudentExplorerReviewWidget event={item} userReview={review(props)} completed={completed}
+                                       reviewType="opportunity"/>
         </Segment>
       </Segment.Group>
-                          ))
-                        }
-                      </Grid.Column>
-                    </Grid>
-                  </React.Fragment>
-                )
-            }
-          </Segment>
-        </Segment.Group>
-
-      {
-        isStudent ?
-          <Grid stackable={true} className="column">
-            <Grid.Column width={16}>
-              <Segment padded={true}>
-                <StudentExplorerReviewWidget event={item} userReview={review(props)} completed={completed}
-                                             reviewType="opportunity"/>
-              </Segment>
-            </Grid.Column>
-          </Grid>
-          : ''
-      }
     </div>
   );
 };
