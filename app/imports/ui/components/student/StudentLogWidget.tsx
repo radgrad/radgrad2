@@ -5,6 +5,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, IBaseProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
+import { studentLogWidget } from './student-widget-names';
 
 interface IStudentLogWidgetProps {
   match: {
@@ -33,7 +34,7 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
   const advisorLogs = getAdvisorLogs(props);
 
   return (
-    <Container>
+    <Container id={`${studentLogWidget}`}>
       <Segment padded={true}>
         <Header as="h4" dividing={true}>ADVISOR MEETING LOG</Header>
         {

@@ -202,7 +202,6 @@ export interface IExplorerCard extends ICardExplorerCards {
 export interface IUserProfileCard extends ICardExplorerCards {
 }
 
-
 export interface IDescriptionPair {
   label: string;
   value: string | string[] | any[];
@@ -364,6 +363,11 @@ export interface ICourseInstanceUpdate {
   retired?: boolean;
 }
 
+export interface IScoreboard {
+  _id: string;
+  count: number;
+}
+
 // Courses
 export interface ICourse {
   _id: string;
@@ -427,6 +431,71 @@ export interface IDesiredDegreeUpdate {
   name?: string;
   shortName?: string;
   description?: string;
+  retired?: boolean;
+}
+
+// Favoirites
+export interface IFavoriteAcademicPlanDefine extends IDumpOne {
+  academicPlan: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteAcademicPlan {
+  academicPlanID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteCareerGoalDefine extends IDumpOne {
+  careerGoal: string;
+  username: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteCareerGoal {
+  careerGoalID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteCourseDefine extends IDumpOne {
+  course: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteCourse {
+  courseID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteInterestDefine extends IDumpOne {
+  interest: string;
+  username: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteInterest {
+  interestID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteOpportunityDefine extends IDumpOne {
+  opportunity: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteOpportunity {
+  opportunityID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteUpdate {
   retired?: boolean;
 }
 
@@ -853,9 +922,9 @@ export interface IStudentProfile extends IProfile {
 export interface IStudentProfileDefine extends IProfileDefine {
   level: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
+  favoriteAcademicPlans?: string[];
+  favoriteCourses?: string[];
+  favoriteOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -872,9 +941,9 @@ export interface IStudentProfileDefine extends IProfileDefine {
 export interface IStudentProfileUpdate extends IProfileUpdate {
   level?: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
+  favoriteAcademicPlans?: string[];
+  favoriteCourses?: string[];
+  favoriteOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;

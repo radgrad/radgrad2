@@ -26,6 +26,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
+import { leftHandMenu } from '../shared/shared-widget-names';
 
 interface IAdminDataModeMenuProps {
   match: {
@@ -69,7 +70,7 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/datamodel/`;
   // console.log(this.props, baseRoute);
   return (
-    <Menu vertical={true}>
+    <Menu vertical={true} id={`${leftHandMenu}`}>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-plans`}>Academic Plans ({props.academicPlanCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-terms`}>Academic Terms ({props.academicTermCount})</Menu.Item>
       <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-year-instances`}>Academic Year Instances ({props.academicYearCount})</Menu.Item>

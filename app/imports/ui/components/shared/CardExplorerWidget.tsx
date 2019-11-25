@@ -3,6 +3,7 @@ import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -27,6 +28,7 @@ import {
   getUsers,
   isType,
 } from './explorer-helper-functions';
+import { cardExplorerWidget } from './shared-widget-names';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   collection: any;
@@ -37,13 +39,13 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   dispatch: any;
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
+  menuList: object[];
 }
 
 const mapStateToProps = (state) => ({
   hiddenCourses: state.shared.explorer.hiddenCourses,
   hiddenOpportunities: state.shared.explorer.hiddenOpportunities,
 });
-
 
 /**
  * Process to build a new Card Explorer Widget
@@ -68,6 +70,7 @@ const mapStateToProps = (state) => ({
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
 const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
+  // console.log('CardExplorerWidget', props);
   /* Styles */
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
   const cardGroupStyle: React.CSSProperties = {
@@ -164,7 +167,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   return (
     <React.Fragment>
-      <Segment padded={true}>
+      <Segment padded={true} id={`${cardExplorerWidget}`}>
         <Header dividing={true}>
           <h4>
             {
@@ -214,11 +217,13 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
 const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {
-  const { collection, type, match } = props;
+  const { collection, type, match, menuList } = props;
+  const favoriteIDs = _.map(menuList, (m) => m.item._id);
   const username = match.params.username;
   let reactiveSource;
   if (type !== EXPLORER_TYPE.USERS) {
-    reactiveSource = collection.findNonRetired({});
+    const allItems = collection.findNonRetired({});
+    reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
   } else {
     reactiveSource = Users.getProfile(username);
   }

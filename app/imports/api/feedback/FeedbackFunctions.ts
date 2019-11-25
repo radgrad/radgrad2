@@ -14,6 +14,7 @@ import * as yearUtils from '../degree-plan/AcademicYearUtilities';
 import * as planUtils from '../degree-plan/PlanChoiceUtilities';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 /**
  * Provides FeedbackFunctions. Each FeedbackFunction is a method of the singleton instance FeedbackFunctions.
@@ -106,38 +107,41 @@ export class FeedbackFunctionClass {
 
     const studentProfile = Users.getProfile(user);
     const courseIDs = StudentProfiles.getCourseIDs(user);
-    let courses = [];
-    const academicPlan = AcademicPlans.findDoc(studentProfile.academicPlanID);
-    courses = academicPlan.courseList.slice(0);
-    courses = this.missingCourses(courseIDs, courses);
-    if (courses.length > 0) {
-      let description = 'Your degree plan is missing: \n\n';
-      const basePath = this.getBasePath(user);
-      _.forEach(courses, (slug) => {
-        if (!planUtils.isSingleChoice(slug)) {
-          const slugs = planUtils.complexChoiceToArray(slug);
-          description = `${description}\n\n- `;
-          _.forEach(slugs, (s) => {
-            const id = Slugs.getEntityID(planUtils.stripCounter(s), 'Course');
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: studentProfile.userID });
+    _.forEach(favPlans, (fav) => {
+      let courses = [];
+      const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
+      courses = academicPlan.courseList.slice(0);
+      courses = this.missingCourses(courseIDs, courses);
+      if (courses.length > 0) {
+        let description = 'Your degree plan is missing: \n\n';
+        const basePath = this.getBasePath(user);
+        _.forEach(courses, (slug) => {
+          if (!planUtils.isSingleChoice(slug)) {
+            const slugs = planUtils.complexChoiceToArray(slug);
+            description = `${description}\n\n- `;
+            _.forEach(slugs, (s) => {
+              const id = Slugs.getEntityID(planUtils.stripCounter(s), 'Course');
+              const course = Courses.findDoc(id);
+              description = `${description} [${course.num} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
+            });
+            description = description.substring(0, description.length - 4);
+            description = `${description}, `;
+          } else if (slug.indexOf('400+') !== -1) {
+            description = `${description} \n- a 400 level elective, `;
+          } else if (slug.indexOf('300+') !== -1) {
+            description = `${description} \n- a 300+ level elective, `;
+          } else {
+            const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
             const course = Courses.findDoc(id);
-            description = `${description} [${course.num} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
-          });
-          description = description.substring(0, description.length - 4);
-          description = `${description}, `;
-        } else if (slug.indexOf('400+') !== -1) {
-          description = `${description} \n- a 400 level elective, `;
-        } else if (slug.indexOf('300+') !== -1) {
-          description = `${description} \n- a 300+ level elective, `;
-        } else {
-          const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
-          const course = Courses.findDoc(id);
-          description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
-        }
-      });
-      description = description.substring(0, description.length - 2);
-      const definitionData = { user, functionName, description, feedbackType };
-      defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
-    }
+            description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
+          }
+        });
+        description = description.substring(0, description.length - 2);
+        const definitionData = { user, functionName, description, feedbackType };
+        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+      }
+    });
   }
 
   /**
@@ -190,44 +194,47 @@ export class FeedbackFunctionClass {
     const coursesTakenSlugs = [];
     const studentProfile = Users.getProfile(user);
     const courseIDs = StudentProfiles.getCourseIDs(user);
-    const academicPlanID = studentProfile.academicPlanID;
-    const academicPlan = AcademicPlans.findDoc(academicPlanID);
-    const coursesNeeded = academicPlan.courseList.slice(0);
-    _.forEach(courseIDs, (cID) => {
-      const course = Courses.findDoc(cID);
-      coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: studentProfile.userID });
+    _.forEach(favPlans, (fav) => {
+      const academicPlanID = fav.academicPlanID;
+      const academicPlan = AcademicPlans.findDoc(academicPlanID);
+      const coursesNeeded = academicPlan.courseList.slice(0);
+      _.forEach(courseIDs, (cID) => {
+        const course = Courses.findDoc(cID);
+        coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
+      });
+      const missing = this.missingCourses(courseIDs, coursesNeeded);
+      if (missing.length > 0) {
+        let description = 'Consider taking the following class to meet the degree requirement: ';
+        // if (missing.length > 1) {
+        //   description = 'Consider taking the following classes to meet the degree requirement: ';
+        // }
+        const basePath = this.getBasePath(user);
+        let slug = missing[0];
+        if (planUtils.isComplexChoice(slug) || planUtils.isSimpleChoice(slug)) {
+          slug = planUtils.complexChoiceToArray(slug);
+        }
+        if (Array.isArray(slug)) {
+          const course = courseUtils.chooseBetween(slug, user, coursesTakenSlugs);
+          if (course) {
+            const courseSlug = Slugs.findDoc(course.slugID);
+            description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
+          }
+        } else if (slug.startsWith('ics_4')) {
+          const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
+          if (bestChoice) {
+            const cSlug = Slugs.findDoc(bestChoice.slugID);
+            description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
+          }
+        } else if (slug.startsWith('ics')) {
+          const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
+          const course = Courses.findDoc(courseID);
+          description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
+        }
+        const definitionData = { user, functionName, description, feedbackType };
+        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+      }
     });
-    const missing = this.missingCourses(courseIDs, coursesNeeded);
-    if (missing.length > 0) {
-      let description = 'Consider taking the following class to meet the degree requirement: ';
-      // if (missing.length > 1) {
-      //   description = 'Consider taking the following classes to meet the degree requirement: ';
-      // }
-      const basePath = this.getBasePath(user);
-      let slug = missing[0];
-      if (planUtils.isComplexChoice(slug) || planUtils.isSimpleChoice(slug)) {
-        slug = planUtils.complexChoiceToArray(slug);
-      }
-      if (Array.isArray(slug)) {
-        const course = courseUtils.chooseBetween(slug, user, coursesTakenSlugs);
-        if (course) {
-          const courseSlug = Slugs.findDoc(course.slugID);
-          description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
-        }
-      } else if (slug.startsWith('ics_4')) {
-        const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
-        if (bestChoice) {
-          const cSlug = Slugs.findDoc(bestChoice.slugID);
-          description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
-        }
-      } else if (slug.startsWith('ics')) {
-        const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
-        const course = Courses.findDoc(courseID);
-        description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
-      }
-      const definitionData = { user, functionName, description, feedbackType };
-      defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
-    }
   }
 
   public generateRecommended400LevelCourse(user: string) {
@@ -241,33 +248,36 @@ export class FeedbackFunctionClass {
     const coursesTakenSlugs = [];
     const studentProfile = Users.getProfile(user);
     const courseIDs = StudentProfiles.getCourseIDs(user);
-    const academicPlan = studentProfile.academicPlanID;
-    const coursesNeeded = academicPlan.courseList.slice(0);
-    _.forEach(courseIDs, (cID) => {
-      const course = Courses.findDoc(cID);
-      coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
-    });
-    if (this.missingCourses(courseIDs, coursesNeeded).length > 0) {
-      let bestChoices = courseUtils.bestStudent400LevelCourses(user, coursesTakenSlugs);
-      const basePath = this.getBasePath(user);
-      if (bestChoices) {
-        const len = bestChoices.length;
-        if (len > 5) {
-          bestChoices = _.drop(bestChoices, len - 5);
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: studentProfile.userID });
+    _.forEach(favPlans, (fav) => {
+      const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
+      const coursesNeeded = academicPlan.courseList.slice(0);
+      _.forEach(courseIDs, (cID) => {
+        const course = Courses.findDoc(cID);
+        coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
+      });
+      if (this.missingCourses(courseIDs, coursesNeeded).length > 0) {
+        let bestChoices = courseUtils.bestStudent400LevelCourses(user, coursesTakenSlugs);
+        const basePath = this.getBasePath(user);
+        if (bestChoices) {
+          const len = bestChoices.length;
+          if (len > 5) {
+            bestChoices = _.drop(bestChoices, len - 5);
+          }
+          let description = 'Consider taking the following classes to meet the degree requirement: ';
+          _.forEach(bestChoices, (course) => {
+            const slug = Slugs.findDoc(course.slugID);
+            description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
+          });
+          description = description.substring(0, description.length - 2);
+          const definitionData = { user, functionName, description, feedbackType };
+          defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
         }
-        let description = 'Consider taking the following classes to meet the degree requirement: ';
-        _.forEach(bestChoices, (course) => {
-          const slug = Slugs.findDoc(course.slugID);
-          description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
-        });
-        description = description.substring(0, description.length - 2);
-        const definitionData = { user, functionName, description, feedbackType };
-        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+      } else {
+        // TODO Why is this second call to clear needed? We do it at the top of this function.
+        clearFeedbackInstancesMethod.call({ user, functionName });
       }
-    } else {
-      // TODO Why is this second call to clear needed? We do it at the top of this function.
-      clearFeedbackInstancesMethod.call({ user, functionName });
-    }
+    });
   }
 
   /**

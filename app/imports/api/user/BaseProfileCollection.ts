@@ -4,17 +4,20 @@ import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
-import { CareerGoals } from '../career/CareerGoalCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { Interests } from '../interest/InterestCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { IBaseProfile } from '../../typings/radgrad'; // eslint-disable-line
+import { IBaseProfile } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
@@ -42,8 +45,6 @@ class BaseProfileCollection extends BaseSlugCollection {
       role: String,
       picture: { type: String, optional: true },
       website: { type: String, optional: true },
-      interestIDs: [SimpleSchema.RegEx.Id],
-      careerGoalIDs: [SimpleSchema.RegEx.Id],
       userID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
       shareUsername: { type: Boolean, optional: true },
@@ -175,16 +176,6 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (!Slugs.isDefined(doc.username)) {
       problems.push(`Bad username: ${doc.username}`);
     }
-    _.forEach(doc.careerGoalIDs, (careerGoalID) => {
-      if (!CareerGoals.isDefined(careerGoalID)) {
-        problems.push(`Bad careerGoalID: ${careerGoalID}`);
-      }
-    });
-    _.forEach(doc.interestIDs, (interestID) => {
-      if (!Interests.isDefined(interestID)) {
-        problems.push(`Bad interestID: ${interestID}`);
-      }
-    });
     if (!Users.isDefined(doc.userID)) {
       problems.push(`Bad userID: ${doc.userID}`);
     }
@@ -202,7 +193,8 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
       _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
-        VerificationRequests], (collection) => collection.removeUser(userID));
+        VerificationRequests, FavoriteAcademicPlans, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
+        FavoriteOpportunities], (collection) => collection.removeUser(userID));
       const username = profile.username;
       Meteor.users.remove({ _id: profile.userID });
       Slugs.getCollection().remove({ name: username });
@@ -216,7 +208,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * Destructively modifies updateData with the values of the passed fields.
    * Call this function for side-effect only.
    */
-  protected updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired }) {
+  protected updateCommonFields(updateData, { firstName, lastName, picture, website, retired }) {
     if (firstName) {
       updateData.firstName = firstName; // eslint-disable-line
     }
@@ -228,12 +220,6 @@ class BaseProfileCollection extends BaseSlugCollection {
     }
     if (_.isString(website)) {
       updateData.website = website; // eslint-disable-line
-    }
-    if (interests) {
-      updateData.interestIDs = Interests.getIDs(interests); // eslint-disable-line
-    }
-    if (careerGoals) {
-      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals); // eslint-disable-line
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired; // eslint-disable-line

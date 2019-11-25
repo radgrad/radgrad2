@@ -18,6 +18,8 @@ function name(user) {
   return `${user.lastName}, ${user.firstName}`;
 }
 
+const shortUserName = (user) => user.username.substr(0, user.username.indexOf('@'));
+
 interface IRetrieveUserWidgetProps extends IFilterUsers {
   advisors: IAdvisorProfile[];
   faculty: IFacultyProfile[];
@@ -71,7 +73,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {advisors.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
                    href={url(user)}>{name(user)}</a>
               </Grid.Column>
             ))}
@@ -86,7 +88,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {faculty.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
                    href={url(user)}>{name(user)}</a>
               </Grid.Column>
             ))}
@@ -101,7 +103,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {mentors.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
                    href={url(user)}>{name(user)}</a>
               </Grid.Column>
             ))}
@@ -116,7 +118,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {students.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
                   {/* <Image src={`/images/level-icons/radgrad-level-${user.level}-icon.png`}/> */}
                   {name(user)}
                 </a>
@@ -137,7 +139,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {alumni.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
                   {name(user)}
                 </a>
               </Grid.Column>

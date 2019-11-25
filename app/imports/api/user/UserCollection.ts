@@ -13,6 +13,8 @@ import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { MentorProfiles } from './MentorProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -424,9 +426,15 @@ class UserCollection {
    */
   public getInterestIDs(user) {
     const profile = this.getProfile(user);
-    let interestIDs = profile.interestIDs;
-    _.forEach(profile.careerGoalIDs, (careerGoalID) => {
-      const goal = CareerGoals.findDoc(careerGoalID);
+    const userID = profile.userID;
+    let interestIDs = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      interestIDs.push(fav.interestID);
+    });
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
       interestIDs = _.union(interestIDs, goal.interestIDs);
     });
     return interestIDs;
@@ -441,14 +449,21 @@ class UserCollection {
    */
   public getInterestIDsByType(user) {
     const profile = this.getProfile(user);
+    const userID = profile.userID;
     const interestIDs = [];
-    interestIDs.push(profile.interestIDs);
+    const userInterests = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      userInterests.push(fav.interestID);
+    });
+    interestIDs.push(userInterests);
     let careerInterestIDs = [];
-    _.forEach(profile.careerGoalIDs, (goalID) => {
-      const goal = CareerGoals.findDoc(goalID);
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
       careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
     });
-    careerInterestIDs = _.difference(careerInterestIDs, profile.interestIDs);
+    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
     interestIDs.push(careerInterestIDs);
     return interestIDs;
   }

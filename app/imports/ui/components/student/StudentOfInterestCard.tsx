@@ -7,22 +7,14 @@ import * as Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import StudentOfInterestAdd from './StudentOfInterestAdd';
-import { renderLink } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { replaceTermStringNextFour } from '../shared/helper-functions';
-import { docToShortDescription } from '../shared/data-model-helper-functions';
+import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';
+import * as Router from '../shared/RouterHelperFunctions';
 
 interface IStudentOfInterestCardProps {
   type: string;
-  canAdd: boolean;
   match: {
     isExact: boolean;
     path: string;
@@ -39,197 +31,73 @@ interface IStudentOfInterestCardProps {
   };
 }
 
-class StudentOfInterestCard extends React.Component<IStudentOfInterestCardProps> {
-  constructor(props) {
-    super(props);
+const isTypeCourse = (props: IStudentOfInterestCardProps) => props.type === EXPLORER_TYPE.COURSES;
+
+// This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
+// Should move it to one if one is made - Gian.
+const opportunityTerms = (opportunityInstance) => {
+  const academicTermIDs = opportunityInstance.termIDs;
+  const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
+  return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
+};
+
+const itemTerms = (props: IStudentOfInterestCardProps) => {
+  let ret = [];
+  if (isTypeCourse(props)) {
+    // do nothing
+  } else {
+    ret = opportunityTerms(props.item);
   }
+  return ret;
+};
 
-  private handleHideStudentInterest = (e) => {
-    e.preventDefault();
-    const username = this.getUsername();
-    const profile = Users.getProfile(username);
-    const id = this.props.item._id;
-    const collectionName = StudentProfiles.getCollectionName();
-    const updateData: any = {};
-    updateData.id = profile._id;
-    if (this.isTypeCourse()) {
-      const studentItems = profile.hiddenCourseIDs;
-      studentItems.push(id);
-      updateData.hiddenCourses = studentItems;
-    } else {
-      const studentItems = profile.hiddenOpportunityIDs;
-      studentItems.push(id);
-      updateData.hiddenOpportunities = studentItems;
-    }
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        console.log('Error hiding course/opportunity', error);
-      }
-    });
+const numberStudents = (item) => {
+  const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
+  return participatingStudents.itemCount;
+};
+
+const buildRouteName = (props: IStudentOfInterestCardProps) => {
+  const itemName = itemToSlugName(props.item);
+  switch (props.type) {
+    case EXPLORER_TYPE.COURSES:
+      return Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`);
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      return Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`);
+    default:
+      break;
   }
+  return '#';
+};
 
-  private handleUnHideStudentInterest = (e) => {
-    e.preventDefault();
-    const username = this.getUsername();
-    const profile = Users.getProfile(username);
-    const id = this.props.item._id;
-    const collectionName = StudentProfiles.getCollectionName();
-    const updateData: any = {};
-    updateData.id = profile._id;
-    if (this.isTypeCourse()) {
-      let studentItems = profile.hiddenCourseIDs;
-      studentItems = _.without(studentItems, id);
-      updateData.hiddenCourses = studentItems;
-    } else {
-      let studentItems = profile.hiddenOpportunityIDs;
-      studentItems = _.without(studentItems, id);
-      updateData.hiddenOpportunities = studentItems;
-    }
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        console.log('Error unhiding course/opportunity', error);
-      }
-    });
-  }
+const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
+  const { item, match } = props;
+  const itemName = docToName(item);
+  const itemShortDescription = docToShortDescription(item);
 
-  // This was originally in a ui/utilities/template-helpers.js (radgrad1) file called opportunitySemesters
-  // Should move it to one if one is made - Gian.
-  private opportunityTerms(opportunityInstance) {
-    const academicTermIDs = opportunityInstance.termIDs;
-    const upcomingAcademicTerms = _.filter(academicTermIDs, termID => AcademicTerms.isUpcomingTerm(termID));
-    return _.map(upcomingAcademicTerms, termID => AcademicTerms.toString(termID));
-  }
+  return (
+    <Card className="radgrad-interest-card">
+      <Card.Content>
+        <Header>{itemName}</Header>
+        <Card.Meta>
+          {itemTerms(props) ? replaceTermStringNextFour(itemTerms(props)) : ''}
+        </Card.Meta>
+      </Card.Content>
 
-  private itemName = (item) => item.name;
+      <Card.Content>
+        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
+                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+        <InterestList item={item} size='mini'/>
+      </Card.Content>
 
-  private itemSlug = (item) => Slugs.findDoc(item.slugID).name;
+      <Card.Content>
+        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents(item)}/></span>
+      </Card.Content>
 
-  private itemTerms = () => {
-    let ret = [];
-    if (this.isTypeCourse()) {
-      // do nothing
-    } else {
-      ret = this.opportunityTerms(this.props.item);
-    }
-    return ret;
-  }
-
-  private numberStudents = (item) => {
-    const participatingStudents = StudentParticipations.findDoc({ itemID: item._id });
-    return participatingStudents.itemCount;
-  }
-
-  private interestedStudents = (item) => this.interestedStudentsHelper(item, this.props.type);
-
-  private interestedStudentsHelper = (item, type) => {
-    const interested = [];
-    let instances;
-    if (type === EXPLORER_TYPE.COURSES) {
-      instances = CourseInstances.find({
-        courseID: item._id,
-      }).fetch();
-    } else {
-      instances = OpportunityInstances.find({
-        opportunityID: item._id,
-      }).fetch();
-    }
-    _.forEach(instances, (c) => {
-      if (!_.includes(interested, c.studentID)) {
-        interested.push(c.studentID);
-      }
-    });
-    // only allow 50 students randomly selected.
-    for (let i = interested.length - 1; i >= 50; i--) {
-      interested.splice(Math.floor(Math.random() * interested.length), 1);
-    }
-    return interested;
-  }
-
-  private isTypeCourse = () => this.props.type === EXPLORER_TYPE.COURSES;
-
-  private hidden = () => {
-    const username = this.props.match.params.username;
-    let ret = '';
-    const profile = Users.getProfile(username);
-    if (this.isTypeCourse()) {
-      if (_.includes(profile.hiddenCourseIDs, this.props.item._id)) {
-        ret = 'grey';
-      }
-    } else if (_.includes(profile.hiddenOpportunityIDs, this.props.item._id)) {
-      ret = 'grey';
-    }
-    return ret;
-  }
-
-  private getUsername = () => this.props.match.params.username;
-
-  private buildRouteName = (item, type) => {
-    const itemName = this.itemSlug(item);
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-    switch (type) {
-      case EXPLORER_TYPE.COURSES:
-        return `${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemName}`;
-      case EXPLORER_TYPE.OPPORTUNITIES:
-        return `${baseRoute}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemName}`;
-      default:
-        break;
-    }
-    return '#';
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { item, match } = this.props;
-    const itemName = this.itemName(item);
-    const itemTerms = this.itemTerms();
-    const itemShortDescription = docToShortDescription(item);
-    const numberStudents = this.numberStudents(item);
-    const hidden = this.hidden() as SemanticCOLORS;
-
-    return (
-      <Card className="radgrad-interest-card">
-        <Card.Content>
-          <Header>{itemName}</Header>
-          <Card.Meta>
-            {itemTerms ? replaceTermStringNextFour(itemTerms) : ''}
-          </Card.Meta>
-        </Card.Content>
-
-        <Card.Content>
-          <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                    renderers={{ link: (props) => renderLink(props, match) }}/>
-          <InterestList item={item} size='mini'/>
-        </Card.Content>
-
-        <Card.Content>
-          <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
-        </Card.Content>
-
-        {
-          <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={3}
-                        color={hidden || undefined}>
-            <Link to={this.buildRouteName(this.props.item, this.props.type)}>
-              <Button><Icon name="chevron circle right"/><br/>View More</Button>
-            </Link>
-
-            {this.props.canAdd ?
-              <StudentOfInterestAdd item={this.props.item} type={this.props.type}/>
-              : ''
-            }
-
-            {
-              hidden ?
-                <Button onClick={this.handleUnHideStudentInterest}><Icon name="unhide"/><br/>Unhide</Button>
-                :
-                <Button onClick={this.handleHideStudentInterest}><Icon name="hide"/><br/>Hide</Button>
-            }
-          </Button.Group>
-        }
-      </Card>
-    );
-  }
-}
+      <Link to={buildRouteName(props)}>
+        <Button attached={'bottom'} fluid={true}><Icon name="chevron circle right"/><br/>View More</Button>
+      </Link>
+    </Card>
+  );
+};
 
 export default withRouter(StudentOfInterestCard);

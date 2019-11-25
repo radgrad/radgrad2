@@ -6,6 +6,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { ROLE } from '../../../api/role/Role';
 import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { studentLevelsOthersWidget } from './student-widget-names';
 
 interface IStudentLevelsOthersWidgetProps {
   match: {
@@ -69,7 +70,7 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   const studentLevelNumber = getStudentLevelNumber(props);
   const students = getStudents(studentLevelNumber, props);
   return (
-    <Segment padded={true}>
+    <Segment padded={true} id={`${studentLevelsOthersWidget}`}>
       <Header as="h4" dividing={true}>OTHER {studentLevelName} STUDENTS</Header>
       {
         studentsExist(students) ?

@@ -14,6 +14,9 @@ const initialState = {
 };
 
 function inspectorReducer(state: any = initialState, action) {
+  // console.log('inspectorReducer', action, state);
+  const depInspector = state.depInspector;
+  let newState;
   switch (action.type) {
     case TYPES.SELECT_COURSE:
       return {
@@ -42,10 +45,13 @@ function inspectorReducer(state: any = initialState, action) {
     case TYPES.SELECT_OPPORTUNITY_INSTANCE:
       return {
         ...state,
-        selectedCourseID: '',
-        selectedCourseInstanceID: '',
-        selectedOpportunityID: '',
-        selectedOpportunityInstanceID: action.payload,
+        depInspector: {
+          ...depInspector,
+          selectedCourseID: '',
+          selectedCourseInstanceID: '',
+          selectedOpportunityID: '',
+          selectedOpportunityInstanceID: action.payload,
+        },
       };
     default:
       return state;
@@ -62,6 +68,23 @@ function tabReducer(state: any = initialState, action) {
       return {
         selectedTab: TYPES.SELECT_INSPECTOR,
       };
+    case TYPES.SELECT_FAVORITE_OPPORTUNITIES:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_OPPORTUNITIES,
+      };
+    case TYPES.SELECT_FAVORITE_PLANS:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_PLANS,
+      };
+    case TYPES.SELECT_FAVORITE_COURSES:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_COURSES,
+      };
+    case TYPES.SELECT_FAVORITE_DETAILS:
+      return {
+        selectedTab: TYPES.SELECT_FAVORITE_DETAILS,
+      };
+
     default:
       return state;
   }

@@ -1,19 +1,31 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Grid, Segment, Header, Label } from 'semantic-ui-react';
+import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
-import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  ICareerGoal, IFavoriteAcademicPlan, // eslint-disable-line
+  IFavoriteCareerGoal, // eslint-disable-line
+  IFavoriteInterest, // eslint-disable-line
+  IInterest, // eslint-disable-line
+  IStudentProfile // eslint-disable-line
+} from '../../../typings/radgrad'; // eslint-disable-line
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
 import * as Router from '../shared/RouterHelperFunctions';
 import {
-  itemToSlugName, profileGetCareerGoals, profileGetDesiredDegreeName, profileGetInterests,
+  itemToSlugName, profileGetCareerGoals, profileGetInterests,
   profileToFullName,
 } from '../shared/data-model-helper-functions';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { studentAboutMeWidget } from './student-widget-names';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -25,6 +37,9 @@ interface IStudentAboutMeWidgetProps {
     }
   };
   profile: IStudentProfile;
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 
 const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
@@ -35,9 +50,9 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const email = props.profile.username;
   const careerGoals = profileGetCareerGoals(props.profile);
   const interests = profileGetInterests(props.profile);
-  const desiredDegree = profileGetDesiredDegreeName(props.profile);
+  const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   return (
-    <Segment padded={true}>
+    <Segment padded={true} id={`${studentAboutMeWidget}`}>
       <Container>
         <Header as="h4" dividing={true}>ABOUT ME</Header>
 
@@ -59,28 +74,28 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                                              collectionName={StudentProfiles.getCollectionName()}/>
           </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={2}><p><b>Career Goals</b></p></Grid.Column>
-            <Grid.Column width={6}>
-              {careerGoals.length !== 0 ?
-                careerGoals.map((careerGoal) => {
-                  const slugName = itemToSlugName(careerGoal);
-                  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
-                  return (
-                    <Label key={careerGoal._id} as={Link} to={route} size="tiny">
-                      <i className="fitted suitcase"/> {careerGoal.name}
-                    </Label>
-                  );
-                })
-                :
-                <p style={marginBottomStyle}>No career goals added yet.</p>
-              }
-              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-                <p>View More Career Goals</p>
-              </Link>
-            </Grid.Column>
+            <Grid.Row>
+              <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
+              <Grid.Column width={6}>
+                {careerGoals.length !== 0 ?
+                  careerGoals.map((careerGoal) => {
+                    const slugName = itemToSlugName(careerGoal);
+                    const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
+                    return (
+                      <Label key={careerGoal._id} as={Link} to={route} size="tiny">
+                        <Icon name="suitcase" fitted={true}/> {careerGoal.name}
+                      </Label>
+                    );
+                  })
+                  :
+                  <p style={marginBottomStyle}>No career goals favorited yet.</p>
+                }
+                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
+                  <p>View More Career Goals</p>
+                </Link>
+              </Grid.Column>
 
-            <Grid.Column width={2}><p><b>Interests</b></p></Grid.Column>
+            <Grid.Column width={2}><p><b>My Favorite Interests</b></p></Grid.Column>
             <Grid.Column width={6}>
               {interests.length !== 0 ?
                 interests.map((interest) => {
@@ -88,29 +103,41 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
                   return (
                     <Label key={interest._id} as={Link} to={route} size="tiny">
-                      <i className="fitted star"/> {interest.name}
+                      <Icon name="star" fitted={true}/> {interest.name}
                     </Label>
                   );
                 })
                 :
-                <p style={marginBottomStyle}>No interests added yet.</p>
+                <p style={marginBottomStyle}>No interests favorited yet.</p>
               }
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
-                <p>View More Interests</p>
+                <p>Update in interest explorer</p>
               </Link>
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={2}><p><b>Desired Academic Plan</b></p></Grid.Column>
-            <Grid.Column width={6}>
-              <p style={marginBottomStyle}>{desiredDegree}</p>
-              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`)}>
-                View More Degrees
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+            <Grid.Row>
+              <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
+              <Grid.Column width={6}>
+                {academicPlans.length !== 0 ?
+                  academicPlans.map((plan) => {
+                    const slugName = itemToSlugName(plan);
+                    const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
+                    return (
+                      <Label key={plan._id} as={Link} to={route} size="tiny">
+                        <Icon name="map outline" fitted={true}/> {plan.name}
+                      </Label>
+                    );
+                  })
+                  :
+                  <p style={marginBottomStyle}>No academic plans favorited yet.</p>
+                }
+                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                  Update in academic plan explorer
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
 
         <StudentShareInfoWidget profile={profile}/>
       </Container>
@@ -120,4 +147,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
 
 export default withRouter(withTracker((props) => ({
   profile: Users.getProfile(props.match.params.username),
+  favoriteAcademicPlans: FavoriteAcademicPlans.findNonRetired({}),
+  favoriteCareerGoals: FavoriteCareerGoals.findNonRetired({}),
+  favoriteInterests: FavoriteInterests.findNonRetired({}),
 }))(StudentAboutMeWidget));

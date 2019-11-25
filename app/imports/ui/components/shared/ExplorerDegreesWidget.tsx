@@ -4,6 +4,7 @@ import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';
+import { explorerDegreeWidget } from './shared-widget-names';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
@@ -18,55 +19,49 @@ interface IExplorerDegreesWidgetProps {
   };
 }
 
-class ExplorerDegreesWidget extends React.Component<IExplorerDegreesWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
+const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
+  const segmentGroupStyle = { backgroundColor: 'white' };
+  const segmentClearingBasicStyle = {
+    margin: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+  };
+  const dividerStyle = { marginTop: 0 };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const segmentGroupStyle = { backgroundColor: 'white' };
-    const segmentClearingBasicStyle = {
-      margin: 0,
-      paddingLeft: 0,
-      paddingRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
-    };
-    const dividerStyle = { marginTop: 0 };
+  const { name, descriptionPairs, match } = props;
 
-    const { name, descriptionPairs, match } = this.props;
-
-    return (
-      <Segment.Group style={segmentGroupStyle}>
-        <Container>
-          <Segment padded={true}>
-            <Segment clearing={true} basic={true} style={segmentClearingBasicStyle}>
-              <Header floated="left" as="h4">{toUpper(name)}</Header>
-            </Segment>
-
-            <Divider style={dividerStyle}/>
-
-            <Grid stackable={true}>
-              <Grid.Column>
-                {
-                  descriptionPairs.map((descriptionPair, index) => (
-                    descriptionPair.value ?
-                      <React.Fragment key={index}>
-                        <b>{descriptionPair.label}:</b>
-                        <Markdown escapeHtml={false} source={descriptionPair.value}
-                                  renderers={{ link: (props) => renderLink(props, match) }}/>
-                      </React.Fragment>
-                      :
-                      <p key={index}><b>{descriptionPair.label}:</b> N/A</p>
-                  ))
-                }
-              </Grid.Column>
-            </Grid>
+  return (
+    <Segment.Group style={segmentGroupStyle} id={explorerDegreeWidget}>
+      <Container>
+        <Segment padded={true}>
+          <Segment clearing={true} basic={true} style={segmentClearingBasicStyle}>
+            <Header floated="left" as="h4">{toUpper(name)}</Header>
           </Segment>
-        </Container>
-      </Segment.Group>
-    );
-  }
-}
+
+          <Divider style={dividerStyle}/>
+
+          <Grid stackable={true}>
+            <Grid.Column>
+              {
+                descriptionPairs.map((descriptionPair, index) => (
+                  descriptionPair.value ?
+                    <React.Fragment key={index}>
+                      <b>{descriptionPair.label}:</b>
+                      <Markdown escapeHtml={false} source={descriptionPair.value}
+                                renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
+                    </React.Fragment>
+                    :
+                    <p key={index}><b>{descriptionPair.label}:</b> N/A</p>
+                ))
+              }
+            </Grid.Column>
+          </Grid>
+        </Segment>
+      </Container>
+    </Segment.Group>
+  );
+};
 
 export default withRouter(ExplorerDegreesWidget);

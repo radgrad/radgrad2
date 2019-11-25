@@ -11,6 +11,7 @@ import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { studentTeaserWidget } from './student-widget-names';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -92,54 +93,52 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
   const chevronCircleRightIconStyle = { marginRight: '1px' };
 
   return (
-    <React.Fragment>
-      <Container>
-        <Segment padded={true}>
-          <Header dividing={true}>
-            <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>
-          </Header>
+    <Container id={`${studentTeaserWidget}`}>
+      <Segment padded={true}>
+        <Header dividing={true}>
+          <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>
+        </Header>
 
-          {
-            teasers ?
-              <Card.Group style={cardGroupStyle}>
-                {
-                  teasers.map((teaser, index) => (
-                    <React.Fragment key={index}>
-                      <Card centered={true}>
-                        <Card.Content>
-                          <Card.Header>{teaserTitle(teaser)}</Card.Header>
-                          <Card.Meta>By {teaserAuthor(teaser)} </Card.Meta>
-                        </Card.Content>
+        {
+          teasers ?
+            <Card.Group style={cardGroupStyle}>
+              {
+                teasers.map((teaser, index) => (
+                  <React.Fragment key={index}>
+                    <Card centered={true}>
+                      <Card.Content>
+                        <Card.Header>{teaserTitle(teaser)}</Card.Header>
+                        <Card.Meta>By {teaserAuthor(teaser)} </Card.Meta>
+                      </Card.Content>
 
-                        <Card.Content style={teaserWidgetVideoStyle}>
-                          <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)}/>
-                        </Card.Content>
+                      <Card.Content style={teaserWidgetVideoStyle}>
+                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)}/>
+                      </Card.Content>
 
-                        <Card.Content>
-                          <InterestList item={teaser} size="mini"/>
-                        </Card.Content>
+                      <Card.Content>
+                        <InterestList item={teaser} size="mini"/>
+                      </Card.Content>
 
-                        {
-                          teaser.opportunityID ?
-                            <Link to={buildOpportunitiesRouteName(teaser, props)}>
-                              <Button attached="bottom">
-                                <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
-                                More
-                              </Button>
-                            </Link>
-                            : ''
-                        }
-                      </Card>
-                    </React.Fragment>
-                  ))
-                }
-              </Card.Group>
-              :
-              <p>Add interests to see recommendations here.</p>
-          }
-        </Segment>
-      </Container>
-    </React.Fragment>
+                      {
+                        teaser.opportunityID ?
+                          <Link to={buildOpportunitiesRouteName(teaser, props)}>
+                            <Button attached="bottom">
+                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
+                              More
+                            </Button>
+                          </Link>
+                          : ''
+                      }
+                    </Card>
+                  </React.Fragment>
+                ))
+              }
+            </Card.Group>
+            :
+            <p>Add interests to see recommendations here.</p>
+        }
+      </Segment>
+    </Container>
   );
 };
 

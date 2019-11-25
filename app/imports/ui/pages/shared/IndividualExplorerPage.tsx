@@ -1,9 +1,18 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
-import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  IAcademicPlan, // eslint-disable-line no-unused-vars
+  ICareerGoal, // eslint-disable-line no-unused-vars
+  ICourse, // eslint-disable-line no-unused-vars
+  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
+  IInterest, // eslint-disable-line no-unused-vars
+  IOpportunity, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -29,9 +38,14 @@ import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config'
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { profileGetCareerGoalIDs } from '../../components/shared/data-model-helper-functions';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -48,6 +62,11 @@ interface IIndividualExplorerPageProps {
       careergoal?: string;
     }
   };
+  favoritePlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
 }
 
 const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
@@ -64,13 +83,7 @@ const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
   }
 };
 
-const addedPlans = (props: IIndividualExplorerPageProps): { item: IAcademicPlan, count: number }[] => {
-  const profile = Users.getProfile(Router.getUsername(props.match));
-  if (profile.academicPlanID) {
-    return [{ item: AcademicPlans.findDoc(profile.academicPlanID), count: 1 }];
-  }
-  return [];
-};
+const addedPlans = (props: IIndividualExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
 
 const plan = (props: IIndividualExplorerPageProps): IAcademicPlan => {
   const planSlugName = props.match.params.plan;
@@ -86,35 +99,26 @@ const descriptionPairsPlans = (thePlan: IAcademicPlan): { label: string, value: 
   ];
 };
 
-const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerGoal, count: number }[] => {
-  const goals = [];
-  const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-  const profile = Users.getProfile(Router.getUsername(props.match));
-  _.forEach(allCareerGoals, (careerGoal) => {
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-      goals.push({ item: careerGoal, count: 1 });
-    }
-  });
-  return goals;
-};
+const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
+
 
 const careerGoal = (props: IIndividualExplorerPageProps): ICareerGoal => {
   const careerGoalSlugName = props.match.params.careergoal;
-  const slug = Slugs.find({ name: careerGoalSlugName }).fetch();
-  const careerGoals = CareerGoals.findNonRetired({ slugID: slug[0]._id });
-  return careerGoals[0];
+  const slug = Slugs.findDoc({ name: careerGoalSlugName });
+  const theCareerGoal = CareerGoals.findDoc({ slugID: slug._id });
+  return theCareerGoal;
 };
 
 const descriptionPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, value: any }[] => [
-  { label: 'Description', value: theCareerGoal.description },
-  { label: 'Interests', value: _.sortBy(Interests.findNames(theCareerGoal.interestIDs)) },
-];
+    { label: 'Description', value: theCareerGoal.description },
+    { label: 'Interests', value: _.sortBy(Interests.findNames(theCareerGoal.interestIDs)) },
+  ];
 
 const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): object[] => {
   let interested = [];
   const profiles = Users.findProfilesWithRole(role, {}, {});
   _.forEach(profiles, (profile) => {
-    if (_.includes(profile.careerGoalIDs, theCareerGoal._id)) {
+    if (_.includes(profileGetCareerGoalIDs(profile), theCareerGoal._id)) {
       interested.push(profile);
     }
   });
@@ -128,10 +132,7 @@ const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): o
 
 const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
 
-const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => {
-  const participatingStudents = StudentParticipations.findDoc({ itemID: theCareerGoal._id });
-  return participatingStudents.itemCount;
-};
+const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
 const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
   {
@@ -154,40 +155,22 @@ const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, am
   },
 ];
 
-const addedCourses = (props: IIndividualExplorerPageProps): { item: ICourse, count: number }[] => {
-  const courese = [];
-  const allCourses = _.filter(Courses.find({}, { sort: { shortName: 1 } })
-    .fetch(), (c) => !c.retired);
-  const userID = Router.getUserIdFromRoute(props.match);
-  _.forEach(allCourses, (course) => {
-    const ci = CourseInstances.find({
-      studentID: userID,
-      courseID: course._id,
-    })
-      .fetch();
-    if (ci.length > 0) {
-      if (course.shortName !== 'Non-CS Course') {
-        courese.push({ item: course, count: ci.length });
-      }
-    }
-  });
-  return courese;
-};
+const addedCourses = (props: IIndividualExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
 const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
-  const slug = Slugs.find({ name: courseSlugName }).fetch();
-  const theCourse = Courses.findDoc({ slugID: slug[0]._id });
+  const slug = Slugs.findDoc({ name: courseSlugName });
+  const theCourse = Courses.findDoc({ slugID: slug._id });
   return theCourse;
 };
 
 const passedCourseHelper = (courseSlugName: string, props: IIndividualExplorerPageProps): string => {
   let ret = 'Not in plan';
-  const slug = Slugs.find({ name: courseSlugName }).fetch();
-  const theCourse = Courses.find({ slugID: slug[0]._id }).fetch();
+  const slug = Slugs.findDoc({ name: courseSlugName });
+  const theCourse = Courses.findDoc({ slugID: slug._id });
   const ci = CourseInstances.find({
     studentID: Router.getUserIdFromRoute(props.match),
-    courseID: theCourse[0]._id,
+    courseID: theCourse._id,
   })
     .fetch();
   _.forEach(ci, (c) => {
@@ -265,9 +248,9 @@ const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(Desi
 
 const degree = (props: IIndividualExplorerPageProps): IDesiredDegree => {
   const degreeSlugName = props.match.params.degree;
-  const slug = Slugs.find({ name: degreeSlugName }).fetch();
-  const theDegree = DesiredDegrees.findNonRetired({ slugID: slug[0]._id });
-  return theDegree[0];
+  const slug = Slugs.findDoc({ name: degreeSlugName });
+  const theDegree = DesiredDegrees.findDoc({ slugID: slug._id });
+  return theDegree;
 };
 
 const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, value: any }[] => [{
@@ -275,19 +258,7 @@ const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, va
   value: theDegree.description,
 }];
 
-const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => {
-  const interests = [];
-  if (Router.getUserIdFromRoute(props.match)) {
-    const allInterests = Interests.find({}, { sort: { name: 1 } }).fetch();
-    const profile = Users.getProfile(Router.getUserIdFromRoute(props.match));
-    _.forEach(allInterests, (interest) => {
-      if (_.includes(profile.interestIDs, interest._id)) {
-        interests.push({ item: interest, count: 1 });
-      }
-    });
-  }
-  return interests;
-};
+const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 
 const addedCareerInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => {
   if (Router.getUserIdFromRoute(props.match)) {
@@ -300,48 +271,28 @@ const addedCareerInterests = (props: IIndividualExplorerPageProps): { item: IInt
 
 const interest = (props: IIndividualExplorerPageProps): IInterest => {
   const interestSlugName = props.match.params.interest;
-  const slug = Slugs.find({ name: interestSlugName }).fetch();
-  const theInterest = Interests.findNonRetired({ slugID: slug[0]._id });
-  return theInterest[0];
+  const slug = Slugs.findDoc({ name: interestSlugName });
+  const theInterest = Interests.findDoc({ slugID: slug._id });
+  return theInterest;
 };
 
-const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOpportunity, count: number }[] => {
-  const opportunities = [];
-  const allOpportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-  const userID = Router.getUserIdFromRoute(props.match);
-  const role = Router.getRoleByUrl(props.match);
-  if (role === URL_ROLES.FACULTY) {
-    return _.filter(allOpportunities, o => o.sponsorID === userID);
-  }
-  if (role === URL_ROLES.STUDENT) {
-    _.forEach(allOpportunities, (opportunity) => {
-      const oi = OpportunityInstances.find({
-        studentID: userID,
-        opportunityID: opportunity._id,
-      }).fetch();
-      if (oi.length > 0) {
-        opportunities.push({ item: opportunity, count: oi.length });
-      }
-    });
-  }
-  return opportunities;
-};
+const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
 
 const opportunity = (props: IIndividualExplorerPageProps): IOpportunity => {
   const opportunitySlugName = props.match.params.opportunity;
-  const slug = Slugs.find({ name: opportunitySlugName }).fetch();
-  const theOpp = Opportunities.find({ slugID: slug[0]._id }).fetch();
-  return theOpp[0];
+  const slug = Slugs.findDoc({ name: opportunitySlugName });
+  const theOpp = Opportunities.findDoc({ slugID: slug._id });
+  return theOpp;
 };
 
 const isOpportunityCompleted = (props: IIndividualExplorerPageProps): boolean => {
   const opportunitySlugName = props.match.params.opportunity;
   let ret = false;
-  const slug = Slugs.find({ name: opportunitySlugName }).fetch();
-  const theOpp = Opportunities.find({ slugID: slug[0]._id }).fetch();
+  const slug = Slugs.findDoc({ name: opportunitySlugName });
+  const theOpp = Opportunities.findDoc({ slugID: slug._id });
   const oi = OpportunityInstances.find({
     studentID: Router.getUserIdFromRoute(props.match),
-    opportunityID: theOpp[0]._id,
+    opportunityID: theOpp._id,
     verified: true,
   }).fetch();
   if (oi.length > 0) {
@@ -364,8 +315,11 @@ const academicTerms = (theOpp: IOpportunity): string[] => {
 const sponsor = (theOpp: IOpportunity): string => Users.getFullName(theOpp.sponsorID);
 
 const teaser = (theOpp: IOpportunity): object => {
-  const oppTeaser = Teasers.find({ opportunityID: theOpp._id }).fetch();
-  return oppTeaser[0];
+  if (Teasers.isDefined({ targetSlugID: theOpp.slugID })) {
+    const oppTeaser = Teasers.findDoc({ targetSlugID: theOpp.slugID });
+    return oppTeaser;
+  }
+  return {};
 };
 
 
@@ -439,17 +393,17 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
   const type = Router.getUrlParam(props.match, 2);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return descriptionPairsPlans(item as IAcademicPlan);
+      return descriptionPairsPlans(AcademicPlans.findDoc(item.academicPlanID));
     case EXPLORER_TYPE.CAREERGOALS:
-      return descriptionPairsCareerGoals(item as ICareerGoal);
+      return descriptionPairsCareerGoals(CareerGoals.findDoc(item.careerGoalID));
     case EXPLORER_TYPE.COURSES:
-      return descriptionPairsCourses(item as ICourse, props);
+      return descriptionPairsCourses(Courses.findDoc(item.courseID), props);
     case EXPLORER_TYPE.DEGREES:
       return descriptionPairsDegrees(item as IDesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return descriptionPairsOpportunities(item as IOpportunity);
+      return descriptionPairsOpportunities(Opportunities.findDoc(item.opportunityID));
     case EXPLORER_TYPE.USERS: // do nothing
       return undefined;
     default:
@@ -458,6 +412,7 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
 };
 
 const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
+  // console.log('IndividualExplorerPage props=%o', props);
   const menuWidget = getMenuWidget(props);
   const type = Router.getUrlParam(props.match, 2);
   const role = Router.getRoleByUrl(props.match);
@@ -539,4 +494,19 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
 };
 
 
-export default IndividualExplorerPage;
+export default withTracker((props) => {
+  const studentID = Router.getUserIdFromRoute(props.match);
+  const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  // console.log('favoriteInterests', favoriteInterests, studentID);
+  return {
+    favoritePlans,
+    favoriteCareerGoals,
+    favoriteCourses,
+    favoriteInterests,
+    favoriteOpportunities,
+  };
+})(IndividualExplorerPage);

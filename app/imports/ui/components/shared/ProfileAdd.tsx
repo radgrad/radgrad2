@@ -9,6 +9,7 @@ import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
+import { profileGetCareerGoalIDs, profileGetInterestIDs } from './data-model-helper-functions';
 
 interface IProfileAddProps {
   item: IAcademicPlan;
@@ -23,58 +24,50 @@ interface IProfileAddProps {
   };
 }
 
-class ProfileAdd extends React.Component<IProfileAddProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  private getRole = (): string => Router.getRoleByUrl(this.props.match);
-
-  private handleAddToProfile = (e: any): void => {
-    e.preventDefault();
-    const { item, type } = this.props;
-    const username = this.props.match.params.username;
-    if (username) {
-      const updateData: { [key: string]: any } = {};
-      const profile = Users.getProfile(username);
-      updateData.id = profile._id;
-      const role = this.getRole();
-      let collectionName = '';
-      if (role === URL_ROLES.STUDENT) {
-        collectionName = StudentProfiles.getCollectionName();
-      } else if (role === URL_ROLES.FACULTY) {
-        collectionName = FacultyProfiles.getCollectionName();
-      } else {
-        collectionName = MentorProfiles.getCollectionName();
-      }
-      if (type === EXPLORER_TYPE.CAREERGOALS) {
-        updateData.careerGoals = profile.careerGoalIDs;
-        updateData.careerGoals.push(item._id);
-      } else if (type === EXPLORER_TYPE.INTERESTS) {
-        updateData.interests = profile.interestIDs;
-        updateData.interests.push(item._id);
-      } else if (type === EXPLORER_TYPE.ACADEMICPLANS) {
-        updateData.academicPlan = item._id;
-      }
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.log('Error updating user ', error);
-        }
-      });
+const handleAddToProfile = (props: IProfileAddProps) => (e: any): void => {
+  e.preventDefault();
+  const { item, type } = props;
+  const username = props.match.params.username;
+  if (username) {
+    const updateData: { [key: string]: any } = {};
+    const profile = Users.getProfile(username);
+    updateData.id = profile._id;
+    const role = Router.getRoleByUrl(props.match);
+    let collectionName = '';
+    if (role === URL_ROLES.STUDENT) {
+      collectionName = StudentProfiles.getCollectionName();
+    } else if (role === URL_ROLES.FACULTY) {
+      collectionName = FacultyProfiles.getCollectionName();
+    } else {
+      collectionName = MentorProfiles.getCollectionName();
     }
+    if (type === EXPLORER_TYPE.CAREERGOALS) {
+      updateData.careerGoals = profileGetCareerGoalIDs(profile);
+      updateData.careerGoals.push(item._id);
+    } else if (type === EXPLORER_TYPE.INTERESTS) {
+      updateData.interests = profileGetInterestIDs(profile);
+      updateData.interests.push(item._id);
+    } else if (type === EXPLORER_TYPE.ACADEMICPLANS) {
+      updateData.academicPlan = item._id;
+    }
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        console.log('Error updating user ', error);
+      }
+    });
   }
+};
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { type } = this.props;
-    const isTypePlans = type === EXPLORER_TYPE.ACADEMICPLANS;
+const ProfileAdd = (props: IProfileAddProps) => {
+  const { type } = props;
+  const isTypePlans = type === EXPLORER_TYPE.ACADEMICPLANS;
 
-    return (
-      isTypePlans ?
-        <Button onClick={this.handleAddToProfile}><Icon name="plus"/><br/>Select Plan</Button>
-        :
-        <Button onClick={this.handleAddToProfile}><Icon name="plus"/><br/>Add to Profile</Button>
-    );
-  }
-}
+  return (
+    isTypePlans ?
+      <Button onClick={handleAddToProfile(props)}><Icon name="plus"/><br/>Select Plan</Button>
+      :
+      <Button onClick={handleAddToProfile(props)}><Icon name="plus"/><br/>Add to Profile</Button>
+  );
+};
 
 export default withRouter(ProfileAdd);

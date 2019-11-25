@@ -2,30 +2,39 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+// import { _ } from 'meteor/erasaur:meteor-lodash';
 import * as Router from './RouterHelperFunctions';
 import {
   IAcademicPlan, // eslint-disable-line no-unused-vars
   ICareerGoal, // eslint-disable-line no-unused-vars
   ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
   IOpportunity, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import {
   ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
   isType,
 } from './explorer-helper-functions';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
+interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetProps {
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
+}
 
-// FIXME: Needs to be reactive
-const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
+const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
+  // console.log('CardExplorerMenuNonMobile', props);
   const { menuAddedList, menuCareerList } = props;
-  const isStudent = Router.isUrlRoleStudent(props.match);
   const adminEmail = 'radgrad@hawaii.edu';
   return (
     <React.Fragment>
@@ -36,19 +45,15 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
         {
           isType(EXPLORER_TYPE.ACADEMICPLANS, props) ?
             <React.Fragment>
-              {
-                isStudent ?
-                  <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>MY ACADEMIC PLAN</Header>
-                    {
-                      menuAddedList.map((listItem, index) => (
-                        <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
-                                                   match={props.match}/>
-                      ))
-                    }
-                  </Menu>
-                  : ''
-              }
+              <Menu vertical={true} text={true}>
+                <Header as="h4" dividing={true}>MY FAVORITE ACADEMIC PLAN</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.ACADEMICPLANS} key={index}
+                                               match={props.match}/>
+                  ))
+                }
+              </Menu>
             </React.Fragment>
             : ''
         }
@@ -56,19 +61,15 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
         {
           isType(EXPLORER_TYPE.COURSES, props) ?
             <React.Fragment>
-              {
-                isStudent ?
-                  <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>COURSES IN MY PLAN</Header>
-                    {
-                      menuAddedList.map((listItem, index) => (
-                        <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
-                                                   match={props.match}/>
-                      ))
-                    }
-                  </Menu>
-                  : ''
-              }
+              <Menu vertical={true} text={true}>
+                <Header as="h4" dividing={true}>MY FAVORITE COURSES</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.COURSES} key={index}
+                                               match={props.match}/>
+                  ))
+                }
+              </Menu>
             </React.Fragment>
             : ''
         }
@@ -77,19 +78,15 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
           isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
             <React.Fragment>
               <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
-              {
-                isStudent ?
-                  <Menu vertical={true} text={true}>
-                    <Header as="h4" dividing={true}>OPPORTUNITIES IN MY PLAN</Header>
-                    {
-                      menuAddedList.map((listItem, index) => (
-                        <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
-                                                   match={props.match}/>
-                      ))
-                    }
-                  </Menu>
-                  : ''
-              }
+              <Menu vertical={true} text={true}>
+                <Header as="h4" dividing={true}>MY FAVORITE OPPORTUNITIES</Header>
+                {
+                  menuAddedList.map((listItem, index) => (
+                    <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.OPPORTUNITIES} key={index}
+                                               match={props.match}/>
+                  ))
+                }
+              </Menu>
             </React.Fragment>
             : ''
         }
@@ -100,7 +97,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
           isType(EXPLORER_TYPE.INTERESTS, props) ?
             <Menu vertical={true} text={true}>
               <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
-              <Header as="h4" dividing={true}>MY INTERESTS</Header>
+              <Header as="h4" dividing={true}>MY FAVORITE INTERESTS</Header>
               {
                 menuAddedList.map((listItem, index) => (
                   <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={index}
@@ -123,7 +120,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
           isType(EXPLORER_TYPE.CAREERGOALS, props) ?
             <Menu vertical={true} text={true}>
               <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
-              <Header as="h4" dividing={true}>MY CAREER GOALS</Header>
+              <Header as="h4" dividing={true}>MY FAVORITE CAREER GOALS</Header>
               {
                 menuAddedList.map((listItem, index) => (
                   <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.CAREERGOALS} key={index}
@@ -139,12 +136,18 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuWidgetProps) =>
 };
 
 export const CardExplorerMenuNonMobileWidgetCon = withTracker((props) => {
-  const username = Router.getUsername(props.match);
-  const profile = Users.getProfile(username);
-  const menuList = _.map(profile.careerGoalIDs, (c) => CareerGoals.findDoc(c).name);
+  const studentID = Router.getUserIdFromRoute(props.match);
+  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   return {
-    profile,
-    menuList,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteCourses,
+    favoriteInterests,
+    favoriteOpportunities,
   };
 })(CardExplorerMenuNonMobileWidget);
 export const CardExplorerMenuNonMobileWidgetContainer = withRouter(CardExplorerMenuNonMobileWidgetCon);

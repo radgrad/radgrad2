@@ -6,14 +6,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { IProfile } from '../../../typings/radgrad'; // eslint-disable-line
-import { getUsername, renderLink } from './RouterHelperFunctions';
+import { IFavoriteCareerGoalDefine, IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { renderLink, getUserIdFromRoute } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import { toUpper } from './helper-functions';
+import FavoritesButton from './FavoritesButton';
+import { toUpper, isSame } from './helper-functions';
 import { userToFullName, userToPicture } from './data-model-helper-functions';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { explorerCareerGoalWidget } from './shared-widget-names';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -31,50 +31,6 @@ interface IExplorerCareerGoalsWidgetProps {
   profile: IProfile;
 }
 
-const userStatus = (careerGoal, props: IExplorerCareerGoalsWidgetProps) => {
-  let ret = false;
-  const profile = Users.getProfile(getUsername(props.match));
-  if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-    ret = true;
-  }
-  return ret;
-};
-
-const handleAdd = (props: IExplorerCareerGoalsWidgetProps) => (event) => {
-  event.preventDefault();
-  const profile = Users.getProfile(getUsername(props.match));
-  const id = props.item._id;
-  const studentItems = profile.careerGoalIDs;
-  const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
-  const updateData: any = {};
-  updateData.id = profile._id;
-  studentItems.push(id);
-  updateData.careerGoals = studentItems;
-  updateMethod.call({ collectionName, updateData }, (error) => {
-    if (error) {
-      console.log('Error updating career goals', error);
-    }
-  });
-};
-
-const handleDelete = (props: IExplorerCareerGoalsWidgetProps) => (event) => {
-  event.preventDefault();
-  const profile = Users.getProfile(getUsername(props.match));
-  const id = props.item._id;
-  let studentItems = profile.careerGoalIDs;
-  const collectionName = StudentProfiles.getCollectionNameForProfile(profile);
-  const updateData: { [key: string]: any } = {};
-  updateData.id = profile._id;
-  studentItems = _.without(studentItems, id);
-  updateData.careerGoals = studentItems;
-  updateMethod.call({ collectionName, updateData }, (error) => {
-    if (error) {
-      console.log('Error updating career goals', error);
-    }
-  });
-};
-
-
 const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   const marginStyle = {
     marginTop: 5,
@@ -86,25 +42,16 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   };
   const centerAlignedColumnStyle = { minWidth: '25%' };
 
-  const { name, descriptionPairs, socialPairs, item, match } = this.props;
+  const { name, descriptionPairs, socialPairs, item, match } = props;
   const upperName = toUpper(name);
-  const userStatus = this.userStatus(item);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   return (
-    <Grid container={true} stackable={true} style={marginStyle}>
+    <Grid container={true} stackable={true} style={marginStyle} id={explorerCareerGoalWidget}>
       <Grid.Column width={16}>
         <Segment>
           <Segment basic clearing={true} vertical>
             <Grid.Row verticalAlign={'middle'}>
-              {
-                userStatus ?
-                  <Button onClick={this.handleDelete} size={'mini'} color={'green'} floated={'right'} basic={true}>DELETE
-                    FROM CAREER
-                    GOALS</Button>
-                  :
-                  <Button size={'mini'} onClick={this.handleAdd} color={'green'} floated={'right'} basic={true}>ADD TO
-                    CAREER GOALS</Button>
-              }
+              <FavoritesButton item={props.item} studentID={getUserIdFromRoute(props.match)} type='careerGoal'/>
               <Header floated={'left'}>{upperName}</Header>
             </Grid.Row>
           </Segment>

@@ -7,8 +7,15 @@ import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAdminDataModelPageState, IAdvisorProfile, // eslint-disable-line
-  IBaseProfile, ICombinedProfileDefine, IFacultyProfile, IMentorProfile, IStudentProfile, // eslint-disable-line
+  IAdminDataModelPageState, // eslint-disable-line no-unused-vars
+  IAdvisorProfile, // eslint-disable-line no-unused-vars
+  IBaseProfile, // eslint-disable-line no-unused-vars
+  ICombinedProfileDefine, // eslint-disable-line no-unused-vars
+  IFacultyProfile, // eslint-disable-line no-unused-vars
+  IFavoriteAcademicPlan, // eslint-disable-line no-unused-vars
+  IFavoriteCareerGoal, IFavoriteInterest, // eslint-disable-line no-unused-vars
+  IMentorProfile, // eslint-disable-line no-unused-vars
+  IStudentProfile, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -32,7 +39,10 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
+import { ReduxState } from '../../../redux/store'; // eslint-disable-line no-unused-vars
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface IAdminDataModelUsersPageProps {
   advisors: IAdvisorProfile[];
@@ -41,6 +51,9 @@ interface IAdminDataModelUsersPageProps {
   students: IStudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteInterests: IFavoriteInterest[];
 }
 
 const descriptionPairs = (user: IBaseProfile) => {
@@ -50,14 +63,19 @@ const descriptionPairs = (user: IBaseProfile) => {
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(user.careerGoalIDs)) });
-  pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(user.interestIDs)) });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
+  const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
+  pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
+  const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
+  pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
-    // eslint-disable-next-line
+    const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
+    const planNames = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID).name);
     pairs.push({
       label: 'Degree',
-      value: (user.academicPlanID) ? AcademicPlans.findDoc(user.academicPlanID).name : '',
+      value: (planNames.length > 0) ? planNames.join(', ') : '',
     });
     // eslint-disable-next-line
     pairs.push({
@@ -211,7 +229,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
   };
 
   private handleUpdate = (doc) => {
-    // console.log('handleUpdate(%o)', doc);
+    console.log('UsersPage.handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     let collectionName;
@@ -229,9 +247,6 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     }
     updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
-    if (!_.isNil(doc.academicPlan)) {
-      updateData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
-    }
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
@@ -239,6 +254,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -340,10 +356,16 @@ export default withTracker(() => {
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const mentors = MentorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const favoriteAcademicPlans = FavoriteAcademicPlans.find().fetch();
+  const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
+  const favoriteInterests = FavoriteInterests.find().fetch();
   return {
     advisors,
     faculty,
     mentors,
     students,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteInterests,
   };
 })(AdminDataModelUsersPageCon);

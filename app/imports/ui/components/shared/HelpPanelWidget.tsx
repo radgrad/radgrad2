@@ -7,6 +7,7 @@ import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
 import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
+import { helpPanelWidget } from './shared-widget-names';
 
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]
@@ -54,7 +55,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
     return (helpMessage) ? (
-      <Grid.Column>
+      <Grid.Column id={`${helpPanelWidget}`}>
         <Message info={true} floating={true}>
           <Accordion>
             <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>

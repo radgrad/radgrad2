@@ -2,10 +2,10 @@ import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { Slugs } from '../slug/SlugCollection';
-import { Users } from '../user/UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -127,8 +127,8 @@ class CareerGoalCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const careerGoalID = this.getID(instance);
     // Check that this is not referenced by any User.
-    const isReferenced = Users.someProfiles((profile) => _.includes(profile.careerGoalIDs, careerGoalID));
-    if (isReferenced) {
+    const favorites = FavoriteCareerGoals.findNonRetired({ careerGoalID });
+    if (favorites.length > 0) {
       throw new Meteor.Error(`Career Goal ${instance} is referenced.`);
     }
     // OK, clear to delete.

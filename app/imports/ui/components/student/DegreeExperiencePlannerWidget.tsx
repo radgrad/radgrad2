@@ -13,11 +13,12 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { studentDepWidget } from './student-widget-names';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  selectInspectorTab: () => any;
+  selectFavoriteDetailsTab: () => any;
   match: {
     isExact: boolean;
     path: string;
@@ -37,7 +38,7 @@ interface IDePState {
 const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectInspectorTab: () => dispatch(degreePlannerActions.selectInspectorTab()),
+  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
 class DEPWidget extends React.Component<IDePProps, IDePState> {
@@ -82,14 +83,16 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   public handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
+    // console.log('click course instance', value);
     this.props.selectCourseInstance(value);
-    this.props.selectInspectorTab();
+    this.props.selectFavoriteDetailsTab();
   }
 
   public handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
+    // console.log('click opportunity instance', value);
     this.props.selectOpportunityInstance(value);
-    this.props.selectInspectorTab();
+    this.props.selectFavoriteDetailsTab();
   }
 
   public handleClickPrevYear = (event) => {
@@ -205,7 +208,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const studentID = Users.getID(username);
 
     return (
-      <Segment padded={true}>
+      <Segment padded={true} id={studentDepWidget}>
         <Grid stackable={true} columns="equal">
           <Grid.Row stretched={true}>
             {_.map(visibleYears, (year) => (

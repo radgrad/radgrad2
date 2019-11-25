@@ -15,7 +15,9 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IFacultyProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IFacultyProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
 /**
  * The Faculty
@@ -181,11 +183,13 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     // gets the username based on the user ID
     const facultyUserUsername = facultyUserProfile.username;
     // get the career goal IDs based on the userID
-    const facultyCareerGoalsIDs = facultyUserProfile.careerGoalIDs;
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: facultyUserID });
+    const facultyCareerGoalsIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
     // map the career goal IDs to their names
     const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
     // get the interest goal IDs based on the User ID
-    const facultyInterestIDs = facultyUserProfile.interestIDs;
+    const favInterests = FavoriteInterests.findNonRetired({ userID: facultyUserID });
+    const facultyInterestIDs = _.map(favInterests, (fav) => fav.interestID);
     // map the interests IDs to their names
     const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
     // M: should make it so that you reference the doc and then the name rather than the doc directly

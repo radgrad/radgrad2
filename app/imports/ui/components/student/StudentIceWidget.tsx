@@ -6,6 +6,7 @@ import MenuIceCircle from '../shared/MenuIceCircle';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import StudentIceColumn from './StudentIceColumn';
+import { studentIceWidget } from './student-widget-names';
 
 interface IStudentIceWidgetProps {
   match: {
@@ -28,7 +29,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
 
   return (
-    <Segment padded={true}>
+    <Segment padded={true} id={`${studentIceWidget}`}>
       <Header as="h4" dividing={true}>YOUR ICE POINTS</Header>
       <Grid stackable={true} columns="equal" celled="internally">
         <Grid.Column style={innovationColumnStyle}>

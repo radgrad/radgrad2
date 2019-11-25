@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Card, Button, Icon, Popup, Image } from 'semantic-ui-react';
+import { Card, Icon, Popup, Image } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-disable-line
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import ProfileAdd from './ProfileAdd';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
@@ -18,7 +17,7 @@ import {
 import { interestedStudents } from './explorer-helper-functions';
 
 const PlanCard = (props: IPlanCard) => {
-  const { type, canAdd, item } = props;
+  const { type, item } = props;
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
@@ -48,13 +47,9 @@ const PlanCard = (props: IPlanCard) => {
         </Image.Group>
       </Card.Content>
 
-      <Button.Group className="radgrad-home-buttons center aligned" attached="bottom" widths={2}>
-        <Link className="ui button" to={route}>
-          <Icon name="chevron circle right"/><br/>View More
-        </Link>
-
-        {canAdd ? <ProfileAdd item={item} type={type}/> : ''}
-      </Button.Group>
+      <Link className="ui button" to={route}>
+        <Icon name="chevron circle right"/><br/>View More
+      </Link>
     </Card>
   );
 };

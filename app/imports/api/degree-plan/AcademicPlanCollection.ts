@@ -5,8 +5,9 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
-import { Users } from '../user/UserCollection';
-import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -168,7 +169,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const academicPlanID = this.getID(instance);
     // Check that no student is using this AcademicPlan.
-    const isReferenced = Users.someProfiles((profile) => profile.academicPlanID === academicPlanID);
+    const favPlans = FavoriteAcademicPlans.findNonRetired({ academicPlanID });
+    const isReferenced = favPlans.length > 0;
     if (isReferenced) {
       throw new Meteor.Error(`AcademicPlan ${instance} is referenced.`);
     }
@@ -230,13 +232,21 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @return {number}
    */
   public getLatestAcademicTermNumber() {
-    const plans = this.collection.find().fetch();
+    const plans = this.collection.find({}, { sort: { termNumber: 1 } }).fetch();
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     let max = 0;
+    let latest = 0;
     _.forEach(plans, (p) => {
       if (max < p.termNumber) {
         max = p.termNumber;
       }
+      if (p.termNumber <= currentTerm.termNumber && latest < p.termNumber) {
+        latest = p.termNumber;
+      }
     });
+    if (latest !== 0) {
+      return latest;
+    }
     return max;
   }
 
@@ -258,6 +268,18 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const plan = this.findDoc(planID);
     const academicTerm = AcademicTerms.findDoc(plan.effectiveAcademicTermID);
     return `${plan.name} (${academicTerm.year})`;
+  }
+
+  /**
+   * Returns true if the give academic plan includes graduate classes.
+   * @param {string} planID the id of the academic plan.
+   * @returns {boolean}
+   */
+  public isGraduatePlan(planID: string): boolean {
+    const plan = this.findDoc(planID);
+    // console.log('isGraduatePlan', planID, plan.coursesPerAcademicTerm, plan.coursesPerAcademicTerm.length >= 15);
+    const quarters = RadGradSettings.findOne({}).quarterSystem;
+    return quarters ? plan.coursesPerAcademicTerm > 16 : plan.coursesPerAcademicTerm.length > 12;
   }
 
   /**

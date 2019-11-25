@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { moment } from 'meteor/momentjs:moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';
 
 interface IStudentMentorSpaceQuestionFormProps {
   match: {
@@ -61,7 +62,7 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
       question: String,
     });
     return (
-      <Segment padded={true}>
+      <Segment padded={true} id={studentMentorSpaceAskQuestionWidget}>
         <Header dividing={true}><h4>ASK A NEW QUESTION</h4></Header>
         <AutoForm schema={schema} onSubmit={this.handleSubmit} ref={this.formRef}>
           <LongTextField name="question"/>
