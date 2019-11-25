@@ -25,6 +25,9 @@ import {
   studentLogWidget,
   studentDepWidget,
   tabbedFavoritesWidget,
+  studentMentorSpaceQuestionsWidget,
+  studentMentorSpaceAskQuestionWidget,
+  studentMentorSpaceMentorDirectoryWidget,
 } from '../components/student/student-widget-names';
 
 export const adminLogin = async ({ email, password, browser }) => {
@@ -122,3 +125,10 @@ export const studentTabbedFavoriestWidgetFavOppTabSelector = studentTabbedFavori
 export const studentTabbedFavoriestWidgetFavPlanTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(1);
 export const studentTabbedFavoriestWidgetFavCourseTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(2);
 export const studentTabbedFavoriestWidgetDetailsTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(3);
+
+export const studentMentorSpaceQuestionsWidgetSelector = Selector(`#${studentMentorSpaceQuestionsWidget}`);
+export const studentMentorSpaceQuestionWidgetTitleSelector = studentMentorSpaceQuestionsWidgetSelector.child('.header').child('h4');
+export const studentMentorSpaceAskQuestionWidgetSelector = Selector(`#${studentMentorSpaceAskQuestionWidget}`);
+export const studentMentorSpaceAskQuestionWidgetTitleSelector = studentMentorSpaceAskQuestionWidgetSelector.child('.header').child('h4');
+export const studentMentorSpaceMentorDirectoryWidgetSelector = Selector(`#${studentMentorSpaceMentorDirectoryWidget}`);
+export const studentMentorSpaceMentorDirectoryWidgetTitleSelector = studentMentorSpaceMentorDirectoryWidgetSelector.child('.header').child('h4');

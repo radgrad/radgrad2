@@ -7,6 +7,10 @@ import StudentMentorSpaceMentorDirectoryAccordion
   from '../../components/student/StudentMentorSpaceMentorDirectoryAccordion';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import {
+  studentMentorSpaceMentorDirectoryWidget,
+  studentMentorSpaceQuestionsWidget,
+} from '../../components/student/student-widget-names';
 
 const StudentMentorSpacePage = () => (
   <div>
@@ -21,7 +25,7 @@ const StudentMentorSpacePage = () => (
       <Grid.Row>
         <Grid.Column width={1}/>
         <Grid.Column width={10}>
-          <Segment padded={true}>
+          <Segment padded={true} id={studentMentorSpaceQuestionsWidget}>
             <Header dividing={true}>
               <h4>QUESTIONS</h4>
             </Header>
@@ -31,7 +35,7 @@ const StudentMentorSpacePage = () => (
         </Grid.Column>
 
         <Grid.Column width={4}>
-          <Segment>
+          <Segment id={studentMentorSpaceMentorDirectoryWidget}>
             <Header dividing={true}>
               <h4>MENTOR DIRECTORY</h4>
             </Header>
