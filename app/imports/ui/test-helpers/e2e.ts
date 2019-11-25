@@ -13,7 +13,19 @@ import {
   secondMenu,
   selectExplorerMenu,
 } from '../components/shared/shared-widget-names';
-import { recommendedOpportunities, recommendedCourses, studentFeedWidget, studentTeaserWidget, studentAboutMeWidget, studentIceWidget, studentLevelsWidget, studentLevelsOthersWidget, studentLogWidget } from '../components/student/student-widget-names';
+import {
+  recommendedOpportunities,
+  recommendedCourses,
+  studentFeedWidget,
+  studentTeaserWidget,
+  studentAboutMeWidget,
+  studentIceWidget,
+  studentLevelsWidget,
+  studentLevelsOthersWidget,
+  studentLogWidget,
+  studentDepWidget,
+  tabbedFavoritesWidget,
+} from '../components/student/student-widget-names';
 
 export const adminLogin = async ({ email, password, browser }) => {
   await browser.click(Selector('div.ui.top.right.pointing.dropdown').child('div.text'));
@@ -101,3 +113,12 @@ export const studentLevelsOtherWidgetSelector = Selector(`#${studentLevelsOthers
 export const studentLevelsOtherWigetTitleSelector = studentLevelsOtherWidgetSelector.child('h4');
 export const studentLogWidgetSelector = Selector(`#${studentLogWidget}`);
 export const studentLogWidgetTitleSelector = studentLogWidgetSelector.child('.segment').child('h4');
+
+export const studentDepWidgetSelector = Selector(`#${studentDepWidget}`);
+export const studentTabbedFavoritesWidgetSelector = Selector(`#${tabbedFavoritesWidget}`);
+export const studentTabbedFavoritesWidgetFaveTabSelector = studentTabbedFavoritesWidgetSelector.child('div')
+  .child('.tabular.menu').child('.item');
+export const studentTabbedFavoriestWidgetFavOppTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(0);
+export const studentTabbedFavoriestWidgetFavPlanTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(1);
+export const studentTabbedFavoriestWidgetFavCourseTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(2);
+export const studentTabbedFavoriestWidgetDetailsTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(3);

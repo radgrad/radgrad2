@@ -22,6 +22,7 @@ import {
   secondMenuSelector,
   selectExplorerMenuItemsSelector,
   selectExplorerMenuSelector,
+  student2ndMenuDegreePlannerPageSelector,
   student2ndMenuExplorerPageSelector,
   student2ndMenuHomePageSelector,
   studentAboutMePageSelector,
@@ -39,6 +40,10 @@ import {
   studentLogWidgetTitleSelector,
   studentRecommendedCoursesTitleSelector,
   studentRecommendedOpportunitiesTitleSelector,
+  studentTabbedFavoriestWidgetDetailsTabSelector,
+  studentTabbedFavoriestWidgetFavCourseTabSelector,
+  studentTabbedFavoriestWidgetFavOppTabSelector,
+  studentTabbedFavoriestWidgetFavPlanTabSelector,
   studentTeaserWidgetTitleSelector,
   usersExplorerSelector,
 } from '../../test-helpers/e2e';
@@ -146,4 +151,16 @@ test('Explorer Page', async (browser: any) => {
   await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
   await browser.click(usersExplorerSelector);
   await browser.expect(cardExplorerWidgetTitleSelector.textContent).eql('USERS');
+});
+
+test('DEP Page', async (browser: any) => {
+  await browser.click('#abi');
+  await browser.click(student2ndMenuDegreePlannerPageSelector);
+  await browser.expect(helpTitleSelector.textContent).eql('Make the Degree Planner work for you!');
+  await browser.click(helpAccordionSelector);
+  await browser.expect(helpFirstParagraphSelector.textContent).eql('The Degree Planner helps you organize your ICS Degree experience on an academic term-by-term basis. You can plan the courses you need to satisfy your chosen degree plan as well as the the extracurricular opportunities that provide you with real world experiences and chances to innovate outside the classroom. ');
+  await browser.expect(studentTabbedFavoriestWidgetFavOppTabSelector.textContent).eql(' OPPS');
+  await browser.expect(studentTabbedFavoriestWidgetFavPlanTabSelector.textContent).eql(' PLAN');
+  await browser.expect(studentTabbedFavoriestWidgetFavCourseTabSelector.textContent).eql(' COUR');
+  await browser.expect(studentTabbedFavoriestWidgetDetailsTabSelector.textContent).eql('DETAILS');
 });

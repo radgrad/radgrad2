@@ -13,6 +13,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { studentDepWidget } from './student-widget-names';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -207,7 +208,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const studentID = Users.getID(username);
 
     return (
-      <Segment padded={true}>
+      <Segment padded={true} id={studentDepWidget}>
         <Grid stackable={true} columns="equal">
           <Grid.Row stretched={true}>
             {_.map(visibleYears, (year) => (

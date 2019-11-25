@@ -6,6 +6,7 @@ import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
+import { tabbedFavoritesWidget } from './student-widget-names';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;
@@ -100,7 +101,7 @@ const TabbedFavoritesWidget = (props) => {
     },
   ];
   return (
-    <Segment padded={true}>
+    <Segment padded={true} id={tabbedFavoritesWidget}>
       <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(props, event, instance)} activeIndex={active(props)}/>
     </Segment>
   );
