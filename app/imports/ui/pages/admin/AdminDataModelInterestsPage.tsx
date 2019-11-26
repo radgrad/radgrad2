@@ -12,7 +12,7 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/UpdateInterestForm';
 import {
-  docToSlugName,
+  itemToSlugName,
   interestTypeNameToId,
   interestTypeNameToSlug,
 } from '../../components/shared/data-model-helper-functions';
@@ -35,7 +35,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IInterest): string => `${item.name} (${docToSlugName(item)})`;
+const itemTitleString = (item: IInterest): string => `${item.name} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

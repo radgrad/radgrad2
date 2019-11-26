@@ -15,7 +15,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import AddOpportunityForm from '../../components/admin/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/UpdateOpportunityForm';
 import {
-  academicTermNameToSlug, docToSlugName,
+  academicTermNameToSlug, itemToSlugName,
   opportunityTypeNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/data-model-helper-functions';
@@ -43,7 +43,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IOpportunity): string => `${item.name} (${docToSlugName(item)})`;
+const itemTitleString = (item: IOpportunity): string => `${item.name} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

@@ -15,6 +15,7 @@ import { buildExplorerRoute, interestedStudents } from './explorer-helper-functi
 interface IProfileCardProps {
   item: {
     _id: string;
+    name: string;
   };
   type: string;
   canAdd: boolean;

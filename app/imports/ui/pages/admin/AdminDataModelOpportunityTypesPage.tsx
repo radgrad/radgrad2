@@ -14,7 +14,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/UpdateOpportunityTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { docToSlugName } from '../../components/shared/AdminDataModelHelperFunctions';
+import { itemToSlugName } from '../../components/shared/data-model-helper-functions';
 
 const collection = OpportunityTypes; // the collection to use.
 
@@ -44,7 +44,7 @@ const descriptionPairs = (item: IOpportunityType): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IOpportunityType): string => `${item.name} (${docToSlugName(item)})`;
+const itemTitleString = (item: IOpportunityType): string => `${item.name} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

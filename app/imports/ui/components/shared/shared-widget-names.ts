@@ -12,5 +12,5 @@ export const explorerCareerGoalWidget = 'explorerCareerGoalWidget';
 export const explorerCourseWidget = 'explorerCourseWidget';
 export const explorerDegreeWidget = 'explorerDegreeWidget';
 export const explorerInterestWidget = 'explorerInterestWidget';
-export const explorerOpportuntityWidget = 'explorerOpportuntityWidget';
+export const explorerOpportunityWidget = 'explorerOpportunityWidget';
 export const explorerUserWidget = 'explorerUserWidget';

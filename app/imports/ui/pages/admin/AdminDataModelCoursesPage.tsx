@@ -13,7 +13,7 @@ import { makeMarkdownLink } from './datamodel-utilities';
 import { Interests } from '../../../api/interest/InterestCollection';
 import {
   courseNameToSlug,
-  courseToName, docToSlugName,
+  courseToName, itemToSlugName,
   interestNameToId,
 } from '../../components/shared/data-model-helper-functions';
 import AddCourseForm from '../../components/admin/AddCourseForm';
@@ -46,7 +46,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: ICourse): string => `${courseToName(item)} (${docToSlugName(item)})`;
+const itemTitleString = (item: ICourse): string => `${courseToName(item)} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

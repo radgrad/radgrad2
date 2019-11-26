@@ -14,7 +14,7 @@ import AddInterestTypeForm from '../../components/admin/AddInterestTypeForm';
 import UpdateInterestTypeForm from '../../components/admin/UpdateInterestTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { docToSlugName } from '../../components/shared/AdminDataModelHelperFunctions';
+import { itemToSlugName } from '../../components/shared/data-model-helper-functions';
 
 const collection = InterestTypes; // the collection to use.
 
@@ -44,7 +44,7 @@ const descriptionPairs = (item: IInterestType): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IInterestType): string => `${item.name} (${docToSlugName(item)})`;
+const itemTitleString = (item: IInterestType): string => `${item.name} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

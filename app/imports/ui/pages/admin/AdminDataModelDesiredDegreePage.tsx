@@ -12,7 +12,7 @@ import AddDesiredDegreeForm from '../../components/admin/AddDesiredDegreeForm';
 import UpdateDesiredDegreeForm from '../../components/admin/UpdateDesiredDegreeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { docToSlugName } from '../../components/shared/AdminDataModelHelperFunctions';
+import { itemToSlugName } from '../../components/shared/data-model-helper-functions';
 
 function numReferences(desiredDegree) {
   return AcademicPlans.find({ degreeID: desiredDegree._id }).count();
@@ -36,7 +36,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}: ${item.shortName} (${docToSlugName(item)})`;
+const itemTitleString = (item: any): string => `${item.name}: ${item.shortName} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

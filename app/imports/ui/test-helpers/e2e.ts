@@ -5,7 +5,7 @@ import {
   explorerCourseWidget,
   explorerDegreeWidget,
   explorerInterestWidget,
-  explorerOpportuntityWidget,
+  explorerOpportunityWidget,
   explorerPlanWidget,
   firstMenu,
   helpPanelWidget,
@@ -79,7 +79,7 @@ export const explorerDegreeWidgetTitleSelector = explorerDegreeWidgetSelector.ch
 export const explorerInterestWidgetSelector = Selector(`#${explorerInterestWidget}`);
 export const explorerInterestWidgetTitleSelector = explorerInterestWidgetSelector.child('.segments').child('.segment')
   .child('.header');
-export const explorerOpportunityWidgetSelector = Selector(`#${explorerOpportuntityWidget}`);
+export const explorerOpportunityWidgetSelector = Selector(`#${explorerOpportunityWidget}`);
 export const explorerOpportunityWidgetTitleSelector = explorerOpportunityWidgetSelector.child('.segments')
   .child('.segment').child('.clearing.segment').child('h4');
 

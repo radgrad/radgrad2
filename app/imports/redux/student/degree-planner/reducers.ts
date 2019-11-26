@@ -16,7 +16,6 @@ const initialState = {
 function inspectorReducer(state: any = initialState, action) {
   // console.log('inspectorReducer', action, state);
   const depInspector = state.depInspector;
-  let newState;
   switch (action.type) {
     case TYPES.SELECT_COURSE:
       return {

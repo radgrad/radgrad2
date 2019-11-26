@@ -25,6 +25,7 @@ interface IStudentOfInterestCardProps {
   };
   item: {
     _id: string;
+    name: string;
   };
   profile: {
     _id: string;
