@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Grid, Segment, Header, Button, Divider, Image, Popup, Embed } from 'semantic-ui-react';
+import { Grid, Segment, Header, Divider, Image, Popup, Embed } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
@@ -14,6 +13,7 @@ import { toUpper, isSame } from './helper-functions';
 import { userToFullName, userToPicture } from './data-model-helper-functions';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { explorerCareerGoalWidget } from './shared-widget-names';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -31,7 +31,18 @@ interface IExplorerCareerGoalsWidgetProps {
   profile: IProfile;
 }
 
+const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
+  const opportunityID = Slugs.getEntityID(props.match.params.username, 'CareerGoal');
+  const oppTeaser = Teasers.find({ opportunityID }).fetch();
+  if (oppTeaser.length > 1) {
+    return undefined;
+  }
+  return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
+};
+
+
 const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
+  console.log(props);
   const marginStyle = {
     marginTop: 5,
   };
@@ -67,13 +78,13 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                     {descriptionPairs.map((descriptionPair, index) => (
                       <React.Fragment key={index}>
                         {
-                          this.isLabel(descriptionPair.label, 'Description') ?
+                          isSame(descriptionPair.label, 'Description') ?
                             <React.Fragment>
                               <b>{descriptionPair.label}:<br/></b>
                               {
                                 descriptionPair.value ?
                                   <Markdown escapeHtml={false} source={descriptionPair.value}
-                                            renderers={{ link: (props) => renderLink(props, match) }}/>
+                                            renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
                                   :
                                   'N/A'
                               }
@@ -89,7 +100,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                       descriptionPairs.map((descriptionPair, index) => (
                         <React.Fragment key={index}>
                           {
-                            this.isLabel(descriptionPair.label, 'Teaser') && this.teaserUrlHelper() ?
+                            isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ?
                               <React.Fragment>
                                 <b>{descriptionPair.label}:</b>
                                 {
@@ -114,13 +125,13 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                   {descriptionPairs.map((descriptionPair, index) => (
                     <React.Fragment key={index}>
                       {
-                        this.isLabel(descriptionPair.label, 'Description') ?
+                        isSame(descriptionPair.label, 'Description') ?
                           <React.Fragment>
                             <b>{descriptionPair.label}:<br/></b>
                             {
                               descriptionPair.value ?
                                 <Markdown escapeHtml={false} source={descriptionPair.value}
-                                          renderers={{ link: (props) => renderLink(props, match) }}/>
+                                          renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
                                 :
                                 'N/A'
                             }

@@ -10,7 +10,7 @@ import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../typings/radgrad'; // eslint-disable-line
-import { docToName } from '../shared/data-model-helper-functions';
+import { docToName, slugIDToSlugNameAndType } from '../shared/data-model-helper-functions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import MultiSelectField from '../shared/MultiSelectField';
@@ -27,14 +27,26 @@ interface IAddTeaserFormProps {
 }
 
 const AddTeaserForm = (props: IAddTeaserFormProps) => {
-  const opportunityNames = _.map(props.opportunities, docToName);
+  let careerGoalSlugNames = _.map(props.careerGoals, (goal) => slugIDToSlugNameAndType(goal.slugID));
+  careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
+  let courseSlugNames = _.map(props.courses, (c) => slugIDToSlugNameAndType(c.slugID));
+  courseSlugNames = _.sortBy(courseSlugNames);
+  let interestSlugNames = _.map(props.interests, (i) => slugIDToSlugNameAndType(i.slugID));
+  interestSlugNames = _.sortBy(interestSlugNames);
+  let opportunitySlugNames = _.map(props.opportunities, (o) => slugIDToSlugNameAndType(o.slugID));
+  opportunitySlugNames = _.sortBy(opportunitySlugNames);
+  const allSlugNames = opportunitySlugNames.concat(courseSlugNames.concat(interestSlugNames.concat(careerGoalSlugNames)));
   const interestNames = _.map(props.interests, docToName);
   const schema = new SimpleSchema({
-    slug: String,
     title: String,
+    slug: String,
     author: String,
-    url: String,
+    youtubeID: String,
     description: String,
+    targetSlug: {
+      type: String,
+      allowedValues: allSlugNames,
+    },
     duration: String,
     interests: {
       type: Array,
@@ -43,7 +55,6 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
       type: String,
       allowedValues: interestNames,
     },
-    opportunity: { type: String, allowedValues: opportunityNames, defaultValue: opportunityNames[0] },
     retired: { type: Boolean, optional: true },
   });
   return (
@@ -51,19 +62,17 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
       <Header dividing={true}>Add Teaser</Header>
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
         <Form.Group widths="equal">
-          <TextField name="slug"/>
           <TextField name="title"/>
+          <TextField name="slug"/>
+          <TextField name="author"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <TextField name="author"/>
-          <TextField name="url"/>
+          <SelectField name="targetSlug"/>
+          <TextField name="youtubeID"/>
           <TextField name="duration"/>
         </Form.Group>
+        <MultiSelectField name="interests"/>
         <LongTextField name="description"/>
-        <Form.Group widths="equal">
-          <MultiSelectField name="interests"/>
-          <SelectField name="opportunity"/>
-        </Form.Group>
         <BoolField name="retired"/>
         <SubmitField className="basic green" value="Add"/>
       </AutoForm>

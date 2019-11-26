@@ -94,8 +94,8 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
       }
+      this.formRef.current.reset();
     });
   };
 

@@ -69,6 +69,14 @@ interface IIndividualExplorerPageProps {
   favoriteOpportunities: IFavoriteOpportunity[];
 }
 
+const teaser = (theOpp: { slugID: string }): object => {
+  if (Teasers.isDefined({ targetSlugID: theOpp.slugID })) {
+    const oppTeaser = Teasers.findDoc({ targetSlugID: theOpp.slugID });
+    return oppTeaser;
+  }
+  return {};
+};
+
 const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
   switch (role) {
@@ -83,7 +91,10 @@ const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
   }
 };
 
-const addedPlans = (props: IIndividualExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
+const addedPlans = (props: IIndividualExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f) => ({
+  item: AcademicPlans.findDoc(f.academicPlanID),
+  count: 1,
+}));
 
 const plan = (props: IIndividualExplorerPageProps): IAcademicPlan => {
   const planSlugName = props.match.params.plan;
@@ -99,7 +110,10 @@ const descriptionPairsPlans = (thePlan: IAcademicPlan): { label: string, value: 
   ];
 };
 
-const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
+const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f) => ({
+  item: CareerGoals.findDoc(f.careerGoalID),
+  count: 1,
+}));
 
 
 const careerGoal = (props: IIndividualExplorerPageProps): ICareerGoal => {
@@ -110,9 +124,10 @@ const careerGoal = (props: IIndividualExplorerPageProps): ICareerGoal => {
 };
 
 const descriptionPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, value: any }[] => [
-    { label: 'Description', value: theCareerGoal.description },
-    { label: 'Interests', value: _.sortBy(Interests.findNames(theCareerGoal.interestIDs)) },
-  ];
+  { label: 'Description', value: theCareerGoal.description },
+  { label: 'Interests', value: _.sortBy(Interests.findNames(theCareerGoal.interestIDs)) },
+  { label: 'Teaser', value: teaser(theCareerGoal) },
+];
 
 const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): object[] => {
   let interested = [];
@@ -155,12 +170,16 @@ const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, am
   },
 ];
 
-const addedCourses = (props: IIndividualExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
+const addedCourses = (props: IIndividualExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f) => ({
+  item: Courses.findDoc(f.courseID),
+  count: 1,
+}));
 
 const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
+  console.log(courseSlugName, theCourse);
   return theCourse;
 };
 
@@ -239,6 +258,7 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Syllabus', value: theCourse.syllabus },
   { label: 'Interests', value: _.sortBy(Interests.findNames(theCourse.interestIDs)) },
   { label: 'Prerequisites', value: prerequisites(theCourse, props) },
+  { label: 'Teaser', value: teaser(theCourse) },
 ];
 
 const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
@@ -258,7 +278,10 @@ const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, va
   value: theDegree.description,
 }];
 
-const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
+const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({
+  item: Interests.findDoc(f.interestID),
+  count: 1,
+}));
 
 const addedCareerInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => {
   if (Router.getUserIdFromRoute(props.match)) {
@@ -276,7 +299,10 @@ const interest = (props: IIndividualExplorerPageProps): IInterest => {
   return theInterest;
 };
 
-const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
+const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f) => ({
+  item: Opportunities.findDoc(f.opportunityID),
+  count: 1,
+}));
 
 const opportunity = (props: IIndividualExplorerPageProps): IOpportunity => {
   const opportunitySlugName = props.match.params.opportunity;
@@ -313,14 +339,6 @@ const academicTerms = (theOpp: IOpportunity): string[] => {
 };
 
 const sponsor = (theOpp: IOpportunity): string => Users.getFullName(theOpp.sponsorID);
-
-const teaser = (theOpp: IOpportunity): object => {
-  if (Teasers.isDefined({ targetSlugID: theOpp.slugID })) {
-    const oppTeaser = Teasers.findDoc({ targetSlugID: theOpp.slugID });
-    return oppTeaser;
-  }
-  return {};
-};
 
 
 const descriptionPairsOpportunities = (theOpp: IOpportunity): { label: string, value: any }[] => [
@@ -391,13 +409,14 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
 
 const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): object[] => {
   const type = Router.getUrlParam(props.match, 2);
+  // console.log(item);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return descriptionPairsPlans(AcademicPlans.findDoc(item.academicPlanID));
+      return descriptionPairsPlans(item as IAcademicPlan);
     case EXPLORER_TYPE.CAREERGOALS:
-      return descriptionPairsCareerGoals(CareerGoals.findDoc(item.careerGoalID));
+      return descriptionPairsCareerGoals(item as ICareerGoal);
     case EXPLORER_TYPE.COURSES:
-      return descriptionPairsCourses(Courses.findDoc(item.courseID), props);
+      return descriptionPairsCourses(item as ICourse, props);
     case EXPLORER_TYPE.DEGREES:
       return descriptionPairsDegrees(item as IDesiredDegree);
     case EXPLORER_TYPE.INTERESTS:

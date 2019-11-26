@@ -44,11 +44,11 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
   model.interests = _.map(model.interestIDs, interestIdToName);
   model.youtubeID = model.url;
   const modelSlugAndType = slugIDToSlugNameAndType(model.targetSlugID);
-  const interestNames = _.map(this.props.interests, docToName);
-  const opportunitySlugs = _.map(this.props.opportunities, docToSlugNameAndType);
-  const courseSlugs = _.map(this.props.courses, docToSlugNameAndType);
-  const interestSlugs = _.map(this.props.interests, docToSlugNameAndType);
-  const careerGoalSlugs = _.map(this.props.careerGoals, docToSlugNameAndType);
+  const interestNames = _.map(props.interests, docToName);
+  const opportunitySlugs = _.map(props.opportunities, docToSlugNameAndType);
+  const courseSlugs = _.map(props.courses, docToSlugNameAndType);
+  const interestSlugs = _.map(props.interests, docToSlugNameAndType);
+  const careerGoalSlugs = _.map(props.careerGoals, docToSlugNameAndType);
   const schema = new SimpleSchema({
     title: String,
     slug: String,
