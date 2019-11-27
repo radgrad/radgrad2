@@ -36,8 +36,8 @@ interface IMentorAboutMeWidgetProps {
   };
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
+  setIsCloudinaryUsed: (icon: string, isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (icon: string, cloudinaryUrl: string) => any;
 }
 
 interface IMentorAboutMeWidgetState {
@@ -255,13 +255,13 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
         Swal.fire({
           title: 'Update Failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         this.formRef.current.reset();
       } else {
         Swal.fire({
           title: 'Update Succeeded',
-          type: 'success',
+          icon: 'success',
           text: 'Your profile was successfully updated',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -295,40 +295,40 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     const model = MentorProfiles.findDoc({ userID: this.getUserIdFromRoute() });
     const updateSchema = new SimpleSchema({
       website: {
-        type: String,
+        icon: String,
         optional: true,
         label: 'Website URL',
         defaultValue: website,
       },
       company: {
-        type: String,
+        icon: String,
         optional: true,
         defaultValue: company,
       },
       career: {
-        type: String,
+        icon: String,
         optional: true,
         label: 'Title',
         defaultValue: career,
       },
       location: {
-        type: String,
+        icon: String,
         optional: true,
         defaultValue: location,
       },
       linkedin: {
-        type: String,
+        icon: String,
         optional: true,
         label: 'LinkedIn Username',
         defaultValue: linkedin,
       },
       motivation: {
-        type: String,
+        icon: String,
         optional: true,
         defaultValue: motivation,
       },
       picture: {
-        type: String,
+        icon: String,
         optional: true,
         label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
         defaultValue: picture,
@@ -431,7 +431,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
               <LongTextField name='motivation'/>
 
-              <SubmitField value='Save Profile'/>
+              <SubmitField value='Save Profile' className={''} disabled={false} inputRef={undefined}/>
               <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
             </AutoForm>
             :

@@ -261,7 +261,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField/>
+          <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
           <Button onClick={this.props.handleCancel}>Cancel</Button>
         </AutoForm>
       </Segment>

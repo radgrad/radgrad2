@@ -52,7 +52,7 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     Swal.fire({
       title: 'Add failed',
       text: `Cannot add slugs. ${doc}`,
-      type: 'error',
+      icon: 'error',
     });
   };
 
@@ -67,7 +67,7 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     Swal.fire({
       title: 'Delete failed',
       text: 'Cannot delete slugs.',
-      type: 'error',
+      icon: 'error',
     });
   };
 
@@ -82,7 +82,7 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     Swal.fire({
       title: 'Update failed',
       text: `Cannot add slugs. ${doc}`,
-      type: 'error',
+      icon: 'error',
     });
   };
 

@@ -55,12 +55,12 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -91,12 +91,12 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Delete succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -125,12 +125,12 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
         Swal.fire({
           title: 'Update failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Update succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

@@ -50,7 +50,7 @@ const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProp
           <BoolField name="verified"/>
           <BoolField name="retired"/>
         </Form.Group>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

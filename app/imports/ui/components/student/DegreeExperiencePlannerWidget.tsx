@@ -127,12 +127,12 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
         Swal.fire({
           title: 'Failed to create Academic Year',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Academic Year Created',
-          type: 'success',
+          icon: 'success',
           text: 'Successfully created a new Academic Year',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -158,12 +158,12 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
         Swal.fire({
           title: 'Failed to delete Academic Year',
           text: `${error.message}. The page most likely didn't update properly fast enough. Refresh the page if you see this error.`,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Academic Year Deleted',
-          type: 'success',
+          icon: 'success',
           text: 'Successfully deleted an empty Academic Year',
           allowOutsideClick: false,
           allowEscapeKey: false,

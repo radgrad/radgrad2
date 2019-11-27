@@ -10,7 +10,6 @@ import { ROLE } from '../role/Role';
 import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { Roles } from "meteor/alanning:roles";
 
 /**
  * Represents a Faculty Profile.

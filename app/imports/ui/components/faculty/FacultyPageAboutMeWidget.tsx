@@ -79,12 +79,12 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
         Swal.fire({
           title: 'Update Failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Update Succeeded',
-          type: 'success',
+          icon: 'success',
           text: 'Your website link has been successfully updated.',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -152,13 +152,13 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
           Swal.fire({
             title: 'Update Failed',
             text: error.message,
-            type: 'error',
+            icon: 'error',
           });
         } else {
           this.setState({ picture: cloudinaryResult.info.url });
           Swal.fire({
             title: 'Update Succeeded',
-            type: 'success',
+            icon: 'success',
             text: 'Your picture has been successfully updated.',
             allowOutsideClick: false,
             allowEscapeKey: false,

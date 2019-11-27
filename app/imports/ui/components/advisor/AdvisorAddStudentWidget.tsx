@@ -78,12 +78,12 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
         Swal.fire({
           title: 'Failed adding User',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add User Succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

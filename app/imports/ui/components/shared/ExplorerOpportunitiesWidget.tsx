@@ -246,7 +246,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
                 </Grid.Column>
                 <Grid.Column width={11}>
                   {
-                    descriptionPairs.map((descriptionPair, index) => {
+                    descriptionPairs.map((descriptionPair, index) => (
                       <React.Fragment key={index}>
                         {
                           isSame(descriptionPair.label, 'Semesters') ?
@@ -281,8 +281,8 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
                             </React.Fragment>
                             : ''
                         }
-                      </React.Fragment>;
-                    })
+                      </React.Fragment>
+                    ))
                   }
                 </Grid.Column>
               </Grid>

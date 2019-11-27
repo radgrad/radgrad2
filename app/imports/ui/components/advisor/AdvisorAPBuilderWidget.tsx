@@ -122,12 +122,12 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -148,13 +148,13 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error deleting CareerGoal. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -246,7 +246,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Delete failed',
           text: `Cannot delete the single choice ${PlanChoiceCollection.toStringFromSlug(choice)}.`,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         this.setState({ showConfirmDelete: true, deletePlanChoice: choice });
@@ -281,13 +281,13 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Add academic plan failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error adding academic plan. %o', error);
       } else {
         Swal.fire({
           title: 'Add academic plan succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -321,11 +321,11 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
-      degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
+      degree: { icon: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
       name: String,
       description: String,
       term: {
-        type: String,
+        icon: String,
         allowedValues: termNames,
         defaultValue: currentTermName,
       },
@@ -344,7 +344,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
             <SelectField name="term"/>
           </Form.Group>
           <LongTextField name="description"/>
-          <SubmitField className="basic green" value="Save Academic Plan"/>
+          <SubmitField className="basic green" value="Save Academic Plan" disabled={false} inputRef={undefined}/>
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Grid stackable={true} style={paddingTopStyle}>

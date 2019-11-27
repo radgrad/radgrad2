@@ -31,12 +31,12 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
         Swal.fire({
           title: 'Update Failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Update Succeeded',
-          type: 'success',
+          icon: 'success',
           text: 'Your website link has been successfully updated.',
           allowOutsideClick: false,
           allowEscapeKey: false,

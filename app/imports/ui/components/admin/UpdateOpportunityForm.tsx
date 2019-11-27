@@ -88,7 +88,7 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
         <DateField name="eventDate"/>
         <AutoField name="ice"/>
         <BoolField name="retired"/>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} disabled={false} value={'Update'} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

@@ -35,7 +35,7 @@ const handleRemove = (event, { value }) => {
     } else {
       Swal.fire({
         title: 'Remove succeeded',
-        type: 'success',
+        icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });
@@ -59,7 +59,7 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
     } else {
       Swal.fire({
         title: 'Verification request sent.',
-        type: 'success',
+        icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });

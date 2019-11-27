@@ -34,7 +34,7 @@ const UpdateDesiredDegreeForm = (props: IUpdateDesiredDegreeFormProps) => {
         <LongTextField name="description"/>
         <BoolField name="retired"/>
         <p/>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

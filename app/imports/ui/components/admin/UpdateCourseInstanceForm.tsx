@@ -72,7 +72,7 @@ const UpdateCourseInstanceForm = (props: IUpdateCourseInstanceFormProps) => {
           <TextField name="note"/>
         </Form.Group>
         <BoolField name="retired"/>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

@@ -29,7 +29,7 @@ const handleRemove = (event, { value }) => {
     } else {
       Swal.fire({
         title: 'Remove succeeded',
-        type: 'success',
+        icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });

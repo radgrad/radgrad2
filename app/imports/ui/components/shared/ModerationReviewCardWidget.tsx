@@ -44,13 +44,13 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
         Swal.fire({
           title: 'Update failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'Update succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -67,13 +67,13 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
         Swal.fire({
           title: 'Update failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'Update succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

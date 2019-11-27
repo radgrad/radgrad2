@@ -246,6 +246,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       const userID = this.findDoc(docID).userID;
       if (_.isBoolean(isAlumni)) {
         updateData.isAlumni = isAlumni;
+        Roles.createRole(ROLE.STUDENT, { unlessExists: true });
+        Roles.createRole(ROLE.ALUMNI, { unlessExists: true });
         if (isAlumni) {
           updateData.role = ROLE.ALUMNI;
           Roles.addUsersToRoles(userID, [ROLE.ALUMNI]);

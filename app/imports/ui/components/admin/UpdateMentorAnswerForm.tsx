@@ -25,7 +25,7 @@ const UpdateMentorAnswerForm = (props: IUpdateMentorAnswerFormProps) => {
                 showInlineError={true} model={model}>
         <LongTextField name="text"/>
         <BoolField name="retired"/>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

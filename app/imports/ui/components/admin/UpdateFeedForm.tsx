@@ -248,7 +248,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
             <BoolField name="retired"/>
           </Form.Group>
           <p/>
-          <SubmitField/>
+          <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
           <Button onClick={this.props.handleCancel}>Cancel</Button>
         </AutoForm>
       </Segment>

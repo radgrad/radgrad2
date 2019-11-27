@@ -20,12 +20,12 @@ const handleUpdateInformation = (doc): void => {
       Swal.fire({
         title: 'Update Failed',
         text: error.message,
-        type: 'error',
+        icon: 'error',
       });
     } else {
       Swal.fire({
         title: 'Update Succeeded',
-        type: 'success',
+        icon: 'success',
         text: 'Your share information was successfully updated.',
         allowOutsideClick: false,
         allowEscapeKey: false,
@@ -104,7 +104,7 @@ const StudentShareInfoWidget = (props: IStudentShareInfoWidgetProps) => {
             <BoolField name="shareLevel"/>
           </Form.Group>
 
-          <SubmitField className="basic green shareInfo" value="Update Share Information"/>
+          <SubmitField className="basic green shareInfo" value="Update Share Information" disabled={false} inputRef={undefined}/>
         </AutoForm>
       </Grid>
     </React.Fragment>

@@ -30,7 +30,7 @@ const UpdateMentorQuestionForm = (props: IUpdateMentorQuestionFormProps) => {
           <BoolField name="visible"/>
           <BoolField name="retired"/>
         </Form.Group>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

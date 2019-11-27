@@ -88,7 +88,7 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         Swal.fire({
           title: 'Error reading data from file',
           text: 'Please ensure the file you selected is formatted properly',
-          type: 'error',
+          icon: 'error',
         });
         console.error(error.message);
       }
@@ -104,13 +104,13 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         Swal.fire({
           title: 'Error loading bulk STAR data',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'STAR Data loaded successfully',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -127,13 +127,13 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         Swal.fire({
           title: 'Error during Generating Student Emails',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'Beginning Download...',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

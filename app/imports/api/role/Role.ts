@@ -57,7 +57,7 @@ if (Meteor.isServer) {
   const definedRoleNames = _.map(allDefinedRoles, (role) => role.name);
   _.values(ROLE).forEach((role) => {
     if (!_.includes(definedRoleNames, role)) {
-      Roles.createRole(role);
+      Roles.createRole(role, { unlessExists: true });
     }
   });
 }

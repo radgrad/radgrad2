@@ -37,11 +37,11 @@
     "simpl-schema": "^1.5.6",
     "slick-carousel": "^1.8.1",
     "styled-components": "^4.4.0",
-    "sweetalert2": "^8.19.0",
-    "sweetalert2-react-content": "^1.1.0",
-    "uniforms": "^2.4.1",
-    "uniforms-bridge-simple-schema-2": "^2.4.1",
-    "uniforms-semantic": "^2.4.1"
+    "sweetalert2": "^9.4.0",
+    "sweetalert2-react-content": "^2.0.2",
+    "uniforms": "^2.6.2",
+    "uniforms-bridge-simple-schema-2": "^2.6.2",
+    "uniforms-semantic": "^2.6.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.3",
@@ -73,7 +73,7 @@
     "ts-node": "^8.4.1",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "tslint-react": "^3.6.0",
+    "tslint-react": "^4.1.0",
     "typescript": "^3.6.4"
   },
   "scripts": {

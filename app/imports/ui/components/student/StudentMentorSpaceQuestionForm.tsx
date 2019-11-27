@@ -41,12 +41,12 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -66,7 +66,7 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
         <Header dividing={true}><h4>ASK A NEW QUESTION</h4></Header>
         <AutoForm schema={schema} onSubmit={this.handleSubmit} ref={this.formRef}>
           <LongTextField name="question"/>
-          <SubmitField/>
+          <SubmitField inputRef={undefined} value={'Ask Question'} disabled={false} className={''}/>
         </AutoForm>
       </Segment>
     );

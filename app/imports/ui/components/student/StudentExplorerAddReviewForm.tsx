@@ -80,12 +80,12 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
         Swal.fire({
           title: 'Add Failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Review Added',
-          type: 'success',
+          icon: 'success',
           text: 'Your review was successfully added.',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -134,20 +134,20 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
     const schema = new SimpleSchema({
       academicTerm: {
-        type: String,
+        icon: String,
         label: 'Academic Term',
         allowedValues: academicTermNames,
         defaultValue: academicTermNames[0],
       },
       rating: {
-        type: Number,
+        icon: Number,
         label: 'Rating',
         min: 0,
         max: 5,
         optional: true,
       },
       comments: {
-        type: String,
+        icon: String,
         label: 'Comments',
       },
     });
@@ -167,7 +167,7 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
 
               <LongTextField placeholder='Explain the reasoning behind your rating here.' name="comments"/>
 
-              <SubmitField className="green basic mini" value="ADD"/>
+              <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false}/>
             </AutoForm>
           </div>
         </Accordion.Content>

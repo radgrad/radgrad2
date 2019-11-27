@@ -76,12 +76,12 @@ class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataMode
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -110,13 +110,13 @@ class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataMode
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error deleting. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -141,13 +141,13 @@ class AdminDataModelInterestTypesPage extends React.Component<{}, IAdminDataMode
         Swal.fire({
           title: 'Update failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'Update succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

@@ -78,12 +78,12 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
         Swal.fire({
           title: 'Update Failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Update Succeeded',
-          type: 'success',
+          icon: 'success',
           text: 'Your review was successfully edited.',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -107,13 +107,13 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error deleting Review. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
-          type: 'success',
+          icon: 'success',
         });
       }
       this.setState({ confirmOpen: false });
@@ -171,13 +171,13 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
     const schema = new SimpleSchema({
       academicTerm: {
-        type: String,
+        icon: String,
         label: 'Academic Term',
         allowedValues: academicTermNames,
         defaultValue: academicTermNames[0],
       },
       rating: {
-        type: Number,
+        icon: Number,
         label: 'Rating',
         defaultValue: review.rating,
         min: 0,
@@ -185,7 +185,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
         optional: true,
       },
       comments: {
-        type: String,
+        icon: String,
         label: 'Comments',
         defaultValue: review.comments,
       },
@@ -266,7 +266,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
 
               <LongTextField name="comments"/>
 
-              <SubmitField className="green basic mini" value="UPDATE"/>
+              <SubmitField className="green basic mini" value="UPDATE" disabled={false} inputRef={undefined}/>
               <Button basic={true} color="red" size="mini" onClick={this.handleDelete}>DELETE</Button>
               <Confirm open={confirmOpen} onCancel={this.handleCancelDelete} onConfirm={this.handleConfirmDelete}
                        header="Delete Review?"/>

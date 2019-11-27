@@ -157,12 +157,12 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
         Swal.fire({
           title: 'Failed adding User',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add User Succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -208,12 +208,12 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           Swal.fire({
             title: 'Failed deleting User',
             text: error.message,
-            type: 'error',
+            icon: 'error',
           });
         } else {
           Swal.fire({
             title: 'Delete User Succeeded',
-            type: 'success',
+            icon: 'success',
             showConfirmButton: false,
             timer: 1500,
           });
@@ -260,13 +260,13 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
         Swal.fire({
           title: 'Update failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
           title: 'Update succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

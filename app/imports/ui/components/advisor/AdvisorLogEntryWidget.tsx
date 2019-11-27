@@ -54,12 +54,12 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });

@@ -60,7 +60,7 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
         </Form.Group>
         <LongTextField name="description"/>
         <BoolField name="retired"/>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>);

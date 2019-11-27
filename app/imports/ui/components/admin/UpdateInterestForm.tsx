@@ -54,7 +54,7 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
         </Form.Group>
         <LongTextField name="description"/>
         <BoolField name="retired"/>
-        <SubmitField/>
+        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
       </AutoForm>
     </Segment>
   );
