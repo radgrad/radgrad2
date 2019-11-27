@@ -1,5 +1,7 @@
 accounts-base@1.4.5
 accounts-password@1.5.1
+adornis:typescript@0.9.14
+adornis:typescript-compiler@0.12.14
 alanning:roles@3.1.0
 aldeed:collection2-core@2.1.2
 allow-deny@1.1.0
@@ -7,8 +9,6 @@ atoy40:accounts-cas@0.0.2
 autoupdate@1.6.0
 babel-compiler@7.4.1
 babel-runtime@1.4.0
-barbatus:typescript@0.7.0
-barbatus:typescript-compiler@0.10.0
 barbatus:typescript-runtime@1.1.0
 base64@1.0.12
 binary-heap@1.0.11

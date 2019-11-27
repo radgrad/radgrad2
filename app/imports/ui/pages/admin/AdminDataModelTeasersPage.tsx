@@ -146,7 +146,7 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.interests = _.map(doc.interests, interestNameToSlug);
-    updateData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
+    updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {

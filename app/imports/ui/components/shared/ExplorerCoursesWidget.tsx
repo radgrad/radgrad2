@@ -385,12 +385,6 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                               </React.Fragment>
                               : ''
                           }
-
-                          {
-                            isSame(descriptionPair.label, 'Interests') ?
-                              <div style={fiveMarginTopStyle}><InterestList item={item} size="mini"/></div>
-                              : ''
-                          }
                         </React.Fragment>
                       ))
                     }

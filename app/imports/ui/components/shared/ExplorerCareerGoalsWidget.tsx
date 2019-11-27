@@ -14,6 +14,7 @@ import { userToFullName, userToPicture } from './data-model-helper-functions';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { explorerCareerGoalWidget } from './shared-widget-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -26,14 +27,17 @@ interface IExplorerCareerGoalsWidgetProps {
     url: string;
     params: {
       username: string;
+      careergoal: string;
     }
   };
   profile: IProfile;
 }
 
 const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
-  const opportunityID = Slugs.getEntityID(props.match.params.username, 'CareerGoal');
-  const oppTeaser = Teasers.find({ opportunityID }).fetch();
+  const _id = Slugs.getEntityID(props.match.params.careergoal, 'CareerGoal');
+  const careerGoal = CareerGoals.findDoc({ _id });
+  const oppTeaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
+  console.log(oppTeaser);
   if (oppTeaser.length > 1) {
     return undefined;
   }
@@ -106,7 +110,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                 {
                                   descriptionPair.value ?
                                     <Embed active={true} autoplay={false} source="youtube"
-                                           id={this.teaserUrlHelper()}/>
+                                           id={teaserUrlHelper(props)}/>
                                     :
                                     <p> N/A </p>
                                 }
