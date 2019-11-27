@@ -66,7 +66,7 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
           <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
           <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add"/>
       </AutoForm>
     </Segment>
   );

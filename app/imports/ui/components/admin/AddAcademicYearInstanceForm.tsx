@@ -7,11 +7,10 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { moment } from 'meteor/momentjs:moment';
-import { ROLE } from '../../../api/role/Role';
 import { profileToUsername } from '../shared/data-model-helper-functions';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];
@@ -35,14 +34,14 @@ const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): Reac
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
         <NumField name="year"/>
         <SelectField name="student"/>
-        <SubmitField className={'basic green'} value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className={'basic green'} value="Add"/>
       </AutoForm>
     </Segment>
   );
 };
 
 const AddAcademicYearInstanceFormContainer = withTracker(() => {
-  const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();
+  const students = StudentProfiles.findNonRetired({ isAlumni: false });
   // console.log('students=%o', students);
   return {
     students,

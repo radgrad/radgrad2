@@ -43,7 +43,7 @@ const AddCareerGoalForm = (props: IAddCareerGoalFormProps): React.ReactElement<a
         </Form.Group>
         <MultiSelectField name="interests" placeholder="Select interest(s)"/>
         <LongTextField name="description" placeholder="Describe the Career Goal here"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add"/>
       </AutoForm>
     </Segment>
   );
