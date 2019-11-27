@@ -30,7 +30,6 @@ themeteorchef:bert               # UI notifications. https://themeteorchef.com/t
 # Utilities
 underscore@1.0.10                       # http://underscorejs.org/
 ejson@1.1.0                            # https://docs.meteor.com/api/ejson.html
-alanning:roles                   # https://github.com/alanning/meteor-roles
 
 # Prototyping only
 barbatus:typescript
@@ -48,3 +47,4 @@ udondan:zipzap
 jcbernack:reactive-aggregate
 random@1.1.0
 react-meteor-data
+alanning:roles

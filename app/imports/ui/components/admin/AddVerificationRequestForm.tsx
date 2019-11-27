@@ -61,7 +61,7 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
           <SelectField name="academicTerm"/>
         </Form.Group>
         <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

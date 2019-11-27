@@ -40,7 +40,7 @@ const AddMentorAnswerForm = (props: IAddMentorAnswerFormProps): React.ReactEleme
         </Form.Group>
         <LongTextField name="text"/>
         <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

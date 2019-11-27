@@ -22,7 +22,7 @@ const AddDesiredDegreeForm = (props: IAddDesiredDegreeFormProps) => (
         <TextField name="shortName" placeholder="B.S. S"/>
       </Form.Group>
       <LongTextField name="description"/>
-      <SubmitField className="basic green" value="Add"/>
+      <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
     </AutoForm>
   </Segment>
 );

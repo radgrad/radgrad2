@@ -46,6 +46,7 @@ class UserCollection {
    */
   public define({ username, role }: { username: string; role: string; }) {
     if (Meteor.isServer) {
+      Roles.createRole(role, { unlessExists: true });
       if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR)) {
         // Define this user with a CAS login.
         const userWithoutHost = username.split('@')[0];

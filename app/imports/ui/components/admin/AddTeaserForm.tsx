@@ -74,7 +74,7 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
         <MultiSelectField name="interests"/>
         <LongTextField name="description"/>
         <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

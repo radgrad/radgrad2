@@ -106,7 +106,7 @@ class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormS
           </Form.Group>
           <LongTextField name="moderatorComments"/>
           <BoolField name="retired"/>
-          <SubmitField className="basic green" value="Add"/>
+          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
         </AutoForm>
       </Segment>
     );

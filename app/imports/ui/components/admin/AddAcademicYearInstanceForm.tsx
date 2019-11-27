@@ -35,7 +35,7 @@ const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): Reac
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
         <NumField name="year"/>
         <SelectField name="student"/>
-        <SubmitField className={'basic green'} value="Add"/>
+        <SubmitField className={'basic green'} value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

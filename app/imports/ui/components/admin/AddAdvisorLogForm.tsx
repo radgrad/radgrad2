@@ -43,7 +43,7 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<a
         <SelectField name="advisor"/>
         <SelectField name="student"/>
         <LongTextField name="text"/>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

@@ -39,7 +39,7 @@ const AddInterestForm = (props: IAddInterestFormProps): React.ReactElement<any> 
         </Form.Group>
         <LongTextField name="description"/>
         <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

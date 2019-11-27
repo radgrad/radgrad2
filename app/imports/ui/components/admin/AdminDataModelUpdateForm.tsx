@@ -24,9 +24,9 @@ const AdminDataModelUpdateForm = (props: IAdminDataModelUpdateFormProps) => {
         schema={props.collection.getUpdateSchema()}
         model={model}
         onSubmit={props.handleUpdate}>
-        <AutoFields/>
+        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined}/>
         <p/>
-        <SubmitField/>
+        <SubmitField className={''} inputRef={undefined} disabled={false} value={undefined}/>
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

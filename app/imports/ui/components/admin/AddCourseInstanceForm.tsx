@@ -66,7 +66,7 @@ const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps): React.ReactE
           <NumField name="creditHours"/>
           <SelectField name="grade"/>
         </Form.Group>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
       </AutoForm>
     </Segment>
   );

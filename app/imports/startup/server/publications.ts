@@ -24,3 +24,10 @@ Meteor.publish('userStatus', function userStatus() {
   }
   return [];
 });
+
+Meteor.publish(null, function () {
+  if (this.userId) {
+    return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  }
+  return this.ready();
+});
