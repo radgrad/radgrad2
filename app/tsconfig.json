@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "alwaysStrict": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
-    "sourceMap": true,
-    "jsx": "react",
     "lib": [
       "dom",
-      "es2015"
+      "dom.iterable",
+      "esnext"
     ],
     "allowJs": false,
-    "noImplicitAny": false,
-    "strictNullChecks": false
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react"
   },
   "include": [
     "client/**/*.ts",
