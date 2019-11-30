@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
-import { Roles } from 'meteor/alanning:roles';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 import { ROLE } from '../../../api/role/Role';
+import { Users } from '../../../api/user/UserCollection';
 
 export interface INavBarProps {
   currentUser: string;
@@ -52,28 +52,29 @@ const LandingNavBar = (props: INavBarProps) => {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingNavBarContainer = withTracker(() => {
+  const profile = Users.getProfile(Meteor.userId());
   let role;
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN])) {
+  if (profile.role === ROLE.ADMIN) {
     role = 'admin';
   }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADVISOR])) {
+  if (profile.role === ROLE.ADVISOR) {
     role = 'advisor';
   }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ALUMNI])) {
+  if (profile.role === ROLE.ALUMNI) {
     role = 'alumni';
   }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
+  if (profile.role === ROLE.FACULTY) {
     role = 'faculty';
   }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.MENTOR])) {
+  if (profile.role === ROLE.MENTOR) {
     role = 'mentor';
   }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.STUDENT])) {
+  if (profile.role === ROLE.STUDENT) {
     role = 'student';
   }
   return {
     currentUser: Meteor.user() ? Meteor.user().username : '',
-    iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
+    iconName: (profile.role === 'ADMIN') ? 'user plus' : 'user',
     role,
   };
 })(LandingNavBar);

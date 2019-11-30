@@ -39,9 +39,9 @@
     "styled-components": "^4.4.0",
     "sweetalert2": "^9.4.0",
     "sweetalert2-react-content": "^2.0.2",
-    "uniforms": "~2.5.0",
-    "uniforms-bridge-simple-schema-2": "~2.5.0",
-    "uniforms-semantic": "~2.5.0"
+    "uniforms": "~2.2.0",
+    "uniforms-bridge-simple-schema-2": "~2.2.0",
+    "uniforms-semantic": "~2.2.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.3",

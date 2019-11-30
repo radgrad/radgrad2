@@ -19,6 +19,7 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 // import * as Router from './RouterHelperFunctions';
 
 interface IHasName {
@@ -178,6 +179,22 @@ export const profileGetFavoriteAcademicPlans = (profile) => {
   const studentID = profile.userID;
   const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
   return _.map(favPlans, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
+};
+
+export const profileFavoriteBamAcademicPlan = (profile) => {
+  const setttingsDoc = RadGradSettings.findOne({});
+  let numTermsPerYear = 3;
+  if (setttingsDoc.quarterSystem) {
+    numTermsPerYear = 4;
+  }
+  const favPlans = profileGetFavoriteAcademicPlans(profile);
+  let notBAM = true;
+  favPlans.forEach((plan) => {
+    if (plan.coursesPerAcademicTerm.length >= (4 * numTermsPerYear) + 1) {
+      notBAM = false;
+    }
+  });
+  return !notBAM;
 };
 
 export const profileGetFavoriteAcademicPlanIDs = (profile) => _.map(profileGetFavoriteAcademicPlans(profile), (plan) => plan._id);

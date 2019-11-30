@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { moment } from 'meteor/momentjs:moment';
-import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import BaseCollection from '../base/BaseCollection';
@@ -115,10 +114,11 @@ class AdvisorLogCollection extends BaseCollection {
         if (!studentID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
+        const profile = Users.getProfile(this.userId);
+        if (profile.role === ROLE.ADMIN) {
           return instance.collection.find();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADVISOR])) {
+        if (profile.role === ROLE.ADVISOR) {
           return instance.collection.find({ retired: { $not: { $eq: true } } });
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });

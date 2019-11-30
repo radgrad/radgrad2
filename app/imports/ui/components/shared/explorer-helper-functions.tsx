@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import { Roles } from 'meteor/alanning:roles';
 import {
   IAcademicPlan, // eslint-disable-line no-unused-vars
   ICareerGoal, // eslint-disable-line no-unused-vars
@@ -26,7 +25,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  itemToSlugName, profileGetCareerGoalIDs,
+  itemToSlugName, profileFavoriteBamAcademicPlan, profileGetCareerGoalIDs,
   profileGetFavoriteAcademicPlanIDs,
   profileGetFavoriteAcademicPlans,
 } from './data-model-helper-functions';
@@ -233,6 +232,7 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     const studentID = Router.getUserIdFromRoute(match);
+    const profile = Users.getProfile(studentID);
     let filtered = _.filter(courses, (course) => {
       if (course.number === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
@@ -243,10 +243,9 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
       }).fetch();
       return ci.length === 0;
     });
-    if (Roles.userIsInRole(studentID, [ROLE.STUDENT])) {
-      const profile = StudentProfiles.findDoc({ userID: studentID });
-      const plan = AcademicPlans.findDoc(profile.academicPlanID);
-      if (plan.coursesPerAcademicTerm.length < 15) { // not bachelors and masters
+    if (profile.role === ROLE.STUDENT) {
+      const bam = profileFavoriteBamAcademicPlan(profile);
+      if (!bam) { // not bachelors and masters
         const regex = /[1234]\d\d/g;
         filtered = _.filter(filtered, (c) => c.num.match(regex));
       }

@@ -4,7 +4,6 @@ import { Grid, Header, Segment } from 'semantic-ui-react';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
@@ -14,6 +13,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { Users } from '../../../api/user/UserCollection';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -36,7 +36,8 @@ const count = (props: IListOpportunitiesWidgetProps) => Opportunities.find({ spo
 
 const isInRole = (props: IListOpportunitiesWidgetProps) => {
   const userID = getUserIdFromRoute(props.match);
-  return Roles.userIsInRole(userID, [ROLE.FACULTY]);
+  const profile = Users.getProfile(userID);
+  return profile.role === ROLE.FACULTY;
 };
 
 const facultyOpportunities = (props: IListOpportunitiesWidgetProps) => Opportunities.findNonRetired({ sponsorID: getUserIdFromRoute(props.match) }, { sort: { name: 1 } });

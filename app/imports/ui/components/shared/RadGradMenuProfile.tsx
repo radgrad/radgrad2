@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Roles } from 'meteor/alanning:roles';
 import { Header, Image } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import RadGradMenuLevel from './RadGradMenuLevel';
@@ -49,7 +48,8 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
 
 const RadGradMenuProfileContainer = withTracker((props) => {
   const profile = Users.getProfile(props.userName);
-  const displayLevelAndIce = Roles.userIsInRole(profile.userID, [ROLE.STUDENT]);
+  const displayLevelAndIce = profile.role === ROLE.STUDENT;
+  // console.log('profile %o userIsInRole %o', profile, displayLevelAndIce);
   let earnedICE;
   let projectedICE;
   if (displayLevelAndIce) {

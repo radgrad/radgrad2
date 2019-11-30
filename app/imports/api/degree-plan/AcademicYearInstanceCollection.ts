@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { moment } from 'meteor/momentjs:moment';
@@ -196,12 +195,12 @@ class AcademicYearInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        // console.log('Admin ', Roles.userIsInRole(studentID, [ROLE.ADMIN]), studentID);
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
-          return instance.collection.find();
-        }
         if (!studentID) {
           return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
+          return instance.collection.find();
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });

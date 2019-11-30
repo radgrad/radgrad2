@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
-import { Roles } from 'meteor/alanning:roles';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { RadGrad } from '../radgrad/RadGrad';
 import { ROLE } from '../role/Role';
+import { Users } from '../user/UserCollection';
 
 /**
  * Allows admins to create and return a JSON object to the client representing a snapshot of the RadGrad database.
@@ -16,10 +16,12 @@ export const dumpDatabaseMethod = new ValidatedMethod({
   run() {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to dump the database..');
-    } else
-      if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
+    } else {
+      const profile = Users.getProfile(this.userId);
+      if (profile.role !== ROLE.ADMIN) {
         throw new Meteor.Error('unauthorized', 'You must be an admin to dump the database.');
       }
+    }
     // Don't do the dump except on server side (disable client-side simulation).
     // Return an object with fields timestamp and collections.
     if (Meteor.isServer) {

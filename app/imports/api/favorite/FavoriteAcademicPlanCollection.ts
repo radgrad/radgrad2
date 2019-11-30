@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../base/BaseCollection';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
@@ -88,7 +87,8 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
         if (!studentID) {
           return this.ready();
         }
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR])) {
+        const profile = Users.getProfile(studentID);
+        if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID });

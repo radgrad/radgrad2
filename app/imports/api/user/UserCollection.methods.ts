@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import { ROLE } from '../role/Role';
 // import { Users } from './UserCollection';
 import { StudentProfiles } from './StudentProfileCollection';
+import { Users } from './UserCollection';
 
 /**
  * Allows students to update their academic plans.
@@ -18,10 +18,12 @@ export const updateAcademicPlanMethod = new ValidatedMethod({
   run(academicPlan) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to dump the database..');
-    } else
-      if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT])) {
+    } else {
+      const profile = Users.getProfile(this.userId);
+      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT], profile.role)) {
         throw new Meteor.Error('unauthorized', 'You must be an admin, advisor, or student to update the academic plan.');
       }
+    }
       console.log(academicPlan);
     // Don't update except on server side (disable client-side simulation).
     if (Meteor.isServer) {
@@ -41,9 +43,11 @@ export const generateStudentEmailsMethod = new ValidatedMethod({
   run() {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to get student emails.');
-    } else
-    if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
-      throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to get student emails.');
+    } else {
+      const profile = Users.getProfile(this.userId);
+      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to get student emails.');
+      }
     }
     // Don't generate unless on Server side.
     if (Meteor.isServer) {
