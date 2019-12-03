@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
+import { Header, Grid, Divider, Segment, SegmentGroup, Embed } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
@@ -22,6 +22,7 @@ import FavoritesButton from './FavoritesButton';
 import { getRoleByUrl } from './RouterHelperFunctions';
 import { profileGetInterestIDs } from './data-model-helper-functions';
 import { explorerInterestWidget } from './shared-widget-names';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
 
 
 interface IExplorerInterestsWidgetProps {
@@ -136,7 +137,8 @@ const getBaseURL = (props: IExplorerInterestsWidgetProps) => {
 const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(props), props);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
-
+  const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
+  const hasTeaser = teaser.length > 0;
   /**
    * ToDo polish this UI
    * ToDo add functionality for button
@@ -145,14 +147,32 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
     <div id={explorerInterestWidget}>
       <SegmentGroup>
         <Segment>
-          <Header>{props.interest.name}<FavoritesButton type='interest' studentID={props.profile.userID} item={props.interest}/></Header>
+          <Header>{props.interest.name}<FavoritesButton type='interest' studentID={props.profile.userID}
+                                                        item={props.interest}/></Header>
           <Divider/>
-          <div>
-            <b>Description: </b>
-          </div>
-          <div>
-            <Markdown escapeHtml={true} source={props.interest.description}/>
-          </div>
+          {hasTeaser ? <Grid columns={2} stackable={true}>
+            <Grid.Column width={9}>
+              <div>
+                <b>Description: </b>
+              </div>
+              <div>
+                <Markdown escapeHtml={true} source={props.interest.description}/>
+              </div>
+            </Grid.Column>
+            <Grid.Column width={7}>
+              <b>Teaser:</b>
+              <Embed active={true} autoplay={false} source="youtube"
+                     id={teaser && teaser[0] && teaser[0].url}/>
+            </Grid.Column>
+          </Grid> : <React.Fragment>
+            <div>
+              <b>Description: </b>
+            </div>
+            <div>
+              <Markdown escapeHtml={true} source={props.interest.description}/>
+            </div>
+          </React.Fragment>
+          }
         </Segment>
       </SegmentGroup>
       <Grid stackable columns={2}>

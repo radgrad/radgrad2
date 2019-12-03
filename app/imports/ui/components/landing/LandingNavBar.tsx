@@ -52,29 +52,31 @@ const LandingNavBar = (props: INavBarProps) => {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingNavBarContainer = withTracker(() => {
-  const profile = Users.getProfile(Meteor.userId());
   let role;
-  if (profile.role === ROLE.ADMIN) {
-    role = 'admin';
-  }
-  if (profile.role === ROLE.ADVISOR) {
-    role = 'advisor';
-  }
-  if (profile.role === ROLE.ALUMNI) {
-    role = 'alumni';
-  }
-  if (profile.role === ROLE.FACULTY) {
-    role = 'faculty';
-  }
-  if (profile.role === ROLE.MENTOR) {
-    role = 'mentor';
-  }
-  if (profile.role === ROLE.STUDENT) {
-    role = 'student';
+  if (Meteor.userId()) {
+    const profile = Users.getProfile(Meteor.userId());
+    if (profile.role === ROLE.ADMIN) {
+      role = 'admin';
+    }
+    if (profile.role === ROLE.ADVISOR) {
+      role = 'advisor';
+    }
+    if (profile.role === ROLE.ALUMNI) {
+      role = 'alumni';
+    }
+    if (profile.role === ROLE.FACULTY) {
+      role = 'faculty';
+    }
+    if (profile.role === ROLE.MENTOR) {
+      role = 'mentor';
+    }
+    if (profile.role === ROLE.STUDENT) {
+      role = 'student';
+    }
   }
   return {
     currentUser: Meteor.user() ? Meteor.user().username : '',
-    iconName: (profile.role === 'ADMIN') ? 'user plus' : 'user',
+    iconName: (role === 'admin') ? 'user plus' : 'user',
     role,
   };
 })(LandingNavBar);

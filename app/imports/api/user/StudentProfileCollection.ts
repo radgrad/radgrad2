@@ -246,8 +246,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       const userID = this.findDoc(docID).userID;
       if (_.isBoolean(isAlumni)) {
         updateData.isAlumni = isAlumni;
-        Roles.createRole(ROLE.STUDENT, { unlessExists: true });
-        Roles.createRole(ROLE.ALUMNI, { unlessExists: true });
         if (isAlumni) {
           updateData.role = ROLE.ALUMNI;
           Roles.addUsersToRoles(userID, [ROLE.ALUMNI]);
@@ -484,10 +482,10 @@ class StudentProfileCollection extends BaseProfileCollection {
 
   public publish() {
     if (Meteor.isServer) {
+      // console.log('StudentProfileCollection.publish');
       const inst = this;
       Meteor.publish(this.collectionName, function () {
         const userID = Meteor.userId();
-        const profile = Users.getProfile(userID);
         ReactiveAggregate(this, inst.collection, [{
           $project: {
             username: {
@@ -495,7 +493,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareUsername', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$username', ''],
             },
@@ -507,7 +505,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$sharePicture', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$picture', '/images/default-profile-picture.png'],
             },
@@ -516,7 +514,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareWebsite', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$website', ''],
             },
@@ -525,7 +523,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareInterests', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$interestIDs', []],
             },
@@ -534,7 +532,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareCareerGoals', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$careerGoalIDs', []],
             },
@@ -545,7 +543,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareLevel', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$level', 0],
             },
@@ -554,7 +552,7 @@ class StudentProfileCollection extends BaseProfileCollection {
                 $or: [
                   { $ifNull: ['$shareAcademicPlan', false] },
                   { $eq: [userID, '$userID'] },
-                  { $eq: [_.includes([ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY], profile.role), true] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
                 ],
               }, '$academicPlanID', ''],
             },

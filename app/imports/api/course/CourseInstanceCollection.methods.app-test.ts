@@ -30,12 +30,36 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define, update, remove Methods', async function () {
+    it('Define Method', async function () {
+      await withLoggedInUser();
+      await withRadGradSubscriptions(student);
+      await defineMethod.callPromise({ collectionName, definitionData });
+    });
+
+    it('Update Method', async function () {
+      const id = CourseInstances.findCourseInstanceDoc(academicTerm, course, student)._id;
+      const verified = false;
+      const grade = 'A';
+      const creditHrs = 4;
+      await updateMethod.callPromise({
+        collectionName, updateData: {
+          id, verified, grade, creditHrs,
+        },
+      });
+    });
+
+    it('Remove Method', async function () {
+      const instance = CourseInstances.findCourseInstanceDoc(academicTerm, course, student)._id;
+      await removeItMethod.callPromise({ collectionName, instance });
+    });
+
+  it('Define, update, remove Methods', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const id = await defineMethod.callPromise({ collectionName, definitionData });
       expect(id).to.exist;
-      let instance = CourseInstances.findCourseInstanceDoc(academicTerm, course, student);
+      let instance = CourseInstances.findDoc(id);
+      expect(instance).to.exist;
       expect(instance.grade).to.equal('B');
       const verified = false;
       const grade = 'A';

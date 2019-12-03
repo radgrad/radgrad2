@@ -17,6 +17,7 @@ import FavoritesButton from './FavoritesButton';
 import { toUpper, replaceTermString, isSame } from './helper-functions';
 import { explorerOpportunityWidget } from './shared-widget-names';
 import FutureParticipation from './FutureParticipation';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -45,7 +46,8 @@ const review = (props: IExplorerOpportunitiesWidgetProps): object => {
 
 const teaserUrlHelper = (props: IExplorerOpportunitiesWidgetProps): string => {
   const opportunityID = Slugs.getEntityID(props.match.params.opportunity, 'Opportunity');
-  const oppTeaser = Teasers.find({ opportunityID }).fetch();
+  const opportunity = Opportunities.findDoc(opportunityID);
+  const oppTeaser = Teasers.find({ targetSlugID: opportunity.slugID }).fetch();
   if (oppTeaser.length > 1) {
     return undefined;
   }

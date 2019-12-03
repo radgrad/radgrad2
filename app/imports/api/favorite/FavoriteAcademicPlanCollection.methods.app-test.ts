@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 import { FavoriteAcademicPlans } from './FavoriteAcademicPlanCollection';
+import { Users } from '../user/UserCollection';
 
 /* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -10,9 +11,10 @@ import { FavoriteAcademicPlans } from './FavoriteAcademicPlanCollection';
 if (Meteor.isClient) {
   describe('FavoriteAcademicPlanCollection', function testSuite() {
     const collectionName = FavoriteAcademicPlans.getCollectionName();
+    const student = 'abi@hawaii.edu';
     const definitionData = {
       academicPlan: 'bs-cs-2016',
-      student: 'abi@hawaii.edu',
+      student,
     };
     const updateData: any = { retired: true };
 
@@ -25,7 +27,7 @@ if (Meteor.isClient) {
       await withLoggedInUser();
       await withRadGradSubscriptions(Meteor.userId());
       const docID = await defineMethod.callPromise({ collectionName, definitionData });
-      expect(FavoriteAcademicPlans.isDefined(docID), 'define: isDefined').to.be.true;
+      expect(FavoriteAcademicPlans.isDefined(docID), `define: ${docID} isDefined`).to.be.true;
       expect(FavoriteAcademicPlans.countNonRetired()).to.equal(1);
       updateData.id = docID;
       await updateMethod.callPromise({ collectionName, updateData });

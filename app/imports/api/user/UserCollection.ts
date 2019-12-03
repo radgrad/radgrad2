@@ -128,7 +128,8 @@ class UserCollection {
   public getID(user) {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     if (!userDoc) {
-      console.log('Error: user is not defined: ', user);
+      // console.log('Error: user is not defined: ', user);
+      console.trace(`Error: user is not defined: ${user}`);
       throw new Meteor.Error(`Error: user ${user} is not defined.`);
     }
     return userDoc._id;

@@ -20,7 +20,7 @@ if (Meteor.isClient) {
 
     it('Define Method', async function () {
       await withLoggedInUser();
-      await withRadGradSubscriptions();
+      await withRadGradSubscriptions(student);
       await defineMethod.callPromise({ collectionName, definitionData });
     });
 

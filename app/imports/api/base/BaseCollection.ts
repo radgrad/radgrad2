@@ -76,6 +76,7 @@ class BaseCollection {
    */
   public subscribe(userID = undefined) {
     if (Meteor.isClient) {
+      // console.log(`${this.collectionName}.subscribe`, userID);
       Meteor.subscribe(this.collectionName, userID);
     }
   }
@@ -360,6 +361,7 @@ class BaseCollection {
    * @ignore
    */
   protected assertRole(userId: string, roles: string[]): boolean {
+    // console.log(userId, roles, Roles.userIsInRole(userId, roles));
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else if (!Roles.userIsInRole(userId, roles)) {

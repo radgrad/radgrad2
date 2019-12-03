@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
+import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -262,7 +263,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public getUpdateSchema() {
     const terms = AcademicTerms.find({}, { sort: { termNumber: 1 }, fields: { _id: 1 } }).fetch();
-    console.log(terms);
+    // console.log(terms);
     this.updateSchema = new SimpleSchema({
       termID: {
         type: String,
@@ -364,6 +365,7 @@ class CourseInstanceCollection extends BaseCollection {
         ], { clientCollection: CourseScoreboardName });
       });
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
         if (!studentID) {
           return this.ready();
         }
