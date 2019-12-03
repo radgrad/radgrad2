@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 import { FavoriteAcademicPlans } from './FavoriteAcademicPlanCollection';
-import { Users } from '../user/UserCollection';
 
 /* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
 /* eslint-env mocha */

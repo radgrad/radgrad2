@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/erasaur:meteor-lodash';
 import SimpleSchema from 'simpl-schema';
-import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
