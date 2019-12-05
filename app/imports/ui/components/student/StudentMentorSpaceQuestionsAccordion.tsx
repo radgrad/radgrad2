@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Accordion, Grid, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import MentorQuestionAnswerWidget from './MentorQuestionAnswerWidget';
 // eslint-disable-next-line no-unused-vars
-import { IMentorAnswer } from '../../../typings/radgrad';
+import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 
 interface IStudentMentorSpaceQuestionsAccordionState {
   activeIndex: number;
@@ -15,7 +15,7 @@ interface IStudentMentorSpaceQuestionsAccordionState {
 
 interface IStudentMentorSpaceQuestionsAccordionProps {
   answers: IMentorAnswer[];
-  questions: string;
+  questions: IMentorQuestion[];
   index: number;
   answerCount: number;
 }

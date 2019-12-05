@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp-client';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { RadGrad } from '../radgrad/RadGrad';
 import { Users } from '../user/UserCollection';

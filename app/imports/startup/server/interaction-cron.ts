@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { moment } from 'meteor/momentjs:moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';

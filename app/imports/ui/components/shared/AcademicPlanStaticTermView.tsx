@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../api/degree-plan/AcademicPlanUtilities';

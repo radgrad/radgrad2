@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { moment } from 'meteor/momentjs:moment';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad'; // eslint-disable-line

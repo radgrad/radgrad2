@@ -1,8 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-// import SimpleSchema from 'simpl-schema';
+import * as _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../mentor/MentorQuestionCollection';
@@ -262,7 +261,7 @@ class UserCollection {
    */
   public getProfile(user) {
     // First, let's check to see if user is actually a profile (or looks like one). If so, just return it.
-    if (_.isObject(user) && user.firstName && user.lastName && user.role) {
+    if (_.isObject(user) && _.has(user, 'firstName') && _.has(user, 'lastName') && _.has(user, 'role')) {
       return user;
     }
     const profile = this.hasProfile(user);

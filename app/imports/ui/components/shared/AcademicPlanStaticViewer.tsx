@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { IAcademicPlan, ICourseInstance } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -79,7 +79,7 @@ const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
   );
 };
 
-const takenSlugs = (courseInstances: ICourseInstance[]): ICourseInstance => {
+const takenSlugs = (courseInstances: ICourseInstance[]) => {
   const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
   // console.log(courseInstances, passedCourseInstances);
   return _.map(passedCourseInstances, (ci) => {

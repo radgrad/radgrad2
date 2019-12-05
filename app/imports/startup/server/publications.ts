@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { ROLE } from '../../api/role/Role';
 import { Users } from '../../api/user/UserCollection';

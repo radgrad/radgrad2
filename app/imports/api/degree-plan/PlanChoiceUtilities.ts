@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 
 /**
  * Strips of the counter for the plan choice. The counter is used in academic plans to keep track of how many

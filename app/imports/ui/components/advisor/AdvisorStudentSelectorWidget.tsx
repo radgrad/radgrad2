@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic-ui-react';
 import Swal from 'sweetalert2';

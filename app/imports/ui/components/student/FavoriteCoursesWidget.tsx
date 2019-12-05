@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';

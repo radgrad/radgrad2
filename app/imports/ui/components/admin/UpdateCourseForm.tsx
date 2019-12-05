@@ -7,7 +7,7 @@ import NumField from 'uniforms-semantic/NumField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { Interests } from '../../../api/interest/InterestCollection';

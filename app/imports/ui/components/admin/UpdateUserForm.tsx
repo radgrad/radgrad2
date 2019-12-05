@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';

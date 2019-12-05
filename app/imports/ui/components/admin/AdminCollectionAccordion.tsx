@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Accordion, Button } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line

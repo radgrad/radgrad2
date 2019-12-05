@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Form, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';

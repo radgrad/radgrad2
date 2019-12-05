@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { AcademicTerms } from './AcademicTermCollection';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 

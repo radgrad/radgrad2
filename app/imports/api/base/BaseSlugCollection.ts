@@ -1,5 +1,5 @@
 import { check } from 'meteor/check';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import BaseCollection from '../base/BaseCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -27,8 +27,8 @@ class BaseSlugCollection extends BaseCollection {
     // console.log(`BaseSlugCollection.getID(${instance})`);
     let id;
     // If we've been passed a document, check to see if it has an _id field and make instance the value of _id.
-    if (_.isObject(instance) && instance._id) {
-      instance = instance._id; // eslint-disable-line no-param-reassign
+    if (_.isObject(instance) && _.has(instance, '_id')) {
+      instance = instance['_id']; // eslint-disable-line no-param-reassign, dot-notation
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this.collection.findOne({ username: instance });

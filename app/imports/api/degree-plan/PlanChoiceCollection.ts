@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
 import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars

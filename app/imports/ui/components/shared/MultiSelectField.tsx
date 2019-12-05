@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import connectField from 'uniforms/connectField';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Dropdown } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 
 /* eslint react/prop-types: 0 */
 const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transform, value }) => {

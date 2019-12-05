@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { Interests } from '../interest/InterestCollection';

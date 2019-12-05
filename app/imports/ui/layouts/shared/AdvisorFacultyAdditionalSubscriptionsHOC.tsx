@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import { _ } from 'meteor/erasaur:meteor-lodash'; // CAM: replacing this with lodash causes a typescript error
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 

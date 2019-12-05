@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';

@@ -1,5 +1,5 @@
 import { check } from 'meteor/check';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Slugs } from '../slug/SlugCollection';
@@ -59,9 +59,9 @@ class BaseTypeCollection extends BaseCollection {
    */
   public getID(instance) {
     let id;
-    if (_.isObject(instance) && instance._id) {
-      // eslint-disable-next-line no-param-reassign
-      instance = instance._id;
+    if (_.isObject(instance) && _.has(instance, '_id')) {
+      // eslint-disable-next-line no-param-reassign, dot-notation
+      instance = instance['_id'];
     }
     try {
       id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);

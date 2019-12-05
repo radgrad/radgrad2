@@ -3,7 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import { Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
@@ -55,7 +55,7 @@ class FavoriteAcademicPlansWidget extends React.Component<IFavoriteAcademicPlans
         <AutoForm schema={schema} onChangeModel={this.handleOnChangeModel}>
           <SelectField name="academicPlan"/>
         </AutoForm>
-        <p></p>
+        <p/>
         {showPlanP ?
           <AcademicPlanViewerWidgetContainer academicPlan={this.state.selectedPlan}
                                              username={Router.getUsername(this.props.match)}/>

@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import { moment } from 'meteor/momentjs:moment';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import IceHeader from '../shared/IceHeader';

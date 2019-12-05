@@ -5,7 +5,7 @@
  */
 import * as React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withTracker } from 'meteor/react-meteor-data';

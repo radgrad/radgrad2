@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Form } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';

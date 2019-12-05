@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';

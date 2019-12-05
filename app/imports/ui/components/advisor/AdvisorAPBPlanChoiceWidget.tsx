@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { getDroppableListStyle } from '../shared/StyleFunctions';

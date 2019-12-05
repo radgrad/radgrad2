@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
 import { satisfiesPlanChoice } from '../../../api/degree-plan/PlanChoiceUtilities';

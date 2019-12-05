@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Courses } from './CourseCollection';

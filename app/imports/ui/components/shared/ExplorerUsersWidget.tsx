@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Card, Image, Grid, Dimmer } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 // eslint-disable-next-line no-unused-vars
 import { IBaseProfile, IUserProfileCard } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-// eslint-disable-next-line no-unused-vars
 import { ROLE } from '../../../api/role/Role';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';

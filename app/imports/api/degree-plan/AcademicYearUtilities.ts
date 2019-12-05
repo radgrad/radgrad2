@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { AcademicYearInstances } from './AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dropdown, Header, Icon, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { getRouteName } from './helper-functions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 

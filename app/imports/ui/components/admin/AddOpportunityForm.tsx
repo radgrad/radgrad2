@@ -10,7 +10,7 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad'; // eslint-disable-line
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';

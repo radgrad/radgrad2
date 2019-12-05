@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Label } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
 
 interface IWithInterestsProps {

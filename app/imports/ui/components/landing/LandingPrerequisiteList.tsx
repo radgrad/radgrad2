@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { getSlugFromEntityID } from './helper-functions';
 

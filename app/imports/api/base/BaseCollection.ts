@@ -1,6 +1,6 @@
 import { Roles } from 'meteor/alanning:roles';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';

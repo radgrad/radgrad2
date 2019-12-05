@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-
+import * as _ from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
 import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget'; // eslint-disable-line no-unused-vars
 import { getDroppableListStyle } from '../shared/StyleFunctions';

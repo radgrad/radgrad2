@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { moment } from 'meteor/momentjs:moment';
 import SimpleSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';

@@ -5,7 +5,7 @@ import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimplSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { Form } from 'semantic-ui-react';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -24,7 +24,7 @@ interface ISelectUserFieldProps {
 
 const SelectUserField = (props: ISelectUserFieldProps) => {
   console.log(props);
-  const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.name, value: userInfo._id }));
+  const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
   console.log(options);
   return (
     <Form.Select label={props.label} options={options} placeholder={`Select ${props.role}`}

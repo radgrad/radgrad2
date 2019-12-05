@@ -1,9 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { ROLE } from '../role/Role';
-// import { Users } from './UserCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { Users } from './UserCollection';
 

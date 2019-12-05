@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';

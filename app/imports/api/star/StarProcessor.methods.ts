@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
 import { Feeds } from '../feed/FeedCollection';

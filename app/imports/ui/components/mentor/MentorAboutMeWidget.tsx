@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
 import Swal from 'sweetalert2';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import { moment } from 'meteor/momentjs:moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';

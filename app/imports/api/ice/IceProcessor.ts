@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { Courses } from '../course/CourseCollection';
 import { Ice } from '../../typings/radgrad'; // eslint-disable-line

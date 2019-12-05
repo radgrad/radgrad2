@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -85,8 +85,8 @@ class BaseProfileCollection extends BaseSlugCollection {
   public getID(instance) {
     let id;
     // If we've been passed a document, check to see if it has an _id field and use that if available.
-    if (_.isObject(instance) && instance._id) {
-      instance = instance._id; // eslint-disable-line no-param-reassign
+    if (_.isObject(instance) && _.has(instance, '_id')) {
+      instance = instance['_id']; // eslint-disable-line no-param-reassign, dot-notation
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this.collection.findOne({ username: instance });

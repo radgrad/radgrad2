@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Accordion, Divider, Icon, Image, List, Segment } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
+import { IMentorProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentMentorSpaceMentorDirectoryAccordionState {
   activeIndex: number;
 }
 
 interface IStudentMentorSpaceMentorDirectoryAccordionProps {
-  profiles: string;
+  profiles: IMentorProfile[];
   index: number;
 }
 
