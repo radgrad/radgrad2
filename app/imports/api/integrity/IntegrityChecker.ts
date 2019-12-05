@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import * as _ from 'lodash';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { RadGrad } from '../radgrad/RadGrad';
 
 /**

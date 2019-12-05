@@ -1,5 +1,4 @@
-// @ts-ignore
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 
 export const sampleDesiredDegreeName = 'Bachelors of Science in Computer Science';

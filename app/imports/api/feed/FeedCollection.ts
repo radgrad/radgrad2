@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import * as _ from 'lodash';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { ROLE } from '../role/Role';
 import { Courses } from '../course/CourseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
@@ -372,7 +372,7 @@ class FeedCollection extends BaseCollection {
    */
   private defineNewLevel({ user, level, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
     // First, see if we've already defined any users within the past day.
-    const recentFeedID = this.checkPastDayLevelFeed(level, timestamp);
+    const recentFeedID = this.checkPastDayLevelFeed(level, timestamp.toString());
     // If there's a recentFeed, then update it instead with this user's info.
     if (recentFeedID) {
       this.updateNewLevel(user, recentFeedID, level);
@@ -424,7 +424,7 @@ class FeedCollection extends BaseCollection {
     return ret;
   }
 
-  public checkPastDayLevelFeed(level, timestamp = moment().toDate()) {
+  public checkPastDayLevelFeed(level, timestamp = moment().format()) {
     let ret = '';
     const instance = this;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { Users } from '../user/UserCollection';
 import { IceSnapshots } from './IceSnapshotCollection';
 import { makeSampleUser } from '../user/SampleUsers';

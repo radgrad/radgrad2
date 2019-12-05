@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import * as _ from 'lodash';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';

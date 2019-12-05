@@ -6,7 +6,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';

@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';

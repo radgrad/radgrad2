@@ -1,4 +1,4 @@
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { InterestTypes } from './InterestTypeCollection';
 import { Interests } from './InterestCollection';
 

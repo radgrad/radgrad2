@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Divider, Header } from 'semantic-ui-react';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 
 import { IVerificationRequest } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 

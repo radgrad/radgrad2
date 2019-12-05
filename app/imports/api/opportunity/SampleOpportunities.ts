@@ -1,4 +1,4 @@
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';

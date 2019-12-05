@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { processVerificationEventMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 // eslint-disable-next-line no-unused-vars
 import { IOpportunity } from '../../../typings/radgrad';

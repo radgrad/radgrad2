@@ -1,4 +1,4 @@
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 import { StudentProfiles } from './StudentProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';

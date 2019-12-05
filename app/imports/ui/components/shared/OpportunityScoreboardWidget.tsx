@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

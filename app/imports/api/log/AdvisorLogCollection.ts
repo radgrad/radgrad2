@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import * as _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';

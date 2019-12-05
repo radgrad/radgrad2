@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';

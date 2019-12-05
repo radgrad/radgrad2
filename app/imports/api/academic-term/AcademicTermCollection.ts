@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';

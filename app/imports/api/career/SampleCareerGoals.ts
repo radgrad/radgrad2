@@ -1,5 +1,4 @@
-// @ts-ignore
-import { moment } from 'meteor/momentjs:moment';
+import * as moment from 'moment';
 import { CareerGoals } from './CareerGoalCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 
