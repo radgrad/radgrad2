@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor'; // eslint-disable-line
-import 'uniforms-bridge-simple-schema-2';
 import { Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';

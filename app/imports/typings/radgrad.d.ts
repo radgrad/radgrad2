@@ -839,6 +839,8 @@ export interface IProfileDefine extends IDumpOne {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface ICombinedProfileDefine extends IProfileDefine {
@@ -875,6 +877,8 @@ export interface IProfileUpdate {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IMentorProfile extends IProfile {
