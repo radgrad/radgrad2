@@ -84,10 +84,10 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param motivation the motivation (optional).
    */
   public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, company, career, location, linkedin,
-    motivation, courseExplorerFilter, opportunityExplorerSortOrder }: IMentorProfileUpdate) {
+    motivation }: IMentorProfileUpdate) {
     this.assertDefined(docID);
     const updateData: IMentorProfileUpdate = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
     if (_.isString(company)) {
       updateData.company = company;
     }

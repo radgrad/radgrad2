@@ -231,13 +231,12 @@ class StudentProfileCollection extends BaseProfileCollection {
     firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans, favoriteCourses,
     favoriteOpportunities, declaredAcademicTerm,
     isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests,
-    shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel, courseExplorerFilter, opportunityExplorerSortOrder,
+    shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel,
   }: IStudentProfileUpdate) {
-    // console.log('StudentProfileCollection.update ', opportunityExplorerSortOrder);
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
     const updateData: IStudentProfileUpdateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
     }
@@ -292,7 +291,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     if (_.isBoolean(shareLevel)) {
       updateData.shareLevel = shareLevel;
     }
-    console.log('StudentProfile.update %o', updateData);
+    // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
     const username = profile.username;
     if (interests) {

@@ -29,7 +29,6 @@ import {
   isType,
 } from './explorer-helper-functions';
 import { cardExplorerWidget } from './shared-widget-names';
-import OpportunitySortOrderWidget from './OpportunitySortOrderWidget';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   collection: any;
@@ -105,8 +104,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
   const buildTermCard = isType(EXPLORER_TYPE.COURSES, props) || isType(EXPLORER_TYPE.OPPORTUNITIES, props);
-  const isOpportunities = isType(EXPLORER_TYPE.OPPORTUNITIES, props);
-  // const isCourses = isType(EXPLORER_TYPE.COURSES, props);
   const isStudent = Router.isUrlRoleStudent(props.match);
 
   // For Degrees (or any future Card Explore that only has a "View More" functionality)
@@ -118,7 +115,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   const facultyRoleUsers = getUsers(ROLE.FACULTY, props.match);
   const mentorRoleUsers = getUsers(ROLE.MENTOR, props.match);
   const studentRoleUsers = getUsers(ROLE.STUDENT, props.match);
-  const profile = Users.getProfile(Router.getUsername(props.match));
   const panes = [
     {
       menuItem: 'Advisors',
@@ -185,9 +181,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
             }
           </h4>
         </Header>
-        {
-          isOpportunities ? <OpportunitySortOrderWidget profile={profile}/> : ''
-        }
 
         {checkForNoItems(props)}
 
