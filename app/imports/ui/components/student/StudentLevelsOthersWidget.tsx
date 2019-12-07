@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
@@ -18,6 +19,8 @@ interface IStudentLevelsOthersWidgetProps {
       opportunity: string;
     }
   };
+  studentLevelName: string;
+  students: IStudentProfile[];
 }
 
 const studentsExist = (students): boolean => students.length > 0;
@@ -66,9 +69,7 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
     width: 'auto',
   };
 
-  const studentLevelName = getStudentLevelName(props);
-  const studentLevelNumber = getStudentLevelNumber(props);
-  const students = getStudents(studentLevelNumber, props);
+  const { studentLevelName, students } = props;
   return (
     <Segment padded={true} id={`${studentLevelsOthersWidget}`}>
       <Header as="h4" dividing={true}>OTHER {studentLevelName} STUDENTS</Header>
@@ -90,4 +91,12 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLevelsOthersWidget);
+export default withRouter(withTracker((props) => {
+  const studentLevelName = getStudentLevelName(props);
+  const studentLevelNumber = getStudentLevelNumber(props);
+  const students = getStudents(studentLevelNumber, props);
+  return {
+    studentLevelName,
+    students,
+  };
+})(StudentLevelsOthersWidget));

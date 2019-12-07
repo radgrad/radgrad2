@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import * as Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
@@ -17,26 +18,10 @@ interface IStudentLevelsWidgetProps {
       username: string;
     }
   };
+  studentLevelNumber: number;
+  studentLevelName: string;
+  studentLevelHint: string;
 }
-
-
-const getStudentLevelNumber = (props: IStudentLevelsWidgetProps): number => {
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
-    return profile.level || 1;
-  }
-  return 1;
-};
-
-const getStudentLevelName = (props: IStudentLevelsWidgetProps): string => {
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
-    if (profile.level) {
-      return `LEVEL ${profile.level}`;
-    }
-  }
-  return 'LEVEL 1';
-};
 
 const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
   let levelNumber = 0;
@@ -67,9 +52,7 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
 
 const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   const imageStyle = { width: '230px' };
-  const studentLevelNumber = getStudentLevelNumber(props);
-  const studentLevelName = getStudentLevelName(props);
-  const studentLevelHint = getStudentLevelHint(props);
+  const { studentLevelNumber, studentLevelName, studentLevelHint } = props;
   return (
     <Segment padded={true} id={`${studentLevelsWidget}`}>
       <Header as="h4" dividing={true}>CURRENT LEVEL</Header>
@@ -92,4 +75,14 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLevelsWidget);
+export default withRouter(withTracker((props) => {
+  const profile = Users.getProfile(getUserIdFromRoute(props.match));
+  const studentLevelNumber = profile.level || 1;
+  const studentLevelName = profile.level ? `LEVEL ${profile.level}` : 'LEVEL 1';
+  const studentLevelHint = getStudentLevelHint(props);
+  return {
+    studentLevelNumber,
+    studentLevelName,
+    studentLevelHint,
+  };
+})(StudentLevelsWidget));
