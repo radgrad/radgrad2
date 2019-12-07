@@ -26,7 +26,7 @@ import {
 } from '../shared/data-model-helper-functions';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';

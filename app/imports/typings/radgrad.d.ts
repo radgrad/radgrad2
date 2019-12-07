@@ -807,6 +807,8 @@ export interface IBaseProfile {
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   optedIn?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IProfile {
@@ -821,6 +823,8 @@ export interface IProfile {
   interestIDs?: string[];
   careerGoalIDs?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 // Advisor and Faculty Profiles
@@ -875,6 +879,8 @@ export interface IProfileUpdate {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IMentorProfile extends IProfile {

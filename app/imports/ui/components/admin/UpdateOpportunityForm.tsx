@@ -26,7 +26,7 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { iceSchema } from '../../../api/ice/IceProcessor';
 import { Interests } from '../../../api/interest/InterestCollection';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 
 interface IUpdateOpportunityFormProps {
   sponsors: IBaseProfile[];

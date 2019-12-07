@@ -52,6 +52,8 @@ class BaseProfileCollection extends BaseSlugCollection {
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
       shareCareerGoals: { type: Boolean, optional: true },
+      courseExplorerFilter: { type: String, optional: true },
+      opportunityExplorerSortOrder: { type: String, optional: true },
     })));
   }
 
@@ -208,21 +210,27 @@ class BaseProfileCollection extends BaseSlugCollection {
    * Destructively modifies updateData with the values of the passed fields.
    * Call this function for side-effect only.
    */
-  protected updateCommonFields(updateData, { firstName, lastName, picture, website, retired }) {
+  protected updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder }) {
     if (firstName) {
-      updateData.firstName = firstName; // eslint-disable-line
+      updateData.firstName = firstName; // eslint-disable-line no-param-reassign
     }
     if (lastName) {
-      updateData.lastName = lastName; // eslint-disable-line
+      updateData.lastName = lastName; // eslint-disable-line no-param-reassign
     }
     if (_.isString(picture)) {
-      updateData.picture = picture; // eslint-disable-line
+      updateData.picture = picture; // eslint-disable-line no-param-reassign
     }
     if (_.isString(website)) {
-      updateData.website = website; // eslint-disable-line
+      updateData.website = website; // eslint-disable-line no-param-reassign
     }
     if (_.isBoolean(retired)) {
-      updateData.retired = retired; // eslint-disable-line
+      updateData.retired = retired; // eslint-disable-line no-param-reassign
+    }
+    if (_.isString(courseExplorerFilter)) {
+      updateData.courseExplorerFilter = courseExplorerFilter; // eslint-disable-line no-param-reassign
+    }
+    if (_.isString(opportunityExplorerSortOrder)) {
+      updateData.opportunityExplorerSortOrder = opportunityExplorerSortOrder; // eslint-disable-line no-param-reassign
     }
     // console.log('_updateCommonFields', updateData);
   }

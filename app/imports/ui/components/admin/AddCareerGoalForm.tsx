@@ -7,7 +7,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
 import { docToName } from '../shared/data-model-helper-functions';

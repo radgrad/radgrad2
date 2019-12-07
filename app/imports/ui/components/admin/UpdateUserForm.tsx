@@ -29,7 +29,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import {
   SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,

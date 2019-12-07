@@ -17,7 +17,7 @@ import {
   docToName,
   interestIdToName,
 } from '../shared/data-model-helper-functions';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { Courses } from '../../../api/course/CourseCollection';
 
 interface IUpdateCourseFormProps {

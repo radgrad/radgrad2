@@ -18,7 +18,7 @@ import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { academicTermToName, docToName } from '../shared/data-model-helper-functions';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import {
   SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,
