@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
 import MenuIceCircle from '../shared/MenuIceCircle';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import StudentIceColumn from './StudentIceColumn';
 import { studentIceWidget } from './student-widget-names';
+import { Users } from '../../../api/user/UserCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { getEarnedICE, getProjectedICE } from '../../../api/ice/IceProcessor';
 
 interface IStudentIceWidgetProps {
   match: {
@@ -18,15 +22,14 @@ interface IStudentIceWidgetProps {
       opportunity: string;
     }
   };
+  earnedICE: Ice;
+  projectedICE: Ice;
 }
 
 const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
-
-  const username = getUsername(props.match);
-  const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
-  const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
+  const { earnedICE, projectedICE } = props;
 
   return (
     <Segment padded={true} id={`${studentIceWidget}`}>
@@ -60,4 +63,15 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   );
 };
 
-export default withRouter(StudentIceWidget);
+export default withRouter(withTracker((props) => {
+  const username = getUsername(props.match);
+  const studentID = Users.getID(username);
+  const courseDocs = CourseInstances.find({ studentID }).fetch();
+  const oppDocs = OpportunityInstances.find({ studentID }).fetch();
+  const earnedICE = getEarnedICE(courseDocs.concat(oppDocs));
+  const projectedICE = getProjectedICE(courseDocs.concat(oppDocs));
+  return {
+    earnedICE,
+    projectedICE,
+  };
+})(StudentIceWidget));
