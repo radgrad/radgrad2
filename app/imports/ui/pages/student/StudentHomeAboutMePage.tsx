@@ -4,8 +4,6 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentAboutMeWidget from '../../components/student/StudentAboutMeWidget';
 
 const StudentHomeAboutMePage = () => (
@@ -35,7 +33,4 @@ const StudentHomeAboutMePage = () => (
   </div>
 );
 
-const StudentHomeAboutMePageCon = withGlobalSubscription(StudentHomeAboutMePage);
-const StudentHomeAboutMePageContainer = withInstanceSubscriptions(StudentHomeAboutMePageCon);
-
-export default StudentHomeAboutMePageContainer;
+export default StudentHomeAboutMePage;

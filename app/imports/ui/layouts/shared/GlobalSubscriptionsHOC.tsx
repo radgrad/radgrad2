@@ -14,7 +14,7 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
-// import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
@@ -80,7 +80,7 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(RadGradSettings.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
       globalSubs.subscribe(StudentParticipations.getPublicationName()),
-      globalSubs.subscribe('StudentProfileCollection'),
+      globalSubs.subscribe(StudentProfiles.getPublicationName()),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),
       globalSubs.subscribe(Users.getPublicationName()),

@@ -8,11 +8,12 @@ import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperi
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
+
 import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-// import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import TabbedFavoritesWidget from '../../components/student/TabbedFavoritesWidget';

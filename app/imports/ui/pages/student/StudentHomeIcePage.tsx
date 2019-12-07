@@ -5,8 +5,6 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import StudentIceWidget from '../../components/student/StudentIceWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const StudentHomeIcePage = () => (
   <div>
@@ -35,7 +33,4 @@ const StudentHomeIcePage = () => (
   </div>
 );
 
-const StudentHomeIcePageCon = withGlobalSubscription(StudentHomeIcePage);
-const StudentHomeIcePageContainer = withInstanceSubscriptions(StudentHomeIcePageCon);
-
-export default StudentHomeIcePageContainer;
+export default StudentHomeIcePage;
