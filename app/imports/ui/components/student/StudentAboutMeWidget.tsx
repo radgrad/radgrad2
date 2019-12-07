@@ -19,13 +19,15 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
 import * as Router from '../shared/RouterHelperFunctions';
 import {
-  itemToSlugName, profileGetCareerGoals, profileGetInterests,
+  itemToSlugName,
   profileToFullName,
 } from '../shared/data-model-helper-functions';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { studentAboutMeWidget } from './student-widget-names';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -45,12 +47,12 @@ interface IStudentAboutMeWidgetProps {
 const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const marginBottomStyle = { marginBottom: 0 };
 
-  const { match, profile } = props;
+  const { match, profile, favoriteAcademicPlans, favoriteCareerGoals, favoriteInterests } = props;
   const name = profileToFullName(profile);
   const email = props.profile.username;
-  const careerGoals = profileGetCareerGoals(props.profile);
-  const interests = profileGetInterests(props.profile);
-  const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
+  const interests = _.map(favoriteInterests, (f) => Interests.findDoc(f.interestID));
+  const careerGoals = _.map(favoriteCareerGoals, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const academicPlans = _.map(favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   return (
     <Segment padded={true} id={`${studentAboutMeWidget}`}>
       <Container>
@@ -145,9 +147,15 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   );
 };
 
-export default withRouter(withTracker((props) => ({
-  profile: Users.getProfile(props.match.params.username),
-  favoriteAcademicPlans: FavoriteAcademicPlans.findNonRetired({}),
-  favoriteCareerGoals: FavoriteCareerGoals.findNonRetired({}),
-  favoriteInterests: FavoriteInterests.findNonRetired({}),
-}))(StudentAboutMeWidget));
+export default withRouter(withTracker((props) => {
+  const profile = Users.getProfile(props.match.params.username);
+  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: profile.userID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: profile.userID });
+  return {
+    profile,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteInterests,
+  };
+})(StudentAboutMeWidget));
