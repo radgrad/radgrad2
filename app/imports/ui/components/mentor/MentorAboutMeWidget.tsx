@@ -6,7 +6,6 @@ import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semant
 import Swal from 'sweetalert2';
 import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -16,11 +15,11 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
 import {
   SET_MENTOR_HOME_CLOUDINARY_URL,
   SET_MENTOR_HOME_IS_CLOUDINARY_USED,
 } from '../../../redux/shared/cloudinary/types';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -45,7 +44,7 @@ interface IMentorAboutMeWidgetState {
   pictureURL: string;
 }
 
-const mapStateToProps = (state: ReduxState): object => ({
+const mapStateToProps = (state: ReduxTypes.State): object => ({
   isCloudinaryUsed: state.shared.cloudinary.mentorHome.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.mentorHome.cloudinaryUrl,
 });

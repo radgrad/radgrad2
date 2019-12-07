@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
-import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AdminAnalyticsLoggedInUsersWidget';
-
+import AdminAnalyticsUserInteractionsWidget from '../../components/admin/AdminAnalyticsUserInteractionsWidget';
 /** A simple static component to render some text for the landing page. */
-class AdminAnalyticsPage extends React.Component {
+
+class AdminAnalyticsUserInteractionsPage extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
     const paddedStyle = {
@@ -21,7 +21,7 @@ class AdminAnalyticsPage extends React.Component {
                 <AdminAnalyticsMenuWidget/>
               </Grid.Column>
               <Grid.Column width={13}>
-                <AdminAnalyticsLoggedInUsersWidget/>
+                <AdminAnalyticsUserInteractionsWidget/>
               </Grid.Column>
             </Grid>
           </Grid.Column>
@@ -31,5 +31,4 @@ class AdminAnalyticsPage extends React.Component {
   }
 }
 
-
-export default AdminAnalyticsPage;
+export default AdminAnalyticsUserInteractionsPage;

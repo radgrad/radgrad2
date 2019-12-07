@@ -1,54 +1,176 @@
+// eslint-disable-next-line no-unused-vars
+import { Dictionary } from 'lodash';
 import * as TYPES from './types';
 
-const initialState = {
-  getStudentEmails: false,
-  testNewsletter: false,
-  levelNewsletter: false,
-  allNewsletter: false,
+interface IDateRangeState {
+  startDate: Date;
+  endDate: Date;
+}
+
+interface IState {
+  newsletter: {
+    getStudentEmails: boolean;
+    testNewsletter: boolean;
+    levelNewsletter: boolean;
+    allNewsletter: boolean;
+  }
+  overheadAnalysis: {
+    dateRange: IDateRangeState;
+    overheadBuckets: any[];
+    userInteractions: Dictionary<any[]>;
+  }
+  studentSummary: {
+    dateRange: IDateRangeState;
+  };
+}
+
+const initialState: IState = {
+  newsletter: {
+    getStudentEmails: false,
+    testNewsletter: false,
+    levelNewsletter: false,
+    allNewsletter: false,
+  },
+  overheadAnalysis: {
+    dateRange: {
+      startDate: undefined,
+      endDate: undefined,
+    },
+    overheadBuckets: [],
+    userInteractions: {},
+  },
+  studentSummary: {
+    dateRange: {
+      startDate: undefined,
+      endDate: undefined,
+    },
+  },
 };
 
-function reducer(state: any = initialState, action) {
+function reducer(state: IState = initialState, action: { [props: string]: any }): IState {
+  let s: IState;
+  let otherKeys;
   switch (action.type) {
     case TYPES.GET_EMAILS_WORKING:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        getStudentEmails: true,
+        newsletter: {
+          ...otherKeys,
+          getStudentEmails: true,
+        },
       };
+      return s;
     case TYPES.GET_EMAILS_DONE:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        getStudentEmails: false,
+        newsletter: {
+          ...otherKeys,
+          getStudentEmails: false,
+        },
       };
+      return s;
     case TYPES.TEST_EMAIL_WORKING:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        testNewsletter: true,
+        newsletter: {
+          ...otherKeys,
+          testNewsletter: true,
+        },
       };
+      return s;
     case TYPES.TEST_EMAIL_DONE:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        testNewsletter: false,
+        newsletter: {
+          ...otherKeys,
+          testNewsletter: false,
+        },
       };
+      return s;
     case TYPES.LEVEL_EMAIL_WORKING:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        levelNewsletter: true,
+        newsletter: {
+          ...otherKeys,
+          levelNewsletter: true,
+        },
       };
+      return s;
     case TYPES.LEVEL_EMAIL_DONE:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        levelNewsletter: false,
+        newsletter: {
+          ...otherKeys,
+          levelNewsletter: false,
+        },
       };
+      return s;
     case TYPES.ALL_EMAIL_WORKING:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        allNewsletter: true,
+        newsletter: {
+          ...otherKeys,
+          allNewsletter: true,
+        },
       };
+      return s;
     case TYPES.ALL_EMAIL_DONE:
-      return {
+      otherKeys = state.newsletter;
+      s = {
         ...state,
-        allNewsletter: false,
+        newsletter: {
+          ...otherKeys,
+          allNewsletter: false,
+        },
       };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_DATE_RANGE:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          dateRange: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          overheadBuckets: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          userInteractions: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_STUDENT_SUMMARY_DATE_RANGE:
+      otherKeys = state.studentSummary;
+      s = {
+        ...state,
+        studentSummary: {
+          ...otherKeys,
+          dateRange: action.payload,
+        },
+      };
+      return s;
     default:
       return state;
   }

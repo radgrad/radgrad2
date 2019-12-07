@@ -31,10 +31,6 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import MultiSelectField from '../shared/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import {
-  SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,
-  SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED,
-} from '../../../redux/shared/cloudinary/types';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -51,8 +47,8 @@ interface IUpdateUserProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
+  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
 interface IUpdateUserState {
@@ -60,8 +56,8 @@ interface IUpdateUserState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelUsersIsCloudinaryUsed(isCloudinaryUsed)),
+  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
 class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState> {
@@ -92,8 +88,8 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      this.props.setIsCloudinaryUsed(SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED, true);
-      this.props.setCloudinaryUrl(SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
+      this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }

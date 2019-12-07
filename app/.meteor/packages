@@ -48,3 +48,7 @@ random@1.1.0
 react-meteor-data
 alanning:roles
 adornis:typescript
+mizzao:user-status
+email
+meteorhacks:ssr
+random

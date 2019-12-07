@@ -39,7 +39,7 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line no-unused-vars
+import { ReduxTypes } from '../../../redux/'; // eslint-disable-line
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
@@ -109,7 +109,7 @@ const itemTitle = (user: IBaseProfile): React.ReactNode => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state: ReduxState): object => ({
+const mapStateToProps = (state: ReduxTypes.State): object => ({
   isCloudinaryUsed: state.shared.cloudinary.adminDataModelUsers.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });

@@ -27,6 +27,10 @@ import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
 import AdminModerationPageContainer from '../../ui/pages/admin/AdminModerationPage';
 import AdminAnalyticsPageContainer from '../../ui/pages/admin/AdminAnalyticsPage';
+import AdminAnalyticsNewsletterPageContainer from '../../ui/pages/admin/AdminAnalyticsNewsletterPage';
+import AdminAnalyticsOverheadAnalysisPageContainer from '../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage';
+import AdminAnalyticsStudentSummaryPageContainer from '../../ui/pages/admin/AdminAnalyticsStudentSummaryPage';
+import AdminAnalyticsUserInteractionsPageContainer from '../../ui/pages/admin/AdminAnalyticsUserInteractionsPage';
 import AdvisorHomePageContainer from '../../ui/pages/advisor/AdvisorHomePage';
 import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorModerationPageContainer from '../../ui/pages/advisor/AdvisorModerationPage';
@@ -83,6 +87,14 @@ export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 const MENTOR_SPACE = 'mentor-space';
+
+export const ANALYTICS = {
+  HOME: 'analytics',
+  NEWSLETTER: 'newsletter',
+  OVERHEADANALYSIS: 'overhead-analysis',
+  STUDENTSUMMARY: 'student-summary',
+  USERINTERACTIONS: 'user-interactions',
+};
 
 // The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
 export const URL_ROLES = {
@@ -266,24 +278,52 @@ export const routes = {
       component: AdminModerationPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`,
       exact: true,
       component: AdminAnalyticsPageContainer,
     },
     {
+      path:
+        `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
+      exact: true,
+      component:
+      AdminAnalyticsNewsletterPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`,
+      exact: true,
+      component:
+      AdminAnalyticsOverheadAnalysisPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`,
+      exact: true,
+      component:
+      AdminAnalyticsStudentSummaryPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`,
+      exact: true,
+      component:
+      AdminAnalyticsUserInteractionsPageContainer,
+    },
+    {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component:
+      ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component:
+      ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component:
+      ScoreboardPageContainer,
     },
   ],
   ADVISOR: [
