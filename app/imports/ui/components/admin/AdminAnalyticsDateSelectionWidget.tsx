@@ -51,7 +51,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
       Swal.fire({
         title: 'Date Selection Required',
         text: 'A Start and End Date selection is required.',
-        type: 'error',
+        icon: 'error',
       });
       return;
     }
@@ -76,7 +76,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
         Swal.fire({
           title: 'Failed to Find User Interactions',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         const timeGroups = _.groupBy(result, function (interaction) {

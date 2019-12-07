@@ -50,8 +50,8 @@ const mapStateToProps = (state: ReduxTypes.State): object => ({
 });
 
 const mapDispatchToProps = (dispatch: any): object => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+  setIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setMentorHomeIsCloudinaryUsed(isCloudinaryUsed)),
+  setCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setMentorHomeCloudinaryUrl(cloudinaryUrl)),
 });
 
 class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMentorAboutMeWidgetState> {

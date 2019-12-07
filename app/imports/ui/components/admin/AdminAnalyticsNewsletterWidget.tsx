@@ -11,18 +11,17 @@ import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import * as _ from 'lodash';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
-import { getProjectedICE } from '../../../api/ice/IceProcessor';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { sendEmailMethod } from '../../../api/analytic/Email.methods';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { CourseInstances } from "../../../api/course/CourseInstanceCollection";
-import { Courses } from "../../../api/course/CourseCollection";
-import { Opportunities } from "../../../api/opportunity/OpportunityCollection";
-import { OpportunityInstances } from "../../../api/opportunity/OpportunityInstanceCollection";
-import { FacultyProfiles } from "../../../api/user/FacultyProfileCollection";
-import { AdvisorProfiles } from "../../../api/user/AdvisorProfileCollection";
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
 // TODO: bug hunting
 // admin should be recieving copy of newsletter 09/16/19
@@ -155,32 +154,32 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       this.setState({
         message: {
           subjectLine: this.state.subjectLine,
-          bcc: this.state.bcc.split(',') + 'radgrad@hawaii.edu',
+          bcc: `${this.state.bcc.split(',')}radgrad@hawaii.edu`,
           inputMessage: this.state.onSubmitInputMessage,
-          recipients: [/*'radgrad@hawaii.edu'*/],
-        }
+          recipients: [/* 'radgrad@hawaii.edu' */],
+        },
       }, () => {
         this.generateEmail(this.state.message);
         Swal.fire('Email sent to admin');
-      })
+      });
     } else {
       _.map(studentEmails, (emails) => {
         emails.toString();
         trimmedEmails.push(emails.trim());
-      })
+      });
       // send copy to admin
-      //trimmedEmails.push('radgrad@hawaii.edu');
+      // trimmedEmails.push('radgrad@hawaii.edu');
       _.map(trimmedEmails, (trimmedEmail) => {
         if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
           if (Users.isDefined(trimmedEmail) === true) {
             const trimmedRecipients = [];
-            trimmedRecipients.push(trimmedEmail)
+            trimmedRecipients.push(trimmedEmail);
             this.setState({
               message: {
                 subjectLine: this.state.subjectLine,
-                bcc: this.state.bcc.split(',')  /* + 'radgrad@hawaii.edu'*/,
+                bcc: this.state.bcc.split(',') /* + 'radgrad@hawaii.edu' */,
                 inputMessage: this.state.onSubmitInputMessage,
-                recipients: trimmedRecipients
+                recipients: trimmedRecipients,
               },
             }, () => {
               this.generateEmail(this.state.message);
@@ -190,15 +189,15 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
             );
           } else {
             Swal.fire(
-              'User: ' + trimmedEmail + ' is NOT in the Student Profile Collection'
+              `User: ${trimmedEmail} is NOT in the Student Profile Collection`,
             );
           }
         } else {
           Swal.fire(
-            'You forgot to fill something out...'
+            'You forgot to fill something out...',
           );
         }
-      })
+      });
     }
 
   }
@@ -301,11 +300,14 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         const role = Users.findProfileFromUsername(username).role;
         switch (role) {
           case 'FACULTY':
+            // eslint-disable-next-line no-case-declarations
             const faculty = FacultyProfiles.findDoc(username);
             informationForEmail.recipientInfo.username = faculty.username;
             informationForEmail.recipientInfo.firstName = faculty.firstName;
             informationForEmail.recipientInfo.lastName = faculty.lastName;
+            break;
           case 'ADVISOR':
+            // eslint-disable-next-line no-case-declarations
             const advisor = AdvisorProfiles.findDoc(username);
             informationForEmail.recipientInfo.username = advisor.username;
             informationForEmail.recipientInfo.firstName = advisor.firstName;
@@ -327,7 +329,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         informationForEmail.emailInfo.recommendationTwo = recommendations[1];
         informationForEmail.emailInfo.recommendationThree = recommendations[2];
       }
-    //}
+    // }
     return informationForEmail;
   }
 
@@ -358,7 +360,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         iCERec.info += `<p><span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)</span>
         : ${iceLevel}</p>`;
         iCERec.info += `<ul><li>${this.iceRecHelper(student, value, component)}</li></ul>`;
-      })
+      });
       return iCERec;
     }
     const complete = {
@@ -371,7 +373,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (value >= 100) {
       html += `Congratulations! You have achieved 100 ${iceMap[component].name} points!`;
       return html;
-    } else if (value < 30) {
+    } if (value < 30) {
       html += iceMap[component].low;
     } else if (value < 60) {
       html += iceMap[component].med;
@@ -477,10 +479,10 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   private
   getRemainingRequirements = (student, studentAcademicPlanDoc) => {
 
-    const studentCompletedCourses = CourseInstances.find({ 'verified': true, 'studentID': student.userID }).fetch();
-    let inPlanCourseSlugs400 = [];
-    let inPlanCourseSlugs300opt = [];
-    let inPlanCourseSlugs = [];
+    const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
+    const inPlanCourseSlugs400 = [];
+    const inPlanCourseSlugs300opt = [];
+    const inPlanCourseSlugs = [];
     _.map(studentAcademicPlanDoc.courseList, (course) => {
       if (_.includes(course, '-') && _.includes(course, '_4')) {
         inPlanCourseSlugs400.push(course.substring(0, course.indexOf('-')));
@@ -489,55 +491,55 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       } else if (_.includes(course, '-')) {
         inPlanCourseSlugs.push(course.substring(0, course.indexOf('-')));
       }
-    })
+    });
     const studentCompletedCourseSlugs = [];
     const studentCompletedCourseSlugs300op = [];
     const studentCompletedCourseSlugs400 = [];
     _.map(studentCompletedCourses, (course) => {
-      let slugName = CourseInstances.getCourseSlug(course._id);
-      if (_.includes(slugName, "_4")) {
+      const slugName = CourseInstances.getCourseSlug(course._id);
+      if (_.includes(slugName, '_4')) {
         studentCompletedCourseSlugs400.push(slugName);
       } else if (_.includes(slugName, '312' || '331')) {
         studentCompletedCourseSlugs300op.push([slugName]);
       } else if (_.includes(slugName, '313' || '361')) {
         studentCompletedCourseSlugs300op.push([slugName]);
       } else {
-        studentCompletedCourseSlugs.push(slugName)
+        studentCompletedCourseSlugs.push(slugName);
       }
-    })
+    });
 
     _.each(studentCompletedCourseSlugs400, () => {
       inPlanCourseSlugs400.pop();
     });
 
     const needsWork = _.difference(inPlanCourseSlugs, studentCompletedCourseSlugs);
-    if ((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length == 2 && (_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length == 2) {
-      //return "ics_312, ics_331"
-      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1], inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1], inPlanCourseSlugs400);
+    if ((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length === 2 && (_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length === 2) {
+      // return "ics_312, ics_331"
+      const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[0][0]},${inPlanCourseSlugs300opt[0][1]}`, `${inPlanCourseSlugs300opt[1][0]},${inPlanCourseSlugs300opt[1][1]}`, inPlanCourseSlugs400);
       return missingRequirements;
-    } else if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length == 2)) {
-      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[0][0] + ',' + inPlanCourseSlugs300opt[0][1], inPlanCourseSlugs400);
+    } if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length === 2)) {
+      const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[0][0]},${inPlanCourseSlugs300opt[0][1]}`, inPlanCourseSlugs400);
       return missingRequirements;
-    } else if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length == 2)) {
+    } if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length === 2)) {
       // return "ics_313, ics_361"
-      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs300opt[1][0] + ',' + inPlanCourseSlugs300opt[1][1], inPlanCourseSlugs400);
-      return missingRequirements;
-
-    } else {
-      let missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
+      const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[1][0]},${inPlanCourseSlugs300opt[1][1]}`, inPlanCourseSlugs400);
       return missingRequirements;
 
     }
+      const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
+      return missingRequirements;
+
+
   }
 
   private isAcademicPlanCompleted = (student) => {
-    const studentCompletedCourses = CourseInstances.find({ 'verified': true, 'studentID': student.userID }).fetch();
+    const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
     const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
     if (_.difference(studentAcademicPlanDoc.courseList, studentCompletedCourses).length === 0) {
       return true;
-    } else {
-      return false;
     }
+      return false;
+
   }
 
 
@@ -545,7 +547,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     const emailaddresses = [];
     const studentLevel = parseInt(level, 10);
     const students = StudentProfiles.findNonRetired({ level: studentLevel }); // array of objects
-    _.map(students, (profile, index) => {
+    _.map(students, (profile) => {
       emailaddresses.push(profile.username);
     });
     return emailaddresses;
@@ -554,7 +556,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   private getAllUsersEmails = () => {
     const allUsers = Meteor.users.find().fetch();
     const emailAddresses = [];
-    _.map(allUsers, (profile, index) => {
+    _.map(allUsers, (profile) => {
       emailAddresses.push(profile.username);
     });
     return emailAddresses;

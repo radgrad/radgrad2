@@ -12,7 +12,6 @@ interface IEmailData {
   }
 }
 
-/* global Assets */
 // use typescript to your advantage and make an interface that requires those props passed in
 // utilizing the interfaces
 /**
