@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, IBaseProfile } from '../../../typings/radgrad'; // eslint-disable-line
@@ -16,11 +17,12 @@ interface IStudentLogWidgetProps {
       username: string;
     }
   };
+  advisorLogs: IAdvisorLog[];
 }
 
 const getAdvisorLogs = (props: IStudentLogWidgetProps): IAdvisorLog[] => AdvisorLogs.findNonRetired({ studentID: getUserIdFromRoute(props.match) }, { sort: { createdOn: -1 } });
 
-const getAdvisorImage = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).picture;
+const getAdvisorImage = (log: IAdvisorLog): IBaseProfile => (Users.getProfile(log.advisorID).picture ? Users.getProfile(log.advisorID).picture : 'images/radgrad_logo.png');
 
 const getAdvisorName = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).firstName;
 
@@ -31,8 +33,7 @@ const getDisplayDate = (log: IAdvisorLog): string => {
 
 
 const StudentLogWidget = (props: IStudentLogWidgetProps) => {
-  const advisorLogs = getAdvisorLogs(props);
-
+  const { advisorLogs } = props;
   return (
     <Container id={`${studentLogWidget}`}>
       <Segment padded={true}>
@@ -63,4 +64,9 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLogWidget);
+export default withRouter(withTracker((props) => {
+  const advisorLogs = getAdvisorLogs(props);
+  return {
+    advisorLogs,
+  };
+})(StudentLogWidget));
