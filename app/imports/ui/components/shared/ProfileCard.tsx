@@ -11,26 +11,9 @@ import {
   studentsParticipating,
 } from './data-model-helper-functions';
 import { buildExplorerRoute, interestedStudents } from './explorer-helper-functions';
+import { IExplorerCard } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
-interface IProfileCardProps {
-  item: {
-    _id: string;
-    name: string;
-  };
-  type: string;
-  canAdd: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-  profile: object;
-}
-
-const ProfileCard = (props: IProfileCardProps) => {
+const ProfileCard = (props: IExplorerCard) => {
   const { item, type, match } = props;
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);

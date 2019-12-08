@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
 
 import ProfileCard from './ProfileCard';
 
-// eslint-disable-next-line no-unused-vars
-import { IInterest, IProfile } from '../../../typings/radgrad';
+import {
+  IAcademicPlan, // eslint-disable-line no-unused-vars
+  ICareerGoal, // eslint-disable-line no-unused-vars
+  ICourse, // eslint-disable-line no-unused-vars
+  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IInterest, // eslint-disable-line no-unused-vars
+  IOpportunity, // eslint-disable-line no-unused-vars
+  IProfile, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
+
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
@@ -24,18 +27,13 @@ import {
   ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
   buildHeader,
   checkForNoItems,
-  getItems,
   getUsers,
   isType,
 } from './explorer-helper-functions';
 import { cardExplorerWidget } from './shared-widget-names';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
-  collection: any;
-  reactiveSource: object[];
-  reactiveSourceProfile: object;
-  reactiveSourceForTermCarOne: object[];
-  reactiveSourceForTermCarTwo: object[];
+  items: any[];
   dispatch: any;
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
@@ -93,8 +91,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   /* Variables */
   const header = buildHeader(props); // The header Title and Count
-  const items = getItems(props); // The items to map over
-  const { type } = props;
+  const { items, type } = props;
 
   // For the Academic Plans Card Explorer
   const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, props);
@@ -122,7 +119,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="advisors">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
+            {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -133,7 +130,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="faculty">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
+            {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -144,7 +141,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="mentors">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
+            {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -155,15 +152,12 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="students">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
+            {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
     },
   ];
-
-  // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-  const canAdd = Router.isUrlRoleStudent(props.match);
 
   return (
     <React.Fragment>
@@ -189,11 +183,11 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
             <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable={true}>
               {
                 buildPlanCard ?
-                  items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}/>) : ''
+                  items.map((item) => <PlanCard key={item._id} item={item} type={type}/>) : ''
               }
               {
                 buildProfileCard ?
-                  items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}/>) : ''
+                  items.map((item, index) => <ProfileCard key={index} item={item} type={type}/>) : ''
               }
               {
                 buildTermCard ?
@@ -216,32 +210,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 };
 
 const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
-const CardExplorerWidgetCont = withTracker((props) => {
-  const { collection, type, match, menuList } = props;
-  const favoriteIDs = _.map(menuList, (m) => m.item._id);
-  const username = match.params.username;
-  let reactiveSource;
-  if (type !== EXPLORER_TYPE.USERS) {
-    const allItems = collection.findNonRetired({});
-    reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
-  } else {
-    reactiveSource = Users.getProfile(username);
-  }
-
-  /* Reactive sources to make TermCard reactive */
-  const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});
-  const reactiveSourceForTermCarTwo = OpportunityInstances.findNonRetired({});
-
-  /* Reactive sources to make Hiding a Course / Opportunity, ProfileCard reactive */
-  const reactiveSourceProfile = Users.getProfile(username);
-
-  return {
-    reactiveSource,
-    reactiveSourceForTermCardOne,
-    reactiveSourceForTermCarTwo,
-    reactiveSourceProfile,
-  };
-})(CardExplorerWidgetCon);
-const CardExplorerWidgetContainer = withRouter(CardExplorerWidgetCont);
+const CardExplorerWidgetContainer = withRouter(CardExplorerWidgetCon);
 
 export default CardExplorerWidgetContainer;

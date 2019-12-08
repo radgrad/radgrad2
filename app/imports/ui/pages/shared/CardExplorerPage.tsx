@@ -20,10 +20,10 @@ import {
   IAcademicPlan, // eslint-disable-line no-unused-vars
   ICareerGoal, // eslint-disable-line no-unused-vars
   ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
-  IFavoriteCourse, // eslint-disable-line no-unused-vars
+  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, // eslint-disable-line no-unused-vars
+  IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
+  IOpportunity, IProfile, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
@@ -44,16 +44,18 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
-  favoritePlans: IAcademicPlan[];
-  favoriteCareerGoals: ICareerGoal[];
-  favoriteCourses: ICourse[];
-  favoriteInterests: IInterest[];
-  favoriteOpportunities: IOpportunity[];
+  items: IAcademicPlan[] | ICareerGoal[] | ICourse[] | IDesiredDegree[] | IInterest[] | IOpportunity[] | IProfile[];
+  favoritePlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
+  type: string;
+  role: string;
 }
 
 const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
-  const role = Router.getRoleByUrl(props.match);
-  switch (role) {
+  switch (props.role) {
     case URL_ROLES.STUDENT:
       return <StudentPageMenuWidget/>;
     case URL_ROLES.MENTOR:
@@ -65,8 +67,7 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   }
 };
 
-const getCollection = (props: ICardExplorerPageProps): object => {
-  const type = Router.getLastUrlParam(props.match);
+const getCollection = (type: string): any => {
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return AcademicPlans;
@@ -112,8 +113,7 @@ const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest,
 const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f: any) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
 
 const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
-  const type = Router.getLastUrlParam(props.match);
-  switch (type) {
+  switch (props.type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return addedPlans(props);
     case EXPLORER_TYPE.CAREERGOALS:
@@ -138,9 +138,6 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
 
   const addedList = getAddedList(props);
   const isTypeInterest = Router.getLastUrlParam(props.match) === EXPLORER_TYPE.INTERESTS; // Only Interests takes in Career List for CardExplorerMenu
-  const role = Router.getRoleByUrl(props.match);
-  const collection = getCollection(props);
-  const type = Router.getLastUrlParam(props.match);
 
     return (
       <div>
@@ -156,13 +153,13 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
           <Grid.Row>
             <Grid.Column width={1}/>
             <Grid.Column width={3}>
-            <CardExplorerMenu menuAddedList={addedList} type={type} role={role}
+            <CardExplorerMenu menuAddedList={addedList} type={props.type} role={props.role}
                               menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
             />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <CardExplorerWidget collection={collection} type={type} role={role}/>
+            <CardExplorerWidget items={props.items} type={props.type} role={props.role}/>
           </Grid.Column>
           <Grid.Column width={1}/>
         </Grid.Row>
@@ -179,11 +176,48 @@ export default withRouter(withTracker((props) => {
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
   const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
   const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  const role = Router.getRoleByUrl(props.match);
+  const type = Router.getLastUrlParam(props.match);
+  let allItems = [];
+  if (type !== EXPLORER_TYPE.USERS) {
+    allItems = getCollection(type).findNonRetired();
+  }
+  let items;
+  let ids: string[];
+  switch (type) {
+    case EXPLORER_TYPE.ACADEMICPLANS:
+      ids = _.map(favoritePlans, (f) => f.academicPlanID);
+      items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      break;
+    case EXPLORER_TYPE.CAREERGOALS:
+      ids = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
+      items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      break;
+    case EXPLORER_TYPE.COURSES:
+      ids = _.map(favoriteCourses, (f) => f.courseID);
+      items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      break;
+    case EXPLORER_TYPE.INTERESTS:
+      ids = _.map(favoriteInterests, (f) => f.interestID);
+      items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      break;
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      ids = _.map(favoriteOpportunities, (f) => f.opportunityID);
+      items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      break;
+    case EXPLORER_TYPE.USERS:
+    case EXPLORER_TYPE.DEGREES:
+    default:
+      items = allItems;
+  }
   return {
+    items,
     favoritePlans,
     favoriteCareerGoals,
     favoriteCourses,
     favoriteInterests,
     favoriteOpportunities,
+    role,
+    type,
   };
 })(CardExplorerPage));

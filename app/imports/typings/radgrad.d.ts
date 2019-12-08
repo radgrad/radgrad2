@@ -145,11 +145,11 @@ export interface IPagination {
 // used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
 export interface ICardExplorerCards {
   item: any;
+  interested: IProfile[];
+  type: string;
 }
 
 export interface IPlanCard extends ICardExplorerCards {
-  type: string;
-  canAdd: boolean;
   match: {
     isExact: boolean;
     path: string;
@@ -161,7 +161,6 @@ export interface IPlanCard extends ICardExplorerCards {
 }
 
 export interface IProfileCard extends ICardExplorerCards {
-  type: string;
   canAdd: boolean;
   match: {
     isExact: boolean;
@@ -174,7 +173,6 @@ export interface IProfileCard extends ICardExplorerCards {
 }
 
 export interface ITermCard extends ICardExplorerCards {
-  type: string;
   isStudent: boolean;
   canAdd: boolean;
   match: {
@@ -188,7 +186,6 @@ export interface ITermCard extends ICardExplorerCards {
 }
 
 export interface IExplorerCard extends ICardExplorerCards {
-  type: string;
   match: {
     isExact: boolean;
     path: string;
