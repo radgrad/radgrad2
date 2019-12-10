@@ -6,7 +6,8 @@ import BaseCollection from '../base/BaseCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IFavoriteInterestDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteInterestDefine, IFavoriteUpdate } from '../../typings/radgrad';
+import { InterestFavoritesScoreboardName } from '../../startup/both/names'; // eslint-disable-line no-unused-vars
 
 class FavoriteInterestCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -102,7 +103,7 @@ class FavoriteInterestCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, interestID: 1 } },
-        ], { clientCollection: 'InterestFavoritesScoreboard' });
+        ], { clientCollection: InterestFavoritesScoreboardName });
       });
     }
   }

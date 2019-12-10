@@ -19,7 +19,7 @@ import { replaceTermStringNextFour } from './helper-functions';
 import FutureParticipation from './FutureParticipation';
 
 const isType = (typeToCheck: string, props: ITermCard) => {
-  const { type } = props;
+  const { type, numFavorites } = props;
   return type === typeToCheck;
 };
 
@@ -63,7 +63,6 @@ const TermCard = (props: ITermCard) => {
   const name = itemName(item, props);
   const isTypeOpportunity = isType('opportunities', props);
   const itemShortDescription = docToShortDescription(item);
-  const numberStudents = studentsParticipating(item);
 
   return (
     <Card className="radgrad-interest-card">
@@ -87,7 +86,7 @@ const TermCard = (props: ITermCard) => {
         <FutureParticipation type={props.type} item={props.item}/>
       </Card.Content>
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
+        <span>FAVORITED <WidgetHeaderNumber inputValue={props.numFavorites}/></span>
       </Card.Content>
 
       <Link className="ui button" to={buildRouteName(props.item, props.type, props)}>

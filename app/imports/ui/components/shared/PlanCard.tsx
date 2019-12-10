@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Card, Icon, Popup, Image } from 'semantic-ui-react';
+import { Card, Icon } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
 import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-disable-line
 import WidgetHeaderNumber from './WidgetHeaderNumber';
@@ -10,19 +10,14 @@ import * as Router from './RouterHelperFunctions';
 import {
   docToName,
   docToShortDescription,
-  itemToSlugName, profileIDToFullname,
-  profileIDToPicture,
-  studentsParticipating,
+  itemToSlugName,
 } from './data-model-helper-functions';
-import { interestedStudents } from './explorer-helper-functions';
 
 const PlanCard = (props: IPlanCard) => {
-  const { type, item } = props;
+  const { item, numFavorites } = props;
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
-  const numberStudents = studentsParticipating(item);
   const itemSlug = itemToSlugName(item);
-  const interested = interestedStudents(item, type);
   const route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${itemSlug}`);
 
   return (
@@ -37,14 +32,7 @@ const PlanCard = (props: IPlanCard) => {
       </Card.Content>
 
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
-        <Image.Group size="mini">
-          {interested.map((student, index) => <Popup
-            key={index}
-            trigger={<Image src={profileIDToPicture(student._id)} circular={true} bordered={true}/>}
-            content={profileIDToFullname(student._id)}
-          />)}
-        </Image.Group>
+        <span>FAVORITED <WidgetHeaderNumber inputValue={numFavorites}/></span>
       </Card.Content>
 
       <Link className="ui button" to={route}>

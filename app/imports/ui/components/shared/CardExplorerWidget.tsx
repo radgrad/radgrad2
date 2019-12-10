@@ -38,6 +38,7 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
   menuList: object[];
+  favoriteCounts: { count: number, _id: string }[];
 }
 
 const mapStateToProps = (state) => ({
@@ -68,7 +69,7 @@ const mapStateToProps = (state) => ({
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
 const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
-  // console.log('CardExplorerWidget', props);
+  console.log('CardExplorerWidget', props);
   /* Styles */
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
   const cardGroupStyle: React.CSSProperties = {
@@ -91,7 +92,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   /* Variables */
   const header = buildHeader(props); // The header Title and Count
-  const { items, type } = props;
+  const { items, type, favoriteCounts } = props;
 
   // For the Academic Plans Card Explorer
   const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, props);
@@ -119,7 +120,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="advisors">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
+            {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -130,7 +131,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="faculty">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
+            {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -141,7 +142,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="mentors">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
+            {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -152,7 +153,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       render: () => <Tab.Pane key="students">
         <Grid stackable={true}>
           <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' interested={[]}/>)}
+            {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
           </Card.Group>
         </Grid>
       </Tab.Pane>,
@@ -183,22 +184,19 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
             <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable={true}>
               {
                 buildPlanCard ?
-                  items.map((item) => <PlanCard key={item._id} item={item} type={type}/>) : ''
+                  items.map((item, index) => <PlanCard key={item._id} item={item} type={type} numFavorites={favoriteCounts[index]}/>) : ''
               }
               {
                 buildProfileCard ?
-                  items.map((item, index) => <ProfileCard key={index} item={item} type={type}/>) : ''
+                  items.map((item, index) => <ProfileCard key={index} item={item} type={type} numFavorites={favoriteCounts[index]}/>) : ''
               }
               {
                 buildTermCard ?
-                  items.map((item) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent}
-                                                canAdd={true}/>)
-                  : ''
+                  items.map((item, index) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent} numFavorites={favoriteCounts[index]}/>) : ''
               }
               {
                 buildExplorerCard ?
-                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type}/>)
-                  : ''
+                  items.map((item, index) => <ExplorerCard key={item._id} item={item} type={type} numFavorites={favoriteCounts[index]}/>) : ''
               }
             </Card.Group>
             :

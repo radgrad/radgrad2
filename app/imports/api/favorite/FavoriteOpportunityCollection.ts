@@ -7,6 +7,7 @@ import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { IFavoriteOpportunityDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { OpportunityFavoritesScoreboardName } from '../../startup/both/names';
 
 class FavoriteOpportunityCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -102,7 +103,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, opportunityID: 1 } },
-        ], { clientCollection: 'OpportunityFavoritesScoreboard' });
+        ], { clientCollection: OpportunityFavoritesScoreboardName });
       });
     }
   }

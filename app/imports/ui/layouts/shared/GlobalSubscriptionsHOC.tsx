@@ -31,6 +31,11 @@ import { Feeds } from '../../../api/feed/FeedCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 
 interface ILoading {
@@ -39,7 +44,7 @@ interface ILoading {
 
 // cacheLimit default is 10, so increased to handle all our subscriptions.
 // expireLimit set to 30 minutes because: why not.
-const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
+const globalSubs = new SubsManager({ cacheLimit: 40, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
   const GlobalSubscription = (props: ILoading) => ((props.loading) ?
@@ -65,6 +70,11 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(DesiredDegrees.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
+      globalSubs.subscribe(FavoriteAcademicPlans.publicationNames.scoreboard),
+      globalSubs.subscribe(FavoriteCareerGoals.publicationNames.scoreboard),
+      globalSubs.subscribe(FavoriteCourses.publicationNames.scoreboard),
+      globalSubs.subscribe(FavoriteInterests.publicationNames.scoreboard),
+      globalSubs.subscribe(FavoriteOpportunities.publicationNames.scoreboard),
       globalSubs.subscribe(Feeds.getPublicationName()),
       globalSubs.subscribe(HelpMessages.getPublicationName()),
       globalSubs.subscribe(Interests.getPublicationName()),

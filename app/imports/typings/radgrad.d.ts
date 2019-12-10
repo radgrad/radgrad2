@@ -143,13 +143,13 @@ export interface IPagination {
 
 // Card Explorer Cards. Note that this does not refer to specifically ExplorerCard.tsx. But rather all the Cards that are
 // used to implement the Card Explorer Widgets (PlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
-export interface ICardExplorerCards {
+export interface ICardExplorerCardProps {
   item: any;
-  interested: IProfile[];
+  numFavorites: number;
   type: string;
 }
 
-export interface IPlanCard extends ICardExplorerCards {
+export interface IPlanCard extends ICardExplorerCardProps {
   match: {
     isExact: boolean;
     path: string;
@@ -160,8 +160,7 @@ export interface IPlanCard extends ICardExplorerCards {
   };
 }
 
-export interface IProfileCard extends ICardExplorerCards {
-  canAdd: boolean;
+export interface IProfileCard extends ICardExplorerCardProps {
   match: {
     isExact: boolean;
     path: string;
@@ -172,7 +171,7 @@ export interface IProfileCard extends ICardExplorerCards {
   };
 }
 
-export interface ITermCard extends ICardExplorerCards {
+export interface ITermCard extends ICardExplorerCardProps {
   isStudent: boolean;
   canAdd: boolean;
   match: {
@@ -185,7 +184,7 @@ export interface ITermCard extends ICardExplorerCards {
   };
 }
 
-export interface IExplorerCard extends ICardExplorerCards {
+export interface IExplorerCard extends ICardExplorerCardProps {
   match: {
     isExact: boolean;
     path: string;
@@ -196,7 +195,7 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IUserProfileCard extends ICardExplorerCards {
+export interface IUserProfileCard extends ICardExplorerCardProps {
 }
 
 export interface IDescriptionPair {

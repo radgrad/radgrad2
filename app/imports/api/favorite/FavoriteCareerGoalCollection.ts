@@ -7,6 +7,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Users } from '../user/UserCollection';
 import { IFavoriteCareerGoalDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { ROLE } from '../role/Role';
+import { CareerGoalFavoritesScoreboardName } from '../../startup/both/names';
 
 class FavoriteCareerGoalCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -102,7 +103,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, careerGoalID: 1 } },
-        ], { clientCollection: 'CareerGoalFavoritesScoreboard' });
+        ], { clientCollection: CareerGoalFavoritesScoreboardName });
       });
     }
   }

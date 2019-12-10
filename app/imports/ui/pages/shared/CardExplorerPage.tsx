@@ -34,6 +34,12 @@ import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPla
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import {
+  AcademicPlanFavoritesScoreboard,
+  CareerGoalFavoritesScoreboard,
+  CourseFavoritesScoreboard, InterestFavoritesScoreboard, OpportunityFavoritesScoreboard
+} from '../../../startup/client/collections';
+import { OpportunityScoreboardName } from '../../../startup/both/names';
 
 interface ICardExplorerPageProps {
   match: {
@@ -45,7 +51,9 @@ interface ICardExplorerPageProps {
     }
   };
   items: IAcademicPlan[] | ICareerGoal[] | ICourse[] | IDesiredDegree[] | IInterest[] | IOpportunity[] | IProfile[];
-  favoritePlans: IFavoriteAcademicPlan[];
+  favoriteCounts: { _id: string, count: number }[];
+  favoritePlans: IAcademicPlan[];
+  favoritePlanCounts: { count: number, academicPlanID: string }[];
   favoriteCareerGoals: IFavoriteCareerGoal[];
   favoriteCourses: IFavoriteCourse[];
   favoriteInterests: IFavoriteInterest[];
@@ -159,7 +167,7 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <CardExplorerWidget items={props.items} type={props.type} role={props.role}/>
+            <CardExplorerWidget items={props.items} type={props.type} role={props.role} favoriteCounts={props.favoriteCounts}/>
           </Grid.Column>
           <Grid.Column width={1}/>
         </Grid.Row>
@@ -184,35 +192,74 @@ export default withRouter(withTracker((props) => {
   }
   let items;
   let ids: string[];
+  let favoriteCounts;
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       ids = _.map(favoritePlans, (f) => f.academicPlanID);
       items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      favoriteCounts = _.map(items, (i) => {
+        const countArr: any[] = AcademicPlanFavoritesScoreboard.find({ _id: i._id }).fetch();
+        if (countArr.length > 0) {
+          return countArr[0].count;
+        }
+        return 0;
+      });
       break;
     case EXPLORER_TYPE.CAREERGOALS:
       ids = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
       items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      favoriteCounts = _.map(items, (i) => {
+        const countArr: any[] = CareerGoalFavoritesScoreboard.find({ _id: i._id }).fetch();
+        if (countArr.length > 0) {
+          return countArr[0].count;
+        }
+        return 0;
+      });
       break;
     case EXPLORER_TYPE.COURSES:
       ids = _.map(favoriteCourses, (f) => f.courseID);
       items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      favoriteCounts = _.map(items, (i) => {
+        const countArr: any[] = CourseFavoritesScoreboard.find({ _id: i._id }).fetch();
+        if (countArr.length > 0) {
+          return countArr[0].count;
+        }
+        return 0;
+      });
       break;
     case EXPLORER_TYPE.INTERESTS:
       ids = _.map(favoriteInterests, (f) => f.interestID);
       items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      favoriteCounts = _.map(items, (i) => {
+        const countArr: any[] = InterestFavoritesScoreboard.find({ _id: i._id }).fetch();
+        if (countArr.length > 0) {
+          return countArr[0].count;
+        }
+        return 0;
+      });
       break;
     case EXPLORER_TYPE.OPPORTUNITIES:
       ids = _.map(favoriteOpportunities, (f) => f.opportunityID);
       items = _.filter(allItems, (item) => !_.includes(ids, item._id));
+      favoriteCounts = _.map(items, (i) => {
+        const countArr: any[] = OpportunityFavoritesScoreboard.find({ _id: i._id }).fetch();
+        if (countArr.length > 0) {
+          return countArr[0].count;
+        }
+        return 0;
+      });
       break;
     case EXPLORER_TYPE.USERS:
     case EXPLORER_TYPE.DEGREES:
     default:
       items = allItems;
   }
+  const favoritePlanCounts = AcademicPlanFavoritesScoreboard.find().fetch();
   return {
     items,
+    favoriteCounts,
     favoritePlans,
+    favoritePlanCounts,
     favoriteCareerGoals,
     favoriteCourses,
     favoriteInterests,
