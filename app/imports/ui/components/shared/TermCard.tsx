@@ -12,14 +12,13 @@ import * as Router from './RouterHelperFunctions';
 import {
   docToShortDescription,
   opportunityTerms,
-  studentsParticipating,
   itemToSlugName,
 } from './data-model-helper-functions';
 import { replaceTermStringNextFour } from './helper-functions';
 import FutureParticipation from './FutureParticipation';
 
 const isType = (typeToCheck: string, props: ITermCard) => {
-  const { type, numFavorites } = props;
+  const { type } = props;
   return type === typeToCheck;
 };
 

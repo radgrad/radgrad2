@@ -42,11 +42,12 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   const userName = Users.getFullName(review.studentID);
   const userUsername = profile.username;
   const userPicture = profile.picture;
-  const reviewTerm = AcademicTerms.toString(review.termID);
+  const termID = review.termID;
+  const reviewTermString = AcademicTerms.toString(termID);
   const reviewRating = review.rating;
   const reviewComments = review.comments;
   return {
-    name: userName, username: userUsername, picture: userPicture, term: reviewTerm,
+    name: userName, username: userUsername, picture: userPicture, termID, termString: reviewTermString,
     rating: reviewRating, comments: reviewComments,
   };
 };
@@ -73,11 +74,10 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
   const commentsStyle = { paddingTop: '5px' };
 
   const { event, userReview, completed, reviewType, match } = props;
-  const { name, picture, term, rating, comments } = reviewData(userReview);
+  const { name, picture, termID, rating, comments } = reviewData(userReview);
   const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(props.match));
   const currentUserName = userToFullName(Router.getUsername(props.match));
   const theReviews = reviews(props);
-
   return (
     <div className="ui padded container">
       <Header as="h4" dividing={true} style={uppercaseStyle}>
@@ -93,7 +93,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                   <Image floated="left" verticalAlign="middle" circular={true} size="mini" src={picture}/>
                   <b>{name}</b>
                   <br/>
-                  {AcademicTerms.getShortName(term)}
+                  {AcademicTerms.getShortName(termID)}
                 </Grid.Column>
 
                 <Grid.Column width={12}>
@@ -148,7 +148,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                                  src={aReview.picture}/>
                           <b>{aReview.name}</b>
                           <br/>
-                          {academicTermNameToShortName(aReview.term)}
+                          {academicTermNameToShortName(aReview.termString)}
                         </Grid.Column>
 
                         <Grid.Column width={12}>

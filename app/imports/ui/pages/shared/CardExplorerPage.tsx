@@ -37,9 +37,8 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import {
   AcademicPlanFavoritesScoreboard,
   CareerGoalFavoritesScoreboard,
-  CourseFavoritesScoreboard, InterestFavoritesScoreboard, OpportunityFavoritesScoreboard
+  CourseFavoritesScoreboard, InterestFavoritesScoreboard, OpportunityFavoritesScoreboard,
 } from '../../../startup/client/collections';
-import { OpportunityScoreboardName } from '../../../startup/both/names';
 
 interface ICardExplorerPageProps {
   match: {

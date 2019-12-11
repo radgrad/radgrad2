@@ -5415,7 +5415,7 @@
           "shortName": "B.S. CE",
           "slug": "bs-ce",
           "description": "The Department of Information and Computer Sciences and the Department of Electrical Engineering offer a joint Bachelor of Science degree in Computer Engineering (BSCE).  The BSCE degree program provides you with the opportunity to learn about computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, embedded systems, computer-aided design, multi-core and parallel computing, wireless networks, and other topics.",
-          "retired": false
+          "retired": true
         },
         {
           "name": "B.S. in Computer Science",

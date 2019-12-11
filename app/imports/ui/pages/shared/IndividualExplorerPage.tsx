@@ -62,6 +62,7 @@ interface IIndividualExplorerPageProps {
       careergoal?: string;
     }
   };
+  item: any;
   favoritePlans: IFavoriteAcademicPlan[];
   favoriteCareerGoals: IFavoriteCareerGoal[];
   favoriteCourses: IFavoriteCourse[];
@@ -179,7 +180,6 @@ const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
-  console.log(courseSlugName, theCourse);
   return theCourse;
 };
 
@@ -409,7 +409,7 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
 
 const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): object[] => {
   const type = Router.getUrlParam(props.match, 2);
-  // console.log(item);
+  // console.log('getDescriptionPairs', item);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return descriptionPairsPlans(item as IAcademicPlan);
@@ -422,7 +422,7 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return descriptionPairsOpportunities(Opportunities.findDoc(item.opportunityID));
+      return descriptionPairsOpportunities(item as IOpportunity);
     case EXPLORER_TYPE.USERS: // do nothing
       return undefined;
     default:
@@ -440,7 +440,7 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
   const addedList = getAddedList(props);
 
   // Variables for Individual Explorer Widgets
-  const item = getItem(props);
+  const { item } = props;
   const name = item.name;
   const descriptionPairs = getDescriptionPairs(item, props);
 
@@ -477,7 +477,7 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
           {
             type === EXPLORER_TYPE.CAREERGOALS ?
               <ExplorerCareerGoalsWidget name={name} descriptionPairs={descriptionPairs} item={item}
-                                         socialPairs={isTypeCareerGoals && socialPairs ? socialPairs : undefined}/>
+                                         socialPairs={socialPairs}/>
               : ''
           }
           {
@@ -514,6 +514,7 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
 
 
 export default withTracker((props) => {
+  const item = getItem(props);
   const studentID = Router.getUserIdFromRoute(props.match);
   const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
   const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
@@ -522,6 +523,7 @@ export default withTracker((props) => {
   const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   // console.log('favoriteInterests', favoriteInterests, studentID);
   return {
+    item,
     favoritePlans,
     favoriteCareerGoals,
     favoriteCourses,
