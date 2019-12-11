@@ -83,10 +83,10 @@ const TermCard = (props: ITermCard) => {
         <InterestList item={item} size="mini"/>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation type={props.type} item={props.item}/>
+        <span>FAVORITED <WidgetHeaderNumber inputValue={props.numFavorites}/></span>
       </Card.Content>
       <Card.Content>
-        <span>FAVORITED <WidgetHeaderNumber inputValue={props.numFavorites}/></span>
+        <FutureParticipation type={props.type} item={props.item}/>
       </Card.Content>
 
       <Link className="ui button" to={buildRouteName(props.item, props.type, props)}>
