@@ -149,50 +149,39 @@ export interface ICardExplorerCardProps {
   type: string;
 }
 
+export interface IRadGradMatchParams {
+  username: string;
+  careergoal?: string;
+  course?: string;
+  degree?: string;
+  interest?: string;
+  opportunity?: string;
+  plan?: string;
+}
+
+export interface IRadGradMatch {
+  isExact: boolean;
+  path: string;
+  url: string;
+  params: IRadGradMatchParams;
+}
+
 export interface IPlanCard extends ICardExplorerCardProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 export interface IProfileCard extends ICardExplorerCardProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 export interface ITermCard extends ICardExplorerCardProps {
   isStudent: boolean;
   canAdd: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 export interface IExplorerCard extends ICardExplorerCardProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 export interface IUserProfileCard extends ICardExplorerCardProps {

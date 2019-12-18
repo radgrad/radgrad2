@@ -14,6 +14,7 @@ import {
 } from './data-model-helper-functions';
 
 const PlanCard = (props: IPlanCard) => {
+  // console.log('PlanCard props', props);
   const { item, numFavorites } = props;
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);

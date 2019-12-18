@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import MenuIceCircle from '../shared/MenuIceCircle';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import StudentIceColumn from './StudentIceColumn';
@@ -13,15 +13,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { getEarnedICE, getProjectedICE } from '../../../api/ice/IceProcessor';
 
 interface IStudentIceWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
   earnedICE: Ice;
   projectedICE: Ice;
 }

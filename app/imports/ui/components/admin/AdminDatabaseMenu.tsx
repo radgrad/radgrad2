@@ -4,17 +4,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { leftHandMenu } from '../shared/shared-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IAdminDatabaseMenuProps {
   currentUser: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {

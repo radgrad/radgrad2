@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import * as Router from './RouterHelperFunctions';
@@ -16,15 +16,7 @@ interface IExplorerPlansWidgetProps {
   descriptionPairs: any[];
   item: IAcademicPlan;
   profile: object;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {

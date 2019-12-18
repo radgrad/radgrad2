@@ -8,18 +8,12 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import ScoreboardPageMenu from '../../components/shared/ScoreboardPageMenu';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/client/routes-config';
 import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
-import OpportunityScoreboardWidgetContainer from '../../components/shared/OpportunityScoreboardWidget';
+import OpportunityScoreboardWidget from '../../components/shared/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 export interface IScoreboardPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const renderPageMenuWidget = (props: IScoreboardPageProps): JSX.Element => {
@@ -43,7 +37,7 @@ const ScoreboardPage = (props: IScoreboardPageProps) => {
     content = <CourseScoreboardWidget/>;
   }
   if (props.match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
-    content = <OpportunityScoreboardWidgetContainer/>;
+    content = <OpportunityScoreboardWidget/>;
   }
   // console.log(props.match.path, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD);
   return (

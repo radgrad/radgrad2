@@ -5,18 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';
 import { explorerDegreeWidget } from './shared-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IExplorerDegreesWidgetProps {
   name: string;
   descriptionPairs: any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {

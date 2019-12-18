@@ -8,7 +8,7 @@ import {
   ICareerGoal, IFavoriteAcademicPlan, // eslint-disable-line
   IFavoriteCareerGoal, // eslint-disable-line
   IFavoriteInterest, // eslint-disable-line
-  IInterest, // eslint-disable-line
+  IInterest, IRadGradMatch, // eslint-disable-line
   IStudentProfile // eslint-disable-line
 } from '../../../typings/radgrad'; // eslint-disable-line
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
@@ -30,14 +30,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 
 interface IStudentAboutMeWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   profile: IStudentProfile;
   favoriteCareerGoals: IFavoriteCareerGoal[];
   favoriteInterests: IFavoriteInterest[];

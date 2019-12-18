@@ -16,17 +16,11 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface ILoading {
   loading: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 // cacheLimit default is 10, so no change.

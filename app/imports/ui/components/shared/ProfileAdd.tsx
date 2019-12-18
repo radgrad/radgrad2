@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -14,14 +14,7 @@ import { profileGetCareerGoalIDs, profileGetInterestIDs } from './data-model-hel
 interface IProfileAddProps {
   item: IAcademicPlan;
   type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const handleAddToProfile = (props: IProfileAddProps) => (e: any): void => {

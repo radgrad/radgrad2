@@ -8,7 +8,7 @@ import PendingVerificationsWidget from '../../components/shared/PendingVerificat
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
 // eslint-disable-next-line no-unused-vars
-import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
+import { IOpportunity, IRadGradMatch, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -19,11 +19,7 @@ import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAddi
 interface FacultyVerificationPageProps {
   verificationRequests: IVerificationRequest[];
   eventOpportunities: IOpportunity[];
-  match: {
-    params: {
-      username: string;
-    }
-  }
+  match: IRadGradMatch;
 }
 
 interface IFacultyVerificationPageState {

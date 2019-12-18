@@ -8,18 +8,12 @@ import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 import { getUsername } from '../../components/shared/RouterHelperFunctions';
 import { firstMenu } from '../../components/shared/shared-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IFirstMenuProps {
   currentUser: string;
   iconName: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const FirstMenu = (props: IFirstMenuProps) => {

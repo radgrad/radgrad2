@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, SemanticWIDTHS } from 'semantic-ui-react'; // eslint-disable-line
+import { Menu, SemanticWIDTHS } from 'semantic-ui-react'; // eslint-disable-line no-unused-vars
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IMenuItem {
   label: string;
@@ -15,14 +16,7 @@ interface ISecondMenuProps {
   menuItems: IMenuItem[];
   numItems: SemanticWIDTHS;
   currentUser: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const SecondMenu = (props: ISecondMenuProps) => {

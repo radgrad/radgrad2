@@ -3,20 +3,13 @@ import { Accordion, Button } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDescriptionPair, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminCollectionAccordionProps {
   id: string;
   title: React.ReactNode;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   descriptionPairs: IDescriptionPair[];
   updateDisabled: boolean;
   deleteDisabled: boolean;

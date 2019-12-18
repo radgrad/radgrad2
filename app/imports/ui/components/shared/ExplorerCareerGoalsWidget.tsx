@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
-import { IFavoriteCareerGoalDefine, IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IFavoriteCareerGoalDefine, IProfile, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import { renderLink, getUserIdFromRoute } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import FavoritesButton from './FavoritesButton';
@@ -21,15 +21,7 @@ interface IExplorerCareerGoalsWidgetProps {
   descriptionPairs: any;
   item: { [key: string]: any };
   socialPairs: any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      careergoal: string;
-    }
-  };
+  match: IRadGradMatch;
   profile: IProfile;
 }
 

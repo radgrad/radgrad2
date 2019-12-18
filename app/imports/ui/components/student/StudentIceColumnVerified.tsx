@@ -4,7 +4,14 @@ import { withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash';
 import { getUserIdFromRoute, buildRouteName } from '../shared/RouterHelperFunctions';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IAcademicYear, Ice, } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  IAcademicTerm, // eslint-disable-line no-unused-vars
+  ICourseInstance, // eslint-disable-line no-unused-vars
+  IOpportunityInstance, // eslint-disable-line no-unused-vars
+  IAcademicYear, // eslint-disable-line no-unused-vars
+  Ice, // eslint-disable-line no-unused-vars
+  IRadGradMatch, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -19,14 +26,7 @@ interface IStudentIceColumnVerifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const years = (props: IStudentIceColumnVerifiedProps): IAcademicYear[] => {

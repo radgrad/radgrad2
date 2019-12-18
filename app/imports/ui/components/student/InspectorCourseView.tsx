@@ -18,20 +18,14 @@ import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IInspectorCourseViewProps {
   courseID: string;
   studentID: string;
   courseInstanceID?: string;
   selectCourse: (courseID: string) => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const mapDispatchToProps = (dispatch) => ({

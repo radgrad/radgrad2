@@ -6,18 +6,10 @@ import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { studentLevelsWidget } from './student-widget-names';
-
-// import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentLevelsWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   studentLevelNumber: number;
   studentLevelName: string;
   studentLevelHint: string;

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 // eslint-disable-next-line no-unused-vars
-import { IMentorQuestion } from '../../../typings/radgrad';
+import { IMentorQuestion, IRadGradMatch } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 
@@ -14,15 +14,7 @@ interface IMentorMentorSpaceAnswerFormState {
 
 interface IMentorMentorSpaceAnswerFormProps {
   question: IMentorQuestion;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnswerFormProps, IMentorMentorSpaceAnswerFormState> {

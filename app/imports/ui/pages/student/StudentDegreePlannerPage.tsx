@@ -9,8 +9,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 
-import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
-
+import { ICourseInstanceDefine, IOpportunityInstanceDefine, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -21,14 +20,7 @@ import TabbedFavoritesWidget from '../../components/student/TabbedFavoritesWidge
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const mapDispatchToProps = (dispatch) => ({

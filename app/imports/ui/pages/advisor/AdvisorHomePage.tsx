@@ -14,7 +14,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 // eslint-disable-next-line no-unused-vars
-import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
+import { IAdvisorLog, ICareerGoal, IInterest, IRadGradMatch, IStudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 // Formatting for parameters
@@ -24,11 +24,7 @@ export interface IFilterStudents {
   interests: IInterest[];
   careerGoals: ICareerGoal[];
   advisorLogs: IAdvisorLog[];
-  match: {
-    params: {
-      username: string;
-    }
-  }
+  match: IRadGradMatch;
 }
 
 const mapStateToProps = (state) => ({

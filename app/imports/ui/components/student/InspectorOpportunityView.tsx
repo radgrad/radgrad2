@@ -18,7 +18,7 @@ import { termIDsToString } from '../../../api/academic-term/AcademicTermUtilitie
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IRadGradMatch, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
@@ -28,14 +28,7 @@ interface IInspectorOpportunityViewProps {
   opportunityInstanceID?: string;
   verificationRequest?: IVerificationRequest;
   selectOpportunity: (opportunityID: string) => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const mapDispatchToProps = (dispatch) => ({

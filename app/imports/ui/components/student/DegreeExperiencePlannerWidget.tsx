@@ -8,7 +8,13 @@ import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
-import { IAcademicYear, IAcademicYearDefine, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  IAcademicYear, // eslint-disable-line no-unused-vars
+  IAcademicYearDefine, // eslint-disable-line no-unused-vars
+  ICourseInstance, // eslint-disable-line no-unused-vars
+  IOpportunityInstance, // eslint-disable-line no-unused-vars
+  IRadGradMatch, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
@@ -19,14 +25,7 @@ interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 interface IDePState {

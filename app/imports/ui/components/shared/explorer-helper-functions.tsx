@@ -7,7 +7,7 @@ import {
   IDesiredDegree, IExplorerCard, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
   IOpportunity, // eslint-disable-line no-unused-vars
-  IProfile, IStudentProfile, // eslint-disable-line no-unused-vars
+  IProfile, IRadGradMatch, IStudentProfile, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
@@ -43,14 +43,7 @@ export interface ICardExplorerMenuWidgetProps {
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty' | 'mentor';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 export const isType = (typeToCheck: string, props: { type: string }) => {

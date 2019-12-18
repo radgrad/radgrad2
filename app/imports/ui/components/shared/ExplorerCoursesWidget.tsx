@@ -9,7 +9,7 @@ import InterestList from './InterestList';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
-import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
@@ -27,15 +27,7 @@ interface IExplorerCoursesWidgetProps {
   descriptionPairs: any[];
   item: ICourse;
   completed: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
+  match: IRadGradMatch;
   reactiveSourceOne: object[];
   reactiveSourceTwo: object[];
   reactiveSourceThree: object[];

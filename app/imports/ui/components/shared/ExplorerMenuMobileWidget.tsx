@@ -9,7 +9,7 @@ import {
   IDesiredDegree, //eslint-disable-line
   IInterest, //eslint-disable-line
   IOpportunity, //eslint-disable-line
-  IProfile, // eslint-disable-line
+  IProfile, IRadGradMatch, // eslint-disable-line
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
@@ -24,14 +24,7 @@ interface IExplorerMenuMobileWidgetProps {
   menuCareerList?: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty' | 'mentor';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   profile: IProfile;
 }
 

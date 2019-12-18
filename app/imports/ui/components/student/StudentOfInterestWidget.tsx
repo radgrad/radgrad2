@@ -16,18 +16,11 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from '../shared/RouterHelperFunctions';
 import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
-import { ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IOpportunity, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentOfInterestWidgetProps {
   type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   profile: any;
   nonRetiredCourses: ICourse[];
   nonRetiredOpportunities: IOpportunity[];

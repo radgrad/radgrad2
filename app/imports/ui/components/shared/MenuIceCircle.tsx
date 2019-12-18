@@ -1,16 +1,10 @@
 import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { buildRouteName } from './RouterHelperFunctions';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IMenuIceCircleProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   earned: number;
   planned: number;
   type: string;

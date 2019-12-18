@@ -3,7 +3,7 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDescriptionPair, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminDataModelAccordionProps {
@@ -17,14 +17,7 @@ interface IAdminDataModelAccordionProps {
   deleteDisabled: boolean;
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 interface IAdminDataModelAccordionState {

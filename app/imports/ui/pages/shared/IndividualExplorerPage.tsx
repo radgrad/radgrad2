@@ -11,7 +11,7 @@ import {
   IDesiredDegree, // eslint-disable-line no-unused-vars
   IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
+  IOpportunity, IRadGradMatch, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -48,20 +48,7 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import { profileGetCareerGoalIDs } from '../../components/shared/data-model-helper-functions';
 
 interface IIndividualExplorerPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course?: string;
-      degree?: string;
-      opportunity?: string;
-      plan?: string;
-      interest?: string;
-      careergoal?: string;
-    }
-  };
+  match: IRadGradMatch;
   item: any;
   favoritePlans: IFavoriteAcademicPlan[];
   favoriteCareerGoals: IFavoriteCareerGoal[];

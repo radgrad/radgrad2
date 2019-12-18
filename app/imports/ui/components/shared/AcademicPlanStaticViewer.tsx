@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
-import { IAcademicPlan, ICourseInstance } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, ICourseInstance, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
@@ -12,14 +12,7 @@ import AcademicPlanStaticYearView from './AcademicPlanStaticYearView';
 
 interface IAcademicPlanStaticViewerProps {
   plan: IAcademicPlan;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match:IRadGradMatch;
   takenSlugs: string[];
 }
 

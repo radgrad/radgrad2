@@ -12,16 +12,10 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
 import { studentTeaserWidget } from './student-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentTeaserWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const matchingTeasers = (match: IMatchProps) => {

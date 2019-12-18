@@ -14,7 +14,6 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
-// @ts-ignore
 import CardExplorerMenu from '../../components/shared/CardExplorerMenu';
 import {
   IAcademicPlan, // eslint-disable-line no-unused-vars
@@ -23,7 +22,7 @@ import {
   IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, // eslint-disable-line no-unused-vars
   IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
   IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, IProfile, // eslint-disable-line no-unused-vars
+  IOpportunity, IProfile, IRadGradMatch, // eslint-disable-line no-unused-vars
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
@@ -41,14 +40,7 @@ import {
 } from '../../../startup/client/collections';
 
 interface ICardExplorerPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   items: IAcademicPlan[] | ICareerGoal[] | ICourse[] | IDesiredDegree[] | IInterest[] | IOpportunity[] | IProfile[];
   favoriteCounts: { _id: string, count: number }[];
   favoritePlans: IAcademicPlan[];

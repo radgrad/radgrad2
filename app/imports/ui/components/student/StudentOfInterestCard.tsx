@@ -12,17 +12,11 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import { replaceTermStringNextFour } from '../shared/helper-functions';
 import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';
 import * as Router from '../shared/RouterHelperFunctions';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentOfInterestCardProps {
   type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   item: {
     _id: string;
     name: string;

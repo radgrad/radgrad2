@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Menu, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { IOpportunity, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IOpportunity, IOpportunityInstanceDefine, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -18,15 +18,7 @@ import {
 interface IStudentExplorerOpportunitiesWidgetButtonProps {
   buttonType: 'remove' | 'add';
   opportunity: IOpportunity,
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const handleAddToPlan = (props: IStudentExplorerOpportunitiesWidgetButtonProps) => (e: any): void => {

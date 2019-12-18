@@ -27,16 +27,10 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { leftHandMenu } from '../shared/shared-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IAdminDataModeMenuProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   academicPlanCount: number;
   academicTermCount: number;
   academicYearCount: number;

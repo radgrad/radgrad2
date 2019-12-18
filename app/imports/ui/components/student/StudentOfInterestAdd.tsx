@@ -7,18 +7,12 @@ import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { getUsername } from '../shared/RouterHelperFunctions';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentOfInterestAddProps {
   item: any;
   type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   profile: object;
 }
 

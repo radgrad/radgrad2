@@ -8,7 +8,7 @@ import {
   ICourse, //eslint-disable-line
   IDesiredDegree, //eslint-disable-line
   IInterest, //eslint-disable-line
-  IOpportunity, //eslint-disable-line
+  IOpportunity, IRadGradMatch, //eslint-disable-line
 } from '../../../typings/radgrad';
 import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
@@ -26,14 +26,7 @@ interface ICardExplorerMenuProps {
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty' | 'mentor';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const getTypeName = (props: ICardExplorerMenuProps): string => {

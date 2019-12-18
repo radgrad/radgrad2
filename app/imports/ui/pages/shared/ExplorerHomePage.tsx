@@ -6,16 +6,10 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerNavDropdown from '../../components/shared/ExplorerNavDropdown';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IExplorerHomePageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const renderPageMenuWidget = (props: IExplorerHomePageProps): JSX.Element => {

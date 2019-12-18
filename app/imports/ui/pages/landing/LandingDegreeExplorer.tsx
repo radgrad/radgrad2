@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDesiredDegree, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
@@ -15,16 +15,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IDesiredDegreeExplorerProps {
   desiredDegree: IDesiredDegree;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-  location: object;
-  history: object;
+  match: IRadGradMatch;
 }
 
 const DesiredDegreeExplorer = (props: IDesiredDegreeExplorerProps) => {

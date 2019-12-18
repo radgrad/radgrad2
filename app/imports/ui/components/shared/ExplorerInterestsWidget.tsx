@@ -4,7 +4,7 @@ import { Header, Grid, Divider, Segment, SegmentGroup, Embed } from 'semantic-ui
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
-import { IInterest, IProfile, IProfileUpdate } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IInterest, IProfile, IProfileUpdate, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Interests } from '../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -27,15 +27,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 
 interface IExplorerInterestsWidgetProps {
   type: string;
-  match: {
-    isExact: boolean,
-    path: string,
-    url: string,
-    params: {
-      username: string;
-      interest: string;
-    }
-  }
+  match: IRadGradMatch;
   profile: IProfile;
   interest: IInterest;
   interestedStudents: IProfile[];

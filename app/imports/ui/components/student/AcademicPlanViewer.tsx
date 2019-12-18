@@ -8,18 +8,11 @@ import SimplSchema from 'simpl-schema';
 import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import AcademicPlanViewerWidget from './AcademicPlanViewerWidget';
 
 interface IAcademicPlanViewerProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 interface IAcademicPlanViewerState {

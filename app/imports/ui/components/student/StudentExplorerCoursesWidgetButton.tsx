@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { ICourse, ICourseInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, ICourseInstanceDefine, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
@@ -15,15 +15,7 @@ import { academicTermNameToSlug, itemToSlugName } from '../shared/data-model-hel
 interface IStudentExplorerCoursesWidgetButtonProps {
   buttonType: 'remove' | 'add' | 'taken';
   course: ICourse;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const nextYears = (amount: number): number[] => {

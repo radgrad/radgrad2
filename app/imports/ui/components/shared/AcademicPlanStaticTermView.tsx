@@ -8,6 +8,7 @@ import * as Router from './RouterHelperFunctions';
 import LandingPlanChoicePill from '../landing/LandingPlanChoicePill';
 import SatisfiedPlanChoicePill from './SatisfiedPlanChoicePill';
 import StaticPlanChoicePill from './StaticPlanChoicePill';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IAcademicPlanTermViewProps {
   title: string;
@@ -15,14 +16,7 @@ interface IAcademicPlanTermViewProps {
   choices: string[];
   studentID: string;
   takenSlugs: string[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 

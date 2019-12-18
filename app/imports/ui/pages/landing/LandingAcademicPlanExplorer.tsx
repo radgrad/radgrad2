@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
@@ -16,14 +16,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IAcademicPlanExplorerProps {
   plan: IAcademicPlan;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
   location: object;
   history: object;
 }

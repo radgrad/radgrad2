@@ -2,7 +2,14 @@ import * as React from 'react';
 import { List } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { IAcademicTerm, IAcademicYear, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line
+import {
+  IAcademicTerm, // eslint-disable-line no-unused-vars
+  IAcademicYear, // eslint-disable-line no-unused-vars
+  Ice, // eslint-disable-line no-unused-vars
+  ICourseInstance, // eslint-disable-line no-unused-vars
+  IOpportunityInstance, // eslint-disable-line no-unused-vars
+  IRadGradMatch, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
@@ -21,14 +28,7 @@ interface IStudentIceColumnUnverifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 
 }
 

@@ -4,21 +4,14 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
-import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IHelpDefine, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
 import { helpPanelWidget } from './shared-widget-names';
 
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 interface IHelpPanelWidgetState {

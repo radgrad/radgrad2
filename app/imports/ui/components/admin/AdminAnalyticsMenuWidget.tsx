@@ -3,16 +3,10 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { buildRouteName } from '../shared/RouterHelperFunctions';
 import { ANALYTICS } from '../../../startup/client/routes-config';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IAdminAnalyticsMenuWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidgetProps> {

@@ -4,8 +4,16 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
-// eslint-disable-next-line no-unused-vars
-import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
+
+import {
+  IAcademicPlan, // eslint-disable-line no-unused-vars
+  ICareerGoal, // eslint-disable-line no-unused-vars
+  ICourse, // eslint-disable-line no-unused-vars
+  IDesiredDegree, // eslint-disable-line no-unused-vars
+  IInterest, // eslint-disable-line no-unused-vars
+  IOpportunity, // eslint-disable-line no-unused-vars
+  IRadGradMatch, // eslint-disable-line no-unused-vars
+} from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -16,14 +24,7 @@ type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree
 interface IExplorerMenuNonMobileItemProps {
   type: any;
   listItem: any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  }
+  match: IRadGradMatch;
 }
 
 const itemName = (item: { item: explorerInterfaces, count: number }): string => {

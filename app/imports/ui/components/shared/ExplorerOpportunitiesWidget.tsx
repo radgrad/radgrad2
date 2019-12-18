@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
 import * as Markdown from 'react-markdown';
-import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { IOpportunity, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
@@ -25,15 +25,7 @@ interface IExplorerOpportunitiesWidgetProps {
   item: IOpportunity
   completed: boolean;
   role: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const review = (props: IExplorerOpportunitiesWidgetProps): object => {

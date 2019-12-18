@@ -8,6 +8,7 @@ import DraggablePlanChoicePill from './DraggablePlanChoicePill';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../api/degree-plan/AcademicPlanUtilities';
 import SatisfiedPlanChoicePill from './SatisfiedPlanChoicePill';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IAcademicPlanTermViewProps {
   title: string;
@@ -15,14 +16,7 @@ interface IAcademicPlanTermViewProps {
   choices: string[];
   studentID: string;
   takenSlugs: string[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {

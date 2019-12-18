@@ -3,18 +3,11 @@ import * as Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from '../shared/RouterHelperFunctions';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentFeedItemProps {
   feed: object;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const dateDiffInDays = (a: string, b: string) => {

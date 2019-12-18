@@ -10,17 +10,10 @@ import * as moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentMentorSpaceQuestionFormProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpaceQuestionFormProps> {

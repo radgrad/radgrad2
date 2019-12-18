@@ -6,19 +6,11 @@ import * as _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { ROLE } from '../../../api/role/Role';
-import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IRadGradMatch, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { studentLevelsOthersWidget } from './student-widget-names';
 
 interface IStudentLevelsOthersWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
   studentLevelName: string;
   students: IStudentProfile[];
 }

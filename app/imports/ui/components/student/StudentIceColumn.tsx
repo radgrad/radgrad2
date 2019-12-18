@@ -9,18 +9,10 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 
 interface IStudentIceColumnProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
+  match: IRadGradMatch;
   type: 'Innovation' | 'Competency' | 'Experience';
 }
 

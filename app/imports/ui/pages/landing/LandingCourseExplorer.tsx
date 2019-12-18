@@ -5,8 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
-import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -19,16 +18,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICourseExplorerProps {
   course: ICourse;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-  location: object;
-  history: object;
+  match: IRadGradMatch;
 }
 
 const LandingCourseExplorer = (props: ICourseExplorerProps) => {

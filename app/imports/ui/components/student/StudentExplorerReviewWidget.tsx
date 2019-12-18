@@ -15,6 +15,7 @@ import {
   userToFullName,
   academicTermNameToShortName,
 } from '../shared/data-model-helper-functions';
+import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -25,15 +26,7 @@ interface IStudentExplorerReviewWidgetProps {
   };
   completed: boolean;
   reviewType: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {

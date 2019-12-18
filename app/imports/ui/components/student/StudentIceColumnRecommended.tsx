@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice, ICourse, IOpportunity, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -19,14 +19,7 @@ interface IStudentIceColumnRecommendedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IRadGradMatch;
 }
 
 const hasNoInterests = (props: IStudentIceColumnRecommendedProps): boolean => {

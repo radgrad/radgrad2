@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, List, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { ICourse, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IInterest, IOpportunity, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -19,16 +19,7 @@ interface IInterestExplorerProps {
   interest: IInterest;
   courses: ICourse[];
   opportunities: IOpportunity[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-  location: object;
-  history: object;
+  match: IRadGradMatch;
 }
 
 const LandingInterestExplorer = (props: IInterestExplorerProps) => {
