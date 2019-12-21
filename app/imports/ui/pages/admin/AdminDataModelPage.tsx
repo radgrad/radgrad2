@@ -10,20 +10,22 @@ const AdminDataModelPage = () => {
   };
   return (
     <div className="layout-page">
-      <AdminPageMenuWidget/>
-      <Grid container={true} stackable={true} style={paddedStyle}>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={3}>
-          <AdminDataModelMenu/>
+          <AdminDataModelMenu />
         </Grid.Column>
 
         <Grid.Column width={13}>
-          <Message floating={true}
-                   content={'Click on a data model element in the menu to the left to display those items.'}/>
+          <Message
+            floating
+            content="Click on a data model element in the menu to the left to display those items."
+          />
         </Grid.Column>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

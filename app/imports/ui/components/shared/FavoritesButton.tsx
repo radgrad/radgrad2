@@ -124,13 +124,31 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
 };
 
 
-const FavoritesButton = (props: IFavoriteButtonProps) => (<React.Fragment>{props.added ?
-  <Button onClick={handleRemove(props)} size={'mini'} color={'green'} floated={'right'} basic={true}><Icon
-    name="heart outline" color='red'/><Icon name="minus"/>REMOVE FROM FAVORITES</Button>
-  :
-  <Button size={'mini'} onClick={handleAdd(props)} color={'green'} floated={'right'} basic={true}><Icon name="heart"
-                                                                                                        color="red"/><Icon
-    name="plus"/>ADD TO FAVORITES</Button>}</React.Fragment>
+const FavoritesButton = (props: IFavoriteButtonProps) => (
+  <React.Fragment>
+    {props.added ? (
+      <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
+        <Icon
+          name="heart outline"
+          color="red"
+        />
+        <Icon name="minus" />
+REMOVE FROM FAVORITES
+      </Button>
+)
+  : (
+    <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
+      <Icon
+        name="heart"
+        color="red"
+      />
+      <Icon
+        name="plus"
+      />
+ADD TO FAVORITES
+    </Button>
+)}
+  </React.Fragment>
 );
 
 export default withRouter(withTracker((props) => {

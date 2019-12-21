@@ -168,92 +168,133 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
     const panes = [
       {
         menuItem: 'Update Existing',
-        render: () => <Tab.Pane key={'update'}>
-            <Header as="h4" dividing={true}>FILTER STUDENTS</Header>
+        render: () => (
+          <Tab.Pane key="update">
+            <Header as="h4" dividing>FILTER STUDENTS</Header>
             <Form onSubmit={this.clearFilter}>
               <Form.Group inline>
                 <Form.Field>
-                  <Form.Input name="firstName"
+                  <Form.Input
+                    name="firstName"
                     // @ts-ignore
-                              label={{ basic: 'true', children: 'First Name:' }}
-                              value={this.props.firstName}
-                              onChange={this.handleChangeFirstName}/>
+                    label={{ basic: 'true', children: 'First Name:' }}
+                    value={this.props.firstName}
+                    onChange={this.handleChangeFirstName}
+                  />
                 </Form.Field>
                 <Form.Field>
-                  <Form.Input name="lastName"
+                  <Form.Input
+                    name="lastName"
                     // @ts-ignore
-                              label={{ basic: 'true', children: 'Last Name:' }}
-                              value={this.props.lastName}
-                              onChange={this.handleChangeLastName}/>
+                    label={{ basic: 'true', children: 'Last Name:' }}
+                    value={this.props.lastName}
+                    onChange={this.handleChangeLastName}
+                  />
                 </Form.Field>
                 <Form.Field>
-                  <Form.Input name="userName"
+                  <Form.Input
+                    name="userName"
                     // @ts-ignore
-                              label={{ basic: 'true', children: 'Username:' }}
-                              value={this.props.username}
-                              onChange={this.handleChangeUserName}/>
+                    label={{ basic: 'true', children: 'Username:' }}
+                    value={this.props.username}
+                    onChange={this.handleChangeUserName}
+                  />
                 </Form.Field>
-                <Form.Button basic={true} color={'green'} content={'Clear Filter'}/>
+                <Form.Button basic color="green" content="Clear Filter" />
               </Form.Group>
             </Form>
-            <Header as="h4">{'Header here'}</Header>
+            <Header as="h4">Header here</Header>
             <Tab panes={[
               {
                 menuItem: `Students (${this.props.students.length})`,
-                render: () => <Tab.Pane>
+                render: () => (
+                  <Tab.Pane>
                     <Grid stackable>
                       {filteredStudents.map((student, index) => (
                         <Grid.Column style={columnStyle} width={3} key={index}>
-                          <Popup content={`${student.lastName}, ${student.firstName}`} position='top center'
-                                 trigger={<Button basic={true} color={'grey'} fluid={true} style={buttonStyle}
-                                                  studentusername={student.username}
-                                                  onClick={this.handleSelectStudent}>
-                                   <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`}/>
-                                   {student.lastName}, {student.firstName}<br/>{student.username}
-                                 </Button>}/>
+                          <Popup
+                            content={`${student.lastName}, ${student.firstName}`}
+                            position="top center"
+                            trigger={(
+                              <Button
+                                basic
+                                color="grey"
+                                fluid
+                                style={buttonStyle}
+                                studentusername={student.username}
+                                onClick={this.handleSelectStudent}
+                              >
+                                <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
+                                {student.lastName}
+,
+                                {student.firstName}
+                                <br />
+                                {student.username}
+                              </Button>
+)}
+                          />
                         </Grid.Column>
                       ))}
                     </Grid>
-                  </Tab.Pane>,
+                  </Tab.Pane>
+),
               },
-            ]}/>
+            ]}
+            />
           </Tab.Pane>
+)
         ,
       },
       {
         menuItem: 'Add New',
-        render: () => <AdvisorAddStudentWidget interests={this.props.interests}
-                                               careerGoals={this.props.careerGoals}/>,
+        render: () => (
+          <AdvisorAddStudentWidget
+            interests={this.props.interests}
+            careerGoals={this.props.careerGoals}
+          />
+),
       },
       {
         menuItem: 'Bulk STAR Upload',
-        render: () => <Tab.Pane key={'upload'}>
-            <Header dividing={true} content={'BULK STAR UPLOAD STAR DATA'}/>
+        render: () => (
+          <Tab.Pane key="upload">
+            <Header dividing content="BULK STAR UPLOAD STAR DATA" />
             <Form onSubmit={this.handleStarSubmit}>
               <Form.Field>
-                <Form.Input type={'file'} onChange={this.readFile} label={'BULK STAR JSON'}/>
+                <Form.Input type="file" onChange={this.readFile} label="BULK STAR JSON" />
               </Form.Field>
-              <Form.Group inline={true}>
-                <Form.Button size={'tiny'} basic={true} color={'green'} content={'LOAD BULK STAR DATA'}
-                             type={'Submit'}
-                             loading={this.state.isUploadWorking}
-                             disabled={this.state.isUploadWorking || (this.state.fileData === '')}/>
-                <Form.Button size={'tiny'} basic={true} color={'green'} content={'GET STUDENT EMAILS'}
-                             onClick={this.getStudentEmails}
-                             loading={this.state.isEmailWorking}
-                             disabled={this.state.isEmailWorking}/>
+              <Form.Group inline>
+                <Form.Button
+                  size="tiny"
+                  basic
+                  color="green"
+                  content="LOAD BULK STAR DATA"
+                  type="Submit"
+                  loading={this.state.isUploadWorking}
+                  disabled={this.state.isUploadWorking || (this.state.fileData === '')}
+                />
+                <Form.Button
+                  size="tiny"
+                  basic
+                  color="green"
+                  content="GET STUDENT EMAILS"
+                  onClick={this.getStudentEmails}
+                  loading={this.state.isEmailWorking}
+                  disabled={this.state.isEmailWorking}
+                />
               </Form.Group>
             </Form>
             {this.state.generatedData ? <Segment>{this.state.generatedData}</Segment> : undefined}
           </Tab.Pane>
+)
         ,
       },
     ];
 
     return (
       <Segment>
-        <Header as="h4" dividing={true}>SELECT STUDENT</Header>
-        <Tab panes={panes} onTabChange={this.handleTabChange}/>
+        <Header as="h4" dividing>SELECT STUDENT</Header>
+        <Tab panes={panes} onTabChange={this.handleTabChange} />
       </Segment>
     );
   }

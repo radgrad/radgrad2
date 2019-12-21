@@ -146,20 +146,21 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     return (
       <Accordion>
         <Accordion.Title style={accordionTitleStyle} active={active} onClick={this.handleAccordionClick}>
-          <Icon name="dropdown"/><a>Add Review </a>
+          <Icon name="dropdown" />
+          <a>Add Review </a>
         </Accordion.Title>
 
         <Accordion.Content active={active}>
           <div className="ui padded container" style={paddedContainerStyle}>
             <AutoForm schema={schema} onSubmit={this.handleAdd} ref={this.formRef}>
               <Form.Group widths="equal">
-                <SelectField name="academicTerm"/>
-                <RatingField name="rating"/>
+                <SelectField name="academicTerm" />
+                <RatingField name="rating" />
               </Form.Group>
 
-              <LongTextField placeholder='Explain the reasoning behind your rating here.' name="comments"/>
+              <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
 
-              <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false}/>
+              <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
             </AutoForm>
           </div>
         </Accordion.Content>

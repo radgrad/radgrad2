@@ -13,16 +13,16 @@ interface IAddHelpMessageFormProps {
 }
 
 const AddHelpMessageForm = (props: IAddHelpMessageFormProps) => (
-  <Segment padded={true}>
-    <Header dividing={true}>Add Help Message</Header>
-    <AutoForm schema={HelpMessages.getDefineSchema()} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+  <Segment padded>
+    <Header dividing>Add Help Message</Header>
+    <AutoForm schema={HelpMessages.getDefineSchema()} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
       <Form.Group widths="equal">
-        <TextField name="routeName"/>
-        <TextField name="title"/>
+        <TextField name="routeName" />
+        <TextField name="title" />
       </Form.Group>
-      <LongTextField name="text"/>
-      <BoolField name="retired"/>
-      <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+      <LongTextField name="text" />
+      <BoolField name="retired" />
+      <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
     </AutoForm>
   </Segment>
 );

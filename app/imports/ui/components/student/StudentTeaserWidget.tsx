@@ -88,39 +88,53 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
 
   return (
     <Container id={`${studentTeaserWidget}`}>
-      <Segment padded={true}>
-        <Header dividing={true}>
-          <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>
+      <Segment padded>
+        <Header dividing>
+          <Header as="h4">
+            {' '}
+TEASERS
+            <WidgetHeaderNumber inputValue={teaserCount} />
+            {' '}
+
+          </Header>
         </Header>
 
         {
-          teasers ?
+          teasers ? (
             <Card.Group style={cardGroupStyle}>
               {
                 teasers.map((teaser, index) => (
                   <React.Fragment key={index}>
-                    <Card centered={true}>
+                    <Card centered>
                       <Card.Content>
                         <Card.Header>{teaserTitle(teaser)}</Card.Header>
-                        <Card.Meta>By {teaserAuthor(teaser)} </Card.Meta>
+                        <Card.Meta>
+By
+                          {teaserAuthor(teaser)}
+                          {' '}
+
+                        </Card.Meta>
                       </Card.Content>
 
                       <Card.Content style={teaserWidgetVideoStyle}>
-                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)}/>
+                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
                       </Card.Content>
 
                       <Card.Content>
-                        <InterestList item={teaser} size="mini"/>
+                        <InterestList item={teaser} size="mini" />
                       </Card.Content>
 
                       {
-                        teaser.opportunityID ?
+                        teaser.opportunityID ? (
                           <Link to={buildOpportunitiesRouteName(teaser, props)}>
                             <Button attached="bottom">
-                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
+                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
+                              {' '}
+View
                               More
                             </Button>
                           </Link>
+                        )
                           : ''
                       }
                     </Card>
@@ -128,6 +142,7 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
                 ))
               }
             </Card.Group>
+          )
             :
             <p>Add interests to see recommendations here.</p>
         }

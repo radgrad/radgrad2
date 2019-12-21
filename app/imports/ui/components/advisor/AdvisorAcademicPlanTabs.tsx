@@ -8,20 +8,21 @@ const AdvisorAcademicPlanTabs = () => {
     {
       menuItem: 'Viewer',
       render: () => ( // eslint-disable-line react/display-name
-        <Tab.Pane><AdvisorAcademicPlanViewerWidget/></Tab.Pane>
+        <Tab.Pane><AdvisorAcademicPlanViewerWidget /></Tab.Pane>
       ),
     },
     {
       menuItem: 'Builder',
       render: () => ( // eslint-disable-line react/display-name
-        <Tab.Pane><AdvisorAPBuilderWidget/></Tab.Pane>
+        <Tab.Pane><AdvisorAPBuilderWidget /></Tab.Pane>
       ),
     },
   ];
   return (
-    <Segment padded={true}>
-      <Tab panes={panes}/>
-    </Segment>);
+    <Segment padded>
+      <Tab panes={panes} />
+    </Segment>
+);
 };
 
 export default AdvisorAcademicPlanTabs;

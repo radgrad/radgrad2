@@ -9,8 +9,13 @@ interface ILandingSection7Props {
 const LandingSection7 = (props: ILandingSection7Props) => (
   <div id="landing-section-7" style={styles['inverted-section']}>
     <Container>
-      <Grid columns={2} centered={true} padded={true} stackable={true}
-            style={styles['landing-section-3 .grid, landing-section-4 .grid, landing-section-5 .grid, landing-section-6 .container, landing-section-7 .grid, landing-section-8 .container, landing-section-9 .container']}>
+      <Grid
+        columns={2}
+        centered
+        padded
+        stackable
+        style={styles['landing-section-3 .grid, landing-section-4 .grid, landing-section-5 .grid, landing-section-6 .container, landing-section-7 .grid, landing-section-8 .container, landing-section-9 .container']}
+      >
 
         <Grid.Column>
           <Header as="h1" style={styles['inverted-header']}>Discover new directions</Header>
@@ -20,12 +25,15 @@ const LandingSection7 = (props: ILandingSection7Props) => (
           <p style={styles['inverted-description']}>
             RadGrad provides &quot;Explorers&quot; for career goals, interests, degrees, and more so you can stay on top of
             the latest trends. For example, RadGrad&apos;s career goals
-            include: <strong style={styles['green-text']}>{props.careerGoalNames}</strong>.
+            include:
+            {' '}
+            <strong style={styles['green-text']}>{props.careerGoalNames}</strong>
+.
           </p>
         </Grid.Column>
 
         <Grid.Column>
-          <Image rounded={true} src="/images/landing/abi-explorer-career-goals.png"/>
+          <Image rounded src="/images/landing/abi-explorer-career-goals.png" />
         </Grid.Column>
       </Grid>
     </Container>

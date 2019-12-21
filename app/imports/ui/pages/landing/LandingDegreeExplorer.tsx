@@ -22,35 +22,38 @@ const DesiredDegreeExplorer = (props: IDesiredDegreeExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
                 <span>{props.desiredDegree.name}</span>
               </Header>
               <b>Description:</b>
-              <Markdown escapeHtml={true} source={props.desiredDegree.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+              <Markdown
+                escapeHtml
+                source={props.desiredDegree.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

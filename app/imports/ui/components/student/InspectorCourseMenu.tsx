@@ -85,7 +85,12 @@ class InspectorCourseMenu extends React.Component<IInpectorCourseMenuProps, IIns
               <Dropdown text={coursesLabel(courses)}>
                 <Dropdown.Menu>
                   {_.map(courses, (c) => (
-                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>{c.num} {c.shortName}</Dropdown.Item>))}
+                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>
+                      {c.num}
+                      {' '}
+                      {c.shortName}
+                    </Dropdown.Item>
+))}
                 </Dropdown.Menu>
               </Dropdown>
             </Dropdown.Item>

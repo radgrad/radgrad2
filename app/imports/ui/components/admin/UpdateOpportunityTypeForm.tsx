@@ -20,14 +20,24 @@ interface IUpdateOpportunityTypeFormProps {
 const UpdateOpportunityTypeForm = (props: IUpdateOpportunityTypeFormProps) => {
   const model = props.collection.findDoc(props.id);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={OpportunityTypes.getUpdateSchema()} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
-        <TextField name="name"/>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={OpportunityTypes.getUpdateSchema()}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
+        <TextField name="name" />
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

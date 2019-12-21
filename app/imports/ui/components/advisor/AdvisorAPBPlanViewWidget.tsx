@@ -11,17 +11,37 @@ interface IAdvisorAPBPlanViewWidgetProps {
 const AdvisorAPBPlanViewWidget = (props: IAdvisorAPBPlanViewWidgetProps) => {
   const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
   return (
-    <Grid widths='equal' columns={5}>
-      <AdvisorAPBYearView yearNumber={1} choiceList={props.choiceList} quarterSystem={quarterSystem}
-                          coursesPerTerm={props.coursesPerTerm}/>
-      <AdvisorAPBYearView yearNumber={2} choiceList={props.choiceList} quarterSystem={quarterSystem}
-                          coursesPerTerm={props.coursesPerTerm}/>
-      <AdvisorAPBYearView yearNumber={3} choiceList={props.choiceList} quarterSystem={quarterSystem}
-                          coursesPerTerm={props.coursesPerTerm}/>
-      <AdvisorAPBYearView yearNumber={4} choiceList={props.choiceList} quarterSystem={quarterSystem}
-                          coursesPerTerm={props.coursesPerTerm}/>
-      <AdvisorAPBYearView yearNumber={5} choiceList={props.choiceList} quarterSystem={quarterSystem}
-                          coursesPerTerm={props.coursesPerTerm}/>
+    <Grid widths="equal" columns={5}>
+      <AdvisorAPBYearView
+        yearNumber={1}
+        choiceList={props.choiceList}
+        quarterSystem={quarterSystem}
+        coursesPerTerm={props.coursesPerTerm}
+      />
+      <AdvisorAPBYearView
+        yearNumber={2}
+        choiceList={props.choiceList}
+        quarterSystem={quarterSystem}
+        coursesPerTerm={props.coursesPerTerm}
+      />
+      <AdvisorAPBYearView
+        yearNumber={3}
+        choiceList={props.choiceList}
+        quarterSystem={quarterSystem}
+        coursesPerTerm={props.coursesPerTerm}
+      />
+      <AdvisorAPBYearView
+        yearNumber={4}
+        choiceList={props.choiceList}
+        quarterSystem={quarterSystem}
+        coursesPerTerm={props.coursesPerTerm}
+      />
+      <AdvisorAPBYearView
+        yearNumber={5}
+        choiceList={props.choiceList}
+        quarterSystem={quarterSystem}
+        coursesPerTerm={props.coursesPerTerm}
+      />
     </Grid>
   );
 };

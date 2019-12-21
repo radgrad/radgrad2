@@ -8,7 +8,7 @@ const Signout = () => {
   Meteor.logout();
   return (
     <div>
-      <LandingNavBarContainer/>
+      <LandingNavBarContainer />
       <Header as="h2" textAlign="center">
         <p>You are signed out.</p>
       </Header>

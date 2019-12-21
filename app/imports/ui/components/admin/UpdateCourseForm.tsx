@@ -61,27 +61,37 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
   });
   // console.log(model, schema);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <TextField name="name"/>
-          <TextField name="shortName"/>
+          <TextField name="name" />
+          <TextField name="shortName" />
         </Form.Group>
         <Form.Group widths="equal">
-          <NumField name="creditHrs"/>
-          <TextField name="num"/>
+          <NumField name="creditHrs" />
+          <TextField name="num" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <TextField name="syllabus"/>
+        <LongTextField name="description" />
+        <TextField name="syllabus" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests"/>
-          <MultiSelectField name="prerequisiteNames"/>
+          <MultiSelectField name="interests" />
+          <MultiSelectField name="prerequisiteNames" />
         </Form.Group>
-        <BoolField name="retired"/>
-        <p/>
-        <SubmitField className={''} value={'Update'} disabled={false} inputRef={undefined}/>
+        <BoolField name="retired" />
+        <p />
+        <SubmitField className="" value="Update" disabled={false} inputRef={undefined} />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

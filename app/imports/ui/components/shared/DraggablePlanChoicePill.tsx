@@ -29,7 +29,7 @@ const DraggablePlanChoicePill = (props: IPlanChoicePillProps) => {
           )}
         >
           <Grid.Row style={style}>
-            <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+            <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
           </Grid.Row>
 
         </div>

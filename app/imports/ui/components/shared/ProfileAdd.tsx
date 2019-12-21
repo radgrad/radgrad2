@@ -56,10 +56,20 @@ const ProfileAdd = (props: IProfileAddProps) => {
   const isTypePlans = type === EXPLORER_TYPE.ACADEMICPLANS;
 
   return (
-    isTypePlans ?
-      <Button onClick={handleAddToProfile(props)}><Icon name="plus"/><br/>Select Plan</Button>
-      :
-      <Button onClick={handleAddToProfile(props)}><Icon name="plus"/><br/>Add to Profile</Button>
+    isTypePlans ? (
+      <Button onClick={handleAddToProfile(props)}>
+        <Icon name="plus" />
+        <br />
+Select Plan
+      </Button>
+    )
+      : (
+        <Button onClick={handleAddToProfile(props)}>
+          <Icon name="plus" />
+          <br />
+Add to Profile
+        </Button>
+    )
   );
 };
 

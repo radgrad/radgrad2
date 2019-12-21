@@ -24,9 +24,15 @@ const InterestList = (props: IInterestListProps) => {
         matchingUserInterests.map((interest) => {
           const interestSlug = itemToSlugName(interest);
           return (
-            <Label as={Link} key={interest._id}
-                   to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)} size={props.size}>
-              <i className="fitted star icon"/> {docToName(interest)}
+            <Label
+              as={Link}
+              key={interest._id}
+              to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)}
+              size={props.size}
+            >
+              <i className="fitted star icon" />
+              {' '}
+              {docToName(interest)}
             </Label>
           );
         })
@@ -36,9 +42,15 @@ const InterestList = (props: IInterestListProps) => {
         matchingCareerInterests.map((interest) => {
           const interestSlug = itemToSlugName(interest);
           return (
-            <Label as={Link} key={interest._id}
-                   to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)} size={props.size}>
-              <i className="fitted suitcase icon"/> {docToName(interest)}
+            <Label
+              as={Link}
+              key={interest._id}
+              to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)}
+              size={props.size}
+            >
+              <i className="fitted suitcase icon" />
+              {' '}
+              {docToName(interest)}
             </Label>
           );
         })
@@ -48,9 +60,13 @@ const InterestList = (props: IInterestListProps) => {
         otherInterests.map((interest) => {
           const interestSlug = itemToSlugName(interest);
           return (
-            <Label as={Link} key={interest._id}
-                   to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)} size={props.size}
-                   color="grey">
+            <Label
+              as={Link}
+              key={interest._id}
+              to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)}
+              size={props.size}
+              color="grey"
+            >
               {docToName(interest)}
             </Label>
           );

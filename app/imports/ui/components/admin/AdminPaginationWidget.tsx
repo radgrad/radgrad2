@@ -74,20 +74,58 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
   const firstDisabled = startIndex < showCount;
   const lastDisabled = (count - startIndex) <= showCount;
   return (
-    <Grid.Row centered={true}>
-      <Button basic={true} color="green" onClick={handleFirstClick(props)}
-              style={heightStyle}><Icon
-        name="fast backward"/> First</Button>
-      <Button basic={true} color="green" disabled={firstDisabled} onClick={handlePrevClick(props)}
-              style={heightStyle}><Icon
-        name="step backward"/> Prev</Button>
+    <Grid.Row centered>
+      <Button
+        basic
+        color="green"
+        onClick={handleFirstClick(props)}
+        style={heightStyle}
+      >
+        <Icon
+          name="fast backward"
+        />
+        {' '}
+First
+      </Button>
+      <Button
+        basic
+        color="green"
+        disabled={firstDisabled}
+        onClick={handlePrevClick(props)}
+        style={heightStyle}
+      >
+        <Icon
+          name="step backward"
+        />
+        {' '}
+Prev
+      </Button>
       <Message style={messageStyle}>{label}</Message>
-      <Button basic={true} color="green" disabled={lastDisabled}
-              onClick={handleNextClick(props)} style={heightStyle}><Icon
-        name="step forward"/> Next</Button>
-      <Button basic={true} color="green"
-              onClick={handleLastClick(props)} style={heightStyle}><Icon
-        name="fast forward"/> Last</Button>
+      <Button
+        basic
+        color="green"
+        disabled={lastDisabled}
+        onClick={handleNextClick(props)}
+        style={heightStyle}
+      >
+        <Icon
+          name="step forward"
+        />
+        {' '}
+Next
+      </Button>
+      <Button
+        basic
+        color="green"
+        onClick={handleLastClick(props)}
+        style={heightStyle}
+      >
+        <Icon
+          name="fast forward"
+        />
+        {' '}
+Last
+      </Button>
       {/* <Dropdown selection={true} options={options} className="jsNum"/> */}
       <select className="ui dropdown jsNum" style={heightStyle} value={showCount} onChange={handleCountChange(props)}>
         <option value={100}>100</option>

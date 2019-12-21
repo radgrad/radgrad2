@@ -27,47 +27,64 @@ const LandingInterestExplorer = (props: IInterestExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
                 <span>{props.interest.name}</span>
               </Header>
               <b>Description:</b>
-              <Markdown escapeHtml={true} source={props.interest.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+              <Markdown
+                escapeHtml
+                source={props.interest.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
             </Segment>
-            <Segment padded={true}>
-              <Header as="h4" dividing={true}>Related Courses</Header>
-              <List horizontal={true} bulleted={true}>
+            <Segment padded>
+              <Header as="h4" dividing>Related Courses</Header>
+              <List horizontal bulleted>
                 {// console.log(course.name);
-                  props.courses.map((course) => (<List.Item key={course._id}
-                                                            href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>))}
+                  props.courses.map((course) => (
+                    <List.Item
+                      key={course._id}
+                      href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}
+                    >
+                      {course.name}
+                    </List.Item>
+))
+}
               </List>
             </Segment>
-            <Segment padded={true}>
-              <Header as="h4" dividing={true}>Related Opportunities</Header>
-              <List horizontal={true} bulleted={true}>
+            <Segment padded>
+              <Header as="h4" dividing>Related Opportunities</Header>
+              <List horizontal bulleted>
                 {// console.log(course.name);
-                  props.opportunities.map((opportunity) => (<List.Item key={opportunity._id}
-                                                                       href={`#/explorer/opportunites/${getSlugFromEntityID(opportunity._id)}`}>{opportunity.name}</List.Item>))}
+                  props.opportunities.map((opportunity) => (
+                    <List.Item
+                      key={opportunity._id}
+                      href={`#/explorer/opportunites/${getSlugFromEntityID(opportunity._id)}`}
+                    >
+                      {opportunity.name}
+                    </List.Item>
+))
+}
               </List>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
     </div>

@@ -27,14 +27,24 @@ class MentorQuestionAnswerWidget extends React.Component<IQuestionAnswersWidgetP
     const { isActive } = this.state;
     return (
       <React.Fragment>
-        <Divider/>
-        <List horizontal={true} relaxed={true}>
+        <Divider />
+        <List horizontal relaxed>
           <List.Item>
-            <Image src={mentor.picture} size={'mini'}/>
+            <Image src={mentor.picture} size="mini" />
             <List.Content>
-              <a onClick={this.toggleFullSize}>{mentor.firstName} {mentor.lastName} </a> answered:
-              <ExplorerUsersWidget userProfile={mentor} isActive={isActive}
-                                   handleClose={this.toggleFullSize}/>
+              <a onClick={this.toggleFullSize}>
+                {mentor.firstName}
+                {' '}
+                {mentor.lastName}
+                {' '}
+              </a>
+              {' '}
+answered:
+              <ExplorerUsersWidget
+                userProfile={mentor}
+                isActive={isActive}
+                handleClose={this.toggleFullSize}
+              />
             </List.Content>
           </List.Item>
         </List>

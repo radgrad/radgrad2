@@ -12,7 +12,7 @@ class AdminAnalyticsUserInteractionsWidget extends React.Component<IAdminAnalyti
     return (
       <div>
         <Segment>
-          <Header as='h4' dividing>USER INTERACTIONS</Header>
+          <Header as="h4" dividing>USER INTERACTIONS</Header>
         </Segment>
       </div>
     );

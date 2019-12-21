@@ -470,19 +470,31 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
       return <p>You have no Academic Plan, select add to profile to select a plan.</p>;
     case 'noInterests':
       if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
-        return <p>Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
-          menu on the left.</p>;
+        return (
+          <p>
+Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
+          menu on the left.
+          </p>
+);
       }
       if (isType(EXPLORER_TYPE.COURSES, props)) {
-        return <p>Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
-          menu on the left.</p>;
+        return (
+          <p>
+Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
+          menu on the left.
+          </p>
+);
       }
       if (isType(EXPLORER_TYPE.INTERESTS, props)) {
         return <p>You have no Interests, select add to profile to add an interest.</p>;
       }
       if (isType(EXPLORER_TYPE.OPPORTUNITIES, props)) {
-        return <p>Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
-          pull-down menu on the left.</p>;
+        return (
+          <p>
+Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
+          pull-down menu on the left.
+          </p>
+);
       }
       return '';
     case 'noCareerGoals':
@@ -498,10 +510,12 @@ export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | 
     case EXPLORER_TYPE.ACADEMICPLANS:
       return noItems('noPlan', props.match) ? buildNoItemsMessage('noPlan', props) : '';
     case EXPLORER_TYPE.CAREERGOALS:
-      return <React.Fragment>
-        {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
-        {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
-      </React.Fragment>;
+      return (
+        <React.Fragment>
+          {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
+          {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
+        </React.Fragment>
+);
     case EXPLORER_TYPE.COURSES:
       return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
     case EXPLORER_TYPE.DEGREES:

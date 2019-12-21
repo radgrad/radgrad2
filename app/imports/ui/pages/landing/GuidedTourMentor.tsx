@@ -25,18 +25,19 @@ const GuidedTourMentor = () => {
   return (
     <div style={styles.background}>
       <Container textAlign="center">
-        <Segment padded={true} style={styles.background}>
+        <Segment padded style={styles.background}>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Slider {...settings}>
-            <WhyRadGrad/>
-            <SetUp/>
-            <MentorSpace/>
-            <Explorer/>
-            <WhatsNext/>
+            <WhyRadGrad />
+            <SetUp />
+            <MentorSpace />
+            <Explorer />
+            <WhatsNext />
           </Slider>
         </Segment>
         <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
       </Container>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
 };

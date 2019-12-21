@@ -22,23 +22,32 @@ const handleChangeUserNameRegex = (props: IUpdateRegex) => (event) => {
 
 const FilterUserWidget = (props: IUpdateRegex) => (
   <Segment>
-    <Header as="h4" dividing={true}>FILTER USERS</Header>
+    <Header as="h4" dividing>FILTER USERS</Header>
     <Form>
       <Form.Group widths="equal">
         <Form.Field>
           <label>First Name</label>
-          <Form.Input placeholder="First Name Regex" name="firstNameRegex"
-                      onChange={handleChangeFirstNameRegex(props)}/>
+          <Form.Input
+            placeholder="First Name Regex"
+            name="firstNameRegex"
+            onChange={handleChangeFirstNameRegex(props)}
+          />
         </Form.Field>
         <Form.Field>
           <label>Last Name</label>
-          <Form.Input placeholder="Last Name Regex" name="lastNameRegex"
-                      onChange={handleChangeLastNameRegex(props)}/>
+          <Form.Input
+            placeholder="Last Name Regex"
+            name="lastNameRegex"
+            onChange={handleChangeLastNameRegex(props)}
+          />
         </Form.Field>
         <Form.Field>
           <label>Username</label>
-          <Form.Input placeholder="Username Regex" name="userNameRegex"
-                      onChange={handleChangeUserNameRegex(props)}/>
+          <Form.Input
+            placeholder="Username Regex"
+            name="userNameRegex"
+            onChange={handleChangeUserNameRegex(props)}
+          />
         </Form.Field>
       </Form.Group>
     </Form>

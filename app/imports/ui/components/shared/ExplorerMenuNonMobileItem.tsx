@@ -137,9 +137,12 @@ const ExplorerMenuNonMobileItem = (props: IExplorerMenuNonMobileItemProps) => {
   };
 
   return (
-    <Menu.Item as={NavLink} exact={true}
-               to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}>
-      <i className={getItemStatus(listItem.item, props)} style={iconStyle}/>
+    <Menu.Item
+      as={NavLink}
+      exact
+      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
+    >
+      <i className={getItemStatus(listItem.item, props)} style={iconStyle} />
       {type === EXPLORER_TYPE.OPPORTUNITIES && opportunityItemName(listItem as { item: IOpportunity, count: number })}
       {type === EXPLORER_TYPE.COURSES && courseName(listItem as { item: ICourse, count: number })}
       {(type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES) && itemName(listItem)}

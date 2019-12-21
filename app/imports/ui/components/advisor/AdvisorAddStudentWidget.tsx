@@ -125,32 +125,38 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
       academicPlanID,
     } = this.state;
     return (
-      <Tab.Pane key={'new'}>
-        <Header as="h4" dividing={true}>ADD STUDENT</Header>
-        <Form widths={'equal'} onSubmit={this.onSubmit}>
+      <Tab.Pane key="new">
+        <Header as="h4" dividing>ADD STUDENT</Header>
+        <Form widths="equal" onSubmit={this.onSubmit}>
           <Form.Group>
             <Form.Field>
-              <Form.Input name={'firstName'}
-                          label={'First Name'}
-                          value={firstName}
-                          onChange={this.handleFormChange}
-                          required/>
+              <Form.Input
+                name="firstName"
+                label="First Name"
+                value={firstName}
+                onChange={this.handleFormChange}
+                required
+              />
             </Form.Field>
             <Form.Field>
-              <Form.Input name={'lastName'}
-                          label={'Last Name'}
-                          value={lastName}
-                          onChange={this.handleFormChange}
-                          required/>
+              <Form.Input
+                name="lastName"
+                label="Last Name"
+                value={lastName}
+                onChange={this.handleFormChange}
+                required
+              />
             </Form.Field>
           </Form.Group>
           <Form.Group>
             <Form.Field>
-              <Form.Input name={'username'}
-                          label={'Username'}
-                          value={username}
-                          onChange={this.handleFormChange}
-                          required/>
+              <Form.Input
+                name="username"
+                label="Username"
+                value={username}
+                onChange={this.handleFormChange}
+                required
+              />
             </Form.Field>
             <Form.Field>
               <Form.Field>
@@ -158,9 +164,9 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
               </Form.Field>
               <Form.Field>
                 <Radio
-                  name={'isAlumni'}
-                  label={'True'}
-                  value={'true'}
+                  name="isAlumni"
+                  label="True"
+                  value="true"
                   onChange={this.handleFormChange}
                   checked={isAlumni === true}
                   required
@@ -168,9 +174,9 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
               </Form.Field>
               <Form.Field>
                 <Radio
-                  name={'isAlumni'}
-                  label={'False'}
-                  value={'false'}
+                  name="isAlumni"
+                  label="False"
+                  value="false"
                   onChange={this.handleFormChange}
                   checked={isAlumni === false}
                   required
@@ -178,68 +184,86 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
               </Form.Field>
             </Form.Field>
           </Form.Group>
-          <Header as={'h4'} dividing={true}>Optional Fields</Header>
+          <Header as="h4" dividing>Optional Fields</Header>
           <Form.Group>
             <Form.Field>
-              <Form.Input name="picture"
-                          label={<React.Fragment>
-                            Picture (<a onClick={this.handleUploadClick}>Upload</a>)
-                          </React.Fragment>}
-                          onChange={this.handleFormChange}
-                          value={picture || ''}/>
+              <Form.Input
+                name="picture"
+                label={(
+                  <React.Fragment>
+                            Picture (
+                    <a onClick={this.handleUploadClick}>Upload</a>
+)
+                  </React.Fragment>
+)}
+                onChange={this.handleFormChange}
+                value={picture || ''}
+              />
             </Form.Field>
             <Form.Field>
-              <Form.Input name={'website'}
-                          label={'Website'}
-                          value={website || ''}
-                          onChange={this.handleFormChange}/>
+              <Form.Input
+                name="website"
+                label="Website"
+                value={website || ''}
+                onChange={this.handleFormChange}
+              />
             </Form.Field>
           </Form.Group>
           <Form.Group>
-            <Form.Dropdown selection multiple
-                           name={'careerGoals'}
-                           label={'Select Career Goal(s)'}
-                           value={careerGoals}
-                           onChange={this.handleFormChange}
-                           options={this.props.careerGoals.map(
+            <Form.Dropdown
+              selection
+              multiple
+              name="careerGoals"
+              label="Select Career Goal(s)"
+              value={careerGoals}
+              onChange={this.handleFormChange}
+              options={this.props.careerGoals.map(
                              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                            )}
-                           placeholder={'Select Career Goal(s)'}/>
-            <Form.Dropdown selection multiple
-                           name={'userInterests'}
-                           label={'Select Interest(s)'}
-                           value={userInterests}
-                           onChange={this.handleFormChange}
-                           options={this.props.interests.map(
+              placeholder="Select Career Goal(s)"
+            />
+            <Form.Dropdown
+              selection
+              multiple
+              name="userInterests"
+              label="Select Interest(s)"
+              value={userInterests}
+              onChange={this.handleFormChange}
+              options={this.props.interests.map(
                              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                            )}
-                           placeholder={'Select Interest(s)'}/>
+              placeholder="Select Interest(s)"
+            />
           </Form.Group>
           <Form.Group>
             <Form.Field>
-              <Form.Dropdown name="declaredAcademicTerm"
-                             label={'Declared Semester'}
-                             value={declaredAcademicTerm}
-                             onChange={this.handleFormChange}
-                             options={AcademicTerms.findNonRetired().map(
+              <Form.Dropdown
+                name="declaredAcademicTerm"
+                label="Declared Semester"
+                value={declaredAcademicTerm}
+                onChange={this.handleFormChange}
+                options={AcademicTerms.findNonRetired().map(
                                (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
                              )}
-                             selection={true}
-                             placeholder={'Select Semester'}/>
+                selection
+                placeholder="Select Semester"
+              />
             </Form.Field>
             <Form.Field>
-              <Form.Dropdown selection
-                             name="academicPlanID"
-                             label={'Academic Plan'}
-                             value={academicPlanID}
-                             onChange={this.handleFormChange}
-                             options={AcademicPlans.findNonRetired().map(
+              <Form.Dropdown
+                selection
+                name="academicPlanID"
+                label="Academic Plan"
+                value={academicPlanID}
+                onChange={this.handleFormChange}
+                options={AcademicPlans.findNonRetired().map(
                                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                              )}
-                             placeholder={'Select Academic Plan'}/>
+                placeholder="Select Academic Plan"
+              />
             </Form.Field>
           </Form.Group>
-          <Form.Button basic color={'green'} content={'Add'} type={'Submit'}/>
+          <Form.Button basic color="green" content="Add" type="Submit" />
         </Form>
       </Tab.Pane>
     );

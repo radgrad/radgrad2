@@ -39,17 +39,17 @@ const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps): React.Re
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Feedback Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Feedback Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group>
-          <SelectField name="user"/>
-          <SelectField name="functionName"/>
-          <SelectField name="feedbackType"/>
+          <SelectField name="user" />
+          <SelectField name="functionName" />
+          <SelectField name="feedbackType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

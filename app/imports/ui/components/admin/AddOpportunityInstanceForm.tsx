@@ -56,22 +56,22 @@ const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => 
   });
   // console.log(termNames, courseNames, studentNames);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Opportunity Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Opportunity Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term"/>
-          <SelectField name="student"/>
+          <SelectField name="term" />
+          <SelectField name="student" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunity"/>
-          <SelectField name="sponsor"/>
+          <SelectField name="opportunity" />
+          <SelectField name="sponsor" />
         </Form.Group>
         <Form.Group widths="equal">
-          <BoolField name="verified"/>
-          <BoolField name="retired"/>
+          <BoolField name="verified" />
+          <BoolField name="retired" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

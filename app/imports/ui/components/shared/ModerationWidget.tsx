@@ -59,19 +59,33 @@ const handleRejectQuestion = (item, comments) => {
 
 
 const ModerationWidget = (props: IModerationWidget) => (
-  <Grid columns='equal' divided='vertically'>
+  <Grid columns="equal" divided="vertically">
     <Grid.Column>
-      <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview}
-                              reviews={props.courseReviews} isReview={true} type={'COURSE'}/>
+      <ModerationColumnWidget
+        handleAccept={handleAcceptReview}
+        handleReject={handleRejectReview}
+        reviews={props.courseReviews}
+        isReview
+        type="COURSE"
+      />
     </Grid.Column>
     <Grid.Column>
-      <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview}
-                              reviews={props.opportunityReviews} isReview={true} type={'OPPORTUNITY'}/>
+      <ModerationColumnWidget
+        handleAccept={handleAcceptReview}
+        handleReject={handleRejectReview}
+        reviews={props.opportunityReviews}
+        isReview
+        type="OPPORTUNITY"
+      />
     </Grid.Column>
     <Grid.Column>
-      <ModerationColumnWidget handleAccept={handleAcceptQuestion}
-                              handleReject={handleRejectQuestion}
-                              reviews={props.mentorQuestions} isReview={false} type={'QUESTION'}/>
+      <ModerationColumnWidget
+        handleAccept={handleAcceptQuestion}
+        handleReject={handleRejectQuestion}
+        reviews={props.mentorQuestions}
+        isReview={false}
+        type="QUESTION"
+      />
     </Grid.Column>
   </Grid>
 );

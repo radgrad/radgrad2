@@ -78,17 +78,27 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-        <InterestList item={item} size='mini'/>
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription}...`}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
+        <InterestList item={item} size="mini" />
       </Card.Content>
 
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents(item)}/></span>
+        <span>
+STUDENTS PARTICIPATING
+          <WidgetHeaderNumber inputValue={numberStudents(item)} />
+        </span>
       </Card.Content>
 
       <Link to={buildRouteName(props)}>
-        <Button attached={'bottom'} fluid={true}><Icon name="chevron circle right"/><br/>View More</Button>
+        <Button attached="bottom" fluid>
+          <Icon name="chevron circle right" />
+          <br />
+View More
+        </Button>
       </Link>
     </Card>
   );

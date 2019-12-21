@@ -25,7 +25,7 @@ const DraggableCoursePill = (props: ICoursePillProps) => (
           prov.draggableProps.style,
         )}
       >
-        <CoursePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+        <CoursePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
 
       </div>
     )}

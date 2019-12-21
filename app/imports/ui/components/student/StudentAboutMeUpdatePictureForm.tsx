@@ -62,8 +62,8 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
       <React.Fragment>
         <Grid.Column width={2}><b>Picture</b></Grid.Column>
         <Grid.Column width={6}>
-          <Image src={picture} style={imageStyle} floated="left"/>
-          <Button basic={true} color="green" onClick={this.handleUploadPicture}>Upload</Button>
+          <Image src={picture} style={imageStyle} floated="left" />
+          <Button basic color="green" onClick={this.handleUploadPicture}>Upload</Button>
         </Grid.Column>
       </React.Fragment>
     );

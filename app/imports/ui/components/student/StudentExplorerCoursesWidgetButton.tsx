@@ -134,30 +134,30 @@ const StudentExplorerCoursesWidgetButton = (props: IStudentExplorerCoursesWidget
   return (
     <React.Fragment>
       {
-        isAddButtonType ?
+        isAddButtonType ? (
           <Popup
             trigger={
-              <Button basic={true} color="green" size="mini" floated="right" style={buttonStyle}>ADD TO PLAN</Button>
+              <Button basic color="green" size="mini" floated="right" style={buttonStyle}>ADD TO PLAN</Button>
             }
             className="transition"
             position="right center"
             on="click"
           >
             <Popup.Content>
-              <Menu vertical={true}>
+              <Menu vertical>
                 {
-                  years.map((year, index) => (
-                    <React.Fragment key={index}>
+                  years.map((year) => (
+                    <React.Fragment key={year}>
                       <Popup
-                        trigger={
+                        trigger={(
                           <Menu.Item as="a">
                             {year}
                           </Menu.Item>
-                        }
+                        )}
                         on="click"
                       >
                         <Popup.Content>
-                          <Menu vertical={true}>
+                          <Menu vertical>
                             {
                               yearTerms(year).map((term) => (
                                 <Menu.Item as="a" key={term} onClick={handleAddToPlan(props)}>
@@ -174,22 +174,23 @@ const StudentExplorerCoursesWidgetButton = (props: IStudentExplorerCoursesWidget
               </Menu>
             </Popup.Content>
           </Popup>
-          :
-          <React.Fragment>
-            {
-              isRemoveButtonType ?
+        )
+          : (
+            <React.Fragment>
+              {
+              isRemoveButtonType ? (
                 <Popup
                   className="transition"
-                  trigger={
-                    <Button basic={true} color="green" size="mini" floated="right" style={buttonStyle}>
+                  trigger={(
+                    <Button basic color="green" size="mini" floated="right" style={buttonStyle}>
                       REMOVE FROM PLAN
                     </Button>
-                  }
+                  )}
                   position="right center"
                   on="click"
                 >
                   <Popup.Content>
-                    <Menu vertical={true}>
+                    <Menu vertical>
                       {
                         existingTerms(props).map((term) => (
                           <Menu.Item as="a" key={term} onClick={handleRemoveFromPlan(props)} position="right">
@@ -200,17 +201,20 @@ const StudentExplorerCoursesWidgetButton = (props: IStudentExplorerCoursesWidget
                     </Menu>
                   </Popup.Content>
                 </Popup>
-                :
-                <React.Fragment>
-                  {
+              )
+                : (
+                  <React.Fragment>
+                    {
                     isTakenButtonType ?
                       <Header as="h5" color="green" floated="right" style={header5Style}>COMPLETED</Header>
                       : ''
                   }
-                </React.Fragment>
-            }
-          </React.Fragment>
-      }
+                  </React.Fragment>
+              )
+}
+            </React.Fragment>
+        )
+}
     </React.Fragment>
   );
 };

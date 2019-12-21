@@ -1,12 +1,9 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    },
-    "project": "./tsconfig.json"
+    }
   },
   "plugins": [
     "@typescript-eslint",
@@ -23,7 +20,7 @@
     "propWrapperFunctions": [ "forbidExtraProps" ]
   },
   "extends": [
-    "airbnb/base",
+    "airbnb",
     "plugin:meteor/recommended",
     "plugin:react/recommended"
   ],
@@ -58,6 +55,10 @@
     "operator-linebreak": "off",
     "padded-blocks": "off",
     "indent": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-fragments": "off",
+    "react/jsx-props-no-spreading": "off",
     "prefer-arrow-callback": "off",
     "prefer-destructuring": "off",
     "prefer-promise-reject-errors": "off"

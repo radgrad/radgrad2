@@ -28,9 +28,16 @@ const columnColor = (count) => {
 
 const FutureParticipation = (props: IFutureParticipationProps) => (
   <Grid columns="equal" padded={false}>
-    {_.map(props.academicTerms, (term, index) => (<Grid.Column key={term._id}
-                                                               color={columnColor(props.scores[index])}><b>{termName(term._id)}</b><br/>{props.scores[index]}
-    </Grid.Column>))}
+    {_.map(props.academicTerms, (term, index) => (
+      <Grid.Column
+        key={term._id}
+        color={columnColor(props.scores[index])}
+      >
+        <b>{termName(term._id)}</b>
+        <br />
+        {props.scores[index]}
+      </Grid.Column>
+))}
   </Grid>
 );
 

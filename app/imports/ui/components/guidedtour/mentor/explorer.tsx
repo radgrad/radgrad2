@@ -4,11 +4,14 @@ import styles from '../../../pages/landing/guidedtour-style';
 
 const GuidedTourMentorExplorer = () => (
   <div>
-    <Grid container={true} columns={2}>
-      <Grid.Column width={'nine'}>
-        <a href="/images/guidedtour/guidedtour-mentor-explorer.png" target="_blank"><Image rounded={true} src="/images/guidedtour/guidedtour-mentor-explorer.png"/><p style={styles.p}>Click for full-size image</p></a>
+    <Grid container columns={2}>
+      <Grid.Column width="nine">
+        <a href="/images/guidedtour/guidedtour-mentor-explorer.png" target="_blank">
+          <Image rounded src="/images/guidedtour/guidedtour-mentor-explorer.png" />
+          <p style={styles.p}>Click for full-size image</p>
+        </a>
       </Grid.Column>
-      <Grid.Column width={'seven'} textAlign={'left'}>
+      <Grid.Column width="seven" textAlign="left">
         <div>
           <Header style={styles.h1}>Review our courses, academic plans, opportunities, and career goals</Header>
           <p style={styles.p}>As a mentor, you are an invaluable source of insight into the relevance of our program in today&apos;s high tech job market.</p>

@@ -15,10 +15,10 @@ const RequestVerificationForm = (props: IRequestVerificationFormProps) => {
   });
   return (
     <div>
-      <Header dividing={true}>Request Verification</Header>
+      <Header dividing>Request Verification</Header>
       <AutoForm schema={schema} onSubmit={props.handleOnModelChange}>
-        <LongTextField name='documentation' placeholder='Describe your participation in this opportunity.'/>
-        <SubmitField inputRef={undefined} value={'Request verification'} disabled={false} className={''}/>
+        <LongTextField name="documentation" placeholder="Describe your participation in this opportunity." />
+        <SubmitField inputRef={undefined} value="Request verification" disabled={false} className="" />
       </AutoForm>
     </div>
   );

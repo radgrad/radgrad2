@@ -60,14 +60,22 @@ const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
 
   return (
     <React.Fragment>
-      <ExplorerNavDropdown match={match} text={typeName}/>
-      <br/>
+      <ExplorerNavDropdown match={match} text={typeName} />
+      <br />
 
-      <CardExplorerMenuNonMobileWidget menuAddedList={menuAddedList} type={type} role={role}
-                                       menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
+      <CardExplorerMenuNonMobileWidget
+        menuAddedList={menuAddedList}
+        type={type}
+        role={role}
+        menuCareerList={isTypeInterest ? menuCareerList : undefined}
+      />
 
-      <CardExplorerMenuMobileWidget menuAddedList={menuAddedList} type={type} role={role}
-                                    menuCareerList={isTypeInterest ? menuCareerList : undefined}/>
+      <CardExplorerMenuMobileWidget
+        menuAddedList={menuAddedList}
+        type={type}
+        role={role}
+        menuCareerList={isTypeInterest ? menuCareerList : undefined}
+      />
     </React.Fragment>
   );
 };

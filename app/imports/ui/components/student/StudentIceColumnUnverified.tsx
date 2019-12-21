@@ -117,17 +117,25 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
     <React.Fragment>
       {matchingPoints(projectedICEPoints, 0) ?
         <p>You have verified all of your planned points.</p>
-        :
-        <React.Fragment>
-          <p>You have a total of {remainingPoints} unverified {type} points.</p>
-          <List relaxed="very">
-            {years(props).map((year) => (
+        : (
+          <React.Fragment>
+            <p>
+You have a total of
+              {remainingPoints}
+              {' '}
+unverified
+              {type}
+              {' '}
+points.
+            </p>
+            <List relaxed="very">
+              {years(props).map((year) => (
               academicTerms(year).map((term, index) => {
                 const opportunityEvents = getEvents('opportunity', false, term, props);
                 const courseEvents = getEvents('course', false, term, props);
                 return (
                   <React.Fragment key={index}>
-                    {hasEvents(false, term, props) ?
+                    {hasEvents(false, term, props) ? (
                       <List.Item>
                         <List.Header>{printTerm(term)}</List.Header>
                         {opportunityEvents.map((event) => {
@@ -138,7 +146,16 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
                           return (
                             <Link
                               key={`${opportunitySlug}-${route}-${points}-${oName}`}
-                              to={route}><b>+{points}</b> {oName}<br/></Link>
+                              to={route}
+                            >
+                              <b>
++
+                                {points}
+                              </b>
+                              {' '}
+                              {oName}
+                              <br />
+                            </Link>
                           );
                         })}
                         {courseEvents.map((event) => {
@@ -147,18 +164,28 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
                           const points = icePoints(event.ice);
                           const cName = courseName(event as ICourseInstance);
                           return (
-                            <Link key={`${courseSlug}-${route}-${points}-${cName}`}
-                                  to={route}><b>+{points}</b> {cName}<br/></Link>
+                            <Link
+                              key={`${courseSlug}-${route}-${points}-${cName}`}
+                              to={route}
+                            >
+                              <b>
++
+                                {points}
+                              </b>
+                              {' '}
+                              {cName}
+                              <br />
+                            </Link>
                           );
                         })}
-                      </List.Item> : ''}
+                      </List.Item>
+                    ) : ''}
                   </React.Fragment>
                 );
-              })))
-            }
-          </List>
-        </React.Fragment>
-      }
+              })))}
+            </List>
+          </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

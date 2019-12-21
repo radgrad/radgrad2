@@ -92,36 +92,41 @@ const handleAddToPlan = (props: IStudentOfInterestAddProps) => (e) => {
 const StudentOfInterestAdd = (props: IStudentOfInterestAddProps) => (
   <React.Fragment>
     {
-      isTypeCourse(props) ?
+      isTypeCourse(props) ? (
         <Popup
           className="transition"
-          trigger={
+          trigger={(
             <Button>
-              <Icon name="plus"/><br/>Add to Plan
+              <Icon name="plus" />
+              <br />
+Add to Plan
             </Button>
-          }
+          )}
           on="click"
         >
           <Popup.Content>
-            <Menu size="mini" secondary={true} vertical={true}>
+            <Menu size="mini" secondary vertical>
               {
                 nextYears(4).map((year, index) => (
                   <React.Fragment key={index}>
                     <Popup
-                      trigger={
+                      trigger={(
                         <Menu.Item as="a" className={`${props.item} chooseSemester`}>
                           {year}
                         </Menu.Item>
-                      }
+                      )}
                       on="click"
                     >
                       <Popup.Content>
-                        <Menu size="mini" secondary={true} vertical={true}>
+                        <Menu size="mini" secondary vertical>
                           {
                             yearTerms(year).map((term) => (
-                              <Menu.Item as="a" className={`${props.item}`}
-                                         key={term}
-                                         onClick={handleAddToPlan(props)}>
+                              <Menu.Item
+                                as="a"
+                                className={`${props.item}`}
+                                key={term}
+                                onClick={handleAddToPlan(props)}
+                              >
                                 {term}
                               </Menu.Item>
                             ))
@@ -135,30 +140,37 @@ const StudentOfInterestAdd = (props: IStudentOfInterestAddProps) => (
             </Menu>
           </Popup.Content>
         </Popup>
-        :
-        <Popup
-          trigger={
-            <Button>
-              <Icon name="plus"/><br/>Add to Plan
-            </Button>
-          }
-          on="click"
-        >
-          <Popup.Content position="right center">
-            <Menu size="mini" secondary={true} vertical={true}>
-              {
+      )
+        : (
+          <Popup
+            trigger={(
+              <Button>
+                <Icon name="plus" />
+                <br />
+Add to Plan
+              </Button>
+          )}
+            on="click"
+          >
+            <Popup.Content position="right center">
+              <Menu size="mini" secondary vertical>
+                {
                 itemTerms(props).map((term, index) => (
                   <Menu.Item
                     key={index}
-                    as="a" className={`${props.item}`} onClick={handleAddToPlan(props)}>
+                    as="a"
+                    className={`${props.item}`}
+                    onClick={handleAddToPlan(props)}
+                  >
                     {term}
                   </Menu.Item>
                 ))
               }
-            </Menu>
-          </Popup.Content>
-        </Popup>
-    }
+              </Menu>
+            </Popup.Content>
+          </Popup>
+      )
+}
   </React.Fragment>
 );
 

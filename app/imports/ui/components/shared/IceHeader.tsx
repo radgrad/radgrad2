@@ -11,11 +11,11 @@ const IceHeader = (props: IceHeaderProps) => {
     margin: 0,
   };
   return (
-  <Label.Group circular={true} size="tiny" className="radgrad-ice-header">
-    <Label style={marginStyle}>{props.ice.i}</Label>
-    <Label style={marginStyle}>{props.ice.c}</Label>
-    <Label style={marginStyle}>{props.ice.e}</Label>
-  </Label.Group>
+    <Label.Group circular size="tiny" className="radgrad-ice-header">
+      <Label style={marginStyle}>{props.ice.i}</Label>
+      <Label style={marginStyle}>{props.ice.c}</Label>
+      <Label style={marginStyle}>{props.ice.e}</Label>
+    </Label.Group>
   );
 };
 

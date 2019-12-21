@@ -31,7 +31,7 @@ const ExplorerNavDropdown = (props: IExplorerNavDropdownProps) => {
     style: { textDecoration: 'none' },
   }));
   return (
-    <Dropdown selection={true} fluid={true} options={menuOptions} text={props.text} id={`${selectExplorerMenu}`}/>
+    <Dropdown selection fluid options={menuOptions} text={props.text} id={`${selectExplorerMenu}`} />
   );
 };
 

@@ -10,15 +10,15 @@ const AdminAnalyticsPage = () => {
   };
   return (
     <div>
-      <AdminPageMenuWidget/>
-      <Grid container={true} stackable={true} style={paddedStyle} columns={1}>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle} columns={1}>
         <Grid.Column>
           <Grid>
             <Grid.Column width={3}>
-              <AdminAnalyticsMenuWidget/>
+              <AdminAnalyticsMenuWidget />
             </Grid.Column>
             <Grid.Column width={13}>
-              <AdminAnalyticsLoggedInUsersWidget/>
+              <AdminAnalyticsLoggedInUsersWidget />
             </Grid.Column>
           </Grid>
         </Grid.Column>

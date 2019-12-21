@@ -63,19 +63,28 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
 
   const { studentLevelName, students } = props;
   return (
-    <Segment padded={true} id={`${studentLevelsOthersWidget}`}>
-      <Header as="h4" dividing={true}>OTHER {studentLevelName} STUDENTS</Header>
+    <Segment padded id={`${studentLevelsOthersWidget}`}>
+      <Header as="h4" dividing>
+OTHER
+        {studentLevelName}
+        {' '}
+STUDENTS
+      </Header>
       {
-        studentsExist(students) ?
-          <Image.Group size="mini" circular={true} style={imageGroupStyle}>
+        studentsExist(students) ? (
+          <Image.Group size="mini" circular style={imageGroupStyle}>
             {
               students.map((student) => (
-                <Popup key={student._id}
-                       trigger={<Image circular={true} src={studentPicture(student)} style={imageStyle}/>}
-                       position="bottom left" content={fullName(student)}/>
+                <Popup
+                  key={student._id}
+                  trigger={<Image circular src={studentPicture(student)} style={imageStyle} />}
+                  position="bottom left"
+                  content={fullName(student)}
+                />
               ))
             }
           </Image.Group>
+        )
           :
           <i>No students to display.</i>
       }

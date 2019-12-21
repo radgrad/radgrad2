@@ -14,12 +14,11 @@ class AdminAnalyticsLoggedInUsersWidget extends React.Component <IAdminAnalytics
   public render() {
     return (
       <Segment>
-        <Header as='h4' dividing>LOGGED IN USERS</Header>
+        <Header as="h4" dividing>LOGGED IN USERS</Header>
         <Grid>
           <Grid.Column>
             <Label.Group>
-              {this.props.loggedInUsers.map((users, index) => <Label key={index} basic color='green'>{Users.getFullName(users._id)}</Label>)
-              }
+              {this.props.loggedInUsers.map((users, index) => <Label key={index} basic color="green">{Users.getFullName(users._id)}</Label>)}
             </Label.Group>
           </Grid.Column>
         </Grid>

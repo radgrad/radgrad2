@@ -205,40 +205,53 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const studentID = Users.getID(username);
 
     return (
-      <Segment padded={true} id={studentDepWidget}>
-        <Grid stackable={true} columns="equal">
-          <Grid.Row stretched={true}>
+      <Segment padded id={studentDepWidget}>
+        <Grid stackable columns="equal">
+          <Grid.Row stretched>
             {_.map(visibleYears, (year) => (
-              <AcademicYearView key={year._id} academicYear={year} studentID={studentID}
-                                handleClickCourseInstance={this.handleClickCourseInstance}
-                                handleClickOpportunityInstance={this.handleClickOpportunityInstance}/>
+              <AcademicYearView
+                key={year._id}
+                academicYear={year}
+                studentID={studentID}
+                handleClickCourseInstance={this.handleClickCourseInstance}
+                handleClickOpportunityInstance={this.handleClickOpportunityInstance}
+              />
             ))}
           </Grid.Row>
           <Grid.Row textAlign="center">
             <Grid.Column textAlign="left">
-              {visibleStartIndex > 0 ?
-                <Button color="green" icon={true} labelPosition="left" onClick={this.handleClickPrevYear}>
-                  <Icon name="arrow circle left"/>Previous Year
-                </Button> : ''}
+              {visibleStartIndex > 0 ? (
+                <Button color="green" icon labelPosition="left" onClick={this.handleClickPrevYear}>
+                  <Icon name="arrow circle left" />
+Previous Year
+                </Button>
+              ) : ''}
             </Grid.Column>
             <Grid.Column textAlign="center">
               <Button color="green" onClick={this.handleAddYear}>
-                <Icon name="plus circle"/> Add Academic Year
+                <Icon name="plus circle" />
+                {' '}
+Add Academic Year
               </Button>
             </Grid.Column>
             <Grid.Column textAlign="right">
-              {years.length > 0 ?
+              {years.length > 0 ? (
                 <React.Fragment>
-                  {visibleStartIndex < years.length - 4 ?
-                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
-                      <Icon name="arrow circle right"/>Next Year
+                  {visibleStartIndex < years.length - 4 ? (
+                    <Button color="green" icon labelPosition="right" onClick={this.handleClickNextYear}>
+                      <Icon name="arrow circle right" />
+Next Year
                     </Button>
+                  )
                     :
-                    (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) &&
-                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
-                      <Icon name="minus circle"/>Delete Year
-                    </Button>}
-                </React.Fragment> : ''}
+                    (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) && (
+                    <Button color="green" icon labelPosition="right" onClick={this.handleDeleteYear}>
+                      <Icon name="minus circle" />
+Delete Year
+                    </Button>
+                  )}
+                </React.Fragment>
+              ) : ''}
             </Grid.Column>
           </Grid.Row>
         </Grid>

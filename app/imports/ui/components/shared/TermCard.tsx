@@ -68,7 +68,7 @@ const TermCard = (props: ITermCard) => {
       <Card.Content>
         <Card.Header>
           {name}
-          {isTypeOpportunity ? <IceHeader ice={item.ice}/> : ''}
+          {isTypeOpportunity ? <IceHeader ice={item.ice} /> : ''}
         </Card.Header>
 
         <Card.Meta>
@@ -77,19 +77,27 @@ const TermCard = (props: ITermCard) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={itemShortDescription}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-        <InterestList item={item} size="mini"/>
+        <Markdown
+          escapeHtml
+          source={itemShortDescription}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
+        <InterestList item={item} size="mini" />
       </Card.Content>
       <Card.Content>
-        <span>FAVORITED <WidgetHeaderNumber inputValue={props.numFavorites}/></span>
+        <span>
+FAVORITED
+          <WidgetHeaderNumber inputValue={props.numFavorites} />
+        </span>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation type={props.type} item={props.item}/>
+        <FutureParticipation type={props.type} item={props.item} />
       </Card.Content>
 
       <Link className="ui button" to={buildRouteName(props.item, props.type, props)}>
-        <Icon name="chevron circle right"/><br/>View More
+        <Icon name="chevron circle right" />
+        <br />
+View More
       </Link>
     </Card>
   );

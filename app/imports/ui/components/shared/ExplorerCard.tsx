@@ -16,16 +16,21 @@ const ExplorerCard = (props: IExplorerCard) => {
     <Card className="radgrad-interest-card">
       <Card.Content>
         <Card.Header>{itemName}</Card.Header>
-        <Card.Meta/>
+        <Card.Meta />
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                  renderers={{ link: (p) => Router.renderLink(p, match) }}/>
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription}...`}
+          renderers={{ link: (p) => Router.renderLink(p, match) }}
+        />
       </Card.Content>
 
       <Link className="ui button" to={buildExplorerRoute(props.item, props)}>
-        <Icon name="chevron circle right"/><br/>View More
+        <Icon name="chevron circle right" />
+        <br />
+View More
       </Link>
     </Card>
   );

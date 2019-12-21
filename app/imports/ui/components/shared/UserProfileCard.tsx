@@ -49,35 +49,65 @@ class UserProfileCard extends React.Component<IUserProfileCard, IUserProfileCard
     const desiredDegree = degreeID ? DesiredDegrees.findDoc(degreeID) : undefined;
     let sharedUsername;
     if (this.isRole(ROLE.STUDENT, ROLE.ALUMNI)) {
-      sharedUsername = p.shareUsername ? <React.Fragment>{p.username}<br/></React.Fragment> : undefined;
+      sharedUsername = p.shareUsername ? (
+        <React.Fragment>
+          {p.username}
+          <br />
+        </React.Fragment>
+) : undefined;
     }
 
     return (
       <Card fluid>
         <Card.Content>
-          <Image src={p.picture ? p.picture : defaultProfilePicture} floated={'right'} size={'tiny'}/>
+          <Image src={p.picture ? p.picture : defaultProfilePicture} floated="right" size="tiny" />
           <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
           <Card.Meta>
-            {capitalizeFirstOnly(p.role)}<br/>
-            {desiredDegree ? <React.Fragment>{desiredDegree.shortName}<br/></React.Fragment> : undefined}
-            {level ?
-              <Image style={{ padding: '5px' }} size={'mini'}
-                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}/> : undefined}
-            {this.isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ?
-              <React.Fragment>{p.username}<br/></React.Fragment> : undefined}
+            {capitalizeFirstOnly(p.role)}
+            <br />
+            {desiredDegree ? (
+              <React.Fragment>
+                {desiredDegree.shortName}
+                <br />
+              </React.Fragment>
+) : undefined}
+            {level ? (
+              <Image
+                style={{ padding: '5px' }}
+                size="mini"
+                src={`/images/level-icons/radgrad-level-${level}-icon.png`}
+              />
+            ) : undefined}
+            {this.isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+              <React.Fragment>
+                {p.username}
+                <br />
+              </React.Fragment>
+            ) : undefined}
             {sharedUsername}
-            <br/>
+            <br />
           </Card.Meta>
-          {p.website ? <Button basic compact color={'green'} size={'small'}
-                               content={'WEBSITE'} onClick={this.openInNewTab}/> : undefined}
+          {p.website ? (
+            <Button
+              basic
+              compact
+              color="green"
+              size="small"
+              content="WEBSITE"
+              onClick={this.openInNewTab}
+            />
+) : undefined}
         </Card.Content>
-        {this.isRole(ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID}/> : undefined}
+        {this.isRole(ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID} /> : undefined}
         <Card.Content extra>
-          <InterestList item={p} size={'mini'}/>
+          <InterestList item={p} size="mini" />
         </Card.Content>
-        <Button onClick={this.toggleFullSize} content={'View Profile'}/>
-        <ExplorerUsersWidget userProfile={this.props.item} isActive={this.state.isActive}
-                             handleClose={this.toggleFullSize}/>
+        <Button onClick={this.toggleFullSize} content="View Profile" />
+        <ExplorerUsersWidget
+          userProfile={this.props.item}
+          isActive={this.state.isActive}
+          handleClose={this.toggleFullSize}
+        />
       </Card>
     );
   }

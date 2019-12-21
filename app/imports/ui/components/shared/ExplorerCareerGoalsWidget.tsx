@@ -53,60 +53,77 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   return (
-    <Grid container={true} stackable={true} style={marginStyle} id={explorerCareerGoalWidget}>
+    <Grid container stackable style={marginStyle} id={explorerCareerGoalWidget}>
       <Grid.Column width={16}>
         <Segment>
-          <Segment basic clearing={true} vertical>
-            <Grid.Row verticalAlign={'middle'}>
-              <FavoritesButton item={props.item} studentID={getUserIdFromRoute(props.match)} type='careerGoal'/>
-              <Header floated={'left'}>{upperName}</Header>
+          <Segment basic clearing vertical>
+            <Grid.Row verticalAlign="middle">
+              <FavoritesButton item={props.item} studentID={getUserIdFromRoute(props.match)} type="careerGoal" />
+              <Header floated="left">{upperName}</Header>
             </Grid.Row>
           </Segment>
-          <Divider style={divPadding}/>
+          <Divider style={divPadding} />
           <div style={{ marginTop: '5px' }}>
-            <InterestList item={item} size='mini' align={'vertical'}/>
+            <InterestList item={item} size="mini" align="vertical" />
           </div>
           {
             hasTeaser ?
               (
-                <Grid stackable={true} columns={2}>
+                <Grid stackable columns={2}>
                   <Grid.Column width={9}>
                     {descriptionPairs.map((descriptionPair, index) => (
                       <React.Fragment key={index}>
                         {
-                          isSame(descriptionPair.label, 'Description') ?
+                          isSame(descriptionPair.label, 'Description') ? (
                             <React.Fragment>
-                              <b>{descriptionPair.label}:<br/></b>
+                              <b>
+                                {descriptionPair.label}
+:
+                                <br />
+                              </b>
                               {
-                                descriptionPair.value ?
-                                  <Markdown escapeHtml={false} source={descriptionPair.value}
-                                            renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
+                                descriptionPair.value ? (
+                                  <Markdown
+                                    escapeHtml={false}
+                                    source={descriptionPair.value}
+                                    renderers={{ link: (localProps) => renderLink(localProps, match) }}
+                                  />
+                                )
                                   :
                                   'N/A'
                               }
                             </React.Fragment>
+                          )
                             : ''
                         }
                       </React.Fragment>
-                    ))
-                    }
+                    ))}
                   </Grid.Column>
                   <Grid.Column width={7}>
                     {
                       descriptionPairs.map((descriptionPair, index) => (
                         <React.Fragment key={index}>
                           {
-                            isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ?
+                            isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ? (
                               <React.Fragment>
-                                <b>{descriptionPair.label}:</b>
+                                <b>
+                                  {descriptionPair.label}
+:
+                                </b>
                                 {
-                                  descriptionPair.value ?
-                                    <Embed active={true} autoplay={false} source="youtube"
-                                           id={teaserUrlHelper(props)}/>
+                                  descriptionPair.value ? (
+                                    <Embed
+                                      active
+                                      autoplay={false}
+                                      source="youtube"
+                                      id={teaserUrlHelper(props)}
+                                    />
+                                  )
                                     :
                                     <p> N/A </p>
                                 }
                               </React.Fragment>
+                            )
                               : ''
                           }
                         </React.Fragment>
@@ -121,38 +138,52 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                   {descriptionPairs.map((descriptionPair, index) => (
                     <React.Fragment key={index}>
                       {
-                        isSame(descriptionPair.label, 'Description') ?
+                        isSame(descriptionPair.label, 'Description') ? (
                           <React.Fragment>
-                            <b>{descriptionPair.label}:<br/></b>
+                            <b>
+                              {descriptionPair.label}
+:
+                              <br />
+                            </b>
                             {
-                              descriptionPair.value ?
-                                <Markdown escapeHtml={false} source={descriptionPair.value}
-                                          renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
+                              descriptionPair.value ? (
+                                <Markdown
+                                  escapeHtml={false}
+                                  source={descriptionPair.value}
+                                  renderers={{ link: (localProps) => renderLink(localProps, match) }}
+                                />
+                              )
                                 :
                                 'N/A'
                             }
                           </React.Fragment>
+                        )
                           : ''
                       }
                     </React.Fragment>
-                  ))
-                  }
+                  ))}
                 </Grid.Column>
               )
           }
-          <br/>
-          <Divider/>
-          <Grid stackable={true} celled={'internally'}>
+          <br />
+          <Divider />
+          <Grid stackable celled="internally">
             {socialPairs.map((socialPair, index) => (
-              <Grid.Column key={index} textAlign={'center'} style={centerAlignedColumnStyle}>
-                <h5>{toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount}/></h5>
+              <Grid.Column key={index} textAlign="center" style={centerAlignedColumnStyle}>
+                <h5>
+                  {toUpper(socialPair.label)}
+                  {' '}
+                  <WidgetHeaderNumber inputValue={socialPair.amount} />
+                </h5>
 
                 <Image.Group size="mini" style={imageGroupStyle}>
-                  {socialPair.value.map((user) => <Popup
-                    key={user._id}
-                    trigger={<Image src={userToPicture(user)} circular={true} bordered={true}/>}
-                    content={userToFullName(user)}
-                  />)}
+                  {socialPair.value.map((user) => (
+                    <Popup
+                      key={user._id}
+                      trigger={<Image src={userToPicture(user)} circular bordered />}
+                      content={userToFullName(user)}
+                    />
+))}
                 </Image.Group>
               </Grid.Column>
             ))}

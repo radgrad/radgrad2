@@ -27,7 +27,7 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
 
   return (
     <Segment style={noPaddingStyle}>
-      <Header dividing={true}>{props.title}</Header>
+      <Header dividing>{props.title}</Header>
       <Droppable droppableId={`${props.id}`}>
         {(provided, snapshot) => (
           <div
@@ -38,12 +38,17 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
               const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
               if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
                 return (
-                  <DraggablePlanChoicePill key={index} choice={choice} index={index} studentID={props.studentID}
-                                           satisfied={satisfied}/>
+                  <DraggablePlanChoicePill
+                    key={index}
+                    choice={choice}
+                    index={index}
+                    studentID={props.studentID}
+                    satisfied={satisfied}
+                  />
                 );
               }
               return (
-                <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
+                <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
               );
             })}
             {provided.placeholder}

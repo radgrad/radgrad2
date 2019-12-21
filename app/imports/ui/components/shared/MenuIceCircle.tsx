@@ -25,15 +25,15 @@ const MenuIceCircle = (props: IMenuIceCircleProps) => {
           <span>{e}</span>
         </div>
         <div className="slice">
-          <div className="bar"/>
-          <div className="fill"/>
+          <div className="bar" />
+          <div className="fill" />
         </div>
       </Link>
       <a className={classNamesEarned}>
-        <span/>
+        <span />
         <div className="slice">
-          <div className="bar"/>
-          <div className="fill"/>
+          <div className="bar" />
+          <div className="fill" />
         </div>
       </a>
     </div>

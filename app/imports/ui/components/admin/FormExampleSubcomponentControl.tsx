@@ -24,11 +24,11 @@ class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, 
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">
-          <Form.Input fluid={true} label="First name" placeholder="First name" />
-          <Form.Input fluid={true} label="Last name" placeholder="Last name" />
-          <Form.Select fluid={true} label="Gender" options={options} placeholder="Gender" />
+          <Form.Input fluid label="First name" placeholder="First name" />
+          <Form.Input fluid label="Last name" placeholder="Last name" />
+          <Form.Select fluid label="Gender" options={options} placeholder="Gender" />
         </Form.Group>
-        <Form.Group inline={true}>
+        <Form.Group inline>
           <label>Size</label>
           <Form.Radio
             label="Small"

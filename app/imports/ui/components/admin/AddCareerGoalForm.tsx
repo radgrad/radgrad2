@@ -34,16 +34,16 @@ const AddCareerGoalForm = (props: IAddCareerGoalFormProps): React.ReactElement<a
     },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Career Goal</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Career Goal</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="name" placeholder="Software Engineer"/>
-          <TextField name="slug" placeholder="software-engineer"/>
+          <TextField name="name" placeholder="Software Engineer" />
+          <TextField name="slug" placeholder="software-engineer" />
         </Form.Group>
-        <MultiSelectField name="interests" placeholder="Select interest(s)"/>
-        <LongTextField name="description" placeholder="Describe the Career Goal here"/>
-        <SubmitField className="basic green" value="Add"/>
+        <MultiSelectField name="interests" placeholder="Select interest(s)" />
+        <LongTextField name="description" placeholder="Describe the Career Goal here" />
+        <SubmitField className="basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

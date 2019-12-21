@@ -33,11 +33,18 @@ const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
         <div className="header">{title}</div>
       </Card.Content>
       <Card.Content className="content">
-        <Markdown escapeHtml={true} source={`${itemShortDescription(props.item)}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription(props.item)}...`}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
       </Card.Content>
       <Button.Group attached="bottom" className="radgrad-home-buttons ui center aligned three bottom attached {{hidden}} buttons">
-        <a href={routeToItem} className="ui button"><Icon name="chevron circle right"/><br/>View More</a>
+        <a href={routeToItem} className="ui button">
+          <Icon name="chevron circle right" />
+          <br />
+View More
+        </a>
       </Button.Group>
     </Card>
   );

@@ -37,35 +37,58 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   const desiredDegree = degreeID ? DesiredDegrees.findDoc(degreeID) : undefined;
   let sharedUsername;
   if (isRole(props, ROLE.STUDENT, ROLE.ALUMNI)) {
-    sharedUsername = p.shareUsername ? <React.Fragment>{p.username}<br/></React.Fragment> : undefined;
+    sharedUsername = p.shareUsername ? (
+      <React.Fragment>
+        {p.username}
+        <br />
+      </React.Fragment>
+) : undefined;
   }
 
   return (
-    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page={true} id={explorerUserWidget}>
-      <Grid centered={true}><Grid.Column width={12}><Card fluid style={cardStyle}>
-        <Card.Content>
-          <Image src={p.picture ? p.picture : defaultProfilePicture} floated={'right'} size={'tiny'}/>
-          <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
-          <Card.Meta>
-            {capitalizeFirstLetter(p.role)}<br/>
-            {desiredDegree ? <React.Fragment>{desiredDegree.shortName}<br/></React.Fragment> : undefined}
-            {level ?
-              <Image style={{ padding: '5px' }} size={'mini'}
-                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}/> : undefined}
-            {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ?
-              <React.Fragment>{p.username}<br/></React.Fragment> : undefined}
-            {sharedUsername}
-            <br/>
-          </Card.Meta>
-          {p.website ?
-            <a href={p.website} target={'_blank'} rel="noopener noreferrer" >{p.website}</a> : undefined}
-          {p.motivation || undefined}
-        </Card.Content>
-        {isRole(props, ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID}/> : undefined}
-        <Card.Content extra>
-          <InterestList item={p} size={'mini'}/>
-        </Card.Content>
-      </Card></Grid.Column></Grid>
+    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page id={explorerUserWidget}>
+      <Grid centered>
+        <Grid.Column width={12}>
+          <Card fluid style={cardStyle}>
+            <Card.Content>
+              <Image src={p.picture ? p.picture : defaultProfilePicture} floated="right" size="tiny" />
+              <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
+              <Card.Meta>
+                {capitalizeFirstLetter(p.role)}
+                <br />
+                {desiredDegree ? (
+                  <React.Fragment>
+                    {desiredDegree.shortName}
+                    <br />
+                  </React.Fragment>
+) : undefined}
+                {level ? (
+                  <Image
+                    style={{ padding: '5px' }}
+                    size="mini"
+                    src={`/images/level-icons/radgrad-level-${level}-icon.png`}
+                  />
+            ) : undefined}
+                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+                  <React.Fragment>
+                    {p.username}
+                    <br />
+                  </React.Fragment>
+            ) : undefined}
+                {sharedUsername}
+                <br />
+              </Card.Meta>
+              {p.website ?
+                <a href={p.website} target="_blank" rel="noopener noreferrer">{p.website}</a> : undefined}
+              {p.motivation || undefined}
+            </Card.Content>
+            {isRole(props, ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID} /> : undefined}
+            <Card.Content extra>
+              <InterestList item={p} size="mini" />
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+      </Grid>
     </Dimmer>
   );
 };

@@ -57,17 +57,21 @@ const ExplorerMenu = (props: IExplorerMenuProps) => {
 
   return (
     <React.Fragment>
-      <ExplorerNavDropdown match={match} text={getTypeName(props)}/>
-      <br/>
+      <ExplorerNavDropdown match={match} text={getTypeName(props)} />
+      <br />
 
-      <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList}
-                                   menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-                                   type={type}
-                                   role={role}/>
-      <ExplorerMenuMobileWidget menuAddedList={menuAddedList}
-                                menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-                                type={type}
-                                role={role}/>
+      <ExplorerMenuNonMobileWidget
+        menuAddedList={menuAddedList}
+        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+        type={type}
+        role={role}
+      />
+      <ExplorerMenuMobileWidget
+        menuAddedList={menuAddedList}
+        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+        type={type}
+        role={role}
+      />
     </React.Fragment>
   );
 };

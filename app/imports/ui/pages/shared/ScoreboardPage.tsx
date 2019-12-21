@@ -20,13 +20,13 @@ const renderPageMenuWidget = (props: IScoreboardPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
   switch (role) {
     case 'advisor':
-      return <AdvisorPageMenuWidget/>;
+      return <AdvisorPageMenuWidget />;
     case 'admin':
-      return <AdminPageMenuWidget/>;
+      return <AdminPageMenuWidget />;
     case 'faculty':
-      return <FacultyPageMenuWidget/>;
+      return <FacultyPageMenuWidget />;
     default:
-      return <React.Fragment/>;
+      return <React.Fragment />;
   }
 };
 
@@ -34,29 +34,29 @@ const ScoreboardPage = (props: IScoreboardPageProps) => {
   // console.log(props);
   let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
   if (props.match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
-    content = <CourseScoreboardWidget/>;
+    content = <CourseScoreboardWidget />;
   }
   if (props.match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
-    content = <OpportunityScoreboardWidget/>;
+    content = <OpportunityScoreboardWidget />;
   }
   // console.log(props.match.path, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD);
   return (
     <React.Fragment>
       {renderPageMenuWidget(props)}
-      <Grid container={true} stackable={true} padded={'vertically'}>
+      <Grid container stackable padded="vertically">
         <Grid.Row>
-          <HelpPanelWidget/>
+          <HelpPanelWidget />
         </Grid.Row>
 
         <Grid.Column width={3}>
-          <ScoreboardPageMenu/>
+          <ScoreboardPageMenu />
         </Grid.Column>
         <Grid.Column width={13}>
           {content}
         </Grid.Column>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </React.Fragment>
   );
 };

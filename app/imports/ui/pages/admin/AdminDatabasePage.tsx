@@ -9,15 +9,15 @@ const AdminDatabasePage = () => {
   };
   return (
     <div>
-      <AdminPageMenuWidget/>
-      <Grid container={true} stackable={true} style={paddedStyle}>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={5}>
-          <AdminDatabaseMenuContainer/>
+          <AdminDatabaseMenuContainer />
         </Grid.Column>
 
         <Grid.Column width={11}>
-          <Message floating={true}>
+          <Message floating>
             Click on a page in the menu to the left.
           </Message>
         </Grid.Column>

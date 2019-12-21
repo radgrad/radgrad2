@@ -37,24 +37,39 @@ interface ILandingHomeProps {
 /** A simple static component to render some text for the landing page. */
 const LandingHome = (props: ILandingHomeProps) => (
   <div>
-    <LandingNavBarContainer/>
-    <LandingSection1/>
-    <LandingSection2 careerGoals={props.careerGoals} interests={props.interests}
-                     opportunities={props.opportunities} users={props.users}/>
-    <LandingSection3 careerGoals={props.careerGoals} degrees={props.degrees}
-                     interests={props.interests}/>
-    <LandingSection4 opportunities={props.opportunities}/>
-    <LandingSection5/>
-    <LandingSection6 levelOne={props.levelOne} levelTwo={props.levelTwo}
-                     levelThree={props.levelThree} levelFour={props.levelFour}
-                     levelFive={props.levelFive} levelSix={props.levelSix}/>
-    <LandingSection7 careerGoalNames={props.careerGoalNames}/>
-    <LandingSection8 courseReviews={props.courseReviews} locations={props.locations}
-                     mentors={props.mentors}/>
-    <LandingSection9Container/>
-    <LandingFooter/>
+    <LandingNavBarContainer />
+    <LandingSection1 />
+    <LandingSection2
+      careerGoals={props.careerGoals}
+      interests={props.interests}
+      opportunities={props.opportunities}
+      users={props.users}
+    />
+    <LandingSection3
+      careerGoals={props.careerGoals}
+      degrees={props.degrees}
+      interests={props.interests}
+    />
+    <LandingSection4 opportunities={props.opportunities} />
+    <LandingSection5 />
+    <LandingSection6
+      levelOne={props.levelOne}
+      levelTwo={props.levelTwo}
+      levelThree={props.levelThree}
+      levelFour={props.levelFour}
+      levelFive={props.levelFive}
+      levelSix={props.levelSix}
+    />
+    <LandingSection7 careerGoalNames={props.careerGoalNames} />
+    <LandingSection8
+      courseReviews={props.courseReviews}
+      locations={props.locations}
+      mentors={props.mentors}
+    />
+    <LandingSection9Container />
+    <LandingFooter />
 
-    <BackToTopButton/>
+    <BackToTopButton />
   </div>
 );
 

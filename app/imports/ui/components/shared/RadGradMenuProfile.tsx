@@ -30,15 +30,20 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
     <div style={flexStyle} id={`${radgradMenuProfile}`}>
       {displayLevelAndIce ? (
         <div style={flexStyle}>
-          <RadGradMenuLevel level={level}/>
-          <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov"/>
-          <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp"/>
-          <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp"/>
+          <RadGradMenuLevel level={level} />
+          <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
+          <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
+          <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
         </div>
       ) : ''}
       <div className="mobile hidden item radgrad-menu-profile radgrad-brand-font" style={divStyle}>
-        <Image src={pictureSrc} style={imageStyle}/>
-        <Header style={nameStyle}><span>{profile.firstName}<br/>{profile.lastName}</span>
+        <Image src={pictureSrc} style={imageStyle} />
+        <Header style={nameStyle}>
+          <span>
+            {profile.firstName}
+            <br />
+            {profile.lastName}
+          </span>
         </Header>
       </div>
     </div>

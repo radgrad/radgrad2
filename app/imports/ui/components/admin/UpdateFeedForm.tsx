@@ -121,7 +121,11 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       'users.$': { type: String, allowedValues: studentNames },
       picture: {
         type: String,
-        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        label: <React.Fragment>
+Picture (
+          <a onClick={this.handleUpload}>Upload</a>
+)
+               </React.Fragment>,
         defaultValue: model.picture,
         optional: true,
       },
@@ -166,85 +170,91 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
     }
     const { pictureURL } = this.state;
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
+      <Segment padded>
+        <Header dividing>
+Update
+          {this.props.collection.getType()}
+:
+          {this.props.itemTitleString(model)}
+        </Header>
         <AutoForm
           ref={this.props.formRef}
           schema={schema}
           model={model}
-          onSubmit={this.props.handleUpdate}>
+          onSubmit={this.props.handleUpdate}
+        >
           <Form.Group widths="equal">
-            <DateField name="timestamp" disabled={true}/>
-            <TextField name="feedType" disabled={true}/>
+            <DateField name="timestamp" disabled />
+            <TextField name="feedType" disabled />
           </Form.Group>
-          <LongTextField name="description"/>
+          <LongTextField name="description" />
           {model.feedType === Feeds.NEW_COURSE ? (
             <div>
-              <Header dividing={true} as="h4">New course field</Header>
+              <Header dividing as="h4">New course field</Header>
               <Form.Group widths="equal">
-                <SelectField name="course"/>
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_COURSE_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="course"/>
+                <SelectField name="user" />
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_LEVEL ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <NumberField name="level"/>
+                <SelectField name="user" />
+                <NumberField name="level" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity field</Header>
+              <Header dividing as="h4">New opportunity field</Header>
               <Form.Group widths="equal">
-                <SelectField name="opportunity"/>
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_OPPORTUNITY_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity review fields</Header>
+              <Header dividing as="h4">New opportunity review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_USER ? (
             <div>
-              <Header dividing={true} as="h4">New user fields</Header>
+              <Header dividing as="h4">New user fields</Header>
               <Form.Group widths="equal">
-                <MultiSelectField name="users"/>
-                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
+                <MultiSelectField name="users" />
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.VERIFIED_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New verified opportunity fields</Header>
+              <Header dividing as="h4">New verified opportunity fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
-                <SelectField name="academicTerm"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
+                <SelectField name="academicTerm" />
               </Form.Group>
             </div>
           ) : ''}
           <Form.Group widths="equal">
-            <BoolField name="retired"/>
+            <BoolField name="retired" />
           </Form.Group>
-          <p/>
-          <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+          <p />
+          <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
           <Button onClick={this.props.handleCancel}>Cancel</Button>
         </AutoForm>
       </Segment>

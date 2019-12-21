@@ -13,7 +13,7 @@ const SatisfiedPlanChoicePill = (props: ISatisfiedPlanChoicePillProps) => {
   const style = props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
   return (
     <Grid.Row style={style}>
-      <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+      <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
     </Grid.Row>
   );
 };

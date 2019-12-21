@@ -19,13 +19,23 @@ interface IUpdateMentorAnswerFormProps {
 const UpdateMentorAnswerForm = (props: IUpdateMentorAnswerFormProps) => {
   const model = props.collection.findDoc(props.id);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={MentorAnswers.getUpdateSchema()} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
-        <LongTextField name="text"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={MentorAnswers.getUpdateSchema()}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
+        <LongTextField name="text" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

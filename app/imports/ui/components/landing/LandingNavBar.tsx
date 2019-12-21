@@ -27,12 +27,12 @@ const LandingNavBar = (props: INavBarProps) => {
   // console.log(props);
   const url = `/#/${props.role}/${props.currentUser}/home`;
   return (
-    <Menu attached="top" borderless={true} size="small">
-      <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
-        <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
+    <Menu attached="top" borderless size="small">
+      <Menu.Item as={NavLink} activeClassName="" exact to="/">
+        <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
         <div className="mobile hidden item">
           <Header as="h2">
-            <RadGradLogoText/>
+            <RadGradLogoText />
           </Header>
         </div>
       </Menu.Item>
@@ -40,10 +40,10 @@ const LandingNavBar = (props: INavBarProps) => {
       <Menu.Item>
         {props.currentUser ? (
           <div>
-            <Button basic={true} color="green" compact={true}><a href={url}>Home</a></Button>
+            <Button basic color="green" compact><a href={url}>Home</a></Button>
           </div>
         ) : (
-          <RadGradLoginButtons/>
+          <RadGradLoginButtons />
         )}
       </Menu.Item>
     </Menu>

@@ -26,20 +26,21 @@ const GuidedTourAdvisor = () => {
   return (
     <div style={styles.background}>
       <Container textAlign="center">
-        <Segment padded={true} style={styles.background}>
+        <Segment padded style={styles.background}>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Slider {...settings}>
-            <WhyRadGrad/>
-            <Welcome/>
-            <DegreePlan/>
-            <Opportunities/>
-            <ReviewModeration/>
-            <WhatsNext/>
+            <WhyRadGrad />
+            <Welcome />
+            <DegreePlan />
+            <Opportunities />
+            <ReviewModeration />
+            <WhatsNext />
           </Slider>
         </Segment>
         <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
-        <p/>
+        <p />
       </Container>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
 
   );

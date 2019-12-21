@@ -109,25 +109,25 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
     let courseListStartIndex = 0;
     let coursesPerTermIndex = 0;
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>ACADEMIC PLAN</Header>
+      <Segment padded>
+        <Header dividing>ACADEMIC PLAN</Header>
         <AutoForm schema={schema}>
           <Form.Group widths="equal">
-            <SelectField name="degree"/>
-            <TextField name="name"/>
-            <SelectField name="year"/>
+            <SelectField name="degree" />
+            <TextField name="name" />
+            <SelectField name="year" />
           </Form.Group>
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Grid stackable={true}>
+          <Grid stackable>
             <Grid.Column width={10}>
               <Grid widths="equal">
                 <Grid.Row columns="5">
                   {_.map(planYears, (py, index) => (
                     <Grid.Column key={index} style={academicYearStyle}>
-                      <Divider horizontal={true}>{py}</Divider>
+                      <Divider horizontal>{py}</Divider>
                       <Segment>
-                        <Header dividing={true} as="h4">{AcademicTerms.FALL}</Header>
+                        <Header dividing as="h4">{AcademicTerms.FALL}</Header>
                         <Droppable droppableId={`${AcademicTerms.FALL}${py}`}>
                           {(provided, snapshot) => {
                             const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
@@ -140,8 +140,15 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                 style={getDroppableListStyle(snapshot.isDraggingOver)}
                               >
                                 {_.map(courses, (choice, idx) => (
-                                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
-                                                       satisfied={true} studentID="fakeID"/>))}
+                                  <DraggableCoursePill
+                                    key={choice}
+                                    index={idx}
+                                    choice={choice}
+                                    draggableId={choice}
+                                    satisfied
+                                    studentID="fakeID"
+                                  />
+))}
                                 {provided.placeholder}
                                 {provided.placeholder}
                               </div>
@@ -150,9 +157,9 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                         </Droppable>
                       </Segment>
                       {
-                        this.quarterSystem ?
+                        this.quarterSystem ? (
                           <Segment>
-                            <Header dividing={true} as="h4">{AcademicTerms.WINTER}</Header>
+                            <Header dividing as="h4">{AcademicTerms.WINTER}</Header>
                             <Droppable droppableId={`${AcademicTerms.WINTER}${py}`}>
                               {(provided, snapshot) => {
                                 const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
@@ -165,8 +172,15 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                     style={getDroppableListStyle(snapshot.isDraggingOver)}
                                   >
                                     {_.map(courses, (choice, idx) => (
-                                      <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
-                                                           satisfied={true} studentID="fakeID"/>))}
+                                      <DraggableCoursePill
+                                        key={choice}
+                                        index={idx}
+                                        choice={choice}
+                                        draggableId={choice}
+                                        satisfied
+                                        studentID="fakeID"
+                                      />
+))}
                                     {provided.placeholder}
                                     {provided.placeholder}
                                   </div>
@@ -174,10 +188,11 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                               }}
                             </Droppable>
                           </Segment>
+                        )
                           : ''
                       }
                       <Segment>
-                        <Header dividing={true} as="h4">{AcademicTerms.SPRING}</Header>
+                        <Header dividing as="h4">{AcademicTerms.SPRING}</Header>
                         <Droppable droppableId={`${AcademicTerms.SPRING}${py}`}>
                           {(provided, snapshot) => {
                             const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
@@ -190,8 +205,15 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                 style={getDroppableListStyle(snapshot.isDraggingOver)}
                               >
                                 {_.map(courses, (choice, idx) => (
-                                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
-                                                       satisfied={true} studentID="fakeID"/>))}
+                                  <DraggableCoursePill
+                                    key={choice}
+                                    index={idx}
+                                    choice={choice}
+                                    draggableId={choice}
+                                    satisfied
+                                    studentID="fakeID"
+                                  />
+))}
                                 {provided.placeholder}
                                 {provided.placeholder}
                               </div>
@@ -200,7 +222,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                         </Droppable>
                       </Segment>
                       <Segment>
-                        <Header dividing={true} as="h4">{AcademicTerms.SUMMER}</Header>
+                        <Header dividing as="h4">{AcademicTerms.SUMMER}</Header>
                         <Droppable droppableId={`${AcademicTerms.SUMMER}${py}`}>
                           {(provided, snapshot) => {
                             const courses = choiceList.slice(courseListStartIndex, courseListStartIndex + coursesPerTerm[coursesPerTermIndex]);
@@ -213,8 +235,15 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                                 style={getDroppableListStyle(snapshot.isDraggingOver)}
                               >
                                 {_.map(courses, (choice, idx) => (
-                                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={choice}
-                                                       satisfied={true} studentID="fakeID"/>))}
+                                  <DraggableCoursePill
+                                    key={choice}
+                                    index={idx}
+                                    choice={choice}
+                                    draggableId={choice}
+                                    satisfied
+                                    studentID="fakeID"
+                                  />
+))}
                                 {provided.placeholder}
                                 {provided.placeholder}
                               </div>
@@ -228,7 +257,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
               </Grid>
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={''}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice="" />
             </Grid.Column>
           </Grid>
         </DragDropContext>

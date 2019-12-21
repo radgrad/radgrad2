@@ -17,7 +17,7 @@ class UserSessionOverheadWidget extends React.Component<IUserSessionOverheadWidg
     return (
       <Tab.Pane attached={false}>
         <Container>
-          <Table fixed={true} celled={true} striped={true} style={tableStyle}>
+          <Table fixed celled striped style={tableStyle}>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Username</Table.HeaderCell>

@@ -46,24 +46,31 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
   });
   // console.log(model);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
       <AutoForm
         ref={props.formRef}
         schema={schema}
         model={model}
-        onSubmit={props.handleUpdate}>
+        onSubmit={props.handleUpdate}
+      >
         <Form.Group>
-          <SelectField name="user"/>
-          <SelectField name="functionName"/>
-          <SelectField name="feedbackType"/>
+          <SelectField name="user" />
+          <SelectField name="functionName" />
+          <SelectField name="feedbackType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
-    </Segment>);
+    </Segment>
+);
 };
 
 const UpdateFeedbackInstanceFormContainer = withTracker(() => ({

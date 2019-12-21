@@ -72,21 +72,21 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
     // console.log(this.state);
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
-      return <Redirect to={from}/>;
+      return <Redirect to={from} />;
     }
     const containerStyle = { marginTop: 15 };
     // Otherwise return the Login form.
     return (
       <div>
-        <LandingNavBarContainer/>
+        <LandingNavBarContainer />
         <Container style={containerStyle}>
-          <Grid textAlign="center" verticalAlign="middle" centered={true} columns={2}>
+          <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
             <Grid.Column>
               <Header as="h2" textAlign="center">
                 Login to your account
               </Header>
               <Form onSubmit={this.handleSubmit}>
-                <Segment stacked={true}>
+                <Segment stacked>
                   <Form.Input
                     label="Email"
                     icon="user"
@@ -105,7 +105,7 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
                     type="password"
                     onChange={this.handleChange}
                   />
-                  <Form.Button content="Submit"/>
+                  <Form.Button content="Submit" />
                 </Segment>
               </Form>
               <Message>
@@ -115,7 +115,7 @@ export default class Signin extends React.Component<ISigninProps, ISigninState> 
                 ''
               ) : (
                 <Message
-                  error={true}
+                  error
                   header="Login was not successful"
                   content={this.state.error}
                 />

@@ -28,16 +28,21 @@ const PlanCard = (props: IPlanCard) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}/>
-        <AcademicPlanStaticViewer plan={item}/>
+        <Markdown escapeHtml source={`${itemShortDescription}...`} />
+        <AcademicPlanStaticViewer plan={item} />
       </Card.Content>
 
       <Card.Content>
-        <span>FAVORITED <WidgetHeaderNumber inputValue={numFavorites}/></span>
+        <span>
+FAVORITED
+          <WidgetHeaderNumber inputValue={numFavorites} />
+        </span>
       </Card.Content>
 
       <Link className="ui button" to={route}>
-        <Icon name="chevron circle right"/><br/>View More
+        <Icon name="chevron circle right" />
+        <br />
+View More
       </Link>
     </Card>
   );

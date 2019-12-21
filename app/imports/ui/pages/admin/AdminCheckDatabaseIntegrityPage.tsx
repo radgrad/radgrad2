@@ -74,18 +74,18 @@ class AdminCheckDatabaseIntegrityPage extends React.Component<IAdminCheckDatabas
     // console.log('Check Integrity props=%o, state=%o working=%o', this.props, this.state, working);
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={5}>
-            <AdminDatabaseMenuContainer/>
+            <AdminDatabaseMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
             <Form>
-              <Button color="green" loading={working} basic={true} type="submit" onClick={this.clickSubmit}>Check Integrity</Button>
+              <Button color="green" loading={working} basic type="submit" onClick={this.clickSubmit}>Check Integrity</Button>
             </Form>
-            <Grid stackable={true} width="equal" style={paddedStyle}>
+            <Grid stackable width="equal" style={paddedStyle}>
               <Grid.Column width={8}>
                 {showClient ? (
                   <Message error={clientError} positive={!clientError}>

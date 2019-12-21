@@ -566,30 +566,38 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     return (
       <div>
         {/* Auto Forms */}
-        <Segment padded={true}>
-          <Header dividing as='h4'>NEWSLETTER OPTIONS</Header>
+        <Segment padded>
+          <Header dividing as="h4">NEWSLETTER OPTIONS</Header>
           <AutoForm schema={schema} onChange={this.handleChange}>
-            <TextField name='subjectLine'/>
-            <TextField name='bcc'/>
-            <Form.Group widths='equal'>
-              <LongTextField name='inputMessage'/>
-              <AdminAnalyticsNewsletterMessagePreviewWidget message={this.state.onSubmitInputMessage}/>
+            <TextField name="subjectLine" />
+            <TextField name="bcc" />
+            <Form.Group widths="equal">
+              <LongTextField name="inputMessage" />
+              <AdminAnalyticsNewsletterMessagePreviewWidget message={this.state.onSubmitInputMessage} />
             </Form.Group>
-            <Button color='green' basic onClick={this.onClickPreviewSave}>Preview And Save</Button>
-            <Header as='h4' dividing>SEND NEWSLETTER</Header>
-            <TextField name='studentEmails'/>
-            <BoolField name='sendToStudentsToo'/>
-            <Button basic color='green' onClick={this.onClickSendStudentsToo}>Send To Admin</Button>
+            <Button color="green" basic onClick={this.onClickPreviewSave}>Preview And Save</Button>
+            <Header as="h4" dividing>SEND NEWSLETTER</Header>
+            <TextField name="studentEmails" />
+            <BoolField name="sendToStudentsToo" />
+            <Button basic color="green" onClick={this.onClickSendStudentsToo}>Send To Admin</Button>
 
-            <NumField name='level' placeholder='level'/>
-            <BoolField name='sendToLevels'/>
-            <button className='ui basic green button' disabled={!this.state.sendToLevels}
-                    onClick={this.onClickSendLevels}>Send To Students
+            <NumField name="level" placeholder="level" />
+            <BoolField name="sendToLevels" />
+            <button
+              className="ui basic green button"
+              disabled={!this.state.sendToLevels}
+              onClick={this.onClickSendLevels}
+            >
+Send To Students
             </button>
-            <Form.Field label='Generate To Send To All Users'/>
-            <BoolField name='sendToAll'/>
-            <button className='ui basic green button' disabled={!this.state.sendToAll}
-                    onClick={this.onClickSendToAll}>Send To All
+            <Form.Field label="Generate To Send To All Users" />
+            <BoolField name="sendToAll" />
+            <button
+              className="ui basic green button"
+              disabled={!this.state.sendToAll}
+              onClick={this.onClickSendToAll}
+            >
+Send To All
             </button>
           </AutoForm>
         </Segment>

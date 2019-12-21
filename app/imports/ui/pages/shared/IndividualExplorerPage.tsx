@@ -69,13 +69,13 @@ const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
   switch (role) {
     case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget/>;
+      return <StudentPageMenuWidget />;
     case URL_ROLES.MENTOR:
-      return <MentorPageMenuWidget/>;
+      return <MentorPageMenuWidget />;
     case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget/>;
+      return <FacultyPageMenuWidget />;
     default:
-      return <React.Fragment/>;
+      return <React.Fragment />;
   }
 };
 
@@ -448,53 +448,71 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
     <React.Fragment>
       {menuWidget}
 
-      <Grid container={true} stackable={true}>
+      <Grid container stackable>
         <Grid.Column width={3}>
-          <ExplorerMenu menuAddedList={addedList}
-                        menuCareerList={isTypeInterests && careerList ? careerList : undefined}
-                        type={type} role={role}/>
+          <ExplorerMenu
+            menuAddedList={addedList}
+            menuCareerList={isTypeInterests && careerList ? careerList : undefined}
+            type={type}
+            role={role}
+          />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {
             type === EXPLORER_TYPE.ACADEMICPLANS ?
-              <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item}/>
+              <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item} />
               : ''
           }
           {
-            type === EXPLORER_TYPE.CAREERGOALS ?
-              <ExplorerCareerGoalsWidget name={name} descriptionPairs={descriptionPairs} item={item}
-                                         socialPairs={socialPairs}/>
+            type === EXPLORER_TYPE.CAREERGOALS ? (
+              <ExplorerCareerGoalsWidget
+                name={name}
+                descriptionPairs={descriptionPairs}
+                item={item}
+                socialPairs={socialPairs}
+              />
+            )
               : ''
           }
           {
-            type === EXPLORER_TYPE.COURSES ?
-              <ExplorerCoursesWidget name={name} shortName={isTypeCourses && shortName ? shortName : undefined}
-                                     descriptionPairs={descriptionPairs} item={item}
-                                     completed={(isTypeCourses && isCourseCompleted(props) !== undefined) ? isCourseCompleted(props) : undefined}/>
+            type === EXPLORER_TYPE.COURSES ? (
+              <ExplorerCoursesWidget
+                name={name}
+                shortName={isTypeCourses && shortName ? shortName : undefined}
+                descriptionPairs={descriptionPairs}
+                item={item}
+                completed={(isTypeCourses && isCourseCompleted(props) !== undefined) ? isCourseCompleted(props) : undefined}
+              />
+            )
               : ''
           }
           {
             type === EXPLORER_TYPE.DEGREES ?
-              <ExplorerDegreesWidget name={name} descriptionPairs={descriptionPairs}/>
+              <ExplorerDegreesWidget name={name} descriptionPairs={descriptionPairs} />
               : ''
           }
           {
             type === EXPLORER_TYPE.INTERESTS ?
-              <ExplorerInterestsWidget/>
+              <ExplorerInterestsWidget />
               : ''
           }
           {
-            type === EXPLORER_TYPE.OPPORTUNITIES ?
-              <ExplorerOpportunitiesWidget name={name} descriptionPairs={descriptionPairs} item={item}
-                                           completed={(isTypeOpportunities && isOpportunityCompleted(props) !== undefined) ? isOpportunityCompleted(props) : undefined}
-                                           role={role}/>
+            type === EXPLORER_TYPE.OPPORTUNITIES ? (
+              <ExplorerOpportunitiesWidget
+                name={name}
+                descriptionPairs={descriptionPairs}
+                item={item}
+                completed={(isTypeOpportunities && isOpportunityCompleted(props) !== undefined) ? isOpportunityCompleted(props) : undefined}
+                role={role}
+              />
+            )
               : ''
           }
         </Grid.Column>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </React.Fragment>
   );
 };

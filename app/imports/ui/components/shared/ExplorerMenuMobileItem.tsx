@@ -126,18 +126,21 @@ const ExplorerMenuMobileItem = (props: IExplorerMenuMobileItemProps) => {
   };
 
   return (
-    <Dropdown.Item as={NavLink} exact={true}
-                   to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
-                   text={(
-                     <React.Fragment>
-                       <i className={getItemStatus(listItem.item, props)} style={iconStyle}/>
-                       {
+    <Dropdown.Item
+      as={NavLink}
+      exact
+      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
+      text={(
+        <React.Fragment>
+          <i className={getItemStatus(listItem.item, props)} style={iconStyle} />
+          {
                          type !== EXPLORER_TYPE.COURSES ?
                            itemName(listItem)
                            : courseName(listItem as { item: ICourse, count: number })
                        }
-                     </React.Fragment>
-                   )}/>
+        </React.Fragment>
+                   )}
+    />
   );
 };
 

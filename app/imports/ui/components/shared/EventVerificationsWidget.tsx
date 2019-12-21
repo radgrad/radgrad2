@@ -68,7 +68,7 @@ class EventVerificationsWidget extends React.Component<IEventVerificationsWidget
     const { student, opportunity, log } = this.state;
     return (
       <Segment>
-        <Header as={'h4'} dividing content={'EVENT VERIFICATION'}/>
+        <Header as="h4" dividing content="EVENT VERIFICATION" />
         <Form onSubmit={this.onSubmit}>
           <Form.Group inline>
             <Form.Dropdown
@@ -79,15 +79,16 @@ class EventVerificationsWidget extends React.Component<IEventVerificationsWidget
                   value: ele._id,
                 }),
               )}
-              label={'Select recent event: '}
-              placeholder={'Select One...'}
-              name={'opportunity'}
+              label="Select recent event: "
+              placeholder="Select One..."
+              name="opportunity"
               onChange={this.onChange}
-              value={opportunity}/>
-            <Form.Input placeholder={'Student Username'} name={'student'} onChange={this.onChange} value={student}/>
-            <Form.Button basic color={'green'} content={'Verify Attendance'}/>
+              value={opportunity}
+            />
+            <Form.Input placeholder="Student Username" name="student" onChange={this.onChange} value={student} />
+            <Form.Button basic color="green" content="Verify Attendance" />
           </Form.Group>
-          <Form.TextArea id={'logTextArea'} label={'Log'} rows={'10'} value={log} readOnly={true}/>
+          <Form.TextArea id="logTextArea" label="Log" rows="10" value={log} readOnly />
         </Form>
       </Segment>
     );

@@ -13,7 +13,7 @@ const Footer = () => {
     <footer>
       <div style={divStyle}>
         <Container textAlign="center">
-          <List bulleted={true} horizontal={true}>
+          <List bulleted horizontal>
             <a className="footer-item item" href="http://radgrad.org/">
               About Us
             </a>

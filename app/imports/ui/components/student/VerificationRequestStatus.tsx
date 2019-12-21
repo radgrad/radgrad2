@@ -14,13 +14,35 @@ const VerificationRequestStatus = (props: IVerificationRequestStatusProps) => {
   const whenSubmitted = moment(props.request.submittedOn).calendar();
   return (
     <React.Fragment>
-      <Divider/>
+      <Divider />
       <Header>REQUEST STATUS</Header>
-      <span><strong>Date Submitted:</strong> {whenSubmitted}</span>
-      <span><strong>Status:</strong> {props.request.status}</span>
-      <strong>Documentation:</strong>  <br/>
-      {_.map(props.request.processed, (process, index) => (<div key={index}>Processed: {moment(process.date).calendar()} by {process.verifier}:
-        &nbsp;{process.status} <em>{process.feedback}</em></div>))}
+      <span>
+        <strong>Date Submitted:</strong>
+        {' '}
+        {whenSubmitted}
+      </span>
+      <span>
+        <strong>Status:</strong>
+        {' '}
+        {props.request.status}
+      </span>
+      <strong>Documentation:</strong>
+      {' '}
+      <br />
+      {_.map(props.request.processed, (process, index) => (
+        <div key={index}>
+Processed:
+          {moment(process.date).calendar()}
+          {' '}
+by
+          {process.verifier}
+:
+        &nbsp;
+          {process.status}
+          {' '}
+          <em>{process.feedback}</em>
+        </div>
+))}
     </React.Fragment>
   );
 };

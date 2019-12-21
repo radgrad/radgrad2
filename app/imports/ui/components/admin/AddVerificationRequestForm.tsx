@@ -48,20 +48,20 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Verification Request</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Verification Request</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="student" placeholder="Choose the student"/>
-          <SelectField name="status" placeholder="Choose the status"/>
+          <SelectField name="student" placeholder="Choose the student" />
+          <SelectField name="status" placeholder="Choose the status" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityInstance"/>
-          <SelectField name="opportunity"/>
-          <SelectField name="academicTerm"/>
+          <SelectField name="opportunityInstance" />
+          <SelectField name="opportunity" />
+          <SelectField name="academicTerm" />
         </Form.Group>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

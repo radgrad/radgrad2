@@ -82,29 +82,69 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
     <Card.Group itemsPerRow={1}>
       <Card>
         <Card.Content>
-          <IceHeader ice={opportunity.ice}/>
+          <IceHeader ice={opportunity.ice} />
           <Card.Header>{opportunity.name}</Card.Header>
         </Card.Content>
         <Card.Content>
-          {futureP ? (<React.Fragment>
-            <p><b>Scheduled:</b> {termName}</p>
-            <FutureParticipation item={opportunity} type='courses'/>
-            <Button floated="right" basic={true} color="green" value={props.instance._id} onClick={handleRemove}
-                    size="tiny">remove</Button>
-          </React.Fragment>) : (<React.Fragment>
-            <p><b>Participated:</b> {termName}</p>
-            {verificationRequested ? '' : <Button floated="right" basic={true} color="green" value={props.instance._id} onClick={handleRemove}
-                                     size="tiny">remove</Button>}
-          </React.Fragment>)}
+          {futureP ? (
+            <React.Fragment>
+              <p>
+                <b>Scheduled:</b>
+                {' '}
+                {termName}
+              </p>
+              <FutureParticipation item={opportunity} type="courses" />
+              <Button
+                floated="right"
+                basic
+                color="green"
+                value={props.instance._id}
+                onClick={handleRemove}
+                size="tiny"
+              >
+remove
+              </Button>
+            </React.Fragment>
+) : (
+  <React.Fragment>
+    <p>
+      <b>Participated:</b>
+      {' '}
+      {termName}
+    </p>
+    {verificationRequested ? '' : (
+      <Button
+        floated="right"
+        basic
+        color="green"
+        value={props.instance._id}
+        onClick={handleRemove}
+        size="tiny"
+      >
+remove
+      </Button>
+)}
+  </React.Fragment>
+)}
         </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]}/> : <Card.Content>
-          <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)}/>
-        </Card.Content>}
+        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : (
+          <Card.Content>
+            <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
+          </Card.Content>
+)}
         <Card.Content>
-          <p style={textAlignRight}><Link to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
-                                          target="_blank">View
+          <p style={textAlignRight}>
+            <Link
+              to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
+              target="_blank"
+            >
+View
             in
-            Explorer <Icon name="arrow right"/></Link></p>
+            Explorer
+              {' '}
+              <Icon name="arrow right" />
+            </Link>
+          </p>
         </Card.Content>
       </Card>
     </Card.Group>

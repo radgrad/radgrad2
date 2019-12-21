@@ -336,38 +336,51 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     };
     return (
       <Segment>
-        <Header dividing={true}>ACADEMIC PLAN</Header>
+        <Header dividing>ACADEMIC PLAN</Header>
         <AutoForm schema={schema} onSubmit={this.handleSavePlan}>
           <Form.Group widths="equal">
-            <SelectField name="degree"/>
-            <TextField name="name"/>
-            <SelectField name="term"/>
+            <SelectField name="degree" />
+            <TextField name="name" />
+            <SelectField name="term" />
           </Form.Group>
-          <LongTextField name="description"/>
-          <SubmitField className="basic green" value="Save Academic Plan" disabled={false} inputRef={undefined}/>
+          <LongTextField name="description" />
+          <SubmitField className="basic green" value="Save Academic Plan" disabled={false} inputRef={undefined} />
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Grid stackable={true} style={paddingTopStyle}>
+          <Grid stackable style={paddingTopStyle}>
             <Grid.Column width={10}>
-              <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList}/>
+              <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList} />
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice} />
             </Grid.Column>
           </Grid>
         </DragDropContext>
-        <Confirm open={this.state.showConfirmAdd} onCancel={this.handleCancelAdd} onConfirm={this.handleConfirmAdd}
-                 confirmButton='Add Choice'
-                 header="Add Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}/>
-        <Confirm open={this.state.showConfirmDelete} onCancel={this.handleCancelDelete}
-                 onConfirm={this.handleConfirmDelete}
-                 confirmButton='Delete Choice'
-                 header="Delete Plan Choice?"
-                 content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}/>
-        <Confirm open={this.state.showConfirmCombine} cancelButton='Simple Combine' confirmButton='Compound Combine'
-                 header='Simple or Compound Combine?' onCancel={this.handleSimpleCombine}
-                 onConfirm={this.handleCompoundCombine}
-                 content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}/>
+        <Confirm
+          open={this.state.showConfirmAdd}
+          onCancel={this.handleCancelAdd}
+          onConfirm={this.handleConfirmAdd}
+          confirmButton="Add Choice"
+          header="Add Plan Choice?"
+          content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}
+        />
+        <Confirm
+          open={this.state.showConfirmDelete}
+          onCancel={this.handleCancelDelete}
+          onConfirm={this.handleConfirmDelete}
+          confirmButton="Delete Choice"
+          header="Delete Plan Choice?"
+          content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}
+        />
+        <Confirm
+          open={this.state.showConfirmCombine}
+          cancelButton="Simple Combine"
+          confirmButton="Compound Combine"
+          header="Simple or Compound Combine?"
+          onCancel={this.handleSimpleCombine}
+          onConfirm={this.handleCompoundCombine}
+          content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}
+        />
       </Segment>
     );
   }

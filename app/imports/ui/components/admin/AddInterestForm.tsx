@@ -29,17 +29,17 @@ const AddInterestForm = (props: IAddInterestFormProps): React.ReactElement<any> 
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Interest</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Interest</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" placeholder="rust"/>
-          <TextField name="name" placeholder="Rust Programming Language"/>
-          <SelectField name="interestType"/>
+          <TextField name="slug" placeholder="rust" />
+          <TextField name="name" placeholder="Rust Programming Language" />
+          <SelectField name="interestType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

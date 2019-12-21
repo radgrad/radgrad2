@@ -17,11 +17,14 @@ interface IInterestedRelatedWidgetProps {
 const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
   <div>
     <Segment>
-      <Header dividing={true}>RELATED COURSES</Header>
+      <Header dividing>RELATED COURSES</Header>
       {props.isStudent ? (
-        <Grid columns={3} stackable={true} celled={'internally'}>
-          <Grid.Column textAlign='center'>
-            <Header as='h4'><Icon name='checkmark' color='green'/>Completed</Header>
+        <Grid columns={3} stackable celled="internally">
+          <Grid.Column textAlign="center">
+            <Header as="h4">
+              <Icon name="checkmark" color="green" />
+Completed
+            </Header>
             <List>
               {props.relatedCourses.completed.length === 0 ? 'None' :
                 _.map(props.relatedCourses.completed, (courseID) => {
@@ -34,8 +37,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
                 })}
             </List>
           </Grid.Column>
-          <Grid.Column textAlign='center'>
-            <Header as='h4'><Icon name='warning sign' color='yellow'/>In Plan (Not Yet Completed)</Header>
+          <Grid.Column textAlign="center">
+            <Header as="h4">
+              <Icon name="warning sign" color="yellow" />
+In Plan (Not Yet Completed)
+            </Header>
             <List>
               {props.relatedCourses.inPlan.length === 0 ? 'None' :
                 _.map(props.relatedCourses.inPlan, (courseID) => {
@@ -48,8 +54,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
                 })}
             </List>
           </Grid.Column>
-          <Grid.Column textAlign='center'>
-            <Header as='h4'><Icon name='warning circle' color='red'/>Not In Plan</Header>
+          <Grid.Column textAlign="center">
+            <Header as="h4">
+              <Icon name="warning circle" color="red" />
+Not In Plan
+            </Header>
             <List>
               {props.relatedCourses.notInPlan.length === 0 ? 'None' :
                 _.map(props.relatedCourses.notInPlan, (courseID) => {
@@ -64,7 +73,7 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
           </Grid.Column>
         </Grid>
       ) : (
-        <List horizontal={true} bulleted={true}>
+        <List horizontal bulleted>
           {_.map(props.relatedCourses.notInPlan, (courseID) => {
             const course = Courses.findDoc(courseID);
             const slug = Slugs.getNameFromID(course.slugID);
@@ -77,11 +86,14 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
       )}
     </Segment>
     <Segment>
-      <Header dividing={true}>RELATED OPPORTUNITIES</Header>
+      <Header dividing>RELATED OPPORTUNITIES</Header>
       {props.isStudent ? (
-        <Grid columns={3} stackable={true} celled={'internally'}>
-          <Grid.Column textAlign='center'>
-            <Header as='h4'><Icon name='checkmark' color='green'/>Completed</Header>
+        <Grid columns={3} stackable celled="internally">
+          <Grid.Column textAlign="center">
+            <Header as="h4">
+              <Icon name="checkmark" color="green" />
+Completed
+            </Header>
             <List>
               {props.relatedOpportunities.completed.length === 0 ? 'None' :
                 _.map(props.relatedOpportunities.completed, (opportunityID) => {
@@ -94,8 +106,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
                 })}
             </List>
           </Grid.Column>
-          <Grid.Column textAlign='center'>
-            <Header as='h4'><Icon name='warning sign' color='yellow'/>In Plan (Not Yet Completed)</Header>
+          <Grid.Column textAlign="center">
+            <Header as="h4">
+              <Icon name="warning sign" color="yellow" />
+In Plan (Not Yet Completed)
+            </Header>
             <List>
               {props.relatedOpportunities.inPlan.length === 0 ? 'None' :
                 _.map(props.relatedOpportunities.inPlan, (opportunityID) => {
@@ -108,8 +123,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
                 })}
             </List>
           </Grid.Column>
-          <Grid.Column textAlign='center'>
-            <Header as='h4'><Icon name='warning circle' color='red'/>Not In Plan</Header>
+          <Grid.Column textAlign="center">
+            <Header as="h4">
+              <Icon name="warning circle" color="red" />
+Not In Plan
+            </Header>
             <List>
               {props.relatedOpportunities.notInPlan.length === 0 ? 'None' :
                 _.map(props.relatedOpportunities.notInPlan, (opportunityID) => {
@@ -124,7 +142,7 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
           </Grid.Column>
         </Grid>
       ) : (
-        <List horizontal={true} bulleted={true}>
+        <List horizontal bulleted>
           {_.map(props.relatedOpportunities.notInPlan, (opportunityID) => {
             const opportunity = Opportunities.findDoc(opportunityID);
             const slug = Slugs.getNameFromID(opportunity.slugID);

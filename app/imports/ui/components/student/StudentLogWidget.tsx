@@ -29,8 +29,8 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
   const { advisorLogs } = props;
   return (
     <Container id={`${studentLogWidget}`}>
-      <Segment padded={true}>
-        <Header as="h4" dividing={true}>ADVISOR MEETING LOG</Header>
+      <Segment padded>
+        <Header as="h4" dividing>ADVISOR MEETING LOG</Header>
         {
           advisorLogs ?
             advisorLogs.map((log, index) => {
@@ -38,16 +38,24 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
               const advisorName = getAdvisorName(log);
               const displayDate = getDisplayDate(log);
               return (
-                <Item.Group key={index} relaxed={true} divided={true}>
+                <Item.Group key={index} relaxed divided>
                   <Item>
-                    <Image size="tiny" src={advisorImage}/>
+                    <Image size="tiny" src={advisorImage} />
                     <Item.Content>
                       <Item.Header>{displayDate}</Item.Header>
-                      <Item.Meta><span>Results from the meeting with {advisorName}: </span></Item.Meta>
+                      <Item.Meta>
+                        <span>
+Results from the meeting with
+                          {advisorName}
+:
+                          {' '}
+                        </span>
+                      </Item.Meta>
                       <Item.Description><p>{log.text}</p></Item.Description>
                     </Item.Content>
                   </Item>
-                </Item.Group>);
+                </Item.Group>
+);
             })
             :
             <p><i>There are no advisor logs.</i></p>

@@ -139,43 +139,64 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
     <div id={explorerInterestWidget}>
       <SegmentGroup>
         <Segment>
-          <Header>{props.interest.name}<FavoritesButton type='interest' studentID={props.profile.userID}
-                                                        item={props.interest}/></Header>
-          <Divider/>
-          {hasTeaser ? <Grid columns={2} stackable={true}>
-            <Grid.Column width={9}>
-              <div>
-                <b>Description: </b>
-              </div>
-              <div>
-                <Markdown escapeHtml={true} source={props.interest.description}/>
-              </div>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <b>Teaser:</b>
-              <Embed active={true} autoplay={false} source="youtube"
-                     id={teaser && teaser[0] && teaser[0].url}/>
-            </Grid.Column>
-          </Grid> : <React.Fragment>
-            <div>
-              <b>Description: </b>
-            </div>
-            <div>
-              <Markdown escapeHtml={true} source={props.interest.description}/>
-            </div>
-          </React.Fragment>
-          }
+          <Header>
+            {props.interest.name}
+            <FavoritesButton
+              type="interest"
+              studentID={props.profile.userID}
+              item={props.interest}
+            />
+          </Header>
+          <Divider />
+          {hasTeaser ? (
+            <Grid columns={2} stackable>
+              <Grid.Column width={9}>
+                <div>
+                  <b>Description: </b>
+                </div>
+                <div>
+                  <Markdown escapeHtml source={props.interest.description} />
+                </div>
+              </Grid.Column>
+              <Grid.Column width={7}>
+                <b>Teaser:</b>
+                <Embed
+                  active
+                  autoplay={false}
+                  source="youtube"
+                  id={teaser && teaser[0] && teaser[0].url}
+                />
+              </Grid.Column>
+            </Grid>
+) : (
+  <React.Fragment>
+    <div>
+      <b>Description: </b>
+    </div>
+    <div>
+      <Markdown escapeHtml source={props.interest.description} />
+    </div>
+  </React.Fragment>
+)}
         </Segment>
       </SegmentGroup>
       <Grid stackable columns={2}>
         <Grid.Column width={10}>
-          <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities}
-                                   isStudent={getRoleByUrl(props.match) === 'student'} baseURL={getBaseURL(props)}/>
+          <InterestedRelatedWidget
+            relatedCourses={relatedCourses}
+            relatedOpportunities={relatedOpportunities}
+            isStudent={getRoleByUrl(props.match) === 'student'}
+            baseURL={getBaseURL(props)}
+          />
         </Grid.Column>
         <Grid.Column width={6}>
-          <InterestedProfilesWidget interest={props.interest} students={props.interestedStudents}
-                                    faculty={props.interestedFaculty}
-                                    alumni={props.interestedAlumni} mentors={props.interestedMentor}/>
+          <InterestedProfilesWidget
+            interest={props.interest}
+            students={props.interestedStudents}
+            faculty={props.interestedFaculty}
+            alumni={props.interestedAlumni}
+            mentors={props.interestedMentor}
+          />
         </Grid.Column>
       </Grid>
     </div>

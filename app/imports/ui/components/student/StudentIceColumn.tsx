@@ -133,35 +133,67 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
     const unverifiedICEPoints = this.remainingICEPoints(earnedICEPoints, projectedICEPoints);
 
     return (
-      <Accordion styled={true} fluid={true} exclusive={false}>
+      <Accordion styled fluid exclusive={false}>
         <Accordion.Title active={verifiedColumnOpen} onClick={this.handleVerifiedColumnClick}>
-          <Icon name="dropdown"/>Verified <div
-          className={`ui right floated ${verifiedColor}`}>{earnedICEPoints} pts</div>
+          <Icon name="dropdown" />
+Verified
+          <div
+            className={`ui right floated ${verifiedColor}`}
+          >
+            {earnedICEPoints}
+            {' '}
+pts
+          </div>
         </Accordion.Title>
         <Accordion.Content active={verifiedColumnOpen}>
-          <StudentIceColumnVerified type={type} earnedICEPoints={earnedICEPoints} getCourseSlug={this.getCourseSlug}
-                                    matchingPoints={this.matchingPoints} getOpportunitySlug={this.getOpportunitySlug}
-                                    icePoints={this.icePoints}/>
+          <StudentIceColumnVerified
+            type={type}
+            earnedICEPoints={earnedICEPoints}
+            getCourseSlug={this.getCourseSlug}
+            matchingPoints={this.matchingPoints}
+            getOpportunitySlug={this.getOpportunitySlug}
+            icePoints={this.icePoints}
+          />
         </Accordion.Content>
 
         <Accordion.Title active={unVerifiedColumnOpen} onClick={this.handleUnVerifiedColumnClick}>
-          <Icon name="dropdown"/>Unverified <div
-          className={`ui right floated ${unverifiedColor}`}>{unverifiedICEPoints} pts</div>
+          <Icon name="dropdown" />
+Unverified
+          <div
+            className={`ui right floated ${unverifiedColor}`}
+          >
+            {unverifiedICEPoints}
+            {' '}
+pts
+          </div>
         </Accordion.Title>
         <Accordion.Content active={unVerifiedColumnOpen}>
-          <StudentIceColumnUnverified type={type} earnedICEPoints={earnedICEPoints} icePoints={this.icePoints}
-                                      projectedICEPoints={projectedICEPoints} getCourseSlug={this.getCourseSlug}
-                                      matchingPoints={this.matchingPoints} getOpportunitySlug={this.getOpportunitySlug}
-                                      remainingICEPoints={this.remainingICEPoints}/>
+          <StudentIceColumnUnverified
+            type={type}
+            earnedICEPoints={earnedICEPoints}
+            icePoints={this.icePoints}
+            projectedICEPoints={projectedICEPoints}
+            getCourseSlug={this.getCourseSlug}
+            matchingPoints={this.matchingPoints}
+            getOpportunitySlug={this.getOpportunitySlug}
+            remainingICEPoints={this.remainingICEPoints}
+          />
         </Accordion.Content>
 
         <Accordion.Title active={recommendedColumnOpen} onClick={this.handleRecommendedColumnClick}>
-          <Icon name="dropdown"/>Get to 100
+          <Icon name="dropdown" />
+Get to 100
         </Accordion.Title>
         <Accordion.Content active={recommendedColumnOpen}>
-          <StudentIceColumnRecommended type={type} earnedICEPoints={earnedICEPoints} getCourseSlug={this.getCourseSlug}
-                                       projectedICEPoints={projectedICEPoints} matchingPoints={this.matchingPoints}
-                                       icePoints={this.icePoints} getOpportunitySlug={this.getOpportunitySlug}/>
+          <StudentIceColumnRecommended
+            type={type}
+            earnedICEPoints={earnedICEPoints}
+            getCourseSlug={this.getCourseSlug}
+            projectedICEPoints={projectedICEPoints}
+            matchingPoints={this.matchingPoints}
+            icePoints={this.icePoints}
+            getOpportunitySlug={this.getOpportunitySlug}
+          />
         </Accordion.Content>
       </Accordion>
     );

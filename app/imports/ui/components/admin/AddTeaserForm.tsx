@@ -58,23 +58,23 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Teaser</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Teaser</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="title"/>
-          <TextField name="slug"/>
-          <TextField name="author"/>
+          <TextField name="title" />
+          <TextField name="slug" />
+          <TextField name="author" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="targetSlug"/>
-          <TextField name="youtubeID"/>
-          <TextField name="duration"/>
+          <SelectField name="targetSlug" />
+          <TextField name="youtubeID" />
+          <TextField name="duration" />
         </Form.Group>
-        <MultiSelectField name="interests"/>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <MultiSelectField name="interests" />
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

@@ -22,7 +22,7 @@ const handleClick = (props: IOpportunityInstancePillProps) => (event) => {
 const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) => {
   const opp = Opportunities.findDoc(props.instance.opportunityID);
   return (
-    <Popup trigger={
+    <Popup trigger={(
       <div>
         <Draggable key={props.instance._id} draggableId={props.instance._id} index={props.index}>
           {(prov, snap) => (
@@ -36,17 +36,19 @@ const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) 
               )}
             >
               <Grid.Row onClick={handleClick(props)}>
-                <NamePill name={opp.name}/>
+                <NamePill name={opp.name} />
               </Grid.Row>
 
             </div>
           )}
         </Draggable>
-      </div>}>
+      </div>
+    )}
+    >
       <Popup.Content>
-        {props.instance.verified ? <Icon color="green" size="large" name="check circle outline"/> :
-          <Icon color="red" size="large" name="question circle outline"/>}
-        <IceHeader ice={opp.ice}/>
+        {props.instance.verified ? <Icon color="green" size="large" name="check circle outline" /> :
+        <Icon color="red" size="large" name="question circle outline" />}
+        <IceHeader ice={opp.ice} />
       </Popup.Content>
     </Popup>
   );

@@ -11,34 +11,36 @@ import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
   <Router>
     <Switch>
-      {routes.LANDING.map((route, i) => (
-        <Route key={i} {...route} />
+      {routes.LANDING.map((route) => (
+        <Route key={route.path} {...route} />
       ))}
-      {routes.ADMIN.map((route, i) => (
-        <AdminProtectedRoute key={i} {...route} />
+      {routes.ADMIN.map((route) => (
+        <AdminProtectedRoute key={route.path} {...route} />
       ))}
-      {routes.ADVISOR.map((route, i) => (
-        <AdvisorProtectedRoute key={i} {...route} />
+      {routes.ADVISOR.map((route) => (
+        <AdvisorProtectedRoute key={route.path} {...route} />
       ))}
-      {routes.FACULTY.map((route, i) => (
-        <FacultyProtectedRoute key={i} {...route} />
+      {routes.FACULTY.map((route) => (
+        <FacultyProtectedRoute key={route.path} {...route} />
       ))}
-      {routes.MENTOR.map((route, i) => (
-        <MentorProtectedRoute key={i} {...route} />
+      {routes.MENTOR.map((route) => (
+        <MentorProtectedRoute key={route.path} {...route} />
       ))}
-      {routes.STUDENT.map((route, i) => (
-        <StudentProtectedRoute key={i} {...route} />
+      {routes.STUDENT.map((route) => (
+        <StudentProtectedRoute key={route.path} {...route} />
       ))}
-      {routes.ALUMNI.map((route, i) => (
-        <StudentProtectedRoute key={i} {...route} />
+      {routes.ALUMNI.map((route) => (
+        <StudentProtectedRoute key={route.path} {...route} />
       ))}
-      <Route path="/signin" component={Signin}/>
-      <ProtectedRoute path="/signout" component={Signout}/>
-      <Route component={NotFound}/>
+      <Route path="/signin" component={Signin} />
+      <ProtectedRoute path="/signout" component={Signout} />
+      <Route component={NotFound} />
     </Switch>
   </Router>
 );

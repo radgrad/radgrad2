@@ -46,31 +46,32 @@ const renderPage = (props: IGuidedTourStudentProps) => {
   return (
     <div style={styles.background}>
       <Container textAlign="center">
-        <Segment padded={true} style={styles.background}>
+        <Segment padded style={styles.background}>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Slider {...settings}>
-            <WhyRadGrad/>
-            <SetUp/>
-            <Interests interests={props.interests}/>
-            <CareerPath careerGoals={props.careerGoals}/>
-            <Courses courses={props.courses} courseReviews={props.courseReviews}/>
-            <Opportunities opportunties={props.opportunities}/>
-            <DegreePlan/>
-            <ICE/>
-            <Levels/>
-            <SampleStudent/>
-            <Mentor mentors={props.mentors} mentorLocations={props.mentorLocations}/>
-            <AdvisorLog/>
-            <WhatsNext/>
+            <WhyRadGrad />
+            <SetUp />
+            <Interests interests={props.interests} />
+            <CareerPath careerGoals={props.careerGoals} />
+            <Courses courses={props.courses} courseReviews={props.courseReviews} />
+            <Opportunities opportunties={props.opportunities} />
+            <DegreePlan />
+            <ICE />
+            <Levels />
+            <SampleStudent />
+            <Mentor mentors={props.mentors} mentorLocations={props.mentorLocations} />
+            <AdvisorLog />
+            <WhatsNext />
           </Slider>
         </Segment>
         <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
       </Container>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
 };
 
-const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active={true}>Getting data</Loader>);
+const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

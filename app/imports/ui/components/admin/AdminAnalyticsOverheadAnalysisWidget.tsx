@@ -33,21 +33,21 @@ class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyti
     const panes = [
       {
         menuItem: 'User Session Overhead',
-        render: () => <UserSessionOverheadWidget/>,
+        render: () => <UserSessionOverheadWidget />,
       },
       {
         menuItem: 'Overall Server Load',
-        render: () => <OverallServerLoadWidget/>,
+        render: () => <OverallServerLoadWidget />,
       },
     ];
     return (
       <React.Fragment>
-        <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS}/>
+        <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
 
-        <Segment padded={true} className="container">
+        <Segment padded className="container">
           {/* TODO: Make this reactive */}
-          <Header dividing={true}>{`${dateRange} ${_.uniqueId()}`}</Header>
-          <Tab panes={panes} menu={tabMenuSettings}/>
+          <Header dividing>{`${dateRange} ${_.uniqueId()}`}</Header>
+          <Tab panes={panes} menu={tabMenuSettings} />
         </Segment>
       </React.Fragment>
     );

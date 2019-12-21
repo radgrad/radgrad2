@@ -23,27 +23,31 @@ const handleClick = (props: ICourseInstancePillProps) => (event) => {
 };
 
 const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
-  <Popup trigger={
-    <div>
-      <Draggable key={props.instance._id} draggableId={props.instance._id} index={props.index}>
-        {(prov, snap) => (
-          <div
-            ref={prov.innerRef}
-            {...prov.draggableProps}
-            {...prov.dragHandleProps}
-            style={getDraggablePillStyle(
+  <Popup
+    trigger={(
+      <div>
+        <Draggable key={props.instance._id} draggableId={props.instance._id} index={props.index}>
+          {(prov, snap) => (
+            <div
+              ref={prov.innerRef}
+              {...prov.draggableProps}
+              {...prov.dragHandleProps}
+              style={getDraggablePillStyle(
               snap.isDragging,
               prov.draggableProps.style,
             )}
-          >
-            <Grid.Row onClick={handleClick(props)}>
-              <NamePill name={props.instance.note}/>
-            </Grid.Row>
+            >
+              <Grid.Row onClick={handleClick(props)}>
+                <NamePill name={props.instance.note} />
+              </Grid.Row>
 
-          </div>
+            </div>
         )}
-      </Draggable>
-    </div>} content={getName(props.instance)}/>
+        </Draggable>
+      </div>
+  )}
+    content={getName(props.instance)}
+  />
 );
 
 export default DraggableCourseInstancePill;

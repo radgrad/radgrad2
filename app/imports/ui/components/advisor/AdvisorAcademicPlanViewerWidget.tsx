@@ -54,13 +54,13 @@ class AdvisorAcademicPlanViewerWidget extends React.Component<IAdvisorAcademicPl
     });
     // console.log('APV render state', this.state);
     return (
-      <Segment padded={true}>
+      <Segment padded>
         <AutoForm schema={schema} onChangeModel={this.handleModelChange}>
           <Form.Group widths="equal">
-            <SelectField name="year"/>
-            <SelectField name="name"/>
+            <SelectField name="year" />
+            <SelectField name="name" />
           </Form.Group>
-          {this.state.selectedPlan ? <AdvisorAcademicPlanViewer plan={this.state.selectedPlan}/> : ''}
+          {this.state.selectedPlan ? <AdvisorAcademicPlanViewer plan={this.state.selectedPlan} /> : ''}
         </AutoForm>
       </Segment>
     );

@@ -23,12 +23,12 @@ const FirstMenu = (props: IFirstMenuProps) => {
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   return (
-    <Menu attached="top" borderless={true} className="radgrad-first-menu" id={`${firstMenu}`}>
-      <Menu.Item as={NavLink} activeClassName="" exact={true} to="/" style={noPadding}>
-        <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
+    <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
+      <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
+        <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
         <div className="mobile hidden item">
           <Header as="h1">
-            <RadGradLogoText/>
+            <RadGradLogoText />
           </Header>
         </div>
       </Menu.Item>
@@ -36,19 +36,23 @@ const FirstMenu = (props: IFirstMenuProps) => {
       <Menu.Item position="right" className="right menu" style={noPadding}>
         {props.currentUser === '' ? (
           <div>
-            <Dropdown text="Login" pointing="top right" icon={'user'}>
+            <Dropdown text="Login" pointing="top right" icon="user">
               <Dropdown.Menu>
-                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact={true} to="/signin"/>
+                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin" />
               </Dropdown.Menu>
             </Dropdown>
           </div>
         ) : (
           <div style={flexStyle}>
-            <RadGradMenuProfile userName={username}/>
-            <Dropdown text={props.currentUser} pointing="top right" icon={props.iconName}
-                      style={signoutStyle}>
+            <RadGradMenuProfile userName={username} />
+            <Dropdown
+              text={props.currentUser}
+              pointing="top right"
+              icon={props.iconName}
+              style={signoutStyle}
+            >
               <Dropdown.Menu>
-                <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
+                <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
               </Dropdown.Menu>
             </Dropdown>
           </div>

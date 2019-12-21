@@ -55,11 +55,11 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
       question: String,
     });
     return (
-      <Segment padded={true} id={studentMentorSpaceAskQuestionWidget}>
-        <Header dividing={true}><h4>ASK A NEW QUESTION</h4></Header>
+      <Segment padded id={studentMentorSpaceAskQuestionWidget}>
+        <Header dividing><h4>ASK A NEW QUESTION</h4></Header>
         <AutoForm schema={schema} onSubmit={this.handleSubmit} ref={this.formRef}>
-          <LongTextField name="question"/>
-          <SubmitField inputRef={undefined} value={'Ask Question'} disabled={false} className={''}/>
+          <LongTextField name="question" />
+          <SubmitField inputRef={undefined} value="Ask Question" disabled={false} className="" />
         </AutoForm>
       </Segment>
     );

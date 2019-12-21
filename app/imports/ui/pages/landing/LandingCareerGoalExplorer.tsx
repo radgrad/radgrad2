@@ -24,35 +24,38 @@ const LandingCareerGoalExplorer = (props: ICareerGoalExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={3}>
-          <LandingExplorerMenuContainer/>
+          <LandingExplorerMenuContainer />
         </Grid.Column>
 
         <Grid.Column width={11}>
-          <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-            <Header as="h4" dividing={true}>
+          <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+            <Header as="h4" dividing>
               <span>{props.careerGoal.name}</span>
             </Header>
             <b>Description:</b>
-            <Markdown escapeHtml={true} source={props.careerGoal.description}
-                      renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-            <Header as="h4" dividing={true}>Career Goal Interests</Header>
-            <LandingInterestList interestIDs={props.careerGoal.interestIDs}/>
+            <Markdown
+              escapeHtml
+              source={props.careerGoal.description}
+              renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+            />
+            <Header as="h4" dividing>Career Goal Interests</Header>
+            <LandingInterestList interestIDs={props.careerGoal.interestIDs} />
           </Segment>
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

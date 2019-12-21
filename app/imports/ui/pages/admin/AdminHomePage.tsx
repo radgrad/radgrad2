@@ -32,13 +32,18 @@ class AdminHomePage extends React.Component<{}, IFilterUsers> {
   public render() {
     return (
       <div>
-        <AdminPageMenuWidget/>
+        <AdminPageMenuWidget />
         <Container textAlign="center" fluid={false}>
-            <FilterUserWidget updateFirstNameRegex={this.updateFirstNameRegex}
-                              updateLastNameRegex={this.updateLastNameRegex}
-                              updateUserNameRegex={this.updateUserNameRegex}/>
-            <RetrieveUserWidget firstNameRegex={this.state.firstNameRegex} lastNameRegex={this.state.lastNameRegex}
-                                userNameRegex={this.state.userNameRegex}/>
+          <FilterUserWidget
+            updateFirstNameRegex={this.updateFirstNameRegex}
+            updateLastNameRegex={this.updateLastNameRegex}
+            updateUserNameRegex={this.updateUserNameRegex}
+          />
+          <RetrieveUserWidget
+            firstNameRegex={this.state.firstNameRegex}
+            lastNameRegex={this.state.lastNameRegex}
+            userNameRegex={this.state.userNameRegex}
+          />
         </Container>
       </div>
     );

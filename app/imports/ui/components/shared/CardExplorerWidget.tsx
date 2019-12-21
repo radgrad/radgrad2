@@ -105,60 +105,74 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
     {
       menuItem: 'Advisors',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="advisors">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="advisors">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
     {
       menuItem: 'Faculty',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="faculty">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="faculty">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
     {
       menuItem: 'Mentors',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="mentors">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="mentors">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
     {
       menuItem: 'Students',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="students">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type='user' numFavorites={0}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="students">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
   ];
 
   return (
     <React.Fragment>
-      <Segment padded={true} id={`${cardExplorerWidget}`}>
-        <Header dividing={true}>
+      <Segment padded id={`${cardExplorerWidget}`}>
+        <Header dividing>
           <h4>
             {
-              !buildStudentUserCard ?
+              !buildStudentUserCard ? (
                 <React.Fragment>
-                  <span style={uppercaseTextTransformStyle}>{header.title} </span><WidgetHeaderNumber
-                  inputValue={header.count}/>
+                  <span style={uppercaseTextTransformStyle}>
+                    {header.title}
+                    {' '}
+                  </span>
+                  <WidgetHeaderNumber
+                    inputValue={header.count}
+                  />
                 </React.Fragment>
+              )
                 :
                 <span style={uppercaseTextTransformStyle}>{header.title}</span>
             }
@@ -168,27 +182,28 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         {checkForNoItems(props)}
 
         {
-          !buildStudentUserCard ?
-            <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable={true}>
+          !buildStudentUserCard ? (
+            <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable>
               {
                 buildPlanCard ?
-                  items.map((item, index) => <PlanCard key={item._id} item={item} type={type} numFavorites={favoriteCounts[index]}/>) : ''
+                  items.map((item, index) => <PlanCard key={item._id} item={item} type={type} numFavorites={favoriteCounts[index]} />) : ''
               }
               {
                 buildProfileCard ?
-                  items.map((item, index) => <ProfileCard key={index} item={item} type={type} numFavorites={favoriteCounts[index]}/>) : ''
+                  items.map((item, index) => <ProfileCard key={index} item={item} type={type} numFavorites={favoriteCounts[index]} />) : ''
               }
               {
                 buildTermCard ?
-                  items.map((item, index) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent} numFavorites={favoriteCounts[index]}/>) : ''
+                  items.map((item, index) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent} numFavorites={favoriteCounts[index]} />) : ''
               }
               {
                 buildExplorerCard ?
-                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type}/>) : ''
+                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />) : ''
               }
             </Card.Group>
+          )
             :
-            <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle}/>
+            <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} />
         }
       </Segment>
     </React.Fragment>

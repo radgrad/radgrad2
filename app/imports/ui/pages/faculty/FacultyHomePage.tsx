@@ -6,20 +6,20 @@ import FacultyPageAboutMeWidget from '../../components/faculty/FacultyPageAboutM
 
 const FacultyHomePage = () => (
   <div>
-    <FacultyPageMenuWidget/>
-    <Grid stackable={true}>
+    <FacultyPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <FacultyPageAboutMeWidget/>
+          <FacultyPageAboutMeWidget />
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
   </div>

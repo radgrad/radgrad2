@@ -56,13 +56,13 @@ interface ICardExplorerPageProps {
 const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   switch (props.role) {
     case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget/>;
+      return <StudentPageMenuWidget />;
     case URL_ROLES.MENTOR:
-      return <MentorPageMenuWidget/>;
+      return <MentorPageMenuWidget />;
     case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget/>;
+      return <FacultyPageMenuWidget />;
     default:
-      return <React.Fragment/>;
+      return <React.Fragment />;
   }
 };
 
@@ -142,29 +142,32 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
       <div>
         {menuWidget}
 
-        <Grid stackable={true}>
+        <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
+            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={1} />
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
             <Grid.Column width={3}>
-            <CardExplorerMenu menuAddedList={addedList} type={props.type} role={props.role}
-                              menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
-            />
-          </Grid.Column>
+              <CardExplorerMenu
+                menuAddedList={addedList}
+                type={props.type}
+                role={props.role}
+                menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
+              />
+            </Grid.Column>
 
-          <Grid.Column width={11}>
-            <CardExplorerWidget items={props.items} type={props.type} role={props.role} favoriteCounts={props.favoriteCounts}/>
-          </Grid.Column>
-          <Grid.Column width={1}/>
-        </Grid.Row>
-      </Grid>
-      <BackToTopButton/>
-    </div>
+            <Grid.Column width={11}>
+              <CardExplorerWidget items={props.items} type={props.type} role={props.role} favoriteCounts={props.favoriteCounts} />
+            </Grid.Column>
+            <Grid.Column width={1} />
+          </Grid.Row>
+        </Grid>
+        <BackToTopButton />
+      </div>
   );
 };
 

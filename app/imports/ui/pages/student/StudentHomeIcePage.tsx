@@ -8,28 +8,28 @@ import StudentIceWidget from '../../components/student/StudentIceWidget';
 
 const StudentHomeIcePage = () => (
   <div>
-    <StudentPageMenuWidget/>
-    <Grid stackable={true}>
+    <StudentPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={3}>
-          <StudentHomeMenu/>
+          <StudentHomeMenu />
         </Grid.Column>
 
-        <Grid.Column width={11} stretched={true}>
-          <StudentIceWidget/>
+        <Grid.Column width={11} stretched>
+          <StudentIceWidget />
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
 
-    <BackToTopButton/>
+    <BackToTopButton />
   </div>
 );
 

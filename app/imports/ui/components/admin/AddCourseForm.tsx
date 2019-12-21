@@ -48,25 +48,25 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
     'prerequisites.$': { type: String, allowedValues: courseNames },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Course</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Course</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" placeholder="dept_111"/>
-          <TextField name="name" placeholder="DEPT 111 Introduction to Science"/>
+          <TextField name="slug" placeholder="dept_111" />
+          <TextField name="name" placeholder="DEPT 111 Introduction to Science" />
         </Form.Group>
         <Form.Group widths="equal">
-          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science"/>
-          <NumField name="creditHours"/>
-          <TextField name="number" placeholder="DEPT 111"/>
+          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
+          <NumField name="creditHours" />
+          <TextField name="number" placeholder="DEPT 111" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
+        <LongTextField name="description" />
+        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
-          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
+          <MultiSelectField name="interests" placeholder="Select Interest(s)" />
+          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

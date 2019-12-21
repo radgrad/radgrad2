@@ -18,17 +18,26 @@ interface IFavoriteCoursesWidgetProps {
 
 const FavoriteCoursesWidget = (props: IFavoriteCoursesWidgetProps) => {
   const hasFavorites = props.courses.length > 0;
-  return (<div>
-    {hasFavorites ? (<Card.Group itemsPerRow={1}>
-      {_.map(props.courses, (c) => <FavoriteCourseCard key={c._id} course={c} studentID={props.studentID}/>)}
-    </Card.Group>) : <Message>
-      <Message.Header>No favorite courses</Message.Header>
-      <p>You can favorite courses in the explorer.</p>
-      <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>View
+  return (
+    <div>
+      {hasFavorites ? (
+        <Card.Group itemsPerRow={1}>
+          {_.map(props.courses, (c) => <FavoriteCourseCard key={c._id} course={c} studentID={props.studentID} />)}
+        </Card.Group>
+) : (
+  <Message>
+    <Message.Header>No favorite courses</Message.Header>
+    <p>You can favorite courses in the explorer.</p>
+    <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
+View
       in
-      Explorer <Icon name="arrow right"/></Link>
-      </Message>}
-  </div>);
+      Explorer
+      <Icon name="arrow right" />
+    </Link>
+  </Message>
+)}
+    </div>
+);
 };
 
 export default withRouter(withTracker((props) => {

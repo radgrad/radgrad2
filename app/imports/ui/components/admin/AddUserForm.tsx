@@ -95,7 +95,11 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
       },
       picture: {
         type: String,
-        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        label: <React.Fragment>
+Picture (
+          <a onClick={this.handleUpload}>Upload</a>
+)
+        </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },
@@ -148,66 +152,70 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
       schema.extend(studentSchema);
     }
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add User</Header>
-        <AutoForm schema={schema} onSubmit={(doc) => this.handleAddUser(doc)} ref={this.props.formRef}
-                  showInlineError={true}
-                  onChangeModel={this.handleModelChange}>
+      <Segment padded>
+        <Header dividing>Add User</Header>
+        <AutoForm
+          schema={schema}
+          onSubmit={(doc) => this.handleAddUser(doc)}
+          ref={this.props.formRef}
+          showInlineError
+          onChangeModel={this.handleModelChange}
+        >
           <Form.Group widths="equal">
-            <TextField name="username" placeholder="johndoe@foo.edu"/>
-            <SelectField name="role"/>
+            <TextField name="username" placeholder="johndoe@foo.edu" />
+            <SelectField name="role" />
           </Form.Group>
           <Form.Group widths="equal">
-            <TextField name="firstName" placeholder="John"/>
-            <TextField name="lastName" placeholder="Doe"/>
+            <TextField name="firstName" placeholder="John" />
+            <TextField name="lastName" placeholder="Doe" />
           </Form.Group>
-          <Header dividing={true} as="h4">Optional fields (all users)</Header>
+          <Header dividing as="h4">Optional fields (all users)</Header>
           <Form.Group widths="equal">
-            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
-            <TextField name="website"/>
+            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
+            <TextField name="website" />
           </Form.Group>
           <Form.Group widths="equal">
-            <MultiSelectField name="interests"/>
-            <MultiSelectField name="careerGoals"/>
+            <MultiSelectField name="interests" />
+            <MultiSelectField name="careerGoals" />
           </Form.Group>
-          <BoolField name="retired"/>
+          <BoolField name="retired" />
           {this.state.role === ROLE.MENTOR ? (
             <div>
-              <Header dividing={true} as="h4">Mentor fields</Header>
+              <Header dividing as="h4">Mentor fields</Header>
               <Form.Group widths="equal">
-                <TextField name="company"/>
-                <TextField name="career" label="Title"/>
+                <TextField name="company" />
+                <TextField name="career" label="Title" />
               </Form.Group>
               <Form.Group widths="equal">
-                <TextField name="location"/>
-                <TextField name="linkedin" label="LinkedIn"/>
+                <TextField name="location" />
+                <TextField name="linkedin" label="LinkedIn" />
               </Form.Group>
-              <LongTextField name="motivation"/>
+              <LongTextField name="motivation" />
             </div>
           ) : ''}
           {this.state.role === ROLE.STUDENT ? (
             <div>
-              <Header dividing={true} as="h4">Student fields</Header>
+              <Header dividing as="h4">Student fields</Header>
               <Form.Group widths="equal">
-                <NumberField name="level"/>
-                <SelectField name="declaredAcademicTerm"/>
-                <SelectField name="academicPlan"/>
+                <NumberField name="level" />
+                <SelectField name="declaredAcademicTerm" />
+                <SelectField name="academicPlan" />
               </Form.Group>
               <Form.Group widths="equal">
-                <BoolField name="shareUsername"/>
-                <BoolField name="sharePicture"/>
-                <BoolField name="shareWebsite"/>
-                <BoolField name="shareInterests"/>
-                <BoolField name="shareCareerGoals"/>
-                <BoolField name="shareAcademicPlan"/>
-                <BoolField name="shareOpportunities"/>
-                <BoolField name="shareCourses"/>
-                <BoolField name="shareLevel"/>
-                <BoolField name="isAlumni"/>
+                <BoolField name="shareUsername" />
+                <BoolField name="sharePicture" />
+                <BoolField name="shareWebsite" />
+                <BoolField name="shareInterests" />
+                <BoolField name="shareCareerGoals" />
+                <BoolField name="shareAcademicPlan" />
+                <BoolField name="shareOpportunities" />
+                <BoolField name="shareCourses" />
+                <BoolField name="shareLevel" />
+                <BoolField name="isAlumni" />
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
         </AutoForm>
       </Segment>
     );

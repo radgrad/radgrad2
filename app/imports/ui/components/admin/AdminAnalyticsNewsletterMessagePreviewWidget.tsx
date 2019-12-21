@@ -10,12 +10,12 @@ class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdmi
 
   public render() {
     return (
-      <div className='field'>
+      <div className="field">
 
         <label htmlFor="example">Message Preview</label>
-        <input type='hidden' id='example'/>
+        <input type="hidden" id="example" />
         <p>Aloha Student</p>
-        <Markdown source={this.props.message}/>
+        <Markdown source={this.props.message} />
         <p>- The RadGrad Team</p>
       </div>
 

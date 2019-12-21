@@ -49,16 +49,18 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
           const mentorAnswers = _.filter(answers, (ans) => ans.questionID === q._id);
           return (
             <Segment key={ind}>
-              <Accordion fluid={true} styled={true} key={ind} style={accordionStyle}>
+              <Accordion fluid styled key={ind} style={accordionStyle}>
                 <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
-                  <Grid columns='equal'>
+                  <Grid columns="equal">
                     <Grid.Row>
                       <Grid.Column>
-                        <Icon name='dropdown'/>
+                        <Icon name="dropdown" />
                         {q.question}
                       </Grid.Column>
-                      <Grid.Column width={2} textAlign={'right'}>
-                        {answerCount[ind]} {answerCount[ind] > 1 ? ' answers' : ' answer'}
+                      <Grid.Column width={2} textAlign="right">
+                        {answerCount[ind]}
+                        {' '}
+                        {answerCount[ind] > 1 ? ' answers' : ' answer'}
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
@@ -69,15 +71,15 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
                       const mentor = MentorProfiles.findDoc({ userID: answer.mentorID });
                       return (
                         <React.Fragment key={index}>
-                          <MentorQuestionAnswerWidget answer={answer} mentor={mentor}/>
+                          <MentorQuestionAnswerWidget answer={answer} mentor={mentor} />
                         </React.Fragment>
                       );
                     })}
                   </React.Fragment>
                 </Accordion.Content>
               </Accordion>
-              <Divider/>
-              <MentorMentorSpaceAnswerForm question={q}/>
+              <Divider />
+              <MentorMentorSpaceAnswerForm question={q} />
             </Segment>
           );
         })}

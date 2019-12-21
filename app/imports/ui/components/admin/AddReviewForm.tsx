@@ -83,30 +83,35 @@ class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormS
       retired: { type: Boolean, optional: true },
     });
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Course Instance</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}
-                  onChangeModel={this.handleModelChange}>
+      <Segment padded>
+        <Header dividing>Add Course Instance</Header>
+        <AutoForm
+          schema={schema}
+          onSubmit={this.props.handleAdd}
+          ref={this.props.formRef}
+          showInlineError
+          onChangeModel={this.handleModelChange}
+        >
           <Form.Group widths="equal">
-            <TextField name="slug"/>
-            <SelectField name="reviewType"/>
+            <TextField name="slug" />
+            <SelectField name="reviewType" />
           </Form.Group>
           <Form.Group widths="equal">
-            <SelectField name="student"/>
-            <SelectField name="reviewee"/>
+            <SelectField name="student" />
+            <SelectField name="reviewee" />
           </Form.Group>
           <Form.Group widths="equal">
-            <SelectField name="academicTerm"/>
-            <NumField name="rating"/>
+            <SelectField name="academicTerm" />
+            <NumField name="rating" />
           </Form.Group>
-          <LongTextField name="comments"/>
+          <LongTextField name="comments" />
           <Form.Group>
-            <BoolField name="moderated"/>
-            <BoolField name="visible"/>
+            <BoolField name="moderated" />
+            <BoolField name="visible" />
           </Form.Group>
-          <LongTextField name="moderatorComments"/>
-          <BoolField name="retired"/>
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+          <LongTextField name="moderatorComments" />
+          <BoolField name="retired" />
+          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
         </AutoForm>
       </Segment>
     );
