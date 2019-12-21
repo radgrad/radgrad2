@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tab, Header, Form, Radio } from 'semantic-ui-react';
+import { Button, Tab, Header, Form, Radio } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -29,18 +29,22 @@ export interface IAdvisorAddStudentWidgetState {
 }
 
 class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetProps, IAdvisorAddStudentWidgetState> {
-  state = {
-    firstName: '',
-    lastName: '',
-    username: '',
-    isAlumni: false,
-    picture: undefined,
-    website: undefined,
-    careerGoals: [],
-    userInterests: [],
-    declaredAcademicTerm: undefined,
-    academicPlanID: undefined,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      isAlumni: false,
+      picture: undefined,
+      website: undefined,
+      careerGoals: [],
+      userInterests: [],
+      declaredAcademicTerm: undefined,
+      academicPlanID: undefined,
+    };
+  }
+
 
   private handleFormChange = (e, { name, value }) => {
     const k = name;
@@ -192,7 +196,7 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                 label={(
                   <React.Fragment>
                             Picture (
-                    <a onClick={this.handleUploadClick}>Upload</a>
+                    <Button onClick={this.handleUploadClick}>Upload</Button>
 )
                   </React.Fragment>
 )}

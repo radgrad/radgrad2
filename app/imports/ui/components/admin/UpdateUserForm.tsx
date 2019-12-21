@@ -145,11 +145,12 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       lastName: { type: String, optional: true },
       picture: {
         type: String,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    <Button onClick={this.handleUpload}>Upload</Button>
 )
-        </React.Fragment>,
+  </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },
