@@ -15,7 +15,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IFacultyProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFacultyProfile } from '../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 

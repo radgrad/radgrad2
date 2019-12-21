@@ -10,7 +10,7 @@ import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/clie
 import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
 import OpportunityScoreboardWidget from '../../components/shared/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 export interface IScoreboardPageProps {
   match: IRadGradMatch;

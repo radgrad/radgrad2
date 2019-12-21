@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Menu, Responsive } from 'semantic-ui-react';
 import { leftHandMenu } from '../shared/shared-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentHomeMenuProps {
   match: IRadGradMatch;

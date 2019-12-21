@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import * as moment from 'moment';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-// eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
 import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';

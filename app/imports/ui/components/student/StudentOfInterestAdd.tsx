@@ -7,7 +7,7 @@ import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { getUsername } from '../shared/RouterHelperFunctions';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentOfInterestAddProps {
   item: any;

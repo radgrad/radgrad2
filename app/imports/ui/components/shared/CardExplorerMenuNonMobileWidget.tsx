@@ -4,17 +4,16 @@ import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
 } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 import {
-  ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
+  ICardExplorerMenuWidgetProps,
   isType,
 } from './explorer-helper-functions';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';

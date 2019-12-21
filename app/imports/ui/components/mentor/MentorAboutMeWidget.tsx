@@ -15,7 +15,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import { ReduxTypes } from '../../../redux'; // eslint-disable-line no-unused-vars
+import { ReduxTypes } from '../../../redux';
 import {
   SET_MENTOR_HOME_CLOUDINARY_URL,
   SET_MENTOR_HOME_IS_CLOUDINARY_USED,
@@ -23,7 +23,7 @@ import {
 import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IMentorAboutMeWidgetProps {
   match: IRadGradMatch;

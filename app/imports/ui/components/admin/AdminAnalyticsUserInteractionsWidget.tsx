@@ -7,9 +7,6 @@ interface IAdminAnalyticsUserInteractionsWidget {
 }
 
 class AdminAnalyticsUserInteractionsWidget extends React.Component<IAdminAnalyticsUserInteractionsWidget> {
-  constructor(props) {
-    super(props);
-  }
 
   public render() {
     return (

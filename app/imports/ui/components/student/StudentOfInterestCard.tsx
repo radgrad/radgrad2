@@ -1,6 +1,5 @@
 import * as React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { Button, Card, Header, Icon, Image, Popup, SemanticCOLORS } from 'semantic-ui-react';
+import { Button, Card, Header, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import * as Markdown from 'react-markdown';
@@ -12,7 +11,7 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import { replaceTermStringNextFour } from '../shared/helper-functions';
 import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';
 import * as Router from '../shared/RouterHelperFunctions';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentOfInterestCardProps {
   type: string;

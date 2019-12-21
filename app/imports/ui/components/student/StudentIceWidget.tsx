@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Ice, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { Ice, IRadGradMatch } from '../../../typings/radgrad';
 import MenuIceCircle from '../shared/MenuIceCircle';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import StudentIceColumn from './StudentIceColumn';

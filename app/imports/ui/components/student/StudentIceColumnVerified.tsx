@@ -5,12 +5,12 @@ import * as _ from 'lodash';
 import { getUserIdFromRoute, buildRouteName } from '../shared/RouterHelperFunctions';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import {
-  IAcademicTerm, // eslint-disable-line no-unused-vars
-  ICourseInstance, // eslint-disable-line no-unused-vars
-  IOpportunityInstance, // eslint-disable-line no-unused-vars
-  IAcademicYear, // eslint-disable-line no-unused-vars
-  Ice, // eslint-disable-line no-unused-vars
-  IRadGradMatch, // eslint-disable-line no-unused-vars
+  IAcademicTerm,
+  ICourseInstance,
+  IOpportunityInstance,
+  IAcademicYear,
+  Ice,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';

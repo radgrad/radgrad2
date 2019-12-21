@@ -10,9 +10,6 @@ interface IAdminAnalyticsLoggedInUsersWidget {
 }
 
 class AdminAnalyticsLoggedInUsersWidget extends React.Component <IAdminAnalyticsLoggedInUsersWidget> {
-  constructor(props) {
-    super(props);
-  }
 
   public render() {
     return (

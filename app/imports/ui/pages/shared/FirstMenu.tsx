@@ -8,7 +8,7 @@ import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 import { getUsername } from '../../components/shared/RouterHelperFunctions';
 import { firstMenu } from '../../components/shared/shared-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IFirstMenuProps {
   currentUser: string;

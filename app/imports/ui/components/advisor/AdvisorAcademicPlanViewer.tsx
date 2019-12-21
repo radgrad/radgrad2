@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicPlan } from '../../../typings/radgrad';
 import LandingAcademicPlanYearView from '../landing/LandingAcademicPlanYearView';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 

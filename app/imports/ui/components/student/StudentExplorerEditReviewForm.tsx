@@ -12,7 +12,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from '../shared/RatingField';
-import { IAcademicTerm, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm, IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentExplorerEditReviewWidgetProps {
   review: {

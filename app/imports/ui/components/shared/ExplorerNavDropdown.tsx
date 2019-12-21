@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import { selectExplorerMenu } from './shared-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IExplorerNavDropdownProps {
   match: IRadGradMatch;

@@ -7,7 +7,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import { getUsername } from './RouterHelperFunctions';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface ITermAddProps {
   item: any;

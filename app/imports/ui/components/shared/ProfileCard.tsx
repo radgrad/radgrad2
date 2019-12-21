@@ -9,7 +9,7 @@ import {
   docToShortDescription,
 } from './data-model-helper-functions';
 import { buildExplorerRoute } from './explorer-helper-functions';
-import { IExplorerCard } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IExplorerCard } from '../../../typings/radgrad';
 
 const ProfileCard = (props: IExplorerCard) => {
   const { item, match, numFavorites } = props;

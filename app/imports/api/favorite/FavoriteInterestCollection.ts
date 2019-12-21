@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IFavoriteInterestDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteInterestDefine, IFavoriteUpdate } from '../../typings/radgrad';
 import { InterestFavoritesScoreboardName } from '../../startup/both/names';
 
 class FavoriteInterestCollection extends BaseCollection {

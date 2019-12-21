@@ -6,8 +6,8 @@ import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import * as Router from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { IAcademicPlan } from '../../../typings/radgrad';
+import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';

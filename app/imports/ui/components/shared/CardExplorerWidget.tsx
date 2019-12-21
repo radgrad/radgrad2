@@ -5,26 +5,14 @@ import { connect } from 'react-redux';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { ROLE } from '../../../api/role/Role';
 import ExplorerCard from './ExplorerCard';
-
 import ProfileCard from './ProfileCard';
-
-import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
-  IProfile, // eslint-disable-line no-unused-vars
-} from '../../../typings/radgrad';
-
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from './RouterHelperFunctions';
 import {
-  ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
+  ICardExplorerMenuWidgetProps,
   buildHeader,
   checkForNoItems,
   getUsers,

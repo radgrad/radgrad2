@@ -4,7 +4,7 @@ import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semant
 import { withTracker } from 'meteor/react-meteor-data';
 import * as moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityScoreboard } from '../../../startup/client/collections';

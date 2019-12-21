@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Dictionary } from 'lodash';
 import * as TYPES from './types';
 

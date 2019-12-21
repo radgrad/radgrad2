@@ -15,7 +15,7 @@ import {
   userToFullName,
   academicTermNameToShortName,
 } from '../shared/data-model-helper-functions';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {

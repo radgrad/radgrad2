@@ -3,7 +3,7 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 // import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { ICourse, ICourseInstance } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { ICourseInstance } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../shared/IceHeader';
 import { Courses } from '../../../api/course/CourseCollection';

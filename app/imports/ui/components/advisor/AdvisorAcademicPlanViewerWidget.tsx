@@ -5,7 +5,7 @@ import AutoForm from 'uniforms-semantic/AutoForm';
 import SelectField from 'uniforms-semantic/SelectField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicPlan } from '../../../typings/radgrad';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AdvisorAcademicPlanViewer from './AdvisorAcademicPlanViewer';
 

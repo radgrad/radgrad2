@@ -13,7 +13,6 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-// eslint-disable-next-line no-unused-vars
 import { IAdvisorLog, ICareerGoal, IInterest, IRadGradMatch, IStudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

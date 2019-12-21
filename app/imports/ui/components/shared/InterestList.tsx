@@ -1,9 +1,7 @@
 import * as React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
-import { IBaseProfile, IRadGradMatch } from '../../../typings/radgrad';
+import { IRadGradMatch } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { docToName, itemToSlugName } from './data-model-helper-functions';
 import { MatchingInterests } from '../../../api/interest/MatchingInterests';

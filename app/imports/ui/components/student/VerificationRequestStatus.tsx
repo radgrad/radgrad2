@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { Divider, Header } from 'semantic-ui-react';
 import * as moment from 'moment';
 
-import { IVerificationRequest } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IVerificationRequest } from '../../../typings/radgrad';
 
 interface IVerificationRequestStatusProps {
   request: IVerificationRequest;

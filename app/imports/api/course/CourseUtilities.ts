@@ -5,12 +5,7 @@ import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
-import { ICourse } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
-// import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
-// import { clearFeedbackInstancesMethod, feedbackInstancesDefineMethod,
-//   feedbackInstancesRemoveItMethod } from '../feedback/FeedbackInstanceCollection.methods';
-// import { Feedbacks } from '../feedback/FeedbackCollection';
-// import { Slugs } from '../slug/SlugCollection';
+import { ICourse } from '../../typings/radgrad';
 
 /**
  * Returns true if the coursesTakenSlugs fulfills courseID's prerequisites.

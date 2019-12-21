@@ -6,7 +6,6 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
-// eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 

@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { IFavoriteOpportunityDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteOpportunityDefine, IFavoriteUpdate } from '../../typings/radgrad';
 import { OpportunityFavoritesScoreboardName } from '../../startup/both/names';
 
 class FavoriteOpportunityCollection extends BaseCollection {

@@ -8,7 +8,7 @@ import DraggablePlanChoicePill from './DraggablePlanChoicePill';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../api/degree-plan/AcademicPlanUtilities';
 import SatisfiedPlanChoicePill from './SatisfiedPlanChoicePill';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IAcademicPlanTermViewProps {
   title: string;

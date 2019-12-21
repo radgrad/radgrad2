@@ -5,13 +5,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
-  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, IRadGradMatch, // eslint-disable-line no-unused-vars
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  IInterest,
+  IOpportunity, IRadGradMatch,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';

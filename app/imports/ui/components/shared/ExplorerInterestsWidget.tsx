@@ -4,7 +4,7 @@ import { Header, Grid, Divider, Segment, SegmentGroup, Embed } from 'semantic-ui
 import * as Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
-import { IInterest, IProfile, IProfileUpdate, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IInterest, IProfile, IRadGradMatch } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';

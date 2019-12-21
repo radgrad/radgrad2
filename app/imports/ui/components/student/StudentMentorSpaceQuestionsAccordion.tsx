@@ -6,7 +6,6 @@ import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import MentorQuestionAnswerWidget from './MentorQuestionAnswerWidget';
-// eslint-disable-next-line no-unused-vars
 import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 
 interface IStudentMentorSpaceQuestionsAccordionState {

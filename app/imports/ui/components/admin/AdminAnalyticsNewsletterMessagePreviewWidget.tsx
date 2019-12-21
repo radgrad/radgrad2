@@ -7,9 +7,6 @@ interface IAdminAnalyticsNewsletterWidget {
 }
 
 class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdminAnalyticsNewsletterWidget> {
-  constructor(props) {
-    super(props);
-  }
 
   public render() {
     return (

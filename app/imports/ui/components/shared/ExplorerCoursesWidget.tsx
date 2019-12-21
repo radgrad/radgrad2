@@ -9,7 +9,7 @@ import InterestList from './InterestList';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
-import { ICourse, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { ICourse, IRadGradMatch } from '../../../typings/radgrad';
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';

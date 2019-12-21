@@ -5,7 +5,7 @@ import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Users } from '../user/UserCollection';
-import { IFavoriteCareerGoalDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteCareerGoalDefine, IFavoriteUpdate } from '../../typings/radgrad';
 import { ROLE } from '../role/Role';
 import { CareerGoalFavoritesScoreboardName } from '../../startup/both/names';
 

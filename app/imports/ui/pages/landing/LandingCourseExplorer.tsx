@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { ICourse, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { ICourse, IRadGradMatch } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';

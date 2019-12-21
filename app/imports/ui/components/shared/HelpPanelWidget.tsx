@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
-import { IHelpDefine, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IHelpDefine, IRadGradMatch } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
 import { helpPanelWidget } from './shared-widget-names';
@@ -20,11 +20,6 @@ interface IHelpPanelWidgetState {
 
 class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelWidgetState> {
   public state: IHelpPanelWidgetState = { activeIndex: -1 };
-
-  constructor(props) {
-    super(props);
-    // console.log('HelpPanelWidget props=%o', props);
-  }
 
   private handleClick = (e, titleProps) => {
     e.preventDefault();

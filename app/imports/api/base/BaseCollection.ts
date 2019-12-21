@@ -255,7 +255,7 @@ class BaseCollection {
    * Returns a string representing all of the documents in this collection.
    * @returns {String}
    */
-  public toString(...rest: any[]): string { // eslint-disable-line no-unused-vars
+  public toString(...rest: any[]): string { // eslint-disable-line @typescript-eslint/no-unused-vars
     return this.collection.find().fetch().toString();
   }
 

@@ -10,9 +10,9 @@ import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
 import { studentTeaserWidget } from './student-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentTeaserWidgetProps {
   match: IRadGradMatch;

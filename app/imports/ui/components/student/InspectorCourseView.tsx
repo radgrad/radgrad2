@@ -18,7 +18,7 @@ import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IInspectorCourseViewProps {
   courseID: string;

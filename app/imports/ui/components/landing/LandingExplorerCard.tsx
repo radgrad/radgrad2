@@ -5,7 +5,7 @@ import * as Markdown from 'react-markdown';
 import { getSlug, itemShortDescription } from './helper-functions';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import * as Router from '../shared/RouterHelperFunctions';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IItemProps {
   name: string;

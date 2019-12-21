@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentMentorSpaceQuestionFormProps {
   match: IRadGradMatch;

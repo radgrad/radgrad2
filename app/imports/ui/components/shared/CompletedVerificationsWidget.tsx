@@ -1,8 +1,6 @@
 import * as React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { Segment, Header, Grid, Form, Container, Button, Label } from 'semantic-ui-react';
+import { Segment, Header, Grid, Container, Button } from 'semantic-ui-react';
 import * as moment from 'moment';
-// eslint-disable-next-line no-unused-vars
 import { IAcademicTerm, IOpportunity, IProcessed, IVerificationRequest } from '../../../typings/radgrad';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';

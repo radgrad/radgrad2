@@ -6,7 +6,7 @@ import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Users } from '../../../api/user/UserCollection';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IUserAnswersComponentProps {
   userID: string;

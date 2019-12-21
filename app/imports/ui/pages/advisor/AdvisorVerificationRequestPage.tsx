@@ -8,7 +8,6 @@ import PendingVerificationsWidget from '../../components/shared/PendingVerificat
 import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
 import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-// eslint-disable-next-line no-unused-vars
 import { IOpportunity, IRadGradMatch, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';

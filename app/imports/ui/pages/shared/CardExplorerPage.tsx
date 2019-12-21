@@ -16,13 +16,13 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import CardExplorerMenu from '../../components/shared/CardExplorerMenu';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, // eslint-disable-line no-unused-vars
-  IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, IProfile, IRadGradMatch, // eslint-disable-line no-unused-vars
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree, IFavoriteCareerGoal,
+  IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  IInterest,
+  IOpportunity, IProfile, IRadGradMatch,
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';

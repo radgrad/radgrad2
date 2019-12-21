@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { buildRouteName } from './RouterHelperFunctions';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IMenuIceCircleProps {
   match: IRadGradMatch;

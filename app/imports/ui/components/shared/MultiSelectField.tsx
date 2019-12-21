@@ -21,16 +21,16 @@ const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transf
 
 const MultiSelect = ({
                        allowedValues,
-                       checkboxes,
+                       checkboxes, // eslint-disable-line @typescript-eslint/no-unused-vars
                        className,
                        disabled,
                        error,
                        errorMessage,
-                       fieldType,
+                       fieldType, // eslint-disable-line @typescript-eslint/no-unused-vars
                        id,
-                       inputRef,
+                       inputRef, // eslint-disable-line @typescript-eslint/no-unused-vars
                        label,
-                       name,
+                       name, // eslint-disable-line @typescript-eslint/no-unused-vars
                        onChange,
                        placeholder,
                        required,

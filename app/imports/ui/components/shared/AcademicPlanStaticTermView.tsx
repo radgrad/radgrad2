@@ -8,7 +8,7 @@ import * as Router from './RouterHelperFunctions';
 import LandingPlanChoicePill from '../landing/LandingPlanChoicePill';
 import SatisfiedPlanChoicePill from './SatisfiedPlanChoicePill';
 import StaticPlanChoicePill from './StaticPlanChoicePill';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IAcademicPlanTermViewProps {
   title: string;

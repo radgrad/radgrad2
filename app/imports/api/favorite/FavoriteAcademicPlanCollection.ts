@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IDumpOne, IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radgrad';
 import { AcademicPlanFavoritesScoreboardName } from '../../startup/both/names';
 
 class FavoriteAcademicPlanCollection extends BaseCollection {

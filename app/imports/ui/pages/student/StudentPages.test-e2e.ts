@@ -1,4 +1,3 @@
-import { Selector } from 'testcafe'; // eslint-disable-line no-unused-vars
 import {
   academicPlansExplorerSelector,
   adminLogin,

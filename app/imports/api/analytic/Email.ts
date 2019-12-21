@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email'; // non-relative module
 import { SSR } from 'meteor/meteorhacks:ssr'; // non-relative module
 // global for Meteor but you have to declare it in file to use it
-/* eslint-disable no-unused-vars */
 declare const Assets: any;
 interface IEmailData {
   templateData: {

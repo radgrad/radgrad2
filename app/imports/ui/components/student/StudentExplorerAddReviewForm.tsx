@@ -12,7 +12,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { IAcademicTerm, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm, IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentExplorerAddReviewFormProps {
   event: {

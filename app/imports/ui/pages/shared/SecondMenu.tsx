@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, SemanticWIDTHS } from 'semantic-ui-react'; // eslint-disable-line no-unused-vars
+import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IMenuItem {
   label: string;

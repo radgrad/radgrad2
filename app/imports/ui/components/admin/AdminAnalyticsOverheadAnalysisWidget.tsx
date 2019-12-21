@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { Header, Segment, Tab } from 'semantic-ui-react';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
 import { ANALYTICS } from '../../../startup/client/routes-config';
-// eslint-disable-next-line no-unused-vars
 import { ReduxTypes } from '../../../redux';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
@@ -22,9 +21,6 @@ const mapStateToProps = (state: ReduxTypes.State): { dateRange: { startDate: Dat
 });
 
 class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyticsOverheadAnalysisWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { dateRange } = this.props;

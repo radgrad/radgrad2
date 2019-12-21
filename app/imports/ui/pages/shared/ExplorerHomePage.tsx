@@ -6,7 +6,7 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerNavDropdown from '../../components/shared/ExplorerNavDropdown';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IExplorerHomePageProps {
   match: IRadGradMatch;

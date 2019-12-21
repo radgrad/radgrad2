@@ -16,10 +16,6 @@ const options = [
 class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, IFormExampleState> {
   public state: IFormExampleState = { value: '' };
 
-  constructor(props) {
-    super(props);
-  }
-
   public handleChange = (e, { value }) => this.setState({ value });
   public handleSubmit = (doc) => this.props.handleSubmit(doc);
 

@@ -6,9 +6,6 @@ interface IUserSessionOverheadWidgetProps {
 
 
 class UserSessionOverheadWidget extends React.Component<IUserSessionOverheadWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const tableStyle = { width: '99%' };

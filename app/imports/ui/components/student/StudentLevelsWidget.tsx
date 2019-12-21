@@ -6,7 +6,7 @@ import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { studentLevelsWidget } from './student-widget-names';
-import { IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentLevelsWidgetProps {
   match: IRadGradMatch;

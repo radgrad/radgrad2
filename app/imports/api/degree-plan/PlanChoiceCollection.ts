@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import * as _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
-import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';
 import { Courses } from '../course/CourseCollection';
 

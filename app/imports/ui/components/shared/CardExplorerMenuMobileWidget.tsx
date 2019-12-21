@@ -3,19 +3,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Dropdown, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
-import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
-} from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
 import {
-  ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
+  ICardExplorerMenuWidgetProps,
   isType,
 } from './explorer-helper-functions';
 

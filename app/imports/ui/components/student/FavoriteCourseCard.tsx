@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { ICourse, ICourseInstance } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { ICourse, ICourseInstance } from '../../../typings/radgrad';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';

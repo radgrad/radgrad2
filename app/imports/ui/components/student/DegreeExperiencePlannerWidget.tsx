@@ -9,11 +9,9 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
 import {
-  IAcademicYear, // eslint-disable-line no-unused-vars
-  IAcademicYearDefine, // eslint-disable-line no-unused-vars
-  ICourseInstance, // eslint-disable-line no-unused-vars
-  IOpportunityInstance, // eslint-disable-line no-unused-vars
-  IRadGradMatch, // eslint-disable-line no-unused-vars
+  IAcademicYear,
+  IAcademicYearDefine,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
