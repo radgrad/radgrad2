@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumField from 'uniforms-semantic/NumField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import * as _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { ICourse, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IInterest } from '../../../typings/radgrad';
 import {
   courseSlugToName, courseToName,
   docToName,

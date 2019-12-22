@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
+import { AutoForm } from 'uniforms-semantic';
 import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IAdminDataModelAddFormProps {

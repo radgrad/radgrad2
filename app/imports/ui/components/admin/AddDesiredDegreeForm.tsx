@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 interface IAddDesiredDegreeFormProps {

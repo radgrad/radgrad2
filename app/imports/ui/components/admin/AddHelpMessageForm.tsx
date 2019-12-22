@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IAddHelpMessageFormProps {

@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import TextField from 'uniforms-semantic/TextField';
-import BoolField from 'uniforms-semantic/BoolField';
-import NumField from 'uniforms-semantic/SelectField';
+import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
@@ -22,6 +18,8 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+
+/* eslint-disable react/no-access-state-in-setstate */
 
 // TODO: bug hunting
 // admin should be recieving copy of newsletter 09/16/19
@@ -143,7 +141,8 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private onClickPreviewSave = () => {
-    this.setState({ onSubmitInputMessage: this.state.inputMessage });
+    const message = this.state.inputMessage;
+    this.setState({ onSubmitInputMessage: message });
   }
 
   private onClickSendStudentsToo = () => {
@@ -476,8 +475,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     return html;
   }
 
-  private
-  getRemainingRequirements = (student, studentAcademicPlanDoc) => {
+  private getRemainingRequirements = (student, studentAcademicPlanDoc) => {
 
     const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
     const inPlanCourseSlugs400 = [];
@@ -583,22 +581,22 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
             <NumField name="level" placeholder="level" />
             <BoolField name="sendToLevels" />
-            <button
+            <Button
               className="ui basic green button"
               disabled={!this.state.sendToLevels}
               onClick={this.onClickSendLevels}
             >
 Send To Students
-            </button>
+            </Button>
             <Form.Field label="Generate To Send To All Users" />
             <BoolField name="sendToAll" />
-            <button
+            <Button
               className="ui basic green button"
               disabled={!this.state.sendToAll}
               onClick={this.onClickSendToAll}
             >
 Send To All
-            </button>
+            </Button>
           </AutoForm>
         </Segment>
       </div>

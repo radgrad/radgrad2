@@ -3,11 +3,8 @@ import * as _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import SimpleSchema from 'simpl-schema';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import { IAcademicTerm, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { IAcademicTerm, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';

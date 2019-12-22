@@ -1,17 +1,10 @@
 import * as React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import AutoField from 'uniforms-semantic/AutoField';
-import BoolField from 'uniforms-semantic/BoolField';
-import DateField from 'uniforms-semantic/DateField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import TextField from 'uniforms-semantic/TextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as _ from 'lodash';
-import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';

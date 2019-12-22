@@ -1,14 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import DateField from 'uniforms-semantic/DateField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
@@ -121,11 +114,12 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       'users.$': { type: String, allowedValues: studentNames },
       picture: {
         type: String,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    <Button onClick={this.handleUpload}>Upload</Button>
 )
-               </React.Fragment>,
+  </React.Fragment>,
         defaultValue: model.picture,
         optional: true,
       },
@@ -210,7 +204,7 @@ Update
               <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
                 <SelectField name="user" />
-                <NumberField name="level" />
+                <NumField name="level" />
               </Form.Group>
             </div>
           ) : ''}

@@ -1,13 +1,10 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';

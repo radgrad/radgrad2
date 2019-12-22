@@ -1,11 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import DateField from 'uniforms-semantic/DateField';
-import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

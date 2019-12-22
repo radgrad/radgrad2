@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Header } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 
 interface IRequestVerificationFormProps {

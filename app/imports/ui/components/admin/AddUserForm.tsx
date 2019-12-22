@@ -1,13 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { Button, Form, Header, Segment } from 'semantic-ui-react';
+import { AutoForm, TextField, SelectField, BoolField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
@@ -95,11 +89,12 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
       },
       picture: {
         type: String,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    <Button onClick={this.handleUpload}>Upload</Button>
 )
-        </React.Fragment>,
+  </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },
@@ -197,7 +192,6 @@ Picture (
             <div>
               <Header dividing as="h4">Student fields</Header>
               <Form.Group widths="equal">
-                <NumberField name="level" />
                 <SelectField name="declaredAcademicTerm" />
                 <SelectField name="academicPlan" />
               </Form.Group>
