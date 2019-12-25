@@ -1,10 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../shared/MultiSelectField';

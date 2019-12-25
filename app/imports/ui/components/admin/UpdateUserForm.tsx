@@ -2,13 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -240,7 +234,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
             <div>
               <Header dividing={true} as="h4">Student fields</Header>
               <Form.Group widths="equal">
-                <NumberField name="level"/>
+                <NumField name="level"/>
                 <SelectField name="declaredAcademicTerm"/>
               </Form.Group>
               <Form.Group widths="equal">

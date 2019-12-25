@@ -1,13 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
@@ -82,6 +76,7 @@ class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormS
       moderatorComments: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     });
+    // @ts-ignore
     return (
       <Segment padded={true}>
         <Header dividing={true}>Add Course Instance</Header>

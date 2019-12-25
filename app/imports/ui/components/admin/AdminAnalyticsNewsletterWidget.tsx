@@ -1,11 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import TextField from 'uniforms-semantic/TextField';
-import BoolField from 'uniforms-semantic/BoolField';
-import NumField from 'uniforms-semantic/SelectField';
+import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';

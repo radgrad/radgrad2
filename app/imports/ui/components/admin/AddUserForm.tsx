@@ -1,13 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
@@ -189,7 +183,7 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
             <div>
               <Header dividing={true} as="h4">Student fields</Header>
               <Form.Group widths="equal">
-                <NumberField name="level"/>
+                <NumField name="level"/>
                 <SelectField name="declaredAcademicTerm"/>
                 <SelectField name="academicPlan"/>
               </Form.Group>

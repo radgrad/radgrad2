@@ -1,10 +1,6 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 
 interface IUpdateDesiredDegreeFormProps {

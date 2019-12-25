@@ -1,10 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor'; // eslint-disable-line no-unused-vars
 import { Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';

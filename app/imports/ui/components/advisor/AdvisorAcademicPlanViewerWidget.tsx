@@ -1,8 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Form, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import SelectField from 'uniforms-semantic/SelectField';
+import { AutoForm, SelectField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars

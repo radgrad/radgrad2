@@ -1,8 +1,6 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';

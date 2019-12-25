@@ -1,14 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import DateField from 'uniforms-semantic/DateField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
@@ -200,7 +193,7 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
               <Header dividing={true} as="h4">New course review fields</Header>
               <Form.Group widths="equal">
                 <SelectField name="user"/>
-                <NumberField name="level"/>
+                <NumField name="level"/>
               </Form.Group>
             </div>
           ) : ''}

@@ -3,11 +3,7 @@ import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, SubmitField } from 'uniforms-semantic';
 import SimplSchema from 'simpl-schema';
 import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';

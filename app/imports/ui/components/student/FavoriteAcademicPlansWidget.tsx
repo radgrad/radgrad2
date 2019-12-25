@@ -4,8 +4,7 @@ import { Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import SelectField from 'uniforms-semantic/SelectField';
+import { AutoForm, SelectField } from 'uniforms-semantic';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import * as Router from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
