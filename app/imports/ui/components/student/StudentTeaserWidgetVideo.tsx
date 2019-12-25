@@ -11,7 +11,7 @@ const StudentTeaserWidgetVideo = (props: IStudentTeaserWidgetVideoProps) => {
     height: 'auto',
   };
   return (
-    <Embed active={true} autoplay={false} style={embedStyle} source="youtube" id={props.teaserUrl}/>
+    <Embed active autoplay={false} style={embedStyle} source="youtube" id={props.teaserUrl} />
   );
 };
 

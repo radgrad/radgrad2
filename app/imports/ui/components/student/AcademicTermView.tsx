@@ -32,9 +32,14 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   const isCurrent = props.term.termNumber === currentTermNum;
   return (
     <Container style={paddedStyle}>
-      <Header dividing={true} disabled={inPast}
-              color={isCurrent ? 'green' : 'black'}>{AcademicTerms.toString(props.term._id)}</Header>
-      <Grid stackable={true} stretched={true}>
+      <Header
+        dividing
+        disabled={inPast}
+        color={isCurrent ? 'green' : 'black'}
+      >
+        {AcademicTerms.toString(props.term._id)}
+      </Header>
+      <Grid stackable stretched>
         <Droppable droppableId={`${termSlug}`}>
           {(provided, snapshot) => (
             <div
@@ -42,13 +47,22 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
               // style={style}
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
-              {_.map(props.courseInstances, (ci, index) => <DraggableCourseInstancePill key={ci._id} instance={ci}
-                                                                                        index={index}
-                                                                                        handleClickCourseInstance={props.handleClickCourseInstance}/>)}
-              {_.map(props.opportunityInstances, (oi, index) => <DraggableOpportunityInstancePill key={oi._id}
-                                                                                                  instance={oi}
-                                                                                                  index={index}
-                                                                                                  handleClickOpportunityInstance={props.handleClickOpportunityInstance}/>)}
+              {_.map(props.courseInstances, (ci, index) => (
+                <DraggableCourseInstancePill
+                  key={ci._id}
+                  instance={ci}
+                  index={index}
+                  handleClickCourseInstance={props.handleClickCourseInstance}
+                />
+))}
+              {_.map(props.opportunityInstances, (oi, index) => (
+                <DraggableOpportunityInstancePill
+                  key={oi._id}
+                  instance={oi}
+                  index={index}
+                  handleClickOpportunityInstance={props.handleClickOpportunityInstance}
+                />
+))}
               {provided.placeholder}
             </div>
           )}

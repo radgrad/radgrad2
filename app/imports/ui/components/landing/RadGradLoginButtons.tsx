@@ -51,18 +51,21 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
     const mentorLabel = '... as mentor';
     const studentLabel = '... as student';
     if (this.state.justLoggedIn) {
-      return (<Redirect to={{
+      return (
+        <Redirect to={{
         pathname: this.state.homePage,
-      }}/>);
+      }}
+        />
+);
     }
     return (
-      <Dropdown text="LOGIN" pointing={'top right'}>
+      <Dropdown text="LOGIN" pointing="top right">
         <Dropdown.Menu>
-          <Dropdown.Item id={'student'} text={studentLabel} onClick={this.handleClick}/>
-          <Dropdown.Item id={'faculty'} text={facultyLabel} onClick={this.handleClick}/>
-          <Dropdown.Item id={'mentor'} text={mentorLabel} as={NavLink} to="/signin"/>
-          <Dropdown.Item id={'advisor'} text={advisorLabel} onClick={this.handleClick}/>
-          <Dropdown.Item id={'admin'} as={NavLink} exact={true} to="/signin" text={adminLabel}/>
+          <Dropdown.Item id="student" text={studentLabel} onClick={this.handleClick} />
+          <Dropdown.Item id="faculty" text={facultyLabel} onClick={this.handleClick} />
+          <Dropdown.Item id="mentor" text={mentorLabel} as={NavLink} to="/signin" />
+          <Dropdown.Item id="advisor" text={advisorLabel} onClick={this.handleClick} />
+          <Dropdown.Item id="admin" as={NavLink} exact to="/signin" text={adminLabel} />
         </Dropdown.Menu>
       </Dropdown>
     );

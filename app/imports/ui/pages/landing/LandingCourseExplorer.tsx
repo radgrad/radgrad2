@@ -35,49 +35,65 @@ const LandingCourseExplorer = (props: ICourseExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
-                <span>{props.course.shortName} ({props.course.name})</span>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>
+                  {props.course.shortName}
+                  {' '}
+(
+                  {props.course.name}
+)
+                </span>
               </Header>
-              <Grid columns={2} stackable={true}>
-                <Grid.Column width={'six'}>
-                  <b>Course Number:</b> {props.course.num}<br/>
-                  <b>Credit Hours:</b> {props.course.creditHrs}
+              <Grid columns={2} stackable>
+                <Grid.Column width="six">
+                  <b>Course Number:</b>
+                  {' '}
+                  {props.course.num}
+                  <br />
+                  <b>Credit Hours:</b>
+                  {' '}
+                  {props.course.creditHrs}
                 </Grid.Column>
-                <Grid.Column width={'ten'}>
-                  <b>Syllabus</b> {props.course.syllabus ?
-                  < a href={props.course.syllabus}>{props.course.syllabus}</a> : 'None available'}
+                <Grid.Column width="ten">
+                  <b>Syllabus</b>
+                  {' '}
+                  {props.course.syllabus ?
+                    <a href={props.course.syllabus}>{props.course.syllabus}</a> : 'None available'}
                 </Grid.Column>
               </Grid>
               <b>Description:</b>
-              <Markdown escapeHtml={true} source={props.course.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-              <Header as="h4" dividing={true}>Prerequisites</Header>
-              <LandingPrerequisiteList prerequisites={props.course.prerequisites}/>
-              <Header as="h4" dividing={true}>Course Interests</Header>
-              <LandingInterestList interestIDs={props.course.interestIDs}/>
+              <Markdown
+                escapeHtml
+                source={props.course.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
+              <Header as="h4" dividing>Prerequisites</Header>
+              <LandingPrerequisiteList prerequisites={props.course.prerequisites} />
+              <Header as="h4" dividing>Course Interests</Header>
+              <LandingInterestList interestIDs={props.course.interestIDs} />
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

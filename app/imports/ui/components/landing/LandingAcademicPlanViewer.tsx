@@ -16,23 +16,23 @@ const LandingAcademicPlanViewer = (props: ILandingAcademicPlanViewerProps) => {
     paddingRight: 2,
   };
   return (
-    <Grid stackable={true} padded={true}>
+    <Grid stackable padded>
       <Grid.Row columns={numYears}>
         <Grid.Column style={littlePadding}>
-          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan}/>
+          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
         </Grid.Column>
         <Grid.Column>
-          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan}/>
+          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
         </Grid.Column>
         <Grid.Column>
-          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan}/>
+          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
         </Grid.Column>
         <Grid.Column>
-          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan}/>
+          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
         </Grid.Column>
         {numYears === 5 ? (
           <Grid.Column>
-            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan}/>
+            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
           </Grid.Column>
         ) : ''}
       </Grid.Row>

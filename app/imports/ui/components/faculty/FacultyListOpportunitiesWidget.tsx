@@ -58,38 +58,71 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
   const factoryOpp = facultyOpportunities(props);
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
   return (
-    <Segment padded={true}>
+    <Segment padded>
       {
-        isInRole(props) ?
+        isInRole(props) ? (
           <div>
-            <Header dividing={true}> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
+            <Header dividing>
+              {' '}
+YOUR OPPORTUNITIES (
+              {facultyCounter}
+)
+              {' '}
+            </Header>
             {_.map(factoryOpp, (item) => (
-              <AdminDataModelAccordion key={item._id} id={item._id} retired={item.retired} name={item.name}
-                                       slug={slugName(item.slugID)}
-                                       descriptionPairs={props.descriptionPairs(item)}
-                                       updateDisabled={false}
-                                       deleteDisabled={false}
-                                       handleOpenUpdate={props.handleOpenUpdate}
-                                       handleDelete={props.handleDelete}
-                                       additionalTitleInfo={titleICE(item)}/>
+              <AdminDataModelAccordion
+                key={item._id}
+                id={item._id}
+                retired={item.retired}
+                name={item.name}
+                slug={slugName(item.slugID)}
+                descriptionPairs={props.descriptionPairs(item)}
+                updateDisabled={false}
+                deleteDisabled={false}
+                handleOpenUpdate={props.handleOpenUpdate}
+                handleDelete={props.handleDelete}
+                additionalTitleInfo={titleICE(item)}
+              />
             ))}
-            <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count(props)})</Header> <br/>
+            <Header dividing>
+              {' '}
+ALL OTHER OPPORTUNITIES (
+              {count(props)}
+)
+            </Header>
+            {' '}
+            <br />
           </div>
-          : <Header dividing={true}>OPPORTUNITIES ({count})</Header>
+        )
+          : (
+            <Header dividing>
+OPPORTUNITIES (
+              {count}
+)
+            </Header>
+)
       }
 
       <Grid>
-        <AdminPaginationWidget collection={props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
-                               setShowCount={dataModelActions.setCollectionShowCount}/>
+        <AdminPaginationWidget
+          collection={props.collection}
+          setShowIndex={dataModelActions.setCollectionShowIndex}
+          setShowCount={dataModelActions.setCollectionShowCount}
+        />
         {_.map(items, (item) => (
-          <AdminDataModelAccordion key={item._id} id={item._id} retired={item.retired} name={item.name}
-                                   slug={slugName(item.slugID)}
-                                   descriptionPairs={props.descriptionPairs(item)}
-                                   updateDisabled={true}
-                                   deleteDisabled={true}
-                                   handleOpenUpdate={props.handleOpenUpdate}
-                                   handleDelete={props.handleDelete}
-                                   additionalTitleInfo={titleICE(item)}/>
+          <AdminDataModelAccordion
+            key={item._id}
+            id={item._id}
+            retired={item.retired}
+            name={item.name}
+            slug={slugName(item.slugID)}
+            descriptionPairs={props.descriptionPairs(item)}
+            updateDisabled
+            deleteDisabled
+            handleOpenUpdate={props.handleOpenUpdate}
+            handleDelete={props.handleDelete}
+            additionalTitleInfo={titleICE(item)}
+          />
         ))}
       </Grid>
     </Segment>

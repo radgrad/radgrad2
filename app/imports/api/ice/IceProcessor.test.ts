@@ -8,7 +8,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import { Ice } from '../../typings/radgrad'; // eslint-disable-line
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

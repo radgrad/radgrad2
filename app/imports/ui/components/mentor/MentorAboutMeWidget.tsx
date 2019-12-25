@@ -329,7 +329,11 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       picture: {
         icon: String,
         optional: true,
-        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        label: <React.Fragment>
+Picture (
+          <a onClick={this.handleUpload}>Upload</a>
+)
+               </React.Fragment>,
         defaultValue: picture,
       },
     });
@@ -337,43 +341,49 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
     return (
       <Segment padded>
-        <Header as='h3' dividing textAlign='left'>PROFILE</Header>
-        <Grid stackable={true}>
+        <Header as="h3" dividing textAlign="left">PROFILE</Header>
+        <Grid stackable>
           <Grid.Row>
-            <Grid.Column floated='left' width={2}>
+            <Grid.Column floated="left" width={2}>
               <b>Name</b>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <p>{name}</p>
             </Grid.Column>
-            <Grid.Column floated='left' width={2}>
+            <Grid.Column floated="left" width={2}>
               <b>Email</b>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <p>{email}</p>
             </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column floated='left' width={2}>
+            <Grid.Column floated="left" width={2}>
               <b>Interests</b>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <Grid>
-                <Grid.Row divided textAlign='left'>
+                <Grid.Row divided textAlign="left">
                   <Label.Group>
                     {
-                      interests ?
+                      interests ? (
                         <React.Fragment>
                           {
                             _.map(interests, (interest, index) => (
-                              <Label size={'tiny'} key={index} as={Link}
-                                     to={this.buildRouteName('interests', this.slugName(interest))}>
-                                <Icon name='star'/>{this.goalName(interest)}
+                              <Label
+                                size="tiny"
+                                key={index}
+                                as={Link}
+                                to={this.buildRouteName('interests', this.slugName(interest))}
+                              >
+                                <Icon name="star" />
+                                {this.goalName(interest)}
                               </Label>
                             ))
                           }
                         </React.Fragment>
+                      )
                         : <p style={marginStyle}>No interests added yet.</p>
                     }
                   </Label.Group>
@@ -381,25 +391,31 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                 <Link to={this.buildRouteName('interests', firstInterest)}>Edit in Interests Explorer</Link>
               </Grid>
             </Grid.Column>
-            <Grid.Column floated='left' width={2}>
+            <Grid.Column floated="left" width={2}>
               <b>Career Goals</b>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <Grid>
-                <Grid.Row divided textAlign='left'>
+                <Grid.Row divided textAlign="left">
                   <Label.Group>
                     {
-                      careerGoals ?
+                      careerGoals ? (
                         <React.Fragment>
                           {
                             _.map(careerGoals, (goal, index) => (
-                              <Label size={'tiny'} key={index} as={Link}
-                                     to={this.buildRouteName('career-goals', this.slugName(goal))}>
-                                <Icon name='suitcase'/>{this.goalName(goal)}
+                              <Label
+                                size="tiny"
+                                key={index}
+                                as={Link}
+                                to={this.buildRouteName('career-goals', this.slugName(goal))}
+                              >
+                                <Icon name="suitcase" />
+                                {this.goalName(goal)}
                               </Label>
                             ))
                           }
                         </React.Fragment>
+                      )
                         : <p style={marginStyle}>No career goals added yet.</p>
                     }
                   </Label.Group>
@@ -411,89 +427,91 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
         </Grid>
 
         {
-          isEditingProfile ?
+          isEditingProfile ? (
             <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
-              <Form.Group widths={'equal'}>
-                <TextField name='website'/>
-                <TextField name='company'/>
+              <Form.Group widths="equal">
+                <TextField name="website" />
+                <TextField name="company" />
               </Form.Group>
 
-              <Form.Group widths={'equal'}>
-                <TextField name='career'/>
-                <TextField name='location'/>
+              <Form.Group widths="equal">
+                <TextField name="career" />
+                <TextField name="location" />
               </Form.Group>
 
-              <Form.Group widths={'equal'}>
-                <TextField name='linkedin'/>
-                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
+              <Form.Group widths="equal">
+                <TextField name="linkedin" />
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
               </Form.Group>
 
-              <LongTextField name='motivation'/>
+              <LongTextField name="motivation" />
 
-              <SubmitField value='Save Profile' className={''} disabled={false} inputRef={undefined}/>
-              <Button basic color={'green'} onClick={this.handleCancel}>Cancel</Button>
+              <SubmitField value="Save Profile" className="" disabled={false} inputRef={undefined} />
+              <Button basic color="green" onClick={this.handleCancel}>Cancel</Button>
             </AutoForm>
-            :
-            <React.Fragment>
-              <Grid stackable={true}>
-                <Grid.Row>
-                  <Grid.Column floated='left' width={2}>
-                    <b>Website URL</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={6}>
-                    {website}
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={2}>
-                    <b>Company</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={6}>
-                    <p>{company}</p>
-                  </Grid.Column>
-                </Grid.Row>
+          )
+            : (
+              <React.Fragment>
+                <Grid stackable>
+                  <Grid.Row>
+                    <Grid.Column floated="left" width={2}>
+                      <b>Website URL</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={6}>
+                      {website}
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={2}>
+                      <b>Company</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={6}>
+                      <p>{company}</p>
+                    </Grid.Column>
+                  </Grid.Row>
 
-                <Grid.Row>
-                  <Grid.Column floated='left' width={2}>
-                    <b>Title</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={6}>
-                    <p>{career}</p>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={2}>
-                    <b>Location</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={6}>
-                    <p>{location}</p>
-                  </Grid.Column>
-                </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column floated="left" width={2}>
+                      <b>Title</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={6}>
+                      <p>{career}</p>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={2}>
+                      <b>Location</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={6}>
+                      <p>{location}</p>
+                    </Grid.Column>
+                  </Grid.Row>
 
-                <Grid.Row>
-                  <Grid.Column floated='left' width={2}>
-                    <b>LinkedIn Username</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={6}>
-                    <p>{linkedin}</p>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={2}>
-                    <b>Picture URL</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={6}>
-                    <p>{picture}</p>
-                  </Grid.Column>
-                </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column floated="left" width={2}>
+                      <b>LinkedIn Username</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={6}>
+                      <p>{linkedin}</p>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={2}>
+                      <b>Picture URL</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={6}>
+                      <p>{picture}</p>
+                    </Grid.Column>
+                  </Grid.Row>
 
-                <Grid.Row>
-                  <Grid.Column floated='left' width={2}>
-                    <b>Motivation</b>
-                  </Grid.Column>
-                  <Grid.Column floated='left' width={14}>
-                    <p>{motivation}</p>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-              <br/>
-              <Button basic color={'green'} onClick={this.handleEdit}>Edit Profile</Button>
-            </React.Fragment>
-        }
+                  <Grid.Row>
+                    <Grid.Column floated="left" width={2}>
+                      <b>Motivation</b>
+                    </Grid.Column>
+                    <Grid.Column floated="left" width={14}>
+                      <p>{motivation}</p>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+                <br />
+                <Button basic color="green" onClick={this.handleEdit}>Edit Profile</Button>
+              </React.Fragment>
+          )
+}
       </Segment>
     );
   }

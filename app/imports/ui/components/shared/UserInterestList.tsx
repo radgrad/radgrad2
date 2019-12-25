@@ -17,10 +17,22 @@ const UserInterestList = (props: IUserInterestListProps) => {
   const uncommonInterests = _.map(uncommonIDs, (id) => Interests.findDoc(id));
   return (
     <Label.Group>
-      {commonInterests.map((interest) => <Label key={interest._id}
-                                          color="green">{interest.name}</Label>)}
-      {uncommonInterests.map((interest) => <Label key={interest._id}
-                                                color="grey">{interest.name}</Label>)}
+      {commonInterests.map((interest) => (
+        <Label
+          key={interest._id}
+          color="green"
+        >
+          {interest.name}
+        </Label>
+))}
+      {uncommonInterests.map((interest) => (
+        <Label
+          key={interest._id}
+          color="grey"
+        >
+          {interest.name}
+        </Label>
+))}
     </Label.Group>
   );
 };

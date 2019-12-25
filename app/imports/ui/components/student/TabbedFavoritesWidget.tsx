@@ -69,40 +69,52 @@ const TabbedFavoritesWidget = (props) => {
   const panes = [
     {
       menuItem: (
-        <Menu.Item key='FavoriteOpportunities'><Icon name='heart' fitted={true} color={'red'}/> OPPS</Menu.Item>
+        <Menu.Item key="FavoriteOpportunities">
+          <Icon name="heart" fitted color="red" />
+          {' '}
+OPPS
+        </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteOpportunitiesPane' active={active(props) === 0}><FavoriteOpportunitiesWidget/></Tab.Pane>
+        <Tab.Pane key="FavoriteOpportunitiesPane" active={active(props) === 0}><FavoriteOpportunitiesWidget /></Tab.Pane>
       ),
     },
     {
       menuItem: (
-        <Menu.Item key='FavoritePlans'><Icon name='heart' fitted={true} color={'red'}/> PLAN</Menu.Item>
+        <Menu.Item key="FavoritePlans">
+          <Icon name="heart" fitted color="red" />
+          {' '}
+PLAN
+        </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoritePlansPane' active={active(props) === 1}><FavoriteAcademicPlansWidget/></Tab.Pane>
+        <Tab.Pane key="FavoritePlansPane" active={active(props) === 1}><FavoriteAcademicPlansWidget /></Tab.Pane>
       ),
     },
     {
       menuItem: (
-        <Menu.Item key='FavoriteCourses'><Icon name='heart' fitted={true} color={'red'}/> COUR</Menu.Item>
+        <Menu.Item key="FavoriteCourses">
+          <Icon name="heart" fitted color="red" />
+          {' '}
+COUR
+        </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteCoursesPane' active={active(props) === 2}><FavoriteCoursesWidget/></Tab.Pane>
+        <Tab.Pane key="FavoriteCoursesPane" active={active(props) === 2}><FavoriteCoursesWidget /></Tab.Pane>
       ),
     },
     {
       menuItem: (
-        <Menu.Item key='FavoriteDetails'>DETAILS</Menu.Item>
+        <Menu.Item key="FavoriteDetails">DETAILS</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key='FavoriteDetailsPane' active={active(props) === 3}><DepDetailsWidget/></Tab.Pane>
+        <Tab.Pane key="FavoriteDetailsPane" active={active(props) === 3}><DepDetailsWidget /></Tab.Pane>
       ),
     },
   ];
   return (
-    <Segment padded={true} id={tabbedFavoritesWidget}>
-      <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(props, event, instance)} activeIndex={active(props)}/>
+    <Segment padded id={tabbedFavoritesWidget}>
+      <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(props, event, instance)} activeIndex={active(props)} />
     </Segment>
   );
 };

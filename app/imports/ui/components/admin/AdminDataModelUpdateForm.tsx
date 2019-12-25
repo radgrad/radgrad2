@@ -15,16 +15,22 @@ interface IAdminDataModelUpdateFormProps {
 const AdminDataModelUpdateForm = (props: IAdminDataModelUpdateFormProps) => {
   const model = props.id ? props.collection.findDoc(props.id) : undefined;
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
       <AutoForm
         ref={props.formRef}
         schema={props.collection.getUpdateSchema()}
         model={model}
-        onSubmit={props.handleUpdate}>
-        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined}/>
-        <p/>
-        <SubmitField className={''} inputRef={undefined} disabled={false} value={undefined}/>
+        onSubmit={props.handleUpdate}
+      >
+        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
+        <p />
+        <SubmitField className="" inputRef={undefined} disabled={false} value={undefined} />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

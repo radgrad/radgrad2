@@ -35,22 +35,22 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
 
   return (
     <Segment style={noPaddingStyle}>
-      <Header dividing={true}>{props.title}</Header>
+      <Header dividing>{props.title}</Header>
       {
         isStudent ?
           _.map(props.choices, (choice, index) => {
             const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
             if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
               return (
-                <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
+                <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
               );
             }
             return (
-              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
+              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
             );
           })
           :
-          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice}/>))
+          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice} />))
       }
     </Segment>
   );

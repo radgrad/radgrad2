@@ -103,8 +103,8 @@ const itemTitleString = (user: IBaseProfile): string => {
 
 const itemTitle = (user: IBaseProfile): React.ReactNode => (
   <React.Fragment>
-    {user.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {user.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(user)}
   </React.Fragment>
 );
@@ -282,69 +282,97 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     const panes = [
       {
         menuItem: `Advisors (${this.props.advisors.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={AdvisorProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={AdvisorProfiles}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
       {
         menuItem: `Faculty (${this.props.faculty.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={FacultyProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={FacultyProfiles}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
       {
         menuItem: `Mentors (${this.props.mentors.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={MentorProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={MentorProfiles}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
       {
         menuItem: `Students (${this.props.students.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={StudentProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={StudentProfiles}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
     ];
     return (
       <div className="layout-page">
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateUserForm id={this.state.id} formRef={this.formRef}
-                              handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                              itemTitleString={itemTitleString}/>
+              <UpdateUserForm
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <Tab panes={panes} defaultActiveIndex={3}/>
+            <Tab panes={panes} defaultActiveIndex={3} />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
-                 header="Delete User?"/>
+        <Confirm
+          open={this.state.confirmOpen}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirmDelete}
+          header="Delete User?"
+        />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

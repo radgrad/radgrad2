@@ -62,26 +62,31 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update Opportunity</Header>
-      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>Update Opportunity</Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <TextField name="name"/>
+          <TextField name="name" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityType"/>
-          <SelectField name="sponsor"/>
+          <SelectField name="opportunityType" />
+          <SelectField name="sponsor" />
         </Form.Group>
-        <LongTextField name="description"/>
+        <LongTextField name="description" />
         <Form.Group widths="equal">
-          <MultiSelectField name="terms"/>
-          <MultiSelectField name="interests"/>
+          <MultiSelectField name="terms" />
+          <MultiSelectField name="interests" />
         </Form.Group>
-        <DateField name="eventDate"/>
-        <AutoField name="ice"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} disabled={false} value={'Update'} className={''}/>
+        <DateField name="eventDate" />
+        <AutoField name="ice" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} disabled={false} value="Update" className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

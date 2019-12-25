@@ -97,24 +97,27 @@ class MentorMentorSpaceAnswerForm extends React.Component<IMentorMentorSpaceAnsw
     const existingAnswer = this.existingAnswer();
     return (
       <div>
-            <Accordion fluid={true} styled={true} style={accordionStyle} key={0}>
-              <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                <Icon name="dropdown"/> {'Add or update your answer (markdown supported)'}
-              </Accordion.Title>
-              <Accordion.Content active={activeIndex === 0}>
-                <Form>
-                  <Form.TextArea onChange={this.handleEdit} value={this.state.textArea} id={'msanswer'} name={'msanswer'} style={{ minHeight: 175 }}/>
-                </Form><br/>
-                <Grid.Row>
-                  <Button basic color='green' content='Submit' onClick={this.handleSubmit}/>
-                  {
+        <Accordion fluid styled style={accordionStyle} key={0}>
+          <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+            <Icon name="dropdown" />
+            {' '}
+            Add or update your answer (markdown supported)
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 0}>
+            <Form>
+              <Form.TextArea onChange={this.handleEdit} value={this.state.textArea} id="msanswer" name="msanswer" style={{ minHeight: 175 }} />
+            </Form>
+            <br />
+            <Grid.Row>
+              <Button basic color="green" content="Submit" onClick={this.handleSubmit} />
+              {
                     existingAnswer ?
-                      <Button basic color='red' content='Delete' onClick={this.handleDelete}/>
+                      <Button basic color="red" content="Delete" onClick={this.handleDelete} />
                       : ''
                   }
-                </Grid.Row>
-              </Accordion.Content>
-            </Accordion>
+            </Grid.Row>
+          </Accordion.Content>
+        </Accordion>
       </div>
     );
   }

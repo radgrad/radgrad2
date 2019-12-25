@@ -14,7 +14,7 @@ import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -64,17 +64,21 @@ const ExplorerMenu = (props: IExplorerMenuProps) => {
 
   return (
     <React.Fragment>
-      <ExplorerNavDropdown match={match} text={getTypeName(props)}/>
-      <br/>
+      <ExplorerNavDropdown match={match} text={getTypeName(props)} />
+      <br />
 
-      <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList}
-                                   menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-                                   type={type}
-                                   role={role}/>
-      <ExplorerMenuMobileWidget menuAddedList={menuAddedList}
-                                menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-                                type={type}
-                                role={role}/>
+      <ExplorerMenuNonMobileWidget
+        menuAddedList={menuAddedList}
+        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+        type={type}
+        role={role}
+      />
+      <ExplorerMenuMobileWidget
+        menuAddedList={menuAddedList}
+        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+        type={type}
+        role={role}
+      />
     </React.Fragment>
   );
 };

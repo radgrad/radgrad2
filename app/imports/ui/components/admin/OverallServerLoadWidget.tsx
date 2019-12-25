@@ -11,7 +11,7 @@ class OverallServerLoadWidget extends React.Component<IOverallServerLoadWidgetPr
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
-      <React.Fragment/>
+      <React.Fragment />
     );
   }
 }

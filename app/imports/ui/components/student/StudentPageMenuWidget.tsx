@@ -12,8 +12,8 @@ const StudentPageMenuWidget = () => {
   ];
   return (
     <div style={divStyle}>
-      <FirstMenuContainer/>
-      <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
+      <FirstMenuContainer />
+      <SecondMenu menuItems={menuItems} numItems={menuItems.length} />
     </div>
   );
 };

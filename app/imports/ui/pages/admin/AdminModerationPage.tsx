@@ -12,14 +12,14 @@ const AdminModerationPage = () => {
   };
   return (
     <div>
-      <AdminPageMenuWidget/>
-      <Grid container={true} stackable={true} style={paddedStyle}>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
         <Grid.Column>
-          <AdminModerationWidget/>
+          <AdminModerationWidget />
         </Grid.Column>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

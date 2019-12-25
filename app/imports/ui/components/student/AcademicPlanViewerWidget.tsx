@@ -26,25 +26,45 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
     <Grid>
       <Grid.Row columns={fiveYear ? 5 : 4}>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         {fiveYear ? (
           <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                  username={props.username} takenSlugs={props.takenSlugs}/>
+            <AcademicPlanYearView
+              yearNumber={yearNumber++}
+              academicPlan={props.academicPlan}
+              username={props.username}
+              takenSlugs={props.takenSlugs}
+            />
           </Grid.Column>
         ) : ''}
       </Grid.Row>

@@ -13,7 +13,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
 import { ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
@@ -247,38 +247,55 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
     id = recommendedCourses;
   }
   return (
-    <Segment padded={true} id={id}>
+    <Segment padded id={id}>
       {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
         complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
         had to use the className attribute instead so it renders as "ui dividing header". - Gian */}
       <Header className="dividing">
         <h4>
-          RECOMMENDED <span style={uppercaseTextTransformStyle}>{type}</span> <WidgetHeaderNumber
-          inputValue={itemCount(props)}/>
+          RECOMMENDED
+          {' '}
+          <span style={uppercaseTextTransformStyle}>{type}</span>
+          {' '}
+          <WidgetHeaderNumber
+            inputValue={itemCount(props)}
+          />
         </h4>
       </Header>
 
       {
-        courses ?
+        courses ? (
           <div style={cardsStackableStyle}>
-            <Card.Group stackable={true} itemsPerRow={2}>
+            <Card.Group stackable itemsPerRow={2}>
               {
                 isTypeCourse(props) ?
-                  courses(props).map((course, index) => <StudentOfInterestCard key={index}
-                                                                               item={course}
-                                                                               type={type}/>)
+                  courses(props).map((course) => (
+                    <StudentOfInterestCard
+                      key={course._id}
+                      item={course}
+                      type={type}
+                    />
+))
                   :
-                  opportunities(props).map((opp, index) => <StudentOfInterestCard key={index}
-                                                                                  item={opp}
-                                                                                  type={type}/>)
+                  opportunities(props).map((opp) => (
+                    <StudentOfInterestCard
+                      key={opp._id}
+                      item={opp}
+                      type={type}
+                    />
+))
               }
             </Card.Group>
           </div>
-          :
-          <p>Add interests to see recommendations here. To add interests, click on
+        )
+          : (
+            <p>
+Add interests to see recommendations here. To add interests, click on
             the &quot;Explorer&quot; tab,
-            then select &quot;Interests&quot; in the pull-down menu on that page.</p>
-      }
+            then select &quot;Interests&quot; in the pull-down menu on that page.
+            </p>
+        )
+}
     </Segment>
   );
 };

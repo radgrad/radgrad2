@@ -29,7 +29,7 @@ const DepDetailsWidget = (props: IDepDetailsWidgetProps) => {
   } else {
     return <Message>No course or opportunity selected. Please click on a course or opportunity to the left.</Message>;
   }
-  return (courseP ? <DetailCourseCard instance={instance}/> : <DetailOpportunityCard instance={instance}/>);
+  return (courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} />);
 };
 
 export default connect(mapStateToProps, null)(DepDetailsWidget);

@@ -16,17 +16,27 @@ interface IUpdateHelpMessageFormProps {
 const UpdateHelpMessageForm = (props: IUpdateHelpMessageFormProps) => {
   const model = props.collection.findDoc(props.id);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={HelpMessages.getUpdateSchema()} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={HelpMessages.getUpdateSchema()}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <TextField name="routeName"/>
-          <TextField name="title"/>
+          <TextField name="routeName" />
+          <TextField name="title" />
         </Form.Group>
-        <LongTextField name="text"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <LongTextField name="text" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

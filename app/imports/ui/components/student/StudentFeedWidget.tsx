@@ -18,18 +18,19 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
 
   return (
     <Container id={`${studentFeedWidget}`}>
-      <Segment padded={true}>
-        <Header dividing={true}>RADGRAD COMMUNITY ACTIVITY</Header>
+      <Segment padded>
+        <Header dividing>RADGRAD COMMUNITY ACTIVITY</Header>
         {
-          props.feeds ?
+          props.feeds ? (
             <Feed style={feedStyle}>
               {props.feeds.map((feed, index) => (
                 <React.Fragment key={index}>
-                  <StudentFeedItem feed={feed}/>
-                  <Divider/>
+                  <StudentFeedItem feed={feed} />
+                  <Divider />
                 </React.Fragment>
               ))}
             </Feed>
+          )
             :
             <p>No recent feeds.</p>
         }

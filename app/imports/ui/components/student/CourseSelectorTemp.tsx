@@ -53,7 +53,7 @@ class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelect
     // console.log(options);
     return (
       <Form>
-        <Form.Select fluid={true} label="Course" options={options} placeholder="Course" onChange={this.handleChange}/>
+        <Form.Select fluid label="Course" options={options} placeholder="Course" onChange={this.handleChange} />
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
       </Form>
     );

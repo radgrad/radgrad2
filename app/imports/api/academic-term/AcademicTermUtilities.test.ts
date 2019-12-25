@@ -5,7 +5,7 @@ import { defineAcademicTerms, nextAcademicTerm, upComingTerms } from './Academic
 import { removeAllEntities } from '../base/BaseUtilities';
 import { AcademicTerms } from './AcademicTermCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

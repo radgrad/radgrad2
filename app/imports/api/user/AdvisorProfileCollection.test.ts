@@ -4,7 +4,7 @@ import {} from 'mocha';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

@@ -10,12 +10,16 @@ interface IAdminDataModelAddFormProps {
 }
 
 const AdminDataModelAddForm = (props: IAdminDataModelAddFormProps) => (
-  <Segment padded={true}>
-    <Header dividing={true}>Add {props.collection.getType()}</Header>
+  <Segment padded>
+    <Header dividing>
+Add
+      {props.collection.getType()}
+    </Header>
     <AutoForm
       ref={props.formRef}
       onSubmit={props.handleAdd}
-      schema={props.collection.getDefineSchema()}/>
+      schema={props.collection.getDefineSchema()}
+    />
   </Segment>
 );
 

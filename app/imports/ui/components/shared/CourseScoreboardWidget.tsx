@@ -64,27 +64,33 @@ const CourseScoreboardWidget = (props: ICourseScoreboardWidgetProps) => {
       <Header>Future Course Scoreboard</Header>
       <Grid>
         <Grid.Row>
-          <Table celled={true} fixed={true}>
+          <Table celled fixed>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>Course</Table.HeaderCell>
                 {_.map(props.terms, (term) => (
-                  <Table.HeaderCell width={1}
-                                    key={term._id}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
+                  <Table.HeaderCell
+                    width={1}
+                    key={term._id}
+                  >
+                    {AcademicTerms.getShortName(term._id)}
+                  </Table.HeaderCell>
+))}
               </Table.Row>
             </Table.Header>
           </Table>
           <div style={scrollBody}>
-            <Table celled={true} fixed={true}>
+            <Table celled fixed>
               <Table.Body>
                 {_.map(props.courses, (c, index) => (
                   <Table.Row key={index}>
-                    <Table.Cell width={1}><Popup content={c.shortName} trigger={<Label>{c.num}</Label>}/></Table.Cell>
+                    <Table.Cell width={1}><Popup content={c.shortName} trigger={<Label>{c.num}</Label>} /></Table.Cell>
                     {_.map(props.terms, (t) => {
                       const score = getCourseScore(c._id, t._id, props);
                       return (
-                        <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing={true}>
-                          {score > 10 ? <Icon name='attention'/> : ''}{score}
+                        <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>
+                          {score > 10 ? <Icon name="attention" /> : ''}
+                          {score}
                         </Table.Cell>
                       );
                     })}
@@ -95,8 +101,8 @@ const CourseScoreboardWidget = (props: ICourseScoreboardWidgetProps) => {
           </div>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Button basic={true} color={'green'} onClick={handleSaveAsCSV(props)}>Save as CSV</Button>
+          <Grid.Column width={1} />
+          <Button basic color="green" onClick={handleSaveAsCSV(props)}>Save as CSV</Button>
         </Grid.Row>
       </Grid>
     </Segment>

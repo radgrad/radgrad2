@@ -34,18 +34,19 @@ interface ILoading {
 const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
-  const InstanceSubscriptions = (props: ILoading) => ((props.loading) ?
+  const InstanceSubscriptions = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <PageLoader/>
+        <PageLoader />
       </Responsive>
 
       <Responsive {...Responsive.onlyMobile}>
-        <PageLoaderMobile/>
+        <PageLoaderMobile />
       </Responsive>
     </React.Fragment>
+  )
     :
-    <WrappedComponent {...props}/>);
+    <WrappedComponent {...props} />);
 
   return withTracker((props) => {
     const handles = [];

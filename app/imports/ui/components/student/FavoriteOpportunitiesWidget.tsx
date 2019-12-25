@@ -8,7 +8,7 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import * as Router from '../shared/RouterHelperFunctions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import FavoriteOpportunityCard from './FavoriteOpportunityCard';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IFavoriteOpportunitiesWidgetProps {
   match: Router.IMatchProps;
@@ -18,19 +18,27 @@ interface IFavoriteOpportunitiesWidgetProps {
 
 const FavoriteOpportunitiesWidget = (props: IFavoriteOpportunitiesWidgetProps) => {
   const hasFavorites = props.opportunities.length > 0;
-  return (<div>
-    {hasFavorites ?
-      <Card.Group itemsPerRow={1}>
-        {_.map(props.opportunities, (o) => (
-          <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID}/>))}
-      </Card.Group> : <Message>
+  return (
+    <div>
+      {hasFavorites ? (
+        <Card.Group itemsPerRow={1}>
+          {_.map(props.opportunities, (o) => (
+            <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID} />))}
+        </Card.Group>
+    ) : (
+      <Message>
         <Message.Header>No favorite opportunities</Message.Header>
         <p>You can favorite opportunities in the explorer.</p>
-        <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>View
+        <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
+View
           in
-          Explorer <Icon name="arrow right"/></Link>
-      </Message>}
-  </div>);
+          Explorer
+          <Icon name="arrow right" />
+        </Link>
+      </Message>
+)}
+    </div>
+);
 };
 
 export default withRouter(withTracker((props) => {

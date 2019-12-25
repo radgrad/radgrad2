@@ -27,16 +27,16 @@ const AddMentorAnswerForm = (props: IAddMentorAnswerFormProps): React.ReactEleme
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Mentor Answer</Header>
+    <Segment padded>
+      <Header dividing>Add Mentor Answer</Header>
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
-          <SelectField name="mentor"/>
-          <SelectField name="question"/>
+          <SelectField name="mentor" />
+          <SelectField name="question" />
         </Form.Group>
-        <LongTextField name="text"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <LongTextField name="text" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

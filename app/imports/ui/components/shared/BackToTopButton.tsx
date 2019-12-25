@@ -17,8 +17,8 @@ const BackToTopButton = () => {
 
   return (
     <ScrollUpButton style={style} ToggledStyle={toggledStyle}>
-      <Button size="big" circular={true} icon={true}>
-        <Icon name="arrow up"/>
+      <Button size="big" circular icon>
+        <Icon name="arrow up" />
       </Button>
     </ScrollUpButton>
   );

@@ -118,76 +118,81 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
     }
     // console.log(schema);
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Feed</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}
-                  onChangeModel={this.handleModelChange}>
+      <Segment padded>
+        <Header dividing>Add Feed</Header>
+        <AutoForm
+          schema={schema}
+          onSubmit={this.props.handleAdd}
+          ref={this.props.formRef}
+          showInlineError
+          onChangeModel={this.handleModelChange}
+        >
           <Form.Group widths="equal">
-            <DateField name="timestamp"/>
-            <SelectField name="feedType"/>
+            <DateField name="timestamp" />
+            <SelectField name="feedType" />
           </Form.Group>
           {this.state.feedType === Feeds.NEW_COURSE ? (
             <div>
-              <Header dividing={true} as="h4">New course field</Header>
+              <Header dividing as="h4">New course field</Header>
               <Form.Group widths="equal">
-                <SelectField name="course"/>
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_COURSE_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="course"/>
+                <SelectField name="user" />
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_LEVEL ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <NumField name="level"/>
+                <SelectField name="user" />
+                <NumField name="level" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity field</Header>
+              <Header dividing as="h4">New opportunity field</Header>
               <Form.Group widths="equal">
-                <SelectField name="opportunity"/>
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_OPPORTUNITY_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity review fields</Header>
+              <Header dividing as="h4">New opportunity review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_USER ? (
             <div>
-              <Header dividing={true} as="h4">New user fields</Header>
+              <Header dividing as="h4">New user fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
+                <SelectField name="user" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.VERIFIED_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New verified opportunity fields</Header>
+              <Header dividing as="h4">New verified opportunity fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
-                <SelectField name="academicTerm"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
+                <SelectField name="academicTerm" />
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
         </AutoForm>
       </Segment>
     );

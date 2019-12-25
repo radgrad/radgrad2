@@ -95,20 +95,39 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
 
     return (
 
-      <Container textAlign='left'>
-        <strong>Student: </strong>{student}<br/>
-        <strong>Reviewee: </strong>{reviewee}<br/>
-        <strong>Semester: </strong> {`${termDoc.term}  ${termDoc.year}`} <br/>
+      <Container textAlign="left">
+        <strong>Student: </strong>
+        {student}
+        <br />
+        <strong>Reviewee: </strong>
+        {reviewee}
+        <br />
+        <strong>Semester: </strong>
+        {' '}
+        {`${termDoc.term}  ${termDoc.year}`}
+        {' '}
+        <br />
         <strong>Rating: </strong>
-        <Rating size='small' icon='star' rating={this.props.item.rating}
-                maxRating='5' disabled={true}/><br/>
-        <strong>Comments: </strong>{this.props.item.comments}<br/>
+        <Rating
+          size="small"
+          icon="star"
+          rating={this.props.item.rating}
+          maxRating="5"
+          disabled
+        />
+        <br />
+        <strong>Comments: </strong>
+        {this.props.item.comments}
+        <br />
         <Segment>
           <Form>
-            <Form.TextArea label='Moderator Comments' onChange={this.handleChange}
-                           value={this.state.moderatorComment}/>
-            <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
-            <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
+            <Form.TextArea
+              label="Moderator Comments"
+              onChange={this.handleChange}
+              value={this.state.moderatorComment}
+            />
+            <Button className="ui basic green mini button" onClick={this.handleAcceptClick}>ACCEPT</Button>
+            <Button className="ui basic red mini button" onClick={this.handleRejectClick}>REJECT</Button>
           </Form>
         </Segment>
       </Container>

@@ -29,7 +29,7 @@ class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvi
     // console.log('TermView %o', this.props);
     return (
       <Segment>
-        <Header dividing={true} as="h4">{this.props.termName}</Header>
+        <Header dividing as="h4">{this.props.termName}</Header>
         <Droppable droppableId={buildPlanAreaDroppableId(this.props.yearNumber, this.props.termNumber)}>
           {(provided, snapshot) => {
             const choices = AcademicPlanUtilities.getPlanChoicesRaw(this.props.coursesPerTerm, this.props.choiceList, this.props.termNumber);
@@ -44,8 +44,15 @@ class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvi
                 style={getDroppableListStyle(snapshot.isDraggingOver)}
               >
                 {_.map(choices, (choice, idx) => (
-                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={buildPlanAreaDraggableId(choice)}
-                                       satisfied={true} studentID="fakeID"/>))}
+                  <DraggableCoursePill
+                    key={choice}
+                    index={idx}
+                    choice={choice}
+                    draggableId={buildPlanAreaDraggableId(choice)}
+                    satisfied
+                    studentID="fakeID"
+                  />
+))}
                 {provided.placeholder}
               </div>
             );

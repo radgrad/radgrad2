@@ -56,15 +56,18 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
     return (helpMessage) ? (
       <Grid.Column id={`${helpPanelWidget}`}>
-        <Message info={true} floating={true}>
+        <Message info floating>
           <Accordion>
             <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
-              <Icon name="dropdown"/>
+              <Icon name="dropdown" />
               <span style={helpPanelWidgetTitleStyle}><strong>{helpMessage.title}</strong></span>
             </Accordion.Title>
             <Accordion.Content active={this.state.activeIndex === 0}>
-              <Markdown escapeHtml={false} source={helpText}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+              <Markdown
+                escapeHtml={false}
+                source={helpText}
+                renderers={{ link: (props) => Router.renderLink(props, match) }}
+              />
             </Accordion.Content>
           </Accordion>
         </Message>

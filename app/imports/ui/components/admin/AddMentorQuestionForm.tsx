@@ -26,21 +26,21 @@ const AddMentorQuestionForm = (props: IAddMentorQuestionFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Mentor Question</Header>
+    <Segment padded>
+      <Header dividing>Add Mentor Question</Header>
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
-          <SelectField name="student"/>
-          <TextField name="slug" placeholder="question-student-0"/>
+          <SelectField name="student" />
+          <TextField name="slug" placeholder="question-student-0" />
         </Form.Group>
-        <LongTextField name="question"/>
-        <LongTextField name="moderatorComments"/>
+        <LongTextField name="question" />
+        <LongTextField name="moderatorComments" />
         <Form.Group widths="equal">
-          <BoolField name="moderated"/>
-          <BoolField name="visible"/>
-          <BoolField name="retired"/>
+          <BoolField name="moderated" />
+          <BoolField name="visible" />
+          <BoolField name="retired" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

@@ -65,7 +65,7 @@ class ConnectedCourseInstanceSelectorTemp extends React.Component<IConnectedCour
     // console.log(options);
     return (
       <Form>
-        <Form.Select fluid={true} label="Course Instance" options={options} placeholder="Course Instance" onChange={this.handleChange}/>
+        <Form.Select fluid label="Course Instance" options={options} placeholder="Course Instance" onChange={this.handleChange} />
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
       </Form>
     );

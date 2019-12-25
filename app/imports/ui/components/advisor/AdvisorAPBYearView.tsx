@@ -26,40 +26,66 @@ class AdvisorAPBYearView extends React.Component<IAdvisorAPBYearViewProps, IAdvi
     // console.log('YearView props %o termNum=%o', this.props, termNum);
     return (
       <Grid.Column key={this.props.yearNumber} style={academicYearStyle}>
-        <Divider horizontal={true}>Year {this.props.yearNumber}</Divider>
+        <Divider horizontal>
+Year
+          {this.props.yearNumber}
+        </Divider>
         {this.props.quarterSystem ? (
           <div>
-            <AdvisorAPBTermView termName={AcademicTerms.FALL} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-            <AdvisorAPBTermView termName={AcademicTerms.WINTER} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-            <AdvisorAPBTermView termName={AcademicTerms.SPRING} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-            <AdvisorAPBTermView termName={AcademicTerms.SUMMER} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-          </div>) : (
-          <div>
-            <AdvisorAPBTermView termName={AcademicTerms.FALL} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-            <AdvisorAPBTermView termName={AcademicTerms.SPRING} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-            <AdvisorAPBTermView termName={AcademicTerms.SUMMER} termNumber={termNum++}
-                                yearNumber={this.props.yearNumber}
-                                choiceList={this.props.choiceList}
-                                coursesPerTerm={this.props.coursesPerTerm}/>
-          </div>)}
+            <AdvisorAPBTermView
+              termName={AcademicTerms.FALL}
+              termNumber={termNum++}
+              yearNumber={this.props.yearNumber}
+              choiceList={this.props.choiceList}
+              coursesPerTerm={this.props.coursesPerTerm}
+            />
+            <AdvisorAPBTermView
+              termName={AcademicTerms.WINTER}
+              termNumber={termNum++}
+              yearNumber={this.props.yearNumber}
+              choiceList={this.props.choiceList}
+              coursesPerTerm={this.props.coursesPerTerm}
+            />
+            <AdvisorAPBTermView
+              termName={AcademicTerms.SPRING}
+              termNumber={termNum++}
+              yearNumber={this.props.yearNumber}
+              choiceList={this.props.choiceList}
+              coursesPerTerm={this.props.coursesPerTerm}
+            />
+            <AdvisorAPBTermView
+              termName={AcademicTerms.SUMMER}
+              termNumber={termNum++}
+              yearNumber={this.props.yearNumber}
+              choiceList={this.props.choiceList}
+              coursesPerTerm={this.props.coursesPerTerm}
+            />
+          </div>
+) : (
+  <div>
+    <AdvisorAPBTermView
+      termName={AcademicTerms.FALL}
+      termNumber={termNum++}
+      yearNumber={this.props.yearNumber}
+      choiceList={this.props.choiceList}
+      coursesPerTerm={this.props.coursesPerTerm}
+    />
+    <AdvisorAPBTermView
+      termName={AcademicTerms.SPRING}
+      termNumber={termNum++}
+      yearNumber={this.props.yearNumber}
+      choiceList={this.props.choiceList}
+      coursesPerTerm={this.props.coursesPerTerm}
+    />
+    <AdvisorAPBTermView
+      termName={AcademicTerms.SUMMER}
+      termNumber={termNum++}
+      yearNumber={this.props.yearNumber}
+      choiceList={this.props.choiceList}
+      coursesPerTerm={this.props.coursesPerTerm}
+    />
+  </div>
+)}
       </Grid.Column>
     );
   }

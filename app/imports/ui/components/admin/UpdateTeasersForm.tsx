@@ -63,26 +63,36 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <TextField name="title"/>
-          <TextField name="slug" disabled={true}/>
-          <TextField name="author"/>
+          <TextField name="title" />
+          <TextField name="slug" disabled />
+          <TextField name="author" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="targetSlug"/>
-          <TextField name="youtubeID"/>
-          <TextField name="duration"/>
+          <SelectField name="targetSlug" />
+          <TextField name="youtubeID" />
+          <TextField name="duration" />
         </Form.Group>
-        <LongTextField name="description"/>
+        <LongTextField name="description" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests"/>
+          <MultiSelectField name="interests" />
         </Form.Group>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

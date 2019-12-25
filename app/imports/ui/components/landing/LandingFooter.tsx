@@ -10,8 +10,8 @@ const style = {
 const LandingFooter = () => (
   <footer>
     <div style={style}>
-      <Container textAlign={'center'}>
-        <List bulleted={true} horizontal={true}>
+      <Container textAlign="center">
+        <List bulleted horizontal>
           <List.Item as="a" href="http://radgrad.org/" style={styles['footer-item:before, .footer-item']}>
             About Us
           </List.Item>

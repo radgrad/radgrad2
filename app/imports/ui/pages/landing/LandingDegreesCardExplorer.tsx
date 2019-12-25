@@ -28,37 +28,41 @@ const renderPage = (props: IDegreesCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
-                <span>DESIRED DEGREES</span> ({props.count})
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>DESIRED DEGREES</span>
+                {' '}
+(
+                {props.count}
+)
               </Header>
-              <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
+              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.desiredDegrees.map((goal) => (
-                  <LandingExplorerCardContainer key={goal._id} type="degrees" item={goal}/>
+                  <LandingExplorerCardContainer key={goal._id} type="degrees" item={goal} />
                 ))}
               </Card.Group>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

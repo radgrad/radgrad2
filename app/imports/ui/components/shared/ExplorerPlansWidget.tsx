@@ -44,32 +44,48 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
 
   return (
     <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
-      <Segment padded={true} className="container">
-        <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
+      <Segment padded className="container">
+        <Segment clearing basic style={clearingBasicSegmentStyle}>
           <Header floated="left">{upperName}</Header>
           {
-            isStudent ?
-              <FavoritesButton item={item} type='academicPlan'
-                               studentID={Router.getUserIdFromRoute(props.match)}/>
+            isStudent ? (
+              <FavoritesButton
+                item={item}
+                type="academicPlan"
+                studentID={Router.getUserIdFromRoute(props.match)}
+              />
+            )
               : ''
           }
         </Segment>
 
-        <Divider style={divierStyle}/>
+        <Divider style={divierStyle} />
 
-        <Grid stackable={true}>
+        <Grid stackable>
           <Grid.Column>
             {
               descriptionPairs.map((descriptionPair, index) => (
                 <React.Fragment key={index}>
-                  <b>{descriptionPair.label}:</b>
+                  <b>
+                    {descriptionPair.label}
+:
+                  </b>
                   {
-                    descriptionPair.value ?
-                      <Markdown escapeHtml={true} source={descriptionPair.value}
-                                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-                      :
-                      <React.Fragment> N/A <br/></React.Fragment>
-                  }
+                    descriptionPair.value ? (
+                      <Markdown
+                        escapeHtml
+                        source={descriptionPair.value}
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+                      />
+                    )
+                      : (
+                        <React.Fragment>
+                          {' '}
+N/A
+                          <br />
+                        </React.Fragment>
+                    )
+}
                 </React.Fragment>
               ))
             }
@@ -78,7 +94,7 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
       </Segment>
 
       <Segment>
-        <AcademicPlanStaticViewer plan={item}/>
+        <AcademicPlanStaticViewer plan={item} />
       </Segment>
     </Segment.Group>
   );

@@ -36,13 +36,13 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<a
     text: String,
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Advisor Log</Header>
+    <Segment padded>
+      <Header dividing>Add Advisor Log</Header>
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
-        <SelectField name="advisor"/>
-        <SelectField name="student"/>
-        <LongTextField name="text"/>
-        <SubmitField className="basic green" value="Add"/>
+        <SelectField name="advisor" />
+        <SelectField name="student" />
+        <LongTextField name="text" />
+        <SubmitField className="basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

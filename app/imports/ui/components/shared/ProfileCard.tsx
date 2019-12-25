@@ -38,27 +38,35 @@ const ProfileCard = (props: IProfileCardProps) => {
   const interested = interestedStudents(item, type);
 
   return (
-    <Card className='radgrad-interest-card'>
+    <Card className="radgrad-interest-card">
       <Card.Content>
         <Card.Header>{itemName}</Card.Header>
       </Card.Content>
       <Card.Content>
-        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription}...`}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
       </Card.Content>
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
+        <span>
+STUDENTS PARTICIPATING
+          <WidgetHeaderNumber inputValue={numberStudents} />
+        </span>
         <Image.Group size="mini">
-          {interested.map((student, index) => <Popup
-            key={index}
-            trigger={<Image src={profileIDToPicture(student.userID)} circular={true} bordered={true}/>}
-            content={profileIDToFullname(student.userID)}
-          />)}
+          {interested.map((student, index) => (
+            <Popup
+              key={index}
+              trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />}
+              content={profileIDToFullname(student.userID)}
+            />
+))}
         </Image.Group>
       </Card.Content>
-      <Link to={buildExplorerRoute(props.item, props)} className='ui button'>
-        <Icon name='chevron circle right'/>
-        <br/>
+      <Link to={buildExplorerRoute(props.item, props)} className="ui button">
+        <Icon name="chevron circle right" />
+        <br />
         View More
       </Link>
     </Card>

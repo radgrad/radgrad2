@@ -5,16 +5,16 @@ import StudentTeaserWidget from './StudentTeaserWidget';
 import StudentOfInterestWidget from './StudentOfInterestWidget';
 
 const StudentHomeWidget = () => (
-  <Grid centered={true} stackable={true}>
+  <Grid centered stackable>
     <Grid.Column width={10}>
-      <StudentOfInterestWidget type="opportunities"/>
-      <StudentOfInterestWidget type="courses"/>
+      <StudentOfInterestWidget type="opportunities" />
+      <StudentOfInterestWidget type="courses" />
     </Grid.Column>
 
     <Grid.Column width={6}>
-      <StudentFeedWidget/>
-      <br/>
-      <StudentTeaserWidget/>
+      <StudentFeedWidget />
+      <br />
+      <StudentTeaserWidget />
     </Grid.Column>
   </Grid>
 );

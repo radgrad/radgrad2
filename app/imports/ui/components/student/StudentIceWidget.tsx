@@ -29,30 +29,30 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
 
   return (
-    <Segment padded={true} id={`${studentIceWidget}`}>
-      <Header as="h4" dividing={true}>YOUR ICE POINTS</Header>
-      <Grid stackable={true} columns="equal" celled="internally">
+    <Segment padded id={`${studentIceWidget}`}>
+      <Header as="h4" dividing>YOUR ICE POINTS</Header>
+      <Grid stackable columns="equal" celled="internally">
         <Grid.Column style={innovationColumnStyle}>
-          <Segment basic={true}>
-            <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov"/>
+          <Segment basic>
+            <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
             <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
-            <StudentIceColumn type="Innovation"/>
+            <StudentIceColumn type="Innovation" />
           </Segment>
         </Grid.Column>
 
         <Grid.Column>
-          <Segment basic={true}>
-            <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp"/>
+          <Segment basic>
+            <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
             <Header as="h3" textAlign="center" className="ice-competency-color">COMPETENCY</Header>
-            <StudentIceColumn type="Competency"/>
+            <StudentIceColumn type="Competency" />
           </Segment>
         </Grid.Column>
 
         <Grid.Column style={experienceColumnStyle}>
-          <Segment basic={true}>
-            <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp"/>
+          <Segment basic>
+            <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
             <Header as="h3" textAlign="center" className="ice-experience-color">Experience</Header>
-            <StudentIceColumn type="Experience"/>
+            <StudentIceColumn type="Experience" />
           </Segment>
         </Grid.Column>
       </Grid>

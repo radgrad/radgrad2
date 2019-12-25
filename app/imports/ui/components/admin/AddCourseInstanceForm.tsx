@@ -51,19 +51,19 @@ const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps): React.ReactE
   });
   // console.log(termNames, courseNames, studentNames);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Course Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Course Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term"/>
-          <SelectField name="course"/>
+          <SelectField name="term" />
+          <SelectField name="course" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="student"/>
-          <NumField name="creditHours"/>
-          <SelectField name="grade"/>
+          <SelectField name="student" />
+          <NumField name="creditHours" />
+          <SelectField name="grade" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

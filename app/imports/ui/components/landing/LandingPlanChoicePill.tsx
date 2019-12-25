@@ -10,7 +10,7 @@ interface ILandingPlanChoicePillProps {
 
 const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (
   <Grid.Row style={getSatisfiedStyle()}>
-    <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+    <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
   </Grid.Row>
 );
 

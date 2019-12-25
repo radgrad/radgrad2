@@ -42,18 +42,19 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
-  const GlobalSubscription = (props: ILoading) => ((props.loading) ?
-        <React.Fragment>
-          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-            <PageLoader/>
-          </Responsive>
+  const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
+    <React.Fragment>
+      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+        <PageLoader />
+      </Responsive>
 
-          <Responsive {...Responsive.onlyMobile}>
-            <PageLoaderMobile/>
-          </Responsive>
-        </React.Fragment>
+      <Responsive {...Responsive.onlyMobile}>
+        <PageLoaderMobile />
+      </Responsive>
+    </React.Fragment>
+      )
         :
-        <WrappedComponent {...props}/>);
+    <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const handles = [

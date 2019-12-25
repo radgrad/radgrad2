@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection';
+import { IDescriptionPair } from '../../../typings/radgrad';
+// eslint-disable-next-line import/no-cycle
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -34,18 +35,30 @@ const ListCollectionWidget = (props: IListCollectionWidgetProps) => {
   const items = _.slice(props.items, startIndex, endIndex);
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>{props.collection.getCollectionName()} ({count})</Header>
+    <Segment padded>
+      <Header dividing>
+        {props.collection.getCollectionName()}
+        (
+        {count}
+        )
+      </Header>
       <Grid>
-        <AdminPaginationWidget collection={props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
-                               setShowCount={dataModelActions.setCollectionShowCount}/>
+        <AdminPaginationWidget
+          collection={props.collection}
+          setShowIndex={dataModelActions.setCollectionShowIndex}
+          setShowCount={dataModelActions.setCollectionShowCount}
+        />
         {_.map(items, (item) => (
-          <AdminCollectionAccordion key={item._id} id={item._id} title={props.itemTitle(item)}
-                                    descriptionPairs={props.descriptionPairs(item)}
-                                    updateDisabled={false}
-                                    deleteDisabled={false}
-                                    handleOpenUpdate={props.handleOpenUpdate}
-                                    handleDelete={props.handleDelete}/>
+          <AdminCollectionAccordion
+            key={item._id}
+            id={item._id}
+            title={props.itemTitle(item)}
+            descriptionPairs={props.descriptionPairs(item)}
+            updateDisabled={false}
+            deleteDisabled={false}
+            handleOpenUpdate={props.handleOpenUpdate}
+            handleDelete={props.handleDelete}
+          />
         ))}
       </Grid>
     </Segment>

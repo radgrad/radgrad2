@@ -14,8 +14,16 @@ const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transf
     value: val,
   }));
   return (
-    <Dropdown fluid={true} multiple={true} placeholder={placeholder} selection={true} disabled={disabled}
-              options={options} onChange={(event, data) => onChange(data.value)} value={value}/>
+    <Dropdown
+      fluid
+      multiple
+      placeholder={placeholder}
+      selection
+      disabled={disabled}
+      options={options}
+      onChange={(event, data) => onChange(data.value)}
+      value={value}
+    />
   );
 };
 
@@ -39,9 +47,9 @@ const MultiSelect = ({
                        value,
                        ...props
                      }) => (
-  <div className={classnames({ disabled, error, required }, className, 'field')} {...filterDOMProps(props)}>
-    {label && <label htmlFor={id}>{label}</label>}
-    {renderDropdown({
+                       <div className={classnames({ disabled, error, required }, className, 'field')} {...filterDOMProps(props)}>
+                         {label && <label htmlFor={id}>{label}</label>}
+                         {renderDropdown({
       allowedValues,
       disabled,
       placeholder,
@@ -49,8 +57,8 @@ const MultiSelect = ({
       transform,
       value,
     })}
-    {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
-  </div>
+                         {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
+                       </div>
 );
 
 

@@ -54,9 +54,11 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
         <Grid.Column width={6}>
           <Form onSubmit={this.handleUpdateWebsite}>
             <Form.Group>
-              <Form.Input onChange={this.handleFormChange}
-                          value={website}/>
-              <Form.Button basic={true} color="green"> Update</Form.Button>
+              <Form.Input
+                onChange={this.handleFormChange}
+                value={website}
+              />
+              <Form.Button basic color="green"> Update</Form.Button>
             </Form.Group>
           </Form>
         </Grid.Column>

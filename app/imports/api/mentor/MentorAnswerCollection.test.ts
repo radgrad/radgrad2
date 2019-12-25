@@ -7,7 +7,7 @@ import { MentorQuestions } from './MentorQuestionCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { ROLE } from '../role/Role';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

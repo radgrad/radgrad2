@@ -7,20 +7,20 @@ import MentorAboutMeWidget from '../../components/mentor/MentorAboutMeWidget';
 /** A simple static component to render some text for the landing page. */
 const MentorHomePage = () => (
   <div>
-    <MentorPageMenuWidget/>
-    <Grid stackable={true}>
+    <MentorPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <MentorAboutMeWidget/>
+          <MentorAboutMeWidget />
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
   </div>

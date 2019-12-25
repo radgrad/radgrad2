@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
-import { URL_ROLES } from '../../../startup/client/routes-config';
+import { URL_ROLES } from '../../../startup/client/route-constants';
 
 export interface IMatchProps {
   isExact: boolean;

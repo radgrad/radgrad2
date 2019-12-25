@@ -9,7 +9,7 @@ import IceHeader from '../shared/IceHeader';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../shared/FutureParticipation';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
@@ -34,12 +34,18 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
   return (
     <Card>
       <Card.Content>
-        <IceHeader ice={props.opportunity.ice}/>
+        <IceHeader ice={props.opportunity.ice} />
         <Card.Header>{props.opportunity.name}</Card.Header>
       </Card.Content>
       <Card.Content>
-        {instances.length > 0 ? (<React.Fragment><b>In plan:</b> {termNames}</React.Fragment>) : <b>Not in plan</b>}
-        <Droppable droppableId={'inspector-course'}>
+        {instances.length > 0 ? (
+          <React.Fragment>
+            <b>In plan:</b>
+            {' '}
+            {termNames}
+          </React.Fragment>
+) : <b>Not in plan</b>}
+        <Droppable droppableId="inspector-course">
           {(provided) => (
             <div
               ref={provided.innerRef}
@@ -55,20 +61,26 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
                       prov.draggableProps.style,
                     )}
                   >
-                    <NamePill name={props.opportunity.name}/>
+                    <NamePill name={props.opportunity.name} />
                   </div>
                 )}
               </Draggable>
-            </div>)}
+            </div>
+)}
         </Droppable>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation item={props.opportunity} type='opportunities'/>
+        <FutureParticipation item={props.opportunity} type="opportunities" />
       </Card.Content>
       <Card.Content>
-        <p style={textAlignRight}><Link to={buildRouteName(props.match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)} target="_blank">View
+        <p style={textAlignRight}>
+          <Link to={buildRouteName(props.match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)} target="_blank">
+View
           in
-          Explorer <Icon name="arrow right"/></Link></p>
+          Explorer
+            <Icon name="arrow right" />
+          </Link>
+        </p>
       </Card.Content>
     </Card>
   );

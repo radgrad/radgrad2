@@ -7,7 +7,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import { profileGetCareerGoalIDs, profileGetInterestIDs } from './data-model-helper-functions';
 
@@ -63,10 +63,20 @@ const ProfileAdd = (props: IProfileAddProps) => {
   const isTypePlans = type === EXPLORER_TYPE.ACADEMICPLANS;
 
   return (
-    isTypePlans ?
-      <Button onClick={handleAddToProfile(props)}><Icon name="plus"/><br/>Select Plan</Button>
-      :
-      <Button onClick={handleAddToProfile(props)}><Icon name="plus"/><br/>Add to Profile</Button>
+    isTypePlans ? (
+      <Button onClick={handleAddToProfile(props)}>
+        <Icon name="plus" />
+        <br />
+Select Plan
+      </Button>
+    )
+      : (
+        <Button onClick={handleAddToProfile(props)}>
+          <Icon name="plus" />
+          <br />
+Add to Profile
+        </Button>
+    )
   );
 };
 

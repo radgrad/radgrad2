@@ -4,7 +4,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 import { FavoriteAcademicPlans } from './FavoriteAcademicPlanCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isClient) {

@@ -96,10 +96,10 @@ const StudentExplorerOpportunitiesWidgetButton = (props: IStudentExplorerOpportu
   return (
     <React.Fragment>
       {
-        isAddButtonType ?
+        isAddButtonType ? (
           <Popup
             trigger={
-              <Button basic={true} color="green" size="mini" floated="right">ADD TO PLAN</Button>
+              <Button basic color="green" size="mini" floated="right">ADD TO PLAN</Button>
             }
             position="right center"
             className="transition"
@@ -107,36 +107,38 @@ const StudentExplorerOpportunitiesWidgetButton = (props: IStudentExplorerOpportu
             on="click"
           >
             <Popup.Content>
-              <Menu vertical={true}>
+              <Menu vertical>
                 {
                   empty ?
                     <Menu.Item as="a">No available future academic terms.</Menu.Item>
-                    :
-                    <React.Fragment>
-                      {
+                    : (
+                      <React.Fragment>
+                        {
                         opportunityTerms.map((term, index) => (
                           <Menu.Item key={index} as="a" onClick={handleAddToPlan(props)}>{term}</Menu.Item>
                         ))
                       }
-                    </React.Fragment>
-                }
+                      </React.Fragment>
+                  )
+}
               </Menu>
             </Popup.Content>
           </Popup>
-          :
-          <React.Fragment>
-            {
-              isRemoveButtonType ?
+        )
+          : (
+            <React.Fragment>
+              {
+              isRemoveButtonType ? (
                 <Popup
                   trigger={
-                    <Button basic={true} color="green" size="mini" floated="right">REMOVE FROM PLAN</Button>
+                    <Button basic color="green" size="mini" floated="right">REMOVE FROM PLAN</Button>
                   }
                   position="right center"
                   className="transition"
                   on="click"
                 >
                   <Popup.Content>
-                    <Menu vertical={true}>
+                    <Menu vertical>
                       {
                         existingTerms.map((term, index) => (
                           <Menu.Item key={index} as="a" onClick={handleRemoveFromPlan(props)}>{term}</Menu.Item>
@@ -145,10 +147,12 @@ const StudentExplorerOpportunitiesWidgetButton = (props: IStudentExplorerOpportu
                     </Menu>
                   </Popup.Content>
                 </Popup>
+              )
                 : ''
             }
-          </React.Fragment>
-      }
+            </React.Fragment>
+        )
+}
     </React.Fragment>
   );
 };

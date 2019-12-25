@@ -34,19 +34,29 @@ const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProp
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>
+Update
+        {props.collection.getType()}
+:
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <SelectField name="academicTerm"/>
-          <AutoField name="ice"/>
+          <SelectField name="academicTerm" />
+          <AutoField name="ice" />
         </Form.Group>
         <Form.Group widths="equal">
-          <BoolField name="verified"/>
-          <BoolField name="retired"/>
+          <BoolField name="verified" />
+          <BoolField name="retired" />
         </Form.Group>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

@@ -104,22 +104,22 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
     const getWorking = this.props.getStudentEmailsWorking;
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={5}>
-            <AdminDatabaseMenuContainer/>
+            <AdminDatabaseMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
             <Form>
-              <Button color="green" loading={dumpWorking} basic={true} type="submit" onClick={this.clickDump}>Dump Database</Button>
-              <Button color="green" loading={getWorking} basic={true} type="submit" onClick={this.clickEmails}>Get Student Emails</Button>
+              <Button color="green" loading={dumpWorking} basic type="submit" onClick={this.clickDump}>Dump Database</Button>
+              <Button color="green" loading={getWorking} basic type="submit" onClick={this.clickEmails}>Get Student Emails</Button>
             </Form>
             {showMessage ? (
-              <Grid stackable={true} style={paddedStyle}>
+              <Grid stackable style={paddedStyle}>
                 <Message positive={!errorCondition} error={errorCondition}>
-                  {this.state.results.map((item, index) => (<AdminDatabaseAccordion key={index} index={index} name={item.name} contents={item.contents}/>))}
+                  {this.state.results.map((item, index) => (<AdminDatabaseAccordion key={index} index={index} name={item.name} contents={item.contents} />))}
                 </Message>
               </Grid>
             ) : ''}

@@ -11,7 +11,7 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component {
     return (
       <div>
         <Segment>
-          <Header as='h4' dividing>SUMMARY STATISTICS</Header>
+          <Header as="h4" dividing>SUMMARY STATISTICS</Header>
         </Segment>
       </div>
     );

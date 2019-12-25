@@ -30,8 +30,8 @@ const AdvisorPageMenuWidget = () => {
   ];
   return (
     <div style={divStyle}>
-      <FirstMenuContainer style={firstMenuStyle}/>
-      <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
+      <FirstMenuContainer style={firstMenuStyle} />
+      <SecondMenu menuItems={menuItems} numItems={menuItems.length} />
     </div>
   );
 };

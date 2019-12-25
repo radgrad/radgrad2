@@ -4,8 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { Header, Segment, Tab } from 'semantic-ui-react';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
-import { ANALYTICS } from '../../../startup/client/routes-config';
-// eslint-disable-next-line no-unused-vars
+import { ANALYTICS } from '../../../startup/client/route-constants';
 import { ReduxTypes } from '../../../redux';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
@@ -22,10 +21,6 @@ const mapStateToProps = (state: ReduxTypes.State): { dateRange: { startDate: Dat
 });
 
 class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyticsOverheadAnalysisWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     const { dateRange } = this.props;
     console.log('date range object', dateRange);
@@ -37,21 +32,21 @@ class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyti
     const panes = [
       {
         menuItem: 'User Session Overhead',
-        render: () => <UserSessionOverheadWidget/>,
+        render: () => <UserSessionOverheadWidget />,
       },
       {
         menuItem: 'Overall Server Load',
-        render: () => <OverallServerLoadWidget/>,
+        render: () => <OverallServerLoadWidget />,
       },
     ];
     return (
       <React.Fragment>
-        <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS}/>
+        <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
 
-        <Segment padded={true} className="container">
+        <Segment padded className="container">
           {/* TODO: Make this reactive */}
-          <Header dividing={true}>{`${dateRange} ${_.uniqueId()}`}</Header>
-          <Tab panes={panes} menu={tabMenuSettings}/>
+          <Header dividing>{`${dateRange} ${_.uniqueId()}`}</Header>
+          <Tab panes={panes} menu={tabMenuSettings} />
         </Segment>
       </React.Fragment>
     );

@@ -10,7 +10,7 @@ import * as Router from '../shared/RouterHelperFunctions'; // eslint-disable-lin
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IFavoriteAcademicPlansWidgetProps {
   match: Router.IMatchProps;
@@ -52,21 +52,29 @@ class FavoriteAcademicPlansWidget extends React.Component<IFavoriteAcademicPlans
     return (
       <div>
         <AutoForm schema={schema} onChangeModel={this.handleOnChangeModel}>
-          <SelectField name="academicPlan"/>
+          <SelectField name="academicPlan" />
         </AutoForm>
-        <p/>
-        {showPlanP ?
-          <AcademicPlanViewerWidgetContainer academicPlan={this.state.selectedPlan}
-                                             username={Router.getUsername(this.props.match)}/>
-          :
-          <Message info>
-            <Message.Header>No favorite acadmeic plans</Message.Header>
-            <p>You can favorite academic plans in the explorer.
-              <Link to={Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>View
+        <p />
+        {showPlanP ? (
+          <AcademicPlanViewerWidgetContainer
+            academicPlan={this.state.selectedPlan}
+            username={Router.getUsername(this.props.match)}
+          />
+        )
+          : (
+            <Message info>
+              <Message.Header>No favorite acadmeic plans</Message.Header>
+              <p>
+You can favorite academic plans in the explorer.
+                <Link to={Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+View
                 in
-                Explorer <Icon name="arrow right"/></Link></p>
-          </Message>
-        }
+                Explorer
+                  <Icon name="arrow right" />
+                </Link>
+              </p>
+            </Message>
+        )}
       </div>
     );
   }

@@ -7,7 +7,7 @@ import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
 import IceHeader from './IceHeader';
 import InterestList from './InterestList';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import {
   docToShortDescription,
@@ -70,7 +70,7 @@ const TermCard = (props: ITermCard) => {
       <Card.Content>
         <Card.Header>
           {name}
-          {isTypeOpportunity ? <IceHeader ice={item.ice}/> : ''}
+          {isTypeOpportunity ? <IceHeader ice={item.ice} /> : ''}
         </Card.Header>
 
         <Card.Meta>
@@ -79,19 +79,27 @@ const TermCard = (props: ITermCard) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={itemShortDescription}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-        <InterestList item={item} size="mini"/>
+        <Markdown
+          escapeHtml
+          source={itemShortDescription}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
+        <InterestList item={item} size="mini" />
       </Card.Content>
       <Card.Content>
-        <FutureParticipation type={props.type} item={props.item}/>
+        <FutureParticipation type={props.type} item={props.item} />
       </Card.Content>
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
+        <span>
+STUDENTS PARTICIPATING
+          <WidgetHeaderNumber inputValue={numberStudents} />
+        </span>
       </Card.Content>
 
       <Link className="ui button" to={buildRouteName(props.item, props.type, props)}>
-        <Icon name="chevron circle right"/><br/>View More
+        <Icon name="chevron circle right" />
+        <br />
+View More
       </Link>
     </Card>
   );

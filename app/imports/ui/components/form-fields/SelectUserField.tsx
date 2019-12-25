@@ -27,8 +27,12 @@ const SelectUserField = (props: ISelectUserFieldProps) => {
   const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
   console.log(options);
   return (
-    <Form.Select label={props.label} options={options} placeholder={`Select ${props.role}`}
-                required={props.required}/>
+    <Form.Select
+      label={props.label}
+      options={options}
+      placeholder={`Select ${props.role}`}
+      required={props.required}
+    />
   );
 };
 

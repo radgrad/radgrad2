@@ -11,28 +11,28 @@ class AdminAnalyticsOverheadAnalysisPage extends React.Component {
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid stackable={true}>
+        <AdminPageMenuWidget />
+        <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
+            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={1} />
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
             <Grid.Column width={3}>
-              <AdminAnalyticsMenuWidget/>
+              <AdminAnalyticsMenuWidget />
             </Grid.Column>
 
             <Grid.Column width={11}>
-              <AdminAnalyticsOverheadAnalysisWidget/>
+              <AdminAnalyticsOverheadAnalysisWidget />
             </Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
           </Grid.Row>
         </Grid>
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

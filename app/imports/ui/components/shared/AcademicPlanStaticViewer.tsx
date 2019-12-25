@@ -37,38 +37,53 @@ const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
 
   return (
     <div className="ui padded container">
-      <Grid stackable={true}>
+      <Grid stackable>
         <Grid.Column>
           <Grid columns="equal" style={equalWidthGridStyle}>
             <Grid.Row columns={fiveYear ? 5 : 4}>
               <Grid.Column style={littlePadding}>
-                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                            username={username}
-                                            takenSlugs={props.takenSlugs}/>
+                <AcademicPlanStaticYearView
+                  yearNumber={yearNumber++}
+                  academicPlan={plan}
+                  username={username}
+                  takenSlugs={props.takenSlugs}
+                />
               </Grid.Column>
               <Grid.Column style={littlePadding}>
-                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                            username={username}
+                <AcademicPlanStaticYearView
+                  yearNumber={yearNumber++}
+                  academicPlan={plan}
+                  username={username}
 
-                                            takenSlugs={props.takenSlugs}/>
+                  takenSlugs={props.takenSlugs}
+                />
               </Grid.Column>
               <Grid.Column style={littlePadding}>
-                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                            username={username}
+                <AcademicPlanStaticYearView
+                  yearNumber={yearNumber++}
+                  academicPlan={plan}
+                  username={username}
 
-                                            takenSlugs={props.takenSlugs}/>
+                  takenSlugs={props.takenSlugs}
+                />
               </Grid.Column>
               <Grid.Column style={littlePadding}>
-                <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                            username={username}
+                <AcademicPlanStaticYearView
+                  yearNumber={yearNumber++}
+                  academicPlan={plan}
+                  username={username}
 
-                                            takenSlugs={props.takenSlugs}/>
+                  takenSlugs={props.takenSlugs}
+                />
               </Grid.Column>
               {fiveYear ? (
                 <Grid.Column style={littlePadding}>
-                  <AcademicPlanStaticYearView yearNumber={yearNumber++} academicPlan={plan}
-                                              username={username}
-                                              takenSlugs={props.takenSlugs}/>
+                  <AcademicPlanStaticYearView
+                    yearNumber={yearNumber++}
+                    academicPlan={plan}
+                    username={username}
+                    takenSlugs={props.takenSlugs}
+                  />
                 </Grid.Column>
               ) : ''}
             </Grid.Row>

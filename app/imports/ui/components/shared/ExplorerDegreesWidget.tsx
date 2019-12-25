@@ -35,25 +35,40 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
   return (
     <Segment.Group style={segmentGroupStyle} id={explorerDegreeWidget}>
       <Container>
-        <Segment padded={true}>
-          <Segment clearing={true} basic={true} style={segmentClearingBasicStyle}>
+        <Segment padded>
+          <Segment clearing basic style={segmentClearingBasicStyle}>
             <Header floated="left" as="h4">{toUpper(name)}</Header>
           </Segment>
 
-          <Divider style={dividerStyle}/>
+          <Divider style={dividerStyle} />
 
-          <Grid stackable={true}>
+          <Grid stackable>
             <Grid.Column>
               {
                 descriptionPairs.map((descriptionPair, index) => (
-                  descriptionPair.value ?
+                  descriptionPair.value ? (
                     <React.Fragment key={index}>
-                      <b>{descriptionPair.label}:</b>
-                      <Markdown escapeHtml={false} source={descriptionPair.value}
-                                renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
+                      <b>
+                        {descriptionPair.label}
+:
+                      </b>
+                      <Markdown
+                        escapeHtml={false}
+                        source={descriptionPair.value}
+                        renderers={{ link: (localProps) => renderLink(localProps, match) }}
+                      />
                     </React.Fragment>
-                    :
-                    <p key={index}><b>{descriptionPair.label}:</b> N/A</p>
+                  )
+                    : (
+                      <p key={index}>
+                        <b>
+                          {descriptionPair.label}
+:
+                        </b>
+                        {' '}
+N/A
+                      </p>
+                  )
                 ))
               }
             </Grid.Column>

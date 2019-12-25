@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
-import { ANALYTICS } from '../../../startup/client/routes-config';
+import { ANALYTICS } from '../../../startup/client/route-constants';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
@@ -163,25 +163,26 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
     const { startDate, endDate } = this.state;
     return (
       <Container>
-        <Segment padded={true}>
-          <Header dividing as='h4'>SELECT DATE RANGE:</Header>
+        <Segment padded>
+          <Header dividing as="h4">SELECT DATE RANGE:</Header>
           <Form>
             <Form.Group>
-              <Form.Input label='Start Date' required>
+              <Form.Input label="Start Date" required>
                 <DatePicker
                   onChange={this.handleChangeStartDate}
                   selected={startDate}
                   maxDate={endDate}
                 />
               </Form.Input>
-              <Form.Input label='End Date' required>
+              <Form.Input label="End Date" required>
                 <DatePicker
                   onChange={this.handleChangeEndDate}
                   selected={endDate}
-                  minDate={startDate}/>
+                  minDate={startDate}
+                />
               </Form.Input>
             </Form.Group>
-            <Form.Button basic={true} color='green' onClick={this.handleSubmit}>Search</Form.Button>
+            <Form.Button basic color="green" onClick={this.handleSubmit}>Search</Form.Button>
           </Form>
         </Segment>
       </Container>

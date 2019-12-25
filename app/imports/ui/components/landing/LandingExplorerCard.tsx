@@ -3,7 +3,7 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { getSlug, itemShortDescription } from './helper-functions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IItemProps {
@@ -39,11 +39,18 @@ const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
         <div className="header">{title}</div>
       </Card.Content>
       <Card.Content className="content">
-        <Markdown escapeHtml={true} source={`${itemShortDescription(props.item)}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription(props.item)}...`}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
       </Card.Content>
       <Button.Group attached="bottom" className="radgrad-home-buttons ui center aligned three bottom attached {{hidden}} buttons">
-        <a href={routeToItem} className="ui button"><Icon name="chevron circle right"/><br/>View More</a>
+        <a href={routeToItem} className="ui button">
+          <Icon name="chevron circle right" />
+          <br />
+View More
+        </a>
       </Button.Group>
     </Card>
   );

@@ -45,26 +45,26 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Opportunity</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Opportunity</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug"/>
-          <TextField name="name"/>
+          <TextField name="slug" />
+          <TextField name="name" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityType"/>
-          <SelectField name="sponsor"/>
+          <SelectField name="opportunityType" />
+          <SelectField name="sponsor" />
         </Form.Group>
-        <LongTextField name="description"/>
+        <LongTextField name="description" />
         <Form.Group widths="equal">
-          <MultiSelectField name="terms"/>
-          <MultiSelectField name="interests"/>
+          <MultiSelectField name="terms" />
+          <MultiSelectField name="interests" />
         </Form.Group>
-        <DateField name="eventDate"/>
-        <AutoField name="ice"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <DateField name="eventDate" />
+        <AutoField name="ice" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

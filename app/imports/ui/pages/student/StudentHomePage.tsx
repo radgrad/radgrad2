@@ -8,29 +8,29 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const StudentHomePage = () => (
   <div>
-    <StudentPageMenuWidget/>
-    <Grid stackable={true}>
+    <StudentPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={3}>
-          <StudentHomeMenu/>
+          <StudentHomeMenu />
         </Grid.Column>
 
         <Grid.Column width={11}>
-          <StudentHomeWidget/>
+          <StudentHomeWidget />
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
 
     </Grid>
 
-    <BackToTopButton/>
+    <BackToTopButton />
   </div>
 );
 

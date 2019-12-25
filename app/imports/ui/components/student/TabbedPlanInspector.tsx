@@ -45,7 +45,7 @@ const TabbedPlanInspector = (props: ITabbedPlanInspectorProps) => {
       menuItem: 'ACADEMIC PLAN',
       pane: (
         <Tab.Pane key="plan" active={activeIndex === 0}>
-          <AcademicPlanViewerContainer/>
+          <AcademicPlanViewerContainer />
         </Tab.Pane>
       ),
     },
@@ -53,15 +53,15 @@ const TabbedPlanInspector = (props: ITabbedPlanInspectorProps) => {
       menuItem: 'INSPECTOR',
       pane: (
         <Tab.Pane key="inspector" active={activeIndex === 1}>
-          <CourseOpportunityInspectorWidgetContainer/>
+          <CourseOpportunityInspectorWidgetContainer />
         </Tab.Pane>
       ),
     },
   ];
   // console.log(`TabbedPlanInspector activeIndex=${activeIndex}`);
   return (
-    <Segment padded={true}>
-      <Tab panes={panes} renderActiveOnly={false} onTabChange={handleTabChange(props)} activeIndex={activeIndex}/>
+    <Segment padded>
+      <Tab panes={panes} renderActiveOnly={false} onTabChange={handleTabChange(props)} activeIndex={activeIndex} />
     </Segment>
   );
 };

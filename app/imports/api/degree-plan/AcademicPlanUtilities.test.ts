@@ -1,11 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { expect } from 'chai';
-import { IAcademicPlan } from '../../typings/radgrad'; // eslint-disable-line
-import AcademicPlanUtilities from './AcademicPlanUtilities';
+import * as AcademicPlanUtilities from './AcademicPlanUtilities';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

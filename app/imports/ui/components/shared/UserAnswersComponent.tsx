@@ -42,15 +42,34 @@ const UserAnswersComponent = (props: IUserAnswersComponentProps) => {
   }));
   return (
     <Card.Content>
-      {_.includes(ALLOWED_ROLES, thisUserProfile.role) ?
-        <Header as={'h4'}><Link rel={'noopener noreferrer'}
-                                to={`/${thisUserProfile.role.toLowerCase()}/${thisUserProfile.username}/mentor-space/`}>MENTOR
-          ANSWERS ({mentorAnswers.length})</Link></Header>
-        : <Header as={'h4'}>MENTOR ANSWERS ({mentorAnswers.length})</Header>}
-      {mentorAnswers.length > 0 ?
-        <Accordion fluid exclusive={false}
-                   panels={panels}
-                   defaultActiveIndex={[-1]}/>
+      {_.includes(ALLOWED_ROLES, thisUserProfile.role) ? (
+        <Header as="h4">
+          <Link
+            rel="noopener noreferrer"
+            to={`/${thisUserProfile.role.toLowerCase()}/${thisUserProfile.username}/mentor-space/`}
+          >
+MENTOR
+          ANSWERS (
+            {mentorAnswers.length}
+)
+          </Link>
+        </Header>
+      )
+        : (
+          <Header as="h4">
+MENTOR ANSWERS (
+            {mentorAnswers.length}
+)
+          </Header>
+)}
+      {mentorAnswers.length > 0 ? (
+        <Accordion
+          fluid
+          exclusive={false}
+          panels={panels}
+          defaultActiveIndex={[-1]}
+        />
+      )
         : undefined}
     </Card.Content>
   );

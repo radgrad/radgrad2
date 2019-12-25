@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 // eslint-disable-next-line no-unused-vars
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
@@ -136,9 +136,12 @@ const ExplorerMenuNonMobileItem = (props: IExplorerMenuNonMobileItemProps) => {
   };
 
   return (
-    <Menu.Item as={NavLink} exact={true}
-               to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}>
-      <i className={getItemStatus(listItem.item, props)} style={iconStyle}/>
+    <Menu.Item
+      as={NavLink}
+      exact
+      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
+    >
+      <i className={getItemStatus(listItem.item, props)} style={iconStyle} />
       {type === EXPLORER_TYPE.OPPORTUNITIES && opportunityItemName(listItem as { item: IOpportunity, count: number })}
       {type === EXPLORER_TYPE.COURSES && courseName(listItem as { item: ICourse, count: number })}
       {(type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES) && itemName(listItem)}

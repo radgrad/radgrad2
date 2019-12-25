@@ -11,36 +11,36 @@ import StudentLevelsOthersWidget from '../../components/student/StudentLevelsOth
 
 const StudentHomeLevelsPage = () => (
   <div>
-    <StudentPageMenuWidget/>
-    <Grid stackable={true}>
+    <StudentPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={3}>
-          <StudentHomeMenu/>
+          <StudentHomeMenu />
         </Grid.Column>
 
         <Grid.Column width={11}>
-          <Grid container={true} stackable={true} columns="equal">
-            <Grid.Column stretched={true}>
-              <StudentLevelsWidget/>
+          <Grid container stackable columns="equal">
+            <Grid.Column stretched>
+              <StudentLevelsWidget />
             </Grid.Column>
 
-            <Grid.Column stretched={true}>
-              <StudentLevelsOthersWidget/>
+            <Grid.Column stretched>
+              <StudentLevelsOthersWidget />
             </Grid.Column>
           </Grid>
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
 
-    <BackToTopButton/>
+    <BackToTopButton />
   </div>
 );
 

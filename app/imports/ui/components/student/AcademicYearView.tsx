@@ -16,11 +16,15 @@ const AcademicYearView = (props: IAcademicYearViewProps) => {
   const termIDs = props.academicYear.termIDs;
   const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
   return (
-    <Grid.Column stretched={true}>
+    <Grid.Column stretched>
       {_.map(terms, (term) => (
-        <AcademicTermViewContainer key={term._id} term={term} studentID={props.studentID}
-                                   handleClickCourseInstance={props.handleClickCourseInstance}
-                                   handleClickOpportunityInstance={props.handleClickOpportunityInstance}/>
+        <AcademicTermViewContainer
+          key={term._id}
+          term={term}
+          studentID={props.studentID}
+          handleClickCourseInstance={props.handleClickCourseInstance}
+          handleClickOpportunityInstance={props.handleClickOpportunityInstance}
+        />
       ))}
     </Grid.Column>
   );

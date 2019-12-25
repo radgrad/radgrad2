@@ -76,16 +76,18 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
 
   public render() {
     return (
-      <Segment padded={true}>
-        <Header as="h4" dividing={true}>ADVISOR LOG</Header>
-        <Form onSubmit={this.onSubmit} widths={'equal'}>
-          <Form.TextArea label={'Comments'}
-                         name={'comment'}
-                         onChange={this.handleForm}
-                         value={this.state.comment}/>
-          <Form.Button content={'ADD COMMENTS'} type={'Submit'} basic={true} color={'green'}/>
+      <Segment padded>
+        <Header as="h4" dividing>ADVISOR LOG</Header>
+        <Form onSubmit={this.onSubmit} widths="equal">
+          <Form.TextArea
+            label="Comments"
+            name="comment"
+            onChange={this.handleForm}
+            value={this.state.comment}
+          />
+          <Form.Button content="ADD COMMENTS" type="Submit" basic color="green" />
         </Form>
-        <br/>
+        <br />
         <p style={{
           marginTop: '15px',
           display: 'block',
@@ -94,15 +96,33 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
           fontSize: '.92857143em',
           fontWeight: 700,
           textTransform: 'none',
-        }}>Past Advisor Logs</p>
+        }}
+        >
+Past Advisor Logs
+        </p>
         <div style={{ height: '200px' }}>
           <div style={{ height: '100%', overflowY: 'auto' }}>
             {this.state.advisorLogs.length > 0 ? this.state.advisorLogs.map(
-              (ele, i) => <Segment key={i}>
-                <strong>
-                  {ele.createdOn.toDateString()} {ele.createdOn.getHours()}:{this.formatMinuteString(ele.createdOn.getMinutes())}:
-                </strong> {ele.text} <i>({Users.getProfile(ele.advisorID).firstName})</i>
-              </Segment>,
+              (ele, i) => (
+                <Segment key={i}>
+                  <strong>
+                    {ele.createdOn.toDateString()}
+                    {' '}
+                    {ele.createdOn.getHours()}
+:
+                    {this.formatMinuteString(ele.createdOn.getMinutes())}
+:
+                  </strong>
+                  {' '}
+                  {ele.text}
+                  {' '}
+                  <i>
+(
+                    {Users.getProfile(ele.advisorID).firstName}
+)
+                  </i>
+                </Segment>
+),
             ) : <i>No past advisor logs with this student.</i>}
           </div>
         </div>

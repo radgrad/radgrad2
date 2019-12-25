@@ -24,12 +24,12 @@ const missingPrerequisite = (prereqSlug, studentID) => {
 };
 
 const CoursePrerequisitesView = (props: ICoursePrerequisitesViewProps) => (
-  <List bulleted={true}>
+  <List bulleted>
     {_.map(props.prerequisites, (p) => (
       <List.Item key={p}>
         {PlanChoiceCollection.toStringFromSlug(p)}
-        {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red"/> :
-          <Icon name="checkmark" color="green"/>}
+        {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red" /> :
+        <Icon name="checkmark" color="green" />}
       </List.Item>
     ))}
   </List>

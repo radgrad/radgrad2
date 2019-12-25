@@ -33,7 +33,7 @@ const itemTitleString = (item: any): string => `${item.name}: ${item.entityName}
  */
 const itemTitle = (item: any): React.ReactNode => (
   <React.Fragment>
-    <Icon name="dropdown"/>
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -95,27 +95,28 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ListSlugCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListSlugCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

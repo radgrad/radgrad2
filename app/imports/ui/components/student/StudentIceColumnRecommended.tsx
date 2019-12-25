@@ -4,7 +4,7 @@ import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -161,35 +161,65 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
 
   return (
     <React.Fragment>
-      {matchingPoints(100, earnedICEPoints) ?
-        <p>Congratulations! You have 100 (or more) verified {type} points!</p>
+      {matchingPoints(100, earnedICEPoints) ? (
+        <p>
+Congratulations! You have 100 (or more) verified
+          {type}
+          {' '}
+points!
+        </p>
+      )
         :
-        matchingPoints(100, projectedICEPoints) ?
-          <p>You already have at least 100 verified or unverified {type} points.</p>
+        matchingPoints(100, projectedICEPoints) ? (
+          <p>
+You already have at least 100 verified or unverified
+            {type}
+            {' '}
+points.
+          </p>
+        )
           :
           hasNoInterests(props) ?
             <p>Consider adding interests to see recommendations here.</p>
-            :
-            <React.Fragment>
-              <p>Consider the following to acquire 100 {type} points.</p>
-              <List>
-                {recommendedEvents(projectedICEPoints, props).map((event) => {
+            : (
+              <React.Fragment>
+                <p>
+Consider the following to acquire 100
+                  {type}
+                  {' '}
+points.
+                </p>
+                <List>
+                  {recommendedEvents(projectedICEPoints, props).map((event) => {
                   const courseSlug = getCourseSlug(event);
                   const courseRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
                   const opportunitySlug = getOpportunitySlug(event);
                   const opportunityRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
                   return (
                     <List.Item key={event._id}>
-                      {type === 'Competency' ?
-                        <Link to={courseRoute}><b>+9</b> {event.shortName}</Link>
-                        :
-                        <Link to={opportunityRoute}><b>+{icePoints(event.ice)}</b> {event.name}</Link>
-                      }
+                      {type === 'Competency' ? (
+                        <Link to={courseRoute}>
+                          <b>+9</b>
+                          {' '}
+                          {event.shortName}
+                        </Link>
+                      )
+                        : (
+                          <Link to={opportunityRoute}>
+                            <b>
++
+                              {icePoints(event.ice)}
+                            </b>
+                            {' '}
+                            {event.name}
+                          </Link>
+                      )}
                     </List.Item>
                   );
                 })}
-              </List>
-            </React.Fragment>}
+                </List>
+              </React.Fragment>
+          )}
     </React.Fragment>
   );
 };

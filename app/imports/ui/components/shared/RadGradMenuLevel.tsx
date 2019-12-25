@@ -20,7 +20,7 @@ const RadGradMenuLevel = (props: IRadGradMenuLevelProps) => {
     display: 'flex',
   };
   return (
-    <div style={iconStyle}/>
+    <div style={iconStyle} />
   );
 };
 
