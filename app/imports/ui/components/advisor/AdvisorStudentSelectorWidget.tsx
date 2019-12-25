@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-// eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
 import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
@@ -211,8 +210,8 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
                 render: () => (
                   <Tab.Pane>
                     <Grid stackable>
-                      {filteredStudents.map((student, index) => (
-                        <Grid.Column style={columnStyle} width={3} key={index}>
+                      {filteredStudents.map((student) => (
+                        <Grid.Column style={columnStyle} width={3} key={student._id}>
                           <Popup
                             content={`${student.lastName}, ${student.firstName}`}
                             position="top center"

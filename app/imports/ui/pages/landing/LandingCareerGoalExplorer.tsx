@@ -9,7 +9,7 @@ import { ICareerGoal } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';

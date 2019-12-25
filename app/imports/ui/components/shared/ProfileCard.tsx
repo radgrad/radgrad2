@@ -57,7 +57,7 @@ STUDENTS PARTICIPATING
         <Image.Group size="mini">
           {interested.map((student, index) => (
             <Popup
-              key={index}
+              key={student._id}
               trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />}
               content={profileIDToFullname(student.userID)}
             />

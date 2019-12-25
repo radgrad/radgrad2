@@ -16,7 +16,7 @@ const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
 function withAdditionalSubscriptions(WrappedComponent) {
   const AdditionalSubscriptions = (props: ILoading) => ((props.loading) ? <Loader active>Getting additional data</Loader> :
-  <WrappedComponent {...this.props} />);
+  <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const requests = VerificationRequests.find({}).fetch();

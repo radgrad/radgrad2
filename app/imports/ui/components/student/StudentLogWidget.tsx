@@ -44,7 +44,7 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
               const advisorName = getAdvisorName(log);
               const displayDate = getDisplayDate(log);
               return (
-                <Item.Group key={index} relaxed divided>
+                <Item.Group key={log._id} relaxed divided>
                   <Item>
                     <Image size="tiny" src={advisorImage} />
                     <Item.Content>

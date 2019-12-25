@@ -60,6 +60,7 @@ class BeautifulExample extends React.Component<{}, IBeautifulExampleState> {
     }
 
     const items = reorder(
+      // eslint-disable-next-line react/no-access-state-in-setstate
       this.state.items,
       result.source.index,
       result.destination.index,

@@ -28,7 +28,7 @@ REVIEWS
       {props.isReview && props.reviews.length > 0 ? (
         <Item.Group divided>
           {props.reviews.map((review, index) => (
-            <Item key={index}>
+            <Item key={review._id}>
               {' '}
               <ModerationReviewCardWidget
                 item={review}
@@ -45,7 +45,7 @@ REVIEWS
             (props.isReview === false && props.reviews.length > 0) ? (
               <Item.Group divided>
                 {props.reviews.map((question, index) => (
-                  <Item key={index}>
+                  <Item key={question._id}>
                     {' '}
                     <ModerationQuestionCardWidget
                       question={question}

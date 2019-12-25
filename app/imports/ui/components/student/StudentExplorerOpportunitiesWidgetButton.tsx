@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Menu, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { IOpportunity, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IOpportunity, IOpportunityInstanceDefine } from '../../../typings/radgrad';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -114,8 +114,8 @@ const StudentExplorerOpportunitiesWidgetButton = (props: IStudentExplorerOpportu
                     : (
                       <React.Fragment>
                         {
-                        opportunityTerms.map((term, index) => (
-                          <Menu.Item key={index} as="a" onClick={handleAddToPlan(props)}>{term}</Menu.Item>
+                        opportunityTerms.map((term) => (
+                          <Menu.Item key={term} as="a" onClick={handleAddToPlan(props)}>{term}</Menu.Item>
                         ))
                       }
                       </React.Fragment>
@@ -140,8 +140,8 @@ const StudentExplorerOpportunitiesWidgetButton = (props: IStudentExplorerOpportu
                   <Popup.Content>
                     <Menu vertical>
                       {
-                        existingTerms.map((term, index) => (
-                          <Menu.Item key={index} as="a" onClick={handleRemoveFromPlan(props)}>{term}</Menu.Item>
+                        existingTerms.map((term) => (
+                          <Menu.Item key={term} as="a" onClick={handleRemoveFromPlan(props)}>{term}</Menu.Item>
                         ))
                       }
                     </Menu>

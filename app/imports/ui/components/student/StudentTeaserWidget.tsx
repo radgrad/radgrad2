@@ -109,8 +109,8 @@ TEASERS
           teasers ? (
             <Card.Group style={cardGroupStyle}>
               {
-                teasers.map((teaser, index) => (
-                  <React.Fragment key={index}>
+                teasers.map((teaser) => (
+                  <React.Fragment key={teaser._id}>
                     <Card centered>
                       <Card.Content>
                         <Card.Header>{teaserTitle(teaser)}</Card.Header>

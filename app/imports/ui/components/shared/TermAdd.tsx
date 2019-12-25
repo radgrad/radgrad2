@@ -111,8 +111,8 @@ Add to Plan
           <Popup.Content>
             <Menu size="mini" secondary vertical>
               {
-                nextYears(4).map((year, index) => (
-                  <React.Fragment key={index}>
+                nextYears(4).map((year) => (
+                  <React.Fragment key={year}>
                     <Popup
                       trigger={(
                         <Menu.Item as="a" className="chooseSemester">
@@ -159,8 +159,8 @@ Add to Plan
             <Popup.Content position="right center">
               <Menu size="mini" secondary vertical>
                 {
-                itemTerms(props).map((term, index) => (
-                  <Menu.Item key={index} as="a" onClick={handleAddToPlan(props)}>
+                itemTerms(props).map((term) => (
+                  <Menu.Item key={term} as="a" onClick={handleAddToPlan(props)}>
                     {term}
                   </Menu.Item>
                 ))

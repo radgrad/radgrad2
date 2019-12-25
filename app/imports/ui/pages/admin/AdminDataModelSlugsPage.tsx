@@ -43,7 +43,6 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -58,7 +57,6 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
   };
 
   private handleDelete = (event) => {
@@ -74,7 +72,6 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
   };
 
   private handleUpdate = (doc) => {

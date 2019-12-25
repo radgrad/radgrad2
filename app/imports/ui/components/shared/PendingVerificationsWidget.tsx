@@ -58,6 +58,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
   }
 
   handleChange = (e, { index, value }) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const fields = this.state.feedback;
     fields[index] = value;
     this.setState({ feedback: fields });
@@ -70,6 +71,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
         updateLevelMethod.call({ studentID: student.userID }, err => {
           if (err) { console.error((`Error updating ${student._id} level ${err.message}`)); }
         });
+        // eslint-disable-next-line react/no-access-state-in-setstate
         const fields = this.state.feedback;
         fields[index] = '';
         this.setState({ feedback: fields });
@@ -84,7 +86,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
         <Header as="h4" dividing content="PENDING VERIFICATION REQUESTS" />
         <Container fluid={false} style={{ paddingBottom: '14px' }}>
           {this.props.pendingVerifications.map((ele: IVerificationRequest, i) => (
-            <Grid key={i}>
+            <Grid key={ele._id}>
               <Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
                 <Header as="h3">{this.buildHeaderString(ele)}</Header>
               </Grid.Row>
@@ -141,7 +143,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
                   {`Submitted: ${moment(ele.submittedOn).calendar()}`}
                   <br />
                   {ele.processed.map((elem: IProcessed, ind) => (
-                    <React.Fragment key={ind}>
+                    <React.Fragment key={elem.verifier}>
                   Processed:
                       {' '}
                       {moment(elem.date).calendar()}

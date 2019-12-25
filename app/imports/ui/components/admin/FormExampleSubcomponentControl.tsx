@@ -14,10 +14,9 @@ const options = [
 ];
 
 class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, IFormExampleState> {
-  public state: IFormExampleState = { value: '' };
-
   constructor(props) {
     super(props);
+    this.state = { value: '' };
   }
 
   public handleChange = (e, { value }) => this.setState({ value });
@@ -33,6 +32,7 @@ class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, 
           <Form.Select fluid label="Gender" options={options} placeholder="Gender" />
         </Form.Group>
         <Form.Group inline>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Size</label>
           <Form.Radio
             label="Small"

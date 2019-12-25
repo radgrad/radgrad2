@@ -261,6 +261,7 @@ export interface IAcademicYearDefine extends IDumpOne {
 
 // AdvisorLogs
 export interface IAdvisorLog {
+  _id?: string;
   advisorID: string;
   studentID: string;
   text: string;
@@ -500,6 +501,11 @@ export interface IFavoriteUpdate {
 }
 
 // Feeds
+export interface IFeed {
+  _id: string;
+  userID: string;
+}
+
 export interface IFeedDefine extends IDumpOne {
   user?: string;
   course?: string;
@@ -979,6 +985,7 @@ export interface IStudentProfileUpdateData {
 
 // Reviews
 export interface IReview {
+  _id: string;
   slug?: string;
   student: string;
   reviewType: string;

@@ -30,9 +30,11 @@ class EventVerificationsWidget extends React.Component<IEventVerificationsWidget
     this.state = { student: '', opportunity: '', log: '' };
   }
 
+  // eslint-disable-next-line react/no-access-state-in-setstate
   onChange = (e, { name, value }) => this.setState({ ...this.state, [name]: value });
 
   onLog = (msg) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     this.setState({ ...this.state, log: `${this.state.log}\n${msg}` });
   }
 

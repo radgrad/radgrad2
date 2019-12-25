@@ -7,8 +7,6 @@ import {
   Header,
   Form,
   Radio,
-  // eslint-disable-next-line no-unused-vars
-  InputOnChangeData, CheckboxProps,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -17,8 +15,6 @@ import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
-// eslint-disable-next-line no-unused-vars
-import { ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { setIsLoaded, setSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -222,6 +218,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               label={(
                 <React.Fragment>
                           Picture (
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                   <a onClick={this.handleUploadClick}>Upload</a>
 )
                 </React.Fragment>

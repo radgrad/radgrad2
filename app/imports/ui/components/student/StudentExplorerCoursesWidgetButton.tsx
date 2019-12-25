@@ -154,8 +154,8 @@ const StudentExplorerCoursesWidgetButton = (props: IStudentExplorerCoursesWidget
             <Popup.Content>
               <Menu vertical>
                 {
-                  years.map((year, index) => (
-                    <React.Fragment key={index}>
+                  years.map((year) => (
+                    <React.Fragment key={year}>
                       <Popup
                         trigger={(
                           <Menu.Item as="a">

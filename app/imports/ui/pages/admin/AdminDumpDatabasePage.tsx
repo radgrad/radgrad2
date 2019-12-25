@@ -119,7 +119,7 @@ class AdminDumpDatabasePage extends React.Component<IAdminDumpDatabasePageProps,
             {showMessage ? (
               <Grid stackable style={paddedStyle}>
                 <Message positive={!errorCondition} error={errorCondition}>
-                  {this.state.results.map((item, index) => (<AdminDatabaseAccordion key={index} index={index} name={item.name} contents={item.contents} />))}
+                  {this.state.results.map((item, index) => (<AdminDatabaseAccordion key={item.name} index={index} name={item.name} contents={item.contents} />))}
                 </Message>
               </Grid>
             ) : ''}

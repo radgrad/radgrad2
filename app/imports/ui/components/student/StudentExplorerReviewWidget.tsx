@@ -15,6 +15,7 @@ import {
   userToFullName,
   academicTermNameToShortName,
 } from '../shared/data-model-helper-functions';
+import { IReview } from '../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -51,7 +52,7 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-const reviews = (props: IStudentExplorerReviewWidgetProps): object[] => {
+const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
   const event = props.event;
   const matchingReviews = Reviews.findNonRetired({
     revieweeID: event._id,
@@ -156,7 +157,7 @@ first to leave a review.
                 theReviews.map((review, index) => {
                   const aReview = reviewData(review);
                   return (
-                    <List.Item key={index}>
+                    <List.Item key={review._id}>
                       <Grid>
                         <Grid.Column width={4}>
                           <Image

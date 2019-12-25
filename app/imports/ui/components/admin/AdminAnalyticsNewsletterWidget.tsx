@@ -139,6 +139,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private onClickPreviewSave = () => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     this.setState({ onSubmitInputMessage: this.state.inputMessage });
   }
 
@@ -149,8 +150,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (this.state.sendToStudentsToo === false) {
       this.setState({
         message: {
+          // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           bcc: `${this.state.bcc.split(',')}radgrad@hawaii.edu`,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
           recipients: [/* 'radgrad@hawaii.edu' */],
         },
@@ -172,8 +176,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
             trimmedRecipients.push(trimmedEmail);
             this.setState({
               message: {
+                // eslint-disable-next-line react/no-access-state-in-setstate
                 subjectLine: this.state.subjectLine,
+                // eslint-disable-next-line react/no-access-state-in-setstate
                 bcc: this.state.bcc.split(',') /* + 'radgrad@hawaii.edu' */,
+                // eslint-disable-next-line react/no-access-state-in-setstate
                 inputMessage: this.state.onSubmitInputMessage,
                 recipients: trimmedRecipients,
               },
@@ -202,9 +209,13 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0 && this.state.level !== 0) {
       this.setState({
         message: {
+          // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           bcc: this.state.bcc.split(','),
+          // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           recipients: this.getStudentEmailsByLevel(this.state.level),
         },
       }, () => {
@@ -224,8 +235,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
       this.setState({
         message: {
+          // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           bcc: this.state.bcc.split(','),
+          // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
           recipients: this.getAllUsersEmails(),
         },
@@ -579,6 +593,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
             <NumField name="level" placeholder="level" />
             <BoolField name="sendToLevels" />
+            {/* eslint-disable-next-line react/button-has-type */}
             <button
               className="ui basic green button"
               disabled={!this.state.sendToLevels}
@@ -588,6 +603,7 @@ Send To Students
             </button>
             <Form.Field label="Generate To Send To All Users" />
             <BoolField name="sendToAll" />
+            {/* eslint-disable-next-line react/button-has-type */}
             <button
               className="ui basic green button"
               disabled={!this.state.sendToAll}

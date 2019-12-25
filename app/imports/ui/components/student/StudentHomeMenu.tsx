@@ -63,7 +63,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
           {
             menuItems.map((item, index) => (
               <Menu.Item
-                key={index}
+                key={item.key}
                 as={NavLink}
                 exact
                 to={`${baseRoute}home/${item.route}`}

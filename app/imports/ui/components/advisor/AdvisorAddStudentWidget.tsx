@@ -6,7 +6,6 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
-// eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 
@@ -30,18 +29,21 @@ export interface IAdvisorAddStudentWidgetState {
 }
 
 class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetProps, IAdvisorAddStudentWidgetState> {
-  state = {
-    firstName: '',
-    lastName: '',
-    username: '',
-    isAlumni: false,
-    picture: undefined,
-    website: undefined,
-    careerGoals: [],
-    userInterests: [],
-    declaredAcademicTerm: undefined,
-    academicPlanID: undefined,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      isAlumni: false,
+      picture: undefined,
+      website: undefined,
+      careerGoals: [],
+      userInterests: [],
+      declaredAcademicTerm: undefined,
+      academicPlanID: undefined,
+    };
+  }
 
   private handleFormChange = (e, { name, value }) => {
     const k = name;
@@ -193,6 +195,7 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                 label={(
                   <React.Fragment>
                             Picture (
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                     <a onClick={this.handleUploadClick}>Upload</a>
 )
                   </React.Fragment>

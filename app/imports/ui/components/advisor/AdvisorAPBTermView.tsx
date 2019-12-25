@@ -20,10 +20,6 @@ interface IAdvisorAPBTermViewProps {
 }
 
 class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvisorAcademicPlanBuilderWidgetState> {
-  constructor(props) {
-    super(props);
-    // console.log('TermView %o', props);
-  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     // console.log('TermView %o', this.props);

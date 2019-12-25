@@ -4,9 +4,10 @@ import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import StudentFeedItem from './StudentFeedItem';
 import { studentFeedWidget } from './student-widget-names';
+import { IFeed } from '../../../typings/radgrad';
 
 interface IStudentFeedWidgetProps {
-  feeds: object[];
+  feeds: IFeed[];
 }
 
 const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
@@ -24,7 +25,7 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
           props.feeds ? (
             <Feed style={feedStyle}>
               {props.feeds.map((feed, index) => (
-                <React.Fragment key={index}>
+                <React.Fragment key={feed._id}>
                   <StudentFeedItem feed={feed} />
                   <Divider />
                 </React.Fragment>

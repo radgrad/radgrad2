@@ -15,39 +15,33 @@ interface IAdminAnalyticsMenuWidgetProps {
   };
 }
 
-class AdminAnalyticsMenuWidget extends React.Component<IAdminAnalyticsMenuWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <Menu text vertical>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}`)}>Logged In Users</Menu.Item>
-          <Menu.Item
-            as={NavLink}
-            to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`)}
-          >
-Newsletter
-          </Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`)}>
-Overhead
-            Analysis
-          </Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`)}>
-Student
-            Summary
-          </Menu.Item>
-          <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`)}>
-User
-            Interactions
-          </Menu.Item>
-        </Menu>
-      </div>
-    );
-  }
-}
+const AdminAnalyticsMenuWidget = (props: IAdminAnalyticsMenuWidgetProps) => {
+  const { match } = props;
+  return (
+    <div>
+      <Menu text vertical>
+        <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}`)}>Logged In Users</Menu.Item>
+        <Menu.Item
+          as={NavLink}
+          to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`)}
+        >
+          Newsletter
+        </Menu.Item>
+        <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`)}>
+          Overhead
+          Analysis
+        </Menu.Item>
+        <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`)}>
+          Student
+          Summary
+        </Menu.Item>
+        <Menu.Item as={NavLink} to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`)}>
+          User
+          Interactions
+        </Menu.Item>
+      </Menu>
+    </div>
+  );
+};
 
 export default withRouter(AdminAnalyticsMenuWidget);

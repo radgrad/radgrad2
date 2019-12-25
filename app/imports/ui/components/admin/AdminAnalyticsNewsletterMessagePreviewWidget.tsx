@@ -7,14 +7,12 @@ interface IAdminAnalyticsNewsletterWidget {
 }
 
 class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdminAnalyticsNewsletterWidget> {
-  constructor(props) {
-    super(props);
-  }
 
   public render() {
     return (
       <div className="field">
 
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="example">Message Preview</label>
         <input type="hidden" id="example" />
         <p>Aloha Student</p>

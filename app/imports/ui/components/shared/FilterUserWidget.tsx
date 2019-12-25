@@ -26,6 +26,7 @@ const FilterUserWidget = (props: IUpdateRegex) => (
     <Form>
       <Form.Group widths="equal">
         <Form.Field>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>First Name</label>
           <Form.Input
             placeholder="First Name Regex"
@@ -34,6 +35,7 @@ const FilterUserWidget = (props: IUpdateRegex) => (
           />
         </Form.Field>
         <Form.Field>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Last Name</label>
           <Form.Input
             placeholder="Last Name Regex"
@@ -42,6 +44,7 @@ const FilterUserWidget = (props: IUpdateRegex) => (
           />
         </Form.Field>
         <Form.Field>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Username</label>
           <Form.Input
             placeholder="Username Regex"

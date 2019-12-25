@@ -114,11 +114,13 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       'users.$': { type: String, allowedValues: studentNames },
       picture: {
         type: String,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+    <a onClick={this.handleUpload}>Upload</a>
 )
-        </React.Fragment>,
+  </React.Fragment>,
         defaultValue: model.picture,
         optional: true,
       },

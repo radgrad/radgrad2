@@ -26,11 +26,11 @@ interface IHelpPanelWidgetState {
 }
 
 class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelWidgetState> {
-  public state: IHelpPanelWidgetState = { activeIndex: -1 };
 
   constructor(props) {
     super(props);
     // console.log('HelpPanelWidget props=%o', props);
+    this.state = { activeIndex: -1 };
   }
 
   private handleClick = (e, titleProps) => {

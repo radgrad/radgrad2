@@ -7,7 +7,7 @@ import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMe
 import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';

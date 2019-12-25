@@ -329,11 +329,13 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       picture: {
         icon: String,
         optional: true,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+    <a onClick={this.handleUpload}>Upload</a>
 )
-               </React.Fragment>,
+  </React.Fragment>,
         defaultValue: picture,
       },
     });

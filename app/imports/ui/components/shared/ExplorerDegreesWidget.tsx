@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';
 import { explorerDegreeWidget } from './shared-widget-names';
+import { toId } from '../../shared/description-pair-helpers';
 
 interface IExplorerDegreesWidgetProps {
   name: string;
@@ -45,9 +46,9 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
           <Grid stackable>
             <Grid.Column>
               {
-                descriptionPairs.map((descriptionPair, index) => (
+                descriptionPairs.map((descriptionPair) => (
                   descriptionPair.value ? (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={toId(descriptionPair)}>
                       <b>
                         {descriptionPair.label}
 :
@@ -60,7 +61,7 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
                     </React.Fragment>
                   )
                     : (
-                      <p key={index}>
+                      <p key={toId(descriptionPair)}>
                         <b>
                           {descriptionPair.label}
 :

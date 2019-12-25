@@ -17,7 +17,10 @@ export interface IAdvisorStarUploadWidgetState {
 }
 
 class AdvisorStarUploadWidget extends React.Component<IAdvisorStarUploadWidgetProps, IAdvisorStarUploadWidgetState> {
-  state = { fileData: '' };
+  constructor(props) {
+    super(props);
+    this.state = { fileData: '' };
+  }
 
   private readFile = (e) => {
     const files = e.target.files;

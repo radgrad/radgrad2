@@ -6,8 +6,8 @@ import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, S
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -139,11 +139,13 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       lastName: { type: String, optional: true },
       picture: {
         type: String,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+    <a onClick={this.handleUpload}>Upload</a>
 )
-               </React.Fragment>,
+  </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },

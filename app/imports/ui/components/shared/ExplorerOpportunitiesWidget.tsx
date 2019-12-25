@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { IOpportunity } from '../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
@@ -18,6 +18,7 @@ import { toUpper, replaceTermString, isSame } from './helper-functions';
 import { explorerOpportunityWidget } from './shared-widget-names';
 import FutureParticipation from './FutureParticipation';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { toId } from '../../shared/description-pair-helpers';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -81,8 +82,8 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
             <React.Fragment>
               <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(props.match)} type="opportunity" />
               {
-                descriptionPairs.map((descriptionPair, index) => (
-                  <React.Fragment key={index}>
+                descriptionPairs.map((descriptionPair) => (
+                  <React.Fragment key={toId(descriptionPair)}>
                     {
                       isSame(descriptionPair.label, 'ICE') ?
                         <IceHeader ice={descriptionPair.value} />
@@ -103,8 +104,8 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
               <Grid stackable columns={2}>
                 <Grid.Column width={9}>
                   {
-                  descriptionPairs.map((descriptionPair, index) => (
-                    <React.Fragment key={index}>
+                  descriptionPairs.map((descriptionPair) => (
+                    <React.Fragment key={toId(descriptionPair)}>
                       {
                         isSame(descriptionPair.label, 'Opportunity Type') ? (
                           <React.Fragment>
@@ -222,8 +223,8 @@ N/A
                 </Grid.Column>
                 <Grid.Column width={7}>
                   {
-                  descriptionPairs.map((descriptionPair, index) => (
-                    <React.Fragment key={index}>
+                  descriptionPairs.map((descriptionPair) => (
+                    <React.Fragment key={toId(descriptionPair)}>
                       {
                         isSame(descriptionPair.label, 'Event Date') ? (
                           <React.Fragment>
@@ -289,8 +290,8 @@ N/A
                 <Grid stackable columns={2}>
                   <Grid.Column width={5}>
                     {
-                    descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
+                    descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={toId(descriptionPair)}>
                         {
                           isSame(descriptionPair.label, 'Opportunity Type') ? (
                             <React.Fragment>
@@ -355,8 +356,8 @@ N/A
                   </Grid.Column>
                   <Grid.Column width={11}>
                     {
-                    descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
+                    descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={toId(descriptionPair)}>
                         {
                           isSame(descriptionPair.label, 'Semesters') ? (
                             <React.Fragment>
@@ -425,8 +426,8 @@ N/A
                 <Grid stackable columns={1}>
                   <Grid.Column style={zeroMarginTopStyle}>
                     {
-                    descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
+                    descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={toId(descriptionPair)}>
                         {
                           isSame(descriptionPair.label, 'Description') ? (
                             <React.Fragment>
