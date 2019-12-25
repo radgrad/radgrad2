@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import IceHeader from '../shared/IceHeader';

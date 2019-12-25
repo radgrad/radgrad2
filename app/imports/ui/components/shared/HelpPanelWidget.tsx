@@ -1,8 +1,8 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
 import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';

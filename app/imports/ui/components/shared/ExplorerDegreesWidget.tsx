@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Divider, Grid, Header, Segment } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';

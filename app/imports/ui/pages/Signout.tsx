@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as React from 'react';
+import React from 'react';
 import { Header } from 'semantic-ui-react';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 

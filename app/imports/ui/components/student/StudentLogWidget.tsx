@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';

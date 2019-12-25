@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';

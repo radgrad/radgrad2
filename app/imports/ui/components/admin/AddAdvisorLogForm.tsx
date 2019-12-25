@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor'; // eslint-disable-line
 import 'uniforms-bridge-simple-schema-2';
 import { Header, Segment } from 'semantic-ui-react';
@@ -8,7 +8,7 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { profileToUsername } from '../shared/data-model-helper-functions';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

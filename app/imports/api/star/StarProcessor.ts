@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Papa } from 'meteor/harrison:papa-parse';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';

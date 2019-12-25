@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { ROLE } from '../../../api/role/Role';

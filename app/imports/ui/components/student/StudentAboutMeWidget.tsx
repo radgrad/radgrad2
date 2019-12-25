@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
 import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';

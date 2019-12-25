@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';

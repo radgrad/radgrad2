@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';

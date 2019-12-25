@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AlumniPageMenuWidget from '../../components/alumni/AlumniPageMenuWidget';
 import AlumniMessageWidget from '../../components/alumni/AlumniMessageWidget';

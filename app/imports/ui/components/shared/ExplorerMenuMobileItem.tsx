@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';

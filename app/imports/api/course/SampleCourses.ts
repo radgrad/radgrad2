@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';

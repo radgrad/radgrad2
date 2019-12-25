@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Container, Grid, Header, Icon, Image, Label } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import MenuIceCircle from '../shared/MenuIceCircle';

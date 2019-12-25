@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { Button, Card, Header, Icon, Image, Popup, SemanticCOLORS } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';

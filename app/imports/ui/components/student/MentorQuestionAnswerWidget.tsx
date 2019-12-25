@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Image, List } from 'semantic-ui-react';
 import { IMentorAnswer, IMentorProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import ExplorerUsersWidget from '../shared/ExplorerUsersWidget';

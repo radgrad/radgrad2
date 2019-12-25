@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import BoolField from 'uniforms-semantic/BoolField';

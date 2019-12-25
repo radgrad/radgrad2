@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Segment, Header, Divider, Image, Popup, Embed } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';

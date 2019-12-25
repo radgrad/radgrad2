@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Form, Header, Segment } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
-import * as moment from 'moment';
+import moment from 'moment';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { ANALYTICS } from '../../../startup/client/routes-config';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';

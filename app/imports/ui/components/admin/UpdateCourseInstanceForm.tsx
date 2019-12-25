@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import AutoField from 'uniforms-semantic/AutoField';
@@ -9,7 +9,7 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import TextField from 'uniforms-semantic/TextField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Card, Icon, Popup, Image } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-disable-line
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';

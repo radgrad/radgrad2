@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 
 export const sampleDesiredDegreeName = 'Bachelors of Science in Computer Science';

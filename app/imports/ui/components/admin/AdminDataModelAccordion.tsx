@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';

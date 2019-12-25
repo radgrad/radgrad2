@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const getItems = (count) => Array.from({ length: count }, (v, k) => k).map((k) => ({

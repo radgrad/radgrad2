@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Menu, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { IOpportunity, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line

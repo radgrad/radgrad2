@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';

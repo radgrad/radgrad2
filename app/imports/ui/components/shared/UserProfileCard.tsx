@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 // eslint-disable-next-line no-unused-vars
 import { IUserProfileCard } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';

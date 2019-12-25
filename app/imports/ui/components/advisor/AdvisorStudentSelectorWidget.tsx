@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import * as moment from 'moment';
+import moment from 'moment';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 // eslint-disable-next-line no-unused-vars
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';

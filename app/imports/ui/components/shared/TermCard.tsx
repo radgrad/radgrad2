@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslint-disable-line
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { Link, withRouter } from 'react-router-dom';
 
 import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line

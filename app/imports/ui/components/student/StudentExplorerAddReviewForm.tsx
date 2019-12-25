@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import RatingField from '../shared/RatingField';

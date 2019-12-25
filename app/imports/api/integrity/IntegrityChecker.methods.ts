@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { checkIntegrity } from './IntegrityChecker';
 import { ROLE } from '../role/Role';

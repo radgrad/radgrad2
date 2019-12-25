@@ -3,9 +3,9 @@
  * 05/20/19
  * Faculty Widget that shows About Me information
  */
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withTracker } from 'meteor/react-meteor-data';

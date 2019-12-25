@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';

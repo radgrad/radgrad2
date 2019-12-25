@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Grid } from 'semantic-ui-react';
 import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget'; // eslint-disable-line no-unused-vars
 import AdvisorAPBTermView from './AdvisorAPBTermView';

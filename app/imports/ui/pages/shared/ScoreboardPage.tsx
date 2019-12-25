@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';

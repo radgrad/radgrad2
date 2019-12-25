@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Grid, Container, Form } from 'semantic-ui-react';
-import * as moment from 'moment';
+import moment from 'moment';
 /* eslint-disable no-unused-vars */
 import {
   IAcademicTerm,

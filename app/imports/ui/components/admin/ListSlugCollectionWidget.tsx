@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line

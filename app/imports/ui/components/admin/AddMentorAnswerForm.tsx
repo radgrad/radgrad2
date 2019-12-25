@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor'; // eslint-disable-line
 import { Form, Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
@@ -8,7 +8,7 @@ import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IMentorQuestion } from '../../../typings/radgrad'; // eslint-disable-line
 import { profileToName } from '../shared/data-model-helper-functions';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';

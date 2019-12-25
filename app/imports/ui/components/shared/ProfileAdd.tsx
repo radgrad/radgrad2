@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line

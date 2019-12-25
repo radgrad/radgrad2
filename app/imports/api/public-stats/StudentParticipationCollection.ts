@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Opportunities } from '../opportunity/OpportunityCollection';

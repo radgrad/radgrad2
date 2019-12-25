@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from '../shared/RouterHelperFunctions';

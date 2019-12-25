@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Embed, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import InterestList from './InterestList';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';

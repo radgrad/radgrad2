@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
 import { IInterest, IProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import WidgetHeaderNumber from './WidgetHeaderNumber';

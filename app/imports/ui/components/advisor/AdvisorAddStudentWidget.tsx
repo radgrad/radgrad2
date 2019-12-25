@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Tab, Header, Form, Radio } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

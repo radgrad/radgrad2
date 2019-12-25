@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars

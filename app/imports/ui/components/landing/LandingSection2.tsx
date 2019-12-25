@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import RadGradLogoTextQ from '../shared/RadGradLogoTextQ';
 import styles from './landing-styles';

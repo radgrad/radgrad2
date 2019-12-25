@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';

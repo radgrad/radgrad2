@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Grid, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';

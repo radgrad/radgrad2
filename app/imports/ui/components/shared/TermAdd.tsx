@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Image } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import RadGradMenuLevel from './RadGradMenuLevel';

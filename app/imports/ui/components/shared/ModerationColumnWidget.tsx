@@ -1,5 +1,5 @@
 // this will be the column widget that holds the individual moderation cards
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data'; // eslint-disable-line
 import { Header, Segment, Container, Item } from 'semantic-ui-react';

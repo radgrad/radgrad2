@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { buildRouteName } from '../shared/RouterHelperFunctions';

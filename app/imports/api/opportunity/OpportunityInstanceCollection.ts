@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Opportunities } from './OpportunityCollection';

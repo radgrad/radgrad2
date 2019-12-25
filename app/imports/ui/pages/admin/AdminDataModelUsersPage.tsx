@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';

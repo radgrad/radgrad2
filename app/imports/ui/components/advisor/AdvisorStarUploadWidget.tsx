@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import { starLoadDataMethod } from '../../../api/star/StarProcessor.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';

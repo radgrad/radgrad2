@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Loader, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';

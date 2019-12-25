@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Form } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';

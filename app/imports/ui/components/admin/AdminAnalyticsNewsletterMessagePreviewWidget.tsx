@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 
 interface IAdminAnalyticsNewsletterWidget {
   message: string;

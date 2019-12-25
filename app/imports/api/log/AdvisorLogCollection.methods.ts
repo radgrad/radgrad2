@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { AdvisorLogs } from './AdvisorLogCollection';
 import { ROLE } from '../role/Role';
 import { IAdvisorLogUpdate } from '../../typings/radgrad'; // eslint-disable-line

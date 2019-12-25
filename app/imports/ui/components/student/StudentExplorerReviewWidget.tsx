@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
-import * as _ from 'lodash';
+import Markdown from 'react-markdown';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';

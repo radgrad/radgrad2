@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Label } from 'semantic-ui-react';
 import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
 

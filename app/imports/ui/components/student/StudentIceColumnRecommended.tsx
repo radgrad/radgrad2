@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import { EXPLORER_TYPE } from '../../../startup/client/routes-config';

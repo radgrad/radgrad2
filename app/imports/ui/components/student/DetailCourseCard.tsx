@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';

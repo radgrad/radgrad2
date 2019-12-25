@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';

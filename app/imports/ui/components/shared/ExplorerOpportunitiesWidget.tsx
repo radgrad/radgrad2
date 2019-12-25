@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';

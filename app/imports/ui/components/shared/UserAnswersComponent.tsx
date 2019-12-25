@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Accordion, Card, Header } from 'semantic-ui-react';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';

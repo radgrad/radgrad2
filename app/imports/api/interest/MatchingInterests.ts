@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Users } from '../user/UserCollection';
 import { Interests } from './InterestCollection';
 import { IInterest } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars

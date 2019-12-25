@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';

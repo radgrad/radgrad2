@@ -1,5 +1,5 @@
 import { Roles } from 'meteor/alanning:roles';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 
 /** Defines the legal strings used to represent roles in the system. */

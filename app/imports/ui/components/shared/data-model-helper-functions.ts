@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -20,7 +20,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
-// import * as Router from './RouterHelperFunctions';
+// import Router from './RouterHelperFunctions';
 
 interface IHasName {
   name: string;

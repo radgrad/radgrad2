@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Header, Grid, Divider, Segment, SegmentGroup, Embed } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IInterest, IProfile, IProfileUpdate } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
 import { Interests } from '../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

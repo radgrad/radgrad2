@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import {
