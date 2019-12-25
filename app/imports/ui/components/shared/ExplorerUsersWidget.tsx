@@ -59,7 +59,7 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
             <br/>
           </Card.Meta>
           {p.website ?
-            <a rel={'noopener noreferrer'} href={p.website} target={'_blank'}>{p.website}</a> : undefined}
+            <a href={p.website} target="_blank" rel="noopener noreferrer">{p.website}</a> : undefined}
           {p.motivation || undefined}
         </Card.Content>
         {isRole(props, ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID}/> : undefined}
