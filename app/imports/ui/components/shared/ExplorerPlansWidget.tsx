@@ -1,15 +1,19 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
-import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad';
+import Markdown from 'react-markdown';
+import {
+  IAcademicPlan,
+  IRadGradMatch,
+} from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper } from './helper-functions';
 import { explorerPlanWidget } from './shared-widget-names';
+import { toId } from '../../shared/description-pair-helpers';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -56,8 +60,8 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
         <Grid stackable>
           <Grid.Column>
             {
-              descriptionPairs.map((descriptionPair, index) => (
-                <React.Fragment key={index}>
+              descriptionPairs.map((descriptionPair) => (
+                <React.Fragment key={toId(descriptionPair)}>
                   <b>
                     {descriptionPair.label}
 :

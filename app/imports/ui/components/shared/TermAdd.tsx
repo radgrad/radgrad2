@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { getUsername } from './RouterHelperFunctions';
 import { IRadGradMatch } from '../../../typings/radgrad';
 
@@ -105,8 +105,8 @@ Add to Plan
           <Popup.Content>
             <Menu size="mini" secondary vertical>
               {
-                nextYears(4).map((year, index) => (
-                  <React.Fragment key={index}>
+                nextYears(4).map((year) => (
+                  <React.Fragment key={year}>
                     <Popup
                       trigger={(
                         <Menu.Item as="a" className="chooseSemester">
@@ -153,8 +153,8 @@ Add to Plan
             <Popup.Content position="right center">
               <Menu size="mini" secondary vertical>
                 {
-                itemTerms(props).map((term, index) => (
-                  <Menu.Item key={index} as="a" onClick={handleAddToPlan(props)}>
+                itemTerms(props).map((term) => (
+                  <Menu.Item key={term} as="a" onClick={handleAddToPlan(props)}>
                     {term}
                   </Menu.Item>
                 ))

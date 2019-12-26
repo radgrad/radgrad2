@@ -4,8 +4,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollecti
 import { StudentProfiles } from './StudentProfileCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
-
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 function sleep(ms) {

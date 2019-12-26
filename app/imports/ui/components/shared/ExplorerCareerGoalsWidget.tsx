@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Segment, Header, Divider, Image, Popup, Embed } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
@@ -15,6 +15,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { explorerCareerGoalWidget } from './shared-widget-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { toId } from '../../shared/description-pair-helpers';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -71,8 +72,8 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
               (
                 <Grid stackable columns={2}>
                   <Grid.Column width={9}>
-                    {descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
+                    {descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={toId(descriptionPair)}>
                         {
                           isSame(descriptionPair.label, 'Description') ? (
                             <React.Fragment>
@@ -101,8 +102,8 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                   </Grid.Column>
                   <Grid.Column width={7}>
                     {
-                      descriptionPairs.map((descriptionPair, index) => (
-                        <React.Fragment key={index}>
+                      descriptionPairs.map((descriptionPair) => (
+                        <React.Fragment key={toId(descriptionPair)}>
                           {
                             isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ? (
                               <React.Fragment>
@@ -135,8 +136,8 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
               :
               (
                 <Grid.Column>
-                  {descriptionPairs.map((descriptionPair, index) => (
-                    <React.Fragment key={index}>
+                  {descriptionPairs.map((descriptionPair) => (
+                    <React.Fragment key={toId(descriptionPair)}>
                       {
                         isSame(descriptionPair.label, 'Description') ? (
                           <React.Fragment>
@@ -168,8 +169,8 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
           <br />
           <Divider />
           <Grid stackable celled="internally">
-            {socialPairs.map((socialPair, index) => (
-              <Grid.Column key={index} textAlign="center" style={centerAlignedColumnStyle}>
+            {socialPairs.map((socialPair) => (
+              <Grid.Column key={toId(socialPair)} textAlign="center" style={centerAlignedColumnStyle}>
                 <h5>
                   {toUpper(socialPair.label)}
                   {' '}

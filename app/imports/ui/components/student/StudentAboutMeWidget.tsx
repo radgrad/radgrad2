@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
 import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -11,7 +11,7 @@ import {
   IInterest, IRadGradMatch, // eslint-disable-line
   IStudentProfile // eslint-disable-line
 } from '../../../typings/radgrad'; // eslint-disable-line
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';

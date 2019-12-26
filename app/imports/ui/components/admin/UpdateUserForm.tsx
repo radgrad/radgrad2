@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -142,7 +142,8 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         label:
   <React.Fragment>
 Picture (
-    <Button onClick={this.handleUpload}>Upload</Button>
+    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+    <a onClick={this.handleUpload}>Upload</a>
 )
   </React.Fragment>,
         optional: true,

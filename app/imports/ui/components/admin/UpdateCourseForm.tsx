@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';

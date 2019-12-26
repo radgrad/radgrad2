@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
@@ -26,7 +26,6 @@ const GuidedTourMentor = () => {
     <div style={styles.background}>
       <Container textAlign="center">
         <Segment padded style={styles.background}>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Slider {...settings}>
             <WhyRadGrad />
             <SetUp />

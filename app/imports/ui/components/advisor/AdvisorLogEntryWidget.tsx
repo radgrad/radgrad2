@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -18,10 +18,13 @@ export interface IAdvisorLogEntryWidgetState {
 }
 
 class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps, IAdvisorLogEntryWidgetState> {
-  state = {
-    comment: '',
-    advisorLogs: this.props.advisorLogs,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: '',
+      advisorLogs: this.props.advisorLogs,
+    };
+  }
 
   // For use with Date.getMinutes()
   private formatMinuteString = (min) => {
@@ -69,6 +72,7 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
 
   componentDidUpdate(prevProps: Readonly<IAdvisorLogEntryWidgetProps>): void {
     if (this.props !== prevProps) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ advisorLogs: this.props.advisorLogs });
     }
   }
@@ -102,8 +106,8 @@ Past Advisor Logs
         <div style={{ height: '200px' }}>
           <div style={{ height: '100%', overflowY: 'auto' }}>
             {this.state.advisorLogs.length > 0 ? this.state.advisorLogs.map(
-              (ele, i) => (
-                <Segment key={i}>
+              (ele) => (
+                <Segment key={ele._id}>
                   <strong>
                     {ele.createdOn.toDateString()}
                     {' '}

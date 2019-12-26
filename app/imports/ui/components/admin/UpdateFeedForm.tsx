@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
@@ -117,7 +117,8 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
         label:
   <React.Fragment>
 Picture (
-    <Button onClick={this.handleUpload}>Upload</Button>
+    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+    <a onClick={this.handleUpload}>Upload</a>
 )
   </React.Fragment>,
         defaultValue: model.picture,

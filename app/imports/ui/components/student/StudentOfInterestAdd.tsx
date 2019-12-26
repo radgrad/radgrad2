@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import { IRadGradMatch } from '../../../typings/radgrad';
 
@@ -107,8 +107,8 @@ Add to Plan
           <Popup.Content>
             <Menu size="mini" secondary vertical>
               {
-                nextYears(4).map((year, index) => (
-                  <React.Fragment key={index}>
+                nextYears(4).map((year) => (
+                  <React.Fragment key={year}>
                     <Popup
                       trigger={(
                         <Menu.Item as="a" className={`${props.item} chooseSemester`}>
@@ -155,9 +155,9 @@ Add to Plan
             <Popup.Content position="right center">
               <Menu size="mini" secondary vertical>
                 {
-                itemTerms(props).map((term, index) => (
+                itemTerms(props).map((term) => (
                   <Menu.Item
-                    key={index}
+                    key={term}
                     as="a"
                     className={`${props.item}`}
                     onClick={handleAddToPlan(props)}

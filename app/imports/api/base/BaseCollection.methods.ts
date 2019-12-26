@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { RadGrad } from '../radgrad/RadGrad';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';

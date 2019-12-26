@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Button, Tab, Header, Form, Radio } from 'semantic-ui-react';
+import React from 'react';
+import { Tab, Header, Form, Radio } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -44,7 +44,6 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
       academicPlanID: undefined,
     };
   }
-
 
   private handleFormChange = (e, { name, value }) => {
     const k = name;
@@ -196,7 +195,8 @@ class AdvisorAddStudentWidget extends React.Component<IAdvisorAddStudentWidgetPr
                 label={(
                   <React.Fragment>
                             Picture (
-                    <Button onClick={this.handleUploadClick}>Upload</Button>
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    <a onClick={this.handleUploadClick}>Upload</a>
 )
                   </React.Fragment>
 )}

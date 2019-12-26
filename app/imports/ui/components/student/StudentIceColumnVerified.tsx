@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { List } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { getUserIdFromRoute, buildRouteName } from '../shared/RouterHelperFunctions';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import {
@@ -15,7 +15,7 @@ import {
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 
@@ -135,7 +135,7 @@ points for the following:
                   const opportunityEvents = getEvents('opportunity', true, term, props);
                   const courseEvents = getEvents('course', true, term, props);
                   return (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={year._id}>
                       {hasEvents(true, term, props) ? (
                         <List.Item>
                           <List.Header>{printTerm(term)}</List.Header>

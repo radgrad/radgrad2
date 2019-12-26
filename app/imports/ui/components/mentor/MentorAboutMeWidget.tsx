@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
 import Swal from 'sweetalert2';
@@ -323,11 +323,13 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
       picture: {
         icon: String,
         optional: true,
-        label: <React.Fragment>
+        label:
+  <React.Fragment>
 Picture (
-          <a onClick={this.handleUpload}>Upload</a>
+    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+    <a onClick={this.handleUpload}>Upload</a>
 )
-               </React.Fragment>,
+  </React.Fragment>,
         defaultValue: picture,
       },
     });

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Tab } from 'semantic-ui-react';
 import AdvisorAcademicPlanViewerWidget from './AdvisorAcademicPlanViewerWidget';
 import AdvisorAPBuilderWidget from './AdvisorAPBuilderWidget';

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
@@ -94,7 +94,9 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   public handleClickPrevYear = (event) => {
     event.preventDefault();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleStartIndex = this.state.visibleStartIndex - 1;
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       visibleStartIndex,
@@ -104,7 +106,9 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   public handleClickNextYear = (event) => {
     event.preventDefault();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleStartIndex = this.state.visibleStartIndex + 1;
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       visibleStartIndex,
@@ -139,6 +143,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     });
     const studentID = Users.getID(student);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(this.state.visibleStartIndex, this.state.visibleStartIndex + 5);
     this.setState({
       years,
@@ -173,6 +178,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const studentID = Users.getID(student);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
     const visibleStartIndex = this.state.visibleStartIndex - 1;
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       years,

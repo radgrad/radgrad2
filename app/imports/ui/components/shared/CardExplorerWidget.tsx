@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { ROLE } from '../../../api/role/Role';
 import ExplorerCard from './ExplorerCard';
@@ -9,7 +10,7 @@ import ProfileCard from './ProfileCard';
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import {
   ICardExplorerMenuWidgetProps,
@@ -109,7 +110,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="advisors">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -122,7 +123,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="faculty">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -135,7 +136,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="mentors">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -148,7 +149,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="students">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele} type="user" numFavorites={0} />)}
+              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -190,7 +191,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
               }
               {
                 buildProfileCard ?
-                  items.map((item, index) => <ProfileCard key={index} item={item} type={type} numFavorites={favoriteCounts[index]} />) : ''
+                  items.map((item) => <ProfileCard key={item} item={item} type={type} canAdd />) : ''
               }
               {
                 buildTermCard ?
@@ -198,7 +199,8 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
               }
               {
                 buildExplorerCard ?
-                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />) : ''
+                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
+                  : ''
               }
             </Card.Group>
           )

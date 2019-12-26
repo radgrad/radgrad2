@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
 import { IInterest, IProfile } from '../../../typings/radgrad';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
@@ -28,9 +28,9 @@ STUDENTS
               <Divider />
               <Container textAlign="center">
                 <Image.Group size="mini">
-                  {students.map((student, index) => (
+                  {students.map((student) => (
                     <Popup
-                      key={index}
+                      key={student._id}
                       trigger={<Image src={student.picture} circular size="mini" />}
                       content={`${student.firstName} ${student.lastName}`}
                     />
@@ -54,9 +54,9 @@ FACULTY MEMBERS
               <Divider />
               <Container textAlign="center">
                 <Image.Group size="mini">
-                  {faculty.map((fac, index) => (
+                  {faculty.map((fac) => (
                     <Popup
-                      key={index}
+                      key={fac._id}
                       trigger={<Image src={fac.picture} circular />}
                       content={`${fac.firstName} ${fac.lastName}`}
                     />
@@ -78,9 +78,9 @@ ALUMNI
               <Divider />
               <Container textAlign="center">
                 <Image.Group size="mini">
-                  {alumni.map((alum, index) => (
+                  {alumni.map((alum) => (
                     <Popup
-                      key={index}
+                      key={alum._id}
                       trigger={<Image src={alum.picture} circular />}
                       content={`${alum.firstName} ${alum.lastName}`}
                     />
@@ -102,9 +102,9 @@ MENTORS
               <Divider />
               <Container textAlign="center">
                 <Image.Group size="mini">
-                  {mentors.map((mentor, index) => (
+                  {mentors.map((mentor) => (
                     <Popup
-                      key={index}
+                      key={mentor._id}
                       trigger={<Image src={mentor.picture} circular />}
                       content={`${mentor.firstName} ${mentor.lastName}`}
                     />

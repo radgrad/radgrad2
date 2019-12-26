@@ -1,19 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 import { Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
-  IAcademicPlan, //eslint-disable-line
-  ICareerGoal, //eslint-disable-line
-  ICourse, //eslint-disable-line
-  IDesiredDegree, //eslint-disable-line
-  IInterest, //eslint-disable-line
-  IOpportunity, //eslint-disable-line
-  IProfile, IRadGradMatch, // eslint-disable-line
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IInterest,
+  IOpportunity,
+  IProfile,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -85,11 +86,11 @@ Back to
                   <Menu vertical text>
                     <Header as="h4" dividing>MY ACADEMIC PLAN</Header>
                     {
-                      menuAddedList.map((listItem, index) => (
+                      menuAddedList.map((listItem) => (
                         <ExplorerMenuNonMobileItem
                           listItem={listItem}
                           type={EXPLORER_TYPE.ACADEMICPLANS}
-                          key={index}
+                          key={listItem.item._id}
                           match={props.match}
                         />
                       ))
@@ -118,11 +119,11 @@ Back to
                   <Menu vertical text>
                     <Header as="h4" dividing>FAVORITE COURSES</Header>
                     {
-                      menuAddedList.map((listItem, index) => (
+                      menuAddedList.map((listItem) => (
                         <ExplorerMenuNonMobileItem
                           listItem={listItem}
                           type={EXPLORER_TYPE.COURSES}
-                          key={index}
+                          key={listItem.item._id}
                           match={props.match}
                         />
                       ))
@@ -152,11 +153,11 @@ Back to
                   <Menu vertical text>
                     <Header as="h4" dividing>FAVORITE OPPORTUNITIES</Header>
                     {
-                      menuAddedList.map((listItem, index) => (
+                      menuAddedList.map((listItem) => (
                         <ExplorerMenuNonMobileItem
                           listItem={listItem}
                           type={EXPLORER_TYPE.OPPORTUNITIES}
-                          key={index}
+                          key={listItem.item._id}
                           match={props.match}
                         />
                       ))
@@ -185,11 +186,11 @@ Back to
               </Button>
               <Header as="h4" dividing>MY INTERESTS</Header>
               {
-                menuAddedList.map((listItem, index) => (
+                menuAddedList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
-                    key={index}
+                    key={listItem.item._id}
                     match={props.match}
                   />
                 ))
@@ -197,11 +198,11 @@ Back to
 
               <Header as="h4" dividing>CAREER GOAL INTERESTS</Header>
               {
-                menuCareerList.map((listItem, index) => (
+                menuCareerList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
-                    key={index}
+                    key={listItem.item._id}
                     match={props.match}
                   />
                 ))
@@ -224,11 +225,11 @@ Back to
               </Button>
               <Header as="h4" dividing>MY CAREER GOALS</Header>
               {
-                menuAddedList.map((listItem, index) => (
+                menuAddedList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
                     listItem={listItem}
                     type={EXPLORER_TYPE.CAREERGOALS}
-                    key={index}
+                    key={listItem.item._id}
                     match={props.match}
                   />
                 ))

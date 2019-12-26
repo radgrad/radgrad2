@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';

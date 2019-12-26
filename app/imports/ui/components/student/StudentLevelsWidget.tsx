@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';

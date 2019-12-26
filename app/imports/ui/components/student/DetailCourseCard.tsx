@@ -1,15 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-// import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { ICourseInstance } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../shared/IceHeader';
 import { Courses } from '../../../api/course/CourseCollection';
 import FutureParticipation from '../shared/FutureParticipation';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 

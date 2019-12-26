@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';

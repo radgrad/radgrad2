@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IAcademicPlan, ICourseInstance } from '../../typings/radgrad'; // eslint-disable-line
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';

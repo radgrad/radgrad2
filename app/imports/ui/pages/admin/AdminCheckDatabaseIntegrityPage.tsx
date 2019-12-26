@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';

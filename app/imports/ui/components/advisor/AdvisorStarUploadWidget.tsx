@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import { starLoadDataMethod } from '../../../api/star/StarProcessor.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';
@@ -16,7 +16,10 @@ export interface IAdvisorStarUploadWidgetState {
 }
 
 class AdvisorStarUploadWidget extends React.Component<IAdvisorStarUploadWidgetProps, IAdvisorStarUploadWidgetState> {
-  state = { fileData: '' };
+  constructor(props) {
+    super(props);
+    this.state = { fileData: '' };
+  }
 
   private readFile = (e) => {
     const files = e.target.files;

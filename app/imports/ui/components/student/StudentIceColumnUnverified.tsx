@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { List } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
 import {
   IAcademicTerm,
@@ -11,7 +11,7 @@ import {
   IRadGradMatch,
 } from '../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -134,7 +134,7 @@ points.
                 const opportunityEvents = getEvents('opportunity', false, term, props);
                 const courseEvents = getEvents('course', false, term, props);
                 return (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={term._id}>
                     {hasEvents(false, term, props) ? (
                       <List.Item>
                         <List.Header>{printTerm(term)}</List.Header>

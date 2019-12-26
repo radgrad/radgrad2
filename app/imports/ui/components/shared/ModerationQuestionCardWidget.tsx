@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
-import * as moment from 'moment';
+import moment from 'moment';
 import { processVerificationEventMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 import { IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -29,9 +29,11 @@ class EventVerificationsWidget extends React.Component<IEventVerificationsWidget
     this.state = { student: '', opportunity: '', log: '' };
   }
 
+  // eslint-disable-next-line react/no-access-state-in-setstate
   onChange = (e, { name, value }) => this.setState({ ...this.state, [name]: value });
 
   onLog = (msg) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     this.setState({ ...this.state, log: `${this.state.log}\n${msg}` });
   }
 

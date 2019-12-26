@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import YouTube from 'react-youtube';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -10,7 +10,7 @@ import { IOpportunity, IRadGradMatch } from '../../../typings/radgrad'; // eslin
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

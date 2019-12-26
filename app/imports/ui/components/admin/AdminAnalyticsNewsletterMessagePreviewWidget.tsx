@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 
 interface IAdminAnalyticsNewsletterWidget {
   message: string;
@@ -12,6 +12,7 @@ class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdmi
     return (
       <div className="field">
 
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="example">Message Preview</label>
         <input type="hidden" id="example" />
         <p>Aloha Student</p>

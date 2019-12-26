@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { buildRouteName } from './RouterHelperFunctions';
 import { IRadGradMatch } from '../../../typings/radgrad';

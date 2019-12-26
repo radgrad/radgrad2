@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';

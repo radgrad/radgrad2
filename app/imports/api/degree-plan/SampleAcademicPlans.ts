@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { makeSampleDesiredDegree } from './SampleDesiredDegrees';
 import { Slugs } from '../slug/SlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';

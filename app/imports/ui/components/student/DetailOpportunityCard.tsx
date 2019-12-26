@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -12,7 +12,7 @@ import FutureParticipation from '../shared/FutureParticipation';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';

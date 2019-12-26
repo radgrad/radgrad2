@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';

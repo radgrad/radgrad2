@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { getBaseRoute } from './RouterHelperFunctions';
-import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, SCOREBOARD } from '../../../startup/client/routes-config';
+import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, SCOREBOARD } from '../../../startup/client/route-constants';
 import { leftHandMenu } from './shared-widget-names';
 
 

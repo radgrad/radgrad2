@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { AutoForm, SelectField, SubmitField } from 'uniforms-semantic';
 import SimplSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line

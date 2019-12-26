@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';

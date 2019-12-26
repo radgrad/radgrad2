@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
@@ -76,6 +76,7 @@ class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormS
       moderatorComments: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     });
+    // @ts-ignore
     return (
       <Segment padded>
         <Header dividing>Add Course Instance</Header>

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
-import * as moment from 'moment';
+import moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';

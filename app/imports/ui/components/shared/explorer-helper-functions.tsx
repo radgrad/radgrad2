@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -13,7 +13,7 @@ import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';

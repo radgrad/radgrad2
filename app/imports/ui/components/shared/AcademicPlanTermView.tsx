@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { getDroppableListStyle } from './StyleFunctions';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';

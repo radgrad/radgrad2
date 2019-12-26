@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
@@ -12,7 +12,6 @@ export function withListSubscriptions(WrappedComponent, subscriptionNames: strin
   // expireLimit set to 30 minutes because: why not.
   const localSubs = new SubsManager({ cacheLimit: subscriptionNames.length, expireIn: 30 });
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
   const GenericSubscription = (props: ILoading) => ((props.loading) ? <Loader active>Getting data</Loader> : <WrappedComponent {...props} />);
 
   return withTracker(() => {

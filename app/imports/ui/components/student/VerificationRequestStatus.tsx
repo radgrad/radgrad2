@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Divider, Header } from 'semantic-ui-react';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { IVerificationRequest } from '../../../typings/radgrad';
 

@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import { selectExplorerMenu } from './shared-widget-names';
 import { IRadGradMatch } from '../../../typings/radgrad';

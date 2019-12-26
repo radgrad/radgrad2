@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -13,7 +13,7 @@ import { makeCourseICE } from '../../../api/ice/IceProcessor';
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import FutureParticipation from '../shared/FutureParticipation';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { buildRouteName } from './DepUtilityFunctions';
 
 interface IFavoriteCourseCardProps {

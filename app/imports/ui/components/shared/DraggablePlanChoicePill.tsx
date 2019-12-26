@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { getDraggablePillStyle, getNotSatisfiedStyle, getSatisfiedStyle } from './StyleFunctions';

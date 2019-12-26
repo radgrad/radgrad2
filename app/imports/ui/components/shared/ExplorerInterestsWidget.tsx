@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Header, Grid, Divider, Segment, SegmentGroup, Embed } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IInterest, IProfile, IRadGradMatch } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -17,7 +17,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Slugs } from '../../../api/slug/SlugCollection';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
-import { URL_ROLES } from '../../../startup/client/routes-config';
+import { URL_ROLES } from '../../../startup/client/route-constants';
 import FavoritesButton from './FavoritesButton';
 import { getRoleByUrl } from './RouterHelperFunctions';
 import { profileGetInterestIDs } from './data-model-helper-functions';

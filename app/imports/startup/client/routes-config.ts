@@ -74,56 +74,8 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
-import { ROLE } from '../../api/role/Role';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
-
-// Widely used params as constants
-const USERNAME = ':username';
-const HOME = 'home';
-const GUIDEDTOUR = 'guidedtour';
-const DATAMODEL = 'datamodel';
-const MODERATION = 'moderation';
-export const SCOREBOARD = 'scoreboard';
-export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
-export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
-const MENTOR_SPACE = 'mentor-space';
-
-export const ANALYTICS = {
-  HOME: 'analytics',
-  NEWSLETTER: 'newsletter',
-  OVERHEADANALYSIS: 'overhead-analysis',
-  STUDENTSUMMARY: 'student-summary',
-  USERINTERACTIONS: 'user-interactions',
-};
-
-// The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
-export const URL_ROLES = {
-  ADMIN: ROLE.ADMIN.toLowerCase(),
-  ADVISOR: ROLE.ADVISOR.toLowerCase(),
-  ALUMNI: ROLE.ALUMNI.toLowerCase(),
-  FACULTY: ROLE.FACULTY.toLowerCase(),
-  MENTOR: ROLE.MENTOR.toLowerCase(),
-  STUDENT: ROLE.STUDENT.toLowerCase(),
-};
-
-export const EXPLORER_TYPE = {
-  HOME: 'explorer',
-  ACADEMICPLANS: 'plans',
-  CAREERGOALS: 'career-goals',
-  COURSES: 'courses',
-  DEGREES: 'degrees',
-  INTERESTS: 'interests',
-  OPPORTUNITIES: 'opportunities',
-  USERS: 'users',
-};
-const EXPLORER_PARAM = {
-  ACADEMICPLAN: ':plan',
-  CAREERGOAL: ':careergoal',
-  COURSE: ':course',
-  DEGREE: ':degree',
-  INTEREST: ':interest',
-  OPPORTUNITY: ':opportunity',
-};
+import { URL_ROLES, USERNAME, HOME, DATAMODEL, EXPLORER_TYPE, MODERATION, ANALYTICS, SCOREBOARD, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, EXPLORER_PARAM, GUIDEDTOUR, MENTOR_SPACE } from './route-constants';
 
 export const routes = {
   ADMIN: [

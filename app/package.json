@@ -1,6 +1,18 @@
 {
   "name": "radgrad2",
   "private": true,
+  "scripts": {
+    "start": "meteor --no-release-check --settings ../config/settings.development.json --port 3200",
+    "start-custom": "meteor --no-release-check --settings ../custom/settings.development.json --port 3200",
+    "start-production": "meteor --production --no-release-check --settings ../config/settings.development.json --port 3200",
+    "lint": "eslint --fix --quiet --ext .tsx --ext .ts ./imports",
+    "pretest": "npm run lint",
+    "test": "cross-env TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
+    "test-app": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package dispatch:mocha --port 3300",
+    "test-e2e": "testcafe chrome:headless imports/ui/**/*.test-e2e.ts",
+    "test-e2e-v": "testcafe chrome imports/ui/**/*.test-e2e.ts",
+    "clean:js": "del-cli ./imports/**/*.js ./imports/**/*.js.map ./imports/**/*.jsx ./client/**/*.js ./client/**/*.js.map ./server/**/*.js ./server/**/*.js.map"
+  },
   "dependencies": {
     "@babel/runtime": "^7.7.7",
     "@types/lodash": "^4.14.136",
@@ -51,20 +63,25 @@
   "devDependencies": {
     "@types/chai": "^4.2.7",
     "@types/jasmine": "^3.4.2",
+    "@types/lodash": "^4.14.136",
     "@types/meteor": "^1.4.37",
     "@types/meteor-roles": "^1.2.31",
+    "@types/node": "^13.1.0",
     "@types/mocha": "^5.2.7",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.1",
+    "@types/react-slick": "^0.23.4",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "babel-eslint": "^10.0.3",
     "chai": "^4.2.0",
-    "chromedriver": "^78.0.1",
+    "chromedriver": "^79.0.0",
     "cross-env": "^6.0.3",
     "del-cli": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-react-app": "^5.1.0",
+    "eslint-plugin-flowtype": "^4.5.2",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-meteor": "^6.0.0",
@@ -73,25 +90,108 @@
     "eslint-plugin-typescript": "^0.14.0",
     "mocha": "^6.2.1",
     "nightmare": "^3.0.2",
-    "nightwatch": "^1.3.2",
     "testcafe": "^1.7.1",
     "ts-node": "^8.5.4",
-    "tslint": "^5.20.1",
-    "tslint-config-airbnb": "^5.11.2",
-    "tslint-react": "^4.1.0",
     "typescript": "^3.7.4"
   },
-  "scripts": {
-    "start": "meteor --no-release-check --settings ../config/settings.development.json --port 3200",
-    "start-custom": "meteor --no-release-check --settings ../custom/settings.development.json --port 3200",
-    "start-production": "meteor --production --no-release-check --settings ../config/settings.development.json --port 3200",
-    "lint": "eslint --quiet --ext .tsx --ext .ts ./imports",
-    "lint-fix": "eslint --fix --quiet --ext .tsx --ext .ts ./imports",
-    "pretest": "npm run lint",
-    "test": "cross-env TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha --no-release-check --port 3300",
-    "test-app": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package dispatch:mocha --port 3300",
-    "test-e2e": "testcafe chrome:headless imports/ui/**/*.test-e2e.ts",
-    "test-e2e-v": "testcafe chrome imports/ui/**/*.test-e2e.ts",
-    "clean:js": "del-cli ./imports/**/*.js ./imports/**/*.js.map ./imports/**/*.jsx ./client/**/*.js ./client/**/*.js.map ./server/**/*.js ./server/**/*.js.map"
+  "eslintConfig": {
+    "settings": {
+      "import/extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx"
+      ],
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      }
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "meteor",
+      "react"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended",
+      "react-app"
+    ],
+    "rules": {
+      "arrow-parens": "off",
+      "camelcase": "off",
+      "class-methods-use-this": "off",
+      "func-names": "off",
+      "import/extensions": "off",
+      "import/no-cycle": "warn",
+      "import/no-unresolved": "off",
+      "import/no-absolute-path": "off",
+      "import/imports-first": "off",
+      "import/prefer-default-export": "off",
+      "import/no-extraneous-dependencies": "off",
+      "indent": "off",
+      "linebreak-style": "off",
+      "lines-between-class-members": "off",
+      "max-len": "off",
+      "meteor/eventmap-params": [
+        2,
+        {
+          "eventParamName": "event",
+          "templateInstanceParamName": "instance"
+        }
+      ],
+      "meteor/template-names": "off",
+      "no-confusing-arrow": [
+        "error",
+        {
+          "allowParens": true
+        }
+      ],
+      "no-console": "off",
+      "no-plusplus": "off",
+      "no-underscore-dangle": "off",
+      "no-nested-ternary": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
+      "no-useless-constructor": "off",
+      "@typescript-eslint/no-useless-constructor": "error",
+      "object-curly-newline": "off",
+      "object-property-newline": "off",
+      "object-shorthand": "off",
+      "operator-linebreak": "off",
+      "padded-blocks": "off",
+      "prefer-arrow-callback": "off",
+      "prefer-destructuring": "off",
+      "prefer-promise-reject-errors": "off",
+      "react/destructuring-assignment": "off",
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            "js",
+            ".jsx",
+            "ts",
+            ".tsx"
+          ]
+        }
+      ],
+      "react/jsx-fragments": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/prefer-stateless-function": "off",
+      "react/sort-comp": "off"
+    }
   }
 }

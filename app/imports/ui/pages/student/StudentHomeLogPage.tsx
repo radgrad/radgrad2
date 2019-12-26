@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';

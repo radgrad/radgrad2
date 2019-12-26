@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Tab, Table } from 'semantic-ui-react';
 
 const UserSessionOverheadWidget = () => {

@@ -11,7 +11,7 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { makeSampleCourse } from '../course/SampleCourses';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

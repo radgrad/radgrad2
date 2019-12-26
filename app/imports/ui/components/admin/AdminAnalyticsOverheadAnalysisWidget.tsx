@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { Header, Segment, Tab } from 'semantic-ui-react';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
-import { ANALYTICS } from '../../../startup/client/routes-config';
+import { ANALYTICS } from '../../../startup/client/route-constants';
 import { ReduxTypes } from '../../../redux';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';

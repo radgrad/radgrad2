@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IMentorQuestion, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import { profileToName } from '../shared/data-model-helper-functions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

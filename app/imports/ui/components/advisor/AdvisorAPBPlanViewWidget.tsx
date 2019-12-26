@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdvisorAPBYearView from './AdvisorAPBYearView';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';

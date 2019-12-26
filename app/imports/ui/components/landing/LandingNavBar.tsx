@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as React from 'react';
+import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';

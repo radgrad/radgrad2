@@ -5,7 +5,7 @@ import { FeedbackInstances } from './FeedbackInstanceCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

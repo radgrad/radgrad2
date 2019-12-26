@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourse } from '../../../typings/radgrad'; // eslint-disable-line

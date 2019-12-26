@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Image, Grid, Dimmer } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IBaseProfile } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../api/role/Role';

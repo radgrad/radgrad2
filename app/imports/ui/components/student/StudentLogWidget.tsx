@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
@@ -38,7 +38,7 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
               const advisorName = getAdvisorName(log);
               const displayDate = getDisplayDate(log);
               return (
-                <Item.Group key={index} relaxed divided>
+                <Item.Group key={log._id} relaxed divided>
                   <Item>
                     <Image size="tiny" src={advisorImage} />
                     <Item.Content>

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from '../shared/RouterHelperFunctions';

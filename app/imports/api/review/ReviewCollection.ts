@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { Slugs } from '../slug/SlugCollection';

@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';

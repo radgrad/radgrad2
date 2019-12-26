@@ -1,18 +1,18 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Embed, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import InterestList from './InterestList';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
-import { ICourse, IRadGradMatch } from '../../../typings/radgrad';
+import { ICourse, IDescriptionPair, IRadGradMatch } from '../../../typings/radgrad';
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import FavoritesButton from './FavoritesButton';
 import { isSame, toUpper } from './helper-functions';
@@ -20,11 +20,13 @@ import { courseSlugToName } from './data-model-helper-functions';
 import { explorerCourseWidget } from './shared-widget-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
+// eslint-disable-next-line import/named
+import { toValueArray, toValueString } from '../../shared/description-pair-helpers';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
   shortName: string;
-  descriptionPairs: any[];
+  descriptionPairs: IDescriptionPair[];
   item: ICourse;
   completed: boolean;
   match: IRadGradMatch;
@@ -158,37 +160,9 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                 <Grid.Column width={9}>
                   {
                     descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
+                      <React.Fragment key={descriptionPair.label}>
                         {
                           isSame(descriptionPair.label, 'Course Number') ? (
-                            <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-:
-                              </b>
-                              {
-                                descriptionPair.value ? (
-                                  <React.Fragment>
-                                    {' '}
-                                    {descriptionPair.value}
-                                    {' '}
-                                    <br />
-                                  </React.Fragment>
-                                )
-                                  : (
-                                    <React.Fragment>
-                                      {' '}
-N/A
-                                      <br />
-                                    </React.Fragment>
-                                )
-}
-                            </React.Fragment>
-                          )
-                            : ''
-                        }
-                        {
-                          isSame(descriptionPair.label, 'Credit Hours') ? (
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
@@ -224,6 +198,33 @@ N/A
                               </b>
                               {
                                 descriptionPair.value ? (
+                                  <React.Fragment>
+                                    {' '}
+                                    {descriptionPair.value}
+                                    {' '}
+                                    <br />
+                                  </React.Fragment>
+                                )
+                                  : (
+                                    <React.Fragment>
+                                      {' '}
+N/A
+                                      <br />
+                                    </React.Fragment>
+                                )
+}
+                            </React.Fragment>
+                          )
+                            : ''
+                        }
+                        {
+                          isSame(descriptionPair.label, 'Description') ? (
+                              <b>
+                                {descriptionPair.label}
+:
+                              </b>
+                              {
+                                descriptionPair.value ? (
                                   <Markdown
                                     escapeHtml
                                     source={descriptionPair.value}
@@ -245,6 +246,10 @@ N/A
                         {
                           isSame(descriptionPair.label, 'Prerequisites') ? (
                             <React.Fragment>
+                              <b>
+                                {descriptionPair.label}
+:
+                              </b>
                               {
                                 descriptionPair.value ? (
                                   <React.Fragment>
@@ -255,6 +260,10 @@ N/A
                                           <Grid.Row>
                                             {
                                               descriptionPair.value.map((table, tableIndex) => (
+                                                <Grid.Column
+                                                  key={_.uniqueId()}
+                                                  style={{
+                                              toValueArray(descriptionPair).map((table, tableIndex) => (
                                                 <Grid.Column
                                                   key={_.uniqueId()}
                                                   style={{
@@ -359,8 +368,8 @@ N/A
                 </Grid.Column>
                 <Grid.Column width={7}>
                   {
-                    descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={index}>
+                    descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={descriptionPair.label}>
                         {
                           isSame(descriptionPair.label, 'Syllabus') ? (
                             <React.Fragment>
@@ -370,9 +379,9 @@ N/A
                               </b>
                               {
                                 descriptionPair.value ? (
-                                  <div style={breakWordStyle}>
+                                  <div style={breakWordStyle}
                                     <Markdown
-                                      source={descriptionPair.value}
+                                      source={toValueString(descriptionPair)}
                                       renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                     />
                                     <br />
@@ -423,8 +432,8 @@ N/A
                 <Grid stackable columns={2}>
                   <Grid.Column width={6}>
                     {
-                      descriptionPairs.map((descriptionPair, index) => (
-                        <React.Fragment key={index}>
+                      descriptionPairs.map((descriptionPair) => (
+                        <React.Fragment key={descriptionPair.label}>
                           {
                             isSame(descriptionPair.label, 'Course Number') ? (
                               <React.Fragment>
@@ -489,8 +498,8 @@ N/A
 
                   <Grid.Column width={10}>
                     {
-                      descriptionPairs.map((descriptionPair, index) => (
-                        <React.Fragment key={index}>
+                      descriptionPairs.map((descriptionPair) => (
+                        <React.Fragment key={descriptionPair.label}>
                           {
                             isSame(descriptionPair.label, 'Syllabus') ? (
                               <React.Fragment>
@@ -502,7 +511,7 @@ N/A
                                   descriptionPair.value ? (
                                     <div style={breakWordStyle}>
                                       <Markdown
-                                        source={descriptionPair.value}
+                                        source={toValueString(descriptionPair)}
                                         renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                       />
                                       <br />
@@ -528,8 +537,8 @@ N/A
                 <Grid stackable style={zeroMarginTopStyle}>
                   <Grid.Column>
                     {
-                      descriptionPairs.map((descriptionPair, index) => (
-                        <React.Fragment key={index}>
+                      descriptionPairs.map((descriptionPair) => (
+                        <React.Fragment key={descriptionPair.label}>
                           {
                             isSame(descriptionPair.label, 'Description') ? (
                               <React.Fragment>
@@ -541,7 +550,7 @@ N/A
                                   descriptionPair.value ? (
                                     <Markdown
                                       escapeHtml
-                                      source={descriptionPair.value}
+                                      source={toValueString(descriptionPair)}
                                       renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                     />
                                   )
@@ -565,8 +574,8 @@ N/A
                 <Grid stackable style={zeroMarginTopStyle}>
                   <Grid.Column>
                     {
-                      descriptionPairs.map((descriptionPair, index) => (
-                        <React.Fragment key={index}>
+                      descriptionPairs.map((descriptionPair) => (
+                        <React.Fragment key={descriptionPair.label}>
                           {
                             isSame(descriptionPair.label, 'Prerequisites') ? (
                               <React.Fragment>
@@ -579,7 +588,7 @@ N/A
                                           <Grid columns={3} stackable padded celled>
                                             <Grid.Row>
                                               {
-                                                descriptionPair.value.map((table, tableIndex) => (
+                                                toValueArray(descriptionPair).map((table, tableIndex) => (
                                                   <Grid.Column
                                                     key={_.uniqueId()}
                                                     style={{
@@ -654,7 +663,7 @@ N/A
                                           : (
                                             <List horizontal bulleted>
                                               {
-                                              descriptionPair.value.map((prereqType) => (
+                                              toValueArray(descriptionPair).map((prereqType) => (
                                                 prereqType.map((prereq) => (
                                                   <List.Item
                                                     key={prereq.course}

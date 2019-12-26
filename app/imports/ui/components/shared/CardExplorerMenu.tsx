@@ -1,18 +1,19 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
-  IAcademicPlan, //eslint-disable-line
-  ICareerGoal, //eslint-disable-line
-  ICourse, //eslint-disable-line
-  IDesiredDegree, //eslint-disable-line
-  IInterest, //eslint-disable-line
-  IOpportunity, IRadGradMatch, //eslint-disable-line
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IInterest,
+  IOpportunity,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';

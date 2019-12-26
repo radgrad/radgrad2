@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 

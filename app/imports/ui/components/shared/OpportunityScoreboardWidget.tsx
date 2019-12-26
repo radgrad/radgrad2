@@ -1,8 +1,8 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

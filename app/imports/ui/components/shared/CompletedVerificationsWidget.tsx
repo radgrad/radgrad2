@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Grid, Container, Button } from 'semantic-ui-react';
-import * as moment from 'moment';
+import moment from 'moment';
 import { IAcademicTerm, IOpportunity, IProcessed, IVerificationRequest } from '../../../typings/radgrad';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -60,7 +60,7 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
     <Header as="h4" dividing content="COMPLETED VERIFICATION REQUESTS" />
     <Container fluid={false} style={{ paddingBottom: '14px' }}>
       {props.completedVerifications.map((ele: IVerificationRequest, i) => (
-        <Grid key={i}>
+        <Grid key={ele._id}>
           <Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
             <Header as="h3">{buildHeaderString(ele)}</Header>
           </Grid.Row>
@@ -100,8 +100,8 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
             <Grid.Column>
               {`Submitted: ${moment(ele.submittedOn).calendar()}`}
               <br />
-              {ele.processed.map((elem: IProcessed, ind) => (
-                <React.Fragment key={ind}>
+              {ele.processed.map((elem: IProcessed) => (
+                <React.Fragment key={elem.verifier}>
               Processed:
                   {' '}
                   {moment(elem.date).calendar()}

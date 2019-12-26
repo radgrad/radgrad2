@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { Header, Message } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 

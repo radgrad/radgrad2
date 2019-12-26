@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
@@ -9,9 +9,14 @@ import {
   ICareerGoal,
   ICourse,
   IDesiredDegree,
-  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
   IInterest,
-  IOpportunity, IRadGradMatch,
+  IOpportunity,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -34,7 +39,7 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -470,7 +475,7 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
                 name={name}
                 descriptionPairs={descriptionPairs}
                 item={item}
-                socialPairs={socialPairs}
+                socialPairs={isTypeCareerGoals && socialPairs ? socialPairs : undefined}
               />
             )
               : ''

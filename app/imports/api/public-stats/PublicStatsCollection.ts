@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';

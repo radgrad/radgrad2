@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';

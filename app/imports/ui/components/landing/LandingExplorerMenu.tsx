@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Dropdown, Header, Icon, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { getRouteName } from './helper-functions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 const LandingExplorerMenu = (props: { match: { path: string; params: string;}, location: { pathname: string;}}) => {
   // console.log(props);

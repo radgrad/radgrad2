@@ -1,9 +1,8 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -11,7 +10,7 @@ import {
   IDesiredDegree,
   IInterest,
   IOpportunity,
-  IRadGradMatch,
+IRadGradMatch,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';

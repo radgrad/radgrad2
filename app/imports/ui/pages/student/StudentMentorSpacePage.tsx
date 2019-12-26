@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import StudentMentorSpaceQuestionForm from '../../components/student/StudentMentorSpaceQuestionForm';

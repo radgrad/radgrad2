@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
@@ -9,7 +9,7 @@ import { ICourse, IRadGradMatch } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import * as Router from '../../components/shared/RouterHelperFunctions';

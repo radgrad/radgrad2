@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import {
@@ -218,6 +218,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               label={(
                 <React.Fragment>
                           Picture (
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                   <a onClick={this.handleUploadClick}>Upload</a>
 )
                 </React.Fragment>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
@@ -35,9 +35,8 @@ const SecondMenu = (props: ISecondMenuProps) => {
       className="radgrad-second-menu mobile hidden"
       id={`${secondMenu}`}
     >
-      {props.menuItems.map((item, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Menu.Item key={index} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
+      {props.menuItems.map((item) => (
+        <Menu.Item key={item.label} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
           {item.label}
         </Menu.Item>
 ))}

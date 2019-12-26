@@ -6,7 +6,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import * as utilities from './AcademicYearUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

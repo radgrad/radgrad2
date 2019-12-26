@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { IDescriptionPair, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
@@ -50,6 +50,19 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
+              <b>
+                {descriptionPair.label}
+:
+              </b>
+              {' '}
+              {typeof descriptionPair.value === 'string' ? (
+                <Markdown
+                  escapeHtml
+                  source={descriptionPair.value}
+                  renderers={{ link: (props) => Router.renderLink(props, match) }}
+                />
+            ) : typeof descriptionPair.value === 'undefined' ? ' ' :
+            <p>{descriptionPair.value.join(', ')}</p>}
               <b>
                 {descriptionPair.label}
 :

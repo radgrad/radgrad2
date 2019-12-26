@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IUserProfileCard } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -37,7 +37,9 @@ class UserProfileCard extends React.Component<IUserProfileCard, IUserProfileCard
   }
 
   private toggleFullSize = () => {
-    this.setState({ isActive: !this.state.isActive });
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const newActive = !this.state.isActive;
+    this.setState({ isActive: newActive });
   }
 
   render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

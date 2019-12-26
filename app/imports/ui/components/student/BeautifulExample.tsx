@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const getItems = (count) => Array.from({ length: count }, (v, k) => k).map((k) => ({
@@ -60,6 +60,7 @@ class BeautifulExample extends React.Component<{}, IBeautifulExampleState> {
     }
 
     const items = reorder(
+      // eslint-disable-next-line react/no-access-state-in-setstate
       this.state.items,
       result.source.index,
       result.destination.index,

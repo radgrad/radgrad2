@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
@@ -16,7 +16,6 @@ const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
 function withAdditionalSubscriptions(WrappedComponent) {
   const AdditionalSubscriptions = (props: ILoading) => ((props.loading) ? <Loader active>Getting additional data</Loader> :
-    // eslint-disable-next-line react/jsx-props-no-spreading
   <WrappedComponent {...props} />);
 
   return withTracker(() => {

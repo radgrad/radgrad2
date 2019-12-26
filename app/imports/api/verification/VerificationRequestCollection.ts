@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
-import * as moment from 'moment';
+import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';

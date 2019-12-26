@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
 import { degreePlannerActions, degreePlannerTypes } from '../../../redux/student/degree-planner';

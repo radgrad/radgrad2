@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line

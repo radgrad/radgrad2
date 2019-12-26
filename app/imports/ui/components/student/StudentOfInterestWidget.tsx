@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import StudentOfInterestCard from './StudentOfInterestCard';
@@ -13,7 +13,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
 import { ICourse, IOpportunity, IRadGradMatch } from '../../../typings/radgrad';
@@ -262,17 +262,17 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
             <Card.Group stackable itemsPerRow={2}>
               {
                 isTypeCourse(props) ?
-                  courses(props).map((course, index) => (
+                  courses(props).map((course) => (
                     <StudentOfInterestCard
-                      key={index}
+                      key={course._id}
                       item={course}
                       type={type}
                     />
 ))
                   :
-                  opportunities(props).map((opp, index) => (
+                  opportunities(props).map((opp) => (
                     <StudentOfInterestCard
-                      key={index}
+                      key={opp._id}
                       item={opp}
                       type={type}
                     />

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import LandingNavBarContainer from '../../components/landing/LandingNavBar';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import { IRadGradMatch } from '../../../typings/radgrad';

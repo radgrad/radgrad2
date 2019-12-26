@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Divider, Icon, Image, List, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { IMentorProfile } from '../../../typings/radgrad';

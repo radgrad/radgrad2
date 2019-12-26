@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
-import * as _ from 'lodash';
+import Markdown from 'react-markdown';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
@@ -15,7 +15,7 @@ import {
   userToFullName,
   academicTermNameToShortName,
 } from '../shared/data-model-helper-functions';
-import { IRadGradMatch } from '../../../typings/radgrad';
+import { IReview, IRadGradMatch } from '../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -45,7 +45,7 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-const reviews = (props: IStudentExplorerReviewWidgetProps): object[] => {
+const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
   const event = props.event;
   const matchingReviews = Reviews.findNonRetired({
     revieweeID: event._id,
@@ -149,7 +149,7 @@ first to leave a review.
                 theReviews.map((review, index) => {
                   const aReview = reviewData(review);
                   return (
-                    <List.Item key={index}>
+                    <List.Item key={review._id}>
                       <Grid>
                         <Grid.Column width={4}>
                           <Image

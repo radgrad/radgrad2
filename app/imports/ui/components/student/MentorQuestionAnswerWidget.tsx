@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Image, List } from 'semantic-ui-react';
 import { IMentorAnswer, IMentorProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import ExplorerUsersWidget from '../shared/ExplorerUsersWidget';
@@ -19,7 +19,9 @@ class MentorQuestionAnswerWidget extends React.Component<IQuestionAnswersWidgetP
   }
 
   private toggleFullSize = () => {
-    this.setState({ isActive: !this.state.isActive });
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const newState = !this.state.isActive;
+    this.setState({ isActive: newState });
   }
 
   public render() {
@@ -32,6 +34,7 @@ class MentorQuestionAnswerWidget extends React.Component<IQuestionAnswersWidgetP
           <List.Item>
             <Image src={mentor.picture} size="mini" />
             <List.Content>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
               <a onClick={this.toggleFullSize}>
                 {mentor.firstName}
                 {' '}

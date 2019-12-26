@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';

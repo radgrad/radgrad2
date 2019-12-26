@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../mentor/MentorQuestionCollection';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Menu, Responsive } from 'semantic-ui-react';
 import { leftHandMenu } from '../shared/shared-widget-names';
@@ -57,7 +57,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
           {
             menuItems.map((item, index) => (
               <Menu.Item
-                key={index}
+                key={item.key}
                 as={NavLink}
                 exact
                 to={`${baseRoute}home/${item.route}`}

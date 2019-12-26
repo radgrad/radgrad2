@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';

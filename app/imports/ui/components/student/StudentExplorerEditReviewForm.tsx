@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

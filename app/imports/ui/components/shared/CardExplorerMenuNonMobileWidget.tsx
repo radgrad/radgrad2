@@ -1,16 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
 import {
-  IFavoriteAcademicPlan,
-  IFavoriteCareerGoal,
-  IFavoriteCourse,
-  IFavoriteInterest,
-  IFavoriteOpportunity,
+  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
 } from '../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 import {
   ICardExplorerMenuWidgetProps,
@@ -50,7 +46,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
                     <ExplorerMenuNonMobileItem
                       listItem={listItem}
                       type={EXPLORER_TYPE.ACADEMICPLANS}
-                      key={index}
+                      key={listItem.item._id}
                       match={props.match}
                     />
                   ))
@@ -71,7 +67,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
                     <ExplorerMenuNonMobileItem
                       listItem={listItem}
                       type={EXPLORER_TYPE.COURSES}
-                      key={index}
+                      key={listItem.item._id}
                       match={props.match}
                     />
                   ))
@@ -93,7 +89,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
                     <ExplorerMenuNonMobileItem
                       listItem={listItem}
                       type={EXPLORER_TYPE.OPPORTUNITIES}
-                      key={index}
+                      key={listItem.item._id}
                       match={props.match}
                     />
                   ))
@@ -112,11 +108,11 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
               <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
               <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
               {
-                menuAddedList.map((listItem, index) => (
+                menuAddedList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
-                    key={index}
+                    key={listItem.item._id}
                     match={props.match}
                   />
                 ))
@@ -124,11 +120,11 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
 
               <Header as="h4" dividing>CAREER GOAL INTERESTS</Header>
               {
-                menuCareerList.map((listItem, index) => (
+                menuCareerList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
-                    key={index}
+                    key={listItem.item._id}
                     match={props.match}
                   />
                 ))
@@ -144,11 +140,11 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
               <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
               <Header as="h4" dividing>MY FAVORITE CAREER GOALS</Header>
               {
-                menuAddedList.map((listItem, index) => (
+                menuAddedList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
                     listItem={listItem}
                     type={EXPLORER_TYPE.CAREERGOALS}
-                    key={index}
+                    key={listItem.item._id}
                     match={props.match}
                   />
                 ))

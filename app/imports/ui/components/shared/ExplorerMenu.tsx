@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
@@ -14,7 +14,7 @@ import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -19,14 +19,19 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree, IFavoriteCareerGoal,
-  IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  IDesiredDegree,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
   IInterest,
-  IOpportunity, IProfile, IRadGradMatch,
+  IOpportunity,
+  IProfile,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';

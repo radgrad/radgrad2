@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Responsive } from 'semantic-ui-react';

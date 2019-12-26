@@ -1,19 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 import { Dropdown, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
-  IAcademicPlan, //eslint-disable-line
-  ICareerGoal, //eslint-disable-line
-  ICourse, //eslint-disable-line
-  IDesiredDegree, //eslint-disable-line
-  IInterest, //eslint-disable-line
-  IOpportunity, //eslint-disable-line
-  IProfile, IRadGradMatch, // eslint-disable-line
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IInterest,
+  IOpportunity,
+  IProfile,
+  IRadGradMatch,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
 
 
@@ -52,11 +53,11 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       <Dropdown.Header as="h4">MY ACADEMIC PLAN</Dropdown.Header>
                       <Dropdown.Divider />
                       {
-                        menuAddedList.map((listItem, index) => (
+                        menuAddedList.map((listItem) => (
                           <ExplorerMenuMobileItem
                             type={EXPLORER_TYPE.ACADEMICPLANS}
                             listItem={listItem}
-                            key={index}
+                            key={listItem.item._id}
                             match={props.match}
                           />
                         ))
@@ -81,11 +82,11 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       <Dropdown.Header as="h4">FAVORITE COURSES</Dropdown.Header>
                       <Dropdown.Divider />
                       {
-                        menuAddedList.map((listItem, index) => (
+                        menuAddedList.map((listItem) => (
                           <ExplorerMenuMobileItem
                             type={EXPLORER_TYPE.COURSES}
                             listItem={listItem}
-                            key={index}
+                            key={listItem.item._id}
                             match={props.match}
                           />
                         ))
@@ -110,11 +111,11 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       <Dropdown.Header as="h4">FAVORITE OPPORTUNITIES</Dropdown.Header>
                       <Dropdown.Divider />
                       {
-                        menuAddedList.map((listItem, index) => (
+                        menuAddedList.map((listItem) => (
                           <ExplorerMenuMobileItem
                             type={EXPLORER_TYPE.OPPORTUNITIES}
                             listItem={listItem}
-                            key={index}
+                            key={listItem.item._id}
                             match={props.match}
                           />
                         ))
@@ -137,11 +138,11 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                 <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
-                  menuAddedList.map((listItem, index) => (
+                  menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.INTERESTS}
                       listItem={listItem}
-                      key={index}
+                      key={listItem.item._id}
                       match={props.match}
                     />
                   ))
@@ -150,11 +151,11 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                 <Dropdown.Header as="h4">CAREER GOAL INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
-                  menuCareerList.map((listItem, index) => (
+                  menuCareerList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.INTERESTS}
                       listItem={listItem}
-                      key={index}
+                      key={listItem.item._id}
                       match={props.match}
                     />
                   ))
@@ -172,11 +173,11 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                 <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
-                  menuAddedList.map((listItem, index) => (
+                  menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.CAREERGOALS}
                       listItem={listItem}
-                      key={index}
+                      key={listItem.item._id}
                       match={props.match}
                     />
                   ))

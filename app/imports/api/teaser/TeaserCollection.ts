@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { Interests } from '../interest/InterestCollection';

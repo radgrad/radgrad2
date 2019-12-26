@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -18,8 +18,6 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-
-/* eslint-disable react/no-access-state-in-setstate */
 
 // TODO: bug hunting
 // admin should be recieving copy of newsletter 09/16/19
@@ -141,6 +139,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private onClickPreviewSave = () => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const message = this.state.inputMessage;
     this.setState({ onSubmitInputMessage: message });
   }
@@ -152,8 +151,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (this.state.sendToStudentsToo === false) {
       this.setState({
         message: {
+          // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           bcc: `${this.state.bcc.split(',')}radgrad@hawaii.edu`,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
           recipients: [/* 'radgrad@hawaii.edu' */],
         },
@@ -175,8 +177,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
             trimmedRecipients.push(trimmedEmail);
             this.setState({
               message: {
+                // eslint-disable-next-line react/no-access-state-in-setstate
                 subjectLine: this.state.subjectLine,
+                // eslint-disable-next-line react/no-access-state-in-setstate
                 bcc: this.state.bcc.split(',') /* + 'radgrad@hawaii.edu' */,
+                // eslint-disable-next-line react/no-access-state-in-setstate
                 inputMessage: this.state.onSubmitInputMessage,
                 recipients: trimmedRecipients,
               },
@@ -205,9 +210,13 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0 && this.state.level !== 0) {
       this.setState({
         message: {
+          // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           bcc: this.state.bcc.split(','),
+          // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           recipients: this.getStudentEmailsByLevel(this.state.level),
         },
       }, () => {
@@ -227,8 +236,11 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
       this.setState({
         message: {
+          // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
+          // eslint-disable-next-line react/no-access-state-in-setstate
           bcc: this.state.bcc.split(','),
+          // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
           recipients: this.getAllUsersEmails(),
         },
@@ -581,22 +593,24 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
 
             <NumField name="level" placeholder="level" />
             <BoolField name="sendToLevels" />
-            <Button
+            {/* eslint-disable-next-line react/button-has-type */}
+            <button
               className="ui basic green button"
               disabled={!this.state.sendToLevels}
               onClick={this.onClickSendLevels}
             >
 Send To Students
-            </Button>
+            </button>
             <Form.Field label="Generate To Send To All Users" />
             <BoolField name="sendToAll" />
-            <Button
+            {/* eslint-disable-next-line react/button-has-type */}
+            <button
               className="ui basic green button"
               disabled={!this.state.sendToAll}
               onClick={this.onClickSendToAll}
             >
 Send To All
-            </Button>
+            </button>
           </AutoForm>
         </Segment>
       </div>

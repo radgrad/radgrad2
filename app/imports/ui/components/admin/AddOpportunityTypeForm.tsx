@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';

@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Divider, Grid, Header, Segment } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';
 import { explorerDegreeWidget } from './shared-widget-names';
+import { toId } from '../../shared/description-pair-helpers';
 import { IRadGradMatch } from '../../../typings/radgrad';
 
 interface IExplorerDegreesWidgetProps {
@@ -39,9 +40,9 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
           <Grid stackable>
             <Grid.Column>
               {
-                descriptionPairs.map((descriptionPair, index) => (
+                descriptionPairs.map((descriptionPair) => (
                   descriptionPair.value ? (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={toId(descriptionPair)}>
                       <b>
                         {descriptionPair.label}
 :
@@ -54,7 +55,7 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
                     </React.Fragment>
                   )
                     : (
-                      <p key={index}>
+                      <p key={toId(descriptionPair)}>
                         <b>
                           {descriptionPair.label}
 :

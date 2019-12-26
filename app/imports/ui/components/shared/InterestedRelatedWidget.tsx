@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Grid, List, Segment, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IInterestedRelatedWidgetProps {
   relatedCourses: any;

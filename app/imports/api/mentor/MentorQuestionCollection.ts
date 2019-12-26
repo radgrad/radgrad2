@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { MentorAnswers } from './MentorAnswerCollection';
 import { ROLE } from '../role/Role';
 import { Slugs } from '../slug/SlugCollection';

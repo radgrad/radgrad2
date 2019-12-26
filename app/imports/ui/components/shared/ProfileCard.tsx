@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import Markdown from 'react-markdown';
 import { Card, Icon } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
 import * as Router from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import {

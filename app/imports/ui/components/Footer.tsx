@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, List } from 'semantic-ui-react';
 
 /** The LandingFooter appears at the bottom of every page. Rendered by the App Layout component. */

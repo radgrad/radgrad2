@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';

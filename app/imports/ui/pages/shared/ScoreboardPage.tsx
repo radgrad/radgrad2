@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
@@ -6,7 +6,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import ScoreboardPageMenu from '../../components/shared/ScoreboardPageMenu';
-import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/client/routes-config';
+import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/client/route-constants';
 import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
 import OpportunityScoreboardWidget from '../../components/shared/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';

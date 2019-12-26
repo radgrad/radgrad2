@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, Header, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { replaceTermStringNextFour } from '../shared/helper-functions';
 import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';

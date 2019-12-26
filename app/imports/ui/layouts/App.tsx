@@ -1,6 +1,6 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
-import * as React from 'react';
+import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
 import NotFound from '../pages/NotFound';
@@ -57,7 +57,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => ( // eslint-disabl
       const isLogged = Meteor.userId() !== null;
       return isLogged ?
         (<Component {...props} />) :
-        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
         );
     }}
   />
@@ -79,7 +79,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => { // eslint-d
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
         return (isLogged && isAdmin) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
           );
       }}
     />

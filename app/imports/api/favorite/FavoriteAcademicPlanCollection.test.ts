@@ -1,13 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { FavoriteAcademicPlans } from './FavoriteAcademicPlanCollection';
-// @ts-ignore
 import { makeSampleAcademicPlan, sampleAcademicPlanName } from '../degree-plan/SampleAcademicPlans';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';

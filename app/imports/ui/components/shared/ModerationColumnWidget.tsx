@@ -1,5 +1,5 @@
 // this will be the column widget that holds the individual moderation cards
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data'; // eslint-disable-line
 import { Header, Segment, Container, Item } from 'semantic-ui-react';
@@ -28,7 +28,7 @@ REVIEWS
       {props.isReview && props.reviews.length > 0 ? (
         <Item.Group divided>
           {props.reviews.map((review, index) => (
-            <Item key={index}>
+            <Item key={review._id}>
               {' '}
               <ModerationReviewCardWidget
                 item={review}
@@ -45,7 +45,7 @@ REVIEWS
             (props.isReview === false && props.reviews.length > 0) ? (
               <Item.Group divided>
                 {props.reviews.map((question, index) => (
-                  <Item key={index}>
+                  <Item key={question._id}>
                     {' '}
                     <ModerationQuestionCardWidget
                       question={question}

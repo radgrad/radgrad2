@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { IAcademicPlan, IRadGradMatch } from '../../../typings/radgrad'; // eslint-disable-line
@@ -7,7 +7,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import { profileGetCareerGoalIDs, profileGetInterestIDs } from './data-model-helper-functions';
 

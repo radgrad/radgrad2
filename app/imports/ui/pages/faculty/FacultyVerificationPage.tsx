@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router';
