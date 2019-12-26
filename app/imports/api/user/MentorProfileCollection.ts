@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
@@ -8,6 +8,8 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { IMentorProfileDefine, IMentorProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
  * Represents a Mentor Profile.
@@ -48,14 +50,18 @@ class MentorProfileCollection extends BaseProfileCollection {
            careerGoals, company, career, location, linkedin, motivation, retired = false }: IMentorProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.MENTOR;
-      const interestIDs = Interests.getIDs(interests);
-      const careerGoalIDs = CareerGoals.getIDs(careerGoals);
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, interestIDs, company, career, location, linkedin,
-        motivation, careerGoalIDs, userID: this.getFakeUserId(), retired });
+        username, firstName, lastName, role, picture, website, company, career, location, linkedin,
+        motivation, userID: this.getFakeUserId(), retired });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
+      if (interests) {
+        interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+      }
+      if (careerGoals) {
+        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+      }
       return profileID;
     }
     return undefined;
@@ -81,7 +87,7 @@ class MentorProfileCollection extends BaseProfileCollection {
     motivation }: IMentorProfileUpdate) {
     this.assertDefined(docID);
     const updateData: IMentorProfileUpdate = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, interests, careerGoals, retired });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
     if (_.isString(company)) {
       updateData.company = company;
     }
@@ -98,6 +104,16 @@ class MentorProfileCollection extends BaseProfileCollection {
       updateData.motivation = motivation;
     }
     this.collection.update(docID, { $set: updateData });
+    const profile = this.findDoc(docID);
+    const username = profile.username;
+    if (interests) {
+      FavoriteInterests.removeUser(username);
+      interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+    }
+    if (careerGoals) {
+      FavoriteCareerGoals.removeUser(username);
+      careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+    }
   }
 
   /**
@@ -140,8 +156,11 @@ class MentorProfileCollection extends BaseProfileCollection {
     const lastName = doc.lastName;
     const picture = doc.picture;
     const website = doc.website;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const careerGoals = _.map(doc.careerGoalIDs, (careerGoalID) => CareerGoals.findSlugByID(careerGoalID));
+    const userID = Users.getID(username);
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const company = doc.company;
     const career = doc.career;
     const location = doc.location;

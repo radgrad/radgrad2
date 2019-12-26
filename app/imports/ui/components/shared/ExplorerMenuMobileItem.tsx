@@ -1,15 +1,14 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-import { Slugs } from '../../../api/slug/SlugCollection';
-// eslint-disable-next-line no-unused-vars
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import * as Router from './RouterHelperFunctions';
+import { itemToSlugName, profileGetCareerGoalIDs } from './data-model-helper-functions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -26,146 +25,121 @@ interface IExplorerMenuMobileItemProps {
   };
 }
 
-class ExplorerMenuMobileItem extends React.Component<IExplorerMenuMobileItemProps> {
-  constructor(props) {
-    super(props);
+const itemName = (item: { item: explorerInterfaces, count: number }): string => {
+  const countStr = `x${item.count}`;
+  if (item.count > 1) {
+    return `${item.item.name} ${countStr}`;
   }
+  return `${item.item.name}`;
+};
 
-  /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
-  private getUsername = (): string => Router.getUsername(this.props.match);
-
-  private getUserIdFromRoute = (): string => Router.getUserIdFromRoute(this.props.match);
-
-  private slugName = (item: { [key: string]: any }): string => Slugs.findDoc(item.slugID).name;
-
-  // Determines whether or not we show a "check green circle outline icon" for an item
-  private getItemStatus = (item: explorerInterfaces): string => {
-    const { type } = this.props;
-    switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLANS:
-        return this.userPlans(item as IAcademicPlan);
-      case EXPLORER_TYPE.CAREERGOALS:
-        return this.userCareerGoals(item as ICareerGoal);
-      case EXPLORER_TYPE.COURSES:
-        return this.userCourses(item as ICourse);
-      // case 'degrees': users currently cannot add a desired degree to their profile
-      //   return this.userDegrees(item.item as DesiredDegree);
-      case EXPLORER_TYPE.INTERESTS:
-        return this.userInterests(item as IInterest);
-      case EXPLORER_TYPE.OPPORTUNITIES:
-        return this.userOpportunities(item as IOpportunity);
-      case EXPLORER_TYPE.USERS: // do nothing
-        return '';
-      default:
-        return '';
-    }
+const userPlans = (plan: IAcademicPlan, props: IExplorerMenuMobileItemProps): string => {
+  let ret = '';
+  const profile = Users.getProfile(Router.getUsername(props.match));
+  if (_.includes(profile.academicPlanID, plan._id)) {
+    ret = 'check green circle outline icon';
   }
-
-  private itemName = (item: { item: explorerInterfaces, count: number }): string => {
-    const countStr = `x${item.count}`;
-    if (item.count > 1) {
-      return `${item.item.name} ${countStr}`;
-    }
-    return `${item.item.name}`;
+  return ret;
+};
+const userCareerGoals = (careerGoal: ICareerGoal, props: IExplorerMenuMobileItemProps): string => {
+  let ret = '';
+  const profile = Users.getProfile(Router.getUsername(props.match));
+  if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
+    ret = 'check green circle outline icon';
   }
+  return ret;
+};
 
-  /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-  private userPlans = (plan: IAcademicPlan): string => {
-    let ret = '';
-    const profile = Users.getProfile(this.getUsername());
-    if (_.includes(profile.academicPlanID, plan._id)) {
-      ret = 'check green circle outline icon';
-    }
-    return ret;
+const userCourses = (course: ICourse, props: IExplorerMenuMobileItemProps): string => {
+  let ret = '';
+  const ci = CourseInstances.find({
+    studentID: Router.getUserIdFromRoute(props.match),
+    courseID: course._id,
+  }).fetch();
+  if (ci.length > 0) {
+    ret = 'check green circle outline icon';
+
   }
+  return ret;
+};
 
-  /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
-  private userCareerGoals = (careerGoal: ICareerGoal): string => {
-    let ret = '';
-    const profile = Users.getProfile(this.getUsername());
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
-      ret = 'check green circle outline icon';
-    }
-    return ret;
+const courseName = (course: { item: ICourse, count: number }): string => {
+  const countStr = `x${course.count}`;
+  if (course.count > 1) {
+    return `${course.item.shortName} ${countStr}`;
   }
+  return `${course.item.shortName}`;
+};
 
-  /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
-  private userCourses = (course: ICourse): string => {
-    let ret = '';
-    const ci = CourseInstances.find({
-      studentID: this.getUserIdFromRoute(),
-      courseID: course._id,
-    }).fetch();
-    if (ci.length > 0) {
-      ret = 'check green circle outline icon';
-
-    }
-    return ret;
+const userInterests = (interest: IInterest, props: IExplorerMenuMobileItemProps): string => {
+  let ret = '';
+  const profile = Users.getProfile(Router.getUsername(props.match));
+  if (_.includes(Users.getInterestIDs(profile.userID), interest._id)) {
+    ret = 'check green circle outline icon';
   }
+  return ret;
+};
 
-  private courseName = (course: { item: ICourse, count: number }): string => {
-    const countStr = `x${course.count}`;
-    if (course.count > 1) {
-      return `${course.item.shortName} ${countStr}`;
-    }
-    return `${course.item.shortName}`;
+const userOpportunities = (opportunity: IOpportunity, props: IExplorerMenuMobileItemProps): string => {
+  let ret = '';
+  const oi = OpportunityInstances.find({
+    studentID: Router.getUserIdFromRoute(props.match),
+    opportunityID: opportunity._id,
+  }).fetch();
+  if (oi.length > 0) {
+    ret = 'check green circle outline icon';
+
   }
+  return ret;
+};
 
-  /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
-  private userInterests = (interest: IInterest): string => {
-    let ret = '';
-    const profile = Users.getProfile(this.getUsername());
-    if (_.includes(Users.getInterestIDs(profile.userID), interest._id)) {
-      ret = 'check green circle outline icon';
-    }
-    return ret;
+// Determines whether or not we show a "check green circle outline icon" for an item
+const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuMobileItemProps): string => {
+  const { type } = props;
+  switch (type) {
+    case EXPLORER_TYPE.ACADEMICPLANS:
+      return userPlans(item as IAcademicPlan, props);
+    case EXPLORER_TYPE.CAREERGOALS:
+      return userCareerGoals(item as ICareerGoal, props);
+    case EXPLORER_TYPE.COURSES:
+      return userCourses(item as ICourse, props);
+    // case 'degrees': users currently cannot add a desired degree to their profile
+    //   return userDegrees(item.item as DesiredDegree);
+    case EXPLORER_TYPE.INTERESTS:
+      return userInterests(item as IInterest, props);
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      return userOpportunities(item as IOpportunity, props);
+    case EXPLORER_TYPE.USERS: // do nothing
+      return '';
+    default:
+      return '';
   }
+};
 
-  /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
-  private userOpportunities = (opportunity: IOpportunity): string => {
-    let ret = '';
-    const oi = OpportunityInstances.find({
-      studentID: this.getUserIdFromRoute(),
-      opportunityID: opportunity._id,
-    }).fetch();
-    if (oi.length > 0) {
-      ret = 'check green circle outline icon';
+const ExplorerMenuMobileItem = (props: IExplorerMenuMobileItemProps) => {
+  const { type, listItem, match } = props;
+  const iconStyle: React.CSSProperties = {
+    position: 'absolute',
+    marginLeft: '-20px',
+  };
 
-    }
-    return ret;
-  }
-
-  private opportunityItemName = (item: { item: IOpportunity, count: number }): string => {
-    const countStr = `x${item.count}`;
-    const iceString = `(${item.item.ice.i}/${item.item.ice.c}/${item.item.ice.e})`;
-    if (item.count > 1) {
-      return `${item.item.name} ${iceString} ${countStr}`;
-    }
-    return `${item.item.name} ${iceString}`;
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { type, listItem, match } = this.props;
-    const iconStyle: React.CSSProperties = {
-      position: 'absolute',
-      marginLeft: '-20px',
-    };
-
-    return (
-      <Dropdown.Item as={NavLink} exact={true}
-                     to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${this.slugName(listItem.item)}`)}
-                     text={(
-                       <React.Fragment>
-                         <i className={this.getItemStatus(listItem.item)} style={iconStyle}/>
-                         {
-                           type !== EXPLORER_TYPE.COURSES ?
-                             this.itemName(listItem)
-                             : this.courseName(listItem as { item: ICourse, count: number })
-                         }
-                       </React.Fragment>
-                     )}/>
-    );
-  }
-}
+  return (
+    <Dropdown.Item
+      as={NavLink}
+      exact
+      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
+      text={(
+        <React.Fragment>
+          <i className={getItemStatus(listItem.item, props)} style={iconStyle} />
+          {
+                         type !== EXPLORER_TYPE.COURSES ?
+                           itemName(listItem)
+                           : courseName(listItem as { item: ICourse, count: number })
+                       }
+        </React.Fragment>
+                   )}
+    />
+  );
+};
 
 export default ExplorerMenuMobileItem;

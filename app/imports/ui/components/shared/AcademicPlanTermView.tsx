@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { getDroppableListStyle } from './StyleFunctions';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
@@ -33,7 +33,7 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
 
   return (
     <Segment style={noPaddingStyle}>
-      <Header dividing={true}>{props.title}</Header>
+      <Header dividing>{props.title}</Header>
       <Droppable droppableId={`${props.id}`}>
         {(provided, snapshot) => (
           <div
@@ -44,12 +44,17 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
               const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
               if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
                 return (
-                  <DraggablePlanChoicePill key={index} choice={choice} index={index} studentID={props.studentID}
-                                           satisfied={satisfied}/>
+                  <DraggablePlanChoicePill
+                    key={index}
+                    choice={choice}
+                    index={index}
+                    studentID={props.studentID}
+                    satisfied={satisfied}
+                  />
                 );
               }
               return (
-                <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
+                <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
               );
             })}
             {provided.placeholder}

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListSlugCollectionWidget from '../../components/admin/ListSlugCollectionWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -33,7 +33,7 @@ const itemTitleString = (item: any): string => `${item.name}: ${item.entityName}
  */
 const itemTitle = (item: any): React.ReactNode => (
   <React.Fragment>
-    <Icon name="dropdown"/>
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -43,7 +43,6 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
 
   constructor(props) {
     super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
   }
 
@@ -52,13 +51,12 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     Swal.fire({
       title: 'Add failed',
       text: `Cannot add slugs. ${doc}`,
-      type: 'error',
+      icon: 'error',
     });
   };
 
   private handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '' });
   };
 
   private handleDelete = (event) => {
@@ -67,14 +65,13 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     Swal.fire({
       title: 'Delete failed',
       text: 'Cannot delete slugs.',
-      type: 'error',
+      icon: 'error',
     });
   };
 
   private handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
   };
 
   private handleUpdate = (doc) => {
@@ -82,7 +79,7 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     Swal.fire({
       title: 'Update failed',
       text: `Cannot add slugs. ${doc}`,
-      type: 'error',
+      icon: 'error',
     });
   };
 
@@ -95,27 +92,28 @@ class AdminDataModelSlugsPage extends React.Component<{}, IAdminDataModelPageSta
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ListSlugCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+            <ListSlugCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

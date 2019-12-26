@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -10,6 +10,8 @@ import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { studentTeaserWidget } from './student-widget-names';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -22,133 +24,137 @@ interface IStudentTeaserWidgetProps {
   };
 }
 
-class StudentTeaserWidget extends React.Component<IStudentTeaserWidgetProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  private getUsername = () => this.props.match.params.username;
-
-  private matchingTeasers = () => {
-    if (this.getUsername()) {
-      const allTeasers = Teasers.find().fetch();
-      const matching = [];
-      const profile = Users.getProfile(this.getUsername());
-      const userInterests = [];
-      let teaserInterests = [];
-      _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-        userInterests.push(Interests.findDoc(id));
-      });
-      _.forEach(allTeasers, (teaser) => {
-        teaserInterests = [];
-        _.forEach(teaser.interestIDs, (id) => {
-          teaserInterests.push(Interests.findDoc(id));
-          _.forEach(teaserInterests, (teaserInterest) => {
-            _.forEach(userInterests, (userInterest) => {
-              if (_.isEqual(teaserInterest, userInterest)) {
-                if (!_.includes(matching, teaser)) {
-                  matching.push(teaser);
-                }
+const matchingTeasers = (match: IMatchProps) => {
+  if (getUsername(match)) {
+    const allTeasers = Teasers.find().fetch();
+    const matching = [];
+    const profile = Users.getProfile(getUsername(match));
+    const userInterests = [];
+    let teaserInterests = [];
+    _.forEach(Users.getInterestIDs(profile.userID), (id) => {
+      userInterests.push(Interests.findDoc(id));
+    });
+    _.forEach(allTeasers, (teaser) => {
+      teaserInterests = [];
+      _.forEach(teaser.interestIDs, (id) => {
+        teaserInterests.push(Interests.findDoc(id));
+        _.forEach(teaserInterests, (teaserInterest) => {
+          _.forEach(userInterests, (userInterest) => {
+            if (_.isEqual(teaserInterest, userInterest)) {
+              if (!_.includes(matching, teaser)) {
+                matching.push(teaser);
               }
-            });
+            }
           });
         });
       });
-      return matching;
-    }
-    return [];
+    });
+    return matching;
   }
+  return [];
+};
 
-  private teaserTitle = (teaser: any): string => teaser.title;
+const teaserTitle = (teaser: any): string => teaser.title;
 
-  private teaserAuthor = (teaser: any): string => teaser.author;
+const teaserAuthor = (teaser: any): string => teaser.author;
 
-  private teaserUrl = (teaser: any): string => teaser.url;
+const teaserUrl = (teaser: any): string => teaser.url;
 
-  private teaserCount = (): number => this.matchingTeasers().length;
-
-  private buildOpportunitiesRouteName = (teaser) => {
-    const opportunityName = this.opportunitySlug(teaser);
-    const username = this.props.match.params.username;
-    const baseUrl = this.props.match.url;
-    const baseIndex = baseUrl.indexOf(username);
-    const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-    return `${baseRoute}explorer/opportunities/${opportunityName}`;
+const opportunitySlug = (teaser) => {
+  let ret;
+  if (teaser.opportunityID) {
+    ret = Slugs.findDoc(Opportunities.findDoc(teaser.opportunityID).slugID).name;
+  } else {
+    ret = '#';
   }
+  return ret;
+};
 
-  private opportunitySlug = (teaser) => {
-    let ret;
-    if (teaser.opportunityID) {
-      ret = Slugs.findDoc(Opportunities.findDoc(teaser.opportunityID).slugID).name;
-    } else {
-      ret = '#';
-    }
-    return ret;
-  }
+const buildOpportunitiesRouteName = (teaser, props: IStudentTeaserWidgetProps) => {
+  const opportunityName = opportunitySlug(teaser);
+  const username = props.match.params.username;
+  const baseUrl = props.match.url;
+  const baseIndex = baseUrl.indexOf(username);
+  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
+  return `${baseRoute}explorer/opportunities/${opportunityName}`;
+};
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const teasers = this.matchingTeasers();
-    const teaserCount = this.teaserCount();
 
-    const cardGroupStyle = {
-      maxHeight: '500px',
-      overflow: 'scroll',
-      marginTop: '10px',
-    };
-    const teaserWidgetVideoStyle = { padding: '0' };
-    const chevronCircleRightIconStyle = { marginRight: '1px' };
+const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
+  const teasers = matchingTeasers(props.match);
+  const teaserCount = matchingTeasers(props.match).length;
 
-    return (
-      <React.Fragment>
-        <Container>
-          <Segment padded={true}>
-            <Header dividing={true}>
-              <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>
-            </Header>
+  const cardGroupStyle = {
+    maxHeight: '500px',
+    overflow: 'scroll',
+    marginTop: '10px',
+  };
+  const teaserWidgetVideoStyle = { padding: '0' };
+  const chevronCircleRightIconStyle = { marginRight: '1px' };
 
-            {
-              teasers ?
-                <Card.Group style={cardGroupStyle}>
-                  {
-                    teasers.map((teaser, index) => (
-                      <React.Fragment key={index}>
-                        <Card centered={true}>
-                          <Card.Content>
-                            <Card.Header>{this.teaserTitle(teaser)}</Card.Header>
-                            <Card.Meta>By {this.teaserAuthor(teaser)} </Card.Meta>
-                          </Card.Content>
+  return (
+    <Container id={`${studentTeaserWidget}`}>
+      <Segment padded>
+        <Header dividing>
+          <Header as="h4">
+            {' '}
+TEASERS
+            <WidgetHeaderNumber inputValue={teaserCount} />
+            {' '}
 
-                          <Card.Content style={teaserWidgetVideoStyle}>
-                            <StudentTeaserWidgetVideo teaserUrl={this.teaserUrl(teaser)}/>
-                          </Card.Content>
+          </Header>
+        </Header>
 
-                          <Card.Content>
-                            <InterestList item={teaser} size="mini"/>
-                          </Card.Content>
+        {
+          teasers ? (
+            <Card.Group style={cardGroupStyle}>
+              {
+                teasers.map((teaser) => (
+                  <React.Fragment key={teaser._id}>
+                    <Card centered>
+                      <Card.Content>
+                        <Card.Header>{teaserTitle(teaser)}</Card.Header>
+                        <Card.Meta>
+By
+                          {teaserAuthor(teaser)}
+                          {' '}
 
-                          {
-                            teaser.opportunityID ?
-                              <Link to={this.buildOpportunitiesRouteName(teaser)}>
-                                <Button attached="bottom">
-                                  <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
-                                  More
-                                </Button>
-                              </Link>
-                              : ''
-                          }
-                        </Card>
-                      </React.Fragment>
-                    ))
-                  }
-                </Card.Group>
-                :
-                <p>Add interests to see recommendations here.</p>
-            }
-          </Segment>
-        </Container>
-      </React.Fragment>
-    );
-  }
-}
+                        </Card.Meta>
+                      </Card.Content>
+
+                      <Card.Content style={teaserWidgetVideoStyle}>
+                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
+                      </Card.Content>
+
+                      <Card.Content>
+                        <InterestList item={teaser} size="mini" />
+                      </Card.Content>
+
+                      {
+                        teaser.opportunityID ? (
+                          <Link to={buildOpportunitiesRouteName(teaser, props)}>
+                            <Button attached="bottom">
+                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
+                              {' '}
+View
+                              More
+                            </Button>
+                          </Link>
+                        )
+                          : ''
+                      }
+                    </Card>
+                  </React.Fragment>
+                ))
+              }
+            </Card.Group>
+          )
+            :
+            <p>Add interests to see recommendations here.</p>
+        }
+      </Segment>
+    </Container>
+  );
+};
 
 export default withRouter(StudentTeaserWidget);

@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Roles } from 'meteor/alanning:roles';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Courses } from './CourseCollection';
@@ -263,7 +262,7 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public getUpdateSchema() {
     const terms = AcademicTerms.find({}, { sort: { termNumber: 1 }, fields: { _id: 1 } }).fetch();
-    console.log(terms);
+    // console.log(terms);
     this.updateSchema = new SimpleSchema({
       termID: {
         type: String,
@@ -365,12 +364,13 @@ class CourseInstanceCollection extends BaseCollection {
         ], { clientCollection: CourseScoreboardName });
       });
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        // console.log(Roles.userIsInRole(studentID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]));
-        if (Roles.userIsInRole(studentID, [ROLE.ADMIN]) || Meteor.isAppTest) {
-          return instance.collection.find();
-        }
+        // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
         if (!studentID) {
           return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
+          return instance.collection.find();
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });

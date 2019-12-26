@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
@@ -7,9 +7,11 @@ import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMe
 import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IDesiredDegreeExplorerProps {
   desiredDegree: IDesiredDegree;
@@ -25,41 +27,45 @@ interface IDesiredDegreeExplorerProps {
   history: object;
 }
 
-class DesiredDegreeExplorer extends React.Component<IDesiredDegreeExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const DesiredDegreeExplorer = (props: IDesiredDegreeExplorerProps) => {
+  const { match } = props;
+  return (
+    <div>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-  public render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
-          <Grid.Row>
-            <Grid.Column width="three">
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
-            <Grid.Column width="thirteen">
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>{this.props.desiredDegree.name}</span>
-                </Header>
-                <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.desiredDegree.description}
-                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer />
+          </Grid.Column>
 
-        </Grid>
-      </div>
-    );
-  }
-}
+          <Grid.Column width={11}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>{props.desiredDegree.name}</span>
+              </Header>
+              <b>Description:</b>
+              <Markdown
+                escapeHtml
+                source={props.desiredDegree.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
+      </Grid>
+
+      <BackToTopButton />
+    </div>
+  );
+};
 
 const WithSubs = withListSubscriptions(DesiredDegreeExplorer, [
   DesiredDegrees.getPublicationName(),

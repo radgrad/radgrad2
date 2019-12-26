@@ -1,12 +1,13 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
 import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
+import { helpPanelWidget } from './shared-widget-names';
 
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]
@@ -25,11 +26,11 @@ interface IHelpPanelWidgetState {
 }
 
 class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelWidgetState> {
-  public state: IHelpPanelWidgetState = { activeIndex: -1 };
 
   constructor(props) {
     super(props);
     // console.log('HelpPanelWidget props=%o', props);
+    this.state = { activeIndex: -1 };
   }
 
   private handleClick = (e, titleProps) => {
@@ -54,16 +55,19 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
 If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
     return (helpMessage) ? (
-      <Grid.Column>
-        <Message info={true} floating={true}>
+      <Grid.Column id={`${helpPanelWidget}`}>
+        <Message info floating>
           <Accordion>
             <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
-              <Icon name="dropdown"/>
+              <Icon name="dropdown" />
               <span style={helpPanelWidgetTitleStyle}><strong>{helpMessage.title}</strong></span>
             </Accordion.Title>
             <Accordion.Content active={this.state.activeIndex === 0}>
-              <Markdown escapeHtml={false} source={helpText}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+              <Markdown
+                escapeHtml={false}
+                source={helpText}
+                renderers={{ link: (props) => Router.renderLink(props, match) }}
+              />
             </Accordion.Content>
           </Accordion>
         </Message>
@@ -72,12 +76,9 @@ If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgr
   }
 }
 
-
-const HelpPanelWidgetContainer = withTracker((props) => {
+export default withRouter(withTracker((props) => {
   const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };
-})(HelpPanelWidget);
-
-export default withRouter(HelpPanelWidgetContainer);
+})(HelpPanelWidget));

@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import * as Router from '../shared/RouterHelperFunctions';
@@ -46,10 +46,10 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
   public render() {
     const { match } = this.props;
     return (
-      <Accordion fluid={true} styled={true}>
+      <Accordion fluid styled>
         <Accordion.Title active={this.state.active} onClick={this.handleClick}>
-          {this.props.retired ? <Icon name="eye slash"/> : ''}
-          <Icon name="dropdown"/>
+          {this.props.retired ? <Icon name="eye slash" /> : ''}
+          <Icon name="dropdown" />
           {this.props.name}
           {this.props.slug ? (this.props.slug) : ''}
           {this.props.additionalTitleInfo ? this.props.additionalTitleInfo : ''}
@@ -57,17 +57,42 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-              <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? // eslint-disable-line
-              <Markdown escapeHtml={true} source={descriptionPair.value}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
-                <p>{descriptionPair.value.join(', ')}</p>}
+              <b>
+                {descriptionPair.label}
+:
+              </b>
+              {' '}
+              {typeof descriptionPair.value === 'string' ? eslint - disable - line(
+                <Markdown
+                  escapeHtml
+                  source={descriptionPair.value}
+                  renderers={{ link: (props) => Router.renderLink(props, match) }}
+                />,
+            ) : typeof descriptionPair.value === 'undefined' ? ' ' :
+            <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
           <p>
-            <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.updateDisabled}
-                    onClick={this.props.handleOpenUpdate}>Update</Button>
-            <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.deleteDisabled}
-                    onClick={this.props.handleDelete}>Delete</Button>
+            <Button
+              id={this.props.id}
+              color="green"
+              basic
+              size="mini"
+              disabled={this.props.updateDisabled}
+              onClick={this.props.handleOpenUpdate}
+            >
+Update
+            </Button>
+            <Button
+              id={this.props.id}
+              color="green"
+              basic
+              size="mini"
+              disabled={this.props.deleteDisabled}
+              onClick={this.props.handleDelete}
+            >
+Delete
+            </Button>
           </p>
         </Accordion.Content>
       </Accordion>

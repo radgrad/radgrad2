@@ -1,9 +1,11 @@
 *.iml
 .idea
-custom/
+custom
 .DS_Store
 node_modules
 settings.production.json
 *.js
 *.js.map
 *.jsx
+tests_output/
+chromedriver.log

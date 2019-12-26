@@ -1,8 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-// import SimpleSchema from 'simpl-schema';
+import _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../mentor/MentorQuestionCollection';
@@ -13,6 +12,8 @@ import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { MentorProfiles } from './MentorProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -44,6 +45,7 @@ class UserCollection {
    */
   public define({ username, role }: { username: string; role: string; }) {
     if (Meteor.isServer) {
+      Roles.createRole(role, { unlessExists: true });
       if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR)) {
         // Define this user with a CAS login.
         const userWithoutHost = username.split('@')[0];
@@ -91,8 +93,14 @@ class UserCollection {
    * @throws { Meteor.Error } If the user does not have the role, or if user or role is not valid.
    */
   public assertInRole(user, role) {
+    // console.log('assertInRole(%o, %o)', user, role);
     const userID = this.getID(user);
-    if (!Roles.userIsInRole(userID, role)) {
+    const profile = this.getProfile(userID);
+    if (Array.isArray(role)) {
+      if (!_.includes(role, profile.role)) {
+        throw new Meteor.Error(`${userID} (${this.getProfile(userID).username}) is not in role ${role}.`);
+      }
+    } else if (profile.role !== role) {
       throw new Meteor.Error(`${userID} (${this.getProfile(userID).username}) is not in role ${role}.`);
     }
   }
@@ -119,7 +127,8 @@ class UserCollection {
   public getID(user) {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     if (!userDoc) {
-      console.log('Error: user is not defined: ', user);
+      // console.log('Error: user is not defined: ', user);
+      console.trace(`Error: user is not defined: ${user}`);
       throw new Meteor.Error(`Error: user ${user} is not defined.`);
     }
     return userDoc._id;
@@ -252,7 +261,7 @@ class UserCollection {
    */
   public getProfile(user) {
     // First, let's check to see if user is actually a profile (or looks like one). If so, just return it.
-    if (_.isObject(user) && user.firstName && user.lastName && user.role) {
+    if (_.isObject(user) && _.has(user, 'firstName') && _.has(user, 'lastName') && _.has(user, 'role')) {
       return user;
     }
     const profile = this.hasProfile(user);
@@ -424,9 +433,15 @@ class UserCollection {
    */
   public getInterestIDs(user) {
     const profile = this.getProfile(user);
-    let interestIDs = profile.interestIDs;
-    _.forEach(profile.careerGoalIDs, (careerGoalID) => {
-      const goal = CareerGoals.findDoc(careerGoalID);
+    const userID = profile.userID;
+    let interestIDs = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      interestIDs.push(fav.interestID);
+    });
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
       interestIDs = _.union(interestIDs, goal.interestIDs);
     });
     return interestIDs;
@@ -441,14 +456,21 @@ class UserCollection {
    */
   public getInterestIDsByType(user) {
     const profile = this.getProfile(user);
+    const userID = profile.userID;
     const interestIDs = [];
-    interestIDs.push(profile.interestIDs);
+    const userInterests = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      userInterests.push(fav.interestID);
+    });
+    interestIDs.push(userInterests);
     let careerInterestIDs = [];
-    _.forEach(profile.careerGoalIDs, (goalID) => {
-      const goal = CareerGoals.findDoc(goalID);
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
       careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
     });
-    careerInterestIDs = _.difference(careerInterestIDs, profile.interestIDs);
+    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
     interestIDs.push(careerInterestIDs);
     return interestIDs;
   }

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -19,10 +19,13 @@ export interface IAdvisorLogEntryWidgetState {
 }
 
 class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps, IAdvisorLogEntryWidgetState> {
-  state = {
-    comment: '',
-    advisorLogs: this.props.advisorLogs,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: '',
+      advisorLogs: this.props.advisorLogs,
+    };
+  }
 
   // For use with Date.getMinutes()
   private formatMinuteString = (min) => {
@@ -54,12 +57,12 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -70,22 +73,25 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
 
   componentDidUpdate(prevProps: Readonly<IAdvisorLogEntryWidgetProps>): void {
     if (this.props !== prevProps) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ advisorLogs: this.props.advisorLogs });
     }
   }
 
   public render() {
     return (
-      <Segment padded={true}>
-        <Header as="h4" dividing={true}>ADVISOR LOG</Header>
-        <Form onSubmit={this.onSubmit} widths={'equal'}>
-          <Form.TextArea label={'Comments'}
-                         name={'comment'}
-                         onChange={this.handleForm}
-                         value={this.state.comment}/>
-          <Form.Button content={'ADD COMMENTS'} type={'Submit'} basic={true} color={'green'}/>
+      <Segment padded>
+        <Header as="h4" dividing>ADVISOR LOG</Header>
+        <Form onSubmit={this.onSubmit} widths="equal">
+          <Form.TextArea
+            label="Comments"
+            name="comment"
+            onChange={this.handleForm}
+            value={this.state.comment}
+          />
+          <Form.Button content="ADD COMMENTS" type="Submit" basic color="green" />
         </Form>
-        <br/>
+        <br />
         <p style={{
           marginTop: '15px',
           display: 'block',
@@ -94,15 +100,33 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
           fontSize: '.92857143em',
           fontWeight: 700,
           textTransform: 'none',
-        }}>Past Advisor Logs</p>
+        }}
+        >
+Past Advisor Logs
+        </p>
         <div style={{ height: '200px' }}>
           <div style={{ height: '100%', overflowY: 'auto' }}>
             {this.state.advisorLogs.length > 0 ? this.state.advisorLogs.map(
-              (ele, i) => <Segment key={i}>
-                <strong>
-                  {ele.createdOn.toDateString()} {ele.createdOn.getHours()}:{this.formatMinuteString(ele.createdOn.getMinutes())}:
-                </strong> {ele.text} <i>({Users.getProfile(ele.advisorID).firstName})</i>
-              </Segment>,
+              (ele) => (
+                <Segment key={ele._id}>
+                  <strong>
+                    {ele.createdOn.toDateString()}
+                    {' '}
+                    {ele.createdOn.getHours()}
+:
+                    {this.formatMinuteString(ele.createdOn.getMinutes())}
+:
+                  </strong>
+                  {' '}
+                  {ele.text}
+                  {' '}
+                  <i>
+(
+                    {Users.getProfile(ele.advisorID).firstName}
+)
+                  </i>
+                </Segment>
+),
             ) : <i>No past advisor logs with this student.</i>}
           </div>
         </div>

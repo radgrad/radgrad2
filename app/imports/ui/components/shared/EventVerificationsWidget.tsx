@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
-import { moment } from 'meteor/momentjs:moment';
+import moment from 'moment';
 import { processVerificationEventMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 // eslint-disable-next-line no-unused-vars
 import { IOpportunity } from '../../../typings/radgrad';
@@ -12,6 +12,11 @@ interface IEventVerificationsWidgetProps {
   eventOpportunities: IOpportunity[];
 }
 
+interface IEventVerificationsWidgetState {
+  student: string;
+  opportunity: string;
+  log: string;
+}
 /**
  * This component naively displays a supplied array of **IEventOpportunities** and a form to verify individual students.
  * The parent component is expected to handle permissions and filtering (eventDate property **is not checked** in this
@@ -19,12 +24,17 @@ interface IEventVerificationsWidgetProps {
  * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
  * @returns {Segment}
  */
-class EventVerificationsWidget extends React.Component<IEventVerificationsWidgetProps> {
-  state = { student: '', opportunity: '', log: '' };
+class EventVerificationsWidget extends React.Component<IEventVerificationsWidgetProps, IEventVerificationsWidgetState> {
+  constructor(props) {
+    super(props);
+    this.state = { student: '', opportunity: '', log: '' };
+  }
 
+  // eslint-disable-next-line react/no-access-state-in-setstate
   onChange = (e, { name, value }) => this.setState({ ...this.state, [name]: value });
 
   onLog = (msg) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     this.setState({ ...this.state, log: `${this.state.log}\n${msg}` });
   }
 
@@ -61,7 +71,7 @@ class EventVerificationsWidget extends React.Component<IEventVerificationsWidget
     const { student, opportunity, log } = this.state;
     return (
       <Segment>
-        <Header as={'h4'} dividing content={'EVENT VERIFICATION'}/>
+        <Header as="h4" dividing content="EVENT VERIFICATION" />
         <Form onSubmit={this.onSubmit}>
           <Form.Group inline>
             <Form.Dropdown
@@ -72,15 +82,16 @@ class EventVerificationsWidget extends React.Component<IEventVerificationsWidget
                   value: ele._id,
                 }),
               )}
-              label={'Select recent event: '}
-              placeholder={'Select One...'}
-              name={'opportunity'}
+              label="Select recent event: "
+              placeholder="Select One..."
+              name="opportunity"
               onChange={this.onChange}
-              value={opportunity}/>
-            <Form.Input placeholder={'Student Username'} name={'student'} onChange={this.onChange} value={student}/>
-            <Form.Button basic color={'green'} content={'Verify Attendance'}/>
+              value={opportunity}
+            />
+            <Form.Input placeholder="Student Username" name="student" onChange={this.onChange} value={student} />
+            <Form.Button basic color="green" content="Verify Attendance" />
           </Form.Group>
-          <Form.TextArea id={'logTextArea'} label={'Log'} rows={'10'} value={log} readOnly={true}/>
+          <Form.TextArea id="logTextArea" label="Log" rows="10" value={log} readOnly />
         </Form>
       </Segment>
     );

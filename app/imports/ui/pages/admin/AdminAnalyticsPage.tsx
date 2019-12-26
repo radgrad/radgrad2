@@ -1,22 +1,35 @@
-import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
+import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AdminAnalyticsLoggedInUsersWidget';
 
 /** A simple static component to render some text for the landing page. */
-const AdminAnalyticsPage = () => (
-  <div>
-    <AdminPageMenuWidget/>
-    <Grid verticalAlign="middle" textAlign="center" container={true}>
+class AdminAnalyticsPage extends React.Component {
+  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
+  public render() {
+    const paddedStyle = {
+      paddingTop: 20,
+    };
+    return (
+      <div>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle} columns={1}>
+          <Grid.Column>
+            <Grid>
+              <Grid.Column width={3}>
+                <AdminAnalyticsMenuWidget />
+              </Grid.Column>
+              <Grid.Column width={13}>
+                <AdminAnalyticsLoggedInUsersWidget />
+              </Grid.Column>
+            </Grid>
+          </Grid.Column>
+        </Grid>
+      </div>
+    );
+  }
+}
 
-      <Grid.Column width={4}>
-        <Image size="small" circular={true} src="/images/radgrad_logo.png"/>
-      </Grid.Column>
-
-      <Grid.Column width={8}>
-        <h1>Admin Analytics</h1>
-      </Grid.Column>
-    </Grid>
-  </div>
-);
 
 export default AdminAnalyticsPage;

@@ -1,16 +1,10 @@
-import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import DateField from 'uniforms-semantic/DateField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import { connect } from 'react-redux';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -22,12 +16,15 @@ import {
   docToName,
   opportunityIdToName,
   profileToName, userIdToName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import MultiSelectField from '../shared/MultiSelectField';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { ReduxTypes } from '../../../redux'; // eslint-disable-line
+import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 
-interface IUpdateFeedFromProps {
+interface IUpdateFeedFormProps {
   academicTerms: IAcademicTerm[];
   courses: ICourse[];
   opportunities: IOpportunity[];
@@ -38,11 +35,39 @@ interface IUpdateFeedFromProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
+  setAdminDataModelFeedsIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
-class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
+interface IUpdateFeedFormState {
+  pictureURL: string;
+}
+
+const mapDispatchToProps = (dispatch: any): object => ({
+  setAdminDataModelFeedsIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelFeedsIsCloudinaryUsed(isCloudinaryUsed)),
+  setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelFeedsCloudinaryUrl(cloudinaryUrl)),
+});
+
+class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFormState> {
   constructor(props) {
     super(props);
+    this.state = {
+      pictureURL: this.props.collection.findDoc(this.props.id).picture,
+    };
+  }
+
+  private handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      this.props.setAdminDataModelFeedsIsCloudinaryUsed(true);
+      this.props.setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
+      this.setState({ pictureURL: cloudinaryResult.info.url });
+    }
+  }
+
+  private handlePictureUrlChange = (value) => {
+    this.setState({ pictureURL: value });
   }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -87,7 +112,18 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
     const newUserSchema = new SimpleSchema({
       users: { type: Array, optional: true },
       'users.$': { type: String, allowedValues: studentNames },
-      picture: { type: String, optional: true },
+      picture: {
+        type: String,
+        label:
+  <React.Fragment>
+Picture (
+    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+    <a onClick={this.handleUpload}>Upload</a>
+)
+  </React.Fragment>,
+        defaultValue: model.picture,
+        optional: true,
+      },
     });
     const verifiedOpportunitySchema = new SimpleSchema({
       user: {
@@ -127,87 +163,93 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
         break;
       default:
     }
-    // console.log(schema);
+    const { pictureURL } = this.state;
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {this.props.collection.getType()}: {this.props.itemTitleString(model)}</Header>
+      <Segment padded>
+        <Header dividing>
+Update
+          {this.props.collection.getType()}
+:
+          {this.props.itemTitleString(model)}
+        </Header>
         <AutoForm
           ref={this.props.formRef}
           schema={schema}
           model={model}
-          onSubmit={this.props.handleUpdate}>
+          onSubmit={this.props.handleUpdate}
+        >
           <Form.Group widths="equal">
-            <DateField name="timestamp" disabled={true}/>
-            <TextField name="feedType" disabled={true}/>
+            <DateField name="timestamp" disabled />
+            <TextField name="feedType" disabled />
           </Form.Group>
-          <LongTextField name="description"/>
+          <LongTextField name="description" />
           {model.feedType === Feeds.NEW_COURSE ? (
             <div>
-              <Header dividing={true} as="h4">New course field</Header>
+              <Header dividing as="h4">New course field</Header>
               <Form.Group widths="equal">
-                <SelectField name="course"/>
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_COURSE_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="course"/>
+                <SelectField name="user" />
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_LEVEL ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <NumberField name="level"/>
+                <SelectField name="user" />
+                <NumField name="level" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity field</Header>
+              <Header dividing as="h4">New opportunity field</Header>
               <Form.Group widths="equal">
-                <SelectField name="opportunity"/>
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_OPPORTUNITY_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity review fields</Header>
+              <Header dividing as="h4">New opportunity review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.NEW_USER ? (
             <div>
-              <Header dividing={true} as="h4">New user fields</Header>
+              <Header dividing as="h4">New user fields</Header>
               <Form.Group widths="equal">
-                <MultiSelectField name="users"/>
-                <TextField name="picture" placeholder="No picture URL specified"/>
+                <MultiSelectField name="users" />
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
               </Form.Group>
             </div>
           ) : ''}
           {model.feedType === Feeds.VERIFIED_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New verified opportunity fields</Header>
+              <Header dividing as="h4">New verified opportunity fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
-                <SelectField name="academicTerm"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
+                <SelectField name="academicTerm" />
               </Form.Group>
             </div>
           ) : ''}
           <Form.Group widths="equal">
-            <BoolField name="retired"/>
+            <BoolField name="retired" />
           </Form.Group>
-          <p/>
-          <SubmitField/>
+          <p />
+          <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
           <Button onClick={this.props.handleCancel}>Cancel</Button>
         </AutoForm>
       </Segment>
@@ -216,10 +258,10 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFromProps> {
 }
 
 const UpdateFeedFormContainer = withTracker(() => ({
-    academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-    courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-    opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-    students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  }))(UpdateFeedForm);
+  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
+  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
+  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+}))(UpdateFeedForm);
 
-export default UpdateFeedFormContainer;
+export default connect(null, mapDispatchToProps)(UpdateFeedFormContainer);

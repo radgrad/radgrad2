@@ -7,7 +7,7 @@ import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 // import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {

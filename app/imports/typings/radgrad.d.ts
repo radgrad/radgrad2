@@ -10,9 +10,8 @@ declare global {
   }
 }
 
-// TODO -- get cloudinary working (issue-47)
-export namespace cloudinary {
-  function openUploadWidget(options: any, callback: (error: any, result?: any) => any);
+declare namespace cloudinary {
+  function openUploadWidget(options: any, resultCallback?: (error: null | string, result: { event: string; info?: { [key: string]: any } }) => any): any;
 }
 
 export interface Ice {
@@ -200,8 +199,8 @@ export interface IExplorerCard extends ICardExplorerCards {
   };
 }
 
-export interface IUserProfileCard extends ICardExplorerCards {}
-
+export interface IUserProfileCard extends ICardExplorerCards {
+}
 
 export interface IDescriptionPair {
   label: string;
@@ -262,6 +261,7 @@ export interface IAcademicYearDefine extends IDumpOne {
 
 // AdvisorLogs
 export interface IAdvisorLog {
+  _id?: string;
   advisorID: string;
   studentID: string;
   text: string;
@@ -364,6 +364,11 @@ export interface ICourseInstanceUpdate {
   retired?: boolean;
 }
 
+export interface IScoreboard {
+  _id: string;
+  count: number;
+}
+
 // Courses
 export interface ICourse {
   _id: string;
@@ -430,7 +435,77 @@ export interface IDesiredDegreeUpdate {
   retired?: boolean;
 }
 
+// Favoirites
+export interface IFavoriteAcademicPlanDefine extends IDumpOne {
+  academicPlan: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteAcademicPlan {
+  academicPlanID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteCareerGoalDefine extends IDumpOne {
+  careerGoal: string;
+  username: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteCareerGoal {
+  careerGoalID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteCourseDefine extends IDumpOne {
+  course: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteCourse {
+  courseID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteInterestDefine extends IDumpOne {
+  interest: string;
+  username: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteInterest {
+  interestID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteOpportunityDefine extends IDumpOne {
+  opportunity: string;
+  student: string;
+  retired?: boolean;
+}
+
+export interface IFavoriteOpportunity {
+  opportunityID: string;
+  studentID: string;
+  retired: boolean;
+}
+
+export interface IFavoriteUpdate {
+  retired?: boolean;
+}
+
 // Feeds
+export interface IFeed {
+  _id: string;
+  userID: string;
+}
+
 export interface IFeedDefine extends IDumpOne {
   user?: string;
   course?: string;
@@ -853,9 +928,9 @@ export interface IStudentProfile extends IProfile {
 export interface IStudentProfileDefine extends IProfileDefine {
   level: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
+  favoriteAcademicPlans?: string[];
+  favoriteCourses?: string[];
+  favoriteOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -872,9 +947,9 @@ export interface IStudentProfileDefine extends IProfileDefine {
 export interface IStudentProfileUpdate extends IProfileUpdate {
   level?: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
+  favoriteAcademicPlans?: string[];
+  favoriteCourses?: string[];
+  favoriteOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -910,6 +985,7 @@ export interface IStudentProfileUpdateData {
 
 // Reviews
 export interface IReview {
+  _id: string;
   slug?: string;
   student: string;
   reviewType: string;
@@ -1003,6 +1079,19 @@ export interface IStarDataObject {
 }
 
 // Teasers
+export interface ITeaser {
+  title: string;
+  slugID: string;
+  author: string;
+  url: string;
+  description: string;
+  interestIDs: string[];
+  opportunityID?: string;
+  targetSlugID?: string;
+  duration?: string;
+  retired?: boolean;
+}
+
 export interface ITeaserDefine extends IDumpOne {
   title: string;
   slug: string;
@@ -1011,13 +1100,14 @@ export interface ITeaserDefine extends IDumpOne {
   description: string;
   duration: string;
   interests: string[];
-  opportunity: string;
+  opportunity?: string;
+  targetSlug?: string;
   retired?: boolean;
 }
 
 export interface ITeaserUpdate {
   title?: string;
-  opportunity?: string;
+  targetSlug?: string;
   interests?: string[];
   author?: string;
   url?: string;
@@ -1028,7 +1118,7 @@ export interface ITeaserUpdate {
 
 export interface ITeaserUpdateData {
   title?: string;
-  opportunityID?: string;
+  targetSlugID?: string;
   interestIDs?: string[];
   author?: string;
   url?: string;
@@ -1038,6 +1128,14 @@ export interface ITeaserUpdateData {
 }
 
 // UserInteractions
+export interface IUserInteraction {
+  _id: string;
+  username: string;
+  type: string;
+  typeData: string[];
+  timestamp: Date;
+}
+
 export interface IUserInteractionDefine extends IDumpOne {
   username: string;
   type: string;

@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import { InterestTypes } from './InterestTypeCollection';
 import { Courses } from '../course/CourseCollection';
@@ -138,6 +138,7 @@ class InterestCollection extends BaseSlugCollection {
    * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
    */
   public findNames(instanceIDs: string[]) {
+    // console.log('Interests.findNames(%o)', instanceIDs);
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
 

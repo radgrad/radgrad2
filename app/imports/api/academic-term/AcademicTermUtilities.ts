@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { AcademicTerms } from './AcademicTermCollection';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
@@ -9,50 +9,31 @@ import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 export function defineAcademicTerms() {
   if (AcademicTerms.find().count() === 0) {
     const settingsDoc = RadGradSettings.findOne({});
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2017 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2018 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2018 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2018 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2019 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2019 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2020 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2020 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2020 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2021 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2021 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2021 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2022 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2022 });
+    AcademicTerms.define({ term: AcademicTerms.FALL, year: 2022 });
+    AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2023 });
+    AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2023 });
     if (settingsDoc.quarterSystem) {
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2017 });
       AcademicTerms.define({ term: AcademicTerms.WINTER, year: 2018 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2018 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2018 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2018 });
       AcademicTerms.define({ term: AcademicTerms.WINTER, year: 2019 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2019 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2019 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
       AcademicTerms.define({ term: AcademicTerms.WINTER, year: 2020 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2020 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2020 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2020 });
       AcademicTerms.define({ term: AcademicTerms.WINTER, year: 2021 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2021 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2021 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2021 });
       AcademicTerms.define({ term: AcademicTerms.WINTER, year: 2022 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2022 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2022 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2022 });
       AcademicTerms.define({ term: AcademicTerms.WINTER, year: 2023 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2023 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2023 });
-    } else {
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2017 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2018 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2018 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2018 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2019 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2019 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2020 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2020 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2020 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2021 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2021 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2021 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2022 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2022 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2022 });
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2023 });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2023 });
     }
   }
 }

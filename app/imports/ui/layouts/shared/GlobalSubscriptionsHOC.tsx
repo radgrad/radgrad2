@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Responsive } from 'semantic-ui-react';
@@ -14,7 +14,7 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+// import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
@@ -42,27 +42,19 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
-  class GlobalSubscription extends React.Component<ILoading> {
-    constructor(props) {
-      super(props);
-    }
+  const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
+    <React.Fragment>
+      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+        <PageLoader />
+      </Responsive>
 
-    /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-    public render() {
-      return (this.props.loading) ?
-        <React.Fragment>
-          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-            <PageLoader/>
-          </Responsive>
-
-          <Responsive {...Responsive.onlyMobile}>
-            <PageLoaderMobile/>
-          </Responsive>
-        </React.Fragment>
+      <Responsive {...Responsive.onlyMobile}>
+        <PageLoaderMobile />
+      </Responsive>
+    </React.Fragment>
+      )
         :
-        <WrappedComponent {...this.props}/>;
-    }
-  }
+    <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const handles = [
@@ -89,7 +81,7 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(RadGradSettings.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
       globalSubs.subscribe(StudentParticipations.getPublicationName()),
-      globalSubs.subscribe(StudentProfiles.getPublicationName()),
+      globalSubs.subscribe('StudentProfileCollection'),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),
       globalSubs.subscribe(Users.getPublicationName()),

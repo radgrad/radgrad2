@@ -1,6 +1,6 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
-import * as React from 'react';
+import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
 import NotFound from '../pages/NotFound';
@@ -12,40 +12,36 @@ import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
-class App extends React.Component {
-  public render() {
-    return (
-      <Router>
-        <Switch>
-          {routes.LANDING.map((route, i) => (
-            <Route key={i} {...route} />
-          ))}
-          {routes.ADMIN.map((route, i) => (
-            <AdminProtectedRoute key={i} {...route} />
-          ))}
-          {routes.ADVISOR.map((route, i) => (
-            <AdvisorProtectedRoute key={i} {...route} />
-          ))}
-          {routes.FACULTY.map((route, i) => (
-            <FacultyProtectedRoute key={i} {...route} />
-          ))}
-          {routes.MENTOR.map((route, i) => (
-            <MentorProtectedRoute key={i} {...route} />
-          ))}
-          {routes.STUDENT.map((route, i) => (
-            <StudentProtectedRoute key={i} {...route} />
-          ))}
-          {routes.ALUMNI.map((route, i) => (
-            <StudentProtectedRoute key={i} {...route} />
-          ))}
-          <Route path="/signin" component={Signin}/>
-          <ProtectedRoute path="/signout" component={Signout}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </Router>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <Switch>
+      {routes.LANDING.map((route) => (
+        <Route key={route.path} {...route} />
+      ))}
+      {routes.ADMIN.map((route) => (
+        <AdminProtectedRoute key={route.path} {...route} />
+      ))}
+      {routes.ADVISOR.map((route) => (
+        <AdvisorProtectedRoute key={route.path} {...route} />
+      ))}
+      {routes.FACULTY.map((route) => (
+        <FacultyProtectedRoute key={route.path} {...route} />
+      ))}
+      {routes.MENTOR.map((route) => (
+        <MentorProtectedRoute key={route.path} {...route} />
+      ))}
+      {routes.STUDENT.map((route) => (
+        <StudentProtectedRoute key={route.path} {...route} />
+      ))}
+      {routes.ALUMNI.map((route) => (
+        <StudentProtectedRoute key={route.path} {...route} />
+      ))}
+      <Route path="/signin" component={Signin} />
+      <ProtectedRoute path="/signout" component={Signout} />
+      <Route component={NotFound} />
+    </Switch>
+  </Router>
+);
 
 /**
  * ProtectedRoute (see React Router v4 sample)
@@ -55,11 +51,11 @@ class App extends React.Component {
 const ProtectedRoute = ({ component: Component, ...rest }) => ( // eslint-disable-line
   <Route
     {...rest}
-    render={(props) => {
+    render={(props: any) => {
       const isLogged = Meteor.userId() !== null;
       return isLogged ?
         (<Component {...props} />) :
-        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
         );
     }}
   />
@@ -75,13 +71,13 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => { // eslint-d
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
         return (isLogged && isAdmin) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
           );
       }}
     />
@@ -93,7 +89,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => { // eslint
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return (isLogged && isAllowed) ?
@@ -111,7 +107,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => { // eslint
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return (isLogged && isAllowed) ?
@@ -128,7 +124,7 @@ const MentorProtectedRoute = ({ component: Component, ...rest }) => { // eslint-
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.MENTOR]);
         return (isLogged && isAllowed) ?
@@ -145,7 +141,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => { // eslint
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={(props: any) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         const isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);

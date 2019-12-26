@@ -1,9 +1,12 @@
-import { moment } from 'meteor/momentjs:moment';
+import moment from 'moment';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
+
+export const sampleOpportunityName = 'Sample Opportunity';
+export const sampleOpportunityTypeName = 'Sample Opportunity Type';
 
 /**
  * Creates an OpportunityType with a unique slug and returns its docID.
@@ -11,7 +14,7 @@ import { makeSampleInterest } from '../interest/SampleInterests';
  * @memberOf api/opportunity
  */
 export function makeSampleOpportunityType() {
-  const name = 'Sample Opportunity Type';
+  const name = sampleOpportunityTypeName;
   const slug = `opportunity-type-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
   const description = 'Sample Opportunity Type Description';
   return OpportunityTypes.define({ name, slug, description });
@@ -25,7 +28,7 @@ export function makeSampleOpportunityType() {
  * @memberOf api/opportunity
  */
 export function makeSampleOpportunity(sponsor) {
-  const name = 'Sample Opportunity';
+  const name = sampleOpportunityName;
   const slug = `opportunity-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
   const description = 'Sample Opportunity Description';
   const opportunityType = makeSampleOpportunityType();

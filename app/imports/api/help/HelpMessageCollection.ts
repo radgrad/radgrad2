@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad'; // eslint-disable-line
 

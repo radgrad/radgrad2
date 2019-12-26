@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -9,6 +9,7 @@ import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunitiesCardExplorerProps {
   ready: boolean;
@@ -19,49 +20,51 @@ interface IOpportunitiesCardExplorerProps {
   history: object;
 }
 
-class LandingOpportunitiesCardExplorer extends React.Component<IOpportunitiesCardExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const renderPage = (props: IOpportunitiesCardExplorerProps) => {
+  const inlineStyle = {
+    maxHeight: 750,
+    marginTop: 10,
+  };
+  return (
+    <div>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-  public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Opportunities</Loader>;
-  }
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer />
+          </Grid.Column>
 
-  private renderPage() {
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
-          <Grid.Row>
-            <Grid.Column width="three">
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
-            <Grid.Column width="thirteen">
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>OPPORTUNITIES</span> ({this.props.count})
-                </Header>
-                <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.opportunities.map((opportunity) => (
-                      <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity}/>
-                    ))}
-                </Card.Group>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    );
-  }
-}
+          <Grid.Column width={11}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>OPPORTUNITIES</span>
+                {' '}
+(
+                {props.count}
+)
+              </Header>
+              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
+                {props.opportunities.map((opportunity) => (
+                  <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity} />
+                ))}
+              </Card.Group>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
+      </Grid>
+    </div>
+  );
+};
+
+const LandingOpportunitiesCardExplorer = (props: IOpportunitiesCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Opportunities</Loader>);
 
 const LandingOpportunitiesCardExplorerCon = withRouter(LandingOpportunitiesCardExplorer);
 

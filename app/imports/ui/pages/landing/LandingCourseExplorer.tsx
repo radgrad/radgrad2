@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
@@ -10,10 +10,12 @@ import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICourseExplorerProps {
   course: ICourse;
@@ -29,54 +31,72 @@ interface ICourseExplorerProps {
   history: object;
 }
 
-class LandingCourseExplorer extends React.Component<ICourseExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const LandingCourseExplorer = (props: ICourseExplorerProps) => {
+  const { match } = props;
+  return (
+    <div>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-  public render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
-          <Grid.Row>
-            <Grid.Column width="three">
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
-            <Grid.Column width="thirteen">
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>{this.props.course.shortName} ({this.props.course.name})</span>
-                </Header>
-                <Grid columns={2} stackable={true}>
-                  <Grid.Column width={'six'}>
-                    <b>Course Number:</b> {this.props.course.num}<br/>
-                    <b>Credit Hours:</b> {this.props.course.creditHrs}
-                  </Grid.Column>
-                  <Grid.Column width={'ten'}>
-                    <b>Syllabus</b> {this.props.course.syllabus ? < a href={this.props.course.syllabus}>{this.props.course.syllabus}</a> : 'None available'}
-                  </Grid.Column>
-                </Grid>
-                <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.course.description}
-                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                <Header as="h4" dividing={true}>Prerequisites</Header>
-                <LandingPrerequisiteList prerequisites={this.props.course.prerequisites}/>
-                <Header as="h4" dividing={true}>Course Interests</Header>
-                <LandingInterestList interestIDs={this.props.course.interestIDs}/>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer />
+          </Grid.Column>
 
-        </Grid>
-      </div>
-    );
-  }
-}
+          <Grid.Column width={11}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>
+                  {props.course.shortName}
+                  {' '}
+(
+                  {props.course.name}
+)
+                </span>
+              </Header>
+              <Grid columns={2} stackable>
+                <Grid.Column width="six">
+                  <b>Course Number:</b>
+                  {' '}
+                  {props.course.num}
+                  <br />
+                  <b>Credit Hours:</b>
+                  {' '}
+                  {props.course.creditHrs}
+                </Grid.Column>
+                <Grid.Column width="ten">
+                  <b>Syllabus</b>
+                  {' '}
+                  {props.course.syllabus ?
+                    <a href={props.course.syllabus}>{props.course.syllabus}</a> : 'None available'}
+                </Grid.Column>
+              </Grid>
+              <b>Description:</b>
+              <Markdown
+                escapeHtml
+                source={props.course.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
+              <Header as="h4" dividing>Prerequisites</Header>
+              <LandingPrerequisiteList prerequisites={props.course.prerequisites} />
+              <Header as="h4" dividing>Course Interests</Header>
+              <LandingInterestList interestIDs={props.course.interestIDs} />
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
+      </Grid>
+
+      <BackToTopButton />
+    </div>
+  );
+};
 
 const WithSubs = withListSubscriptions(LandingCourseExplorer, [
   Courses.getPublicationName(),

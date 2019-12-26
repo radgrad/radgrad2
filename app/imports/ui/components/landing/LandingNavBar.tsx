@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as React from 'react';
-import { Roles } from 'meteor/alanning:roles';
+import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 import { ROLE } from '../../../api/role/Role';
+import { Users } from '../../../api/user/UserCollection';
 
 export interface INavBarProps {
   currentUser: string;
@@ -14,72 +14,69 @@ export interface INavBarProps {
   role: string;
 }
 
+const onClick = () => {
+  const el = document.getElementById('landing-section-9'); // eslint-disable-line
+  window.scrollTo(0, el.offsetTop); // eslint-disable-line
+};
+
 /**
  * LandingNavBar rendered on each of the landing pages.
  */
-class LandingNavBar extends React.Component<INavBarProps, object> {
-  constructor(props) {
-    super(props);
-  }
-
-  public static onClick() {
-    const el = document.getElementById('landing-section-9'); // eslint-disable-line
-    window.scrollTo(0, el.offsetTop); // eslint-disable-line
-  }
-
-  public render() {
-    const imageStyle = { width: 45 };
-    // console.log(this.props);
-    const url = `/#/${this.props.role}/${this.props.currentUser}/home`;
-    return (
-      <Menu attached="top" borderless={true} size="small">
-        <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
-          <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
-          <div className="mobile hidden item">
-            <Header as="h2">
-              <RadGradLogoText/>
-            </Header>
+const LandingNavBar = (props: INavBarProps) => {
+  const imageStyle = { width: 45 };
+  // console.log(props);
+  const url = `/#/${props.role}/${props.currentUser}/home`;
+  return (
+    <Menu attached="top" borderless size="small">
+      <Menu.Item as={NavLink} activeClassName="" exact to="/">
+        <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
+        <div className="mobile hidden item">
+          <Header as="h2">
+            <RadGradLogoText />
+          </Header>
+        </div>
+      </Menu.Item>
+      <Menu.Item position="right"><Button onClick={onClick}>GUIDED TOURS</Button></Menu.Item>
+      <Menu.Item>
+        {props.currentUser ? (
+          <div>
+            <Button basic color="green" compact><a href={url}>Home</a></Button>
           </div>
-        </Menu.Item>
-        <Menu.Item position="right"><Button onClick={LandingNavBar.onClick}>GUIDED TOURS</Button></Menu.Item>
-        <Menu.Item>
-          {this.props.currentUser ? (
-            <div>
-              <Button basic={true} color="green" compact={true}><a href={url}>Home</a></Button>
-            </div>
-          ) : (
-            <RadGradLoginButtons/>
-          )}
-        </Menu.Item>
-      </Menu>
-    );
-  }
-}
+        ) : (
+          <RadGradLoginButtons />
+        )}
+      </Menu.Item>
+    </Menu>
+  );
+};
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingNavBarContainer = withTracker(() => {
   let role;
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN])) {
-    role = 'admin';
-  }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADVISOR])) {
-    role = 'advisor';
-  }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.ALUMNI])) {
-    role = 'alumni';
-  }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
-    role = 'faculty';
-  }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.MENTOR])) {
-    role = 'mentor';
-  }
-  if (Roles.userIsInRole(Meteor.userId(), [ROLE.STUDENT])) {
-    role = 'student';
+  if (Meteor.userId()) {
+    const profile = Users.getProfile(Meteor.userId());
+    if (profile.role === ROLE.ADMIN) {
+      role = 'admin';
+    }
+    if (profile.role === ROLE.ADVISOR) {
+      role = 'advisor';
+    }
+    if (profile.role === ROLE.ALUMNI) {
+      role = 'alumni';
+    }
+    if (profile.role === ROLE.FACULTY) {
+      role = 'faculty';
+    }
+    if (profile.role === ROLE.MENTOR) {
+      role = 'mentor';
+    }
+    if (profile.role === ROLE.STUDENT) {
+      role = 'student';
+    }
   }
   return {
     currentUser: Meteor.user() ? Meteor.user().username : '',
-    iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
+    iconName: (role === 'admin') ? 'user plus' : 'user',
     role,
   };
 })(LandingNavBar);

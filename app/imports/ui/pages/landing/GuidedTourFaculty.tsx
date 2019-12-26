@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
@@ -26,19 +26,19 @@ const GuidedTourFaculty = () => {
   return (
     <div style={styles.background}>
       <Container textAlign="center">
-        <Segment padded={true} style={styles.background}>
+        <Segment padded style={styles.background}>
           <Slider {...settings}>
-            <WhyRadGrad/>
-            <SetUp/>
-            <Opportunities/>
-            <Verification/>
-            <Explorer/>
-            <WhatsNext/>
+            <WhyRadGrad />
+            <SetUp />
+            <Opportunities />
+            <Verification />
+            <Explorer />
+            <WhatsNext />
           </Slider>
         </Segment>
         <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
       </Container>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
 };

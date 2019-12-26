@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { selectOpportunity } from '../../../redux/actions/actions';
+import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IInpectorOpportunityMenuProps {
   studentID: string;
@@ -16,7 +16,7 @@ interface IInspectorOpportunityMenuState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectOpportunity: (courseID) => dispatch(selectOpportunity(courseID)),
+    selectOpportunity: (courseID) => dispatch(degreePlannerActions.selectOpportunity(courseID)),
   });
 
 function opportunityStructureForMenu() {
@@ -69,8 +69,14 @@ class InspectorOpportunityMenu extends React.Component<IInpectorOpportunityMenuP
               <Dropdown text={opportunitiesLabel(opportunities)}>
                 <Dropdown.Menu direction="left">
                   {_.map(opportunities, (o) => (
-                    <Dropdown.Item key={o._id} value={o._id} onClick={this.handleClick}>{o.name} <IceHeader
-                      ice={o.ice}/></Dropdown.Item>))}
+                    <Dropdown.Item key={o._id} value={o._id} onClick={this.handleClick}>
+                      {o.name}
+                      {' '}
+                      <IceHeader
+                        ice={o.ice}
+                      />
+                    </Dropdown.Item>
+))}
                 </Dropdown.Menu>
               </Dropdown>
             </Dropdown.Item>

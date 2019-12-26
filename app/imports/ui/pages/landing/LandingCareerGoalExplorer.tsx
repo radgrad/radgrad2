@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
@@ -9,9 +9,11 @@ import { ICareerGoal } from '../../../typings/radgrad'; // eslint-disable-line
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/RouterHelperFunctions';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICareerGoalExplorerProps {
   careerGoal: ICareerGoal;
@@ -27,43 +29,45 @@ interface ICareerGoalExplorerProps {
   history: object;
 }
 
-class LandingCareerGoalExplorer extends React.Component<ICareerGoalExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const LandingCareerGoalExplorer = (props: ICareerGoalExplorerProps) => {
+  const { match } = props;
+  return (
+    <div>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-  public render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
-          <Grid.Row>
-            <Grid.Column width="three">
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
-            <Grid.Column width="thirteen">
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>{this.props.careerGoal.name}</span>
-                </Header>
-                <b>Description:</b>
-                <Markdown escapeHtml={true} source={this.props.careerGoal.description}
-                          renderers={{ link: (props) => Router.renderLink(props, match) }}/>
-                <Header as="h4" dividing={true}>Career Goal Interests</Header>
-                <LandingInterestList interestIDs={this.props.careerGoal.interestIDs}/>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={3}>
+          <LandingExplorerMenuContainer />
+        </Grid.Column>
 
-        </Grid>
-      </div>
-    );
-  }
-}
+        <Grid.Column width={11}>
+          <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+            <Header as="h4" dividing>
+              <span>{props.careerGoal.name}</span>
+            </Header>
+            <b>Description:</b>
+            <Markdown
+              escapeHtml
+              source={props.careerGoal.description}
+              renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+            />
+            <Header as="h4" dividing>Career Goal Interests</Header>
+            <LandingInterestList interestIDs={props.careerGoal.interestIDs} />
+          </Segment>
+        </Grid.Column>
+        <Grid.Column width={1} />
+      </Grid>
+
+      <BackToTopButton />
+    </div>
+  );
+};
 
 const WithSubs = withListSubscriptions(LandingCareerGoalExplorer, [
   CareerGoals.getPublicationName(),

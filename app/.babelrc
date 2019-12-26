@@ -1,5 +1,8 @@
 {
-  "presets": ["es2015", "meteor"],
+  "presets": ["es2015", "meteor", "next/babel",
+    {
+      "preset-env": { "targets": { "node": true } }
+    }],
   "plugins": [
     "transform-class-properties",
     "transform-react-constant-elements",

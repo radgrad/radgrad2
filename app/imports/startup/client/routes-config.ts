@@ -27,6 +27,10 @@ import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
 import AdminModerationPageContainer from '../../ui/pages/admin/AdminModerationPage';
 import AdminAnalyticsPageContainer from '../../ui/pages/admin/AdminAnalyticsPage';
+import AdminAnalyticsNewsletterPageContainer from '../../ui/pages/admin/AdminAnalyticsNewsletterPage';
+import AdminAnalyticsOverheadAnalysisPageContainer from '../../ui/pages/admin/AdminAnalyticsOverheadAnalysisPage';
+import AdminAnalyticsStudentSummaryPageContainer from '../../ui/pages/admin/AdminAnalyticsStudentSummaryPage';
+import AdminAnalyticsUserInteractionsPageContainer from '../../ui/pages/admin/AdminAnalyticsUserInteractionsPage';
 import AdvisorHomePageContainer from '../../ui/pages/advisor/AdvisorHomePage';
 import AdvisorVerificationRequestPageContainer from '../../ui/pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorModerationPageContainer from '../../ui/pages/advisor/AdvisorModerationPage';
@@ -70,48 +74,8 @@ import AdminDataModelReviewsPage from '../../ui/pages/admin/AdminDataModelReview
 import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
-import { ROLE } from '../../api/role/Role';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
-
-// Widely used params as constants
-const USERNAME = ':username';
-const HOME = 'home';
-const GUIDEDTOUR = 'guidedtour';
-const DATAMODEL = 'datamodel';
-const MODERATION = 'moderation';
-export const SCOREBOARD = 'scoreboard';
-export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
-export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
-const MENTOR_SPACE = 'mentor-space';
-
-// The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
-export const URL_ROLES = {
-  ADMIN: ROLE.ADMIN.toLowerCase(),
-  ADVISOR: ROLE.ADVISOR.toLowerCase(),
-  ALUMNI: ROLE.ALUMNI.toLowerCase(),
-  FACULTY: ROLE.FACULTY.toLowerCase(),
-  MENTOR: ROLE.MENTOR.toLowerCase(),
-  STUDENT: ROLE.STUDENT.toLowerCase(),
-};
-
-export const EXPLORER_TYPE = {
-  HOME: 'explorer',
-  ACADEMICPLANS: 'plans',
-  CAREERGOALS: 'career-goals',
-  COURSES: 'courses',
-  DEGREES: 'degrees',
-  INTERESTS: 'interests',
-  OPPORTUNITIES: 'opportunities',
-  USERS: 'users',
-};
-const EXPLORER_PARAM = {
-  ACADEMICPLAN: ':plan',
-  CAREERGOAL: ':careergoal',
-  COURSE: ':course',
-  DEGREE: ':degree',
-  INTEREST: ':interest',
-  OPPORTUNITY: ':opportunity',
-};
+import { URL_ROLES, USERNAME, HOME, DATAMODEL, EXPLORER_TYPE, MODERATION, ANALYTICS, SCOREBOARD, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, EXPLORER_PARAM, GUIDEDTOUR, MENTOR_SPACE } from './route-constants';
 
 export const routes = {
   ADMIN: [
@@ -266,24 +230,52 @@ export const routes = {
       component: AdminModerationPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/analytics`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`,
       exact: true,
       component: AdminAnalyticsPageContainer,
     },
     {
+      path:
+        `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
+      exact: true,
+      component:
+      AdminAnalyticsNewsletterPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`,
+      exact: true,
+      component:
+      AdminAnalyticsOverheadAnalysisPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`,
+      exact: true,
+      component:
+      AdminAnalyticsStudentSummaryPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`,
+      exact: true,
+      component:
+      AdminAnalyticsUserInteractionsPageContainer,
+    },
+    {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component:
+      ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component:
+      ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component:
+      ScoreboardPageContainer,
     },
   ],
   ADVISOR: [
@@ -293,10 +285,12 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
+      exact: true,
       component: AdvisorVerificationRequestPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,
+      exacT: true,
       component: AdvisorModerationPageContainer,
     },
     {
@@ -332,10 +326,12 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/verification-requests`,
+      exact: true,
       component: FacultyVerificationPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/manage-opportunities`,
+      exact: true,
       component: FacultyManageOpportunitiesPageContainer,
     },
     {
@@ -501,12 +497,12 @@ export const routes = {
       component: LandingOpportunityExplorerContainer,
     },
     {
-      path: `/${EXPLORER_TYPE.HOME}/academic-plans`,
+      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
       component: LandingAcademicPlansCardExplorerContainer,
     },
     {
-      path: `/${EXPLORER_TYPE.HOME}/academic-plans/${EXPLORER_PARAM.ACADEMICPLAN}`,
+      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: false,
       component: LandingAcademicPlanExplorerContainer,
     },

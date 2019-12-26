@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Loader, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
@@ -34,54 +34,43 @@ interface IGuidedTourStudentProps {
   ready: boolean;
 }
 
-class GuidedTourStudent extends React.Component<IGuidedTourStudentProps> {
-  constructor(props) {
-    super(props);
-  }
+const renderPage = (props: IGuidedTourStudentProps) => {
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+  };
+  return (
+    <div style={styles.background}>
+      <Container textAlign="center">
+        <Segment padded style={styles.background}>
+          <Slider {...settings}>
+            <WhyRadGrad />
+            <SetUp />
+            <Interests interests={props.interests} />
+            <CareerPath careerGoals={props.careerGoals} />
+            <Courses courses={props.courses} courseReviews={props.courseReviews} />
+            <Opportunities opportunties={props.opportunities} />
+            <DegreePlan />
+            <ICE />
+            <Levels />
+            <SampleStudent />
+            <Mentor mentors={props.mentors} mentorLocations={props.mentorLocations} />
+            <AdvisorLog />
+            <WhatsNext />
+          </Slider>
+        </Segment>
+        <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
+      </Container>
+      <LandingFooter />
+    </div>
+  );
+};
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active={true}>Getting data</Loader>;
-  }
-
-  public renderPage() {
-
-    const settings = {
-      dots: true,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      swipeToSlide: true,
-    };
-
-    return (
-      <div style={styles.background}>
-        <Container textAlign="center">
-          <Segment padded={true} style={styles.background}>
-            <Slider {...settings}>
-              <WhyRadGrad/>
-              <SetUp/>
-              <Interests interests={this.props.interests}/>
-              <CareerPath careerGoals={this.props.careerGoals}/>
-              <Courses courses={this.props.courses} courseReviews={this.props.courseReviews}/>
-              <Opportunities opportunties={this.props.opportunities}/>
-              <DegreePlan/>
-              <ICE/>
-              <Levels/>
-              <SampleStudent/>
-              <Mentor mentors={this.props.mentors} mentorLocations={this.props.mentorLocations}/>
-              <AdvisorLog/>
-              <WhatsNext/>
-            </Slider>
-          </Segment>
-          <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
-        </Container>
-        <LandingFooter/>
-      </div>
-    );
-  }
-}
+const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

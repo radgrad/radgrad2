@@ -1,14 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
-import { moment } from 'meteor/momentjs:moment';
+import moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';
 
 interface IStudentMentorSpaceQuestionFormProps {
   match: {
@@ -40,12 +39,12 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -54,8 +53,6 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
     });
   }
 
-  public public;
-
   public render()
     :
     React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -63,11 +60,11 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
       question: String,
     });
     return (
-      <Segment padded={true}>
-        <Header dividing={true}><h4>ASK A NEW QUESTION</h4></Header>
+      <Segment padded id={studentMentorSpaceAskQuestionWidget}>
+        <Header dividing><h4>ASK A NEW QUESTION</h4></Header>
         <AutoForm schema={schema} onSubmit={this.handleSubmit} ref={this.formRef}>
-          <LongTextField name="question"/>
-          <SubmitField/>
+          <LongTextField name="question" />
+          <SubmitField inputRef={undefined} value="Ask Question" disabled={false} className="" />
         </AutoForm>
       </Segment>
     );

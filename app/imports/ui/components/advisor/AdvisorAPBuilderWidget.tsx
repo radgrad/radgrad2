@@ -1,13 +1,9 @@
-import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import React from 'react';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
@@ -19,7 +15,7 @@ import {
   academicTermToName,
   degreeShortNameToSlug,
   docToShortName,
-} from '../shared/AdminDataModelHelperFunctions';
+} from '../shared/data-model-helper-functions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
@@ -122,12 +118,12 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -148,13 +144,13 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error deleting CareerGoal. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -246,7 +242,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Delete failed',
           text: `Cannot delete the single choice ${PlanChoiceCollection.toStringFromSlug(choice)}.`,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         this.setState({ showConfirmDelete: true, deletePlanChoice: choice });
@@ -281,13 +277,13 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
         Swal.fire({
           title: 'Add academic plan failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error adding academic plan. %o', error);
       } else {
         Swal.fire({
           title: 'Add academic plan succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -321,11 +317,11 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
-      degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
+      degree: { icon: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
       name: String,
       description: String,
       term: {
-        type: String,
+        icon: String,
         allowedValues: termNames,
         defaultValue: currentTermName,
       },
@@ -336,38 +332,51 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     };
     return (
       <Segment>
-        <Header dividing={true}>ACADEMIC PLAN</Header>
+        <Header dividing>ACADEMIC PLAN</Header>
         <AutoForm schema={schema} onSubmit={this.handleSavePlan}>
           <Form.Group widths="equal">
-            <SelectField name="degree"/>
-            <TextField name="name"/>
-            <SelectField name="term"/>
+            <SelectField name="degree" />
+            <TextField name="name" />
+            <SelectField name="term" />
           </Form.Group>
-          <LongTextField name="description"/>
-          <SubmitField className="basic green" value="Save Academic Plan"/>
+          <LongTextField name="description" />
+          <SubmitField className="basic green" value="Save Academic Plan" disabled={false} inputRef={undefined} />
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Grid stackable={true} style={paddingTopStyle}>
+          <Grid stackable style={paddingTopStyle}>
             <Grid.Column width={10}>
-              <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList}/>
+              <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList} />
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice} />
             </Grid.Column>
           </Grid>
         </DragDropContext>
-        <Confirm open={this.state.showConfirmAdd} onCancel={this.handleCancelAdd} onConfirm={this.handleConfirmAdd}
-                 confirmButton='Add Choice'
-                 header="Add Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}/>
-        <Confirm open={this.state.showConfirmDelete} onCancel={this.handleCancelDelete}
-                 onConfirm={this.handleConfirmDelete}
-                 confirmButton='Delete Choice'
-                 header="Delete Plan Choice?"
-                 content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}/>
-        <Confirm open={this.state.showConfirmCombine} cancelButton='Simple Combine' confirmButton='Compound Combine'
-                 header='Simple or Compound Combine?' onCancel={this.handleSimpleCombine}
-                 onConfirm={this.handleCompoundCombine}
-                 content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}/>
+        <Confirm
+          open={this.state.showConfirmAdd}
+          onCancel={this.handleCancelAdd}
+          onConfirm={this.handleConfirmAdd}
+          confirmButton="Add Choice"
+          header="Add Plan Choice?"
+          content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}
+        />
+        <Confirm
+          open={this.state.showConfirmDelete}
+          onCancel={this.handleCancelDelete}
+          onConfirm={this.handleConfirmDelete}
+          confirmButton="Delete Choice"
+          header="Delete Plan Choice?"
+          content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}
+        />
+        <Confirm
+          open={this.state.showConfirmCombine}
+          cancelButton="Simple Combine"
+          confirmButton="Compound Combine"
+          header="Simple or Compound Combine?"
+          onCancel={this.handleSimpleCombine}
+          onConfirm={this.handleCompoundCombine}
+          content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}
+        />
       </Segment>
     );
   }

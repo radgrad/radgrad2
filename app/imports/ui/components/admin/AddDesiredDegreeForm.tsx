@@ -1,9 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 interface IAddDesiredDegreeFormProps {
@@ -11,27 +8,24 @@ interface IAddDesiredDegreeFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddDesiredDegreeForm extends React.Component<IAddDesiredDegreeFormProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Desired Degree</Header>
-        <AutoForm schema={DesiredDegrees.getDefineSchema()} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}>
-          <Form.Group widths="equal">
-            <TextField name="slug" placeholder="bs_science"/>
-            <TextField name="name" placeholder="B.S. in Science"/>
-            <TextField name="shortName" placeholder="B.S. S"/>
-          </Form.Group>
-          <LongTextField name="description"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddDesiredDegreeForm = (props: IAddDesiredDegreeFormProps) => (
+  <Segment padded>
+    <Header dividing>Add Desired Degree</Header>
+    <AutoForm
+      schema={DesiredDegrees.getDefineSchema()}
+      onSubmit={props.handleAdd}
+      ref={props.formRef}
+      showInlineError
+    >
+      <Form.Group widths="equal">
+        <TextField name="slug" placeholder="bs_science" />
+        <TextField name="name" placeholder="B.S. in Science" />
+        <TextField name="shortName" placeholder="B.S. S" />
+      </Form.Group>
+      <LongTextField name="description" />
+      <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+    </AutoForm>
+  </Segment>
+);
 
 export default AddDesiredDegreeForm;

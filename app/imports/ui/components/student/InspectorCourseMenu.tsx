@@ -1,16 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { Roles } from 'meteor/alanning:roles';
-import { selectCourse } from '../../../redux/actions/actions';
+import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import { ROLE } from '../../../api/role/Role';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { Users } from '../../../api/user/UserCollection';
+import { profileFavoriteBamAcademicPlan } from '../shared/data-model-helper-functions';
 
 interface IInpectorCourseMenuProps {
   studentID: string;
@@ -22,21 +20,16 @@ interface IInspectorCourseMenuState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(selectCourse(courseID)),
+    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
   });
 
 function courseStructureForMenu(userID) {
   let courses = Courses.findNonRetired({}, { sort: { num: 1 } });
   courses = _.filter(courses, (c: ICourse) => c.num !== 'other');
-  if (Roles.userIsInRole(userID, [ROLE.STUDENT])) {
-    const profile = StudentProfiles.findDoc({ userID });
-    const plan = AcademicPlans.findDoc(profile.academicPlanID);
-    const setttingsDoc = RadGradSettings.findOne({});
-    let numTermsPerYear = 3;
-    if (setttingsDoc.quarterSystem) {
-      numTermsPerYear = 4;
-    }
-    if (!plan || plan.coursesPerAcademicTerm.length < (4 * numTermsPerYear) + 1) { // not bachelors and masters
+  const profile = Users.getProfile(userID);
+  if (profile.role === ROLE.STUDENT) {
+    const bam = profileFavoriteBamAcademicPlan(profile);
+    if (!bam) { // not bachelors and masters
       const regex = /[1234]\d\d/g;
       courses = _.filter(courses, (c: ICourse) => c.num.match(regex));
     }
@@ -92,7 +85,12 @@ class InspectorCourseMenu extends React.Component<IInpectorCourseMenuProps, IIns
               <Dropdown text={coursesLabel(courses)}>
                 <Dropdown.Menu>
                   {_.map(courses, (c) => (
-                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>{c.num} {c.shortName}</Dropdown.Item>))}
+                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>
+                      {c.num}
+                      {' '}
+                      {c.shortName}
+                    </Dropdown.Item>
+))}
                 </Dropdown.Menu>
               </Dropdown>
             </Dropdown.Item>

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -21,45 +21,56 @@ interface IAcademicTermViewProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-class AcademicTermView extends React.Component<IAcademicTermViewProps> {
-  constructor(props) {
-    super(props);
-    // console.log(props);
-  }
-
-  public render() {
-    const termSlug = Slugs.getNameFromID(this.props.term.slugID);
-    const paddedStyle = {
-      margin: 10,
-      padding: 5,
-    };
-    const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
-    const inPast = this.props.term.termNumber < currentTermNum;
-    const isCurrent = this.props.term.termNumber === currentTermNum;
-    return (
-      <Container style={paddedStyle}>
-        <Header dividing={true} disabled={inPast} color={isCurrent ? 'green' : 'black'}>{AcademicTerms.toString(this.props.term._id)}</Header>
-        <Grid stackable={true} stretched={true}>
-          <Droppable droppableId={`${termSlug}`}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                // style={style}
-                style={getDroppableListStyle(snapshot.isDraggingOver)}
-              >
-                {_.map(this.props.courseInstances, (ci, index) => <DraggableCourseInstancePill key={ci._id} instance={ci} index={index}
-                                                                                               handleClickCourseInstance={this.props.handleClickCourseInstance}/>)}
-                {_.map(this.props.opportunityInstances, (oi, index) => <DraggableOpportunityInstancePill key={oi._id} instance={oi} index={index}
-                                                                                                         handleClickOpportunityInstance={this.props.handleClickOpportunityInstance}/>)}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </Grid>
-      </Container>
-    );
-  }
-}
+const AcademicTermView = (props: IAcademicTermViewProps) => {
+  const termSlug = Slugs.getNameFromID(props.term.slugID);
+  const paddedStyle = {
+    margin: 10,
+    padding: 5,
+  };
+  const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+  const inPast = props.term.termNumber < currentTermNum;
+  const isCurrent = props.term.termNumber === currentTermNum;
+  return (
+    <Container style={paddedStyle}>
+      <Header
+        dividing
+        disabled={inPast}
+        color={isCurrent ? 'green' : 'black'}
+      >
+        {AcademicTerms.toString(props.term._id)}
+      </Header>
+      <Grid stackable stretched>
+        <Droppable droppableId={`${termSlug}`}>
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              // style={style}
+              style={getDroppableListStyle(snapshot.isDraggingOver)}
+            >
+              {_.map(props.courseInstances, (ci, index) => (
+                <DraggableCourseInstancePill
+                  key={ci._id}
+                  instance={ci}
+                  index={index}
+                  handleClickCourseInstance={props.handleClickCourseInstance}
+                />
+))}
+              {_.map(props.opportunityInstances, (oi, index) => (
+                <DraggableOpportunityInstancePill
+                  key={oi._id}
+                  instance={oi}
+                  index={index}
+                  handleClickOpportunityInstance={props.handleClickOpportunityInstance}
+                />
+))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </Grid>
+    </Container>
+  );
+};
 
 const AcademicTermViewContainer = withTracker((props) => {
   const courseInstances = CourseInstances.find({

@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -58,7 +58,7 @@ export function semesters(opportunity) {
 }
 
 export function getRouteName(path: string): string {
-  let regex = /academic-plans/;
+  let regex = /plans/;
   if (regex.test(path)) {
     return 'Academic Plans';
   }

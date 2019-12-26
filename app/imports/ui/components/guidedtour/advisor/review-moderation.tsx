@@ -1,15 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-const ReviewModeration = () => (
+const GuidedTourAdvisorReviewModeration = () => (
   <div>
-    <Grid container={true} columns={2}>
-      <Grid.Column width={'six'}>
-        <a href="/images/guidedtour/guidedtour-reviewmoderation.png" target="_blank"><Image rounded={true} src="/images/guidedtour/guidedtour-reviewmoderation.png"/>
-        <p style={styles.p}>Click for full-size image</p></a>
+    <Grid container columns={2}>
+      <Grid.Column width="six">
+        <a href="/images/guidedtour/guidedtour-reviewmoderation.png" target="_blank">
+          <Image rounded src="/images/guidedtour/guidedtour-reviewmoderation.png" />
+          <p style={styles.p}>Click for full-size image</p>
+        </a>
       </Grid.Column>
-      <Grid.Column width={'ten'} textAlign={'left'}>
+      <Grid.Column width="ten" textAlign="left">
         <Header style={styles.h1}>Nurturing the social circle</Header>
 
         <p style={styles.p}>For RadGrad to truly create a &quot;community&quot;, it must be possible for students to communicate back to the community both the strengths and the weaknesses of their degree experience.  Two way communication both empowers students and makes RadGrad more valuable to them.  To do this, RadGrad enables students to provide &quot;reviews&quot; of courses and opportunities.</p>
@@ -22,4 +24,4 @@ const ReviewModeration = () => (
   </div>
 );
 
-export default ReviewModeration;
+export default GuidedTourAdvisorReviewModeration;

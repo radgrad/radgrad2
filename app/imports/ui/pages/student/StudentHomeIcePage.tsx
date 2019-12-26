@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -8,40 +8,32 @@ import StudentIceWidget from '../../components/student/StudentIceWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
-class StudentHomeIcePage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const StudentHomeIcePage = () => (
+  <div>
+    <StudentPageMenuWidget />
+    <Grid stackable>
+      <Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
+      </Grid.Row>
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    return (
-      <div>
-        <StudentPageMenuWidget/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={3}>
+          <StudentHomeMenu />
+        </Grid.Column>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <StudentHomeMenu/>
-            </Grid.Column>
+        <Grid.Column width={11} stretched>
+          <StudentIceWidget />
+        </Grid.Column>
+        <Grid.Column width={1} />
+      </Grid.Row>
+    </Grid>
 
-            <Grid.Column width={11} stretched={true}>
-              <StudentIceWidget/>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-        </Grid>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+    <BackToTopButton />
+  </div>
+);
 
 const StudentHomeIcePageCon = withGlobalSubscription(StudentHomeIcePage);
 const StudentHomeIcePageContainer = withInstanceSubscriptions(StudentHomeIcePageCon);

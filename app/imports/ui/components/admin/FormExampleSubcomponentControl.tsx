@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 interface IFormExampleProps {
@@ -14,10 +14,9 @@ const options = [
 ];
 
 class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, IFormExampleState> {
-  public state: IFormExampleState = { value: '' };
-
   constructor(props) {
     super(props);
+    this.state = { value: '' };
   }
 
   public handleChange = (e, { value }) => this.setState({ value });
@@ -28,11 +27,12 @@ class FormExampleSubcomponentControl extends React.Component<IFormExampleProps, 
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">
-          <Form.Input fluid={true} label="First name" placeholder="First name" />
-          <Form.Input fluid={true} label="Last name" placeholder="Last name" />
-          <Form.Select fluid={true} label="Gender" options={options} placeholder="Gender" />
+          <Form.Input fluid label="First name" placeholder="First name" />
+          <Form.Input fluid label="Last name" placeholder="Last name" />
+          <Form.Select fluid label="Gender" options={options} placeholder="Gender" />
         </Form.Group>
-        <Form.Group inline={true}>
+        <Form.Group inline>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Size</label>
           <Form.Radio
             label="Small"

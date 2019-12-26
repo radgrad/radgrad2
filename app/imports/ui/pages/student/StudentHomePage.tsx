@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentHomeMenu from '../../components/student/StudentHomeMenu';
@@ -6,36 +6,32 @@ import StudentHomeWidget from '../../components/student/StudentHomeWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-class StudentHomePage extends React.Component {
-  public render() {
-    return (
-      <div>
-        <StudentPageMenuWidget/>
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+const StudentHomePage = () => (
+  <div>
+    <StudentPageMenuWidget />
+    <Grid stackable>
+      <Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
+      </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <StudentHomeMenu/>
-            </Grid.Column>
+      <Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={3}>
+          <StudentHomeMenu />
+        </Grid.Column>
 
-            <Grid.Column width={11}>
-              <StudentHomeWidget/>
-            </Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
+        <Grid.Column width={11}>
+          <StudentHomeWidget />
+        </Grid.Column>
+        <Grid.Column width={1} />
+      </Grid.Row>
 
-        </Grid>
+    </Grid>
 
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+    <BackToTopButton />
+  </div>
+);
 
 export default StudentHomePage;

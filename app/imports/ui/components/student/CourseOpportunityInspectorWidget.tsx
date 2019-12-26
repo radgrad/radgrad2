@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
@@ -34,70 +34,72 @@ interface ICOInspectorWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-    selectedCourseID: state.depInspector.selectedCourseID,
-    selectedCourseInstanceID: state.depInspector.selectedCourseInstanceID,
-    selectedOpportunityID: state.depInspector.selectedOpportunityID,
-    selectedOpportunityInstanceID: state.depInspector.selectedOpportunityInstanceID,
-  });
+  selectedCourseID: state.student.degreePlanner.inspector.selectedCourseID,
+  selectedCourseInstanceID: state.student.degreePlanner.inspector.selectedCourseInstanceID,
+  selectedOpportunityID: state.student.degreePlanner.inspector.selectedOpportunityID,
+  selectedOpportunityInstanceID: state.student.degreePlanner.inspector.selectedOpportunityInstanceID,
+});
 
-class CourseOpportunityInspectorWidget extends React.Component<ICOInspectorWidgetProps> {
-  constructor(props) {
-    super(props);
+const CourseOpportunityInspectorWidget = (props: ICOInspectorWidgetProps) => {
+  const userName = props.match.params.username;
+  const studentID = Users.getID(userName);
+  const padddingBottomStyle = {
+    paddingBottom: 0,
+  };
+  let courseID;
+  if (props.selectedCourseInstanceID) {
+    const courseInstance = CourseInstances.findDoc(props.selectedCourseInstanceID);
+    courseID = courseInstance.courseID;
   }
-
-  public render() {
-    const userName = this.props.match.params.username;
-    const studentID = Users.getID(userName);
-    const padddingBottomStyle = {
-      paddingBottom: 0,
-    };
-    let courseID;
-    if (this.props.selectedCourseInstanceID) {
-      const courseInstance = CourseInstances.findDoc(this.props.selectedCourseInstanceID);
-      courseID = courseInstance.courseID;
-    }
-    let opportunityID;
-    if (this.props.selectedOpportunityInstanceID) {
-      const instance = OpportunityInstances.findDoc(this.props.selectedOpportunityInstanceID);
-      opportunityID = instance.opportunityID;
-    }
-    return (
-      <div>
-        <Button.Group attached="top">
-          <Button>
-            <InspectorCourseMenuContainer studentID={studentID}/>
-          </Button>
-          <Button.Or/>
-          <Button>
-            <InspectorOpportunityMenuContainer studentID={studentID}/>
-          </Button>
-        </Button.Group>
-        <Grid container={true}>
-          <Grid.Row stretched={true} style={padddingBottomStyle}>
-            {this.props.selectedCourseID ?
-              <InspectorCourseViewContainer courseID={this.props.selectedCourseID} studentID={studentID}/> : ''}
-            {this.props.selectedCourseInstanceID ?
-              <InspectorCourseViewContainer courseInstanceID={this.props.selectedCourseInstanceID} courseID={courseID}
-                                   studentID={studentID}/> : ''}
-            {this.props.selectedOpportunityID ?
-              <InspectorOpportunityViewContainer opportunityID={this.props.selectedOpportunityID} studentID={studentID}/> : ''}
-            {this.props.selectedOpportunityInstanceID ?
-              <InspectorOpportunityViewContainer opportunityInstanceID={this.props.selectedOpportunityInstanceID}
-                                        opportunityID={opportunityID} studentID={studentID}/> : ''}
-            {(!this.props.selectedCourseID && !this.props.selectedCourseInstanceID && !this.props.selectedOpportunityID && !this.props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above or click on a Course or Opportunity in the Degree Experience Planner to the right.' : ''}
-          </Grid.Row>
-        </Grid>
-      </div>
-    );
+  let opportunityID;
+  if (props.selectedOpportunityInstanceID) {
+    const instance = OpportunityInstances.findDoc(props.selectedOpportunityInstanceID);
+    opportunityID = instance.opportunityID;
   }
-}
+  return (
+    <div>
+      <Button.Group attached="top">
+        <Button>
+          <InspectorCourseMenuContainer studentID={studentID} />
+        </Button>
+        <Button.Or />
+        <Button>
+          <InspectorOpportunityMenuContainer studentID={studentID} />
+        </Button>
+      </Button.Group>
+      <Grid container>
+        <Grid.Row stretched style={padddingBottomStyle}>
+          {props.selectedCourseID ?
+            <InspectorCourseViewContainer courseID={props.selectedCourseID} studentID={studentID} /> : ''}
+          {props.selectedCourseInstanceID ? (
+            <InspectorCourseViewContainer
+              courseInstanceID={props.selectedCourseInstanceID}
+              courseID={courseID}
+              studentID={studentID}
+            />
+          ) : ''}
+          {props.selectedOpportunityID ?
+            <InspectorOpportunityViewContainer opportunityID={props.selectedOpportunityID} studentID={studentID} /> : ''}
+          {props.selectedOpportunityInstanceID ? (
+            <InspectorOpportunityViewContainer
+              opportunityInstanceID={props.selectedOpportunityInstanceID}
+              opportunityID={opportunityID}
+              studentID={studentID}
+            />
+          ) : ''}
+          {(!props.selectedCourseID && !props.selectedCourseInstanceID && !props.selectedOpportunityID && !props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above or click on a Course or Opportunity in the Degree Experience Planner to the right.' : ''}
+        </Grid.Row>
+      </Grid>
+    </div>
+  );
+};
 
 const CourseOpportunityInspectorWidgetCon = withGlobalSubscription(CourseOpportunityInspectorWidget);
 const CourseOpportunityInspectorWidgetCont = withInstanceSubscriptions(CourseOpportunityInspectorWidgetCon);
 const COIW = withRouter(CourseOpportunityInspectorWidgetCont);
 const CourseOpportunityInspectorWidgetConati = withTracker(() => ({
-    courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
-    opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
-  }))(COIW);
+  courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
+  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
+}))(COIW);
 const CourseOpportunityInspectorWidgetContainer = connect(mapStateToProps)(CourseOpportunityInspectorWidgetConati);
 export default CourseOpportunityInspectorWidgetContainer;

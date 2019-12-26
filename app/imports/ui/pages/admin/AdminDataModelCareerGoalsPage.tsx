@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -11,7 +11,6 @@ import {
   ICareerGoal, ICareerGoalUpdate, // eslint-disable-line
   IDescriptionPair, // eslint-disable-line
 } from '../../../typings/radgrad';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
@@ -19,11 +18,13 @@ import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { dataModelActions } from '../../../redux/admin/data-model';
+import { profileGetCareerGoalIDs, itemToSlugName } from '../../components/shared/data-model-helper-functions';
 
 function numReferences(careerGoal) {
   let references = 0;
   Users.findProfiles({}, {}).forEach((profile) => {
-    if (_.includes(profile.careerGoalIDs, careerGoal._id)) {
+    if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
       references += 1;
     }
   });
@@ -36,14 +37,14 @@ const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => [
     { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
   ];
 
-const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name}`;
+const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name} (${itemToSlugName(careerGoal)})`;
 
 const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
-    <React.Fragment>
-      {careerGoal.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(careerGoal)}
-    </React.Fragment>
+  <React.Fragment>
+    {careerGoal.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
+    {itemTitleString(careerGoal)}
+  </React.Fragment>
   );
 
 class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
@@ -67,12 +68,12 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
         Swal.fire({
           title: 'Add failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Add succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -103,13 +104,13 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Error deleting CareerGoal. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -139,13 +140,13 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
         Swal.fire({
           title: 'Update failed',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
         console.error('Update failed', error);
       } else {
         Swal.fire({
           title: 'Update succeeded',
-          type: 'success',
+          icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -161,34 +162,40 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={CareerGoals} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <AdminDataModelUpdateForm
+                collection={CareerGoals}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={CareerGoals}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={setCollectionShowIndex}
-                                  setShowCount={setCollectionShowCount}
+            <ListCollectionWidget
+              collection={CareerGoals}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

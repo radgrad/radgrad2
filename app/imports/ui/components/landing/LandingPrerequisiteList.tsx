@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { List } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { getSlugFromEntityID } from './helper-functions';
 
@@ -11,9 +11,10 @@ interface IPrerequisitesListProps {
 const LandingPrerequisiteList = (props: IPrerequisitesListProps) => {
   const courses = _.map(props.prerequisites, (slug) => Courses.findDocBySlug(slug));
   return (
-    <List horizontal={true} bulleted={true}>
+    <List horizontal bulleted>
       {// console.log(course.name);
-       courses.map((course) => (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>))}
+       courses.map((course) => (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>))
+}
     </List>
   );
 };

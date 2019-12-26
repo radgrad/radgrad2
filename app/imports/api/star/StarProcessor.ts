@@ -1,13 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Papa } from 'meteor/harrison:papa-parse';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { IStarDataObject } from '../../typings/radgrad'; // eslint-disable-line
-
-/* global isNaN */
 
 /**
  * Given the semester string from STAR (for example, 'Fall 2015 ext'), parses it, defines the corresponding academicTerm,
@@ -104,7 +102,7 @@ function filterParsedData(parsedData) {
   // Remove first element containing headers from data array.
   filteredData = _.drop(filteredData, 1);
   // Remove trailing elements that don't contain data.
-  filteredData = _.dropRightWhile(filteredData, (data) => data.length < 5);
+  filteredData = _.dropRightWhile(filteredData, (data: any) => data.length < 5);
   // Remove test scores that appear at top.
   filteredData = _.dropWhile(filteredData, (data) => data[2].startsWith('Test'));
   return filteredData;

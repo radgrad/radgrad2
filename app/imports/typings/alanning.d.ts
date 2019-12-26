@@ -82,7 +82,7 @@ declare module 'meteor/alanning:roles' {
      * @param {String} role Name of role
      * @return {String} id of new role
      */
-    function createRole(role: string): string;
+    function createRole(role: string, options?: object): string;
 
     /**
      * Delete an existing role.  Will throw "Role in use" error if any users

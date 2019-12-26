@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { List, Icon } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
 import { satisfiesPlanChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
@@ -10,7 +10,7 @@ interface ICoursePrerequisitesViewProps {
   studentID: string;
 }
 
-function missingPrerequisite(prereqSlug, studentID) {
+const missingPrerequisite = (prereqSlug, studentID) => {
   const courseInstances = CourseInstances.find({ studentID }).fetch();
   let ret = true;
   _.forEach(courseInstances, (ci) => {
@@ -21,28 +21,18 @@ function missingPrerequisite(prereqSlug, studentID) {
     }
   });
   return ret;
-}
+};
 
-class CoursePrerequisitesView extends React.Component<ICoursePrerequisitesViewProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    // console.log(this.props);
-    return (
-      <List bulleted={true}>
-        {_.map(this.props.prerequisites, (p) => (
-              <List.Item key={p}>
-                {PlanChoiceCollection.toStringFromSlug(p)}
-                {missingPrerequisite(p, this.props.studentID) ? <Icon name="warning" color="red"/> :
-                  <Icon name="checkmark" color="green"/>}
-              </List.Item>
-          ))}
-      </List>
-    );
-  }
-
-}
+const CoursePrerequisitesView = (props: ICoursePrerequisitesViewProps) => (
+  <List bulleted>
+    {_.map(props.prerequisites, (p) => (
+      <List.Item key={p}>
+        {PlanChoiceCollection.toStringFromSlug(p)}
+        {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red" /> :
+        <Icon name="checkmark" color="green" />}
+      </List.Item>
+    ))}
+  </List>
+);
 
 export default CoursePrerequisitesView;

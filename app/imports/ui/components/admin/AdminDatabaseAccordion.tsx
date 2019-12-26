@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 
 interface IAdminDatabaseAccordionState {
@@ -38,10 +38,14 @@ class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProp
   public render() {
     const { activeIndex } = this.state;
     return (
-      <Accordion styled={true} fluid={true}>
+      <Accordion styled fluid>
         <Accordion.Title active={activeIndex === this.props.index} index={this.props.index} onClick={this.handleClick}>
-          <Icon name="dropdown"/>
-          {this.props.name} ({this.props.contents.length})
+          <Icon name="dropdown" />
+          {this.props.name}
+          {' '}
+(
+          {this.props.contents.length}
+)
         </Accordion.Title>
         <Accordion.Content active={activeIndex === this.props.index}>
           {this.prettyPrint()}

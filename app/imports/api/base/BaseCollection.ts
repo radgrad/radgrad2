@@ -1,6 +1,6 @@
 import { Roles } from 'meteor/alanning:roles';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
@@ -74,9 +74,10 @@ class BaseCollection {
    * Default subscription method for entities.
    * It subscribes to the entire collection.
    */
-  public subscribe() {
+  public subscribe(userID = undefined) {
     if (Meteor.isClient) {
-      Meteor.subscribe(this.collectionName);
+      // console.log(`${this.collectionName}.subscribe`, userID);
+      Meteor.subscribe(this.collectionName, userID);
     }
   }
 
@@ -360,6 +361,7 @@ class BaseCollection {
    * @ignore
    */
   protected assertRole(userId: string, roles: string[]): boolean {
+    // console.log(userId, roles, Roles.userIsInRole(userId, roles));
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else if (!Roles.userIsInRole(userId, roles)) {

@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -184,7 +184,7 @@ class OpportunityCollection extends BaseSlugCollection {
     });
     // Check that this opportunity is not referenced by any Teaser.
     Teasers.find().map((teaser) => {
-      if (Teasers.hasOpportunity(teaser, docID)) {
+      if (Teasers.hasTarget(teaser, docID)) {
         throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser ${teaser}.`);
       }
       return true;

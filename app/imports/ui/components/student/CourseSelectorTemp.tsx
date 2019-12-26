@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Form } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
-import { selectCourse } from '../../../redux/actions/actions';
 import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IConnectedCourseSelectorTempProps {
   courses: ICourse[];
@@ -19,7 +19,7 @@ interface IConnectedCourseSelectorTempState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(selectCourse(courseID)),
+    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
   });
 
 class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelectorTempProps, IConnectedCourseSelectorTempState> {
@@ -53,7 +53,7 @@ class ConnectedCourseSelectorTemp extends React.Component<IConnectedCourseSelect
     // console.log(options);
     return (
       <Form>
-        <Form.Select fluid={true} label="Course" options={options} placeholder="Course" onChange={this.handleChange}/>
+        <Form.Select fluid label="Course" options={options} placeholder="Course" onChange={this.handleChange} />
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
       </Form>
     );

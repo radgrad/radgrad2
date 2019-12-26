@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
-import { moment } from 'meteor/momentjs:moment';
+import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
@@ -219,13 +219,14 @@ class VerificationRequestCollection extends BaseCollection {
         if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADMIN]) || Meteor.isAppTest) {
+        const profile = Users.getProfile(this.userId);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
           return instance.collection.find();
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.ADVISOR])) {
+        if (profile.role === ROLE.ADVISOR) {
           return instance.collection.find({ retired: { $not: { $eq: true } } });
         }
-        if (Roles.userIsInRole(this.userId, [ROLE.FACULTY])) {
+        if (profile.role === ROLE.FACULTY) {
           return instance.collection.find({ sponsorID: studentID, retired: { $not: { $eq: true } } });
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
@@ -338,8 +339,12 @@ class VerificationRequestCollection extends BaseCollection {
   public assertRole(userId: string, roles: string[]): boolean {
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
-    } else if (!Roles.userIsInRole(userId, roles)) {
-      throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
+    } else {
+      const profile = Users.getProfile(userId);
+      if (!_.includes(roles, profile.role)) {
+        throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
+      }
+
     }
     return true;
   }

@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 
 /**
  * Class that can calculate the preferred choice given an array of interests.

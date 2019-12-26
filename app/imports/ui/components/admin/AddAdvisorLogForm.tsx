@@ -1,16 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor'; // eslint-disable-line
+import 'uniforms-bridge-simple-schema-2';
 import { Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles';
-import { _ } from 'meteor/erasaur:meteor-lodash';
-import { ROLE } from '../../../api/role/Role';
-import { profileToUsername } from '../shared/AdminDataModelHelperFunctions';
+import _ from 'lodash';
+import { profileToUsername } from '../shared/data-model-helper-functions';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface IAddAdvisorLogFormProps {
   advisors: Meteor.User[];
@@ -19,46 +17,41 @@ interface IAddAdvisorLogFormProps {
   handleAdd: (doc) => any;
 }
 
-class AddAdvisorLogForm extends React.Component<IAddAdvisorLogFormProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // console.log(this.props);
-    const advisorNames = _.map(this.props.advisors, profileToUsername);
-    const studentNames = _.map(this.props.students, profileToUsername);
-    const schema = new SimpleSchema({
-      advisor: {
-        type: String,
-        allowedValues: advisorNames,
-        defaultValue: advisorNames[0],
-      },
-      student: {
-        type: String,
-        allowedValues: studentNames,
-        defaultValue: studentNames[0],
-      },
-      text: String,
-    });
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Advisor Log</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef}>
-          <SelectField name="advisor"/>
-          <SelectField name="student"/>
-          <LongTextField name="text"/>
-          <SubmitField className="basic green" value="Add"/>
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+  console.log('AddAdvisorLogForm', props);
+  const advisorNames = _.map(props.advisors, profileToUsername);
+  const studentNames = _.map(props.students, profileToUsername);
+  // console.log(advisorNames, studentNames);
+  const schema = new SimpleSchema({
+    advisor: {
+      type: String,
+      allowedValues: advisorNames,
+      defaultValue: advisorNames[0],
+    },
+    student: {
+      type: String,
+      allowedValues: studentNames,
+      defaultValue: studentNames[0],
+    },
+    text: String,
+  });
+  return (
+    <Segment padded>
+      <Header dividing>Add Advisor Log</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
+        <SelectField name="advisor" />
+        <SelectField name="student" />
+        <LongTextField name="text" />
+        <SubmitField className="basic green" value="Add" />
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddAdvisorLogFormContainer = withTracker(() => {
-  const advisors = Roles.getUsersInRole(ROLE.ADVISOR).fetch();
-  const students = Roles.getUsersInRole(ROLE.STUDENT).fetch();
-  // console.log('advisors=%o students=%o', advisors, students);
+  const advisors = AdvisorProfiles.findNonRetired({}, { $sort: { lastName: 1, firstName: 1 } });
+  const students = StudentProfiles.findNonRetired({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } });
+  console.log('advisors=%o students=%o', advisors, students);
   return {
     advisors,
     students,

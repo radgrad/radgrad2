@@ -1,9 +1,11 @@
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
+import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
+import { ICourse } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
 // import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 // import { clearFeedbackInstancesMethod, feedbackInstancesDefineMethod,
 //   feedbackInstancesRemoveItMethod } from '../feedback/FeedbackInstanceCollection.methods';
@@ -44,13 +46,13 @@ export function clearPlannedCourseInstances(studentID: string) {
   });
 }
 
-export function get300LevelDocs(): object[] {
-  return Courses.findNonRetired({ number: /3\d\d/ });
+export function get300LevelDocs(): ICourse[] {
+  return Courses.findNonRetired({ num: /3\d\d/ });
 }
 
 export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
   let ret = [];
-  const courses = get300LevelDocs();
+  const courses: ICourse[] = get300LevelDocs();
   const instances = CourseInstances.find({ studentID }).fetch();
   const courseTakenIDs = [];
   instances.forEach((courseInstance) => {
@@ -67,7 +69,8 @@ export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: str
 
 export function bestStudent300LevelCourses(studentID: string, coursesTakenSlugs: string[]) {
   const choices = getStudent300LevelDocs(studentID, coursesTakenSlugs);
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
 }
@@ -100,7 +103,8 @@ export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: str
 
 export function bestStudent400LevelCourses(studentID, coursesTakenSlugs) {
   const choices = getStudent400LevelDocs(studentID, coursesTakenSlugs);
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
 }
@@ -128,7 +132,8 @@ export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
       courses.push(Courses.findDoc(courseID));
     }
   });
-  const interestIDs = Users.getProfile(studentID).interestIDs;
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(courses, interestIDs);
   const best = preferred.getBestChoices();
   if (best) {

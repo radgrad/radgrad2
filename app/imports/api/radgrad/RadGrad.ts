@@ -1,4 +1,4 @@
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -32,6 +32,11 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
 
 /**
  * @memberOf api/radgrad
@@ -57,6 +62,11 @@ class RadGradClass {
       Courses,
       CourseInstances,
       FacultyProfiles,
+      FavoriteAcademicPlans,
+      FavoriteCareerGoals,
+      FavoriteCourses,
+      FavoriteInterests,
+      FavoriteOpportunities,
       Feeds,
       FeedbackInstances,
       HelpMessages,
@@ -118,6 +128,11 @@ class RadGradClass {
       MentorAnswers,
       Reviews,
       PlanChoices,
+      FavoriteAcademicPlans,
+      FavoriteCareerGoals,
+      FavoriteCourses,
+      FavoriteInterests,
+      FavoriteOpportunities,
     ];
 
     /**

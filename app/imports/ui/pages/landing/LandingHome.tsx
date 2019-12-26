@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import LandingNavBarContainer from '../../components/landing/LandingNavBar';
@@ -35,45 +35,49 @@ interface ILandingHomeProps {
 }
 
 /** A simple static component to render some text for the landing page. */
-class LandingHome extends React.Component<ILandingHomeProps> {
+const LandingHome = (props: ILandingHomeProps) => (
+  <div>
+    <LandingNavBarContainer />
+    <LandingSection1 />
+    <LandingSection2
+      careerGoals={props.careerGoals}
+      interests={props.interests}
+      opportunities={props.opportunities}
+      users={props.users}
+    />
+    <LandingSection3
+      careerGoals={props.careerGoals}
+      degrees={props.degrees}
+      interests={props.interests}
+    />
+    <LandingSection4 opportunities={props.opportunities} />
+    <LandingSection5 />
+    <LandingSection6
+      levelOne={props.levelOne}
+      levelTwo={props.levelTwo}
+      levelThree={props.levelThree}
+      levelFour={props.levelFour}
+      levelFive={props.levelFive}
+      levelSix={props.levelSix}
+    />
+    <LandingSection7 careerGoalNames={props.careerGoalNames} />
+    <LandingSection8
+      courseReviews={props.courseReviews}
+      locations={props.locations}
+      mentors={props.mentors}
+    />
+    <LandingSection9Container />
+    <LandingFooter />
 
-  constructor(props) {
-    super(props);
-    // console.log(`LandingHome props ${props}`);
-  }
-
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  public render() {
-    return (
-      <div>
-        <LandingNavBarContainer/>
-        <LandingSection1/>
-        <LandingSection2 careerGoals={this.props.careerGoals} interests={this.props.interests}
-                         opportunities={this.props.opportunities} users={this.props.users}/>
-        <LandingSection3 careerGoals={this.props.careerGoals} degrees={this.props.degrees}
-                         interests={this.props.interests}/>
-        <LandingSection4 opportunities={this.props.opportunities}/>
-        <LandingSection5/>
-        <LandingSection6 levelOne={this.props.levelOne} levelTwo={this.props.levelTwo}
-                         levelThree={this.props.levelThree} levelFour={this.props.levelFour}
-                         levelFive={this.props.levelFive} levelSix={this.props.levelSix}/>
-        <LandingSection7 careerGoalNames={this.props.careerGoalNames}/>
-        <LandingSection8 courseReviews={this.props.courseReviews} locations={this.props.locations}
-                         mentors={this.props.mentors}/>
-        <LandingSection9Container/>
-        <LandingFooter/>
-
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+    <BackToTopButton />
+  </div>
+);
 
 const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationName(), RadGradSettings.getPublicationName()]);
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = // console.log(`LandingHomeContainer withTracker()`);
-                             withTracker(() => ({
+  withTracker(() => ({
     careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
     careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
     courseReviews: PublicStats.getPublicStat(PublicStats.courseReviewsTotalKey),

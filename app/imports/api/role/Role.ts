@@ -1,5 +1,5 @@
 import { Roles } from 'meteor/alanning:roles';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 
 /** Defines the legal strings used to represent roles in the system. */
@@ -57,7 +57,7 @@ if (Meteor.isServer) {
   const definedRoleNames = _.map(allDefinedRoles, (role) => role.name);
   _.values(ROLE).forEach((role) => {
     if (!_.includes(definedRoleNames, role)) {
-      Roles.createRole(role);
+      Roles.createRole(role, { unlessExists: true });
     }
   });
 }

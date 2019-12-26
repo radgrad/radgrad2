@@ -1,11 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, SubmitField } from 'uniforms-semantic';
 import SimplSchema from 'simpl-schema';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
@@ -100,14 +98,15 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
       <div>
         <AutoForm schema={ChooseSchema} onSubmit={this.submit} model={plan}>
           <Form.Group style={noBottomMargin}>
-            <SelectField allowedValues={planYears} name="year" onChange={this.handleChangeYear} width={4}/>
-            <SelectField allowedValues={names} name="name" onChange={this.handleChangeName} width={12}/>
+            <SelectField allowedValues={planYears} name="year" onChange={this.handleChangeYear} width={4} />
+            <SelectField allowedValues={names} name="name" onChange={this.handleChangeName} width={12} />
           </Form.Group>
-          <br/>
-          <SubmitField value="Choose this Plan"/>
+          <br />
+          <SubmitField value="Choose this Plan" className="" disabled={false} inputRef={undefined} />
         </AutoForm>
-        <hr/><p/>
-        <AcademicPlanViewerWidget academicPlan={this.state.academicPlan} username={this.props.match.params.username}/>
+        <hr />
+        <p />
+        <AcademicPlanViewerWidget academicPlan={this.state.academicPlan} username={this.props.match.params.username} />
       </div>
     );
   }

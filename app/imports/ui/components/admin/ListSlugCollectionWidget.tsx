@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
 import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
-import { setCollectionShowCount, setCollectionShowIndex } from '../../../redux/actions/paginationActions';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 interface IListSlugCollectionWidgetProps {
   collection: BaseCollection;
@@ -22,42 +22,48 @@ interface IListSlugCollectionWidgetProps {
 }
 
 const mapStateToProps = (state) => ({
-    pagination: state.pagination,
-  });
+  pagination: state.admin.dataModel.pagination,
+});
 
-class ListSlugCollectionWidget extends React.Component<IListSlugCollectionWidgetProps, {}> {
-  constructor(props) {
-    super(props);
-    // console.log('ListSlugCollectionWidget(%o)', props);
-  }
-
-  public render(): React.ReactNode {
-    // console.log('ListSlugCollectionWidget.render props=%o', this.props);
-    const count = this.props.collection.count();
-    const startIndex = this.props.pagination[this.props.collection.getCollectionName()].showIndex;
-    const showCount = this.props.pagination[this.props.collection.getCollectionName()].showCount;
-    const endIndex = startIndex + showCount;
-    const items = _.slice(this.props.items, startIndex, endIndex);
-    // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
-    return (
-      <Segment padded={true}>
-        <Header dividing={true}>{this.props.collection.getCollectionName()} ({count})</Header>
-        <Grid>
-          <AdminPaginationWidget collection={this.props.collection} setShowIndex={setCollectionShowIndex}
-                                 setShowCount={setCollectionShowCount}/>
-          {_.map(items, (item) => (
-            <AdminCollectionAccordion key={item._id} id={item._id} title={this.props.itemTitle(item)}
-                                      descriptionPairs={this.props.descriptionPairs(item)}
-                                      updateDisabled={true}
-                                      deleteDisabled={true}
-                                      handleOpenUpdate={this.props.handleOpenUpdate}
-                                      handleDelete={this.props.handleDelete}/>
-          ))}
-        </Grid>
-      </Segment>
-    );
-  }
-}
+const ListSlugCollectionWidget = (props: IListSlugCollectionWidgetProps) => {
+  // console.log('ListSlugCollectionWidget.render props=%o', props);
+  const count = props.collection.count();
+  const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
+  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
+  const endIndex = startIndex + showCount;
+  const items = _.slice(props.items, startIndex, endIndex);
+  // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
+  return (
+    <Segment padded>
+      <Header dividing>
+        {props.collection.getCollectionName()}
+        {' '}
+(
+        {count}
+)
+      </Header>
+      <Grid>
+        <AdminPaginationWidget
+          collection={props.collection}
+          setShowIndex={dataModelActions.setCollectionShowIndex}
+          setShowCount={dataModelActions.setCollectionShowCount}
+        />
+        {_.map(items, (item) => (
+          <AdminCollectionAccordion
+            key={item._id}
+            id={item._id}
+            title={props.itemTitle(item)}
+            descriptionPairs={props.descriptionPairs(item)}
+            updateDisabled
+            deleteDisabled
+            handleOpenUpdate={props.handleOpenUpdate}
+            handleDelete={props.handleDelete}
+          />
+        ))}
+      </Grid>
+    </Segment>
+  );
+};
 
 const ListSlugCollectionWidgetCon = connect(mapStateToProps)(ListSlugCollectionWidget);
 

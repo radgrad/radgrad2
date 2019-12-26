@@ -1,10 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IAddHelpMessageFormProps {
@@ -13,16 +9,16 @@ interface IAddHelpMessageFormProps {
 }
 
 const AddHelpMessageForm = (props: IAddHelpMessageFormProps) => (
-  <Segment padded={true}>
-    <Header dividing={true}>Add Help Message</Header>
-    <AutoForm schema={HelpMessages.getDefineSchema()} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+  <Segment padded>
+    <Header dividing>Add Help Message</Header>
+    <AutoForm schema={HelpMessages.getDefineSchema()} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
       <Form.Group widths="equal">
-        <TextField name="routeName"/>
-        <TextField name="title"/>
+        <TextField name="routeName" />
+        <TextField name="title" />
       </Form.Group>
-      <LongTextField name="text"/>
-      <BoolField name="retired"/>
-      <SubmitField className="basic green" value="Add"/>
+      <LongTextField name="text" />
+      <BoolField name="retired" />
+      <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
     </AutoForm>
   </Segment>
 );

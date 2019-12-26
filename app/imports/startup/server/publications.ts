@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import { _ } from 'meteor/erasaur:meteor-lodash';
+import _ from 'lodash';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { ROLE } from '../../api/role/Role';
 import { Users } from '../../api/user/UserCollection';
@@ -23,4 +23,11 @@ Meteor.publish('userStatus', function userStatus() {
     return Meteor.users.find({ 'status.online': true });
   }
   return [];
+});
+
+Meteor.publish(null, function () {
+  if (this.userId) {
+    return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  }
+  return this.ready();
 });

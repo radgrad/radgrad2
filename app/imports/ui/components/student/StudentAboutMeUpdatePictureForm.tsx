@@ -1,69 +1,69 @@
-import * as React from 'react';
-import { Form, Grid } from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 
 interface IStudentAboutMeUpdatePictureFormProps {
-  username: string;
   picture: string;
   docID: string;
   collectionName: string;
 }
 
-class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpdatePictureFormProps> {
-  state = { picture: this.props.picture };
+interface IStudentAboutMeUpdatePictureFormState {
+  picture: string;
+}
 
-  // private prePopulateForm = (picture) => {
-  //   this.setState({ picture: picture });
-  // }
+class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpdatePictureFormProps, IStudentAboutMeUpdatePictureFormState> {
+  constructor(props) {
+    super(props);
+    this.state = { picture: this.props.picture };
+  }
 
   private handleFormChange = (e, { value }) => this.setState({ picture: value });
 
-  private handleUpdatePicture = (e): void => {
+  private handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
-    const collectionName = this.props.collectionName;
-    const updateData = { id: this.props.docID, picture: this.state.picture };
-
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          type: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Update Succeeded',
-          type: 'success',
-          text: 'Your picture has been successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      }
-    });
+    const { collectionName, docID } = this.props;
+    const cloudinaryResult = await openCloudinaryWidget();
+    if (cloudinaryResult.event === 'success') {
+      const updateData: { id: string; picture: string; } = { id: docID, picture: cloudinaryResult.info.url };
+      updateMethod.call({ collectionName, updateData }, (error) => {
+        if (error) {
+          Swal.fire({
+            title: 'Update Failed',
+            text: error.message,
+            icon: 'error',
+          });
+        } else {
+          this.setState({ picture: cloudinaryResult.info.url });
+          Swal.fire({
+            title: 'Update Succeeded',
+            icon: 'success',
+            text: 'Your picture has been successfully updated.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          });
+        }
+      });
+    }
   }
 
-  // componentDidUpdate(prevProps: Readonly<IStudentAboutMeUpdatePictureFormProps>): void {
-  //   const prop = this.props.picture;
-  //   if (prop !== prevProps.picture) this.prePopulateForm(this.props.picture);
-  // }
-
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // TODO: Cloudinary functionality
     const { picture } = this.state;
+    const imageStyle = {
+      maxHeight: 90,
+      maxWidth: 150,
+      paddingRight: 30,
+    };
+
     return (
       <React.Fragment>
-        <Grid.Column width={2}><b>Picture</b>(<a id="image-upload-widget">Upload</a>)</Grid.Column>
+        <Grid.Column width={2}><b>Picture</b></Grid.Column>
         <Grid.Column width={6}>
-          <Form onSubmit={this.handleUpdatePicture}>
-            <Form.Group>
-              <Form.Input onChange={this.handleFormChange}
-                          value={picture}
-                          disabled={true}/>
-              <Form.Button basic={true} color="green">Update</Form.Button>
-            </Form.Group>
-          </Form>
+          <Image src={picture} style={imageStyle} floated="left" />
+          <Button basic color="green" onClick={this.handleUploadPicture}>Upload</Button>
         </Grid.Column>
       </React.Fragment>
     );

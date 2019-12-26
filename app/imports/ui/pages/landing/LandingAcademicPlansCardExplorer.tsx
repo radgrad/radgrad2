@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -10,6 +10,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import LandingAcademicPlanCardContainer from '../../components/landing/LandingAcademicPlanCard';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IAcademicPlansCardExplorerProps {
   ready: boolean;
@@ -20,51 +21,53 @@ interface IAcademicPlansCardExplorerProps {
   history: object;
 }
 
-class LandingAcademicPlansCardExplorer extends React.Component<IAcademicPlansCardExplorerProps> {
-  constructor(props) {
-    super(props);
-  }
+const renderPage = (props: IAcademicPlansCardExplorerProps) => {
+  const inlineStyle = {
+    maxHeight: 750,
+    marginTop: 10,
+  };
+  return (
+    <div>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-  public render() {
-    return (this.props.ready) ? this.renderPage() : <Loader>Loading Academic Plans</Loader>;
-  }
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={3}>
+            <LandingExplorerMenuContainer />
+          </Grid.Column>
 
-  private renderPage() {
-    const inlineStyle = {
-      maxHeight: 750,
-      marginTop: 10,
-    };
-    return (
-      <div>
-        <ExplorerMenuBarContainer/>
-        <Grid stackable={true} container={true} padded="vertically">
-          {/* <Grid.Row> */}
-          {/* <HelpPanelWidgetContainer routeProps={this.props.location}/> */}
-          {/* </Grid.Row> */}
-          <Grid.Row>
-            <Grid.Column width="three">
-              <LandingExplorerMenuContainer/>
-            </Grid.Column>
-            <Grid.Column width="thirteen">
-              <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-                <Header as="h4" dividing={true}>
-                  <span>ACADEMIC PLANS</span> ({this.props.count})
-                </Header>
-                <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
-                  {this.props.academicPlans.map((plan) => (
-                      <LandingAcademicPlanCardContainer key={plan._id} plan={plan}/>
-                    ))}
-                </Card.Group>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+          <Grid.Column width={11}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>ACADEMIC PLANS</span>
+                {' '}
+(
+                {props.count}
+)
+              </Header>
+              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
+                {props.academicPlans.map((plan) => (
+                  <LandingAcademicPlanCardContainer key={plan._id} plan={plan} />
+                ))}
+              </Card.Group>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
+      </Grid>
 
-        <BackToTopButton/>
-      </div>
-    );
-  }
-}
+      <BackToTopButton />
+    </div>
+  );
+};
+
+const LandingAcademicPlansCardExplorer = (props: IAcademicPlansCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Academic Plans</Loader>);
 
 const LandingAcademicPlansCardExplorerCon = withRouter(LandingAcademicPlansCardExplorer);
 

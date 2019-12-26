@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Header } from 'semantic-ui-react';
 import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
 import { getPlanChoices } from '../../../api/degree-plan/AcademicPlanUtilities';
@@ -17,19 +17,32 @@ const LandingAcademicPlanYearView = (props: ILandingAcademicPlanYearViewProps) =
   // console.log('LandingAcademicPlanYearView props=%o quarter=%o', props, quarter);
   return (
     <div>
-      <Header>Year {props.yearNumber + 1}</Header>
-      <LandingAcademicTermView title={AcademicTerms.FALL}
-                               id={`${AcademicTerms.FALL}-${props.yearNumber * 10 + termNum}`}
-                               choices={getPlanChoices(props.academicPlan, termNum++)}/>
-      {quarter ? <LandingAcademicTermView title={AcademicTerms.WINTER}
-                                          id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
-                                          choices={getPlanChoices(props.academicPlan, termNum++)}/> : ''}
-      <LandingAcademicTermView title={AcademicTerms.SPRING}
-                               id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}
-                               choices={getPlanChoices(props.academicPlan, termNum++)}/>
-      <LandingAcademicTermView title={AcademicTerms.SUMMER}
-                               id={`${AcademicTerms.SUMMER}-${props.yearNumber * 10 + termNum}`}
-                               choices={getPlanChoices(props.academicPlan, termNum++)}/>
+      <Header>
+Year
+        {props.yearNumber + 1}
+      </Header>
+      <LandingAcademicTermView
+        title={AcademicTerms.FALL}
+        id={`${AcademicTerms.FALL}-${props.yearNumber * 10 + termNum}`}
+        choices={getPlanChoices(props.academicPlan, termNum++)}
+      />
+      {quarter ? (
+        <LandingAcademicTermView
+          title={AcademicTerms.WINTER}
+          id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
+          choices={getPlanChoices(props.academicPlan, termNum++)}
+        />
+) : ''}
+      <LandingAcademicTermView
+        title={AcademicTerms.SPRING}
+        id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}
+        choices={getPlanChoices(props.academicPlan, termNum++)}
+      />
+      <LandingAcademicTermView
+        title={AcademicTerms.SUMMER}
+        id={`${AcademicTerms.SUMMER}-${props.yearNumber * 10 + termNum}`}
+        choices={getPlanChoices(props.academicPlan, termNum++)}
+      />
     </div>
   );
 };

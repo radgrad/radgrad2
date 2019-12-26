@@ -6,9 +6,8 @@ import { processStarCsvData, processBulkStarJsonData } from './StarProcessor';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
-/* global Assets */
 
 if (Meteor.isServer) {
   describe('StarProcessor', function testSuite() {

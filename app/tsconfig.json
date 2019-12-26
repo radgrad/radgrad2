@@ -6,6 +6,7 @@
     "alwaysStrict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
+    "esModuleInterop": true,
     "sourceMap": true,
     "jsx": "react",
     "lib": [

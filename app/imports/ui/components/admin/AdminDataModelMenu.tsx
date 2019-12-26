@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
@@ -26,6 +26,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
+import { leftHandMenu } from '../shared/shared-widget-names';
 
 interface IAdminDataModeMenuProps {
   match: {
@@ -69,31 +70,127 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/datamodel/`;
   // console.log(this.props, baseRoute);
   return (
-    <Menu vertical={true}>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-plans`}>Academic Plans ({props.academicPlanCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-terms`}>Academic Terms ({props.academicTermCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}academic-year-instances`}>Academic Year Instances ({props.academicYearCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}advisor-logs`}>Advisor Logs ({props.advisorLogCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}career-goals`}>Career Goals ({props.careerGoalCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}course-instances`}>Course Instances ({props.courseInstanceCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}courses`}>Courses ({props.courseCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}desired-degrees`}>Desired Degrees ({props.desiredDegreeCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}feeds`}>Feeds ({props.feedCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}feedback-instances`}>Feedback Instances ({props.feedbackCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}help-messages`}>Help Messages ({props.helpMessageCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}interests`}>Interests ({props.interestCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}interest-types`}>Interest Types ({props.interestTypeCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}mentor-answers`}>Mentor Answers ({props.mentorAnswerCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}mentor-questions`}>Mentor Questions ({props.mentorQuestionCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}opportunities`}>Opportunities ({props.opportunityCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}opportunity-instances`}>Opportunity Instances ({props.opportunityInstanceCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}opportunity-types`}>Opportunity Types ({props.opportunityTypeCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}plan-choices`}>Plan Choices ({props.planChoiceCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}reviews`}>Reviews ({props.reviewCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}slugs`}>Slugs ({props.slugCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}teasers`}>Teasers ({props.teaserCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}users`}>Users ({props.usersCount})</Menu.Item>
-      <Menu.Item as={NavLink} exact={true} to={`${baseRoute}verification-requests`}>Verification Requests ({props.verificationRequestCount})</Menu.Item>
+    <Menu vertical id={`${leftHandMenu}`}>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}academic-plans`}>
+Academic Plans (
+        {props.academicPlanCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}academic-terms`}>
+Academic Terms (
+        {props.academicTermCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}academic-year-instances`}>
+Academic Year Instances (
+        {props.academicYearCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}advisor-logs`}>
+Advisor Logs (
+        {props.advisorLogCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}career-goals`}>
+Career Goals (
+        {props.careerGoalCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}course-instances`}>
+Course Instances (
+        {props.courseInstanceCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}courses`}>
+Courses (
+        {props.courseCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}desired-degrees`}>
+Desired Degrees (
+        {props.desiredDegreeCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}feeds`}>
+Feeds (
+        {props.feedCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}feedback-instances`}>
+Feedback Instances (
+        {props.feedbackCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}help-messages`}>
+Help Messages (
+        {props.helpMessageCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}interests`}>
+Interests (
+        {props.interestCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}interest-types`}>
+Interest Types (
+        {props.interestTypeCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}mentor-answers`}>
+Mentor Answers (
+        {props.mentorAnswerCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}mentor-questions`}>
+Mentor Questions (
+        {props.mentorQuestionCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}opportunities`}>
+Opportunities (
+        {props.opportunityCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}opportunity-instances`}>
+Opportunity Instances (
+        {props.opportunityInstanceCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}opportunity-types`}>
+Opportunity Types (
+        {props.opportunityTypeCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}plan-choices`}>
+Plan Choices (
+        {props.planChoiceCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}reviews`}>
+Reviews (
+        {props.reviewCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}slugs`}>
+Slugs (
+        {props.slugCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}teasers`}>
+Teasers (
+        {props.teaserCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}users`}>
+Users (
+        {props.usersCount}
+)
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}verification-requests`}>
+Verification Requests (
+        {props.verificationRequestCount}
+)
+      </Menu.Item>
     </Menu>
   );
 };

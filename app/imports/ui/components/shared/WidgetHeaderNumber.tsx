@@ -1,19 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 
 interface IWidgetHeaderNumberProps {
   inputValue: number;
 }
 
-class WidgetHeaderNumber extends React.Component<IWidgetHeaderNumberProps> {
-  constructor(props) {
-    super(props);
-  }
+const WidgetHeaderNumber = (props: IWidgetHeaderNumberProps) => (
+  <span className="radgrad-header-number">
+&middot;
+    {props.inputValue}
+    {' '}
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    return (
-      <span className="radgrad-header-number">&middot; {this.props.inputValue} </span>
-    );
-  }
-}
+  </span>
+);
 
 export default WidgetHeaderNumber;

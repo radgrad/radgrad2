@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -18,48 +18,38 @@ interface IExplorerHomePageProps {
   };
 }
 
-class ExplorerHomePage extends React.Component<IExplorerHomePageProps> {
-  constructor(props) {
-    super(props);
+const renderPageMenuWidget = (props: IExplorerHomePageProps): JSX.Element => {
+  const role = Router.getRoleByUrl(props.match);
+  switch (role) {
+    case 'student':
+      return <StudentPageMenuWidget />;
+    case 'mentor':
+      return <MentorPageMenuWidget />;
+    case 'faculty':
+      return <FacultyPageMenuWidget />;
+    default:
+      return <React.Fragment />;
   }
+};
 
-  private getRoleByUrl = (): string => Router.getRoleByUrl(this.props.match);
+const ExplorerHomePage = (props: IExplorerHomePageProps) => (
+  <div>
+    {renderPageMenuWidget(props)}
+    <Grid stackable>
+      <Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
+      </Grid.Row>
 
-  private renderPageMenuWidget = (): JSX.Element => {
-    const role = this.getRoleByUrl();
-    switch (role) {
-      case 'student':
-        return <StudentPageMenuWidget/>;
-      case 'mentor':
-        return <MentorPageMenuWidget/>;
-      case 'faculty':
-        return <FacultyPageMenuWidget/>;
-      default:
-        return <React.Fragment/>;
-    }
-  }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    return (
-      <div>
-        {this.renderPageMenuWidget()}
-        <Grid stackable={true}>
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={3}>
-              <ExplorerNavDropdown match={this.props.match} text="Select Explorer"/>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    );
-  }
-}
+      <Grid.Row>
+        <Grid.Column width={1} />
+        <Grid.Column width={3}>
+          <ExplorerNavDropdown match={props.match} text="Select Explorer" />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  </div>
+);
 
 export default ExplorerHomePage;

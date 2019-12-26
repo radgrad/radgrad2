@@ -1,23 +1,24 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { moment } from 'meteor/momentjs:moment';
-import * as _ from 'lodash';
-import { selectCourseInstance, selectOpportunityInstance, selectInspectorTab } from '../../../redux/actions/actions';
+import moment from 'moment';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
-import { IAcademicYear, IAcademicYearDefine, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicYear, IAcademicYearDefine } from '../../../typings/radgrad';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { studentDepWidget } from './student-widget-names';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  selectInspectorTab: () => any;
+  selectFavoriteDetailsTab: () => any;
   match: {
     isExact: boolean;
     path: string;
@@ -28,18 +29,16 @@ interface IDePProps {
   };
 }
 
-// FIXME: Figure out a way so we dont have to do "{[key: string]: any}[]". This is mainly have to do with the handleDeleteYear.
-//        Can't call ._id on an AcademicYear type
 interface IDePState {
-  visibleYears: IAcademicYear[] | { [key: string]: any }[];
+  visibleYears: IAcademicYear[];
   visibleStartIndex: number;
-  years: IAcademicYear[] | { [key: string]: any }[];
+  years: IAcademicYear[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(selectOpportunityInstance(opportunityInstanceID)),
-  selectInspectorTab: () => dispatch(selectInspectorTab()),
+  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
 class DEPWidget extends React.Component<IDePProps, IDePState> {
@@ -84,19 +83,23 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   public handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
+    // console.log('click course instance', value);
     this.props.selectCourseInstance(value);
-    this.props.selectInspectorTab();
+    this.props.selectFavoriteDetailsTab();
   }
 
   public handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
+    // console.log('click opportunity instance', value);
     this.props.selectOpportunityInstance(value);
-    this.props.selectInspectorTab();
+    this.props.selectFavoriteDetailsTab();
   }
 
   public handleClickPrevYear = (event) => {
     event.preventDefault();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleStartIndex = this.state.visibleStartIndex - 1;
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       visibleStartIndex,
@@ -106,7 +109,9 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
 
   public handleClickNextYear = (event) => {
     event.preventDefault();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleStartIndex = this.state.visibleStartIndex + 1;
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       visibleStartIndex,
@@ -126,12 +131,12 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
         Swal.fire({
           title: 'Failed to create Academic Year',
           text: error.message,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Academic Year Created',
-          type: 'success',
+          icon: 'success',
           text: 'Successfully created a new Academic Year',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -141,6 +146,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     });
     const studentID = Users.getID(student);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(this.state.visibleStartIndex, this.state.visibleStartIndex + 5);
     this.setState({
       years,
@@ -157,12 +163,12 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
         Swal.fire({
           title: 'Failed to delete Academic Year',
           text: `${error.message}. The page most likely didn't update properly fast enough. Refresh the page if you see this error.`,
-          type: 'error',
+          icon: 'error',
         });
       } else {
         Swal.fire({
           title: 'Academic Year Deleted',
-          type: 'success',
+          icon: 'success',
           text: 'Successfully deleted an empty Academic Year',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -175,6 +181,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const studentID = Users.getID(student);
     const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
     const visibleStartIndex = this.state.visibleStartIndex - 1;
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
     this.setState({
       years,
@@ -207,40 +214,53 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
     const studentID = Users.getID(username);
 
     return (
-      <Segment padded={true}>
-        <Grid stackable={true} columns="equal">
-          <Grid.Row stretched={true}>
+      <Segment padded id={studentDepWidget}>
+        <Grid stackable columns="equal">
+          <Grid.Row stretched>
             {_.map(visibleYears, (year) => (
-              <AcademicYearView key={year._id} academicYear={year} studentID={studentID}
-                                handleClickCourseInstance={this.handleClickCourseInstance}
-                                handleClickOpportunityInstance={this.handleClickOpportunityInstance}/>
+              <AcademicYearView
+                key={year._id}
+                academicYear={year}
+                studentID={studentID}
+                handleClickCourseInstance={this.handleClickCourseInstance}
+                handleClickOpportunityInstance={this.handleClickOpportunityInstance}
+              />
             ))}
           </Grid.Row>
           <Grid.Row textAlign="center">
             <Grid.Column textAlign="left">
-              {visibleStartIndex > 0 ?
-                <Button color="green" icon={true} labelPosition="left" onClick={this.handleClickPrevYear}>
-                  <Icon name="arrow circle left"/>Previous Year
-                </Button> : ''}
+              {visibleStartIndex > 0 ? (
+                <Button color="green" icon labelPosition="left" onClick={this.handleClickPrevYear}>
+                  <Icon name="arrow circle left" />
+Previous Year
+                </Button>
+              ) : ''}
             </Grid.Column>
             <Grid.Column textAlign="center">
               <Button color="green" onClick={this.handleAddYear}>
-                <Icon name="plus circle"/> Add Academic Year
+                <Icon name="plus circle" />
+                {' '}
+Add Academic Year
               </Button>
             </Grid.Column>
             <Grid.Column textAlign="right">
-              {years.length > 0 ?
+              {years.length > 0 ? (
                 <React.Fragment>
-                  {visibleStartIndex < years.length - 4 ?
-                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleClickNextYear}>
-                      <Icon name="arrow circle right"/>Next Year
+                  {visibleStartIndex < years.length - 4 ? (
+                    <Button color="green" icon labelPosition="right" onClick={this.handleClickNextYear}>
+                      <Icon name="arrow circle right" />
+Next Year
                     </Button>
+                  )
                     :
-                    (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) &&
-                    <Button color="green" icon={true} labelPosition="right" onClick={this.handleDeleteYear}>
-                      <Icon name="minus circle"/>Delete Year
-                    </Button>}
-                </React.Fragment> : ''}
+                    (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) && (
+                    <Button color="green" icon labelPosition="right" onClick={this.handleDeleteYear}>
+                      <Icon name="minus circle" />
+Delete Year
+                    </Button>
+                  )}
+                </React.Fragment>
+              ) : ''}
             </Grid.Column>
           </Grid.Row>
         </Grid>
