@@ -53,7 +53,6 @@ const getTypeName = (props: ICardExplorerMenuProps): string => {
   }
 };
 
-// FIXME: Needs to be reactive
 const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
   const { menuAddedList, menuCareerList, match, type, role } = props;
   const isTypeInterest = props.type === EXPLORER_TYPE.INTERESTS;
