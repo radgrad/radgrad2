@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { ROLE } from '../../../api/role/Role';
 import ExplorerCard from './ExplorerCard';
