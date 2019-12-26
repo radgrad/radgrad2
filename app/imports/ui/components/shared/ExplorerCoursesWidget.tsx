@@ -20,8 +20,7 @@ import { courseSlugToName } from './data-model-helper-functions';
 import { explorerCourseWidget } from './shared-widget-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-// eslint-disable-next-line import/named
-import { toValueArray, toValueString } from '../../shared/description-pair-helpers';
+import { toId, toValueArray, toValueString } from '../../shared/description-pair-helpers';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -43,46 +42,46 @@ const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | Strin
         return (
           <h4>
             <i className="green checkmark icon" />
-Completed
+            Completed
           </h4>
-);
+        );
       }
       return (
         <h4 style={greyColorStyle}>
           <i className="grey checkmark icon" />
-Completed
+          Completed
         </h4>
-);
+      );
     case 1:
       if (table.length !== 0) {
         return (
           <h4>
             <i className="yellow warning sign icon" />
-In Plan (Not Yet Completed)
+            In Plan (Not Yet Completed)
           </h4>
-);
+        );
       }
       return (
         <h4 style={greyColorStyle}>
           <i className="grey warning sign icon" />
-In Plan (Not Yet Completed)
+          In Plan (Not Yet Completed)
         </h4>
-);
+      );
     case 2:
       if (table.length !== 0) {
         return (
           <h4>
             <i className="red warning circle icon" />
-Not in Plan
+            Not in Plan
           </h4>
-);
+        );
       }
       return (
         <h4 style={greyColorStyle}>
           <i className="grey warning circle icon" />
-Not in Plan
+          Not in Plan
         </h4>
-);
+      );
     default:
       return 'ERROR: More than one table.';
   }
@@ -145,9 +144,9 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
             <Header as="h4" floated="left">
               {upperShortName}
               {' '}
-(
+              (
               {name}
-)
+              )
             </Header>
             <FavoritesButton item={props.item} studentID={Router.getUserIdFromRoute(props.match)} type="course" />
           </Segment>
@@ -159,14 +158,42 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
               <Grid columns={2}>
                 <Grid.Column width={9}>
                   {
-                    descriptionPairs.map((descriptionPair, index) => (
-                      <React.Fragment key={descriptionPair.label}>
+                    descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={toId(descriptionPair)}>
                         {
                           isSame(descriptionPair.label, 'Course Number') ? (
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                  :
+                              </b>
+                              {
+                                  descriptionPair.value ? (
+                                    <React.Fragment>
+                                      {' '}
+                                      {descriptionPair.value}
+                                      {' '}
+                                      <br />
+                                    </React.Fragment>
+                                  )
+                                  : (
+                                    <React.Fragment>
+                                      {' '}
+                                        N/A
+                                      <br />
+                                    </React.Fragment>
+                                  )
+                                }
+                            </React.Fragment>
+                          )
+                          : ''
+                        }
+                        {
+                          isSame(descriptionPair.label, 'Credit Hours') ? (
+                            <React.Fragment>
+                              <b>
+                                {descriptionPair.label}
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -177,79 +204,48 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                                     <br />
                                   </React.Fragment>
                                 )
-                                  : (
-                                    <React.Fragment>
-                                      {' '}
-N/A
-                                      <br />
-                                    </React.Fragment>
+                                : (
+                                  <React.Fragment>
+                                    {' '}
+                                    N/A
+                                    <br />
+                                  </React.Fragment>
                                 )
-}
+                              }
                             </React.Fragment>
                           )
-                            : ''
+                          : ''
                         }
                         {
                           isSame(descriptionPair.label, 'Description') ? (
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
-                              </b>
-                              {
-                                descriptionPair.value ? (
-                                  <React.Fragment>
-                                    {' '}
-                                    {descriptionPair.value}
-                                    {' '}
-                                    <br />
-                                  </React.Fragment>
-                                )
-                                  : (
-                                    <React.Fragment>
-                                      {' '}
-N/A
-                                      <br />
-                                    </React.Fragment>
-                                )
-}
-                            </React.Fragment>
-                          )
-                            : ''
-                        }
-                        {
-                          isSame(descriptionPair.label, 'Description') ? (
-                              <b>
-                                {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
                                   <Markdown
                                     escapeHtml
-                                    source={descriptionPair.value}
+                                    source={toValueString(descriptionPair)}
                                     renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                   />
-                                )
+                                  )
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
-                                )
-}
+                                  )
+                                }
                             </React.Fragment>
-                          )
+                            )
                             : ''
                         }
                         {
                           isSame(descriptionPair.label, 'Prerequisites') ? (
                             <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-:
-                              </b>
                               {
                                 descriptionPair.value ? (
                                   <React.Fragment>
@@ -259,17 +255,13 @@ N/A
                                         <Grid columns={3} stackable padded celled>
                                           <Grid.Row>
                                             {
-                                              descriptionPair.value.map((table, tableIndex) => (
-                                                <Grid.Column
-                                                  key={_.uniqueId()}
-                                                  style={{
                                               toValueArray(descriptionPair).map((table, tableIndex) => (
                                                 <Grid.Column
                                                   key={_.uniqueId()}
                                                   style={{
-                                                  textAlign: 'center',
-                                                  backgroundColor: color(table),
-                                                }}
+                                                    textAlign: 'center',
+                                                    backgroundColor: color(table),
+                                                  }}
                                                 >
                                                   {getTableTitle(tableIndex, table)}
                                                   {
@@ -288,7 +280,7 @@ N/A
                                                                     {courseSlugToName(prerequisite.course)}
                                                                     <br />
                                                                   </NavLink>
-                                                                )
+                                                                  )
                                                                   :
                                                                   _.map(choices(prerequisite), (choice, choicesIndex) => (
                                                                     <React.Fragment key={_.uniqueId()}>
@@ -301,11 +293,11 @@ N/A
                                                                           >
                                                                             {courseSlugToName(choice)}
                                                                           </NavLink>
-                                                                        )
+                                                                          )
                                                                           : (
                                                                             <React.Fragment>
                                                                               {/* Not exactly sure where this pops up because even in
-                                                                             the original RadGrad I don't see any "or {choice} */}
+                                                                            the original RadGrad I don't see any "or {choice} */}
                                                                             or
                                                                               {' '}
                                                                               <NavLink
@@ -316,8 +308,8 @@ N/A
                                                                                 {courseSlugToName(choice)}
                                                                               </NavLink>
                                                                             </React.Fragment>
-                                                                        )
-}
+                                                                          )
+                                                                      }
                                                                     </React.Fragment>
                                                                   ))
                                                               }
@@ -325,7 +317,7 @@ N/A
                                                           ))
                                                         }
                                                       </React.Fragment>
-                                                    )
+                                                      )
                                                       :
                                                       <Item style={{ color: 'grey' }}>None</Item>
                                                   }
@@ -334,32 +326,32 @@ N/A
                                             }
                                           </Grid.Row>
                                         </Grid>
-                                      )
+                                        )
                                         : (
                                           <List horizontal bulleted>
                                             {
-                                            descriptionPair.value.map((prereqType) => (
-                                              prereqType.map((prereq) => (
-                                                <List.Item
-                                                  key={prereq.course}
-                                                  as={NavLink}
-                                                  exact
-                                                  to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
-                                                >
-                                                  {courseSlugToName(prereq.course)}
-                                                </List.Item>
+                                              toValueArray(descriptionPair).map((prereqType) => (
+                                                prereqType.map((prereq) => (
+                                                  <List.Item
+                                                    key={prereq.course}
+                                                    as={NavLink}
+                                                    exact
+                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
+                                                  >
+                                                    {courseSlugToName(prereq.course)}
+                                                  </List.Item>
+                                                ))
                                               ))
-                                            ))
-                                          }
+                                            }
                                           </List>
-                                      )
-}
+                                        )
+                                    }
                                   </React.Fragment>
-                                )
+                                  )
                                   : ''
-                              }
+                                }
                             </React.Fragment>
-                          )
+                            )
                             : ''
                         }
                       </React.Fragment>
@@ -369,34 +361,34 @@ N/A
                 <Grid.Column width={7}>
                   {
                     descriptionPairs.map((descriptionPair) => (
-                      <React.Fragment key={descriptionPair.label}>
+                      <React.Fragment key={toId(descriptionPair)}>
                         {
                           isSame(descriptionPair.label, 'Syllabus') ? (
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
-                                  <div style={breakWordStyle}
+                                  <div style={breakWordStyle}>
                                     <Markdown
                                       source={toValueString(descriptionPair)}
                                       renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                     />
                                     <br />
                                   </div>
-                                )
+                                  )
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
-                                )
-}
+                                  )
+                                }
                             </React.Fragment>
-                          )
+                            )
                             : ''
                         }
                         {
@@ -404,7 +396,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -414,12 +406,12 @@ N/A
                                     source="youtube"
                                     id={teaserUrlHelper(props)}
                                   />
-                                )
+                                  )
                                   :
                                   <p> N/A </p>
                               }
                             </React.Fragment>
-                          )
+                            )
                             : ''
                         }
                       </React.Fragment>
@@ -433,13 +425,13 @@ N/A
                   <Grid.Column width={6}>
                     {
                       descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
+                        <React.Fragment key={toId(descriptionPair)}>
                           {
                             isSame(descriptionPair.label, 'Course Number') ? (
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -449,17 +441,17 @@ N/A
                                       {' '}
                                       <br />
                                     </React.Fragment>
-                                  )
+                                    )
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
-                                  )
-}
+                                    )
+                                  }
                               </React.Fragment>
-                            )
+                              )
                               : ''
                           }
 
@@ -468,7 +460,7 @@ N/A
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -478,17 +470,17 @@ N/A
                                       {' '}
                                       <br />
                                     </React.Fragment>
-                                  )
+                                    )
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
-                                  )
-}
+                                    )
+                                }
                               </React.Fragment>
-                            )
+                              )
                               : ''
                           }
                         </React.Fragment>
@@ -499,13 +491,13 @@ N/A
                   <Grid.Column width={10}>
                     {
                       descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
+                        <React.Fragment key={toId(descriptionPair)}>
                           {
                             isSame(descriptionPair.label, 'Syllabus') ? (
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -516,17 +508,17 @@ N/A
                                       />
                                       <br />
                                     </div>
-                                  )
+                                    )
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
-                                  )
-}
+                                    )
+                                }
                               </React.Fragment>
-                            )
+                              )
                               : ''
                           }
                         </React.Fragment>
@@ -537,14 +529,14 @@ N/A
                 <Grid stackable style={zeroMarginTopStyle}>
                   <Grid.Column>
                     {
-                      descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
+                      descriptionPairs.map((descriptionPair, index) => (
+                        <React.Fragment key={toId(descriptionPair)}>
                           {
                             isSame(descriptionPair.label, 'Description') ? (
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -553,17 +545,17 @@ N/A
                                       source={toValueString(descriptionPair)}
                                       renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                     />
-                                  )
+                                    )
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
-                                  )
-}
+                                    )
+                                  }
                               </React.Fragment>
-                            )
+                              )
                               : ''
                           }
                         </React.Fragment>
@@ -575,7 +567,7 @@ N/A
                   <Grid.Column>
                     {
                       descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
+                        <React.Fragment key={toId(descriptionPair)}>
                           {
                             isSame(descriptionPair.label, 'Prerequisites') ? (
                               <React.Fragment>
@@ -592,9 +584,9 @@ N/A
                                                   <Grid.Column
                                                     key={_.uniqueId()}
                                                     style={{
-                                                    textAlign: 'center',
-                                                    backgroundColor: color(table),
-                                                  }}
+                                                      textAlign: 'center',
+                                                      backgroundColor: color(table),
+                                                    }}
                                                   >
                                                     {getTableTitle(tableIndex, table)}
                                                     {
@@ -613,7 +605,7 @@ N/A
                                                                       {courseSlugToName(prerequisite.course)}
                                                                       <br />
                                                                     </NavLink>
-                                                                  )
+                                                                    )
                                                                     :
                                                                     _.map(choices(prerequisite), (choice, choicesIndex) => (
                                                                       <React.Fragment key={_.uniqueId()}>
@@ -626,12 +618,12 @@ N/A
                                                                             >
                                                                               {courseSlugToName(choice)}
                                                                             </NavLink>
-                                                                          )
+                                                                            )
                                                                             : (
                                                                               <React.Fragment>
                                                                                 {/* Not exactly sure where this pops up because even in
                                                                              the original RadGrad I don't see any "or {choice} */}
-                                                                              or
+                                                                             or
                                                                                 {' '}
                                                                                 <NavLink
                                                                                   exact
@@ -641,8 +633,8 @@ N/A
                                                                                   {courseSlugToName(choice)}
                                                                                 </NavLink>
                                                                               </React.Fragment>
-                                                                          )
-}
+                                                                            )
+                                                                        }
                                                                       </React.Fragment>
                                                                     ))
                                                                 }
@@ -650,7 +642,7 @@ N/A
                                                             ))
                                                           }
                                                         </React.Fragment>
-                                                      )
+                                                        )
                                                         :
                                                         <Item style={{ color: 'grey' }}>None</Item>
                                                     }
@@ -659,32 +651,32 @@ N/A
                                               }
                                             </Grid.Row>
                                           </Grid>
-                                        )
+                                          )
                                           : (
                                             <List horizontal bulleted>
                                               {
-                                              toValueArray(descriptionPair).map((prereqType) => (
-                                                prereqType.map((prereq) => (
-                                                  <List.Item
-                                                    key={prereq.course}
-                                                    as={NavLink}
-                                                    exact
-                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
-                                                  >
-                                                    {courseSlugToName(prereq.course)}
-                                                  </List.Item>
+                                                toValueArray(descriptionPair).map((prereqType) => (
+                                                  prereqType.map((prereq) => (
+                                                    <List.Item
+                                                      key={prereq.course}
+                                                      as={NavLink}
+                                                      exact
+                                                      to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
+                                                    >
+                                                      {courseSlugToName(prereq.course)}
+                                                    </List.Item>
+                                                  ))
                                                 ))
-                                              ))
-                                            }
+                                              }
                                             </List>
-                                        )
-}
+                                          )
+                                      }
                                     </React.Fragment>
-                                  )
+                                    )
                                     : ''
-                                }
+                                  }
                               </React.Fragment>
-                            )
+                              )
                               : ''
                           }
                         </React.Fragment>
@@ -693,11 +685,10 @@ N/A
                   </Grid.Column>
                 </Grid>
               </React.Fragment>
-)
+            )
           }
         </Segment>
       </Segment.Group>
-
       {
         isStudent ? (
           <Grid stackable className="column">
@@ -712,7 +703,7 @@ N/A
               </Segment>
             </Grid.Column>
           </Grid>
-        )
+          )
           : ''
       }
     </div>

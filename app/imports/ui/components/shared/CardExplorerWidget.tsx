@@ -110,7 +110,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="advisors">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} numFavorites={0} type="advisor" />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -123,7 +123,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="faculty">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} numFavorites={0} type="faculty" />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -136,7 +136,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="mentors">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} numFavorites={0} type="mentor" />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -149,7 +149,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Tab.Pane key="students">
           <Grid stackable>
             <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} numFavorites={0} type="student" />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
