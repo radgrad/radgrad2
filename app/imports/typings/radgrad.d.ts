@@ -1139,7 +1139,7 @@ export interface IUserInteraction {
 export interface IUserInteractionDefine extends IDumpOne {
   username: string;
   type: string;
-  typeData: any[];
+  typeData: string[];
   timestamp?: any;
 }
 
