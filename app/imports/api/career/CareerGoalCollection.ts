@@ -58,6 +58,10 @@ class CareerGoalCollection extends BaseSlugCollection {
   public define({ name, slug, description, interests, retired = false }: ICareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
+    const doc = this.collection.findOne({ name, description, interestIDs, retired });
+    if (doc) {
+      return doc._id;
+    }
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const docID = this.collection.insert({ name, slugID, description, interestIDs, retired });

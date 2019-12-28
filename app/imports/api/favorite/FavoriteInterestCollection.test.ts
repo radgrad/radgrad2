@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { FavoriteInterests } from './FavoriteInterestCollection';
-import { makeSampleInterest, sampleInterestName } from '../interest/SampleInterests';
+import { makeSampleInterest } from '../interest/SampleInterests';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
+import { Interests } from '../interest/InterestCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -12,12 +13,15 @@ import { Slugs } from '../slug/SlugCollection';
 if (Meteor.isServer) {
   describe('FavoriteInterestCollection', function testSuite() {
     let interest;
+    let interestName;
     let username;
+
 
     before(function setup() {
       this.timeout(5000);
       removeAllEntities();
       interest = makeSampleInterest();
+      interestName = Interests.findDoc(interest).name;
       username = makeSampleUser();
     });
 
@@ -47,7 +51,7 @@ if (Meteor.isServer) {
       const docID = FavoriteInterests.define({ interest, username });
       const interestDoc = FavoriteInterests.getInterestDoc(docID);
       expect(interestDoc).to.exist;
-      expect(interestDoc.name).to.equal(sampleInterestName);
+      expect(interestDoc.name).to.equal(interestName);
       const interestSlug = Slugs.getNameFromID(interestDoc.slugID);
       expect(FavoriteInterests.getInterestSlug(docID)).to.equal(interestSlug);
       const studentDoc = FavoriteInterests.getStudentDoc(docID);

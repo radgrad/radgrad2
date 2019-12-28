@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import {} from 'mocha';
+import 'mocha';
 import { defineAcademicTerms, nextAcademicTerm, upComingTerms } from './AcademicTermUtilities';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { AcademicTerms } from './AcademicTermCollection';

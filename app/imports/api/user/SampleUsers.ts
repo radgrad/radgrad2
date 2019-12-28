@@ -1,4 +1,4 @@
-import moment from 'moment';
+import faker from 'faker';
 import { Meteor } from 'meteor/meteor';
 import { StudentProfiles } from './StudentProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
@@ -7,12 +7,11 @@ import { FacultyProfiles } from './FacultyProfileCollection';
 import { ROLE } from '../role/Role';
 
 function makeSampleStudent() {
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const username = `student-${uniqueString}@hawaii.edu`;
-  const firstName = 'Amy';
-  const lastName = 'Takayesu';
-  const picture = 'amy.jpg';
-  const website = 'http://amytaka.github.io';
+  const username = `student.${faker.internet.email()}`;
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+  const picture = faker.image.avatar();
+  const website = faker.internet.url();
   const interests = [];
   const careerGoals = [];
   const level = 6;
@@ -25,19 +24,18 @@ function makeSampleStudent() {
 }
 
 function makeSampleMentor() {
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const username = `mentor-${uniqueString}@hawaii.edu`;
-  const firstName = 'Robert';
-  const lastName = 'Brewer';
-  const picture = 'foo.jpg';
-  const website = 'http://rbrewer.github.io';
+  const username = `mentor.${faker.internet.email()}`;
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+  const picture = faker.image.avatar();
+  const website = faker.internet.url();
   const interests = [];
   const careerGoals = [];
-  const company = 'Tableau Inc';
-  const career = 'Software Engineer';
-  const location = 'San Francisco, CA';
-  const linkedin = 'robertsbrewer';
-  const motivation = 'Help future students.';
+  const company = faker.company.companyName();
+  const career = faker.lorem.words();
+  const location = faker.address.city();
+  const linkedin = faker.lorem.word();
+  const motivation = faker.company.bs();
   const profileID = MentorProfiles.define({
     username, firstName, lastName, picture, website, interests,
     careerGoals, company, career, location, linkedin, motivation,
@@ -46,12 +44,11 @@ function makeSampleMentor() {
 }
 
 function makeSampleAdvisor() {
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const username = `advisor-${uniqueString}@hawaii.edu`;
-  const firstName = 'Gerald';
-  const lastName = 'Lau';
-  const picture = 'glau.jpg';
-  const website = 'http://glau.github.io';
+  const username = `advisor.${faker.internet.email()}`;
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+  const picture = faker.image.avatar();
+  const website = faker.internet.url();
   const interests = [];
   const careerGoals = [];
   const profileID = AdvisorProfiles.define({ username, firstName, lastName, picture, website, interests, careerGoals });
@@ -59,12 +56,11 @@ function makeSampleAdvisor() {
 }
 
 function makeSampleFaculty() {
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const username = `faculty-${uniqueString}@hawaii.edu`;
-  const firstName = 'Edo';
-  const lastName = 'Biagioni';
-  const picture = 'esb.jpg';
-  const website = 'http://esb.github.io';
+  const username = `faculty.${faker.internet.email()}`;
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+  const picture = faker.image.avatar();
+  const website = faker.internet.url();
   const interests = [];
   const careerGoals = [];
   const profileID = FacultyProfiles.define({ username, firstName, lastName, picture, website, interests, careerGoals });

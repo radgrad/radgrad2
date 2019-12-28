@@ -25,7 +25,7 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt', function test() {
+    it('Can define and remove', function test1() {
       fc.assert(
         fc.property(fc.integer(1, 6), fc.nat(100), fc.nat(100), fc.nat(100), (level, i, c, e) => {
           const docID = IceSnapshots.define({ username, level, i, c, e, updated: moment().toDate() });
