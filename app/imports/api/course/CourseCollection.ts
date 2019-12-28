@@ -93,6 +93,11 @@ class CourseCollection extends BaseSlugCollection {
   public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [], retired = false }: ICourseDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
+    // If already defined return the _id.
+    const doc = this.collection.findOne({ name, shortName, interestIDs, creditHrs, syllabus, prerequisites });
+    if (doc) {
+      return doc._id;
+    }
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
     // Get SlugID, throw error if found.

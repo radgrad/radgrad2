@@ -5,6 +5,7 @@ import { makeSampleCourse, sampleCourseName } from '../course/SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
+import { Users } from '../user/UserCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -13,12 +14,14 @@ if (Meteor.isServer) {
   describe('FavoriteCourseCollection', function testSuite() {
     let course;
     let student;
+    let firstName;
 
     before(function setup() {
       this.timeout(5000);
       removeAllEntities();
       course = makeSampleCourse();
       student = makeSampleUser();
+      firstName = Users.getProfile(student).firstName;
     });
 
     after(function teardown() {
@@ -52,10 +55,9 @@ if (Meteor.isServer) {
       expect(FavoriteCourses.getCourseSlug(docID)).to.equal(courseSlug);
       const studentDoc = FavoriteCourses.getStudentDoc(docID);
       expect(studentDoc).to.exist;
-      expect(studentDoc.firstName).to.equal('Amy');
+      expect(studentDoc.firstName).to.equal(firstName);
       const studentUsername = FavoriteCourses.getStudentUsername(docID);
       expect(studentUsername.startsWith('student')).to.be.true;
-      expect(studentUsername.endsWith('@hawaii.edu')).to.be.true;
     });
   });
 }

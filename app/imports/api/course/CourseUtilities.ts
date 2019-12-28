@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import faker from 'faker';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
@@ -174,4 +175,39 @@ export function getDepartment(courseSlug): string {
  */
 export function getCourseNumber(courseSlug): string {
   return courseSlug.split('_')[1];
+}
+
+/**
+ * Returns a random department string.
+ * @param {number} length
+ * @returns {string}
+ */
+export function getRandomDepartment(length: number = 3): string {
+  let retVal = '';
+  for (let i = 0; i < length; i++) {
+    retVal = `${retVal}${faker.random.alphaNumeric()}`;
+  }
+  return retVal;
+}
+
+/**
+ * Returns a random course slug for the given department.
+ * @param {string} dept the department
+ * @returns {string}
+ */
+export function getRandomCourseSlugForDept(dept: string): string {
+  return `${dept}_${faker.random.number({
+    min: 100,
+    max: 800,
+  })}`;
+}
+
+/**
+ * Returns a random course slug for a random department.
+ * @param {number} deptLength the length of the department string, defaults to 3.
+ * @returns {string}
+ */
+export function getRandomCourseSlug(deptLength: number = 3): string {
+  const dept = getRandomDepartment(deptLength);
+  return getRandomCourseSlugForDept(dept);
 }

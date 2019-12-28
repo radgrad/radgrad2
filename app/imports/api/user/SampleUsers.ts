@@ -32,7 +32,7 @@ function makeSampleMentor() {
   const interests = [];
   const careerGoals = [];
   const company = faker.company.companyName();
-  const career = faker.lorem.words();
+  const career = faker.name.title();
   const location = faker.address.city();
   const linkedin = faker.lorem.word();
   const motivation = faker.company.bs();

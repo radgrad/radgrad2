@@ -30,3 +30,16 @@ export function makeSampleInterest(): string {
   // console.log('makeSampleInterest', { name, slug, description, interestType });
   return Interests.define({ name, slug, description, interestType });
 }
+
+/**
+ * Returns an array of interestIDs.
+ * @param {number} numInterests the number of interestIDs.
+ * @returns {string[]}
+ */
+export function makeSampleInterestArray(numInterests: number = 1): string[] {
+  const retVal = [];
+  for (let i = 0; i < numInterests; i++) {
+    retVal.push(makeSampleInterest());
+  }
+  return retVal;
+}
