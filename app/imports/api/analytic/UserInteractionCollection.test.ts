@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
 import { Users } from '../user/UserCollection';
@@ -80,11 +81,12 @@ if (Meteor.isServer) {
     });
 
     it('Can define duplicates', function test5() {
-      const type = 'type';
-      const typeData = ['data1', 'data2'];
+      const type = faker.lorem.word();
+      const typeData = [faker.lorem.word(), faker.lorem.word()];
+      console.log(type, typeData);
       const docID = UserInteractions.define({ username, type, typeData });
       const docID2 = UserInteractions.define({ username, type, typeData });
-      expect(UserInteractions.find().fetch()).to.have.lengthOf(2);
+      expect(UserInteractions.find({ username }).fetch()).to.have.lengthOf(2);
       expect(function () { UserInteractions.findDoc(docID); }).to.not.throw(Error);
       expect(function () { UserInteractions.findDoc(docID2); }).to.not.throw(Error);
       UserInteractions.removeIt(docID);
