@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { FavoriteCourses } from './FavoriteCourseCollection';
-import { makeSampleCourse, sampleCourseName } from '../course/SampleCourses';
+import { makeSampleCourse } from '../course/SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
+import { Courses } from '../course/CourseCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -13,6 +14,7 @@ import { Users } from '../user/UserCollection';
 if (Meteor.isServer) {
   describe('FavoriteCourseCollection', function testSuite() {
     let course;
+    let courseName;
     let student;
     let firstName;
 
@@ -20,6 +22,7 @@ if (Meteor.isServer) {
       this.timeout(5000);
       removeAllEntities();
       course = makeSampleCourse();
+      courseName = Courses.findDoc(course).name;
       student = makeSampleUser();
       firstName = Users.getProfile(student).firstName;
     });
@@ -50,7 +53,7 @@ if (Meteor.isServer) {
       const docID = FavoriteCourses.define({ course, student });
       const courseDoc = FavoriteCourses.getCourseDoc(docID);
       expect(courseDoc).to.exist;
-      expect(courseDoc.name).to.equal(sampleCourseName);
+      expect(courseDoc.name).to.equal(courseName);
       const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
       expect(FavoriteCourses.getCourseSlug(docID)).to.equal(courseSlug);
       const studentDoc = FavoriteCourses.getStudentDoc(docID);

@@ -2,9 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { CourseInstances } from './CourseInstanceCollection';
-import { makeSampleCourse, sampleCourseName } from './SampleCourses';
+import { makeSampleCourse } from './SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { Courses } from './CourseCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -13,6 +14,7 @@ if (Meteor.isServer) {
   describe('CourseInstanceCollection', function testSuite() {
     // Define course data.
     let course: string;
+    let courseName: string;
     let student: string;
     let academicTerm: string;
     const verified = true;
@@ -22,6 +24,7 @@ if (Meteor.isServer) {
       this.timeout(5000);
       removeAllEntities();
       course = makeSampleCourse();
+      courseName = Courses.findDoc(course).name;
       student = makeSampleUser();
       academicTerm = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
     });
@@ -44,7 +47,7 @@ if (Meteor.isServer) {
     it('#findCourseName, #toString', function test() {
       const courseInstanceID = CourseInstances.define({ academicTerm, course, verified, grade, student });
       CourseInstances.toString(courseInstanceID);
-      expect(CourseInstances.findCourseName(courseInstanceID)).to.equal(sampleCourseName);
+      expect(CourseInstances.findCourseName(courseInstanceID)).to.equal(courseName);
       CourseInstances.removeIt(courseInstanceID);
     });
   });

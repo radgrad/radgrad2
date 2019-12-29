@@ -4,9 +4,11 @@ import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
 import { Courses } from './CourseCollection';
-import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
+import { makeSampleInterestArray } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { getRandomCourseSlug } from './CourseUtilities';
+import { ICourse } from '../../typings/radgrad';
+import { makeSampleCourse } from './SampleCourses';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -63,40 +65,46 @@ if (Meteor.isServer) {
       done();
     });
 
-      it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
-      const name = 'Algorithms';
-      const slug = 'ics_311';
-      const num = 'ICS 311';
-      const description = 'Study algorithms';
-      const creditHrs = 3;
-      const interests = [makeSampleInterest()];
-      const docID = Courses.define({ name, slug, num, description, creditHrs, interests });
-      expect(Courses.isDefined(slug)).to.be.true;
-      expect(Courses.findDoc(docID).shortName).to.equal(name);
-      const dumpObject = Courses.dumpOne(docID);
-      expect(Courses.countNonRetired()).to.equal(1);
-      Courses.update(docID, { retired: true });
-      expect(Courses.countNonRetired()).to.equal(0);
-      Courses.removeIt(slug);
-      expect(Courses.isDefined(slug)).to.be.false;
-      Courses.restoreOne(dumpObject);
-      expect(Courses.isDefined(slug)).to.be.true;
-      Courses.removeIt(slug);
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      const docID = makeSampleCourse();
+      // { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }
+      fc.assert(
+        fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(20, true), fc.integer(1, 6), fc.lorem(20, true), fc.boolean(),
+          (fcName, fcShortName, fcNum, fcDescription, fcCreditHrs, fcSyllabus, fcRetired) => {
+          const interests2 = makeSampleInterestArray();
+          Courses.update(docID, { name: fcName, shortName: fcShortName, num: fcNum, description: fcDescription, creditHrs: fcCreditHrs, interests: interests2, syllabus: fcSyllabus, retired: fcRetired });
+          const course: ICourse = Courses.findDoc(docID);
+          expect(course.name).to.equal(fcName);
+          expect(course.shortName).to.equal(fcShortName);
+          expect(course.num).to.equal(fcNum);
+          expect(course.description).to.equal(fcDescription);
+          expect(course.creditHrs).to.equal(fcCreditHrs);
+          expect(course.interestIDs).to.have.lengthOf(interests2.length);
+          expect(course.syllabus).to.equal(fcSyllabus);
+          expect(course.retired).to.equal(fcRetired);
+        }),
+      );
+      Courses.removeIt(docID);
+      done();
     });
 
-    it('course shortname', function test() {
-      const name = 'Algorithms';
-      const shortName = 'Algo';
-      const slug = 'ics_311';
-      const num = 'ICS 311';
-      const description = 'Study algorithms';
-      const creditHrs = 3;
-      const interests = [makeSampleInterest()];
-      const docID = Courses.define({ name, shortName, slug, num, description, creditHrs, interests });
-      expect(Courses.isDefined(slug)).to.be.true;
-      expect(Courses.findDoc(docID).shortName).to.equal(shortName);
-      Courses.removeIt(slug);
-      expect(Courses.isDefined(slug)).to.be.false;
+    it('Can dumpOne, removeIt, and restoreOne', function test5() {
+      let docID = makeSampleCourse();
+      const origCourse: ICourse = Courses.findDoc(docID);
+      const dumpObject = Courses.dumpOne(docID);
+      Courses.removeIt(docID);
+      expect(Courses.isDefined(docID)).to.be.false;
+      docID = Courses.restoreOne(dumpObject);
+      const restored: ICourse = Courses.findDoc(docID);
+      expect(origCourse.name).to.equal(restored.name);
+      expect(origCourse.shortName).to.equal(restored.shortName);
+      expect(origCourse.num).to.equal(restored.num);
+      expect(origCourse.description).to.equal(restored.description);
+      expect(origCourse.creditHrs).to.equal(restored.creditHrs);
+      expect(origCourse.syllabus).to.equal(restored.syllabus);
+      expect(origCourse.retired).to.equal(restored.retired);
     });
+
   });
 }

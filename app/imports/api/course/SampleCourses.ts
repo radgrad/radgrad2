@@ -1,15 +1,17 @@
-import moment from 'moment';
+import faker from 'faker';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
-import { makeSampleInterest } from '../interest/SampleInterests';
+import { makeSampleInterestArray } from '../interest/SampleInterests';
+import { getRandomCourseSlug } from './CourseUtilities';
 
-/**
- * The name of the sample course.
- * @type {string}
- * @memberOf api/course
- */
-export const sampleCourseName = 'Sample Course';
+const makePrerequisiteArray = (numPrereqs: number = 0) => {
+  const retVal = [];
+  for (let i = 0; i < numPrereqs; i++) {
+    retVal.push(getRandomCourseSlug());
+  }
+  return retVal;
+};
 
 /**
  * Creates a Course with a unique slug and returns its docID.
@@ -18,15 +20,21 @@ export const sampleCourseName = 'Sample Course';
  * @memberOf api/course
  */
 export function makeSampleCourse(args?: { num?: string; interestID?: string; }) {
-  const name = sampleCourseName;
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const slug = `course_${uniqueString}`;
-  const num = (args && args.num) ? args.num : `Course ${uniqueString}`;
-  const description = 'Sample course description';
-  const creditHrs = 3;
-  const interestID = (args && args.interestID) ? args.interestID : makeSampleInterest();
-  const interests = [interestID];
-  return Courses.define({ name, slug, num, description, creditHrs, interests });
+  const name = faker.lorem.words();
+  const slug = getRandomCourseSlug();
+  const num = (args && args.num) ? args.num : faker.lorem.words();
+  const description = faker.lorem.paragraph();
+  const creditHrs = faker.random.number({
+    min: 1,
+    max: 15,
+  });
+  const interests = (args && args.interestID) ? [args.interestID] : makeSampleInterestArray(faker.random.number({
+    min: 1,
+    max: 6,
+  }));
+  const syllabus = faker.lorem.paragraph();
+  const prerequisites = makePrerequisiteArray(faker.random.number({ max: 4 }));
+  return Courses.define({ name, slug, num, description, creditHrs, syllabus, prerequisites, interests });
 }
 
 /**

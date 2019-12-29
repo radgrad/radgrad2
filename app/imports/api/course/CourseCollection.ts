@@ -163,7 +163,7 @@ class CourseCollection extends BaseSlugCollection {
     if (shortName) {
       updateData.shortName = shortName;
     }
-    if (_.isNumber(num)) {
+    if (num) {
       updateData.num = num;
     }
     if (creditHrs) {
