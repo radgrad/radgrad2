@@ -4,11 +4,12 @@ import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
 import { Courses } from './CourseCollection';
-import { makeSampleInterestArray } from '../interest/SampleInterests';
+import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { getRandomCourseSlug } from './CourseUtilities';
 import { ICourse } from '../../typings/radgrad';
 import { makeSampleCourse } from './SampleCourses';
+import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -106,5 +107,27 @@ if (Meteor.isServer) {
       expect(origCourse.retired).to.equal(restored.retired);
     });
 
+    it('Can checkIntegrity no errors', function test6() {
+      const course = Courses.findOne({});
+      const errors = Courses.checkIntegrity();
+      // When we call makeSampleCourse we don't create the courses for the prereqs
+      expect(errors.length).to.equal(course.prerequisites.length);
+    });
+
+    it('Can get slug for course', function test7() {
+      const course = Courses.findOne({});
+      const slug = Slugs.getNameFromID(course.slugID);
+      const badSlug = faker.lorem.word();
+      expect(Courses.getSlug(course._id)).to.equal(slug);
+      expect(Courses.getSlug(course._id)).to.not.equal(badSlug);
+    });
+
+    it('Can detect if has interest', function test8() {
+      const interestID = makeSampleInterest();
+      const badInterestID = makeSampleInterest();
+      const courseID = makeSampleCourse({ interestID });
+      expect(Courses.hasInterest(courseID, interestID)).to.be.true;
+      expect(Courses.hasInterest(courseID, badInterestID)).to.be.false;
+    });
   });
 }
