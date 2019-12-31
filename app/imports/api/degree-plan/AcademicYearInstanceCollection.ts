@@ -126,31 +126,21 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param studentID the student's ID.
    * @param termIDs the 3 or 4 academic terms in the year.
    */
-  public update(docID: string, { year, springYear, studentID, termIDs, retired }:
+  public update(docID: string, { year, retired }:
     { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean }) {
     this.assertDefined(docID);
-    const updateData: { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean } = {};
+    const settingsDoc = RadGradSettings.findOne({});
+    const termIDs = [];
+    const updateData: { year?: number; springYear?: number; termIDs?: string[]; retired?: boolean } = {};
     if (_.isNumber(year)) {
       updateData.year = year;
-    }
-    if (_.isNumber(springYear)) {
-      updateData.springYear = springYear;
-    }
-    if (studentID) {
-      if (!Users.isDefined(studentID)) {
-        throw new Meteor.Error(`StudentID ${studentID} is not a defined user.`);
+      updateData.springYear = year + 1;
+      termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${year}`));
+      if (settingsDoc.quarterSystem) {
+        termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${year + 1}`));
       }
-      updateData.studentID = studentID;
-    }
-    if (termIDs) {
-      if (!Array.isArray(termIDs)) {
-        throw new Meteor.Error(`AcademicTermIDs ${termIDs} is not an Array.`);
-      }
-      _.forEach(termIDs, (sem) => {
-        if (!AcademicTerms.isDefined(sem)) {
-          throw new Meteor.Error(`AcademicTermID ${sem} is not a AcademicTermID.`);
-        }
-      });
+      termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${year + 1}`));
+      termIDs.push(AcademicTerms.getID(`${AcademicTerms.SUMMER}-${year + 1}`));
       updateData.termIDs = termIDs;
     }
     if (_.isBoolean(retired)) {

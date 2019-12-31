@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import 'mocha';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
