@@ -106,6 +106,10 @@ class CourseInstanceCollection extends BaseCollection {
     } else {
       AcademicYearInstances.define({ year: academicTermDoc.year, student: profile.username });
     }
+    const doc = this.collection.findOne({ termID, courseID, studentID });
+    if (doc) {
+      return doc._id;
+    }
     const ice = makeCourseICE(course, grade);
     if ((typeof verified) !== 'boolean') {
       throw new Meteor.Error(`${verified} is not a boolean.`);

@@ -53,3 +53,8 @@ export function makeSampleCourseInstance(student, args) {
   const note = `ABC ${course.num}`;
   return CourseInstances.define({ academicTerm, course, verified, grade, student, note });
 }
+
+export const getRandomGrade = (): string => {
+  const index = faker.random.number({ min: 1, max: CourseInstances.validGrades.length - 1 });
+  return CourseInstances.validGrades[index];
+};

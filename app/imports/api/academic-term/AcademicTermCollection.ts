@@ -20,7 +20,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   public SUMMER: string;
   public FALL: string;
   public WINTER: string;
-  private readonly terms: string[];
+  public readonly terms: string[];
   private readonly fallStart: number;
   private readonly springStart: number;
   private readonly summerStart: number;

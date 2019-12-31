@@ -24,7 +24,7 @@ if (Meteor.isServer) {
     it('Can define and removeIt', function test1(done) {
       this.timeout(5000);
       fc.assert(
-        fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(5, true), (fcName, fcSlug, fcDescription) => {
+        fc.property(<fc parameters>, (<fc parameters>) => {
           // set up additional parameters for define
           // const docID = <Name>.define({params});
           // expect(<Name>.isDefined(docID)).to.be.true;
@@ -51,57 +51,32 @@ if (Meteor.isServer) {
 
     it('Can update', function test3(done) {
       this.timeout(5000);
-      const interests = [makeSampleInterest()];
-      const interest2 = [makeSampleInterest(), makeSampleInterest()];
-      const docID = CareerGoals.define({ name, slug, description, interests });
-      fc.assert(
-        fc.property(fc.lorem(1), fc.lorem(5, true), fc.boolean(), (fcName, fcDescription, fcRetired) => {
-          CareerGoals.update(docID, { name: fcName, description: fcDescription, interests: interest2, retired: fcRetired });
-          const doc = CareerGoals.findDoc(docID);
-          expect(doc.name).to.equal(fcName);
-          expect(doc.description).to.equal(fcDescription);
-          expect(doc.interestIDs).to.have.lengthOf(2);
-          expect(doc.interestIDs[0]).to.equal(interest2[0]);
-          expect(doc.retired).to.equal(fcRetired);
+      // set up additional parameters for define
+      // define an instance
+      // const docID = <Name>.define({params});
+      // fc.assert(
+        // fc.property(<fc parameters>, (<fc parameters>) => {
+          // Optionally create other update parameters, interests, slugs, etc.
+          // <Name>.update(docID, { parameter: fcParameter, ... });
+          // const doc = <Name>.findDoc(docID);
+          // expect(doc.parameter).to.equal(fcParameter); for each parameter
         }),
       );
       done();
     });
 
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
-      let docID = CareerGoals.getID(slug);
-      const dumpObject = CareerGoals.dumpOne(docID);
-      CareerGoals.removeIt(docID);
-      expect(CareerGoals.isDefined(slug)).to.be.false;
-      docID = CareerGoals.restoreOne(dumpObject);
-      expect(CareerGoals.isDefined(slug)).to.be.true;
+
     });
 
     it('Can checkIntegrity no errors', function test5() {
-      const errors = CareerGoals.checkIntegrity();
-      expect(errors.length).to.equal(0);
+      // const errors = <Name>.checkIntegrity();
+      // expect(errors.length).to.equal(0); or number based upon the true errors
     });
 
-    // The rest of the public functions on the collection.
+    /* ====================================================== */
+    // The rest of the public functions of the collection.
+    /* ====================================================== */
 
-    it('Can find names', function test6() {
-      const interests = [makeSampleInterest()];
-      const docID = CareerGoals.define({ name, slug, description, interests });
-      expect(CareerGoals.findNames([docID])[0]).to.equal(name);
-      CareerGoals.removeIt(docID);
-    });
-
-
-    it('Can get Slug', function test7() {
-      const docID = CareerGoals.getID(slug);
-      expect(CareerGoals.getSlug(docID)).to.equal(slug);
-    });
-
-    it('Can get Interest', function test8() {
-      const docID = CareerGoals.getID(slug);
-      const careerGoal = CareerGoals.findDoc(docID);
-      const interest = Interests.findDoc(careerGoal.interestIDs[0]);
-      expect(CareerGoals.hasInterest(docID, interest._id)).to.be.true;
-    });
   });
 }
