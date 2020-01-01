@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { FavoriteAcademicPlans } from './FavoriteAcademicPlanCollection';
-import { makeSampleAcademicPlan, sampleAcademicPlanName } from '../degree-plan/SampleAcademicPlans';
+import { makeSampleAcademicPlan } from '../degree-plan/SampleAcademicPlans';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
@@ -47,7 +47,7 @@ if (Meteor.isServer) {
       const docID = FavoriteAcademicPlans.define({ academicPlan, student });
       const academicPlanDoc = FavoriteAcademicPlans.getAcademicPlanDoc(docID);
       expect(academicPlanDoc).to.exist;
-      expect(academicPlanDoc.name).to.equal(sampleAcademicPlanName);
+      expect(academicPlanDoc.name).to.equal(academicPlan.name);
       const academicPlanSlug = Slugs.getNameFromID(academicPlanDoc.slugID);
       expect(FavoriteAcademicPlans.getAcademicPlanSlug(docID)).to.equal(academicPlanSlug);
       const studentDoc = FavoriteAcademicPlans.getStudentDoc(docID);

@@ -37,6 +37,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * PlanChoices.define({ 'ics_312,ics_331-1' });
    * Defines the choice of ICS 312 or ICS 331.
    * @param choice
+   * @param {boolean} retired, (optional) defaults to false.
    * @returns {*}
    */
   public define({ choice, retired = false }: IPlanChoiceDefine) {
