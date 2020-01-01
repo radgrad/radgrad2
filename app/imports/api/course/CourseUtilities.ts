@@ -212,6 +212,6 @@ export function getRandomCourseSlugForDept(dept: string, min: number = 100, max:
  * @returns {string}
  */
 export function getRandomCourseSlug(deptLength: number = 3, min: number = 100, max: number = 800): string {
-  const dept = getRandomDepartment(deptLength);
-  return getRandomCourseSlugForDept(dept, min, max);
+  const deptName = getRandomDepartment(deptLength);
+  return getRandomCourseSlugForDept(deptName, min, max);
 }
