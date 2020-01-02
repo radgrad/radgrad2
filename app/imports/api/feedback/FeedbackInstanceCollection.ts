@@ -70,6 +70,10 @@ class FeedbackInstanceCollection extends BaseCollection {
     if (!_.includes(this.feedbackTypes, feedbackType)) {
       throw new Meteor.Error(`FeedbackInstances.define passed illegal feedbackType: ${feedbackType}`);
     }
+    const doc = this.collection.findOne({ userID, functionName, description, feedbackType });
+    if (doc) {
+      return doc._id;
+    }
     // Define and return the new FeedbackInstance
     const feedbackInstanceID = this.collection.insert({ userID, functionName, description, feedbackType, retired });
     return feedbackInstanceID;
