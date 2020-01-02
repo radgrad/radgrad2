@@ -84,7 +84,6 @@
     "eslint-plugin-meteor": "^6.0.0",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.1.2",
-    "eslint-plugin-typescript": "^0.14.0",
     "faker": "^4.1.0",
     "fast-check": "^1.21.0",
     "mocha": "^6.2.1",
