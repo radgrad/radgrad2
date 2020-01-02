@@ -1,7 +1,7 @@
 import faker from 'faker';
 import _ from 'lodash';
 import { makeSampleDesiredDegree } from './SampleDesiredDegrees';
-import { Slugs } from '../slug/SlugCollection';
+import slugify, { Slugs } from '../slug/SlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
@@ -22,7 +22,7 @@ export function makeSampleAcademicPlan() {
   const desiredDegreeID = makeSampleDesiredDegree({});
   const degreeDoc = DesiredDegrees.findDoc(desiredDegreeID);
   const name = faker.lorem.words();
-  const slug = `academic-plan-${name}`;
+  const slug = slugify(`academic-plan-${name}`);
   const degreeSlug = Slugs.getNameFromID(degreeDoc.slugID);
   const description = faker.lorem.paragraph();
   const academicTermID = makeSampleAcademicTerm();

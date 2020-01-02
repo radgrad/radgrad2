@@ -64,7 +64,7 @@ if (Meteor.isServer) {
       expect(studentDoc.firstName).to.equal(firstName);
       const studentUsername = FavoriteCareerGoals.getStudentUsername(docID);
       expect(studentUsername.startsWith('student')).to.be.true;
-      expect(studentUsername.endsWith('@hawaii.edu')).to.be.true;
+      expect(studentUsername).to.equal(username);
     });
   });
 }

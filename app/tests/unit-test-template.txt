@@ -80,3 +80,23 @@ if (Meteor.isServer) {
 
   });
 }
+
+    it('Can define and removeIt', function test1(done) {
+
+    });
+
+    it('Cannot define duplicates', function test2() {
+
+    });
+
+    it('Can update', function test3(done) {
+
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+
+    });
+
+    it('Can checkIntegrity no errors', function test5() {
+
+    });

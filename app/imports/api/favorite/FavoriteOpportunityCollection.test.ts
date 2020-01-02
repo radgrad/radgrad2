@@ -6,6 +6,7 @@ import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
+import { Users } from '../user/UserCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -15,6 +16,8 @@ if (Meteor.isServer) {
     let opportunity;
     let student;
     let sponsor;
+    let username;
+    let firstName;
 
     before(function setup() {
       this.timeout(5000);
@@ -22,6 +25,9 @@ if (Meteor.isServer) {
       sponsor = makeSampleUser(ROLE.FACULTY);
       opportunity = makeSampleOpportunity(sponsor);
       student = makeSampleUser();
+      const profile = Users.getProfile(student);
+      username = profile.username;
+      firstName = profile.firstName;
     });
 
     after(function teardown() {
@@ -56,10 +62,10 @@ if (Meteor.isServer) {
       expect(FavoriteOpportunities.getOpportunitySlug(docID)).to.equal(opportunitySlug);
       const studentDoc = FavoriteOpportunities.getStudentDoc(docID);
       expect(studentDoc).to.exist;
-      expect(studentDoc.firstName).to.equal('Amy');
+      expect(studentDoc.firstName).to.equal(firstName);
       const studentUsername = FavoriteOpportunities.getStudentUsername(docID);
       expect(studentUsername.startsWith('student')).to.be.true;
-      expect(studentUsername.endsWith('@hawaii.edu')).to.be.true;
+      expect(studentUsername).to.equal(username);
     });
   });
 }

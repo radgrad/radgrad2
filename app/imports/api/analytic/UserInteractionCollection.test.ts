@@ -83,7 +83,7 @@ if (Meteor.isServer) {
     it('Can define duplicates', function test5() {
       const type = faker.lorem.word();
       const typeData = [faker.lorem.word(), faker.lorem.word()];
-      console.log(type, typeData);
+      // console.log(type, typeData);
       const docID = UserInteractions.define({ username, type, typeData });
       const docID2 = UserInteractions.define({ username, type, typeData });
       expect(UserInteractions.find({ username }).fetch()).to.have.lengthOf(2);

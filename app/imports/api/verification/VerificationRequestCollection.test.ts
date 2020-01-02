@@ -8,6 +8,7 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
+import { Users } from '../user/UserCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -16,7 +17,9 @@ if (Meteor.isServer) {
   describe('VerificationRequestCollection', function testSuite() {
     let academicTerm;
     let student;
+    let studentFirstName;
     let faculty;
+    let facultyFirstName;
     let opportunityInstance;
     let opportunity;
     const verified = false;
@@ -26,7 +29,10 @@ if (Meteor.isServer) {
       academicTerm = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
       AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
       student = makeSampleUser();
+      studentFirstName = Users.getProfile(student).firstName;
       faculty = makeSampleUser(ROLE.FACULTY);
+      console.log(Users.getProfile(student), Users.getProfile(faculty));
+      facultyFirstName = Users.getProfile(faculty).firstName;
       opportunity = makeSampleOpportunity(makeSampleUser(ROLE.FACULTY));
       // opportunityInstance = OpportunityInstances.define({ academicTerm, opportunity, sponsor: faculty, student, verified });
     });
@@ -56,10 +62,11 @@ if (Meteor.isServer) {
       expect(opportunityDoc.name).to.equal('Sample Opportunity');
       const studentDoc = VerificationRequests.getStudentDoc(docID);
       expect(studentDoc).to.exist;
-      expect(studentDoc.firstName).to.equal('Amy');
+      expect(studentDoc.firstName).to.equal(studentFirstName);
       const sponsorDoc = VerificationRequests.getSponsorDoc(docID);
       expect(sponsorDoc).to.exist;
-      expect(sponsorDoc.firstName).to.equal('Edo');
+      console.log(sponsorDoc, facultyFirstName);
+      expect(sponsorDoc.firstName).to.equal(facultyFirstName);
       const opportunityInstanceDoc = VerificationRequests.getOpportunityInstanceDoc(docID);
       expect(opportunityInstanceDoc).to.exist;
       expect(opportunityInstanceDoc.studentID).to.equal(studentDoc.userID);
