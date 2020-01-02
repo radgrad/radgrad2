@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
-import {} from 'mocha';
+import faker from 'faker';
+import 'mocha';
 import moment from 'moment';
 import { Users } from '../user/UserCollection';
 import { IceSnapshots } from './IceSnapshotCollection';
@@ -34,6 +35,16 @@ if (Meteor.isServer) {
           expect(IceSnapshots.isDefined(docID)).to.be.false;
         }),
       );
+    });
+
+    it('Can checkIntegrity no errors', function test2() {
+      const level = faker.random.number({ min: 1, max: 6 });
+      const i = faker.random.number({ min: 0, max: 150 });
+      const c = faker.random.number({ min: 0, max: 150 });
+      const e = faker.random.number({ min: 0, max: 150 });
+      IceSnapshots.define({ username, level, i, c, e, updated: moment().toDate() });
+      const errors = IceSnapshots.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
     });
   });
 }
