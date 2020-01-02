@@ -82,7 +82,7 @@ if (Meteor.isServer) {
       expect(errors).to.have.lengthOf(0);
     });
 
-    it('Can get docs and slug', function test() {
+    it('Can get docs and slug', function test6() {
       const docID = FavoriteAcademicPlans.define({ academicPlan, student });
       const academicPlanDoc = FavoriteAcademicPlans.getAcademicPlanDoc(docID);
       expect(academicPlanDoc).to.exist;

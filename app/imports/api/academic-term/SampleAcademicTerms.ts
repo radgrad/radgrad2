@@ -11,3 +11,11 @@ export const makeSampleAcademicTerm = () => {
   const year = faker.random.number({ min: 2017, max: 2027 });
   return AcademicTerms.define({ term, year });
 };
+
+export const makeSampleAcademicTermArray = (numTerms = 2) => {
+  const retVal = [];
+  for (let i = 0; i < numTerms; i++) {
+    retVal.push(makeSampleAcademicTerm());
+  }
+  return retVal;
+};

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import fc from 'fast-check';
 import { FavoriteInterests } from './FavoriteInterestCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -35,25 +36,54 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #update, #checkIntegrity', function test() {
-      let docID = FavoriteInterests.define({ interest, username });
+    it('Can define and removeIt', function test1() {
+      const docID = FavoriteInterests.define({ interest, username });
       expect(FavoriteInterests.isDefined(docID)).to.be.true;
-      let problems = FavoriteInterests.checkIntegrity();
-      expect(problems.length).to.equal(0);
+      FavoriteInterests.removeIt(docID);
+      expect(FavoriteInterests.isDefined(docID)).to.be.false;
+    });
+
+    it('Cannot define duplicates', function test2() {
+      const docID1 = FavoriteInterests.define({ interest, username });
+      const docID2 = FavoriteInterests.define({ interest, username });
+      expect(docID1).to.equal(docID2);
+      expect(FavoriteInterests.isDefined(docID2)).to.be.true;
+      FavoriteInterests.removeIt(docID2);
+      expect(FavoriteInterests.isDefined(docID1)).to.be.false;
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      const docID = FavoriteInterests.define({ interest, username });
+      fc.assert(
+        fc.property(fc.boolean(), (retired) => {
+          FavoriteInterests.update(docID, { retired });
+          const fav = FavoriteInterests.findDoc(docID);
+          expect(fav.retired).to.equal(retired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let fav = FavoriteInterests.findOne({});
+      let docID = fav._id;
       const dumpObject = FavoriteInterests.dumpOne(docID);
       FavoriteInterests.removeIt(docID);
       expect(FavoriteInterests.isDefined(docID)).to.be.false;
       docID = FavoriteInterests.restoreOne(dumpObject);
-      problems = FavoriteInterests.checkIntegrity();
-      expect(problems.length).to.equal(0);
       expect(FavoriteInterests.isDefined(docID)).to.be.true;
-      expect(FavoriteInterests.countNonRetired()).to.equal(1);
-      FavoriteInterests.update(docID, { retired: true });
-      expect(FavoriteInterests.countNonRetired()).to.equal(0);
-      FavoriteInterests.removeIt(docID);
+      fav = FavoriteInterests.findDoc(docID);
+      expect(fav.interestID).to.equal(interest);
+      expect(fav.userID).to.equal(userID);
     });
 
-    it('#getInterestDoc, #getInterestSlug, #getStudentDoc, #getStudentUsername', function test() {
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = FavoriteInterests.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    it('Can get docs and slug', function test6() {
       const docID = FavoriteInterests.define({ interest, username });
       const interestDoc = FavoriteInterests.getInterestDoc(docID);
       expect(interestDoc).to.exist;

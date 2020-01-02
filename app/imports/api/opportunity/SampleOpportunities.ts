@@ -1,12 +1,13 @@
 import moment from 'moment';
+import faker from 'faker';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { makeSampleInterest } from '../interest/SampleInterests';
-
-export const sampleOpportunityName = 'Sample Opportunity';
-export const sampleOpportunityTypeName = 'Sample Opportunity Type';
+import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
+import slugify from '../slug/SlugCollection';
+import { makeSampleAcademicTerm, makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
+import { makeSampleIce } from '../ice/SampleIce';
 
 /**
  * Creates an OpportunityType with a unique slug and returns its docID.
@@ -14,9 +15,9 @@ export const sampleOpportunityTypeName = 'Sample Opportunity Type';
  * @memberOf api/opportunity
  */
 export function makeSampleOpportunityType() {
-  const name = sampleOpportunityTypeName;
-  const slug = `opportunity-type-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
-  const description = 'Sample Opportunity Type Description';
+  const name = faker.lorem.words();
+  const slug = slugify(`opportunity-type-${name}`);
+  const description = faker.lorem.paragraph();
   return OpportunityTypes.define({ name, slug, description });
 }
 
@@ -28,14 +29,13 @@ export function makeSampleOpportunityType() {
  * @memberOf api/opportunity
  */
 export function makeSampleOpportunity(sponsor) {
-  const name = sampleOpportunityName;
-  const slug = `opportunity-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
-  const description = 'Sample Opportunity Description';
+  const name = faker.lorem.words();
+  const slug = slugify(`opportunity-${name}`);
+  const description = faker.lorem.paragraph();
   const opportunityType = makeSampleOpportunityType();
-  const interests = [makeSampleInterest()];
-  const academicTerm = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2015 });
-  const academicTerms = [academicTerm];
-  const ice = { i: 10, c: 0, e: 10 };
+  const interests = makeSampleInterestArray(2);
+  const academicTerms = makeSampleAcademicTermArray();
+  const ice = makeSampleIce();
   return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice });
 }
 

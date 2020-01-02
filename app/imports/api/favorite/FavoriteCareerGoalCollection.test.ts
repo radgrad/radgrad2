@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import fc from 'fast-check';
 import { FavoriteCareerGoals } from './FavoriteCareerGoalCollection';
 import { makeSampleCareerGoal } from '../career/SampleCareerGoals';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -34,31 +35,59 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #update, #checkIntegrity', function test() {
-      let docID = FavoriteCareerGoals.define({ careerGoal, username });
+    it('Can define and removeIt', function test1() {
+      const docID = FavoriteCareerGoals.define({ careerGoal, username });
       expect(FavoriteCareerGoals.isDefined(docID)).to.be.true;
-      let problems = FavoriteCareerGoals.checkIntegrity();
-      expect(problems.length).to.equal(0);
+      FavoriteCareerGoals.removeIt(docID);
+      expect(FavoriteCareerGoals.isDefined(docID)).to.be.false;
+    });
+
+    it('Cannot define duplicates', function test2() {
+      const docID1 = FavoriteCareerGoals.define({ careerGoal, username });
+      const docID2 = FavoriteCareerGoals.define({ careerGoal, username });
+      expect(docID1).to.equal(docID2);
+      expect(FavoriteCareerGoals.isDefined(docID2)).to.be.true;
+      FavoriteCareerGoals.removeIt(docID1);
+      expect(FavoriteCareerGoals.isDefined(docID2)).to.be.false;
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      const docID = FavoriteCareerGoals.define({ careerGoal, username });
+      fc.assert(
+        fc.property(fc.boolean(), (retired) => {
+          FavoriteCareerGoals.update(docID, { retired });
+          const fav = FavoriteCareerGoals.findDoc(docID);
+          expect(fav.retired).to.equal(retired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let fav = FavoriteCareerGoals.findOne({});
+      let docID = fav._id;
       const dumpObject = FavoriteCareerGoals.dumpOne(docID);
       FavoriteCareerGoals.removeIt(docID);
       expect(FavoriteCareerGoals.isDefined(docID)).to.be.false;
       docID = FavoriteCareerGoals.restoreOne(dumpObject);
-      problems = FavoriteCareerGoals.checkIntegrity();
-      expect(problems.length).to.equal(0);
-      expect(FavoriteCareerGoals.isDefined(docID)).to.be.true;
-      expect(FavoriteCareerGoals.countNonRetired()).to.equal(1);
-      FavoriteCareerGoals.update(docID, { retired: true });
-      expect(FavoriteCareerGoals.countNonRetired()).to.equal(0);
-      FavoriteCareerGoals.removeIt(docID);
+      fav = FavoriteCareerGoals.findDoc(docID);
+      expect(fav.userID).to.equal(userID);
+      expect(fav.careerGoalID).to.equal(careerGoal);
     });
 
-    it('#getCareerGoalDoc, #getCareerGoalSlug, #getStudentDoc, #getStudentUsername', function test() {
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = FavoriteCareerGoals.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    it('Can get docs and slug', function test6() {
       const docID = FavoriteCareerGoals.define({ careerGoal, username });
-      const courseDoc = FavoriteCareerGoals.getCareerGoalDoc(docID);
-      expect(courseDoc).to.exist;
-      expect(courseDoc.name).to.equal(careerGoalName);
-      const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
-      expect(FavoriteCareerGoals.getCareerGoalSlug(docID)).to.equal(courseSlug);
+      const careerGoalDoc = FavoriteCareerGoals.getCareerGoalDoc(docID);
+      expect(careerGoalDoc).to.exist;
+      expect(careerGoalDoc.name).to.equal(careerGoalName);
+      const careerGoalSlug = Slugs.getNameFromID(careerGoalDoc.slugID);
+      expect(FavoriteCareerGoals.getCareerGoalSlug(docID)).to.equal(careerGoalSlug);
       const studentDoc = FavoriteCareerGoals.getStudentDoc(docID);
       expect(studentDoc).to.exist;
       expect(studentDoc.firstName).to.equal(firstName);

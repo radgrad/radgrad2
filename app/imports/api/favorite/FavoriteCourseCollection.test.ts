@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import fc from 'fast-check';
 import { FavoriteCourses } from './FavoriteCourseCollection';
 import { makeSampleCourse } from '../course/SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -31,25 +32,53 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #update, #checkIntegrity', function test() {
-      let docID = FavoriteCourses.define({ course, student });
+    it('Can define and removeIt', function test1() {
+      const docID = FavoriteCourses.define({ course, student });
       expect(FavoriteCourses.isDefined(docID)).to.be.true;
-      let problems = FavoriteCourses.checkIntegrity();
-      expect(problems.length).to.equal(0);
-      const dumpObject = FavoriteCourses.dumpOne(docID);
       FavoriteCourses.removeIt(docID);
       expect(FavoriteCourses.isDefined(docID)).to.be.false;
-      docID = FavoriteCourses.restoreOne(dumpObject);
-      problems = FavoriteCourses.checkIntegrity();
-      expect(problems.length).to.equal(0);
-      expect(FavoriteCourses.isDefined(docID)).to.be.true;
-      expect(FavoriteCourses.countNonRetired()).to.equal(1);
-      FavoriteCourses.update(docID, { retired: true });
-      expect(FavoriteCourses.countNonRetired()).to.equal(0);
-      FavoriteCourses.removeIt(docID);
     });
 
-    it('#getCourseDoc, #getCourseSlug, #getStudentDoc, #getStudentUsername', function test() {
+    it('Cannot define duplicates', function test2() {
+      const docID1 = FavoriteCourses.define({ course, student });
+      const docID2 = FavoriteCourses.define({ course, student });
+      expect(docID1).to.equal(docID2);
+      expect(FavoriteCourses.isDefined(docID1)).to.be.true;
+      FavoriteCourses.removeIt(docID2);
+      expect(FavoriteCourses.isDefined(docID1)).to.be.false;
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      const docID = FavoriteCourses.define({ course, student });
+      fc.assert(
+        fc.property(fc.boolean(), (retired) => {
+          FavoriteCourses.update(docID, { retired });
+          const fav = FavoriteCourses.findDoc(docID);
+          expect(fav.retired).to.equal(retired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let fav = FavoriteCourses.findOne({});
+      let docID = fav._id;
+      const dumbObject = FavoriteCourses.dumpOne(docID);
+      FavoriteCourses.removeIt(docID);
+      expect(FavoriteCourses.isDefined(docID)).to.be.false;
+      docID = FavoriteCourses.restoreOne(dumbObject);
+      fav = FavoriteCourses.findDoc(docID);
+      expect(fav.studentID).to.equal(student);
+      expect(fav.courseID).to.equal(course);
+    });
+
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = FavoriteCourses.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    it('Can get docs and slug', function test6() {
       const docID = FavoriteCourses.define({ course, student });
       const courseDoc = FavoriteCourses.getCourseDoc(docID);
       expect(courseDoc).to.exist;
