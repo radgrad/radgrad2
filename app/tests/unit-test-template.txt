@@ -82,7 +82,8 @@ if (Meteor.isServer) {
 }
 
     it('Can define and removeIt', function test1(done) {
-
+      this.timeout(5000);
+      done();
     });
 
     it('Cannot define duplicates', function test2() {
@@ -90,7 +91,8 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-
+      this.timeout(5000);
+      done();
     });
 
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
