@@ -169,7 +169,7 @@ class AcademicTermCollection extends BaseSlugCollection {
     }
   }
 
-  findIdBySlug(slug): { optional: boolean; type: any } | string | any {
+  public findIdBySlug(slug): { optional: boolean; type: any } | string | any {
     // console.log('findIdBySlug', slug);
     if (this.isDefined(slug)) {
       return super.findIdBySlug(slug);

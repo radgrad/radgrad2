@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import {} from 'mocha';
+import fc from 'fast-check';
+import faker from 'faker';
+import 'mocha';
 import { AcademicTerms } from './AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -17,7 +20,21 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('Can define, even multiple times', function test1() {
+    it('Can define and removeIt', function test1(done) {
+      this.timeout(5000);
+      fc.assert(
+        fc.property(fc.integer(2017, 2027), fc.boolean(), (fcYear, fcRetired) => {
+          const term = AcademicTerms.terms[faker.random.number({ min: 0, max: AcademicTerms.terms.length - 1 })];
+          const docID = AcademicTerms.define({ term, year: fcYear, retired: fcRetired });
+          expect(AcademicTerms.isDefined(docID)).to.be.true;
+          AcademicTerms.removeIt(docID);
+          expect(AcademicTerms.isDefined(docID)).to.be.false;
+        }),
+      );
+      done();
+    });
+
+    it('Cannot define duplicates', function test2() {
       const termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
       const termID2 = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
       expect(termID).to.equal(termID2);
@@ -25,27 +42,57 @@ if (Meteor.isServer) {
       expect(AcademicTerms.isDefined(termID2)).to.be.true;
     });
 
-    it('Can update retired flag', function test2() {
-      const docID = AcademicTerms.findIdBySlug('Fall-2019');
-      AcademicTerms.update(docID, { retired: true });
-      const terms = AcademicTerms.findNonRetired();
-      expect(terms.length).to.equal(0);
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      let doc = AcademicTerms.findOne({});
+      const docID = doc._id;
+      fc.assert(
+        fc.property(fc.boolean(), (fcRetired) => {
+          AcademicTerms.update(docID, { retired: fcRetired });
+          doc = AcademicTerms.findDoc(docID);
+          expect(doc.retired).to.equal(fcRetired);
+        }),
+      );
+      done();
     });
 
-    it('Can dump, removeIt and restore', function test3() {
-      let docID = AcademicTerms.findIdBySlug('Fall-2019');
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let doc = AcademicTerms.findOne({});
+      let docID = doc._id;
       const dumpObject = AcademicTerms.dumpOne(docID);
       AcademicTerms.removeIt(docID);
       expect(AcademicTerms.isDefined(docID)).to.be.false;
       docID = AcademicTerms.restoreOne(dumpObject);
       expect(AcademicTerms.isDefined(docID)).to.be.true;
+      doc = AcademicTerms.findDoc(docID);
+      expect(doc.term).to.equal(dumpObject.term);
+      expect(doc.year).to.equal(dumpObject.year);
+      expect(doc.retired).to.equal(dumpObject.retired);
     });
 
-    it('Can assertAcademicTerm', function test4() {
-      const termID = AcademicTerms.findIdBySlug('Fall-2019');
-      expect(function () { AcademicTerms.assertAcademicTerm(termID); }).to.not.throw();
-      expect(function () { AcademicTerms.assertAcademicTerm('Fall-2019'); }).to.not.throw();
-      expect(function () { AcademicTerms.assertAcademicTerm(''); }).to.throw();
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = AcademicTerms.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    /* ===================== AcademicTerm method tests ===================== */
+
+    it('Can assertAcademicTerm', function test6() {
+      const academicTermDoc = AcademicTerms.findOne({});
+      const termID = academicTermDoc._id;
+      const slug = Slugs.getNameFromID(academicTermDoc.slugID);
+      expect(() => { AcademicTerms.assertAcademicTerm(termID); }).to.not.throw();
+      expect(() => { AcademicTerms.assertAcademicTerm(slug); }).to.not.throw();
+      expect(() => { AcademicTerms.assertAcademicTerm(''); }).to.throw();
+    });
+
+    it('Can findIdBySlug', function test7() {
+      const academicTermDoc = AcademicTerms.findOne({});
+      const termID = academicTermDoc._id;
+      const slug = Slugs.getNameFromID(academicTermDoc.slugID);
+      const id = AcademicTerms.findIdBySlug(slug);
+      expect(id).to.equal(termID);
+      expect(() => AcademicTerms.findIdBySlug('badSlug')).to.throw();
     });
 
     it('Can toString', function test5() {
