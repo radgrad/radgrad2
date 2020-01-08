@@ -5,7 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: 'Install dependencies'
+  - name: 'ESLint'
     task:
       prologue:
         commands:
@@ -13,16 +13,18 @@ blocks:
           - checkout
           # install Meteor
           - curl https://install.meteor.com | /bin/sh
+          - cd app
+          - meteor npm install
       jobs:
-        - name: 'Meteor npm install'
-          commands:
-            - cd app
-            - meteor npm install
-
-  - name: ESLint
-    task:
-      jobs:
-        - name: Run lint
+        - name: 'Run Lint'
           commands:
             - cd app
             - meteor npm run lint
+
+  - name: 'Unit Test'
+    task:
+      jobs:
+        - name: Run test
+          commands:
+            - cd app
+            - meteor npm run test
