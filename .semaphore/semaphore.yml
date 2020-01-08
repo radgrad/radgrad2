@@ -18,7 +18,6 @@ blocks:
       jobs:
         - name: 'Run Lint'
           commands:
-            - cd app
             - meteor npm run lint
 
   - name: 'Unit Test'
@@ -26,5 +25,4 @@ blocks:
       jobs:
         - name: Run test
           commands:
-            - cd app
             - meteor npm run test
