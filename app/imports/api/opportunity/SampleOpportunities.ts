@@ -1,12 +1,11 @@
-import moment from 'moment';
 import faker from 'faker';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
+import { makeSampleInterestArray } from '../interest/SampleInterests';
 import slugify from '../slug/SlugCollection';
-import { makeSampleAcademicTerm, makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
+import { makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
 import { makeSampleIce } from '../ice/SampleIce';
 
 /**
