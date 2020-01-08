@@ -6,6 +6,8 @@ agent:
     os_image: ubuntu1804
 blocks:
   - name: 'ESLint'
+    run:
+      when: "branch = 'master'"
     task:
       prologue:
         commands:
@@ -21,6 +23,8 @@ blocks:
             - meteor npm run lint
 
   - name: 'Unit Test'
+    run:
+      when: "branch = 'master'"
     task:
       prologue:
         commands:
