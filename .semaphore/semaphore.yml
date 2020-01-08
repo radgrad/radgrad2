@@ -22,7 +22,18 @@ blocks:
 
   - name: 'Unit Test'
     task:
+      prologue:
+        commands:
+          # Get the latest code
+          - checkout
+          # install Meteor
+          - curl https://install.meteor.com | /bin/sh
+          - cd app
+          - meteor npm install
       jobs:
         - name: Run test
           commands:
             - meteor npm run test
+        - name: Run test-app
+          commands:
+            - meteor npm run test-app
