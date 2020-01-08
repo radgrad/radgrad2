@@ -1,13 +1,28 @@
 version: v1.0
-name: Initial Pipeline
+name: RadGrad2 Pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: 'Block #1'
+  - name: 'Install dependencies'
+    task:
+      prologue:
+        commands:
+          # Get the latest code
+          - checkout
+          # install Meteor
+          - curl https://install.meteor.com | /bin/sh
+      jobs:
+        - name: 'Meteor npm install'
+          commands:
+            - cd app
+            - meteor npm install
+
+  - name: ESLint
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Run lint
           commands:
-            - checkout
+            - cd app
+            - meteor npm run lint
