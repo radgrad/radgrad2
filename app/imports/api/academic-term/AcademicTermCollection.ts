@@ -4,7 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
