@@ -47,7 +47,7 @@ if (Meteor.isServer) {
       const description = faker.lorem.paragraph();
       const docID1 = Interests.define({ name, slug, description, interestType: interestTypeID });
       expect(Interests.isDefined(docID1)).to.be.true;
-      throw expect(() => Interests.define({ name, slug, description, interestType: interestTypeID })).to.throw(Error);
+      expect(() => Interests.define({ name, slug, description, interestType: interestTypeID })).to.throw(Error);
     });
 
     it('Can update', function test3(done) {
@@ -82,7 +82,8 @@ if (Meteor.isServer) {
     });
 
     it('Can checkIntegrity no errors', function test5() {
-
+      const errors = Interests.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
     });
 
     // it('#assertDefined, assertAllDefined', function test() {

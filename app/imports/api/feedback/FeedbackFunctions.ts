@@ -380,7 +380,7 @@ export class FeedbackFunctionClass {
   }
 
   private getBasePath(studentID) {
-    console.log(studentID);
+    // console.log(studentID);
     // const getPosition = (str, subString, index) => {
     //   return str.split(subString, index).join(subString).length;
     // };

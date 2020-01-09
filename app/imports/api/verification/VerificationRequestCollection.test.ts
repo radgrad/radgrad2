@@ -9,6 +9,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { Users } from '../user/UserCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -22,6 +23,7 @@ if (Meteor.isServer) {
     let facultyFirstName;
     let opportunityInstance;
     let opportunity;
+    let opportunityName;
     const verified = false;
     let docID;
     before(function setup() {
@@ -31,9 +33,11 @@ if (Meteor.isServer) {
       student = makeSampleUser();
       studentFirstName = Users.getProfile(student).firstName;
       faculty = makeSampleUser(ROLE.FACULTY);
-      console.log(Users.getProfile(student), Users.getProfile(faculty));
-      facultyFirstName = Users.getProfile(faculty).firstName;
-      opportunity = makeSampleOpportunity(makeSampleUser(ROLE.FACULTY));
+      // console.log(Users.getProfile(student), Users.getProfile(faculty));
+      const facultyProfile = Users.getProfile(faculty);
+      facultyFirstName = facultyProfile.firstName;
+      opportunity = makeSampleOpportunity(facultyProfile.username);
+      opportunityName = Opportunities.findDoc({ _id: opportunity }).name;
       // opportunityInstance = OpportunityInstances.define({ academicTerm, opportunity, sponsor: faculty, student, verified });
     });
 
@@ -59,13 +63,13 @@ if (Meteor.isServer) {
     it('get documents', function test() {
       const opportunityDoc = VerificationRequests.getOpportunityDoc(docID);
       expect(opportunityDoc).to.exist;
-      expect(opportunityDoc.name).to.equal('Sample Opportunity');
+      expect(opportunityDoc.name).to.equal(opportunityName);
       const studentDoc = VerificationRequests.getStudentDoc(docID);
       expect(studentDoc).to.exist;
       expect(studentDoc.firstName).to.equal(studentFirstName);
       const sponsorDoc = VerificationRequests.getSponsorDoc(docID);
       expect(sponsorDoc).to.exist;
-      console.log(sponsorDoc, facultyFirstName);
+      // console.log(sponsorDoc, facultyFirstName);
       expect(sponsorDoc.firstName).to.equal(facultyFirstName);
       const opportunityInstanceDoc = VerificationRequests.getOpportunityInstanceDoc(docID);
       expect(opportunityInstanceDoc).to.exist;

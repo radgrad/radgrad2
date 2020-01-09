@@ -129,7 +129,7 @@ function startupStudentParticipation() {
  * @memberOf startup/server
  */
 function startupCheckIntegrity() {
-  console.log('Checking DB integrity.');
+  // console.log('Checking DB integrity.');
   const integrity = checkIntegrity();
   if (integrity.count > 0) {
     console.log(checkIntegrity().message);

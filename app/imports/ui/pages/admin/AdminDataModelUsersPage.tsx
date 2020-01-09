@@ -229,7 +229,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
   };
 
   private handleUpdate = (doc) => {
-    console.log('UsersPage.handleUpdate(%o)', doc);
+    // console.log('UsersPage.handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     let collectionName;

@@ -52,6 +52,7 @@ SyncedCron.add({
           IceSnapshots.getCollection().update({ username }, { $set: { i: ice.i, c: ice.c, e: ice.e, updated: moment().toDate() } });
           if ((iceSnap.i < 100) || (iceSnap.co < 100) || (iceSnap.e < 100)) {
             if ((ice.i > 100) && (ice.c > 100) && (ice.e > 100)) {
+              // @ts-ignore
               UserInteractions.define({ username, type: 'completePlan', typeData: [ice.i, ice.c, ice.e] });
             }
           }

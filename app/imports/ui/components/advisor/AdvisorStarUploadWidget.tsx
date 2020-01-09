@@ -33,7 +33,7 @@ class AdvisorStarUploadWidget extends React.Component<IAdvisorStarUploadWidgetPr
   };
 
   private onSubmit = () => {
-    console.log('Data submitted: ', this.state.fileData);
+    // console.log('Data submitted: ', this.state.fileData);
     // TODO -- find out more about how data is uploaded from STAR
     const advisor = this.props.advisorUsername;
     const studentDoc = this.props.usernameDoc;

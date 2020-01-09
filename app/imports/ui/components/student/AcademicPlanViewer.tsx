@@ -59,7 +59,7 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
   }
 
   private handleChangeYear = (data) => {
-    console.log('change year %o', data);
+    // console.log('change year %o', data);
     const academicPlan = AcademicPlans.find({ year: data, name: this.state.name }).fetch()[0];
     if (academicPlan) {
       this.setState({
@@ -71,7 +71,7 @@ class AcademicPlanViewer extends React.Component<IAcademicPlanViewerProps, IAcad
   }
 
   private handleChangeName = (data) => {
-    console.log('change name %o', data);
+    // console.log('change name %o', data);
     const academicPlan = AcademicPlans.find({ year: this.state.year, name: data }).fetch()[0];
     if (academicPlan) {
       this.setState({

@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch) => ({
 class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState> {
   constructor(props) {
     super(props);
-    console.log('UpdateUserForm', props);
+    // console.log('UpdateUserForm', props);
     let collection;
     const { id } = props;
     if (StudentProfiles.isDefined(id)) {
@@ -94,7 +94,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
 
   // Hacky way of resetting pictureURL to be empty
   private handleUpdateUser = (doc) => {
-    console.log('UpdateUserForm.handleUpdateUser', doc);
+    // console.log('UpdateUserForm.handleUpdateUser', doc);
     this.props.handleUpdate(doc);
     this.setState({ pictureURL: '' });
   }
@@ -201,7 +201,7 @@ Picture (
       schema.extend(studentSchema);
     }
     const { pictureURL } = this.state;
-    console.log(schema);
+    // console.log(schema);
     return (
       <Segment padded>
         <Header dividing>

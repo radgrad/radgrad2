@@ -38,7 +38,7 @@ const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
   const _id = Slugs.getEntityID(props.match.params.careergoal, 'CareerGoal');
   const careerGoal = CareerGoals.findDoc({ _id });
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
-  console.log(oppTeaser);
+  // console.log(oppTeaser);
   if (oppTeaser.length > 1) {
     return undefined;
   }
@@ -47,7 +47,7 @@ const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
 
 
 const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
-  console.log(props);
+  // console.log(props);
   const marginStyle = {
     marginTop: 5,
   };

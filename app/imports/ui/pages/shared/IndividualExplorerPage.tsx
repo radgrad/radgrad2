@@ -183,7 +183,7 @@ const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
-  console.log(courseSlugName, theCourse);
+  // console.log(courseSlugName, theCourse);
   return theCourse;
 };
 

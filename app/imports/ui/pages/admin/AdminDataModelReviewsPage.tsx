@@ -154,7 +154,7 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-    console.log(collectionName, updateData);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

@@ -248,7 +248,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    console.log('updateData %o', updateData);
+    // console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

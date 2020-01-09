@@ -56,13 +56,13 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
-    console.log('handleDelete inst=%o state=%o', inst, this.state);
+    // console.log('handleDelete inst=%o state=%o', inst, this.state);
     this.setState({ confirmOpen: true, id: inst.id });
   };
 
   private handleConfirmDelete = (event) => {
     event.preventDefault();
-    console.log('handle confirm delete state=%o', this.state);
+    // console.log('handle confirm delete state=%o', this.state);
     this.setState({ confirmOpen: false });
   };
 

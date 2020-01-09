@@ -247,7 +247,7 @@ export function processBulkStarCsvData(csvData) {
     // Now we take that array of objects and transform them into CourseInstance data objects.
     _.forEach(Object.keys(bulkData), (key) => {
       bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
-        console.log(ci);
+        // console.log(ci);
         return ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null;
       });
     });

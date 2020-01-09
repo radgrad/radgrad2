@@ -95,14 +95,14 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   };
 
   private handleSimpleCombine = () => {
-    console.log('simple combine', this.state);
+    // console.log('simple combine', this.state);
     const { combineLeftSide, combineRightSide } = this.state;
     const combineChoice = simpleCombineChoices(combineLeftSide, combineRightSide);
     this.setState({ showConfirmCombine: false, combineChoice });
   };
 
   private handleCompoundCombine = () => {
-    console.log('compound combine', this.state);
+    // console.log('compound combine', this.state);
     const { combineLeftSide, combineRightSide } = this.state;
     const combineChoice = compoundCombineChoices(combineLeftSide, combineRightSide);
     this.setState({ showConfirmCombine: false, combineChoice });
@@ -188,10 +188,10 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   };
 
   private handleDropInChoiceArea(dropResult) {
-    console.log(CHOICE_AREA, dropResult);
+    // console.log(CHOICE_AREA, dropResult);
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
     const source = dropResult.source.droppableId;
-    console.log(source, choice);
+    // console.log(source, choice);
     if (source === COMBINE_AREA) {
       this.setState({ addPlanChoice: choice, showConfirmAdd: true });
     } else if (source.startsWith(PLAN_AREA)) {
@@ -253,9 +253,9 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private handleSavePlan = (doc) => {
-    console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
+    // console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
     const truncatedCoursesPerTerm = removeEmptyYearsRaw(this.state.coursesPerTerm);
-    console.log(truncatedCoursesPerTerm, this.state.choiceList);
+    // console.log(truncatedCoursesPerTerm, this.state.choiceList);
     const collectionName = AcademicPlans.getCollectionName();
     const name = doc.name;
     const description = doc.description;

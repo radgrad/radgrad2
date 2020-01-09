@@ -338,7 +338,7 @@ export const opportunityItemName = (item: { item: IOpportunity, count: number })
 export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => {
   const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  console.log(notRetired.length);
+  // console.log(notRetired.length);
   if (Router.isUrlRoleStudent(props.match)) {
     const studentID = Router.getUserIdFromRoute(props.match);
     if (notRetired.length > 0) {
@@ -349,7 +349,7 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
         }).fetch();
         return oi.length === 0;
       });
-      console.log('first filter ', filteredOpps.length);
+      // console.log('first filter ', filteredOpps.length);
       filteredOpps = _.filter(filteredOpps, (opp) => {
         let inFuture = false;
         _.forEach(opp.termIDs, (termID) => {
@@ -360,11 +360,11 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
         });
         return inFuture;
       });
-      console.log('second filter ', filteredOpps.length);
+      // console.log('second filter ', filteredOpps.length);
       const favorites = FavoriteOpportunities.findNonRetired({ studentID });
       const favIDs = _.map(favorites, (fav) => fav.opportunityID);
       filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
-      console.log('third filter ', filteredOpps.length);
+      // console.log('third filter ', filteredOpps.length);
       return filteredOpps;
     }
   } else if (props.role === URL_ROLES.FACULTY) {
@@ -375,7 +375,7 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
 
 export const matchingOpportunities = (props: ICardExplorerMenuWidgetProps): object[] => {
   const allOpportunities = availableOpps(props);
-  console.log('allOpportunities ', allOpportunities);
+  // console.log('allOpportunities ', allOpportunities);
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
   const interestIDs = Users.getInterestIDs(profile.userID);

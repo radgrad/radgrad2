@@ -99,7 +99,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * @param event Details of the event
    */
   private fileSelectedHandler = (event) => {
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
   };
 
   /**

@@ -45,7 +45,7 @@ const handleRemove = (event, { value }) => {
 };
 
 const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model) => {
-  console.log(model, props);
+  // console.log(model, props);
   const collectionName = VerificationRequests.getCollectionName();
   const student = getUsername(props.match);
   const opportunityInstance = props.instance._id;

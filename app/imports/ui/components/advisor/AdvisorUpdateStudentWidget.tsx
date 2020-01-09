@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
   constructor(props) {
     super(props);
-    console.log('AdvisorUpdateStudentWidget', props);
+    // console.log('AdvisorUpdateStudentWidget', props);
     const doc = this.props.usernameDoc;
     const userID = doc.userID;
     const favInterests = FavoriteInterests.findNonRetired({ userID });
@@ -71,7 +71,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       declaredAcademicTerm: doc.declaredAcademicTerm || '',
       favoriteAcademicPlans: favPlanIDs,
     };
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   private handleUploadClick = async (): Promise<void> => {

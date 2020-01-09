@@ -14,8 +14,8 @@ interface IModerationWidget {
 }
 
 const handleAcceptReview = (item, comments) => {
-  console.log('take in a review, give back an object w/ collection name and update data');
-  console.log(item);
+  // console.log('take in a review, give back an object w/ collection name and update data');
+  // console.log(item);
   const updateInfo = { id: item._id, moderated: true, mentorComment: comments };
   const collectionName = Reviews.getCollectionName();
   return {
@@ -25,8 +25,8 @@ const handleAcceptReview = (item, comments) => {
 };
 
 const handleRejectReview = (item, comments) => {
-  console.log('take in a review, give back an object w/ collection name and update data');
-  console.log(item);
+  // console.log('take in a review, give back an object w/ collection name and update data');
+  // console.log(item);
   const updateInfo = { id: item._id, moderated: true, visible: false, mentorComment: comments };
   const collectionName = Reviews.getCollectionName();
   return {
@@ -36,8 +36,8 @@ const handleRejectReview = (item, comments) => {
 };
 
 const handleAcceptQuestion = (item, comments) => {
-  console.log('take in a question, give back an object w/ collection name and update data');
-  console.log(item);
+  // console.log('take in a question, give back an object w/ collection name and update data');
+  // console.log(item);
   const updateInfo = { id: item._id, moderated: true, moderatorComment: comments };
   const collectionName = MentorQuestions.getCollectionName();
   return {
@@ -47,8 +47,8 @@ const handleAcceptQuestion = (item, comments) => {
 };
 
 const handleRejectQuestion = (item, comments) => {
-  console.log('take in a question, give back an object w/ collection name and update data');
-  console.log(item);
+  // console.log('take in a question, give back an object w/ collection name and update data');
+  // console.log(item);
   const updateInfo = { id: item._id, moderated: true, visible: false, moderatorComment: comments };
   const collectionName = MentorQuestions.getCollectionName();
   return {

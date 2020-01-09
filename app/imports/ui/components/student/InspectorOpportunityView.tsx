@@ -54,7 +54,7 @@ const handleVRClick = (props: IInspectorOpportunityViewProps) => (event, { value
     opportunityInstance: oi._id,
   };
   const inst = this;
-  console.log(inst.props);
+  // console.log(inst.props);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
       console.error('Error requesting verification', error);
@@ -64,7 +64,7 @@ const handleVRClick = (props: IInspectorOpportunityViewProps) => (event, { value
 
 const handleRemoveClick = (props: IInspectorOpportunityViewProps) => (event, { value }) => {
   event.preventDefault();
-  console.log(`Remove OI ${value}`);
+  // console.log(`Remove OI ${value}`);
   const oi = OpportunityInstances.findDoc(value);
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;

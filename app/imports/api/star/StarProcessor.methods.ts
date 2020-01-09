@@ -21,21 +21,21 @@ import { IStudentProfileDefine } from '../../typings/radgrad'; // eslint-disable
 
 function processStudentStarDefinitions(advisor, student, definitions) {
   // console.log(`processStudentStarDefinitions(${advisor}, ${student}, ${definitions})`);
-  console.log(`Processing ${student}'s STAR data`);
+  // console.log(`Processing ${student}'s STAR data`);
   // console.log(definitions);
   const studentID = Users.getID(student);
-  console.log(student, studentID);
+  // console.log(student, studentID);
   const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
   _.forEach(oldInstances, (instance) => {
     CourseInstances.removeIt(instance._id);
   });
   let numInterstingCourses = 0;
   // let numOtherCourses = 0;
-  console.log('create new instances');
+  // console.log('create new instances');
   const departments = {};
   _.forEach(definitions, (definition) => {
     // console.log('termID', termID);
-    console.log(definition);
+    // console.log(definition);
     if (definition.course !== Courses.unInterestingSlug) {
       const termID = AcademicTerms.findIdBySlug(definition.academicTerm);
       const department = getDepartment(definition.course);
@@ -77,7 +77,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
   } else {
     text = `${text} course from STAR.`;
   }
-  console.log(`${student} had ${numInterstingCourses} course(s)`);
+  // console.log(`${student} had ${numInterstingCourses} course(s)`);
   advisorLogsDefineMethod.call({ advisor, student, text }, (error) => {
     if (error) {
       console.log('Error creating AdvisorLog', error);
@@ -143,7 +143,7 @@ export const starLoadJsonDataMethod = new ValidatedMethod({
 function processBulkStarDefinitions(advisor, definitions) {
   let updateNum = 0;
   let newStudents = 0;
-  console.log(definitions);
+  // console.log(definitions);
   if (definitions) {
     const students = Object.keys(definitions);
     _.forEach(students, (student) => {
@@ -195,9 +195,9 @@ function processBulkStarData(advisor, csvData) {
  * @memberOf api/star
  */
 function processBulkStarDataJson(advisor, jsonData) {
-  console.log(`processBulkStarDataJson(${advisor}`, jsonData);
+  // console.log(`processBulkStarDataJson(${advisor}`, jsonData);
   const definitions = processBulkStarJsonData(jsonData);
-  console.log(definitions);
+  // console.log(definitions);
   return processBulkStarDefinitions(advisor, definitions);
 }
 

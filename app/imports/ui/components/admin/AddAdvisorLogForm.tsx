@@ -18,7 +18,7 @@ interface IAddAdvisorLogFormProps {
 }
 
 const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
-  console.log('AddAdvisorLogForm', props);
+  // console.log('AddAdvisorLogForm', props);
   const advisorNames = _.map(props.advisors, profileToUsername);
   const studentNames = _.map(props.students, profileToUsername);
   // console.log(advisorNames, studentNames);
@@ -51,7 +51,7 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<a
 const AddAdvisorLogFormContainer = withTracker(() => {
   const advisors = AdvisorProfiles.findNonRetired({}, { $sort: { lastName: 1, firstName: 1 } });
   const students = StudentProfiles.findNonRetired({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } });
-  console.log('advisors=%o students=%o', advisors, students);
+  // console.log('advisors=%o students=%o', advisors, students);
   return {
     advisors,
     students,

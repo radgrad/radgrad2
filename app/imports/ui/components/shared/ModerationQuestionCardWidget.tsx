@@ -23,7 +23,7 @@ class ModerationQuestionCardWidget extends React.Component<IModerationQuestionCa
   private handleAcceptClick = () => {
     const update = this.props.handleAccept(this.props.question, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({
@@ -51,7 +51,7 @@ class ModerationQuestionCardWidget extends React.Component<IModerationQuestionCa
   private handleRejectClick = () => {
     const update = this.props.handleReject(this.props.question, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({

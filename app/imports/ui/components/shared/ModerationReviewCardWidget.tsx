@@ -38,7 +38,7 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
     // make handle accept take in the moderator comments
     const update = this.props.handleAccept(this.props.item, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({
@@ -61,7 +61,7 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
   private handleRejectClick = () => {
     const update = this.props.handleReject(this.props.item, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({

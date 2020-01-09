@@ -85,12 +85,12 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
         const docsPerMinGroups = _.groupBy(timeGroups, function (time) {
           return time.length;
         });
-        console.log('docsPerMinGroups ', docsPerMinGroups);
+        // console.log('docsPerMinGroups ', docsPerMinGroups);
         const overheadBuckets = this.createBucket(docsPerMinGroups);
-        console.log('overheadBuckets ', overheadBuckets);
+        // console.log('overheadBuckets ', overheadBuckets);
         this.props.setOverheadBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
-        console.log('userInteractions ', userInteractions);
+        // console.log('userInteractions ', userInteractions);
         this.props.setUserInteractions(userInteractions);
         /* Generating Overhead Data */
         const overheadData = [];
@@ -134,7 +134,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
           userData['total-time'] = totalTime;
           overheadData.push(userData);
         });
-        console.log('overheadData ', overheadData);
+        // console.log('overheadData ', overheadData);
       }
     });
   }

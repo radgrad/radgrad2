@@ -8,7 +8,7 @@ interface IUpdateRegex {
 }
 
 const handleChangeFirstNameRegex = (props: IUpdateRegex) => (event, value) => {
-  console.log(event, value);
+  // console.log(event, value);
   props.updateFirstNameRegex(event.target.value);
 };
 

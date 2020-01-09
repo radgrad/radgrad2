@@ -134,7 +134,7 @@ function getListIndex(choice: string, choiceList: string[]) {
 }
 
 export function reorderChoicesInTermRaw(choice: string, termNumber: number, newIndex: number, choiceList: string[], coursesPerAcademicTerm: number[]) {
-  console.log('reorder', choice, termNumber, newIndex);
+  // console.log('reorder', choice, termNumber, newIndex);
   const termChoices = getPlanChoicesRaw(coursesPerAcademicTerm, choiceList, termNumber);
   const oldTermIndex = getListIndex(choice, termChoices);
   const diff = newIndex - oldTermIndex;

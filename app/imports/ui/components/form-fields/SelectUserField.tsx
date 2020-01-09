@@ -23,9 +23,9 @@ interface ISelectUserFieldProps {
 }
 
 const SelectUserField = (props: ISelectUserFieldProps) => {
-  console.log(props);
+  // console.log(props);
   const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
-  console.log(options);
+  // console.log(options);
   return (
     <Form.Select
       label={props.label}
@@ -54,7 +54,7 @@ const SelectUserFieldContainer = withTracker((props) => {
     default:
       users = StudentProfiles.findNonRetired({ isAlumni: true });
   }
-  console.log('users=%o', users);
+  // console.log('users=%o', users);
   return {
     users,
   };

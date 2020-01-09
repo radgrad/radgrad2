@@ -28,13 +28,13 @@ if (Meteor.isClient) {
       const studentID = Users.getID(student);
       const id = AcademicYearInstances.findDoc({ year, studentID })._id;
       const springYear = 2018;
-      const termIDs = [];
-      await updateMethod.callPromise({ collectionName, updateData: { id, springYear, termIDs } });
+      await updateMethod.callPromise({ collectionName, updateData: { id, year: springYear, retired: true } });
     });
 
     it('Remove Method', async function () {
       const studentID = Users.getID(student);
-      const instance = AcademicYearInstances.findDoc({ year, studentID })._id;
+      const springYear = 2018;
+      const instance = AcademicYearInstances.findDoc({ year: springYear, studentID })._id;
       await removeItMethod.callPromise({ collectionName, instance });
     });
   });
