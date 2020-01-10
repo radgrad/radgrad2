@@ -51,3 +51,6 @@ mizzao:user-status
 email@1.2.3
 meteorhacks:ssr
 typescript
+meteortesting:mocha
+meteortesting:browser-tests
+lmieulet:meteor-coverage
