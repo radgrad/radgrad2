@@ -27,7 +27,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(15000);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(5, true), (fcName, fcSlug, fcDescription) => {
           const interests = [makeSampleInterest(), makeSampleInterest()];
