@@ -20,28 +20,39 @@ function inspectorReducer(state: any = initialState, action) {
     case TYPES.SELECT_COURSE:
       return {
         ...state,
-        selectedCourseID: action.payload,
-        selectedCourseInstanceID: '',
-        selectedOpportunityID: '',
-        selectedOpportunityInstanceID: '',
+        depInspector: {
+          ...depInspector,
+          selectedCourseID: action.payload,
+          selectedCourseInstanceID: '',
+          selectedOpportunityID: '',
+          selectedOpportunityInstanceID: '',
+        },
       };
     case TYPES.SELECT_COURSE_INSTANCE:
+      // console.log('select ci ', action);
       return {
         ...state,
-        selectedCourseID: '',
-        selectedCourseInstanceID: action.payload,
-        selectedOpportunityID: '',
-        selectedOpportunityInstanceID: '',
+        depInspector: {
+          ...depInspector,
+          selectedCourseID: '',
+          selectedCourseInstanceID: action.payload,
+          selectedOpportunityID: '',
+          selectedOpportunityInstanceID: '',
+        },
       };
     case TYPES.SELECT_OPPORTUNITY:
       return {
         ...state,
-        selectedCourseID: '',
-        selectedCourseInstanceID: '',
-        selectedOpportunityID: action.payload,
-        selectedOpportunityInstanceID: '',
+        depInspector: {
+          ...depInspector,
+          selectedCourseID: '',
+          selectedCourseInstanceID: '',
+          selectedOpportunityID: action.payload,
+          selectedOpportunityInstanceID: '',
+        },
       };
     case TYPES.SELECT_OPPORTUNITY_INSTANCE:
+      // console.log('select oi ', action);
       return {
         ...state,
         depInspector: {

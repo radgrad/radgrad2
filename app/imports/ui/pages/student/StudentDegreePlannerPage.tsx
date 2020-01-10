@@ -43,7 +43,7 @@ const onDragEnd = (props: IPageProps) => (result) => {
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
   const student = props.match.params.username;
-  // console.log(termSlug, slug, student);
+  console.log(termSlug, slug, student);
   if (Courses.isDefined(slug)) {
     const courseID = Courses.findIdBySlug(slug);
     const course = Courses.findDoc(courseID);

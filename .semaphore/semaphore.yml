@@ -38,3 +38,20 @@ blocks:
         - name: Run test
           commands:
             - meteor npm run test-cam
+
+  - name: 'App Test'
+    run:
+      when: "branch = 'master'"
+    task:
+      prologue:
+        commands:
+          # Get the latest code
+          - checkout
+          # install Meteor
+          - curl https://install.meteor.com | /bin/sh
+          - cd app
+          - meteor npm install
+      jobs:
+        - name: Run test
+          commands:
+            - meteor npm run test-app

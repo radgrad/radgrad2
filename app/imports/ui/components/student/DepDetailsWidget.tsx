@@ -17,6 +17,7 @@ const mapStateToProps = (state) => ({
 });
 
 const DepDetailsWidget = (props: IDepDetailsWidgetProps) => {
+  // console.log('DepDetailsWidget props = ', props);
   const courseP = props.selectedCourseInstanceID !== '';
   const opportunityP = props.selectedOpportunityInstanceID !== '';
   // console.log('DepDetailsWidget', props, courseP, opportunityP);
