@@ -53,7 +53,7 @@ const handleVRClick = (props: IInspectorOpportunityViewProps) => (event, { value
     student,
     opportunityInstance: oi._id,
   };
-  const inst = this;
+  // const inst = this;
   // console.log(inst.props);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {

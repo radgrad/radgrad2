@@ -37,7 +37,7 @@ blocks:
       jobs:
         - name: Run test
           commands:
-            - meteor npm run test
+            - meteor npm run test-cam
         - name: Run test-app
           commands:
             - meteor npm run test-app

@@ -5,7 +5,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { IStarDataObject } from '../../typings/radgrad'; // eslint-disable-line
+import { IStarDataObject } from '../../typings/radgrad';
 
 /**
  * Given the semester string from STAR (for example, 'Fall 2015 ext'), parses it, defines the corresponding academicTerm,
@@ -246,10 +246,7 @@ export function processBulkStarCsvData(csvData) {
     });
     // Now we take that array of objects and transform them into CourseInstance data objects.
     _.forEach(Object.keys(bulkData), (key) => {
-      bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => {
-        // console.log(ci);
-        return ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null;
-      });
+      bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
     });
     return bulkData;
   }
