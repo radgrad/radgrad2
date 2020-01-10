@@ -6,8 +6,8 @@ agent:
     os_image: ubuntu1804
 blocks:
   - name: 'ESLint'
-#    run:
-#      when: "branch = 'master'"
+    run:
+      when: "branch = 'master'"
     task:
       prologue:
         commands:
