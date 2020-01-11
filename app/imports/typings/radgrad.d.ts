@@ -24,6 +24,10 @@ export interface IDumpOne {
   slug?: string;
 }
 
+export interface IUpdate {
+  id?: string;
+}
+
 export interface IAdminDataModelPageState {
   showUpdateForm: boolean;
   id: string;
@@ -234,7 +238,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAcademicPlanUpdate {
+export interface IAcademicPlanUpdate  extends IUpdate {
   degreeSlug?: string;
   name?: string;
   academicTerm?: string;
@@ -277,8 +281,7 @@ export interface IAdvisorLogDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAdvisorLogUpdate {
-  id?: string;
+export interface IAdvisorLogUpdate extends IUpdate {
   text?: string;
   retired?: boolean;
 }
@@ -301,8 +304,7 @@ export interface ICareerGoalDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICareerGoalUpdate {
-  id?: string;
+export interface ICareerGoalUpdate extends IUpdate{
   name?: string;
   description?: string;
   interests?: string[];
@@ -322,7 +324,7 @@ export interface IStudentParticipationDefine extends IDumpOne {
   itemCount: number;
 }
 
-export interface IStudentParticipationUpdate {
+export interface IStudentParticipationUpdate extends IUpdate {
   itemCount?: number;
 }
 
@@ -353,7 +355,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICourseInstanceUpdate {
+export interface ICourseInstanceUpdate extends IUpdate {
   termID?: string;
   verified?: boolean;
   fromRegistrar?: boolean;
@@ -398,7 +400,7 @@ export interface ICourseDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICourseUpdate {
+export interface ICourseUpdate extends IUpdate {
   name?: string;
   shortName?: string;
   num?: string;
@@ -428,7 +430,7 @@ export interface IDesiredDegreeDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IDesiredDegreeUpdate {
+export interface IDesiredDegreeUpdate extends IUpdate {
   name?: string;
   shortName?: string;
   description?: string;
@@ -496,7 +498,7 @@ export interface IFavoriteOpportunity {
   retired: boolean;
 }
 
-export interface IFavoriteUpdate {
+export interface IFavoriteUpdate extends IUpdate {
   retired?: boolean;
 }
 
@@ -517,7 +519,7 @@ export interface IFeedDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IFeedUpdate {
+export interface IFeedUpdate extends IUpdate {
   description?: string;
   picture?: string;
   users?: string[];
@@ -536,7 +538,7 @@ export interface IFeedbackInstanceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IFeedbackInstanceUpdate {
+export interface IFeedbackInstanceUpdate extends IUpdate {
   user?: string;
   functionName?: string;
   description?: string;
@@ -552,7 +554,7 @@ export interface IHelpDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IHelpUpdate {
+export interface IHelpUpdate extends IUpdate{
   routeName?: string;
   title?: string;
   text?: string;
@@ -577,7 +579,7 @@ export interface IInterestDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IInterestUpdate {
+export interface IInterestUpdate extends IUpdate {
   name?: string;
   description?: string;
   interestType?: string;
@@ -600,7 +602,7 @@ export interface ITypeDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ITypeUpdate {
+export interface ITypeUpdate extends IUpdate {
   name?: string;
   description?: string;
   retired?: boolean;
@@ -631,7 +633,7 @@ export interface IMentorAnswerDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IMentorAnswerUpdate {
+export interface IMentorAnswerUpdate extends IUpdate {
   text?: string;
   retired?: boolean;
 }
@@ -658,7 +660,7 @@ export interface IMentorQuestionDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IMentorQuestionUpdate {
+export interface IMentorQuestionUpdate extends IUpdate {
   question?: string;
   student?: string;
   moderated?: boolean;
@@ -696,7 +698,7 @@ export interface IOpportunityDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IOpportunityUpdate {
+export interface IOpportunityUpdate extends IUpdate {
   name?: string;
   description?: string;
   opportunityType?: string;
@@ -741,7 +743,7 @@ export interface IOpportunityInstanceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IOpportunityInstanceUpdate {
+export interface IOpportunityInstanceUpdate extends IUpdate {
   termID?: string;
   verified?: boolean;
   ice?: Ice;
@@ -763,7 +765,7 @@ export interface IOpportunityTypeDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IOpportunityTypeUpdate {
+export interface IOpportunityTypeUpdate extends IUpdate {
   description?: string;
   name?: string;
   retired?: boolean;
@@ -775,7 +777,7 @@ export interface IPlanChoiceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IPlanChoiceUpdate {
+export interface IPlanChoiceUpdate extends IUpdate {
   choice?: string;
   retired?: boolean;
 }
@@ -872,8 +874,7 @@ export interface ICombinedProfileDefine extends IProfileDefine {
   shareLevel?: boolean;
 }
 
-export interface IProfileUpdate {
-  id?: string;
+export interface IProfileUpdate extends IUpdate {
   firstName?: string;
   lastName?: string;
   picture?: string;
@@ -1013,7 +1014,7 @@ export interface IReviewDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IReviewUpdate {
+export interface IReviewUpdate extends IUpdate {
   academicTerm?: string;
   rating?: number;
   comments?: string;
@@ -1049,7 +1050,7 @@ export interface IAcademicTermDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAcademicTermUpdate {
+export interface IAcademicTermUpdate extends IUpdate {
   retired?: boolean;
 }
 
@@ -1058,7 +1059,7 @@ export interface ISettingsDefine extends IDumpOne {
   quarterSystem: boolean;
 }
 
-export interface ISettingsUpdate {
+export interface ISettingsUpdate extends IUpdate {
   quarterSystem?: boolean;
 }
 
@@ -1105,7 +1106,7 @@ export interface ITeaserDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ITeaserUpdate {
+export interface ITeaserUpdate extends IUpdate {
   title?: string;
   targetSlug?: string;
   interests?: string[];
@@ -1173,7 +1174,7 @@ export interface IVerificationRequestDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IVerificationRequestUpdate {
+export interface IVerificationRequestUpdate extends IUpdate {
   status?: string;
   processed?: IProcessed[];
   retired?: boolean;

@@ -7,19 +7,20 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { ICourseInstanceDefine, ICourseInstanceUpdate, IOpportunityInstanceDefine } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-// import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import TabbedFavoritesWidget from '../../components/student/TabbedFavoritesWidget';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
+  selectFavoriteDetailsTab: () => any;
   match: {
     isExact: boolean;
     path: string;
@@ -33,17 +34,17 @@ interface IPageProps {
 const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
 const onDragEnd = (props: IPageProps) => (result) => {
-  // console.log(result);
+  console.log(result);
   if (!result.destination) {
     return;
   }
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
   const student = props.match.params.username;
-  console.log(termSlug, slug, student);
   if (Courses.isDefined(slug)) {
     const courseID = Courses.findIdBySlug(slug);
     const course = Courses.findDoc(courseID);
@@ -64,6 +65,21 @@ const onDragEnd = (props: IPageProps) => (result) => {
       } else {
         // console.log(res);
         props.selectCourseInstance(res);
+        props.selectFavoriteDetailsTab();
+      }
+    });
+  } else if (CourseInstances.isDefined(slug)) {
+    const termID = AcademicTerms.findIdBySlug(termSlug);
+    console.log('Course instance');
+    const updateData: ICourseInstanceUpdate = {};
+    updateData.termID = termID;
+    updateData.id = slug;
+    const collectionName = CourseInstances.getCollectionName();
+    updateMethod.call({ collectionName, updateData }, (error, res) => {
+      if (error) {
+        console.error(error);
+      } else {
+        props.selectCourseInstance(slug);
       }
     });
   } else if (Opportunities.isDefined(slug)) {
@@ -87,6 +103,8 @@ const onDragEnd = (props: IPageProps) => (result) => {
         props.selectOpportunityInstance(res);
       }
     });
+  } else if (OpportunityInstances.isDefined(slug)) {
+    console.log('Opportunity instance');
   }
 };
 

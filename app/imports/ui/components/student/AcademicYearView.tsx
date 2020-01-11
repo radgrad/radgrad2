@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicYear } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicYear } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AcademicTermViewContainer from './AcademicTermView';
 
