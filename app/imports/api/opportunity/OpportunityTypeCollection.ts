@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import BaseTypeCollection from '../base/BaseTypeCollection';
-import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad';
 
 /**
  * OpportunityTypes help organize Opportunities into logically related groupings such as "Internships", "Clubs", etc.

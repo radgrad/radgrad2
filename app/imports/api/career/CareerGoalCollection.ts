@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**

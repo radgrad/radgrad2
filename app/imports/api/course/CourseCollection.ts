@@ -6,7 +6,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
 import { isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
 

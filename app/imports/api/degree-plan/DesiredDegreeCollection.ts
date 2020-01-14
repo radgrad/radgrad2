@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { Slugs } from '../slug/SlugCollection';
-import { IDesiredDegreeDefine, IDesiredDegreeUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IDesiredDegreeDefine, IDesiredDegreeUpdate } from '../../typings/radgrad';
 
 /**
  * DesiredDegrees specifies the set of degrees possible in this department.

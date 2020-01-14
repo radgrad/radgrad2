@@ -3,7 +3,7 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDescriptionPair } from '../../../typings/radgrad';
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminDataModelAccordionProps {

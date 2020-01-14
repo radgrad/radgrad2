@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**
@@ -245,7 +245,7 @@ class OpportunityInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line
+      Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (!studentID) {
           return this.ready();
         }

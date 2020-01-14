@@ -45,7 +45,14 @@ const onDragEnd = (props: IPageProps) => (result) => {
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
   const student = props.match.params.username;
-  if (Courses.isDefined(slug)) {
+  const isCourseDrop = Courses.isDefined(slug);
+  const isCourseInstanceDrop = CourseInstances.isDefined(slug);
+  const isOppDrop = Opportunities.isDefined(slug);
+  const isOppInstDrop = OpportunityInstances.isDefined(slug);
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
+  const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
+  if (isCourseDrop && !isPastDrop) {
     const courseID = Courses.findIdBySlug(slug);
     const course = Courses.findDoc(courseID);
     const collectionName = CourseInstances.getCollectionName();
@@ -68,7 +75,7 @@ const onDragEnd = (props: IPageProps) => (result) => {
         props.selectFavoriteDetailsTab();
       }
     });
-  } else if (CourseInstances.isDefined(slug)) {
+  } else if (isCourseInstanceDrop && !isPastDrop) {
     const termID = AcademicTerms.findIdBySlug(termSlug);
     console.log('Course instance');
     const updateData: ICourseInstanceUpdate = {};
@@ -82,7 +89,7 @@ const onDragEnd = (props: IPageProps) => (result) => {
         props.selectCourseInstance(slug);
       }
     });
-  } else if (Opportunities.isDefined(slug)) {
+  } else if (isOppDrop) {
     const opportunityID = Opportunities.findIdBySlug(slug);
     const opportunity = Opportunities.findDoc(opportunityID);
     const sponsor = Users.getProfile(opportunity.sponsorID).username;
@@ -103,7 +110,7 @@ const onDragEnd = (props: IPageProps) => (result) => {
         props.selectOpportunityInstance(res);
       }
     });
-  } else if (OpportunityInstances.isDefined(slug)) {
+  } else if (isOppInstDrop) {
     console.log('Opportunity instance');
   }
 };

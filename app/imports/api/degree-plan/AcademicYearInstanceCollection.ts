@@ -6,7 +6,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IAcademicYearDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { IAcademicYearDefine } from '../../typings/radgrad';
 import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 
 /**

@@ -4,7 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IInterestType } from '../../../typings/radgrad'; // eslint-disable-line
+import { IInterestType } from '../../../typings/radgrad';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { docToName } from '../shared/data-model-helper-functions';
 

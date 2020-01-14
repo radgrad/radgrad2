@@ -4,7 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

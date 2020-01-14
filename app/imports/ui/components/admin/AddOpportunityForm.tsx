@@ -4,7 +4,7 @@ import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, 
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';

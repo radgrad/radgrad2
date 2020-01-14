@@ -12,7 +12,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
-import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad'; // eslint-disable-line
+import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".

@@ -8,7 +8,7 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
-import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**

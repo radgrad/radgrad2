@@ -4,7 +4,7 @@ import moment from 'moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
-import { IIceSnapshotDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { IIceSnapshotDefine } from '../../typings/radgrad';
 
 function createSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);

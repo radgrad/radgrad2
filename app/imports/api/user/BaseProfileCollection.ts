@@ -12,7 +12,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { IBaseProfile } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IBaseProfile } from '../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
@@ -210,19 +210,19 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   protected updateCommonFields(updateData, { firstName, lastName, picture, website, retired }) {
     if (firstName) {
-      updateData.firstName = firstName; // eslint-disable-line
+      updateData.firstName = firstName; // eslint-disable-line no-param-reassign
     }
     if (lastName) {
-      updateData.lastName = lastName; // eslint-disable-line
+      updateData.lastName = lastName; // eslint-disable-line no-param-reassign
     }
     if (_.isString(picture)) {
-      updateData.picture = picture; // eslint-disable-line
+      updateData.picture = picture; // eslint-disable-line no-param-reassign
     }
     if (_.isString(website)) {
-      updateData.website = website; // eslint-disable-line
+      updateData.website = website; // eslint-disable-line no-param-reassign
     }
     if (_.isBoolean(retired)) {
-      updateData.retired = retired; // eslint-disable-line
+      updateData.retired = retired; // eslint-disable-line no-param-reassign
     }
     // console.log('_updateCommonFields', updateData);
   }

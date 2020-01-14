@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import BaseTypeCollection from '../base/BaseTypeCollection';
-import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad';
 
 /**
  * InterestTypes help organize Interests into logically related groupings such as "CS-Disciplines", "Locations", etc.

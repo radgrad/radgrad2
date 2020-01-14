@@ -6,7 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../shared/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { ICourse, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IInterest } from '../../../typings/radgrad';
 import { courseToName, docToName } from '../shared/data-model-helper-functions';
 import { Courses } from '../../../api/course/CourseCollection';
 

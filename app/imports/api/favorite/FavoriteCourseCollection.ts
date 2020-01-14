@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Courses } from '../course/CourseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IFavoriteCourseDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteCourseDefine, IFavoriteUpdate } from '../../typings/radgrad';
 
 class FavoriteCourseCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -82,7 +82,7 @@ class FavoriteCourseCollection extends BaseCollection {
   publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (!studentID) {
           return this.ready();
         }

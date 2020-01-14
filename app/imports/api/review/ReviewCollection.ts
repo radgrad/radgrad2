@@ -8,7 +8,7 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { Courses } from '../course/CourseCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/radgrad'; // eslint-disable-line
+import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents a course or opportunity review by a student.
@@ -100,12 +100,12 @@ class ReviewCollection extends BaseSlugCollection {
     if (reviewType === this.COURSE) {
       revieweeID = Courses.getID(reviewee);
       if (!slug) {
-        slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
+        slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
       }
     } else if (reviewType === this.OPPORTUNITY) {
       revieweeID = Opportunities.getID(reviewee);
       if (!slug) {
-        slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line
+        slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
       }
     }
     // Validate academicTerm, get termID.
@@ -113,8 +113,8 @@ class ReviewCollection extends BaseSlugCollection {
     // Validate rating.
     this.assertValidRating(rating);
     // Guarantee that moderated and public are booleans.
-    moderated = !!moderated; // eslint-disable-line
-    visible = !!visible; // eslint-disable-line
+    moderated = !!moderated; // eslint-disable-line no-param-reassign
+    visible = !!visible; // eslint-disable-line no-param-reassign
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the new Review and its Slug.

@@ -17,7 +17,7 @@ import {
   processBulkStarJsonData,
 } from './StarProcessor';
 import { updateStudentLevel } from '../level/LevelProcessor';
-import { IStudentProfileDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { IStudentProfileDefine } from '../../typings/radgrad';
 
 function processStudentStarDefinitions(advisor, student, definitions) {
   // console.log(`processStudentStarDefinitions(${advisor}, ${student}, ${definitions})`);
@@ -55,10 +55,10 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     } else {
       // numOtherCourses += 1;
     }
-    definition.fromRegistrar = true; // eslint-disable-line
+    definition.fromRegistrar = true; // eslint-disable-line no-param-reassign
     if (definition.grade === '***' || definition.grade === 'TBD') {
-      definition.grade = 'B'; // eslint-disable-line
-      definition.verified = false; // eslint-disable-line
+      definition.grade = 'B'; // eslint-disable-line no-param-reassign
+      definition.verified = false; // eslint-disable-line no-param-reassign
     }
     if (definition.course !== Courses.unInterestingSlug) {
       // console.log('CourseInstances.define', definition);
@@ -66,8 +66,8 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     }
   });
   let text = 'Uploaded ';
-  for (const key in departments) { // eslint-disable-line
-    if (departments.hasOwnProperty(key)) { // eslint-disable-line
+  for (const key in departments) {
+    if (departments.hasOwnProperty(key)) { // eslint-disable-line no-prototype-builtins
       text = `${text} ${departments[key]} ${key}, `;
     }
   }

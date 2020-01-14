@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
-import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
 import { CourseScoreboardName } from '../../startup/both/names';
 
 /**

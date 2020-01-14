@@ -8,7 +8,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a specific interest, such as "Software Engineering".

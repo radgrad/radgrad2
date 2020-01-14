@@ -1,11 +1,11 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor'; // eslint-disable-line
+import { Meteor } from 'meteor/meteor';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IMentorQuestion } from '../../../typings/radgrad'; // eslint-disable-line
+import { IMentorQuestion } from '../../../typings/radgrad';
 import { profileToName } from '../shared/data-model-helper-functions';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';

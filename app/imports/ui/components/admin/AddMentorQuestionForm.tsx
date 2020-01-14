@@ -4,7 +4,7 @@ import { AutoForm, SelectField, TextField, LongTextField, BoolField, SubmitField
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IMentorQuestion, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IStudentProfile } from '../../../typings/radgrad';
 import { profileToName } from '../shared/data-model-helper-functions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 

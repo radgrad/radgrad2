@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad';
 
 /**
  * Each FeedbackInstance represents one recommendation or warning for a user.

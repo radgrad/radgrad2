@@ -83,7 +83,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
   publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (!studentID) {
           return this.ready();
         }

@@ -4,7 +4,7 @@ import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { ITeaserDefine, ITeaserUpdate, ITeaserUpdateData } from '../../typings/radgrad'; // eslint-disable-line
+import { ITeaserDefine, ITeaserUpdate, ITeaserUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents a teaser instance, such as "ACM Webmasters".

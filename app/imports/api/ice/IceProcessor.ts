@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { Courses } from '../course/CourseCollection';
-import { Ice } from '../../typings/radgrad'; // eslint-disable-line
+import { Ice } from '../../typings/radgrad';
 
 export const iceSchema = new SimpleSchema({
   i: {

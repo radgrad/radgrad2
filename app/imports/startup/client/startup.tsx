@@ -7,5 +7,5 @@ import App from '../../ui/layouts/App';
 
 /** Startup the application by rendering the App layout component. */
 Meteor.startup(() => {
-  render(<Provider store={store}><App/></Provider>, document.getElementById('root')); // eslint-disable-line
+  render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 });

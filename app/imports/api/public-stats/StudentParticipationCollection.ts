@@ -8,7 +8,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { IStudentParticipationDefine, IStudentParticipationUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IStudentParticipationDefine, IStudentParticipationUpdate } from '../../typings/radgrad';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Interests } from '../interest/InterestCollection';

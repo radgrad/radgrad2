@@ -4,7 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../typings/radgrad';
 import { docToName, slugIDToSlugNameAndType } from '../shared/data-model-helper-functions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../api/interest/InterestCollection';

@@ -7,7 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 

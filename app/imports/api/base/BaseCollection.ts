@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
-import { IDumpOne } from '../../typings/radgrad'; // eslint-disable-line
+import { IDumpOne } from '../../typings/radgrad';
 
 /**
  * BaseCollection is an abstract superclass of all RadGrad data model entities.
@@ -255,7 +255,7 @@ class BaseCollection {
    * Returns a string representing all of the documents in this collection.
    * @returns {String}
    */
-  public toString(...rest: any[]): string { // eslint-disable-line no-unused-vars
+  public toString(...rest: any[]): string {
     return this.collection.find().fetch().toString();
   }
 

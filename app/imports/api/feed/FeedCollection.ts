@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad';
 import { defaultProfilePicture } from '../user/BaseProfileCollection';
 
 /**

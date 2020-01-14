@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
-import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Help message for a RadGrad page.

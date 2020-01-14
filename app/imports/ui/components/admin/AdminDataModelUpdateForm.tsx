@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, AutoFields, SubmitField } from 'uniforms-semantic';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IAdminDataModelUpdateFormProps {
   collection: BaseCollection;

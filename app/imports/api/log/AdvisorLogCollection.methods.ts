@@ -3,7 +3,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import _ from 'lodash';
 import { AdvisorLogs } from './AdvisorLogCollection';
 import { ROLE } from '../role/Role';
-import { IAdvisorLogUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IAdvisorLogUpdate } from '../../typings/radgrad';
 import { Users } from '../user/UserCollection';
 
 /**
