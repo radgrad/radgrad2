@@ -8,7 +8,7 @@ import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -49,7 +49,7 @@ const itemTitleString = (item: any): string => {
   const oi = OpportunityInstances.findDoc(item.opportunityInstanceID);
   const term = AcademicTerms.toString(oi.termID, false);
   const opportunityName = OpportunityInstances.getOpportunityDoc(item.opportunityInstanceID).name;
-  return `${student}: ${opportunityName} - ${term}`; // eslint-disable-line
+  return `${student}: ${opportunityName} - ${term}`;
 };
 
 /**

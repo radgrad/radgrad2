@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';

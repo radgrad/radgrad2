@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan } from '../../../typings/radgrad';
 import AcademicPlanYearView from '../shared/AcademicPlanYearView';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';

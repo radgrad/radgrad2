@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicPlan, ICourseInstance } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, ICourseInstance } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';

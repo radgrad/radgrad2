@@ -3,7 +3,7 @@ import { Card, Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IOpportunity } from '../../../typings/radgrad';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import * as Router from '../shared/RouterHelperFunctions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';

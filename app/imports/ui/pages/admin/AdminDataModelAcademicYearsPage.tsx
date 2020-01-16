@@ -5,7 +5,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';

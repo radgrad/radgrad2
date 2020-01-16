@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
 import { getUserIdFromRoute, buildRouteName } from '../shared/RouterHelperFunctions';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IAcademicYear, Ice, } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IAcademicYear, Ice } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';

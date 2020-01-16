@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDesiredDegree } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';

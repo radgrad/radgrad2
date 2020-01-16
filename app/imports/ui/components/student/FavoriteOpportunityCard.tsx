@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IOpportunity, IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IOpportunity, IOpportunityInstance } from '../../../typings/radgrad';
 import IceHeader from '../shared/IceHeader';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

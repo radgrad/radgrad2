@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import InterestList from './InterestList';
 import { Users } from '../../../api/user/UserCollection';
-import { IFavoriteCareerGoalDefine, IProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IProfile } from '../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import FavoritesButton from './FavoritesButton';

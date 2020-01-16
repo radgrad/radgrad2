@@ -4,7 +4,7 @@ import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourse } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseScoreboard } from '../../../startup/client/collections';

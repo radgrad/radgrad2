@@ -1,7 +1,7 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice } from '../../../typings/radgrad';
 import MenuIceCircle from '../shared/MenuIceCircle';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm } from '../../../typings/radgrad';
 import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';

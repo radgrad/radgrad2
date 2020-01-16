@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { Link, withRouter } from 'react-router-dom';
-import { IExplorerCard } from '../../../typings/radgrad'; // eslint-disable-line
+import { IExplorerCard } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { docToName, docToShortDescription } from './data-model-helper-functions';
 import { buildExplorerRoute } from './explorer-helper-functions';

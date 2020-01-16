@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair, IFeedDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IFeedDefine } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -23,7 +23,7 @@ import {
 } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { ReduxTypes } from '../../../redux'; // eslint-disable-line
+import { ReduxTypes } from '../../../redux';
 
 const collection = Feeds; // the collection to use.
 

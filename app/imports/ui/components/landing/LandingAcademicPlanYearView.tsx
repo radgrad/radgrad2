@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan } from '../../../typings/radgrad';
 import { getPlanChoices } from '../../../api/degree-plan/AcademicPlanUtilities';
 import LandingAcademicTermView from './LandingAcademicTermView';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';

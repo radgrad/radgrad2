@@ -4,8 +4,8 @@ import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, 
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 import {
   academicTermIdToName,
   academicTermToName,

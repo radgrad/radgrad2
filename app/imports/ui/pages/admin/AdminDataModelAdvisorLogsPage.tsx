@@ -6,9 +6,9 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState, // eslint-disable-line
-  IAdvisorLog, IAdvisorLogUpdate, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
+  IAdminDataModelPageState,
+  IAdvisorLog, IAdvisorLogUpdate,
+  IDescriptionPair,
 } from '../../../typings/radgrad';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';

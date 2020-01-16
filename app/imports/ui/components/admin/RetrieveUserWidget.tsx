@@ -7,8 +7,8 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateAllStudentLevelsMethod } from '../../../api/level/LevelProcessor.methods';
-import { IFilterUsers } from '../../pages/admin/AdminHomePage'; // eslint-disable-line
-import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IFilterUsers } from '../../pages/admin/AdminHomePage';
+import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
 
 function url(user) {
   return `/#/${user.role.toLowerCase()}/${user.username}/home`;

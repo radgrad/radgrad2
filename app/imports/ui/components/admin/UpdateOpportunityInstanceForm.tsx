@@ -4,8 +4,8 @@ import { AutoForm, SelectField, AutoField, BoolField, SubmitField } from 'unifor
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IAcademicTerm } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { academicTermIdToName, academicTermToName } from '../shared/data-model-helper-functions';
 import { iceSchema } from '../../../api/ice/IceProcessor';

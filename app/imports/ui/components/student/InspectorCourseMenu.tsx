@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
-import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
-import { IMentorQuestion, IReview, IReviewUpdateData } from '../../../typings/radgrad'; // eslint-disable-line
+import { IMentorQuestion, IReview } from '../../../typings/radgrad';
 import ModerationColumnWidget from './ModerationColumnWidget';
 
 interface IModerationWidget {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Card, Icon, SemanticCOLORS } from 'semantic-ui-react'; // eslint-disable-line
+import { Card, Icon } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { Link, withRouter } from 'react-router-dom';
 
-import { ITermCard } from '../../../typings/radgrad'; // eslint-disable-line
+import { ITermCard } from '../../../typings/radgrad';
 import IceHeader from './IceHeader';
 import InterestList from './InterestList';
 import WidgetHeaderNumber from './WidgetHeaderNumber';

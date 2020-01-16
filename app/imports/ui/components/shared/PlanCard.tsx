@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Card, Icon, Popup, Image } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-disable-line
+import { IPlanCard } from '../../../typings/radgrad';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';

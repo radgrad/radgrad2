@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
-import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget'; // eslint-disable-line no-unused-vars
+import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import * as AcademicPlanUtilities from '../../../api/degree-plan/AcademicPlanUtilities';

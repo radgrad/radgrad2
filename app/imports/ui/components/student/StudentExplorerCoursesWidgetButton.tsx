@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { ICourse, ICourseInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, ICourseInstanceDefine } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';

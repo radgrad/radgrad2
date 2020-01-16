@@ -5,10 +5,9 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import {
-  IAdminDataModelPageState, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
-  IFeedbackInstanceDefine, // eslint-disable-line
-  IFeedbackInstanceUpdate, // eslint-disable-line
+  IAdminDataModelPageState,
+  IDescriptionPair,
+  IFeedbackInstanceDefine,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';

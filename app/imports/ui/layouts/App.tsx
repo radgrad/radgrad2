@@ -48,7 +48,7 @@ const App = () => (
  * Checks for Meteor login before routing to the requested page, otherwise goes to signin page.
  * @param {any} { component: Component, ...rest }
  */
-const ProtectedRoute = ({ component: Component, ...rest }) => ( // eslint-disable-line
+const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props: any) => {
@@ -66,7 +66,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => ( // eslint-disabl
  * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
  * @param {any} { component: Component, ...rest }
  */
-const AdminProtectedRoute = ({ component: Component, ...rest }) => { // eslint-disable-line react/prop-types
+const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -84,7 +84,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => { // eslint-d
   );
 };
 
-const AdvisorProtectedRoute = ({ component: Component, ...rest }) => { // eslint-disable-line react/prop-types
+const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -94,7 +94,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => { // eslint
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
           );
       }}
     />
@@ -102,7 +102,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => { // eslint
 };
 
 
-const FacultyProtectedRoute = ({ component: Component, ...rest }) => { // eslint-disable-line react/prop-types
+const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -112,14 +112,14 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => { // eslint
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
           );
       }}
     />
   );
 };
 
-const MentorProtectedRoute = ({ component: Component, ...rest }) => { // eslint-disable-line react/prop-types
+const MentorProtectedRoute = ({ component: Component, ...rest }) => {
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -129,14 +129,14 @@ const MentorProtectedRoute = ({ component: Component, ...rest }) => { // eslint-
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.MENTOR]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
           );
       }}
     />
   );
 };
 
-const StudentProtectedRoute = ({ component: Component, ...rest }) => { // eslint-disable-line react/prop-types
+const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -147,7 +147,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => { // eslint
         const isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/> // eslint-disable-line
+          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
           );
       }}
     />

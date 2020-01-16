@@ -5,14 +5,14 @@ import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { ROLE } from '../../../api/role/Role';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import BaseCollection from '../../../api/base/BaseCollection';
+import { IDescriptionPair } from '../../../typings/radgrad';
 import AdminPaginationWidget from '../admin/AdminPaginationWidget';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 
 interface IListOpportunitiesWidgetProps {

@@ -7,9 +7,9 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState, // eslint-disable-line
-  ICareerGoal, ICareerGoalUpdate, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
+  IAdminDataModelPageState,
+  ICareerGoal, ICareerGoalUpdate,
+  IDescriptionPair,
 } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';

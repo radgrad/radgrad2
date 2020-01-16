@@ -7,8 +7,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { docToName } from '../shared/data-model-helper-functions';
-import { IInterestType } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IInterestType } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IUpdateInterestFormProps {
   interestTypes: IInterestType[];

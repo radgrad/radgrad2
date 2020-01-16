@@ -18,7 +18,7 @@ import { termIDsToString } from '../../../api/academic-term/AcademicTermUtilitie
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
 import * as Router from '../shared/RouterHelperFunctions';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
@@ -125,19 +125,25 @@ const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
         />
       </Header>
       {plannedOpportunity ?
-        <Button floated="right" basic={true} color="green" onClick={handleRemoveClick(props)} // eslint-disable-line
-          size="tiny"
-          value={opportunityInstance._id}
-        >
-remove
-        </Button> : (pastOpportunity ? (
+        (
+          <Button
+            floated="right"
+            basic
+            color="green"
+            onClick={handleRemoveClick(props)}
+            size="tiny"
+            value={opportunityInstance._id}
+          >
+            remove
+          </Button>
+        ) : (pastOpportunity ? (
           <Button
             floated="right"
             basic
             color="green"
             size="tiny"
           >
-taken
+            taken
           </Button>
         ) : (
           <Droppable droppableId="inspecto-opportunity">
@@ -161,12 +167,12 @@ taken
                   )}
                 </Draggable>
               </div>
-)}
+            )}
           </Droppable>
         ))}
 
       <b>
-When:
+        When:
         {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}
       </b>
       <p><b>Description:</b></p>
@@ -180,15 +186,15 @@ When:
       <UserInterestList userID={props.studentID} interestIDs={opportunity.interestIDs} />
       <p />
       <a href={baseRoute}>
-View in Explorer
+        View in Explorer
         <Icon name="arrow right" />
       </a>
       <p />
-      {(pastOpportunity) ? (!hasRequest ? ( // eslint-disable-line
+      {(pastOpportunity) ? (!hasRequest ? (
         <div>
           <Header dividing />
           <Button basic color="green" size="tiny" onClick={handleVRClick(props)} value={opportunityInstance._id}>
-Request
+            Request
             Verification
           </Button>
         </div>
@@ -208,11 +214,11 @@ Request
 Processed:
                 {moment(processed.date).calendar()}
                 {' '}
-by
+                by
                 {processed.verifier}
-                  (
+                (
                 {processed.status}
-)
+                )
                 {' '}
                 <em>{processed.feedback}</em>
               </span>

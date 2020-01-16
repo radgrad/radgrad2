@@ -15,7 +15,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import { ReduxTypes } from '../../../redux'; // eslint-disable-line
+import { ReduxTypes } from '../../../redux';
 import {
   SET_MENTOR_HOME_CLOUDINARY_URL,
   SET_MENTOR_HOME_IS_CLOUDINARY_USED,

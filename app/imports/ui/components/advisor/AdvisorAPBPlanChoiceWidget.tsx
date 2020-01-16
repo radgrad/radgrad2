@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
-import { IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IPlanChoiceDefine } from '../../../typings/radgrad';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './AcademicPlanBuilderUtilities';
 

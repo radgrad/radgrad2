@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { IInterest } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';

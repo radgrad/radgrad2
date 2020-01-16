@@ -19,7 +19,7 @@ import PlanCard from './PlanCard';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import {
-  ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
+  ICardExplorerMenuWidgetProps,
   buildHeader,
   checkForNoItems,
   getItems,

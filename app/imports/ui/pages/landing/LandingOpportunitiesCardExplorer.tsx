@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { IOpportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';

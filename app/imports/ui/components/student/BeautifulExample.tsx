@@ -84,14 +84,14 @@ class BeautifulExample extends React.Component<{}, IBeautifulExampleState> {
             >
               {this.state.items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => ( // eslint-disable-line
+                  {(prov, snap) => (
                     <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
+                      ref={prov.innerRef}
+                      {...prov.draggableProps}
+                      {...prov.dragHandleProps}
                       style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style,
+                        snap.isDragging,
+                        prov.draggableProps.style,
                       )}
                     >
                       {item.content}

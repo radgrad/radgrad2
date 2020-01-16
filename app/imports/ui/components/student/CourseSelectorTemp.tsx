@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Form } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
-import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';

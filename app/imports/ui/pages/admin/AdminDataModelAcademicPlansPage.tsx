@@ -4,7 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';

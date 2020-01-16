@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label } from 'semantic-ui-react';
-import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice } from '../../../typings/radgrad';
 
 interface IceHeaderProps {
   ice: Ice;

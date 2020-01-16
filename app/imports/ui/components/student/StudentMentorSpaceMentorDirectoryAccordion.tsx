@@ -3,7 +3,7 @@ import { Accordion, Divider, Icon, Image, List, Segment } from 'semantic-ui-reac
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
-import { IMentorProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IMentorProfile } from '../../../typings/radgrad';
 
 interface IStudentMentorSpaceMentorDirectoryAccordionState {
   activeIndex: number;

@@ -6,7 +6,7 @@ import SimplSchema from 'simpl-schema';
 import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan } from '../../../typings/radgrad';
 import AcademicPlanViewerWidget from './AcademicPlanViewerWidget';
 
 interface IAcademicPlanViewerProps {

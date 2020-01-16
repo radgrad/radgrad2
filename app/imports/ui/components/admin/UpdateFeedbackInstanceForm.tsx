@@ -8,8 +8,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { profileToName, userIdToName } from '../shared/data-model-helper-functions';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IStudentProfile } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IUpdateFeedbackInstanceFormProps {
   students: IStudentProfile[];

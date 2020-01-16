@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IUpdateHelpMessageFormProps {
   collection: BaseCollection;

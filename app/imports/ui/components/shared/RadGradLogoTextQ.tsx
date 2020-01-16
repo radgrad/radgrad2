@@ -1,5 +1,5 @@
 import React from 'react';
-import { SemanticCOLORS } from 'semantic-ui-react'; // eslint-disable-line
+import { SemanticCOLORS } from 'semantic-ui-react';
 
 interface IRadGradLogoProps {
   color?: SemanticCOLORS;

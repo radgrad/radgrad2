@@ -15,8 +15,8 @@ export interface INavBarProps {
 }
 
 const onClick = () => {
-  const el = document.getElementById('landing-section-9'); // eslint-disable-line
-  window.scrollTo(0, el.offsetTop); // eslint-disable-line
+  const el = document.getElementById('landing-section-9');
+  window.scrollTo(0, el.offsetTop);
 };
 
 /**

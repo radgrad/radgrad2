@@ -4,9 +4,9 @@ import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } 
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { ICourse, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IInterest } from '../../../typings/radgrad';
 import {
   courseSlugToName, courseToName,
   docToName,

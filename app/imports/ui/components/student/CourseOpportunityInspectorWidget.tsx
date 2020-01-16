@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IOpportunity } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { Courses } from '../../../api/course/CourseCollection';

@@ -9,7 +9,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Ice } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice } from '../../../typings/radgrad';
 
 interface IStudentIceColumnProps {
   match: {

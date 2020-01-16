@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
-import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
 import { helpPanelWidget } from './shared-widget-names';

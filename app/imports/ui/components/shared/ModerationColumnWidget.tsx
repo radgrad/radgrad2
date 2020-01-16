@@ -1,7 +1,6 @@
 // this will be the column widget that holds the individual moderation cards
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data'; // eslint-disable-line
 import { Header, Segment, Container, Item } from 'semantic-ui-react';
 import ModerationReviewCardWidget from './ModerationReviewCardWidget';
 import ModerationQuestionCardWidget from './ModerationQuestionCardWidget';

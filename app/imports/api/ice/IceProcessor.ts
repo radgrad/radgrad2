@@ -27,7 +27,7 @@ export const iceSchema = new SimpleSchema({
 Number.isInteger = Number.isInteger ||
     function test(value) {
       return typeof value === 'number' &&
-          isFinite(value) && // eslint-disable-line no-restricted-globals
+          isFinite(value) &&
           Math.floor(value) === value;
     };
 

@@ -3,13 +3,13 @@ import { Dropdown, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
-  IAcademicPlan, //eslint-disable-line
-  ICareerGoal, //eslint-disable-line
-  ICourse, //eslint-disable-line
-  IDesiredDegree, //eslint-disable-line
-  IInterest, //eslint-disable-line
-  IOpportunity, //eslint-disable-line
-  IProfile, // eslint-disable-line
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IInterest,
+  IOpportunity,
+  IProfile,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';

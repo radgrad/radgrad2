@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';

@@ -6,9 +6,9 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, // eslint-disable-line no-unused-vars
-  IDescriptionPair, // eslint-disable-line no-unused-vars
-  ITeaser, // eslint-disable-line no-unused-vars
+import { IAdminDataModelPageState,
+  IDescriptionPair,
+  ITeaser,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';

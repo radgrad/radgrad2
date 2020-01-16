@@ -3,8 +3,8 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { withTracker } from 'meteor/react-meteor-data';
-import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
-import { IOpportunityInstance, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
+import { IOpportunityInstance, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';

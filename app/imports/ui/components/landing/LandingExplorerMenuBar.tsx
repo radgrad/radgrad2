@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
-import { INavBarProps } from './LandingNavBar'; // eslint-disable-line
+import { INavBarProps } from './LandingNavBar';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 

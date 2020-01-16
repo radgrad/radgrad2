@@ -6,7 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
-import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { PlanChoiceCollection, PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';

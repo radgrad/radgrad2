@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan } from '../../../typings/radgrad';
 import LandingAcademicPlanYearView from './LandingAcademicPlanYearView';
 
 interface ILandingAcademicPlanViewerProps {

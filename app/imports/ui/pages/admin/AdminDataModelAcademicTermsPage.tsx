@@ -10,10 +10,10 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  IAcademicTerm, // eslint-disable-line
-  IAcademicTermDefine, // eslint-disable-line
-  IAdminDataModelPageState, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
+  IAcademicTerm,
+  IAcademicTermDefine,
+  IAdminDataModelPageState,
+  IDescriptionPair,
 } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';

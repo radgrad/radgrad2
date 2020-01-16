@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { IAdvisorLog, IBaseProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdvisorLog, IBaseProfile } from '../../../typings/radgrad';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { studentLogWidget } from './student-widget-names';

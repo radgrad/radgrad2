@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import BaseCollection from '../../../api/base/BaseCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 
 interface IUpdateMentorQuestionFormProps {

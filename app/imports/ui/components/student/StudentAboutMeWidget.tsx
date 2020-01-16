@@ -5,12 +5,11 @@ import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  ICareerGoal, IFavoriteAcademicPlan, // eslint-disable-line
-  IFavoriteCareerGoal, // eslint-disable-line
-  IFavoriteInterest, // eslint-disable-line
-  IInterest, // eslint-disable-line
-  IStudentProfile // eslint-disable-line
-} from '../../../typings/radgrad'; // eslint-disable-line
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteInterest,
+  IStudentProfile,
+} from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';

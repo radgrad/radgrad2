@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Image, List } from 'semantic-ui-react';
-import { IMentorAnswer, IMentorProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IMentorAnswer, IMentorProfile } from '../../../typings/radgrad';
 import ExplorerUsersWidget from '../shared/ExplorerUsersWidget';
 
 interface IQuestionAnswersWidgetProps {

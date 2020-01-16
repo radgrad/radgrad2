@@ -1,13 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, IExplorerCard, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
-  IProfile, IStudentProfile, // eslint-disable-line no-unused-vars
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree, IExplorerCard,
+  IInterest,
+  IOpportunity,
+  IProfile, IStudentProfile,
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';

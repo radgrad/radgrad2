@@ -7,15 +7,15 @@ import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAdminDataModelPageState, // eslint-disable-line no-unused-vars
-  IAdvisorProfile, // eslint-disable-line no-unused-vars
-  IBaseProfile, // eslint-disable-line no-unused-vars
-  ICombinedProfileDefine, // eslint-disable-line no-unused-vars
-  IFacultyProfile, // eslint-disable-line no-unused-vars
-  IFavoriteAcademicPlan, // eslint-disable-line no-unused-vars
-  IFavoriteCareerGoal, IFavoriteInterest, // eslint-disable-line no-unused-vars
-  IMentorProfile, // eslint-disable-line no-unused-vars
-  IStudentProfile, // eslint-disable-line no-unused-vars
+  IAdminDataModelPageState,
+  IAdvisorProfile,
+  IBaseProfile,
+  ICombinedProfileDefine,
+  IFacultyProfile,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal, IFavoriteInterest,
+  IMentorProfile,
+  IStudentProfile,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -39,7 +39,7 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { ReduxTypes } from '../../../redux/'; // eslint-disable-line
+import { ReduxTypes } from '../../../redux';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
