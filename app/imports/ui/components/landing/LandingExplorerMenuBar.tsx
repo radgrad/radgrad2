@@ -25,11 +25,6 @@ const LandingExplorerMenuBar = (props: INavBarProps) => {
         {props.currentUser === '' ? (
           <div>
             <RadGradLoginButtons />
-            <Dropdown text="Login" pointing="top right" icon="user">
-              <Dropdown.Menu>
-                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin" />
-              </Dropdown.Menu>
-            </Dropdown>
           </div>
         ) : (
           <Dropdown text={props.currentUser} pointing="top right" icon="user">
