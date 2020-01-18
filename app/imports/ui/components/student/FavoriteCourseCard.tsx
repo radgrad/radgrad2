@@ -33,6 +33,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
+  const droppableID = `${props.course._id}`;
   return (
     <Card>
       <Card.Content>
@@ -54,7 +55,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
             {termNames}
           </React.Fragment>
 ) : <b>Not in plan</b>}
-        <Droppable droppableId="inspector-course">
+        <Droppable droppableId={droppableID}>
           {(provided) => (
             <div
               ref={provided.innerRef}

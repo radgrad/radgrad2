@@ -1,8 +1,9 @@
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { withTracker } from 'meteor/react-meteor-data';
 import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
 import { IOpportunityInstance, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -16,17 +17,23 @@ import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 
 interface IDetailOpportunityCardProps {
   match: IMatchProps;
   instance: IOpportunityInstance;
   requests: IVerificationRequest[];
+  selectOpportunityInstance: (opportunityInstanceID: string) => any;
 }
 
-const handleRemove = (event, { value }) => {
+const mapDispatchToProps = (dispatch) => ({
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+});
+
+const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) => {
   event.preventDefault();
-  // console.log(`Remove CI ${value}`);
+  // console.log(`Remove OI ${value}`);
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
   removeItMethod.call({ collectionName, instance }, (error) => {
@@ -42,6 +49,7 @@ const handleRemove = (event, { value }) => {
       // TODO: UserInteraction remove planned course.
     }
   });
+  props.selectOpportunityInstance('');
 };
 
 const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model) => {
@@ -99,7 +107,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                 basic
                 color="green"
                 value={props.instance._id}
-                onClick={handleRemove}
+                onClick={handleRemove(props)}
                 size="tiny"
               >
 remove
@@ -118,7 +126,7 @@ remove
         basic
         color="green"
         value={props.instance._id}
-        onClick={handleRemove}
+        onClick={handleRemove(props)}
         size="tiny"
       >
 remove
@@ -151,7 +159,7 @@ View
   );
 };
 
-export default withRouter(withTracker((props) => {
+const DetailOpportunityCardCon = withRouter(withTracker((props) => {
   const studentID = getUserIdFromRoute(props.match);
   const opportunityInstanceID = props.instance._id;
   const requests = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID });
@@ -159,3 +167,6 @@ export default withRouter(withTracker((props) => {
     requests,
   };
 })(DetailOpportunityCard));
+
+const DetailOpportunityCardConnected = connect(null, mapDispatchToProps)(DetailOpportunityCardCon);
+export default DetailOpportunityCardConnected;

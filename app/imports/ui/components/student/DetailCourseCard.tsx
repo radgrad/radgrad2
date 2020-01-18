@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ICourseInstance } from '../../../typings/radgrad';
@@ -11,13 +12,19 @@ import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 interface IDetailCourseCardProps {
   match: any;
   instance: ICourseInstance;
+  selectCourseInstance: (courseInstanceID: string) => any;
 }
 
-const handleRemove = (event, { value }) => {
+const mapDispatchToProps = (dispatch) => ({
+  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
+});
+
+const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
   event.preventDefault();
   // console.log(`Remove CI ${value}`);
   const collectionName = CourseInstances.getCollectionName();
@@ -35,6 +42,7 @@ const handleRemove = (event, { value }) => {
       // TODO: UserInteraction remove planned course.
     }
   });
+  props.selectCourseInstance('');
 };
 
 const DetailCourseCard = (props: IDetailCourseCardProps) => {
@@ -75,7 +83,7 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
                 basic
                 color="green"
                 value={props.instance._id}
-                onClick={handleRemove}
+                onClick={handleRemove(props)}
                 size="tiny"
               >
 remove
@@ -108,4 +116,6 @@ View
   );
 };
 
-export default withRouter(DetailCourseCard);
+const DetailCourseCardCon = withRouter(DetailCourseCard);
+const DetailCourseCardConnected = connect(null, mapDispatchToProps)(DetailCourseCardCon);
+export default DetailCourseCardConnected;

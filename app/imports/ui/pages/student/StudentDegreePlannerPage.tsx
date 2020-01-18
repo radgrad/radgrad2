@@ -3,12 +3,18 @@ import { Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ICourseInstanceDefine, ICourseInstanceUpdate, IOpportunityInstanceDefine } from '../../../typings/radgrad';
+import {
+  ICourseInstanceDefine,
+  ICourseInstanceUpdate,
+  IOpportunityInstanceDefine,
+  IOpportunityInstanceUpdate
+} from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -38,7 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const onDragEnd = (props: IPageProps) => (result) => {
-  console.log(result);
+  // console.log(result);
   if (!result.destination) {
     return;
   }
@@ -52,43 +58,70 @@ const onDragEnd = (props: IPageProps) => (result) => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
   const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
-  if (isCourseDrop && !isPastDrop) {
-    const courseID = Courses.findIdBySlug(slug);
-    const course = Courses.findDoc(courseID);
-    const collectionName = CourseInstances.getCollectionName();
-    const definitionData: ICourseInstanceDefine = {
-      academicTerm: termSlug,
-      course: slug,
-      verified: false,
-      fromRegistrar: false,
-      note: course.num,
-      grade: 'B',
-      student,
-      creditHrs: course.creditHrs,
-    };
-    defineMethod.call({ collectionName, definitionData }, (error, res) => {
-      if (error) {
-        console.error(error);
+  if (isCourseDrop) {
+    if (isPastDrop) {
+      Swal.fire({
+        title: 'Cannot drop courses in the past.',
+        text: 'You cannot drag courses to a past academic term.',
+        icon: 'error',
+      });
+    } else {
+      const courseID = Courses.findIdBySlug(slug);
+      const course = Courses.findDoc(courseID);
+      const collectionName = CourseInstances.getCollectionName();
+      const definitionData: ICourseInstanceDefine = {
+        academicTerm: termSlug,
+        course: slug,
+        verified: false,
+        fromRegistrar: false,
+        note: course.num,
+        grade: 'B',
+        student,
+        creditHrs: course.creditHrs,
+      };
+      defineMethod.call({ collectionName, definitionData }, (error, res) => {
+        if (error) {
+          console.error(error);
+        } else {
+          // console.log(res);
+          props.selectCourseInstance(res);
+          props.selectFavoriteDetailsTab();
+        }
+      });
+    }
+  } else if (isCourseInstanceDrop) {
+    if (isPastDrop) {
+      Swal.fire({
+        title: 'Cannot move a course to the past.',
+        text: 'You cannot drag courses to a past academic term.',
+        icon: 'error',
+      });
+    } else {
+      const instance = CourseInstances.findDoc(slug);
+      const ciTerm = AcademicTerms.findDoc(instance.termID);
+      const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
+      console.log(ciTerm, currentTerm, inPastStart);
+      if (inPastStart) {
+        Swal.fire({
+          title: 'Cannot move a course from the past.',
+          text: 'You cannot drag courses from a past academic term.',
+          icon: 'error',
+        });
       } else {
-        // console.log(res);
-        props.selectCourseInstance(res);
-        props.selectFavoriteDetailsTab();
+        const termID = AcademicTerms.findIdBySlug(termSlug);
+        const updateData: ICourseInstanceUpdate = {};
+        updateData.termID = termID;
+        updateData.id = slug;
+        const collectionName = CourseInstances.getCollectionName();
+        updateMethod.call({ collectionName, updateData }, (error, res) => {
+          if (error) {
+            console.error(error);
+          } else {
+            props.selectCourseInstance(slug);
+          }
+        });
       }
-    });
-  } else if (isCourseInstanceDrop && !isPastDrop) {
-    const termID = AcademicTerms.findIdBySlug(termSlug);
-    console.log('Course instance');
-    const updateData: ICourseInstanceUpdate = {};
-    updateData.termID = termID;
-    updateData.id = slug;
-    const collectionName = CourseInstances.getCollectionName();
-    updateMethod.call({ collectionName, updateData }, (error, res) => {
-      if (error) {
-        console.error(error);
-      } else {
-        props.selectCourseInstance(slug);
-      }
-    });
+    }
   } else if (isOppDrop) {
     const opportunityID = Opportunities.findIdBySlug(slug);
     const opportunity = Opportunities.findDoc(opportunityID);
@@ -111,7 +144,20 @@ const onDragEnd = (props: IPageProps) => (result) => {
       }
     });
   } else if (isOppInstDrop) {
-    console.log('Opportunity instance');
+    // console.log('Opportunity instance');
+    const termID = AcademicTerms.findIdBySlug(termSlug);
+    const updateData: IOpportunityInstanceUpdate = {};
+    updateData.termID = termID;
+    updateData.id = slug;
+    const collectionName = OpportunityInstances.getCollectionName();
+    updateMethod.call({ collectionName, updateData }, (error, res) => {
+      if (error) {
+        console.error(error);
+      } else {
+        props.selectOpportunityInstance(slug);
+      }
+    });
+
   }
 };
 

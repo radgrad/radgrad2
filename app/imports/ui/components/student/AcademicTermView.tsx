@@ -30,6 +30,7 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = props.term.termNumber < currentTermNum;
   const isCurrent = props.term.termNumber === currentTermNum;
+  // console.log('AcademicTermView inPast=%o dropType=%o', inPast, dropType);
   return (
     <Container style={paddedStyle}>
       <Header

@@ -25,5 +25,8 @@
     "RadGrad": {
       "quarterSystem": false
     }
+  },
+  "env": {
+    "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465"
   }
 }
