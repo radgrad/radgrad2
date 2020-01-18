@@ -1912,12 +1912,12 @@
           "role": "ADMIN",
           "uhID": "1111-1111",
           "picture": "/images/mockup/radgrad.png",
-          "website": null,
+          "website": "",
           "interests": [],
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []

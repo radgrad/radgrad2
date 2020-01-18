@@ -556,7 +556,7 @@
           "firstName": "Gerald",
           "lastName": "Lau",
           "picture": "/images/mockup/glau.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "it-management",
@@ -574,7 +574,7 @@
           "firstName": "Cam",
           "lastName": "Moore",
           "picture": "/images/mockup/cmoore.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "research",
             "software-engineering"
@@ -3314,7 +3314,7 @@
           "firstName": "Kazuo",
           "lastName": "Sugihara",
           "picture": "/images/default-profile-picture.png",
-          "website": null,
+          "website": "",
           "interests": [
             "research",
             "robotics"
@@ -3359,7 +3359,7 @@
           "firstName": "Peter-Michael",
           "lastName": "Seidel",
           "picture": "/images/people/pseidel.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "hardware",
@@ -3395,7 +3395,7 @@
           "firstName": "Lipyeow",
           "lastName": "Lim",
           "picture": "/images/people/lipyeow.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "data-science",
             "research",
@@ -3578,7 +3578,7 @@
           "firstName": "Martha",
           "lastName": "Crosby",
           "picture": "/images/people/crosby.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "hci",
             "research"
@@ -4429,7 +4429,7 @@
           "firstName": "Robert",
           "lastName": "Brewer",
           "picture": "/images/mentors/brewer.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "data-science",
@@ -4465,7 +4465,7 @@
           "firstName": "Jennifer",
           "lastName": "Geis",
           "picture": "/images/mentors/geis.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "civic-engagement",
@@ -4491,7 +4491,7 @@
           "firstName": "Austen",
           "lastName": "Ito",
           "picture": "/images/mentors/ito.png",
-          "website": null,
+          "website": "",
           "interests": [
             "entrepreneurship",
             "game-design",
@@ -4518,7 +4518,7 @@
           "firstName": "Aaron",
           "lastName": "Kagawa",
           "picture": "/images/mentors/kagawa.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "civic-engagement",
@@ -4546,7 +4546,7 @@
           "firstName": "Patrick",
           "lastName": "Karjala",
           "picture": "/images/mentors/karjala.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "it-management",
@@ -4567,7 +4567,7 @@
           "firstName": "George",
           "lastName": "Lee",
           "picture": "/images/mentors/lee.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "application-development",
@@ -4601,7 +4601,7 @@
           "firstName": "Daniel",
           "lastName": "Leuck",
           "picture": "/images/mentors/leuck.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "application-development",
@@ -4637,7 +4637,7 @@
           "firstName": "Yuka",
           "lastName": "Nagashima",
           "picture": "/images/mentors/nagashima.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "civic-engagement",
@@ -7424,7 +7424,7 @@
           "firstName": "Alfred",
           "lastName": "Persona",
           "picture": "/images/mockup/alfred.png",
-          "website": null,
+          "website": "",
           "interests": [
             "hardware",
             "it-management"
@@ -7464,7 +7464,7 @@
           "firstName": "Charley",
           "lastName": "Sherry",
           "picture": "/images/mockup/charley.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "bioinformatics"
           ],
@@ -7482,7 +7482,7 @@
           "firstName": "Ella",
           "lastName": "Zwick",
           "picture": "/images/mockup/ella.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "civic-engagement",
             "web-development"

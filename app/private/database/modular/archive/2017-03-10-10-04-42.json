@@ -7212,7 +7212,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/aaronvil.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "networks"
           ],
@@ -7257,7 +7257,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/ahlim.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "sql"
           ],
@@ -7279,7 +7279,7 @@
           "role": "STUDENT",
           "uhID": "1234-5679",
           "picture": "/images/mockup/alfred.png",
-          "website": null,
+          "website": "",
           "interests": [
             "hardware",
             "it-management"
@@ -7338,7 +7338,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7352,7 +7352,7 @@
           "role": "MENTOR",
           "uhID": "8289-0001",
           "picture": "/images/mentors/brewer.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "data-science",
@@ -7377,7 +7377,7 @@
             "teacher",
             "ux-designer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7391,7 +7391,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/brianmay.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "computer-architecture"
           ],
@@ -7413,7 +7413,7 @@
           "role": "STUDENT",
           "uhID": "1234-5681",
           "picture": "/images/mockup/charley.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "bioinformatics"
           ],
@@ -7446,7 +7446,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7460,7 +7460,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/christopher-nguyen.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development"
           ],
@@ -7482,7 +7482,7 @@
           "role": "ADVISOR",
           "uhID": "1017-6869",
           "picture": "/images/mockup/cmoore.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "research",
             "software-engineering"
@@ -7490,7 +7490,7 @@
           "careerGoals": [
             "devops-engineer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7504,7 +7504,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/cpjaro.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "sql"
           ],
@@ -7526,7 +7526,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/creindle.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "teaching"
           ],
@@ -7548,7 +7548,7 @@
           "role": "FACULTY",
           "uhID": "1",
           "picture": "/images/people/crosby.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "hci",
             "research"
@@ -7560,7 +7560,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7586,7 +7586,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7600,7 +7600,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/dtan808.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "sql"
           ],
@@ -7632,7 +7632,7 @@
             "information-security-analyst",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7646,7 +7646,7 @@
           "role": "STUDENT",
           "uhID": "1234-5682",
           "picture": "/images/mockup/ella.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "civic-engagement",
             "web-development"
@@ -7668,7 +7668,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/erikhuan.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "ruby"
           ],
@@ -7701,7 +7701,7 @@
             "network-engineer",
             "research-scientist"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7715,7 +7715,7 @@
           "role": "MENTOR",
           "uhID": "8289-0002",
           "picture": "/images/mentors/geis.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "civic-engagement",
@@ -7730,7 +7730,7 @@
             "information-system-manager",
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7744,7 +7744,7 @@
           "role": "ADVISOR",
           "uhID": "8765-4315",
           "picture": "/images/mockup/glau.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "it-management",
@@ -7756,7 +7756,7 @@
             "information-security-analyst",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7782,7 +7782,7 @@
             "startup-cofounder",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7796,7 +7796,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/hailing.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "operating-systems"
           ],
@@ -7830,7 +7830,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7844,7 +7844,7 @@
           "role": "MENTOR",
           "uhID": "8289-0003",
           "picture": "/images/mentors/ito.png",
-          "website": null,
+          "website": "",
           "interests": [
             "entrepreneurship",
             "game-design",
@@ -7860,7 +7860,7 @@
             "startup-cofounder",
             "ux-designer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7874,7 +7874,7 @@
           "role": "STUDENT",
           "uhID": "1111",
           "picture": "/images/default-profile-picture.png",
-          "website": null,
+          "website": "",
           "interests": [
             "dotNet"
           ],
@@ -7895,7 +7895,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/jameyia-shamia.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development"
           ],
@@ -7936,7 +7936,7 @@
             "teacher",
             "ux-designer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7964,7 +7964,7 @@
             "startup-cofounder",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -7978,7 +7978,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/joshuajw.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "hpc"
           ],
@@ -8000,7 +8000,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/jrude.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "sql"
           ],
@@ -8021,7 +8021,7 @@
           "role": "MENTOR",
           "uhID": "8289-0004",
           "picture": "/images/mentors/kagawa.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "civic-engagement",
@@ -8038,7 +8038,7 @@
             "software-developer",
             "startup-cofounder"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8052,7 +8052,7 @@
           "role": "MENTOR",
           "uhID": "8289-0005",
           "picture": "/images/mentors/karjala.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "it-management",
@@ -8062,7 +8062,7 @@
             "software-developer",
             "ux-designer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8076,7 +8076,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/kellyl4.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "sql"
           ],
@@ -8098,7 +8098,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/kirk6.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "prolog"
           ],
@@ -8120,7 +8120,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/kurtkn.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "robotics"
           ],
@@ -8155,7 +8155,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 6,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8169,7 +8169,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/anhlam.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "security"
           ],
@@ -8191,7 +8191,7 @@
           "role": "MENTOR",
           "uhID": "8289-0006",
           "picture": "/images/mentors/lee.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "application-development",
@@ -8214,7 +8214,7 @@
             "teacher",
             "ux-designer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8239,7 +8239,7 @@
             "teacher",
             "vr-ar-engineer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8253,7 +8253,7 @@
           "role": "MENTOR",
           "uhID": "8289-0007",
           "picture": "/images/mentors/leuck.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "application-development",
@@ -8278,7 +8278,7 @@
             "startup-cofounder",
             "ux-designer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8292,7 +8292,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/linhongb.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "python"
           ],
@@ -8314,7 +8314,7 @@
           "role": "FACULTY",
           "uhID": "8765-4319",
           "picture": "/images/people/lipyeow.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "data-science",
             "research",
@@ -8327,7 +8327,7 @@
             "research-scientist",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8341,7 +8341,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/markrc.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "lisp"
           ],
@@ -8363,7 +8363,7 @@
           "role": "MENTOR",
           "uhID": "8289-0008",
           "picture": "/images/mentors/nagashima.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "civic-engagement",
@@ -8375,7 +8375,7 @@
             "startup-cofounder",
             "teacher"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8389,7 +8389,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/nathancy.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "perl"
           ],
@@ -8419,7 +8419,7 @@
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8433,7 +8433,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/pakchar.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "parallel-programming"
           ],
@@ -8455,7 +8455,7 @@
           "role": "FACULTY",
           "uhID": "1",
           "picture": "/images/people/pseidel.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "hardware",
@@ -8470,7 +8470,7 @@
             "robotics-engineer",
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8484,12 +8484,12 @@
           "role": "ADMIN",
           "uhID": "1111-1111",
           "picture": "/images/mockup/radgrad.png",
-          "website": null,
+          "website": "",
           "interests": [],
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8503,7 +8503,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/rao642.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development"
           ],
@@ -8534,7 +8534,7 @@
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8548,7 +8548,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/shaziney.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "prolog"
           ],
@@ -8570,7 +8570,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/slike.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "software-engineering"
           ],
@@ -8599,7 +8599,7 @@
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8613,7 +8613,7 @@
           "role": "FACULTY",
           "uhID": "1",
           "picture": "/images/default-profile-picture.png",
-          "website": null,
+          "website": "",
           "interests": [
             "research",
             "robotics"
@@ -8621,7 +8621,7 @@
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8643,7 +8643,7 @@
           "careerGoals": [
             "software-developer"
           ],
-          "desiredDegree": null,
+          "desiredDegree": "",
           "level": 1,
           "hiddenCourses": [],
           "hiddenOpportunities": []
@@ -8657,7 +8657,7 @@
           "role": "STUDENT",
           "uhID": "1",
           "picture": "/images/people/zknoebel.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "data-visualization"
           ],
