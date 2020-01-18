@@ -13,7 +13,7 @@ import {
   ICourseInstanceDefine,
   ICourseInstanceUpdate,
   IOpportunityInstanceDefine,
-  IOpportunityInstanceUpdate
+  IOpportunityInstanceUpdate,
 } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
