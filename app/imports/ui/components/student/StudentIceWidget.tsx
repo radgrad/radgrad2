@@ -2,11 +2,11 @@ import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { Ice } from '../../../typings/radgrad';
-import MenuIceCircle from '../shared/MenuIceCircle';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import StudentIceColumn from './StudentIceColumn';
 import { studentIceWidget } from './student-widget-names';
+import PageIceCircle from './PageIceCircle';
 
 interface IStudentIceWidgetProps {
   match: {
@@ -34,7 +34,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
       <Grid stackable columns="equal" celled="internally">
         <Grid.Column style={innovationColumnStyle}>
           <Segment basic>
-            <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
+            <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
             <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
             <StudentIceColumn type="Innovation" />
           </Segment>
@@ -42,7 +42,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
 
         <Grid.Column>
           <Segment basic>
-            <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
+            <PageIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
             <Header as="h3" textAlign="center" className="ice-competency-color">COMPETENCY</Header>
             <StudentIceColumn type="Competency" />
           </Segment>
@@ -50,7 +50,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
 
         <Grid.Column style={experienceColumnStyle}>
           <Segment basic>
-            <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
+            <PageIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
             <Header as="h3" textAlign="center" className="ice-experience-color">Experience</Header>
             <StudentIceColumn type="Experience" />
           </Segment>

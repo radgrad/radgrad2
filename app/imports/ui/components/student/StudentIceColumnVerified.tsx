@@ -134,8 +134,9 @@ points for the following:
                 academicTerms(year).map((term, index) => {
                   const opportunityEvents = getEvents('opportunity', true, term, props);
                   const courseEvents = getEvents('course', true, term, props);
+                  const key = `${year._id}${index}`;
                   return (
-                    <React.Fragment key={year._id}>
+                    <React.Fragment key={key}>
                       {hasEvents(true, term, props) ? (
                         <List.Item>
                           <List.Header>{printTerm(term)}</List.Header>
