@@ -458,7 +458,7 @@ export interface IFavoriteCareerGoalDefine extends IDumpOne {
 
 export interface IFavoriteCareerGoal {
   careerGoalID: string;
-  studentID: string;
+  userID: string;
   retired: boolean;
 }
 
@@ -482,7 +482,7 @@ export interface IFavoriteInterestDefine extends IDumpOne {
 
 export interface IFavoriteInterest {
   interestID: string;
-  studentID: string;
+  userID: string;
   retired: boolean;
 }
 

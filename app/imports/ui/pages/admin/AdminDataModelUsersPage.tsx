@@ -56,22 +56,25 @@ interface IAdminDataModelUsersPageProps {
   favoriteInterests: IFavoriteInterest[];
 }
 
-const descriptionPairs = (user: IBaseProfile) => {
+const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseProfile) => {
   const pairs = [];
   pairs.push({ label: 'Username', value: user.username });
   pairs.push({ label: 'Name', value: `${user.firstName}  ${user.lastName}` });
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
+  const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, (fav) => fav.userID === user.userID);
+  // const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
   const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
+  const favoriteInterests = _.filter(props.favoriteInterests, (fav) => fav.userID === user.userID);
+  // const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
   const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
-    const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
+    const favoritePlans = _.filter(props.favoriteAcademicPlans, (fav) => fav.studentID === user.userID);
+    // const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
     const planNames = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID).name);
     pairs.push({
       label: 'Degree',
@@ -121,6 +124,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     super(props);
     this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
+    console.log('AdminDataModelUsersPage ', props);
   }
 
   private handleAdd = (doc: ICombinedProfileDefine) => {
@@ -285,7 +289,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           <Tab.Pane>
             <ListCollectionWidget
               collection={AdvisorProfiles}
-              descriptionPairs={descriptionPairs}
+              descriptionPairs={descriptionPairs(this.props)}
               itemTitle={itemTitle}
               handleOpenUpdate={this.handleOpenUpdate}
               handleDelete={this.handleDelete}
@@ -300,7 +304,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           <Tab.Pane>
             <ListCollectionWidget
               collection={FacultyProfiles}
-              descriptionPairs={descriptionPairs}
+              descriptionPairs={descriptionPairs(this.props)}
               itemTitle={itemTitle}
               handleOpenUpdate={this.handleOpenUpdate}
               handleDelete={this.handleDelete}
@@ -315,7 +319,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           <Tab.Pane>
             <ListCollectionWidget
               collection={MentorProfiles}
-              descriptionPairs={descriptionPairs}
+              descriptionPairs={descriptionPairs(this.props)}
               itemTitle={itemTitle}
               handleOpenUpdate={this.handleOpenUpdate}
               handleDelete={this.handleDelete}
@@ -330,7 +334,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           <Tab.Pane>
             <ListCollectionWidget
               collection={StudentProfiles}
-              descriptionPairs={descriptionPairs}
+              descriptionPairs={descriptionPairs(this.props)}
               itemTitle={itemTitle}
               handleOpenUpdate={this.handleOpenUpdate}
               handleDelete={this.handleDelete}

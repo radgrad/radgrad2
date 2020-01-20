@@ -11,7 +11,7 @@ export const toValueArray = (pair: IDescriptionPair): any[] => {
 
 export const toValueString = (pair: IDescriptionPair): string => {
   const value = pair.value;
-  console.log(pair);
+  // console.log(pair);
   if (typeof value === 'string') {
     return value;
   }
