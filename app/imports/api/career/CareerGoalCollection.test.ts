@@ -104,5 +104,9 @@ if (Meteor.isServer) {
       const interest = Interests.findDoc(careerGoal.interestIDs[0]);
       expect(CareerGoals.hasInterest(docID, interest._id)).to.be.true;
     });
+
+    it('findDoc(undefined) throws', function test8() {
+      expect(() => CareerGoals.findDoc(undefined)).to.throw(Error);
+    });
   });
 }

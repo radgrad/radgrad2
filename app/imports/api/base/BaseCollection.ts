@@ -88,6 +88,9 @@ class BaseCollection {
    * @throws { Meteor.Error } If the document cannot be found.
    */
   public findDoc(name: string | object | { name } | { _id: string; } | { username: string; }) {
+    if (_.isNull(name) || _.isUndefined(name)) {
+      throw new Meteor.Error(`${name} is not a defined ${this.type}`);
+    }
     const doc = (
       this.collection.findOne(name) ||
       this.collection.findOne({ name }) ||
