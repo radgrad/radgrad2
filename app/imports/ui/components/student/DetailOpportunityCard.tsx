@@ -135,11 +135,12 @@ remove
   </React.Fragment>
 )}
         </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : (
+        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : '' }
+        {!futureP && !verificationRequested ? (
           <Card.Content>
             <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
           </Card.Content>
-)}
+        ) : '' }
         <Card.Content>
           <p style={textAlignRight}>
             <Link
