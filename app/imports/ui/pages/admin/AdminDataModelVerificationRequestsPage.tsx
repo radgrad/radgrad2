@@ -17,7 +17,10 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import AddVerificationRequestForm from '../../components/admin/AddVerificationRequestForm';
 import {
   academicTermNameToSlug,
-  opportunityInstanceNameToId, opportunityNameToSlug,
+  opportunityInstanceNameToId,
+  opportunityInstanceNameToTermSlug,
+  opportunityInstanceNameToUsername,
+  opportunityNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -74,17 +77,23 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
   }
 
   private handleAdd = (doc) => {
-    // console.log('VerificationRequests.handleAdd(%o)', doc);
+    // console.log('VerificationRequests.handleAdd()', doc);
     const collectionName = collection.getCollectionName();
     const definitionData: any = {};
     definitionData.status = doc.status;
-    definitionData.student = profileNameToUsername(doc.student);
     if (doc.opportunityInstance) {
       definitionData.opportunityInstance = opportunityInstanceNameToId(doc.opportunityInstance);
-    }
-    if (doc.opportunity) {
-      definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-      definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+      definitionData.student = opportunityInstanceNameToUsername(doc.opportunityInstance);
+      definitionData.academicTerm = opportunityInstanceNameToTermSlug(doc.opportunityInstance);
+      // definitionData.academicTerm = AcademicTerms.
+    } else {
+      if (doc.student) {
+        definitionData.student = profileNameToUsername(doc.student);
+      }
+      if (doc.opportunity) {
+        definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+      }
     }
     if (_.isBoolean(doc.retired)) {
       definitionData.retired = doc.retired;

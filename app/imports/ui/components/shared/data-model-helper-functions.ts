@@ -157,6 +157,20 @@ export const opportunityInstanceToName = (oi) => {
   return `${student}-${opportunity}-${term}`;
 };
 
+export const opportunityInstanceNameToUsername = (name) => {
+  const parts = name.split('-');
+  return parts[0];
+};
+
+export const opportunityInstanceNameToTermSlug = (name) => {
+  const parts = name.split('-');
+  const termParts = parts[2].split(' ');
+  const term = termParts[0];
+  const year = parseInt(termParts[1], 10);
+  const termDoc = AcademicTerms.findDoc({ term, year });
+  return Slugs.getNameFromID(termDoc.slugID);
+};
+
 export const opportunityInstanceNameToId = (name) => {
   const parts = name.split('-');
   const opportunityDoc = Opportunities.findDoc(parts[1]);

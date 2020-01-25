@@ -33,7 +33,7 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
   const opportunityInstanceNames = _.map(props.opportunityInstances, opportunityInstanceToName);
   const studentNames = _.map(props.students, profileToName);
   const schema = new SimpleSchema({
-    student: { type: String, allowedValues: studentNames },
+    student: { type: String, allowedValues: studentNames, optional: true },
     status: {
       type: String,
       optional: true,

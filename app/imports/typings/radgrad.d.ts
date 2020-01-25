@@ -1164,7 +1164,7 @@ export interface IVerificationRequest {
 }
 
 export interface IVerificationRequestDefine extends IDumpOne {
-  student: string;
+  student?: string;
   opportunityInstance?: string;
   submittedOn?: any;
   status?: string;
