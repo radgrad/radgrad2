@@ -205,7 +205,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
               }
               {
                 buildProfileCard ?
-                  items.map((item) => <ProfileCard key={item} item={item} type={type} canAdd />) : ''
+                  items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
               }
               {
                 buildTermCard ?

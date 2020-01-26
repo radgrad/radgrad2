@@ -9,20 +9,32 @@ interface IAdminAnalyticsLoggedInUsersWidget {
   loggedInUsers: any;
 }
 
-const AdminAnalyticsLoggedInUsersWidget = (props: IAdminAnalyticsLoggedInUsersWidget) => (
-  <Segment>
-    <Header as="h4" dividing>LOGGED IN USERS</Header>
-    <Grid>
-      <Grid.Column>
-        <Label.Group>
-          {props.loggedInUsers.map((users) => (
-            <Label key={users._id} basic color="green">{Users.getFullName(users._id)}</Label>
-          ))}
-        </Label.Group>
-      </Grid.Column>
-    </Grid>
-  </Segment>
-);
+const AdminAnalyticsLoggedInUsersWidget = (props: IAdminAnalyticsLoggedInUsersWidget) => {
+  const style = {
+    padding: 2,
+  };
+  return (
+    <Segment>
+      <Header as="h4" dividing>LOGGED IN USERS</Header>
+      <Grid padded stackable>
+        <Grid.Column width={2} style={style}>
+          {props.loggedInUsers.map((user) => {
+            // console.log(user);
+            let color;
+            if (user.status.idle) {
+              color = 'grey';
+            } else {
+              color = 'green';
+            }
+            return (
+              <Label key={user._id} basic color={color}>{Users.getFullName(user._id)}</Label>
+            );
+          })}
+        </Grid.Column>
+      </Grid>
+    </Segment>
+  );
+};
 
 const AdminAnalyticsLoggedInUsersWidgetContainer = withTracker(() => ({
   loggedInUsers: Meteor.users.find({ 'status.online': true }).fetch(),
