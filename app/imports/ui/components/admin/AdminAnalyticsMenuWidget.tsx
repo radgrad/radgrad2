@@ -19,7 +19,7 @@ const AdminAnalyticsMenuWidget = (props: IAdminAnalyticsMenuWidgetProps) => {
   const { match } = props;
   return (
     <div>
-      <Menu vertical>
+      <Menu vertical text>
         <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}`)}>Logged In Users</Menu.Item>
         <Menu.Item
           as={NavLink}
