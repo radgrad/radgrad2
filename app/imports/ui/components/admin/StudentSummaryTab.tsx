@@ -77,9 +77,9 @@ class StudentSummaryTab extends React.Component<IStudentSummaryTabProps, IStuden
                 >
                   <Grid stackable padded>
                     {b.users.map((u) => (
-                        <Grid.Column width={3} style={paddingStyle} key={u}>
-                          <Button size="tiny" basic fluid style={textAlignStyle} value={u}>{u}</Button>
-                        </Grid.Column>
+                      <Grid.Column width={3} style={paddingStyle} key={u}>
+                        <Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={u}>{u}</Button>
+                      </Grid.Column>
                       ))}
                   </Grid>
                 </Accordion.Content>
