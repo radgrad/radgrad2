@@ -53,6 +53,7 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
                   key={ci._id}
                   instance={ci}
                   index={index}
+                  inPast={inPast}
                   handleClickCourseInstance={props.handleClickCourseInstance}
                 />
 ))}
