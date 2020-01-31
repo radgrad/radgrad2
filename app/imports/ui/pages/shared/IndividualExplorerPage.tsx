@@ -426,7 +426,7 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return descriptionPairsOpportunities(Opportunities.findDoc(item.opportunityID));
+      return descriptionPairsOpportunities(item as IOpportunity);
     case EXPLORER_TYPE.USERS: // do nothing
       return undefined;
     default:

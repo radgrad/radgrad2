@@ -134,20 +134,20 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
     const schema = new SimpleSchema({
       academicTerm: {
-        icon: String,
+        type: String,
         label: 'Academic Term',
         allowedValues: academicTermNames,
         defaultValue: academicTermNames[0],
       },
       rating: {
-        icon: Number,
+        type: Number,
         label: 'Rating',
         min: 0,
         max: 5,
         optional: true,
       },
       comments: {
-        icon: String,
+        type: String,
         label: 'Comments',
       },
     });

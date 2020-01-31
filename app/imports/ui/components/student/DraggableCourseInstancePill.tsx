@@ -41,15 +41,16 @@ const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
             >
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={13} onClick={handleClick(props)}>
+                  <Grid.Column width={11} onClick={handleClick(props)}>
                     <NamePill name={props.instance.note} />
                   </Grid.Column>
-                  <Grid.Column width={1}>
+                  <Grid.Column width={2}>
                     {props.inPast ? '' : (
                       <RemoveItWidget
                         collectionName="CourseInstanceCollection"
                         id={props.instance._id}
                         name={getName(props.instance)}
+                        courseNumber={props.instance.note}
                       />
                       )}
                   </Grid.Column>
