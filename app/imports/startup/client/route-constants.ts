@@ -10,6 +10,7 @@ export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 export const MENTOR_SPACE = 'mentor-space';
+export const PAGE_TRACKING = 'page-tracking';
 
 export const ANALYTICS = {
   HOME: 'analytics',

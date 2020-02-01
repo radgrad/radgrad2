@@ -75,7 +75,23 @@ import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPag
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
-import { URL_ROLES, USERNAME, HOME, DATAMODEL, EXPLORER_TYPE, MODERATION, ANALYTICS, SCOREBOARD, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, EXPLORER_PARAM, GUIDEDTOUR, MENTOR_SPACE } from './route-constants';
+import {
+  URL_ROLES,
+  USERNAME,
+  HOME,
+  DATAMODEL,
+  EXPLORER_TYPE,
+  MODERATION,
+  ANALYTICS,
+  SCOREBOARD,
+  COURSE_SCOREBOARD,
+  OPPORTUNITY_SCOREBOARD,
+  EXPLORER_PARAM,
+  GUIDEDTOUR,
+  MENTOR_SPACE,
+  PAGE_TRACKING,
+} from './route-constants';
+import PageTrackingAnalysisPage from '../../ui/pages/shared/PageTrackingAnalysisPage';
 
 export const routes = {
   ADMIN: [
@@ -589,6 +605,11 @@ export const routes = {
     },
   ],
   STUDENT: [
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${PAGE_TRACKING}`,
+      exact: true,
+      component: PageTrackingAnalysisPage,
+    },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
