@@ -198,7 +198,11 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnaly
             SUMMARY STATISTICS:
             {dateRangeStr}
           </Header>
-          <SummaryStatisticsTabs behaviors={this.state.behaviors} />
+          <SummaryStatisticsTabs
+            behaviors={this.state.behaviors}
+            startDate={this.state.dateRange ? moment(this.state.dateRange.startDate).format('MM-DD-YYYY') : ''}
+            endDate={this.state.dateRange ? moment(this.state.dateRange.endDate).format('MM-DD-YYYY') : ''}
+          />
         </Segment>
       </div>
     );

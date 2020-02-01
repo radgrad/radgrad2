@@ -4,6 +4,8 @@ import { IBehavior } from './AdminAnalyticsStudentSummaryWidget';
 import StudentSummaryTab from './StudentSummaryTab';
 
 interface ISummaryStatisticsTabsProps {
+  startDate: string;
+  endDate: string;
   behaviors: IBehavior[];
 }
 const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
@@ -15,7 +17,7 @@ const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
         </Menu.Item>
       ),
       pane: (
-        <StudentSummaryTab behaviors={props.behaviors} />
+        <StudentSummaryTab behaviors={props.behaviors} startDate={props.startDate} endDate={props.endDate} />
       ),
 
     },

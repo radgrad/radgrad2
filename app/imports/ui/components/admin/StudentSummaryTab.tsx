@@ -2,9 +2,12 @@
 import React from 'react';
 import { Accordion, Icon, Grid, Tab, Button, Modal } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { profileIDToFullname } from '../shared/data-model-helper-functions';
 import { IBehavior } from './AdminAnalyticsStudentSummaryWidget';
 
 interface IStudentSummaryTabProps {
+  startDate: string;
+  endDate: string;
   behaviors: IBehavior[];
 }
 
@@ -79,7 +82,13 @@ class StudentSummaryTab extends React.Component<IStudentSummaryTabProps, IStuden
                     {b.users.map((u) => (
                       <Grid.Column width={3} style={paddingStyle} key={u}>
                         <Modal trigger={<Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={u}>{u}</Button>}>
-                          <Modal.Header>Name&appos;s timeline from date to date</Modal.Header>
+                          <Modal.Header>
+                            {profileIDToFullname(u)}
+                            &apos;s timeline from&nbsp;
+                            {this.props.startDate}
+                            &nbsp;to&nbsp;
+                            {this.props.endDate}
+                          </Modal.Header>
                           <Modal.Content>
                             blah&nbsp;
                             {u}
