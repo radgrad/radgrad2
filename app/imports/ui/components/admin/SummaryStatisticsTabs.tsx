@@ -7,6 +7,7 @@ interface ISummaryStatisticsTabsProps {
   startDate: string;
   endDate: string;
   behaviors: IBehavior[];
+  interactionsByUser: object;
 }
 const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
   const panes = [
@@ -17,7 +18,7 @@ const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
         </Menu.Item>
       ),
       pane: (
-        <StudentSummaryTab behaviors={props.behaviors} startDate={props.startDate} endDate={props.endDate} />
+        <StudentSummaryTab behaviors={props.behaviors} startDate={props.startDate} endDate={props.endDate} interactionsByUser={props.interactionsByUser} key="summaryTab" />
       ),
 
     },

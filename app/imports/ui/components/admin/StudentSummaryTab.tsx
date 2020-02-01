@@ -1,14 +1,14 @@
-// @ts-ignore
 import React from 'react';
-import { Accordion, Icon, Grid, Tab, Button, Modal } from 'semantic-ui-react';
+import { Accordion, Icon, Grid, Tab } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { profileIDToFullname } from '../shared/data-model-helper-functions';
 import { IBehavior } from './AdminAnalyticsStudentSummaryWidget';
+import StudentTimelineModal from './StudentTimelineModal';
 
 interface IStudentSummaryTabProps {
   startDate: string;
   endDate: string;
   behaviors: IBehavior[];
+  interactionsByUser: object;
 }
 
 interface IStudentSummaryTabState {
@@ -40,9 +40,6 @@ class StudentSummaryTab extends React.Component<IStudentSummaryTabProps, IStuden
     };
     const paddingStyle = {
       padding: 2,
-    };
-    const textAlignStyle = {
-      textAlign: 'left',
     };
     return (
       <Tab.Pane>
@@ -81,19 +78,7 @@ class StudentSummaryTab extends React.Component<IStudentSummaryTabProps, IStuden
                   <Grid stackable padded>
                     {b.users.map((u) => (
                       <Grid.Column width={3} style={paddingStyle} key={u}>
-                        <Modal trigger={<Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={u}>{u}</Button>}>
-                          <Modal.Header>
-                            {profileIDToFullname(u)}
-                            &apos;s timeline from&nbsp;
-                            {this.props.startDate}
-                            &nbsp;to&nbsp;
-                            {this.props.endDate}
-                          </Modal.Header>
-                          <Modal.Content>
-                            blah&nbsp;
-                            {u}
-                          </Modal.Content>
-                        </Modal>
+                        <StudentTimelineModal username={u} startDate={this.props.startDate} endDate={this.props.endDate} interactions={this.props.interactionsByUser[u]} />
                       </Grid.Column>
                       ))}
                   </Grid>

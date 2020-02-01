@@ -1,12 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
-import { Segment, Header, Form, Button } from 'semantic-ui-react';
-import SimpleSchema from 'simpl-schema';
-import { AutoForm, DateField } from 'uniforms-semantic';
+import { Segment, Header } from 'semantic-ui-react';
+import { ReduxTypes } from '../../../redux';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
+import { ANALYTICS } from '../../../startup/client/route-constants';
+import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
 
 export interface IBehavior {
@@ -23,20 +25,23 @@ interface IDateRange {
 
 interface IAdminAnalyticsStudentSummaryWidgetState {
   interactionsByUser: object;
-  selectedUser: string;
   behaviors: IBehavior[];
-  dateRange?: IDateRange;
-  working: boolean;
+  dateRange?: {
+    startDate: Date;
+    endDate: Date;
+  }
 }
+
+const mapStateToProps = (state: ReduxTypes.State): { dateRange: { startDate: Date; endDate: Date; } } => ({
+  dateRange: state.admin.analytics.studentSummary.dateRange,
+});
 
 class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnalyticsStudentSummaryWidgetState> {
   constructor(props) {
     super(props);
     this.state = {
-      interactionsByUser: [],
-      selectedUser: '',
+      interactionsByUser: {},
       behaviors: [],
-      working: false,
     };
   }
 
@@ -51,7 +56,7 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnaly
 
   private handleSubmit = (doc) => {
     // console.log(doc);
-    this.setState({ working: true, dateRange: { startDate: doc.startDate, endDate: doc.endDate } });
+    this.setState({ dateRange: { startDate: doc.startDate, endDate: doc.endDate } });
     const dateRange = { startDate: doc.startDate, endDate: doc.endDate };
     const selector = { timestamp: { $gte: dateRange.startDate, $lte: dateRange.endDate } };
     const options = { sort: { username: 1, timestamp: 1 } };
@@ -158,7 +163,6 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnaly
         });
         console.log(behaviors, users);
         this.setState({
-          working: false,
           interactionsByUser: users,
           behaviors,
         });
@@ -168,31 +172,10 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnaly
   }
 
   public render() {
-    const schema = new SimpleSchema({
-      startDate: Date,
-      endDate: Date,
-    });
     const dateRangeStr = ` ${this.dateRangeString()}`;
     return (
       <div>
-        <Segment>
-          <Header as="h4" dividing>SELECT DATE RANGE:</Header>
-          <AutoForm schema={schema} onSubmit={this.handleSubmit}>
-            <Form.Group>
-              <DateField name="startDate" />
-              <DateField name="endDate" />
-            </Form.Group>
-            <Button
-              color="green"
-              loading={this.state.working}
-              basic
-              type="submit"
-              onClick={this.handleSubmit}
-            >
-              Submit
-            </Button>
-          </AutoForm>
-        </Segment>
+        <AdminAnalyticsDateSelectionWidget page={ANALYTICS.STUDENTSUMMARY} />
         <Segment>
           <Header as="h4" dividing>
             SUMMARY STATISTICS:
@@ -202,6 +185,7 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnaly
             behaviors={this.state.behaviors}
             startDate={this.state.dateRange ? moment(this.state.dateRange.startDate).format('MM-DD-YYYY') : ''}
             endDate={this.state.dateRange ? moment(this.state.dateRange.endDate).format('MM-DD-YYYY') : ''}
+            interactionsByUser={this.state.interactionsByUser}
           />
         </Segment>
       </div>
@@ -209,4 +193,5 @@ class AdminAnalyticsStudentSummaryWidget extends React.Component<{}, IAdminAnaly
   }
 }
 
-export default withRouter(AdminAnalyticsStudentSummaryWidget);
+const AdminAnalyticsStudentSummaryWidgetCon = connect(mapStateToProps)(AdminAnalyticsStudentSummaryWidget);
+export default withRouter(AdminAnalyticsStudentSummaryWidgetCon);
