@@ -9,7 +9,7 @@
     "pretest": "npm run lint",
     "test": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package meteortesting:mocha --port 3300",
     "test-cam": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package meteortesting:mocha --port 3300",
-    "test-app": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_CLIENT=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package meteortesting:mocha --port 3300",
+    "test-app": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package meteortesting:mocha --port 3300",
     "test-e2e": "testcafe chrome:headless imports/ui/**/*.test-e2e.ts",
     "test-e2e-v": "testcafe chrome imports/ui/**/*.test-e2e.ts"
   },
