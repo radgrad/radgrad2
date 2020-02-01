@@ -1,6 +1,6 @@
 // @ts-ignore
 import React from 'react';
-import { Accordion, Icon, Grid, Tab, Button } from 'semantic-ui-react';
+import { Accordion, Icon, Grid, Tab, Button, Modal } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { IBehavior } from './AdminAnalyticsStudentSummaryWidget';
 
@@ -78,7 +78,13 @@ class StudentSummaryTab extends React.Component<IStudentSummaryTabProps, IStuden
                   <Grid stackable padded>
                     {b.users.map((u) => (
                       <Grid.Column width={3} style={paddingStyle} key={u}>
-                        <Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={u}>{u}</Button>
+                        <Modal trigger={<Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={u}>{u}</Button>}>
+                          <Modal.Header>Name&appos;s timeline from date to date</Modal.Header>
+                          <Modal.Content>
+                            blah&nbsp;
+                            {u}
+                          </Modal.Content>
+                        </Modal>
                       </Grid.Column>
                       ))}
                   </Grid>
