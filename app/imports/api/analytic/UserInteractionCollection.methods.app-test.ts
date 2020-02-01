@@ -2,10 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { userInteractionDefineMethod, userInteractionRemoveUserMethod } from './UserInteractionCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isClient) {
-  describe('UserInteractionCollection Meteor Methods ', () => {
+  describe('UserInteractionCollection Meteor Methods ', function test() {
     const student = 'abi@hawaii.edu';
     const definitionData = {
       username: student,
@@ -17,7 +18,7 @@ if (Meteor.isClient) {
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
-    it('Define Method', async () => {
+    it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       await userInteractionDefineMethod.callPromise(definitionData);
