@@ -54,7 +54,7 @@ class AdminAnalyticsUserInteractionsWidget extends React.Component<IAdminAnalyti
   };
 
   public render() {
-    console.log(this.props, this.state);
+    // console.log(this.props, this.state);
     const usersStyle = {
       height: 200,
       overflowY: 'auto',

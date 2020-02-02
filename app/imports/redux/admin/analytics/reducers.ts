@@ -21,6 +21,7 @@ interface IState {
   }
   studentSummary: {
     dateRange: IDateRangeState;
+    userInteractions: Dictionary<any[]>;
   };
 }
 
@@ -44,6 +45,7 @@ const initialState: IState = {
       startDate: undefined,
       endDate: undefined,
     },
+    userInteractions: {},
   },
 };
 
@@ -168,6 +170,16 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         studentSummary: {
           ...otherKeys,
           dateRange: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_STUDENT_SUMMARY_USER_INTERACTIONS:
+      otherKeys = state.studentSummary;
+      s = {
+        ...state,
+        studentSummary: {
+          ...otherKeys,
+          userInteractions: action.payload,
         },
       };
       return s;

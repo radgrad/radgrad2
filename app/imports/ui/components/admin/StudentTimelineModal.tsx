@@ -34,7 +34,7 @@ const getSessions = (props: IStudentTimelineModalProps) => {
   if (sessions.length === 0) {
     sessions.push(props.interactions);
   }
-  console.log(sessions);
+  // console.log(sessions);
   return sessions;
 };
 
@@ -147,7 +147,7 @@ const getBehaviors = (sessionArr) => {
 };
 
 const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
-  console.log(props);
+  // console.log(props);
   const textAlignStyle = {
     textAlign: 'left',
   };

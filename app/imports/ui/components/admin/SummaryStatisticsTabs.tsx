@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Segment, Tab } from 'semantic-ui-react';
-import { IBehavior } from './AdminAnalyticsStudentSummaryWidget';
 import StudentSummaryTab from './StudentSummaryTab';
+import { IBehavior } from '../../../typings/radgrad';
 
 interface ISummaryStatisticsTabsProps {
   startDate: string;

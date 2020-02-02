@@ -58,6 +58,11 @@ export const setStudentSummaryDateRange = (dateRange: ISetDateRangeProps): ISetD
   payload: dateRange,
 });
 
+export const setStudentSummaryUserInteractions = (userInteractions: Dictionary<any[]>): ISetUserInteractionsAction => ({
+  type: TYPES.SET_STUDENT_SUMMARY_USER_INTERACTIONS,
+  payload: userInteractions,
+});
+
 // Admin Analytics Newsletter
 export const startGetStudentEmails = (): INewsletterAction => ({
   type: TYPES.GET_EMAILS_WORKING,
