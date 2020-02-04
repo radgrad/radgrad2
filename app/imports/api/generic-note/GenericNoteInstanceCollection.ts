@@ -21,7 +21,7 @@ import { AcademicTerms } from "../academic-term/AcademicTermCollection";
 class GenericNoteCollection extends BaseSlugCollection{
 
   constructor() {
-    super('GenericNote', new SimpleSchema({
+    super('GenericNoteInstance', new SimpleSchema({
     }));
   }
 
