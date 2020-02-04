@@ -1179,3 +1179,12 @@ export interface IVerificationRequestUpdate extends IUpdate {
   processed?: IProcessed[];
   retired?: boolean;
 }
+
+//Generic Note Instance
+export interface IGenericNoteInstanceDefine extends IDumpOne {
+  title: string;
+  body: string;
+  AcademicTermID: any; // fix this typing
+  studentID: any; // fix this typing
+  retired?: boolean;
+}
