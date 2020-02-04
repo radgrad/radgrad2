@@ -140,8 +140,8 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
         </Header>
         <SummaryStatisticsTabs
           behaviors={behaviors}
-          startDate={props.dateRange ? moment(props.dateRange.startDate).format('MM-DD-YYYY') : ''}
-          endDate={props.dateRange ? moment(props.dateRange.endDate).format('MM-DD-YYYY') : ''}
+          startDate={props.dateRange.startDate}
+          endDate={props.dateRange.endDate}
           interactionsByUser={interactionsByUser}
         />
       </Segment>

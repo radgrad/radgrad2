@@ -21,6 +21,8 @@
     "classnames": "^2.2.6",
     "core-js": "^3.6.4",
     "graphql": "^14.5.8",
+    "highcharts": "^8.0.0",
+    "highcharts-react-official": "^2.2.2",
     "history": "^4.10.1",
     "meteor-node-stubs": "^0.4.1",
     "moment": "^2.24.0",

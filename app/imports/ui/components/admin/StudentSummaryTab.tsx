@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Icon, Grid, Tab } from 'semantic-ui-react';
+import { Accordion, Icon, Grid } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import StudentTimelineModal from './StudentTimelineModal';
 import { IBehavior } from '../../../typings/radgrad';
@@ -42,52 +42,59 @@ class StudentSummaryTab extends React.Component<IStudentSummaryTabProps, IStuden
       padding: 2,
     };
     return (
-      <Tab.Pane>
-        {this.props.behaviors.map((b, index) => {
-          const key = `${b.type}-${index}`;
-          return (
-            <Accordion key={key}>
-              <div>
-                <Accordion.Title
-                  active={activeIndex === index}
-                  index={index}
-                  onClick={this.handleClick}
-                >
-                  <Grid>
-                    <Grid.Column width={1}>
-                      <Icon name="dropdown" />
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      Behavior:
-                      <div style={paddedLabelStyle}>{b.type}</div>
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                      Users:
-                      <div style={paddedLabelStyle}>{b.count}</div>
-                      <div style={paddedLabelStyle}>{`(${this.percent(b.count)} %)`}</div>
-                    </Grid.Column>
-                    <Grid.Column width={8}>
-                      Description:
-                      <div style={paddedLabelStyle}>{b.description}</div>
-                    </Grid.Column>
-                  </Grid>
-                </Accordion.Title>
-                <Accordion.Content
-                  active={activeIndex === index}
-                >
-                  <Grid stackable padded>
-                    {b.users.map((u) => (
-                      <Grid.Column width={3} style={paddingStyle} key={u}>
-                        <StudentTimelineModal username={u} startDate={this.props.startDate} endDate={this.props.endDate} interactions={this.props.interactionsByUser[u]} />
+      <div>
+        {
+          this.props.behaviors.map((b, index) => {
+            const key = `${b.type}-${index}`;
+            return (
+              <Accordion key={key}>
+                <div>
+                  <Accordion.Title
+                    active={activeIndex === index}
+                    index={index}
+                    onClick={this.handleClick}
+                  >
+                    <Grid>
+                      <Grid.Column width={1}>
+                        <Icon name="dropdown" />
                       </Grid.Column>
+                      <Grid.Column width={4}>
+                        Behavior:
+                        <div style={paddedLabelStyle}>{b.type}</div>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        Users:
+                        <div style={paddedLabelStyle}>{b.count}</div>
+                        <div style={paddedLabelStyle}>{`(${this.percent(b.count)} %)`}</div>
+                      </Grid.Column>
+                      <Grid.Column width={8}>
+                        Description:
+                        <div style={paddedLabelStyle}>{b.description}</div>
+                      </Grid.Column>
+                    </Grid>
+                  </Accordion.Title>
+                  <Accordion.Content
+                    active={activeIndex === index}
+                  >
+                    <Grid stackable padded>
+                      {b.users.map((u) => (
+                        <Grid.Column width={3} style={paddingStyle} key={u}>
+                          <StudentTimelineModal
+                            username={u}
+                            startDate={this.props.startDate}
+                            endDate={this.props.endDate}
+                            interactions={this.props.interactionsByUser[u]}
+                          />
+                        </Grid.Column>
                       ))}
-                  </Grid>
-                </Accordion.Content>
-              </div>
-            </Accordion>
-          );
-        })}
-      </Tab.Pane>
+                    </Grid>
+                  </Accordion.Content>
+                </div>
+              </Accordion>
+            );
+          })
+        }
+      </div>
     );
   }
 }
