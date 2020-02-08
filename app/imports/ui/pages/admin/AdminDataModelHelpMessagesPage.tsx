@@ -136,8 +136,7 @@ class AdminDataModelHelpMessagesPage extends React.Component<{}, IAdminDataModel
           showConfirmButton: false,
           timer: 1500,
         });
-        // TODO: Uncomment this after done with issue-113
-        // this.setState({ showUpdateForm: false, id: '' });
+        this.setState({ showUpdateForm: false, id: '' });
       }
     });
   };

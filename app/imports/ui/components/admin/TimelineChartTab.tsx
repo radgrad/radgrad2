@@ -24,7 +24,7 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
       behaviorsByDate[moment(date).format('MMM D, YYYY')] = [];
     });
     const behaviorList = ['Log In', 'Change Outlook', 'Exploration', 'Planning', 'Verification',
-      'Reviewing', 'Mentorship', 'Level Up', 'Complete Plan', 'Profile', 'Favorite Item', 'Unfaforite Item', 'Log Out'];
+      'Reviewing', 'Mentorship', 'Level Up', 'Complete Plan', 'Profile', 'Favorite Item', 'Unfavorite Item', 'Log Out'];
     _.each(behaviorsByDate, function (array, date, obj) {
       _.each(props.interactionsByUser, function (interactions: any) {
         const interactionsWithinDate = _.filter(interactions, function (interaction) {
@@ -64,10 +64,10 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
         if (_.some(interactionsWithinDate, (i) => i.type === 'picture' || i.type === 'website')) {
           obj[date].push(behaviorList[9]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'favoriteItem' || i.type === 'website')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === 'favoriteItem')) {
           obj[date].push(behaviorList[10]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'unFavoriteItem' || i.type === 'website')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === 'unFavoriteItem')) {
           obj[date].push(behaviorList[11]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === 'logout')) {
@@ -75,6 +75,7 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
         }
       });
     });
+    console.log(behaviorsByDate);
     const categories = _.map(behaviorsByDate, function (behaviors, date) {
       const shortDate = date.substring(0, date.length - 6);
       return shortDate;
@@ -84,11 +85,12 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
     });
     _.each(behaviorsByDate, function (behaviors) {
       const groupedBehaviors = _.groupBy(behaviors);
+      console.log(groupedBehaviors);
       _.each(behaviorList, function (behavior) {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });
         if (behaviorCount) {
-          behaviorSeries.data.push((behaviorCount.length / StudentProfiles.findNonRetired().length) * 100);
+          behaviorSeries.data.push((behaviorCount.length / StudentProfiles.findNonRetired({ isAlumni: false }).length) * 100);
         } else {
           behaviorSeries.data.push(0);
         }
