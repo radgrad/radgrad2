@@ -89,7 +89,7 @@ const InspectorCourseView = (props: IInspectorCourseViewProps) => {
           ice={makeCourseICE(courseSlug, grade)}
         />
       </Header>
-      {plannedCourse ? eslint - disable - line(
+      {plannedCourse ? (
         <Button
           floated="right"
           basic
@@ -98,8 +98,8 @@ const InspectorCourseView = (props: IInspectorCourseViewProps) => {
           onClick={handleRemove(props)}
           size="tiny"
         >
-remove
-        </Button>,
+          remove
+        </Button>
       ) : (pastCourse ? (
         <Button
           floated="right"
@@ -107,36 +107,36 @@ remove
           color="green"
           size="tiny"
         >
-taken
+          taken
         </Button>
-        ) : (
-          <Droppable droppableId="inspector-course">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-              >
-                <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
-                  {(prov, snap) => (
-                    <div
-                      ref={prov.innerRef}
-                      {...prov.draggableProps}
-                      {...prov.dragHandleProps}
-                      style={getInspectorDraggablePillStyle(
-                        snap.isDragging,
-                        prov.draggableProps.style,
-                      )}
-                    >
-                      <NamePill name={courseName} />
-                    </div>
-                  )}
-                </Draggable>
-              </div>
-)}
-          </Droppable>
-        ))}
+      ) : (
+        <Droppable droppableId="inspector-course">
+          {(provided) => (
+            <div
+              ref={provided.innerRef}
+            >
+              <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
+                {(prov, snap) => (
+                  <div
+                    ref={prov.innerRef}
+                    {...prov.draggableProps}
+                    {...prov.dragHandleProps}
+                    style={getInspectorDraggablePillStyle(
+                      snap.isDragging,
+                      prov.draggableProps.style,
+                    )}
+                  >
+                    <NamePill name={courseName} />
+                  </div>
+                )}
+              </Draggable>
+            </div>
+          )}
+        </Droppable>
+      ))}
 
       <b>
-Scheduled:
+        Scheduled:
         {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}
       </b>
       <p><b>Prerequisites:</b></p>
@@ -149,7 +149,7 @@ Scheduled:
       <UserInterestList userID={props.studentID} interestIDs={course.interestIDs} />
       <p />
       <a href={baseRoute}>
-View in Explorer
+        View in Explorer
         <Icon name="arrow right" />
       </a>
       <p />
