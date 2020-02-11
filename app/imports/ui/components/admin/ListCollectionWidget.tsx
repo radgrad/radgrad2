@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { IDescriptionPair } from '../../../typings/radgrad';
-// eslint-disable-next-line import/no-cycle
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';

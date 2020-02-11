@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { Button, Card, Header, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';

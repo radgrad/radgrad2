@@ -20,7 +20,6 @@ import { courseSlugToName } from './data-model-helper-functions';
 import { explorerCourseWidget } from './shared-widget-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-// eslint-disable-next-line import/named
 import { toValueArray, toValueString } from '../../shared/description-pair-helpers';
 
 interface IExplorerCoursesWidgetProps {

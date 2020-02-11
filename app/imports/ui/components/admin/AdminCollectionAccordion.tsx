@@ -4,7 +4,6 @@ import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../typings/radgrad';
-// eslint-disable-next-line import/no-cycle
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminCollectionAccordionProps {

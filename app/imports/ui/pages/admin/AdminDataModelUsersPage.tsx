@@ -80,7 +80,6 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
       label: 'Degree',
       value: (planNames.length > 0) ? planNames.join(', ') : '',
     });
-    // eslint-disable-next-line
     pairs.push({
       label: 'Declared Semester',
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',

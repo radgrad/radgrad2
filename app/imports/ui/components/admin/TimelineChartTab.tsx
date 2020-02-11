@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import _ from 'lodash';
-import { Tab } from 'semantic-ui-react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

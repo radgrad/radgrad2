@@ -71,6 +71,6 @@ class SummaryStatisticsTabs extends React.Component<ISummaryStatisticsTabsProps,
 
   }
 
-};
+}
 
 export default SummaryStatisticsTabs;

@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-// eslint-disable-next-line no-unused-vars
 import { IMentorQuestion } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';

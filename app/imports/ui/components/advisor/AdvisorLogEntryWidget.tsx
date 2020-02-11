@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-// eslint-disable-next-line no-unused-vars
 import { IAdvisorLog, IStudentProfile } from '../../../typings/radgrad';
 
 export interface IAdvisorLogEntryWidgetProps {

@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
-// eslint-disable-next-line no-unused-vars
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
