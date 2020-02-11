@@ -62,14 +62,14 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
 :
               </b>
               {' '}
-              {typeof descriptionPair.value === 'string' ? eslint - disable - line(
+              {typeof descriptionPair.value === 'string' ? (
                 <Markdown
                   escapeHtml
                   source={descriptionPair.value}
                   renderers={{ link: (props) => Router.renderLink(props, match) }}
-                />,
-            ) : typeof descriptionPair.value === 'undefined' ? ' ' :
-            <p>{descriptionPair.value.join(', ')}</p>}
+                />
+                ) : typeof descriptionPair.value === 'undefined' ? ' ' :
+                <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
           <p>
