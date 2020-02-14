@@ -1,11 +1,11 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 import { Header, Message } from 'semantic-ui-react';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import RadGradLogoText from '../shared/RadGradLogoText';
 
 const AdminMessageWidget = () => {
-  const adminEmail = RadGradSettings.findOne({}).adminEmail;
+  const adminEmail = RadGradProperties.getAdminEmail();
   return (
     <Message attached="top">
       <Header dividing>WELCOME BACK</Header>

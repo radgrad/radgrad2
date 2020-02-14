@@ -24,7 +24,6 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
 import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { PublicStats } from '../public-stats/PublicStatsCollection';
-import { RadGradSettings } from './RadGradSettingsCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -82,7 +81,6 @@ class RadGradClass {
       OpportunityTypes,
       PlanChoices,
       PublicStats,
-      RadGradSettings,
       Reviews,
       AcademicTerms,
       Slugs,
@@ -100,7 +98,6 @@ class RadGradClass {
      * Some collections are not yet part of dump/restore.
      */
     this.collectionLoadSequence = [
-      RadGradSettings,
       AcademicTerms,
       HelpMessages,
       InterestTypes,

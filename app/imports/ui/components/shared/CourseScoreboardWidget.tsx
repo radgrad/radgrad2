@@ -4,11 +4,11 @@ import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicTerm, ICourse } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseScoreboard } from '../../../startup/client/collections';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { courseScoreboardWidget } from './shared-widget-names';
 
 interface ICourseScoreboardWidgetProps {
@@ -112,7 +112,7 @@ const CourseScoreboardWidget = (props: ICourseScoreboardWidgetProps) => {
 const CourseScoreboardWidgetContainer = withTracker(() => {
   const courses = Courses.findNonRetired({ num: { $ne: 'other' } }, { sort: { num: 1 } });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const isQuarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const isQuarterSystem = RadGradProperties.getQuarterSystem();
   const limit = isQuarterSystem ? 12 : 9;
   const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
     sort: { termNumber: 1 },

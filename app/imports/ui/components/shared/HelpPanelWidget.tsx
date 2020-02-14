@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
@@ -50,7 +50,7 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
     const { match } = this.props;
     const helpMessage = _.find(this.props.helpMessages, (m) => m.routeName === this.props.match.path);
-    const adminEmail = RadGradSettings.findOne({}).adminEmail;
+    const adminEmail = RadGradProperties.getAdminEmail();
     const helpText = helpMessage ? `${helpMessage.text}
 
 #### Need more help?

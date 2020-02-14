@@ -1,11 +1,11 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicPlan } from '../../../typings/radgrad';
 import { getPlanChoices } from '../../../api/degree-plan/AcademicPlanUtilities';
 import AcademicPlanTermView from './AcademicPlanTermView';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface IAcademicPlanYearViewProps {
   yearNumber: number;
@@ -15,7 +15,7 @@ interface IAcademicPlanYearViewProps {
 }
 
 const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
-  const quarter = RadGradSettings.findOne({}).quarterSystem;
+  const quarter = RadGradProperties.getQuarterSystem();
   let termNum = quarter ? props.yearNumber * 4 : props.yearNumber * 3;
   const studentID = Users.getID(props.username);
   return (

@@ -6,7 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -147,7 +147,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   private onClickSendStudentsToo = () => {
     const trimmedEmails = [];
     const studentEmails = this.state.studentEmails.split(',');
-    const adminEmail = RadGradSettings.findOne({}).adminEmail;
+    const adminEmail = RadGradProperties.getAdminEmail();
     if (this.state.sendToStudentsToo === false) {
       this.setState({
         message: {
@@ -258,9 +258,8 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private generateEmail = (message) => {
-    const settings = RadGradSettings.findOne({});
-    const adminEmail = settings.adminEmail;
-    const newsletterFrom = settings.newsletterFrom;
+    const adminEmail = RadGradProperties.getAdminEmail();
+    const newsletterFrom = RadGradProperties.getNewsletterFrom();
     const emailData = {
       to: message.recipients,
       from: newsletterFrom,

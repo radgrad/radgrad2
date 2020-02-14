@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
-import { RadGradSettings } from '../../../../api/radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import styles from '../../../pages/landing/guidedtour-style';
 
 const GuidedTourMentorWhatsNext = () => {
-  const adminEmail = RadGradSettings.findOne({}).adminEmail;
+  const adminEmail = RadGradProperties.getAdminEmail();
   const mailto = `mailto:${adminEmail}`;
   return (
     <div>

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
@@ -40,9 +40,8 @@ class AcademicTermCollection extends BaseSlugCollection {
     this.SUMMER = 'Summer';
     this.FALL = 'Fall';
     this.WINTER = 'Winter';
-    const settingsDoc = RadGradSettings.findOne({});
     // console.log(settingsDoc, Meteor.settings);
-    if (settingsDoc.quarterSystem) {
+    if (RadGradProperties.getQuarterSystem()) {
       this.terms = [this.FALL, this.WINTER, this.SPRING, this.SUMMER];
       this.fallStart = parseInt(moment('09-26-2015', 'MM-DD-YYYY').format('DDD'), 10);
       this.springStart = parseInt(moment('04-01-2015', 'MM-DD-YYYY').format('DDD'), 10);
@@ -112,8 +111,7 @@ class AcademicTermCollection extends BaseSlugCollection {
     // Epoch is Fall-2010
     let termNumber = 0;
     const yearDiff = year - 2010;
-    const settingsDoc = RadGradSettings.findOne({});
-    if (settingsDoc.quarterSystem) {
+    if (RadGradProperties.getQuarterSystem()) {
       if (term === this.WINTER) {
         termNumber = (4 * yearDiff) - 3;
       } else if (term === this.SPRING) {
@@ -187,9 +185,8 @@ class AcademicTermCollection extends BaseSlugCollection {
   public getCurrentTermID() {
     const year = moment().year();
     const day = moment().dayOfYear();
-    const settingsDoc = RadGradSettings.findOne({});
     let term = '';
-    if (settingsDoc.quarterSystem) {
+    if (RadGradProperties.getQuarterSystem()) {
       if (day >= this.fallStart) {
         term = this.FALL;
       } else if (day >= this.summerStart) {

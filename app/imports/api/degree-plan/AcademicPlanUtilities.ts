@@ -4,7 +4,7 @@ import { IAcademicPlan, ICourseInstance } from '../../typings/radgrad';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
 import * as PlanChoiceUtils from './PlanChoiceUtilities';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 export function getPlanChoicesRaw(coursesPerTerm: number[], choiceList: string[], termNum: number) {
   if (termNum < 0 || termNum > coursesPerTerm.length - 1) {
@@ -47,7 +47,7 @@ export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]):
 }
 
 export function isAcademicPlanValid(academicPlan: IAcademicPlan): boolean {
-  const quarters = RadGradSettings.findOne({}).quarterSystem;
+  const quarters = RadGradProperties.getQuarterSystem();
   // check the coursesPerAcademicTerm length
   if (quarters) {
     if (academicPlan.coursesPerAcademicTerm.length % 4 !== 0) {
@@ -159,7 +159,7 @@ export function removeChoiceFromPlanRaw(choice: string, termNumber: number, choi
 }
 
 export function planHasCoursesRaw(coursesPerAcademicTerm: number[], yearNum: number): boolean {
-  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const quarterSystem = RadGradProperties.getQuarterSystem();
   let start;
   let end;
   let courses;
@@ -183,7 +183,7 @@ export function planHasCoursesRaw(coursesPerAcademicTerm: number[], yearNum: num
  * @returns {number[]}
  */
 export function removeYearFromPlanRaw(coursesPerAcademicTerm: number[], yearNum: number): number[] {
-  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const quarterSystem = RadGradProperties.getQuarterSystem();
   const start = quarterSystem ? yearNum * 4 : yearNum * 3;
   const numTerms = quarterSystem ? 4 : 3;
   if (!planHasCoursesRaw(coursesPerAcademicTerm, yearNum)) {

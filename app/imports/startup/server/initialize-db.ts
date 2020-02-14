@@ -6,11 +6,11 @@ import moment from 'moment';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
-import { RadGradSettings } from '../../api/radgrad/RadGradSettingsCollection';
 import { Interests } from '../../api/interest/InterestCollection';
 import { CareerGoals } from '../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../api/degree-plan/AcademicPlanCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
+import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
@@ -153,8 +153,7 @@ function generateAdminCredential() {
 }
 
 function defineAdminUser() {
-  console.log(_.has(Meteor, 'settings.public.RadGrad.adminEmail'), Meteor.settings.public.RadGrad);
-  const adminUsername = _.has(Meteor, 'settings.public.RadGrad.adminEmail') ? Meteor.settings.public.RadGrad.adminEmail : 'radgrad@hawaii.edu';
+  const adminUsername = RadGradProperties.getAdminEmail();
   if (!adminUsername) {
     console.log('\n\nNO ADMIN USERNAME SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
     return;
@@ -220,16 +219,6 @@ function fixUserInteractions() {
   }
 }
 
-function ensureSettings() {
-  if (RadGradSettings.find({}).count() === 0) {
-    const quarterSystem = Meteor.settings.public.RadGrad.quarterSystem;
-    const emailDomain = Meteor.settings.public.RadGrad.emailDomain;
-    const adminEmail = Meteor.settings.public.RadGrad.adminEmail;
-    const newsletterFrom = Meteor.settings.public.RadGrad.newsletterFrom;
-    RadGradSettings.define({ quarterSystem, emailDomain, adminEmail, newsletterFrom });
-  }
-}
-
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
   if (Meteor.isTest || Meteor.isAppTest) {
@@ -244,7 +233,6 @@ Meteor.startup(() => {
     startupPublicStats();
     startupStudentParticipation();
     fixUserInteractions();
-    ensureSettings();
     SyncedCron.start();
   }
 });

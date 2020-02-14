@@ -4,7 +4,7 @@ import 'mocha';
 import { defineAcademicTerms, nextAcademicTerm, upComingTerms } from './AcademicTermUtilities';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { AcademicTerms } from './AcademicTermCollection';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -27,9 +27,8 @@ if (Meteor.isServer) {
     });
 
     it('Can get upComingTerms', function test2() {
-      const settingsDoc = RadGradSettings.findOne({});
       let termCount;
-      if (settingsDoc.quarterSystem) {
+      if (RadGradProperties.getQuarterSystem()) {
         termCount = 20;
       } else {
         termCount = 15;

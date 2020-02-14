@@ -22,7 +22,6 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import PageLoader from '../../components/shared/PageLoader';
 import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
@@ -78,7 +77,6 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PlanChoices.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
-      globalSubs.subscribe(RadGradSettings.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
       globalSubs.subscribe(StudentParticipations.getPublicationName()),
       globalSubs.subscribe('StudentProfileCollection'),
