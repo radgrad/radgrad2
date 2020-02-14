@@ -1,24 +1,28 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 import { Header, Message } from 'semantic-ui-react';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import RadGradLogoText from '../shared/RadGradLogoText';
 
-const AdminMessageWidget = () => (
-  <Message attached="top">
-    <Header dividing>WELCOME BACK</Header>
-    <p />
-We think you have graduated and are now an Alumni. Since you have graduated,
-    <RadGradLogoText />
-    {' '}
-no longer
-    has
-    any experiences for you.
-    <Markdown
-      escapeHtml={false}
-      source={'#### Are we wrong?\n' +
-    'If this is in error, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).'}
-    />
-  </Message>
-);
+const AdminMessageWidget = () => {
+  const adminEmail = RadGradSettings.findOne({}).adminEmail;
+  return (
+    <Message attached="top">
+      <Header dividing>WELCOME BACK</Header>
+      <p />
+      We think you have graduated and are now an Alumni. Since you have graduated,
+      <RadGradLogoText />
+      {' '}
+      no longer
+      has
+      any experiences for you.
+      <Markdown
+        escapeHtml={false}
+        source={'#### Are we wrong?\n' +
+        `If this is in error, please email [${adminEmail}](mailto:${adminEmail}).`}
+      />
+    </Message>
+  );
+};
 
 export default AdminMessageWidget;

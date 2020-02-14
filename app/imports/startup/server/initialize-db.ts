@@ -153,7 +153,8 @@ function generateAdminCredential() {
 }
 
 function defineAdminUser() {
-  const adminUsername = Meteor.settings && Meteor.settings.public.admin && Meteor.settings.public.admin.username;
+  console.log(_.has(Meteor, 'settings.public.RadGrad.adminEmail'), Meteor.settings.public.RadGrad);
+  const adminUsername = _.has(Meteor, 'settings.public.RadGrad.adminEmail') ? Meteor.settings.public.RadGrad.adminEmail : 'radgrad@hawaii.edu';
   if (!adminUsername) {
     console.log('\n\nNO ADMIN USERNAME SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
     return;
@@ -222,7 +223,10 @@ function fixUserInteractions() {
 function ensureSettings() {
   if (RadGradSettings.find({}).count() === 0) {
     const quarterSystem = Meteor.settings.public.RadGrad.quarterSystem;
-    RadGradSettings.define({ quarterSystem });
+    const emailDomain = Meteor.settings.public.RadGrad.emailDomain;
+    const adminEmail = Meteor.settings.public.RadGrad.adminEmail;
+    const newsletterFrom = Meteor.settings.public.RadGrad.newsletterFrom;
+    RadGradSettings.define({ quarterSystem, emailDomain, adminEmail, newsletterFrom });
   }
 }
 

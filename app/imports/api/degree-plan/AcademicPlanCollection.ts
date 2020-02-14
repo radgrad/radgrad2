@@ -69,9 +69,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
    *                        description: 'The BS in CS degree offers a solid foundation in computer science.',
    *                        academicTerm: 'Spring-2016',
    *                        coursesPerAcademicTerm: [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0],
-   *                        courseList: ['ics111-1', 'ics141-1, 'ics211-1', 'ics241-1', 'ics311-1', 'ics314-1',
-   *                                     'ics212-1', 'ics321-1', 'ics313,ics361-1', 'ics312,ics331-1', 'ics332-1',
-   *                                     'ics400+-1', 'ics400+-2', 'ics400+-3', 'ics400+-4', 'ics400+-5'] })
+   *                        courseList: ['ics_111-1', 'ics_141-1, 'ics_211-1', 'ics_241-1', 'ics_311-1', 'ics_314-1',
+   *                                     'ics_212-1', 'ics_321-1', 'ics_313,ics_361-1', 'ics_312,ics_331-1', 'ics_332-1',
+   *                                     'ics_400+-1', 'ics_400+-2', 'ics_400+-3', 'ics_400+-4', 'ics_400+-5'] })
    * @param slug The slug for the academic plan.
    * @param degreeSlug The slug for the desired degree.
    * @param name The name of the academic plan.

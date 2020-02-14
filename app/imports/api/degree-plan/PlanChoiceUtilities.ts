@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 /**
  * Strips of the counter for the plan choice. The counter is used in academic plans to keep track of how many
- * choices there are (e.g. five ics400+ in the B.S. degree).
+ * choices there are (e.g. five ics_400+ in the B.S. degree).
  * @param planChoice the plan choice.
  * @returns {*}
  * @memberOf api/degree-plan
@@ -53,7 +53,7 @@ export function isSimpleChoice(planChoice: string) {
 }
 
 /**
- * Returns true if the plan choice includes a sub-choice (e.g. '(ics313,ics331),ics355-1' )
+ * Returns true if the plan choice includes a sub-choice (e.g. '(ics_313,ics_331),ics_355-1' )
  * @param planChoice the plan choice.
  * @returns {boolean}
  * @memberOf api/degree-plan

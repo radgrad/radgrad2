@@ -15,7 +15,7 @@ Welcome to
         <span style={styles['green-text']}><RadGradLogoText style={headerStyle} /></span>
       </Header>
       <Header as="h2" inverted className="mobile only" style={styles['mobile-header']}>
-Welcome to
+Welcome to&nbsp;
         <span className="green-text"><RadGradLogoText /></span>
       </Header>
       <br />

@@ -11,6 +11,9 @@ class RadGradSettingsCollection extends BaseCollection {
   constructor() {
     super('RadGradSettings', new SimpleSchema({
       quarterSystem: { type: Boolean },
+      adminEmail: { type: String },
+      emailDomain: { type: String },
+      newsletterFrom: { type: String },
     }));
   }
 
@@ -18,8 +21,13 @@ class RadGradSettingsCollection extends BaseCollection {
    * Defines the RadGradSettings.
    * @param quarterSystem boolean true if using a quarter system.
    */
-  public define({ quarterSystem }: ISettingsDefine) {
-    return this.collection.insert({ quarterSystem });
+  public define({ quarterSystem, adminEmail, emailDomain, newsletterFrom }: ISettingsDefine) {
+    return this.collection.insert({
+      quarterSystem,
+      adminEmail,
+      emailDomain,
+      newsletterFrom,
+    });
   }
 
   public findOne(selector: object, options?: object) {
@@ -27,7 +35,12 @@ class RadGradSettingsCollection extends BaseCollection {
     if (document) {
       return document;
     }
-    return Meteor.settings.public.RadGrad ? Meteor.settings.public.RadGrad : { quarterSystem: false };
+    return Meteor.settings.public.RadGrad ? Meteor.settings.public.RadGrad : {
+      quarterSystem: false,
+      adminEmail: 'radgrad@hawaii.edu',
+      emailDomain: 'hawaii.edu',
+      newsletterFrom: 'Phillip Johnson <donotreply@mail.gun.radgrad.org>',
+    };
   }
 
   public update(docID: string, { quarterSystem }: ISettingsUpdate) {
@@ -41,7 +54,10 @@ class RadGradSettingsCollection extends BaseCollection {
   public dumpOne(docID: string): ISettingsDefine {
     const document = this.findDoc(docID);
     const quarterSystem = document.quarterSystem;
-    return { quarterSystem };
+    const adminEmail = document.adminEmail;
+    const emailDomain = document.emailDomain;
+    const newsletterFrom = document.newsletterFrom;
+    return { quarterSystem, adminEmail, emailDomain, newsletterFrom };
   }
 
   /**

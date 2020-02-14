@@ -12190,7 +12190,10 @@
       "name": "RadGradSettingsCollection",
       "contents": [
         {
-          "quarterSystem": false
+          "quarterSystem": false,
+          "adminEmail": "radgrad2@hawaii.edu",
+          "emailDomain": "hawaii.edu",
+          "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>"
         }
       ]
     },

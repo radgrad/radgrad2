@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -73,7 +74,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
 
   const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(props.match);
-  const adminEmail = 'radgrad@hawaii.edu';
+  const adminEmail = RadGradSettings.findOne({}).adminEmail;
   return (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>

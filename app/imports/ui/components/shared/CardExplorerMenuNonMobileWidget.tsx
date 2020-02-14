@@ -2,6 +2,7 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, Header, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import * as Router from './RouterHelperFunctions';
 import {
   IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
@@ -29,7 +30,7 @@ interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetP
 const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
   // console.log('CardExplorerMenuNonMobile', props);
   const { menuAddedList, menuCareerList } = props;
-  const adminEmail = 'radgrad@hawaii.edu';
+  const adminEmail = RadGradSettings.findOne({}).adminEmail;
   return (
     <React.Fragment>
       {/* ####### The Menu underneath the Dropdown for NON mobile  ####### */}

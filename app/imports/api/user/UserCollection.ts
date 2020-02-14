@@ -220,8 +220,8 @@ class UserCollection {
    * @private
    */
   private adminUsername() {
-    return (_.has(Meteor, 'settings.public.admin.username')) ?
-      Meteor.settings.public.admin.username : 'radgrad@hawaii.edu';
+    return (_.has(Meteor, 'settings.public.RadGrad.adminEmail')) ?
+      Meteor.settings.public.RadGrad.adminEmail : 'radgrad@hawaii.edu';
   }
 
   /**

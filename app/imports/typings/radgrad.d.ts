@@ -1057,6 +1057,9 @@ export interface IAcademicTermUpdate extends IUpdate {
 // RadGradSettings
 export interface ISettingsDefine extends IDumpOne {
   quarterSystem: boolean;
+  adminEmail: string;
+  emailDomain: string;
+  newsletterFrom: string;
 }
 
 export interface ISettingsUpdate extends IUpdate {
