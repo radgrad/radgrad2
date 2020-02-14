@@ -158,11 +158,14 @@ function defineAdminUser() {
     console.log('\n\nNO ADMIN USERNAME SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
     return;
   }
-  if (!Meteor.users.findOne({ username: adminUsername })) {
+  const user = Meteor.users.findOne({ username: adminUsername });
+  if (!user && totalDocuments() === 0) {
     const credential = generateAdminCredential();
     const userID = Accounts.createUser({ username: adminUsername, email: adminUsername, password: credential });
     Roles.addUsersToRoles(userID, ROLE.ADMIN);
     console.log(`${adminUsername}/${credential}`);
+  } else if (!user) {
+    console.error(`\n\nTHE ADMIN USERNAME ${adminUsername} IS NOT THE ORIGINAL ADMIN NAME. SHUTDOWN AND FIX!\n\n`);
   }
 }
 

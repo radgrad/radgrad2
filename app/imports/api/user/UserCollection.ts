@@ -6,8 +6,9 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../mentor/MentorQuestionCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { Reviews } from '../review/ReviewCollection';
-import { ROLE } from '../role/Role';
+import { ROLE, ROLES } from '../role/Role';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { MentorProfiles } from './MentorProfileCollection';
@@ -220,8 +221,7 @@ class UserCollection {
    * @private
    */
   private adminUsername() {
-    return (_.has(Meteor, 'settings.public.RadGrad.adminEmail')) ?
-      Meteor.settings.public.RadGrad.adminEmail : 'radgrad@hawaii.edu';
+    return RadGradProperties.getAdminEmail();
   }
 
   /**

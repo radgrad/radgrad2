@@ -24,7 +24,7 @@
     },
     "RadGrad": {
       "quarterSystem": false,
-      "adminEmail": "radgrad2@hawaii.edu",
+      "adminEmail": "radgrad@hawaii.edu",
       "emailDomain": "hawaii.edu",
       "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>"
     }
