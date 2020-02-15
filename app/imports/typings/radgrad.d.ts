@@ -1184,7 +1184,7 @@ export interface IVerificationRequestUpdate extends IUpdate {
 export interface IGenericNoteInstanceDefine extends IDumpOne {
   title: string;
   body: string;
-  AcademicTermID: any; // fix this typing
-  studentID: any; // fix this typing
+  academicTerm: any; // fix this typing
+  student: any; // fix this typing
   retired?: boolean;
 }
