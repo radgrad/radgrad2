@@ -237,7 +237,7 @@ class CourseInstanceCollection extends BaseCollection {
   public getCourseSlug(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Courses.getSlug(instance.courseID);
+    return Courses.findSlugByID(instance.courseID);
   }
 
   /**

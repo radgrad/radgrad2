@@ -222,12 +222,6 @@ class CourseCollection extends BaseSlugCollection {
     return _.includes(doc.interestIDs, interestID);
   }
 
-  public getSlug(courseID: string) {
-    this.assertDefined(courseID);
-    const courseDoc = this.findDoc(courseID);
-    return Slugs.findDoc(courseDoc.slugID).name;
-  }
-
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.

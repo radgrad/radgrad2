@@ -417,7 +417,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       html += ' Check out';
       html += '<a style="color: #6FBE44; font-weight: bold;"' +
         ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-        `/explorer/courses/${Courses.getSlug(recCourse._id)}"> ${recCourse.shortName}</a>`;
+        `/explorer/courses/${Courses.findSlugByID(recCourse._id)}"> ${recCourse.shortName}</a>`;
     } else {
       if (studentInterests.length === 0) {
         html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
@@ -448,7 +448,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       html += ' Check out';
       html += '<a style="color: #6FBE44; font-weight: bold;"' +
         ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-        `/explorer/opportunities/${Opportunities.getSlug(recOpp._id)}"> ${recOpp.name}</a>`;
+        `/explorer/opportunities/${Opportunities.findSlugByID(recOpp._id)}"> ${recOpp.name}</a>`;
     }
     return html;
   }

@@ -56,7 +56,7 @@ if (Meteor.isClient) {
       expect(data.enrollmentData[0][1]).to.equal(0);
 
       // Now make a course instance for next academicTerm
-      const academicTerm = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
+      const academicTerm = AcademicTerms.findIdBySlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
       const student = 'abi@hawaii.edu';
       const course = 'ics_111';
       const courseInstanceDefinitionData = {

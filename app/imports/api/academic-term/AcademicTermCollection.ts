@@ -268,16 +268,6 @@ class AcademicTermCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the slug associated with the termID.
-   * @param termID the academicTerm ID.
-   */
-  public getSlug(termID: string) {
-    this.assertAcademicTerm(termID);
-    const academicTermDoc = this.findDoc(termID);
-    return Slugs.findDoc(academicTermDoc.slugID).name;
-  }
-
-  /**
    * Returns the academicTerm docID associated with the passed academicTerm slug or docID.
    * If the academicTerm does not exist, it is defined.
    * @param academicTerm The Slug or docID associated with a academicTerm

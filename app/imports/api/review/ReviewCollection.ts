@@ -100,12 +100,12 @@ class ReviewCollection extends BaseSlugCollection {
     if (reviewType === this.COURSE) {
       revieweeID = Courses.getID(reviewee);
       if (!slug) {
-        slug = `review-course-${Courses.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
+        slug = `review-course-${Courses.findSlugByID(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
       }
     } else if (reviewType === this.OPPORTUNITY) {
       revieweeID = Opportunities.getID(reviewee);
       if (!slug) {
-        slug = `review-opportunity-${Opportunities.getSlug(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
+        slug = `review-opportunity-${Opportunities.findSlugByID(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
       }
     }
     // Validate academicTerm, get termID.
@@ -206,16 +206,6 @@ class ReviewCollection extends BaseSlugCollection {
    */
   public assertValidRoleForMethod(userId: string) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
-  }
-
-  /**
-   * Returns the slug for the given opportunity ID.
-   * @param opportunityID the opportunity ID.
-   */
-  public getSlug(reviewID: string) {
-    this.assertDefined(reviewID);
-    const reviewDoc = this.findDoc(reviewID);
-    return Slugs.findDoc(reviewDoc.slugID).name;
   }
 
   /**

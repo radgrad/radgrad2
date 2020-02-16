@@ -26,7 +26,7 @@ export function makeSampleAcademicPlan() {
   const degreeSlug = Slugs.getNameFromID(degreeDoc.slugID);
   const description = faker.lorem.paragraph();
   const academicTermID = makeSampleAcademicTerm();
-  const academicTerm = AcademicTerms.getSlug(academicTermID);
+  const academicTerm = AcademicTerms.findSlugByID(academicTermID);
   const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
   const courseList = buildCourseList(coursesPerAcademicTerm);
   return AcademicPlans.define({
