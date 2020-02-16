@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
@@ -45,6 +46,7 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface IAdminDataModelUsersPageProps {
+  admins: IBaseProfile[];
   advisors: IAdvisorProfile[];
   faculty: IFacultyProfile[];
   mentors: IMentorProfile[];
@@ -123,7 +125,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     super(props);
     this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
-    console.log('AdminDataModelUsersPage ', props);
+    // console.log('AdminDataModelUsersPage ', props);
   }
 
   private handleAdd = (doc: ICombinedProfileDefine) => {
@@ -248,6 +250,9 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     if (AdvisorProfiles.isDefined(updateData.id)) {
       collectionName = AdvisorProfiles.getCollectionName();
     }
+    if (AdminProfiles.isDefined(updateData.id)) {
+      collectionName = AdminProfiles.getCollectionName();
+    }
     updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
     if (!_.isNil(doc.declaredAcademicTerm)) {
@@ -283,6 +288,21 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
       paddingTop: 20,
     };
     const panes = [
+      {
+        menuItem: `Admins (${this.props.admins.length})`, render: () => (
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={AdminProfiles}
+              descriptionPairs={descriptionPairs(this.props)}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+        ),
+      },
       {
         menuItem: `Advisors (${this.props.advisors.length})`, render: () => (
           <Tab.Pane>
@@ -365,7 +385,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
             ) : (
               <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <Tab panes={panes} defaultActiveIndex={3} />
+            <Tab panes={panes} defaultActiveIndex={4} />
           </Grid.Column>
         </Grid>
         <Confirm
@@ -383,6 +403,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
 
 const AdminDataModelUsersPageCon = connect(mapStateToProps, null)(AdminDataModelUsersPage);
 export default withTracker(() => {
+  const admins = AdminProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const mentors = MentorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
@@ -391,6 +412,7 @@ export default withTracker(() => {
   const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
   const favoriteInterests = FavoriteInterests.find().fetch();
   return {
+    admins,
     advisors,
     faculty,
     mentors,

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { IBaseProfile } from '../../typings/radgrad';
 
 /**
  * Properties to configure RadGrad for different institutions.
@@ -13,12 +14,20 @@ class RadGradPropertiesClass {
     return _.has(Meteor, 'settings.public.RadGrad.quarterSystem') ? Meteor.settings.public.RadGrad.quarterSystem : false;
   }
 
+  public getAdminProfile(): IBaseProfile {
+    return _.has(Meteor, 'settings.public.RadGrad.adminProfile') ? Meteor.settings.public.RadGrad.adminProfile : {
+      username: 'radgrad@hawaii.edu',
+      firstName: 'RadGrad',
+      lastName: 'Admin',
+    };
+  }
+
   /**
    * Returns the RadGrad admin email address.
    * @return the RadGrad admin email address.
    */
   public getAdminEmail(): string {
-    return _.has(Meteor, 'settings.public.RadGrad.adminEmail') ? Meteor.settings.public.RadGrad.adminEmail : 'radgrad@hawaii.edu';
+    return _.has(Meteor, 'settings.public.RadGrad.adminProfile.username') ? Meteor.settings.public.RadGrad.adminProfile.username : 'radgrad@hawaii.edu';
   }
 
   /**

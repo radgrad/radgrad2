@@ -6,6 +6,7 @@ import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, S
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -72,6 +73,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     if (AdvisorProfiles.isDefined(id)) {
       collection = AdvisorProfiles;
     }
+    if (AdminProfiles.isDefined(id)) {
+      collection = AdminProfiles;
+    }
     const profile: IBaseProfile = collection.findDoc(id);
     this.state = {
       pictureURL: profile.picture,
@@ -114,6 +118,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     }
     if (AdvisorProfiles.isDefined(id)) {
       collection = AdvisorProfiles;
+    }
+    if (AdminProfiles.isDefined(id)) {
+      collection = AdminProfiles;
     }
     const model = collection.findDoc(id);
     const userID = model.userID;

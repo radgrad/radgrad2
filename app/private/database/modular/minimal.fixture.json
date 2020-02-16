@@ -122,6 +122,21 @@
       ]
     },
     {
+      "name": "FacultyProfileCollection",
+      "contents": [
+        {
+          "username": "johnson@hawaii.edu",
+          "firstName": "Philip",
+          "lastName": "Johnson",
+          "picture": "/images/mockup/johnson.jpg",
+          "website": "http://philipmjohnson.org",
+          "interests": [],
+          "careerGoals": [],
+          "retired": false
+        }
+      ]
+    },
+    {
       "name": "InterestCollection",
       "contents": [
         {

@@ -1,5 +1,4 @@
 import { Accounts } from 'meteor/accounts-base';
-import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
@@ -14,8 +13,8 @@ import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
-import { ROLE } from '../../api/role/Role';
 import { StudentParticipations } from '../../api/public-stats/StudentParticipationCollection';
+import { AdminProfiles } from '../../api/user/AdminProfileCollection';
 
 /** global Assets */
 
@@ -67,7 +66,7 @@ function getRestoreFileAge(loadFileName) {
  */
 function loadDatabase() {
   const loadFileName = Meteor.settings.public.databaseRestoreFileName;
-  if (loadFileName && (totalDocuments() === 0)) {
+  if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
     console.log(`Loading database from file ${loadFileName}, dumped ${loadFileAge}.`);
     const loadJSON = JSON.parse(Assets.getText(loadFileName));
@@ -136,44 +135,26 @@ function startupCheckIntegrity() {
   }
 }
 
-function generateAdminCredential() {
-  if (Meteor.settings.public.admin.development || Meteor.isTest) {
-    return 'foo';
-  }
-  // adapted from: https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  let credential = '';
-  const maxPasswordLength = 30;
-  const minPasswordLength = 6;
-  const passwordLength = Math.floor(Math.random() * (maxPasswordLength - (minPasswordLength + 1))) + minPasswordLength;
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < passwordLength; i++) {
-    credential += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return credential;
-}
-
 function defineAdminUser() {
-  const adminUsername = RadGradProperties.getAdminEmail();
-  if (!adminUsername) {
-    console.log('\n\nNO ADMIN USERNAME SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
+  const adminProfile = RadGradProperties.getAdminProfile();
+  if (!adminProfile) {
+    console.error('\n\nNO ADMIN PROFILE SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
     return;
   }
-  const user = Meteor.users.findOne({ username: adminUsername });
-  if (!user && totalDocuments() === 0) {
-    const credential = generateAdminCredential();
-    const userID = Accounts.createUser({ username: adminUsername, email: adminUsername, password: credential });
-    Roles.addUsersToRoles(userID, ROLE.ADMIN);
-    console.log(`${adminUsername}/${credential}`);
-  } else if (!user) {
-    console.error(`\n\nTHE ADMIN USERNAME ${adminUsername} IS NOT THE ORIGINAL ADMIN NAME. SHUTDOWN AND FIX!\n\n`);
+  const user = Meteor.users.findOne({ username: adminProfile.username });
+  if (!user) {
+    AdminProfiles.define(adminProfile);
   }
 }
 
 function defineTestAdminUser() {
   if (Meteor.isTest || Meteor.isAppTest) {
-    const admin = 'radgrad@hawaii.edu';
-    const userID = Accounts.createUser({ username: admin, email: admin, password: 'foo' });
-    Roles.addUsersToRoles(userID, ROLE.ADMIN);
+    const adminProfile = {
+      username: 'radgrad@hawaii.edu',
+      firstName: 'RadGrad',
+      lastName: 'Admin',
+    };
+    AdminProfiles.define(adminProfile);
   }
 }
 

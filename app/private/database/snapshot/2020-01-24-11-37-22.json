@@ -2095,6 +2095,16 @@
       ]
     },
     {
+      "name": "AdminProfileCollection",
+      "contents": [
+        {
+          "username": "radgrad@hawaii.edu",
+          "firstName": "RadGrad",
+          "lastName": "Admin"
+        }
+      ]
+    },
+    {
       "name": "AdvisorLogCollection",
       "contents": [
         {

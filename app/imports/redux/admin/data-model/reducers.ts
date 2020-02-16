@@ -28,6 +28,7 @@ interface IState {
     PlanChoiceCollection: IPaginationState;
     ReviewCollection: IPaginationState;
     SlugCollection: IPaginationState;
+    AdminProfileCollection: IPaginationState;
     AdvisorProfileCollection: IPaginationState;
     FacultyProfileCollection: IPaginationState;
     MentorProfileCollection: IPaginationState;
@@ -120,6 +121,10 @@ const initialState: IState = {
       showCount: 25,
     },
     SlugCollection: {
+      showIndex: 0,
+      showCount: 25,
+    },
+    AdminProfileCollection: {
       showIndex: 0,
       showCount: 25,
     },

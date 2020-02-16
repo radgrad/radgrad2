@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
+import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { StudentParticipations } from '../public-stats/StudentParticipationCollection';
@@ -54,6 +55,7 @@ class RadGradClass {
     this.collections = [
       AcademicPlans,
       AcademicYearInstances,
+      AdminProfiles,
       AdvisorLogs,
       AdvisorProfiles,
       CareerGoals,
@@ -105,6 +107,7 @@ class RadGradClass {
       CareerGoals,
       DesiredDegrees,
       AcademicPlans,
+      AdminProfiles,
       MentorProfiles,
       AdvisorProfiles,
       FacultyProfiles,

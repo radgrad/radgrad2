@@ -2,6 +2,7 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Responsive } from 'semantic-ui-react';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -59,6 +60,7 @@ function withGlobalSubscription(WrappedComponent) {
     const handles = [
       globalSubs.subscribe(AcademicPlans.getPublicationName()),
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
+      globalSubs.subscribe(AdminProfiles.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       globalSubs.subscribe(CareerGoals.getPublicationName()),
       globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
