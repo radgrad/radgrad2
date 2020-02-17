@@ -317,11 +317,11 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
-      degree: { icon: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
+      degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
       name: String,
       description: String,
       term: {
-        icon: String,
+        type: String,
         allowedValues: termNames,
         defaultValue: currentTermName,
       },

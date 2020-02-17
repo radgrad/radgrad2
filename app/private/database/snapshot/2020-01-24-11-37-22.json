@@ -5,44 +5,6 @@
       "name": "AcademicPlanCollection",
       "contents": [
         {
-          "slug": "ba-ics-2018",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Information and Computer Sciences (2018)",
-          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_212-1",
-            "ics_311-1",
-            "ics_312,ics_331-1",
-            "ics_321-1",
-            "ics_313,ics_361-1",
-            "ics_400+-1",
-            "ics_332-1",
-            "ics_400+-2",
-            "ics_400+-3",
-            "ics_400+-4"
-          ],
-          "retired": false
-        },
-        {
           "slug": "ba-ics-2019",
           "degreeSlug": "ba-ics",
           "name": "B.A. in Information and Computer Sciences (2019)",
@@ -111,119 +73,6 @@
             "ics_332-1",
             "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
             "ics_400+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-2021",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Information and Computer Sciences (2021)",
-          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
-            "ics_400+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-2022",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Information and Computer Sciences (2022)",
-          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
-            "ics_400+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-it-2018",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Computer Sciences IT Focus (2018)",
-          "description": "The BA in ICS with an IT Focus puts less emphasis on programming and more on administration of computer systems and networks, and on information assurance.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            2,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            3,
-            0,
-            3,
-            2,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212,ics_215-1",
-            "ics_314-1",
-            "ics_414-1",
-            "ics_415-1",
-            "ics_321-1",
-            "ics_332-1",
-            "ics_351-1",
-            "ics_425-1",
-            "ics_464-1",
-            "ics_426-1",
-            "ics_300+-1",
-            "ics_300+-2",
-            "ics_300+-3",
-            "ics_300+-4"
           ],
           "retired": false
         },
@@ -312,128 +161,6 @@
           "retired": false
         },
         {
-          "slug": "ba-ics-it-2021",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Computer Sciences IT Focus (2021)",
-          "description": "The BA in ICS with an IT Focus puts less emphasis on programming and more on administration of computer systems and networks, and on information assurance.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_212,ics_215-1",
-            "ics_414-1",
-            "ics_332-1",
-            "ics_351,ics_451-1",
-            "ics_425-1",
-            "ics_415-1",
-            "ics_426-1",
-            "ics_464-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-it-2022",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Computer Sciences IT Focus (2022)",
-          "description": "The BA in ICS with an IT Focus puts less emphasis on programming and more on administration of computer systems and networks, and on information assurance.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_212,ics_215-1",
-            "ics_414-1",
-            "ics_332-1",
-            "ics_351,ics_451-1",
-            "ics_425-1",
-            "ics_415-1",
-            "ics_426-1",
-            "ics_464-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-ss-2018",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in ICS Security Science Focus (2018)",
-          "description": "The BA in ICS with a Security Science focus provides strength in both computer science and the science of computer security to prepare students for work in this exciting new area dealing with cyber security and information assurance.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_355-1",
-            "ics_414-1",
-            "ics_455-1",
-            "ics_212-1",
-            "ics_321,ics_332,ics_351-1",
-            "ics_441,ics_451-1",
-            "ics_415,ics_423-1",
-            "ics_321,ics_332,ics_351-2",
-            "ics_425,ics_426,ics_491,ics_495-1"
-          ],
-          "retired": false
-        },
-        {
           "slug": "ba-ics-ss-2019",
           "degreeSlug": "ba-ics",
           "name": "B.A. in ICS Security Science Focus (2019)",
@@ -510,316 +237,6 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-ss-2021",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in ICS Security Science Focus (2021)",
-          "description": "The BA in ICS with a Security Science focus provides strength in both computer science and the science of computer security to prepare students for work in this exciting new area dealing with cyber security and information assurance.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_321-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-ss-2022",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in ICS Security Science Focus (2022)",
-          "description": "The BA in ICS with a Security Science focus provides strength in both computer science and the science of computer security to prepare students for work in this exciting new area dealing with cyber security and information assurance.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_321-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2018",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2018)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2019",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2019)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2019",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2020",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2020)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2020",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2021",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2021)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2022",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2022)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
           ],
           "retired": false
         },
@@ -904,99 +321,19 @@
           "retired": false
         },
         {
-          "slug": "bs-cs-2021",
+          "slug": "bs-cs-ds-2019",
           "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences (2021)",
-          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-2",
-            "ics_332-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_400+-3",
-            "ics_400+-4",
-            "ics_400+-5"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences (2022)",
-          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-2",
-            "ics_332-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_400+-3",
-            "ics_400+-4",
-            "ics_400+-5"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-ss-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences Security Sciences (2018)",
-          "description": "The BS in CS SecSci degree offers a solid foundation in computer science with a focus in cyer security. This degree provides students the opportunity to focus in this area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2018",
+          "name": "B.S. in Computer Sciences Data Science Track (2019)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus on the data science field.",
+          "academicTerm": "Fall-2019",
           "coursesPerAcademicTerm": [
             2,
             3,
             0,
-            2,
+            3,
             2,
             0,
-            1,
+            3,
             2,
             0,
             2,
@@ -1005,21 +342,67 @@
           ],
           "courseList": [
             "ics_111-1",
-            "ics_141-1",
+            "math_215,math_241-1",
             "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
+            "math_242-1",
+            "math_301-1",
+            "ics_212-1",
+            "ics_235-1",
+            "math_372-1",
             "ics_311-1",
             "ics_314-1",
+            "ics_321-1",
+            "ics_435-1",
+            "math_307-1",
+            "ics_434-1",
+            "ics_484-1",
+            "ics_438-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3"
+          ],
+          "retired": false
+        },
+        {
+          "slug": "bs-cs-ds-2020",
+          "degreeSlug": "bs-cs",
+          "name": "B.S. in Computer Sciences Data Science Track (2020)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus on the data science field.",
+          "academicTerm": "Fall-2020",
+          "coursesPerAcademicTerm": [
+            2,
+            3,
+            0,
+            3,
+            2,
+            0,
+            3,
+            2,
+            0,
+            2,
+            2,
+            0
+          ],
+          "courseList": [
+            "ics_111-1",
+            "math_215,math241-1",
+            "ics_211-1",
+            "math_242-1",
+            "math_301-1",
             "ics_212-1",
-            "ics_355-1",
-            "ics_455-1",
-            "ics_321,ics_332,(ics_415,ics_351)-1",
-            "ics_414,ics_464-1",
-            "ics_321,ics_332,(ics_415,ics_351)-2",
-            "ics_423-1",
-            "ics_425,ics_426-1",
-            "ics_491,ics_495-1"
+            "ics_235-1",
+            "math_372-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_321-1",
+            "ics_435-1",
+            "math_307-1",
+            "ics_434-1",
+            "ics_484-1",
+            "ics_438-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3"
           ],
           "retired": false
         },
@@ -1102,139 +485,6 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-ss-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences Security Sciences (2021)",
-          "description": "The BS in CS SecSci degree offers a solid foundation in computer science with a focus in cyer security. This degree provides students the opportunity to focus in this area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            3,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_351,ics_451-1",
-            "ics_321-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-ss-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences Security Sciences (2022)",
-          "description": "The BS in CS SecSci degree offers a solid foundation in computer science with a focus in cyer security. This degree provides students the opportunity to focus in this area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            3,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_351,ics_451-1",
-            "ics_321-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-cs-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science (2018)",
-          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            1,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
-            "ics_400+-1",
-            "ics_621-1",
-            "ics_400+-2",
-            "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
           ],
           "retired": false
         },
@@ -1341,157 +591,6 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-cs-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science (2021)",
-          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            1,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
-            "ics_400+-1",
-            "ics_621-1",
-            "ics_400+-2",
-            "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-cs-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science (2022)",
-          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            1,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
-            "ics_400+-1",
-            "ics_621-1",
-            "ics_400+-2",
-            "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ds-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Data Science (2018)",
-          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            1,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_235-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_435-1",
-            "ics_434-1",
-            "ics_484-1",
-            "ics_438-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
           "slug": "bs-ms-ds-2019",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Data Science (2019)",
@@ -1590,155 +689,6 @@
           "retired": false
         },
         {
-          "slug": "bs-ms-ds-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Data Science (2021)",
-          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            1,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_235-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_435-1",
-            "ics_434-1",
-            "ics_484-1",
-            "ics_438-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ds-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Data Science (2022)",
-          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            1,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_235-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_435-1",
-            "ics_434-1",
-            "ics_484-1",
-            "ics_438-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ss-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Security Science (2018)",
-          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            1,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_222-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_312,ics_331,ics_332-1",
-            "ics_351,ics_451",
-            "ics_423-1",
-            "ics_425,ics_426,ics_455,ics_495-1",
-            "ics_425,ics_426,ics_455,ics_495-2",
-            "ics_425,ics_426,ics_455,ics_495-3",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
           "slug": "bs-ms-ss-2019",
           "degreeSlug": "bs-cs",
           "name": "B.S./M.S. in Computer Science Security Science (2019)",
@@ -1795,108 +745,6 @@
           "name": "B.S./M.S. in Computer Science Security Science (2020)",
           "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
           "academicTerm": "Fall-2020",
-          "coursesPerAcademicTerm": [
-            1,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_222-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_312,ics_331,ics_332-1",
-            "ics_351,ics_451",
-            "ics_423-1",
-            "ics_425,ics_426,ics_455,ics_495-1",
-            "ics_425,ics_426,ics_455,ics_495-2",
-            "ics_425,ics_426,ics_455,ics_495-3",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ss-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Security Science (2021)",
-          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            1,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_222-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_312,ics_331,ics_332-1",
-            "ics_351,ics_451",
-            "ics_423-1",
-            "ics_425,ics_426,ics_455,ics_495-1",
-            "ics_425,ics_426,ics_455,ics_495-2",
-            "ics_425,ics_426,ics_455,ics_495-3",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ss-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Security Science (2022)",
-          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2022",
           "coursesPerAcademicTerm": [
             1,
             3,
@@ -2406,269 +1254,6 @@
       "name": "CourseCollection",
       "contents": [
         {
-          "name": "Applied Mechanics I",
-          "shortName": "Applied Mechanics I",
-          "slug": "cee_270",
-          "num": "CEE 270",
-          "description": "Forces, resultants, and equilibrium; analysis of trusses, frames, and machines; centroids, moments of inertia; friction.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Programming for Engineers",
-          "shortName": "Programming for Engr.",
-          "slug": "ee_160",
-          "num": "EE 160",
-          "description": "Introductory course on computer programming and modern computing environments in C with an emphasis on algorithm and program design, implementation, and debugging. Includes a hands-on laboratory to develop and practice programming skills.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Object Oriented Programming",
-          "shortName": "OOP",
-          "slug": "ee_205",
-          "num": "EE 205",
-          "description": "Second-level programming for computer engineers. Object-oriented programming paradigm, definition and use of classes, fundamentals of object-oriented design in modern object-oriented languages such as C++. Common data structures, simple searching and sorting techniques.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_160"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Basic Circuit Analysis I",
-          "shortName": "Circuit Analysis I",
-          "slug": "ee_211",
-          "num": "EE 211",
-          "description": "Linear passive circuits, time domain analysis, transient and steady-state responses, phasors, impedance and admittance; power and energy, frequency responses, resonance.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Basic Circuit Analysis II",
-          "shortName": "Circuit Analysis II",
-          "slug": "ee_213",
-          "num": "EE 213",
-          "description": "Laplace transforms and their application to circuits, Fourier transforms and their applications to circuits, frequency selective circuits, introduction to and design of active filters, convolution, and state space analysis of circuits.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [
-            "ee_211"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Introduction to Digital Design",
-          "shortName": "Intro. to Digital Design",
-          "slug": "ee_260",
-          "num": "EE 260",
-          "description": "Introduction to the design of digital systems with an emphasis on design methods and the implementation and use of fundamental digital components.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [
-            "ee_160"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Sophomore Project",
-          "shortName": "Sophomore Project",
-          "slug": "ee_296",
-          "num": "EE 296",
-          "description": "Sophomore level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Signal and Systems Analysis",
-          "shortName": "Signal Analysis",
-          "slug": "ee_315",
-          "num": "EE 315",
-          "description": "Discrete-time and continuous time signals and systems, linear systems, convolution, Fourier series, Fourier transform, sampling.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_213"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Microelectronic Circuits I",
-          "shortName": "Microelectronic I",
-          "slug": "ee_323",
-          "num": "EE 323",
-          "description": "Semiconductor structures, operating principles and characteristics of diodes and amplifying devices. Their application as circuit elements in building basic digital, analog, and integrated circuit subsystems.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_213"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Physical Electronics",
-          "shortName": "Physical Electronics",
-          "slug": "ee_324",
-          "num": "EE 324",
-          "description": "Review of quantum mechanics fundamentals, H-atom, and chemical bonding. Introduction to band structure models and materials. Semiconductor doping, charge carrier statistics and charge transport, including ambipolar transport. Metal-semiconductor and PN junctions.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Probability and Statistics",
-          "shortName": "Probability and Statistics",
-          "slug": "ee_342",
-          "num": "EE 342",
-          "description": "Probability, statistics, random variables, distributions, densities, expectations, limit theorems, and applications to electrical engineering.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_315"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Digital Systems and Computer Design",
-          "shortName": "Digital Systems",
-          "slug": "ee_361",
-          "num": "EE 361",
-          "description": "Design methodology, processor design, control design, memory organization, system organization.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_160",
-            "ee_260"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Discrete Math for Engineers",
-          "shortName": "Discrete Math",
-          "slug": "ee_362",
-          "num": "EE 362",
-          "description": "Logic, sets, number theory, properties of functions, properties of relations, methods of proofs, recursion, counting, probability, trees, graphs, analysis of algorithms, finite state autonoma.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_160",
-            "ee_260"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Computer Data Structures and Algorithms",
-          "shortName": "Data Structures",
-          "slug": "ee_367",
-          "num": "EE 367",
-          "description": "Introduction to computer programming algorithms with emphasis on advanced data structures, input-output routines, files, and interpreters.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_205",
-            "ics_141"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Engineering Electromagnetics I",
-          "shortName": "Electromagnetics I",
-          "slug": "ee_371",
-          "num": "EE 371",
-          "description": "Transient and steady-state waves on transmission lines. Plane wave solutions of Maxwell's equations. Application of Maxwell's equations under static and time-varying conditions.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_213"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Junior Project",
-          "shortName": "Junior Project",
-          "slug": "ee_396",
-          "num": "EE 396",
-          "description": "Junior level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills. It may be a continuation of EE 296 or a new project.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_296"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Introduction to Computer and Network Security",
-          "shortName": "Intro. to Network Security",
-          "slug": "ee_406",
-          "num": "EE 406",
-          "description": "Review basic network mechanisms, introduce basic cryptography concepts, and study algorithms and protocols used in computer and network security. Discuss practical security mechanisms.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_367"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Object-oriented Software Engineering",
-          "shortName": "OO Software Engineering",
-          "slug": "ee_467",
-          "num": "EE 467",
-          "description": "Introduction to advanced techniques for designing, implementing, and testing computer software with a particular focus on using object-oriented design, analysis, and programming to produce high-quality computer programs that solve non-trivial problems.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_367"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Introduction to Operating Systems",
-          "shortName": "Operating Systems",
-          "slug": "ee_468",
-          "num": "EE 468",
-          "description": "Computer system organization; multiprocessor systems, memory hierarchies, assemblers, compilers, operating systems, virtual machine, memory management, processor management; information management.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_361",
-            "ee_367"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Ethics in Electrical Engineering",
-          "shortName": "Ethics",
-          "slug": "ee_495",
-          "num": "EE 495",
-          "description": "Equip electrical engineers with the necessary background for ethical reasoning, as it pertains to technology, society, workplace issues, and the environment.",
-          "creditHrs": 1,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Capstone Design Project",
-          "shortName": "Capstone",
-          "slug": "ee_496",
-          "num": "EE 496",
-          "description": "Significant project integrating the design content of previous courses and incorporating engineering standards and realistic constraints. Written report must document all aspects of the design process: reliability, safety, economics, ethics.",
-          "creditHrs": 1,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
           "name": "Digital Tools for the Information World",
           "shortName": "Digital Tools",
           "slug": "ics_101",
@@ -2835,7 +1420,8 @@
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS311.html",
           "prerequisites": [
             "ics_241",
-            "ics_211"
+            "ics_211",
+            "math_242"
           ],
           "retired": false
         },
@@ -4145,15 +2731,70 @@
           "retired": false
         },
         {
-          "name": "Thermodynamics",
-          "shortName": "Thermodynamics",
-          "slug": "me_311",
-          "num": "ME 311",
-          "description": "Basic laws, closed and open systems. Work, heat, concept of entropy. Properties of pure simple substances. Ideal gases. Introduction to power and refrigeration cycles.",
+          "name": "Applied Calculus I",
+          "shortName": "Applied Calculus I",
+          "slug": "math_215",
+          "num": "MATH 215",
+          "description": "Basic concepts; differentiation, differential equations and integration with applications directed primarily to the life sciences.",
           "creditHrs": 4,
           "interests": [],
           "prerequisites": [],
-          "retired": true
+          "retired": false
+        },
+        {
+          "name": "Calculus I",
+          "shortName": "Calculus I",
+          "slug": "math_241",
+          "num": "MATH 241",
+          "description": "Basic concepts; differentiation with applications; integration.",
+          "creditHrs": 4,
+          "interests": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Calculus II",
+          "shortName": "Calculus II",
+          "slug": "math_242",
+          "num": "MATH 242",
+          "description": "Integration techniques and applications, series and approximations, differential equations.",
+          "creditHrs": 4,
+          "interests": [],
+          "prerequisites": ["math_215,math_241"],
+          "retired": false
+        },
+        {
+          "name": "Introduction to Discrete Mathematics",
+          "shortName": "Intro. to Discrete Math",
+          "slug": "math_301",
+          "num": "MATH 301",
+          "description": "Symbolic logic, sets and relations, algorithms, trees and other graphs. Additional topics chosen from algebraic systems, networks, automata.",
+          "creditHrs": 3,
+          "interests": ["algorithms"],
+          "prerequisites": ["math_215,math_241"],
+          "retired": false
+        },
+        {
+          "name": "Linear Algebra and Differential Equations",
+          "shortName": "Linear Algebra and Differential Equations",
+          "slug": "math_307",
+          "num": "MATH 307",
+          "description": "Introduction to linear algebra, application of eigenvalue techniques to the solution of differential equations.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": ["math_242"],
+          "retired": false
+        },
+        {
+          "name": "Elementary Probability and Statistics",
+          "shortName": "Elementary Probability and Statistics",
+          "slug": "math_372",
+          "num": "MATH 372",
+          "description": "Problem-oriented introduction to the basic concepts of probability and statistics, providing a foundation for applications and further study.",
+          "creditHrs": 3,
+          "interests": [],
+          "prerequisites": ["math_242"],
+          "retired": false
         },
         {
           "name": "Non Computer Science Course",
@@ -5460,13 +4101,6 @@
           "retired": false
         },
         {
-          "name": "B.S. in Computer Engineering",
-          "shortName": "B.S. CE",
-          "slug": "bs-ce",
-          "description": "The Department of Information and Computer Sciences and the Department of Electrical Engineering offer a joint Bachelor of Science degree in Computer Engineering (BSCE).  The BSCE degree program provides you with the opportunity to learn about computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, embedded systems, computer-aided design, multi-core and parallel computing, wireless networks, and other topics.",
-          "retired": false
-        },
-        {
           "name": "B.S. in Computer Science",
           "shortName": "B.S. CS",
           "slug": "bs-cs",
@@ -5838,11 +4472,6 @@
         },
         {
           "academicPlan": "bs-cs-2020",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicPlan": "ba-ics-2018",
           "student": "abi@hawaii.edu",
           "retired": false
         }
@@ -11699,6 +10328,10 @@
           "retired": false
         },
         {
+          "choice": "ics_102",
+          "retired": false
+        },
+        {
           "choice": "ics_110",
           "retired": false
         },
@@ -11819,6 +10452,10 @@
           "retired": false
         },
         {
+          "choice": "ics_434",
+          "retired": false
+        },
+        {
           "choice": "ics_435",
           "retired": false
         },
@@ -11916,114 +10553,6 @@
         },
         {
           "choice": "ics_400+",
-          "retired": false
-        },
-        {
-          "choice": "ee_160",
-          "retired": false
-        },
-        {
-          "choice": "ee_205",
-          "retired": false
-        },
-        {
-          "choice": "ee_211",
-          "retired": false
-        },
-        {
-          "choice": "ee_213",
-          "retired": false
-        },
-        {
-          "choice": "ee_260",
-          "retired": false
-        },
-        {
-          "choice": "ee_296",
-          "retired": false
-        },
-        {
-          "choice": "ee_315",
-          "retired": false
-        },
-        {
-          "choice": "ee_323",
-          "retired": false
-        },
-        {
-          "choice": "ee_324",
-          "retired": false
-        },
-        {
-          "choice": "ee_342",
-          "retired": false
-        },
-        {
-          "choice": "ee_361",
-          "retired": false
-        },
-        {
-          "choice": "ee_362",
-          "retired": false
-        },
-        {
-          "choice": "ee_367",
-          "retired": false
-        },
-        {
-          "choice": "ee_371",
-          "retired": false
-        },
-        {
-          "choice": "ee_396",
-          "retired": false
-        },
-        {
-          "choice": "ee_406",
-          "retired": false
-        },
-        {
-          "choice": "ee_467",
-          "retired": false
-        },
-        {
-          "choice": "ee_468",
-          "retired": false
-        },
-        {
-          "choice": "ee_495",
-          "retired": false
-        },
-        {
-          "choice": "ee_496",
-          "retired": false
-        },
-        {
-          "choice": "ee_300+",
-          "retired": false
-        },
-        {
-          "choice": "cee_270",
-          "retired": false
-        },
-        {
-          "choice": "me_311",
-          "retired": false
-        },
-        {
-          "choice": "cee_300+",
-          "retired": false
-        },
-        {
-          "choice": "me_300+",
-          "retired": false
-        },
-        {
-          "choice": "oe_300+",
-          "retired": false
-        },
-        {
-          "choice": "be_300+",
           "retired": false
         },
         {
@@ -12187,11 +10716,27 @@
           "retired": false
         },
         {
-          "choice": "ics_102",
+          "choice": "math_215",
           "retired": false
         },
         {
-          "choice": "ics_434",
+          "choice": "math_241",
+          "retired": false
+        },
+        {
+          "choice": "math_242",
+          "retired": false
+        },
+        {
+          "choice": "math_301",
+          "retired": false
+        },
+        {
+          "choice": "math_307",
+          "retired": false
+        },
+        {
+          "choice": "math_372",
           "retired": false
         }
       ]
@@ -12308,8 +10853,7 @@
           "level": 1,
           "favoriteAcademicPlans": [
             "bs-cs-2019",
-            "bs-cs-2020",
-            "ba-ics-2018"
+            "bs-cs-2020"
           ],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
