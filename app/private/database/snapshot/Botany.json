@@ -45,6 +45,16 @@
             "bot_420-1",
             "bot_302,bot_399,bot_401,bot_440,bot_442,bot_446,sust_445,bot_446,bot_450-5"
           ],
+          "planGroups": {
+            "bot_100": {
+              "name": "BOT 100",
+              "courseSlugs": ["bot_100"]
+            },
+            "biol_171": {
+              "name": "BIOL 171",
+              "courseSlugs": ["biol_171"]
+            }
+          },
           "retired": false
         }
       ]

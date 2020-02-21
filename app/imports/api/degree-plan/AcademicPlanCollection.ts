@@ -33,6 +33,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       coursesPerAcademicTerm: { type: Array, minCount: 6, maxCount: 20 },
       'coursesPerAcademicTerm.$': Number,
       choiceList: [String],
+      planGroups: Object,
       retired: { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
@@ -46,6 +47,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       academicTerm: String,
       coursesPerAcademicTerm: [Number],
       choiceList: [String],
+      planGroups: Object,
     });
     this.updateSchema = new SimpleSchema({
       degreeSlug: { type: String, optional: true },
@@ -55,6 +57,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'coursesPerAcademicTerm.$': { type: Number },
       choiceList: { type: Array, optional: true },
       'choiceList.$': { type: String },
+      planGroups: { type: Object, optional: true },
       retired: { type: Boolean, optional: true },
     });
   }
