@@ -396,6 +396,7 @@ export interface ICourseDefine extends IDumpOne {
   creditHrs?: number;
   interests?: string[];
   syllabus?: string;
+  corequisites?: string[];
   prerequisites?: string[];
   retired?: boolean;
 }

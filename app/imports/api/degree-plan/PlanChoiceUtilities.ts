@@ -144,7 +144,7 @@ export function getDepartment(courseSlug: string) {
  * @memberOf api/degree-plan
  */
 export function getDepartments(planChoice: string) {
-  const choices = planChoice.split(',');
+  const choices = complexChoiceToArray(planChoice);
   const ret = [];
   _.forEach(choices, (c) => {
     const dept = getDepartment(c);
@@ -164,13 +164,14 @@ export function getDepartments(planChoice: string) {
  */
 function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
   const dept = getDepartment(planChoice);
+  const stripped = stripCounter(planChoice);
   if (planChoice.includes('300+')) {
     return courseSlug.startsWith(`${dept}_3`) || courseSlug.startsWith(`${dept}_4`);
   }
   if (planChoice.includes('400+')) {
     return courseSlug.startsWith(`${dept}_4`);
   }
-  return planChoice.indexOf(courseSlug) !== -1;
+  return planChoice.indexOf(courseSlug) !== -1 && stripped.length === courseSlug.length;
 }
 
 /**
@@ -181,7 +182,7 @@ function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
  * @memberOf api/degree-plan
  */
 export function satisfiesPlanChoice(planChoice: string, courseSlug: string) {
-  const singleChoices = planChoice.split(',');
+  const singleChoices = complexChoiceToArray(planChoice);
   let ret = false;
   _.forEach(singleChoices, (choice) => {
     if (satisfiesSinglePlanChoice(choice, courseSlug)) {
