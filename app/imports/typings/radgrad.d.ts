@@ -212,6 +212,12 @@ export interface IDescriptionPair {
 }
 
 // AcademicPlans
+interface IAcademicPlanGroup {
+  slug: string;
+  name: string;
+  courseSlugs: string[];
+}
+
 export interface IAcademicPlan {
   _id: string;
   name: string;
@@ -222,7 +228,8 @@ export interface IAcademicPlan {
   academicTermNumber: number;
   year: number;
   coursesPerAcademicTerm: number[];
-  courseList: string[];
+  choiceList: string[];
+  planGroups: any; // an object key is slug, value is IAcademicPlanGroup
   isBAM?: boolean;
   retired?: boolean;
 }
@@ -234,7 +241,8 @@ export interface IAcademicPlanDefine extends IDumpOne {
   description: string;
   academicTerm: string;
   coursesPerAcademicTerm: number[];
-  courseList: string[];
+  choiceList: string[];
+  planGroups: any;
   retired?: boolean;
 }
 
@@ -243,7 +251,8 @@ export interface IAcademicPlanUpdate  extends IUpdate {
   name?: string;
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
-  courseList?: string[];
+  choiceList?: string[];
+  planGroups?: any;
   retired?: boolean;
 }
 

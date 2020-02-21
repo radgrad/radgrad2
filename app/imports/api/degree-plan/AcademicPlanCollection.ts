@@ -32,7 +32,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       //      minCount of 6 for 2 year plan
       coursesPerAcademicTerm: { type: Array, minCount: 6, maxCount: 20 },
       'coursesPerAcademicTerm.$': Number,
-      courseList: [String],
+      choiceList: [String],
       retired: { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
@@ -45,7 +45,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
       description: String,
       academicTerm: String,
       coursesPerAcademicTerm: [Number],
-      courseList: [String],
+      choiceList: [String],
     });
     this.updateSchema = new SimpleSchema({
       degreeSlug: { type: String, optional: true },
@@ -53,8 +53,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
       academicTerm: { type: String, optional: true },
       coursesPerAcademicTerm: { type: Array, optional: true },
       'coursesPerAcademicTerm.$': { type: Number },
-      courseList: { type: Array, optional: true },
-      'courseList.$': { type: String },
+      choiceList: { type: Array, optional: true },
+      'choiceList.$': { type: String },
       retired: { type: Boolean, optional: true },
     });
   }
@@ -69,7 +69,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    *                        description: 'The BS in CS degree offers a solid foundation in computer science.',
    *                        academicTerm: 'Spring-2016',
    *                        coursesPerAcademicTerm: [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0],
-   *                        courseList: ['ics_111-1', 'ics_141-1, 'ics_211-1', 'ics_241-1', 'ics_311-1', 'ics_314-1',
+   *                        choiceList: ['ics_111-1', 'ics_141-1, 'ics_211-1', 'ics_241-1', 'ics_311-1', 'ics_314-1',
    *                                     'ics_212-1', 'ics_321-1', 'ics_313,ics_361-1', 'ics_312,ics_331-1', 'ics_332-1',
    *                                     'ics_400+-1', 'ics_400+-2', 'ics_400+-3', 'ics_400+-4', 'ics_400+-5'] })
    * @param slug The slug for the academic plan.
@@ -78,11 +78,11 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param description The description of the academic plan.
    * @param academicTerm the slug for the academicTerm.
    * @param coursesPerAcademicTerm an array of the number of courses to take in each academicTerm.
-   * @param courseList an array of PlanChoices. The choices for each course.
+   * @param choiceList an array of PlanChoices. The choices for each course.
    * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, courseList, retired = false }: IAcademicPlanDefine) {
+  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, planGroups, retired = false }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
     const effectiveAcademicTermID = AcademicTerms.getID(academicTerm);
     const doc = this.collection.findOne({ degreeID, name, effectiveAcademicTermID });
@@ -103,7 +103,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
       termNumber,
       year,
       coursesPerAcademicTerm,
-      courseList,
+      choiceList,
+      planGroups,
       retired,
     });
     // Connect the Slug to this AcademicPlan.
@@ -118,12 +119,12 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param name the name of this AcademicPlan.
    * @param academicTerm the first academicTerm this plan is effective.
    * @param coursesPerAcademicTerm an array of the number of courses per academicTerm.
-   * @param courseList an array of PlanChoices, the choices for each course.
+   * @param choiceList an array of PlanChoices, the choices for each course.
    * @param retired boolean, optional.
    */
-  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, courseList, retired }: IAcademicPlanUpdate) {
+  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, planGroups, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
-    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; courseList?: string[]; retired?: boolean; } = {};
+    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; planGroups?: any; retired?: boolean; } = {};
     if (degreeSlug) {
       updateData.degreeID = DesiredDegrees.getID(degreeSlug);
     }
@@ -144,16 +145,19 @@ class AcademicPlanCollection extends BaseSlugCollection {
       });
       updateData.coursesPerAcademicTerm = coursesPerAcademicTerm;
     }
-    if (courseList) {
-      if (!Array.isArray(courseList)) {
-        throw new Meteor.Error(`CourseList ${courseList} is not an Array.`);
+    if (choiceList) {
+      if (!Array.isArray(choiceList)) {
+        throw new Meteor.Error(`CourseList ${choiceList} is not an Array.`);
       }
-      _.forEach(courseList, (pc) => {
+      _.forEach(choiceList, (pc) => {
         if (!_.isString(pc)) {
           throw new Meteor.Error(`CourseList ${pc} is not a PlanChoice.`);
         }
       });
-      updateData.courseList = courseList;
+      updateData.choiceList = choiceList;
+    }
+    if (planGroups) {
+      updateData.planGroups = planGroups;
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -193,13 +197,14 @@ class AcademicPlanCollection extends BaseSlugCollection {
       if (!DesiredDegrees.isDefined(doc.degreeID)) {
         problems.push(`Bad desiredDegreeID: ${doc.degreeID}`);
       }
-      let numCourses = 0;
-      _.forEach(doc.coursesPerAcademicTerm, (n) => {
-        numCourses += n;
-      });
-      if (doc.courseList.length !== numCourses) {
-        problems.push(`Mismatch between courseList.length ${doc.courseList.length} and sum of coursesPerAcademicTerm ${numCourses}`);
-      }
+      // turn this off for now
+      // let numCourses = 0;
+      // _.forEach(doc.coursesPerAcademicTerm, (n) => {
+      //   numCourses += n;
+      // });
+      // if (doc.choiceList.length !== numCourses) {
+      //   problems.push(`Mismatch between choiceList.length ${doc.choiceList.length} and sum of coursesPerAcademicTerm ${numCourses}`);
+      // }
     });
     return problems;
   }
@@ -296,9 +301,10 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const academicTermDoc = AcademicTerms.findDoc(doc.effectiveAcademicTermID);
     const academicTerm = Slugs.findDoc(academicTermDoc.slugID).name;
     const coursesPerAcademicTerm = doc.coursesPerAcademicTerm;
-    const courseList = doc.courseList;
+    const choiceList = doc.choiceList;
+    const planGroups = doc.planGroups;
     const retired = doc.retired;
-    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, courseList, retired };
+    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, planGroups, retired };
   }
 
 }
