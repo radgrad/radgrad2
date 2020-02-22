@@ -1,9 +1,8 @@
 import React from 'react';
-import { Grid, Label, Popup } from 'semantic-ui-react';
+import { Grid, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
 import { buildSimpleName, stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { getNotSatisfiedStyle, getSatisfiedStyle } from './StyleFunctions';
-import NamePill from './NamePill';
 
 interface ISatisfiedPlanChoicePillProps {
   choice: string;

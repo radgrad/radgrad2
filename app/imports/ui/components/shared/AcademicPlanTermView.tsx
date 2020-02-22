@@ -3,7 +3,6 @@ import { Header, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
-import { isSimpleChoice, stripCounter } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { getDroppableListStyle } from './StyleFunctions';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
@@ -44,7 +43,7 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
           >
             {_.map(props.choices, (choice, index) => {
               const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs, props.groups);
-              const stripped = stripCounter(choice);
+              const stripped = PlanChoiceUtils.stripCounter(choice);
               const courseSlugs = props.groups[stripped].courseSlugs;
               if (courseSlugs.length === 1 && !PlanChoiceUtils.isXXChoice(choice)) {
                 return (
