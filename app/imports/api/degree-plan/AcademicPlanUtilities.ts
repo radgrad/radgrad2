@@ -15,12 +15,12 @@ export function getPlanChoicesRaw(coursesPerTerm: number[], choiceList: string[]
     numChoices += coursesPerTerm[i];
   }
   const numTermChoices = coursesPerTerm[termNum];
-  // console.log(academicPlan.coursesPerAcademicTerm, termNum, numTermChoices, academicPlan.courseList.slice(numChoices, numChoices + numTermChoices));
+  // console.log(academicPlan.coursesPerAcademicTerm, termNum, numTermChoices, academicPlan.choiceList.slice(numChoices, numChoices + numTermChoices));
   return choiceList.slice(numChoices, numChoices + numTermChoices);
 }
 
 export function getPlanChoices(academicPlan: IAcademicPlan, termNum: number): string[] {
-  return getPlanChoicesRaw(academicPlan.coursesPerAcademicTerm, academicPlan.courseList, termNum);
+  return getPlanChoicesRaw(academicPlan.coursesPerAcademicTerm, academicPlan.choiceList, termNum);
 }
 
 export function passedCourse(ci: ICourseInstance): boolean {
@@ -33,11 +33,13 @@ export function passedCourse(ci: ICourseInstance): boolean {
   return _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);
 }
 
-export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]): boolean {
+export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[], groups: any): boolean {
   const planCount = PlanChoiceUtils.getPlanCount(planChoice);
+  const planSlug = PlanChoiceUtils.stripCounter(planChoice);
+  const courseSlugs = groups[planSlug].courseSlugs;
   let count = 0;
   _.forEach(takenSlugs, (slug) => {
-    if (PlanChoiceUtils.satisfiesPlanChoice(planChoice, slug)) {
+    if (_.includes(courseSlugs, slug)) {
       count++;
     }
   });
@@ -56,16 +58,16 @@ export function isAcademicPlanValid(academicPlan: IAcademicPlan): boolean {
   } else if (academicPlan.coursesPerAcademicTerm.length % 3 !== 0) {
     return false;
   }
-  // check the courseList length to the sum of the coursesPerTerm
+  // check the choiceList length to the sum of the coursesPerTerm
   const numCourses = _.reduce(academicPlan.coursesPerAcademicTerm, (sum, n) => sum + n, 0);
-  if (numCourses !== academicPlan.courseList.length) {
+  if (numCourses !== academicPlan.choiceList.length) {
     return false;
   }
-  // check the courseList to see if has numbers.
-  if (!_.each(academicPlan.courseList, (choice) => PlanChoiceUtils.getPlanCount(choice) !== 0)) {
+  // check the choiceList to see if has numbers.
+  if (!_.each(academicPlan.choiceList, (choice) => PlanChoiceUtils.getPlanCount(choice) !== 0)) {
     return false;
   }
-  // check to see if courseList numbers are correct.
+  // check to see if choiceList numbers are correct.
   return true;
 }
 
@@ -125,7 +127,7 @@ export function addChoiceToRaw(choice: string, termNum: number, choiceList: stri
 }
 
 export function addChoiceToPlan(academicPlan: IAcademicPlan, termNum: number, choice: string) {
-  addChoiceToRaw(choice, termNum, academicPlan.courseList, academicPlan.coursesPerAcademicTerm);
+  addChoiceToRaw(choice, termNum, academicPlan.choiceList, academicPlan.coursesPerAcademicTerm);
 }
 
 function getListIndex(choice: string, choiceList: string[]) {
