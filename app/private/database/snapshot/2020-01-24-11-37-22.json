@@ -1052,6 +1052,113 @@
             "ics_400+-2",
             "ics_400+-3"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "math_215,math_241": {
+              "name": "MATH 215 or MATH 231",
+              "courseSlugs": [
+                "math_215",
+                "math_241"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "math_242": {
+              "name": "MATH 242",
+              "courseSlugs": [
+                "math_242"
+              ]
+            },
+            "math_301": {
+              "name": "MATH 301",
+              "courseSlugs": [
+                "math_301"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "math_372": {
+              "name": "MATH 372",
+              "courseSlugs": [
+                "math_372"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "math_307": {
+              "name": "MATH 307",
+              "courseSlugs": [
+                "math_307"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 884",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "Data Science Elective 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1076,7 +1183,7 @@
           ],
           "choiceList": [
             "ics_111-1",
-            "math_215,math241-1",
+            "math_215,math_241-1",
             "ics_211-1",
             "math_242-1",
             "math_301-1",
@@ -1095,6 +1202,113 @@
             "ics_400+-2",
             "ics_400+-3"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "math_215,math_241": {
+              "name": "MATH 215 or MATH 231",
+              "courseSlugs": [
+                "math_215",
+                "math_241"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "math_242": {
+              "name": "MATH 242",
+              "courseSlugs": [
+                "math_242"
+              ]
+            },
+            "math_301": {
+              "name": "MATH 301",
+              "courseSlugs": [
+                "math_301"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "math_372": {
+              "name": "MATH 372",
+              "courseSlugs": [
+                "math_372"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "math_307": {
+              "name": "MATH 307",
+              "courseSlugs": [
+                "math_307"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 884",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "Data Science Elective 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1136,6 +1350,88 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1177,6 +1473,88 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1223,11 +1601,165 @@
             "ics_600+-2",
             "ics_600+-3",
             "ics_699,ics_700-1",
-            "ics_600+4",
+            "ics_600+-4",
             "ics_600+-5",
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)": {
+              "name": "ICS 312/ICS 331,ICS 313/ICS 361,ICS 351/ICS 451",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_313",
+                "ics_361",
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_621": {
+              "name": "ICS 621",
+              "courseSlugs": [
+                "ics_621"
+              ]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": [
+                "ics_414"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1274,11 +1806,165 @@
             "ics_600+-2",
             "ics_600+-3",
             "ics_699,ics_700-1",
-            "ics_600+4",
+            "ics_600+-4",
             "ics_600+-5",
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)": {
+              "name": "ICS 312/ICS 331,ICS 313/ICS 361,ICS 351/ICS 451",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_313",
+                "ics_361",
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_621": {
+              "name": "ICS 621",
+              "courseSlugs": [
+                "ics_621"
+              ]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": [
+                "ics_414"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1328,6 +2014,143 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 484",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1377,6 +2200,143 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 484",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1428,6 +2388,153 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_312,ics_331,ics_332": {
+              "name": "ICS 312 or ICS 331 or ICS 332",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_332"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_423": {
+              "name": "ICS 423",
+              "courseSlugs": [
+                "ics_423"
+              ]
+            },
+            "ics_425,ics_426,ics_455,ics_495": {
+              "name": "ICS 425 or ICS 426 or ICS 455 or ICS 495",
+              "courseSlugs": [
+                "ics_425",
+                "ics_426",
+                "ics_455",
+                "ics_495"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1479,6 +2586,153 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_312,ics_331,ics_332": {
+              "name": "ICS 312 or ICS 331 or ICS 332",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_332"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_423": {
+              "name": "ICS 423",
+              "courseSlugs": [
+                "ics_423"
+              ]
+            },
+            "ics_425,ics_426,ics_455,ics_495": {
+              "name": "ICS 425 or ICS 426 or ICS 455 or ICS 495",
+              "courseSlugs": [
+                "ics_425",
+                "ics_426",
+                "ics_455",
+                "ics_495"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         }
       ]

@@ -9,6 +9,7 @@ import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { stripCounter } from './PlanChoiceUtilities';
+import { Courses } from '../course/CourseCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -215,6 +216,13 @@ class AcademicPlanCollection extends BaseSlugCollection {
         if (!doc.groups[stripped]) {
           problems.push(`${stripped} is not defined in the groups`);
         }
+      });
+      _.forEach(doc.groups, (group) => {
+        _.forEach(group.courseSlugs, (slug) => {
+          if (!Courses.isDefined(slug)) {
+            problems.push(`${doc.name}: ${slug} is not a defined Course slug.`);
+          }
+        });
       });
     });
     return problems;

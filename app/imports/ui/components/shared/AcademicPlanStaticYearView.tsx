@@ -28,6 +28,7 @@ Year
         title={AcademicTerms.FALL}
         id={`${AcademicTerms.FALL}-${props.yearNumber * 10 + termNum}`}
         choices={getPlanChoices(props.academicPlan, termNum++)}
+        groups={props.academicPlan.groups}
         studentID={studentID}
         takenSlugs={props.takenSlugs}
       />
@@ -36,6 +37,7 @@ Year
           title={AcademicTerms.WINTER}
           id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
           choices={getPlanChoices(props.academicPlan, termNum++)}
+          groups={props.academicPlan.groups}
           studentID={studentID}
           takenSlugs={props.takenSlugs}
         />
@@ -44,6 +46,7 @@ Year
         title={AcademicTerms.SPRING}
         id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}
         choices={getPlanChoices(props.academicPlan, termNum++)}
+        groups={props.academicPlan.groups}
         studentID={studentID}
         takenSlugs={props.takenSlugs}
       />
@@ -51,6 +54,7 @@ Year
         title={AcademicTerms.SUMMER}
         id={`${AcademicTerms.SUMMER}-${props.yearNumber * 10 + termNum}`}
         choices={getPlanChoices(props.academicPlan, termNum++)}
+        groups={props.academicPlan.groups}
         studentID={studentID}
         takenSlugs={props.takenSlugs}
       />
