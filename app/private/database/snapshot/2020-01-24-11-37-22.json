@@ -3345,6 +3345,23 @@
           "retired": false
         },
         {
+          "name": "Machine Learning Methods",
+          "shortName": "Machine Learning Methods",
+          "slug": "ics_235",
+          "num": "ICS 235",
+          "description": "Introduction to contemporary mathematical methods for empirical inference, data modeling, and machine learning. A-F only.",
+          "creditHrs": 3,
+          "interests": [
+            "machine-learning"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "math_241",
+            "math_203",
+            "math_215"
+          ],
+          "retired": false
+        },{
           "name": "Discrete Mathematics for Computer Science II",
           "shortName": "Discrete Math II",
           "slug": "ics_241",
@@ -3820,6 +3837,24 @@
           "prerequisites": [
             "ics_311",
             "ics_314"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Big Data Analytics",
+          "shortName": "Big Data Analytics",
+          "slug": "ics_438",
+          "num": "ICS 438",
+          "description": "Concepts, tools, and techniques for analyzing and mining massive data sets. Data cleaning and pre-processing. Data analysis and mining techniques. Big Data platforms. Big Data visualization.",
+          "creditHrs": 3,
+          "interests": [
+            "data-science",
+            "data-mining",
+            "data-visualization"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_321"
           ],
           "retired": false
         },
@@ -4766,6 +4801,18 @@
           "num": "ICS 800",
           "description": "Research for doctoral dissertation. Repeatable eight times. Pre: candidacy for PhD in computer science.",
           "creditHrs": 3,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Calculus for Business and Social Sciences",
+          "shortName": "Calculus for Business and Social Sciences",
+          "slug": "math_203",
+          "num": "MATH 203",
+          "description": "Basic concepts; differentiation and integration applications to management, finance, economics, and the social sciences. Credit allowed for at most one of 203, 215, 241, 251A.",
+          "creditHrs": 4,
           "interests": [],
           "corequisites": [],
           "prerequisites": [],
