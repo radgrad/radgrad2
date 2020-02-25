@@ -11,7 +11,7 @@ if (Meteor.isServer) {
     const _id = Random.id();
     const name = 'good';
     const description = 'description';
-    const courseList = [];
+    const choiceList = [];
     const coursesPerAcademicTerm = [];
     const shortList = [];
     const shortCourses = [];
@@ -21,10 +21,10 @@ if (Meteor.isServer) {
     before(function setup() {
       const quarters = RadGradProperties.getQuarterSystem();
       if (quarters) {
-        courseList.push('ics_111-1');
-        courseList.push('ics_141-1');
-        courseList.push('ics_211-1');
-        courseList.push('ics_241-1');
+        choiceList.push('ics_111-1');
+        choiceList.push('ics_141-1');
+        choiceList.push('ics_211-1');
+        choiceList.push('ics_241-1');
         coursesPerAcademicTerm.push(1);
         coursesPerAcademicTerm.push(1);
         coursesPerAcademicTerm.push(1);
@@ -36,10 +36,10 @@ if (Meteor.isServer) {
         shortCourses.push(2);
         shortCourses.push(0);
       } else {
-        courseList.push('ics_111-1');
-        courseList.push('ics_141-1');
-        courseList.push('ics_211-1');
-        courseList.push('ics_241-1');
+        choiceList.push('ics_111-1');
+        choiceList.push('ics_141-1');
+        choiceList.push('ics_211-1');
+        choiceList.push('ics_241-1');
         coursesPerAcademicTerm.push(2);
         coursesPerAcademicTerm.push(2);
         coursesPerAcademicTerm.push(0);
@@ -55,7 +55,7 @@ if (Meteor.isServer) {
         description,
         degreeID: Random.id(),
         slugID: Random.id(),
-        courseList,
+        choiceList,
         coursesPerAcademicTerm,
         effectiveAcademicTermID: Random.id(),
         year,
@@ -67,7 +67,7 @@ if (Meteor.isServer) {
         description,
         degreeID: Random.id(),
         slugID: Random.id(),
-        courseList: shortList,
+        choiceList: shortList,
         coursesPerAcademicTerm: shortCourses,
         effectiveAcademicTermID: Random.id(),
         year,

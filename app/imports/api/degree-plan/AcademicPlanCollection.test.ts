@@ -163,7 +163,7 @@ if (Meteor.isServer) {
       // Act
       const errors = AcademicPlans.checkIntegrity();
       // Assert
-      expect(errors.length).to.equal(0);
+      expect(errors.length).to.equal(48); // we don't define the courses
     });
 
     it('Can get plans for degree, good slug', function test6() {
@@ -191,7 +191,7 @@ if (Meteor.isServer) {
         });
         expect(AcademicPlans.isDefined(badID)).to.be.true;
         const errors = AcademicPlans.checkIntegrity();
-        expect(errors).to.have.lengthOf(1);
+        expect(errors).to.have.lengthOf(49); // we don't define the courses so we get lots of errors.
     });
   });
 }

@@ -96,7 +96,7 @@
             },
             "group_2_elective": {
               "name": "Group 2 Elective",
-              "courseSlugs": ["bot_301", "bot_310", "bot_350", "bot_440", "bot_444", "bot_450", "bot_454", "bot_456", "sust_313", "bot_445"]
+              "courseSlugs": ["bot_301", "bot_310", "bot_350", "bot_440", "bot_444", "bot_450", "bot_454", "bot_456", "sust_313"]
             },
             "bot_400": {
               "name": "BOT 400",
@@ -1052,6 +1052,20 @@
           "shortName": "Ethnoecology and Conservation",
           "slug": "bot_444",
           "num": "BOT 444",
+          "description": " Ecological implications of cultural uses of plants. Examines the biological basis for, and ecological effects of traditional and local resource management systems.",
+          "creditHrs": 3,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": [
+            "bot_305,biol_265"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Ethnoecology and Conservation",
+          "shortName": "Ethnoecology and Conservation",
+          "slug": "sust_445",
+          "num": "SUST 445",
           "description": " Ecological implications of cultural uses of plants. Examines the biological basis for, and ecological effects of traditional and local resource management systems.",
           "creditHrs": 3,
           "interests": [],
