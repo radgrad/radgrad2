@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
@@ -8,7 +7,7 @@ const GuidedTourAdvisorDegreePlan = () => (
     <Grid container columns={2}>
       <Grid.Column width="ten">
         <a href="/images/guidedtour/guidedtour-degreeplan.png" target="_blank">
-          <Image as={NavLink} rounded src="/images/guidedtour/guidedtour-degreeplan.png" to="/images/guidedtour/guidedtour-degreeplan.png" />
+          <Image rounded src="/images/guidedtour/guidedtour-degreeplan.png" />
           <p style={styles.p}>Click for full-size image</p>
         </a>
       </Grid.Column>
