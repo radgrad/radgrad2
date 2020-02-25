@@ -43,7 +43,69 @@
             "ics_423-1",
             "ics_425,ics_426-1",
             "ics_491,ics_495-1"
-          ]
+          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": ["ics_111"]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": ["ics_141"]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": ["ics_211"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": ["ics_241"]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": ["ics_222"]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": ["ics_311"]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": ["ics_314"]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": ["ics_212"]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": ["ics_355"]
+            },
+            "ics_455": {
+              "name": "ICS 455",
+              "courseSlugs": ["ics_455"]
+            },
+            "ics_321,ics_332,(ics_415,ics_351)": {
+              "name": "ICS 321 or ICS 332 or ICS 415/ICS 351",
+              "courseSlugs": ["ics_321", "ics_332", "ics_415", "ics_351"]
+            },
+            "ics_414,ics_464": {
+              "name": "ICS 414 or ICS 464",
+              "courseSlugs": ["ics_414", "ics_464"]
+            },
+            "ics_423": {
+              "name": "ICS 423",
+              "courseSlugs": ["ics_423"]
+            },
+            "ics_425,ics_426": {
+              "name": "ICS 425 or ICS 426",
+              "courseSlugs": ["ics_425", "ics_426"]
+            },
+            "ics_491,ics_495": {
+              "name": "ICS 491 or ICS 495",
+              "courseSlugs": ["ics_491", "ics_495"]
+            }
+          }
         },
         {
           "slug": "ba-ics-2016",
@@ -78,7 +140,61 @@
             "ics_400+-1",
             "ics_313,ics_361-1",
             "ics_332-1"
-          ]
+          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": ["ics_111"]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": ["ics_141"]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": ["ics_211"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": ["ics_241"]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": ["ics_311"]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": ["ics_314"]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": ["ics_212"]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": ["ics_321"]
+            },
+            "ics_312,ics_331": {
+              "name": "ICS 312 or ICS 331",
+              "courseSlugs": ["ics_312", "ics_331"]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_313,ics_361": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": ["ics_313", "ics_361"]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": ["ics_332"]
+            }
+          }
         },
         {
           "slug": "ba-ics-ss-2016",
@@ -117,7 +233,69 @@
             "ics_415,ics_423-1",
             "ics_321,ics_332,ics_351-2",
             "ics_425,ics_426,ics_491,ics_495-1"
-          ]
+          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": ["ics_111"]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": ["ics_141"]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": ["ics_211"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": ["ics_241"]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": ["ics_222"]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": ["ics_311"]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": ["ics_314"]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": ["ics_355"]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": ["ics_414"]
+            },
+            "ics_455": {
+              "name": "ICS 455",
+              "courseSlugs": ["ics_455"]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": ["ics_212"]
+            },
+            "ics_321,ics_332,ics_351": {
+              "name": "ICS 321 or ICS 332 or ICS 351",
+              "courseSlugs": ["ics_321", "ics_332", "ics_351"]
+            },
+            "ics_441,ics_451": {
+              "name": "ICS 441 or ICS 451",
+              "courseSlugs": ["ics_441", "ics_451"]
+            },
+            "ics_415,ics_423": {
+              "name": "ICS 415 or ICS 423",
+              "courseSlugs": ["ics_415", "ics_423"]
+            },
+            "ics_425,ics_426,ics_491,ics_495": {
+              "name": "ICS 425 or ICS 426 or ICS 491 or ICS 495",
+              "courseSlugs": ["ics_25", "ics_426", "ics_491", "ics_495"]
+            }
+          }
         },
         {
           "slug": "ba-ics-it-2016",
