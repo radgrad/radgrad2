@@ -17,33 +17,33 @@ const LandingSection3 = (props: ILandingSection3Props) => (
         </Grid.Column>
         <Grid.Column>
           <Header as="h1" style={styles['inverted-header']}>
-Specify your degree, career goals, and
+            Specify your degree, career goals, and
             interests
           </Header>
           <p style={styles['inverted-description']}>
-Getting started with RadGrad is easy. Just meet with your
+            Getting started with RadGrad is easy. Just meet with your
             advisor, and they will set up your account and answer your questions.
           </p>
 
           <p style={styles['inverted-description']}>
-To start, you&apos;ll select one of
+            To start, you&apos;ll select one of
             the
             <strong style={styles['green-text']}>{props.degrees}</strong>
             {' '}
             <a href="#/explorer/degrees">degree programs</a>
-, one out
+            , one out
             of
             {' '}
             <strong>{props.careerGoals}</strong>
             {' '}
             <a href="#/explorer/career-goals">career directions</a>
-, and a few of
+            , and a few of
             the
             {' '}
             <strong>{props.interests}</strong>
             {' '}
             <a href="#/explorer/interests">interest areas</a>
-. Don&apos;t worry, you can change
+            . Don&apos;t worry, you can change
             them later!
           </p>
         </Grid.Column>

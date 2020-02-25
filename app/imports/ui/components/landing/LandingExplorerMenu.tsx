@@ -16,11 +16,11 @@ const LandingExplorerMenu = (props: { match: { path: string; params: string;}, l
         <Dropdown text={getRouteName(props.location.pathname)}>
           <Dropdown.Menu>
             <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`}>
-Academic
+              Academic
               Plans
             </Dropdown.Item>
             <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`}>
-Career
+              Career
               Goals
             </Dropdown.Item>
             <Dropdown.Item as={NavLink} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`}>Courses</Dropdown.Item>
@@ -29,13 +29,13 @@ Career
               as={NavLink}
               to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`}
             >
-Interests
+              Interests
             </Dropdown.Item>
             <Dropdown.Item
               as={NavLink}
               to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`}
             >
-Opportunities
+              Opportunities
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -44,7 +44,7 @@ Opportunities
         <a className="ui button" href={pathBack}>
           <Icon name="chevron circle left" />
           <br />
-Back
+          Back
           to
           {getRouteName(props.location.pathname)}
         </a>

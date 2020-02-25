@@ -18,7 +18,7 @@ const ScoreboardPageMenu = (props: any) => {
         exact
         to={`${baseRoute}/${SCOREBOARD}/${COURSE_SCOREBOARD}`}
       >
-Courses
+        Courses
       </Menu.Item>
       <Menu.Item
         key="opportunities"
@@ -26,7 +26,7 @@ Courses
         exact
         to={`${baseRoute}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`}
       >
-Opportunities
+        Opportunities
       </Menu.Item>
     </Menu>
   );

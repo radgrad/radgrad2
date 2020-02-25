@@ -94,7 +94,7 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
 
       <Card.Content>
         <span>
-STUDENTS PARTICIPATING
+          STUDENTS PARTICIPATING
           <WidgetHeaderNumber inputValue={numberStudents(item)} />
         </span>
       </Card.Content>
@@ -103,7 +103,7 @@ STUDENTS PARTICIPATING
         <Button attached="bottom" fluid>
           <Icon name="chevron circle right" />
           <br />
-View More
+          View More
         </Button>
       </Link>
     </Card>

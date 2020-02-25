@@ -11,19 +11,19 @@ const LandingSection1 = () => (
   <div id="landing-section-1" style={styles['inverted-section']}>
     <Container textAlign="center">
       <Header as="h1" inverted style={styles['inverted-main-header']}>
-Welcome to
+        Welcome to
         <span style={styles['green-text']}><RadGradLogoText style={headerStyle} /></span>
       </Header>
       <Header as="h2" inverted className="mobile only" style={styles['mobile-header']}>
-Welcome to&nbsp;
+        Welcome to&nbsp;
         <span className="green-text"><RadGradLogoText /></span>
       </Header>
       <br />
       <span style={styles['inverted-main-description']}>
-Developing awesome computer scientists,
+        Developing awesome computer scientists,
         <b>one</b>
         {' '}
-graduate at a time.
+        graduate at a time.
       </span>
       <Card.Group stackable doubling centered itemsPerRow={4} style={styles['main-header-ice']}>
         <Card>
@@ -31,7 +31,7 @@ graduate at a time.
             <Image size="mini" floated="right" src="/images/landing/yamakawa.jpg" />
             <Card.Header>Kelsie Y.</Card.Header>
             <Card.Meta>
-                  B.S. in Computer Science
+              B.S. in Computer Science
             </Card.Meta>
             <Card.Description>
               <Grid className="landing-ice" columns={3}>
@@ -50,11 +50,11 @@ graduate at a time.
           <Card.Content extra textAlign="left">
             <Label size="mini">
               <Icon fitted name="suitcase" />
-Data Science
+              Data Science
             </Label>
             <Label size="mini">
               <Icon fitted name="suitcase" />
-Databases
+              Databases
             </Label>
           </Card.Content>
         </Card>
@@ -63,7 +63,7 @@ Databases
             <Image size="mini" floated="right" src="/images/landing/boado.jpg" />
             <Card.Header>Brian B.</Card.Header>
             <Card.Meta>
-                  B.A. in Info. &amp; Comp. Sci.
+              B.A. in Info. &amp; Comp. Sci.
             </Card.Meta>
             <Card.Description>
               <Grid className="landing-ice" columns={3}>
@@ -82,11 +82,11 @@ Databases
           <Card.Content extra textAlign="left">
             <Label size="mini">
               <Icon fitted name="suitcase" />
-Software Engineering
+              Software Engineering
             </Label>
             <Label size="mini" className="ui mini label">
               <Icon fitted name="suitcase" />
-Reseach
+              Reseach
             </Label>
           </Card.Content>
         </Card>
@@ -95,7 +95,7 @@ Reseach
             <Image size="mini" floated="right" src="/images/landing/shimoda.jpg" />
             <Card.Header>Michele S.</Card.Header>
             <Card.Meta>
-                  B.S. in Computer Science
+              B.S. in Computer Science
             </Card.Meta>
             <Card.Description>
               <Grid className="landing-ice" columns={3}>
@@ -114,11 +114,11 @@ Reseach
           <Card.Content extra>
             <Label size="mini">
               <Icon fitted name="suitcase" />
-Game Design
+              Game Design
             </Label>
             <Label size="mini">
               <Icon fitted name="star" />
-Unity
+              Unity
             </Label>
           </Card.Content>
         </Card>
@@ -127,7 +127,7 @@ Unity
             <Image size="mini" floated="right" src="/images/landing/morikawa.jpg" />
             <Card.Header>Sy M.</Card.Header>
             <Card.Meta>
-                  B.S. in Computer Science
+              B.S. in Computer Science
             </Card.Meta>
             <Card.Description>
               <Grid className="landing-ice" columns={3}>
@@ -148,11 +148,11 @@ Unity
             <Card.Content extra>
               <Label size="mini">
                 <Icon fitted name="suitcase" />
-Hardware
+                Hardware
               </Label>
               <Label size="mini">
                 <Icon fitted name="suitcase" />
-Networks
+                Networks
               </Label>
             </Card.Content>
           </Card.Content>

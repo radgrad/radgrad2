@@ -59,7 +59,7 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
             <React.Fragment key={index}>
               <b>
                 {descriptionPair.label}
-:
+                :
               </b>
               {' '}
               {typeof descriptionPair.value === 'string' ? (
@@ -81,7 +81,7 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
               disabled={this.props.updateDisabled}
               onClick={this.props.handleOpenUpdate}
             >
-Update
+              Update
             </Button>
             <Button
               id={this.props.id}
@@ -91,7 +91,7 @@ Update
               disabled={this.props.deleteDisabled}
               onClick={this.props.handleDelete}
             >
-Delete
+              Delete
             </Button>
           </p>
         </Accordion.Content>

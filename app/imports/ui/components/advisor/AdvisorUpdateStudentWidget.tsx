@@ -217,10 +217,10 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               name="picture"
               label={(
                 <React.Fragment>
-                          Picture (
+                  Picture (
                   {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                   <a onClick={this.handleUploadClick}>Upload</a>
-)
+                  )
                 </React.Fragment>
 )}
               onChange={this.handleFormChange}
@@ -340,7 +340,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
         >
           /student/
           {this.props.usernameDoc.username}
-/degree-planner
+          /degree-planner
         </Link>
       </Segment>
     );

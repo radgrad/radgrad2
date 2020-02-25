@@ -150,7 +150,7 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
           color="red"
         />
         <Icon name="minus" />
-REMOVE FROM FAVORITES
+        REMOVE FROM FAVORITES
       </Button>
 )
   : (
@@ -162,7 +162,7 @@ REMOVE FROM FAVORITES
       <Icon
         name="plus"
       />
-ADD TO FAVORITES
+      ADD TO FAVORITES
     </Button>
 )}
   </React.Fragment>

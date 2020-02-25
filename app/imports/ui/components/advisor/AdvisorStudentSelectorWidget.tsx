@@ -226,7 +226,7 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
                               >
                                 <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
                                 {student.lastName}
-,
+                                ,
                                 {student.firstName}
                                 <br />
                                 {student.username}

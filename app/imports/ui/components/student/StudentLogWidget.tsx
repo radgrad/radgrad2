@@ -51,9 +51,9 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
                       <Item.Header>{displayDate}</Item.Header>
                       <Item.Meta>
                         <span>
-Results from the meeting with
+                          Results from the meeting with
                           {advisorName}
-:
+                          :
                           {' '}
                         </span>
                       </Item.Meta>

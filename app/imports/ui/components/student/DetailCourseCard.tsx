@@ -63,7 +63,7 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
           <Card.Header>
             <h4>
               {course.num}
-:
+              :
               {' '}
               {course.name}
             </h4>
@@ -86,7 +86,7 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
                 onClick={handleRemove(props)}
                 size="tiny"
               >
-remove
+                remove
               </Button>
             </React.Fragment>
 ) : (
@@ -103,9 +103,9 @@ remove
               to={buildRouteName(props.match, course, EXPLORER_TYPE.COURSES)}
               target="_blank"
             >
-View
-            in
-            Explorer
+              View
+              in
+              Explorer
               {' '}
               <Icon name="arrow right" />
             </Link>

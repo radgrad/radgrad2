@@ -115,10 +115,10 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
         type: String,
         label:
   <React.Fragment>
-Picture (
+    Picture (
     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
     <a onClick={this.handleUpload}>Upload</a>
-)
+    )
   </React.Fragment>,
         defaultValue: model.picture,
         optional: true,
@@ -166,9 +166,9 @@ Picture (
     return (
       <Segment padded>
         <Header dividing>
-Update
+          Update
           {this.props.collection.getType()}
-:
+          :
           {this.props.itemTitleString(model)}
         </Header>
         <AutoForm

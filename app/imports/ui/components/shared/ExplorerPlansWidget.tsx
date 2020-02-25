@@ -69,7 +69,7 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
                 <React.Fragment key={toId(descriptionPair)}>
                   <b>
                     {descriptionPair.label}
-:
+                    :
                   </b>
                   {
                     descriptionPair.value ? (
@@ -82,7 +82,7 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
                       : (
                         <React.Fragment>
                           {' '}
-N/A
+                          N/A
                           <br />
                         </React.Fragment>
                     )

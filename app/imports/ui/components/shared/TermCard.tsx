@@ -91,7 +91,7 @@ const TermCard = (props: ITermCard) => {
       </Card.Content>
       <Card.Content>
         <span>
-STUDENTS PARTICIPATING
+          STUDENTS PARTICIPATING
           <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
       </Card.Content>
@@ -99,7 +99,7 @@ STUDENTS PARTICIPATING
       <Link className="ui button" to={buildRouteName(props.item, props.type, props)}>
         <Icon name="chevron circle right" />
         <br />
-View More
+        View More
       </Link>
     </Card>
   );

@@ -42,25 +42,25 @@ const LandingSection6 = (props: ILandingSection6Props) => (
               {' '}
               <strong style={styles['green-text']}>{props.levelOne}</strong>
               {' '}
-student(s) at Level One,&nbsp;
+              student(s) at Level One,&nbsp;
               <strong style={styles['green-text']}>{props.levelTwo}</strong>
               {' '}
-at Level Two,
+              at Level Two,
               <strong style={styles['green-text']}>{props.levelThree}</strong>
               {' '}
-at Level
+              at Level
               Three,
               <strong style={styles['green-text']}>{props.levelFour}</strong>
               {' '}
-at Level
+              at Level
               Four,
               <strong style={styles['green-text']}>{props.levelFive}</strong>
               {' '}
-at
+              at
               Level Five, and
               <strong style={styles['green-text']}>{props.levelSix}</strong>
               {' '}
-at Level Six.
+              at Level Six.
             </p>
             <p>
               Once you achieve a level, the corresponding badge appears in your profile and is visible to other

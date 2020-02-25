@@ -120,13 +120,13 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
         : (
           <React.Fragment>
             <p>
-You have a total of
+              You have a total of
               {remainingPoints}
               {' '}
-unverified
+              unverified
               {type}
               {' '}
-points.
+              points.
             </p>
             <List relaxed="very">
               {years(props).map((year) => (
@@ -149,7 +149,7 @@ points.
                               to={route}
                             >
                               <b>
-+
+                                +
                                 {points}
                               </b>
                               {' '}
@@ -169,7 +169,7 @@ points.
                               to={route}
                             >
                               <b>
-+
+                                +
                                 {points}
                               </b>
                               {' '}

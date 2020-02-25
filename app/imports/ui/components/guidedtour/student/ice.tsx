@@ -15,33 +15,33 @@ const GuidedTourStudentICE = () => (
         <div>
           <Header style={styles.h1}>ICE, ICE, baby</Header>
           <p style={styles.p}>
-You may have been noticing three colored circles with numbers in your menu bar.  These circles and numbers represent your
+            You may have been noticing three colored circles with numbers in your menu bar.  These circles and numbers represent your
             <strong style={styles.strong}>ICE</strong>
             {' '}
-score.  ICE stands for: Innovation, Competency, and Experience, which we view as the three pillars of a well-rounded computer science major.
+            score.  ICE stands for: Innovation, Competency, and Experience, which we view as the three pillars of a well-rounded computer science major.
           </p>
           <p style={styles.p}>
-ICE recognizes that developing your chops in
+            ICE recognizes that developing your chops in
             <em>innovation</em>
-, and acquiring real-world
+            , and acquiring real-world
             <em>experience</em>
-, are just as important as
+            , are just as important as
             <em>competency</em>
             {' '}
-through coursework. ICE provides you with a new means to assess gaps in your preparation, and helps you figure out how to fill those gaps.
+            through coursework. ICE provides you with a new means to assess gaps in your preparation, and helps you figure out how to fill those gaps.
           </p>
           <List as="ul">
             <List.Item as="li" style={styles.li}>
               <strong style={styles.strong}>Innovation</strong>
-: You gain innovation points by completing opportunities that have a research (or some other innovative) component. The number of points depends upon the nature of the opportunity.
+              : You gain innovation points by completing opportunities that have a research (or some other innovative) component. The number of points depends upon the nature of the opportunity.
             </List.Item>
             <List.Item style={styles.li}>
               <strong style={styles.strong}>Competency</strong>
-: You gain 10 competency points when you get an A in a degree-related course, and 6 points when you get a B.  No points are awarded for grades below B-.
+              : You gain 10 competency points when you get an A in a degree-related course, and 6 points when you get a B.  No points are awarded for grades below B-.
             </List.Item>
             <List.Item style={styles.li}>
               <strong style={styles.strong}>Experience</strong>
-: You gain experience points by completing opportunities that expose you to real-world organizations and work processes. The number of points depends upon the nature of the opportunity.
+              : You gain experience points by completing opportunities that expose you to real-world organizations and work processes. The number of points depends upon the nature of the opportunity.
             </List.Item>
           </List>
           <p style={styles.p}>By the end of your degree program, your mission (should you decide to accept it) is to obtain 100 points in each of the three ICE categories.</p>

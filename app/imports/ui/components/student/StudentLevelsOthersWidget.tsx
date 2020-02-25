@@ -72,10 +72,10 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   return (
     <Segment padded id={`${studentLevelsOthersWidget}`}>
       <Header as="h4" dividing>
-OTHER
+        OTHER
         {studentLevelName}
         {' '}
-STUDENTS
+        STUDENTS
       </Header>
       {
         studentsExist(students) ? (

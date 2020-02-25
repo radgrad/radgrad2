@@ -51,7 +51,7 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
                     <React.Fragment key={toId(descriptionPair)}>
                       <b>
                         {descriptionPair.label}
-:
+                        :
                       </b>
                       <Markdown
                         escapeHtml={false}
@@ -64,10 +64,10 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
                       <p key={toId(descriptionPair)}>
                         <b>
                           {descriptionPair.label}
-:
+                          :
                         </b>
                         {' '}
-N/A
+                        N/A
                       </p>
                   )
                 ))

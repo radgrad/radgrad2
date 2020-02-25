@@ -602,7 +602,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
               disabled={!this.state.sendToLevels}
               onClick={this.onClickSendLevels}
             >
-Send To Students
+              Send To Students
             </button>
             <Form.Field label="Generate To Send To All Users" />
             <BoolField name="sendToAll" />
@@ -612,7 +612,7 @@ Send To Students
               disabled={!this.state.sendToAll}
               onClick={this.onClickSendToAll}
             >
-Send To All
+              Send To All
             </button>
           </AutoForm>
         </Segment>

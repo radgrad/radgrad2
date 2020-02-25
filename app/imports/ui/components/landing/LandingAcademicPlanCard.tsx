@@ -21,7 +21,7 @@ const LandingAcademicPlanCard = (props: ILandingAcademicPlanCardProps) => {
       <Card.Content className="content">
         <p>
           {itemShortDescription(props.plan)}
-...
+          ...
         </p>
         <LandingAcademicPlanViewer plan={props.plan} />
       </Card.Content>
@@ -29,7 +29,7 @@ const LandingAcademicPlanCard = (props: ILandingAcademicPlanCardProps) => {
         <a href={routeToItem} className="ui button">
           <Icon name="chevron circle right" />
           <br />
-View More
+          View More
         </a>
       </Button.Group>
     </Card>

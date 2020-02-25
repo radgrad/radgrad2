@@ -52,7 +52,7 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
             <React.Fragment key={index}>
               <b>
                 {descriptionPair.label}
-:
+                :
               </b>
               {' '}
               {typeof descriptionPair.value === 'string' ? (
@@ -74,7 +74,7 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
               disabled={this.props.updateDisabled}
               onClick={this.props.handleOpenUpdate}
             >
-Update
+              Update
             </Button>
             <Button
               id={this.props.id}
@@ -84,7 +84,7 @@ Update
               disabled={this.props.deleteDisabled}
               onClick={this.props.handleDelete}
             >
-Delete
+              Delete
             </Button>
           </p>
         </Accordion.Content>

@@ -66,11 +66,11 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
           </Grid.Row>
           <Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
             <Grid.Column>
-            Student:
+              Student:
               {' '}
               {getStudentFullName(ele)}
               <br />
-            Sponsor:
+              Sponsor:
               {' '}
               {getSponsorFullName(ele)}
               <br />
@@ -102,18 +102,18 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
               <br />
               {ele.processed.map((elem: IProcessed) => (
                 <React.Fragment key={elem.verifier}>
-              Processed:
+                  Processed:
                   {' '}
                   {moment(elem.date).calendar()}
                   {' '}
-by
+                  by
                   {' '}
                   {elem.verifier}
                   {' '}
-(
+                  (
                   {elem.status}
                   {elem.feedback ? `, ${elem.feedback}` : ''}
-)
+                  )
                   <br />
                 </React.Fragment>
 ))}

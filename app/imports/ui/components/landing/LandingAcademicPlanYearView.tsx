@@ -18,7 +18,7 @@ const LandingAcademicPlanYearView = (props: ILandingAcademicPlanYearViewProps) =
   return (
     <div>
       <Header>
-Year
+        Year
         {props.yearNumber + 1}
       </Header>
       <LandingAcademicTermView

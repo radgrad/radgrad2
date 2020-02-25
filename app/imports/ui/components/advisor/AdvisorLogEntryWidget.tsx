@@ -101,7 +101,7 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
           textTransform: 'none',
         }}
         >
-Past Advisor Logs
+          Past Advisor Logs
         </p>
         <div style={{ height: '200px' }}>
           <div style={{ height: '100%', overflowY: 'auto' }}>
@@ -112,17 +112,17 @@ Past Advisor Logs
                     {ele.createdOn.toDateString()}
                     {' '}
                     {ele.createdOn.getHours()}
-:
+                    :
                     {this.formatMinuteString(ele.createdOn.getMinutes())}
-:
+                    :
                   </strong>
                   {' '}
                   {ele.text}
                   {' '}
                   <i>
-(
+                    (
                     {Users.getProfile(ele.advisorID).firstName}
-)
+                    )
                   </i>
                 </Segment>
 ),

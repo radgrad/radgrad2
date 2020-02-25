@@ -38,9 +38,9 @@ const ListSlugCollectionWidget = (props: IListSlugCollectionWidgetProps) => {
       <Header dividing>
         {props.collection.getCollectionName()}
         {' '}
-(
+        (
         {count}
-)
+        )
       </Header>
       <Grid>
         <AdminPaginationWidget

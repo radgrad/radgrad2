@@ -72,124 +72,124 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   return (
     <Menu vertical text id={`${leftHandMenu}`}>
       <Menu.Item as={NavLink} exact to={`${baseRoute}academic-plans`}>
-Academic Plans (
+        Academic Plans (
         {props.academicPlanCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}academic-terms`}>
-Academic Terms (
+        Academic Terms (
         {props.academicTermCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}academic-year-instances`}>
-Academic Year Instances (
+        Academic Year Instances (
         {props.academicYearCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}advisor-logs`}>
-Advisor Logs (
+        Advisor Logs (
         {props.advisorLogCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}career-goals`}>
-Career Goals (
+        Career Goals (
         {props.careerGoalCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}course-instances`}>
-Course Instances (
+        Course Instances (
         {props.courseInstanceCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}courses`}>
-Courses (
+        Courses (
         {props.courseCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}desired-degrees`}>
-Desired Degrees (
+        Desired Degrees (
         {props.desiredDegreeCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}feeds`}>
-Feeds (
+        Feeds (
         {props.feedCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}feedback-instances`}>
-Feedback Instances (
+        Feedback Instances (
         {props.feedbackCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}help-messages`}>
-Help Messages (
+        Help Messages (
         {props.helpMessageCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}interests`}>
-Interests (
+        Interests (
         {props.interestCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}interest-types`}>
-Interest Types (
+        Interest Types (
         {props.interestTypeCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}mentor-answers`}>
-Mentor Answers (
+        Mentor Answers (
         {props.mentorAnswerCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}mentor-questions`}>
-Mentor Questions (
+        Mentor Questions (
         {props.mentorQuestionCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}opportunities`}>
-Opportunities (
+        Opportunities (
         {props.opportunityCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}opportunity-instances`}>
-Opportunity Instances (
+        Opportunity Instances (
         {props.opportunityInstanceCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}opportunity-types`}>
-Opportunity Types (
+        Opportunity Types (
         {props.opportunityTypeCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}plan-choices`}>
-Plan Choices (
+        Plan Choices (
         {props.planChoiceCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}reviews`}>
-Reviews (
+        Reviews (
         {props.reviewCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}slugs`}>
-Slugs (
+        Slugs (
         {props.slugCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}teasers`}>
-Teasers (
+        Teasers (
         {props.teaserCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}users`}>
-Users (
+        Users (
         {props.usersCount}
-)
+        )
       </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}verification-requests`}>
-Verification Requests (
+        Verification Requests (
         {props.verificationRequestCount}
-)
+        )
       </Menu.Item>
     </Menu>
   );

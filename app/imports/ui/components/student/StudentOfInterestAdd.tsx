@@ -105,7 +105,7 @@ const StudentOfInterestAdd = (props: IStudentOfInterestAddProps) => (
             <Button>
               <Icon name="plus" />
               <br />
-Add to Plan
+              Add to Plan
             </Button>
           )}
           on="click"
@@ -153,7 +153,7 @@ Add to Plan
               <Button>
                 <Icon name="plus" />
                 <br />
-Add to Plan
+                Add to Plan
               </Button>
           )}
             on="click"

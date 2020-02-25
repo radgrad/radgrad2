@@ -84,7 +84,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
       <Header as="h4" dividing style={uppercaseStyle}>
         {reviewType}
         {' '}
-REVIEWS
+        REVIEWS
       </Header>
 
       <List verticalAlign="middle" relaxed="very" divided>
@@ -131,10 +131,10 @@ REVIEWS
                       : (
                         <p>
                           <i>
-You must complete this
+                            You must complete this
                             {reviewType}
                             {' '}
-first to leave a review.
+                            first to leave a review.
                           </i>
                         </p>
                     )

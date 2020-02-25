@@ -55,9 +55,9 @@ const LandingCourseExplorer = (props: ICourseExplorerProps) => {
                 <span>
                   {props.course.shortName}
                   {' '}
-(
+                  (
                   {props.course.name}
-)
+                  )
                 </span>
               </Header>
               <Grid columns={2} stackable>

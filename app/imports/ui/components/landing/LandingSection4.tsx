@@ -18,11 +18,11 @@ const LandingSection4 = (props: ILandingSection4Props) => (
             {' '}
             <em>relevant</em>
             {' '}
-extracurricular opportunities such as
+            extracurricular opportunities such as
             hackathons, internships, clubs, and more. RadGrad currently provides you with&nbsp;
             <strong style={styles['inverted-description p > strong, .header-description p > strong']}>{props.opportunities}</strong>
             {' '}
-opportunities
+            opportunities
             to choose from, with more on the way!
           </p>
           <p style={styles['header-description']}>

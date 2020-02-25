@@ -479,16 +479,16 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
       if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
         return (
           <p>
-Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
-          menu on the left.
+            Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
+            menu on the left.
           </p>
 );
       }
       if (isType(EXPLORER_TYPE.COURSES, props)) {
         return (
           <p>
-Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
-          menu on the left.
+            Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
+            menu on the left.
           </p>
 );
       }
@@ -498,8 +498,8 @@ Add interests to see sorted courses. To add interests, select &quot;Interests&qu
       if (isType(EXPLORER_TYPE.OPPORTUNITIES, props)) {
         return (
           <p>
-Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
-          pull-down menu on the left.
+            Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
+            pull-down menu on the left.
           </p>
 );
       }

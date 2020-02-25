@@ -232,7 +232,7 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
               {visibleStartIndex > 0 ? (
                 <Button color="green" icon labelPosition="left" onClick={this.handleClickPrevYear}>
                   <Icon name="arrow circle left" />
-Previous Year
+                  Previous Year
                 </Button>
               ) : ''}
             </Grid.Column>
@@ -240,7 +240,7 @@ Previous Year
               <Button color="green" onClick={this.handleAddYear}>
                 <Icon name="plus circle" />
                 {' '}
-Add Academic Year
+                Add Academic Year
               </Button>
             </Grid.Column>
             <Grid.Column textAlign="right">
@@ -249,14 +249,14 @@ Add Academic Year
                   {visibleStartIndex < years.length - 4 ? (
                     <Button color="green" icon labelPosition="right" onClick={this.handleClickNextYear}>
                       <Icon name="arrow circle right" />
-Next Year
+                      Next Year
                     </Button>
                   )
                     :
                     (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) && (
                     <Button color="green" icon labelPosition="right" onClick={this.handleDeleteYear}>
                       <Icon name="minus circle" />
-Delete Year
+                      Delete Year
                     </Button>
                   )}
                 </React.Fragment>

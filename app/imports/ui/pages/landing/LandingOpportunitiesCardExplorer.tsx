@@ -46,9 +46,9 @@ const renderPage = (props: IOpportunitiesCardExplorerProps) => {
               <Header as="h4" dividing>
                 <span>OPPORTUNITIES</span>
                 {' '}
-(
+                (
                 {props.count}
-)
+                )
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.opportunities.map((opportunity) => (

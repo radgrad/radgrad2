@@ -21,7 +21,7 @@ const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
   return (
     <div>
       <Header>
-Year
+        Year
         {props.yearNumber + 1}
       </Header>
       <AcademicPlanTermView

@@ -84,7 +84,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -117,7 +117,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -151,7 +151,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -187,7 +187,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -226,7 +226,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -251,7 +251,7 @@ Back to
             <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
               <Icon name="chevron circle left" />
               <br />
-Back to
+              Back to
               {' '}
               {getTypeName(props)}
             </Button>

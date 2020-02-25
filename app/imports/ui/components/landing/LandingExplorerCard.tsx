@@ -49,7 +49,7 @@ const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
         <a href={routeToItem} className="ui button">
           <Icon name="chevron circle right" />
           <br />
-View More
+          View More
         </a>
       </Button.Group>
     </Card>

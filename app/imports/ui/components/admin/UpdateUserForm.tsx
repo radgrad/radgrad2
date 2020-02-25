@@ -148,10 +148,10 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         type: String,
         label:
   <React.Fragment>
-Picture (
+    Picture (
     {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
     <a onClick={this.handleUpload}>Upload</a>
-)
+    )
   </React.Fragment>,
         optional: true,
       },
@@ -212,9 +212,9 @@ Picture (
     return (
       <Segment padded>
         <Header dividing>
-Update
+          Update
           {collection.getType()}
-:
+          :
           {this.props.itemTitleString(model)}
         </Header>
         <AutoForm

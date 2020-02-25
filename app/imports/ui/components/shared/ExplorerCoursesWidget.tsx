@@ -50,14 +50,14 @@ const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | Strin
         return (
           <h4>
             <i className="green checkmark icon" />
-Completed
+            Completed
           </h4>
 );
       }
       return (
         <h4 style={greyColorStyle}>
           <i className="grey checkmark icon" />
-Completed
+          Completed
         </h4>
 );
     case 1:
@@ -65,14 +65,14 @@ Completed
         return (
           <h4>
             <i className="yellow warning sign icon" />
-In Plan (Not Yet Completed)
+            In Plan (Not Yet Completed)
           </h4>
 );
       }
       return (
         <h4 style={greyColorStyle}>
           <i className="grey warning sign icon" />
-In Plan (Not Yet Completed)
+          In Plan (Not Yet Completed)
         </h4>
 );
     case 2:
@@ -80,14 +80,14 @@ In Plan (Not Yet Completed)
         return (
           <h4>
             <i className="red warning circle icon" />
-Not in Plan
+            Not in Plan
           </h4>
 );
       }
       return (
         <h4 style={greyColorStyle}>
           <i className="grey warning circle icon" />
-Not in Plan
+          Not in Plan
         </h4>
 );
     default:
@@ -153,9 +153,9 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
             <Header as="h4" floated="left">
               {upperShortName}
               {' '}
-(
+              (
               {name}
-)
+              )
             </Header>
             <FavoritesButton item={props.item} studentID={Router.getUserIdFromRoute(props.match)} type="course" />
           </Segment>
@@ -174,7 +174,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -188,7 +188,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -202,7 +202,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -216,7 +216,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -230,7 +230,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -243,7 +243,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -307,7 +307,7 @@ N/A
                                                                             <React.Fragment>
                                                                               {/* Not exactly sure where this pops up because even in
                                                                              the original RadGrad I don't see any "or {choice} */}
-                                                                            or
+                                                                              or
                                                                               {' '}
                                                                               <NavLink
                                                                                 exact
@@ -376,7 +376,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -391,7 +391,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -405,7 +405,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -440,7 +440,7 @@ N/A
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -454,7 +454,7 @@ N/A
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
                                   )
@@ -469,7 +469,7 @@ N/A
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -483,7 +483,7 @@ N/A
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
                                   )
@@ -506,7 +506,7 @@ N/A
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -521,7 +521,7 @@ N/A
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
                                   )
@@ -545,7 +545,7 @@ N/A
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -558,7 +558,7 @@ N/A
                                     : (
                                       <React.Fragment>
                                         {' '}
-N/A
+                                        N/A
                                         <br />
                                       </React.Fragment>
                                   )
@@ -632,7 +632,7 @@ N/A
                                                                               <React.Fragment>
                                                                                 {/* Not exactly sure where this pops up because even in
                                                                              the original RadGrad I don't see any "or {choice} */}
-                                                                              or
+                                                                                or
                                                                                 {' '}
                                                                                 <NavLink
                                                                                   exact

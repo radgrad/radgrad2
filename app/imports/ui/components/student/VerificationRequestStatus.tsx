@@ -31,13 +31,13 @@ const VerificationRequestStatus = (props: IVerificationRequestStatusProps) => {
       <br />
       {_.map(props.request.processed, (process, index) => (
         <div key={index}>
-Processed:
+          Processed:
           {moment(process.date).calendar()}
           {' '}
-by
+          by
           {process.verifier}
-:
-        &nbsp;
+          :
+          &nbsp;
           {process.status}
           {' '}
           <em>{process.feedback}</em>

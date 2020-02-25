@@ -30,7 +30,7 @@ const ExplorerCard = (props: IExplorerCard) => {
       <Link className="ui button" to={buildExplorerRoute(props.item, props)}>
         <Icon name="chevron circle right" />
         <br />
-View More
+        View More
       </Link>
     </Card>
   );

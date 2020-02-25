@@ -65,11 +65,11 @@ class FavoriteAcademicPlansWidget extends React.Component<IFavoriteAcademicPlans
             <Message info>
               <Message.Header>No favorite acadmeic plans</Message.Header>
               <p>
-You can favorite academic plans in the explorer.
+                You can favorite academic plans in the explorer.
                 <Link to={Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-View
-                in
-                Explorer
+                  View
+                  in
+                  Explorer
                   <Icon name="arrow right" />
                 </Link>
               </p>

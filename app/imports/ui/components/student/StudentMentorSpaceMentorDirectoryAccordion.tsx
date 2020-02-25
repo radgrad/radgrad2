@@ -50,7 +50,7 @@ class StudentMentorSpaceMentorDirectoryAccordion extends React.Component<IStuden
                       </a>
                       <List.Description>
                         {mentor.career}
-,
+                        ,
                         {mentor.company}
                       </List.Description>
                     </List.Content>
@@ -68,7 +68,7 @@ class StudentMentorSpaceMentorDirectoryAccordion extends React.Component<IStuden
                   {' '}
                   {mentor.lastName}
                   {' '}
-is based in
+                  is based in
                   {' '}
                   {mentor.location}
                   <br />
