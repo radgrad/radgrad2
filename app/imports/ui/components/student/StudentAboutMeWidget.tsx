@@ -1,17 +1,16 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
 import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  ICareerGoal, IFavoriteAcademicPlan, // eslint-disable-line
-  IFavoriteCareerGoal, // eslint-disable-line
-  IFavoriteInterest, // eslint-disable-line
-  IInterest, // eslint-disable-line
-  IStudentProfile // eslint-disable-line
-} from '../../../typings/radgrad'; // eslint-disable-line
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteInterest,
+  IStudentProfile,
+} from '../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
@@ -52,11 +51,11 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const interests = profileGetInterests(props.profile);
   const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   return (
-    <Segment padded={true} id={`${studentAboutMeWidget}`}>
+    <Segment padded id={`${studentAboutMeWidget}`}>
       <Container>
-        <Header as="h4" dividing={true}>ABOUT ME</Header>
+        <Header as="h4" dividing>ABOUT ME</Header>
 
-        <Grid stackable={true}>
+        <Grid stackable>
           <Grid.Row>
             <Grid.Column width={2}><b>Name</b></Grid.Column>
             <Grid.Column width={6}>{name}</Grid.Column>
@@ -66,34 +65,39 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
           </Grid.Row>
 
           <Grid.Row>
-            <StudentAboutMeUpdatePictureForm picture={props.profile.picture}
-                                             docID={props.profile._id}
-                                             collectionName={StudentProfiles.getCollectionName()}/>
-            <StudentAboutMeUpdateWebsiteForm website={props.profile.website}
-                                             docID={props.profile._id}
-                                             collectionName={StudentProfiles.getCollectionName()}/>
+            <StudentAboutMeUpdatePictureForm
+              picture={props.profile.picture}
+              docID={props.profile._id}
+              collectionName={StudentProfiles.getCollectionName()}
+            />
+            <StudentAboutMeUpdateWebsiteForm
+              website={props.profile.website}
+              docID={props.profile._id}
+              collectionName={StudentProfiles.getCollectionName()}
+            />
           </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
-              <Grid.Column width={6}>
-                {careerGoals.length !== 0 ?
+          <Grid.Row>
+            <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
+            <Grid.Column width={6}>
+              {careerGoals.length !== 0 ?
                   careerGoals.map((careerGoal) => {
                     const slugName = itemToSlugName(careerGoal);
                     const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
                     return (
                       <Label key={careerGoal._id} as={Link} to={route} size="tiny">
-                        <Icon name="suitcase" fitted={true}/> {careerGoal.name}
+                        <Icon name="suitcase" fitted />
+                        {' '}
+                        {careerGoal.name}
                       </Label>
                     );
                   })
                   :
-                  <p style={marginBottomStyle}>No career goals favorited yet.</p>
-                }
-                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-                  <p>View More Career Goals</p>
-                </Link>
-              </Grid.Column>
+                  <p style={marginBottomStyle}>No career goals favorited yet.</p>}
+              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
+                <p>View More Career Goals</p>
+              </Link>
+            </Grid.Column>
 
             <Grid.Column width={2}><p><b>My Favorite Interests</b></p></Grid.Column>
             <Grid.Column width={6}>
@@ -103,43 +107,45 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
                   return (
                     <Label key={interest._id} as={Link} to={route} size="tiny">
-                      <Icon name="star" fitted={true}/> {interest.name}
+                      <Icon name="star" fitted />
+                      {' '}
+                      {interest.name}
                     </Label>
                   );
                 })
                 :
-                <p style={marginBottomStyle}>No interests favorited yet.</p>
-              }
+                <p style={marginBottomStyle}>No interests favorited yet.</p>}
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
                 <p>Update in interest explorer</p>
               </Link>
             </Grid.Column>
           </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
-              <Grid.Column width={6}>
-                {academicPlans.length !== 0 ?
+          <Grid.Row>
+            <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
+            <Grid.Column width={6}>
+              {academicPlans.length !== 0 ?
                   academicPlans.map((plan) => {
                     const slugName = itemToSlugName(plan);
                     const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
                     return (
                       <Label key={plan._id} as={Link} to={route} size="tiny">
-                        <Icon name="map outline" fitted={true}/> {plan.name}
+                        <Icon name="map outline" fitted />
+                        {' '}
+                        {plan.name}
                       </Label>
                     );
                   })
                   :
-                  <p style={marginBottomStyle}>No academic plans favorited yet.</p>
-                }
-                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                  Update in academic plan explorer
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+                  <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
+              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                Update in academic plan explorer
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
 
-        <StudentShareInfoWidget profile={profile}/>
+        <StudentShareInfoWidget profile={profile} />
       </Container>
     </Segment>
   );

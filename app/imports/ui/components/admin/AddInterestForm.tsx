@@ -1,15 +1,10 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IInterestType } from '../../../typings/radgrad'; // eslint-disable-line
+import { IInterestType } from '../../../typings/radgrad';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { docToName } from '../shared/data-model-helper-functions';
 
@@ -29,17 +24,17 @@ const AddInterestForm = (props: IAddInterestFormProps): React.ReactElement<any> 
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Interest</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Interest</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" placeholder="rust"/>
-          <TextField name="name" placeholder="Rust Programming Language"/>
-          <SelectField name="interestType"/>
+          <TextField name="slug" placeholder="rust" />
+          <TextField name="name" placeholder="Rust Programming Language" />
+          <SelectField name="interestType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { withTracker } from 'meteor/react-meteor-data';
-import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
-import { IOpportunityInstance, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
+import { IOpportunityInstance, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
@@ -12,21 +13,27 @@ import FutureParticipation from '../shared/FutureParticipation';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';
+import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
 
 interface IDetailOpportunityCardProps {
   match: IMatchProps;
   instance: IOpportunityInstance;
   requests: IVerificationRequest[];
+  selectOpportunityInstance: (opportunityInstanceID: string) => any;
 }
 
-const handleRemove = (event, { value }) => {
+const mapDispatchToProps = (dispatch) => ({
+  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+});
+
+const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) => {
   event.preventDefault();
-  // console.log(`Remove CI ${value}`);
+  // console.log(`Remove OI ${value}`);
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
   removeItMethod.call({ collectionName, instance }, (error) => {
@@ -42,10 +49,11 @@ const handleRemove = (event, { value }) => {
       // TODO: UserInteraction remove planned course.
     }
   });
+  props.selectOpportunityInstance('');
 };
 
 const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model) => {
-  console.log(model, props);
+  // console.log(model, props);
   const collectionName = VerificationRequests.getCollectionName();
   const student = getUsername(props.match);
   const opportunityInstance = props.instance._id;
@@ -82,36 +90,77 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
     <Card.Group itemsPerRow={1}>
       <Card>
         <Card.Content>
-          <IceHeader ice={opportunity.ice}/>
+          <IceHeader ice={opportunity.ice} />
           <Card.Header>{opportunity.name}</Card.Header>
         </Card.Content>
         <Card.Content>
-          {futureP ? (<React.Fragment>
-            <p><b>Scheduled:</b> {termName}</p>
-            <FutureParticipation item={opportunity} type='courses'/>
-            <Button floated="right" basic={true} color="green" value={props.instance._id} onClick={handleRemove}
-                    size="tiny">remove</Button>
-          </React.Fragment>) : (<React.Fragment>
-            <p><b>Participated:</b> {termName}</p>
-            {verificationRequested ? '' : <Button floated="right" basic={true} color="green" value={props.instance._id} onClick={handleRemove}
-                                     size="tiny">remove</Button>}
-          </React.Fragment>)}
+          {futureP ? (
+            <React.Fragment>
+              <p>
+                <b>Scheduled:</b>
+                {' '}
+                {termName}
+              </p>
+              <FutureParticipation item={opportunity} type="courses" />
+              <Button
+                floated="right"
+                basic
+                color="green"
+                value={props.instance._id}
+                onClick={handleRemove(props)}
+                size="tiny"
+              >
+                remove
+              </Button>
+            </React.Fragment>
+) : (
+  <React.Fragment>
+    <p>
+      <b>Participated:</b>
+      {' '}
+      {termName}
+    </p>
+    {verificationRequested ? '' : (
+      <Button
+        floated="right"
+        basic
+        color="green"
+        value={props.instance._id}
+        onClick={handleRemove(props)}
+        size="tiny"
+      >
+        remove
+      </Button>
+)}
+  </React.Fragment>
+)}
         </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]}/> : <Card.Content>
-          <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)}/>
-        </Card.Content>}
+        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : '' }
+        {!futureP && !verificationRequested ? (
+          <Card.Content>
+            <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
+          </Card.Content>
+        ) : '' }
         <Card.Content>
-          <p style={textAlignRight}><Link to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
-                                          target="_blank">View
-            in
-            Explorer <Icon name="arrow right"/></Link></p>
+          <p style={textAlignRight}>
+            <Link
+              to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
+              target="_blank"
+            >
+              View
+              in
+              Explorer
+              {' '}
+              <Icon name="arrow right" />
+            </Link>
+          </p>
         </Card.Content>
       </Card>
     </Card.Group>
   );
 };
 
-export default withRouter(withTracker((props) => {
+const DetailOpportunityCardCon = withRouter(withTracker((props) => {
   const studentID = getUserIdFromRoute(props.match);
   const opportunityInstanceID = props.instance._id;
   const requests = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID });
@@ -119,3 +168,6 @@ export default withRouter(withTracker((props) => {
     requests,
   };
 })(DetailOpportunityCard));
+
+const DetailOpportunityCardConnected = connect(null, mapDispatchToProps)(DetailOpportunityCardCon);
+export default DetailOpportunityCardConnected;

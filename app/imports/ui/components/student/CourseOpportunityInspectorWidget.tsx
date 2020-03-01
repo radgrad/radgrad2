@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { ICourse, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IOpportunity } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -60,25 +60,33 @@ const CourseOpportunityInspectorWidget = (props: ICOInspectorWidgetProps) => {
     <div>
       <Button.Group attached="top">
         <Button>
-          <InspectorCourseMenuContainer studentID={studentID}/>
+          <InspectorCourseMenuContainer studentID={studentID} />
         </Button>
-        <Button.Or/>
+        <Button.Or />
         <Button>
-          <InspectorOpportunityMenuContainer studentID={studentID}/>
+          <InspectorOpportunityMenuContainer studentID={studentID} />
         </Button>
       </Button.Group>
-      <Grid container={true}>
-        <Grid.Row stretched={true} style={padddingBottomStyle}>
+      <Grid container>
+        <Grid.Row stretched style={padddingBottomStyle}>
           {props.selectedCourseID ?
-            <InspectorCourseViewContainer courseID={props.selectedCourseID} studentID={studentID}/> : ''}
-          {props.selectedCourseInstanceID ?
-            <InspectorCourseViewContainer courseInstanceID={props.selectedCourseInstanceID} courseID={courseID}
-                                          studentID={studentID}/> : ''}
+            <InspectorCourseViewContainer courseID={props.selectedCourseID} studentID={studentID} /> : ''}
+          {props.selectedCourseInstanceID ? (
+            <InspectorCourseViewContainer
+              courseInstanceID={props.selectedCourseInstanceID}
+              courseID={courseID}
+              studentID={studentID}
+            />
+          ) : ''}
           {props.selectedOpportunityID ?
-            <InspectorOpportunityViewContainer opportunityID={props.selectedOpportunityID} studentID={studentID}/> : ''}
-          {props.selectedOpportunityInstanceID ?
-            <InspectorOpportunityViewContainer opportunityInstanceID={props.selectedOpportunityInstanceID}
-                                               opportunityID={opportunityID} studentID={studentID}/> : ''}
+            <InspectorOpportunityViewContainer opportunityID={props.selectedOpportunityID} studentID={studentID} /> : ''}
+          {props.selectedOpportunityInstanceID ? (
+            <InspectorOpportunityViewContainer
+              opportunityInstanceID={props.selectedOpportunityInstanceID}
+              opportunityID={opportunityID}
+              studentID={studentID}
+            />
+          ) : ''}
           {(!props.selectedCourseID && !props.selectedCourseInstanceID && !props.selectedOpportunityID && !props.selectedOpportunityInstanceID) ? 'Please choose a Course or Opportunity from the menus above or click on a Course or Opportunity in the Degree Experience Planner to the right.' : ''}
         </Grid.Row>
       </Grid>

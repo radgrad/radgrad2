@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
-import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
+import _ from 'lodash';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { IAcademicTerm } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
 
@@ -28,14 +28,21 @@ const columnColor = (count) => {
 
 const FutureParticipation = (props: IFutureParticipationProps) => (
   <Grid columns="equal" padded={false}>
-    {_.map(props.academicTerms, (term, index) => (<Grid.Column key={term._id}
-                                                               color={columnColor(props.scores[index])}><b>{termName(term._id)}</b><br/>{props.scores[index]}
-    </Grid.Column>))}
+    {_.map(props.academicTerms, (term, index) => (
+      <Grid.Column
+        key={term._id}
+        color={columnColor(props.scores[index])}
+      >
+        <b>{termName(term._id)}</b>
+        <br />
+        {props.scores[index]}
+      </Grid.Column>
+))}
   </Grid>
 );
 
 export default withTracker((props) => {
-  const quarter = RadGradSettings.findOne({}).quarterSystem;
+  const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(currentTerm);
   const numTerms = quarter ? 12 : 9;

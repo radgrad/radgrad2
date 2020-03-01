@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -7,9 +7,9 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState, // eslint-disable-line
-  ICareerGoal, ICareerGoalUpdate, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
+  IAdminDataModelPageState,
+  ICareerGoal, ICareerGoalUpdate,
+  IDescriptionPair,
 } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -40,11 +40,11 @@ const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => [
 const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name} (${itemToSlugName(careerGoal)})`;
 
 const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
-    <React.Fragment>
-      {careerGoal.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(careerGoal)}
-    </React.Fragment>
+  <React.Fragment>
+    {careerGoal.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
+    {itemTitleString(careerGoal)}
+  </React.Fragment>
   );
 
 class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
@@ -162,34 +162,40 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={CareerGoals} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <AdminDataModelUpdateForm
+                collection={CareerGoals}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={CareerGoals}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={CareerGoals}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

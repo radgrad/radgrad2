@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
-import * as _ from 'lodash';
+import Markdown from 'react-markdown';
+import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
@@ -15,6 +15,7 @@ import {
   userToFullName,
   academicTermNameToShortName,
 } from '../shared/data-model-helper-functions';
+import { IReview } from '../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {
   event: {
@@ -51,7 +52,7 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-const reviews = (props: IStudentExplorerReviewWidgetProps): object[] => {
+const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
   const event = props.event;
   const matchingReviews = Reviews.findNonRetired({
     revieweeID: event._id,
@@ -80,83 +81,106 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
 
   return (
     <div className="ui padded container">
-      <Header as="h4" dividing={true} style={uppercaseStyle}>
-        {reviewType} REVIEWS
+      <Header as="h4" dividing style={uppercaseStyle}>
+        {reviewType}
+        {' '}
+        REVIEWS
       </Header>
 
-      <List verticalAlign="middle" relaxed="very" divided={true}>
+      <List verticalAlign="middle" relaxed="very" divided>
         {
-          userReview ?
+          userReview ? (
             <List.Item>
               <Grid>
                 <Grid.Column width={4}>
-                  <Image floated="left" verticalAlign="middle" circular={true} size="mini" src={picture}/>
+                  <Image floated="left" verticalAlign="middle" circular size="mini" src={picture} />
                   <b>{name}</b>
-                  <br/>
+                  <br />
                   {AcademicTerms.getShortName(term)}
                 </Grid.Column>
 
                 <Grid.Column width={12}>
-                  <StudentExplorerReviewStarsWidget rating={rating}/>
-                  <br/>
+                  <StudentExplorerReviewStarsWidget rating={rating} />
+                  <br />
                   <div style={commentsStyle}>
-                    <Markdown escapeHtml={true} source={comments}
-                              renderers={{ link: (props2) => Router.renderLink(props2, match) }}/>
+                    <Markdown
+                      escapeHtml
+                      source={comments}
+                      renderers={{ link: (props2) => Router.renderLink(props2, match) }}
+                    />
                   </div>
                 </Grid.Column>
               </Grid>
 
-              <StudentExplorerEditReviewForm review={userReview} event={event}/>
+              <StudentExplorerEditReviewForm review={userReview} event={event} />
 
             </List.Item>
-            :
-            <List.Item>
-              <Grid>
-                <Grid.Column width={4}>
-                  <Image floated="left" verticalAlign="middle" circular={true} size="mini" src={currentUserPicture}/>
-                  <b>{currentUserName}</b>
-                </Grid.Column>
+          )
+            : (
+              <List.Item>
+                <Grid>
+                  <Grid.Column width={4}>
+                    <Image floated="left" verticalAlign="middle" circular size="mini" src={currentUserPicture} />
+                    <b>{currentUserName}</b>
+                  </Grid.Column>
 
-                <Grid.Column width={12}>
-                  {
+                  <Grid.Column width={12}>
+                    {
                     completed ?
                       <p><i>You have not reviewed this yet.</i></p>
-                      :
-                      <p><i>You must complete this {reviewType} first to leave a review.</i></p>
-                  }
-                </Grid.Column>
-              </Grid>
-              {
+                      : (
+                        <p>
+                          <i>
+                            You must complete this
+                            {reviewType}
+                            {' '}
+                            first to leave a review.
+                          </i>
+                        </p>
+                    )
+}
+                  </Grid.Column>
+                </Grid>
+                {
                 completed ?
-                  <StudentExplorerAddReviewForm event={event} reviewType={reviewType}/>
+                  <StudentExplorerAddReviewForm event={event} reviewType={reviewType} />
                   : ''
               }
-            </List.Item>
-        }
+              </List.Item>
+          )
+}
 
         {
-          theReviews ?
+          theReviews ? (
             <React.Fragment>
               {
                 theReviews.map((review, index) => {
                   const aReview = reviewData(review);
                   return (
-                    <List.Item key={index}>
+                    <List.Item key={review._id}>
                       <Grid>
                         <Grid.Column width={4}>
-                          <Image floated="left" verticalAlign="middle" circular={true} size="mini"
-                                 src={aReview.picture}/>
+                          <Image
+                            floated="left"
+                            verticalAlign="middle"
+                            circular
+                            size="mini"
+                            src={aReview.picture}
+                          />
                           <b>{aReview.name}</b>
-                          <br/>
+                          <br />
                           {academicTermNameToShortName(aReview.term)}
                         </Grid.Column>
 
                         <Grid.Column width={12}>
-                          <StudentExplorerReviewStarsWidget rating={aReview.rating}/>
-                          <br/>
+                          <StudentExplorerReviewStarsWidget rating={aReview.rating} />
+                          <br />
                           <div style={commentsStyle}>
-                            <Markdown escapeHtml={true} source={aReview.comments}
-                                      renderers={{ link: (props2) => Router.renderLink(props2, match) }}/>
+                            <Markdown
+                              escapeHtml
+                              source={aReview.comments}
+                              renderers={{ link: (props2) => Router.renderLink(props2, match) }}
+                            />
                           </div>
                         </Grid.Column>
                       </Grid>
@@ -165,6 +189,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                 })
               }
             </React.Fragment>
+          )
             :
             <i>No reviews to display</i>
         }

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Form } from 'semantic-ui-react';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -23,12 +23,16 @@ interface ISelectUserFieldProps {
 }
 
 const SelectUserField = (props: ISelectUserFieldProps) => {
-  console.log(props);
+  // console.log(props);
   const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
-  console.log(options);
+  // console.log(options);
   return (
-    <Form.Select label={props.label} options={options} placeholder={`Select ${props.role}`}
-                required={props.required}/>
+    <Form.Select
+      label={props.label}
+      options={options}
+      placeholder={`Select ${props.role}`}
+      required={props.required}
+    />
   );
 };
 
@@ -50,7 +54,7 @@ const SelectUserFieldContainer = withTracker((props) => {
     default:
       users = StudentProfiles.findNonRetired({ isAlumni: true });
   }
-  console.log('users=%o', users);
+  // console.log('users=%o', users);
   return {
     users,
   };

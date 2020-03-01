@@ -1,16 +1,12 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumField from 'uniforms-semantic/NumField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../form-fields/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { ICourse, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse, IInterest } from '../../../typings/radgrad';
 import { courseToName, docToName } from '../shared/data-model-helper-functions';
 import { Courses } from '../../../api/course/CourseCollection';
 
@@ -48,25 +44,25 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
     'prerequisites.$': { type: String, allowedValues: courseNames },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Course</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Course</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" placeholder="dept_111"/>
-          <TextField name="name" placeholder="DEPT 111 Introduction to Science"/>
+          <TextField name="slug" placeholder="dept_111" />
+          <TextField name="name" placeholder="DEPT 111 Introduction to Science" />
         </Form.Group>
         <Form.Group widths="equal">
-          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science"/>
-          <NumField name="creditHours"/>
-          <TextField name="number" placeholder="DEPT 111"/>
+          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
+          <NumField name="creditHours" />
+          <TextField name="number" placeholder="DEPT 111" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
+        <LongTextField name="description" />
+        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
-          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
+          <MultiSelectField name="interests" placeholder="Select Interest(s)" />
+          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add"/>
+        <SubmitField className="basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
-import { INavBarProps } from './LandingNavBar'; // eslint-disable-line
+import { INavBarProps } from './LandingNavBar';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 
@@ -12,29 +12,24 @@ const LandingExplorerMenuBar = (props: INavBarProps) => {
   const menuStyle = { marginBottom: 30 };
 
   return (
-    <Menu style={menuStyle} attached="top" borderless={true} size="small">
-      <Menu.Item as={NavLink} activeClassName="" exact={true} to="/">
-        <Image style={imageStyle} circular={true} src="/images/radgrad_logo.png"/>
+    <Menu style={menuStyle} attached="top" borderless size="small">
+      <Menu.Item as={NavLink} activeClassName="" exact to="/">
+        <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
         <div className="mobile hidden item">
           <Header as="h2">
-            <RadGradLogoText/>
+            <RadGradLogoText />
           </Header>
         </div>
       </Menu.Item>
       <Menu.Item position="right">
         {props.currentUser === '' ? (
           <div>
-            <RadGradLoginButtons/>
-            <Dropdown text="Login" pointing="top right" icon={'user'}>
-              <Dropdown.Menu>
-                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact={true} to="/signin"/>
-              </Dropdown.Menu>
-            </Dropdown>
+            <RadGradLoginButtons />
           </div>
         ) : (
-          <Dropdown text={props.currentUser} pointing="top right" icon={'user'}>
+          <Dropdown text={props.currentUser} pointing="top right" icon="user">
             <Dropdown.Menu>
-              <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact={true} to="/signout"/>
+              <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
             </Dropdown.Menu>
           </Dropdown>
         )}

@@ -6,13 +6,12 @@ import student from './student';
 
 /* global window */
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   admin,
   advisor,
   shared,
   student,
 });
-export type ReduxState = ReturnType<typeof rootReducer>;
 
 const store = createStore(
   rootReducer,

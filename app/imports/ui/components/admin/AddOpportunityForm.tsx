@@ -1,17 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import AutoField from 'uniforms-semantic/AutoField';
-import BoolField from 'uniforms-semantic/BoolField';
-import DateField from 'uniforms-semantic/DateField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import TextField from 'uniforms-semantic/TextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
-import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad'; // eslint-disable-line
+import _ from 'lodash';
+import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -52,26 +45,26 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Opportunity</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Opportunity</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug"/>
-          <TextField name="name"/>
+          <TextField name="slug" />
+          <TextField name="name" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityType"/>
-          <SelectField name="sponsor"/>
+          <SelectField name="opportunityType" />
+          <SelectField name="sponsor" />
         </Form.Group>
-        <LongTextField name="description"/>
+        <LongTextField name="description" />
         <Form.Group widths="equal">
-          <MultiSelectField name="terms"/>
-          <MultiSelectField name="interests"/>
+          <MultiSelectField name="terms" />
+          <MultiSelectField name="interests" />
         </Form.Group>
-        <DateField name="eventDate"/>
-        <AutoField name="ice"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <DateField name="eventDate" />
+        <AutoField name="ice" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

@@ -1,12 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import {} from 'mocha';
+import fc from 'fast-check';
+import 'mocha';
 import { AcademicYearInstances } from './AcademicYearInstanceCollection';
 import { Users } from '../user/UserCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { IAcademicYear } from '../../typings/radgrad';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -19,52 +23,75 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne, #toString', function test() {
+    it('Can define and removeIt', function test1(done) {
+      this.timeout(5000);
       const studentID = makeSampleUser();
       const student = Users.getProfile(studentID).username;
-      const year = 2016;
-      let docID = AcademicYearInstances.define({ year, student });
-      expect(AcademicYearInstances.isDefined(docID)).to.be.true;
+      fc.assert(
+        fc.property(fc.integer(2017, 2027), (fcYear) => {
+          const docID = AcademicYearInstances.define({ student, year: fcYear });
+          expect(AcademicYearInstances.isDefined(docID)).to.be.true;
+          AcademicYearInstances.removeIt(docID);
+          expect(AcademicYearInstances.isDefined(docID)).to.be.false;
+        }),
+      );
+      done();
+    });
+
+    it('Cannot define duplicates', function test2() {
+      const academicTerm = makeSampleAcademicTerm();
+      const year = AcademicTerms.findDoc(academicTerm).year;
+      const studentID = makeSampleUser();
+      const student = Users.getProfile(studentID).username;
+      const docID1 = AcademicYearInstances.define({ year, student });
+      const docID2 = AcademicYearInstances.define({ year, student });
+      expect(docID1).to.equal(docID2);
+      expect(AcademicYearInstances.isDefined(docID1)).to.be.true;
+      AcademicYearInstances.removeIt(docID2);
+      expect(AcademicYearInstances.isDefined(docID1)).to.be.false;
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      const academicTerm = makeSampleAcademicTerm();
+      const year = AcademicTerms.findDoc(academicTerm).year;
+      const studentID = makeSampleUser();
+      const student = Users.getProfile(studentID).username;
+      const docID = AcademicYearInstances.define({ year, student });
+      fc.assert(
+        fc.property(fc.integer(2017, 2027), fc.boolean(), (fcYear, fcRetired) => {
+          AcademicYearInstances.update(docID, { year: fcYear, retired: fcRetired });
+          const ay = AcademicYearInstances.findDoc(docID);
+          expect(ay.year).to.equal(fcYear);
+          expect(ay.springYear).to.equal(fcYear + 1);
+          expect(ay.retired).to.equal(fcRetired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let ay = AcademicYearInstances.findOne({});
+      let docID = ay._id;
       const dumpObject = AcademicYearInstances.dumpOne(docID);
       AcademicYearInstances.removeIt(docID);
       expect(AcademicYearInstances.isDefined(docID)).to.be.false;
       docID = AcademicYearInstances.restoreOne(dumpObject);
-      expect(AcademicYearInstances.isDefined(docID)).to.be.true;
-      expect(AcademicYearInstances.toString(docID)).to.equal(`[AY 2016-2017 ${student}]`);
-      const errors = AcademicYearInstances.checkIntegrity();
-      expect(errors.length).to.equal(0);
-      // Create a gap in the future to see if it gets filled in.
-      const futureYear = AcademicYearInstances.define({ year: 2019, student });
-      expect(AcademicYearInstances.isDefined(futureYear)).to.be.true;
-      let years = AcademicYearInstances.find({ studentID }).fetch();
-      expect(years.length).to.equal(4);
-      // Create a gap in the past to see if it gets filled in.
-      const pastYear = AcademicYearInstances.define({ year: 2014, student });
-      expect(AcademicYearInstances.isDefined(pastYear)).to.be.true;
-      years = AcademicYearInstances.find({ studentID }).fetch();
-      expect(years.length).to.equal(6);
-      AcademicYearInstances.removeIt(docID);
+      ay = AcademicYearInstances.findDoc(docID);
+      expect(dumpObject.year).to.equal(ay.year);
+      const student = Users.getProfile(ay.studentID).username;
+      expect(dumpObject.student).to.equal(student);
     });
 
-    // In Meteor 1.6.1, this fails with UnhandledPromiseRejectionWarning..
-    // it('#publish', function test(done) {
-    //   const studentID = makeSampleUser();
-    //   const collector = new PublicationCollector({ userID: studentID });
-    //   const student = Users.getProfile(studentID).username;
-    //   const year = 2016;
-    //   AcademicYearInstances.define({ year, student });
-    //   AcademicYearInstances.publish();
-    //   collector.collect(AcademicYearInstances.publicationNames.Public, (collections) => {
-    //     expect(collections).to.be.an('object');
-    //     expect(collections[AcademicYearInstances.publicationNames.Public]).to.be.an('array');
-    //     expect(collections[AcademicYearInstances.publicationNames.Public].length).to.equal(0);
-    //   });
-    //   collector.collect(AcademicYearInstances.publicationNames.PerStudentID, studentID, (collections) => {
-    //     expect(collections).to.be.an('object');
-    //     expect(collections[AcademicYearInstances.publicationNames.Public]).to.be.an('array');
-    //     expect(collections[AcademicYearInstances.publicationNames.Public].length).to.equal(1);
-    //   });
-    //   done();
-    // });
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = AcademicYearInstances.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    it('Can remove user', function test6() {
+      const ay: IAcademicYear = AcademicYearInstances.findOne({});
+      AcademicYearInstances.removeUser(ay.studentID);
+      expect(AcademicYearInstances.find({ studentID: ay.studentID }).count()).to.equal(0);
+    });
   });
 }

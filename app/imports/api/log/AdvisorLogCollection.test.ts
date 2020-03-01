@@ -7,7 +7,7 @@ import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 // import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -28,18 +28,30 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt #dumpOne, #restoreOne, #checkIntegrity', function test() {
+    it('#define, #isDefined, #removeIt #dumpOne, #restoreOne, #checkIntegrity, #update', function test() {
       let docID = AdvisorLogs.define({ advisor, student, text });
       expect(AdvisorLogs.isDefined(docID)).to.be.true;
+      let doc = AdvisorLogs.findOne({ _id: docID });
+      expect(doc).to.exist;
+      expect(doc.retired).to.be.false;
+      expect(doc.text).to.equal(text);
       const dumpObject = AdvisorLogs.dumpOne(docID);
       AdvisorLogs.removeIt(docID);
       expect(AdvisorLogs.isDefined(docID)).to.be.false;
       docID = AdvisorLogs.restoreOne(dumpObject);
       expect(AdvisorLogs.isDefined(docID)).to.be.true;
+      doc = AdvisorLogs.findOne({ _id: docID });
+      expect(doc).to.exist;
+      expect(doc.retired).to.be.false;
+      expect(doc.text).to.equal(text);
       const error = AdvisorLogs.checkIntegrity();
       expect(error.length).to.equal(0);
+      expect(AdvisorLogs.countNonRetired()).to.equal(1);
+      AdvisorLogs.update(docID, { retired: true });
+      expect(AdvisorLogs.countNonRetired()).to.equal(0);
       AdvisorLogs.removeIt(docID);
     });
+
     it('#getAdvisorDoc, #getStudentDoc, #checkIntegrity', function test() {
       const docID = AdvisorLogs.define({ advisor, student, text });
       const advisorDoc = AdvisorLogs.getAdvisorDoc(docID);

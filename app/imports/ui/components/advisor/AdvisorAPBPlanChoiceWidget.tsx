@@ -1,9 +1,9 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
-import { IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IPlanChoiceDefine } from '../../../typings/radgrad';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './AcademicPlanBuilderUtilities';
 
@@ -38,7 +38,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
   };
   return (
     <Segment>
-      <Header dividing={true}>Course Choices</Header>
+      <Header dividing>Course Choices</Header>
       <Droppable droppableId={CHOICE_AREA}>
         {(provided, snapshot) => (
           <div
@@ -49,39 +49,60 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
             <Grid columns="equal">
               <Grid.Column style={narrowStyle}>
                 {_.map(column1, (choice, index) => (
-                  <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
-                                       draggableId={`courseChoices-${choice.choice}`}
-                                       satisfied={true} studentID="fakeID"/>
+                  <DraggableCoursePill
+                    key={choice.choice}
+                    index={index}
+                    choice={choice.choice}
+                    draggableId={`courseChoices-${choice.choice}`}
+                    satisfied
+                    studentID="fakeID"
+                  />
                 ))}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column2, (choice, index) => (
-                  <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
-                                       draggableId={`courseChoices-${choice.choice}`}
-                                       satisfied={true} studentID="fakeID"/>
+                  <DraggableCoursePill
+                    key={choice.choice}
+                    index={index}
+                    choice={choice.choice}
+                    draggableId={`courseChoices-${choice.choice}`}
+                    satisfied
+                    studentID="fakeID"
+                  />
                 ))}
                 {provided.placeholder}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column3, (choice, index) => (
-                  <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
-                                       draggableId={`courseChoices-${choice.choice}`}
-                                       satisfied={true} studentID="fakeID"/>
+                  <DraggableCoursePill
+                    key={choice.choice}
+                    index={index}
+                    choice={choice.choice}
+                    draggableId={`courseChoices-${choice.choice}`}
+                    satisfied
+                    studentID="fakeID"
+                  />
                 ))}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column4, (choice, index) => (
-                  <DraggableCoursePill key={choice.choice} index={index} choice={choice.choice}
-                                       draggableId={`courseChoices-${choice.choice}`}
-                                       satisfied={true} studentID="fakeID"/>
+                  <DraggableCoursePill
+                    key={choice.choice}
+                    index={index}
+                    choice={choice.choice}
+                    draggableId={`courseChoices-${choice.choice}`}
+                    satisfied
+                    studentID="fakeID"
+                  />
                 ))}
               </Grid.Column>
               {provided.placeholder}
             </Grid>
-          </div>)}
+          </div>
+)}
       </Droppable>
       <Segment>
-        <Icon name="linkify" size="big"/>
+        <Icon name="linkify" size="big" />
         <Droppable droppableId={COMBINE_AREA}>
           {(provided, snapshot) => (
             <div
@@ -90,16 +111,22 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
               {props.combineChoice ? (
-                <DraggableCoursePill key={props.combineChoice} index={0} choice={props.combineChoice}
-                                     draggableId={buildCombineAreaDraggableId(props.combineChoice)}
-                                     satisfied={true} studentID="fakeID"/>
+                <DraggableCoursePill
+                  key={props.combineChoice}
+                  index={0}
+                  choice={props.combineChoice}
+                  draggableId={buildCombineAreaDraggableId(props.combineChoice)}
+                  satisfied
+                  studentID="fakeID"
+                />
               ) : ''}
               {provided.placeholder}
-            </div>)}
+            </div>
+)}
         </Droppable>
       </Segment>
       <Segment>
-        <Icon name="trash alternate outline" size="big"/>
+        <Icon name="trash alternate outline" size="big" />
         <Droppable droppableId={DELETE_AREA}>
           {(provided, snapshot) => (
             <div
@@ -109,7 +136,8 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
               id="ApbTrash"
             >
               {provided.placeholder}
-            </div>)}
+            </div>
+)}
         </Droppable>
       </Segment>
     </Segment>

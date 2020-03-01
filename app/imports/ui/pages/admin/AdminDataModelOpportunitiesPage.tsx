@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IOpportunity } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -51,8 +51,8 @@ const itemTitleString = (item: IOpportunity): string => `${item.name} (${itemToS
  */
 const itemTitle = (item: IOpportunity): React.ReactNode => (
   <React.Fragment>
-    {item.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {item.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -176,35 +176,41 @@ class AdminDataModelOpportunitiesPage extends React.Component<{}, IAdminDataMode
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <UpdateOpportunityForm
+                collection={collection}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

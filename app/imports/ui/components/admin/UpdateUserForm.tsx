@@ -1,19 +1,14 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumberField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -31,10 +26,6 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import {
-  SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,
-  SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED,
-} from '../../../redux/shared/cloudinary/types';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -51,8 +42,8 @@ interface IUpdateUserProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => any;
+  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
 interface IUpdateUserState {
@@ -60,14 +51,14 @@ interface IUpdateUserState {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setIsCloudinaryUsed: (type: string, isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setIsCloudinaryUsed(type, isCloudinaryUsed)),
-  setCloudinaryUrl: (type: string, cloudinaryUrl: string) => dispatch(cloudinaryActions.setCloudinaryUrl(type, cloudinaryUrl)),
+  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelUsersIsCloudinaryUsed(isCloudinaryUsed)),
+  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
 class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState> {
   constructor(props) {
     super(props);
-    console.log('UpdateUserForm', props);
+    // console.log('UpdateUserForm', props);
     let collection;
     const { id } = props;
     if (StudentProfiles.isDefined(id)) {
@@ -82,6 +73,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     if (AdvisorProfiles.isDefined(id)) {
       collection = AdvisorProfiles;
     }
+    if (AdminProfiles.isDefined(id)) {
+      collection = AdminProfiles;
+    }
     const profile: IBaseProfile = collection.findDoc(id);
     this.state = {
       pictureURL: profile.picture,
@@ -92,8 +86,8 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     e.preventDefault();
     const cloudinaryResult = await openCloudinaryWidget();
     if (cloudinaryResult.event === 'success') {
-      this.props.setIsCloudinaryUsed(SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED, true);
-      this.props.setCloudinaryUrl(SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL, cloudinaryResult.info.url);
+      this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
+      this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
       this.setState({ pictureURL: cloudinaryResult.info.url });
     }
   }
@@ -104,7 +98,7 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
 
   // Hacky way of resetting pictureURL to be empty
   private handleUpdateUser = (doc) => {
-    console.log('UpdateUserForm.handleUpdateUser', doc);
+    // console.log('UpdateUserForm.handleUpdateUser', doc);
     this.props.handleUpdate(doc);
     this.setState({ pictureURL: '' });
   }
@@ -124,6 +118,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     }
     if (AdvisorProfiles.isDefined(id)) {
       collection = AdvisorProfiles;
+    }
+    if (AdminProfiles.isDefined(id)) {
+      collection = AdminProfiles;
     }
     const model = collection.findDoc(id);
     const userID = model.userID;
@@ -149,7 +146,13 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       lastName: { type: String, optional: true },
       picture: {
         type: String,
-        label: <React.Fragment>Picture (<a onClick={this.handleUpload}>Upload</a>)</React.Fragment>,
+        label:
+  <React.Fragment>
+    Picture (
+    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+    <a onClick={this.handleUpload}>Upload</a>
+    )
+  </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },
@@ -205,63 +208,73 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       schema.extend(studentSchema);
     }
     const { pictureURL } = this.state;
-    console.log(schema);
+    // console.log(schema);
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Update {collection.getType()}: {this.props.itemTitleString(model)}</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleUpdate} ref={this.props.formRef}
-                  showInlineError={true} model={model}>
+      <Segment padded>
+        <Header dividing>
+          Update
+          {collection.getType()}
+          :
+          {this.props.itemTitleString(model)}
+        </Header>
+        <AutoForm
+          schema={schema}
+          onSubmit={this.props.handleUpdate}
+          ref={this.props.formRef}
+          showInlineError
+          model={model}
+        >
           <Form.Group widths="equal">
-            <TextField name="username" placeholder="johndoe@foo.edu"/>
-            <TextField name="firstName" placeholder="John"/>
-            <TextField name="lastName" placeholder="Doe"/>
+            <TextField name="username" placeholder="johndoe@foo.edu" />
+            <TextField name="firstName" placeholder="John" />
+            <TextField name="lastName" placeholder="Doe" />
           </Form.Group>
-          <Header dividing={true} as="h4">Optional fields (all users)</Header>
+          <Header dividing as="h4">Optional fields (all users)</Header>
           <Form.Group widths="equal">
-            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange}/>
-            <TextField name="website"/>
+            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
+            <TextField name="website" />
           </Form.Group>
           <Form.Group widths="equal">
-            <MultiSelectField name="interests"/>
-            <MultiSelectField name="careerGoals"/>
+            <MultiSelectField name="interests" />
+            <MultiSelectField name="careerGoals" />
           </Form.Group>
-          <BoolField name="retired"/>
+          <BoolField name="retired" />
           {model.role === ROLE.MENTOR ? (
             <div>
-              <Header dividing={true} as="h4">Mentor fields</Header>
+              <Header dividing as="h4">Mentor fields</Header>
               <Form.Group widths="equal">
-                <TextField name="company"/>
-                <TextField name="career" label="Title"/>
+                <TextField name="company" />
+                <TextField name="career" label="Title" />
               </Form.Group>
               <Form.Group widths="equal">
-                <TextField name="location"/>
-                <TextField name="linkedin" label="LinkedIn"/>
+                <TextField name="location" />
+                <TextField name="linkedin" label="LinkedIn" />
               </Form.Group>
-              <LongTextField name="motivation"/>
+              <LongTextField name="motivation" />
             </div>
           ) : ''}
           {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
             <div>
-              <Header dividing={true} as="h4">Student fields</Header>
+              <Header dividing as="h4">Student fields</Header>
               <Form.Group widths="equal">
-                <NumberField name="level"/>
-                <SelectField name="declaredAcademicTerm"/>
+                <NumField name="level" />
+                <SelectField name="declaredAcademicTerm" />
               </Form.Group>
               <Form.Group widths="equal">
-                <BoolField name="shareUsername"/>
-                <BoolField name="sharePicture"/>
-                <BoolField name="shareWebsite"/>
-                <BoolField name="shareInterests"/>
-                <BoolField name="shareCareerGoals"/>
-                <BoolField name="shareAcademicPlan"/>
-                <BoolField name="shareOpportunities"/>
-                <BoolField name="shareCourses"/>
-                <BoolField name="shareLevel"/>
-                <BoolField name="isAlumni"/>
+                <BoolField name="shareUsername" />
+                <BoolField name="sharePicture" />
+                <BoolField name="shareWebsite" />
+                <BoolField name="shareInterests" />
+                <BoolField name="shareCareerGoals" />
+                <BoolField name="shareAcademicPlan" />
+                <BoolField name="shareOpportunities" />
+                <BoolField name="shareCourses" />
+                <BoolField name="shareLevel" />
+                <BoolField name="isAlumni" />
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+          <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
           <Button onClick={this.props.handleCancel}>Cancel</Button>
         </AutoForm>
       </Segment>

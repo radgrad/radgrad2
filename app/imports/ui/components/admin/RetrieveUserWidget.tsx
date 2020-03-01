@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateAllStudentLevelsMethod } from '../../../api/level/LevelProcessor.methods';
-import { IFilterUsers } from '../../pages/admin/AdminHomePage'; // eslint-disable-line
-import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IFilterUsers } from '../../pages/admin/AdminHomePage';
+import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
 
 function url(user) {
   return `/#/${user.role.toLowerCase()}/${user.username}/home`;
@@ -73,8 +73,15 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {advisors.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
-                   href={url(user)}>{name(user)}</a>
+                <a
+                  id={shortUserName(user)}
+                  className="ui basic grey fluid label"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={url(user)}
+                >
+                  {name(user)}
+                </a>
               </Grid.Column>
             ))}
           </Grid>
@@ -88,8 +95,15 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {faculty.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
-                   href={url(user)}>{name(user)}</a>
+                <a
+                  id={shortUserName(user)}
+                  className="ui basic grey fluid label"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={url(user)}
+                >
+                  {name(user)}
+                </a>
               </Grid.Column>
             ))}
           </Grid>
@@ -103,8 +117,15 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
           <Grid>
             {mentors.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank"
-                   href={url(user)}>{name(user)}</a>
+                <a
+                  id={shortUserName(user)}
+                  className="ui basic grey fluid label"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={url(user)}
+                >
+                  {name(user)}
+                </a>
               </Grid.Column>
             ))}
           </Grid>
@@ -124,9 +145,11 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
                 </a>
               </Grid.Column>
             ))}
-            <Grid.Row centered={true}>
-              <Button color={'green'} basic={true} style={marginStyle} onClick={handleUpdateLevelButton}>Update Student
-                Levels</Button>
+            <Grid.Row centered>
+              <Button color="green" basic style={marginStyle} onClick={handleUpdateLevelButton}>
+                Update Student
+                Levels
+              </Button>
             </Grid.Row>
           </Grid>
         </Tab.Pane>
@@ -150,9 +173,9 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
     },
   ];
   return (
-    <Segment padded={true}>
-      <Header dividing={true} as="h4">RETRIEVE USER</Header>
-      <Tab panes={panes} renderActiveOnly={false} defaultActiveIndex={3}/>
+    <Segment padded>
+      <Header dividing as="h4">RETRIEVE USER</Header>
+      <Tab panes={panes} renderActiveOnly={false} defaultActiveIndex={3} />
     </Segment>
   );
 };

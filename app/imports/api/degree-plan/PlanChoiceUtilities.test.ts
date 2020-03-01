@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import * as planChoiceUtilities from './PlanChoiceUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -99,7 +99,7 @@ if (Meteor.isServer) {
       expect(result2).to.equal(`(${result1}),${choice3}`);
       const result3 = planChoiceUtilities.compoundCombineChoices(choice4, result2);
       expect(result3).to.equal(`${choice4},(${result2})`);
-      console.log(result1, result2, result3);
+      // console.log(result1, result2, result3);
     });
   });
 }

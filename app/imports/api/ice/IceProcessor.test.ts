@@ -6,35 +6,36 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import * as ICE from './IceProcessor';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
-import { Ice } from '../../typings/radgrad'; // eslint-disable-line
+import { Ice } from '../../typings/radgrad';
+import { makeSampleIce } from './SampleIce';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('IceProcessor', function testSuite() {
-    it('#isICE, #assertICE', function test() {
-      const ice: Ice = { i: 0, c: 10, e: 15 };
+    it('Can check isICE and assertICE', function test1() {
+      const ice: Ice = makeSampleIce();
       const notIce: { i: number; d: number; e: number; } = { i: 0, d: 10, e: 15 };
       ICE.assertICE(ice);
       expect(ICE.isICE(ice)).to.be.true;
       expect(ICE.isICE(undefined)).to.be.false;
-      expect(function foo() { ICE.assertICE(ice); }).to.not.throw(Error);
-      expect(function foo() { ICE.assertICE(notIce); }).to.throw(Error);
+      expect(() => ICE.assertICE(ice)).to.not.throw(Error);
+      expect(() => ICE.assertICE(notIce)).to.throw(Error);
     });
 
-    it('#makeCourseICE', function test() {
-      expect(ICE.makeCourseICE('ICS111', 'A').c).to.equal(ICE.gradeCompetency.A);
-      expect(ICE.makeCourseICE('ICS112', 'A+').c).to.equal(ICE.gradeCompetency.A);
-      expect(ICE.makeCourseICE('ICS113', 'A-').c).to.equal(ICE.gradeCompetency.A);
-      expect(ICE.makeCourseICE('ICS113', 'A*').c).to.equal(ICE.gradeCompetency.C);
-      expect(ICE.makeCourseICE('ICS111', 'B+').c).to.equal(ICE.gradeCompetency.B);
-      expect(ICE.makeCourseICE('ICS111', 'B').c).to.equal(ICE.gradeCompetency.B);
-      expect(ICE.makeCourseICE('ICS111', 'B-').c).to.equal(ICE.gradeCompetency.B);
+    it('Can makeCourseICE', function test2() {
+      expect(ICE.makeCourseICE('ics_111', 'A').c).to.equal(ICE.gradeCompetency.A);
+      expect(ICE.makeCourseICE('ics_112', 'A+').c).to.equal(ICE.gradeCompetency.A);
+      expect(ICE.makeCourseICE('ics_113', 'A-').c).to.equal(ICE.gradeCompetency.A);
+      expect(ICE.makeCourseICE('ics_113', 'A*').c).to.equal(ICE.gradeCompetency.C);
+      expect(ICE.makeCourseICE('ics_111', 'B+').c).to.equal(ICE.gradeCompetency.B);
+      expect(ICE.makeCourseICE('ics_111', 'B').c).to.equal(ICE.gradeCompetency.B);
+      expect(ICE.makeCourseICE('ics_111', 'B-').c).to.equal(ICE.gradeCompetency.B);
       expect(ICE.makeCourseICE(Courses.unInterestingSlug, 'A').c).to.equal(ICE.gradeCompetency.C);
     });
 
-    it('#getEarnedICE, #getProjectedICE', function test(done) {
+    it('Can getEarnedICE and getProjectedICE', function test3(done) {
       this.timeout(5000);
       defineTestFixtures(['minimal', 'extended.courses.interests', 'abi.student', 'abi.courseinstances']);
       const cis = CourseInstances.find().fetch();

@@ -1,13 +1,12 @@
-import * as React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { Button, Card, Header, Icon, Image, Popup, SemanticCOLORS } from 'semantic-ui-react';
+import React from 'react';
+import { Button, Card, Header, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { replaceTermStringNextFour } from '../shared/helper-functions';
 import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';
@@ -85,17 +84,27 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-        <InterestList item={item} size='mini'/>
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription}...`}
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+        />
+        <InterestList item={item} size="mini" />
       </Card.Content>
 
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents(item)}/></span>
+        <span>
+          STUDENTS PARTICIPATING
+          <WidgetHeaderNumber inputValue={numberStudents(item)} />
+        </span>
       </Card.Content>
 
       <Link to={buildRouteName(props)}>
-        <Button attached={'bottom'} fluid={true}><Icon name="chevron circle right"/><br/>View More</Button>
+        <Button attached="bottom" fluid>
+          <Icon name="chevron circle right" />
+          <br />
+          View More
+        </Button>
       </Link>
     </Card>
   );

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicPlan } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import LandingAcademicPlanCardContainer from '../../components/landing/LandingAcademicPlanCard';
@@ -28,37 +28,41 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
-                <span>ACADEMIC PLANS</span> ({props.count})
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>ACADEMIC PLANS</span>
+                {' '}
+                (
+                {props.count}
+                )
               </Header>
-              <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
+              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.academicPlans.map((plan) => (
-                  <LandingAcademicPlanCardContainer key={plan._id} plan={plan}/>
+                  <LandingAcademicPlanCardContainer key={plan._id} plan={plan} />
                 ))}
               </Card.Group>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

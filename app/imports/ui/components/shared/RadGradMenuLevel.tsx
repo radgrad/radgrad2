@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 interface IRadGradMenuLevelProps {
   level: number;
@@ -20,7 +20,7 @@ const RadGradMenuLevel = (props: IRadGradMenuLevelProps) => {
     display: 'flex',
   };
   return (
-    <div style={iconStyle}/>
+    <div style={iconStyle} />
   );
 };
 

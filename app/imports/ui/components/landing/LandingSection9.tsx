@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import styles from './landing-styles';
@@ -12,44 +12,46 @@ const noBoxShadowStyle = {
 
 const LandingSection9 = () => (
   <div id="landing-section-9" style={styles['inverted-section']}>
-    <Grid stackable={true} container={true}>
-      <Grid.Column textAlign={'center'}>
+    <Grid stackable container>
+      <Grid.Column textAlign="center">
         <Header as="h1" style={styles['inverted-header']}>Ready to get started?</Header>
         <p style={styles['inverted-description']}>Take a guided tour!</p>
         <Grid>
-          <Card.Group stackable={true} itemsPerRow={4} style={paddingStyle}>
+          <Card.Group stackable itemsPerRow={4} style={paddingStyle}>
             <Card style={noBoxShadowStyle}>
               <div className="image">
-                <Image src="/images/landing/students.jpg"/>
+                <Image src="/images/landing/students.jpg" />
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">Students
-                <Icon name={'chevron right'}/></a>
-            </Card>
-            <Card style={noBoxShadowStyle}>
-              <div className="image">
-                <Image src="/images/landing/advisor.png"/>
-              </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/advisor">
-                Advisors
-                <Icon name={'chevron right'}/>
+              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">
+                Students
+                <Icon name="chevron right" />
               </a>
             </Card>
             <Card style={noBoxShadowStyle}>
               <div className="image">
-                <Image src="/images/landing/ics-faculty-group.png"/>
+                <Image src="/images/landing/advisor.png" />
+              </div>
+              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/advisor">
+                Advisors
+                <Icon name="chevron right" />
+              </a>
+            </Card>
+            <Card style={noBoxShadowStyle}>
+              <div className="image">
+                <Image src="/images/landing/ics-faculty-group.png" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/faculty">
                 Faculty
-                <Icon name={'chevron right'}/>
+                <Icon name="chevron right" />
               </a>
             </Card>
             <Card className="ui card" style={noBoxShadowStyle}>
               <div className="image">
-                <Image src="/images/landing/nagashima.jpg"/>
+                <Image src="/images/landing/nagashima.jpg" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/mentor">
                 Mentors
-                <Icon name={'chevron right'}/>
+                <Icon name="chevron right" />
               </a>
             </Card>
           </Card.Group>

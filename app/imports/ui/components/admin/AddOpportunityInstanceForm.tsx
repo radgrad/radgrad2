@@ -1,13 +1,10 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { academicTermToName, docToName, profileToName } from '../shared/data-model-helper-functions';
@@ -56,22 +53,22 @@ const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => 
   });
   // console.log(termNames, courseNames, studentNames);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Opportunity Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Opportunity Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term"/>
-          <SelectField name="student"/>
+          <SelectField name="term" />
+          <SelectField name="student" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunity"/>
-          <SelectField name="sponsor"/>
+          <SelectField name="opportunity" />
+          <SelectField name="sponsor" />
         </Form.Group>
         <Form.Group widths="equal">
-          <BoolField name="verified"/>
-          <BoolField name="retired"/>
+          <BoolField name="verified" />
+          <BoolField name="retired" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

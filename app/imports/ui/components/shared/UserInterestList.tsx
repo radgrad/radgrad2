@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Label } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Users } from '../../../api/user/UserCollection';
 
@@ -17,10 +17,22 @@ const UserInterestList = (props: IUserInterestListProps) => {
   const uncommonInterests = _.map(uncommonIDs, (id) => Interests.findDoc(id));
   return (
     <Label.Group>
-      {commonInterests.map((interest) => <Label key={interest._id}
-                                          color="green">{interest.name}</Label>)}
-      {uncommonInterests.map((interest) => <Label key={interest._id}
-                                                color="grey">{interest.name}</Label>)}
+      {commonInterests.map((interest) => (
+        <Label
+          key={interest._id}
+          color="green"
+        >
+          {interest.name}
+        </Label>
+))}
+      {uncommonInterests.map((interest) => (
+        <Label
+          key={interest._id}
+          color="grey"
+        >
+          {interest.name}
+        </Label>
+))}
     </Label.Group>
   );
 };

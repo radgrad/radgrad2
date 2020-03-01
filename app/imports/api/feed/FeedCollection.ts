@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { ROLE } from '../role/Role';
 import { Courses } from '../course/CourseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad';
 import { defaultProfilePicture } from '../user/BaseProfileCollection';
 
 /**
@@ -205,7 +205,7 @@ class FeedCollection extends BaseCollection {
    * Defines a new Feed (new course).
    * @example
    * Feeds._defineNewCourse({ feedType: Feeds.NEW_COURSE,
-   *                        course: 'ics-100'
+   *                        course: 'ics_100'
    *                        timestamp: '12345465465', });
    * @param { Object } description Object with keys course, feedType, and timestamp.
    * @returns The newly created docID.
@@ -307,7 +307,7 @@ class FeedCollection extends BaseCollection {
    * @example
    * Feeds.defineNewCourseReview({ feedType: Feeds.NEW_COURSE_REVIEW,
    *                              user: 'abi@hawaii.edu',
-   *                              course: 'ics111'
+   *                              course: 'ics_111'
    *                              timestamp: '12345465465', });
    * @param { Object } description Object with keys user, course, feedType, and timestamp.
    * User can either be the string username or an array containing a single username.

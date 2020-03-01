@@ -1,16 +1,13 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
-import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { PlanChoiceCollection, PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
@@ -21,7 +18,6 @@ import {
   docToShortName,
 } from '../shared/data-model-helper-functions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import {
   addChoiceToRaw, removeChoiceFromPlanRaw, removeEmptyYearsRaw,
@@ -71,7 +67,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     super(props);
     // console.log('AdvisorAPBuilderWidget %o', props);
     const coursesPerTerm = [];
-    this.quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+    this.quarterSystem = RadGradProperties.getQuarterSystem();
     const numTerms = this.quarterSystem ? 20 : 15;
     for (let i = 0; i < numTerms; i++) {
       coursesPerTerm.push(0);
@@ -99,14 +95,14 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   };
 
   private handleSimpleCombine = () => {
-    console.log('simple combine', this.state);
+    // console.log('simple combine', this.state);
     const { combineLeftSide, combineRightSide } = this.state;
     const combineChoice = simpleCombineChoices(combineLeftSide, combineRightSide);
     this.setState({ showConfirmCombine: false, combineChoice });
   };
 
   private handleCompoundCombine = () => {
-    console.log('compound combine', this.state);
+    // console.log('compound combine', this.state);
     const { combineLeftSide, combineRightSide } = this.state;
     const combineChoice = compoundCombineChoices(combineLeftSide, combineRightSide);
     this.setState({ showConfirmCombine: false, combineChoice });
@@ -192,10 +188,10 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   };
 
   private handleDropInChoiceArea(dropResult) {
-    console.log(CHOICE_AREA, dropResult);
+    // console.log(CHOICE_AREA, dropResult);
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
     const source = dropResult.source.droppableId;
-    console.log(source, choice);
+    // console.log(source, choice);
     if (source === COMBINE_AREA) {
       this.setState({ addPlanChoice: choice, showConfirmAdd: true });
     } else if (source.startsWith(PLAN_AREA)) {
@@ -257,9 +253,9 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private handleSavePlan = (doc) => {
-    console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
+    // console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
     const truncatedCoursesPerTerm = removeEmptyYearsRaw(this.state.coursesPerTerm);
-    console.log(truncatedCoursesPerTerm, this.state.choiceList);
+    // console.log(truncatedCoursesPerTerm, this.state.choiceList);
     const collectionName = AcademicPlans.getCollectionName();
     const name = doc.name;
     const description = doc.description;
@@ -321,11 +317,11 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
-      degree: { icon: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
+      degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
       name: String,
       description: String,
       term: {
-        icon: String,
+        type: String,
         allowedValues: termNames,
         defaultValue: currentTermName,
       },
@@ -336,38 +332,51 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     };
     return (
       <Segment>
-        <Header dividing={true}>ACADEMIC PLAN</Header>
+        <Header dividing>ACADEMIC PLAN</Header>
         <AutoForm schema={schema} onSubmit={this.handleSavePlan}>
           <Form.Group widths="equal">
-            <SelectField name="degree"/>
-            <TextField name="name"/>
-            <SelectField name="term"/>
+            <SelectField name="degree" />
+            <TextField name="name" />
+            <SelectField name="term" />
           </Form.Group>
-          <LongTextField name="description"/>
-          <SubmitField className="basic green" value="Save Academic Plan" disabled={false} inputRef={undefined}/>
+          <LongTextField name="description" />
+          <SubmitField className="basic green" value="Save Academic Plan" disabled={false} inputRef={undefined} />
         </AutoForm>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Grid stackable={true} style={paddingTopStyle}>
+          <Grid stackable style={paddingTopStyle}>
             <Grid.Column width={10}>
-              <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList}/>
+              <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTerm} choiceList={choiceList} />
             </Grid.Column>
             <Grid.Column width={6}>
-              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice}/>
+              <AdvisorAPBPlanChoiceWidget choices={this.props.choices} combineChoice={this.state.combineChoice} />
             </Grid.Column>
           </Grid>
         </DragDropContext>
-        <Confirm open={this.state.showConfirmAdd} onCancel={this.handleCancelAdd} onConfirm={this.handleConfirmAdd}
-                 confirmButton='Add Choice'
-                 header="Add Plan Choice?" content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}/>
-        <Confirm open={this.state.showConfirmDelete} onCancel={this.handleCancelDelete}
-                 onConfirm={this.handleConfirmDelete}
-                 confirmButton='Delete Choice'
-                 header="Delete Plan Choice?"
-                 content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}/>
-        <Confirm open={this.state.showConfirmCombine} cancelButton='Simple Combine' confirmButton='Compound Combine'
-                 header='Simple or Compound Combine?' onCancel={this.handleSimpleCombine}
-                 onConfirm={this.handleCompoundCombine}
-                 content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}/>
+        <Confirm
+          open={this.state.showConfirmAdd}
+          onCancel={this.handleCancelAdd}
+          onConfirm={this.handleConfirmAdd}
+          confirmButton="Add Choice"
+          header="Add Plan Choice?"
+          content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}
+        />
+        <Confirm
+          open={this.state.showConfirmDelete}
+          onCancel={this.handleCancelDelete}
+          onConfirm={this.handleConfirmDelete}
+          confirmButton="Delete Choice"
+          header="Delete Plan Choice?"
+          content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}
+        />
+        <Confirm
+          open={this.state.showConfirmCombine}
+          cancelButton="Simple Combine"
+          confirmButton="Compound Combine"
+          header="Simple or Compound Combine?"
+          onCancel={this.handleSimpleCombine}
+          onConfirm={this.handleCompoundCombine}
+          content={`Do a simple combine ${this.state.combineLeftSide},${this.state.combineRightSide} or a compound combine (${this.state.combineLeftSide}),(${this.state.combineRightSide})?`}
+        />
       </Segment>
     );
   }

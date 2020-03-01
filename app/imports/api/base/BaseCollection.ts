@@ -1,10 +1,10 @@
 import { Roles } from 'meteor/alanning:roles';
 import { check } from 'meteor/check';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
-import { IDumpOne } from '../../typings/radgrad'; // eslint-disable-line
+import { IDumpOne } from '../../typings/radgrad';
 
 /**
  * BaseCollection is an abstract superclass of all RadGrad data model entities.
@@ -88,6 +88,9 @@ class BaseCollection {
    * @throws { Meteor.Error } If the document cannot be found.
    */
   public findDoc(name: string | object | { name } | { _id: string; } | { username: string; }) {
+    if (_.isNull(name) || _.isUndefined(name)) {
+      throw new Meteor.Error(`${name} is not a defined ${this.type}`);
+    }
     const doc = (
       this.collection.findOne(name) ||
       this.collection.findOne({ name }) ||
@@ -255,7 +258,7 @@ class BaseCollection {
    * Returns a string representing all of the documents in this collection.
    * @returns {String}
    */
-  public toString(...rest: any[]): string { // eslint-disable-line no-unused-vars
+  public toString(...rest: any[]): string {
     return this.collection.find().fetch().toString();
   }
 

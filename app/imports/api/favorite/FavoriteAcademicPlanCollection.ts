@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../base/BaseCollection';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IDumpOne, IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radgrad';
 
 class FavoriteAcademicPlanCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -83,7 +83,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
   publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (!studentID) {
           return this.ready();
         }

@@ -1,17 +1,21 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerMenu from '../../components/shared/ExplorerMenu';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
-  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
+  IInterest,
+  IOpportunity,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -34,7 +38,7 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -81,13 +85,13 @@ const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
   switch (role) {
     case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget/>;
+      return <StudentPageMenuWidget />;
     case URL_ROLES.MENTOR:
-      return <MentorPageMenuWidget/>;
+      return <MentorPageMenuWidget />;
     case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget/>;
+      return <FacultyPageMenuWidget />;
     default:
-      return <React.Fragment/>;
+      return <React.Fragment />;
   }
 };
 
@@ -179,7 +183,7 @@ const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
-  console.log(courseSlugName, theCourse);
+  // console.log(courseSlugName, theCourse);
   return theCourse;
 };
 
@@ -409,7 +413,7 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
 
 const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): object[] => {
   const type = Router.getUrlParam(props.match, 2);
-  // console.log(item);
+  // console.log(item, type);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return descriptionPairsPlans(item as IAcademicPlan);
@@ -422,7 +426,7 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return descriptionPairsOpportunities(Opportunities.findDoc(item.opportunityID));
+      return descriptionPairsOpportunities(item as IOpportunity);
     case EXPLORER_TYPE.USERS: // do nothing
       return undefined;
     default:
@@ -461,53 +465,71 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
     <React.Fragment>
       {menuWidget}
 
-      <Grid container={true} stackable={true}>
+      <Grid container stackable>
         <Grid.Column width={3}>
-          <ExplorerMenu menuAddedList={addedList}
-                        menuCareerList={isTypeInterests && careerList ? careerList : undefined}
-                        type={type} role={role}/>
+          <ExplorerMenu
+            menuAddedList={addedList}
+            menuCareerList={isTypeInterests && careerList ? careerList : undefined}
+            type={type}
+            role={role}
+          />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {
             type === EXPLORER_TYPE.ACADEMICPLANS ?
-              <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item}/>
+              <ExplorerPlansWidget name={name} descriptionPairs={descriptionPairs} item={item} />
               : ''
           }
           {
-            type === EXPLORER_TYPE.CAREERGOALS ?
-              <ExplorerCareerGoalsWidget name={name} descriptionPairs={descriptionPairs} item={item}
-                                         socialPairs={isTypeCareerGoals && socialPairs ? socialPairs : undefined}/>
+            type === EXPLORER_TYPE.CAREERGOALS ? (
+              <ExplorerCareerGoalsWidget
+                name={name}
+                descriptionPairs={descriptionPairs}
+                item={item}
+                socialPairs={isTypeCareerGoals && socialPairs ? socialPairs : undefined}
+              />
+            )
               : ''
           }
           {
-            type === EXPLORER_TYPE.COURSES ?
-              <ExplorerCoursesWidget name={name} shortName={isTypeCourses && shortName ? shortName : undefined}
-                                     descriptionPairs={descriptionPairs} item={item}
-                                     completed={(isTypeCourses && isCourseCompleted(props) !== undefined) ? isCourseCompleted(props) : undefined}/>
+            type === EXPLORER_TYPE.COURSES ? (
+              <ExplorerCoursesWidget
+                name={name}
+                shortName={isTypeCourses && shortName ? shortName : undefined}
+                descriptionPairs={descriptionPairs}
+                item={item}
+                completed={(isTypeCourses && isCourseCompleted(props) !== undefined) ? isCourseCompleted(props) : undefined}
+              />
+            )
               : ''
           }
           {
             type === EXPLORER_TYPE.DEGREES ?
-              <ExplorerDegreesWidget name={name} descriptionPairs={descriptionPairs}/>
+              <ExplorerDegreesWidget name={name} descriptionPairs={descriptionPairs} />
               : ''
           }
           {
             type === EXPLORER_TYPE.INTERESTS ?
-              <ExplorerInterestsWidget/>
+              <ExplorerInterestsWidget />
               : ''
           }
           {
-            type === EXPLORER_TYPE.OPPORTUNITIES ?
-              <ExplorerOpportunitiesWidget name={name} descriptionPairs={descriptionPairs} item={item}
-                                           completed={(isTypeOpportunities && isOpportunityCompleted(props) !== undefined) ? isOpportunityCompleted(props) : undefined}
-                                           role={role}/>
+            type === EXPLORER_TYPE.OPPORTUNITIES ? (
+              <ExplorerOpportunitiesWidget
+                name={name}
+                descriptionPairs={descriptionPairs}
+                item={item}
+                completed={(isTypeOpportunities && isOpportunityCompleted(props) !== undefined) ? isOpportunityCompleted(props) : undefined}
+                role={role}
+              />
+            )
               : ''
           }
         </Grid.Column>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </React.Fragment>
   );
 };

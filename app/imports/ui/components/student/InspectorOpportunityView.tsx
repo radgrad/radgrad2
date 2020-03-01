@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import IceHeader from '../shared/IceHeader';
@@ -18,7 +18,7 @@ import { termIDsToString } from '../../../api/academic-term/AcademicTermUtilitie
 import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
 import * as Router from '../shared/RouterHelperFunctions';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
@@ -53,8 +53,8 @@ const handleVRClick = (props: IInspectorOpportunityViewProps) => (event, { value
     student,
     opportunityInstance: oi._id,
   };
-  const inst = this;
-  console.log(inst.props);
+  // const inst = this;
+  // console.log(inst.props);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
       console.error('Error requesting verification', error);
@@ -64,7 +64,7 @@ const handleVRClick = (props: IInspectorOpportunityViewProps) => (event, { value
 
 const handleRemoveClick = (props: IInspectorOpportunityViewProps) => (event, { value }) => {
   event.preventDefault();
-  console.log(`Remove OI ${value}`);
+  // console.log(`Remove OI ${value}`);
   const oi = OpportunityInstances.findDoc(value);
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
@@ -114,15 +114,39 @@ const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
   const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/opportunities/${opportunitySlug}`;
   // console.log('instance %o', opportunityInstance);
   return (
-    <Container fluid={true} style={paddingStyle}>
-      <Header as="h4" dividing={true}>{opportunity.num} {opportunity.name} <IceHeader
-        ice={opportunity.ice}/></Header>
+    <Container fluid style={paddingStyle}>
+      <Header as="h4" dividing>
+        {opportunity.num}
+        {' '}
+        {opportunity.name}
+        {' '}
+        <IceHeader
+          ice={opportunity.ice}
+        />
+      </Header>
       {plannedOpportunity ?
-        <Button floated="right" basic={true} color="green" onClick={handleRemoveClick(props)} // eslint-disable-line
-                size="tiny" value={opportunityInstance._id}>remove</Button> : (pastOpportunity ?
-          <Button floated="right" basic={true} color="green"
-                  size="tiny">taken</Button> :
-          <Droppable droppableId={'inspecto-opportunity'}>
+        (
+          <Button
+            floated="right"
+            basic
+            color="green"
+            onClick={handleRemoveClick(props)}
+            size="tiny"
+            value={opportunityInstance._id}
+          >
+            remove
+          </Button>
+        ) : (pastOpportunity ? (
+          <Button
+            floated="right"
+            basic
+            color="green"
+            size="tiny"
+          >
+            taken
+          </Button>
+        ) : (
+          <Droppable droppableId="inspecto-opportunity">
             {(provided) => (
               <div
                 ref={provided.innerRef}
@@ -138,43 +162,71 @@ const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
                         prov.draggableProps.style,
                       )}
                     >
-                      <NamePill name={opportunityName}/>
+                      <NamePill name={opportunityName} />
                     </div>
                   )}
                 </Draggable>
-              </div>)}
-          </Droppable>)}
+              </div>
+            )}
+          </Droppable>
+        ))}
 
-      <b>When: {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}</b>
+      <b>
+        When:
+        {opportunityInstance ? AcademicTerms.toString(opportunityInstance.termID) : termIDsToString(opportunity.termIDs)}
+      </b>
       <p><b>Description:</b></p>
-      <Markdown escapeHtml={true} source={opportunity.description}
-                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-      <p/>
+      <Markdown
+        escapeHtml
+        source={opportunity.description}
+        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+      />
+      <p />
       <p><b>Interests:</b></p>
-      <UserInterestList userID={props.studentID} interestIDs={opportunity.interestIDs}/>
-      <p/>
-      <a href={baseRoute}>View in Explorer <Icon name="arrow right"/></a>
-      <p/>
-      {(pastOpportunity) ? (!hasRequest ? ( // eslint-disable-line
+      <UserInterestList userID={props.studentID} interestIDs={opportunity.interestIDs} />
+      <p />
+      <a href={baseRoute}>
+        View in Explorer
+        <Icon name="arrow right" />
+      </a>
+      <p />
+      {(pastOpportunity) ? (!hasRequest ? (
         <div>
-          <Header dividing={true}/>
-          <Button basic={true} color="green" size="tiny" onClick={handleVRClick(props)} value={opportunityInstance._id}>Request
-            Verification</Button>
+          <Header dividing />
+          <Button basic color="green" size="tiny" onClick={handleVRClick(props)} value={opportunityInstance._id}>
+            Request
+            Verification
+          </Button>
         </div>
       ) : (
         <div>
-          <Header as="h4" textAlign="center" dividing={true}>REQUEST STATUS</Header>
-          <strong>Date Submitted:</strong> {whenSubmitted} <br/>
-          <strong>Status: </strong>{requestStatus}
+          <Header as="h4" textAlign="center" dividing>REQUEST STATUS</Header>
+          <strong>Date Submitted:</strong>
+          {' '}
+          {whenSubmitted}
+          {' '}
+          <br />
+          <strong>Status: </strong>
+          {requestStatus}
           {_.map(requestHistory, (processed, index) => (
             <p key={index}>
-                <span>Processed: {moment(processed.date).calendar()} by {processed.verifier}
-                  ({processed.status}) <em>{processed.feedback}</em></span><br/>
+              <span>
+                Processed:
+                {moment(processed.date).calendar()}
+                {' '}
+                by
+                {processed.verifier}
+                (
+                {processed.status}
+                )
+                {' '}
+                <em>{processed.feedback}</em>
+              </span>
+              <br />
             </p>
           ))}
         </div>
-      )) : ''
-      }
+      )) : ''}
     </Container>
   );
 };

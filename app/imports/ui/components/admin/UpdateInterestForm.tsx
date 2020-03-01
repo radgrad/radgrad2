@@ -1,19 +1,14 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { docToName } from '../shared/data-model-helper-functions';
-import { IInterestType } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IInterestType } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IUpdateInterestFormProps {
   interestTypes: IInterestType[];
@@ -43,18 +38,28 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>
+        Update
+        {props.collection.getType()}
+        :
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <TextField name="slug" disabled={true}/>
-          <TextField name="name"/>
-          <SelectField name="interestType"/>
+          <TextField name="slug" disabled />
+          <TextField name="name" />
+          <SelectField name="interestType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
       </AutoForm>
     </Segment>
   );

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -61,11 +61,11 @@ const itemTitleString = (item: any): string => `(${Slugs.getNameFromID(item.slug
  * @param item an item from the collection.
  */
 const itemTitle = (item: any): React.ReactNode => (
-    <React.Fragment>
-      {item.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {itemTitleString(item)}
-    </React.Fragment>
+  <React.Fragment>
+    {item.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
+    {itemTitleString(item)}
+  </React.Fragment>
   );
 
 class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageState> {
@@ -154,7 +154,7 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-    console.log(collectionName, updateData);
+    // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -184,35 +184,41 @@ class AdminDataModelReviewsPage extends React.Component<{}, IAdminDataModelPageS
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateReviewForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <UpdateReviewForm
+                collection={collection}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddReviewForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddReviewForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Review?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Review?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

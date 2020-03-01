@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -54,9 +54,11 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
         <Grid.Column width={6}>
           <Form onSubmit={this.handleUpdateWebsite}>
             <Form.Group>
-              <Form.Input onChange={this.handleFormChange}
-                          value={website}/>
-              <Form.Button basic={true} color="green"> Update</Form.Button>
+              <Form.Input
+                onChange={this.handleFormChange}
+                value={website}
+              />
+              <Form.Button basic color="green"> Update</Form.Button>
             </Form.Group>
           </Form>
         </Grid.Column>

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from '../shared/RouterHelperFunctions';
@@ -49,15 +49,18 @@ const StudentFeedItem = (props: IStudentFeedItemProps) => {
     <React.Fragment>
       <Feed.Event>
         <Feed.Label>
-          <Image src={feed.picture}/>
+          <Image src={feed.picture} />
         </Feed.Label>
         <Feed.Content style={{ marginTop: '0px' }}>
           <Feed.Summary>
-            <Markdown escapeHtml={true} source={feed.description}
-                      renderers={{ link: (localProps) => renderLink(localProps, match) }}/>
+            <Markdown
+              escapeHtml
+              source={feed.description}
+              renderers={{ link: (localProps) => renderLink(localProps, match) }}
+            />
           </Feed.Summary>
 
-          <Feed.Extra text={true}>
+          <Feed.Extra text>
             <Feed.Date style={{ marginTop: '0px' }}>
               {feedTimestamp(feed)}
             </Feed.Date>

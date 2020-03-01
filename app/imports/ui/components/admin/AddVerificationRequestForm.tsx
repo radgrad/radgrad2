@@ -1,13 +1,10 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import SimpleSchema from 'simpl-schema';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import { IAcademicTerm, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { IAcademicTerm, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -36,7 +33,7 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
   const opportunityInstanceNames = _.map(props.opportunityInstances, opportunityInstanceToName);
   const studentNames = _.map(props.students, profileToName);
   const schema = new SimpleSchema({
-    student: { type: String, allowedValues: studentNames },
+    student: { type: String, allowedValues: studentNames, optional: true },
     status: {
       type: String,
       optional: true,
@@ -48,20 +45,20 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Verification Request</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Verification Request</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="student" placeholder="Choose the student"/>
-          <SelectField name="status" placeholder="Choose the status"/>
+          <SelectField name="student" placeholder="Choose the student" />
+          <SelectField name="status" placeholder="Choose the status" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityInstance"/>
-          <SelectField name="opportunity"/>
-          <SelectField name="academicTerm"/>
+          <SelectField name="opportunityInstance" />
+          <SelectField name="opportunity" />
+          <SelectField name="academicTerm" />
         </Form.Group>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

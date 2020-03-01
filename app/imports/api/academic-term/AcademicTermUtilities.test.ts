@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import {} from 'mocha';
+import 'mocha';
 import { defineAcademicTerms, nextAcademicTerm, upComingTerms } from './AcademicTermUtilities';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { AcademicTerms } from './AcademicTermCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -19,18 +20,24 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#nextAcademicTerm', function test() {
+    it('Can get nextAcademicTerm', function test1() {
       const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
       const next = nextAcademicTerm(currentAcademicTerm);
       expect(next.termNumber).to.equal(currentAcademicTerm.termNumber + 1);
     });
 
-    it('#upComingTerms', function test() {
+    it('Can get upComingTerms', function test2() {
+      let termCount;
+      if (RadGradProperties.getQuarterSystem()) {
+        termCount = 20;
+      } else {
+        termCount = 15;
+      }
       const count = AcademicTerms.find({}).count();
-      expect(count).to.be.equal(18);
+      expect(count).to.be.equal(termCount);
       const upComing = upComingTerms();
       // console.log(upComing);
-      expect(upComing.length).to.be.equal(9); // TODO This will change over time unless we change defineAcademicTerms.
+      expect(upComing.length).to.be.equal(9);
     });
   });
 }

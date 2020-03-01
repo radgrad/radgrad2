@@ -1,14 +1,11 @@
-import * as moment from 'moment';
+import faker from 'faker';
 import { CareerGoals } from './CareerGoalCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 
-export const sampleCareerGoalName = 'Sample Career Goal';
-
 export function makeSampleCareerGoal() {
-  const name = sampleCareerGoalName;
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const slug = `career-goal-${uniqueString}`;
-  const description = 'Sample career goal description';
+  const name = faker.lorem.word();
+  const slug = `career-goal-${name}`;
+  const description = faker.lorem.paragraph();
   const interests = [makeSampleInterest()];
   return CareerGoals.define({ name, slug, description, interests });
 }

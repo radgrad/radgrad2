@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -19,7 +19,8 @@ export function getSlug(item: { slugID: string; }) {
   try {
     return Slugs.getNameFromID(item.slugID);
   } catch (e) {
-    console.log(e, item.slugID);
+    // console.log('helper-functions.getSlug', e, item);
+    // console.trace();
     return '';
   }
 }

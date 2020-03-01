@@ -1,16 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
-import { IAcademicTerm, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import _ from 'lodash';
+import { ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 import {
   docToName,
   interestIdToName, itemToSlugName,
@@ -68,26 +63,36 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
-      <AutoForm schema={schema} onSubmit={props.handleUpdate} ref={props.formRef}
-                showInlineError={true} model={model}>
+    <Segment padded>
+      <Header dividing>
+        Update
+        {props.collection.getType()}
+        :
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
         <Form.Group widths="equal">
-          <TextField name="title"/>
-          <TextField name="slug" disabled={true}/>
-          <TextField name="author"/>
+          <TextField name="title" />
+          <TextField name="slug" disabled />
+          <TextField name="author" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="targetSlug"/>
-          <TextField name="youtubeID"/>
-          <TextField name="duration"/>
+          <SelectField name="targetSlug" />
+          <TextField name="youtubeID" />
+          <TextField name="duration" />
         </Form.Group>
-        <LongTextField name="description"/>
+        <LongTextField name="description" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests"/>
+          <MultiSelectField name="interests" />
         </Form.Group>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
-import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IHelpDefine, IHelpUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a Help message for a RadGrad page.
@@ -41,6 +41,10 @@ class HelpMessageCollection extends BaseCollection {
    * @return {any} the ID of the help.
    */
   public define({ routeName, title, text, retired = false }: IHelpDefine): string {
+    const doc = this.collection.findOne({ routeName, title, text, retired });
+    if (doc) {
+      return doc._id;
+    }
     return this.collection.insert({ routeName, title, text, retired });
   }
 

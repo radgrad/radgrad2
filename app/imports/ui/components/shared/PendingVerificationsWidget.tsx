@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Segment, Header, Grid, Container, Form } from 'semantic-ui-react';
-import * as moment from 'moment';
+import moment from 'moment';
 /* eslint-disable no-unused-vars */
 import {
   IAcademicTerm,
@@ -58,6 +58,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
   }
 
   handleChange = (e, { index, value }) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const fields = this.state.feedback;
     fields[index] = value;
     this.setState({ feedback: fields });
@@ -70,6 +71,7 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
         updateLevelMethod.call({ studentID: student.userID }, err => {
           if (err) { console.error((`Error updating ${student._id} level ${err.message}`)); }
         });
+        // eslint-disable-next-line react/no-access-state-in-setstate
         const fields = this.state.feedback;
         fields[index] = '';
         this.setState({ feedback: fields });
@@ -81,46 +83,86 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
     const { feedback } = this.state;
     return (
       <Segment>
-        <Header as={'h4'} dividing content={'PENDING VERIFICATION REQUESTS'}/>
+        <Header as="h4" dividing content="PENDING VERIFICATION REQUESTS" />
         <Container fluid={false} style={{ paddingBottom: '14px' }}>
-          {this.props.pendingVerifications.map((ele: IVerificationRequest, i) => <Grid key={i}>
-            <Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
-              <Header as={'h3'}>{this.buildHeaderString(ele)}</Header>
-            </Grid.Row>
-            <Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-              <Grid.Column>
-                Student: {this.studentProfile(ele).firstName} {this.cachedStudent.lastName}<br/>
-                Sponsor: {this.sponsorProfile(ele).firstName} {this.cachedSponsor.lastName}<br/>
-                <Form style={ { paddingTop: '14px' } }>
-                  <Form.Input placeholder={'Optional feedback'}
-                              index={i}
-                              onChange={this.handleChange}
-                              value={feedback[i] || ''}/>
-                  <Form.Group inline>
-                    <Form.Button basic compact color={'green'} content={'Accept'} type={'submit'}
-                                 index={i}
-                                 command={VerificationRequests.ACCEPTED}
-                                 onClick={this.handleForm}
-                                 student={this.cachedStudent}
-                                 id={ele._id}/>
-                    <Form.Button basic compact color={'red'} content={'Decline'} type={'submit'}
-                                 index={i}
-                                 command={VerificationRequests.REJECTED}
-                                 onClick={this.handleForm}
-                                 student={this.cachedStudent}
-                                 id={ele._id}/>
-                  </Form.Group>
-                </Form>
-              </Grid.Column>
-              <Grid.Column>
-                {`Submitted: ${moment(ele.submittedOn).calendar()}`}<br/>
-                {ele.processed.map((elem: IProcessed, ind) => <React.Fragment key={ind}>
-                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}{elem.feedback ? `, ${elem.feedback}` : ''})
-                  <br/>
-                </React.Fragment>)}
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>)}
+          {this.props.pendingVerifications.map((ele: IVerificationRequest, i) => (
+            <Grid key={ele._id}>
+              <Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
+                <Header as="h3">{this.buildHeaderString(ele)}</Header>
+              </Grid.Row>
+              <Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                <Grid.Column>
+                  Student:
+                  {' '}
+                  {this.studentProfile(ele).firstName}
+                  {' '}
+                  {this.cachedStudent.lastName}
+                  <br />
+                  Sponsor:
+                  {' '}
+                  {this.sponsorProfile(ele).firstName}
+                  {' '}
+                  {this.cachedSponsor.lastName}
+                  <br />
+                  <Form style={{ paddingTop: '14px' }}>
+                    <Form.Input
+                      placeholder="Optional feedback"
+                      index={i}
+                      onChange={this.handleChange}
+                      value={feedback[i] || ''}
+                    />
+                    <Form.Group inline>
+                      <Form.Button
+                        basic
+                        compact
+                        color="green"
+                        content="Accept"
+                        type="submit"
+                        index={i}
+                        command={VerificationRequests.ACCEPTED}
+                        onClick={this.handleForm}
+                        student={this.cachedStudent}
+                        id={ele._id}
+                      />
+                      <Form.Button
+                        basic
+                        compact
+                        color="red"
+                        content="Decline"
+                        type="submit"
+                        index={i}
+                        command={VerificationRequests.REJECTED}
+                        onClick={this.handleForm}
+                        student={this.cachedStudent}
+                        id={ele._id}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Grid.Column>
+                <Grid.Column>
+                  {`Submitted: ${moment(ele.submittedOn).calendar()}`}
+                  <br />
+                  {ele.processed.map((elem: IProcessed, ind) => (
+                    <React.Fragment key={elem.verifier}>
+                      Processed:
+                      {' '}
+                      {moment(elem.date).calendar()}
+                      {' '}
+                      by
+                      {' '}
+                      {elem.verifier}
+                      {' '}
+                      (
+                      {elem.status}
+                      {elem.feedback ? `, ${elem.feedback}` : ''}
+                      )
+                      <br />
+                    </React.Fragment>
+))}
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+))}
           {this.props.pendingVerifications.length < 1 && <i>No pending requests.</i>}
         </Container>
       </Segment>

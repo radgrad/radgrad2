@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 /**
  * Strips of the counter for the plan choice. The counter is used in academic plans to keep track of how many
- * choices there are (e.g. five ics400+ in the B.S. degree).
+ * choices there are (e.g. five ics_400+ in the B.S. degree).
  * @param planChoice the plan choice.
  * @returns {*}
  * @memberOf api/degree-plan
@@ -53,7 +53,7 @@ export function isSimpleChoice(planChoice: string) {
 }
 
 /**
- * Returns true if the plan choice includes a sub-choice (e.g. '(ics313,ics331),ics355-1' )
+ * Returns true if the plan choice includes a sub-choice (e.g. '(ics_313,ics_331),ics_355-1' )
  * @param planChoice the plan choice.
  * @returns {boolean}
  * @memberOf api/degree-plan
@@ -114,7 +114,7 @@ export function buildCourseSlugName(slug: string) {
  * @memberOf api/degree-plan
  */
 export function buildSimpleName(slug: string) {
-  const splits = slug.split(',');
+  const splits = stripCounter(slug).split(',');
   let ret = '';
   _.forEach(splits, (s) => {
     ret = `${ret}${buildCourseSlugName(s)} or `;
@@ -144,7 +144,7 @@ export function getDepartment(courseSlug: string) {
  * @memberOf api/degree-plan
  */
 export function getDepartments(planChoice: string) {
-  const choices = planChoice.split(',');
+  const choices = complexChoiceToArray(planChoice);
   const ret = [];
   _.forEach(choices, (c) => {
     const dept = getDepartment(c);
@@ -164,13 +164,14 @@ export function getDepartments(planChoice: string) {
  */
 function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
   const dept = getDepartment(planChoice);
+  const stripped = stripCounter(planChoice);
   if (planChoice.includes('300+')) {
     return courseSlug.startsWith(`${dept}_3`) || courseSlug.startsWith(`${dept}_4`);
   }
   if (planChoice.includes('400+')) {
     return courseSlug.startsWith(`${dept}_4`);
   }
-  return planChoice.indexOf(courseSlug) !== -1;
+  return planChoice.indexOf(courseSlug) !== -1 && stripped.length === courseSlug.length;
 }
 
 /**
@@ -181,7 +182,7 @@ function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
  * @memberOf api/degree-plan
  */
 export function satisfiesPlanChoice(planChoice: string, courseSlug: string) {
-  const singleChoices = planChoice.split(',');
+  const singleChoices = complexChoiceToArray(planChoice);
   let ret = false;
   _.forEach(singleChoices, (choice) => {
     if (satisfiesSinglePlanChoice(choice, courseSlug)) {

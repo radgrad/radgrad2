@@ -1,12 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import StudentFeedItem from './StudentFeedItem';
 import { studentFeedWidget } from './student-widget-names';
+import { IFeed } from '../../../typings/radgrad';
 
 interface IStudentFeedWidgetProps {
-  feeds: object[];
+  feeds: IFeed[];
 }
 
 const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
@@ -18,18 +19,19 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
 
   return (
     <Container id={`${studentFeedWidget}`}>
-      <Segment padded={true}>
-        <Header dividing={true}>RADGRAD COMMUNITY ACTIVITY</Header>
+      <Segment padded>
+        <Header dividing>RADGRAD COMMUNITY ACTIVITY</Header>
         {
-          props.feeds ?
+          props.feeds ? (
             <Feed style={feedStyle}>
               {props.feeds.map((feed, index) => (
-                <React.Fragment key={index}>
-                  <StudentFeedItem feed={feed}/>
-                  <Divider/>
+                <React.Fragment key={feed._id}>
+                  <StudentFeedItem feed={feed} />
+                  <Divider />
                 </React.Fragment>
               ))}
             </Feed>
+          )
             :
             <p>No recent feeds.</p>
         }

@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -12,7 +12,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
-import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad'; // eslint-disable-line
+import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".
@@ -214,16 +214,6 @@ class OpportunityCollection extends BaseSlugCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return OpportunityTypes.findDoc(instance.opportunityTypeID);
-  }
-
-  /**
-   * Returns the slug for the given opportunity ID.
-   * @param opportunityID the opportunity ID.
-   */
-  public getSlug(opportunityID: string) {
-    this.assertDefined(opportunityID);
-    const courseDoc = this.findDoc(opportunityID);
-    return Slugs.findDoc(courseDoc.slugID).name;
   }
 
   /**

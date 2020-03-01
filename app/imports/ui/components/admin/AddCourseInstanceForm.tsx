@@ -1,13 +1,10 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourse, IStudentProfile } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -54,19 +51,19 @@ const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps): React.ReactE
   });
   // console.log(termNames, courseNames, studentNames);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Course Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Course Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term"/>
-          <SelectField name="course"/>
+          <SelectField name="term" />
+          <SelectField name="course" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="student"/>
-          <NumField name="creditHours"/>
-          <SelectField name="grade"/>
+          <SelectField name="student" />
+          <NumField name="creditHours" />
+          <SelectField name="grade" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

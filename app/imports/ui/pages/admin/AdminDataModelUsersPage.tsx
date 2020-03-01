@@ -1,21 +1,22 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAdminDataModelPageState, // eslint-disable-line no-unused-vars
-  IAdvisorProfile, // eslint-disable-line no-unused-vars
-  IBaseProfile, // eslint-disable-line no-unused-vars
-  ICombinedProfileDefine, // eslint-disable-line no-unused-vars
-  IFacultyProfile, // eslint-disable-line no-unused-vars
-  IFavoriteAcademicPlan, // eslint-disable-line no-unused-vars
-  IFavoriteCareerGoal, IFavoriteInterest, // eslint-disable-line no-unused-vars
-  IMentorProfile, // eslint-disable-line no-unused-vars
-  IStudentProfile, // eslint-disable-line no-unused-vars
+  IAdminDataModelPageState,
+  IAdvisorProfile,
+  IBaseProfile,
+  ICombinedProfileDefine,
+  IFacultyProfile,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal, IFavoriteInterest,
+  IMentorProfile,
+  IStudentProfile,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -39,12 +40,13 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { ReduxState } from '../../../redux/store'; // eslint-disable-line no-unused-vars
+import { ReduxTypes } from '../../../redux';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface IAdminDataModelUsersPageProps {
+  admins: IBaseProfile[];
   advisors: IAdvisorProfile[];
   faculty: IFacultyProfile[];
   mentors: IMentorProfile[];
@@ -56,28 +58,30 @@ interface IAdminDataModelUsersPageProps {
   favoriteInterests: IFavoriteInterest[];
 }
 
-const descriptionPairs = (user: IBaseProfile) => {
+const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseProfile) => {
   const pairs = [];
   pairs.push({ label: 'Username', value: user.username });
   pairs.push({ label: 'Name', value: `${user.firstName}  ${user.lastName}` });
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
+  const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, (fav) => fav.userID === user.userID);
+  // const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
   const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
+  const favoriteInterests = _.filter(props.favoriteInterests, (fav) => fav.userID === user.userID);
+  // const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
   const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
-    const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
+    const favoritePlans = _.filter(props.favoriteAcademicPlans, (fav) => fav.studentID === user.userID);
+    // const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
     const planNames = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID).name);
     pairs.push({
       label: 'Degree',
       value: (planNames.length > 0) ? planNames.join(', ') : '',
     });
-    // eslint-disable-next-line
     pairs.push({
       label: 'Declared Semester',
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
@@ -103,13 +107,13 @@ const itemTitleString = (user: IBaseProfile): string => {
 
 const itemTitle = (user: IBaseProfile): React.ReactNode => (
   <React.Fragment>
-    {user.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {user.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(user)}
   </React.Fragment>
 );
 
-const mapStateToProps = (state: ReduxState): object => ({
+const mapStateToProps = (state: ReduxTypes.State): object => ({
   isCloudinaryUsed: state.shared.cloudinary.adminDataModelUsers.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
@@ -121,6 +125,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     super(props);
     this.state = { showUpdateForm: false, id: '', confirmOpen: false };
     this.formRef = React.createRef();
+    // console.log('AdminDataModelUsersPage ', props);
   }
 
   private handleAdd = (doc: ICombinedProfileDefine) => {
@@ -229,7 +234,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
   };
 
   private handleUpdate = (doc) => {
-    console.log('UsersPage.handleUpdate(%o)', doc);
+    // console.log('UsersPage.handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     let collectionName;
@@ -244,6 +249,9 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     }
     if (AdvisorProfiles.isDefined(updateData.id)) {
       collectionName = AdvisorProfiles.getCollectionName();
+    }
+    if (AdminProfiles.isDefined(updateData.id)) {
+      collectionName = AdminProfiles.getCollectionName();
     }
     updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
@@ -281,70 +289,113 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     };
     const panes = [
       {
+        menuItem: `Admins (${this.props.admins.length})`, render: () => (
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={AdminProfiles}
+              descriptionPairs={descriptionPairs(this.props)}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+        ),
+      },
+      {
         menuItem: `Advisors (${this.props.advisors.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={AdvisorProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={AdvisorProfiles}
+              descriptionPairs={descriptionPairs(this.props)}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
       {
         menuItem: `Faculty (${this.props.faculty.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={FacultyProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={FacultyProfiles}
+              descriptionPairs={descriptionPairs(this.props)}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
       {
         menuItem: `Mentors (${this.props.mentors.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={MentorProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={MentorProfiles}
+              descriptionPairs={descriptionPairs(this.props)}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
       {
         menuItem: `Students (${this.props.students.length})`, render: () => (
-          <Tab.Pane><ListCollectionWidget collection={StudentProfiles}
-                                          descriptionPairs={descriptionPairs}
-                                          itemTitle={itemTitle}
-                                          handleOpenUpdate={this.handleOpenUpdate}
-                                          handleDelete={this.handleDelete}
-                                          setShowIndex={dataModelActions.setCollectionShowIndex}
-                                          setShowCount={dataModelActions.setCollectionShowCount}/></Tab.Pane>),
+          <Tab.Pane>
+            <ListCollectionWidget
+              collection={StudentProfiles}
+              descriptionPairs={descriptionPairs(this.props)}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
+            />
+          </Tab.Pane>
+),
       },
     ];
     return (
       <div className="layout-page">
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateUserForm id={this.state.id} formRef={this.formRef}
-                              handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                              itemTitleString={itemTitleString}/>
+              <UpdateUserForm
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <Tab panes={panes} defaultActiveIndex={3}/>
+            <Tab panes={panes} defaultActiveIndex={4} />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
-                 header="Delete User?"/>
+        <Confirm
+          open={this.state.confirmOpen}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirmDelete}
+          header="Delete User?"
+        />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }
@@ -352,6 +403,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
 
 const AdminDataModelUsersPageCon = connect(mapStateToProps, null)(AdminDataModelUsersPage);
 export default withTracker(() => {
+  const admins = AdminProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const mentors = MentorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
@@ -360,6 +412,7 @@ export default withTracker(() => {
   const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
   const favoriteInterests = FavoriteInterests.find().fetch();
   return {
+    admins,
     advisors,
     faculty,
     mentors,

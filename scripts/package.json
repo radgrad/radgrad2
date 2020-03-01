@@ -20,7 +20,7 @@
     "eslint-plugin-meteor": "^5.1.0",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-typescript": "^0.14.0",
-    "jsdoc": "^3.4.0"
+    "jsdoc": "^3.6.3"
   },
   "dependencies": {
     "@types/mocha": "^5.2.7",
@@ -34,8 +34,12 @@
     "moment": "^2.21.0",
     "node": "^12.5.0",
     "request": "^2.83.0",
+    "simpl-schema": "^1.5.5",
     "typescript": "^3.5.2",
     "typescript-eslint-parser": "^19.0.2",
-    "typescript-estree": "^1.1.0"
+    "typescript-estree": "^1.1.0",
+    "uniforms": "^2.2.0",
+    "uniforms-bridge-simple-schema-2": "^2.2.0",
+    "uniforms-semantic": "^2.2.0"
   }
 }

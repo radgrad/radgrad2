@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import SecondMenu from '../../pages/shared/SecondMenu';
 
@@ -12,8 +12,8 @@ const StudentPageMenuWidget = () => {
   ];
   return (
     <div style={divStyle}>
-      <FirstMenuContainer/>
-      <SecondMenu menuItems={menuItems} numItems={menuItems.length}/>
+      <FirstMenuContainer />
+      <SecondMenu menuItems={menuItems} numItems={menuItems.length} />
     </div>
   );
 };

@@ -1,9 +1,8 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
-// eslint-disable-next-line no-unused-vars
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -125,18 +124,21 @@ const ExplorerMenuMobileItem = (props: IExplorerMenuMobileItemProps) => {
   };
 
   return (
-    <Dropdown.Item as={NavLink} exact={true}
-                   to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
-                   text={(
-                     <React.Fragment>
-                       <i className={getItemStatus(listItem.item, props)} style={iconStyle}/>
-                       {
+    <Dropdown.Item
+      as={NavLink}
+      exact
+      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
+      text={(
+        <React.Fragment>
+          <i className={getItemStatus(listItem.item, props)} style={iconStyle} />
+          {
                          type !== EXPLORER_TYPE.COURSES ?
                            itemName(listItem)
                            : courseName(listItem as { item: ICourse, count: number })
                        }
-                     </React.Fragment>
-                   )}/>
+        </React.Fragment>
+                   )}
+    />
   );
 };
 

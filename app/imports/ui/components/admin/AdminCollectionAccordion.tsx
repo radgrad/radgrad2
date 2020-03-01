@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Button } from 'semantic-ui-react';
-import * as _ from 'lodash';
-import * as Markdown from 'react-markdown';
+import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDescriptionPair } from '../../../typings/radgrad';
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IAdminCollectionAccordionProps {
@@ -43,24 +43,49 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
   public render(): React.ReactNode {
     const { match } = this.props;
     return (
-      <Accordion fluid={true} styled={true}>
+      <Accordion fluid styled>
         <Accordion.Title active={this.state.active} onClick={this.handleClick}>
           {this.props.title}
         </Accordion.Title>
         <Accordion.Content active={this.state.active}>
           {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
-              <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? // eslint-disable-line
-              <Markdown escapeHtml={true} source={descriptionPair.value}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/> : typeof descriptionPair.value === 'undefined' ? ' ' :
-                <p>{descriptionPair.value.join(', ')}</p>}
+              <b>
+                {descriptionPair.label}
+                :
+              </b>
+              {' '}
+              {typeof descriptionPair.value === 'string' ? (
+                <Markdown
+                  escapeHtml
+                  source={descriptionPair.value}
+                  renderers={{ link: (props) => Router.renderLink(props, match) }}
+                />
+            ) : typeof descriptionPair.value === 'undefined' ? ' ' :
+            <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
           ))}
           <p>
-            <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.updateDisabled}
-                    onClick={this.props.handleOpenUpdate}>Update</Button>
-            <Button id={this.props.id} color="green" basic={true} size="mini" disabled={this.props.deleteDisabled}
-                    onClick={this.props.handleDelete}>Delete</Button>
+            <Button
+              id={this.props.id}
+              color="green"
+              basic
+              size="mini"
+              disabled={this.props.updateDisabled}
+              onClick={this.props.handleOpenUpdate}
+            >
+              Update
+            </Button>
+            <Button
+              id={this.props.id}
+              color="green"
+              basic
+              size="mini"
+              disabled={this.props.deleteDisabled}
+              onClick={this.props.handleDelete}
+            >
+              Delete
+            </Button>
           </p>
         </Accordion.Content>
       </Accordion>

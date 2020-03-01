@@ -1,10 +1,10 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
-import * as moment from 'moment';
+import moment from 'moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
-import { IIceSnapshotDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { IIceSnapshotDefine } from '../../typings/radgrad';
 
 function createSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -52,6 +52,7 @@ SyncedCron.add({
           IceSnapshots.getCollection().update({ username }, { $set: { i: ice.i, c: ice.c, e: ice.e, updated: moment().toDate() } });
           if ((iceSnap.i < 100) || (iceSnap.co < 100) || (iceSnap.e < 100)) {
             if ((ice.i > 100) && (ice.c > 100) && (ice.e > 100)) {
+              // @ts-ignore
               UserInteractions.define({ username, type: 'completePlan', typeData: [ice.i, ice.c, ice.e] });
             }
           }

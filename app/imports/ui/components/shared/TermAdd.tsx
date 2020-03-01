@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon, Menu, Popup } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { getUsername } from './RouterHelperFunctions';
 
 interface ITermAddProps {
@@ -96,36 +96,41 @@ const handleAddToPlan = (props: ITermAddProps) => (e) => {
 const TermAdd = (props: ITermAddProps) => (
   <React.Fragment>
     {
-      isTypeCourse(props) ?
+      isTypeCourse(props) ? (
         <Popup
           className="transition"
-          trigger={
+          trigger={(
             <Button>
-              <Icon name="plus"/><br/>Add to Plan
+              <Icon name="plus" />
+              <br />
+              Add to Plan
             </Button>
-          }
+          )}
           on="click"
         >
           <Popup.Content>
-            <Menu size="mini" secondary={true} vertical={true}>
+            <Menu size="mini" secondary vertical>
               {
-                nextYears(4).map((year, index) => (
-                  <React.Fragment key={index}>
+                nextYears(4).map((year) => (
+                  <React.Fragment key={year}>
                     <Popup
-                      trigger={
+                      trigger={(
                         <Menu.Item as="a" className="chooseSemester">
                           {year}
                         </Menu.Item>
-                      }
+                      )}
                       on="click"
                     >
                       <Popup.Content>
-                        <Menu size="mini" secondary={true} vertical={true}>
+                        <Menu size="mini" secondary vertical>
                           {
                             yearTerms(year).map((term) => (
-                              <Menu.Item as="a" className={`${props.item}`}
-                                         key={term}
-                                         onClick={handleAddToPlan(props)}>
+                              <Menu.Item
+                                as="a"
+                                className={`${props.item}`}
+                                key={term}
+                                onClick={handleAddToPlan(props)}
+                              >
                                 {term}
                               </Menu.Item>
                             ))
@@ -139,28 +144,32 @@ const TermAdd = (props: ITermAddProps) => (
             </Menu>
           </Popup.Content>
         </Popup>
-        :
-        <Popup
-          trigger={
-            <Button>
-              <Icon name="plus"/><br/>Add to Plan
-            </Button>
-          }
-          on="click"
-        >
-          <Popup.Content position="right center">
-            <Menu size="mini" secondary={true} vertical={true}>
-              {
-                itemTerms(props).map((term, index) => (
-                  <Menu.Item key={index} as="a" onClick={handleAddToPlan(props)}>
+      )
+        : (
+          <Popup
+            trigger={(
+              <Button>
+                <Icon name="plus" />
+                <br />
+                Add to Plan
+              </Button>
+          )}
+            on="click"
+          >
+            <Popup.Content position="right center">
+              <Menu size="mini" secondary vertical>
+                {
+                itemTerms(props).map((term) => (
+                  <Menu.Item key={term} as="a" onClick={handleAddToPlan(props)}>
                     {term}
                   </Menu.Item>
                 ))
               }
-            </Menu>
-          </Popup.Content>
-        </Popup>
-    }
+              </Menu>
+            </Popup.Content>
+          </Popup>
+      )
+}
   </React.Fragment>
 );
 

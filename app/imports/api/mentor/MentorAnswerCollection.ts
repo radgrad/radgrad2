@@ -1,10 +1,10 @@
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { MentorQuestions } from './MentorQuestionCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
-import { IMentorAnswerDefine, IMentorAnswerUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IMentorAnswerDefine, IMentorAnswerUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a mentor answer.

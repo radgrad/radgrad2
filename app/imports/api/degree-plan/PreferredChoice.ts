@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 /**
  * Class that can calculate the preferred choice given an array of interests.
@@ -51,6 +51,7 @@ class PreferredChoice {
     // console.log(choices);
     return choices;
   }
+
   /**
    * Returns true if there are any preferences.
    * @return {boolean} true if max !== 0.

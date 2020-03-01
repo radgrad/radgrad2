@@ -1,8 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Image, Grid, Dimmer } from 'semantic-ui-react';
-import * as _ from 'lodash';
-// eslint-disable-next-line no-unused-vars
-import { IBaseProfile, IUserProfileCard } from '../../../typings/radgrad';
+import _ from 'lodash';
+import { IBaseProfile } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -38,35 +37,58 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   const desiredDegree = degreeID ? DesiredDegrees.findDoc(degreeID) : undefined;
   let sharedUsername;
   if (isRole(props, ROLE.STUDENT, ROLE.ALUMNI)) {
-    sharedUsername = p.shareUsername ? <React.Fragment>{p.username}<br/></React.Fragment> : undefined;
+    sharedUsername = p.shareUsername ? (
+      <React.Fragment>
+        {p.username}
+        <br />
+      </React.Fragment>
+) : undefined;
   }
 
   return (
-    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page={true} id={explorerUserWidget}>
-      <Grid centered={true}><Grid.Column width={12}><Card fluid style={cardStyle}>
-        <Card.Content>
-          <Image src={p.picture ? p.picture : defaultProfilePicture} floated={'right'} size={'tiny'}/>
-          <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
-          <Card.Meta>
-            {capitalizeFirstLetter(p.role)}<br/>
-            {desiredDegree ? <React.Fragment>{desiredDegree.shortName}<br/></React.Fragment> : undefined}
-            {level ?
-              <Image style={{ padding: '5px' }} size={'mini'}
-                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}/> : undefined}
-            {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ?
-              <React.Fragment>{p.username}<br/></React.Fragment> : undefined}
-            {sharedUsername}
-            <br/>
-          </Card.Meta>
-          {p.website ?
-            <a rel={'noopener noreferrer'} href={p.website} target={'_blank'}>{p.website}</a> : undefined}
-          {p.motivation || undefined}
-        </Card.Content>
-        {isRole(props, ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID}/> : undefined}
-        <Card.Content extra>
-          <InterestList item={p} size={'mini'}/>
-        </Card.Content>
-      </Card></Grid.Column></Grid>
+    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page id={explorerUserWidget}>
+      <Grid centered>
+        <Grid.Column width={12}>
+          <Card fluid style={cardStyle}>
+            <Card.Content>
+              <Image src={p.picture ? p.picture : defaultProfilePicture} floated="right" size="tiny" />
+              <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
+              <Card.Meta>
+                {capitalizeFirstLetter(p.role)}
+                <br />
+                {desiredDegree ? (
+                  <React.Fragment>
+                    {desiredDegree.shortName}
+                    <br />
+                  </React.Fragment>
+) : undefined}
+                {level ? (
+                  <Image
+                    style={{ padding: '5px' }}
+                    size="mini"
+                    src={`/images/level-icons/radgrad-level-${level}-icon.png`}
+                  />
+            ) : undefined}
+                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+                  <React.Fragment>
+                    {p.username}
+                    <br />
+                  </React.Fragment>
+            ) : undefined}
+                {sharedUsername}
+                <br />
+              </Card.Meta>
+              {p.website ?
+                <a href={p.website} target="_blank" rel="noopener noreferrer">{p.website}</a> : undefined}
+              {p.motivation || undefined}
+            </Card.Content>
+            {isRole(props, ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID} /> : undefined}
+            <Card.Content extra>
+              <InterestList item={p} size="mini" />
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+      </Grid>
     </Dimmer>
   );
 };

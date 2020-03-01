@@ -1,15 +1,11 @@
-import * as React from 'react';
-import { Meteor } from 'meteor/meteor'; // eslint-disable-line
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
-import { IMentorQuestion } from '../../../typings/radgrad'; // eslint-disable-line
+import _ from 'lodash';
+import { IMentorQuestion } from '../../../typings/radgrad';
 import { profileToName } from '../shared/data-model-helper-functions';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
@@ -31,16 +27,16 @@ const AddMentorAnswerForm = (props: IAddMentorAnswerFormProps): React.ReactEleme
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Mentor Answer</Header>
+    <Segment padded>
+      <Header dividing>Add Mentor Answer</Header>
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
-          <SelectField name="mentor"/>
-          <SelectField name="question"/>
+          <SelectField name="mentor" />
+          <SelectField name="question" />
         </Form.Group>
-        <LongTextField name="text"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <LongTextField name="text" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

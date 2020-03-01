@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Opportunities } from './OpportunityCollection';
@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**
@@ -245,7 +245,7 @@ class OpportunityInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line
+      Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (!studentID) {
           return this.ready();
         }
@@ -344,6 +344,9 @@ class OpportunityInstanceCollection extends BaseCollection {
       }
       if (!Users.isDefined(doc.sponsorID)) {
         problems.push(`Bad sponsorID: ${doc.sponsorID}`);
+      }
+      if (doc.verified && !VerificationRequests.findDoc({ opportunityInstanceID: doc._id })) {
+        problems.push('No Verification Request for verified Opportunity Instance');
       }
     });
     return problems;

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { getDraggablePillStyle } from './StyleFunctions';
 import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
-// import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
+// import PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import CoursePill from './CoursePill';
 
 interface ICoursePillProps {
@@ -25,7 +25,7 @@ const DraggableCoursePill = (props: ICoursePillProps) => (
           prov.draggableProps.style,
         )}
       >
-        <CoursePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+        <CoursePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
 
       </div>
     )}

@@ -1,8 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Header } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 
 interface IRequestVerificationFormProps {
@@ -15,10 +13,10 @@ const RequestVerificationForm = (props: IRequestVerificationFormProps) => {
   });
   return (
     <div>
-      <Header dividing={true}>Request Verification</Header>
+      <Header dividing>Request Verification</Header>
       <AutoForm schema={schema} onSubmit={props.handleOnModelChange}>
-        <LongTextField name='documentation' placeholder='Describe your participation in this opportunity.'/>
-        <SubmitField inputRef={undefined} value={'Request verification'} disabled={false} className={''}/>
+        <LongTextField name="documentation" placeholder="Describe your participation in this opportunity." />
+        <SubmitField inputRef={undefined} value="Request verification" disabled={false} className="" />
       </AutoForm>
     </div>
   );

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import StudentMentorSpaceQuestionForm from '../../components/student/StudentMentorSpaceQuestionForm';
@@ -14,39 +14,39 @@ import {
 
 const StudentMentorSpacePage = () => (
   <div>
-    <StudentPageMenuWidget/>
-    <Grid stackable={true}>
+    <StudentPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={10}>
-          <Segment padded={true} id={studentMentorSpaceQuestionsWidget}>
-            <Header dividing={true}>
+          <Segment padded id={studentMentorSpaceQuestionsWidget}>
+            <Header dividing>
               <h4>QUESTIONS</h4>
             </Header>
-            <StudentMentorSpaceQuestionsAccordion/>
+            <StudentMentorSpaceQuestionsAccordion />
           </Segment>
-          <StudentMentorSpaceQuestionForm/>
+          <StudentMentorSpaceQuestionForm />
         </Grid.Column>
 
         <Grid.Column width={4}>
           <Segment id={studentMentorSpaceMentorDirectoryWidget}>
-            <Header dividing={true}>
+            <Header dividing>
               <h4>MENTOR DIRECTORY</h4>
             </Header>
-            <StudentMentorSpaceMentorDirectoryAccordion/>
+            <StudentMentorSpaceMentorDirectoryAccordion />
           </Segment>
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
 
-    <BackToTopButton/>
+    <BackToTopButton />
   </div>
 );
 

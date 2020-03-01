@@ -1,11 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { expect } from 'chai';
-import { IAcademicPlan } from '../../typings/radgrad'; // eslint-disable-line
 import * as AcademicPlanUtilities from './AcademicPlanUtilities';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
-
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+import { RadGradProperties } from '../radgrad/RadGradProperties';
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -13,7 +11,7 @@ if (Meteor.isServer) {
     const _id = Random.id();
     const name = 'good';
     const description = 'description';
-    const courseList = [];
+    const choiceList = [];
     const coursesPerAcademicTerm = [];
     const shortList = [];
     const shortCourses = [];
@@ -21,12 +19,12 @@ if (Meteor.isServer) {
     let goodPlan;
     let badPlan;
     before(function setup() {
-      const quarters = RadGradSettings.findOne({}).quarterSystem;
+      const quarters = RadGradProperties.getQuarterSystem();
       if (quarters) {
-        courseList.push('ics_111-1');
-        courseList.push('ics_141-1');
-        courseList.push('ics_211-1');
-        courseList.push('ics_241-1');
+        choiceList.push('ics_111-1');
+        choiceList.push('ics_141-1');
+        choiceList.push('ics_211-1');
+        choiceList.push('ics_241-1');
         coursesPerAcademicTerm.push(1);
         coursesPerAcademicTerm.push(1);
         coursesPerAcademicTerm.push(1);
@@ -38,10 +36,10 @@ if (Meteor.isServer) {
         shortCourses.push(2);
         shortCourses.push(0);
       } else {
-        courseList.push('ics_111-1');
-        courseList.push('ics_141-1');
-        courseList.push('ics_211-1');
-        courseList.push('ics_241-1');
+        choiceList.push('ics_111-1');
+        choiceList.push('ics_141-1');
+        choiceList.push('ics_211-1');
+        choiceList.push('ics_241-1');
         coursesPerAcademicTerm.push(2);
         coursesPerAcademicTerm.push(2);
         coursesPerAcademicTerm.push(0);
@@ -57,7 +55,7 @@ if (Meteor.isServer) {
         description,
         degreeID: Random.id(),
         slugID: Random.id(),
-        courseList,
+        choiceList,
         coursesPerAcademicTerm,
         effectiveAcademicTermID: Random.id(),
         year,
@@ -69,7 +67,7 @@ if (Meteor.isServer) {
         description,
         degreeID: Random.id(),
         slugID: Random.id(),
-        courseList: shortList,
+        choiceList: shortList,
         coursesPerAcademicTerm: shortCourses,
         effectiveAcademicTermID: Random.id(),
         year,
@@ -77,10 +75,23 @@ if (Meteor.isServer) {
       };
     });
 
+    it('getPlanChoices', function () {
+      const quarters = RadGradProperties.getQuarterSystem();
+      const courses = AcademicPlanUtilities.getPlanChoices(goodPlan, 1);
+      if (quarters) {
+        expect(courses.length).to.equal(1);
+        expect(courses[0]).to.equal('ics_141-1');
+      } else {
+        expect(courses.length).to.equal(2);
+        expect(courses[0]).to.equal('ics_211-1');
+      }
+    });
+
     it('isAcademicPlanValid', function () {
       expect(AcademicPlanUtilities.isAcademicPlanValid(goodPlan)).to.be.true;
       expect(AcademicPlanUtilities.isAcademicPlanValid(badPlan)).to.be.false;
     });
+
     it('addChoiceToPlan', function () {
       // console.log('before %o', badPlan);
       AcademicPlanUtilities.addChoiceToPlan(badPlan, 2, 'ics_314');
@@ -90,6 +101,7 @@ if (Meteor.isServer) {
       expect(AcademicPlanUtilities.isAcademicPlanValid(goodPlan)).to.be.true;
       // console.log('updated good %o', goodPlan);
     });
+
     it('addDuplicateChoice', function () {
       AcademicPlanUtilities.addChoiceToPlan(badPlan, 0, 'ics_314');
       // console.log('after duplicate %o', badPlan);

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -44,8 +44,8 @@ const itemTitleString = (item: any): string => {
  */
 const itemTitle = (item: any): React.ReactNode => (
   <React.Fragment>
-    {item.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {item.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -160,35 +160,41 @@ class AdminDataModelMentorAnswerPage extends React.Component<{}, IAdminDataModel
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateMentorAnswerForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                      handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                      itemTitleString={itemTitleString}/>
+              <UpdateMentorAnswerForm
+                collection={collection}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddMentorAnswerForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddMentorAnswerForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Mentor Answer?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Mentor Answer?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

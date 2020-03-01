@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { getEarnedICE, getProjectedICE } from '../ice/IceProcessor';
@@ -7,7 +7,7 @@ import { Reviews } from '../review/ReviewCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { RadGrad } from '../radgrad/RadGrad';
-import { Ice } from '../../typings/radgrad'; // eslint-disable-line
+import { Ice } from '../../typings/radgrad';
 
 /**
  * Calculates the given student's Level.

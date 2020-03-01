@@ -1,14 +1,14 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityScoreboard } from '../../../startup/client/collections';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { opportunityScoreboardWidget } from './shared-widget-names';
 
 interface IOpportunityScoreboardWidgetProps {
@@ -64,27 +64,33 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
       <Header>Future Opportunity Scoreboard</Header>
       <Grid>
         <Grid.Row>
-          <Table celled={true} fixed={true}>
+          <Table celled fixed>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>Opportunity</Table.HeaderCell>
                 {_.map(props.terms, (term) => (
-                  <Table.HeaderCell width={1}
-                                    key={term._id}>{AcademicTerms.getShortName(term._id)}</Table.HeaderCell>))}
+                  <Table.HeaderCell
+                    width={1}
+                    key={term._id}
+                  >
+                    {AcademicTerms.getShortName(term._id)}
+                  </Table.HeaderCell>
+))}
               </Table.Row>
             </Table.Header>
           </Table>
           <div style={scrollBody}>
-            <Table celled={true} fixed={true}>
+            <Table celled fixed>
               <Table.Body>
                 {_.map(props.opportunities, (c, index) => (
                   <Table.Row key={index}>
-                    <Table.Cell width={1}><Popup content={c.name} trigger={<Label>{c.name}</Label>}/></Table.Cell>
+                    <Table.Cell width={1}><Popup content={c.name} trigger={<Label>{c.name}</Label>} /></Table.Cell>
                     {_.map(props.terms, (t) => {
                       const score = getOpportunityScore(c._id, t._id, props);
                       return (
-                        <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing={true}>
-                          {score > 10 ? <Icon name='attention'/> : ''}{score}
+                        <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>
+                          {score > 10 ? <Icon name="attention" /> : ''}
+                          {score}
                         </Table.Cell>
                       );
                     })}
@@ -95,8 +101,8 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
           </div>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Button basic={true} color={'green'} onClick={saveAsCSV(props)}>Save as CSV</Button>
+          <Grid.Column width={1} />
+          <Button basic color="green" onClick={saveAsCSV(props)}>Save as CSV</Button>
         </Grid.Row>
       </Grid>
     </Segment>
@@ -106,7 +112,7 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
 const OpportunityScoreboardWidgetContainer = withTracker(() => {
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const isQuarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const isQuarterSystem = RadGradProperties.getQuarterSystem();
   const limit = isQuarterSystem ? 12 : 9;
   const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
     sort: { termNumber: 1 },

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
@@ -380,7 +380,7 @@ export class FeedbackFunctionClass {
   }
 
   private getBasePath(studentID) {
-    console.log(studentID);
+    // console.log(studentID);
     // const getPosition = (str, subString, index) => {
     //   return str.split(subString, index).join(subString).length;
     // };

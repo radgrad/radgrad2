@@ -1,8 +1,8 @@
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { buildSimpleName } from './PlanChoiceUtilities';
-import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';
 import { Courses } from '../course/CourseCollection';
 
@@ -37,6 +37,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * PlanChoices.define({ 'ics_312,ics_331-1' });
    * Defines the choice of ICS 312 or ICS 331.
    * @param choice
+   * @param {boolean} retired, (optional) defaults to false.
    * @returns {*}
    */
   public define({ choice, retired = false }: IPlanChoiceDefine) {

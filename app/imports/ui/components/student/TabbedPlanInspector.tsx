@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Segment, Tab } from 'semantic-ui-react';
 import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspectorWidget';
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const handleTabChange = (props: ITabbedPlanInspectorProps) => (e, { activeIndex }) => {
   e.preventDefault();
-  console.log(`handleTabChange ${activeIndex}`);
+  // console.log(`handleTabChange ${activeIndex}`);
   switch (activeIndex) {
     case 0:
       props.selectPlanTab();
@@ -45,7 +45,7 @@ const TabbedPlanInspector = (props: ITabbedPlanInspectorProps) => {
       menuItem: 'ACADEMIC PLAN',
       pane: (
         <Tab.Pane key="plan" active={activeIndex === 0}>
-          <AcademicPlanViewerContainer/>
+          <AcademicPlanViewerContainer />
         </Tab.Pane>
       ),
     },
@@ -53,15 +53,15 @@ const TabbedPlanInspector = (props: ITabbedPlanInspectorProps) => {
       menuItem: 'INSPECTOR',
       pane: (
         <Tab.Pane key="inspector" active={activeIndex === 1}>
-          <CourseOpportunityInspectorWidgetContainer/>
+          <CourseOpportunityInspectorWidgetContainer />
         </Tab.Pane>
       ),
     },
   ];
   // console.log(`TabbedPlanInspector activeIndex=${activeIndex}`);
   return (
-    <Segment padded={true}>
-      <Tab panes={panes} renderActiveOnly={false} onTabChange={handleTabChange(props)} activeIndex={activeIndex}/>
+    <Segment padded>
+      <Tab panes={panes} renderActiveOnly={false} onTabChange={handleTabChange(props)} activeIndex={activeIndex} />
     </Segment>
   );
 };

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import _ from 'lodash';
+import { IAcademicPlan } from '../../../typings/radgrad';
 import AcademicPlanYearView from '../shared/AcademicPlanYearView';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -26,25 +26,45 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
     <Grid>
       <Grid.Row columns={fiveYear ? 5 : 4}>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
-          <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                username={props.username} takenSlugs={props.takenSlugs}/>
+          <AcademicPlanYearView
+            yearNumber={yearNumber++}
+            academicPlan={props.academicPlan}
+            username={props.username}
+            takenSlugs={props.takenSlugs}
+          />
         </Grid.Column>
         {fiveYear ? (
           <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.academicPlan}
-                                  username={props.username} takenSlugs={props.takenSlugs}/>
+            <AcademicPlanYearView
+              yearNumber={yearNumber++}
+              academicPlan={props.academicPlan}
+              username={props.username}
+              takenSlugs={props.takenSlugs}
+            />
           </Grid.Column>
         ) : ''}
       </Grid.Row>

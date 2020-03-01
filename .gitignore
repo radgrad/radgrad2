@@ -1,11 +1,31 @@
+# .gitignore
+
+# IntelliJ
 *.iml
 .idea
+
+# any custom directoies
 custom
+
+# Mac
 .DS_Store
+
+# Private information
+realdata/
+app/private/database/production
+
+# NPM
 node_modules
-settings.production.json
+npm-debug.*
+
+# Production settings
+settings.production.*
+
+# Javascript
 *.js
 *.js.map
 *.jsx
+
+# testing outputs
 tests_output/
 chromedriver.log

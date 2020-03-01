@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, IDescriptionPair, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair, IOpportunity } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -51,8 +51,8 @@ const itemTitleString = (item: any): string => `${item.name}`;
  */
 const itemTitle = (item: any): React.ReactNode => (
   <React.Fragment>
-    {item.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {item.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -173,41 +173,51 @@ class FacultyManageOpportunitesPage extends React.Component<{}, IAdminDataModelP
     };
     return (
       <div>
-        <FacultyPageMenuWidget/>
-        <Grid stackable={true}>
+        <FacultyPageMenuWidget />
+        <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
+            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={1} />
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
             <Grid.Column width={14}>
               {this.state.showUpdateForm ? (
-                <UpdateOpportunityForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                       handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                       itemTitleString={itemTitleString}/>
+                <UpdateOpportunityForm
+                  collection={collection}
+                  id={this.state.id}
+                  formRef={this.formRef}
+                  handleUpdate={this.handleUpdate}
+                  handleCancel={this.handleCancel}
+                  itemTitleString={itemTitleString}
+                />
               ) : (
-                <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+                <AddOpportunityForm formRef={this.formRef} handleAdd={this.handleAdd} />
               )}
-              <ListOpportunitiesWidget collection={collection}
-                                       findOptions={findOptions}
-                                       descriptionPairs={descriptionPairs}
-                                       itemTitle={itemTitle}
-                                       handleOpenUpdate={this.handleOpenUpdate}
-                                       handleDelete={this.handleDelete}
-                                       setShowIndex={dataModelActions.setCollectionShowIndex}
-                                       setShowCount={dataModelActions.setCollectionShowCount}
+              <ListOpportunitiesWidget
+                collection={collection}
+                findOptions={findOptions}
+                descriptionPairs={descriptionPairs}
+                itemTitle={itemTitle}
+                handleOpenUpdate={this.handleOpenUpdate}
+                handleDelete={this.handleDelete}
+                setShowIndex={dataModelActions.setCollectionShowIndex}
+                setShowCount={dataModelActions.setCollectionShowCount}
               />
             </Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
           </Grid.Row>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete}
-                 header="Delete Opportunity?"/>
+        <Confirm
+          open={this.state.confirmOpen}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirmDelete}
+          header="Delete Opportunity?"
+        />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

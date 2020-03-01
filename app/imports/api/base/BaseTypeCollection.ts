@@ -1,5 +1,5 @@
 import { check } from 'meteor/check';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Slugs } from '../slug/SlugCollection';

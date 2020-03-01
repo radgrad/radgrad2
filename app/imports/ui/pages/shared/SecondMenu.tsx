@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, SemanticWIDTHS } from 'semantic-ui-react'; // eslint-disable-line
+import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
 
@@ -32,13 +32,20 @@ const SecondMenu = (props: ISecondMenuProps) => {
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
   // console.log(props, baseRoute);
   return (
-    <Menu attached={'top'} borderless={true} widths={props.numItems} secondary={true} pointing={true}
-          className="radgrad-second-menu mobile hidden" id={`${secondMenu}`}>
-      {props.menuItems.map((item, index) => (
-        <Menu.Item key={index} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
+    <Menu
+      attached="top"
+      borderless
+      widths={props.numItems}
+      secondary
+      pointing
+      className="radgrad-second-menu mobile hidden"
+      id={`${secondMenu}`}
+    >
+      {props.menuItems.map((item) => (
+        <Menu.Item key={item.label} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
           {item.label}
-        </Menu.Item>))
-      }
+        </Menu.Item>
+))}
     </Menu>
   );
 };

@@ -1,5 +1,5 @@
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 
 

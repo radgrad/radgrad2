@@ -1,25 +1,32 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import {
+  ICourseInstanceDefine,
+  ICourseInstanceUpdate,
+  IOpportunityInstanceDefine,
+  IOpportunityInstanceUpdate,
+} from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-// import TabbedPlanInspectorContainer from '../../components/student/TabbedPlanInspector';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import TabbedFavoritesWidget from '../../components/student/TabbedFavoritesWidget';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 interface IPageProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
+  selectFavoriteDetailsTab: () => any;
   match: {
     isExact: boolean;
     path: string;
@@ -33,6 +40,7 @@ interface IPageProps {
 const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
+  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
 const onDragEnd = (props: IPageProps) => (result) => {
@@ -43,30 +51,78 @@ const onDragEnd = (props: IPageProps) => (result) => {
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
   const student = props.match.params.username;
-  // console.log(termSlug, slug, student);
-  if (Courses.isDefined(slug)) {
-    const courseID = Courses.findIdBySlug(slug);
-    const course = Courses.findDoc(courseID);
-    const collectionName = CourseInstances.getCollectionName();
-    const definitionData: ICourseInstanceDefine = {
-      academicTerm: termSlug,
-      course: slug,
-      verified: false,
-      fromRegistrar: false,
-      note: course.num,
-      grade: 'B',
-      student,
-      creditHrs: course.creditHrs,
-    };
-    defineMethod.call({ collectionName, definitionData }, (error, res) => {
-      if (error) {
-        console.error(error);
+  const isCourseDrop = Courses.isDefined(slug);
+  const isCourseInstanceDrop = CourseInstances.isDefined(slug);
+  const isOppDrop = Opportunities.isDefined(slug);
+  const isOppInstDrop = OpportunityInstances.isDefined(slug);
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
+  const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
+  if (isCourseDrop) {
+    if (isPastDrop) {
+      Swal.fire({
+        title: 'Cannot drop courses in the past.',
+        text: 'You cannot drag courses to a past academic term.',
+        icon: 'error',
+      });
+    } else {
+      const courseID = Courses.findIdBySlug(slug);
+      const course = Courses.findDoc(courseID);
+      const collectionName = CourseInstances.getCollectionName();
+      const definitionData: ICourseInstanceDefine = {
+        academicTerm: termSlug,
+        course: slug,
+        verified: false,
+        fromRegistrar: false,
+        note: course.num,
+        grade: 'B',
+        student,
+        creditHrs: course.creditHrs,
+      };
+      defineMethod.call({ collectionName, definitionData }, (error, res) => {
+        if (error) {
+          console.error(error);
+        } else {
+          // console.log(res);
+          props.selectCourseInstance(res);
+          props.selectFavoriteDetailsTab();
+        }
+      });
+    }
+  } else if (isCourseInstanceDrop) {
+    if (isPastDrop) {
+      Swal.fire({
+        title: 'Cannot move a course to the past.',
+        text: 'You cannot drag courses to a past academic term.',
+        icon: 'error',
+      });
+    } else {
+      const instance = CourseInstances.findDoc(slug);
+      const ciTerm = AcademicTerms.findDoc(instance.termID);
+      const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
+      console.log(ciTerm, currentTerm, inPastStart);
+      if (inPastStart) {
+        Swal.fire({
+          title: 'Cannot move a course from the past.',
+          text: 'You cannot drag courses from a past academic term.',
+          icon: 'error',
+        });
       } else {
-        // console.log(res);
-        props.selectCourseInstance(res);
+        const termID = AcademicTerms.findIdBySlug(termSlug);
+        const updateData: ICourseInstanceUpdate = {};
+        updateData.termID = termID;
+        updateData.id = slug;
+        const collectionName = CourseInstances.getCollectionName();
+        updateMethod.call({ collectionName, updateData }, (error, res) => {
+          if (error) {
+            console.error(error);
+          } else {
+            props.selectCourseInstance(slug);
+          }
+        });
       }
-    });
-  } else if (Opportunities.isDefined(slug)) {
+    }
+  } else if (isOppDrop) {
     const opportunityID = Opportunities.findIdBySlug(slug);
     const opportunity = Opportunities.findDoc(opportunityID);
     const sponsor = Users.getProfile(opportunity.sponsorID).username;
@@ -87,6 +143,21 @@ const onDragEnd = (props: IPageProps) => (result) => {
         props.selectOpportunityInstance(res);
       }
     });
+  } else if (isOppInstDrop) {
+    // console.log('Opportunity instance');
+    const termID = AcademicTerms.findIdBySlug(termSlug);
+    const updateData: IOpportunityInstanceUpdate = {};
+    updateData.termID = termID;
+    updateData.id = slug;
+    const collectionName = OpportunityInstances.getCollectionName();
+    updateMethod.call({ collectionName, updateData }, (error, res) => {
+      if (error) {
+        console.error(error);
+      } else {
+        props.selectOpportunityInstance(slug);
+      }
+    });
+
   }
 };
 
@@ -104,22 +175,22 @@ const StudentDegreePlannerPage = (props: IPageProps) => {
   };
   return (
     <DragDropContext onDragEnd={onDragEnd(props)}>
-      <StudentPageMenuWidget/>
-      <Grid stackable={true} style={marginStyle}>
+      <StudentPageMenuWidget />
+      <Grid stackable style={marginStyle}>
         <Grid.Row>
-          <HelpPanelWidget/>
+          <HelpPanelWidget />
         </Grid.Row>
 
         <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
           <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
         </Grid.Row>
-        <Grid.Row stretched={true}>
+        <Grid.Row stretched>
           <Grid.Column width={10} style={paddedStyle}>
-            <DegreeExperiencePlannerWidget/>
+            <DegreeExperiencePlannerWidget />
           </Grid.Column>
 
           <Grid.Column width={6} style={paddedStyle}>
-            <TabbedFavoritesWidget/>
+            <TabbedFavoritesWidget />
           </Grid.Column>
         </Grid.Row>
       </Grid>

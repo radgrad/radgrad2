@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad'; // eslint-disable-line
-import { isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
+import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
+import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
 
 /**
@@ -33,6 +33,8 @@ class CourseCollection extends BaseSlugCollection {
       interestIDs: [SimpleSchema.RegEx.Id],
       // Optional data
       syllabus: { type: String, optional: true },
+      corequisites: { type: Array },
+      'corequisites.$': String,
       prerequisites: { type: Array },
       'prerequisites.$': String,
       retired: { type: Boolean, optional: true },
@@ -45,7 +47,9 @@ class CourseCollection extends BaseSlugCollection {
       creditHrs: { type: SimpleSchema.Integer, optional: true },
       interests: [String],
       syllabus: String,
-      prerequisites: { type: Array },
+      corequisites: { type: Array, optional: true },
+      'corequisites.$': String,
+      prerequisites: { type: Array, optional: true },
       'prerequisites.$': String,
       retired: { type: Boolean, optional: true },
     });
@@ -85,18 +89,33 @@ class CourseCollection extends BaseSlugCollection {
    * @param creditHrs is optional and defaults to 3. If supplied, must be a num between 1 and 15.
    * @param interests is a (possibly empty) array of defined interest slugs or interestIDs.
    * @param syllabus is optional. If supplied, should be a URL.
+   * @param corequisites is optional. If supplied, must be an array of Course slugs or courseIDs.
    * @param prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
    * @param retired is optional, defaults to false.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, prerequisites = [], retired = false }: ICourseDefine) {
-    // Get Interests, throw error if any of them are not found.
-    const interestIDs = Interests.getIDs(interests);
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false }: ICourseDefine) {
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
-    // Get SlugID, throw error if found.
-    const slugID = Slugs.define({ name: slug, entityName: this.getType() });
+    let slugID;
+    // check if slug is defined
+    if (Slugs.isSlugForEntity(slug, this.getType())) {
+      // console.log(`${slug} is already defined for ${this.getType()}`);
+      slugID = Slugs.getEntityID(slug, this.getType());
+    } else {
+      // console.log(`Defining slug ${slug}`);
+      // Get SlugID, throw error if found.
+      slugID = Slugs.define({ name: slug, entityName: this.getType() });
+    }
+    // Get Interests, throw error if any of them are not found.
+    const interestIDs = Interests.getIDs(interests);
+    // If already defined return the _id.
+    const doc = this.collection.findOne({ name, shortName, num });
+    // console.log(doc);
+    if (doc) {
+      return doc._id;
+    }
     // Make sure creditHrs is a num between 1 and 15.
     if (!(typeof creditHrs === 'number') || (creditHrs < 1) || (creditHrs > 15)) {
       throw new Meteor.Error(`CreditHrs ${creditHrs} is not a number between 1 and 15.`);
@@ -104,6 +123,8 @@ class CourseCollection extends BaseSlugCollection {
     if (!Array.isArray(prerequisites)) {
       throw new Meteor.Error(`Prerequisites ${prerequisites} is not an array.`);
     }
+    // make sure each corequisite has a valid format.
+    _.forEach(corequisites, (c) => validateCourseSlugFormat(c));
     // make sure each prerequisite has a valid format.
     _.forEach(prerequisites, (p) => validateCourseSlugFormat(p));
     // Currently we don't dump the DB is a way that prevents forward referencing of prereqs, so we
@@ -112,7 +133,7 @@ class CourseCollection extends BaseSlugCollection {
     // Instead, we check that prereqs are valid as part of checkIntegrity.
     const courseID =
       this.collection.insert({
-        name, shortName, slugID, num, description, creditHrs, interestIDs, syllabus, prerequisites, retired,
+        name, shortName, slugID, num, description, creditHrs, interestIDs, syllabus, corequisites, prerequisites, retired,
       });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, courseID);
@@ -158,7 +179,7 @@ class CourseCollection extends BaseSlugCollection {
     if (shortName) {
       updateData.shortName = shortName;
     }
-    if (_.isNumber(num)) {
+    if (num) {
       updateData.num = num;
     }
     if (creditHrs) {
@@ -217,12 +238,6 @@ class CourseCollection extends BaseSlugCollection {
     return _.includes(doc.interestIDs, interestID);
   }
 
-  public getSlug(courseID: string) {
-    this.assertDefined(courseID);
-    const courseDoc = this.findDoc(courseID);
-    return Slugs.findDoc(courseDoc.slugID).name;
-  }
-
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
@@ -240,16 +255,30 @@ class CourseCollection extends BaseSlugCollection {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
+      _.forEach(doc.corequisites, (coreq) => {
+        if (isSingleChoice(coreq)) {
+          if (!this.hasSlug(coreq)) {
+            problems.push(`Bad course corequisite slug: ${coreq}`);
+          }
+        } else {
+          const slugs = complexChoiceToArray(coreq);
+          _.forEach(slugs, (slug) => {
+            if (!this.hasSlug(slug)) {
+              problems.push(`Bad course corequisite slug in or: ${slug}`);
+            }
+          });
+        }
+      });
       _.forEach(doc.prerequisites, (prereq) => {
         if (isSingleChoice(prereq)) {
           if (!this.hasSlug(prereq)) {
             problems.push(`Bad course prerequisite slug: ${prereq}`);
           }
         } else {
-          const slugs = prereq.split(',');
+          const slugs = complexChoiceToArray(prereq);
           _.forEach(slugs, (slug) => {
             if (!this.hasSlug(slug)) {
-              problems.push(`Bad course prerequisite slug: ${slug}`);
+              problems.push(`Bad course prerequisite slug in or: ${slug}`);
             }
           });
         }
@@ -273,10 +302,11 @@ class CourseCollection extends BaseSlugCollection {
     const creditHrs = doc.creditHrs;
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
     const syllabus = doc.syllabus;
+    const corequisites = doc.corequisites;
     const prerequisites = doc.prerequisites;
     const retired = doc.retired;
     return {
-      name, shortName, slug, num, description, creditHrs, interests, syllabus, prerequisites, retired,
+      name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, retired,
     };
   }
 }

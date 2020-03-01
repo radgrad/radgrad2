@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import RatingField from '../shared/RatingField';
@@ -12,7 +12,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm } from '../../../typings/radgrad';
 
 interface IStudentExplorerAddReviewFormProps {
   event: {
@@ -134,40 +134,41 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
     const schema = new SimpleSchema({
       academicTerm: {
-        icon: String,
+        type: String,
         label: 'Academic Term',
         allowedValues: academicTermNames,
         defaultValue: academicTermNames[0],
       },
       rating: {
-        icon: Number,
+        type: Number,
         label: 'Rating',
         min: 0,
         max: 5,
         optional: true,
       },
       comments: {
-        icon: String,
+        type: String,
         label: 'Comments',
       },
     });
     return (
       <Accordion>
         <Accordion.Title style={accordionTitleStyle} active={active} onClick={this.handleAccordionClick}>
-          <Icon name="dropdown"/><a>Add Review </a>
+          <Icon name="dropdown" />
+          <a>Add Review </a>
         </Accordion.Title>
 
         <Accordion.Content active={active}>
           <div className="ui padded container" style={paddedContainerStyle}>
             <AutoForm schema={schema} onSubmit={this.handleAdd} ref={this.formRef}>
               <Form.Group widths="equal">
-                <SelectField name="academicTerm"/>
-                <RatingField name="rating"/>
+                <SelectField name="academicTerm" />
+                <RatingField name="rating" />
               </Form.Group>
 
-              <LongTextField placeholder='Explain the reasoning behind your rating here.' name="comments"/>
+              <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
 
-              <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false}/>
+              <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
             </AutoForm>
           </div>
         </Accordion.Content>

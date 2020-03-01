@@ -1,19 +1,19 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, IExplorerCard, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
-  IProfile, IStudentProfile, // eslint-disable-line no-unused-vars
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree, IExplorerCard,
+  IInterest,
+  IOpportunity,
+  IProfile, IStudentProfile,
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -338,7 +338,7 @@ export const opportunityItemName = (item: { item: IOpportunity, count: number })
 export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => {
   const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  console.log(notRetired.length);
+  // console.log(notRetired.length);
   if (Router.isUrlRoleStudent(props.match)) {
     const studentID = Router.getUserIdFromRoute(props.match);
     if (notRetired.length > 0) {
@@ -349,7 +349,7 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
         }).fetch();
         return oi.length === 0;
       });
-      console.log('first filter ', filteredOpps.length);
+      // console.log('first filter ', filteredOpps.length);
       filteredOpps = _.filter(filteredOpps, (opp) => {
         let inFuture = false;
         _.forEach(opp.termIDs, (termID) => {
@@ -360,11 +360,11 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
         });
         return inFuture;
       });
-      console.log('second filter ', filteredOpps.length);
+      // console.log('second filter ', filteredOpps.length);
       const favorites = FavoriteOpportunities.findNonRetired({ studentID });
       const favIDs = _.map(favorites, (fav) => fav.opportunityID);
       filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
-      console.log('third filter ', filteredOpps.length);
+      // console.log('third filter ', filteredOpps.length);
       return filteredOpps;
     }
   } else if (props.role === URL_ROLES.FACULTY) {
@@ -375,7 +375,7 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
 
 export const matchingOpportunities = (props: ICardExplorerMenuWidgetProps): object[] => {
   const allOpportunities = availableOpps(props);
-  console.log('allOpportunities ', allOpportunities);
+  // console.log('allOpportunities ', allOpportunities);
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
   const interestIDs = Users.getInterestIDs(profile.userID);
@@ -477,19 +477,31 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
       return <p>You have no Academic Plan, select add to profile to select a plan.</p>;
     case 'noInterests':
       if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
-        return <p>Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
-          menu on the left.</p>;
+        return (
+          <p>
+            Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
+            menu on the left.
+          </p>
+);
       }
       if (isType(EXPLORER_TYPE.COURSES, props)) {
-        return <p>Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
-          menu on the left.</p>;
+        return (
+          <p>
+            Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
+            menu on the left.
+          </p>
+);
       }
       if (isType(EXPLORER_TYPE.INTERESTS, props)) {
         return <p>You have no Interests, select add to profile to add an interest.</p>;
       }
       if (isType(EXPLORER_TYPE.OPPORTUNITIES, props)) {
-        return <p>Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
-          pull-down menu on the left.</p>;
+        return (
+          <p>
+            Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
+            pull-down menu on the left.
+          </p>
+);
       }
       return '';
     case 'noCareerGoals':
@@ -505,10 +517,12 @@ export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | 
     case EXPLORER_TYPE.ACADEMICPLANS:
       return noItems('noPlan', props.match) ? buildNoItemsMessage('noPlan', props) : '';
     case EXPLORER_TYPE.CAREERGOALS:
-      return <React.Fragment>
-        {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
-        {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
-      </React.Fragment>;
+      return (
+        <React.Fragment>
+          {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
+          {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
+        </React.Fragment>
+);
     case EXPLORER_TYPE.COURSES:
       return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
     case EXPLORER_TYPE.DEGREES:

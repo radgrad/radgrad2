@@ -1,9 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import AutoFields from 'uniforms-semantic/AutoFields';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { AutoForm, AutoFields, SubmitField } from 'uniforms-semantic';
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IAdminDataModelUpdateFormProps {
   collection: BaseCollection;
@@ -17,16 +15,22 @@ interface IAdminDataModelUpdateFormProps {
 const AdminDataModelUpdateForm = (props: IAdminDataModelUpdateFormProps) => {
   const model = props.id ? props.collection.findDoc(props.id) : undefined;
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+    <Segment padded>
+      <Header dividing>
+        Update
+        {props.collection.getType()}
+        :
+        {props.itemTitleString(model)}
+      </Header>
       <AutoForm
         ref={props.formRef}
         schema={props.collection.getUpdateSchema()}
         model={model}
-        onSubmit={props.handleUpdate}>
-        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined}/>
-        <p/>
-        <SubmitField className={''} inputRef={undefined} disabled={false} value={undefined}/>
+        onSubmit={props.handleUpdate}
+      >
+        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
+        <p />
+        <SubmitField className="" inputRef={undefined} disabled={false} value={undefined} />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

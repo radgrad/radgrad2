@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -13,15 +13,13 @@ import ExplorerCard from './ExplorerCard';
 
 import ProfileCard from './ProfileCard';
 
-// eslint-disable-next-line no-unused-vars
-import { IInterest, IProfile } from '../../../typings/radgrad';
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import {
-  ICardExplorerMenuWidgetProps, // eslint-disable-line no-unused-vars
+  ICardExplorerMenuWidgetProps,
   buildHeader,
   checkForNoItems,
   getItems,
@@ -119,46 +117,54 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
     {
       menuItem: 'Advisors',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="advisors">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {advisorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="advisors">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
     {
       menuItem: 'Faculty',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="faculty">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {facultyRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="faculty">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
     {
       menuItem: 'Mentors',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="mentors">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {mentorRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="mentors">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
     {
       menuItem: 'Students',
       // eslint-disable-next-line react/display-name
-      render: () => <Tab.Pane key="students">
-        <Grid stackable={true}>
-          <Card.Group stackable={true} itemsPerRow={3} style={userStackableCardsStyle}>
-            {studentRoleUsers.map((ele, i) => <UserProfileCard key={i} item={ele}/>)}
-          </Card.Group>
-        </Grid>
-      </Tab.Pane>,
+      render: () => (
+        <Tab.Pane key="students">
+          <Grid stackable>
+            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            </Card.Group>
+          </Grid>
+        </Tab.Pane>
+),
     },
   ];
 
@@ -167,15 +173,21 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   return (
     <React.Fragment>
-      <Segment padded={true} id={`${cardExplorerWidget}`}>
-        <Header dividing={true}>
+      <Segment padded id={`${cardExplorerWidget}`}>
+        <Header dividing>
           <h4>
             {
-              !buildStudentUserCard ?
+              !buildStudentUserCard ? (
                 <React.Fragment>
-                  <span style={uppercaseTextTransformStyle}>{header.title} </span><WidgetHeaderNumber
-                  inputValue={header.count}/>
+                  <span style={uppercaseTextTransformStyle}>
+                    {header.title}
+                    {' '}
+                  </span>
+                  <WidgetHeaderNumber
+                    inputValue={header.count}
+                  />
                 </React.Fragment>
+              )
                 :
                 <span style={uppercaseTextTransformStyle}>{header.title}</span>
             }
@@ -185,30 +197,38 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         {checkForNoItems(props)}
 
         {
-          !buildStudentUserCard ?
-            <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable={true}>
+          !buildStudentUserCard ? (
+            <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable>
               {
                 buildPlanCard ?
-                  items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd}/>) : ''
+                  items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
               }
               {
                 buildProfileCard ?
-                  items.map((item, index) => <ProfileCard key={index} item={item} type={type} canAdd={true}/>) : ''
+                  items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
               }
               {
                 buildTermCard ?
-                  items.map((item) => <TermCard key={item._id} item={item} type={type} isStudent={isStudent}
-                                                canAdd={true}/>)
+                  items.map((item) => (
+                    <TermCard
+                      key={item._id}
+                      item={item}
+                      type={type}
+                      isStudent={isStudent}
+                      canAdd
+                    />
+))
                   : ''
               }
               {
                 buildExplorerCard ?
-                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type}/>)
+                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
                   : ''
               }
             </Card.Group>
+          )
             :
-            <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle}/>
+            <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} />
         }
       </Segment>
     </React.Fragment>

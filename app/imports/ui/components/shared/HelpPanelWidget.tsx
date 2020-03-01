@@ -1,10 +1,11 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Accordion, Grid, Icon, Message } from 'semantic-ui-react';
-import { IHelpDefine } from '../../../typings/radgrad'; // eslint-disable-line
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
 import { helpPanelWidget } from './shared-widget-names';
@@ -26,11 +27,11 @@ interface IHelpPanelWidgetState {
 }
 
 class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelWidgetState> {
-  public state: IHelpPanelWidgetState = { activeIndex: -1 };
 
   constructor(props) {
     super(props);
     // console.log('HelpPanelWidget props=%o', props);
+    this.state = { activeIndex: -1 };
   }
 
   private handleClick = (e, titleProps) => {
@@ -49,22 +50,26 @@ class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelW
 
     const { match } = this.props;
     const helpMessage = _.find(this.props.helpMessages, (m) => m.routeName === this.props.match.path);
+    const adminEmail = RadGradProperties.getAdminEmail();
     const helpText = helpMessage ? `${helpMessage.text}
 
 #### Need more help?
 
-If you have additional questions, please email [radgrad@hawaii.edu](mailto:radgrad@hawaii.edu).` : '';
+If you have additional questions, please email [${adminEmail}](mailto:${adminEmail}).` : '';
     return (helpMessage) ? (
       <Grid.Column id={`${helpPanelWidget}`}>
-        <Message info={true} floating={true}>
+        <Message info floating>
           <Accordion>
             <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
-              <Icon name="dropdown"/>
+              <Icon name="dropdown" />
               <span style={helpPanelWidgetTitleStyle}><strong>{helpMessage.title}</strong></span>
             </Accordion.Title>
             <Accordion.Content active={this.state.activeIndex === 0}>
-              <Markdown escapeHtml={false} source={helpText}
-                        renderers={{ link: (props) => Router.renderLink(props, match) }}/>
+              <Markdown
+                escapeHtml={false}
+                source={helpText}
+                renderers={{ link: (props) => Router.renderLink(props, match) }}
+              />
             </Accordion.Content>
           </Accordion>
         </Message>

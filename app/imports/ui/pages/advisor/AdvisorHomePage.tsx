@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -13,7 +13,6 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-// eslint-disable-next-line no-unused-vars
 import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
@@ -41,52 +40,60 @@ const renderSelectedStudentWidgets = (props: IFilterStudents) => {
   }
   return (
     <Grid.Row>
-      <Grid.Column width={1}/>
-      <Grid.Column width={9} stretched={true}>
-        <AdvisorUpdateStudentWidget usernameDoc={props.usernameDoc}
-                                    studentCollectionName={StudentProfiles.getCollectionName()}
-                                    careerGoals={props.careerGoals}
-                                    interests={props.interests}/>
+      <Grid.Column width={1} />
+      <Grid.Column width={9} stretched>
+        <AdvisorUpdateStudentWidget
+          usernameDoc={props.usernameDoc}
+          studentCollectionName={StudentProfiles.getCollectionName()}
+          careerGoals={props.careerGoals}
+          interests={props.interests}
+        />
       </Grid.Column>
 
-      <Grid.Column width={5} stretched={true}>
-        <AdvisorLogEntryWidget usernameDoc={props.usernameDoc}
-                               advisorLogs={props.advisorLogs}
-                               advisorUsername={props.match.params.username}/>
-        <AdvisorStarUploadWidget usernameDoc={props.usernameDoc}
-                                 advisorUsername={props.match.params.username}/>
+      <Grid.Column width={5} stretched>
+        <AdvisorLogEntryWidget
+          usernameDoc={props.usernameDoc}
+          advisorLogs={props.advisorLogs}
+          advisorUsername={props.match.params.username}
+        />
+        <AdvisorStarUploadWidget
+          usernameDoc={props.usernameDoc}
+          advisorUsername={props.match.params.username}
+        />
 
       </Grid.Column>
-      <Grid.Column width={1}/>
-      <BackToTopButton/>
+      <Grid.Column width={1} />
+      <BackToTopButton />
     </Grid.Row>
   );
 };
 
 const AdvisorHomePage = (props: IFilterStudents) => (
-      <div>
-        <AdvisorPageMenuWidget/>
-        <div className="pusher">
-          <Grid stackable={true}>
-            <Grid.Row>
-              <Grid.Column width={1}/>
-              <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-              <Grid.Column width={1}/>
-            </Grid.Row>
+  <div>
+    <AdvisorPageMenuWidget />
+    <div className="pusher">
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column width={1}/>
-              <Grid.Column width={14}>
-                <AdvisorStudentSelectorWidget careerGoals={props.careerGoals}
-                                              interests={props.interests}
-                                              advisorUsername={props.match.params.username}/>
-              </Grid.Column>
-              <Grid.Column width={1}/>
-            </Grid.Row>
-            {renderSelectedStudentWidgets(props)}
-          </Grid>
-        </div>
-      </div>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}>
+            <AdvisorStudentSelectorWidget
+              careerGoals={props.careerGoals}
+              interests={props.interests}
+              advisorUsername={props.match.params.username}
+            />
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
+        {renderSelectedStudentWidgets(props)}
+      </Grid>
+    </div>
+  </div>
     );
 
 

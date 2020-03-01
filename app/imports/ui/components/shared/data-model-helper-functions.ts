@@ -1,6 +1,7 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { Users } from '../../../api/user/UserCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -19,8 +20,7 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
-// import * as Router from './RouterHelperFunctions';
+// import Router from './RouterHelperFunctions';
 
 interface IHasName {
   name: string;
@@ -157,6 +157,20 @@ export const opportunityInstanceToName = (oi) => {
   return `${student}-${opportunity}-${term}`;
 };
 
+export const opportunityInstanceNameToUsername = (name) => {
+  const parts = name.split('-');
+  return parts[0];
+};
+
+export const opportunityInstanceNameToTermSlug = (name) => {
+  const parts = name.split('-');
+  const termParts = parts[2].split(' ');
+  const term = termParts[0];
+  const year = parseInt(termParts[1], 10);
+  const termDoc = AcademicTerms.findDoc({ term, year });
+  return Slugs.getNameFromID(termDoc.slugID);
+};
+
 export const opportunityInstanceNameToId = (name) => {
   const parts = name.split('-');
   const opportunityDoc = Opportunities.findDoc(parts[1]);
@@ -182,9 +196,8 @@ export const profileGetFavoriteAcademicPlans = (profile) => {
 };
 
 export const profileFavoriteBamAcademicPlan = (profile) => {
-  const setttingsDoc = RadGradSettings.findOne({});
   let numTermsPerYear = 3;
-  if (setttingsDoc.quarterSystem) {
+  if (RadGradProperties.getQuarterSystem()) {
     numTermsPerYear = 4;
   }
   const favPlans = profileGetFavoriteAcademicPlans(profile);

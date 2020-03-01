@@ -1,19 +1,15 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { profileToName, userIdToName } from '../shared/data-model-helper-functions';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line
+import { IStudentProfile } from '../../../typings/radgrad';
+import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IUpdateFeedbackInstanceFormProps {
   students: IStudentProfile[];
@@ -46,24 +42,31 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
   });
   // console.log(model);
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Update {props.collection.getType()}: {props.itemTitleString(model)}</Header>
+    <Segment padded>
+      <Header dividing>
+        Update
+        {props.collection.getType()}
+        :
+        {props.itemTitleString(model)}
+      </Header>
       <AutoForm
         ref={props.formRef}
         schema={schema}
         model={model}
-        onSubmit={props.handleUpdate}>
+        onSubmit={props.handleUpdate}
+      >
         <Form.Group>
-          <SelectField name="user"/>
-          <SelectField name="functionName"/>
-          <SelectField name="feedbackType"/>
+          <SelectField name="user" />
+          <SelectField name="functionName" />
+          <SelectField name="feedbackType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value={'Update'} disabled={false} className={''}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
-    </Segment>);
+    </Segment>
+);
 };
 
 const UpdateFeedbackInstanceFormContainer = withTracker(() => ({

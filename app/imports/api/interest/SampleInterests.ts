@@ -1,19 +1,18 @@
-import * as moment from 'moment';
+import moment from 'moment';
+import faker from 'faker';
 import { InterestTypes } from './InterestTypeCollection';
 import { Interests } from './InterestCollection';
-
-export const sampleInterestTypeName = 'Sample Interest Type';
-export const sampleInterestName = 'Sample Interest';
 
 /**
  * Creates an InterestType with a unique slug and returns its docID.
  * @returns { String } The docID of the newly generated InterestType.
  * @memberOf api/interest
  */
-export function makeSampleInterestType() {
-  const name = sampleInterestTypeName;
-  const slug = `interest-type-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
-  const description = 'Sample Interest Type Description';
+export function makeSampleInterestType(): string {
+  const name = faker.lorem.word();
+  const slug = `${name}-type-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+  const description = faker.lorem.paragraph();
+  // console.log('makeSampleInterestType', name, slug, description);
   return InterestTypes.define({ name, slug, description });
 }
 
@@ -23,10 +22,24 @@ export function makeSampleInterestType() {
  * @returns { String } The docID for the newly generated Interest.
  * @memberOf api/interest
  */
-export function makeSampleInterest() {
+export function makeSampleInterest(): string {
   const interestType = makeSampleInterestType();
-  const name = sampleInterestName;
-  const slug = `interest-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
-  const description = 'Sample Interest Description';
+  const name = faker.lorem.word();
+  const slug = `${name}-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+  const description = faker.lorem.paragraph();
+  // console.log('makeSampleInterest', { name, slug, description, interestType });
   return Interests.define({ name, slug, description, interestType });
+}
+
+/**
+ * Returns an array of interestIDs.
+ * @param {number} numInterests the number of interestIDs.
+ * @returns {string[]}
+ */
+export function makeSampleInterestArray(numInterests: number = 1): string[] {
+  const retVal = [];
+  for (let i = 0; i < numInterests; i++) {
+    retVal.push(makeSampleInterest());
+  }
+  return retVal;
 }

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 

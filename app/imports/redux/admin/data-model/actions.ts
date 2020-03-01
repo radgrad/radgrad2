@@ -1,3 +1,4 @@
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import * as TYPES from './types';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -94,6 +95,9 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
     case Slugs.getCollectionName():
       retVal.type = TYPES.SET_SLUGS_SHOW_COUNT;
       break;
+    case AdminProfiles.getCollectionName():
+      retVal.type = TYPES.SET_ADMINS_SHOW_COUNT;
+      break;
     case AdvisorProfiles.getCollectionName():
       retVal.type = TYPES.SET_ADVISORS_SHOW_COUNT;
       break;
@@ -184,6 +188,9 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
       break;
     case Slugs.getCollectionName():
       retVal.type = TYPES.SET_SLUGS_SHOW_INDEX;
+      break;
+    case AdminProfiles.getCollectionName():
+      retVal.type = TYPES.SET_ADMINS_SHOW_INDEX;
       break;
     case AdvisorProfiles.getCollectionName():
       retVal.type = TYPES.SET_ADVISORS_SHOW_INDEX;

@@ -8,7 +8,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { nextAcademicTerm } from '../academic-term/AcademicTermUtilities';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isClient) {
@@ -56,7 +56,8 @@ if (Meteor.isClient) {
       expect(data.enrollmentData[0][1]).to.equal(0);
 
       // Now make a course instance for next academicTerm
-      const academicTerm = AcademicTerms.getSlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc())._id);
+      // console.log(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc()));
+      const academicTerm = AcademicTerms.findIdBySlug(nextAcademicTerm(AcademicTerms.getCurrentAcademicTermDoc()).slugID);
       const student = 'abi@hawaii.edu';
       const course = 'ics_111';
       const courseInstanceDefinitionData = {

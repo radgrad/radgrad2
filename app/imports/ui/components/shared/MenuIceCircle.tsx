@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { buildRouteName } from './RouterHelperFunctions';
 
@@ -31,15 +31,15 @@ const MenuIceCircle = (props: IMenuIceCircleProps) => {
           <span>{e}</span>
         </div>
         <div className="slice">
-          <div className="bar"/>
-          <div className="fill"/>
+          <div className="bar" />
+          <div className="fill" />
         </div>
       </Link>
       <a className={classNamesEarned}>
-        <span/>
+        <span />
         <div className="slice">
-          <div className="bar"/>
-          <div className="fill"/>
+          <div className="bar" />
+          <div className="fill" />
         </div>
       </a>
     </div>

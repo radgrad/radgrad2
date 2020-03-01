@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
-import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget'; // eslint-disable-line no-unused-vars
+import { IAdvisorAcademicPlanBuilderWidgetState } from './AdvisorAcademicPlanBuilderWidget';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import * as AcademicPlanUtilities from '../../../api/degree-plan/AcademicPlanUtilities';
@@ -20,16 +20,12 @@ interface IAdvisorAPBTermViewProps {
 }
 
 class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvisorAcademicPlanBuilderWidgetState> {
-  constructor(props) {
-    super(props);
-    // console.log('TermView %o', props);
-  }
 
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     // console.log('TermView %o', this.props);
     return (
       <Segment>
-        <Header dividing={true} as="h4">{this.props.termName}</Header>
+        <Header dividing as="h4">{this.props.termName}</Header>
         <Droppable droppableId={buildPlanAreaDroppableId(this.props.yearNumber, this.props.termNumber)}>
           {(provided, snapshot) => {
             const choices = AcademicPlanUtilities.getPlanChoicesRaw(this.props.coursesPerTerm, this.props.choiceList, this.props.termNumber);
@@ -44,8 +40,15 @@ class AdvisorAPBTermView extends React.Component<IAdvisorAPBTermViewProps, IAdvi
                 style={getDroppableListStyle(snapshot.isDraggingOver)}
               >
                 {_.map(choices, (choice, idx) => (
-                  <DraggableCoursePill key={choice} index={idx} choice={choice} draggableId={buildPlanAreaDraggableId(choice)}
-                                       satisfied={true} studentID="fakeID"/>))}
+                  <DraggableCoursePill
+                    key={choice}
+                    index={idx}
+                    choice={choice}
+                    draggableId={buildPlanAreaDraggableId(choice)}
+                    satisfied
+                    studentID="fakeID"
+                  />
+))}
                 {provided.placeholder}
               </div>
             );

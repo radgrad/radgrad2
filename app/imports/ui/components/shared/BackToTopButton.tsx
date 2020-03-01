@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ScrollUpButton from 'react-scroll-up-button';
 import { Button, Icon } from 'semantic-ui-react';
 
@@ -17,8 +17,8 @@ const BackToTopButton = () => {
 
   return (
     <ScrollUpButton style={style} ToggledStyle={toggledStyle}>
-      <Button size="big" circular={true} icon={true}>
-        <Icon name="arrow up"/>
+      <Button size="big" circular icon>
+        <Icon name="arrow up" />
       </Button>
     </ScrollUpButton>
   );

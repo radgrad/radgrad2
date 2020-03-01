@@ -7,7 +7,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import PreferredChoice from './PreferredChoice';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -21,7 +21,7 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#hasPreferences, #getBestChoices', function test() {
+    it('#hasPreferences, #getBestChoices, #getOrderedChoices', function test() {
       const courses = [];
       courses.push(Courses.findDocBySlug('ics_111'));
       courses.push(Courses.findDocBySlug('ics_141'));
@@ -31,10 +31,18 @@ if (Meteor.isServer) {
       let preferred = new PreferredChoice(courses, interestIDs);
       expect(preferred.hasPreferences()).to.be.false;
       expect(preferred.getBestChoices().length).to.equal(3);
+      let ordered = preferred.getOrderedChoices();
+      expect(ordered[0].num).to.equal('ICS 111');
+      expect(ordered[1].num).to.equal('ICS 141');
+      expect(ordered[2].num).to.equal('ICS 211');
       interestIDs.push(Interests.findIdBySlug('java'));
       preferred = new PreferredChoice(courses, interestIDs);
       expect(preferred.hasPreferences()).to.be.true;
       expect(preferred.getBestChoices().length).to.equal(2);
+      ordered = preferred.getOrderedChoices();
+      expect(ordered[0].num).to.equal('ICS 111');
+      expect(ordered[2].num).to.equal('ICS 141');
+      expect(ordered[1].num).to.equal('ICS 211');
       interestIDs.push(Interests.findIdBySlug('algorithms'));
       preferred = new PreferredChoice(courses, interestIDs);
       expect(preferred.hasPreferences()).to.be.true;

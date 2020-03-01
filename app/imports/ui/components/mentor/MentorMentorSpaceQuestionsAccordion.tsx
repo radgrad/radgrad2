@@ -1,13 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Icon, Grid, Divider, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import MentorQuestionAnswerWidget from '../student/MentorQuestionAnswerWidget';
 import MentorMentorSpaceAnswerForm from './MentorMentorSpaceAnswerForm';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
-// eslint-disable-next-line no-unused-vars
 import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 
 interface IMentorMentorSpaceQuestionsAccordionState {
@@ -50,16 +49,18 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
           const mentorAnswers = _.filter(answers, (ans) => ans.questionID === q._id);
           return (
             <Segment key={ind}>
-              <Accordion fluid={true} styled={true} key={ind} style={accordionStyle}>
+              <Accordion fluid styled key={ind} style={accordionStyle}>
                 <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
-                  <Grid columns='equal'>
+                  <Grid columns="equal">
                     <Grid.Row>
                       <Grid.Column>
-                        <Icon name='dropdown'/>
+                        <Icon name="dropdown" />
                         {q.question}
                       </Grid.Column>
-                      <Grid.Column width={2} textAlign={'right'}>
-                        {answerCount[ind]} {answerCount[ind] > 1 ? ' answers' : ' answer'}
+                      <Grid.Column width={2} textAlign="right">
+                        {answerCount[ind]}
+                        {' '}
+                        {answerCount[ind] > 1 ? ' answers' : ' answer'}
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
@@ -70,15 +71,15 @@ class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorS
                       const mentor = MentorProfiles.findDoc({ userID: answer.mentorID });
                       return (
                         <React.Fragment key={index}>
-                          <MentorQuestionAnswerWidget answer={answer} mentor={mentor}/>
+                          <MentorQuestionAnswerWidget answer={answer} mentor={mentor} />
                         </React.Fragment>
                       );
                     })}
                   </React.Fragment>
                 </Accordion.Content>
               </Accordion>
-              <Divider/>
-              <MentorMentorSpaceAnswerForm question={q}/>
+              <Divider />
+              <MentorMentorSpaceAnswerForm question={q} />
             </Segment>
           );
         })}

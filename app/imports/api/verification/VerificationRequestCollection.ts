@@ -1,14 +1,14 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
-import * as moment from 'moment';
+import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
-import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Image } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import RadGradMenuLevel from './RadGradMenuLevel';
@@ -6,7 +6,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
-// eslint-disable-next-line no-unused-vars
 import { Ice, IStudentProfile } from '../../../typings/radgrad';
 import { radgradMenuProfile } from './shared-widget-names';
 
@@ -31,15 +30,20 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
     <div style={flexStyle} id={`${radgradMenuProfile}`}>
       {displayLevelAndIce ? (
         <div style={flexStyle}>
-          <RadGradMenuLevel level={level}/>
-          <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov"/>
-          <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp"/>
-          <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp"/>
+          <RadGradMenuLevel level={level} />
+          <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
+          <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
+          <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
         </div>
       ) : ''}
       <div className="mobile hidden item radgrad-menu-profile radgrad-brand-font" style={divStyle}>
-        <Image src={pictureSrc} style={imageStyle}/>
-        <Header style={nameStyle}><span>{profile.firstName}<br/>{profile.lastName}</span>
+        <Image src={pictureSrc} style={imageStyle} />
+        <Header style={nameStyle}>
+          <span>
+            {profile.firstName}
+            <br />
+            {profile.lastName}
+          </span>
         </Header>
       </div>
     </div>

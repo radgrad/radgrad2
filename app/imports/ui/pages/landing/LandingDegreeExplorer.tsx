@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as Markdown from 'react-markdown';
+import React from 'react';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IDesiredDegree } from '../../../typings/radgrad'; // eslint-disable-line
+import { IDesiredDegree } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
-import withListSubscriptions from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
@@ -31,35 +31,38 @@ const DesiredDegreeExplorer = (props: IDesiredDegreeExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true}>
+      <ExplorerMenuBarContainer />
+      <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
                 <span>{props.desiredDegree.name}</span>
               </Header>
               <b>Description:</b>
-              <Markdown escapeHtml={true} source={props.desiredDegree.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+              <Markdown
+                escapeHtml
+                source={props.desiredDegree.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

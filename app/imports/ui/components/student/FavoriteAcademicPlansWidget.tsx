@@ -1,17 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 import SimpleSchema from 'simpl-schema';
 import { Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import SelectField from 'uniforms-semantic/SelectField';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
-import * as Router from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import _ from 'lodash';
+import { AutoForm, SelectField } from 'uniforms-semantic';
+import { IAcademicPlan } from '../../../typings/radgrad';
+import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IFavoriteAcademicPlansWidgetProps {
   match: Router.IMatchProps;
@@ -53,21 +52,29 @@ class FavoriteAcademicPlansWidget extends React.Component<IFavoriteAcademicPlans
     return (
       <div>
         <AutoForm schema={schema} onChangeModel={this.handleOnChangeModel}>
-          <SelectField name="academicPlan"/>
+          <SelectField name="academicPlan" />
         </AutoForm>
-        <p/>
-        {showPlanP ?
-          <AcademicPlanViewerWidgetContainer academicPlan={this.state.selectedPlan}
-                                             username={Router.getUsername(this.props.match)}/>
-          :
-          <Message info>
-            <Message.Header>No favorite acadmeic plans</Message.Header>
-            <p>You can favorite academic plans in the explorer.
-              <Link to={Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>View
-                in
-                Explorer <Icon name="arrow right"/></Link></p>
-          </Message>
-        }
+        <p />
+        {showPlanP ? (
+          <AcademicPlanViewerWidgetContainer
+            academicPlan={this.state.selectedPlan}
+            username={Router.getUsername(this.props.match)}
+          />
+        )
+          : (
+            <Message info>
+              <Message.Header>No favorite acadmeic plans</Message.Header>
+              <p>
+                You can favorite academic plans in the explorer.
+                <Link to={Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                  View
+                  in
+                  Explorer
+                  <Icon name="arrow right" />
+                </Link>
+              </p>
+            </Message>
+        )}
       </div>
     );
   }

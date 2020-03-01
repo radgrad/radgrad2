@@ -1,11 +1,7 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import DateField from 'uniforms-semantic/DateField';
-import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -14,7 +10,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { academicTermToName, courseToName, docToName, profileToName } from '../shared/data-model-helper-functions';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
 
 interface IAddFeedFromProps {
   academicTerms: IAcademicTerm[];
@@ -122,76 +118,81 @@ class AddFeedForm extends React.Component<IAddFeedFromProps, IAddFeedFormState> 
     }
     // console.log(schema);
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Feed</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}
-                  onChangeModel={this.handleModelChange}>
+      <Segment padded>
+        <Header dividing>Add Feed</Header>
+        <AutoForm
+          schema={schema}
+          onSubmit={this.props.handleAdd}
+          ref={this.props.formRef}
+          showInlineError
+          onChangeModel={this.handleModelChange}
+        >
           <Form.Group widths="equal">
-            <DateField name="timestamp"/>
-            <SelectField name="feedType"/>
+            <DateField name="timestamp" />
+            <SelectField name="feedType" />
           </Form.Group>
           {this.state.feedType === Feeds.NEW_COURSE ? (
             <div>
-              <Header dividing={true} as="h4">New course field</Header>
+              <Header dividing as="h4">New course field</Header>
               <Form.Group widths="equal">
-                <SelectField name="course"/>
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_COURSE_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="course"/>
+                <SelectField name="user" />
+                <SelectField name="course" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_LEVEL ? (
             <div>
-              <Header dividing={true} as="h4">New course review fields</Header>
+              <Header dividing as="h4">New course review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <NumField name="level"/>
+                <SelectField name="user" />
+                <NumField name="level" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity field</Header>
+              <Header dividing as="h4">New opportunity field</Header>
               <Form.Group widths="equal">
-                <SelectField name="opportunity"/>
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_OPPORTUNITY_REVIEW ? (
             <div>
-              <Header dividing={true} as="h4">New opportunity review fields</Header>
+              <Header dividing as="h4">New opportunity review fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.NEW_USER ? (
             <div>
-              <Header dividing={true} as="h4">New user fields</Header>
+              <Header dividing as="h4">New user fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
+                <SelectField name="user" />
               </Form.Group>
             </div>
           ) : ''}
           {this.state.feedType === Feeds.VERIFIED_OPPORTUNITY ? (
             <div>
-              <Header dividing={true} as="h4">New verified opportunity fields</Header>
+              <Header dividing as="h4">New verified opportunity fields</Header>
               <Form.Group widths="equal">
-                <SelectField name="user"/>
-                <SelectField name="opportunity"/>
-                <SelectField name="academicTerm"/>
+                <SelectField name="user" />
+                <SelectField name="opportunity" />
+                <SelectField name="academicTerm" />
               </Form.Group>
             </div>
           ) : ''}
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
         </AutoForm>
       </Segment>
     );

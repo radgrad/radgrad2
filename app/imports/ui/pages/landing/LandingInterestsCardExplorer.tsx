@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
-import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { IInterest } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -28,37 +28,41 @@ const renderPage = (props: IInterestsCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer/>
-      <Grid stackable={true} container={true} padded="vertically">
+      <ExplorerMenuBarContainer />
+      <Grid stackable container padded="vertically">
         <Grid.Row>
-          <Grid.Column width={1}/>
-          <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={11}>
-            <Segment padded={true} style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing={true}>
-                <span>INTERESTS</span> ({props.count})
+            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              <Header as="h4" dividing>
+                <span>INTERESTS</span>
+                {' '}
+                (
+                {props.count}
+                )
               </Header>
-              <Card.Group stackable={true} itemsPerRow={2} style={inlineStyle}>
+              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.interests.map((interest) => (
-                  <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
+                  <LandingExplorerCardContainer key={interest._id} type="interests" item={interest} />
                 ))}
               </Card.Group>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
+          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
 
-      <BackToTopButton/>
+      <BackToTopButton />
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import * as moment from 'moment';
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IUserInteractionDefine } from '../../typings/radgrad'; // eslint-disable-line
+import { IUserInteractionDefine } from '../../typings/radgrad';
 
 /**
  * Represents a log of user interactions with RadGrad.
@@ -30,7 +30,8 @@ class UserInteractionCollection extends BaseCollection {
     super('UserInteraction', new SimpleSchema({
       username: { type: String },
       type: { type: String },
-      typeData: [String],
+      typeData: Array,
+      'typeData.$': String,
       timestamp: { type: Date },
     }));
   }

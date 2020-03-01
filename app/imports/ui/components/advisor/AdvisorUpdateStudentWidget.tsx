@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import {
@@ -7,8 +7,6 @@ import {
   Header,
   Form,
   Radio,
-  // eslint-disable-next-line no-unused-vars
-  InputOnChangeData, CheckboxProps,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -17,8 +15,6 @@ import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../api/level/LevelProcessor';
-// eslint-disable-next-line no-unused-vars
-import { ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { setIsLoaded, setSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -55,7 +51,7 @@ const mapStateToProps = (state) => ({
 class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWidgetProps, IAdvisorUpdateStudentWidgetState> {
   constructor(props) {
     super(props);
-    console.log('AdvisorUpdateStudentWidget', props);
+    // console.log('AdvisorUpdateStudentWidget', props);
     const doc = this.props.usernameDoc;
     const userID = doc.userID;
     const favInterests = FavoriteInterests.findNonRetired({ userID });
@@ -75,7 +71,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
       declaredAcademicTerm: doc.declaredAcademicTerm || '',
       favoriteAcademicPlans: favPlanIDs,
     };
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   private handleUploadClick = async (): Promise<void> => {
@@ -182,134 +178,169 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
     } = this.state;
 
     return (
-      <Segment padded={true}>
-        <Header as="h4" dividing={true}>UPDATE STUDENT</Header>
+      <Segment padded>
+        <Header as="h4" dividing>UPDATE STUDENT</Header>
         <Form onSubmit={this.handleUpdateSubmit}>
-          <Form.Group widths={'equal'}>
-            <Form.Input name="username"
-                        label={'Username'}
-                        value={this.props.usernameDoc.username}
-                        disabled={true}/>
-            <Form.Input name="role"
-                        label={'Role'}
-                        value={this.props.usernameDoc.role}
-                        disabled={true}/>
+          <Form.Group widths="equal">
+            <Form.Input
+              name="username"
+              label="Username"
+              value={this.props.usernameDoc.username}
+              disabled
+            />
+            <Form.Input
+              name="role"
+              label="Role"
+              value={this.props.usernameDoc.role}
+              disabled
+            />
           </Form.Group>
-          <Form.Group widths={'equal'}>
-            <Form.Input name="firstName"
-                        label={'First'}
-                        onChange={this.handleFormChange}
-                        value={firstName}
-                        required={true}/>
-            <Form.Input name="lastName"
-                        label={'Last'}
-                        onChange={this.handleFormChange}
-                        value={lastName}
-                        required={true}/>
+          <Form.Group widths="equal">
+            <Form.Input
+              name="firstName"
+              label="First"
+              onChange={this.handleFormChange}
+              value={firstName}
+              required
+            />
+            <Form.Input
+              name="lastName"
+              label="Last"
+              onChange={this.handleFormChange}
+              value={lastName}
+              required
+            />
           </Form.Group>
-          <Header as={'h4'} dividing={true}>Optional fields (all users)</Header>
-          <Form.Group widths={'equal'}>
-            <Form.Input name="picture"
-                        label={<React.Fragment>
-                          Picture (<a onClick={this.handleUploadClick}>Upload</a>)
-                        </React.Fragment>}
-                        onChange={this.handleFormChange}
-                        value={picture}/>
-            <Form.Input name="website"
-                        label={'Website'}
-                        onChange={this.handleFormChange}
-                        value={website || ''}/>
+          <Header as="h4" dividing>Optional fields (all users)</Header>
+          <Form.Group widths="equal">
+            <Form.Input
+              name="picture"
+              label={(
+                <React.Fragment>
+                  Picture (
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                  <a onClick={this.handleUploadClick}>Upload</a>
+                  )
+                </React.Fragment>
+)}
+              onChange={this.handleFormChange}
+              value={picture}
+            />
+            <Form.Input
+              name="website"
+              label="Website"
+              onChange={this.handleFormChange}
+              value={website || ''}
+            />
           </Form.Group>
-          <Form.Group widths={'equal'}>
-            <Form.Dropdown selection multiple
-                           name={'careerGoals'}
-                           label={'Select Career Goal(s)'}
-                           placeholder={'Select Career Goal(s)'}
-                           onChange={this.handleFormChange}
-                           options={this.props.careerGoals.map(
+          <Form.Group widths="equal">
+            <Form.Dropdown
+              selection
+              multiple
+              name="careerGoals"
+              label="Select Career Goal(s)"
+              placeholder="Select Career Goal(s)"
+              onChange={this.handleFormChange}
+              options={this.props.careerGoals.map(
                              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                            )}
-                           value={careerGoals}/>
-            <Form.Dropdown selection multiple
-                           name={'userInterests'}
-                           label={'Select Interest(s)'}
-                           placeholder={'Select Interest(s)'}
-                           onChange={this.handleFormChange}
-                           options={this.props.interests.map(
+              value={careerGoals}
+            />
+            <Form.Dropdown
+              selection
+              multiple
+              name="userInterests"
+              label="Select Interest(s)"
+              placeholder="Select Interest(s)"
+              onChange={this.handleFormChange}
+              options={this.props.interests.map(
                              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                            )}
-                           value={userInterests}/>
+              value={userInterests}
+            />
 
           </Form.Group>
-          <Form.Group widths={'equal'}>
+          <Form.Group widths="equal">
             <Form.Field>
               <Form.Field>
                 Is Alumni
               </Form.Field>
               <Form.Field>
                 <Radio
-                  label={'True'}
-                  name={'isAlumni'}
-                  value={'true'}
+                  label="True"
+                  name="isAlumni"
+                  value="true"
                   checked={isAlumni === true}
                   onChange={this.handleFormChange}
                 />
               </Form.Field>
               <Form.Field>
                 <Radio
-                  label={'False'}
-                  name={'isAlumni'}
-                  value={'false'}
+                  label="False"
+                  name="isAlumni"
+                  value="false"
                   checked={isAlumni === false}
                   onChange={this.handleFormChange}
                 />
               </Form.Field>
             </Form.Field>
             <Form.Field>
-              <Form.Input name="level"
-                          label={'Level'}
-                          onChange={this.handleFormChange}
-                          value={this.props.usernameDoc.level}
-                          disabled={true}/>
+              <Form.Input
+                name="level"
+                label="Level"
+                onChange={this.handleFormChange}
+                value={this.props.usernameDoc.level}
+                disabled
+              />
             </Form.Field>
           </Form.Group>
-          <Form.Group widths={'equal'}>
+          <Form.Group widths="equal">
             <Form.Field>
-              <Form.Dropdown name="declaredAcademicTerm"
-                             label={'Declared Semester'}
-                             selection={true}
-                             placeholder={'Select Semester'}
-                             onChange={this.handleFormChange}
-                             options={AcademicTerms.findNonRetired().map(
+              <Form.Dropdown
+                name="declaredAcademicTerm"
+                label="Declared Semester"
+                selection
+                placeholder="Select Semester"
+                onChange={this.handleFormChange}
+                options={AcademicTerms.findNonRetired().map(
                                (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
                              )}
-                             value={declaredAcademicTerm}/>
+                value={declaredAcademicTerm}
+              />
             </Form.Field>
             <Form.Field>
-              <Form.Dropdown name="favoriteAcademicPlans"
-                             label={'Academic Plans'}
-                             selection multiple
-                             placeholder={'Select Academic Plan'}
-                             onChange={this.handleFormChange}
-                             options={AcademicPlans.findNonRetired().map(
+              <Form.Dropdown
+                name="favoriteAcademicPlans"
+                label="Academic Plans"
+                selection
+                multiple
+                placeholder="Select Academic Plan"
+                onChange={this.handleFormChange}
+                options={AcademicPlans.findNonRetired().map(
                                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
                              )}
-                             value={favoriteAcademicPlans}/>
+                value={favoriteAcademicPlans}
+              />
             </Form.Field>
           </Form.Group>
           {// TODO -- Find a way to test RadGrad.calcLevel
           }
           {this.hasNewLevel() ?
-            <Segment inverted color={'green'} secondary><Header as={'h3'}>New Level!!</Header></Segment> : undefined}
-          <Form.Group inline={true}>
-            <Form.Button content={'Update'} type={'Submit'} basic={true} color={'green'}/>
-            <Form.Button content={'Cancel'} onClick={this.handleCancel} basic={true} color={'green'}/>
+            <Segment inverted color="green" secondary><Header as="h3">New Level!!</Header></Segment> : undefined}
+          <Form.Group inline>
+            <Form.Button content="Update" type="Submit" basic color="green" />
+            <Form.Button content="Cancel" onClick={this.handleCancel} basic color="green" />
           </Form.Group>
         </Form>
         <b>{`View ${this.props.usernameDoc.firstName}'s degree plan: `}</b>
-        <Link target={'_blank'} rel={'noopener noreferrer'}
-              to={`/student/${this.props.usernameDoc.username}/degree-planner/`}>
-          /student/{this.props.usernameDoc.username}/degree-planner
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          to={`/student/${this.props.usernameDoc.username}/degree-planner/`}
+        >
+          /student/
+          {this.props.usernameDoc.username}
+          /degree-planner
         </Link>
       </Segment>
     );

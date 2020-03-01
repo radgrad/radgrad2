@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { ROLE } from '../role/Role';
 import { StudentProfiles } from './StudentProfileCollection';
 import { Users } from './UserCollection';
@@ -23,7 +23,7 @@ export const updateAcademicPlanMethod = new ValidatedMethod({
         throw new Meteor.Error('unauthorized', 'You must be an admin, advisor, or student to update the academic plan.');
       }
     }
-      console.log(academicPlan);
+      // console.log(academicPlan);
     // Don't update except on server side (disable client-side simulation).
     if (Meteor.isServer) {
       // const profile = Users.getProfile(this.userId);

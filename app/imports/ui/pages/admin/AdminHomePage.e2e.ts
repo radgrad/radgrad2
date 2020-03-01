@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe'; // eslint-disable-line no-unused-vars
+import { Selector } from 'testcafe';
 import { adminLogin, leftHandMenuSelector, secondMenuSelector } from '../../test-helpers/e2e';
 
 /* global fixture, test */

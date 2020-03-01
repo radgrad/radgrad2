@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
-import { IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import _ from 'lodash';
+import { IOpportunity } from '../../../typings/radgrad';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import * as Router from '../shared/RouterHelperFunctions';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import FavoriteOpportunityCard from './FavoriteOpportunityCard';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IFavoriteOpportunitiesWidgetProps {
   match: Router.IMatchProps;
@@ -18,19 +18,27 @@ interface IFavoriteOpportunitiesWidgetProps {
 
 const FavoriteOpportunitiesWidget = (props: IFavoriteOpportunitiesWidgetProps) => {
   const hasFavorites = props.opportunities.length > 0;
-  return (<div>
-    {hasFavorites ?
-      <Card.Group itemsPerRow={1}>
-        {_.map(props.opportunities, (o) => (
-          <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID}/>))}
-      </Card.Group> : <Message>
+  return (
+    <div>
+      {hasFavorites ? (
+        <Card.Group itemsPerRow={1}>
+          {_.map(props.opportunities, (o) => (
+            <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID} />))}
+        </Card.Group>
+    ) : (
+      <Message>
         <Message.Header>No favorite opportunities</Message.Header>
         <p>You can favorite opportunities in the explorer.</p>
-        <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>View
+        <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
+          View
           in
-          Explorer <Icon name="arrow right"/></Link>
-      </Message>}
-  </div>);
+          Explorer
+          <Icon name="arrow right" />
+        </Link>
+      </Message>
+)}
+    </div>
+);
 };
 
 export default withRouter(withTracker((props) => {

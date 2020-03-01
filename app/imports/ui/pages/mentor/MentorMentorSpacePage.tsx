@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import StudentMentorSpaceMentorDirectoryAccordion
@@ -10,33 +10,33 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 /** A simple static component to render some text for the landing page. */
 const MentorMentorSpacePage = () => (
   <div>
-    <MentorPageMenuWidget/>
-    <Grid stackable={true}>
+    <MentorPageMenuWidget />
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={1}/>
-        <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
+        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
         <Grid.Column width={10}>
-          <MentorMentorSpaceQuestionsAccordion/>
+          <MentorMentorSpaceQuestionsAccordion />
         </Grid.Column>
 
         <Grid.Column width={4}>
           <Segment>
-            <Header dividing={true}>
+            <Header dividing>
               <h4>MENTOR DIRECTORY</h4>
             </Header>
-            <StudentMentorSpaceMentorDirectoryAccordion/>
+            <StudentMentorSpaceMentorDirectoryAccordion />
           </Segment>
         </Grid.Column>
-        <Grid.Column width={1}/>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
 
-    <BackToTopButton/>
+    <BackToTopButton />
   </div>
 );
 

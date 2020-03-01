@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Rating } from 'semantic-ui-react';
 
 interface IStudentExplorerReviewStarsWidgetProps {
@@ -6,7 +6,7 @@ interface IStudentExplorerReviewStarsWidgetProps {
 }
 
 const StudentExplorerReviewStarsWidget = (props: IStudentExplorerReviewStarsWidgetProps) => (
-  <Rating size="large" icon="star" rating={props.rating} maxRating={5} disabled={true}/>
+  <Rating size="large" icon="star" rating={props.rating} maxRating={5} disabled />
 );
 
 export default StudentExplorerReviewStarsWidget;

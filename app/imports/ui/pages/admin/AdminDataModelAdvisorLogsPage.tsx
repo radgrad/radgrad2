@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -6,9 +6,9 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState, // eslint-disable-line
-  IAdvisorLog, IAdvisorLogUpdate, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
+  IAdminDataModelPageState,
+  IAdvisorLog, IAdvisorLogUpdate,
+  IDescriptionPair,
 } from '../../../typings/radgrad';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -28,8 +28,8 @@ const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
   const name = Users.getFullName(advisorLog.studentID);
   return (
     <React.Fragment>
-      {advisorLog.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
+      {advisorLog.retired ? <Icon name="eye slash" /> : ''}
+      <Icon name="dropdown" />
       {`${name} ${advisorLog.createdOn}`}
     </React.Fragment>
   );
@@ -149,35 +149,41 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={AdvisorLogs} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <AdminDataModelUpdateForm
+                collection={AdvisorLogs}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddAdvisorLogFormContainer formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddAdvisorLogFormContainer formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={AdvisorLogs}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={AdvisorLogs}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Advisor Log?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Advisor Log?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

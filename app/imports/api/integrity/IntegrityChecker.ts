@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { RadGrad } from '../radgrad/RadGrad';
 
 /**
@@ -34,6 +34,7 @@ export function checkIntegrity() {
  * @memberOf api/integrity
  */
 export function assertIntegrity() {
+  console.log('assertIntegrity');
   const { count, message } = checkIntegrity();
   if (count > 0) {
     throw new Meteor.Error(message);

@@ -6,7 +6,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { defineTestFixtures } from '../test/test-utilities';
 import * as utilities from './AcademicYearUtilities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -25,7 +25,7 @@ if (Meteor.isServer) {
 
       // 1/11/18: Test failed: expected 11 to equal 10. I've changed to 11 so test passes. Has curr academicTerm changed?
       // TODO: Yes the current academicTerm has rolled and we will have to update this 3 times a year or update abi.student
-      expect(utilities.getStudentsCurrentAcademicTermNumber(profile.userID)).to.equal(16);
+      expect(utilities.getStudentsCurrentAcademicTermNumber(profile.userID)).to.equal(17);
     });
     it('#getStudentTerms.', function test() {
       const profile = Users.getProfile('abi@hawaii.edu');

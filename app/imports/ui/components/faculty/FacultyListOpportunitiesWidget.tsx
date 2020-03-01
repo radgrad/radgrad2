@@ -1,18 +1,18 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { ROLE } from '../../../api/role/Role';
-import BaseCollection from '../../../api/base/BaseCollection'; // eslint-disable-line no-unused-vars
-import { IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import BaseCollection from '../../../api/base/BaseCollection';
+import { IDescriptionPair } from '../../../typings/radgrad';
 import AdminPaginationWidget from '../admin/AdminPaginationWidget';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 
 interface IListOpportunitiesWidgetProps {
@@ -58,38 +58,71 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
   const factoryOpp = facultyOpportunities(props);
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
   return (
-    <Segment padded={true}>
+    <Segment padded>
       {
-        isInRole(props) ?
+        isInRole(props) ? (
           <div>
-            <Header dividing={true}> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
+            <Header dividing>
+              {' '}
+              YOUR OPPORTUNITIES (
+              {facultyCounter}
+              )
+              {' '}
+            </Header>
             {_.map(factoryOpp, (item) => (
-              <AdminDataModelAccordion key={item._id} id={item._id} retired={item.retired} name={item.name}
-                                       slug={slugName(item.slugID)}
-                                       descriptionPairs={props.descriptionPairs(item)}
-                                       updateDisabled={false}
-                                       deleteDisabled={false}
-                                       handleOpenUpdate={props.handleOpenUpdate}
-                                       handleDelete={props.handleDelete}
-                                       additionalTitleInfo={titleICE(item)}/>
+              <AdminDataModelAccordion
+                key={item._id}
+                id={item._id}
+                retired={item.retired}
+                name={item.name}
+                slug={slugName(item.slugID)}
+                descriptionPairs={props.descriptionPairs(item)}
+                updateDisabled={false}
+                deleteDisabled={false}
+                handleOpenUpdate={props.handleOpenUpdate}
+                handleDelete={props.handleDelete}
+                additionalTitleInfo={titleICE(item)}
+              />
             ))}
-            <Header dividing={true}> ALL OTHER OPPORTUNITIES ({count(props)})</Header> <br/>
+            <Header dividing>
+              {' '}
+              ALL OTHER OPPORTUNITIES (
+              {count(props)}
+              )
+            </Header>
+            {' '}
+            <br />
           </div>
-          : <Header dividing={true}>OPPORTUNITIES ({count})</Header>
+        )
+          : (
+            <Header dividing>
+              OPPORTUNITIES (
+              {count}
+              )
+            </Header>
+)
       }
 
       <Grid>
-        <AdminPaginationWidget collection={props.collection} setShowIndex={dataModelActions.setCollectionShowIndex}
-                               setShowCount={dataModelActions.setCollectionShowCount}/>
+        <AdminPaginationWidget
+          collection={props.collection}
+          setShowIndex={dataModelActions.setCollectionShowIndex}
+          setShowCount={dataModelActions.setCollectionShowCount}
+        />
         {_.map(items, (item) => (
-          <AdminDataModelAccordion key={item._id} id={item._id} retired={item.retired} name={item.name}
-                                   slug={slugName(item.slugID)}
-                                   descriptionPairs={props.descriptionPairs(item)}
-                                   updateDisabled={true}
-                                   deleteDisabled={true}
-                                   handleOpenUpdate={props.handleOpenUpdate}
-                                   handleDelete={props.handleDelete}
-                                   additionalTitleInfo={titleICE(item)}/>
+          <AdminDataModelAccordion
+            key={item._id}
+            id={item._id}
+            retired={item.retired}
+            name={item.name}
+            slug={slugName(item.slugID)}
+            descriptionPairs={props.descriptionPairs(item)}
+            updateDisabled
+            deleteDisabled
+            handleOpenUpdate={props.handleOpenUpdate}
+            handleDelete={props.handleDelete}
+            additionalTitleInfo={titleICE(item)}
+          />
         ))}
       </Grid>
     </Segment>

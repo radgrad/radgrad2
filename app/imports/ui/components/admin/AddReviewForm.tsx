@@ -1,16 +1,10 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -82,31 +76,37 @@ class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormS
       moderatorComments: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     });
+    // @ts-ignore
     return (
-      <Segment padded={true}>
-        <Header dividing={true}>Add Course Instance</Header>
-        <AutoForm schema={schema} onSubmit={this.props.handleAdd} ref={this.props.formRef} showInlineError={true}
-                  onChangeModel={this.handleModelChange}>
+      <Segment padded>
+        <Header dividing>Add Course Instance</Header>
+        <AutoForm
+          schema={schema}
+          onSubmit={this.props.handleAdd}
+          ref={this.props.formRef}
+          showInlineError
+          onChangeModel={this.handleModelChange}
+        >
           <Form.Group widths="equal">
-            <TextField name="slug"/>
-            <SelectField name="reviewType"/>
+            <TextField name="slug" />
+            <SelectField name="reviewType" />
           </Form.Group>
           <Form.Group widths="equal">
-            <SelectField name="student"/>
-            <SelectField name="reviewee"/>
+            <SelectField name="student" />
+            <SelectField name="reviewee" />
           </Form.Group>
           <Form.Group widths="equal">
-            <SelectField name="academicTerm"/>
-            <NumField name="rating"/>
+            <SelectField name="academicTerm" />
+            <NumField name="rating" />
           </Form.Group>
-          <LongTextField name="comments"/>
+          <LongTextField name="comments" />
           <Form.Group>
-            <BoolField name="moderated"/>
-            <BoolField name="visible"/>
+            <BoolField name="moderated" />
+            <BoolField name="visible" />
           </Form.Group>
-          <LongTextField name="moderatorComments"/>
-          <BoolField name="retired"/>
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+          <LongTextField name="moderatorComments" />
+          <BoolField name="retired" />
+          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
         </AutoForm>
       </Segment>
     );

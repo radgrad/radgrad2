@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { getSatisfiedStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
@@ -10,7 +10,7 @@ interface ILandingPlanChoicePillProps {
 
 const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (
   <Grid.Row style={getSatisfiedStyle()}>
-    <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)}/>
+    <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
   </Grid.Row>
 );
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Embed } from 'semantic-ui-react';
 
 interface IStudentTeaserWidgetVideoProps {
@@ -11,7 +11,7 @@ const StudentTeaserWidgetVideo = (props: IStudentTeaserWidgetVideoProps) => {
     height: 'auto',
   };
   return (
-    <Embed active={true} autoplay={false} style={embedStyle} source="youtube" id={props.teaserUrl}/>
+    <Embed active autoplay={false} style={embedStyle} source="youtube" id={props.teaserUrl} />
   );
 };
 

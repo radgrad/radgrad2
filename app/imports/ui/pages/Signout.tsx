@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as React from 'react';
+import React from 'react';
 import { Header } from 'semantic-ui-react';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
@@ -8,7 +8,7 @@ const Signout = () => {
   Meteor.logout();
   return (
     <div>
-      <LandingNavBarContainer/>
+      <LandingNavBarContainer />
       <Header as="h2" textAlign="center">
         <p>You are signed out.</p>
       </Header>

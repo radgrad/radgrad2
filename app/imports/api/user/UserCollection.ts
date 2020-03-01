@@ -1,13 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { MentorAnswers } from '../mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../mentor/MentorQuestionCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { Reviews } from '../review/ReviewCollection';
 import { ROLE } from '../role/Role';
+import { AdminProfiles } from './AdminProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { MentorProfiles } from './MentorProfileCollection';
@@ -35,6 +37,23 @@ class UserCollection {
     this.collectionName = 'UserCollection';
   }
 
+  private generateAdminCredential() {
+    if (Meteor.isTest || Meteor.isAppTest || Meteor.settings.public.admin.development) {
+      return 'foo';
+    }
+    // adapted from: https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+    let credential = '';
+    const maxPasswordLength = 30;
+    const minPasswordLength = 6;
+    const passwordLength = Math.floor(Math.random() * (maxPasswordLength - (minPasswordLength + 1))) + minPasswordLength;
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < passwordLength; i++) {
+      credential += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return credential;
+  }
+
+
   /**
    * Define a new user, which means creating an entry in Meteor.Accounts.
    * This is called in the various Profile define() methods.
@@ -57,6 +76,13 @@ class UserCollection {
         // Meteor.users.find().fetch().map(user => console.log('  ', JSON.stringify(user)));
         Roles.addUsersToRoles(userID2, [role]);
         return userID2;
+      }
+      if (role === ROLE.ADMIN) {
+        const credential = this.generateAdminCredential();
+        const userID = Accounts.createUser({ username: username, email: username, password: credential });
+        Roles.addUsersToRoles(userID, ROLE.ADMIN);
+        console.log(`Defining admin ${username} with password ${credential}`);
+        return userID;
       }
       // Otherwise define this user with a Meteor login and randomly generated password.
       const password = this.generateRandomPassword();
@@ -191,12 +217,9 @@ class UserCollection {
    */
   public hasProfile(user) {
     const userID = this.getID(user);
-    const adminID = this.getAdminID();
-    if (userID === adminID) {
-      return this.getAdminProfile();
-    }
     return StudentProfiles.hasProfile(userID) || FacultyProfiles.hasProfile(userID)
-      || MentorProfiles.hasProfile(userID) || AdvisorProfiles.hasProfile(userID);
+      || MentorProfiles.hasProfile(userID) || AdvisorProfiles.hasProfile(userID)
+      || AdminProfiles.hasProfile(userID);
   }
 
   /**
@@ -220,8 +243,7 @@ class UserCollection {
    * @private
    */
   private adminUsername() {
-    return (_.has(Meteor, 'settings.public.admin.username')) ?
-      Meteor.settings.public.admin.username : 'radgrad@hawaii.edu';
+    return RadGradProperties.getAdminEmail();
   }
 
   /**

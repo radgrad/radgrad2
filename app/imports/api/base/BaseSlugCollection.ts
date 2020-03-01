@@ -1,7 +1,7 @@
 import { check } from 'meteor/check';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import BaseCollection from '../base/BaseCollection';
+import BaseCollection from './BaseCollection';
 import { Slugs } from '../slug/SlugCollection';
 
 /**
@@ -37,6 +37,7 @@ class BaseSlugCollection extends BaseCollection {
     }
     // Otherwise see if we can find instance as a docID or as a slug.
     try {
+      // console.log(instance, this.collection.findOne({ _id: instance }));
       id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
     } catch (err) {
       throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID. ${err}`);
@@ -108,6 +109,7 @@ class BaseSlugCollection extends BaseCollection {
    * @throws { Meteor.Error } If the slug cannot be found, or is not associated with an instance in this collection.
    */
   public findIdBySlug(slug) {
+    // console.log(`findIdBySlug(${slug})`);
     return Slugs.getEntityID(slug, this.type);
   }
 

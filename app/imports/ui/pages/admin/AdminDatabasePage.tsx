@@ -1,29 +1,23 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
 
-const AdminDatabasePage = () => {
-  const paddedStyle = {
-    paddingTop: 20,
-  };
-  return (
-    <div>
-      <AdminPageMenuWidget/>
-      <Grid container={true} stackable={true} style={paddedStyle}>
+const AdminDatabasePage = () => (
+  <div>
+    <AdminPageMenuWidget />
+    <Grid container stackable>
 
-        <Grid.Column width={5}>
-          <AdminDatabaseMenuContainer/>
-        </Grid.Column>
+      <Grid.Column width={3}>
+        <AdminDatabaseMenuContainer />
+      </Grid.Column>
 
-        <Grid.Column width={11}>
-          <Message floating={true}>
-            Click on a page in the menu to the left.
-          </Message>
-        </Grid.Column>
-      </Grid>
-    </div>
-  );
-};
-
+      <Grid.Column width={13}>
+        <Message floating>
+          Click on a page in the menu to the left.
+        </Message>
+      </Grid.Column>
+    </Grid>
+  </div>
+);
 export default AdminDatabasePage;

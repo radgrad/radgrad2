@@ -1,15 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
-import { IAcademicPlan } from '../../../typings/radgrad'; // eslint-disable-line
+import Markdown from 'react-markdown';
+import { IAcademicPlan } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper } from './helper-functions';
 import { explorerPlanWidget } from './shared-widget-names';
+import { toId } from '../../shared/description-pair-helpers';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -44,32 +45,48 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
 
   return (
     <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
-      <Segment padded={true} className="container">
-        <Segment clearing={true} basic={true} style={clearingBasicSegmentStyle}>
+      <Segment padded className="container">
+        <Segment clearing basic style={clearingBasicSegmentStyle}>
           <Header floated="left">{upperName}</Header>
           {
-            isStudent ?
-              <FavoritesButton item={item} type='academicPlan'
-                               studentID={Router.getUserIdFromRoute(props.match)}/>
+            isStudent ? (
+              <FavoritesButton
+                item={item}
+                type="academicPlan"
+                studentID={Router.getUserIdFromRoute(props.match)}
+              />
+            )
               : ''
           }
         </Segment>
 
-        <Divider style={divierStyle}/>
+        <Divider style={divierStyle} />
 
-        <Grid stackable={true}>
+        <Grid stackable>
           <Grid.Column>
             {
-              descriptionPairs.map((descriptionPair, index) => (
-                <React.Fragment key={index}>
-                  <b>{descriptionPair.label}:</b>
+              descriptionPairs.map((descriptionPair) => (
+                <React.Fragment key={toId(descriptionPair)}>
+                  <b>
+                    {descriptionPair.label}
+                    :
+                  </b>
                   {
-                    descriptionPair.value ?
-                      <Markdown escapeHtml={true} source={descriptionPair.value}
-                                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-                      :
-                      <React.Fragment> N/A <br/></React.Fragment>
-                  }
+                    descriptionPair.value ? (
+                      <Markdown
+                        escapeHtml
+                        source={descriptionPair.value}
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+                      />
+                    )
+                      : (
+                        <React.Fragment>
+                          {' '}
+                          N/A
+                          <br />
+                        </React.Fragment>
+                    )
+}
                 </React.Fragment>
               ))
             }
@@ -78,7 +95,7 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
       </Segment>
 
       <Segment>
-        <AcademicPlanStaticViewer plan={item}/>
+        <AcademicPlanStaticViewer plan={item} />
       </Segment>
     </Segment.Group>
   );

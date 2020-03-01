@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
@@ -69,8 +69,14 @@ class InspectorOpportunityMenu extends React.Component<IInpectorOpportunityMenuP
               <Dropdown text={opportunitiesLabel(opportunities)}>
                 <Dropdown.Menu direction="left">
                   {_.map(opportunities, (o) => (
-                    <Dropdown.Item key={o._id} value={o._id} onClick={this.handleClick}>{o.name} <IceHeader
-                      ice={o.ice}/></Dropdown.Item>))}
+                    <Dropdown.Item key={o._id} value={o._id} onClick={this.handleClick}>
+                      {o.name}
+                      {' '}
+                      <IceHeader
+                        ice={o.ice}
+                      />
+                    </Dropdown.Item>
+))}
                 </Dropdown.Menu>
               </Dropdown>
             </Dropdown.Item>

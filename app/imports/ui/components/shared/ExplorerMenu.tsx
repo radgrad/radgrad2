@@ -1,20 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
-  IAcademicPlan, //eslint-disable-line
-  ICareerGoal, //eslint-disable-line
-  ICourse, //eslint-disable-line
-  IDesiredDegree, //eslint-disable-line
-  IInterest, //eslint-disable-line
-  IOpportunity, //eslint-disable-line
-  IProfile, // eslint-disable-line
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IInterest,
+  IOpportunity,
+  IProfile,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -64,17 +64,21 @@ const ExplorerMenu = (props: IExplorerMenuProps) => {
 
   return (
     <React.Fragment>
-      <ExplorerNavDropdown match={match} text={getTypeName(props)}/>
-      <br/>
+      <ExplorerNavDropdown match={match} text={getTypeName(props)} />
+      <br />
 
-      <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList}
-                                   menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-                                   type={type}
-                                   role={role}/>
-      <ExplorerMenuMobileWidget menuAddedList={menuAddedList}
-                                menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-                                type={type}
-                                role={role}/>
+      <ExplorerMenuNonMobileWidget
+        menuAddedList={menuAddedList}
+        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+        type={type}
+        role={role}
+      />
+      <ExplorerMenuMobileWidget
+        menuAddedList={menuAddedList}
+        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+        type={type}
+        role={role}
+      />
     </React.Fragment>
   );
 };

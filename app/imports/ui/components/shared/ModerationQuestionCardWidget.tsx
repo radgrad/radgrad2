@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';
@@ -23,7 +23,7 @@ class ModerationQuestionCardWidget extends React.Component<IModerationQuestionCa
   private handleAcceptClick = () => {
     const update = this.props.handleAccept(this.props.question, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({
@@ -51,7 +51,7 @@ class ModerationQuestionCardWidget extends React.Component<IModerationQuestionCa
   private handleRejectClick = () => {
     const update = this.props.handleReject(this.props.question, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({
@@ -73,13 +73,15 @@ class ModerationQuestionCardWidget extends React.Component<IModerationQuestionCa
 
   public render() {
     return (
-      <Container textAlign='left'>
-        <strong>Question: </strong> {this.props.question.question}
+      <Container textAlign="left">
+        <strong>Question: </strong>
+        {' '}
+        {this.props.question.question}
         <Segment>
           <Form>
-            <Form.TextArea label='Moderator Comments' value={this.state.moderatorComment} onChange={this.handleChange}/>
-            <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
-            <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
+            <Form.TextArea label="Moderator Comments" value={this.state.moderatorComment} onChange={this.handleChange} />
+            <Button className="ui basic green mini button" onClick={this.handleAcceptClick}>ACCEPT</Button>
+            <Button className="ui basic red mini button" onClick={this.handleRejectClick}>REJECT</Button>
           </Form>
         </Segment>
       </Container>

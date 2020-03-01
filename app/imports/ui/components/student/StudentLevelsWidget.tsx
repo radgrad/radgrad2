@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
@@ -71,21 +71,25 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   const studentLevelName = getStudentLevelName(props);
   const studentLevelHint = getStudentLevelHint(props);
   return (
-    <Segment padded={true} id={`${studentLevelsWidget}`}>
-      <Header as="h4" dividing={true}>CURRENT LEVEL</Header>
-      <Grid stackable={true}>
+    <Segment padded id={`${studentLevelsWidget}`}>
+      <Header as="h4" dividing>CURRENT LEVEL</Header>
+      <Grid stackable>
         <Grid.Column width={16}>
           <Container>
-            <Image size="small" centered={true} style={imageStyle}
-                   src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`}/>
+            <Image
+              size="small"
+              centered
+              style={imageStyle}
+              src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`}
+            />
             <Header as="h3" textAlign="center">{studentLevelName}</Header>
           </Container>
         </Grid.Column>
       </Grid>
-      <Message icon={true}>
-        <Icon name="rocket"/>
+      <Message icon>
+        <Icon name="rocket" />
         <Message.Content>
-          <Markdown escapeHtml={true} source={studentLevelHint}/>
+          <Markdown escapeHtml source={studentLevelHint} />
         </Message.Content>
       </Message>
     </Segment>

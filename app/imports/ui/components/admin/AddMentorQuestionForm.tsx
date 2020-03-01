@@ -1,15 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import TextField from 'uniforms-semantic/TextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as _ from 'lodash';
-import { IMentorQuestion, IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import _ from 'lodash';
+import { IStudentProfile } from '../../../typings/radgrad';
 import { profileToName } from '../shared/data-model-helper-functions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
@@ -31,21 +26,21 @@ const AddMentorQuestionForm = (props: IAddMentorQuestionFormProps) => {
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Mentor Question</Header>
+    <Segment padded>
+      <Header dividing>Add Mentor Question</Header>
       <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
-          <SelectField name="student"/>
-          <TextField name="slug" placeholder="question-student-0"/>
+          <SelectField name="student" />
+          <TextField name="slug" placeholder="question-student-0" />
         </Form.Group>
-        <LongTextField name="question"/>
-        <LongTextField name="moderatorComments"/>
+        <LongTextField name="question" />
+        <LongTextField name="moderatorComments" />
         <Form.Group widths="equal">
-          <BoolField name="moderated"/>
-          <BoolField name="visible"/>
-          <BoolField name="retired"/>
+          <BoolField name="moderated" />
+          <BoolField name="visible" />
+          <BoolField name="retired" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

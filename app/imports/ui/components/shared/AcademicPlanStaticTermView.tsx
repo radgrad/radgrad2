@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../api/degree-plan/AcademicPlanUtilities';
@@ -13,6 +13,7 @@ interface IAcademicPlanTermViewProps {
   title: string;
   id: string;
   choices: string[];
+  groups: any;
   studentID: string;
   takenSlugs: string[];
   match: {
@@ -35,22 +36,22 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
 
   return (
     <Segment style={noPaddingStyle}>
-      <Header dividing={true}>{props.title}</Header>
+      <Header dividing>{props.title}</Header>
       {
         isStudent ?
           _.map(props.choices, (choice, index) => {
-            const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
+            const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs, props.groups);
             if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
               return (
-                <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
+                <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
               );
             }
             return (
-              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied}/>
+              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} groups={props.groups} />
             );
           })
           :
-          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice}/>))
+          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice} />))
       }
     </Segment>
   );

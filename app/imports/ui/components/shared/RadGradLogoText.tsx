@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SemanticCOLORS } from 'semantic-ui-react'; // eslint-disable-line
+import React from 'react';
+import { SemanticCOLORS } from 'semantic-ui-react';
 
 interface IRadGradLogoProps {
   color?: SemanticCOLORS;
@@ -10,7 +10,8 @@ const RadGradLogoText = (props: IRadGradLogoProps) => {
   const radStyle = { fontWeight: 700 };
   const gradStyle = { fontWeight: 400 };
   return (
-    <div style={props.style}><span className="radgrad-brand-font" style={radStyle}>RAD</span>
+    <div style={props.style}>
+      <span className="radgrad-brand-font" style={radStyle}>RAD</span>
       <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>
     </div>
   );

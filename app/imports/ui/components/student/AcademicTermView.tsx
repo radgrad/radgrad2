@@ -1,9 +1,9 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -30,11 +30,17 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = props.term.termNumber < currentTermNum;
   const isCurrent = props.term.termNumber === currentTermNum;
+  // console.log('AcademicTermView inPast=%o dropType=%o', inPast, dropType);
   return (
     <Container style={paddedStyle}>
-      <Header dividing={true} disabled={inPast}
-              color={isCurrent ? 'green' : 'black'}>{AcademicTerms.toString(props.term._id)}</Header>
-      <Grid stackable={true} stretched={true}>
+      <Header
+        dividing
+        disabled={inPast}
+        color={isCurrent ? 'green' : 'black'}
+      >
+        {AcademicTerms.toString(props.term._id)}
+      </Header>
+      <Grid stackable stretched>
         <Droppable droppableId={`${termSlug}`}>
           {(provided, snapshot) => (
             <div
@@ -42,13 +48,23 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
               // style={style}
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
-              {_.map(props.courseInstances, (ci, index) => <DraggableCourseInstancePill key={ci._id} instance={ci}
-                                                                                        index={index}
-                                                                                        handleClickCourseInstance={props.handleClickCourseInstance}/>)}
-              {_.map(props.opportunityInstances, (oi, index) => <DraggableOpportunityInstancePill key={oi._id}
-                                                                                                  instance={oi}
-                                                                                                  index={index}
-                                                                                                  handleClickOpportunityInstance={props.handleClickOpportunityInstance}/>)}
+              {_.map(props.courseInstances, (ci, index) => (
+                <DraggableCourseInstancePill
+                  key={ci._id}
+                  instance={ci}
+                  index={index}
+                  inPast={inPast}
+                  handleClickCourseInstance={props.handleClickCourseInstance}
+                />
+))}
+              {_.map(props.opportunityInstances, (oi, index) => (
+                <DraggableOpportunityInstancePill
+                  key={oi._id}
+                  instance={oi}
+                  index={index}
+                  handleClickOpportunityInstance={props.handleClickOpportunityInstance}
+                />
+))}
               {provided.placeholder}
             </div>
           )}

@@ -1,10 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import {} from 'mocha';
+import fc from 'fast-check';
+import faker from 'faker';
+import 'mocha';
 import { AcademicTerms } from './AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { Slugs } from '../slug/SlugCollection';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -17,53 +20,88 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#get, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
-      let docID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2010 });
-      expect(AcademicTerms.isDefined(docID)).to.be.true;
-      let dumpObject = AcademicTerms.dumpOne(docID);
-      expect(dumpObject.retired).to.be.false;
-      expect(AcademicTerms.countNonRetired()).to.equal(1);
-      AcademicTerms.update(docID, { retired: true });
-      expect(AcademicTerms.countNonRetired()).to.equal(0);
+    it('Can define and removeIt', function test1(done) {
+      this.timeout(5000);
+      fc.assert(
+        fc.property(fc.integer(2017, 2027), fc.boolean(), (fcYear, fcRetired) => {
+          const term = AcademicTerms.terms[faker.random.number({ min: 0, max: AcademicTerms.terms.length - 1 })];
+          const docID = AcademicTerms.define({ term, year: fcYear, retired: fcRetired });
+          expect(AcademicTerms.isDefined(docID)).to.be.true;
+          AcademicTerms.removeIt(docID);
+          expect(AcademicTerms.isDefined(docID)).to.be.false;
+        }),
+      );
+      done();
+    });
+
+    it('Cannot define duplicates', function test2() {
+      const termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
+      const termID2 = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2019 });
+      expect(termID).to.equal(termID2);
+      expect(AcademicTerms.isDefined(termID)).to.be.true;
+      expect(AcademicTerms.isDefined(termID2)).to.be.true;
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      let doc = AcademicTerms.findOne({});
+      const docID = doc._id;
+      fc.assert(
+        fc.property(fc.boolean(), (fcRetired) => {
+          AcademicTerms.update(docID, { retired: fcRetired });
+          doc = AcademicTerms.findDoc(docID);
+          expect(doc.retired).to.equal(fcRetired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let doc = AcademicTerms.findOne({});
+      let docID = doc._id;
+      const dumpObject = AcademicTerms.dumpOne(docID);
       AcademicTerms.removeIt(docID);
       expect(AcademicTerms.isDefined(docID)).to.be.false;
       docID = AcademicTerms.restoreOne(dumpObject);
       expect(AcademicTerms.isDefined(docID)).to.be.true;
-      AcademicTerms.update(docID, { retired: true });
-      dumpObject = AcademicTerms.dumpOne(docID);
-      expect(dumpObject.retired).to.be.true;
-      AcademicTerms.removeIt(docID);
+      doc = AcademicTerms.findDoc(docID);
+      expect(doc.term).to.equal(dumpObject.term);
+      expect(doc.year).to.equal(dumpObject.year);
+      expect(doc.retired).to.equal(dumpObject.retired);
     });
 
-    it('#get (multiple definition)', function test() {
-      const termID = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
-      const termID2 = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2012 });
-      expect(termID).to.equal(termID2);
-      AcademicTerms.removeIt(termID);
-      expect(AcademicTerms.isDefined(termID2)).to.be.false;
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = AcademicTerms.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
     });
 
-    it('#assertAcademicTerm', function test() {
-      const termID = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
-      expect(function foo() {
-        AcademicTerms.assertAcademicTerm(undefined);
-      }).to.throw(Error);
-      expect(function foo() {
-        AcademicTerms.assertAcademicTerm(termID);
-      }).to.not.throw(Error);
-      AcademicTerms.removeIt(termID);
-      expect(function foo() {
-        AcademicTerms.assertAcademicTerm(termID);
-      }).to.throw(Error);
+    /* ===================== AcademicTerm method tests ===================== */
+
+    it('Can assertAcademicTerm', function test6() {
+      const academicTermDoc = AcademicTerms.findOne({});
+      const termID = academicTermDoc._id;
+      const slug = Slugs.getNameFromID(academicTermDoc.slugID);
+      expect(() => { AcademicTerms.assertAcademicTerm(termID); }).to.not.throw();
+      expect(() => { AcademicTerms.assertAcademicTerm(slug); }).to.not.throw();
+      expect(() => { AcademicTerms.assertAcademicTerm(''); }).to.throw();
     });
 
-    it('#toString', function test() {
+    it('Can findIdBySlug', function test7() {
+      const academicTermDoc = AcademicTerms.findOne({});
+      const termID = academicTermDoc._id;
+      const slug = Slugs.getNameFromID(academicTermDoc.slugID);
+      const id = AcademicTerms.findIdBySlug(slug);
+      expect(id).to.equal(termID);
+      expect(() => AcademicTerms.findIdBySlug('badSlug')).to.throw();
+    });
+
+    it('Can toString', function test5() {
       const termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2010 });
       expect(AcademicTerms.toString(termID)).to.equal('Spring 2010');
       AcademicTerms.removeIt(termID);
     });
 
-    it('#termNumber', function test() {
+    it('Can get the right termNumber', function test6() {
       let termID = AcademicTerms.define({ term: AcademicTerms.SPRING, year: 2011 });
       expect(AcademicTerms.findDoc(termID).termNumber).to.equal(1);
 
@@ -83,15 +121,13 @@ if (Meteor.isServer) {
       expect(AcademicTerms.findDoc(termID).termNumber).to.equal(6);
     });
 
-    it('#getID', function test() {
+    it('Can getID', function test7() {
       expect(AcademicTerms.getID('Summer-2010')).to.be.a('string');
       expect(AcademicTerms.getID('Summer-2040')).to.be.a('string');
-      expect(function foo() {
-        AcademicTerms.getID('foobar');
-      }).to.throw(Error);
+      expect(function () { AcademicTerms.getID('foobar'); }).to.throw();
     });
 
-    it('#getShortName', function test() {
+    it('Can getShortName', function test8() {
       const termID = AcademicTerms.getID('Summer-2010');
       expect(AcademicTerms.getShortName(termID)).to.equal('Sum 10');
     });

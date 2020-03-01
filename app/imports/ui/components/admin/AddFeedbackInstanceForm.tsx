@@ -1,18 +1,14 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import BoolField from 'uniforms-semantic/BoolField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
+import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { profileToName } from '../shared/data-model-helper-functions';
 import { FeedbackFunctions } from '../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { IStudentProfile } from '../../../typings/radgrad'; // eslint-disable-line
+import { IStudentProfile } from '../../../typings/radgrad';
 
 interface IAddFeedbackInstanceFormProps {
   students: IStudentProfile[];
@@ -39,17 +35,17 @@ const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps): React.Re
     retired: { type: Boolean, optional: true },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Feedback Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Feedback Instance</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group>
-          <SelectField name="user"/>
-          <SelectField name="functionName"/>
-          <SelectField name="feedbackType"/>
+          <SelectField name="user" />
+          <SelectField name="functionName" />
+          <SelectField name="feedbackType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined}/>
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

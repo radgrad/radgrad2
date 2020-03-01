@@ -1,10 +1,10 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad';
 
 /**
  * Each FeedbackInstance represents one recommendation or warning for a user.
@@ -69,6 +69,10 @@ class FeedbackInstanceCollection extends BaseCollection {
     const userID = Users.getID(user);
     if (!_.includes(this.feedbackTypes, feedbackType)) {
       throw new Meteor.Error(`FeedbackInstances.define passed illegal feedbackType: ${feedbackType}`);
+    }
+    const doc = this.collection.findOne({ userID, functionName, description, feedbackType });
+    if (doc) {
+      return doc._id;
     }
     // Define and return the new FeedbackInstance
     const feedbackInstanceID = this.collection.insert({ userID, functionName, description, feedbackType, retired });

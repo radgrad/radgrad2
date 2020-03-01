@@ -1,40 +1,41 @@
-import * as moment from 'moment';
+import faker from 'faker';
+import _ from 'lodash';
+import { buildCourseSlugName } from './PlanChoiceUtilities';
 import { makeSampleDesiredDegree } from './SampleDesiredDegrees';
-import { Slugs } from '../slug/SlugCollection';
+import slugify, { Slugs } from '../slug/SlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
+import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/CourseUtilities';
 
-export const sampleAcademicPlanName = 'B.S. in Computer Science (2019)';
-export const sampleAcademicPlanShortName = 'B.S in C.S. (2019)';
+const buildCourseList = (coursesPerAcademicTerm: number[]) => {
+  const numChoices = _.sum(coursesPerAcademicTerm);
+  const dept = getRandomDepartment();
+  const choiceList = [];
+  const groups = {};
+  for (let i = 0; i < numChoices; i++) {
+    const slug = getRandomCourseSlugForDept(dept);
+    choiceList.push(`${slug}-1`);
+    groups[slug] = {
+      name: buildCourseSlugName(slug),
+      courseSlugs: [slug],
+    };
+  }
+  return { choiceList, groups };
+};
 
 export function makeSampleAcademicPlan() {
   const desiredDegreeID = makeSampleDesiredDegree({});
   const degreeDoc = DesiredDegrees.findDoc(desiredDegreeID);
-  const name = sampleAcademicPlanName;
-  const uniqueString = moment().format('YYYYMMDDHHmmssSSSSS');
-  const slug = `academic-plan-${uniqueString}`;
+  const name = faker.lorem.words();
+  const slug = slugify(`academic-plan-${name}`);
   const degreeSlug = Slugs.getNameFromID(degreeDoc.slugID);
-  const description = 'Sample academic plan description';
-  const academicTerm = 'Fall-2019';
+  const description = faker.lorem.paragraph();
+  const academicTermID = makeSampleAcademicTerm();
+  const academicTerm = AcademicTerms.findSlugByID(academicTermID);
   const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
-  const courseList = [
-    'ics_111-1',
-    'ics_141-1',
-    'ics_211-1',
-    'ics_241-1',
-    'ics_311-1',
-    'ics_314-1',
-    'ics_212-1',
-    'ics_321-1',
-    'ics_312,ics_331-1',
-    'ics_313,ics_361-1',
-    'ics_332-1',
-    'ics_400+-1',
-    'ics_400+-2',
-    'ics_400+-3',
-    'ics_400+-4',
-    'ics_400+-5',
-  ];
+  const { choiceList, groups } = buildCourseList(coursesPerAcademicTerm);
   return AcademicPlans.define({
     name,
     slug,
@@ -42,6 +43,7 @@ export function makeSampleAcademicPlan() {
     description,
     academicTerm,
     coursesPerAcademicTerm,
-    courseList,
+    choiceList,
+    groups,
   });
 }

@@ -2131,7 +2131,7 @@
           "firstName": "Gerald",
           "lastName": "Lau",
           "picture": "/images/mockup/glau.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "application-development",
             "it-management",
@@ -2150,7 +2150,7 @@
           "firstName": "Cam",
           "lastName": "Moore",
           "picture": "/images/mockup/cmoore.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "research",
             "software-engineering"
@@ -5436,7 +5436,7 @@
           "firstName": "Kazuo",
           "lastName": "Sugihara",
           "picture": "/images/default-profile-picture.png",
-          "website": null,
+          "website": "",
           "interests": [
             "research",
             "robotics"
@@ -5484,7 +5484,7 @@
           "firstName": "Peter-Michael",
           "lastName": "Seidel",
           "picture": "/images/people/pseidel.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms",
             "hardware",
@@ -5522,7 +5522,7 @@
           "firstName": "Lipyeow",
           "lastName": "Lim",
           "picture": "/images/people/lipyeow.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "data-science",
             "research",
@@ -5715,7 +5715,7 @@
           "firstName": "Martha",
           "lastName": "Crosby",
           "picture": "/images/people/crosby.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "hci",
             "research"
@@ -11371,7 +11371,7 @@
           "firstName": "Alfred",
           "lastName": "Persona",
           "picture": "/images/mockup/alfred.png",
-          "website": null,
+          "website": "",
           "interests": [
             "hardware",
             "it-management"
@@ -11431,7 +11431,7 @@
           "firstName": "Charley",
           "lastName": "Sherry",
           "picture": "/images/mockup/charley.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "bioinformatics"
           ],
@@ -11458,7 +11458,7 @@
           "firstName": "Ella",
           "lastName": "Zwick",
           "picture": "/images/mockup/ella.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "civic-engagement",
             "web-development"

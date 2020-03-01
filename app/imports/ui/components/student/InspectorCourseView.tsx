@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
@@ -79,49 +79,80 @@ const InspectorCourseView = (props: IInspectorCourseViewProps) => {
   const baseRoute = `/#${baseUrl.substring(0, baseIndex)}${username}/explorer/courses/${courseSlug}`;
   // console.log(course);
   return (
-    <Container fluid={true} style={paddingStyle}>
-      <Header as="h4" dividing={true}>{course.num} {course.name} <IceHeader
-        ice={makeCourseICE(courseSlug, grade)}/></Header>
-      {plannedCourse ? // eslint-disable-line
-        <Button floated="right" basic={true} color="green" value={courseInstance._id} onClick={handleRemove(props)}
-                size="tiny">remove</Button> : (pastCourse ?
-          <Button floated="right" basic={true} color="green"
-                  size="tiny">taken</Button> :
-          <Droppable droppableId={'inspector-course'}>
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-              >
-                <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
-                  {(prov, snap) => (
-                    <div
-                      ref={prov.innerRef}
-                      {...prov.draggableProps}
-                      {...prov.dragHandleProps}
-                      style={getInspectorDraggablePillStyle(
-                        snap.isDragging,
-                        prov.draggableProps.style,
-                      )}
-                    >
-                      <NamePill name={courseName}/>
-                    </div>
-                  )}
-                </Draggable>
-              </div>)}
-          </Droppable>)}
+    <Container fluid style={paddingStyle}>
+      <Header as="h4" dividing>
+        {course.num}
+        {' '}
+        {course.name}
+        {' '}
+        <IceHeader
+          ice={makeCourseICE(courseSlug, grade)}
+        />
+      </Header>
+      {plannedCourse ? (
+        <Button
+          floated="right"
+          basic
+          color="green"
+          value={courseInstance._id}
+          onClick={handleRemove(props)}
+          size="tiny"
+        >
+          remove
+        </Button>
+      ) : (pastCourse ? (
+        <Button
+          floated="right"
+          basic
+          color="green"
+          size="tiny"
+        >
+          taken
+        </Button>
+      ) : (
+        <Droppable droppableId="inspector-course">
+          {(provided) => (
+            <div
+              ref={provided.innerRef}
+            >
+              <Draggable key={courseSlug} draggableId={courseSlug} index={0}>
+                {(prov, snap) => (
+                  <div
+                    ref={prov.innerRef}
+                    {...prov.draggableProps}
+                    {...prov.dragHandleProps}
+                    style={getInspectorDraggablePillStyle(
+                      snap.isDragging,
+                      prov.draggableProps.style,
+                    )}
+                  >
+                    <NamePill name={courseName} />
+                  </div>
+                )}
+              </Draggable>
+            </div>
+          )}
+        </Droppable>
+      ))}
 
-      <b>Scheduled: {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}</b>
+      <b>
+        Scheduled:
+        {courseInstance ? AcademicTerms.toString(courseInstance.termID) : 'N/A'}
+      </b>
       <p><b>Prerequisites:</b></p>
-      <CoursePrerequisitesView prerequisites={course.prerequisites} studentID={props.studentID}/>
+      <CoursePrerequisitesView prerequisites={course.prerequisites} studentID={props.studentID} />
       <p><b>Catalog Description:</b></p>
-      <Markdown escapeHtml={true} source={course.description}/>
-      <p/>
-      <FutureCourseEnrollmentWidget courseID={course._id}/>
+      <Markdown escapeHtml source={course.description} />
+      <p />
+      <FutureCourseEnrollmentWidget courseID={course._id} />
       <p><b>Interests:</b></p>
-      <UserInterestList userID={props.studentID} interestIDs={course.interestIDs}/>
-      <p/>
-      <a href={baseRoute}>View in Explorer <Icon name="arrow right"/></a>
-      <p/>
+      <UserInterestList userID={props.studentID} interestIDs={course.interestIDs} />
+      <p />
+      <a href={baseRoute}>
+        View in Explorer
+        <Icon name="arrow right" />
+      </a>
+      <p />
     </Container>
   );
 };

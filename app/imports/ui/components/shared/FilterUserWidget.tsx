@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 
 interface IUpdateRegex {
@@ -8,7 +8,7 @@ interface IUpdateRegex {
 }
 
 const handleChangeFirstNameRegex = (props: IUpdateRegex) => (event, value) => {
-  console.log(event, value);
+  // console.log(event, value);
   props.updateFirstNameRegex(event.target.value);
 };
 
@@ -22,23 +22,35 @@ const handleChangeUserNameRegex = (props: IUpdateRegex) => (event) => {
 
 const FilterUserWidget = (props: IUpdateRegex) => (
   <Segment>
-    <Header as="h4" dividing={true}>FILTER USERS</Header>
+    <Header as="h4" dividing>FILTER USERS</Header>
     <Form>
       <Form.Group widths="equal">
         <Form.Field>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>First Name</label>
-          <Form.Input placeholder="First Name Regex" name="firstNameRegex"
-                      onChange={handleChangeFirstNameRegex(props)}/>
+          <Form.Input
+            placeholder="First Name Regex"
+            name="firstNameRegex"
+            onChange={handleChangeFirstNameRegex(props)}
+          />
         </Form.Field>
         <Form.Field>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Last Name</label>
-          <Form.Input placeholder="Last Name Regex" name="lastNameRegex"
-                      onChange={handleChangeLastNameRegex(props)}/>
+          <Form.Input
+            placeholder="Last Name Regex"
+            name="lastNameRegex"
+            onChange={handleChangeLastNameRegex(props)}
+          />
         </Form.Field>
         <Form.Field>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Username</label>
-          <Form.Input placeholder="Username Regex" name="userNameRegex"
-                      onChange={handleChangeUserNameRegex(props)}/>
+          <Form.Input
+            placeholder="Username Regex"
+            name="userNameRegex"
+            onChange={handleChangeUserNameRegex(props)}
+          />
         </Form.Field>
       </Form.Group>
     </Form>

@@ -11,7 +11,7 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { makeSampleCourse } from '../course/SampleCourses';
 import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
 
-/* eslint prefer-arrow-callback: "off", no-unused-expressions: "off" */
+/* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
@@ -58,7 +58,7 @@ if (Meteor.isServer) {
 
     it('#define (new-course)', function test() {
       const feedType = Feeds.NEW_COURSE;
-      const course = Courses.getSlug(makeSampleCourse());
+      const course = Courses.findSlugByID(makeSampleCourse());
       let docID = Feeds.define({ feedType, course });
       expect(Feeds.isDefined(docID)).to.be.true;
       const dumpObject = Feeds.dumpOne(docID);
@@ -72,7 +72,7 @@ if (Meteor.isServer) {
     it('#define (new-opportunity)', function test() {
       const feedType = Feeds.NEW_OPPORTUNITY;
       const sponsor = makeSampleUser(ROLE.FACULTY);
-      const opportunity = Opportunities.getSlug(makeSampleOpportunity(sponsor));
+      const opportunity = Opportunities.findSlugByID(makeSampleOpportunity(sponsor));
       let docID = Feeds.define({ feedType, opportunity });
       expect(Feeds.isDefined(docID)).to.be.true;
       const dumpObject = Feeds.dumpOne(docID);
@@ -86,7 +86,7 @@ if (Meteor.isServer) {
     it('#define (verified-opportunity)', function test() {
       const feedType = Feeds.VERIFIED_OPPORTUNITY;
       const sponsor = makeSampleUser(ROLE.FACULTY);
-      const opportunity = Opportunities.getSlug(makeSampleOpportunity(sponsor));
+      const opportunity = Opportunities.findSlugByID(makeSampleOpportunity(sponsor));
       const user1 = Users.getProfile(makeSampleUser()).username;
       const user2 = Users.getProfile(makeSampleUser()).username;
       const academicTerm = 'Spring-2013';
@@ -107,7 +107,7 @@ if (Meteor.isServer) {
     it('#define (new-course-review)', function test() {
       const feedType = Feeds.NEW_COURSE_REVIEW;
       const user = Users.getProfile(makeSampleUser()).username;
-      const course = Courses.getSlug(makeSampleCourse());
+      const course = Courses.findSlugByID(makeSampleCourse());
       let docID = Feeds.define({ feedType, user, course });
       expect(Feeds.isDefined(docID)).to.be.true;
       const dumpObject = Feeds.dumpOne(docID);
@@ -122,7 +122,7 @@ if (Meteor.isServer) {
       const feedType = Feeds.NEW_OPPORTUNITY_REVIEW;
       const user = Users.getProfile(makeSampleUser()).username;
       const sponsor = makeSampleUser(ROLE.FACULTY);
-      const opportunity = Opportunities.getSlug(makeSampleOpportunity(sponsor));
+      const opportunity = Opportunities.findSlugByID(makeSampleOpportunity(sponsor));
       let docID = Feeds.define({ feedType, user, opportunity });
       expect(Feeds.isDefined(docID)).to.be.true;
       const dumpObject = Feeds.dumpOne(docID);

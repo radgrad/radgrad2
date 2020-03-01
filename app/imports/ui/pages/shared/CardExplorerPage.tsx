@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -14,20 +14,18 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
-// @ts-ignore
 import CardExplorerMenu from '../../components/shared/CardExplorerMenu';
 import {
-  IAcademicPlan, // eslint-disable-line no-unused-vars
-  ICareerGoal, // eslint-disable-line no-unused-vars
-  ICourse, // eslint-disable-line no-unused-vars
-  IDesiredDegree, // eslint-disable-line no-unused-vars
-  IFavoriteCourse, // eslint-disable-line no-unused-vars
-  IInterest, // eslint-disable-line no-unused-vars
-  IOpportunity, // eslint-disable-line no-unused-vars
+  IAcademicPlan,
+  ICareerGoal,
+  ICourse,
+  IDesiredDegree,
+  IInterest,
+  IOpportunity,
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
@@ -55,13 +53,13 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
   switch (role) {
     case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget/>;
+      return <StudentPageMenuWidget />;
     case URL_ROLES.MENTOR:
-      return <MentorPageMenuWidget/>;
+      return <MentorPageMenuWidget />;
     case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget/>;
+      return <FacultyPageMenuWidget />;
     default:
-      return <React.Fragment/>;
+      return <React.Fragment />;
   }
 };
 
@@ -146,29 +144,32 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
       <div>
         {menuWidget}
 
-        <Grid stackable={true}>
+        <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={1}/>
-            <Grid.Column width={14}><HelpPanelWidget/></Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
+            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={1} />
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
             <Grid.Column width={3}>
-            <CardExplorerMenu menuAddedList={addedList} type={type} role={role}
-                              menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
-            />
-          </Grid.Column>
+              <CardExplorerMenu
+                menuAddedList={addedList}
+                type={type}
+                role={role}
+                menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
+              />
+            </Grid.Column>
 
-          <Grid.Column width={11}>
-            <CardExplorerWidget collection={collection} type={type} role={role}/>
-          </Grid.Column>
-          <Grid.Column width={1}/>
-        </Grid.Row>
-      </Grid>
-      <BackToTopButton/>
-    </div>
+            <Grid.Column width={11}>
+              <CardExplorerWidget collection={collection} type={type} role={role} />
+            </Grid.Column>
+            <Grid.Column width={1} />
+          </Grid.Row>
+        </Grid>
+        <BackToTopButton />
+      </div>
   );
 };
 

@@ -1,10 +1,10 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
@@ -58,6 +58,10 @@ class CareerGoalCollection extends BaseSlugCollection {
   public define({ name, slug, description, interests, retired = false }: ICareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
+    const doc = this.collection.findOne({ name, description, interestIDs, retired });
+    if (doc) {
+      return doc._id;
+    }
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const docID = this.collection.insert({ name, slugID, description, interestIDs, retired });
@@ -74,17 +78,6 @@ class CareerGoalCollection extends BaseSlugCollection {
    */
   public findNames(instanceIDs: string[]) {
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
-  }
-
-  /**
-   * Returns the slug for the given CareerGoalID.
-   * @param goalID The CareerGoal ID.
-   * @throws { Meteor.Error} If goalID cannot be found.
-   */
-  public getSlug(goalID: string): string {
-    this.assertDefined(goalID);
-    const courseDoc = this.findDoc(goalID);
-    return Slugs.findDoc(courseDoc.slugID).name;
   }
 
   /**

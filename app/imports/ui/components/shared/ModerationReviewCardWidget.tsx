@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Segment, Container, Form, Button, Rating } from 'semantic-ui-react';
@@ -38,7 +38,7 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
     // make handle accept take in the moderator comments
     const update = this.props.handleAccept(this.props.item, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({
@@ -61,7 +61,7 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
   private handleRejectClick = () => {
     const update = this.props.handleReject(this.props.item, this.state);
     this.setState({ moderatorComment: '' });
-    console.log('handle accept click', update);
+    // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
         Swal.fire({
@@ -95,20 +95,39 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
 
     return (
 
-      <Container textAlign='left'>
-        <strong>Student: </strong>{student}<br/>
-        <strong>Reviewee: </strong>{reviewee}<br/>
-        <strong>Semester: </strong> {`${termDoc.term}  ${termDoc.year}`} <br/>
+      <Container textAlign="left">
+        <strong>Student: </strong>
+        {student}
+        <br />
+        <strong>Reviewee: </strong>
+        {reviewee}
+        <br />
+        <strong>Semester: </strong>
+        {' '}
+        {`${termDoc.term}  ${termDoc.year}`}
+        {' '}
+        <br />
         <strong>Rating: </strong>
-        <Rating size='small' icon='star' rating={this.props.item.rating}
-                maxRating='5' disabled={true}/><br/>
-        <strong>Comments: </strong>{this.props.item.comments}<br/>
+        <Rating
+          size="small"
+          icon="star"
+          rating={this.props.item.rating}
+          maxRating="5"
+          disabled
+        />
+        <br />
+        <strong>Comments: </strong>
+        {this.props.item.comments}
+        <br />
         <Segment>
           <Form>
-            <Form.TextArea label='Moderator Comments' onChange={this.handleChange}
-                           value={this.state.moderatorComment}/>
-            <Button className='ui basic green mini button' onClick={this.handleAcceptClick}>ACCEPT</Button>
-            <Button className='ui basic red mini button' onClick={this.handleRejectClick}>REJECT</Button>
+            <Form.TextArea
+              label="Moderator Comments"
+              onChange={this.handleChange}
+              value={this.state.moderatorComment}
+            />
+            <Button className="ui basic green mini button" onClick={this.handleAcceptClick}>ACCEPT</Button>
+            <Button className="ui basic red mini button" onClick={this.handleRejectClick}>REJECT</Button>
           </Form>
         </Segment>
       </Container>

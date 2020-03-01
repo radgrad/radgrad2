@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { Courses } from './CourseCollection';
@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
-import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
 import { CourseScoreboardName } from '../../startup/both/names';
 
 /**
@@ -77,7 +77,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @example
    * // To define an instance of a CS course:
    * CourseInstances.define({ academicTerm: 'Spring-2016',
-   *                          course: 'ics311',
+   *                          course: 'ics_311',
    *                          verified: false,
    *                          fromRegistrar: false,
    *                          grade: 'B',
@@ -105,6 +105,10 @@ class CourseInstanceCollection extends BaseCollection {
       AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: profile.username });
     } else {
       AcademicYearInstances.define({ year: academicTermDoc.year, student: profile.username });
+    }
+    const doc = this.collection.findOne({ termID, courseID, studentID });
+    if (doc) {
+      return doc._id;
     }
     const ice = makeCourseICE(course, grade);
     if ((typeof verified) !== 'boolean') {
@@ -233,7 +237,7 @@ class CourseInstanceCollection extends BaseCollection {
   public getCourseSlug(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Courses.getSlug(instance.courseID);
+    return Courses.findSlugByID(instance.courseID);
   }
 
   /**

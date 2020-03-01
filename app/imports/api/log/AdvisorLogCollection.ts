@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
-import * as moment from 'moment';
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
-import { IAdvisorLogDefine, IAdvisorLogUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IAdvisorLogDefine, IAdvisorLogUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a log of an Advisor talking to a Student.

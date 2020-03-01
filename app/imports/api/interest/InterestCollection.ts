@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import { InterestTypes } from './InterestTypeCollection';
 import { Courses } from '../course/CourseCollection';
@@ -8,7 +8,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad'; // eslint-disable-line
+import { IInterestDefine, IInterestUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a specific interest, such as "Software Engineering".
@@ -140,16 +140,6 @@ class InterestCollection extends BaseSlugCollection {
   public findNames(instanceIDs: string[]) {
     // console.log('Interests.findNames(%o)', instanceIDs);
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
-  }
-
-  /**
-   * Returns the name of the slug associated with interestID.
-   * @param interestID The interest id.
-   */
-  public getSlug(interestID: string) {
-    this.assertDefined(interestID);
-    const interestDoc = this.findDoc(interestID);
-    return Slugs.findDoc(interestDoc.slugID).name;
   }
 
   /**

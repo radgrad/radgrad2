@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -12,7 +12,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from '../shared/RatingField';
-import { IAcademicTerm } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicTerm } from '../../../typings/radgrad';
 
 interface IStudentExplorerEditReviewWidgetProps {
   review: {
@@ -194,82 +194,105 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     return (
       <Accordion>
         <Accordion.Title style={accordionTitleStyle} active={active} onClick={this.handleAccordionClick}>
-          <Icon name="dropdown"/><a>Edit Review </a>
+          <Icon name="dropdown" />
+          <a>Edit Review </a>
           {
-            review.moderated ?
+            review.moderated ? (
               <React.Fragment>
                 {
                   review.visible ?
-                    <i className="green checkmark icon"/>
+                    <i className="green checkmark icon" />
                     :
-                    <i className="red warning circle icon"/>
+                    <i className="red warning circle icon" />
                 }
               </React.Fragment>
-              :
-              <React.Fragment>
-                {
+            )
+              : (
+                <React.Fragment>
+                  {
                   review.visible ?
-                    <i className="yellow checkmark icon"/>
+                    <i className="yellow checkmark icon" />
                     :
-                    <i className="yellow warning circle icon"/>
+                    <i className="yellow warning circle icon" />
                 }
-              </React.Fragment>
-          }
+                </React.Fragment>
+            )
+}
         </Accordion.Title>
 
         <Accordion.Content active={active}>
           <div className="ui padded container" style={paddedContainerStyle}>
             {
-              review.visible ?
+              review.visible ? (
                 <React.Fragment>
                   {
-                    review.moderated ?
-                      <Message positive={true}>
-                        <p><i className="green checkmark icon"/>Your post is visible to the RadGrad community and has
-                          been approved by moderators.</p>
-                      </Message>
-                      :
-                      <Message warning={true}>
-                        <p><i className="yellow checkmark icon"/>Your post is visible to the RadGrad community but has
-                          not yet been approved by moderators.</p>
-                      </Message>
-                  }
-                </React.Fragment>
-                :
-                <React.Fragment>
-                  {
-                    review.moderated ?
-                      <Message negative={true}>
-                        <p><i className="warning red circle icon"/>Your post has been hidden by moderators for the
-                          following reasons:</p>
-                        <br/>
-                        <i>{review.moderatorComments}</i>
-                      </Message>
-                      :
-                      <Message warning={true}>
+                    review.moderated ? (
+                      <Message positive>
                         <p>
-                          <i className="warning yellow circle icon"/>Your edited post is waiting for moderator
-                          approval. Your post has currently been hidden by moderators for the following reasons:
-                          <br/>
-                          <i>{review.moderatorComments}</i>
+                          <i className="green checkmark icon" />
+                          Your post is visible to the RadGrad community and has
+                          been approved by moderators.
                         </p>
                       </Message>
-                  }
+                    )
+                      : (
+                        <Message warning>
+                          <p>
+                            <i className="yellow checkmark icon" />
+                            Your post is visible to the RadGrad community but has
+                            not yet been approved by moderators.
+                          </p>
+                        </Message>
+                    )
+}
                 </React.Fragment>
-            }
+              )
+                : (
+                  <React.Fragment>
+                    {
+                    review.moderated ? (
+                      <Message negative>
+                        <p>
+                          <i className="warning red circle icon" />
+                          Your post has been hidden by moderators for the
+                          following reasons:
+                        </p>
+                        <br />
+                        <i>{review.moderatorComments}</i>
+                      </Message>
+                    )
+                      : (
+                        <Message warning>
+                          <p>
+                            <i className="warning yellow circle icon" />
+                            Your edited post is waiting for moderator
+                            approval. Your post has currently been hidden by moderators for the following reasons:
+                            <br />
+                            <i>{review.moderatorComments}</i>
+                          </p>
+                        </Message>
+                    )
+}
+                  </React.Fragment>
+              )
+}
 
             <AutoForm schema={schema} onSubmit={this.handleUpdate} ref={this.formRef}>
               <Form.Group widths="equal">
-                <SelectField name="academicTerm"/>
-                <RatingField name="rating"/>
+                <SelectField name="academicTerm" />
+                <RatingField name="rating" />
               </Form.Group>
 
-              <LongTextField name="comments"/>
+              <LongTextField name="comments" />
 
-              <SubmitField className="green basic mini" value="UPDATE" disabled={false} inputRef={undefined}/>
-              <Button basic={true} color="red" size="mini" onClick={this.handleDelete}>DELETE</Button>
-              <Confirm open={confirmOpen} onCancel={this.handleCancelDelete} onConfirm={this.handleConfirmDelete}
-                       header="Delete Review?"/>
+              <SubmitField className="green basic mini" value="UPDATE" disabled={false} inputRef={undefined} />
+              <Button basic color="red" size="mini" onClick={this.handleDelete}>DELETE</Button>
+              <Confirm
+                open={confirmOpen}
+                onCancel={this.handleCancelDelete}
+                onConfirm={this.handleConfirmDelete}
+                header="Delete Review?"
+              />
             </AutoForm>
           </div>
         </Accordion.Content>

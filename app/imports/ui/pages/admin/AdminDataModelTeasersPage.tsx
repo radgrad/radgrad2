@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, // eslint-disable-line no-unused-vars
-  IDescriptionPair, // eslint-disable-line no-unused-vars
-  ITeaser, // eslint-disable-line no-unused-vars
+import { IAdminDataModelPageState,
+  IDescriptionPair,
+  ITeaser,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
@@ -56,8 +56,8 @@ const itemTitleString = (item: ITeaser): string => {
  */
 const itemTitle = (item: ITeaser): React.ReactNode => (
   <React.Fragment>
-    {item.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {item.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -177,35 +177,41 @@ class AdminDataModelTeasersPage extends React.Component<{}, IAdminDataModelPageS
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <UpdateTeaserForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                itemTitleString={itemTitleString}/>
+              <UpdateTeaserForm
+                collection={collection}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddTeaserForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddTeaserForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Teaser?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Teaser?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

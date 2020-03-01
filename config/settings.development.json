@@ -11,7 +11,7 @@
       "popupHeight": 610
     },
     "fixUserInteractions": false,
-    "databaseRestoreFileName": "database/snapshot/2019-12-16-08-38-27.json",
+    "databaseRestoreFileName": "database/snapshot/2020-01-24-11-37-22.json",
     "appLogging": { "enable": true, "filter": ["*"], "client": true, "server": true },
     "admin": { "username": "radgrad@hawaii.edu", "development": true },
     "cloudinary": {"cloud_name": "radgrad", "upload_preset": "CHANGEME"},
@@ -23,7 +23,17 @@
       "two": {"i": 0, "c": 12, "e": 0, "reviews": 0}
     },
     "RadGrad": {
-      "quarterSystem": false
+      "quarterSystem": false,
+      "adminProfile": {
+        "username":"radgrad@hawaii.edu",
+        "firstName": "RadGrad",
+        "lastName": "Admin"
+      },
+      "emailDomain": "hawaii.edu",
+      "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>"
     }
+  },
+  "env": {
+    "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465"
   }
 }

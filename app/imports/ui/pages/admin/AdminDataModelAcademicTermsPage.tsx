@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
@@ -10,10 +10,10 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  IAcademicTerm, // eslint-disable-line
-  IAcademicTermDefine, // eslint-disable-line
-  IAdminDataModelPageState, // eslint-disable-line
-  IDescriptionPair, // eslint-disable-line
+  IAcademicTerm,
+  IAcademicTermDefine,
+  IAdminDataModelPageState,
+  IDescriptionPair,
 } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
@@ -48,11 +48,11 @@ function descriptionPairs(term: IAcademicTerm): IDescriptionPair[] {
 }
 
 const itemTitle = (term: IAcademicTerm): React.ReactNode => (
-    <React.Fragment>
-      {term.retired ? <Icon name="eye slash"/> : ''}
-      <Icon name="dropdown"/>
-      {AcademicTerms.toString(term._id, false)}
-    </React.Fragment>
+  <React.Fragment>
+    {term.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
+    {AcademicTerms.toString(term._id, false)}
+  </React.Fragment>
   );
 
 const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
@@ -166,35 +166,41 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={AcademicTerms} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <AdminDataModelUpdateForm
+                collection={AcademicTerms}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={AcademicTerms}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={AcademicTerms}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Term?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Term?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Form } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse } from '../../../typings/radgrad';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import { Users } from '../../../api/user/UserCollection';
@@ -65,7 +65,7 @@ class ConnectedCourseInstanceSelectorTemp extends React.Component<IConnectedCour
     // console.log(options);
     return (
       <Form>
-        <Form.Select fluid={true} label="Course Instance" options={options} placeholder="Course Instance" onChange={this.handleChange}/>
+        <Form.Select fluid label="Course Instance" options={options} placeholder="Course Instance" onChange={this.handleChange} />
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
       </Form>
     );

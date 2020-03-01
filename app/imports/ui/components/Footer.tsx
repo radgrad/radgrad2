@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, List } from 'semantic-ui-react';
 
 /** The LandingFooter appears at the bottom of every page. Rendered by the App Layout component. */
@@ -13,7 +13,7 @@ const Footer = () => {
     <footer>
       <div style={divStyle}>
         <Container textAlign="center">
-          <List bulleted={true} horizontal={true}>
+          <List bulleted horizontal>
             <a className="footer-item item" href="http://radgrad.org/">
               About Us
             </a>

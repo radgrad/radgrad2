@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
-import { ICourse } from '../../../typings/radgrad'; // eslint-disable-line
+import { ICourse } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
@@ -85,7 +85,12 @@ class InspectorCourseMenu extends React.Component<IInpectorCourseMenuProps, IIns
               <Dropdown text={coursesLabel(courses)}>
                 <Dropdown.Menu>
                   {_.map(courses, (c) => (
-                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>{c.num} {c.shortName}</Dropdown.Item>))}
+                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>
+                      {c.num}
+                      {' '}
+                      {c.shortName}
+                    </Dropdown.Item>
+))}
                 </Dropdown.Menu>
               </Dropdown>
             </Dropdown.Item>

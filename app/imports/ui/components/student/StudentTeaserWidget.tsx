@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -10,7 +10,7 @@ import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions'; // eslint-disable-line no-unused-vars
+import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
 import { studentTeaserWidget } from './student-widget-names';
 
 interface IStudentTeaserWidgetProps {
@@ -94,39 +94,53 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
 
   return (
     <Container id={`${studentTeaserWidget}`}>
-      <Segment padded={true}>
-        <Header dividing={true}>
-          <Header as="h4"> TEASERS <WidgetHeaderNumber inputValue={teaserCount}/> </Header>
+      <Segment padded>
+        <Header dividing>
+          <Header as="h4">
+            {' '}
+            TEASERS
+            <WidgetHeaderNumber inputValue={teaserCount} />
+            {' '}
+
+          </Header>
         </Header>
 
         {
-          teasers ?
+          teasers ? (
             <Card.Group style={cardGroupStyle}>
               {
-                teasers.map((teaser, index) => (
-                  <React.Fragment key={index}>
-                    <Card centered={true}>
+                teasers.map((teaser) => (
+                  <React.Fragment key={teaser._id}>
+                    <Card centered>
                       <Card.Content>
                         <Card.Header>{teaserTitle(teaser)}</Card.Header>
-                        <Card.Meta>By {teaserAuthor(teaser)} </Card.Meta>
+                        <Card.Meta>
+                          By
+                          {teaserAuthor(teaser)}
+                          {' '}
+
+                        </Card.Meta>
                       </Card.Content>
 
                       <Card.Content style={teaserWidgetVideoStyle}>
-                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)}/>
+                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
                       </Card.Content>
 
                       <Card.Content>
-                        <InterestList item={teaser} size="mini"/>
+                        <InterestList item={teaser} size="mini" />
                       </Card.Content>
 
                       {
-                        teaser.opportunityID ?
+                        teaser.opportunityID ? (
                           <Link to={buildOpportunitiesRouteName(teaser, props)}>
                             <Button attached="bottom">
-                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle}/> View
+                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
+                              {' '}
+                              View
                               More
                             </Button>
                           </Link>
+                        )
                           : ''
                       }
                     </Card>
@@ -134,6 +148,7 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
                 ))
               }
             </Card.Group>
+          )
             :
             <p>Add interests to see recommendations here.</p>
         }

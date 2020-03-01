@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad'; // eslint-disable-line
+import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -17,7 +17,10 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import AddVerificationRequestForm from '../../components/admin/AddVerificationRequestForm';
 import {
   academicTermNameToSlug,
-  opportunityInstanceNameToId, opportunityNameToSlug,
+  opportunityInstanceNameToId,
+  opportunityInstanceNameToTermSlug,
+  opportunityInstanceNameToUsername,
+  opportunityNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -49,7 +52,7 @@ const itemTitleString = (item: any): string => {
   const oi = OpportunityInstances.findDoc(item.opportunityInstanceID);
   const term = AcademicTerms.toString(oi.termID, false);
   const opportunityName = OpportunityInstances.getOpportunityDoc(item.opportunityInstanceID).name;
-  return `${student}: ${opportunityName} - ${term}`; // eslint-disable-line
+  return `${student}: ${opportunityName} - ${term}`;
 };
 
 /**
@@ -58,8 +61,8 @@ const itemTitleString = (item: any): string => {
  */
 const itemTitle = (item: any): React.ReactNode => (
   <React.Fragment>
-    {item.retired ? <Icon name="eye slash"/> : ''}
-    <Icon name="dropdown"/>
+    {item.retired ? <Icon name="eye slash" /> : ''}
+    <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
@@ -74,17 +77,23 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
   }
 
   private handleAdd = (doc) => {
-    // console.log('VerificationRequests.handleAdd(%o)', doc);
+    // console.log('VerificationRequests.handleAdd()', doc);
     const collectionName = collection.getCollectionName();
     const definitionData: any = {};
     definitionData.status = doc.status;
-    definitionData.student = profileNameToUsername(doc.student);
     if (doc.opportunityInstance) {
       definitionData.opportunityInstance = opportunityInstanceNameToId(doc.opportunityInstance);
-    }
-    if (doc.opportunity) {
-      definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-      definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+      definitionData.student = opportunityInstanceNameToUsername(doc.opportunityInstance);
+      definitionData.academicTerm = opportunityInstanceNameToTermSlug(doc.opportunityInstance);
+      // definitionData.academicTerm = AcademicTerms.
+    } else {
+      if (doc.student) {
+        definitionData.student = profileNameToUsername(doc.student);
+      }
+      if (doc.opportunity) {
+        definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+      }
     }
     if (_.isBoolean(doc.retired)) {
       definitionData.retired = doc.retired;
@@ -184,35 +193,41 @@ class AdminDataModelVerificationRequestsPage extends React.Component<{}, IAdminD
     };
     return (
       <div>
-        <AdminPageMenuWidget/>
-        <Grid container={true} stackable={true} style={paddedStyle}>
+        <AdminPageMenuWidget />
+        <Grid container stackable style={paddedStyle}>
 
           <Grid.Column width={3}>
-            <AdminDataModelMenu/>
+            <AdminDataModelMenu />
           </Grid.Column>
 
           <Grid.Column width={13}>
             {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm collection={collection} id={this.state.id} formRef={this.formRef}
-                                        handleUpdate={this.handleUpdate} handleCancel={this.handleCancel}
-                                        itemTitleString={itemTitleString}/>
+              <AdminDataModelUpdateForm
+                collection={collection}
+                id={this.state.id}
+                formRef={this.formRef}
+                handleUpdate={this.handleUpdate}
+                handleCancel={this.handleCancel}
+                itemTitleString={itemTitleString}
+              />
             ) : (
-              <AddVerificationRequestForm formRef={this.formRef} handleAdd={this.handleAdd}/>
+              <AddVerificationRequestForm formRef={this.formRef} handleAdd={this.handleAdd} />
             )}
-            <ListCollectionWidget collection={collection}
-                                  findOptions={findOptions}
-                                  descriptionPairs={descriptionPairs}
-                                  itemTitle={itemTitle}
-                                  handleOpenUpdate={this.handleOpenUpdate}
-                                  handleDelete={this.handleDelete}
-                                  setShowIndex={dataModelActions.setCollectionShowIndex}
-                                  setShowCount={dataModelActions.setCollectionShowCount}
+            <ListCollectionWidget
+              collection={collection}
+              findOptions={findOptions}
+              descriptionPairs={descriptionPairs}
+              itemTitle={itemTitle}
+              handleOpenUpdate={this.handleOpenUpdate}
+              handleDelete={this.handleDelete}
+              setShowIndex={dataModelActions.setCollectionShowIndex}
+              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Verification Request?"/>
+        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Verification Request?" />
 
-        <BackToTopButton/>
+        <BackToTopButton />
       </div>
     );
   }

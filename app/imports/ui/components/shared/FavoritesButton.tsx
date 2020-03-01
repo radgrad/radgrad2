@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
@@ -12,6 +12,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import * as Router from './RouterHelperFunctions';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IFavoriteButtonProps {
   studentID: string;
@@ -27,12 +28,13 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   const student = profile.username;
   let collectionName;
   let definitionData: any;
+  const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
     case 'academicPlan':
       collectionName = FavoriteAcademicPlans.getCollectionName();
       definitionData = {
         student,
-        academicPlan: Slugs.getNameFromID(props.item.slugID),
+        academicPlan: slug,
         retired: false,
       };
       break;
@@ -40,7 +42,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       collectionName = FavoriteCareerGoals.getCollectionName();
       definitionData = {
         username: student,
-        careerGoal: Slugs.getNameFromID(props.item.slugID),
+        careerGoal: slug,
         retired: false,
       };
       break;
@@ -48,7 +50,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       collectionName = FavoriteCourses.getCollectionName();
       definitionData = {
         student,
-        course: Slugs.getNameFromID(props.item.slugID),
+        course: slug,
         retired: false,
       };
       break;
@@ -56,7 +58,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       collectionName = FavoriteInterests.getCollectionName();
       definitionData = {
         username: student,
-        interest: Slugs.getNameFromID(props.item.slugID),
+        interest: slug,
         retired: false,
       };
       break;
@@ -64,7 +66,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       collectionName = FavoriteOpportunities.getCollectionName();
       definitionData = {
         student,
-        opportunity: Slugs.getNameFromID(props.item.slugID),
+        opportunity: slug,
         retired: false,
       };
   }
@@ -72,6 +74,12 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
       console.error('Failed to add favorites ', error);
+    }
+  });
+  const interactionData = { username: student, type: 'favoriteItem', typeData: `${slug} (${props.type})` };
+  userInteractionDefineMethod.call(interactionData, (err) => {
+    if (err) {
+      console.error('Error creating UserInteraction', err);
     }
   });
 };
@@ -121,16 +129,43 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       console.error('Failed to remove favorite', error);
     }
   });
+  const profile = Users.getProfile(props.studentID);
+  const username = profile.username;
+  const slug = Slugs.getNameFromID(props.item.slugID);
+  const interactionData = { username, type: 'unFavoriteItem', typeData: `${slug} (${props.type})` };
+  userInteractionDefineMethod.call(interactionData, (err) => {
+    if (err) {
+      console.error('Error creating UserInteraction', err);
+    }
+  });
 };
 
 
-const FavoritesButton = (props: IFavoriteButtonProps) => (<React.Fragment>{props.added ?
-  <Button onClick={handleRemove(props)} size={'mini'} color={'green'} floated={'right'} basic={true}><Icon
-    name="heart outline" color='red'/><Icon name="minus"/>REMOVE FROM FAVORITES</Button>
-  :
-  <Button size={'mini'} onClick={handleAdd(props)} color={'green'} floated={'right'} basic={true}><Icon name="heart"
-                                                                                                        color="red"/><Icon
-    name="plus"/>ADD TO FAVORITES</Button>}</React.Fragment>
+const FavoritesButton = (props: IFavoriteButtonProps) => (
+  <React.Fragment>
+    {props.added ? (
+      <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
+        <Icon
+          name="heart outline"
+          color="red"
+        />
+        <Icon name="minus" />
+        REMOVE FROM FAVORITES
+      </Button>
+)
+  : (
+    <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
+      <Icon
+        name="heart"
+        color="red"
+      />
+      <Icon
+        name="plus"
+      />
+      ADD TO FAVORITES
+    </Button>
+)}
+  </React.Fragment>
 );
 
 export default withRouter(withTracker((props) => {

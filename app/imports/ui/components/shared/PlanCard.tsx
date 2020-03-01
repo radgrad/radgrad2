@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Card, Icon, Popup, Image } from 'semantic-ui-react';
-import * as Markdown from 'react-markdown';
-import { IAcademicPlan, IPlanCard } from '../../../typings/radgrad'; // eslint-disable-line
+import Markdown from 'react-markdown';
+import { IPlanCard } from '../../../typings/radgrad';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
-import { EXPLORER_TYPE } from '../../../startup/client/routes-config';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
 import {
   docToName,
@@ -32,23 +32,30 @@ const PlanCard = (props: IPlanCard) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml={true} source={`${itemShortDescription}...`}/>
-        <AcademicPlanStaticViewer plan={item}/>
+        <Markdown escapeHtml source={`${itemShortDescription}...`} />
+        <AcademicPlanStaticViewer plan={item} />
       </Card.Content>
 
       <Card.Content>
-        <span>STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents}/></span>
+        <span>
+          STUDENTS PARTICIPATING
+          <WidgetHeaderNumber inputValue={numberStudents} />
+        </span>
         <Image.Group size="mini">
-          {interested.map((student, index) => <Popup
-            key={index}
-            trigger={<Image src={profileIDToPicture(student._id)} circular={true} bordered={true}/>}
-            content={profileIDToFullname(student._id)}
-          />)}
+          {interested.map((student, index) => (
+            <Popup
+              key={student._id}
+              trigger={<Image src={profileIDToPicture(student._id)} circular bordered />}
+              content={profileIDToFullname(student._id)}
+            />
+))}
         </Image.Group>
       </Card.Content>
 
       <Link className="ui button" to={route}>
-        <Icon name="chevron circle right"/><br/>View More
+        <Icon name="chevron circle right" />
+        <br />
+        View More
       </Link>
     </Card>
   );

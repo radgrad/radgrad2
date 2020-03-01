@@ -1,15 +1,12 @@
-import * as React from 'react';
-import * as _ from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import TextField from 'uniforms-semantic/TextField';
+import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../form-fields/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { IInterest } from '../../../typings/radgrad'; // eslint-disable-line
+import { IInterest } from '../../../typings/radgrad';
 import { docToName } from '../shared/data-model-helper-functions';
 
 interface IAddCareerGoalFormProps {
@@ -34,16 +31,16 @@ const AddCareerGoalForm = (props: IAddCareerGoalFormProps): React.ReactElement<a
     },
   });
   return (
-    <Segment padded={true}>
-      <Header dividing={true}>Add Career Goal</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError={true}>
+    <Segment padded>
+      <Header dividing>Add Career Goal</Header>
+      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="name" placeholder="Software Engineer"/>
-          <TextField name="slug" placeholder="software-engineer"/>
+          <TextField name="name" placeholder="Software Engineer" />
+          <TextField name="slug" placeholder="software-engineer" />
         </Form.Group>
-        <MultiSelectField name="interests" placeholder="Select interest(s)"/>
-        <LongTextField name="description" placeholder="Describe the Career Goal here"/>
-        <SubmitField className="basic green" value="Add"/>
+        <MultiSelectField name="interests" placeholder="Select interest(s)" />
+        <LongTextField name="description" placeholder="Describe the Career Goal here" />
+        <SubmitField className="basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

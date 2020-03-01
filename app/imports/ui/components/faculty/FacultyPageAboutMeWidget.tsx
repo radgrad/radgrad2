@@ -3,9 +3,9 @@
  * 05/20/19
  * Faculty Widget that shows About Me information
  */
-import * as React from 'react';
+import React from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -15,7 +15,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IFacultyProfile } from '../../../typings/radgrad'; // eslint-disable-line no-unused-vars
+import { IFacultyProfile } from '../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
@@ -99,7 +99,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * @param event Details of the event
    */
   private fileSelectedHandler = (event) => {
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
   };
 
   /**
@@ -210,52 +210,70 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
         <Grid>
           <Grid.Row>
             <Grid.Column>
-              <Header as='h3' dividing textAlign='left'>Profile</Header>
+              <Header as="h3" dividing textAlign="left">Profile</Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Name</Header>
+            <Grid.Column floated="left" width={2}>
+              <Header as="h5" textAlign="left">Name</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Header as='h5' textAlign='left'>{Users.getFullName(facultyDoc)}</Header>
+            <Grid.Column floated="left" width={6}>
+              <Header as="h5" textAlign="left">{Users.getFullName(facultyDoc)}</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Email</Header>
+            <Grid.Column floated="left" width={2}>
+              <Header as="h5" textAlign="left">Email</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
-              <Header as='h5' textAlign='left'>{facultyUserUsername}</Header>
+            <Grid.Column floated="left" width={6}>
+              <Header as="h5" textAlign="left">{facultyUserUsername}</Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Interests</Header>
+            <Grid.Column floated="left" width={2}>
+              <Header as="h5" textAlign="left">Interests</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <Grid>
-                <Grid.Row divided textAlign='left'>
+                <Grid.Row divided textAlign="left">
                   <Label.Group>
                     {_.map(facultyInterests, (interests, index) => (
-                      <Label size='small' key={index} as={NavLink} exact={true}
-                             to={this.generateInterestRoute(interests)}><Icon
-                        name='star'/>{interests}</Label>
+                      <Label
+                        size="small"
+                        key={index}
+                        as={NavLink}
+                        exact
+                        to={this.generateInterestRoute(interests)}
+                      >
+                        <Icon
+                          name="star"
+                        />
+                        {interests}
+                      </Label>
                     ))}
                   </Label.Group>
                 </Grid.Row>
                 <Link to={exploreRoute}>Edit in Interest Explorer</Link>
               </Grid>
             </Grid.Column>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Career Goals</Header>
+            <Grid.Column floated="left" width={2}>
+              <Header as="h5" textAlign="left">Career Goals</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <Grid>
-                <Grid.Row divided textAlign='left'>
+                <Grid.Row divided textAlign="left">
                   <Label.Group>
                     {_.map(facultyCareerGoals, (careerGoals, index) => (
-                      <Label size='small' key={index} as={NavLink} exact={true}
-                             to={this.generateCareerGoalsRoute(careerGoals)}><Icon
-                        name='suitcase'/>{careerGoals}</Label>
+                      <Label
+                        size="small"
+                        key={index}
+                        as={NavLink}
+                        exact
+                        to={this.generateCareerGoalsRoute(careerGoals)}
+                      >
+                        <Icon
+                          name="suitcase"
+                        />
+                        {careerGoals}
+                      </Label>
                     ))}
                   </Label.Group>
                 </Grid.Row>
@@ -264,29 +282,33 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Website</Header>
+            <Grid.Column floated="left" width={2}>
+              <Header as="h5" textAlign="left">Website</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <Form onSubmit={this.handleSubmitWebsite}>
                 <Form.Group>
-                  <Form.Input name='website'
-                              onChange={this.handleChange}
-                              value={website}/>
-                  <Form.Button basic={true} color="green">Update</Form.Button>
+                  <Form.Input
+                    name="website"
+                    onChange={this.handleChange}
+                    value={website}
+                  />
+                  <Form.Button basic color="green">Update</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>
-            <Grid.Column floated='left' width={2}>
-              <Header as='h5' textAlign='left'>Picture</Header>
+            <Grid.Column floated="left" width={2}>
+              <Header as="h5" textAlign="left">Picture</Header>
             </Grid.Column>
-            <Grid.Column floated='left' width={6}>
+            <Grid.Column floated="left" width={6}>
               <Form onSubmit={this.handleUploadPicture}>
                 <Form.Group>
-                  <Form.Input name='picture'
-                              onChange={this.handleChange}
-                              value={picture}/>
-                  <Form.Button basic={true} color="green">Upload</Form.Button>
+                  <Form.Input
+                    name="picture"
+                    onChange={this.handleChange}
+                    value={picture}
+                  />
+                  <Form.Button basic color="green">Upload</Form.Button>
                 </Form.Group>
               </Form>
             </Grid.Column>

@@ -10,7 +10,7 @@
           "firstName": "Robert",
           "lastName": "Brewer",
           "picture": "/images/mentors/brewer.jpg",
-          "website": null,
+          "website": "",
           "interests": [
             "algorithms"
           ],
