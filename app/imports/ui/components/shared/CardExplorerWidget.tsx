@@ -68,7 +68,7 @@ const mapStateToProps = (state) => ({
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
 const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
-  // console.log('CardExplorerWidget', props);
+  console.log('CardExplorerWidget', props);
   /* Styles */
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
   const cardGroupStyle: React.CSSProperties = {
