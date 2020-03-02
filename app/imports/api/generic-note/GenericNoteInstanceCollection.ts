@@ -167,7 +167,7 @@ class GenericNoteInstanceCollection extends BaseCollection{
  * Provide the singleton instance of this class to all other entities
  * @memberOf api/generic-note
  */
-export const GenericNoteInstance = new GenericNoteInstanceCollection();
+export const GenericNoteInstances = new GenericNoteInstanceCollection();
 
 
 
