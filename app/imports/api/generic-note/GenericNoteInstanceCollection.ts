@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { StudentProfiles} from "../user/StudentProfileCollection";
 import { AcademicTerms } from "../academic-term/AcademicTermCollection";
 import BaseCollection from "../base/BaseCollection";
-import { IGenericNoteInstanceDefine } from "../../typings/radgrad";
+import { IGenericNoteInstanceDefine, IGenericNoteInstanceUpdate } from "../../typings/radgrad";
 import { AcademicYearInstances } from "../degree-plan/AcademicYearInstanceCollection";
 import { Users } from "../user/UserCollection";
 
@@ -47,14 +47,24 @@ class GenericNoteInstanceCollection extends BaseCollection{
     });
   }
 
+  /**
+   * Defines a new Generic Note Instance
+   * @param {Object} object with title, body, academicTerm, student and retired
+   * Required fields: academicterm, student
+   * Sets the title to 'Title' and body to 'Body'
+   * @throws {Meteor.Error} If the definition includes course of student
+   * @return a new docID
+   */
+
   public define({ title = 'Title', body = 'Body', academicTerm, student, retired=false, }: IGenericNoteInstanceDefine){
-    /**
-     * things I need to check for:
-     *  - is academicTerm defined?
-     *    - if it's not, throw new Meteor.Error();
-     *  - is student defined?
-     *    - if it's not, throw new Meteor.Error();
-     */
+
+    if(AcademicTerms.isDefined(academicTerm) == false){
+      throw new Meteor.Error('academic term is not defined');
+    }
+
+    if (StudentProfiles.isDefined(student) == false){
+      throw new Meteor.Error('Student not defined.');
+    }
 
    return this.collection.insert({
      title,
@@ -66,15 +76,32 @@ class GenericNoteInstanceCollection extends BaseCollection{
   }
 
   /**
-   * If a student wants to change the title or body
+   * Used for when any update to the note takes place
+   * @param docID required the string that references the document
+   * @param title
+   * @param body
+   * @param academicTerm
+   * @param student
    */
-  public updateText(){
-  }
+  public update(docID: string, {title, body, academicTerm, student, retired}: IGenericNoteInstanceDefine){
 
-  /**
-   * If the student wants to move the note to another term
-   */
-  public updateTerm(){
+    this.assertDefined(docID);
+    const updateData: IGenericNoteInstanceUpdate = {};
+    if(title){
+      updateData.title = title;
+    }
+    if(body){
+      updateData.body = body;
+    }
+    if(academicTerm){
+      updateData.academicTerm = academicTerm;
+    }
+    if(student){
+      updateData.student = student;
+    }
+    if(_.isBoolean(retired)){
+      updateData.retired = retired;
+    }
 
   }
 
@@ -83,9 +110,8 @@ class GenericNoteInstanceCollection extends BaseCollection{
    * @param docID the docID of the generic note instance
    */
   public removeIt(docID: string){
-    // ask Cam what assert defined is doing here
     this.assertDefined(docID);
-    // now its ok to delete?
+    // now it's ok to delete
     return super.removeIt(docID);
   }
 
@@ -100,10 +126,23 @@ class GenericNoteInstanceCollection extends BaseCollection{
   }
 
   /**
-   * What is this for?
+   * Integrity Check
+   * checks if there are any problems with the things the note instance references
+   * Checks studentID, academicID
+   * @returns array of strings with integrity issues
+   * if the array is empty, it means no problems were found
    */
   public checkIntegrity(){
+    //check if student and academicTerm is defined
     const problems = [];
+    this.find().forEach( (doc) => {
+      if(!AcademicTerms.isDefined(doc.termID)){
+        problems.push(`Bad termID: ${doc.termID}`);
+      }
+      if(!StudentProfiles.isDefined(doc.studentID)){
+        problems.push(`Bad studentID ${doc.studentID}`);
+      }
+    });
     return problems;
   }
 
@@ -124,7 +163,10 @@ class GenericNoteInstanceCollection extends BaseCollection{
 
 }
 
-
+/**
+ * Provide the singleton instance of this class to all other entities
+ * @memberOf api/generic-note
+ */
 export const GenericNoteInstance = new GenericNoteInstanceCollection();
 
 
