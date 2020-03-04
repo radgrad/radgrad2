@@ -26,6 +26,19 @@ if(Meteor.isServer){
 
     it( 'Can define and removeIt', function test1(done){
       this.timeout(5000);
-    })
+    });
+
+    it( 'Can Update', function test2(done){
+
+    });
+
+    it ('Can dumpOne and removeIt', function test3(){
+
+    });
+
+    it( 'Can checkIntegrity no errors', function test4(){
+
+    });
+
   });
 }
