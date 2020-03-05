@@ -1,9 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { USERINTERACTIONSNOTYPEDATA, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 
 interface IRadGradLoginButtonsState {
   justLoggedIn: boolean;
@@ -29,11 +31,23 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
         const username = Meteor.user().username;
         const id = Meteor.userId();
         let role = Roles.getRolesForUser(id)[0];
-        const studentp = role.toLowerCase() === 'student';
-        if (studentp) {
+        const isStudent = role.toLowerCase() === 'student';
+        if (isStudent) {
           const profile = Users.findProfileFromUsername(username);
           if (profile.isAlumni) {
             role = 'Alumni';
+          } else {
+            // Track Student Login
+            const interactionData = {
+              username,
+              type: USERINTERACTIONSTYPE.LOGIN,
+              typeData: USERINTERACTIONSNOTYPEDATA,
+            };
+            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+              if (userInteractionError) {
+                console.log('Error creating UserInteraction.', userInteractionError);
+              }
+            });
           }
         }
         const homePage = `/${role.toLowerCase()}/${username}/home`;
@@ -53,10 +67,10 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
     if (this.state.justLoggedIn) {
       return (
         <Redirect to={{
-        pathname: this.state.homePage,
-      }}
+          pathname: this.state.homePage,
+        }}
         />
-);
+      );
     }
     return (
       <Dropdown text="LOGIN" pointing="top right">
