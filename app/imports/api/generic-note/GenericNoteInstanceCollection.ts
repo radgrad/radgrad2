@@ -1,12 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { StudentProfiles} from "../user/StudentProfileCollection";
-import { AcademicTerms } from "../academic-term/AcademicTermCollection";
-import BaseCollection from "../base/BaseCollection";
-import { IGenericNoteInstanceDefine, IGenericNoteInstanceUpdate } from "../../typings/radgrad";
-import { AcademicYearInstances } from "../degree-plan/AcademicYearInstanceCollection";
-import { Users } from "../user/UserCollection";
+import { StudentProfiles } from '../user/StudentProfileCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import BaseCollection from '../base/BaseCollection';
+import { IGenericNoteInstanceDefine, IGenericNoteInstanceUpdate } from '../../typings/radgrad';
+import { Users } from '../user/UserCollection';
 
 /**
  * Generic Note instance collection for students to use in the Degree Planner
@@ -21,22 +20,22 @@ import { Users } from "../user/UserCollection";
  * - studentID
  * - Retired
  */
-class GenericNoteInstanceCollection extends BaseCollection{
+class GenericNoteInstanceCollection extends BaseCollection {
 
   constructor() {
     super('GenericNoteInstance', new SimpleSchema({
       title: String,
       body: String,
       academicTerm: String,
-      student: String,
-      retired: {type: Boolean, optional: true },
+      student: String, // student ID should be username
+      retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       title: String,
       body: String,
       academicTerm: String,
-      student: String,
-      retired: { Boolean, optional: true },
+      student: String, // student ID
+      retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       title: { type: String, optional: true },
@@ -56,15 +55,16 @@ class GenericNoteInstanceCollection extends BaseCollection{
    * @return a new docID
    */
 
-  public define({ title = 'Title', body = 'Body', academicTerm, student, retired=false, }: IGenericNoteInstanceDefine){
+  public define({ title = 'Title', body = 'Body', academicTerm, student, retired = false }: IGenericNoteInstanceDefine) {
 
-    if(AcademicTerms.isDefined(academicTerm) == false){
+    if (AcademicTerms.isDefined(academicTerm) == false) {
       throw new Meteor.Error('academic term is not defined');
     }
 
-    if (StudentProfiles.isDefined(student) == false){
-      throw new Meteor.Error('Student not defined.');
+    if (StudentProfiles.isDefined(student) == false) {
+      throw new Meteor.Error('student not defined.');
     }
+    console.log('this is the student:', student);
 
    return this.collection.insert({
      title,
@@ -83,25 +83,27 @@ class GenericNoteInstanceCollection extends BaseCollection{
    * @param academicTerm
    * @param student
    */
-  public update(docID: string, {title, body, academicTerm, student, retired}: IGenericNoteInstanceDefine){
+  public update(docID: string, { title, body, academicTerm, student, retired }: IGenericNoteInstanceDefine) {
 
     this.assertDefined(docID);
     const updateData: IGenericNoteInstanceUpdate = {};
-    if(title){
+    if (title) {
       updateData.title = title;
     }
-    if(body){
+    if (body) {
       updateData.body = body;
     }
-    if(academicTerm){
+    if (academicTerm) {
       updateData.academicTerm = academicTerm;
     }
-    if(student){
+    if (student) {
       updateData.student = student;
     }
-    if(_.isBoolean(retired)){
+    if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
+
+    // call update
 
   }
 
@@ -109,7 +111,7 @@ class GenericNoteInstanceCollection extends BaseCollection{
    * If the student wants to remove the note
    * @param docID the docID of the generic note instance
    */
-  public removeIt(docID: string){
+  public removeIt(docID: string) {
     this.assertDefined(docID);
     // now it's ok to delete
     return super.removeIt(docID);
@@ -120,7 +122,7 @@ class GenericNoteInstanceCollection extends BaseCollection{
    * @param studentID studentID in the doc
    * @returns the Student's name
    */
-  public getStudentName(studentID){
+  public getStudentName(studentID) {
     const name = StudentProfiles.findDoc(studentID).name;
     return name;
   }
@@ -132,14 +134,14 @@ class GenericNoteInstanceCollection extends BaseCollection{
    * @returns array of strings with integrity issues
    * if the array is empty, it means no problems were found
    */
-  public checkIntegrity(){
-    //check if student and academicTerm is defined
+  public checkIntegrity() {
+    // check if student and academicTerm is defined
     const problems = [];
-    this.find().forEach( (doc) => {
-      if(!AcademicTerms.isDefined(doc.termID)){
+    this.find().forEach((doc) => {
+      if (!AcademicTerms.isDefined(doc.termID)) {
         problems.push(`Bad termID: ${doc.termID}`);
       }
-      if(!StudentProfiles.isDefined(doc.studentID)){
+      if (!StudentProfiles.isDefined(doc.studentID)) {
         problems.push(`Bad studentID ${doc.studentID}`);
       }
     });
@@ -149,7 +151,7 @@ class GenericNoteInstanceCollection extends BaseCollection{
   /**
    * Dump One returns an object representing the GenericNoteInstance docID in format acceptable to define()
    * @param docID
-   * @returns { Object } An object representing the definition of a docID
+   * @returns { Object } An object representing the definition of a docID dumps slugs
    */
   public dumpOne(docID: string): IGenericNoteInstanceDefine {
     const doc = this.findDoc(docID);
@@ -158,7 +160,7 @@ class GenericNoteInstanceCollection extends BaseCollection{
     const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const student = Users.getProfile(doc.studentID).username;
     const retired = doc.retired;
-    return {title, body, academicTerm, student, retired};
+    return { title, body, academicTerm, student, retired };
   }
 
 }
@@ -168,6 +170,3 @@ class GenericNoteInstanceCollection extends BaseCollection{
  * @memberOf api/generic-note
  */
 export const GenericNoteInstances = new GenericNoteInstanceCollection();
-
-
-

@@ -1192,7 +1192,16 @@ export interface IGenericNoteInstanceDefine extends IDumpOne {
 export interface IGenericNoteInstanceUpdate extends IUpdate {
   title?: string;
   body?: string;
-  academicTerm?: any;
-  student?: any;
+  academicTerm?: string;
+  student?: string;
   retired?: boolean;
+}
+
+export interface IGenericNoteInstance {
+  _id: string;
+  title: string;
+  body: string;
+  academicTerm: string;
+  studentID: string;
+  retired: boolean;
 }
