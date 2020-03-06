@@ -78,7 +78,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
   const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(props.match));
   const currentUserName = userToFullName(Router.getUsername(props.match));
   const theReviews = reviews(props);
-
+  console.log('term ', term);
   return (
     <div className="ui padded container">
       <Header as="h4" dividing style={uppercaseStyle}>

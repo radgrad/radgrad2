@@ -34,12 +34,13 @@ class MentorQuestionAnswerWidget extends React.Component<IQuestionAnswersWidgetP
           <List.Item>
             <Image src={mentor.picture} size="mini" />
             <List.Content>
-              <button type="button" onClick={this.toggleFullSize}>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+              <a onClick={this.toggleFullSize}>
                 {mentor.firstName}
                 {' '}
                 {mentor.lastName}
                 {' '}
-              </button>
+              </a>
               {' '}
               answered:
               <ExplorerUsersWidget

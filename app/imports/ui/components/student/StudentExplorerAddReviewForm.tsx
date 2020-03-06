@@ -10,9 +10,11 @@ import RatingField from '../shared/RatingField';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { IAcademicTerm } from '../../../typings/radgrad';
+import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
 
 interface IStudentExplorerAddReviewFormProps {
   event: {
@@ -47,13 +49,6 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     };
   }
 
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
   private handleAccordionClick = (e: any) => {
     e.preventDefault();
     let { active } = this.state;
@@ -71,10 +66,13 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
   private handleAdd = (doc: { [key: string]: any }): void => {
     const collectionName = collection.getCollectionName();
     let definitionData = doc;
+    const { match, reviewType, event } = this.props;
+    const username = getUsername(match);
     definitionData = this.renameKey(definitionData, 'academicTerm', 'termID');
-    definitionData.student = this.getUsername();
-    definitionData.reviewType = this.props.reviewType;
-    definitionData.reviewee = this.props.event._id;
+    definitionData.student = username;
+    definitionData.reviewType = reviewType;
+    definitionData.reviewee = event._id;
+    console.log('test1');
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -83,6 +81,7 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           icon: 'error',
         });
       } else {
+        console.log('test2');
         Swal.fire({
           title: 'Review Added',
           icon: 'success',
@@ -91,24 +90,37 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           allowEscapeKey: false,
           allowEnterKey: false,
         });
+        console.log('test3');
         this.formRef.current.reset();
+        const interactionData: USERINTERACTIONDATATYPE = {
+          username,
+          type: USERINTERACTIONSTYPE.REVIEWADD,
+          typeData: [reviewType, 'tmp'],
+        };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.log('Error creating UserInteraction.', userInteractionError);
+          }
+        });
+        console.log('test4');
       }
     });
   }
 
   private academicTerm = (): IAcademicTerm[] => {
+    const { match, event, reviewType } = this.props;
     const academicTerms = [];
     let instances;
-    if (this.props.reviewType === 'course') {
-      const course = this.props.event;
+    if (reviewType === 'course') {
+      const course = event;
       instances = CourseInstances.find({
-        studentID: this.getUserIdFromRoute(),
+        studentID: getUserIdFromRoute(match),
         courseID: course._id,
       }).fetch();
     } else {
-      const opportunity = this.props.event;
+      const opportunity = event;
       instances = OpportunityInstances.find({
-        studentID: this.getUserIdFromRoute(),
+        studentID: getUserIdFromRoute(match),
         opportunityID: opportunity._id,
       }).fetch();
     }

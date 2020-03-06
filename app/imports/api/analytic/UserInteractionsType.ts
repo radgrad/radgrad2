@@ -16,6 +16,8 @@ export const USERINTERACTIONSTYPE = {
   UNFAVCOURSE: 'unfavoriteCourse',
   UNFAVINTEREST: 'unfavoriteInterest',
   UNFAVOPPORTUNITY: 'unfavoriteOpportunity',
+  REVIEWADD: 'reviewAdd',
+  REVIEWEDIT: 'reviewEdit',
 };
 
 // type for interactionData object
