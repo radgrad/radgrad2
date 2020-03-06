@@ -5,6 +5,7 @@ import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, S
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IAcademicPlan, IAcademicTerm, ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -53,11 +54,22 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
 
   private handleUpload = async (e): Promise<void> => {
     e.preventDefault();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
-      this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-      this.setState({ pictureURL: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
+        this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        this.setState({ pictureURL: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -90,12 +102,11 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
       picture: {
         type: String,
         label:
-  <React.Fragment>
-Picture (
-    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-    <a onClick={this.handleUpload}>Upload</a>
-)
-  </React.Fragment>,
+          <React.Fragment>
+            Picture (
+            <button type="button" onClick={this.handleUpload}>Upload</button>
+            )
+          </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },

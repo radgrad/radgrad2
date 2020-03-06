@@ -143,28 +143,39 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   private handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     const collectionName = FacultyProfiles.getCollectionName();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      const profile = Users.getProfile(this.props.match.params.username);
-      const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          Swal.fire({
-            title: 'Update Failed',
-            text: error.message,
-            icon: 'error',
-          });
-        } else {
-          this.setState({ picture: cloudinaryResult.info.url });
-          Swal.fire({
-            title: 'Update Succeeded',
-            icon: 'success',
-            text: 'Your picture has been successfully updated.',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-          });
-        }
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        const profile = Users.getProfile(this.props.match.params.username);
+        const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+        updateMethod.call({ collectionName, updateData }, (error) => {
+          if (error) {
+            Swal.fire({
+              title: 'Update Failed',
+              text: error.message,
+              icon: 'error',
+            });
+          } else {
+            this.setState({ picture: cloudinaryResult.info.url });
+            Swal.fire({
+              title: 'Update Succeeded',
+              icon: 'success',
+              text: 'Your picture has been successfully updated.',
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+            });
+          }
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
       });
     }
   }

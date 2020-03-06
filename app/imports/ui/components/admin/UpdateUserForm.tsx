@@ -5,6 +5,7 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import Swal from 'sweetalert2';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
 import BaseCollection from '../../../api/base/BaseCollection';
@@ -80,11 +81,22 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
 
   private handleUpload = async (e): Promise<void> => {
     e.preventDefault();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
-      this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-      this.setState({ pictureURL: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
+        this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        this.setState({ pictureURL: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -140,12 +152,11 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
       picture: {
         type: String,
         label:
-  <React.Fragment>
-Picture (
-    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-    <a onClick={this.handleUpload}>Upload</a>
-)
-  </React.Fragment>,
+          <React.Fragment>
+            Picture (
+            <button type="button" onClick={this.handleUpload}>Upload</button>
+            )
+          </React.Fragment>,
         optional: true,
       },
       website: { type: String, optional: true },
@@ -205,9 +216,9 @@ Picture (
     return (
       <Segment padded>
         <Header dividing>
-Update
+          Update
           {collection.getType()}
-:
+          :
           {this.props.itemTitleString(model)}
         </Header>
         <AutoForm

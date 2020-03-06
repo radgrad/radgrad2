@@ -68,11 +68,22 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
   private handleUpload = async (e): Promise<void> => {
     e.preventDefault();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.props.setIsCloudinaryUsed(SET_MENTOR_HOME_IS_CLOUDINARY_USED, true);
-      this.props.setCloudinaryUrl(SET_MENTOR_HOME_CLOUDINARY_URL, cloudinaryResult.info.url);
-      this.setState({ pictureURL: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.props.setIsCloudinaryUsed(SET_MENTOR_HOME_IS_CLOUDINARY_USED, true);
+        this.props.setCloudinaryUrl(SET_MENTOR_HOME_CLOUDINARY_URL, cloudinaryResult.info.url);
+        this.setState({ pictureURL: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -330,12 +341,11 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
         icon: String,
         optional: true,
         label:
-  <React.Fragment>
-Picture (
-    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-    <a onClick={this.handleUpload}>Upload</a>
-)
-  </React.Fragment>,
+          <React.Fragment>
+            Picture (
+            <button type="button" onClick={this.handleUpload}>Upload</button>
+            )
+          </React.Fragment>,
         defaultValue: picture,
       },
     });
@@ -370,22 +380,22 @@ Picture (
                   <Label.Group>
                     {
                       interests ? (
-                        <React.Fragment>
-                          {
-                            _.map(interests, (interest, index) => (
-                              <Label
-                                size="tiny"
-                                key={index}
-                                as={Link}
-                                to={this.buildRouteName('interests', this.slugName(interest))}
-                              >
-                                <Icon name="star" />
-                                {this.goalName(interest)}
-                              </Label>
-                            ))
-                          }
-                        </React.Fragment>
-                      )
+                          <React.Fragment>
+                            {
+                              _.map(interests, (interest, index) => (
+                                <Label
+                                  size="tiny"
+                                  key={index}
+                                  as={Link}
+                                  to={this.buildRouteName('interests', this.slugName(interest))}
+                                >
+                                  <Icon name="star" />
+                                  {this.goalName(interest)}
+                                </Label>
+                              ))
+                            }
+                          </React.Fragment>
+                        )
                         : <p style={marginStyle}>No interests added yet.</p>
                     }
                   </Label.Group>
@@ -402,22 +412,22 @@ Picture (
                   <Label.Group>
                     {
                       careerGoals ? (
-                        <React.Fragment>
-                          {
-                            _.map(careerGoals, (goal, index) => (
-                              <Label
-                                size="tiny"
-                                key={index}
-                                as={Link}
-                                to={this.buildRouteName('career-goals', this.slugName(goal))}
-                              >
-                                <Icon name="suitcase" />
-                                {this.goalName(goal)}
-                              </Label>
-                            ))
-                          }
-                        </React.Fragment>
-                      )
+                          <React.Fragment>
+                            {
+                              _.map(careerGoals, (goal, index) => (
+                                <Label
+                                  size="tiny"
+                                  key={index}
+                                  as={Link}
+                                  to={this.buildRouteName('career-goals', this.slugName(goal))}
+                                >
+                                  <Icon name="suitcase" />
+                                  {this.goalName(goal)}
+                                </Label>
+                              ))
+                            }
+                          </React.Fragment>
+                        )
                         : <p style={marginStyle}>No career goals added yet.</p>
                     }
                   </Label.Group>
@@ -430,28 +440,28 @@ Picture (
 
         {
           isEditingProfile ? (
-            <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
-              <Form.Group widths="equal">
-                <TextField name="website" />
-                <TextField name="company" />
-              </Form.Group>
+              <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+                <Form.Group widths="equal">
+                  <TextField name="website" />
+                  <TextField name="company" />
+                </Form.Group>
 
-              <Form.Group widths="equal">
-                <TextField name="career" />
-                <TextField name="location" />
-              </Form.Group>
+                <Form.Group widths="equal">
+                  <TextField name="career" />
+                  <TextField name="location" />
+                </Form.Group>
 
-              <Form.Group widths="equal">
-                <TextField name="linkedin" />
-                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
-              </Form.Group>
+                <Form.Group widths="equal">
+                  <TextField name="linkedin" />
+                  <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
+                </Form.Group>
 
-              <LongTextField name="motivation" />
+                <LongTextField name="motivation" />
 
-              <SubmitField value="Save Profile" className="" disabled={false} inputRef={undefined} />
-              <Button basic color="green" onClick={this.handleCancel}>Cancel</Button>
-            </AutoForm>
-          )
+                <SubmitField value="Save Profile" className="" disabled={false} inputRef={undefined} />
+                <Button basic color="green" onClick={this.handleCancel}>Cancel</Button>
+              </AutoForm>
+            )
             : (
               <React.Fragment>
                 <Grid stackable>
@@ -512,8 +522,8 @@ Picture (
                 <br />
                 <Button basic color="green" onClick={this.handleEdit}>Edit Profile</Button>
               </React.Fragment>
-          )
-}
+            )
+        }
       </Segment>
     );
   }

@@ -1,13 +1,25 @@
 import React from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { withRouter } from 'react-router';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import { getUsername } from '../shared/RouterHelperFunctions';
+import { USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentAboutMeUpdatePictureFormProps {
   picture: string;
   docID: string;
   collectionName: string;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 interface IStudentAboutMeUpdatePictureFormState {
@@ -25,27 +37,49 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
   private handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     const { collectionName, docID } = this.props;
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      const updateData: { id: string; picture: string; } = { id: docID, picture: cloudinaryResult.info.url };
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          Swal.fire({
-            title: 'Update Failed',
-            text: error.message,
-            icon: 'error',
-          });
-        } else {
-          this.setState({ picture: cloudinaryResult.info.url });
-          Swal.fire({
-            title: 'Update Succeeded',
-            icon: 'success',
-            text: 'Your picture has been successfully updated.',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-          });
-        }
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        const updateData: { id: string; picture: string; } = { id: docID, picture: cloudinaryResult.info.url };
+        updateMethod.call({ collectionName, updateData }, (error) => {
+          if (error) {
+            Swal.fire({
+              title: 'Update Failed',
+              text: error.message,
+              icon: 'error',
+            });
+          } else {
+            this.setState({ picture: cloudinaryResult.info.url });
+            Swal.fire({
+              title: 'Update Succeeded',
+              icon: 'success',
+              text: 'Your picture has been successfully updated.',
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+            });
+            const username = getUsername(this.props.match);
+            const interactionData = {
+              username,
+              type: USERINTERACTIONSTYPE.PICTURE,
+              typeData: cloudinaryResult.info.url,
+            };
+            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+              if (userInteractionError) {
+                console.log('Error creating UserInteraction.', userInteractionError);
+              }
+            });
+          }
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
       });
     }
   }
@@ -70,4 +104,4 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
   }
 }
 
-export default StudentAboutMeUpdatePictureForm;
+export default withRouter(StudentAboutMeUpdatePictureForm);

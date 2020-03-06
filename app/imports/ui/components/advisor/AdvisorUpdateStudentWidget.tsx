@@ -75,9 +75,20 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
   }
 
   private handleUploadClick = async (): Promise<void> => {
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.setState({ picture: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.setState({ picture: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -217,12 +228,11 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               name="picture"
               label={(
                 <React.Fragment>
-                          Picture (
-                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                  <a onClick={this.handleUploadClick}>Upload</a>
-)
+                  Picture (
+                  <button type="button" onClick={this.handleUploadClick}>Upload</button>
+                  )
                 </React.Fragment>
-)}
+              )}
               onChange={this.handleFormChange}
               value={picture}
             />
@@ -242,8 +252,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               placeholder="Select Career Goal(s)"
               onChange={this.handleFormChange}
               options={this.props.careerGoals.map(
-                             (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-                           )}
+                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
+              )}
               value={careerGoals}
             />
             <Form.Dropdown
@@ -254,8 +264,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
               placeholder="Select Interest(s)"
               onChange={this.handleFormChange}
               options={this.props.interests.map(
-                             (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-                           )}
+                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
+              )}
               value={userInterests}
             />
 
@@ -303,8 +313,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
                 placeholder="Select Semester"
                 onChange={this.handleFormChange}
                 options={AcademicTerms.findNonRetired().map(
-                               (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
-                             )}
+                  (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
+                )}
                 value={declaredAcademicTerm}
               />
             </Form.Field>
@@ -317,8 +327,8 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
                 placeholder="Select Academic Plan"
                 onChange={this.handleFormChange}
                 options={AcademicPlans.findNonRetired().map(
-                               (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-                             )}
+                  (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
+                )}
                 value={favoriteAcademicPlans}
               />
             </Form.Field>
@@ -340,7 +350,7 @@ class AdvisorUpdateStudentWidget extends React.Component<IAdvisorUpdateStudentWi
         >
           /student/
           {this.props.usernameDoc.username}
-/degree-planner
+          /degree-planner
         </Link>
       </Segment>
     );

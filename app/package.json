@@ -183,6 +183,7 @@
           ]
         }
       ],
+      "react/jsx-indent": "off",
       "react/jsx-fragments": "off",
       "react/jsx-props-no-spreading": "off",
       "react/prefer-stateless-function": "off",

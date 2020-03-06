@@ -4,12 +4,16 @@ export const USERINTERACTIONSTYPE = {
   LOGIN: 'login',
   LEVEL: 'level',
   COMPLETEPLAN: 'completePlan',
-  INTERESTIDS: 'interestIDs',
-  CAREERGOALIDS: 'careerGoalIDs',
-  ACADEMICPLANID: 'academicPlanID',
-  DECLAREDACADEMICTERMID: 'declaredAcademicTermID',
   PICTURE: 'picture',
   WEBSITE: 'website',
+  FAVACADEMICPLAN: 'favoriteAcademicPlan',
+  FAVCAREERGOAL: 'favoriteCareerGoal',
+  FAVCOURSE: 'favoriteCourse',
+  FAVINTEREST: 'favoriteInterest',
+  UNFAVACADEMICPLAN: 'unfavoriteAcademicPlan',
+  UNFAVCAREERGOAL: 'unfavoriteCareerGoal',
+  UNFAVCOURSE: 'unfavoriteCourse',
+  UNFAVINTEREST: 'unfavoriteInterest',
 };
 
 // Default string if we do not need to store a typeData for that User Interaction

@@ -1,10 +1,20 @@
 import React from 'react';
 import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  DateField,
+  TextField,
+  LongTextField,
+  SelectField,
+  NumField,
+  BoolField,
+  SubmitField,
+} from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -57,11 +67,22 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
 
   private handleUpload = async (e): Promise<void> => {
     e.preventDefault();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.props.setAdminDataModelFeedsIsCloudinaryUsed(true);
-      this.props.setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
-      this.setState({ pictureURL: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.props.setAdminDataModelFeedsIsCloudinaryUsed(true);
+        this.props.setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
+        this.setState({ pictureURL: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -114,12 +135,11 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       picture: {
         type: String,
         label:
-  <React.Fragment>
-Picture (
-    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-    <a onClick={this.handleUpload}>Upload</a>
-)
-  </React.Fragment>,
+          <React.Fragment>
+            Picture (
+            <button type="button" onClick={this.handleUpload}>Upload</button>
+            )
+          </React.Fragment>,
         defaultValue: model.picture,
         optional: true,
       },
@@ -166,9 +186,9 @@ Picture (
     return (
       <Segment padded>
         <Header dividing>
-Update
+          Update
           {this.props.collection.getType()}
-:
+          :
           {this.props.itemTitleString(model)}
         </Header>
         <AutoForm

@@ -133,21 +133,21 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
           color="red"
         />
         <Icon name="minus" />
-REMOVE FROM FAVORITES
+        REMOVE FROM FAVORITES
       </Button>
-)
-  : (
-    <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
-      <Icon
-        name="heart"
-        color="red"
-      />
-      <Icon
-        name="plus"
-      />
-ADD TO FAVORITES
-    </Button>
-)}
+      )
+      : (
+        <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
+          <Icon
+            name="heart"
+            color="red"
+          />
+          <Icon
+            name="plus"
+          />
+          ADD TO FAVORITES
+        </Button>
+      )}
   </React.Fragment>
 );
 
