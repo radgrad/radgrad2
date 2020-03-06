@@ -10,11 +10,20 @@ export const USERINTERACTIONSTYPE = {
   FAVCAREERGOAL: 'favoriteCareerGoal',
   FAVCOURSE: 'favoriteCourse',
   FAVINTEREST: 'favoriteInterest',
+  FAVOPPORTUNITY: 'favoriteOpportunity',
   UNFAVACADEMICPLAN: 'unfavoriteAcademicPlan',
   UNFAVCAREERGOAL: 'unfavoriteCareerGoal',
   UNFAVCOURSE: 'unfavoriteCourse',
   UNFAVINTEREST: 'unfavoriteInterest',
+  UNFAVOPPORTUNITY: 'unfavoriteOpportunity',
 };
+
+// type for interactionData object
+export type USERINTERACTIONDATATYPE = {
+  username: string;
+  type: string;
+  typeData: string | string[];
+}
 
 // Default string if we do not need to store a typeData for that User Interaction
 export const USERINTERACTIONSNOTYPEDATA = 'N/A';

@@ -16,6 +16,7 @@ import { explorerCareerGoalWidget } from './shared-widget-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { toId } from '../../shared/description-pair-helpers';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -67,7 +68,11 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
         <Segment>
           <Segment basic clearing vertical>
             <Grid.Row verticalAlign="middle">
-              <FavoritesButton item={props.item} studentID={getUserIdFromRoute(props.match)} type="careerGoal" />
+              <FavoritesButton
+                item={props.item}
+                studentID={getUserIdFromRoute(props.match)}
+                type={FAVORITE_TYPE.CAREERGOAL}
+              />
               <Header floated="left">{upperName}</Header>
             </Grid.Row>
           </Segment>

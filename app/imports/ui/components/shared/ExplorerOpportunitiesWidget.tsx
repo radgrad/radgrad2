@@ -19,6 +19,7 @@ import { explorerOpportunityWidget } from './shared-widget-names';
 import FutureParticipation from './FutureParticipation';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { toId } from '../../shared/description-pair-helpers';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -80,7 +81,11 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
           <Segment clearing basic style={clearingBasicSegmentStyle}>
             <Header as="h4" floated="left">{upperName}</Header>
             <React.Fragment>
-              <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(props.match)} type="opportunity" />
+              <FavoritesButton
+                item={item}
+                studentID={Router.getUserIdFromRoute(props.match)}
+                type={FAVORITE_TYPE.OPPORTUNITY}
+              />
               {
                 descriptionPairs.map((descriptionPair) => (
                   <React.Fragment key={toId(descriptionPair)}>

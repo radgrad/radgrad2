@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { withRouter } from 'react-router';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { getUsername } from '../shared/RouterHelperFunctions';
-import { USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentAboutMeUpdateWebsiteFormProps {
@@ -55,7 +55,11 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
           allowEnterKey: false,
         });
         const username = getUsername(this.props.match);
-        const interactionData = { username, type: USERINTERACTIONSTYPE.WEBSITE, typeData: this.state.website };
+        const interactionData: USERINTERACTIONDATATYPE = {
+          username,
+          type: USERINTERACTIONSTYPE.WEBSITE,
+          typeData: this.state.website,
+        };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
             console.log('Error creating UserInteraction.', userInteractionError);

@@ -5,7 +5,11 @@ import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { USERINTERACTIONSNOTYPEDATA, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import {
+  USERINTERACTIONDATATYPE,
+  USERINTERACTIONSNOTYPEDATA,
+  USERINTERACTIONSTYPE,
+} from '../../../api/analytic/UserInteractionsType';
 
 interface IRadGradLoginButtonsState {
   justLoggedIn: boolean;
@@ -38,7 +42,7 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
             role = 'Alumni';
           } else {
             // Track Student Login
-            const interactionData = {
+            const interactionData: USERINTERACTIONDATATYPE = {
               username,
               type: USERINTERACTIONSTYPE.LOGIN,
               typeData: USERINTERACTIONSNOTYPEDATA,

@@ -22,6 +22,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 // eslint-disable-next-line import/named
 import { toValueArray, toValueString } from '../../shared/description-pair-helpers';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -158,7 +159,11 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
               {name}
 )
             </Header>
-            <FavoritesButton item={props.item} studentID={Router.getUserIdFromRoute(props.match)} type="course" />
+            <FavoritesButton
+              item={props.item}
+              studentID={Router.getUserIdFromRoute(props.match)}
+              type={FAVORITE_TYPE.COURSE}
+            />
           </Segment>
 
           <Divider style={zeroMarginTopStyle} />

@@ -23,6 +23,7 @@ import * as Router from './RouterHelperFunctions';
 import { profileGetInterestIDs } from './data-model-helper-functions';
 import { explorerInterestWidget } from './shared-widget-names';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -149,7 +150,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
           <Header>
             {props.interest.name}
             <FavoritesButton
-              type="interest"
+              type={FAVORITE_TYPE.INTEREST}
               studentID={props.profile.userID}
               item={props.interest}
             />
