@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
+import faker from 'faker';
 import 'mocha';
 import { GenericNoteInstances } from './GenericNoteInstanceCollection';
 import { makeSampleUser } from '../user/SampleUsers';
@@ -44,11 +45,17 @@ if (Meteor.isServer) {
 
       fc.assert(
         fc.property(fc.boolean(), (fcRetired) => {
-          const docID = GenericNoteInstances.define({ title: title, body: body, academicTerm: academicTermSlug, student: studentUsername, retired: fcRetired });
+          const docID = GenericNoteInstances.define({
+            title: title,
+            body: body,
+            academicTerm: academicTermSlug,
+            student: studentUsername,
+            retired: fcRetired,
+          });
           // expect(GenericNoteInstances.isDefined(docID)).to.be.true;
-          const ni: IGenericNoteInstance = GenericNoteInstances.findDoc(docID);
-          expect(ni.studentID).to.equal(Users.getProfile(userID).studentID);
-          expect(ni.academicTerm).to.equal(AcademicTerms.getSlug(termID));
+          const gni: IGenericNoteInstance = GenericNoteInstances.findDoc(docID);
+          expect(gni.studentID).to.equal(Users.getProfile(userID).studentID);
+          expect(gni.academicTerm).to.equal(AcademicTerms.getSlug(termID));
           // this should print the different notes being generated
           console.log(GenericNoteInstances.findDoc(docID));
           GenericNoteInstances.removeIt(docID);
@@ -60,11 +67,52 @@ if (Meteor.isServer) {
     });
 
     it('Can Update', function test2(done) {
+      const title = faker.lorem.words();
+      const body = faker.lorem.paragraph();
+      const userID = makeSampleUser(); // returns userID
+      const termID = makeSampleAcademicTerm(); // returns docID
+      const academicTermSlug = AcademicTerms.findSlugByID(termID);
+      const studentUsername = Users.getProfile(userID).username;
+      fc.assert(
+        fc.property(fc.boolean(), (fcRetired) => {
+          const docID = GenericNoteInstances.define({
+            title: title,
+            body: body,
+            academicTerm: academicTermSlug,
+            student: studentUsername,
+            retired: fcRetired,
+          });
+          // console.log('before the update, ', GenericNoteInstances.findDoc(docID));
+          const newAcademicTerm = makeSampleAcademicTerm();
+          const newAcademicTermSlug = AcademicTerms.findSlugByID(newAcademicTerm);
+          const newTitle = faker.lorem.word();
+          const newBody = faker.lorem.sentences();
+          GenericNoteInstances.update(docID, {
+            title: newTitle,
+            body: newBody,
+            student: studentUsername,
+            academicTerm: newAcademicTermSlug,
+          });
+          const gni: IGenericNoteInstance = GenericNoteInstances.findDoc(docID);
+          expect(gni.title).to.equal(newTitle);
+          expect(gni.body).to.equal(newBody);
+          expect(gni.academicTerm).to.equal(newAcademicTermSlug);
+          expect(gni.studentID).to.equal(Users.getProfile(userID).studentID); // should not change from define
+          expect(gni.retired).to.equal(fcRetired);
+          // console.log('after update, ', GenericNoteInstances.findDoc(docID));
+        }),
+      );
+      // call done to make sure the test finishes
       done();
     });
-
+    // maybe I should add restoreOne to GNI collection
     it('Can dumpOne and removeIt', function test3() {
-
+      const gni = GenericNoteInstances.findOne({});
+      const docID = gni._id;
+      const dumpObject = GenericNoteInstances.dumpOne(docID);
+      console.log('this is the dump object', dumpObject);
+      GenericNoteInstances.removeIt(docID);
+      expect(GenericNoteInstances.isDefined(docID)).to.be.false; //eslint-disable-line
     });
     /**
      * copied from CourseInstanceCollection.test.ts 106-107
@@ -73,8 +121,8 @@ if (Meteor.isServer) {
      */
     it('Can checkIntegrity no errors', function test4() {
       const errors = GenericNoteInstances.checkIntegrity();
-      expect(errors.length).to.equal(0);
-    });
+      expect(errors.length).to.equal(0); // eslint-disable-line
 
+    });
   });
 }

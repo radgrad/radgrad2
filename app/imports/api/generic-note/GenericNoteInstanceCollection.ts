@@ -84,8 +84,9 @@ class GenericNoteInstanceCollection extends BaseCollection {
    * @param student
    */
   public update(docID: string, { title, body, academicTerm, student, retired }: IGenericNoteInstanceDefine) {
-
+    // console.log('Generic Note Instance update', title, body, academicTerm, student, retired);
     this.assertDefined(docID);
+    // const profile = this.findDoc(docID);
     const updateData: IGenericNoteInstanceUpdate = {};
     if (title) {
       updateData.title = title;
@@ -104,7 +105,7 @@ class GenericNoteInstanceCollection extends BaseCollection {
     }
 
     // call update
-
+    this.collection.update(docID, { $set: updateData });
   }
 
   /**
@@ -155,9 +156,9 @@ class GenericNoteInstanceCollection extends BaseCollection {
    */
   public dumpOne(docID: string): IGenericNoteInstanceDefine {
     const doc = this.findDoc(docID);
-    const title = '';
-    const body = '';
-    const academicTerm = AcademicTerms.findSlugByID(doc.termID);
+    const title = doc.title;
+    const body = doc.body;
+    const academicTerm = doc.academicTerm;
     const student = Users.getProfile(doc.studentID).username;
     const retired = doc.retired;
     return { title, body, academicTerm, student, retired };
