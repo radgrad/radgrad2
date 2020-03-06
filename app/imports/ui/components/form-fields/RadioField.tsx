@@ -49,39 +49,40 @@ const RadioField = ({
                       value,
                       ...props
                     }) => (
-  <div
-    className={classnames(className, { disabled, error, inline }, (inline ? '' : 'grouped'), 'fields')}
-    {...filterDOMProps(props)}
-  >
-    {label && (
-      <div className={classnames({ required }, 'field')}>
-        <label>{label}</label>
-      </div>
+                      <div
+                        className={classnames(className, { disabled, error, inline }, (inline ? '' : 'grouped'), 'fields')}
+                        {...filterDOMProps(props)}
+                      >
+                        {label && (
+                        <div className={classnames({ required }, 'field')}>
+                          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                          <label>{label}</label>
+                        </div>
     )}
 
-    {allowedValues.map(item => (
-      <div className="field" key={item}>
-        <div className="ui radio checkbox">
-          <input
-            checked={item === value}
-            disabled={disabled}
-            id={`${id}-${item}`}
-            name={name}
-            onChange={() => onChange(item)}
-            type="radio"
-          />
+                        {allowedValues.map(item => (
+                          <div className="field" key={item}>
+                            <div className="ui radio checkbox">
+                              <input
+                                checked={item === value}
+                                disabled={disabled}
+                                id={`${id}-${item}`}
+                                name={name}
+                                onChange={() => onChange(item)}
+                                type="radio"
+                              />
 
-          <label htmlFor={`${id}-${item}`}>
-            {transform ? transform(item) : item}
-          </label>
-        </div>
-      </div>
+                              <label htmlFor={`${id}-${item}`}>
+                                {transform ? transform(item) : item}
+                              </label>
+                            </div>
+                          </div>
     ))}
 
-    {!!(error && showInlineError) && (
-      <div className="ui red basic pointing label">{errorMessage}</div>
+                        {!!(error && showInlineError) && (
+                        <div className="ui red basic pointing label">{errorMessage}</div>
     )}
-  </div>
+                      </div>
 );
 
 export default connectField(RadioField);
