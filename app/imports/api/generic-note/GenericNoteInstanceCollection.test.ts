@@ -40,7 +40,7 @@ if (Meteor.isServer) {
       const userID = makeSampleUser(); // returning userID but need to give a slug/username for define
       const academicTermSlug = AcademicTerms.findSlugByID(termID);
       const studentUsername = Users.getProfile(userID).username;
-      console.log('is make sample user returning a student profile?', studentUsername);
+      // console.log('is make sample user returning a student profile?', studentUsername);
 
 
       fc.assert(
@@ -57,7 +57,7 @@ if (Meteor.isServer) {
           expect(gni.studentID).to.equal(Users.getProfile(userID).studentID);
           expect(gni.academicTerm).to.equal(AcademicTerms.getSlug(termID));
           // this should print the different notes being generated
-          console.log(GenericNoteInstances.findDoc(docID));
+          // console.log(GenericNoteInstances.findDoc(docID));
           GenericNoteInstances.removeIt(docID);
           // expect(GenericNoteInstances.isDefined(docID)).to.be.false;
         }),
@@ -106,13 +106,15 @@ if (Meteor.isServer) {
       done();
     });
     // maybe I should add restoreOne to GNI collection
-    it('Can dumpOne and removeIt', function test3() {
+    it('Can dumpOne and removeIt and restoreOne', function test3() {
       const gni = GenericNoteInstances.findOne({});
-      const docID = gni._id;
+      let docID = gni._id;
       const dumpObject = GenericNoteInstances.dumpOne(docID);
-      console.log('this is the dump object', dumpObject);
+      // console.log('this is the dump object', dumpObject);
       GenericNoteInstances.removeIt(docID);
       expect(GenericNoteInstances.isDefined(docID)).to.be.false; //eslint-disable-line
+      docID = GenericNoteInstances.restoreOne(dumpObject);
+      expect(GenericNoteInstances.isDefined(docID)).to.be.true; //eslint-disable-line
     });
     /**
      * copied from CourseInstanceCollection.test.ts 106-107
@@ -123,6 +125,16 @@ if (Meteor.isServer) {
       const errors = GenericNoteInstances.checkIntegrity();
       expect(errors.length).to.equal(0); // eslint-disable-line
 
+    });
+    /**
+     * copied from CourseInstanceCollection.test.ts 110-115
+     *
+     */
+    it('Can removeUser', function test5() {
+      const gni: IGenericNoteInstance = GenericNoteInstances.findOne({});
+      const studentID = gni.studentID;
+      GenericNoteInstances.removeUser(studentID);
+      expect(GenericNoteInstances.find({ student: studentID }).count()).to.equal(0);
     });
   });
 }

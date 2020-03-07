@@ -64,7 +64,7 @@ class GenericNoteInstanceCollection extends BaseCollection {
     if (StudentProfiles.isDefined(student) == false) {
       throw new Meteor.Error('student not defined.');
     }
-    console.log('this is the student:', student);
+    // console.log('this is the student:', student);
 
    return this.collection.insert({
      title,
@@ -126,6 +126,29 @@ class GenericNoteInstanceCollection extends BaseCollection {
   public getStudentName(studentID) {
     const name = StudentProfiles.findDoc(studentID).name;
     return name;
+  }
+
+  /**
+   * Defines the entity represented by dumpObject.
+   * Defaults to calling the define() method if it exists.
+   * @param dumpObject An object representing one document in this collection.
+   * @returns { String } The docID of the newly created document.
+   */
+  public restoreOne(dumpObject): string {
+    if (typeof this.define === 'function') {
+      return this.define(dumpObject);
+    }
+    return null;
+  }
+
+  /**
+   * Removes all GenericNoteInstance documents referring to user
+   * @param user
+   */
+  public removeUser(user: string) {
+    const userID = Users.getID(user);
+    const studentID = StudentProfiles.findDoc({ userID: userID }).studentID;
+    this.collection.remove({ student: studentID });
   }
 
   /**
