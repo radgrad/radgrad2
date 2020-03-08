@@ -171,13 +171,13 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
     const schema = new SimpleSchema({
       academicTerm: {
-        icon: String,
+        type: String,
         label: 'Academic Term',
         allowedValues: academicTermNames,
         defaultValue: academicTermNames[0],
       },
       rating: {
-        icon: Number,
+        type: SimpleSchema.Integer,
         label: 'Rating',
         defaultValue: review.rating,
         min: 0,
@@ -185,7 +185,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
         optional: true,
       },
       comments: {
-        icon: String,
+        type: String,
         label: 'Comments',
         defaultValue: review.comments,
       },

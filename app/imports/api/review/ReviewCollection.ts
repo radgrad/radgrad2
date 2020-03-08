@@ -29,7 +29,7 @@ class ReviewCollection extends BaseSlugCollection {
       reviewType: { type: String },
       revieweeID: { type: SimpleSchema.RegEx.Id },
       termID: { type: SimpleSchema.RegEx.Id },
-      rating: { type: Number },
+      rating: { type: SimpleSchema.Integer },
       comments: { type: String },
       moderated: { type: Boolean },
       visible: { type: Boolean },

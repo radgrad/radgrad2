@@ -77,7 +77,7 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     definitionData.student = this.getUsername();
     definitionData.reviewType = this.props.reviewType;
     definitionData.reviewee = this.props.event._id;
-    console.log(definitionData);
+    // console.log(definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
