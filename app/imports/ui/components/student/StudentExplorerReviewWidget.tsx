@@ -43,7 +43,7 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   const userName = Users.getFullName(review.studentID);
   const userUsername = profile.username;
   const userPicture = profile.picture;
-  const reviewTerm = AcademicTerms.toString(review.termID);
+  const reviewTerm = review.termID;
   const reviewRating = review.rating;
   const reviewComments = review.comments;
   return {

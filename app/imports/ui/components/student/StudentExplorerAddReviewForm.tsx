@@ -70,11 +70,14 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
 
   private handleAdd = (doc: { [key: string]: any }): void => {
     const collectionName = collection.getCollectionName();
-    let definitionData = doc;
-    definitionData = this.renameKey(definitionData, 'academicTerm', 'termID');
+    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
+    const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
+    const definitionData = doc;
+    definitionData.academicTerm = academicTermSlug;
     definitionData.student = this.getUsername();
     definitionData.reviewType = this.props.reviewType;
     definitionData.reviewee = this.props.event._id;
+    console.log(definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -91,7 +94,7 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           allowEscapeKey: false,
           allowEnterKey: false,
         });
-        this.formRef.current.reset();
+        // this.formRef.current.reset();
       }
     });
   }
