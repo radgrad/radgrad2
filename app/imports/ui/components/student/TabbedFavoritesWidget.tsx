@@ -6,6 +6,7 @@ import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
+import GenericNotesWidget from './GenericNotesWidget';
 import { tabbedFavoritesWidget } from './student-widget-names';
 
 interface ITabbedFavoritesWidgetProps {
@@ -14,6 +15,7 @@ interface ITabbedFavoritesWidgetProps {
   selectFavoritePlansTab: () => any;
   selectFavoriteCoursesTab: () => any;
   selectFavoriteDetailsTab: () => any;
+  selectGenericNotesTab: () => any;
 }
 
 const mapStateToProps = (state) => ({
@@ -25,10 +27,11 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoritePlansTab: () => dispatch(degreePlannerActions.selectFavoritePlansTab()),
   selectFavoriteCoursesTab: () => dispatch(degreePlannerActions.selectFavoriteCoursesTab()),
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
+  selectGenericNotesTab: () => dispatch(degreePlannerActions.selectGenericNotesTab()),
 });
 
 const active = (props) => {
-  // console.log(props);
+  console.log(props);
   switch (props.selectedTab) {
     case degreePlannerTypes.SELECT_FAVORITE_OPPORTUNITIES:
       return 0;
@@ -38,14 +41,17 @@ const active = (props) => {
       return 2;
     case degreePlannerTypes.SELECT_FAVORITE_DETAILS:
       return 3;
+    case degreePlannerTypes.SELECT_GENERIC_NOTES:
+      return 4;
     default:
       return 0;
   }
 };
 
 const handleTabChange = (props, event, instance) => {
-  // console.log(props);
+  //console.log(props);
   const { activeIndex } = instance;
+  console.log(typeof activeIndex, activeIndex);
   event.preventDefault();
   switch (activeIndex) {
     case 0:
@@ -59,6 +65,9 @@ const handleTabChange = (props, event, instance) => {
       break;
     case 3:
       props.selectFavoriteDetailsTab();
+      break;
+    case 4:
+      props.selectGenericNotesTab();
       break;
     default:
       console.error(`Bad tab index ${activeIndex}`);
@@ -109,6 +118,18 @@ COUR
       ),
       pane: (
         <Tab.Pane key="FavoriteDetailsPane" active={active(props) === 3}><DepDetailsWidget /></Tab.Pane>
+      ),
+    },
+    {
+      menuItem: (
+        <Menu.Item key="Notes">
+          <Icon name="sticky note" fitted color="grey" />
+          {' '}
+          NOTE
+        </Menu.Item>
+      ),
+      pane: (
+        <Tab.Pane key="GenericNotesPane" active={active(props) === 4}><GenericNotesWidget /></Tab.Pane>
       ),
     },
   ];

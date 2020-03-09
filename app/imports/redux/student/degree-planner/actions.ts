@@ -49,3 +49,8 @@ export const selectFavoriteDetailsTab = () => ({
   type: TYPES.SELECT_FAVORITE_DETAILS,
   selectedTab: TYPES.SELECT_FAVORITE_DETAILS,
 });
+
+export const selectGenericNotesTab = () => ({
+  type: TYPES.SELECT_GENERIC_NOTES,
+  selectedTab: TYPES.SELECT_GENERIC_NOTES,
+});

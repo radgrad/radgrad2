@@ -94,6 +94,10 @@ function tabReducer(state: any = initialState, action) {
       return {
         selectedTab: TYPES.SELECT_FAVORITE_DETAILS,
       };
+    case TYPES.SELECT_GENERIC_NOTES:
+      return {
+       selectedTab: TYPES.SELECT_GENERIC_NOTES,
+      };
 
     default:
       return state;

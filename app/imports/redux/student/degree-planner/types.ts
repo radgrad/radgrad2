@@ -10,3 +10,4 @@ export const SELECT_FAVORITE_OPPORTUNITIES = 'radgrad/student/degree-planner/FAV
 export const SELECT_FAVORITE_PLANS = 'radgrad/student/degree-planner/FAVORITE_PLANS';
 export const SELECT_FAVORITE_COURSES = 'radgrad/student/degree-planner/FAVORITE_COURSES';
 export const SELECT_FAVORITE_DETAILS = 'radgrad/student/degree-planner/FAVORITE_DETAILS';
+export const SELECT_GENERIC_NOTES = 'radgrad/student/degree-planner/GENERIC_NTOES';
