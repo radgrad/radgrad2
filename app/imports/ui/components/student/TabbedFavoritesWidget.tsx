@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const active = (props) => {
-  console.log(props);
+  //console.log(props);
   switch (props.selectedTab) {
     case degreePlannerTypes.SELECT_FAVORITE_OPPORTUNITIES:
       return 0;
@@ -51,7 +51,7 @@ const active = (props) => {
 const handleTabChange = (props, event, instance) => {
   //console.log(props);
   const { activeIndex } = instance;
-  console.log(typeof activeIndex, activeIndex);
+  //console.log(typeof activeIndex, activeIndex);
   event.preventDefault();
   switch (activeIndex) {
     case 0:
