@@ -23,7 +23,14 @@
       "two": {"i": 0, "c": 12, "e": 0, "reviews": 0}
     },
     "RadGrad": {
-      "quarterSystem": false
+      "quarterSystem": false,
+      "adminProfile": {
+        "username":"radgrad@hawaii.edu",
+        "firstName": "RadGrad",
+        "lastName": "Admin"
+      },
+      "emailDomain": "hawaii.edu",
+      "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>"
     }
   },
   "env": {

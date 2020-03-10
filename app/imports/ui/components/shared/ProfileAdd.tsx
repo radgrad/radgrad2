@@ -67,14 +67,14 @@ const ProfileAdd = (props: IProfileAddProps) => {
       <Button onClick={handleAddToProfile(props)}>
         <Icon name="plus" />
         <br />
-Select Plan
+        Select Plan
       </Button>
     )
       : (
         <Button onClick={handleAddToProfile(props)}>
           <Icon name="plus" />
           <br />
-Add to Profile
+          Add to Profile
         </Button>
     )
   );

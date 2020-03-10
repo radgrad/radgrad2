@@ -24,7 +24,7 @@ class AdvisorAPBYearView extends React.Component<IAdvisorAPBYearViewProps, IAdvi
     return (
       <Grid.Column key={this.props.yearNumber} style={academicYearStyle}>
         <Divider horizontal>
-Year
+          Year
           {this.props.yearNumber}
         </Divider>
         {this.props.quarterSystem ? (

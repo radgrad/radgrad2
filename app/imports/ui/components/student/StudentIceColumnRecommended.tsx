@@ -163,19 +163,19 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
     <React.Fragment>
       {matchingPoints(100, earnedICEPoints) ? (
         <p>
-Congratulations! You have 100 (or more) verified
+          Congratulations! You have 100 (or more) verified
           {type}
           {' '}
-points!
+          points!
         </p>
       )
         :
         matchingPoints(100, projectedICEPoints) ? (
           <p>
-You already have at least 100 verified or unverified
+            You already have at least 100 verified or unverified
             {type}
             {' '}
-points.
+            points.
           </p>
         )
           :
@@ -184,10 +184,10 @@ points.
             : (
               <React.Fragment>
                 <p>
-Consider the following to acquire 100
+                  Consider the following to acquire 100
                   {type}
                   {' '}
-points.
+                  points.
                 </p>
                 <List>
                   {recommendedEvents(projectedICEPoints, props).map((event) => {
@@ -207,7 +207,7 @@ points.
                         : (
                           <Link to={opportunityRoute}>
                             <b>
-+
+                              +
                               {icePoints(event.ice)}
                             </b>
                             {' '}

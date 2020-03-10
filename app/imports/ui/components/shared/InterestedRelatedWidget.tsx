@@ -23,7 +23,7 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
           <Grid.Column textAlign="center">
             <Header as="h4">
               <Icon name="checkmark" color="green" />
-Completed
+              Completed
             </Header>
             <List>
               {props.relatedCourses.completed.length === 0 ? 'None' :
@@ -40,7 +40,7 @@ Completed
           <Grid.Column textAlign="center">
             <Header as="h4">
               <Icon name="warning sign" color="yellow" />
-In Plan (Not Yet Completed)
+              In Plan (Not Yet Completed)
             </Header>
             <List>
               {props.relatedCourses.inPlan.length === 0 ? 'None' :
@@ -57,7 +57,7 @@ In Plan (Not Yet Completed)
           <Grid.Column textAlign="center">
             <Header as="h4">
               <Icon name="warning circle" color="red" />
-Not In Plan
+              Not In Plan
             </Header>
             <List>
               {props.relatedCourses.notInPlan.length === 0 ? 'None' :
@@ -92,7 +92,7 @@ Not In Plan
           <Grid.Column textAlign="center">
             <Header as="h4">
               <Icon name="checkmark" color="green" />
-Completed
+              Completed
             </Header>
             <List>
               {props.relatedOpportunities.completed.length === 0 ? 'None' :
@@ -109,7 +109,7 @@ Completed
           <Grid.Column textAlign="center">
             <Header as="h4">
               <Icon name="warning sign" color="yellow" />
-In Plan (Not Yet Completed)
+              In Plan (Not Yet Completed)
             </Header>
             <List>
               {props.relatedOpportunities.inPlan.length === 0 ? 'None' :
@@ -126,7 +126,7 @@ In Plan (Not Yet Completed)
           <Grid.Column textAlign="center">
             <Header as="h4">
               <Icon name="warning circle" color="red" />
-Not In Plan
+              Not In Plan
             </Header>
             <List>
               {props.relatedOpportunities.notInPlan.length === 0 ? 'None' :

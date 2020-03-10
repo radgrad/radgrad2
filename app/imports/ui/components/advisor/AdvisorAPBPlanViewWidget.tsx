@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import AdvisorAPBYearView from './AdvisorAPBYearView';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface IAdvisorAPBPlanViewWidgetProps {
   coursesPerTerm: number[];
@@ -9,7 +9,7 @@ interface IAdvisorAPBPlanViewWidgetProps {
 }
 
 const AdvisorAPBPlanViewWidget = (props: IAdvisorAPBPlanViewWidgetProps) => {
-  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const quarterSystem = RadGradProperties.getQuarterSystem();
   return (
     <Grid widths="equal" columns={5}>
       <AdvisorAPBYearView

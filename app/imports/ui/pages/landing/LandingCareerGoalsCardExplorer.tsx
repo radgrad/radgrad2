@@ -47,9 +47,9 @@ const renderPage = (props: ICareerGoalsCardExplorerProps) => {
               <Header as="h4" dividing>
                 <span>CAREER GOALS</span>
                 {' '}
-(
+                (
                 {props.count}
-)
+                )
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.careerGoals.map((goal) => (

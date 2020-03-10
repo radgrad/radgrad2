@@ -65,14 +65,15 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
 
   private handleAdd = (doc: { [key: string]: any }): void => {
     const collectionName = collection.getCollectionName();
-    let definitionData = doc;
     const { match, reviewType, event } = this.props;
     const username = getUsername(match);
-    definitionData = this.renameKey(definitionData, 'academicTerm', 'termID');
+    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
+    const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
+    const definitionData = doc;
+    definitionData.academicTerm = academicTermSlug;
     definitionData.student = username;
     definitionData.reviewType = reviewType;
     definitionData.reviewee = event._id;
-    console.log('test1');
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -90,8 +91,6 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           allowEscapeKey: false,
           allowEnterKey: false,
         });
-        console.log('test3');
-        this.formRef.current.reset();
         const interactionData: USERINTERACTIONDATATYPE = {
           username,
           type: USERINTERACTIONSTYPE.REVIEWADD,
@@ -102,7 +101,7 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
             console.log('Error creating UserInteraction.', userInteractionError);
           }
         });
-        console.log('test4');
+        // this.formRef.current.reset();
       }
     });
   }

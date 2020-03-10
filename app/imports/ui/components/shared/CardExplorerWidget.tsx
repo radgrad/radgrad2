@@ -27,6 +27,10 @@ import {
   isType,
 } from './explorer-helper-functions';
 import { cardExplorerWidget } from './shared-widget-names';
+import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
+import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   collection: any;
@@ -38,6 +42,11 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   hiddenCourses: boolean;
   hiddenOpportunities: boolean;
   menuList: object[];
+}
+
+interface ICardExplorerWidgetState {
+  filterCoursesChoice: string;
+  sortOpportunitiesChoice: string;
 }
 
 const mapStateToProps = (state) => ({
@@ -67,173 +76,256 @@ const mapStateToProps = (state) => ({
  *      career-goals is the type.)
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
-const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
-  // console.log('CardExplorerWidget', props);
-  /* Styles */
-  const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
-  const cardGroupStyle: React.CSSProperties = {
-    maxHeight: '750px',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
-    marginTop: '10px',
-  };
-  const userStackableCardsStyle: React.CSSProperties = {
-    maxHeight: '750px',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
-    marginTop: '10px',
-    paddingBottom: '10px',
-  };
-  const tabPaneStyle: React.CSSProperties = {
-    overflowX: 'hidden',
-    overflowY: 'hidden',
-  };
+class CardExplorerWidget extends React.Component<ICardExplorerWidgetProps, ICardExplorerWidgetState> {
+  constructor(props) {
+    super(props);
+    // console.log('CardExplorerWidget', props);
+    this.state = {
+      filterCoursesChoice: courseFilterKeys.none,
+      sortOpportunitiesChoice: opportunitySortKeys.alphabetic,
+    };
+  }
 
-  /* Variables */
-  const header = buildHeader(props); // The header Title and Count
-  const items = getItems(props); // The items to map over
-  const { type } = props;
+  render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    /* Styles */
+    const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
+    const cardGroupStyle: React.CSSProperties = {
+      maxHeight: '750px',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
+      marginTop: '10px',
+    };
+    const userStackableCardsStyle: React.CSSProperties = {
+      maxHeight: '750px',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
+      marginTop: '10px',
+      paddingBottom: '10px',
+    };
+    const tabPaneStyle: React.CSSProperties = {
+      overflowX: 'hidden',
+      overflowY: 'hidden',
+    };
 
-  // For the Academic Plans Card Explorer
-  const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, props);
+    /* Variables */
+    const header = buildHeader(this.props); // The header Title and Count
+    let items = getItems(this.props); // The items to map over
+    const { type } = this.props;
 
-  // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-  const buildProfileCard = isType(EXPLORER_TYPE.INTERESTS, props) || isType(EXPLORER_TYPE.CAREERGOALS, props);
+// For the Academic Plans Card Explorer
+    const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, this.props);
 
-  // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
-  const buildTermCard = isType(EXPLORER_TYPE.COURSES, props) || isType(EXPLORER_TYPE.OPPORTUNITIES, props);
-  const isStudent = Router.isUrlRoleStudent(props.match);
+// For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
+    const buildProfileCard = isType(EXPLORER_TYPE.INTERESTS, this.props) || isType(EXPLORER_TYPE.CAREERGOALS, this.props);
+    if (isType(EXPLORER_TYPE.CAREERGOALS, this.props)) {
+      // sort items by interest match
+      const userID = Router.getUserIdFromRoute(this.props.match);
+      const favorites = FavoriteInterests.findNonRetired({ userID });
+      const interestIDs = _.map(favorites, (f) => f.interestID);
+      const preferred = new PreferedChoice(items, interestIDs);
+      items = preferred.getOrderedChoices();
+    }
+// For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
+    const buildTermCard = isType(EXPLORER_TYPE.COURSES, this.props) || isType(EXPLORER_TYPE.OPPORTUNITIES, this.props);
+    const isCourseExplorer = isType(EXPLORER_TYPE.COURSES, this.props);
+    if (isCourseExplorer) {
+      items = _.sortBy(items, (item) => item.num);
+      switch (this.state.filterCoursesChoice) {
+        case courseFilterKeys.threeHundredPLus:
+          items = _.filter(items, (i) => {
+            const courseNumber = parseInt(i.num.split(' ')[1], 10);
+            return courseNumber >= 300;
+          });
+          break;
+        case courseFilterKeys.fourHundredPlus:
+          items = _.filter(items, (i) => {
+            const courseNumber = parseInt(i.num.split(' ')[1], 10);
+            return courseNumber >= 400;
+          });
+          break;
+        case courseFilterKeys.sixHundredPlus:
+          items = _.filter(items, (i) => {
+            const courseNumber = parseInt(i.num.split(' ')[1], 10);
+            return courseNumber >= 600;
+          });
+          break;
+        default:
+          // do no filtering
+      }
+    }
+    const isOpportunityExplorer = isType(EXPLORER_TYPE.OPPORTUNITIES, this.props);
+    if (isOpportunityExplorer) {
+      switch (this.state.sortOpportunitiesChoice) {
+        case opportunitySortKeys.match:
+          // eslint-disable-next-line no-case-declarations
+          const userID = Router.getUserIdFromRoute(this.props.match);
+          // eslint-disable-next-line no-case-declarations
+          const favorites = FavoriteInterests.findNonRetired({ userID });
+          // eslint-disable-next-line no-case-declarations
+          const interestIDs = _.map(favorites, (f) => f.interestID);
+          // eslint-disable-next-line no-case-declarations
+          const preferred = new PreferedChoice(items, interestIDs);
+          items = preferred.getOrderedChoices();
+          break;
+        case opportunitySortKeys.innovation:
+          items = _.sortBy(items, (item) => -item.ice.i);
+          break;
+        case opportunitySortKeys.experience:
+          items = _.sortBy(items, (item) => -item.ice.e);
+          break;
+        default:
+          items = _.sortBy(items, (item) => item.name);
+      }
+    }
+    const isStudent = Router.isUrlRoleStudent(this.props.match);
 
-  // For Degrees (or any future Card Explore that only has a "View More" functionality)
-  const buildExplorerCard = isType(EXPLORER_TYPE.DEGREES, props);
+// For Degrees (or any future Card Explore that only has a "View More" functionality)
+    const buildExplorerCard = isType(EXPLORER_TYPE.DEGREES, this.props);
 
-  // For the Users Card Explorer
-  const buildStudentUserCard = isType(EXPLORER_TYPE.USERS, props);
-  const advisorRoleUsers = getUsers(ROLE.ADVISOR, props.match);
-  const facultyRoleUsers = getUsers(ROLE.FACULTY, props.match);
-  const mentorRoleUsers = getUsers(ROLE.MENTOR, props.match);
-  const studentRoleUsers = getUsers(ROLE.STUDENT, props.match);
-  const panes = [
-    {
-      menuItem: 'Advisors',
-      // eslint-disable-next-line react/display-name
-      render: () => (
-        <Tab.Pane key="advisors">
-          <Grid stackable>
-            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-),
-    },
-    {
-      menuItem: 'Faculty',
-      // eslint-disable-next-line react/display-name
-      render: () => (
-        <Tab.Pane key="faculty">
-          <Grid stackable>
-            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-),
-    },
-    {
-      menuItem: 'Mentors',
-      // eslint-disable-next-line react/display-name
-      render: () => (
-        <Tab.Pane key="mentors">
-          <Grid stackable>
-            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-),
-    },
-    {
-      menuItem: 'Students',
-      // eslint-disable-next-line react/display-name
-      render: () => (
-        <Tab.Pane key="students">
-          <Grid stackable>
-            <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
-              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-),
-    },
-  ];
+// For the Users Card Explorer
+    const buildStudentUserCard = isType(EXPLORER_TYPE.USERS, this.props);
+    const advisorRoleUsers = getUsers(ROLE.ADVISOR, this.props.match);
+    const facultyRoleUsers = getUsers(ROLE.FACULTY, this.props.match);
+    const mentorRoleUsers = getUsers(ROLE.MENTOR, this.props.match);
+    const studentRoleUsers = getUsers(ROLE.STUDENT, this.props.match);
+    const panes = [
+      {
+        menuItem: 'Advisors',
+        // eslint-disable-next-line react/display-name
+        render: () => (
+          <Tab.Pane key="advisors">
+            <Grid stackable>
+              <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+                {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: 'Faculty',
+        // eslint-disable-next-line react/display-name
+        render: () => (
+          <Tab.Pane key="faculty">
+            <Grid stackable>
+              <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+                {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: 'Mentors',
+        // eslint-disable-next-line react/display-name
+        render: () => (
+          <Tab.Pane key="mentors">
+            <Grid stackable>
+              <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+                {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: 'Students',
+        // eslint-disable-next-line react/display-name
+        render: () => (
+          <Tab.Pane key="students">
+            <Grid stackable>
+              <Card.Group stackable itemsPerRow={3} style={userStackableCardsStyle}>
+                {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              </Card.Group>
+            </Grid>
+          </Tab.Pane>
+        ),
+      },
+    ];
 
-  // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-  const canAdd = Router.isUrlRoleStudent(props.match);
+// Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
+    const canAdd = Router.isUrlRoleStudent(this.props.match);
 
-  return (
-    <React.Fragment>
-      <Segment padded id={`${cardExplorerWidget}`}>
-        <Header dividing>
-          <h4>
-            {
-              !buildStudentUserCard ? (
-                <React.Fragment>
-                  <span style={uppercaseTextTransformStyle}>
-                    {header.title}
-                    {' '}
-                  </span>
-                  <WidgetHeaderNumber
-                    inputValue={header.count}
-                  />
-                </React.Fragment>
-              )
-                :
-                <span style={uppercaseTextTransformStyle}>{header.title}</span>
-            }
-          </h4>
-        </Header>
-
-        {checkForNoItems(props)}
-
-        {
-          !buildStudentUserCard ? (
-            <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable>
+    return (
+      <React.Fragment>
+        <Segment padded id={`${cardExplorerWidget}`}>
+          <Header dividing>
+            <h4>
               {
-                buildPlanCard ?
-                  items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
-              }
-              {
-                buildProfileCard ?
-                  items.map((item) => <ProfileCard key={item} item={item} type={type} canAdd />) : ''
-              }
-              {
-                buildTermCard ?
-                  items.map((item) => (
-                    <TermCard
-                      key={item._id}
-                      item={item}
-                      type={type}
-                      isStudent={isStudent}
-                      canAdd
+                !buildStudentUserCard ? (
+                  <React.Fragment>
+                    <span style={uppercaseTextTransformStyle}>
+                      {header.title}
+                      {' '}
+                    </span>
+                    <WidgetHeaderNumber
+                      inputValue={header.count}
                     />
-))
-                  : ''
+                  </React.Fragment>
+                  )
+                  :
+                  <span style={uppercaseTextTransformStyle}>{header.title}</span>
               }
-              {
-                buildExplorerCard ?
-                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
-                  : ''
-              }
-            </Card.Group>
-          )
-            :
-            <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} />
-        }
-      </Segment>
-    </React.Fragment>
-  );
-};
+            </h4>
+          </Header>
+
+          {checkForNoItems(this.props)}
+          {isCourseExplorer ?
+            (
+              <CourseFilterWidget
+                filterChoice={this.state.filterCoursesChoice}
+                handleChange={(key, value) => {
+                  this.setState({ filterCoursesChoice: value });
+                }}
+              />
+            ) : ''}
+          {isOpportunityExplorer ? (
+            <OpportunitySortWidget
+              sortChoice={this.state.sortOpportunitiesChoice}
+              handleChange={(key, value) => {
+                this.setState({ sortOpportunitiesChoice: value });
+              }}
+            />
+          ) : ''}
+          {
+            !buildStudentUserCard ? (
+              <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable>
+                {
+                    buildPlanCard ?
+                      items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
+                }
+                {
+                    buildProfileCard ?
+                      items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
+                  }
+                {
+                    buildTermCard ?
+                      items.map((item) => (
+                        <TermCard
+                          key={item._id}
+                          item={item}
+                          type={type}
+                          isStudent={isStudent}
+                          canAdd
+                        />
+                      ))
+                      : ''
+                  }
+                {
+                    buildExplorerCard ?
+                      items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
+                      : ''
+                  }
+              </Card.Group>
+              )
+              :
+              <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} />
+          }
+        </Segment>
+      </React.Fragment>
+    );
+  }
+}
 
 const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {

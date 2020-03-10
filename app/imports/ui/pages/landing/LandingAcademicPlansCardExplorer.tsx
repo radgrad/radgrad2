@@ -47,9 +47,9 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
               <Header as="h4" dividing>
                 <span>ACADEMIC PLANS</span>
                 {' '}
-(
+                (
                 {props.count}
-)
+                )
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.academicPlans.map((plan) => (

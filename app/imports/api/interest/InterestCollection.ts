@@ -143,16 +143,6 @@ class InterestCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the name of the slug associated with interestID.
-   * @param interestID The interest id.
-   */
-  public getSlug(interestID: string) {
-    this.assertDefined(interestID);
-    const interestDoc = this.findDoc(interestID);
-    return Slugs.findDoc(interestDoc.slugID).name;
-  }
-
-  /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
    * Checks slugID and interestTypeID.

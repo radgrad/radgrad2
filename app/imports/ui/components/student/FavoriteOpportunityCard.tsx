@@ -66,6 +66,7 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
                   </div>
                 )}
               </Draggable>
+              {provided.placeholder}
             </div>
 )}
         </Droppable>
@@ -76,9 +77,9 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
       <Card.Content>
         <p style={textAlignRight}>
           <Link to={buildRouteName(props.match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)} target="_blank">
-View
-          in
-          Explorer
+            View
+            in
+            Explorer
             <Icon name="arrow right" />
           </Link>
         </p>

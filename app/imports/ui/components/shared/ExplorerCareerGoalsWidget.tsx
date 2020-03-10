@@ -92,7 +92,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                                 <br />
                               </b>
                               {
@@ -122,7 +122,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
-:
+                                  :
                                 </b>
                                 {
                                   descriptionPair.value ? (
@@ -156,7 +156,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                               <br />
                             </b>
                             {

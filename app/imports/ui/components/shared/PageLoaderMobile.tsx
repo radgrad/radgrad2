@@ -6,8 +6,8 @@ const PageLoaderMobile = () => (
     height={160}
     width={590}
     speed={0.4}
-    primaryColor="#f3f3f3"
-    secondaryColor="#ecebeb"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
   >
     <rect x="483" y="9" rx="0" ry="0" width="3" height="49" />
     <rect x="492" y="17" rx="0" ry="0" width="40" height="33" />

@@ -13,6 +13,7 @@ interface IAcademicPlanTermViewProps {
   title: string;
   id: string;
   choices: string[];
+  groups: any;
   studentID: string;
   takenSlugs: string[];
   match: {
@@ -39,14 +40,14 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
       {
         isStudent ?
           _.map(props.choices, (choice, index) => {
-            const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
+            const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs, props.groups);
             if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
               return (
                 <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
               );
             }
             return (
-              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
+              <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} groups={props.groups} />
             );
           })
           :

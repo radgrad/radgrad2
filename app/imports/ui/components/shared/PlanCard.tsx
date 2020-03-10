@@ -38,7 +38,7 @@ const PlanCard = (props: IPlanCard) => {
 
       <Card.Content>
         <span>
-STUDENTS PARTICIPATING
+          STUDENTS PARTICIPATING
           <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
         <Image.Group size="mini">
@@ -55,7 +55,7 @@ STUDENTS PARTICIPATING
       <Link className="ui button" to={route}>
         <Icon name="chevron circle right" />
         <br />
-View More
+        View More
       </Link>
     </Card>
   );

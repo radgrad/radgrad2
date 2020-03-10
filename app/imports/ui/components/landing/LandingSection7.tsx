@@ -28,7 +28,7 @@ const LandingSection7 = (props: ILandingSection7Props) => (
             include:
             {' '}
             <strong style={styles['green-text']}>{props.careerGoalNames}</strong>
-.
+            .
           </p>
         </Grid.Column>
 

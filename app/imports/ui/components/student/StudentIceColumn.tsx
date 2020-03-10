@@ -144,13 +144,13 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
       <Accordion styled fluid exclusive={false}>
         <Accordion.Title active={verifiedColumnOpen} onClick={this.handleVerifiedColumnClick}>
           <Icon name="dropdown" />
-Verified
+          Verified
           <div
             className={`ui right floated ${verifiedColor}`}
           >
             {earnedICEPoints}
             {' '}
-pts
+            pts
           </div>
         </Accordion.Title>
         <Accordion.Content active={verifiedColumnOpen}>
@@ -166,13 +166,13 @@ pts
 
         <Accordion.Title active={unVerifiedColumnOpen} onClick={this.handleUnVerifiedColumnClick}>
           <Icon name="dropdown" />
-Unverified
+          Unverified
           <div
             className={`ui right floated ${unverifiedColor}`}
           >
             {unverifiedICEPoints}
             {' '}
-pts
+            pts
           </div>
         </Accordion.Title>
         <Accordion.Content active={unVerifiedColumnOpen}>
@@ -190,7 +190,7 @@ pts
 
         <Accordion.Title active={recommendedColumnOpen} onClick={this.handleRecommendedColumnClick}>
           <Icon name="dropdown" />
-Get to 100
+          Get to 100
         </Accordion.Title>
         <Accordion.Content active={recommendedColumnOpen}>
           <StudentIceColumnRecommended

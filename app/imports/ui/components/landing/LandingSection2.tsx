@@ -18,27 +18,27 @@ const LandingSection2 = (props: ILandingSection2Props) => (
       <Grid.Column width={3} />
       <Grid.Column width={5} textAlign="right">
         <Header as="h1" style={styles['header-text']}>
-Why use
+          Why use
           <RadGradLogoTextQ />
         </Header>
         <p style={styles['header-description']}>
           <b>Discover</b>
           {' '}
-your interests.
+          your interests.
           <br />
           <b>Build</b>
           {' '}
-your community.
+          your community.
           <br />
           <b>Strengthen</b>
           {' '}
-your preparation.
+          your preparation.
           <br />
           <b>Define</b>
-, then
+          , then
           <b>achieve</b>
           {' '}
-your career goals.
+          your career goals.
           <br />
           <b>Pay it forward.</b>
           {' '}

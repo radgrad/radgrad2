@@ -7,7 +7,6 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
-// eslint-disable-next-line no-unused-vars
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';

@@ -18,10 +18,10 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
   <div>
     <Segment>
       <Header as="h4" textAlign="left" dividing>
-PENDING
+        PENDING
         {props.type}
         {' '}
-REVIEWS
+        REVIEWS
         {' '}
       </Header>
       {props.isReview && props.reviews.length > 0 ? (
@@ -58,10 +58,10 @@ REVIEWS
               : (
                 <Container textAlign="left">
                   <i>
-No pending
+                    No pending
                     {props.type.toLowerCase()}
                     {' '}
-reviews
+                    reviews
                   </i>
                 </Container>
             )

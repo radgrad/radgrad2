@@ -47,9 +47,9 @@ const renderPage = (props: IDegreesCardExplorerProps) => {
               <Header as="h4" dividing>
                 <span>DESIRED DEGREES</span>
                 {' '}
-(
+                (
                 {props.count}
-)
+                )
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.desiredDegrees.map((goal) => (

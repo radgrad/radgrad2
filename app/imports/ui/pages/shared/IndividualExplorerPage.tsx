@@ -413,7 +413,7 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
 
 const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): object[] => {
   const type = Router.getUrlParam(props.match, 2);
-  // console.log(item);
+  // console.log(item, type);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return descriptionPairsPlans(item as IAcademicPlan);

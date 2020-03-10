@@ -18,17 +18,17 @@ const GuidedTourStudentSetUp = () => (
         <div>
           <Header style={styles.h1}>Set yourself up for awesomeness</Header>
           <p style={styles.p}>
-To start using RadGrad, an advisor or RadGrad admin must create an account for you. Then
+            To start using RadGrad, an advisor or RadGrad admin must create an account for you. Then
             you can login using your regular UH credentials.
           </p>
           <p style={styles.p}>
-If you are a new student with minimal knowledge about computer science, your advisor will
+            If you are a new student with minimal knowledge about computer science, your advisor will
             give you a basic overview, then create up your RadGrad account. You&apos;ll then work together to get a
             handle on your interests, career goals, and degree plan. If you have questions about any of those, RadGrad
             is designed to help you answer them.
           </p>
           <p style={styles.p}>
-Already well along in your degree program? No problem! Just meet with your advisor to
+            Already well along in your degree program? No problem! Just meet with your advisor to
             create your account. RadGrad can help you identify areas to strengthen before you graduate.
           </p>
         </div>

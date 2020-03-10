@@ -16,6 +16,7 @@ interface IAdminAnalyticsDateSelectionWidgetProps {
   setOverheadBuckets: (overheadBuckets: any[]) => any;
   setUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
+  setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
 }
 
 interface IAdminAnalyticsDateSelectionWidgetState {
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch: any): object => ({
   setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
   setUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
+  setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
 class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps, IAdminAnalyticsDateSelectionWidgetState> {
@@ -92,6 +94,7 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
         const userInteractions = _.groupBy(result, 'username');
         // console.log('userInteractions ', userInteractions);
         this.props.setUserInteractions(userInteractions);
+        this.props.setStudentSummaryUserInteractions(userInteractions);
         /* Generating Overhead Data */
         const overheadData = [];
         _.forEach(userInteractions, (interactions, username) => {

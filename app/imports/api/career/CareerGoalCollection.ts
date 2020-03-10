@@ -81,17 +81,6 @@ class CareerGoalCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the slug for the given CareerGoalID.
-   * @param goalID The CareerGoal ID.
-   * @throws { Meteor.Error} If goalID cannot be found.
-   */
-  public getSlug(goalID: string): string {
-    this.assertDefined(goalID);
-    const courseDoc = this.findDoc(goalID);
-    return Slugs.findDoc(courseDoc.slugID).name;
-  }
-
-  /**
    * Update a Career Goal.
    * @param docID The docID to be updated.
    * @param name The new name (optional).

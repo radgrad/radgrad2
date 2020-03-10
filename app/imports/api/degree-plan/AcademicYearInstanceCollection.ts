@@ -7,7 +7,7 @@ import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { IAcademicYearDefine } from '../../typings/radgrad';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /**
  * Each AcademicYearInstance represents a sequence of three or four academic terms for a given student.
@@ -67,8 +67,8 @@ class AcademicYearInstanceCollection extends BaseCollection {
   public define({ year, student }: IAcademicYearDefine) {
     // console.log(`AcadmeicYearInstance.define(${year}, ${student})`);
     const studentID = Users.getID(student);
+    const quarterSystem = RadGradProperties.getQuarterSystem();
     let termIDs = [];
-    const settingsDoc = RadGradSettings.findOne({});
     // check for gaps
     const prevYears = this.collection.find({ year: { $lt: year }, studentID }, { sort: { year: 1 } }).fetch();
     if (prevYears.length > 0) {
@@ -77,7 +77,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
           termIDs = [];
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
-          if (settingsDoc.quarterSystem) {
+          if (quarterSystem) {
             termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${y + 1}`));
           }
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
@@ -93,7 +93,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
         if (this.collection.find({ year: y, studentID }).fetch().length === 0) {
           termIDs = [];
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${y}`));
-          if (settingsDoc.quarterSystem) {
+          if (quarterSystem) {
             termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${y + 1}`));
           }
           termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${y + 1}`));
@@ -108,7 +108,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
     }
     termIDs = [];
     termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${year}`));
-    if (settingsDoc.quarterSystem) {
+    if (quarterSystem) {
       termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${year + 1}`));
     }
     termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${year + 1}`));
@@ -129,14 +129,13 @@ class AcademicYearInstanceCollection extends BaseCollection {
   public update(docID: string, { year, retired }:
     { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean }) {
     this.assertDefined(docID);
-    const settingsDoc = RadGradSettings.findOne({});
     const termIDs = [];
     const updateData: { year?: number; springYear?: number; termIDs?: string[]; retired?: boolean } = {};
     if (_.isNumber(year)) {
       updateData.year = year;
       updateData.springYear = year + 1;
       termIDs.push(AcademicTerms.getID(`${AcademicTerms.FALL}-${year}`));
-      if (settingsDoc.quarterSystem) {
+      if (RadGradProperties.getQuarterSystem()) {
         termIDs.push(AcademicTerms.getID(`${AcademicTerms.WINTER}-${year + 1}`));
       }
       termIDs.push(AcademicTerms.getID(`${AcademicTerms.SPRING}-${year + 1}`));

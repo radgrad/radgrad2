@@ -6,6 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -17,7 +18,6 @@ import {
   docToShortName,
 } from '../shared/data-model-helper-functions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import {
   addChoiceToRaw, removeChoiceFromPlanRaw, removeEmptyYearsRaw,
@@ -67,7 +67,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     super(props);
     // console.log('AdvisorAPBuilderWidget %o', props);
     const coursesPerTerm = [];
-    this.quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+    this.quarterSystem = RadGradProperties.getQuarterSystem();
     const numTerms = this.quarterSystem ? 20 : 15;
     for (let i = 0; i < numTerms; i++) {
       coursesPerTerm.push(0);
@@ -317,11 +317,11 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
     const termNames = _.map(this.props.terms, academicTermToName);
     const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
     const schema = new SimpleSchema({
-      degree: { icon: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
+      degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
       name: String,
       description: String,
       term: {
-        icon: String,
+        type: String,
         allowedValues: termNames,
         defaultValue: currentTermName,
       },

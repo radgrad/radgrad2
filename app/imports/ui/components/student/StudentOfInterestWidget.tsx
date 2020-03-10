@@ -290,9 +290,9 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
         )
           : (
             <p>
-Add interests to see recommendations here. To add interests, click on
-            the &quot;Explorer&quot; tab,
-            then select &quot;Interests&quot; in the pull-down menu on that page.
+              Add interests to see recommendations here. To add interests, click on
+              the &quot;Explorer&quot; tab,
+              then select &quot;Interests&quot; in the pull-down menu on that page.
             </p>
         )
 }

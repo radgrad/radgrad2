@@ -118,8 +118,8 @@ if (Meteor.isServer) {
       const course = Courses.findOne({});
       const slug = Slugs.getNameFromID(course.slugID);
       const badSlug = faker.lorem.word();
-      expect(Courses.getSlug(course._id)).to.equal(slug);
-      expect(Courses.getSlug(course._id)).to.not.equal(badSlug);
+      expect(Courses.findSlugByID(course._id)).to.equal(slug);
+      expect(Courses.findSlugByID(course._id)).to.not.equal(badSlug);
     });
 
     it('Can detect if has interest', function test8() {

@@ -64,9 +64,9 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
           <div>
             <Header dividing>
               {' '}
-YOUR OPPORTUNITIES (
+              YOUR OPPORTUNITIES (
               {facultyCounter}
-)
+              )
               {' '}
             </Header>
             {_.map(factoryOpp, (item) => (
@@ -86,9 +86,9 @@ YOUR OPPORTUNITIES (
             ))}
             <Header dividing>
               {' '}
-ALL OTHER OPPORTUNITIES (
+              ALL OTHER OPPORTUNITIES (
               {count(props)}
-)
+              )
             </Header>
             {' '}
             <br />
@@ -96,9 +96,9 @@ ALL OTHER OPPORTUNITIES (
         )
           : (
             <Header dividing>
-OPPORTUNITIES (
+              OPPORTUNITIES (
               {count}
-)
+              )
             </Header>
 )
       }

@@ -29,7 +29,7 @@ import {
 } from '../shared/data-model-helper-functions';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
 import BaseCollection from '../../../api/base/BaseCollection';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 
@@ -135,11 +135,11 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
       picture: {
         type: String,
         label:
-          <React.Fragment>
+  <React.Fragment>
             Picture (
-            <button type="button" onClick={this.handleUpload}>Upload</button>
+    <button type="button" onClick={this.handleUpload}>Upload</button>
             )
-          </React.Fragment>,
+  </React.Fragment>,
         defaultValue: model.picture,
         optional: true,
       },

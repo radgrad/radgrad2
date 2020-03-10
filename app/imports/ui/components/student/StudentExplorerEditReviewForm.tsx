@@ -171,13 +171,13 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
     const schema = new SimpleSchema({
       academicTerm: {
-        icon: String,
+        type: String,
         label: 'Academic Term',
         allowedValues: academicTermNames,
         defaultValue: academicTermNames[0],
       },
       rating: {
-        icon: Number,
+        type: SimpleSchema.Integer,
         label: 'Rating',
         defaultValue: review.rating,
         min: 0,
@@ -185,7 +185,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
         optional: true,
       },
       comments: {
-        icon: String,
+        type: String,
         label: 'Comments',
         defaultValue: review.comments,
       },
@@ -230,7 +230,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
                       <Message positive>
                         <p>
                           <i className="green checkmark icon" />
-Your post is visible to the RadGrad community and has
+                          Your post is visible to the RadGrad community and has
                           been approved by moderators.
                         </p>
                       </Message>
@@ -239,8 +239,8 @@ Your post is visible to the RadGrad community and has
                         <Message warning>
                           <p>
                             <i className="yellow checkmark icon" />
-Your post is visible to the RadGrad community but has
-                          not yet been approved by moderators.
+                            Your post is visible to the RadGrad community but has
+                            not yet been approved by moderators.
                           </p>
                         </Message>
                     )
@@ -254,7 +254,7 @@ Your post is visible to the RadGrad community but has
                       <Message negative>
                         <p>
                           <i className="warning red circle icon" />
-Your post has been hidden by moderators for the
+                          Your post has been hidden by moderators for the
                           following reasons:
                         </p>
                         <br />
@@ -265,8 +265,8 @@ Your post has been hidden by moderators for the
                         <Message warning>
                           <p>
                             <i className="warning yellow circle icon" />
-Your edited post is waiting for moderator
-                          approval. Your post has currently been hidden by moderators for the following reasons:
+                            Your edited post is waiting for moderator
+                            approval. Your post has currently been hidden by moderators for the following reasons:
                             <br />
                             <i>{review.moderatorComments}</i>
                           </p>

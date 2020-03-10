@@ -41,7 +41,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
         <Card.Header>
           <h4>
             {props.course.num}
-:
+            :
             {' '}
             {props.course.name}
           </h4>
@@ -75,8 +75,9 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
                   </div>
                 )}
               </Draggable>
+              {provided.placeholder}
             </div>
-)}
+            )}
         </Droppable>
       </Card.Content>
       <Card.Content>
@@ -85,9 +86,9 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
       <Card.Content>
         <p style={textAlignRight}>
           <Link to={buildRouteName(props.match, props.course, EXPLORER_TYPE.COURSES)} target="_blank">
-View
-          in
-          Explorer
+            View
+            in
+            Explorer
             <Icon name="arrow right" />
           </Link>
         </p>

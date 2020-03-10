@@ -77,7 +77,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @example
    * // To define an instance of a CS course:
    * CourseInstances.define({ academicTerm: 'Spring-2016',
-   *                          course: 'ics311',
+   *                          course: 'ics_311',
    *                          verified: false,
    *                          fromRegistrar: false,
    *                          grade: 'B',
@@ -237,7 +237,7 @@ class CourseInstanceCollection extends BaseCollection {
   public getCourseSlug(instanceID: string) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Courses.getSlug(instance.courseID);
+    return Courses.findSlugByID(instance.courseID);
   }
 
   /**

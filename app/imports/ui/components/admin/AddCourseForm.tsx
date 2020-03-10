@@ -4,7 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { ICourse, IInterest } from '../../../typings/radgrad';
 import { courseToName, docToName } from '../shared/data-model-helper-functions';

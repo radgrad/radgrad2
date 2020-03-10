@@ -22,7 +22,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
           <Container fluid>
             <Segment>
               <Header as="h5" textAlign="center">
-STUDENTS
+                STUDENTS
                 <WidgetHeaderNumber inputValue={numberStudents} />
               </Header>
               <Divider />
@@ -46,7 +46,7 @@ STUDENTS
           <Container fluid>
             <Segment>
               <Header as="h5" textAlign="center">
-FACULTY MEMBERS
+                FACULTY MEMBERS
                 <WidgetHeaderNumber
                   inputValue={faculty.length}
                 />
@@ -72,7 +72,7 @@ FACULTY MEMBERS
           <Container>
             <Segment>
               <Header as="h5" textAlign="center">
-ALUMNI
+                ALUMNI
                 <WidgetHeaderNumber inputValue={alumni.length} />
               </Header>
               <Divider />
@@ -96,7 +96,7 @@ ALUMNI
           <Container>
             <Segment>
               <Header as="h5" textAlign="center">
-MENTORS
+                MENTORS
                 <WidgetHeaderNumber inputValue={mentors.length} />
               </Header>
               <Divider />

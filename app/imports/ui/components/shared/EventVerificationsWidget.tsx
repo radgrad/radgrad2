@@ -2,7 +2,6 @@ import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import moment from 'moment';
 import { processVerificationEventMethod } from '../../../api/verification/VerificationRequestCollection.methods';
-// eslint-disable-next-line no-unused-vars
 import { IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 

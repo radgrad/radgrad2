@@ -5,7 +5,7 @@ import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { nextAcademicTerm } from '../academic-term/AcademicTermUtilities';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /**
  * Returns an array with two elements: a string with the shortName of the academicTerm, and an integer indicating the
@@ -43,9 +43,8 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
     Courses.assertDefined(courseID);
     // Create an array of the upcoming 9 academicTerms after the current academicTerm.
     let academicTermDoc = AcademicTerms.getCurrentAcademicTermDoc();
-    const settingsDoc = RadGradSettings.findOne({});
     let termsPerYear = 3;
-    if (settingsDoc.quarterSystem) {
+    if (RadGradProperties.getQuarterSystem()) {
       termsPerYear = 4;
     }
     const academicTermList = [];

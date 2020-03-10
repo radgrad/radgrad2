@@ -110,7 +110,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                 onClick={handleRemove(props)}
                 size="tiny"
               >
-remove
+                remove
               </Button>
             </React.Fragment>
 ) : (
@@ -129,7 +129,7 @@ remove
         onClick={handleRemove(props)}
         size="tiny"
       >
-remove
+        remove
       </Button>
 )}
   </React.Fragment>
@@ -147,9 +147,9 @@ remove
               to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
               target="_blank"
             >
-View
-            in
-            Explorer
+              View
+              in
+              Explorer
               {' '}
               <Icon name="arrow right" />
             </Link>

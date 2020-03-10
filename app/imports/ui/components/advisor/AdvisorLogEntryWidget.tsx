@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-// eslint-disable-next-line no-unused-vars
 import { IAdvisorLog, IStudentProfile } from '../../../typings/radgrad';
 
 export interface IAdvisorLogEntryWidgetProps {
@@ -102,7 +101,7 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
           textTransform: 'none',
         }}
         >
-Past Advisor Logs
+          Past Advisor Logs
         </p>
         <div style={{ height: '200px' }}>
           <div style={{ height: '100%', overflowY: 'auto' }}>
@@ -113,17 +112,17 @@ Past Advisor Logs
                     {ele.createdOn.toDateString()}
                     {' '}
                     {ele.createdOn.getHours()}
-:
+                    :
                     {this.formatMinuteString(ele.createdOn.getMinutes())}
-:
+                    :
                   </strong>
                   {' '}
                   {ele.text}
                   {' '}
                   <i>
-(
+                    (
                     {Users.getProfile(ele.advisorID).firstName}
-)
+                    )
                   </i>
                 </Segment>
 ),

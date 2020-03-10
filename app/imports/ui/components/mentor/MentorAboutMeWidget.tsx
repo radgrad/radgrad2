@@ -341,11 +341,11 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
         icon: String,
         optional: true,
         label:
-          <React.Fragment>
+  <React.Fragment>
             Picture (
-            <button type="button" onClick={this.handleUpload}>Upload</button>
+    <button type="button" onClick={this.handleUpload}>Upload</button>
             )
-          </React.Fragment>,
+  </React.Fragment>,
         defaultValue: picture,
       },
     });
@@ -380,8 +380,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                   <Label.Group>
                     {
                       interests ? (
-                          <React.Fragment>
-                            {
+                        <React.Fragment>
+                          {
                               _.map(interests, (interest, index) => (
                                 <Label
                                   size="tiny"
@@ -394,7 +394,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                                 </Label>
                               ))
                             }
-                          </React.Fragment>
+                        </React.Fragment>
                         )
                         : <p style={marginStyle}>No interests added yet.</p>
                     }
@@ -412,8 +412,8 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                   <Label.Group>
                     {
                       careerGoals ? (
-                          <React.Fragment>
-                            {
+                        <React.Fragment>
+                          {
                               _.map(careerGoals, (goal, index) => (
                                 <Label
                                   size="tiny"
@@ -426,7 +426,7 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
                                 </Label>
                               ))
                             }
-                          </React.Fragment>
+                        </React.Fragment>
                         )
                         : <p style={marginStyle}>No career goals added yet.</p>
                     }
@@ -440,27 +440,27 @@ class MentorAboutMeWidget extends React.Component<IMentorAboutMeWidgetProps, IMe
 
         {
           isEditingProfile ? (
-              <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
-                <Form.Group widths="equal">
-                  <TextField name="website" />
-                  <TextField name="company" />
-                </Form.Group>
+            <AutoForm model={model} schema={updateSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
+              <Form.Group widths="equal">
+                <TextField name="website" />
+                <TextField name="company" />
+              </Form.Group>
 
-                <Form.Group widths="equal">
-                  <TextField name="career" />
-                  <TextField name="location" />
-                </Form.Group>
+              <Form.Group widths="equal">
+                <TextField name="career" />
+                <TextField name="location" />
+              </Form.Group>
 
-                <Form.Group widths="equal">
-                  <TextField name="linkedin" />
-                  <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
-                </Form.Group>
+              <Form.Group widths="equal">
+                <TextField name="linkedin" />
+                <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
+              </Form.Group>
 
-                <LongTextField name="motivation" />
+              <LongTextField name="motivation" />
 
-                <SubmitField value="Save Profile" className="" disabled={false} inputRef={undefined} />
-                <Button basic color="green" onClick={this.handleCancel}>Cancel</Button>
-              </AutoForm>
+              <SubmitField value="Save Profile" className="" disabled={false} inputRef={undefined} />
+              <Button basic color="green" onClick={this.handleCancel}>Cancel</Button>
+            </AutoForm>
             )
             : (
               <React.Fragment>

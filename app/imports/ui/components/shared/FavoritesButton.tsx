@@ -31,71 +31,71 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   let collectionName;
   let definitionData: any;
   let interactionData: USERINTERACTIONDATATYPE;
-  const name = Slugs.getNameFromID(props.item.slugID);
+  const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       collectionName = FavoriteAcademicPlans.getCollectionName();
       definitionData = {
         student,
-        academicPlan: name,
+        academicPlan: slug,
         retired: false,
       };
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.FAVACADEMICPLAN,
-        typeData: name,
+        typeData: slug,
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
       collectionName = FavoriteCareerGoals.getCollectionName();
       definitionData = {
         username: student,
-        careerGoal: name,
+        careerGoal: slug,
         retired: false,
       };
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.FAVCAREERGOAL,
-        typeData: name,
+        typeData: slug,
       };
       break;
     case FAVORITE_TYPE.COURSE:
       collectionName = FavoriteCourses.getCollectionName();
       definitionData = {
         student,
-        course: name,
+        course: slug,
         retired: false,
       };
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.FAVCOURSE,
-        typeData: name,
+        typeData: slug,
       };
       break;
     case FAVORITE_TYPE.INTEREST:
       collectionName = FavoriteInterests.getCollectionName();
       definitionData = {
         username: student,
-        interest: name,
+        interest: slug,
         retired: false,
       };
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.FAVINTEREST,
-        typeData: name,
+        typeData: slug,
       };
       break;
     default: // opportunity
       collectionName = FavoriteOpportunities.getCollectionName();
       definitionData = {
         student,
-        opportunity: name,
+        opportunity: slug,
         retired: false,
       };
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.FAVOPPORTUNITY,
-        typeData: name,
+        typeData: slug,
       };
   }
   // console.log(collectionName, definitionData);
@@ -118,7 +118,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
   let instance;
   let collectionName;
   let interactionData: USERINTERACTIONDATATYPE;
-  const name = Slugs.getNameFromID(props.item.slugID);
+  const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       collectionName = FavoriteAcademicPlans.getCollectionName();
@@ -129,7 +129,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.UNFAVACADEMICPLAN,
-        typeData: name,
+        typeData: slug,
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
@@ -141,7 +141,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.UNFAVCAREERGOAL,
-        typeData: name,
+        typeData: slug,
       };
       break;
     case FAVORITE_TYPE.COURSE:
@@ -153,7 +153,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.UNFAVCOURSE,
-        typeData: name,
+        typeData: slug,
       };
       break;
     case FAVORITE_TYPE.INTEREST:
@@ -165,7 +165,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.UNFAVINTEREST,
-        typeData: name,
+        typeData: slug,
       };
       break;
     default: // opportunity
@@ -177,7 +177,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       interactionData = {
         username: student,
         type: USERINTERACTIONSTYPE.UNFAVOPPORTUNITY,
-        typeData: name,
+        typeData: slug,
       };
   }
   removeItMethod.call({ collectionName, instance }, (error) => {
@@ -195,16 +195,17 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
 
 const FavoritesButton = (props: IFavoriteButtonProps) => (
   <React.Fragment>
-    {props.added ? (
-      <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
-        <Icon
-          name="heart outline"
-          color="red"
-        />
-        <Icon name="minus" />
-        REMOVE FROM FAVORITES
-      </Button>
-      )
+    {props.added
+      ? (
+        <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
+          <Icon
+            name="heart outline"
+            color="red"
+          />
+          <Icon name="minus" />
+          REMOVE FROM FAVORITES
+        </Button>
+)
       : (
         <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
           <Icon
@@ -216,7 +217,7 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
           />
           ADD TO FAVORITES
         </Button>
-      )}
+)}
   </React.Fragment>
 );
 

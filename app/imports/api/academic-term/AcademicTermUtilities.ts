@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { AcademicTerms } from './AcademicTermCollection';
-import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
+import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /**
  * Defines default academicTerms from 2014 till 2020.
@@ -10,12 +10,11 @@ import { RadGradSettings } from '../radgrad/RadGradSettingsCollection';
 export function defineAcademicTerms() {
   let year = moment().year() - 1;
   if (AcademicTerms.find().count() === 0) {
-    const settingsDoc = RadGradSettings.findOne({});
     for (let i = 0; i < 5; i++) {
       AcademicTerms.define({ term: AcademicTerms.SPRING, year });
       AcademicTerms.define({ term: AcademicTerms.SUMMER, year });
       AcademicTerms.define({ term: AcademicTerms.FALL, year });
-      if (settingsDoc.quarterSystem) {
+      if (RadGradProperties.getQuarterSystem()) {
         AcademicTerms.define({ term: AcademicTerms.WINTER, year });
       }
       year++;
@@ -30,13 +29,12 @@ export function defineAcademicTerms() {
  * @memberOf api/academic-term
  */
 export function nextAcademicTerm(termDoc) {
-  const settingsDoc = RadGradSettings.findOne({});
   const currentTerm = termDoc.term;
   const currentYear = termDoc.year;
   let term;
   let year = currentYear;
   if (currentTerm === AcademicTerms.FALL) {
-    if (settingsDoc.quarterSystem) {
+    if (RadGradProperties.getQuarterSystem()) {
       term = AcademicTerms.WINTER;
     } else {
       term = AcademicTerms.SPRING;

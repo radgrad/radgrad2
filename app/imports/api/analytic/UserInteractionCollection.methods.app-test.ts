@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import {} from 'mocha';
 import { userInteractionDefineMethod, userInteractionRemoveUserMethod } from './UserInteractionCollection.methods';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 

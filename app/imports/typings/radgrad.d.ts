@@ -212,6 +212,11 @@ export interface IDescriptionPair {
 }
 
 // AcademicPlans
+interface IAcademicPlanGroup {
+  name: string;
+  courseSlugs: string[];
+}
+
 export interface IAcademicPlan {
   _id: string;
   name: string;
@@ -222,7 +227,8 @@ export interface IAcademicPlan {
   academicTermNumber: number;
   year: number;
   coursesPerAcademicTerm: number[];
-  courseList: string[];
+  choiceList: string[];
+  groups: any; // an object key is slug, value is IAcademicPlanGroup
   isBAM?: boolean;
   retired?: boolean;
 }
@@ -234,7 +240,8 @@ export interface IAcademicPlanDefine extends IDumpOne {
   description: string;
   academicTerm: string;
   coursesPerAcademicTerm: number[];
-  courseList: string[];
+  choiceList: string[];
+  groups: any;
   retired?: boolean;
 }
 
@@ -243,7 +250,8 @@ export interface IAcademicPlanUpdate  extends IUpdate {
   name?: string;
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
-  courseList?: string[];
+  choiceList?: string[];
+  groups?: any;
   retired?: boolean;
 }
 
@@ -396,6 +404,7 @@ export interface ICourseDefine extends IDumpOne {
   creditHrs?: number;
   interests?: string[];
   syllabus?: string;
+  corequisites?: string[];
   prerequisites?: string[];
   retired?: boolean;
 }
@@ -815,6 +824,8 @@ export interface IBaseProfile {
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   optedIn?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IProfile {
@@ -829,6 +840,8 @@ export interface IProfile {
   interestIDs?: string[];
   careerGoalIDs?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 // Advisor and Faculty Profiles
@@ -882,6 +895,8 @@ export interface IProfileUpdate extends IUpdate {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IMentorProfile extends IProfile {
@@ -1054,11 +1069,6 @@ export interface IAcademicTermUpdate extends IUpdate {
   retired?: boolean;
 }
 
-// RadGradSettings
-export interface ISettingsDefine extends IDumpOne {
-  quarterSystem: boolean;
-}
-
 export interface ISettingsUpdate extends IUpdate {
   quarterSystem?: boolean;
 }
@@ -1143,6 +1153,20 @@ export interface IUserInteractionDefine extends IDumpOne {
   typeData: string[];
   timestamp?: any;
 }
+
+export interface IBehavior {
+  type: string;
+  count: number;
+  users: string[];
+  description: string;
+}
+
+interface IDateRange {
+  startDate: Date;
+  endDate: Date;
+}
+
+
 
 // VerificationRequests
 interface IProcessed {
