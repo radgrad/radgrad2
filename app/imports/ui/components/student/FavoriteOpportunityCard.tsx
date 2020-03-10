@@ -66,6 +66,7 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
                   </div>
                 )}
               </Draggable>
+              {provided.placeholder}
             </div>
 )}
         </Droppable>

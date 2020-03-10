@@ -85,7 +85,7 @@ const onDragEnd = (props: IPageProps) => (result) => {
         } else {
           // console.log(res);
           props.selectCourseInstance(res);
-          props.selectFavoriteDetailsTab();
+          // props.selectFavoriteDetailsTab();
         }
       });
     }

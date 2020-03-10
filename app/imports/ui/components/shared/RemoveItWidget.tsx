@@ -35,7 +35,7 @@ class RemoveItWidget extends React.Component<IRemoveItWidgetProps, IRemoveItWidg
 
   handleRemoveIt = () => {
     this.handleClose();
-    console.log(this.props);
+    // console.log(this.props);
     const collectionName = this.props.collectionName;
     const instance = this.props.id;
     removeItMethod.call({ collectionName, instance }, (error) => {

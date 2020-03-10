@@ -75,8 +75,9 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
                   </div>
                 )}
               </Draggable>
+              {provided.placeholder}
             </div>
-)}
+            )}
         </Droppable>
       </Card.Content>
       <Card.Content>
