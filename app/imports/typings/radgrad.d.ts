@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+import { IReviewTypes } from '../api/review/ReviewTypes';
+
 declare global {
   namespace Assets {
     function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
@@ -1000,29 +1002,30 @@ export interface IStudentProfileUpdateData {
 }
 
 // Reviews
+type ReviewRatings = 1 | 2 | 3 | 4 | 5;
 export interface IReview {
   _id: string;
-  slug?: string;
-  student: string;
+  slugID: string;
+  studentID: string;
   reviewType: string;
-  reviewee: string;
-  academicTerm: string;
-  rating?: number;
+  revieweeID: string;
+  termID: string;
+  rating?: ReviewRatings;
   comments: string;
   moderated: boolean;
   visible?: boolean;
-  moderatorComment?: string;
+  moderatorComments?: string;
   retired?: boolean;
 }
 
 export interface IReviewDefine extends IDumpOne {
   slug?: string;
   student: string;
-  reviewType: string;
+  reviewType: IReviewTypes;
   reviewee: string;
   academicTerm: string;
-  rating?: number;
-  comments: string;
+  rating?: ReviewRatings;
+  comments?: string;
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
@@ -1031,7 +1034,7 @@ export interface IReviewDefine extends IDumpOne {
 
 export interface IReviewUpdate extends IUpdate {
   academicTerm?: string;
-  rating?: number;
+  rating?: ReviewRatings;
   comments?: string;
   moderated?: boolean;
   visible?: boolean;
@@ -1041,7 +1044,7 @@ export interface IReviewUpdate extends IUpdate {
 
 export interface IReviewUpdateData {
   termID?: string;
-  rating?: number;
+  rating?: ReviewRatings;
   comments?: string;
   moderated?: boolean;
   visible?: boolean;

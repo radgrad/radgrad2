@@ -20,8 +20,8 @@ export const USERINTERACTIONSTYPE = {
   UNFAVINTEREST: 'unfavoriteInterest',
   UNFAVOPPORTUNITY: 'unfavoriteOpportunity',
   /* Course/Opportunity Reviews */
-  REVIEWADD: 'reviewAdd',
-  REVIEWEDIT: 'reviewEdit',
+  ADDREVIEW: 'addReview',
+  EDITREVIEW: 'editReview',
 };
 
 // type for interactionData object

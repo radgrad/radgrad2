@@ -11,10 +11,13 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { IAcademicTerm } from '../../../typings/radgrad';
+import { IAcademicTerm, IReviewDefine } from '../../../typings/radgrad';
 import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { ReviewTypes } from '../../../api/review/ReviewTypes';
 
 interface IStudentExplorerAddReviewFormProps {
   event: {
@@ -63,16 +66,16 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     return newObject;
   }
 
-  private handleAdd = (doc: { [key: string]: any }): void => {
+  private handleAdd = (doc: IReviewDefine): void => {
     const collectionName = collection.getCollectionName();
     const { match, reviewType, event } = this.props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
-    const definitionData = doc;
+    const definitionData: IReviewDefine = doc;
     definitionData.academicTerm = academicTermSlug;
     definitionData.student = username;
-    definitionData.reviewType = reviewType;
+    definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = event._id;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
@@ -82,7 +85,6 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           icon: 'error',
         });
       } else {
-        console.log('test2');
         Swal.fire({
           title: 'Review Added',
           icon: 'success',
@@ -91,10 +93,19 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           allowEscapeKey: false,
           allowEnterKey: false,
         });
+        let slug: string;
+        const reviewee = definitionData.reviewee;
+        if (reviewType === ReviewTypes.COURSE) {
+          const revieweeID = Courses.getID(reviewee);
+          slug = Courses.findSlugByID(revieweeID);
+        } else if (reviewType === ReviewTypes.OPPORTUNITY) {
+          const revieweeID = Opportunities.getID(reviewee);
+          slug = Opportunities.findSlugByID(revieweeID);
+        }
         const interactionData: USERINTERACTIONDATATYPE = {
           username,
-          type: USERINTERACTIONSTYPE.REVIEWADD,
-          typeData: [reviewType, 'tmp'],
+          type: USERINTERACTIONSTYPE.ADDREVIEW,
+          typeData: [`${reviewType}:${academicTermSlug}-${slug}`],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
