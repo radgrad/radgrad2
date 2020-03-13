@@ -103,9 +103,9 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
         type: String,
         label:
   <React.Fragment>
-            Picture (
+    Picture (
     <button type="button" onClick={this.handleUpload}>Upload</button>
-            )
+    )
   </React.Fragment>,
         optional: true,
       },

@@ -136,9 +136,9 @@ class UpdateFeedForm extends React.Component<IUpdateFeedFormProps, IUpdateFeedFo
         type: String,
         label:
   <React.Fragment>
-            Picture (
+    Picture (
     <button type="button" onClick={this.handleUpload}>Upload</button>
-            )
+    )
   </React.Fragment>,
         defaultValue: model.picture,
         optional: true,

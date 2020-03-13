@@ -4,8 +4,11 @@ export const USERINTERACTIONSTYPE = {
   LOGIN: 'login',
   LEVEL: 'level',
   COMPLETEPLAN: 'completePlan',
+  /* Student About Me Page */
   PICTURE: 'picture',
   WEBSITE: 'website',
+  SHAREINFORMATION: 'shareInformation',
+  /* Favorites */
   FAVACADEMICPLAN: 'favoriteAcademicPlan',
   FAVCAREERGOAL: 'favoriteCareerGoal',
   FAVCOURSE: 'favoriteCourse',
@@ -16,6 +19,7 @@ export const USERINTERACTIONSTYPE = {
   UNFAVCOURSE: 'unfavoriteCourse',
   UNFAVINTEREST: 'unfavoriteInterest',
   UNFAVOPPORTUNITY: 'unfavoriteOpportunity',
+  /* Course/Opportunity Reviews */
   REVIEWADD: 'reviewAdd',
   REVIEWEDIT: 'reviewEdit',
 };

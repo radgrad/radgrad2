@@ -160,9 +160,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         type: String,
         label:
   <React.Fragment>
-            Picture (
+    Picture (
     <button type="button" onClick={this.handleUpload}>Upload</button>
-            )
+    )
   </React.Fragment>,
         optional: true,
       },
