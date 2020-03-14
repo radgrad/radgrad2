@@ -25,6 +25,8 @@ export enum UserInteractionsTypes {
   EDITREVIEW = 'editReview',
   /* Mentor Space */
   ASKQUESTION = 'askQuestion',
+  /* Degree Planner */
+  VERIFYREQUEST = 'verifyRequest',
 }
 
 // type for interactionData object
