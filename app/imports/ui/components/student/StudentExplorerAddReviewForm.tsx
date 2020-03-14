@@ -12,7 +12,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { IAcademicTerm, IReviewDefine } from '../../../typings/radgrad';
-import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -102,9 +102,9 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           const revieweeID = Opportunities.getID(reviewee);
           slug = Opportunities.findSlugByID(revieweeID);
         }
-        const interactionData: USERINTERACTIONDATATYPE = {
+        const interactionData: UserInteractionsDataType = {
           username,
-          type: USERINTERACTIONSTYPE.ADDREVIEW,
+          type: UserInteractionsTypes.ADDREVIEW,
           typeData: [`${reviewType}:${academicTermSlug}-${slug}`],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

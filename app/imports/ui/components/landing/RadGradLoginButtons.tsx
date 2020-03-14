@@ -6,10 +6,10 @@ import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import {
-  USERINTERACTIONDATATYPE,
+  UserInteractionsDataType,
   USERINTERACTIONSNOTYPEDATA,
-  USERINTERACTIONSTYPE,
-} from '../../../api/analytic/UserInteractionsType';
+  UserInteractionsTypes,
+} from '../../../api/analytic/UserInteractionsTypes';
 
 interface IRadGradLoginButtonsState {
   justLoggedIn: boolean;
@@ -42,9 +42,9 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
             role = 'Alumni';
           } else {
             // Track Student Login
-            const interactionData: USERINTERACTIONDATATYPE = {
+            const interactionData: UserInteractionsDataType = {
               username,
-              type: USERINTERACTIONSTYPE.LOGIN,
+              type: UserInteractionsTypes.LOGIN,
               typeData: USERINTERACTIONSNOTYPEDATA,
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

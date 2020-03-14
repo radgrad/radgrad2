@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -12,7 +13,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import * as Router from './RouterHelperFunctions';
-import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
@@ -30,7 +31,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   const student = profile.username;
   let collectionName;
   let definitionData: any;
-  let interactionData: USERINTERACTIONDATATYPE;
+  let interactionData: UserInteractionsDataType;
   const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
@@ -42,7 +43,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.FAVACADEMICPLAN,
+        type: UserInteractionsTypes.FAVACADEMICPLAN,
         typeData: slug,
       };
       break;
@@ -55,7 +56,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.FAVCAREERGOAL,
+        type: UserInteractionsTypes.FAVCAREERGOAL,
         typeData: slug,
       };
       break;
@@ -68,7 +69,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.FAVCOURSE,
+        type: UserInteractionsTypes.FAVCOURSE,
         typeData: slug,
       };
       break;
@@ -81,7 +82,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.FAVINTEREST,
+        type: UserInteractionsTypes.FAVINTEREST,
         typeData: slug,
       };
       break;
@@ -94,19 +95,35 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.FAVOPPORTUNITY,
+        type: UserInteractionsTypes.FAVOPPORTUNITY,
         typeData: slug,
       };
   }
   // console.log(collectionName, definitionData);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
-      console.error('Failed to add favorites ', error);
-    }
-  });
-  userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-    if (userInteractionError) {
-      console.log('Error creating UserInteraction.', userInteractionError);
+      Swal.fire({
+        title: 'Failed to Favorite',
+        icon: 'error',
+        text: 'This item failed to be added to your favorites.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+    } else {
+      Swal.fire({
+        title: 'Favorited',
+        icon: 'success',
+        text: 'You have successfully favorited this item.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+        if (userInteractionError) {
+          console.log('Error creating UserInteraction.', userInteractionError);
+        }
+      });
     }
   });
 };
@@ -117,7 +134,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
   const student = profile.username;
   let instance;
   let collectionName;
-  let interactionData: USERINTERACTIONDATATYPE;
+  let interactionData: UserInteractionsDataType;
   const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
@@ -128,7 +145,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.UNFAVACADEMICPLAN,
+        type: UserInteractionsTypes.UNFAVACADEMICPLAN,
         typeData: slug,
       };
       break;
@@ -140,7 +157,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.UNFAVCAREERGOAL,
+        type: UserInteractionsTypes.UNFAVCAREERGOAL,
         typeData: slug,
       };
       break;
@@ -152,7 +169,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.UNFAVCOURSE,
+        type: UserInteractionsTypes.UNFAVCOURSE,
         typeData: slug,
       };
       break;
@@ -164,7 +181,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.UNFAVINTEREST,
+        type: UserInteractionsTypes.UNFAVINTEREST,
         typeData: slug,
       };
       break;
@@ -176,7 +193,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: USERINTERACTIONSTYPE.UNFAVOPPORTUNITY,
+        type: UserInteractionsTypes.UNFAVOPPORTUNITY,
         typeData: slug,
       };
   }

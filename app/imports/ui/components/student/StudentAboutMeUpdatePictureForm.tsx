@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { getUsername } from '../shared/RouterHelperFunctions';
-import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentAboutMeUpdatePictureFormProps {
@@ -59,9 +59,9 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
               allowEnterKey: false,
             });
             const username = getUsername(this.props.match);
-            const interactionData: USERINTERACTIONDATATYPE = {
+            const interactionData: UserInteractionsDataType = {
               username,
-              type: USERINTERACTIONSTYPE.PICTURE,
+              type: UserInteractionsTypes.PICTURE,
               typeData: cloudinaryResult.info.url,
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

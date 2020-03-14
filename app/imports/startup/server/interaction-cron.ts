@@ -5,7 +5,7 @@ import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
 import { IIceSnapshotDefine } from '../../typings/radgrad';
-import { USERINTERACTIONSTYPE } from '../../api/analytic/UserInteractionsType';
+import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 
 function createSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -44,7 +44,7 @@ SyncedCron.add({
           console.log('Updating snapshot for user: ', username);
           IceSnapshots.getCollection().update({ username }, { $set: { level, updated: moment().toDate() } });
           if (level > iceSnap.level) {
-            UserInteractions.define({ username, type: USERINTERACTIONSTYPE.LEVEL, typeData: [level] });
+            UserInteractions.define({ username, type: UserInteractionsTypes.LEVEL, typeData: [level] });
           }
         }
         const ice: { i: number, c: number, e: number } = StudentProfiles.getProjectedICE(doc.username);
@@ -63,7 +63,7 @@ SyncedCron.add({
               // @ts-ignore
               UserInteractions.define({
                 username,
-                type: USERINTERACTIONSTYPE.COMPLETEPLAN,
+                type: UserInteractionsTypes.COMPLETEPLAN,
                 typeData: [ice.i.toString(), ice.c.toString(), ice.e.toString()],
               });
             }

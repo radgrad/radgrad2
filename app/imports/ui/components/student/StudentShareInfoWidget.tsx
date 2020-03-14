@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { IStudentProfile } from '../../../typings/radgrad';
-import { USERINTERACTIONDATATYPE, USERINTERACTIONSTYPE } from '../../../api/analytic/UserInteractionsType';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 
@@ -49,9 +49,9 @@ const handleUpdateInformation = (doc): void => {
           modifiedList.push(`${key}:${doc[key]}`);
         }
       });
-      const interactionData: USERINTERACTIONDATATYPE = {
+      const interactionData: UserInteractionsDataType = {
         username,
-        type: USERINTERACTIONSTYPE.SHAREINFORMATION,
+        type: UserInteractionsTypes.SHAREINFORMATION,
         typeData: modifiedList,
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

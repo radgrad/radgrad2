@@ -1,6 +1,6 @@
 /** @namespace api/analytic */
 import './UserInteractionCollection';
-import './UserInteractionsType';
+import './UserInteractionsTypes';
 import './UserInteractionCollection.methods';
 import './IceSnapshotCollection';
 import './Email';
