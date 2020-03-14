@@ -10,16 +10,8 @@ export enum UserInteractionsTypes {
   WEBSITE = 'website',
   SHAREINFORMATION = 'shareInformation',
   /* Favorites */
-  FAVACADEMICPLAN = 'favoriteAcademicPlan',
-  FAVCAREERGOAL = 'favoriteCareerGoal',
-  FAVCOURSE = 'favoriteCourse',
-  FAVINTEREST = 'favoriteInterest',
-  FAVOPPORTUNITY = 'favoriteOpportunity',
-  UNFAVACADEMICPLAN = 'unfavoriteAcademicPlan',
-  UNFAVCAREERGOAL = 'unfavoriteCareerGoal',
-  UNFAVCOURSE = 'unfavoriteCourse',
-  UNFAVINTEREST = 'unfavoriteInterest',
-  UNFAVOPPORTUNITY = 'unfavoriteOpportunity',
+  FAVORITEITEM = 'favoriteItem',
+  UNFAVORITEITEM = 'unFavoriteItem',
   /* Reviews */
   ADDREVIEW = 'addReview',
   EDITREVIEW = 'editReview',

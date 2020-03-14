@@ -43,8 +43,8 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.FAVACADEMICPLAN,
-        typeData: slug,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
@@ -56,8 +56,8 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.FAVCAREERGOAL,
-        typeData: slug,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     case FAVORITE_TYPE.COURSE:
@@ -69,8 +69,8 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.FAVCOURSE,
-        typeData: slug,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     case FAVORITE_TYPE.INTEREST:
@@ -82,8 +82,8 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.FAVINTEREST,
-        typeData: slug,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     default: // opportunity
@@ -95,8 +95,8 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.FAVOPPORTUNITY,
-        typeData: slug,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
   }
   // console.log(collectionName, definitionData);
@@ -145,8 +145,8 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.UNFAVACADEMICPLAN,
-        typeData: slug,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
@@ -157,8 +157,8 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.UNFAVCAREERGOAL,
-        typeData: slug,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     case FAVORITE_TYPE.COURSE:
@@ -169,8 +169,8 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.UNFAVCOURSE,
-        typeData: slug,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     case FAVORITE_TYPE.INTEREST:
@@ -181,8 +181,8 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.UNFAVINTEREST,
-        typeData: slug,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
       break;
     default: // opportunity
@@ -193,8 +193,8 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       })[0]._id;
       interactionData = {
         username: student,
-        type: UserInteractionsTypes.UNFAVOPPORTUNITY,
-        typeData: slug,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
   }
   removeItMethod.call({ collectionName, instance }, (error) => {
@@ -222,7 +222,7 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
           <Icon name="minus" />
           REMOVE FROM FAVORITES
         </Button>
-)
+      )
       : (
         <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
           <Icon
@@ -234,7 +234,7 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
           />
           ADD TO FAVORITES
         </Button>
-)}
+      )}
   </React.Fragment>
 );
 
