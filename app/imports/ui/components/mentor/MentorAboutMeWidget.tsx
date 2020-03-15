@@ -15,7 +15,6 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import { ReduxTypes } from '../../../redux';
 import {
   SET_MENTOR_HOME_CLOUDINARY_URL,
   SET_MENTOR_HOME_IS_CLOUDINARY_USED,
@@ -44,7 +43,7 @@ interface IMentorAboutMeWidgetState {
   pictureURL: string;
 }
 
-const mapStateToProps = (state: ReduxTypes.State): object => ({
+const mapStateToProps = (state): object => ({
   isCloudinaryUsed: state.shared.cloudinary.mentorHome.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.mentorHome.cloudinaryUrl,
 });

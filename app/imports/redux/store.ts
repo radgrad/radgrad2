@@ -1,17 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { createHashHistory } from 'history';
-import { connectRouter, LOCATION_CHANGE, routerMiddleware } from 'connected-react-router';
+import { History, createHashHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import admin from './admin';
 import advisor from './advisor';
 import shared from './shared';
 import student from './student';
-import routeTracker from './router';
 
 /* global window */
 
-export const rootReducer = (history) => combineReducers({
+export const rootReducer = (history: History) => combineReducers({
   router: connectRouter(history),
-  routeTracker,
   admin,
   advisor,
   shared,
@@ -29,13 +27,8 @@ export default function configureStore(preloadedState) {
         routerMiddleware(history),
       ),
       // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
     ),
   );
   return store;
 }
-
-// const store = createStore(
-//   rootReducer,
-// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-// );

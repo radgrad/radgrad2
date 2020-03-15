@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { Header, Segment, Tab } from 'semantic-ui-react';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
 import { ANALYTICS } from '../../../startup/client/route-constants';
-import { ReduxTypes } from '../../../redux';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
 
@@ -15,7 +14,7 @@ interface IAdminAnalyticsOverheadAnalysisWidgetProps {
   }
 }
 
-const mapStateToProps = (state: ReduxTypes.State): { dateRange: { startDate: Date; endDate: Date; } } => ({
+const mapStateToProps = (state): { dateRange: { startDate: Date; endDate: Date; } } => ({
   dateRange: state.admin.analytics.overheadAnalysis.dateRange,
 });
 

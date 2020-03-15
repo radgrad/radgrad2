@@ -13,9 +13,8 @@ import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
-import { getAllUrlParamsByLocationObject } from '../components/shared/RouterHelperFunctions';
+import { getAllUrlParamsByLocationObject, ILocationProps } from '../components/shared/RouterHelperFunctions';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
-import { routerTrackerActions } from '../../redux/router';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -155,53 +154,21 @@ function withHistoryListen(WrappedComponent) {
         username: string;
       }
     };
-    lastPathname: string;
-    setLastPathname: (lastPathname: string) => any;
-    locationObject: any;
+    router: {
+      location: ILocationProps;
+      action: string;
+    };
   }
 
   const mapStateToProps = (state): object => ({
-    lastPathname: state.routeTracker.lastPathname,
-    locationObject: state.router.location,
-  });
-
-  const mapDispatchToProps = (dispatch: any): object => ({
-    setLastPathname: (lastPathname: string) => dispatch(routerTrackerActions.setLastPathname(lastPathname)),
+    router: state.router,
   });
 
   class HistoryListen extends React.Component<IHistoryListenProps> {
-    private readonly unlisten;
-
-    constructor(props) {
-      super(props);
-      // const { history, match } = props;
-      // const { lastPathname, locationObject } = this.props;
-      // this.unlisten = history.listen((location, action) => {
-      //   // if (lastPathname === locationObject.pathname) {
-      //   //   console.log('triggered1');
-      //   //   console.log('locationPathname ', locationObject.pathname);
-      //   //   console.log('lastpathname ', lastPathname);
-      //   // } else {
-      //   console.log('trig2');
-      //   console.log('lastPathname ', this.props.lastPathname);
-      //   const parameters = getAllUrlParamsByLocationObject(match, locationObject);
-      //   const typeData = parameters.join('/');
-      //   // console.log('Currentl Url Params: %o\nLocation: %o\nAction: %o', typeData, location, action);
-      //   const username = Meteor.user().username;
-      //   const type = UserInteractionsTypes.PAGEVIEW;
-      //   const interactionData = { username, type, typeData };
-      //   userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-      //     if (userInteractionError) {
-      //       console.log('Error creating UserInteraction.', userInteractionError);
-      //     }
-      //   });
-      // }
-      // });
-    }
-
     componentDidUpdate(prevProps: Readonly<IHistoryListenProps>, prevState: Readonly<{}>, snapshot?: any): void {
-      if (prevProps.locationObject !== this.props.locationObject) {
-        const parameters = getAllUrlParamsByLocationObject(this.props.match, this.props.locationObject);
+      const { match, router } = this.props;
+      if (prevProps.router.location !== router.location) {
+        const parameters = getAllUrlParamsByLocationObject(match, router.location);
         const typeData = parameters.join('/');
         const username = Meteor.user().username;
         const type = UserInteractionsTypes.PAGEVIEW;
@@ -214,26 +181,20 @@ function withHistoryListen(WrappedComponent) {
       }
     }
 
-    componentWillUnmount(): void {
-      // this.unlisten();
-      // this.props.setLastPathname(this.props.match.url);
-    }
-
     public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
       return <WrappedComponent {...this.props} />;
     }
   }
 
-  return withRouter(connect(mapStateToProps, mapDispatchToProps)(HistoryListen));
+  return withRouter(connect(mapStateToProps)(HistoryListen));
 }
 
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   const ComponentWithSubscriptions = withInstanceSubscriptions(withGlobalSubscription(Component));
-  // const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
-  const isStudent = true; // TODO revert
-  // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the userInteractionDefineMethod.call()
-  // inside of withHistoryListen. Since we only want to track the pageViews of STUDENTS, we should only use withHistoryListen
-  // if LOGGED IN user is a student.
+  const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
+  // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
+  // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
+  // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
   const WrappedComponent = isStudent ? withHistoryListen(ComponentWithSubscriptions) : ComponentWithSubscriptions;
   return (
     <Route

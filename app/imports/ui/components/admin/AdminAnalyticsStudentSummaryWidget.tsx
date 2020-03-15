@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
-import { ReduxTypes } from '../../../redux';
 import { ANALYTICS } from '../../../startup/client/route-constants';
 import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
@@ -15,7 +14,7 @@ interface IAdminAnalyticsStudentSummaryWidgetProps {
   userInteractions: _.Dictionary<any[]>;
 }
 
-const mapStateToProps = (state: ReduxTypes.State) => ({
+const mapStateToProps = (state) => ({
   dateRange: state.admin.analytics.studentSummary.dateRange,
   userInteractions: state.admin.analytics.studentSummary.userInteractions,
 });
