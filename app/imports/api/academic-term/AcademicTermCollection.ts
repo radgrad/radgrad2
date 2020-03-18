@@ -161,7 +161,6 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If academicTerm is not a Academic Term.
    */
   public assertAcademicTerm(term: string) {
-    // console.log('assertAcademicTerm(%o)', term);
     if (!term || !this.isDefined(term)) {
       throw new Meteor.Error(`${term} is not a valid Academic Term.`);
     }

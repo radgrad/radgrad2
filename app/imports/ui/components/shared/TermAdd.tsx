@@ -69,7 +69,7 @@ const handleAddToPlan = (props: ITermAddProps) => (e) => {
       academicTerm: termSlug,
       course: itemSlug,
       verified: false,
-      note: item.number,
+      note: item.num,
       grade: 'B',
       student: username,
     };

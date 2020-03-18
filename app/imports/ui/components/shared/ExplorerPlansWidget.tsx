@@ -11,6 +11,7 @@ import FavoritesButton from './FavoritesButton';
 import { toUpper } from './helper-functions';
 import { explorerPlanWidget } from './shared-widget-names';
 import { toId } from '../../shared/description-pair-helpers';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -52,10 +53,10 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
             isStudent ? (
               <FavoritesButton
                 item={item}
-                type="academicPlan"
+                type={FAVORITE_TYPE.ACADEMICPLAN}
                 studentID={Router.getUserIdFromRoute(props.match)}
               />
-            )
+              )
               : ''
           }
         </Segment>
@@ -78,15 +79,15 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
                         source={descriptionPair.value}
                         renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                       />
-                    )
+                      )
                       : (
                         <React.Fragment>
                           {' '}
                           N/A
                           <br />
                         </React.Fragment>
-                    )
-}
+                      )
+                  }
                 </React.Fragment>
               ))
             }

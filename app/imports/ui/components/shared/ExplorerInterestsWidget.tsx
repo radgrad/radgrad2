@@ -19,11 +19,11 @@ import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import { URL_ROLES } from '../../../startup/client/route-constants';
 import FavoritesButton from './FavoritesButton';
-import { getRoleByUrl } from './RouterHelperFunctions';
+import * as Router from './RouterHelperFunctions';
 import { profileGetInterestIDs } from './data-model-helper-functions';
 import { explorerInterestWidget } from './shared-widget-names';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -150,7 +150,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
           <Header>
             {props.interest.name}
             <FavoritesButton
-              type="interest"
+              type={FAVORITE_TYPE.INTEREST}
               studentID={props.profile.userID}
               item={props.interest}
             />
@@ -163,7 +163,11 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
                   <b>Description: </b>
                 </div>
                 <div>
-                  <Markdown escapeHtml source={props.interest.description} />
+                  <Markdown
+                    escapeHtml
+                    source={props.interest.description}
+                    renderers={{ link: (localProps) => Router.renderLink(localProps, props.match) }}
+                  />
                 </div>
               </Grid.Column>
               <Grid.Column width={7}>
@@ -193,7 +197,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
           <InterestedRelatedWidget
             relatedCourses={relatedCourses}
             relatedOpportunities={relatedOpportunities}
-            isStudent={getRoleByUrl(props.match) === 'student'}
+            isStudent={Router.getRoleByUrl(props.match) === 'student'}
             baseURL={getBaseURL(props)}
           />
         </Grid.Column>

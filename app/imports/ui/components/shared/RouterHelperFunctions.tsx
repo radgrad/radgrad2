@@ -70,6 +70,16 @@ export const getUrlParam = (match: IMatchProps, index: number) => {
   return param;
 };
 
+// Returns all the parameters AFTER the base route
+// i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
+export const getAllUrlParams = (match: IMatchProps) => {
+  const parameters = splitUrlIntoArray(match);
+  const username = getUsername(match);
+  const usernameIndex = parameters.indexOf(username);
+  const allParams = parameters.slice(usernameIndex + 1);
+  return allParams;
+};
+
 // Returns the last param of the URL
 // i.e., /student/abi@hawaii/edu/param1/param2/param3/param4 => param4
 export const getLastUrlParam = (match: IMatchProps): string => {

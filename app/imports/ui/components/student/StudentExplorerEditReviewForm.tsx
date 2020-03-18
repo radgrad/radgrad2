@@ -12,12 +12,16 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from '../shared/RatingField';
-import { IAcademicTerm } from '../../../typings/radgrad';
+import { IAcademicTerm, IReview, IReviewUpdate } from '../../../typings/radgrad';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { getUsername } from '../shared/RouterHelperFunctions';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { IReviewTypes, ReviewTypes } from '../../../api/review/ReviewTypes';
 
 interface IStudentExplorerEditReviewWidgetProps {
-  review: {
-    [key: string]: any;
-  };
+  review: IReview;
   thisReview: object;
   event: {
     [key: string]: any;
@@ -66,13 +70,16 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
     return newObject;
   }
 
-  private handleUpdate = (doc: { [key: string]: any }): void => {
+  private handleUpdate = (doc: IReviewUpdate): void => {
     const collectionName = collection.getCollectionName();
-    let updateData = doc;
-    updateData = this.renameKey(updateData, 'academicTerm', 'termID');
-    updateData.termID = this.props.review.termID;
+    const { match, review } = this.props;
+    const username = getUsername(match);
+    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
+    const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
+    const updateData: IReviewUpdate = doc;
+    updateData.academicTerm = academicTermSlug;
     updateData.moderated = false;
-    updateData.id = this.props.review._id;
+    updateData.id = review._id;
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -88,6 +95,26 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
+        });
+        const reviewType: IReviewTypes = review.reviewType as IReviewTypes;
+        console.log('review %o', review);
+        let slug: string;
+        if (reviewType === ReviewTypes.COURSE) {
+          const revieweeID = Courses.getID(review.revieweeID);
+          slug = Courses.findSlugByID(revieweeID);
+        } else if (reviewType === ReviewTypes.OPPORTUNITY) {
+          const revieweeID = Opportunities.getID(review.revieweeID);
+          slug = Opportunities.findSlugByID(revieweeID);
+        }
+        const interactionData: UserInteractionsDataType = {
+          username,
+          type: UserInteractionsTypes.EDITREVIEW,
+          typeData: [`${reviewType}:${updateData.academicTerm}-${slug}`],
+        };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.log('Error creating UserInteraction.', userInteractionError);
+          }
         });
       }
     });
@@ -135,7 +162,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
   private academicTerm = (): IAcademicTerm[] => {
     const academicTerms = [];
     let instances;
-    if (this.props.review.reviewType === 'course') {
+    if (this.props.review.reviewType === ReviewTypes.COURSE) {
       const course = this.props.event;
       instances = CourseInstances.find({
         studentID: this.getUserIdFromRoute(),
@@ -206,18 +233,18 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
                     <i className="red warning circle icon" />
                 }
               </React.Fragment>
-            )
+              )
               : (
                 <React.Fragment>
                   {
-                  review.visible ?
-                    <i className="yellow checkmark icon" />
-                    :
-                    <i className="yellow warning circle icon" />
-                }
+                    review.visible ?
+                      <i className="yellow checkmark icon" />
+                      :
+                      <i className="yellow warning circle icon" />
+                  }
                 </React.Fragment>
-            )
-}
+              )
+          }
         </Accordion.Title>
 
         <Accordion.Content active={active}>
@@ -234,7 +261,7 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
                           been approved by moderators.
                         </p>
                       </Message>
-                    )
+                      )
                       : (
                         <Message warning>
                           <p>
@@ -243,39 +270,39 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
                             not yet been approved by moderators.
                           </p>
                         </Message>
-                    )
-}
+                      )
+                  }
                 </React.Fragment>
-              )
+                )
                 : (
                   <React.Fragment>
                     {
-                    review.moderated ? (
-                      <Message negative>
-                        <p>
-                          <i className="warning red circle icon" />
-                          Your post has been hidden by moderators for the
-                          following reasons:
-                        </p>
-                        <br />
-                        <i>{review.moderatorComments}</i>
-                      </Message>
-                    )
-                      : (
-                        <Message warning>
+                      review.moderated ? (
+                        <Message negative>
                           <p>
-                            <i className="warning yellow circle icon" />
-                            Your edited post is waiting for moderator
-                            approval. Your post has currently been hidden by moderators for the following reasons:
-                            <br />
-                            <i>{review.moderatorComments}</i>
+                            <i className="warning red circle icon" />
+                            Your post has been hidden by moderators for the
+                            following reasons:
                           </p>
+                          <br />
+                          <i>{review.moderatorComments}</i>
                         </Message>
-                    )
-}
+                        )
+                        : (
+                          <Message warning>
+                            <p>
+                              <i className="warning yellow circle icon" />
+                              Your edited post is waiting for moderator
+                              approval. Your post has currently been hidden by moderators for the following reasons:
+                              <br />
+                              <i>{review.moderatorComments}</i>
+                            </p>
+                          </Message>
+                        )
+                    }
                   </React.Fragment>
-              )
-}
+                )
+            }
 
             <AutoForm schema={schema} onSubmit={this.handleUpdate} ref={this.formRef}>
               <Form.Group widths="equal">

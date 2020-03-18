@@ -18,6 +18,9 @@ import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 
 interface IDetailOpportunityCardProps {
@@ -55,10 +58,10 @@ const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) 
 const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model) => {
   // console.log(model, props);
   const collectionName = VerificationRequests.getCollectionName();
-  const student = getUsername(props.match);
+  const username = getUsername(props.match);
   const opportunityInstance = props.instance._id;
   const definitionData: IVerificationRequestDefine = {
-    student,
+    student: username,
     opportunityInstance,
   };
   defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -70,6 +73,17 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
+      });
+      const typeData = Slugs.getNameFromID(OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID);
+      const interactionData: UserInteractionsDataType = {
+        username,
+        type: UserInteractionsTypes.VERIFYREQUEST,
+        typeData,
+      };
+      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+        if (userInteractionError) {
+          console.log('Error creating UserInteraction.', userInteractionError);
+        }
       });
     }
   });
@@ -113,34 +127,34 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                 remove
               </Button>
             </React.Fragment>
-) : (
-  <React.Fragment>
-    <p>
-      <b>Participated:</b>
-      {' '}
-      {termName}
-    </p>
-    {verificationRequested ? '' : (
-      <Button
-        floated="right"
-        basic
-        color="green"
-        value={props.instance._id}
-        onClick={handleRemove(props)}
-        size="tiny"
-      >
-        remove
-      </Button>
-)}
-  </React.Fragment>
-)}
+          ) : (
+            <React.Fragment>
+              <p>
+                <b>Participated:</b>
+                {' '}
+                {termName}
+              </p>
+              {verificationRequested ? '' : (
+                <Button
+                  floated="right"
+                  basic
+                  color="green"
+                  value={props.instance._id}
+                  onClick={handleRemove(props)}
+                  size="tiny"
+                >
+                  remove
+                </Button>
+              )}
+            </React.Fragment>
+          )}
         </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : '' }
+        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : ''}
         {!futureP && !verificationRequested ? (
           <Card.Content>
             <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
           </Card.Content>
-        ) : '' }
+        ) : ''}
         <Card.Content>
           <p style={textAlignRight}>
             <Link

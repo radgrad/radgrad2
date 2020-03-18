@@ -43,7 +43,6 @@ interface IStudentAboutMeWidgetProps {
 
 const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const marginBottomStyle = { marginBottom: 0 };
-
   const { match, profile } = props;
   const name = profileToFullName(profile);
   const email = props.profile.username;

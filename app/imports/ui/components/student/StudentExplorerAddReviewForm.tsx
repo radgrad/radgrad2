@@ -10,9 +10,14 @@ import RatingField from '../shared/RatingField';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { IAcademicTerm } from '../../../typings/radgrad';
+import { IAcademicTerm, IReviewDefine } from '../../../typings/radgrad';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { ReviewTypes } from '../../../api/review/ReviewTypes';
 
 interface IStudentExplorerAddReviewFormProps {
   event: {
@@ -47,13 +52,6 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     };
   }
 
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
-    return username && Users.getID(username);
-  }
-
   private handleAccordionClick = (e: any) => {
     e.preventDefault();
     let { active } = this.state;
@@ -68,16 +66,17 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
     return newObject;
   }
 
-  private handleAdd = (doc: { [key: string]: any }): void => {
+  private handleAdd = (doc: IReviewDefine): void => {
     const collectionName = collection.getCollectionName();
+    const { match, reviewType, event } = this.props;
+    const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
-    const definitionData = doc;
+    const definitionData: IReviewDefine = doc;
     definitionData.academicTerm = academicTermSlug;
-    definitionData.student = this.getUsername();
-    definitionData.reviewType = this.props.reviewType;
-    definitionData.reviewee = this.props.event._id;
-    // console.log(definitionData);
+    definitionData.student = username;
+    definitionData.reviewType = reviewType as ReviewTypes;
+    definitionData.reviewee = event._id;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -94,24 +93,44 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
           allowEscapeKey: false,
           allowEnterKey: false,
         });
+        let slug: string;
+        const reviewee = definitionData.reviewee;
+        if (reviewType === ReviewTypes.COURSE) {
+          const revieweeID = Courses.getID(reviewee);
+          slug = Courses.findSlugByID(revieweeID);
+        } else if (reviewType === ReviewTypes.OPPORTUNITY) {
+          const revieweeID = Opportunities.getID(reviewee);
+          slug = Opportunities.findSlugByID(revieweeID);
+        }
+        const interactionData: UserInteractionsDataType = {
+          username,
+          type: UserInteractionsTypes.ADDREVIEW,
+          typeData: [`${reviewType}:${academicTermSlug}-${slug}`],
+        };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.log('Error creating UserInteraction.', userInteractionError);
+          }
+        });
         // this.formRef.current.reset();
       }
     });
   }
 
   private academicTerm = (): IAcademicTerm[] => {
+    const { match, event, reviewType } = this.props;
     const academicTerms = [];
     let instances;
-    if (this.props.reviewType === 'course') {
-      const course = this.props.event;
+    if (reviewType === 'course') {
+      const course = event;
       instances = CourseInstances.find({
-        studentID: this.getUserIdFromRoute(),
+        studentID: getUserIdFromRoute(match),
         courseID: course._id,
       }).fetch();
     } else {
-      const opportunity = this.props.event;
+      const opportunity = event;
       instances = OpportunityInstances.find({
-        studentID: this.getUserIdFromRoute(),
+        studentID: getUserIdFromRoute(match),
         opportunityID: opportunity._id,
       }).fetch();
     }

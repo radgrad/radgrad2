@@ -48,7 +48,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
   let courseName = '';
   if (item.courseID) {
     const course = Courses.findDoc(item.courseID);
-    courseName = `${course.number}: ${course.shortName}`;
+    courseName = `${course.num}: ${course.shortName}`;
   }
   let academicTerm = '';
   if (item.academicTermID) {

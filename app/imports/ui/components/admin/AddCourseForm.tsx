@@ -54,7 +54,7 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
         <Form.Group widths="equal">
           <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
           <NumField name="creditHours" />
-          <TextField name="number" placeholder="DEPT 111" />
+          <TextField name="num" placeholder="DEPT 111" />
         </Form.Group>
         <LongTextField name="description" />
         <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
