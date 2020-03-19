@@ -239,14 +239,18 @@ class PublicStatsCollection extends BaseCollection {
     let professions = [];
     MentorProfiles.find().forEach((profile) => professions.push(profile.career));
     professions = _.union(professions);
-    this.collection.upsert({ key: this.usersMentorsProfessionsListKey }, { $set: { value: professions.join(', ') } });
+    if (professions.length > 0) {
+      this.collection.upsert({ key: this.usersMentorsProfessionsListKey }, { $set: { value: professions.join(', ') } });
+    }
   }
 
   public usersMentorsLocations() {
     let locations = [];
     MentorProfiles.find().forEach((profile) => locations.push(profile.location));
     locations = _.union(locations);
-    this.collection.upsert({ key: this.usersMentorsLocationsKey }, { $set: { value: locations.join(', ') } });
+    if (locations.length > 0) {
+      this.collection.upsert({ key: this.usersMentorsLocationsKey }, { $set: { value: locations.join(', ') } });
+    }
   }
 
   public courseReviewsTotal() {
@@ -262,7 +266,7 @@ class PublicStatsCollection extends BaseCollection {
       courseNumbers.push(course.num);
     });
     courseNumbers = _.union(courseNumbers);
-    if (courseNumbers) {
+    if (courseNumbers.length > 0) {
       this.collection.upsert({ key: this.courseReviewsCoursesKey }, { $set: { value: courseNumbers.join(', ') } });
     }
   }
@@ -273,8 +277,8 @@ class PublicStatsCollection extends BaseCollection {
     const plan = AcademicPlans.findOne({ termNumber });
     if (plan) {
       planName = (Slugs.findDoc(plan.slugID)).name;
+      this.collection.upsert({ key: this.firstAcademicPlanKey }, { $set: { value: planName } });
     }
-    this.collection.upsert({ key: this.firstAcademicPlanKey }, { $set: { value: planName } });
   }
 
   public firstCareerGoal() {

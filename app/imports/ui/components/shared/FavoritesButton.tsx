@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -12,6 +13,9 @@ import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import * as Router from './RouterHelperFunctions';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IFavoriteButtonProps {
   studentID: string;
@@ -27,98 +31,180 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   const student = profile.username;
   let collectionName;
   let definitionData: any;
+  let interactionData: UserInteractionsDataType;
+  const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
-    case 'academicPlan':
+    case FAVORITE_TYPE.ACADEMICPLAN:
       collectionName = FavoriteAcademicPlans.getCollectionName();
       definitionData = {
         student,
-        academicPlan: Slugs.getNameFromID(props.item.slugID),
+        academicPlan: slug,
         retired: false,
       };
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    case 'careerGoal':
+    case FAVORITE_TYPE.CAREERGOAL:
       collectionName = FavoriteCareerGoals.getCollectionName();
       definitionData = {
         username: student,
-        careerGoal: Slugs.getNameFromID(props.item.slugID),
+        careerGoal: slug,
         retired: false,
       };
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    case 'course':
+    case FAVORITE_TYPE.COURSE:
       collectionName = FavoriteCourses.getCollectionName();
       definitionData = {
         student,
-        course: Slugs.getNameFromID(props.item.slugID),
+        course: slug,
         retired: false,
       };
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    case 'interest':
+    case FAVORITE_TYPE.INTEREST:
       collectionName = FavoriteInterests.getCollectionName();
       definitionData = {
         username: student,
-        interest: Slugs.getNameFromID(props.item.slugID),
+        interest: slug,
         retired: false,
       };
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    default:
+    default: // opportunity
       collectionName = FavoriteOpportunities.getCollectionName();
       definitionData = {
         student,
-        opportunity: Slugs.getNameFromID(props.item.slugID),
+        opportunity: slug,
         retired: false,
+      };
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.FAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
       };
   }
   // console.log(collectionName, definitionData);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
-      console.error('Failed to add favorites ', error);
+      Swal.fire({
+        title: 'Failed to Favorite',
+        icon: 'error',
+        text: 'This item failed to be added to your favorites.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+    } else {
+      Swal.fire({
+        title: 'Favorited',
+        icon: 'success',
+        text: 'You have successfully favorited this item.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+        if (userInteractionError) {
+          console.log('Error creating UserInteraction.', userInteractionError);
+        }
+      });
     }
   });
 };
 
 const handleRemove = (props: IFavoriteButtonProps) => () => {
   // console.log('handleRemove', props);
+  const profile = Users.getProfile(props.studentID);
+  const student = profile.username;
   let instance;
   let collectionName;
+  let interactionData: UserInteractionsDataType;
+  const slug = Slugs.getNameFromID(props.item.slugID);
   switch (props.type) {
-    case 'academicPlan':
+    case FAVORITE_TYPE.ACADEMICPLAN:
       collectionName = FavoriteAcademicPlans.getCollectionName();
       instance = FavoriteAcademicPlans.findNonRetired({
         studentID: props.studentID,
         academicPlanID: props.item._id,
       })[0]._id;
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    case 'careerGoal':
+    case FAVORITE_TYPE.CAREERGOAL:
       collectionName = FavoriteCareerGoals.getCollectionName();
       instance = FavoriteCareerGoals.findNonRetired({
         userID: props.studentID,
         careerGoalID: props.item._id,
       })[0]._id;
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    case 'course':
+    case FAVORITE_TYPE.COURSE:
       collectionName = FavoriteCourses.getCollectionName();
       instance = FavoriteCourses.findNonRetired({
         studentID: props.studentID,
         courseID: props.item._id,
       })[0]._id;
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    case 'interest':
+    case FAVORITE_TYPE.INTEREST:
       collectionName = FavoriteInterests.getCollectionName();
       instance = FavoriteInterests.findNonRetired({
         userID: props.studentID,
         interestID: props.item._id,
       })[0]._id;
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
       break;
-    default:
+    default: // opportunity
       collectionName = FavoriteOpportunities.getCollectionName();
       instance = FavoriteOpportunities.findNonRetired({
         studentID: props.studentID,
         opportunityID: props.item._id,
       })[0]._id;
+      interactionData = {
+        username: student,
+        type: UserInteractionsTypes.UNFAVORITEITEM,
+        typeData: `${props.type}:${slug}`,
+      };
   }
   removeItMethod.call({ collectionName, instance }, (error) => {
     if (error) {
       console.error('Failed to remove favorite', error);
+    }
+  });
+  userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+    if (userInteractionError) {
+      console.log('Error creating UserInteraction.', userInteractionError);
     }
   });
 };
@@ -126,28 +212,29 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
 
 const FavoritesButton = (props: IFavoriteButtonProps) => (
   <React.Fragment>
-    {props.added ? (
-      <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
-        <Icon
-          name="heart outline"
-          color="red"
-        />
-        <Icon name="minus" />
-REMOVE FROM FAVORITES
-      </Button>
-)
-  : (
-    <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
-      <Icon
-        name="heart"
-        color="red"
-      />
-      <Icon
-        name="plus"
-      />
-ADD TO FAVORITES
-    </Button>
-)}
+    {props.added
+      ? (
+        <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
+          <Icon
+            name="heart outline"
+            color="red"
+          />
+          <Icon name="minus" />
+          REMOVE FROM FAVORITES
+        </Button>
+      )
+      : (
+        <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
+          <Icon
+            name="heart"
+            color="red"
+          />
+          <Icon
+            name="plus"
+          />
+          ADD TO FAVORITES
+        </Button>
+      )}
   </React.Fragment>
 );
 

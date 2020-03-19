@@ -50,9 +50,9 @@ const UpdateCourseInstanceForm = (props: IUpdateCourseInstanceFormProps) => {
   return (
     <Segment padded>
       <Header dividing>
-Update
+        Update
         {props.collection.getType()}
-:
+        :
         {props.itemTitleString(model)}
       </Header>
       <AutoForm

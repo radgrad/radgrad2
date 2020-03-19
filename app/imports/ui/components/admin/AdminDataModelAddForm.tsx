@@ -12,7 +12,7 @@ interface IAdminDataModelAddFormProps {
 const AdminDataModelAddForm = (props: IAdminDataModelAddFormProps) => (
   <Segment padded>
     <Header dividing>
-Add
+      Add
       {props.collection.getType()}
     </Header>
     <AutoForm

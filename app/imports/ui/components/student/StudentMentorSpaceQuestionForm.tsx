@@ -8,6 +8,9 @@ import moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';
+import { getUsername } from '../shared/RouterHelperFunctions';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentMentorSpaceQuestionFormProps {
   match: {
@@ -23,6 +26,7 @@ interface IStudentMentorSpaceQuestionFormProps {
 
 class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpaceQuestionFormProps> {
   private readonly formRef: any;
+
   constructor(props) {
     super(props);
     this.formRef = React.createRef();
@@ -31,9 +35,9 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
   private handleSubmit = (doc) => {
     const collectionName = MentorQuestions.getCollectionName();
     const question = doc.question;
-    const student = this.props.match.params.username;
-    const slug = `${student}${moment().format('YYYYMMDDHHmmssSSSSS')}`;
-    const definitionData = { question, slug, student };
+    const username = getUsername(this.props.match);
+    const slug = `${username}${moment().format('YYYYMMDDHHmmssSSSSS')}`;
+    const definitionData = { question, slug, student: username };
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -47,6 +51,17 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
+        });
+        const typeData = question.substring(0, 100); // get first 100 characters of question for typeData
+        const interactionData: UserInteractionsDataType = {
+          username,
+          type: UserInteractionsTypes.ASKQUESTION,
+          typeData,
+        };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.log('Error creating UserInteraction.', userInteractionError);
+          }
         });
         this.formRef.current.reset();
       }

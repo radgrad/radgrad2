@@ -6,7 +6,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
-// eslint-disable-next-line no-unused-vars
 import { Ice, IStudentProfile } from '../../../typings/radgrad';
 import { radgradMenuProfile } from './shared-widget-names';
 

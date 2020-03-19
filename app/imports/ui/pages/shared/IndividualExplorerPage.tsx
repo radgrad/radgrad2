@@ -413,7 +413,7 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
 
 const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): object[] => {
   const type = Router.getUrlParam(props.match, 2);
-  // console.log(item);
+  // console.log(item, type);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return descriptionPairsPlans(item as IAcademicPlan);
@@ -426,7 +426,7 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return descriptionPairsOpportunities(Opportunities.findDoc(item.opportunityID));
+      return descriptionPairsOpportunities(item as IOpportunity);
     case EXPLORER_TYPE.USERS: // do nothing
       return undefined;
     default:

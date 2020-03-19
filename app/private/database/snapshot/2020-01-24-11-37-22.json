@@ -5,44 +5,6 @@
       "name": "AcademicPlanCollection",
       "contents": [
         {
-          "slug": "ba-ics-2018",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Information and Computer Sciences (2018)",
-          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_212-1",
-            "ics_311-1",
-            "ics_312,ics_331-1",
-            "ics_321-1",
-            "ics_313,ics_361-1",
-            "ics_400+-1",
-            "ics_332-1",
-            "ics_400+-2",
-            "ics_400+-3",
-            "ics_400+-4"
-          ],
-          "retired": false
-        },
-        {
           "slug": "ba-ics-2019",
           "degreeSlug": "ba-ics",
           "name": "B.A. in Information and Computer Sciences (2019)",
@@ -62,7 +24,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -76,6 +38,60 @@
             "ics_313,ics_361-1",
             "ics_332-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": ["ics_111"]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": ["ics_141"]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": ["ics_211"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": ["ics_241"]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": ["ics_311"]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": ["ics_314"]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": ["ics_212"]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": ["ics_321"]
+            },
+            "ics_312,ics_331": {
+              "name": "ICS 312 or ICS 331",
+              "courseSlugs": ["ics_312", "ics_331"]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_313,ics_361": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": ["ics_313", "ics_361"]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": ["ics_332"]
+            }
+          },
           "retired": false
         },
         {
@@ -98,7 +114,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -112,119 +128,56 @@
             "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
             "ics_400+-1"
           ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-2021",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Information and Computer Sciences (2021)",
-          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
-            "ics_400+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-2022",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Information and Computer Sciences (2022)",
-          "description": "The general BA in ICS offers a firm foundation in computer science and allows students to apply computer science to an area of concentration.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355-2",
-            "ics_400+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-it-2018",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Computer Sciences IT Focus (2018)",
-          "description": "The BA in ICS with an IT Focus puts less emphasis on programming and more on administration of computer systems and networks, and on information assurance.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            2,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            3,
-            0,
-            3,
-            2,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212,ics_215-1",
-            "ics_314-1",
-            "ics_414-1",
-            "ics_415-1",
-            "ics_321-1",
-            "ics_332-1",
-            "ics_351-1",
-            "ics_425-1",
-            "ics_464-1",
-            "ics_426-1",
-            "ics_300+-1",
-            "ics_300+-2",
-            "ics_300+-3",
-            "ics_300+-4"
-          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": ["ics_111"]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": ["ics_141"]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": ["ics_211"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": ["ics_241"]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": ["ics_311"]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": ["ics_314"]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": ["ics_212"]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": ["ics_321"]
+            },
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355": {
+              "name": "ICS 312/ICS 331,ICS 313/ICS 361,ICS 351/ICS 451, or ICS 355",
+              "courseSlugs": ["ics_312", "ics_331", "ics_313", "ics_361", "ics_351", "ics_451", "ics_355"]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": ["ics_332"]
+            }
+          },
           "retired": false
         },
         {
@@ -247,7 +200,7 @@
             3,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -268,6 +221,159 @@
             "ics_332-1",
             "ics_464-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": ["ics_222"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_351": {
+              "name": "ICS 351",
+              "courseSlugs": [
+                "ics_351"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_300+": {
+              "name": "ICS 300+",
+              "courseSlugs": [
+                "ics_311",
+                "ics_312",
+                "ics_313",
+                "ics_314",
+                "ics_321",
+                "ics_331",
+                "ics_332",
+                "ics_351",
+                "ics_355",
+                "ics_361",
+                "ics_390",
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
+              ]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": [
+                "ics_414"
+              ]
+            },
+            "ics_415": {
+              "name": "ICS 415",
+              "courseSlugs": [
+                "ics_415"
+              ]
+            },
+            "ics_425": {
+              "name": "ICS 425",
+              "courseSlugs": [
+                "ics_425"
+              ]
+            },
+            "ics_426": {
+              "name": "ICS 426",
+              "courseSlugs": [
+                "ics_426"
+              ]
+            },
+            "ics_464": {
+              "name": "ICS 464",
+              "courseSlugs": [
+                "ics_464"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -290,7 +396,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -309,128 +415,116 @@
             "ics_426-1",
             "ics_464-1"
           ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-it-2021",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Computer Sciences IT Focus (2021)",
-          "description": "The BA in ICS with an IT Focus puts less emphasis on programming and more on administration of computer systems and networks, and on information assurance.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_212,ics_215-1",
-            "ics_414-1",
-            "ics_332-1",
-            "ics_351,ics_451-1",
-            "ics_425-1",
-            "ics_415-1",
-            "ics_426-1",
-            "ics_464-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-it-2022",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in Computer Sciences IT Focus (2022)",
-          "description": "The BA in ICS with an IT Focus puts less emphasis on programming and more on administration of computer systems and networks, and on information assurance.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_212,ics_215-1",
-            "ics_414-1",
-            "ics_332-1",
-            "ics_351,ics_451-1",
-            "ics_425-1",
-            "ics_415-1",
-            "ics_426-1",
-            "ics_464-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-ss-2018",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in ICS Security Science Focus (2018)",
-          "description": "The BA in ICS with a Security Science focus provides strength in both computer science and the science of computer security to prepare students for work in this exciting new area dealing with cyber security and information assurance.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_355-1",
-            "ics_414-1",
-            "ics_455-1",
-            "ics_212-1",
-            "ics_321,ics_332,ics_351-1",
-            "ics_441,ics_451-1",
-            "ics_415,ics_423-1",
-            "ics_321,ics_332,ics_351-2",
-            "ics_425,ics_426,ics_491,ics_495-1"
-          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_212,ics_215": {
+              "name": "ICS 212 or ICS 215",
+              "courseSlug": ["ics_212", "ics_215"]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": ["ics_222"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_351": {
+              "name": "ICS 351",
+              "courseSlugs": [
+                "ics_351"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": ["ics_351", "ics_451"]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": [
+                "ics_414"
+              ]
+            },
+            "ics_415": {
+              "name": "ICS 415",
+              "courseSlugs": [
+                "ics_415"
+              ]
+            },
+            "ics_425": {
+              "name": "ICS 425",
+              "courseSlugs": [
+                "ics_425"
+              ]
+            },
+            "ics_426": {
+              "name": "ICS 426",
+              "courseSlugs": [
+                "ics_426"
+              ]
+            },
+            "ics_464": {
+              "name": "ICS 464",
+              "courseSlugs": [
+                "ics_464"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -453,7 +547,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -471,6 +565,90 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": ["ics_222"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406": {
+              "name": "ICS 423, 425, 426, 455, 495, or EE 406",
+              "courseSlugs": [
+                "ics_423",
+                "ics_425",
+                "ics_426",
+                "ics_455",
+                "ics_495",
+                "ee_406"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -493,7 +671,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -511,316 +689,90 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-ss-2021",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in ICS Security Science Focus (2021)",
-          "description": "The BA in ICS with a Security Science focus provides strength in both computer science and the science of computer security to prepare students for work in this exciting new area dealing with cyber security and information assurance.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_321-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "ba-ics-ss-2022",
-          "degreeSlug": "ba-ics",
-          "name": "B.A. in ICS Security Science Focus (2022)",
-          "description": "The BA in ICS with a Security Science focus provides strength in both computer science and the science of computer security to prepare students for work in this exciting new area dealing with cyber security and information assurance.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_321-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2018",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2018)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2019",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2019)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2019",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2020",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2020)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2020",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2021",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2021)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2022",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2022)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": ["ics_222"]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406": {
+              "name": "ICS 423, 425, 426, 455, 495, or EE 406",
+              "courseSlugs": [
+                "ics_423",
+                "ics_425",
+                "ics_426",
+                "ics_455",
+                "ics_495",
+                "ee_406"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -843,7 +795,7 @@
             2,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -861,6 +813,84 @@
             "ics_400+-4",
             "ics_400+-5"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_312,ics_331": {
+              "name": "ICS 312 or ICS 331",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331"
+              ]
+            },
+            "ics_313,ics_361": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -883,7 +913,7 @@
             2,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -901,126 +931,384 @@
             "ics_400+-4",
             "ics_400+-5"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_312,ics_331": {
+              "name": "ICS 312 or ICS 331",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331"
+              ]
+            },
+            "ics_313,ics_361": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            }
+          },
           "retired": false
         },
         {
-          "slug": "bs-cs-2021",
+          "slug": "bs-cs-ds-2019",
           "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences (2021)",
-          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-2",
-            "ics_332-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_400+-3",
-            "ics_400+-4",
-            "ics_400+-5"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences (2022)",
-          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-1",
-            "(ics_312,ics_331),(ics_313,ics_361),ics_355-2",
-            "ics_332-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_400+-3",
-            "ics_400+-4",
-            "ics_400+-5"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-ss-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences Security Sciences (2018)",
-          "description": "The BS in CS SecSci degree offers a solid foundation in computer science with a focus in cyer security. This degree provides students the opportunity to focus in this area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2018",
+          "name": "B.S. in Computer Sciences Data Science Track (2019)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus on the data science field.",
+          "academicTerm": "Fall-2019",
           "coursesPerAcademicTerm": [
             2,
             3,
             0,
-            2,
+            3,
             2,
             0,
-            1,
+            3,
             2,
             0,
             2,
             2,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
-            "ics_141-1",
+            "math_215,math_241-1",
             "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
+            "math_242-1",
+            "math_301-1",
+            "ics_212-1",
+            "ics_235-1",
+            "math_372-1",
             "ics_311-1",
             "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_455-1",
-            "ics_321,ics_332,(ics_415,ics_351)-1",
-            "ics_414,ics_464-1",
-            "ics_321,ics_332,(ics_415,ics_351)-2",
-            "ics_423-1",
-            "ics_425,ics_426-1",
-            "ics_491,ics_495-1"
+            "ics_321-1",
+            "ics_435-1",
+            "math_307-1",
+            "ics_434-1",
+            "ics_484-1",
+            "ics_438-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "math_215,math_241": {
+              "name": "MATH 215 or MATH 231",
+              "courseSlugs": [
+                "math_215",
+                "math_241"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "math_242": {
+              "name": "MATH 242",
+              "courseSlugs": [
+                "math_242"
+              ]
+            },
+            "math_301": {
+              "name": "MATH 301",
+              "courseSlugs": [
+                "math_301"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "math_372": {
+              "name": "MATH 372",
+              "courseSlugs": [
+                "math_372"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "math_307": {
+              "name": "MATH 307",
+              "courseSlugs": [
+                "math_307"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 884",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "Data Science Elective 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            }
+          },
+          "retired": false
+        },
+        {
+          "slug": "bs-cs-ds-2020",
+          "degreeSlug": "bs-cs",
+          "name": "B.S. in Computer Sciences Data Science Track (2020)",
+          "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus on the data science field.",
+          "academicTerm": "Fall-2020",
+          "coursesPerAcademicTerm": [
+            2,
+            3,
+            0,
+            3,
+            2,
+            0,
+            3,
+            2,
+            0,
+            2,
+            2,
+            0
+          ],
+          "choiceList": [
+            "ics_111-1",
+            "math_215,math_241-1",
+            "ics_211-1",
+            "math_242-1",
+            "math_301-1",
+            "ics_212-1",
+            "ics_235-1",
+            "math_372-1",
+            "ics_311-1",
+            "ics_314-1",
+            "ics_321-1",
+            "ics_435-1",
+            "math_307-1",
+            "ics_434-1",
+            "ics_484-1",
+            "ics_438-1",
+            "ics_400+-1",
+            "ics_400+-2",
+            "ics_400+-3"
+          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "math_215,math_241": {
+              "name": "MATH 215 or MATH 231",
+              "courseSlugs": [
+                "math_215",
+                "math_241"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "math_242": {
+              "name": "MATH 242",
+              "courseSlugs": [
+                "math_242"
+              ]
+            },
+            "math_301": {
+              "name": "MATH 301",
+              "courseSlugs": [
+                "math_301"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "math_372": {
+              "name": "MATH 372",
+              "courseSlugs": [
+                "math_372"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "math_307": {
+              "name": "MATH 307",
+              "courseSlugs": [
+                "math_307"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 884",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "Data Science Elective 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1043,7 +1331,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -1062,6 +1350,88 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1084,7 +1454,7 @@
             1,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -1103,139 +1473,88 @@
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
             "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
           ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-ss-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences Security Sciences (2021)",
-          "description": "The BS in CS SecSci degree offers a solid foundation in computer science with a focus in cyer security. This degree provides students the opportunity to focus in this area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            3,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_351,ics_451-1",
-            "ics_321-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-cs-ss-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S. in Computer Sciences Security Sciences (2022)",
-          "description": "The BS in CS SecSci degree offers a solid foundation in computer science with a focus in cyer security. This degree provides students the opportunity to focus in this area of concentration with in the computer science field.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            2,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            3,
-            0,
-            2,
-            1,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_241-1",
-            "ics_222-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_212-1",
-            "ics_355-1",
-            "ics_351,ics_451-1",
-            "ics_321-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-1",
-            "ics_351,ics_451-1",
-            "ics_332-1",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-2",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-3",
-            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406-4"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-cs-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science (2018)",
-          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            1,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
-            "ics_400+-1",
-            "ics_621-1",
-            "ics_400+-2",
-            "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_423,ics_425,ics_426,ics_455,ics_495,ee_406": {
+              "name": "ICS 313 or ICS 361",
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1261,7 +1580,7 @@
             4,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -1282,11 +1601,165 @@
             "ics_600+-2",
             "ics_600+-3",
             "ics_699,ics_700-1",
-            "ics_600+4",
+            "ics_600+-4",
             "ics_600+-5",
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)": {
+              "name": "ICS 312/ICS 331,ICS 313/ICS 361,ICS 351/ICS 451",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_313",
+                "ics_361",
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_621": {
+              "name": "ICS 621",
+              "courseSlugs": [
+                "ics_621"
+              ]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": [
+                "ics_414"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1312,7 +1785,7 @@
             4,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -1328,157 +1801,6 @@
             "ics_621-1",
             "ics_400+-2",
             "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-cs-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science (2021)",
-          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            1,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
-            "ics_400+-1",
-            "ics_621-1",
-            "ics_400+-2",
-            "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-cs-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science (2022)",
-          "description": "Bachelor of Science (BS) in Computer Science/Master of Science (MS) in Computer Science.",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            1,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-1",
-            "ics_332-1",
-            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)-2",
-            "ics_400+-1",
-            "ics_621-1",
-            "ics_400+-2",
-            "ics_414-1",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ds-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Data Science (2018)",
-          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            1,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_235-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_435-1",
-            "ics_434-1",
-            "ics_484-1",
-            "ics_438-1",
-            "ics_400+-1",
-            "ics_400+-2",
             "ics_635-1",
             "ics_600+-1",
             "ics_600+-2",
@@ -1489,6 +1811,160 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451)": {
+              "name": "ICS 312/ICS 331,ICS 313/ICS 361,ICS 351/ICS 451",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_313",
+                "ics_361",
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_332": {
+              "name": "ICS 332",
+              "courseSlugs": [
+                "ics_332"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_621": {
+              "name": "ICS 621",
+              "courseSlugs": [
+                "ics_621"
+              ]
+            },
+            "ics_414": {
+              "name": "ICS 414",
+              "courseSlugs": [
+                "ics_414"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1514,7 +1990,7 @@
             4,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_211-1",
             "ics_212-1",
@@ -1538,6 +2014,143 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 484",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1563,7 +2176,7 @@
             4,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_211-1",
             "ics_212-1",
@@ -1587,155 +2200,143 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ds-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Data Science (2021)",
-          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            1,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_235-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_435-1",
-            "ics_434-1",
-            "ics_484-1",
-            "ics_438-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ds-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Data Science (2022)",
-          "description": "Bachelor of Science (BS) in Computer Science Data Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            1,
-            1,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_211-1",
-            "ics_212-1",
-            "ics_235-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_435-1",
-            "ics_434-1",
-            "ics_484-1",
-            "ics_438-1",
-            "ics_400+-1",
-            "ics_400+-2",
-            "ics_635-1",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ss-2018",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Security Science (2018)",
-          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            1,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_222-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_312,ics_331,ics_332-1",
-            "ics_351,ics_451",
-            "ics_423-1",
-            "ics_425,ics_426,ics_455,ics_495-1",
-            "ics_425,ics_426,ics_455,ics_495-2",
-            "ics_425,ics_426,ics_455,ics_495-3",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_235": {
+              "name": "ICS 235",
+              "courseSlugs": [
+                "ics_235"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_435": {
+              "name": "ICS 435",
+              "courseSlugs": [
+                "ics_435"
+              ]
+            },
+            "ics_434": {
+              "name": "ICS 434",
+              "courseSlugs": [
+                "ics_434"
+              ]
+            },
+            "ics_484": {
+              "name": "ICS 484",
+              "courseSlugs": [
+                "ics_484"
+              ]
+            },
+            "ics_438": {
+              "name": "ICS 438",
+              "courseSlugs": [
+                "ics_438"
+              ]
+            },
+            "ics_400+": {
+              "name": "ICS 400+",
+              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
+                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
+                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
+                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              ]
+            },
+            "ics_635": {
+              "name": "ICS 635",
+              "courseSlugs": [
+                "ics_635"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1761,7 +2362,7 @@
             4,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -1787,6 +2388,153 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_312,ics_331,ics_332": {
+              "name": "ICS 312 or ICS 331 or ICS 332",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_332"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_423": {
+              "name": "ICS 423",
+              "courseSlugs": [
+                "ics_423"
+              ]
+            },
+            "ics_425,ics_426,ics_455,ics_495": {
+              "name": "ICS 425 or ICS 426 or ICS 455 or ICS 495",
+              "courseSlugs": [
+                "ics_425",
+                "ics_426",
+                "ics_455",
+                "ics_495"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         },
         {
@@ -1812,7 +2560,7 @@
             4,
             0
           ],
-          "courseList": [
+          "choiceList": [
             "ics_111-1",
             "ics_141-1",
             "ics_211-1",
@@ -1838,108 +2586,153 @@
             "ics_699,ics_700-2",
             "ics_690-1"
           ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ss-2021",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Security Science (2021)",
-          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2021",
-          "coursesPerAcademicTerm": [
-            1,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_222-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_312,ics_331,ics_332-1",
-            "ics_351,ics_451",
-            "ics_423-1",
-            "ics_425,ics_426,ics_455,ics_495-1",
-            "ics_425,ics_426,ics_455,ics_495-2",
-            "ics_425,ics_426,ics_455,ics_495-3",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ms-ss-2022",
-          "degreeSlug": "bs-cs",
-          "name": "B.S./M.S. in Computer Science Security Science (2022)",
-          "description": "Bachelor of Science (BS) in Computer Science Security Science Track/Master of Science (MS) in Computer Science",
-          "academicTerm": "Fall-2022",
-          "coursesPerAcademicTerm": [
-            1,
-            3,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            2,
-            2,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ics_111-1",
-            "ics_141-1",
-            "ics_211-1",
-            "ics_222-1",
-            "ics_212-1",
-            "ics_241-1",
-            "ics_311-1",
-            "ics_314-1",
-            "ics_321-1",
-            "ics_355-1",
-            "ics_312,ics_331,ics_332-1",
-            "ics_351,ics_451",
-            "ics_423-1",
-            "ics_425,ics_426,ics_455,ics_495-1",
-            "ics_425,ics_426,ics_455,ics_495-2",
-            "ics_425,ics_426,ics_455,ics_495-3",
-            "ics_600+-1",
-            "ics_600+-2",
-            "ics_600+-3",
-            "ics_699,ics_700-1",
-            "ics_600+-4",
-            "ics_600+-5",
-            "ics_699,ics_700-2",
-            "ics_690-1"
-          ],
+          "groups": {
+            "ics_111": {
+              "name": "ICS 111",
+              "courseSlugs": [
+                "ics_111"
+              ]
+            },
+            "ics_141": {
+              "name": "ICS 141",
+              "courseSlugs": [
+                "ics_141"
+              ]
+            },
+            "ics_211": {
+              "name": "ICS 211",
+              "courseSlugs": [
+                "ics_211"
+              ]
+            },
+            "ics_222": {
+              "name": "ICS 222",
+              "courseSlugs": [
+                "ics_222"
+              ]
+            },
+            "ics_212": {
+              "name": "ICS 212",
+              "courseSlugs": [
+                "ics_212"
+              ]
+            },
+            "ics_241": {
+              "name": "ICS 241",
+              "courseSlugs": [
+                "ics_241"
+              ]
+            },
+            "ics_311": {
+              "name": "ICS 311",
+              "courseSlugs": [
+                "ics_311"
+              ]
+            },
+            "ics_314": {
+              "name": "ICS 314",
+              "courseSlugs": [
+                "ics_314"
+              ]
+            },
+            "ics_321": {
+              "name": "ICS 321",
+              "courseSlugs": [
+                "ics_321"
+              ]
+            },
+            "ics_355": {
+              "name": "ICS 355",
+              "courseSlugs": [
+                "ics_355"
+              ]
+            },
+            "ics_312,ics_331,ics_332": {
+              "name": "ICS 312 or ICS 331 or ICS 332",
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_332"
+              ]
+            },
+            "ics_351,ics_451": {
+              "name": "ICS 351 or ICS 451",
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
+            },
+            "ics_423": {
+              "name": "ICS 423",
+              "courseSlugs": [
+                "ics_423"
+              ]
+            },
+            "ics_425,ics_426,ics_455,ics_495": {
+              "name": "ICS 425 or ICS 426 or ICS 455 or ICS 495",
+              "courseSlugs": [
+                "ics_425",
+                "ics_426",
+                "ics_455",
+                "ics_495"
+              ]
+            },
+            "ics_600+": {
+              "name": "ICS 600+",
+              "courseSlugs": [
+                "ics_606",
+                "ics_611",
+                "ics_612",
+                "ics_613",
+                "ics_614",
+                "ics_616",
+                "ics_621",
+                "ics_622",
+                "ics_623",
+                "ics_624",
+                "ics_632",
+                "ics_635",
+                "ics_636",
+                "ics_641",
+                "ics_643",
+                "ics_651",
+                "ics_655",
+                "ics_660",
+                "ics_661",
+                "ics_663",
+                "ics_664",
+                "ics_665",
+                "ics_667",
+                "ics_668",
+                "ics_669",
+                "ics_674",
+                "ics_675",
+                "ics_676",
+                "ics_681",
+                "ics_682",
+                "ics_683",
+                "ics_685",
+                "ics_686",
+                "ics_690",
+                "ics_691",
+                "ics_695",
+                "ics_699"
+              ]
+            },
+            "ics_699,ics_700": {
+              "name": "ICS 699 or ICS 700",
+              "courseSlugs": [
+                "ics_699",
+                "ics_700"
+              ]
+            },
+            "ics_690": {
+              "name": "ICS 690",
+              "courseSlugs": [
+                "ics_690"
+              ]
+            }
+          },
           "retired": false
         }
       ]
@@ -2091,6 +2884,16 @@
           "term": "Summer",
           "year": 2013,
           "retired": false
+        }
+      ]
+    },
+    {
+      "name": "AdminProfileCollection",
+      "contents": [
+        {
+          "username": "radgrad@hawaii.edu",
+          "firstName": "RadGrad",
+          "lastName": "Admin"
         }
       ]
     },
@@ -2396,269 +3199,6 @@
       "name": "CourseCollection",
       "contents": [
         {
-          "name": "Applied Mechanics I",
-          "shortName": "Applied Mechanics I",
-          "slug": "cee_270",
-          "num": "CEE 270",
-          "description": "Forces, resultants, and equilibrium; analysis of trusses, frames, and machines; centroids, moments of inertia; friction.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Programming for Engineers",
-          "shortName": "Programming for Engr.",
-          "slug": "ee_160",
-          "num": "EE 160",
-          "description": "Introductory course on computer programming and modern computing environments in C with an emphasis on algorithm and program design, implementation, and debugging. Includes a hands-on laboratory to develop and practice programming skills.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Object Oriented Programming",
-          "shortName": "OOP",
-          "slug": "ee_205",
-          "num": "EE 205",
-          "description": "Second-level programming for computer engineers. Object-oriented programming paradigm, definition and use of classes, fundamentals of object-oriented design in modern object-oriented languages such as C++. Common data structures, simple searching and sorting techniques.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_160"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Basic Circuit Analysis I",
-          "shortName": "Circuit Analysis I",
-          "slug": "ee_211",
-          "num": "EE 211",
-          "description": "Linear passive circuits, time domain analysis, transient and steady-state responses, phasors, impedance and admittance; power and energy, frequency responses, resonance.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Basic Circuit Analysis II",
-          "shortName": "Circuit Analysis II",
-          "slug": "ee_213",
-          "num": "EE 213",
-          "description": "Laplace transforms and their application to circuits, Fourier transforms and their applications to circuits, frequency selective circuits, introduction to and design of active filters, convolution, and state space analysis of circuits.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [
-            "ee_211"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Introduction to Digital Design",
-          "shortName": "Intro. to Digital Design",
-          "slug": "ee_260",
-          "num": "EE 260",
-          "description": "Introduction to the design of digital systems with an emphasis on design methods and the implementation and use of fundamental digital components.",
-          "creditHrs": 4,
-          "interests": [],
-          "prerequisites": [
-            "ee_160"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Sophomore Project",
-          "shortName": "Sophomore Project",
-          "slug": "ee_296",
-          "num": "EE 296",
-          "description": "Sophomore level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Signal and Systems Analysis",
-          "shortName": "Signal Analysis",
-          "slug": "ee_315",
-          "num": "EE 315",
-          "description": "Discrete-time and continuous time signals and systems, linear systems, convolution, Fourier series, Fourier transform, sampling.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_213"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Microelectronic Circuits I",
-          "shortName": "Microelectronic I",
-          "slug": "ee_323",
-          "num": "EE 323",
-          "description": "Semiconductor structures, operating principles and characteristics of diodes and amplifying devices. Their application as circuit elements in building basic digital, analog, and integrated circuit subsystems.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_213"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Physical Electronics",
-          "shortName": "Physical Electronics",
-          "slug": "ee_324",
-          "num": "EE 324",
-          "description": "Review of quantum mechanics fundamentals, H-atom, and chemical bonding. Introduction to band structure models and materials. Semiconductor doping, charge carrier statistics and charge transport, including ambipolar transport. Metal-semiconductor and PN junctions.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Probability and Statistics",
-          "shortName": "Probability and Statistics",
-          "slug": "ee_342",
-          "num": "EE 342",
-          "description": "Probability, statistics, random variables, distributions, densities, expectations, limit theorems, and applications to electrical engineering.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_315"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Digital Systems and Computer Design",
-          "shortName": "Digital Systems",
-          "slug": "ee_361",
-          "num": "EE 361",
-          "description": "Design methodology, processor design, control design, memory organization, system organization.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_160",
-            "ee_260"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Discrete Math for Engineers",
-          "shortName": "Discrete Math",
-          "slug": "ee_362",
-          "num": "EE 362",
-          "description": "Logic, sets, number theory, properties of functions, properties of relations, methods of proofs, recursion, counting, probability, trees, graphs, analysis of algorithms, finite state autonoma.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_160",
-            "ee_260"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Computer Data Structures and Algorithms",
-          "shortName": "Data Structures",
-          "slug": "ee_367",
-          "num": "EE 367",
-          "description": "Introduction to computer programming algorithms with emphasis on advanced data structures, input-output routines, files, and interpreters.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_205",
-            "ics_141"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Engineering Electromagnetics I",
-          "shortName": "Electromagnetics I",
-          "slug": "ee_371",
-          "num": "EE 371",
-          "description": "Transient and steady-state waves on transmission lines. Plane wave solutions of Maxwell's equations. Application of Maxwell's equations under static and time-varying conditions.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_213"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Junior Project",
-          "shortName": "Junior Project",
-          "slug": "ee_396",
-          "num": "EE 396",
-          "description": "Junior level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills. It may be a continuation of EE 296 or a new project.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_296"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Introduction to Computer and Network Security",
-          "shortName": "Intro. to Network Security",
-          "slug": "ee_406",
-          "num": "EE 406",
-          "description": "Review basic network mechanisms, introduce basic cryptography concepts, and study algorithms and protocols used in computer and network security. Discuss practical security mechanisms.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_367"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Object-oriented Software Engineering",
-          "shortName": "OO Software Engineering",
-          "slug": "ee_467",
-          "num": "EE 467",
-          "description": "Introduction to advanced techniques for designing, implementing, and testing computer software with a particular focus on using object-oriented design, analysis, and programming to produce high-quality computer programs that solve non-trivial problems.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_367"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Introduction to Operating Systems",
-          "shortName": "Operating Systems",
-          "slug": "ee_468",
-          "num": "EE 468",
-          "description": "Computer system organization; multiprocessor systems, memory hierarchies, assemblers, compilers, operating systems, virtual machine, memory management, processor management; information management.",
-          "creditHrs": 3,
-          "interests": [],
-          "prerequisites": [
-            "ee_361",
-            "ee_367"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Ethics in Electrical Engineering",
-          "shortName": "Ethics",
-          "slug": "ee_495",
-          "num": "EE 495",
-          "description": "Equip electrical engineers with the necessary background for ethical reasoning, as it pertains to technology, society, workplace issues, and the environment.",
-          "creditHrs": 1,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
-          "name": "Capstone Design Project",
-          "shortName": "Capstone",
-          "slug": "ee_496",
-          "num": "EE 496",
-          "description": "Significant project integrating the design content of previous courses and incorporating engineering standards and realistic constraints. Written report must document all aspects of the design process: reliability, safety, economics, ethics.",
-          "creditHrs": 1,
-          "interests": [],
-          "prerequisites": [],
-          "retired": true
-        },
-        {
           "name": "Digital Tools for the Information World",
           "shortName": "Digital Tools",
           "slug": "ics_101",
@@ -2666,6 +3206,7 @@
           "description": "Fundamental information technology concepts and computing terminology, productivity software for problem solving, computer technology trends and impact on individuals and society. Emphasizes the utilization of operating systems and the production of professional documents, spreadsheets, etc.",
           "creditHrs": 4,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -2681,6 +3222,7 @@
             "data-visualization",
             "databases"
           ],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -2694,6 +3236,7 @@
           "interests": [
             "python"
           ],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -2708,6 +3251,7 @@
             "java"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS111.html",
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -2722,6 +3266,7 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS141.html",
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -2738,6 +3283,7 @@
             "java"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS211.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_111"
           ],
@@ -2755,6 +3301,7 @@
             "c"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS212.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_211"
           ],
@@ -2774,6 +3321,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS215.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_211"
           ],
@@ -2790,12 +3338,30 @@
             "theory-of-computation"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS222.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_141"
           ],
           "retired": false
         },
         {
+          "name": "Machine Learning Methods",
+          "shortName": "Machine Learning Methods",
+          "slug": "ics_235",
+          "num": "ICS 235",
+          "description": "Introduction to contemporary mathematical methods for empirical inference, data modeling, and machine learning. A-F only.",
+          "creditHrs": 3,
+          "interests": [
+            "machine-learning"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "math_241",
+            "math_203",
+            "math_215"
+          ],
+          "retired": false
+        },{
           "name": "Discrete Mathematics for Computer Science II",
           "shortName": "Discrete Math II",
           "slug": "ics_241",
@@ -2806,6 +3372,7 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS241.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_141"
           ],
@@ -2823,9 +3390,11 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS311.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_241",
-            "ics_211"
+            "ics_211",
+            "math_242"
           ],
           "retired": false
         },
@@ -2842,6 +3411,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS312.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_212",
             "ics_314"
@@ -2860,6 +3430,7 @@
             "prolog"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS313.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_212",
             "ics_311",
@@ -2881,6 +3452,7 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS314.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_211",
             "ics_241"
@@ -2900,6 +3472,7 @@
             "sql"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS321.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -2919,6 +3492,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS331.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_212",
             "ics_311",
@@ -2939,6 +3513,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS332.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -2959,6 +3534,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS351.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -2976,6 +3552,7 @@
             "security"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS355.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_222",
             "ics_311",
@@ -2996,6 +3573,7 @@
             "prolog"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS361.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_212",
             "ics_311",
@@ -3015,6 +3593,7 @@
             "computer-ethics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS390.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_101"
           ],
@@ -3033,6 +3612,7 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS414.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3051,6 +3631,7 @@
             "software-engineering"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS415.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3069,6 +3650,7 @@
             "hci"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS419.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3086,6 +3668,7 @@
             "databases"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS421.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_321"
           ],
@@ -3102,6 +3685,7 @@
             "databases"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS422.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_321"
           ],
@@ -3119,6 +3703,7 @@
             "security"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS423.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_355"
           ],
@@ -3135,6 +3720,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS424.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3154,6 +3740,7 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS425.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_355"
           ],
@@ -3171,6 +3758,7 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS426.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_355"
           ],
@@ -3188,6 +3776,7 @@
             "hardware"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS431.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_331"
           ],
@@ -3208,6 +3797,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS432.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314",
@@ -3225,6 +3815,7 @@
           "interests": [
             "data-science"
           ],
+          "corequisites": [],
           "prerequisites": [
             "ics_211"
           ],
@@ -3242,9 +3833,28 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS435.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Big Data Analytics",
+          "shortName": "Big Data Analytics",
+          "slug": "ics_438",
+          "num": "ICS 438",
+          "description": "Concepts, tools, and techniques for analyzing and mining massive data sets. Data cleaning and pre-processing. Data analysis and mining techniques. Big Data platforms. Big Data visualization.",
+          "creditHrs": 3,
+          "interests": [
+            "data-science",
+            "data-mining",
+            "data-visualization"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_321"
           ],
           "retired": false
         },
@@ -3260,6 +3870,7 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS441.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3277,6 +3888,7 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS442.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3298,6 +3910,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS443.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3316,6 +3929,7 @@
             "c"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS451.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314",
@@ -3337,6 +3951,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS452.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_312",
             "ics_313"
@@ -3355,6 +3970,7 @@
             "cryptography"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS455.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_355"
           ],
@@ -3374,6 +3990,7 @@
             "robotics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS461.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3395,6 +4012,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS462.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314",
@@ -3414,6 +4032,7 @@
             "hci"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS464.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3432,6 +4051,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS465.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3451,6 +4071,7 @@
             "android"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS466.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3471,6 +4092,7 @@
             "hci"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS469.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3490,6 +4112,7 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS471.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3510,6 +4133,7 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS475.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3530,6 +4154,7 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS476.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_475"
           ],
@@ -3546,6 +4171,7 @@
             "computer-graphics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS481.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3564,6 +4190,7 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS483.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314",
@@ -3584,6 +4211,7 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS484.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3604,6 +4232,7 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS485.html",
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3618,6 +4247,7 @@
           "description": "Reflects special interests of faculty. Oriented toward juniors and seniors. Repeatable one time for BS/CS students.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3634,6 +4264,7 @@
           "interests": [
             "security"
           ],
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3648,6 +4279,7 @@
           "description": "Individual or small-group projects in system design or application under faculty supervision.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
@@ -3662,6 +4294,7 @@
           "description": "Enrollment for degree completion.",
           "creditHrs": 1,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3673,6 +4306,7 @@
           "description": "Theory, methods and practical applications of autonomous agent systems, including common applications of both software and hardware (robotic) agents. In-depth practical experience with autonomous agents through programming assignments and projects.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_313"
           ],
@@ -3686,6 +4320,7 @@
           "description": "Design and implementation of compilers, syntactic and semantic descriptions of programming languages, algorithms for syntactic analysis and object code generation",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_312"
           ],
@@ -3699,6 +4334,7 @@
           "description": "Advanced study in operating systems theory and design with emphasis on case studies and distributed systems.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3710,6 +4346,7 @@
           "description": "Fundamental software engineering procedures, including planning, estimation, design, testing, process definition and improvement, and software quality assurance. Measurement techniques are used to support empirically-driven software process improvement throughout the course.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_414"
           ],
@@ -3723,6 +4360,7 @@
           "description": "Introduction to the field of medical informatics, which is found at the intersection of clinical science, public health, information science, computer technology and communications technology. Concentration on current issues.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3734,6 +4372,7 @@
           "description": "User-centered design of websites; survey Information Architecture (IA) systems (organization, navigation, labeling, searching); gain experience in methodologies for creating IA, tools for IA, web standards and usability tests. ICS and LIS majors only. A-F only.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3745,6 +4384,7 @@
           "description": "Analysis and design of algorithms: modeling, comparison, measures, applications.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_311"
           ],
@@ -3758,6 +4398,7 @@
           "description": "Modeling human-made and natural systems as networks to understand their structure and dynamics. Computational and statistical methods and research results they enabled. Use of network analysis software. Applications to topics of interest to students.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3769,6 +4410,7 @@
           "description": "Taxonomy of security properties: methods for defining and proving security. Randomness, pseudorandomness, and indistinguishability. Functional encryption and obfuscation. Zero knowledge.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_423",
             "ics_455"
@@ -3783,6 +4425,7 @@
           "description": "Exploration of information retrieval and object-relational tools and methods for the management of distributed multimedia database systems.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_321,ics_421"
           ],
@@ -3796,6 +4439,7 @@
           "description": "Principles of high performance computing for single-processor and parallel architectures. Detailed coverage of parallel architectures and exposure to shared-memory, distributed-memory, and hybrid parallelism. Hands-on experience with message-passing and multi-threaded programming. A-F only.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3807,6 +4451,7 @@
           "description": "Introduction to key theoretical concepts of machine learning. Practical experience with decision free methods, artificial neural networks. Bayesian belief networks and contemporary statistical methods including regression, clustering and classification.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3818,6 +4463,7 @@
           "description": "Basics of information processing and learning in the brain; neural networks; learning algorithms based on information maximization; applications in molecular biology and bioinformatics. A-F only.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3829,6 +4475,7 @@
           "description": "Advanced topics in formal languages, automata, computability, computational complexity.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_441"
           ],
@@ -3841,6 +4488,7 @@
           "num": "ICS 643",
           "description": "Design and analysis of parallel algorithms, with emphasis on advanced techniques and latest advances in parallel algorithms.",
           "creditHrs": 3,
+          "corequisites": [],
           "interests": [],
           "prerequisites": [
             "ics_311"
@@ -3855,6 +4503,7 @@
           "description": "Elementary principles of modern computer networking. Detailed coverage of overall architecture and the physical, data link, and network layers, with emphasis on the network layer.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_451"
           ],
@@ -3868,6 +4517,7 @@
           "description": "Tools and methods for security managers. Tools and methods to secure and monetize services and applications. Network as a computer and as a market. Problems of cyber war, cyber crime, cyber bullying.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3879,6 +4529,7 @@
           "description": "Models of computation, high-performance processors, pipelined machines, RISC processors, VLIW, superscalar and fine-grain parallel machines. Data-flow architectures. Hardware/software tradeoffs.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3890,6 +4541,7 @@
           "description": "Current issues in artificial intelligence, including expert systems, knowledge representation, logic programming, learning, natural language processing.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_461"
           ],
@@ -3903,6 +4555,7 @@
           "description": "Nature of the problem in pattern recognition and clustering; explanation of various algorithms.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3914,6 +4567,7 @@
           "description": "Studies of human performance in designing and using information systems. Emphasizes concepts and methodologies from human factors, psychology, and software engineering relating to human performance.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_464"
           ],
@@ -3927,6 +4581,7 @@
           "description": "Advanced concepts in construction of interfaces between computers and their users. Hypermedia information structures, guidelines, problems, and tradeoffs. Discussion of selected readings, implementation of prototypes.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_465"
           ],
@@ -3940,6 +4595,7 @@
           "description": "Advanced analytical and empirical methods for the design and evaluation of usable, useful, and robust human-computer interfaces. Students will apply selected methodologies to a major system design project.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_464,ics_465"
           ],
@@ -3953,6 +4609,7 @@
           "description": "An advanced introduction to the design of human-computer systems and other technological artifacts for supporting human collaboration in learning, work and social contexts, and to theoretical perspectives and empirical studies of collaboration that inform such design. A-F only.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_464,ics_465,ics_664,ics_665"
           ],
@@ -3966,6 +4623,7 @@
           "description": "Participative analysis of online communities and user-generated content collections. Theoretical and practical aspects of online interaction, identity, trust, and virtual social capital. A-F only.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -3977,6 +4635,7 @@
           "description": "Evolutionary computation surveys in the field to prepare students for research. Topics include diverse engineering applications, theory, and concepts including search spaces, representation, objective functions, variation operators, selection, and population based search.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_211",
             "ics_241"
@@ -3991,6 +4650,7 @@
           "description": "To expose students to bioinformatics at the biological sequences analysis level (DNA, RNA, proteins). Several bioinformatics methods and algorithms are introduced. Students are required to present one paper and to participate in a small group project. A-F only.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_475"
           ],
@@ -4004,6 +4664,7 @@
           "description": "Introduction to the basic principles of biology relevant for microarray gene expression data and to Bioconductor. Collaborative open-source project to develop a modular general framework for the analysis of cDNA arrays and gene chips. A-F only. (Once a year)",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_311"
           ],
@@ -4017,6 +4678,7 @@
           "description": "Selected advanced topics in computer graphics. Substantial project required.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_481"
           ],
@@ -4030,6 +4692,7 @@
           "description": "Selected topics in numerical analysis, mathematical software, and scientific computation; examples include sparse matrix methods, finite element methods, mathematical programming.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4041,6 +4704,7 @@
           "description": "Fundamental problems and core concepts and techniques in computer vision, covering both theoretical and practical issues in the field. A-F only. (Once a year)",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_483"
           ],
@@ -4054,6 +4718,7 @@
           "description": "Students will learn the science, engineering, art, and applications of virtual reality and augmented reality, with an emphasis on the construction of working virtual environments. Graduate students only. (Fall only)",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4065,6 +4730,7 @@
           "description": "Principles and techniques of technical and context analysis of digital video information. Video capture and editing tools, compression and analysis algorithms, visual culture, narrative structure, juxtaposition of multimedia elements and their effects on information transmission. Pre: graduate standing or consent. (Alt. years)",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4076,6 +4742,7 @@
           "description": "Series of talks on advanced research topics. Repeatable unlimited times.CR/NC only.",
           "creditHrs": 1,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4087,6 +4754,7 @@
           "description": "Reflects special interests of faculty in various areas of computer science. (B) area 1; (C) area 2; (D) area 3; (E) area 4; (G) general. Repeatable unlimited times in different topics and different areas. Pre: consent.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4098,6 +4766,7 @@
           "description": "Current topics and upcoming issues relevant to the field of information assurance and cyber security. Repeatable unlimited times. (Alt. years: spring)",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4109,6 +4778,7 @@
           "description": "Repeatable unlimited times. Pre: graduate standing and consent.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4120,6 +4790,7 @@
           "description": "Research for master’s thesis. Repeatable unlimited times.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
@@ -4131,19 +4802,105 @@
           "description": "Research for doctoral dissertation. Repeatable eight times. Pre: candidacy for PhD in computer science.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         },
         {
-          "name": "Thermodynamics",
-          "shortName": "Thermodynamics",
-          "slug": "me_311",
-          "num": "ME 311",
-          "description": "Basic laws, closed and open systems. Work, heat, concept of entropy. Properties of pure simple substances. Ideal gases. Introduction to power and refrigeration cycles.",
+          "name": "Calculus for Business and Social Sciences",
+          "shortName": "Calculus for Business and Social Sciences",
+          "slug": "math_203",
+          "num": "MATH 203",
+          "description": "Basic concepts; differentiation and integration applications to management, finance, economics, and the social sciences. Credit allowed for at most one of 203, 215, 241, 251A.",
           "creditHrs": 4,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
-          "retired": true
+          "retired": false
+        },
+        {
+          "name": "Applied Calculus I",
+          "shortName": "Applied Calculus I",
+          "slug": "math_215",
+          "num": "MATH 215",
+          "description": "Basic concepts; differentiation, differential equations and integration with applications directed primarily to the life sciences.",
+          "creditHrs": 4,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Calculus I",
+          "shortName": "Calculus I",
+          "slug": "math_241",
+          "num": "MATH 241",
+          "description": "Basic concepts; differentiation with applications; integration.",
+          "creditHrs": 4,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Calculus II",
+          "shortName": "Calculus II",
+          "slug": "math_242",
+          "num": "MATH 242",
+          "description": "Integration techniques and applications, series and approximations, differential equations.",
+          "creditHrs": 4,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": ["math_215,math_241"],
+          "retired": false
+        },
+        {
+          "name": "Introduction to Discrete Mathematics",
+          "shortName": "Intro. to Discrete Math",
+          "slug": "math_301",
+          "num": "MATH 301",
+          "description": "Symbolic logic, sets and relations, algorithms, trees and other graphs. Additional topics chosen from algebraic systems, networks, automata.",
+          "creditHrs": 3,
+          "interests": ["algorithms"],
+          "corequisites": [],
+          "prerequisites": ["math_215,math_241"],
+          "retired": false
+        },
+        {
+          "name": "Linear Algebra and Differential Equations",
+          "shortName": "Linear Algebra and Differential Equations",
+          "slug": "math_307",
+          "num": "MATH 307",
+          "description": "Introduction to linear algebra, application of eigenvalue techniques to the solution of differential equations.",
+          "creditHrs": 3,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": ["math_242"],
+          "retired": false
+        },
+        {
+          "name": "Elementary Probability and Statistics",
+          "shortName": "Elementary Probability and Statistics",
+          "slug": "math_372",
+          "num": "MATH 372",
+          "description": "Problem-oriented introduction to the basic concepts of probability and statistics, providing a foundation for applications and further study.",
+          "creditHrs": 3,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": ["math_242"],
+          "retired": false
+        },
+        {
+          "name": "Introduction to Computer and Network Security",
+          "shortName": "Introduction to Computer and Network Security",
+          "slug": "ee_406",
+          "num" : "EE 406",
+          "description": "We will discuss basic computer and network security issues in this course. We will first review basic networking and cryptography concepts, and then study algorithms and protocols used in computer and network security. We will further discuss practical security mechanisms, including Web security, TCP/IP security, firewalls, IPSec, Virtual Private Networks, intrusion detection systems, etc..",
+          "creditHrs": 3,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": [],
+          "retired": false
         },
         {
           "name": "Non Computer Science Course",
@@ -4153,6 +4910,7 @@
           "description": "The course used to represent all non-CS courses.",
           "creditHrs": 3,
           "interests": [],
+          "corequisites": [],
           "prerequisites": [],
           "retired": false
         }
@@ -5450,13 +6208,6 @@
           "retired": false
         },
         {
-          "name": "B.S. in Computer Engineering",
-          "shortName": "B.S. CE",
-          "slug": "bs-ce",
-          "description": "The Department of Information and Computer Sciences and the Department of Electrical Engineering offer a joint Bachelor of Science degree in Computer Engineering (BSCE).  The BSCE degree program provides you with the opportunity to learn about computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, embedded systems, computer-aided design, multi-core and parallel computing, wireless networks, and other topics.",
-          "retired": false
-        },
-        {
           "name": "B.S. in Computer Science",
           "shortName": "B.S. CS",
           "slug": "bs-cs",
@@ -5828,11 +6579,6 @@
         },
         {
           "academicPlan": "bs-cs-2020",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicPlan": "ba-ics-2018",
           "student": "abi@hawaii.edu",
           "retired": false
         }
@@ -11689,6 +12435,10 @@
           "retired": false
         },
         {
+          "choice": "ics_102",
+          "retired": false
+        },
+        {
           "choice": "ics_110",
           "retired": false
         },
@@ -11809,6 +12559,10 @@
           "retired": false
         },
         {
+          "choice": "ics_434",
+          "retired": false
+        },
+        {
           "choice": "ics_435",
           "retired": false
         },
@@ -11906,114 +12660,6 @@
         },
         {
           "choice": "ics_400+",
-          "retired": false
-        },
-        {
-          "choice": "ee_160",
-          "retired": false
-        },
-        {
-          "choice": "ee_205",
-          "retired": false
-        },
-        {
-          "choice": "ee_211",
-          "retired": false
-        },
-        {
-          "choice": "ee_213",
-          "retired": false
-        },
-        {
-          "choice": "ee_260",
-          "retired": false
-        },
-        {
-          "choice": "ee_296",
-          "retired": false
-        },
-        {
-          "choice": "ee_315",
-          "retired": false
-        },
-        {
-          "choice": "ee_323",
-          "retired": false
-        },
-        {
-          "choice": "ee_324",
-          "retired": false
-        },
-        {
-          "choice": "ee_342",
-          "retired": false
-        },
-        {
-          "choice": "ee_361",
-          "retired": false
-        },
-        {
-          "choice": "ee_362",
-          "retired": false
-        },
-        {
-          "choice": "ee_367",
-          "retired": false
-        },
-        {
-          "choice": "ee_371",
-          "retired": false
-        },
-        {
-          "choice": "ee_396",
-          "retired": false
-        },
-        {
-          "choice": "ee_406",
-          "retired": false
-        },
-        {
-          "choice": "ee_467",
-          "retired": false
-        },
-        {
-          "choice": "ee_468",
-          "retired": false
-        },
-        {
-          "choice": "ee_495",
-          "retired": false
-        },
-        {
-          "choice": "ee_496",
-          "retired": false
-        },
-        {
-          "choice": "ee_300+",
-          "retired": false
-        },
-        {
-          "choice": "cee_270",
-          "retired": false
-        },
-        {
-          "choice": "me_311",
-          "retired": false
-        },
-        {
-          "choice": "cee_300+",
-          "retired": false
-        },
-        {
-          "choice": "me_300+",
-          "retired": false
-        },
-        {
-          "choice": "oe_300+",
-          "retired": false
-        },
-        {
-          "choice": "be_300+",
           "retired": false
         },
         {
@@ -12177,20 +12823,28 @@
           "retired": false
         },
         {
-          "choice": "ics_102",
+          "choice": "math_215",
           "retired": false
         },
         {
-          "choice": "ics_434",
+          "choice": "math_241",
           "retired": false
-        }
-      ]
-    },
-    {
-      "name": "RadGradSettingsCollection",
-      "contents": [
+        },
         {
-          "quarterSystem": false
+          "choice": "math_242",
+          "retired": false
+        },
+        {
+          "choice": "math_301",
+          "retired": false
+        },
+        {
+          "choice": "math_307",
+          "retired": false
+        },
+        {
+          "choice": "math_372",
+          "retired": false
         }
       ]
     },
@@ -12306,8 +12960,7 @@
           "level": 1,
           "favoriteAcademicPlans": [
             "bs-cs-2019",
-            "bs-cs-2020",
-            "ba-ics-2018"
+            "bs-cs-2020"
           ],
           "favoriteCourses": [],
           "favoriteOpportunities": [],

@@ -147,7 +147,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
             ))}
             <Grid.Row centered>
               <Button color="green" basic style={marginStyle} onClick={handleUpdateLevelButton}>
-Update Student
+                Update Student
                 Levels
               </Button>
             </Grid.Row>

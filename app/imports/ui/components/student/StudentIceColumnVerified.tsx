@@ -112,22 +112,22 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
     <React.Fragment>
       {matchingPoints(earnedICEPoints, 0) ? (
         <p>
-You have no verified
+          You have no verified
           {type}
           {' '}
-points.
+          points.
         </p>
       )
         : (
           <React.Fragment>
             <p>
-You have
+              You have
               {earnedICEPoints}
               {' '}
-verified
+              verified
               {type}
               {' '}
-points for the following:
+              points for the following:
             </p>
             <List relaxed="very">
               {years(props).map((year) => (
@@ -150,7 +150,7 @@ points for the following:
                                 to={route}
                               >
                                 <b>
-+
+                                  +
                                   {points}
                                 </b>
                                 {' '}
@@ -169,7 +169,7 @@ points for the following:
                                 to={route}
                               >
                                 <b>
-+
+                                  +
                                   {points}
                                 </b>
                                 {' '}

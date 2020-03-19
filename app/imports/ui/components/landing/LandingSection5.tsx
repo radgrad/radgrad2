@@ -13,19 +13,19 @@ const LandingSection5 = () => (
         <Grid.Column>
           <Header as="h1" style={styles['inverted-header']}>Measure your progress with ICE</Header>
           <p style={styles['inverted-description']}>
-A decent GPA is only one piece of the puzzle for a well-rounded
+            A decent GPA is only one piece of the puzzle for a well-rounded
             computer science degree experience. RadGrad
             provides a self-assessment tool called &quot;ICE&quot;, which stands for
             <span className="ice-innovation-proj-color"><b>Innovation</b></span>
-,
+            ,
             <span className="ice-competency-proj-color"><b>Competency</b></span>
-, and
+            , and
             <span className="ice-experience-proj-color"><b>Experience</b></span>
-.
+            .
           </p>
 
           <p style={styles['inverted-description']}>
-To be competitive in the high tech job market, you want to
+            To be competitive in the high tech job market, you want to
             demonstrate
             competency (through good grades in CS course
             work), innovation (through participation in research, hackathons, and the like), and real-world

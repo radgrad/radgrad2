@@ -5,7 +5,9 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
+import Swal from 'sweetalert2';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -23,7 +25,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -72,6 +74,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     if (AdvisorProfiles.isDefined(id)) {
       collection = AdvisorProfiles;
     }
+    if (AdminProfiles.isDefined(id)) {
+      collection = AdminProfiles;
+    }
     const profile: IBaseProfile = collection.findDoc(id);
     this.state = {
       pictureURL: profile.picture,
@@ -80,11 +85,22 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
 
   private handleUpload = async (e): Promise<void> => {
     e.preventDefault();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
-      this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-      this.setState({ pictureURL: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
+        this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        this.setState({ pictureURL: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -115,6 +131,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
     if (AdvisorProfiles.isDefined(id)) {
       collection = AdvisorProfiles;
     }
+    if (AdminProfiles.isDefined(id)) {
+      collection = AdminProfiles;
+    }
     const model = collection.findDoc(id);
     const userID = model.userID;
     const favInterests = FavoriteInterests.findNonRetired({ userID });
@@ -141,10 +160,9 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         type: String,
         label:
   <React.Fragment>
-Picture (
-    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-    <a onClick={this.handleUpload}>Upload</a>
-)
+    Picture (
+    <button type="button" onClick={this.handleUpload}>Upload</button>
+    )
   </React.Fragment>,
         optional: true,
       },
@@ -205,9 +223,9 @@ Picture (
     return (
       <Segment padded>
         <Header dividing>
-Update
+          Update
           {collection.getType()}
-:
+          :
           {this.props.itemTitleString(model)}
         </Header>
         <AutoForm

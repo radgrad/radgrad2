@@ -24,7 +24,7 @@ const LandingSection8 = (props: ILandingSection8Props) => (
             {' '}
             <strong style={styles['green-text']}>{props.courseReviews}</strong>
             {' '}
-course reviews so far.
+            course reviews so far.
           </p>
           <p style={styles['header-description']}>
             After you graduate, you can become a mentor, and answer student questions about life after graduation
@@ -32,11 +32,11 @@ course reviews so far.
             {' '}
             <strong style={styles['green-text']}>{props.mentors}</strong>
             {' '}
-mentors from locations
+            mentors from locations
             including:
             {' '}
             <strong style={styles['green-text']}>{props.locations}</strong>
-.
+            .
           </p>
         </Grid.Column>
       </Grid>

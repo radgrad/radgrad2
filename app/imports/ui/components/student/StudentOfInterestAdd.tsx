@@ -7,6 +7,7 @@ import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { getUsername } from '../shared/RouterHelperFunctions';
+import { ICourseInstanceDefine, IOpportunityInstanceDefine } from '../../../typings/radgrad';
 
 interface IStudentOfInterestAddProps {
   item: any;
@@ -66,11 +67,11 @@ const handleAddToPlan = (props: IStudentOfInterestAddProps) => (e) => {
   const username = getUsername(props.match);
 
   if (isTypeCourse(props)) {
-    const definitionData = {
+    const definitionData: ICourseInstanceDefine = {
       academicTerm: termSlug,
       course: itemSlug,
       verified: false,
-      note: item.number,
+      note: item.num,
       grade: 'B',
       student: username,
     };
@@ -80,7 +81,7 @@ const handleAddToPlan = (props: IStudentOfInterestAddProps) => (e) => {
       }
     });
   } else {
-    const definitionData = {
+    const definitionData: IOpportunityInstanceDefine = {
       academicTerm: termSlug,
       opportunity: itemSlug.name,
       verified: false,
@@ -105,7 +106,7 @@ const StudentOfInterestAdd = (props: IStudentOfInterestAddProps) => (
             <Button>
               <Icon name="plus" />
               <br />
-Add to Plan
+              Add to Plan
             </Button>
           )}
           on="click"
@@ -146,37 +147,37 @@ Add to Plan
             </Menu>
           </Popup.Content>
         </Popup>
-      )
+        )
         : (
           <Popup
             trigger={(
               <Button>
                 <Icon name="plus" />
                 <br />
-Add to Plan
+                Add to Plan
               </Button>
-          )}
+            )}
             on="click"
           >
             <Popup.Content position="right center">
               <Menu size="mini" secondary vertical>
                 {
-                itemTerms(props).map((term) => (
-                  <Menu.Item
-                    key={term}
-                    as="a"
-                    className={`${props.item}`}
-                    onClick={handleAddToPlan(props)}
-                  >
-                    {term}
-                  </Menu.Item>
-                ))
-              }
+                  itemTerms(props).map((term) => (
+                    <Menu.Item
+                      key={term}
+                      as="a"
+                      className={`${props.item}`}
+                      onClick={handleAddToPlan(props)}
+                    >
+                      {term}
+                    </Menu.Item>
+                  ))
+                }
               </Menu>
             </Popup.Content>
           </Popup>
-      )
-}
+        )
+    }
   </React.Fragment>
 );
 

@@ -6,6 +6,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { getDraggablePillStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
 import IceHeader from '../shared/IceHeader';
+import RemoveItWidget from '../shared/RemoveItWidget';
 
 interface IOpportunityInstancePillProps {
   instance: IOpportunityInstance;
@@ -35,10 +36,24 @@ const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) 
                 prov.draggableProps.style,
               )}
             >
-              <Grid.Row onClick={handleClick(props)}>
-                <NamePill name={opp.name} />
-              </Grid.Row>
-
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={11} onClick={handleClick(props)}>
+                    <NamePill name={opp.name} />
+                  </Grid.Column>
+                  <Grid.Column width={1}>
+                    {props.instance.verified ? '' :
+                      (
+                        <RemoveItWidget
+                          collectionName="OpportunityInstanceCollection"
+                          id={props.instance._id}
+                          name={opp.name}
+                          courseNumber=""
+                        />
+                      )}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
             </div>
           )}
         </Draggable>
@@ -46,8 +61,9 @@ const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) 
     )}
     >
       <Popup.Content>
-        {props.instance.verified ? <Icon color="green" size="large" name="check circle outline" /> :
-        <Icon color="red" size="large" name="question circle outline" />}
+        {props.instance.verified ?
+          <Icon color="green" size="large" name="check circle outline" /> :
+          <Icon color="red" size="large" name="question circle outline" />}
         <IceHeader ice={opp.ice} />
       </Popup.Content>
     </Popup>

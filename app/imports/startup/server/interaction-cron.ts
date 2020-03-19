@@ -5,6 +5,7 @@ import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
 import { IIceSnapshotDefine } from '../../typings/radgrad';
+import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 
 function createSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -43,17 +44,28 @@ SyncedCron.add({
           console.log('Updating snapshot for user: ', username);
           IceSnapshots.getCollection().update({ username }, { $set: { level, updated: moment().toDate() } });
           if (level > iceSnap.level) {
-            UserInteractions.define({ username, type: 'level', typeData: [level] });
+            UserInteractions.define({ username, type: UserInteractionsTypes.LEVEL, typeData: [level] });
           }
         }
-        const ice = StudentProfiles.getProjectedICE(doc.username);
+        const ice: { i: number, c: number, e: number } = StudentProfiles.getProjectedICE(doc.username);
         if ((iceSnap.i !== ice.i) || (iceSnap.c !== ice.c) || (iceSnap.e !== ice.e)) {
           console.log('Updating snapshot for user: ', username);
-          IceSnapshots.getCollection().update({ username }, { $set: { i: ice.i, c: ice.c, e: ice.e, updated: moment().toDate() } });
+          IceSnapshots.getCollection().update({ username }, {
+            $set: {
+              i: ice.i,
+              c: ice.c,
+              e: ice.e,
+              updated: moment().toDate(),
+            },
+          });
           if ((iceSnap.i < 100) || (iceSnap.co < 100) || (iceSnap.e < 100)) {
             if ((ice.i > 100) && (ice.c > 100) && (ice.e > 100)) {
               // @ts-ignore
-              UserInteractions.define({ username, type: 'completePlan', typeData: [ice.i, ice.c, ice.e] });
+              UserInteractions.define({
+                username,
+                type: UserInteractionsTypes.COMPLETEPLAN,
+                typeData: [ice.i.toString(), ice.c.toString(), ice.e.toString()],
+              });
             }
           }
         }

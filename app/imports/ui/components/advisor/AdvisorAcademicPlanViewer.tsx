@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicPlan } from '../../../typings/radgrad';
 import LandingAcademicPlanYearView from '../landing/LandingAcademicPlanYearView';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 
 interface IAcademicPlanViewerProps {
   plan: IAcademicPlan;
@@ -10,7 +10,7 @@ interface IAcademicPlanViewerProps {
 
 const AdvisorAcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
   // console.log('plan viewer', props.plan);
-  const quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+  const quarterSystem = RadGradProperties.getQuarterSystem();
   const termsPerYear = quarterSystem ? 4 : 3;
   const numYears = props.plan.coursesPerAcademicTerm.length / termsPerYear;
   let yearNumber = 0;

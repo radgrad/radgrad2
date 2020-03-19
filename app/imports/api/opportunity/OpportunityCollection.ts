@@ -217,16 +217,6 @@ class OpportunityCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the slug for the given opportunity ID.
-   * @param opportunityID the opportunity ID.
-   */
-  public getSlug(opportunityID: string) {
-    this.assertDefined(opportunityID);
-    const courseDoc = this.findDoc(opportunityID);
-    return Slugs.findDoc(courseDoc.slugID).name;
-  }
-
-  /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
    * Checks slugID, opportunityTypeID, sponsorID, interestIDs, termIDs

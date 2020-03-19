@@ -33,7 +33,7 @@ if (Meteor.isServer) {
           const interests = [makeSampleInterest(), makeSampleInterest()];
           const docID = CareerGoals.define({ name: fcName, slug: fcSlug, description: fcDescription, interests });
           expect(CareerGoals.isDefined(docID)).to.be.true;
-          expect(CareerGoals.getSlug(docID)).to.equal(fcSlug);
+          expect(CareerGoals.findSlugByID(docID)).to.equal(fcSlug);
           CareerGoals.removeIt(docID);
           expect(CareerGoals.isDefined(docID)).to.be.false;
         }),
@@ -91,11 +91,6 @@ if (Meteor.isServer) {
     it('Can checkIntegrity no errors', function test6() {
       const errors = CareerGoals.checkIntegrity();
       expect(errors.length).to.equal(0);
-    });
-
-    it('Can get Slug', function test6() {
-      const docID = CareerGoals.getID(slug);
-      expect(CareerGoals.getSlug(docID)).to.equal(slug);
     });
 
     it('Can get Interest', function test7() {

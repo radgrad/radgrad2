@@ -1,12 +1,24 @@
 import React from 'react';
 import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { withRouter } from 'react-router';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { getUsername } from '../shared/RouterHelperFunctions';
+import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentAboutMeUpdateWebsiteFormProps {
   website: string;
   docID: string;
   collectionName: string;
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 interface IStudentAboutMeUpdateWebsiteFormState {
@@ -42,6 +54,17 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
           allowEscapeKey: false,
           allowEnterKey: false,
         });
+        const username = getUsername(this.props.match);
+        const interactionData: UserInteractionsDataType = {
+          username,
+          type: UserInteractionsTypes.WEBSITE,
+          typeData: this.state.website,
+        };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.log('Error creating UserInteraction.', userInteractionError);
+          }
+        });
       }
     });
   }
@@ -67,4 +90,4 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
   }
 }
 
-export default StudentAboutMeUpdateWebsiteForm;
+export default withRouter(StudentAboutMeUpdateWebsiteForm);

@@ -29,7 +29,7 @@ const FavoriteCoursesWidget = (props: IFavoriteCoursesWidgetProps) => {
     <Message.Header>No favorite courses</Message.Header>
     <p>You can favorite courses in the explorer.</p>
     <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
-View
+      View
       in
       Explorer
       <Icon name="arrow right" />

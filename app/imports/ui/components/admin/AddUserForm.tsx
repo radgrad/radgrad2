@@ -5,6 +5,7 @@ import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, S
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { IAcademicPlan, IAcademicTerm, ICareerGoal, IInterest } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -12,7 +13,7 @@ import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { academicTermToName, docToName } from '../shared/data-model-helper-functions';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 
@@ -53,11 +54,22 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
 
   private handleUpload = async (e): Promise<void> => {
     e.preventDefault();
-    const cloudinaryResult = await openCloudinaryWidget();
-    if (cloudinaryResult.event === 'success') {
-      this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
-      this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-      this.setState({ pictureURL: cloudinaryResult.info.url });
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
+        this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        this.setState({ pictureURL: cloudinaryResult.info.url });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   }
 
@@ -91,10 +103,9 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
         type: String,
         label:
   <React.Fragment>
-Picture (
-    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-    <a onClick={this.handleUpload}>Upload</a>
-)
+    Picture (
+    <button type="button" onClick={this.handleUpload}>Upload</button>
+    )
   </React.Fragment>,
         optional: true,
       },

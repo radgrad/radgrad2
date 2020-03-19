@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { Users } from '../../../api/user/UserCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -19,7 +20,6 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 // import Router from './RouterHelperFunctions';
 
 interface IHasName {
@@ -196,9 +196,8 @@ export const profileGetFavoriteAcademicPlans = (profile) => {
 };
 
 export const profileFavoriteBamAcademicPlan = (profile) => {
-  const setttingsDoc = RadGradSettings.findOne({});
   let numTermsPerYear = 3;
-  if (setttingsDoc.quarterSystem) {
+  if (RadGradProperties.getQuarterSystem()) {
     numTermsPerYear = 4;
   }
   const favPlans = profileGetFavoriteAcademicPlans(profile);

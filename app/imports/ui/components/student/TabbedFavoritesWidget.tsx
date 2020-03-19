@@ -72,7 +72,7 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key="FavoriteOpportunities">
           <Icon name="heart" fitted color="red" />
           {' '}
-OPPS
+          OPPS
         </Menu.Item>
       ),
       pane: (
@@ -84,7 +84,7 @@ OPPS
         <Menu.Item key="FavoritePlans">
           <Icon name="heart" fitted color="red" />
           {' '}
-PLAN
+          PLAN
         </Menu.Item>
       ),
       pane: (
@@ -96,7 +96,7 @@ PLAN
         <Menu.Item key="FavoriteCourses">
           <Icon name="heart" fitted color="red" />
           {' '}
-COUR
+          COUR
         </Menu.Item>
       ),
       pane: (

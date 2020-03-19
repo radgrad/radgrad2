@@ -12,7 +12,7 @@ import {
   docToName,
   interestIdToName,
 } from '../shared/data-model-helper-functions';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { Courses } from '../../../api/course/CourseCollection';
 
 interface IUpdateCourseFormProps {
@@ -58,9 +58,9 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
   return (
     <Segment padded>
       <Header dividing>
-Update
+        Update
         {props.collection.getType()}
-:
+        :
         {props.itemTitleString(model)}
       </Header>
       <AutoForm

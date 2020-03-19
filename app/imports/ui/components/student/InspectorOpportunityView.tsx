@@ -211,7 +211,7 @@ const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
           {_.map(requestHistory, (processed, index) => (
             <p key={index}>
               <span>
-Processed:
+                Processed:
                 {moment(processed.date).calendar()}
                 {' '}
                 by

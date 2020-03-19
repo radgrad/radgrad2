@@ -69,7 +69,7 @@ const handleAddToPlan = (props: ITermAddProps) => (e) => {
       academicTerm: termSlug,
       course: itemSlug,
       verified: false,
-      note: item.number,
+      note: item.num,
       grade: 'B',
       student: username,
     };
@@ -103,7 +103,7 @@ const TermAdd = (props: ITermAddProps) => (
             <Button>
               <Icon name="plus" />
               <br />
-Add to Plan
+              Add to Plan
             </Button>
           )}
           on="click"
@@ -151,7 +151,7 @@ Add to Plan
               <Button>
                 <Icon name="plus" />
                 <br />
-Add to Plan
+                Add to Plan
               </Button>
           )}
             on="click"

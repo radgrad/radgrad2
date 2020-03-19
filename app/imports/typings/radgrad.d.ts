@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+import { IReviewTypes } from '../api/review/ReviewTypes';
+
 declare global {
   namespace Assets {
     function getBinary(assetPath: string, asyncCallback?: () => void): EJSON;
@@ -212,6 +214,11 @@ export interface IDescriptionPair {
 }
 
 // AcademicPlans
+interface IAcademicPlanGroup {
+  name: string;
+  courseSlugs: string[];
+}
+
 export interface IAcademicPlan {
   _id: string;
   name: string;
@@ -222,7 +229,8 @@ export interface IAcademicPlan {
   academicTermNumber: number;
   year: number;
   coursesPerAcademicTerm: number[];
-  courseList: string[];
+  choiceList: string[];
+  groups: any; // an object key is slug, value is IAcademicPlanGroup
   isBAM?: boolean;
   retired?: boolean;
 }
@@ -234,7 +242,8 @@ export interface IAcademicPlanDefine extends IDumpOne {
   description: string;
   academicTerm: string;
   coursesPerAcademicTerm: number[];
-  courseList: string[];
+  choiceList: string[];
+  groups: any;
   retired?: boolean;
 }
 
@@ -243,7 +252,8 @@ export interface IAcademicPlanUpdate  extends IUpdate {
   name?: string;
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
-  courseList?: string[];
+  choiceList?: string[];
+  groups?: any;
   retired?: boolean;
 }
 
@@ -396,6 +406,7 @@ export interface ICourseDefine extends IDumpOne {
   creditHrs?: number;
   interests?: string[];
   syllabus?: string;
+  corequisites?: string[];
   prerequisites?: string[];
   retired?: boolean;
 }
@@ -815,6 +826,8 @@ export interface IBaseProfile {
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   optedIn?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IProfile {
@@ -829,6 +842,8 @@ export interface IProfile {
   interestIDs?: string[];
   careerGoalIDs?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 // Advisor and Faculty Profiles
@@ -882,6 +897,8 @@ export interface IProfileUpdate extends IUpdate {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
 }
 
 export interface IMentorProfile extends IProfile {
@@ -985,29 +1002,30 @@ export interface IStudentProfileUpdateData {
 }
 
 // Reviews
+type ReviewRatings = 1 | 2 | 3 | 4 | 5;
 export interface IReview {
   _id: string;
-  slug?: string;
-  student: string;
+  slugID: string;
+  studentID: string;
   reviewType: string;
-  reviewee: string;
-  academicTerm: string;
-  rating?: number;
+  revieweeID: string;
+  termID: string;
+  rating?: ReviewRatings;
   comments: string;
   moderated: boolean;
   visible?: boolean;
-  moderatorComment?: string;
+  moderatorComments?: string;
   retired?: boolean;
 }
 
 export interface IReviewDefine extends IDumpOne {
   slug?: string;
   student: string;
-  reviewType: string;
+  reviewType: IReviewTypes;
   reviewee: string;
   academicTerm: string;
-  rating?: number;
-  comments: string;
+  rating?: ReviewRatings;
+  comments?: string;
   moderated?: boolean;
   visible?: boolean;
   moderatorComments?: string;
@@ -1016,7 +1034,7 @@ export interface IReviewDefine extends IDumpOne {
 
 export interface IReviewUpdate extends IUpdate {
   academicTerm?: string;
-  rating?: number;
+  rating?: ReviewRatings;
   comments?: string;
   moderated?: boolean;
   visible?: boolean;
@@ -1026,7 +1044,7 @@ export interface IReviewUpdate extends IUpdate {
 
 export interface IReviewUpdateData {
   termID?: string;
-  rating?: number;
+  rating?: ReviewRatings;
   comments?: string;
   moderated?: boolean;
   visible?: boolean;
@@ -1052,11 +1070,6 @@ export interface IAcademicTermDefine extends IDumpOne {
 
 export interface IAcademicTermUpdate extends IUpdate {
   retired?: boolean;
-}
-
-// RadGradSettings
-export interface ISettingsDefine extends IDumpOne {
-  quarterSystem: boolean;
 }
 
 export interface ISettingsUpdate extends IUpdate {
@@ -1143,6 +1156,20 @@ export interface IUserInteractionDefine extends IDumpOne {
   typeData: string[];
   timestamp?: any;
 }
+
+export interface IBehavior {
+  type: string;
+  count: number;
+  users: string[];
+  description: string;
+}
+
+interface IDateRange {
+  startDate: Date;
+  endDate: Date;
+}
+
+
 
 // VerificationRequests
 interface IProcessed {

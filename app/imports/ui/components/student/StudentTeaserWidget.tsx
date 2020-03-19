@@ -98,7 +98,7 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
         <Header dividing>
           <Header as="h4">
             {' '}
-TEASERS
+            TEASERS
             <WidgetHeaderNumber inputValue={teaserCount} />
             {' '}
 
@@ -115,7 +115,7 @@ TEASERS
                       <Card.Content>
                         <Card.Header>{teaserTitle(teaser)}</Card.Header>
                         <Card.Meta>
-By
+                          By
                           {teaserAuthor(teaser)}
                           {' '}
 
@@ -136,7 +136,7 @@ By
                             <Button attached="bottom">
                               <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
                               {' '}
-View
+                              View
                               More
                             </Button>
                           </Link>

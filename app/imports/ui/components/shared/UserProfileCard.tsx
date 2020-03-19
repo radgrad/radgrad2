@@ -1,10 +1,8 @@
 import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 import _ from 'lodash';
-// eslint-disable-next-line no-unused-vars
 import { IUserProfileCard } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-// eslint-disable-next-line no-unused-vars
 import { ROLE } from '../../../api/role/Role';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';

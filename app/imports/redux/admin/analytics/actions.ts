@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Dictionary } from 'lodash';
 import * as TYPES from './types';
 
@@ -56,6 +55,11 @@ export const setOverheadData = (overheadData) => ({
 export const setStudentSummaryDateRange = (dateRange: ISetDateRangeProps): ISetDateRangeAction => ({
   type: TYPES.SET_STUDENT_SUMMARY_DATE_RANGE,
   payload: dateRange,
+});
+
+export const setStudentSummaryUserInteractions = (userInteractions: Dictionary<any[]>): ISetUserInteractionsAction => ({
+  type: TYPES.SET_STUDENT_SUMMARY_USER_INTERACTIONS,
+  payload: userInteractions,
 });
 
 // Admin Analytics Newsletter

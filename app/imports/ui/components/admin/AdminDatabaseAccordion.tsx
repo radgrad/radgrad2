@@ -43,9 +43,9 @@ class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProp
           <Icon name="dropdown" />
           {this.props.name}
           {' '}
-(
+          (
           {this.props.contents.length}
-)
+          )
         </Accordion.Title>
         <Accordion.Content active={activeIndex === this.props.index}>
           {this.prettyPrint()}

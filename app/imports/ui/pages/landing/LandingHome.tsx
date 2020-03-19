@@ -13,7 +13,6 @@ import LandingSection8 from '../../components/landing/LandingSection8';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ILandingHomeProps {
@@ -73,7 +72,7 @@ const LandingHome = (props: ILandingHomeProps) => (
   </div>
 );
 
-const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationName(), RadGradSettings.getPublicationName()]);
+const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationName()]);
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = // console.log(`LandingHomeContainer withTracker()`);

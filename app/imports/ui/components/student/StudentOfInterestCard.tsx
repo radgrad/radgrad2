@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { Button, Card, Header, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
@@ -95,7 +94,7 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
 
       <Card.Content>
         <span>
-STUDENTS PARTICIPATING
+          STUDENTS PARTICIPATING
           <WidgetHeaderNumber inputValue={numberStudents(item)} />
         </span>
       </Card.Content>
@@ -104,7 +103,7 @@ STUDENTS PARTICIPATING
         <Button attached="bottom" fluid>
           <Icon name="chevron circle right" />
           <br />
-View More
+          View More
         </Button>
       </Link>
     </Card>

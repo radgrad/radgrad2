@@ -6,11 +6,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { AutoForm, SelectField, TextField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { docToShortName } from '../shared/data-model-helper-functions';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
@@ -35,7 +35,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
     super(props);
     // console.log('AdvisorAcademicPlanBuilder props=%o', props);
     const coursesPerTerm = [];
-    this.quarterSystem = RadGradSettings.findOne({}).quarterSystem;
+    this.quarterSystem = RadGradProperties.getQuarterSystem();
     const numTerms = this.quarterSystem ? 20 : 15;
     for (let i = 0; i < numTerms; i++) {
       coursesPerTerm.push(0);

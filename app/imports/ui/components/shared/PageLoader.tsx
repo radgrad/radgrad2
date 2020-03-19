@@ -6,8 +6,6 @@ const PageLoader = () => (
     height={460}
     width={790}
     speed={2}
-    primaryColor="#f3f3f3"
-    secondaryColor="#b6b6ba"
   >
     <rect x="600" y="20" rx="0" ry="0" width="1" height="30" />
     <rect x="612" y="20" rx="0" ry="0" width="29" height="28" />

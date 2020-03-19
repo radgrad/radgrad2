@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
@@ -47,9 +47,9 @@ const renderPage = (props: IDegreesCardExplorerProps) => {
               <Header as="h4" dividing>
                 <span>DESIRED DEGREES</span>
                 {' '}
-(
+                (
                 {props.count}
-)
+                )
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.desiredDegrees.map((goal) => (

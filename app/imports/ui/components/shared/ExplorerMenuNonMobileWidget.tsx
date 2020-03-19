@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -73,7 +74,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
 
   const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(props.match);
-  const adminEmail = 'radgrad@hawaii.edu';
+  const adminEmail = RadGradProperties.getAdminEmail();
   return (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -83,7 +84,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -116,7 +117,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -150,7 +151,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -186,7 +187,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -225,7 +226,7 @@ Back to
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-Back to
+                Back to
                 {' '}
                 {getTypeName(props)}
               </Button>
@@ -250,7 +251,7 @@ Back to
             <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
               <Icon name="chevron circle left" />
               <br />
-Back to
+              Back to
               {' '}
               {getTypeName(props)}
             </Button>

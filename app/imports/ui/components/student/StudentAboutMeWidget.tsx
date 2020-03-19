@@ -43,7 +43,6 @@ interface IStudentAboutMeWidgetProps {
 
 const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const marginBottomStyle = { marginBottom: 0 };
-
   const { match, profile } = props;
   const name = profileToFullName(profile);
   const email = props.profile.username;
@@ -139,7 +138,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                   :
                   <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                  Update in academic plan explorer
+                Update in academic plan explorer
               </Link>
             </Grid.Column>
           </Grid.Row>

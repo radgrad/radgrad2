@@ -205,7 +205,7 @@ class FeedCollection extends BaseCollection {
    * Defines a new Feed (new course).
    * @example
    * Feeds._defineNewCourse({ feedType: Feeds.NEW_COURSE,
-   *                        course: 'ics-100'
+   *                        course: 'ics_100'
    *                        timestamp: '12345465465', });
    * @param { Object } description Object with keys course, feedType, and timestamp.
    * @returns The newly created docID.
@@ -307,7 +307,7 @@ class FeedCollection extends BaseCollection {
    * @example
    * Feeds.defineNewCourseReview({ feedType: Feeds.NEW_COURSE_REVIEW,
    *                              user: 'abi@hawaii.edu',
-   *                              course: 'ics111'
+   *                              course: 'ics_111'
    *                              timestamp: '12345465465', });
    * @param { Object } description Object with keys user, course, feedType, and timestamp.
    * User can either be the string username or an array containing a single username.

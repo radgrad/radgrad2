@@ -19,6 +19,7 @@ import { explorerOpportunityWidget } from './shared-widget-names';
 import FutureParticipation from './FutureParticipation';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { toId } from '../../shared/description-pair-helpers';
+import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -80,7 +81,11 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
           <Segment clearing basic style={clearingBasicSegmentStyle}>
             <Header as="h4" floated="left">{upperName}</Header>
             <React.Fragment>
-              <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(props.match)} type="opportunity" />
+              <FavoritesButton
+                item={item}
+                studentID={Router.getUserIdFromRoute(props.match)}
+                type={FAVORITE_TYPE.OPPORTUNITY}
+              />
               {
                 descriptionPairs.map((descriptionPair) => (
                   <React.Fragment key={toId(descriptionPair)}>
@@ -111,7 +116,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                             </b>
                             {
                               descriptionPair.value ? (
@@ -125,7 +130,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
                                 : (
                                   <React.Fragment>
                                     {' '}
-N/A
+                                    N/A
                                     <br />
                                   </React.Fragment>
                               )
@@ -139,7 +144,7 @@ N/A
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                             </b>
                             {
                               descriptionPair.value ? (
@@ -155,7 +160,7 @@ N/A
                                 : (
                                   <React.Fragment>
                                     {' '}
-N/A
+                                    N/A
                                     <br />
                                   </React.Fragment>
                               )
@@ -169,7 +174,7 @@ N/A
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                             </b>
                             {
                               descriptionPair.value ? (
@@ -186,7 +191,7 @@ N/A
                                 : (
                                   <React.Fragment>
                                     {' '}
-N/A
+                                    N/A
                                     <br />
                                   </React.Fragment>
                               )
@@ -200,7 +205,7 @@ N/A
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                             </b>
                             {
                               descriptionPair.value ? (
@@ -230,7 +235,7 @@ N/A
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                             </b>
                             {
                               descriptionPair.value ? (
@@ -245,7 +250,7 @@ N/A
                                 : (
                                   <React.Fragment>
                                     {' '}
-N/A
+                                    N/A
                                     <br />
                                   </React.Fragment>
                               )
@@ -259,7 +264,7 @@ N/A
                           <React.Fragment>
                             <b>
                               {descriptionPair.label}
-:
+                              :
                             </b>
                             {
                               descriptionPair.value ? (
@@ -286,7 +291,7 @@ N/A
 ) :
             (
               <React.Fragment>
-              No Teaser
+                No Teaser
                 <Grid stackable columns={2}>
                   <Grid.Column width={5}>
                     {
@@ -297,7 +302,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -311,7 +316,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -325,7 +330,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -341,7 +346,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -363,7 +368,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -380,7 +385,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -394,7 +399,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (
@@ -409,7 +414,7 @@ N/A
                                   : (
                                     <React.Fragment>
                                       {' '}
-N/A
+                                      N/A
                                       <br />
                                     </React.Fragment>
                                 )
@@ -433,7 +438,7 @@ N/A
                             <React.Fragment>
                               <b>
                                 {descriptionPair.label}
-:
+                                :
                               </b>
                               {
                                 descriptionPair.value ? (

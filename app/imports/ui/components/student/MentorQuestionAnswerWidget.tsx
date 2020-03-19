@@ -42,7 +42,7 @@ class MentorQuestionAnswerWidget extends React.Component<IQuestionAnswersWidgetP
                 {' '}
               </a>
               {' '}
-answered:
+              answered:
               <ExplorerUsersWidget
                 userProfile={mentor}
                 isActive={isActive}

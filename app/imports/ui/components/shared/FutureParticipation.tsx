@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicTerm } from '../../../typings/radgrad';
-import { RadGradSettings } from '../../../api/radgrad/RadGradSettingsCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
 
@@ -42,7 +42,7 @@ const FutureParticipation = (props: IFutureParticipationProps) => (
 );
 
 export default withTracker((props) => {
-  const quarter = RadGradSettings.findOne({}).quarterSystem;
+  const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(currentTerm);
   const numTerms = quarter ? 12 : 9;

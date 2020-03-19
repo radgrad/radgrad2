@@ -33,14 +33,14 @@ function numReferences(course) {
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => [
-    { label: 'Description', value: item.description },
-    { label: 'Credit Hours', value: `${item.creditHrs}` },
-    { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-    { label: 'Syllabus', value: makeMarkdownLink(item.syllabus) },
-    { label: 'Prerequisites', value: item.prerequisites },
-    { label: 'References', value: `Course Instances: ${numReferences(item)}` },
-    { label: 'Retired', value: item.retired ? 'True' : 'False' },
-  ];
+  { label: 'Description', value: item.description },
+  { label: 'Credit Hours', value: `${item.creditHrs}` },
+  { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
+  { label: 'Syllabus', value: makeMarkdownLink(item.syllabus) },
+  { label: 'Prerequisites', value: item.prerequisites },
+  { label: 'References', value: `Course Instances: ${numReferences(item)}` },
+  { label: 'Retired', value: item.retired ? 'True' : 'False' },
+];
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
@@ -58,7 +58,7 @@ const itemTitle = (item: ICourse): React.ReactNode => (
     <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
-  );
+);
 
 class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageState> {
   private readonly formRef;
@@ -76,7 +76,7 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
     const interests = _.map(doc.interests, interestSlugFromName);
     definitionData.slug = doc.slug;
     definitionData.name = doc.name;
-    definitionData.num = doc.number;
+    definitionData.num = doc.num;
     definitionData.description = doc.description;
     if (doc.shortName) {
       definitionData.shortName = doc.shortName;
@@ -217,7 +217,12 @@ class AdminDataModelCoursesPage extends React.Component<{}, IAdminDataModelPageS
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Course?" />
+        <Confirm
+          open={this.state.confirmOpen}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirmDelete}
+          header="Delete Course?"
+        />
 
         <BackToTopButton />
       </div>

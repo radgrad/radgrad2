@@ -43,6 +43,8 @@ export const SET_SLUGS_SHOW_COUNT = 'radgrad/admin/data-model/SET_SLUGS_SHOW_COU
 export const SET_TEASERS_SHOW_INDEX = 'radgrad/admin/data-model/SET_TEASERS_SHOW_INDEX';
 export const SET_TEASERS_SHOW_COUNT = 'radgrad/admin/data-model/SET_TEASERS_SHOW_COUNT';
 // Profiles
+export const SET_ADMINS_SHOW_INDEX = 'radgrad/admin/data-model/SET_ADMINS_SHOW_INDEX';
+export const SET_ADMINS_SHOW_COUNT = 'radgrad/admin/data-model/SET_ADMINS_SHOW_COUNT';
 export const SET_ADVISORS_SHOW_INDEX = 'radgrad/admin/data-model/SET_ADVISORS_SHOW_INDEX';
 export const SET_ADVISORS_SHOW_COUNT = 'radgrad/admin/data-model/SET_ADVISORS_SHOW_COUNT';
 export const SET_FACULTY_SHOW_INDEX = 'radgrad/admin/data-model/SET_FACULTY_SHOW_INDEX';

@@ -48,18 +48,18 @@ const UserAnswersComponent = (props: IUserAnswersComponentProps) => {
             rel="noopener noreferrer"
             to={`/${thisUserProfile.role.toLowerCase()}/${thisUserProfile.username}/mentor-space/`}
           >
-MENTOR
-          ANSWERS (
+            MENTOR
+            ANSWERS (
             {mentorAnswers.length}
-)
+            )
           </Link>
         </Header>
       )
         : (
           <Header as="h4">
-MENTOR ANSWERS (
+            MENTOR ANSWERS (
             {mentorAnswers.length}
-)
+            )
           </Header>
 )}
       {mentorAnswers.length > 0 ? (

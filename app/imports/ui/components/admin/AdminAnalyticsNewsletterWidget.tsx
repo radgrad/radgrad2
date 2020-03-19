@@ -6,6 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -146,14 +147,14 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   private onClickSendStudentsToo = () => {
     const trimmedEmails = [];
     const studentEmails = this.state.studentEmails.split(',');
-
+    const adminEmail = RadGradProperties.getAdminEmail();
     if (this.state.sendToStudentsToo === false) {
       this.setState({
         message: {
           // eslint-disable-next-line react/no-access-state-in-setstate
           subjectLine: this.state.subjectLine,
           // eslint-disable-next-line react/no-access-state-in-setstate
-          bcc: `${this.state.bcc.split(',')}radgrad@hawaii.edu`,
+          bcc: `${this.state.bcc.split(',')}${adminEmail}`,
           // eslint-disable-next-line react/no-access-state-in-setstate
           inputMessage: this.state.onSubmitInputMessage,
           recipients: [/* 'radgrad@hawaii.edu' */],
@@ -257,11 +258,13 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
   }
 
   private generateEmail = (message) => {
+    const adminEmail = RadGradProperties.getAdminEmail();
+    const newsletterFrom = RadGradProperties.getNewsletterFrom();
     const emailData = {
       to: message.recipients,
-      from: 'Phillip Johnson <donotreply@mail.gun.radgrad.org>',
+      from: newsletterFrom,
       subject: '',
-      replyTo: 'radgrad@hawaii.edu',
+      replyTo: adminEmail,
       templateData: {
         adminMessage: message.inputMessage,
         firstName: '',
@@ -414,7 +417,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       html += ' Check out';
       html += '<a style="color: #6FBE44; font-weight: bold;"' +
         ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-        `/explorer/courses/${Courses.getSlug(recCourse._id)}"> ${recCourse.shortName}</a>`;
+        `/explorer/courses/${Courses.findSlugByID(recCourse._id)}"> ${recCourse.shortName}</a>`;
     } else {
       if (studentInterests.length === 0) {
         html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
@@ -445,7 +448,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       html += ' Check out';
       html += '<a style="color: #6FBE44; font-weight: bold;"' +
         ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-        `/explorer/opportunities/${Opportunities.getSlug(recOpp._id)}"> ${recOpp.name}</a>`;
+        `/explorer/opportunities/${Opportunities.findSlugByID(recOpp._id)}"> ${recOpp.name}</a>`;
     }
     return html;
   }
@@ -599,7 +602,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
               disabled={!this.state.sendToLevels}
               onClick={this.onClickSendLevels}
             >
-Send To Students
+              Send To Students
             </button>
             <Form.Field label="Generate To Send To All Users" />
             <BoolField name="sendToAll" />
@@ -609,7 +612,7 @@ Send To Students
               disabled={!this.state.sendToAll}
               onClick={this.onClickSendToAll}
             >
-Send To All
+              Send To All
             </button>
           </AutoForm>
         </Segment>

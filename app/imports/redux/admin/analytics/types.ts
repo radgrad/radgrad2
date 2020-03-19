@@ -13,3 +13,4 @@ export const SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS = 'radgrad/admin/analytics/
 export const SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA = 'radgrad/admin/analytics/SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA';
 // Admin Analytics Student Summary
 export const SET_STUDENT_SUMMARY_DATE_RANGE = 'radgrad/shared/datepicker/SET_STUDENT_SUMMARY_DATE_RANGE';
+export const SET_STUDENT_SUMMARY_USER_INTERACTIONS = 'radgrad/admin/analytics/SET_STUDENT_SUMMARY_USER_INTERACTIONS';

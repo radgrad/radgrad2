@@ -13,7 +13,7 @@ const renderDropdown = ({ placeholder, onChange, value }) => {
       text: (
         <React.Fragment>
           <StudentExplorerReviewStarsWidget rating={1} />
-One of the worst
+          One of the worst
         </React.Fragment>
       ),
       value: 1,
@@ -23,7 +23,7 @@ One of the worst
       text: (
         <React.Fragment>
           <StudentExplorerReviewStarsWidget rating={2} />
-Below average
+          Below average
         </React.Fragment>
       ),
       value: 2,
@@ -33,7 +33,7 @@ Below average
       text: (
         <React.Fragment>
           <StudentExplorerReviewStarsWidget rating={3} />
-Average
+          Average
         </React.Fragment>
       ),
       value: 3,
@@ -43,7 +43,7 @@ Average
       text: (
         <React.Fragment>
           <StudentExplorerReviewStarsWidget rating={4} />
-Above average
+          Above average
         </React.Fragment>
       ),
       value: 4,
@@ -53,7 +53,7 @@ Above average
       text: (
         <React.Fragment>
           <StudentExplorerReviewStarsWidget rating={5} />
-One of the best
+          One of the best
         </React.Fragment>
       ),
       value: 5,

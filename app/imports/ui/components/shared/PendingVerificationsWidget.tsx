@@ -92,13 +92,13 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
               </Grid.Row>
               <Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                 <Grid.Column>
-                Student:
+                  Student:
                   {' '}
                   {this.studentProfile(ele).firstName}
                   {' '}
                   {this.cachedStudent.lastName}
                   <br />
-                Sponsor:
+                  Sponsor:
                   {' '}
                   {this.sponsorProfile(ele).firstName}
                   {' '}
@@ -144,18 +144,18 @@ class PendingVerificationsWidget extends React.Component<IPendingVerificationsWi
                   <br />
                   {ele.processed.map((elem: IProcessed, ind) => (
                     <React.Fragment key={elem.verifier}>
-                  Processed:
+                      Processed:
                       {' '}
                       {moment(elem.date).calendar()}
                       {' '}
-by
+                      by
                       {' '}
                       {elem.verifier}
                       {' '}
-(
+                      (
                       {elem.status}
                       {elem.feedback ? `, ${elem.feedback}` : ''}
-)
+                      )
                       <br />
                     </React.Fragment>
 ))}

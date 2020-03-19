@@ -59,15 +59,15 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
             <React.Fragment key={index}>
               <b>
                 {descriptionPair.label}
-:
+                :
               </b>
               {' '}
-              {typeof descriptionPair.value === 'string' ? eslint - disable - line(
+              {typeof descriptionPair.value === 'string' ? (
                 <Markdown
                   escapeHtml
                   source={descriptionPair.value}
                   renderers={{ link: (props) => Router.renderLink(props, match) }}
-                />,
+                />
             ) : typeof descriptionPair.value === 'undefined' ? ' ' :
             <p>{descriptionPair.value.join(', ')}</p>}
             </React.Fragment>
@@ -81,7 +81,7 @@ class AdminDataModelAccordion extends React.Component<IAdminDataModelAccordionPr
               disabled={this.props.updateDisabled}
               onClick={this.props.handleOpenUpdate}
             >
-Update
+              Update
             </Button>
             <Button
               id={this.props.id}
@@ -91,7 +91,7 @@ Update
               disabled={this.props.deleteDisabled}
               onClick={this.props.handleDelete}
             >
-Delete
+              Delete
             </Button>
           </p>
         </Accordion.Content>

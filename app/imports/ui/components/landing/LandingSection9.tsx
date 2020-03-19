@@ -23,7 +23,7 @@ const LandingSection9 = () => (
                 <Image src="/images/landing/students.jpg" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">
-Students
+                Students
                 <Icon name="chevron right" />
               </a>
             </Card>

@@ -8,12 +8,13 @@ import * as _ from 'lodash';
 // const _ = require('lodash');
 import * as moment from 'moment';
 // const moment = require('moment');
+import { alumniRegex } from './deparment-config';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 function splitEmails(emails, key, emailsPerFile) {
   const emailData = fs.readFileSync(`./${emails}`);
-  const emailArr = emailData.toString().split('\n')
+  const emailArr = emailData.toString().split('\n');
   const numEmails = emailArr.length;
   let count = 1;
   let start = 0;
@@ -54,15 +55,12 @@ function getCourseData(username, password, emails) {
 
   return new Promise((res, rej) => {
     // request.post('https://www.star.hawaii.edu:10011/api/radgrad', params, function (err, httpRes, body) {
+    // eslint-disable-next-line no-unused-vars
     request.post('https://www.star.hawaii.edu/api/radgrad', params, function (err, httpRes, body) {
       if (err) return rej(err);
       return res(httpRes);
     });
   });
-}
-
-function courseIsInteresting(courseName) {
-  return courseName.match(/ics/i);
 }
 
 /**
@@ -72,7 +70,7 @@ function courseIsInteresting(courseName) {
  */
 function filterAlumni(contents, key) {
   // console.log(contents);
-  const re = /ics|ee/i;
+  const re = alumniRegex;
   const alumniEmail = [];
   const data = JSON.parse(contents);
   // console.log(data);

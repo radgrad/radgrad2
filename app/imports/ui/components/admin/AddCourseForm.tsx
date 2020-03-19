@@ -4,7 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
-import MultiSelectField from '../shared/MultiSelectField';
+import MultiSelectField from '../form-fields/MultiSelectField';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { ICourse, IInterest } from '../../../typings/radgrad';
 import { courseToName, docToName } from '../shared/data-model-helper-functions';
@@ -54,7 +54,7 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
         <Form.Group widths="equal">
           <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
           <NumField name="creditHours" />
-          <TextField name="number" placeholder="DEPT 111" />
+          <TextField name="num" placeholder="DEPT 111" />
         </Form.Group>
         <LongTextField name="description" />
         <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />

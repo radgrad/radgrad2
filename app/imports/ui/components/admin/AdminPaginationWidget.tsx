@@ -85,7 +85,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
           name="fast backward"
         />
         {' '}
-First
+        First
       </Button>
       <Button
         basic
@@ -98,7 +98,7 @@ First
           name="step backward"
         />
         {' '}
-Prev
+        Prev
       </Button>
       <Message style={messageStyle}>{label}</Message>
       <Button
@@ -112,7 +112,7 @@ Prev
           name="step forward"
         />
         {' '}
-Next
+        Next
       </Button>
       <Button
         basic
@@ -124,7 +124,7 @@ Next
           name="fast forward"
         />
         {' '}
-Last
+        Last
       </Button>
       {/* <Dropdown selection={true} options={options} className="jsNum"/> */}
       <select className="ui dropdown jsNum" style={heightStyle} value={showCount} onChange={handleCountChange(props)}>

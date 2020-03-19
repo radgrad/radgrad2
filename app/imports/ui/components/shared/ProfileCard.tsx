@@ -51,7 +51,7 @@ const ProfileCard = (props: IProfileCardProps) => {
       </Card.Content>
       <Card.Content>
         <span>
-STUDENTS PARTICIPATING
+          STUDENTS PARTICIPATING
           <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
         <Image.Group size="mini">

@@ -2,7 +2,6 @@ import React from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import { starLoadDataMethod } from '../../../api/star/StarProcessor.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';
-// eslint-disable-next-line no-unused-vars
 import { IStudentProfile } from '../../../typings/radgrad';
 
 /* global FileReader */
