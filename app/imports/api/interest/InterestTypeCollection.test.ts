@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import fc from 'fast-check';
+import faker from 'faker';
 import {} from 'mocha';
 import { InterestTypes } from './InterestTypeCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
@@ -9,9 +11,9 @@ import { removeAllEntities } from '../base/BaseUtilities';
 
 if (Meteor.isServer) {
   describe('InterestTypeCollection', function testSuite() {
-    const name = 'Interest Name';
-    const slug = 'interest-slug';
-    const description = 'Interest Description';
+    let name = 'Interest Name';
+    let slug = 'interest-slug';
+    let description = 'Interest Description';
 
     before(function setup() {
       removeAllEntities();
@@ -21,45 +23,69 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('#define, #isDefined, #removeIt, #dumpOne, #restoreOne', function test() {
-      const docID = InterestTypes.define({ name, slug, description });
-      expect(InterestTypes.isDefined(slug)).to.be.true;
+    it('Can define and removeIt', function test1(done) {
+      this.timeout(5000);
+      fc.assert(
+        fc.property(fc.lorem(3), fc.lorem(1), fc.lorem(24), fc.boolean(), (fcName, fcSlug, fcDescription, fcRetired) => {
+          const docID = InterestTypes.define({
+            name: fcName,
+            slug: fcSlug,
+            description: fcDescription,
+            retired: fcRetired,
+          });
+          expect(InterestTypes.isDefined(docID)).to.be.true;
+          const typeDoc = InterestTypes.findDoc(docID);
+          expect(typeDoc.name).to.equal(fcName);
+          expect(typeDoc.description).to.equal(fcDescription);
+          expect(typeDoc.retired).to.equal(fcRetired);
+          InterestTypes.removeIt(docID);
+          expect(InterestTypes.isDefined(docID)).to.be.false;
+        }),
+      );
+      done();
+    });
+
+    it('Cannot define duplicates', function test2() {
+      name = faker.lorem.words();
+      slug = faker.lorem.word();
+      description = faker.lorem.paragraph();
+      const docID1 = InterestTypes.define({ name, slug, description });
+      expect(InterestTypes.isDefined(docID1)).to.be.true;
+      expect(() => InterestTypes.define({ name, slug, description })).to.throw(Error);
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      let typeDoc = InterestTypes.findOne({});
+      const docID = typeDoc._id;
+      fc.assert(
+        fc.property(fc.lorem(4), fc.lorem(24), fc.boolean(), (fcName, fcDescription, fcRetired) => {
+          InterestTypes.update(docID, { name: fcName, description: fcDescription, retired: fcRetired });
+          typeDoc = InterestTypes.findDoc(docID);
+          expect(typeDoc.name).to.equal(fcName);
+          expect(typeDoc.description).to.equal(fcDescription);
+          expect(typeDoc.retired).to.equal(fcRetired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let typeDoc = InterestTypes.findOne({});
+      let docID = typeDoc._id;
       const dumpObject = InterestTypes.dumpOne(docID);
-      InterestTypes.removeIt(slug);
-      expect(InterestTypes.isDefined(slug)).to.be.false;
-      InterestTypes.restoreOne(dumpObject);
-      expect(InterestTypes.isDefined(slug)).to.be.true;
-      InterestTypes.removeIt(slug);
+      InterestTypes.removeIt(docID);
+      expect(InterestTypes.isDefined(docID)).to.be.false;
+      docID = InterestTypes.restoreOne(dumpObject);
+      typeDoc = InterestTypes.findDoc(docID);
+      expect(typeDoc.name).to.equal(dumpObject.name);
+      expect(typeDoc.description).to.equal(dumpObject.description);
+      expect(typeDoc.retired).to.equal(dumpObject.retired);
     });
 
-    it('#define (multiple definition)', function test() {
-      InterestTypes.define({ name, slug, description });
-      expect(function foo() { InterestTypes.define({ name, slug, description }); }).to.throw(Error);
-      InterestTypes.removeIt(slug);
-    });
-
-    it('#findDocBySlug', function test() {
-      InterestTypes.define({ name, slug, description });
-      const doc = InterestTypes.findDocBySlug(slug);
-      expect(doc).to.be.an('object');
-      InterestTypes.removeIt(slug);
-      expect(function foo() { InterestTypes.findDocBySlug('notASlug'); }).to.throw(Error);
-    });
-
-    it('#findDoc', function test() {
-      const docID = InterestTypes.define({ name, slug, description });
-      const doc = InterestTypes.findDoc(docID);
-      expect(doc).to.be.an('object');
-      const newDoc = InterestTypes.findDoc(docID);
-      expect(newDoc).to.be.an('object');
-      InterestTypes.removeIt(slug);
-    });
-
-    it('#find', function test() {
-      InterestTypes.define({ name, slug, description });
-      const docs = InterestTypes.find({}, {}).fetch();
-      expect(docs).to.have.lengthOf(1);
-      InterestTypes.removeIt(slug);
+    it('Can checkIntegrity no errors', function test5() {
+      const errors = InterestTypes.checkIntegrity();
+      expect(errors).to.have.lengthOf(0);
     });
   });
 }
