@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
@@ -10,6 +12,9 @@ import { ROLE } from '../../api/role/Role';
 import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
+import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
+import { getAllUrlParamsByLocationObject, ILocationProps } from '../components/shared/RouterHelperFunctions';
+import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -136,8 +141,61 @@ const MentorProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
+function withHistoryListen(WrappedComponent) {
+  interface IHistoryListenProps {
+    history: {
+      listen: (...args) => any;
+    };
+    match: {
+      isExact: boolean;
+      path: string;
+      url: string;
+      params: {
+        username: string;
+      }
+    };
+    router: {
+      location: ILocationProps;
+      action: string;
+    };
+  }
+
+  const mapStateToProps = (state): object => ({
+    router: state.router,
+  });
+
+  class HistoryListen extends React.Component<IHistoryListenProps> {
+    componentDidUpdate(prevProps: Readonly<IHistoryListenProps>, prevState: Readonly<{}>, snapshot?: any): void {
+      const { match, router } = this.props;
+      if (prevProps.router.location !== router.location) {
+        const parameters = getAllUrlParamsByLocationObject(match, router.location);
+        const typeData = parameters.join('/');
+        const username = Meteor.user().username;
+        const type = UserInteractionsTypes.PAGEVIEW;
+        const interactionData = { username, type, typeData };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.log('Error creating UserInteraction.', userInteractionError);
+          }
+        });
+      }
+    }
+
+    public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+      return <WrappedComponent {...this.props} />;
+    }
+  }
+
+  return withRouter(connect(mapStateToProps)(HistoryListen));
+}
+
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
-  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
+  const ComponentWithSubscriptions = withInstanceSubscriptions(withGlobalSubscription(Component));
+  const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
+  // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
+  // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
+  // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
+  const WrappedComponent = isStudent ? withHistoryListen(ComponentWithSubscriptions) : ComponentWithSubscriptions;
   return (
     <Route
       {...rest}

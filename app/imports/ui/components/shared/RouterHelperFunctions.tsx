@@ -12,6 +12,13 @@ export interface IMatchProps {
   }
 }
 
+export interface ILocationProps {
+  pathname: string;
+  search: string;
+  hash: string;
+  state: any;
+}
+
 // Returns the USERNAME param based on React-Router's match object
 export const getUsername = (match: IMatchProps): string => match.params.username; // TODO should we use _.get here? What would we default to?
 
@@ -70,10 +77,21 @@ export const getUrlParam = (match: IMatchProps, index: number) => {
   return param;
 };
 
-// Returns all the parameters AFTER the base route
+// Returns all the parameters AFTER the base route based on the match object
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
 export const getAllUrlParams = (match: IMatchProps) => {
   const parameters = splitUrlIntoArray(match);
+  const username = getUsername(match);
+  const usernameIndex = parameters.indexOf(username);
+  const allParams = parameters.slice(usernameIndex + 1);
+  return allParams;
+};
+
+// Returns all the parameters AFTER the base route based on the location object's pathname parameter
+// This functions exactly at as getAllUrlParams() except it looks at the location.pathname as the url instead of match.url
+// i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
+export const getAllUrlParamsByLocationObject = (match: IMatchProps, location: ILocationProps) => {
+  const parameters = location.pathname.split('/');
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
   const allParams = parameters.slice(usernameIndex + 1);
