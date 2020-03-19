@@ -145,7 +145,6 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
   const upperShortName = toUpper(shortName);
   const isStudent = Router.isUrlRoleStudent(props.match);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
-  // @ts-ignore
   return (
     <div id={explorerCourseWidget}>
       <Segment.Group style={segmentGroupStyle}>

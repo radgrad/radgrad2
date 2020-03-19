@@ -6,6 +6,9 @@ export const toValueArray = (pair: IDescriptionPair): any[] => {
   if (typeof value === 'string') {
     return [value];
   }
+  if (typeof value === 'object') {
+    return value;
+  }
   return [];
 };
 
