@@ -1,4 +1,5 @@
 import faker from 'faker';
+import moment from 'moment';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
@@ -15,7 +16,7 @@ import { makeSampleIce } from '../ice/SampleIce';
  */
 export function makeSampleOpportunityType() {
   const name = faker.lorem.words();
-  const slug = slugify(`opportunity-type-${name}`);
+  const slug = slugify(`opportunity-type-${name}-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`);
   const description = faker.lorem.paragraph();
   return OpportunityTypes.define({ name, slug, description });
 }

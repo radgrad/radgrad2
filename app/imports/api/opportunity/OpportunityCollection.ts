@@ -99,7 +99,11 @@ class OpportunityCollection extends BaseSlugCollection {
     Users.assertInRole(sponsorID, [ROLE.FACULTY, ROLE.ADVISOR, ROLE.ADMIN]);
     assertICE(ice);
     const interestIDs = Interests.getIDs(interests);
-    // Define the slug
+    // check if slug is defined
+    if (Slugs.isSlugForEntity(slug, this.getType())) {
+      // console.log(`${slug} is already defined for ${this.getType()}`);
+      return Slugs.getEntityID(slug, this.getType());
+    }
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const termIDs = AcademicTerms.getIDs(academicTerms);
     let opportunityID;
