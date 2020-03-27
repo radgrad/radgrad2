@@ -2,9 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
-import {} from 'mocha';
+import 'mocha';
 import { InterestTypes } from './InterestTypeCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -37,6 +38,7 @@ if (Meteor.isServer) {
           const typeDoc = InterestTypes.findDoc(docID);
           expect(typeDoc.name).to.equal(fcName);
           expect(typeDoc.description).to.equal(fcDescription);
+          expect(Slugs.getNameFromID(typeDoc.slugID)).to.equal(fcSlug);
           expect(typeDoc.retired).to.equal(fcRetired);
           InterestTypes.removeIt(docID);
           expect(InterestTypes.isDefined(docID)).to.be.false;
