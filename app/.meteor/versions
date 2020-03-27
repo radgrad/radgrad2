@@ -5,7 +5,7 @@ aldeed:collection2-core@2.1.2
 allow-deny@1.1.0
 atoy40:accounts-cas@0.0.2
 autoupdate@1.6.0
-babel-compiler@7.5.2
+babel-compiler@7.5.3
 babel-runtime@1.5.0
 base64@1.0.12
 binary-heap@1.0.11
@@ -27,7 +27,7 @@ deps@1.0.12
 didericis:callpromise-mixin@0.0.1
 diff-sequence@1.1.1
 dynamic-import@0.5.1
-ecmascript@0.14.2
+ecmascript@0.14.3
 ecmascript-runtime@0.7.0
 ecmascript-runtime-client@0.10.0
 ecmascript-runtime-server@0.9.0
@@ -108,7 +108,7 @@ templating-tools@1.1.2
 themeteorchef:bert@2.2.0
 tmeasday:check-npm-versions@0.3.2
 tracker@1.2.0
-typescript@3.7.5
+typescript@3.7.6
 udondan:zipzap@2.2.2_1
 underscore@1.0.10
 url@1.2.0
