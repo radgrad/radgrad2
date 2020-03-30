@@ -23,9 +23,7 @@ const UserSessionOverheadWidget = () => {
             </Table.Row>
             {}
           </Table.Header>
-          <Table.Body style={tableBodyStyle}>
-
-          </Table.Body>
+          <Table.Body style={tableBodyStyle} />
         </Table>
       </Container>
     </Tab.Pane>
