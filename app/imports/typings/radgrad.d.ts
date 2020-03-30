@@ -22,6 +22,10 @@ export interface Ice {
   e: number;
 }
 
+interface IDocument {
+  _id: string;
+}
+
 export interface IDumpOne {
   slug?: string;
 }
@@ -781,6 +785,23 @@ export interface IOpportunityTypeUpdate extends IUpdate {
   name?: string;
   retired?: boolean;
 }
+
+export interface IPageInterestsTermSnapshot extends IDocument {
+  termID: string;
+  category: string;
+  name: string;
+  views: number;
+  timestamp: Date;
+}
+
+export interface IPageInterestsTermSnapshotDefine extends IDumpOne {
+  termID: string;
+  category: string;
+  name: string;
+  views?: number;
+  timestamp?: Date;
+}
+
 
 // PlanChoice
 export interface IPlanChoiceDefine extends IDumpOne {

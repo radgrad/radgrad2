@@ -23,6 +23,7 @@ import { MentorProfiles } from '../user/MentorProfileCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
+import { PageInterestsTermSnapshots } from '../page-tracking/PageInterestsTermSnapshotCollection';
 import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { PublicStats } from '../public-stats/PublicStatsCollection';
 import { Reviews } from '../review/ReviewCollection';
@@ -81,6 +82,7 @@ class RadGradClass {
       Opportunities,
       OpportunityInstances,
       OpportunityTypes,
+      PageInterestsTermSnapshots,
       PlanChoices,
       PublicStats,
       Reviews,
@@ -124,6 +126,7 @@ class RadGradClass {
       AdvisorLogs,
       IceSnapshots,
       UserInteractions,
+      PageInterestsTermSnapshots,
       MentorQuestions,
       MentorAnswers,
       Reviews,

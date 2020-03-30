@@ -14,6 +14,7 @@ import '../imports/api/level';
 import '../imports/api/log';
 import '../imports/api/mentor';
 import '../imports/api/opportunity';
+import '../imports/api/page-tracking';
 import '../imports/api/public-stats';
 import '../imports/api/radgrad';
 import '../imports/api/review';

@@ -39,7 +39,6 @@ momentjs:moment
 atoy40:accounts-cas
 ddp-rate-limiter@1.0.7
 harrison:papa-parse
-percolate:synced-cron
 jquery
 meteorhacks:subs-manager
 udondan:zipzap
@@ -54,3 +53,4 @@ typescript@3.7.5
 meteortesting:mocha
 meteortesting:browser-tests
 lmieulet:meteor-coverage
+littledata:synced-cron

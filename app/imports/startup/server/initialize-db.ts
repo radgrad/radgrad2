@@ -203,6 +203,15 @@ function fixUserInteractions() {
   }
 }
 
+/**
+ * Initializes the first document of the PageInterestsTermSnapshotCollection if it is empty.
+ * This is because calculating the start and end dates are dependent on the previous term snapshot.
+ * @memberOf startup/server
+ */
+function startupPageInterestsTermSnapshot() {
+
+}
+
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
   if (Meteor.isTest || Meteor.isAppTest) {
@@ -216,6 +225,7 @@ Meteor.startup(() => {
     startupCheckIntegrity();
     startupPublicStats();
     startupStudentParticipation();
+    startupPageInterestsTermSnapshot();
     fixUserInteractions();
     SyncedCron.start();
   }
