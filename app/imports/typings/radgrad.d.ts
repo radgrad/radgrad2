@@ -785,15 +785,11 @@ export interface IOpportunityTypeUpdate extends IUpdate {
 // PlanChoice
 export interface IPlanChoiceDefine extends IDumpOne {
   choice: string;
-  label: string;
-  courseSlugs: string[];
   retired?: boolean;
 }
 
 export interface IPlanChoiceUpdate extends IUpdate {
   choice?: string;
-  label?: string;
-  courseSlugs?: string[];
   retired?: boolean;
 }
 

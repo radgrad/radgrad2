@@ -1,9 +1,17 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
-import { buildSimpleName, complexChoiceToArray } from './PlanChoiceUtilities';
+import {
+  buildSimpleName,
+  complexChoiceToArray,
+  isSimpleChoice,
+  isSingleChoice,
+  isXXChoice,
+} from './PlanChoiceUtilities';
 import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
+import { IPlanChoiceType, PlanChoiceType } from './PlanChoiceType';
 import { Courses } from '../course/CourseCollection';
+import { getCourseNumber } from '../course/CourseUtilities';
 
 /**
  * Represents a choice in an academic plan.
@@ -18,23 +26,14 @@ export class PlanChoiceCollection extends BaseCollection {
   constructor() {
     super('PlanChoice', new SimpleSchema({
       choice: String, // this is the choice such as ics111 or ics_313,ics_361
-      label: String, // the label to present to the user.
-      courseSlugs: Array, // an array of course slugs that satisfy this choice.
-      'courseSlugs.$': String,
       retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       choice: String, // this is the choice such as ics111 or ics_313,ics_361
-      label: String, // the label to present to the user.
-      courseSlugs: Array, // an array of course slugs that satisfy this choice.
-      'courseSlugs.$': String,
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       choice: { type: String, optional: true }, // this is the choice such as ics111 or ics_313,ics_361
-      label: { type: String, optional: true }, // the label to present to the user.
-      courseSlugs: { type: Array, optional: true }, // an array of course slugs that satisfy this choice.
-      'courseSlugs.$': String,
       retired: { type: Boolean, optional: true },
     });
   }
@@ -48,12 +47,12 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param {boolean} retired, (optional) defaults to false.
    * @returns {*}
    */
-  public define({ choice, label, courseSlugs, retired = false }: IPlanChoiceDefine) {
-    const doc = this.collection.findOne(choice);
+  public define({ choice, retired = false }: IPlanChoiceDefine) {
+    const doc = this.collection.findOne({ choice });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ choice, label, courseSlugs, retired });
+    return this.collection.insert({ choice, retired });
   }
 
   /**
@@ -61,17 +60,11 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID associated with this plan choice.
    * @param choice the updated choice.
    */
-  public update(docID: string, { choice, label, courseSlugs, retired }: IPlanChoiceUpdate) {
+  public update(docID: string, { choice, retired }: IPlanChoiceUpdate) {
     this.assertDefined(docID);
     const updateData: IPlanChoiceUpdate = {};
     if (choice) {
       updateData.choice = choice;
-    }
-    if (label) {
-      updateData.label = label;
-    }
-    if (courseSlugs) {
-      updateData.courseSlugs = courseSlugs;
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -81,17 +74,17 @@ export class PlanChoiceCollection extends BaseCollection {
 
   /**
    * Creates a human readable string representation of the choice.
-   * @param planChoiceSlug
+   * @param planChoice
    * @returns {string}
    */
-  public static toStringFromSlug(planChoiceSlug: string) {
+  public toString(planChoice: string) {
     let ret = '';
     let slug;
-    const countIndex = planChoiceSlug.indexOf('-');
+    const countIndex = planChoice.indexOf('-');
     if (countIndex === -1) {
-      slug = planChoiceSlug;
+      slug = planChoice;
     } else {
-      slug = planChoiceSlug.substring(0, countIndex);
+      slug = planChoice.substring(0, countIndex);
     }
     while (slug.length > 0) {
       let temp;
@@ -120,6 +113,43 @@ export class PlanChoiceCollection extends BaseCollection {
     return ret.substring(0, ret.length - 4);
   }
 
+  public getPlanChoiceType(choice: string): IPlanChoiceType {
+    if (isXXChoice(choice)) {
+      return PlanChoiceType.XPLUS;
+    }
+    if (isSingleChoice(choice)) {
+      return PlanChoiceType.SINGLE;
+    }
+    if (isSimpleChoice(choice)) {
+      return PlanChoiceType.SIMPLE;
+    }
+    return PlanChoiceType.COMPLEX;
+  }
+
+  public satisfiesPlanChoice(planChoice: string, courseSlug: string): boolean {
+    if (this.getPlanChoiceType(planChoice) === PlanChoiceType.XPLUS) {
+      const planNumberStr = getCourseNumber(planChoice);
+      const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
+      const courseNumber = parseInt(getCourseNumber(courseSlug), 10);
+      return courseNumber >= planNumber;
+    }
+    const simpleChoices = complexChoiceToArray(planChoice);
+    let returnVal = false;
+    _.forEach(simpleChoices, (choice) => {
+      if (this.getPlanChoiceType(choice) === PlanChoiceType.XPLUS) {
+        const planNumberStr = getCourseNumber(choice);
+        const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
+        const courseNumber = parseInt(getCourseNumber(courseSlug), 10);
+        if (courseNumber >= planNumber) {
+          returnVal = true;
+        }
+      } else if (choice.includes(courseSlug)) {
+        returnVal = true;
+      }
+    });
+    return returnVal;
+  }
+
   /**
    * Returns an empty array (no integrity checking done on this collection).
    * This method will ensure that there is a single choice for each of the non retired courses.
@@ -128,22 +158,14 @@ export class PlanChoiceCollection extends BaseCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      // check to see if all courses are defined.
-      doc.courseSlugs.forEach((slug) => {
-        if (!Courses.isDefined(slug)) {
-          problems.push(`Course is not defined ${slug} in choice ${doc.name}:${doc.loabel}`);
-        }
-      });
-      // check to see if choice matches course slugs
-      const choiceArray = complexChoiceToArray(doc.choice);
-      if (choiceArray.length !== doc.courseSlugs.length) {
-        problems.push(`Choice ${doc.choice}: ${choiceArray.join(', ')} doesn't match courseSlugs ${doc.courseSlugs.join(', ')}`);
+      if (this.getPlanChoiceType(doc.choice) !== PlanChoiceType.XPLUS) {
+        const courseSlugs = complexChoiceToArray(doc.choice);
+        _.forEach(courseSlugs, (slug) => {
+          if (!Courses.isDefined(slug)) {
+            problems.push(`Plan choice ${doc.choice} has undefined course slug ${slug}.`);
+          }
+        });
       }
-      _.forEach(choiceArray, (choice) => {
-        if (!_.includes(doc.courseSlugs, choice)) {
-          problems.push(`Course ${choice} is not in the courseSlugs ${doc.courseSlugs}`);
-        }
-      });
     });
     return problems;
   }
@@ -156,10 +178,8 @@ export class PlanChoiceCollection extends BaseCollection {
   public dumpOne(docID: string): IPlanChoiceDefine {
     const doc = this.findDoc(docID);
     const choice = doc.choice;
-    const label = doc.label;
-    const courseSlugs = doc.courseSlugs;
     const retired = doc.retired;
-    return { choice, label, courseSlugs, retired };
+    return { choice, retired };
   }
 
 }

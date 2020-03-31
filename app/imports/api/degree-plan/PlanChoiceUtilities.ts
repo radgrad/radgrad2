@@ -175,7 +175,7 @@ function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
 }
 
 /**
- * Returns true if the getCourseSlug satisfies the plan choice.
+ * Returns true if the courseSlug satisfies the plan choice.
  * @param planChoice The plan choice.
  * @param courseSlug The course slug.
  * @return {Boolean}
