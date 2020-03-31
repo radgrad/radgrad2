@@ -9,7 +9,6 @@ import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { stripCounter } from './PlanChoiceUtilities';
-import { Courses } from '../course/CourseCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -36,7 +35,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'coursesPerAcademicTerm.$': Number,
       choiceList: { type: Array },
       'choiceList.$': { type: String },
-      groups: { type: Object, blackbox: true },
       retired: { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
@@ -51,7 +49,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       coursesPerAcademicTerm: [Number],
       choiceList: { type: Array },
       'choiceList.$': { type: String },
-      groups: { type: Object },
     });
     this.updateSchema = new SimpleSchema({
       degreeSlug: { type: String, optional: true },
@@ -61,7 +58,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'coursesPerAcademicTerm.$': { type: Number },
       choiceList: { type: Array, optional: true },
       'choiceList.$': { type: String },
-      groups: { type: Object, optional: true },
       retired: { type: Boolean, optional: true },
     });
   }
@@ -89,7 +85,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, groups, retired = false }: IAcademicPlanDefine) {
+  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired = false }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
     const effectiveAcademicTermID = AcademicTerms.getID(academicTerm);
     const doc = this.collection.findOne({ degreeID, name, effectiveAcademicTermID });
@@ -111,7 +107,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       year,
       coursesPerAcademicTerm,
       choiceList,
-      groups,
       retired,
     });
     // Connect the Slug to this AcademicPlan.
@@ -129,9 +124,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param choiceList an array of PlanChoices, the choices for each course.
    * @param retired boolean, optional.
    */
-  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, groups, retired }: IAcademicPlanUpdate) {
+  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
-    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; groups?: any; retired?: boolean; } = {};
+    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; retired?: boolean; } = {};
     if (degreeSlug) {
       updateData.degreeID = DesiredDegrees.getID(degreeSlug);
     }
@@ -162,9 +157,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
         }
       });
       updateData.choiceList = choiceList;
-    }
-    if (groups) {
-      updateData.groups = groups;
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -216,13 +208,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
         if (!doc.groups[stripped]) {
           problems.push(`${stripped} is not defined in the groups`);
         }
-      });
-      _.forEach(doc.groups, (group) => {
-        _.forEach(group.courseSlugs, (slug) => {
-          if (!Courses.isDefined(slug)) {
-            problems.push(`${doc.name}: ${slug} is not a defined Course slug.`);
-          }
-        });
       });
     });
     return problems;
