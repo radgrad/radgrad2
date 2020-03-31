@@ -243,7 +243,6 @@ export interface IAcademicPlanDefine extends IDumpOne {
   academicTerm: string;
   coursesPerAcademicTerm: number[];
   choiceList: string[];
-  groups: any;
   retired?: boolean;
 }
 
@@ -253,7 +252,6 @@ export interface IAcademicPlanUpdate  extends IUpdate {
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
   choiceList?: string[];
-  groups?: any;
   retired?: boolean;
 }
 

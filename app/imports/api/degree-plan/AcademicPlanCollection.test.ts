@@ -54,60 +54,6 @@ if (Meteor.isServer) {
       'ics_400+-3',
       'ics_400+-4',
     ];
-    const groups = {
-      ics_111: {
-        name: 'ICS 111',
-          courseSlugs: ['ics_111'],
-      },
-      ics_141: {
-        name: 'ICS 141',
-          courseSlugs: ['ics_141'],
-      },
-      ics_211: {
-        name: 'ICS 211',
-          courseSlugs: ['ics_211'],
-      },
-      ics_241: {
-        name: 'ICS 241',
-          courseSlugs: ['ics_241'],
-      },
-      ics_311: {
-        name: 'ICS 311',
-          courseSlugs: ['ics_311'],
-      },
-      ics_314: {
-        name: 'ICS 314',
-          courseSlugs: ['ics_314'],
-      },
-      ics_212: {
-        name: 'ICS 212',
-          courseSlugs: ['ics_212'],
-      },
-      ics_321: {
-        name: 'ICS 321',
-          courseSlugs: ['ics_321'],
-      },
-      'ics_312,ics_331': {
-        name: 'ICS 312 or ICS 331',
-          courseSlugs: ['ics_312', 'ics_331'],
-      },
-      'ics_400+': {
-        name: 'ICS 400+',
-          courseSlugs: ['ics_414', 'ics_415', 'ics_419', 'ics_421', 'ics_422', 'ics_423', 'ics_424', 'ics_425',
-          'ics_426', 'ics_431', 'ics_432', 'ics_434', 'ics_435', 'ics_441', 'ics_442', 'ics_443', 'ics_451',
-          'ics_452', 'ics_455', 'ics_461', 'ics_462', 'ics_464', 'ics_465', 'ics_466', 'ics_469', 'ics_471',
-          'ics_475', 'ics_476', 'ics_481', 'ics_483', 'ics_484', 'ics_485', 'ics_491', 'ics_495', 'ics_499',
-        ],
-      },
-      'ics_313,ics_361': {
-        name: 'ICS 313 or ICS 361',
-          courseSlugs: ['ics_313', 'ics_361'],
-      },
-      ics_332: {
-        name: 'ICS 332',
-          courseSlugs: ['ics_332'],
-      },
-    };
 
     before(function setup() {
       this.timeout(5000);
@@ -131,7 +77,6 @@ if (Meteor.isServer) {
         academicTerm,
         coursesPerAcademicTerm,
         choiceList,
-        groups,
       });
       // Assert
       expect(AcademicPlans.isDefined(docID)).to.be.true;
@@ -162,8 +107,9 @@ if (Meteor.isServer) {
     it('Can checkIntegrity no errors', function test4() {
       // Act
       const errors = AcademicPlans.checkIntegrity();
+      // console.log(errors);
       // Assert
-      expect(errors.length).to.equal(48); // we don't define the courses
+      expect(errors.length).to.equal(0);
     });
 
     it('Can get plans for degree, good slug', function test6() {
@@ -181,17 +127,18 @@ if (Meteor.isServer) {
       expect(termNumber).to.equal(19);
     });
 
-    it('Can checkIntegrity one error', function test5() {
+    it('Can checkIntegrity errors', function test10() {
       // Arrange
       const docID = AcademicPlans.findIdBySlug(slug);
       AcademicPlans.removeIt(docID);
         const badID = AcademicPlans.define({
           slug, degreeSlug, name: description, description, academicTerm: notDefinedAcademicTerm, coursesPerAcademicTerm,
-          choiceList: badCourseList, groups,
+          choiceList: badCourseList,
         });
         expect(AcademicPlans.isDefined(badID)).to.be.true;
         const errors = AcademicPlans.checkIntegrity();
-        expect(errors).to.have.lengthOf(49); // we don't define the courses so we get lots of errors.
+        // console.log(errors);
+        expect(errors).to.have.lengthOf(1);
     });
   });
 }

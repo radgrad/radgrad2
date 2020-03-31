@@ -175,6 +175,15 @@ function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
 }
 
 /**
+ * Returns the number portion of the getCourseSlug.
+ * @param courseSlug the course slug.
+ * @returns {string}
+ */
+export function getSimpleChoiceNumber(simpleChoice): string {
+  return simpleChoice.split('_')[1];
+}
+
+/**
  * Returns true if the courseSlug satisfies the plan choice.
  * @param planChoice The plan choice.
  * @param courseSlug The course slug.

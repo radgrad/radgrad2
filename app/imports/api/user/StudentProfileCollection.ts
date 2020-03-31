@@ -230,13 +230,13 @@ class StudentProfileCollection extends BaseProfileCollection {
   public update(docID, {
     firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans, favoriteCourses,
     favoriteOpportunities, declaredAcademicTerm,
-    isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests,
+    isAlumni, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareUsername, sharePicture, shareWebsite, shareInterests,
     shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel,
   }: IStudentProfileUpdate) {
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
     const updateData: IStudentProfileUpdateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
     }

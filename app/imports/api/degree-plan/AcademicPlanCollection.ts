@@ -9,6 +9,7 @@ import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { stripCounter } from './PlanChoiceUtilities';
+import { PlanChoices } from './PlanChoiceCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -97,6 +98,14 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const academicTermDoc = AcademicTerms.findDoc(effectiveAcademicTermID);
     const termNumber = academicTermDoc.termNumber;
     const year = academicTermDoc.year;
+    // CAM should we ensure all the choices are defined?
+    _.forEach(choiceList, (choice) => {
+      const stripped = stripCounter(choice);
+      if (!PlanChoices.isDefined(stripped)) {
+        // console.log(`defining PlanChoice ${stripped}`);
+        PlanChoices.define({ choice: stripped });
+      }
+    });
     const planID = this.collection.insert({
       slugID,
       degreeID,
@@ -188,25 +197,25 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const problems = [];
     this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
-        problems.push(`Bad slugID: ${doc.slugID}`);
+        problems.push(`Bad slugID: ${doc.slugID}.`);
       }
       if (!AcademicTerms.isDefined(doc.effectiveAcademicTermID)) {
-        problems.push(`Bad termID: ${doc.effectiveAcademicTermID}`);
+        problems.push(`Bad termID: ${doc.effectiveAcademicTermID}.`);
       }
       if (!DesiredDegrees.isDefined(doc.degreeID)) {
-        problems.push(`Bad desiredDegreeID: ${doc.degreeID}`);
+        problems.push(`Bad desiredDegreeID: ${doc.degreeID}.`);
       }
       let numCourses = 0;
       _.forEach(doc.coursesPerAcademicTerm, (n) => {
         numCourses += n;
       });
       if (doc.choiceList.length !== numCourses) {
-        problems.push(`Mismatch between choiceList.length ${doc.choiceList.length} and sum of coursesPerAcademicTerm ${numCourses}`);
+        problems.push(`Mismatch between choiceList.length ${doc.choiceList.length} and sum of coursesPerAcademicTerm ${numCourses}.`);
       }
       _.forEach(doc.choiceList, (choice) => {
         const stripped = stripCounter(choice);
-        if (!doc.groups[stripped]) {
-          problems.push(`${stripped} is not defined in the groups`);
+        if (!PlanChoices.findDoc({ choice: stripped })) {
+          problems.push(`${stripped} is not a defined PlanChoice.`);
         }
       });
     });
@@ -306,9 +315,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const academicTerm = Slugs.findDoc(academicTermDoc.slugID).name;
     const coursesPerAcademicTerm = doc.coursesPerAcademicTerm;
     const choiceList = doc.choiceList;
-    const groups = doc.groups;
     const retired = doc.retired;
-    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, groups, retired };
+    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired };
   }
 
 }

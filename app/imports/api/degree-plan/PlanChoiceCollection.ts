@@ -7,11 +7,11 @@ import {
   isSimpleChoice,
   isSingleChoice,
   isXXChoice,
+  getSimpleChoiceNumber,
 } from './PlanChoiceUtilities';
 import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
 import { IPlanChoiceType, PlanChoiceType } from './PlanChoiceType';
 import { Courses } from '../course/CourseCollection';
-import { getCourseNumber } from '../course/CourseUtilities';
 
 /**
  * Represents a choice in an academic plan.
@@ -128,18 +128,18 @@ export class PlanChoiceCollection extends BaseCollection {
 
   public satisfiesPlanChoice(planChoice: string, courseSlug: string): boolean {
     if (this.getPlanChoiceType(planChoice) === PlanChoiceType.XPLUS) {
-      const planNumberStr = getCourseNumber(planChoice);
+      const planNumberStr = getSimpleChoiceNumber(planChoice);
       const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
-      const courseNumber = parseInt(getCourseNumber(courseSlug), 10);
+      const courseNumber = parseInt(getSimpleChoiceNumber(courseSlug), 10);
       return courseNumber >= planNumber;
     }
     const simpleChoices = complexChoiceToArray(planChoice);
     let returnVal = false;
     _.forEach(simpleChoices, (choice) => {
       if (this.getPlanChoiceType(choice) === PlanChoiceType.XPLUS) {
-        const planNumberStr = getCourseNumber(choice);
+        const planNumberStr = getSimpleChoiceNumber(choice);
         const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
-        const courseNumber = parseInt(getCourseNumber(courseSlug), 10);
+        const courseNumber = parseInt(getSimpleChoiceNumber(courseSlug), 10);
         if (courseNumber >= planNumber) {
           returnVal = true;
         }
