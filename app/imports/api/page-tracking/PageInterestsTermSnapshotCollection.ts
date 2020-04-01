@@ -7,18 +7,20 @@ import { Slugs } from '../slug/SlugCollection';
 import { IPageInterestsTermSnapshot, IPageInterestsTermSnapshotDefine } from '../../typings/radgrad';
 
 /**
- * Represents a snapshot of a page's student interest views in a specific academic term.
- * The different topic categories that a page could be are Career Goal, Course, Interest, and Opportunity
- * See PageInterestsCollection to see the definition of a page interest view.
+ * Represents a snapshot of the aggregated student interest views for an academic term
+ * The different topic categories that are tracked an counted towards student interest views are Career Goal, Course, Interest, and Opportunity
+ * See PageInteressCollection to see the definition of a page interest view.
  * @extends api/base.BaseCollection
  * @memberOf @api/page-tracking
  */
 class PageInterestsTermSnapshotCollection extends BaseCollection {
 
+  // TODO: See https://github.com/radgrad/radgrad2/issues/138#issuecomment-606245409
   /**
    * Creates the TermSnapshotPageInterests collection.
    */
   constructor() {
+    // TODO: Rework the structure/schema of the TermSnapshot to use less documents. See DailySnapshot structure
     super('PageInterestsTermSnapshot', new SimpleSchema({
       termID: SimpleSchema.RegEx.Id,
       category: String,
@@ -48,7 +50,7 @@ class PageInterestsTermSnapshotCollection extends BaseCollection {
    */
   public checkIntegrity(): string[] {
     const problems = [];
-    this.find({}, {}).forEach((doc) => {
+    this.find({}, {}).forEach((doc: IPageInterestsTermSnapshot) => {
       if (!AcademicTerms.isDefined(doc.termID)) {
         problems.push(`Bad termID: ${doc.termID}`);
       }

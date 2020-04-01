@@ -46,29 +46,29 @@ class RadGradPropertiesClass {
     return _.has(Meteor, 'settings.public.RadGrad.newsletterFrom') ? Meteor.settings.public.RadGrad.newsletterFrom : 'Phillip Johnson <donotreply@mail.gun.radgrad.org>';
   }
 
-  public getFallSemesterStartDate(): Date {
-
-  }
-
-  public getFallSemesterEndDate(): Date {
-
-  }
-
-  public getSummerSemesterStartDate(): Date {
-
-  }
-
-  public getSummerSemesterEndDate(): Date {
-
-  }
-
-  public getSpringSemesterStartDate(): Date {
-
-  }
-
-  public getSpringSemesterEndDate(): Date {
-
-  }
+  // public getFallSemesterStartDate(): Date {
+  //
+  // }
+  //
+  // public getFallSemesterEndDate(): Date {
+  //
+  // }
+  //
+  // public getSummerSemesterStartDate(): Date {
+  //
+  // }
+  //
+  // public getSummerSemesterEndDate(): Date {
+  //
+  // }
+  //
+  // public getSpringSemesterStartDate(): Date {
+  //
+  // }
+  //
+  // public getSpringSemesterEndDate(): Date {
+  //
+  // }
 }
 
 export const RadGradProperties = new RadGradPropertiesClass();

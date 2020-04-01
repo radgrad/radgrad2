@@ -6,7 +6,6 @@ import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
 import { IIceSnapshotDefine } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
-import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 
 function createIceSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -75,24 +74,23 @@ SyncedCron.add({
   },
 });
 
-SyncedCron.add({
-  name: 'Create PageInterests Term Snapshot',
-  schedule(parser) {
-    return parser.text('every 24 hours');
-  },
-  job() {
-    const isQuarterSystem = RadGradProperties.getQuarterSystem();
-    if (isQuarterSystem) { // Quarters
-    //  TODO
-    } else { // Semesters
-      const fallStartDate = RadGradProperties.getFallSemesterStartDate();
-      const fallEndDate = RadGradProperties.getFallSemesterEndDate();
-      const summerStartDate = RadGradProperties.getSummerSemesterStartDate();
-      const summerEndDate = RadGradProperties.getSummerSemesterEndDate();
-      const springStartDate = RadGradProperties.getSpringSemesterStartDate();
-      const springEndDate = RadGradProperties.getSpringSemesterEndDate();
-
-
-    }
-  },
-});
+// SyncedCron.add({
+//   name: 'Create PageInterests Term Snapshot',
+//   schedule(parser) {
+//     return parser.text('every 24 hours');
+//   },
+//   job() {
+//     const isQuarterSystem = RadGradProperties.getQuarterSystem();
+//     if (isQuarterSystem) { // Quarters
+//     } else { // Semesters
+//       const fallStartDate = RadGradProperties.getFallSemesterStartDate();
+//       const fallEndDate = RadGradProperties.getFallSemesterEndDate();
+//       const summerStartDate = RadGradProperties.getSummerSemesterStartDate();
+//       const summerEndDate = RadGradProperties.getSummerSemesterEndDate();
+//       const springStartDate = RadGradProperties.getSpringSemesterStartDate();
+//       const springEndDate = RadGradProperties.getSpringSemesterEndDate();
+//
+//
+//     }
+//   },
+// });

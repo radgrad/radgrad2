@@ -208,9 +208,9 @@ function fixUserInteractions() {
  * This is because calculating the start and end dates are dependent on the previous term snapshot.
  * @memberOf startup/server
  */
-function startupPageInterestsTermSnapshot() {
-
-}
+// function startupPageInterestsTermSnapshot() {
+//
+// }
 
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
@@ -225,7 +225,7 @@ Meteor.startup(() => {
     startupCheckIntegrity();
     startupPublicStats();
     startupStudentParticipation();
-    startupPageInterestsTermSnapshot();
+    // startupPageInterestsTermSnapshot();
     fixUserInteractions();
     SyncedCron.start();
   }
