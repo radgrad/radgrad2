@@ -1,6 +1,5 @@
 import faker from 'faker';
 import _ from 'lodash';
-import { buildCourseSlugName } from './PlanChoiceUtilities';
 import { makeSampleDesiredDegree } from './SampleDesiredDegrees';
 import slugify, { Slugs } from '../slug/SlugCollection';
 import { DesiredDegrees } from './DesiredDegreeCollection';
@@ -13,16 +12,11 @@ const buildCourseList = (coursesPerAcademicTerm: number[]) => {
   const numChoices = _.sum(coursesPerAcademicTerm);
   const dept = getRandomDepartment();
   const choiceList = [];
-  const groups = {};
   for (let i = 0; i < numChoices; i++) {
     const slug = getRandomCourseSlugForDept(dept);
     choiceList.push(`${slug}-1`);
-    groups[slug] = {
-      name: buildCourseSlugName(slug),
-      courseSlugs: [slug],
-    };
   }
-  return { choiceList, groups };
+  return choiceList;
 };
 
 export function makeSampleAcademicPlan() {
@@ -35,7 +29,7 @@ export function makeSampleAcademicPlan() {
   const academicTermID = makeSampleAcademicTerm();
   const academicTerm = AcademicTerms.findSlugByID(academicTermID);
   const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
-  const { choiceList, groups } = buildCourseList(coursesPerAcademicTerm);
+  const choiceList = buildCourseList(coursesPerAcademicTerm);
   return AcademicPlans.define({
     name,
     slug,
@@ -44,6 +38,5 @@ export function makeSampleAcademicPlan() {
     academicTerm,
     coursesPerAcademicTerm,
     choiceList,
-    groups,
   });
 }
