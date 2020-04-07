@@ -8,7 +8,10 @@ import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { makeSampleAcademicPlan } from './SampleAcademicPlans';
+import { makeSampleAcademicPlan, makeSampleChoiceList, makeSampleCoursesPerTerm } from './SampleAcademicPlans';
+import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
+import { IAcademicPlan } from '../../typings/radgrad';
+import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -111,7 +114,7 @@ if (Meteor.isServer) {
       done();
     });
 
-    it('Can define duplicates', function test2(done) {
+    it('Can define duplicates', function test2() {
       const termID = AcademicTerms.define({ term: 'Spring', year: 2017 });
       const degreeID = DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
       const docID1 = AcademicPlans.define({
@@ -143,32 +146,47 @@ if (Meteor.isServer) {
     it('Can update', function test3(done) {
       this.timeout(5000);
       const docID = makeSampleAcademicPlan();
-
+      // { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
+      fc.assert(
+        fc.property(fc.lorem(), fc.boolean(), (fcName, fcRetired) => {
+          const coursesPerAcademicTerm2 = makeSampleCoursesPerTerm();
+          const choiceList2 = makeSampleChoiceList(coursesPerAcademicTerm);
+          const academicTerm2 = makeSampleAcademicTerm();
+          AcademicPlans.update(docID, {
+            name: fcName,
+            academicTerm: academicTerm2,
+            coursesPerAcademicTerm: coursesPerAcademicTerm2,
+            choiceList: choiceList2,
+            retired: fcRetired,
+          });
+          const doc = AcademicPlans.findDoc(docID);
+          // console.log(doc, coursePerAcademicTerm);
+          expect(doc.name).to.equal(fcName);
+          expect(doc.coursesPerAcademicTerm).to.have.ordered.members(coursesPerAcademicTerm2);
+        }),
+      );
+      AcademicPlans.removeIt(docID);
       done();
     });
 
-    it('Can update', function test2() {
-      // Arrange
-      const docID = AcademicPlans.findIdBySlug(slug);
-      // Act
-      AcademicPlans.update(docID, { retired: true });
-      // Assert
-      expect(AcademicPlans.countNonRetired()).to.equal(0);
-    });
-
-    it('Can dump removeIt and restore', function test3() {
-      // Arrange
-      const docID = AcademicPlans.findIdBySlug(slug);
-      // Act
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let docID = makeSampleAcademicPlan();
+      expect(AcademicPlans.isDefined(docID)).to.be.true;
+      const origPlan: IAcademicPlan = AcademicPlans.findDoc(docID);
       const dumpObject = AcademicPlans.dumpOne(docID);
       AcademicPlans.removeIt(docID);
       expect(AcademicPlans.isDefined(docID)).to.be.false;
-      const planID = AcademicPlans.restoreOne(dumpObject);
-      // Assert
-      expect(AcademicPlans.isDefined(planID)).to.be.true;
+      docID = AcademicPlans.restoreOne(dumpObject);
+      const doc: IAcademicPlan = AcademicPlans.findDoc(docID);
+      expect(origPlan.name).to.equal(doc.name);
+      expect(origPlan.degreeID).to.equal(doc.degreeID);
+      expect(origPlan.description).to.equal(doc.description);
+      expect(origPlan.academicTermNumber).to.equal(doc.academicTermNumber);
+      expect(origPlan.coursesPerAcademicTerm).to.have.ordered.members(doc.coursesPerAcademicTerm);
+      expect(origPlan.choiceList).to.have.ordered.members(doc.choiceList);
     });
 
-    it('Can checkIntegrity no errors', function test4() {
+    it('Can checkIntegrity no errors', function test5() {
       // Act
       const errors = AcademicPlans.checkIntegrity();
       // console.log(errors);
@@ -176,30 +194,16 @@ if (Meteor.isServer) {
       expect(errors.length).to.equal(0);
     });
 
-    it('Can get plans for degree, good slug', function test6() {
-      const plans = AcademicPlans.getPlansForDegree(degreeSlug);
-      expect(plans).to.have.lengthOf(1);
-    });
-
-    it('Can get latest plans', function test8() {
+    it('Can get latest plans', function test6() {
       const plans = AcademicPlans.getLatestPlans();
       expect(plans).to.have.lengthOf(1);
     });
 
-    it('Can get latest academic term number', function test9() {
-      const termNumber = AcademicPlans.getLatestAcademicTermNumber();
-      expect(termNumber).to.equal(19); // TODO: This needs to be updated each academic term.
-    });
-
-    it('Can checkIntegrity errors', function test10() {
+    it('Can checkIntegrity errors', function test7() {
       // Arrange
-      const docID = AcademicPlans.findIdBySlug(slug);
-      AcademicPlans.removeIt(docID);
-      const badID = AcademicPlans.define({
-        slug, degreeSlug, name: description, description, academicTerm: notDefinedAcademicTerm, coursesPerAcademicTerm,
-        choiceList: badCourseList,
-      });
-      expect(AcademicPlans.isDefined(badID)).to.be.true;
+      const doc = AcademicPlans.findOne({});
+      const docID = doc._id;
+      AcademicPlans.update(docID, { choiceList: badCourseList });
       const errors = AcademicPlans.checkIntegrity();
       // console.log(errors);
       expect(errors).to.have.lengthOf(1);

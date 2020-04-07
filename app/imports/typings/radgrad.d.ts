@@ -230,7 +230,6 @@ export interface IAcademicPlan {
   year: number;
   coursesPerAcademicTerm: number[];
   choiceList: string[];
-  groups: any; // an object key is slug, value is IAcademicPlanGroup
   isBAM?: boolean;
   retired?: boolean;
 }

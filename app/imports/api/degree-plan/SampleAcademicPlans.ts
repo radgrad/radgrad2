@@ -8,6 +8,19 @@ import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/CourseUtilities';
 
+const buildRandomCoursesPerTerm = () => {
+  const coursesPerAcademicTerm = [];
+  for (let i = 0; i < 12; i++) {
+    coursesPerAcademicTerm.push(faker.random.number({
+      min: 0,
+      max: 4,
+    }));
+  }
+  return coursesPerAcademicTerm;
+};
+
+export const makeSampleCoursesPerTerm = () => buildRandomCoursesPerTerm();
+
 const buildCourseList = (coursesPerAcademicTerm: number[]) => {
   const numChoices = _.sum(coursesPerAcademicTerm);
   const dept = getRandomDepartment();
@@ -19,7 +32,9 @@ const buildCourseList = (coursesPerAcademicTerm: number[]) => {
   return choiceList;
 };
 
-export function makeSampleAcademicPlan() {
+export const makeSampleChoiceList = (coursesPerAcademicTerm: number[]) => buildCourseList(coursesPerAcademicTerm);
+
+export const makeSampleAcademicPlan = () => {
   const desiredDegreeID = makeSampleDesiredDegree({});
   const degreeDoc = DesiredDegrees.findDoc(desiredDegreeID);
   const name = faker.lorem.words();
@@ -28,7 +43,7 @@ export function makeSampleAcademicPlan() {
   const description = faker.lorem.paragraph();
   const academicTermID = makeSampleAcademicTerm();
   const academicTerm = AcademicTerms.findSlugByID(academicTermID);
-  const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
+  const coursesPerAcademicTerm = buildRandomCoursesPerTerm();
   const choiceList = buildCourseList(coursesPerAcademicTerm);
   return AcademicPlans.define({
     name,
@@ -39,4 +54,4 @@ export function makeSampleAcademicPlan() {
     coursesPerAcademicTerm,
     choiceList,
   });
-}
+};

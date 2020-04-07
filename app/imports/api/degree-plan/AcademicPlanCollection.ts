@@ -170,6 +170,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
+    // console.log('AcademicPlans.update', updateData);
     this.collection.update(docID, { $set: updateData });
   }
 
