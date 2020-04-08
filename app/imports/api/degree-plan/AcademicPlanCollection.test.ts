@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import moment from 'moment';
-import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
 import { DesiredDegrees } from './DesiredDegreeCollection';
@@ -11,7 +10,6 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleAcademicPlan, makeSampleChoiceList, makeSampleCoursesPerTerm } from './SampleAcademicPlans';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { IAcademicPlan } from '../../typings/radgrad';
-import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -24,7 +22,6 @@ if (Meteor.isServer) {
     const description = 'B.S. in CS.';
     const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
-    const notDefinedAcademicTerm = 'Spring-2009';
     const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
     const choiceList = [
       'ics_111-1',
