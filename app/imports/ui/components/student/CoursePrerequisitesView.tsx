@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { satisfiesPlanChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 
 interface ICoursePrerequisitesViewProps {
@@ -27,7 +27,7 @@ const CoursePrerequisitesView = (props: ICoursePrerequisitesViewProps) => (
   <List bulleted>
     {_.map(props.prerequisites, (p) => (
       <List.Item key={p}>
-        {PlanChoiceCollection.toStringFromSlug(p)}
+        {PlanChoices.toString(p)}
         {missingPrerequisite(p, props.studentID) ? <Icon name="warning" color="red" /> :
         <Icon name="checkmark" color="green" />}
       </List.Item>

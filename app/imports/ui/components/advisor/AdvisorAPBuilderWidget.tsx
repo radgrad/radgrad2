@@ -10,7 +10,7 @@ import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { PlanChoiceCollection, PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import {
   academicTermNameToDoc,
   academicTermToName,
@@ -241,7 +241,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
       if (isSingleChoice(choice)) {
         Swal.fire({
           title: 'Delete failed',
-          text: `Cannot delete the single choice ${PlanChoiceCollection.toStringFromSlug(choice)}.`,
+          text: `Cannot delete the single choice ${PlanChoices.toString(choice)}.`,
           icon: 'error',
         });
       } else {
@@ -268,7 +268,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
       description,
       academicTerm,
       degreeSlug,
-      courseList: this.state.choiceList,
+      choiceList: this.state.choiceList,
       coursesPerAcademicTerm: truncatedCoursesPerTerm,
       slug,
     };
@@ -358,7 +358,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
           onConfirm={this.handleConfirmAdd}
           confirmButton="Add Choice"
           header="Add Plan Choice?"
-          content={PlanChoiceCollection.toStringFromSlug(this.state.addPlanChoice)}
+          content={PlanChoices.toString(this.state.addPlanChoice)}
         />
         <Confirm
           open={this.state.showConfirmDelete}
@@ -366,7 +366,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
           onConfirm={this.handleConfirmDelete}
           confirmButton="Delete Choice"
           header="Delete Plan Choice?"
-          content={PlanChoiceCollection.toStringFromSlug(this.state.deletePlanChoice)}
+          content={PlanChoices.toString(this.state.deletePlanChoice)}
         />
         <Confirm
           open={this.state.showConfirmCombine}
