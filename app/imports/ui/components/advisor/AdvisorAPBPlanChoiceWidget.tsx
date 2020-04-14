@@ -29,7 +29,7 @@ const handleFilterChange = (props: IAdvisorAPBPlanChoiceWidgetProps) => ((model)
 });
 
 const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => {
-  console.log('AdvisorAPBPlanChoiceWidget', props);
+  // console.log('AdvisorAPBPlanChoiceWidget', props);
   const column1 = [];
   const column2 = [];
   const column3 = [];
@@ -92,6 +92,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                     studentID="fakeID"
                   />
                 ))}
+                {provided.placeholder}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column2, (choice, index) => (
@@ -117,6 +118,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                     studentID="fakeID"
                   />
                 ))}
+                {provided.placeholder}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column4, (choice, index) => (
@@ -129,8 +131,8 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                     studentID="fakeID"
                   />
                 ))}
+                {provided.placeholder}
               </Grid.Column>
-              {provided.placeholder}
             </Grid>
           </div>
         )}
@@ -153,27 +155,27 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                   satisfied
                   studentID="fakeID"
                 />
-              ) : ''}
+              ) : 'Foobar'}
               {provided.placeholder}
             </Segment>
           </div>
         )}
       </Droppable>
-      <Segment>
-        <Icon name="trash alternate outline" size="big" />
-        <Droppable droppableId={DELETE_AREA}>
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              // style={style}
-              style={getDroppableListStyle(snapshot.isDraggingOver)}
-              id="ApbTrash"
-            >
+      <Droppable droppableId={DELETE_AREA}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            // style={style}
+            style={getDroppableListStyle(snapshot.isDraggingOver)}
+            id="ApbTrash"
+          >
+            <Segment>
+              <Icon name="trash alternate outline" size="big" />
               {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </Segment>
+            </Segment>
+          </div>
+        )}
+      </Droppable>
     </Segment>
   );
 };
