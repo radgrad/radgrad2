@@ -292,7 +292,7 @@ class AdvisorAPBuilderWidget extends React.Component<IAdvisorAPBuilderWidgetProp
   }
 
   private onDragEnd = (result) => {
-    // console.log('onDragEnd %o', result);
+    console.log('onDragEnd %o', result);
     const dropArea = getDropDestinationArea(result.destination.droppableId);
     switch (dropArea) {
       case PLAN_AREA:

@@ -126,6 +126,19 @@ export class PlanChoiceCollection extends BaseCollection {
     return PlanChoiceType.COMPLEX;
   }
 
+  public isGraduateChoice(planChoice: string): boolean {
+    const simpleChoices = complexChoiceToArray(planChoice);
+    let retVal = false;
+    _.forEach(simpleChoices, (choice) => {
+      const planNumberStr = getSimpleChoiceNumber(choice);
+      const planNumber = parseInt(planNumberStr, 10);
+      if (planNumber > 500) {
+        retVal = true;
+      }
+    });
+    return retVal;
+  }
+
   public satisfiesPlanChoice(planChoice: string, courseSlug: string): boolean {
     if (this.getPlanChoiceType(planChoice) === PlanChoiceType.XPLUS) {
       const planNumberStr = getSimpleChoiceNumber(planChoice);
