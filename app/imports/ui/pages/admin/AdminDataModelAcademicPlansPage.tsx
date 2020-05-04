@@ -1,5 +1,6 @@
 import React from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -10,11 +11,14 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { removeItMethod } from '../../../api/base/BaseCollection.methods';
+
+const collection = AcademicPlans;
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },
   { label: 'Year', value: `${plan.year}` },
-  { label: 'Course Choices', value: `${plan.courseList}` },
+  { label: 'Course Choices', value: `${plan.choiceList}` },
   { label: 'Retired', value: plan.retired ? 'True' : 'False' },
 ];
 
@@ -56,14 +60,32 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
 
   private handleDelete = (event, inst) => {
     event.preventDefault();
-    // console.log('handleDelete inst=%o state=%o', inst, this.state);
+    // console.log('AcademicPlans.handleDelete inst=%o state=%o', inst, this.state);
     this.setState({ confirmOpen: true, id: inst.id });
   };
 
-  private handleConfirmDelete = (event) => {
-    event.preventDefault();
-    // console.log('handle confirm delete state=%o', this.state);
-    this.setState({ confirmOpen: false });
+  private handleConfirmDelete = () => {
+    console.log('AcademicPlans.handleConfirmDelete state=%o', this.state);
+    const collectionName = collection.getCollectionName();
+    const instance = this.state.id;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error deleting AcademicPlan. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Delete succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      this.setState({ id: '', confirmOpen: false });
+    });
   };
 
   private handleOpenUpdate = (evt, inst) => {
@@ -83,6 +105,7 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
     const findOptions = {
       sort: { year: 1, name: 1 },
     };
+    const planName = this.state.id ? AcademicPlans.findDoc(this.state.id).name : '';
     return (
       <div className="layout-page">
         <AdminPageMenuWidget />
@@ -118,7 +141,13 @@ class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataMode
             />
           </Grid.Column>
         </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Plan?" />
+        <Confirm
+          open={this.state.confirmOpen}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirmDelete}
+          header="Delete Academic Plan?"
+          content={`Delete ${planName}. Are you sure?`}
+        />
 
         <BackToTopButton />
       </div>

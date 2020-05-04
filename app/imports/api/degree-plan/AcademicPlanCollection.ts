@@ -9,7 +9,7 @@ import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad'
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { stripCounter } from './PlanChoiceUtilities';
-import { Courses } from '../course/CourseCollection';
+import { PlanChoices } from './PlanChoiceCollection';
 
 /**
  * AcademicPlans holds the different academic plans possible in this department.
@@ -36,7 +36,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'coursesPerAcademicTerm.$': Number,
       choiceList: { type: Array },
       'choiceList.$': { type: String },
-      groups: { type: Object, blackbox: true },
       retired: { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
@@ -51,7 +50,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       coursesPerAcademicTerm: [Number],
       choiceList: { type: Array },
       'choiceList.$': { type: String },
-      groups: { type: Object },
     });
     this.updateSchema = new SimpleSchema({
       degreeSlug: { type: String, optional: true },
@@ -61,7 +59,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'coursesPerAcademicTerm.$': { type: Number },
       choiceList: { type: Array, optional: true },
       'choiceList.$': { type: String },
-      groups: { type: Object, optional: true },
       retired: { type: Boolean, optional: true },
     });
   }
@@ -89,7 +86,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, groups, retired = false }: IAcademicPlanDefine) {
+  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired = false }: IAcademicPlanDefine) {
     const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
     const effectiveAcademicTermID = AcademicTerms.getID(academicTerm);
     const doc = this.collection.findOne({ degreeID, name, effectiveAcademicTermID });
@@ -101,6 +98,14 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const academicTermDoc = AcademicTerms.findDoc(effectiveAcademicTermID);
     const termNumber = academicTermDoc.termNumber;
     const year = academicTermDoc.year;
+    // CAM should we ensure all the choices are defined?
+    _.forEach(choiceList, (choice) => {
+      const stripped = stripCounter(choice);
+      if (!PlanChoices.isDefined(stripped)) {
+        // console.log(`defining PlanChoice ${stripped}`);
+        PlanChoices.define({ choice: stripped });
+      }
+    });
     const planID = this.collection.insert({
       slugID,
       degreeID,
@@ -111,7 +116,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       year,
       coursesPerAcademicTerm,
       choiceList,
-      groups,
       retired,
     });
     // Connect the Slug to this AcademicPlan.
@@ -129,9 +133,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param choiceList an array of PlanChoices, the choices for each course.
    * @param retired boolean, optional.
    */
-  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, groups, retired }: IAcademicPlanUpdate) {
+  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
-    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; groups?: any; retired?: boolean; } = {};
+    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; retired?: boolean; } = {};
     if (degreeSlug) {
       updateData.degreeID = DesiredDegrees.getID(degreeSlug);
     }
@@ -163,12 +167,10 @@ class AcademicPlanCollection extends BaseSlugCollection {
       });
       updateData.choiceList = choiceList;
     }
-    if (groups) {
-      updateData.groups = groups;
-    }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
+    // console.log('AcademicPlans.update', updateData);
     this.collection.update(docID, { $set: updateData });
   }
 
@@ -196,33 +198,26 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const problems = [];
     this.find().forEach((doc) => {
       if (!Slugs.isDefined(doc.slugID)) {
-        problems.push(`Bad slugID: ${doc.slugID}`);
+        problems.push(`Bad slugID: ${doc.slugID}.`);
       }
       if (!AcademicTerms.isDefined(doc.effectiveAcademicTermID)) {
-        problems.push(`Bad termID: ${doc.effectiveAcademicTermID}`);
+        problems.push(`Bad termID: ${doc.effectiveAcademicTermID}.`);
       }
       if (!DesiredDegrees.isDefined(doc.degreeID)) {
-        problems.push(`Bad desiredDegreeID: ${doc.degreeID}`);
+        problems.push(`Bad desiredDegreeID: ${doc.degreeID}.`);
       }
       let numCourses = 0;
       _.forEach(doc.coursesPerAcademicTerm, (n) => {
         numCourses += n;
       });
       if (doc.choiceList.length !== numCourses) {
-        problems.push(`Mismatch between choiceList.length ${doc.choiceList.length} and sum of coursesPerAcademicTerm ${numCourses}`);
+        problems.push(`Mismatch between choiceList.length ${doc.choiceList.length} and sum of coursesPerAcademicTerm ${numCourses}.`);
       }
       _.forEach(doc.choiceList, (choice) => {
         const stripped = stripCounter(choice);
-        if (!doc.groups[stripped]) {
-          problems.push(`${stripped} is not defined in the groups`);
+        if (!PlanChoices.findDoc({ choice: stripped })) {
+          problems.push(`${stripped} is not a defined PlanChoice.`);
         }
-      });
-      _.forEach(doc.groups, (group) => {
-        _.forEach(group.courseSlugs, (slug) => {
-          if (!Courses.isDefined(slug)) {
-            problems.push(`${doc.name}: ${slug} is not a defined Course slug.`);
-          }
-        });
       });
     });
     return problems;
@@ -321,9 +316,8 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const academicTerm = Slugs.findDoc(academicTermDoc.slugID).name;
     const coursesPerAcademicTerm = doc.coursesPerAcademicTerm;
     const choiceList = doc.choiceList;
-    const groups = doc.groups;
     const retired = doc.retired;
-    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, groups, retired };
+    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired };
   }
 
 }

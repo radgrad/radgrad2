@@ -102,7 +102,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(10000);
       const name = faker.lorem.words();
       const slug = faker.lorem.word();
       let ice = makeSampleIce();

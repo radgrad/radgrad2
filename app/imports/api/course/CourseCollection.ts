@@ -9,6 +9,7 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
+import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 
 /**
  * Represents a specific course, such as "ICS 311".
@@ -123,6 +124,10 @@ class CourseCollection extends BaseSlugCollection {
     // can't check the validity of prereqs during a define, such as with:
     //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));
     // Instead, we check that prereqs are valid as part of checkIntegrity.
+    // We want to create a PlanChoice for all the courses.
+    if (slug !== 'other' && !PlanChoices.isDefined(slug)) {
+      PlanChoices.define({ choice: slug, retired });
+    }
     const courseID =
       this.collection.insert({
         name,

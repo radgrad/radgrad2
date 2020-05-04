@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { $ } from 'meteor/jquery';
-import { Divider, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { Divider, Form, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AutoForm, SelectField, TextField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
@@ -15,6 +15,7 @@ import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
+import { COMBINE_AREA } from './AcademicPlanBuilderUtilities';
 
 
 interface IAdvisorAcademicPlanBuilderWidgetProps {
@@ -119,6 +120,7 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Grid stackable>
             <Grid.Column width={10}>
+              Foo
               <Grid widths="equal">
                 <Grid.Row columns="5">
                   {_.map(planYears, (py, index) => (
@@ -251,6 +253,25 @@ class AdvisorAcademicPlanBuilderWidget extends React.Component<IAdvisorAcademicP
                       </Segment>
                     </Grid.Column>
                   ))}
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                    Bar
+                    <Droppable droppableId={COMBINE_AREA}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          // style={style}
+                          style={getDroppableListStyle(snapshot.isDraggingOver)}
+                        >
+                          <Segment>
+                            <Icon name="linkify" size="big" />
+                            {provided.placeholder}
+                          </Segment>
+                        </div>
+                      )}
+                    </Droppable>
+                  </Grid.Column>
                 </Grid.Row>
               </Grid>
             </Grid.Column>
