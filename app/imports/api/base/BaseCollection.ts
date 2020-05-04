@@ -178,6 +178,7 @@ class BaseCollection {
   public removeIt(name: string | object): boolean | void {
     const doc = this.findDoc(name);
     check(doc, Object);
+    // @ts-ignore
     this.collection.remove(doc._id);
     return true;
   }
