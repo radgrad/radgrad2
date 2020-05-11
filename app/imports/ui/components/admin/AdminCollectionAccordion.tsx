@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
@@ -24,31 +24,21 @@ interface IAdminCollectionAccordionProps {
   handleDelete: (evt: any, id: any) => any;
 }
 
-interface IAdminCollectionAccordionState {
-  active: boolean;
-}
+const AdminCollectionAccordion = (props: IAdminCollectionAccordionProps) => {
+  const [active, setActive] = useState(false);
 
-class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordionProps, IAdminCollectionAccordionState> {
-  constructor(props) {
-    super(props);
-    this.state = { active: false };
-  }
+  const handleClick = () => {
+    setActive(!active);
+  };
 
-  public handleClick = () => {
-    let { active } = this.state;
-    active = !active;
-    this.setState({ active });
-  }
-
-  public render(): React.ReactNode {
-    const { match } = this.props;
+    const { match } = props;
     return (
       <Accordion fluid styled>
-        <Accordion.Title active={this.state.active} onClick={this.handleClick}>
-          {this.props.title}
+        <Accordion.Title active={active} onClick={handleClick}>
+          {props.title}
         </Accordion.Title>
-        <Accordion.Content active={this.state.active}>
-          {_.map(this.props.descriptionPairs, (descriptionPair, index) => (
+        <Accordion.Content active={active}>
+          {_.map(props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
               <b>
                 {descriptionPair.label}
@@ -59,7 +49,7 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
                 <Markdown
                   escapeHtml
                   source={descriptionPair.value}
-                  renderers={{ link: (props) => Router.renderLink(props, match) }}
+                  renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
                 />
             ) : typeof descriptionPair.value === 'undefined' ? ' ' :
             <p>{descriptionPair.value.join(', ')}</p>}
@@ -67,22 +57,22 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
           ))}
           <p>
             <Button
-              id={this.props.id}
+              id={props.id}
               color="green"
               basic
               size="mini"
-              disabled={this.props.updateDisabled}
-              onClick={this.props.handleOpenUpdate}
+              disabled={props.updateDisabled}
+              onClick={props.handleOpenUpdate}
             >
               Update
             </Button>
             <Button
-              id={this.props.id}
+              id={props.id}
               color="green"
               basic
               size="mini"
-              disabled={this.props.deleteDisabled}
-              onClick={this.props.handleDelete}
+              disabled={props.deleteDisabled}
+              onClick={props.handleDelete}
             >
               Delete
             </Button>
@@ -90,7 +80,6 @@ class AdminCollectionAccordion extends React.Component<IAdminCollectionAccordion
         </Accordion.Content>
       </Accordion>
     );
-  }
-}
+  };
 
 export default withRouter(AdminCollectionAccordion);
