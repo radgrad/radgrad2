@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Form, Header, Segment } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -19,11 +19,6 @@ interface IAdminAnalyticsDateSelectionWidgetProps {
   setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
 }
 
-interface IAdminAnalyticsDateSelectionWidgetState {
-  startDate: Date,
-  endDate: Date,
-}
-
 const mapDispatchToProps = (dispatch: any): object => ({
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
   setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
@@ -32,22 +27,16 @@ const mapDispatchToProps = (dispatch: any): object => ({
   setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
-class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsDateSelectionWidgetProps, IAdminAnalyticsDateSelectionWidgetState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      startDate: undefined,
-      endDate: undefined,
-    };
-  }
+const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWidgetProps) => {
+  const [startDate, setStartDate] = useState(undefined);
+  const [endDate, setEndDate] = useState(undefined);
 
-  private handleChangeStartDate = (startDate: Date) => this.setState({ startDate: startDate });
+  const handleChangeStartDate = (date: Date) => setStartDate(date);
 
-  private handleChangeEndDate = (endDate: Date) => this.setState({ endDate: endDate });
+  const handleChangeEndDate = (date: Date) => setEndDate(date);
 
-  private handleSubmit = (e): void => {
+  const handleSubmit = (e): void => {
     e.preventDefault();
-    const { startDate, endDate } = this.state;
     /* Setting the Date Range */
     if (startDate === undefined || endDate === undefined) {
       Swal.fire({
@@ -59,12 +48,12 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
     }
     const startDateMutated = moment(startDate).startOf('day').toDate();
     const endDateMutated = moment(endDate).endOf('day').toDate();
-    switch (this.props.page) {
+    switch (props.page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        this.props.setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
+        props.setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        this.props.setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
+        props.setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       default:
         break;
@@ -88,13 +77,13 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
           return time.length;
         });
         // console.log('docsPerMinGroups ', docsPerMinGroups);
-        const overheadBuckets = this.createBucket(docsPerMinGroups);
+        const overheadBuckets = createBucket(docsPerMinGroups);
         // console.log('overheadBuckets ', overheadBuckets);
-        this.props.setOverheadBuckets(overheadBuckets);
+        props.setOverheadBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
         // console.log('userInteractions ', userInteractions);
-        this.props.setUserInteractions(userInteractions);
-        this.props.setStudentSummaryUserInteractions(userInteractions);
+        props.setUserInteractions(userInteractions);
+        props.setStudentSummaryUserInteractions(userInteractions);
         /* Generating Overhead Data */
         const overheadData = [];
         _.forEach(userInteractions, (interactions, username) => {
@@ -140,9 +129,9 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
         // console.log('overheadData ', overheadData);
       }
     });
-  }
+  };
 
-  private createBucket = (groups: { [key: number]: any }): number[] => {
+  const createBucket = (groups: { [key: number]: any }): number[] => {
     let buckets = [];
     // iteratee of a foreach is (value, key)
     _.forEach(groups, (group, key) => {
@@ -160,37 +149,34 @@ class AdminAnalyticsDateSelectionWidget extends React.Component<IAdminAnalyticsD
       return 0;
     });
     return buckets;
-  }
+  };
 
-  public render() {
-    const { startDate, endDate } = this.state;
-    return (
-      <Container>
-        <Segment padded>
-          <Header dividing as="h4">SELECT DATE RANGE:</Header>
-          <Form>
-            <Form.Group>
-              <Form.Input label="Start Date" required>
-                <DatePicker
-                  onChange={this.handleChangeStartDate}
-                  selected={startDate}
-                  maxDate={endDate}
-                />
-              </Form.Input>
-              <Form.Input label="End Date" required>
-                <DatePicker
-                  onChange={this.handleChangeEndDate}
-                  selected={endDate}
-                  minDate={startDate}
-                />
-              </Form.Input>
-            </Form.Group>
-            <Form.Button basic color="green" onClick={this.handleSubmit}>Search</Form.Button>
-          </Form>
-        </Segment>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <Segment padded>
+        <Header dividing as="h4">SELECT DATE RANGE:</Header>
+        <Form>
+          <Form.Group>
+            <Form.Input label="Start Date" required>
+              <DatePicker
+                onChange={handleChangeStartDate}
+                selected={startDate}
+                maxDate={endDate}
+              />
+            </Form.Input>
+            <Form.Input label="End Date" required>
+              <DatePicker
+                onChange={handleChangeEndDate}
+                selected={endDate}
+                minDate={startDate}
+              />
+            </Form.Input>
+          </Form.Group>
+          <Form.Button basic color="green" onClick={handleSubmit}>Search</Form.Button>
+        </Form>
+      </Segment>
+    </Container>
+  );
+};
 
 export default connect(null, mapDispatchToProps)(AdminAnalyticsDateSelectionWidget);

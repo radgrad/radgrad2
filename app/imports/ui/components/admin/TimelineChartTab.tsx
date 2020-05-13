@@ -74,7 +74,7 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
         }
       });
     });
-    console.log(behaviorsByDate);
+    // console.log(behaviorsByDate);
     const categories = _.map(behaviorsByDate, function (behaviors, date) {
       const shortDate = date.substring(0, date.length - 6);
       return shortDate;

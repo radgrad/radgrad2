@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 
 interface IAdminDatabaseAccordionState {
@@ -11,48 +11,41 @@ interface IAdminDatabaseAccordionProps {
   contents: string[];
 }
 
-class AdminDatabaseAccordion extends React.Component<IAdminDatabaseAccordionProps, IAdminDatabaseAccordionState> {
-  constructor(props) {
-    super(props);
-    this.state = { activeIndex: -1 };
-  }
+const AdminDatabaseAccordion = (props: IAdminDatabaseAccordionProps) => {
+  const [activeIndex, setActiveIndex] = useState(-1);
 
-  private handleClick = (e, titleProps) => {
+  const handleClick = (e, titleProps) => {
     e.preventDefault();
     // console.log(titleProps);
     const { index } = titleProps;
-    const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex });
-  }
+    setActiveIndex(newIndex);
+  };
 
-  private prettyPrint = () => {
+  const prettyPrint = () => {
     let returnString = '';
-    this.props.contents.forEach((s) => {
+    props.contents.forEach((s) => {
       returnString += `${JSON.stringify(s, null, 0)}\n`;
     });
-    // console.log(this.props.contents, returnString);
+    // console.log(props.contents, returnString);
     return returnString;
-  }
+  };
 
-  public render() {
-    const { activeIndex } = this.state;
-    return (
-      <Accordion styled fluid>
-        <Accordion.Title active={activeIndex === this.props.index} index={this.props.index} onClick={this.handleClick}>
-          <Icon name="dropdown" />
-          {this.props.name}
-          {' '}
-          (
-          {this.props.contents.length}
-          )
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === this.props.index}>
-          {this.prettyPrint()}
-        </Accordion.Content>
-      </Accordion>
-    );
-  }
-}
+  return (
+    <Accordion styled fluid>
+      <Accordion.Title active={activeIndex === props.index} index={props.index} onClick={handleClick}>
+        <Icon name="dropdown" />
+        {props.name}
+        {' '}
+        (
+        {props.contents.length}
+        )
+      </Accordion.Title>
+      <Accordion.Content active={activeIndex === props.index}>
+        {prettyPrint()}
+      </Accordion.Content>
+    </Accordion>
+  );
+};
 
 export default AdminDatabaseAccordion;
