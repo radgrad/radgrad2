@@ -257,6 +257,7 @@ class UserCollection {
     // This is kind of a hack to implicitly define the admin user during unit tests.
     if (!adminDoc && Meteor.isServer && Meteor.isTest) {
       const userID = Accounts.createUser({ username, email: username, password: 'foo' });
+      Roles.createRole(ROLE.ADMIN, { unlessExists: true });
       Roles.addUsersToRoles(userID, ROLE.ADMIN);
       adminDoc = Meteor.users.findOne({ username });
     }

@@ -248,10 +248,12 @@ class StudentProfileCollection extends BaseProfileCollection {
         updateData.isAlumni = isAlumni;
         if (isAlumni) {
           updateData.role = ROLE.ALUMNI;
+          Roles.createRole(ROLE.ALUMNI, { unlessExists: true });
           Roles.addUsersToRoles(userID, [ROLE.ALUMNI]);
           Roles.removeUsersFromRoles(userID, [ROLE.STUDENT]);
         } else {
           updateData.role = ROLE.STUDENT;
+          Roles.createRole(ROLE.STUDENT, { unlessExists: true });
           Roles.addUsersToRoles(userID, [ROLE.STUDENT]);
           Roles.removeUsersFromRoles(userID, [ROLE.ALUMNI]);
         }
