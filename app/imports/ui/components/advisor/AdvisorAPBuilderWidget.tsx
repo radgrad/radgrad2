@@ -89,7 +89,7 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
   };
 
   const handleConfirmAdd = () => {
-    // console.log('handleConfirmAdd %o', this.state);
+    // console.log('handleConfirmAdd');
     const collectionName = PlanChoices.getCollectionName();
     const choice = combineChoiceState;
     const definitionData = { choice };
@@ -235,9 +235,9 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
   };
 
   const handleSavePlan = (doc) => {
-    // console.log(doc, this.state.choiceList, this.state.coursesPerTerm);
+    // console.log('handleSavePlan', doc);
     const truncatedCoursesPerTerm = removeEmptyYearsRaw(coursesPerTermState);
-    // console.log(truncatedCoursesPerTerm, this.state.choiceList);
+    // console.log(truncatedCoursesPerTerm);
     const collectionName = AcademicPlans.getCollectionName();
     const name = doc.name;
     const description = doc.description;

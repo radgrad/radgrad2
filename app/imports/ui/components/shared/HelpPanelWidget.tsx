@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -22,61 +22,49 @@ interface IHelpPanelWidgetProps {
   };
 }
 
-interface IHelpPanelWidgetState {
-  activeIndex: number;
-}
+const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
+  const [activeIndexState, setActiveIndex] = useState(-1);
 
-class HelpPanelWidget extends React.Component<IHelpPanelWidgetProps, IHelpPanelWidgetState> {
-
-  constructor(props) {
-    super(props);
-    // console.log('HelpPanelWidget props=%o', props);
-    this.state = { activeIndex: -1 };
-  }
-
-  private handleClick = (e, titleProps) => {
+  const handleClick = (e, titleProps) => {
     e.preventDefault();
     const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex });
+    const newIndex = activeIndexState === index ? -1 : index;
+    setActiveIndex(newIndex);
   };
 
-  public render() {
-    const helpPanelWidgetTitleStyle: React.CSSProperties = {
-      textTransform: 'uppercase',
-      color: '#409178',
-    };
+  const helpPanelWidgetTitleStyle: React.CSSProperties = {
+    textTransform: 'uppercase',
+    color: '#409178',
+  };
 
-    const { match } = this.props;
-    const helpMessage = _.find(this.props.helpMessages, (m) => m.routeName === this.props.match.path);
-    const adminEmail = RadGradProperties.getAdminEmail();
-    const helpText = helpMessage ? `${helpMessage.text}
+  const { match } = props;
+  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === props.match.path);
+  const adminEmail = RadGradProperties.getAdminEmail();
+  const helpText = helpMessage ? `${helpMessage.text}
 
 #### Need more help?
 
 If you have additional questions, please email [${adminEmail}](mailto:${adminEmail}).` : '';
-    return (helpMessage) ? (
-      <Grid.Column id={`${helpPanelWidget}`}>
-        <Message info floating>
-          <Accordion>
-            <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
-              <Icon name="dropdown" />
-              <span style={helpPanelWidgetTitleStyle}><strong>{helpMessage.title}</strong></span>
-            </Accordion.Title>
-            <Accordion.Content active={this.state.activeIndex === 0}>
-              <Markdown
-                escapeHtml={false}
-                source={helpText}
-                renderers={{ link: (props) => Router.renderLink(props, match) }}
-              />
-            </Accordion.Content>
-          </Accordion>
-        </Message>
-      </Grid.Column>
-    ) : '';
-  }
-}
+  return (helpMessage) ? (
+    <Grid.Column id={`${helpPanelWidget}`}>
+      <Message info floating>
+        <Accordion>
+          <Accordion.Title active={activeIndexState === 0} index={0} onClick={handleClick}>
+            <Icon name="dropdown" />
+            <span style={helpPanelWidgetTitleStyle}><strong>{helpMessage.title}</strong></span>
+          </Accordion.Title>
+          <Accordion.Content active={activeIndexState === 0}>
+            <Markdown
+              escapeHtml={false}
+              source={helpText}
+              renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
+            />
+          </Accordion.Content>
+        </Accordion>
+      </Message>
+    </Grid.Column>
+  ) : '';
+};
 
 export default withRouter(withTracker((props) => {
   const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });

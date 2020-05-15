@@ -25,7 +25,7 @@ const AdvisorStarUploadWidget = (props: IAdvisorStarUploadWidgetProps) => {
   };
 
   const onSubmit = () => {
-    // console.log('Data submitted: ', this.state.fileData);
+    // console.log('Data submitted: ', fileDataState);
     // TODO -- find out more about how data is uploaded from STAR
     const advisor = props.advisorUsername;
     const studentDoc = props.usernameDoc;
