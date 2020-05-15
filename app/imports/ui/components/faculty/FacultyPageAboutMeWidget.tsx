@@ -3,7 +3,7 @@
  * 05/20/19
  * Faculty Widget that shows About Me information
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
@@ -32,23 +32,14 @@ interface IFacultyPageAboutMeWidgetProps {
   profile: IFacultyProfile;
 }
 
-interface IFacultyPageAboutMeWidgetState {
-  website: string;
-  picture: string;
-}
 
 /**
  * The Faculty About Me Widget should show basic information of the specified user.
  */
-class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidgetProps, IFacultyPageAboutMeWidgetState> {
-  // call the props constructor
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      website: this.props.profile.website,
-      picture: this.props.profile.picture,
-    };
-  }
+const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
+  // console.log('FacultyPageAboutMeWidget', props);
+  const [websiteState, setWebsite] = useState(props.profile.website);
+  const [pictureState, setPicture] = useState(props.profile.picture);
 
   /**
    * Changes state based on user input.
@@ -56,24 +47,29 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * @param name Name of the Event
    * @param value User input
    */
-  private handleChange = (event, { name, value }) => {
-    const newState = {
-      ...this.state,
-      [name]: value,
-    };
-    this.setState(newState);
+  const handleChange = (event, { name, value }) => {
+    switch (name) {
+      case 'website':
+        setWebsite(value);
+        break;
+      case 'picture':
+        setPicture(value);
+        break;
+      default:
+      // do nothing.
+    }
   };
 
   /**
    * Updates the website of specified user to match the current state.
    * @param event Details of the event
    */
-  private handleSubmitWebsite = (event): void => {
+  const handleSubmitWebsite = (event): void => {
     event.preventDefault();
-    const username = this.props.match.params.username;
+    const username = props.match.params.username;
     const profile = Users.getProfile(username);
     const collectionName = FacultyProfiles.getCollectionName();
-    const updateData: { id: string; website: string } = { id: profile._id, website: this.state.website };
+    const updateData: { id: string; website: string } = { id: profile._id, website: websiteState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -95,20 +91,12 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
   };
 
   /**
-   * Calls the built in file handler.
-   * @param event Details of the event
-   */
-  private fileSelectedHandler = (event) => {
-    // console.log(event.target.files[0]);
-  };
-
-  /**
    * Generates the slug for given interest
    * @param label The interest name of selected interest
    * @returns string Slug of specified interest
    */
-  private generateInterestRoute = (label) => {
-    const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
+  const generateInterestRoute = (label) => {
+    const facultyDoc = FacultyProfiles.findDoc(props.match.params.username);
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
@@ -126,8 +114,8 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
    * @param label The name of the selected career goal
    * @returns string Slug of specified career goal
    */
-  private generateCareerGoalsRoute = (label) => {
-    const facultyDoc = FacultyProfiles.findDoc(this.props.match.params.username);
+  const generateCareerGoalsRoute = (label) => {
+    const facultyDoc = FacultyProfiles.findDoc(props.match.params.username);
     const facultyUserID = facultyDoc.userID;
     const facultyUserProfile = Users.getProfile(facultyUserID);
     const facultyUserUsername = facultyUserProfile.username;
@@ -140,13 +128,13 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
     return (exploreRoute);
   };
 
-  private handleUploadPicture = async (e): Promise<void> => {
+  const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     const collectionName = FacultyProfiles.getCollectionName();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const profile = Users.getProfile(this.props.match.params.username);
+        const profile = Users.getProfile(props.match.params.username);
         const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
@@ -156,7 +144,7 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
               icon: 'error',
             });
           } else {
-            this.setState({ picture: cloudinaryResult.info.url });
+            setPicture(cloudinaryResult.info.url);
             Swal.fire({
               title: 'Update Succeeded',
               icon: 'success',
@@ -178,157 +166,150 @@ class FacultyPageAboutMeWidget extends React.Component<IFacultyPageAboutMeWidget
         allowEnterKey: false,
       });
     }
-  }
+  };
 
-  /**
-   * Renders all components
-   */
-  public render() {
-    const username = this.props.match.params.username;
-    // gets the doc object containing information on desired profile based on username
-    const facultyDoc = FacultyProfiles.findDoc(username);
-    // gets the user ID based on the username
-    const facultyUserID = facultyDoc.userID;
-    // gets the user profile based on the user ID
-    const facultyUserProfile = Users.getProfile(facultyUserID);
-    // gets the username based on the user ID
-    const facultyUserUsername = facultyUserProfile.username;
-    // get the career goal IDs based on the userID
-    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: facultyUserID });
-    const facultyCareerGoalsIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
-    // map the career goal IDs to their names
-    const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
-    // get the interest goal IDs based on the User ID
-    const favInterests = FavoriteInterests.findNonRetired({ userID: facultyUserID });
-    const facultyInterestIDs = _.map(favInterests, (fav) => fav.interestID);
-    // map the interests IDs to their names
-    const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
-    // M: should make it so that you reference the doc and then the name rather than the doc directly
-    // gets the url from the faculty profile's information
-    // url is made up of: role/username/explorer/CareerOrInterests
-    const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
-    let exploreRoute = explorePath.join('/');
-    exploreRoute = `/${exploreRoute}`;
-    // url for career path explorer
-    const careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
-    let careerRoute = careerPath.join('/');
-    careerRoute = `/${careerRoute}`;
+  const username = props.match.params.username;
+  // gets the doc object containing information on desired profile based on username
+  const facultyDoc = FacultyProfiles.findDoc(username);
+  // gets the user ID based on the username
+  const facultyUserID = facultyDoc.userID;
+  // gets the user profile based on the user ID
+  const facultyUserProfile = Users.getProfile(facultyUserID);
+  // gets the username based on the user ID
+  const facultyUserUsername = facultyUserProfile.username;
+  // get the career goal IDs based on the userID
+  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: facultyUserID });
+  const facultyCareerGoalsIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+  // map the career goal IDs to their names
+  const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
+  // get the interest goal IDs based on the User ID
+  const favInterests = FavoriteInterests.findNonRetired({ userID: facultyUserID });
+  const facultyInterestIDs = _.map(favInterests, (fav) => fav.interestID);
+  // map the interests IDs to their names
+  const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
+  // M: should make it so that you reference the doc and then the name rather than the doc directly
+  // gets the url from the faculty profile's information
+  // url is made up of: role/username/explorer/CareerOrInterests
+  const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
+  let exploreRoute = explorePath.join('/');
+  exploreRoute = `/${exploreRoute}`;
+  // url for career path explorer
+  const careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
+  let careerRoute = careerPath.join('/');
+  careerRoute = `/${careerRoute}`;
 
-    const { picture, website } = this.state;
-
-    return (
-      <Segment>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column>
-              <Header as="h3" dividing textAlign="left">Profile</Header>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column floated="left" width={2}>
-              <Header as="h5" textAlign="left">Name</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={6}>
-              <Header as="h5" textAlign="left">{Users.getFullName(facultyDoc)}</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={2}>
-              <Header as="h5" textAlign="left">Email</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={6}>
-              <Header as="h5" textAlign="left">{facultyUserUsername}</Header>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column floated="left" width={2}>
-              <Header as="h5" textAlign="left">Interests</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={6}>
-              <Grid>
-                <Grid.Row divided textAlign="left">
-                  <Label.Group>
-                    {_.map(facultyInterests, (interests, index) => (
-                      <Label
-                        size="small"
-                        key={index}
-                        as={NavLink}
-                        exact
-                        to={this.generateInterestRoute(interests)}
-                      >
-                        <Icon
-                          name="star"
-                        />
-                        {interests}
-                      </Label>
-                    ))}
-                  </Label.Group>
-                </Grid.Row>
-                <Link to={exploreRoute}>Edit in Interest Explorer</Link>
-              </Grid>
-            </Grid.Column>
-            <Grid.Column floated="left" width={2}>
-              <Header as="h5" textAlign="left">Career Goals</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={6}>
-              <Grid>
-                <Grid.Row divided textAlign="left">
-                  <Label.Group>
-                    {_.map(facultyCareerGoals, (careerGoals, index) => (
-                      <Label
-                        size="small"
-                        key={index}
-                        as={NavLink}
-                        exact
-                        to={this.generateCareerGoalsRoute(careerGoals)}
-                      >
-                        <Icon
-                          name="suitcase"
-                        />
-                        {careerGoals}
-                      </Label>
-                    ))}
-                  </Label.Group>
-                </Grid.Row>
-                <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column floated="left" width={2}>
-              <Header as="h5" textAlign="left">Website</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={6}>
-              <Form onSubmit={this.handleSubmitWebsite}>
-                <Form.Group>
-                  <Form.Input
-                    name="website"
-                    onChange={this.handleChange}
-                    value={website}
-                  />
-                  <Form.Button basic color="green">Update</Form.Button>
-                </Form.Group>
-              </Form>
-            </Grid.Column>
-            <Grid.Column floated="left" width={2}>
-              <Header as="h5" textAlign="left">Picture</Header>
-            </Grid.Column>
-            <Grid.Column floated="left" width={6}>
-              <Form onSubmit={this.handleUploadPicture}>
-                <Form.Group>
-                  <Form.Input
-                    name="picture"
-                    onChange={this.handleChange}
-                    value={picture}
-                  />
-                  <Form.Button basic color="green">Upload</Form.Button>
-                </Form.Group>
-              </Form>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    );
-  }
-}
+  return (
+    <Segment>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h3" dividing textAlign="left">Profile</Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column floated="left" width={2}>
+            <Header as="h5" textAlign="left">Name</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={6}>
+            <Header as="h5" textAlign="left">{Users.getFullName(facultyDoc)}</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={2}>
+            <Header as="h5" textAlign="left">Email</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={6}>
+            <Header as="h5" textAlign="left">{facultyUserUsername}</Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column floated="left" width={2}>
+            <Header as="h5" textAlign="left">Interests</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={6}>
+            <Grid>
+              <Grid.Row divided textAlign="left">
+                <Label.Group>
+                  {_.map(facultyInterests, (interests, index) => (
+                    <Label
+                      size="small"
+                      key={index}
+                      as={NavLink}
+                      exact
+                      to={generateInterestRoute(interests)}
+                    >
+                      <Icon
+                        name="star"
+                      />
+                      {interests}
+                    </Label>
+                  ))}
+                </Label.Group>
+              </Grid.Row>
+              <Link to={exploreRoute}>Edit in Interest Explorer</Link>
+            </Grid>
+          </Grid.Column>
+          <Grid.Column floated="left" width={2}>
+            <Header as="h5" textAlign="left">Career Goals</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={6}>
+            <Grid>
+              <Grid.Row divided textAlign="left">
+                <Label.Group>
+                  {_.map(facultyCareerGoals, (careerGoals, index) => (
+                    <Label
+                      size="small"
+                      key={index}
+                      as={NavLink}
+                      exact
+                      to={generateCareerGoalsRoute(careerGoals)}
+                    >
+                      <Icon
+                        name="suitcase"
+                      />
+                      {careerGoals}
+                    </Label>
+                  ))}
+                </Label.Group>
+              </Grid.Row>
+              <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
+            </Grid>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column floated="left" width={2}>
+            <Header as="h5" textAlign="left">Website</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={6}>
+            <Form onSubmit={handleSubmitWebsite}>
+              <Form.Group>
+                <Form.Input
+                  name="website"
+                  onChange={handleChange}
+                  value={websiteState}
+                />
+                <Form.Button basic color="green">Update</Form.Button>
+              </Form.Group>
+            </Form>
+          </Grid.Column>
+          <Grid.Column floated="left" width={2}>
+            <Header as="h5" textAlign="left">Picture</Header>
+          </Grid.Column>
+          <Grid.Column floated="left" width={6}>
+            <Form onSubmit={handleUploadPicture}>
+              <Form.Group>
+                <Form.Input
+                  name="picture"
+                  onChange={handleChange}
+                  value={pictureState}
+                />
+                <Form.Button basic color="green">Upload</Form.Button>
+              </Form.Group>
+            </Form>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Segment>
+  );
+};
 
 export default withRouter(withTracker((props) => ({
   profile: Users.getProfile(props.match.params.username),

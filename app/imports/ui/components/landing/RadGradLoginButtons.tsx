@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
@@ -11,21 +12,13 @@ import {
   UserInteractionsTypes,
 } from '../../../api/analytic/UserInteractionsTypes';
 
-interface IRadGradLoginButtonsState {
-  justLoggedIn: boolean;
-  homePage: string;
-}
+const RadGradLoginButtons = () => {
+  const [justLoggedInState, setJustLoggedIn] = useState(false);
+  const [homePageState, setHomePage] = useState('');
 
-class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState> {
-  constructor(props) {
-    super(props);
-    this.state = { justLoggedIn: false, homePage: '' };
-  }
-
-  private handleClick = (e, instance) => {
+  const handleClick = (e, instance) => {
     // console.log(e, instance);
     e.preventDefault();
-    const inst = this;
     const callback = function loginCallback(error) {
       if (error) {
         console.log('Error during CAS Login: ', error);
@@ -55,39 +48,37 @@ class RadGradLoginButtons extends React.Component<{}, IRadGradLoginButtonsState>
           }
         }
         const homePage = `/${role.toLowerCase()}/${username}/home`;
-        inst.setState({ justLoggedIn: true, homePage });
+        setJustLoggedIn(true);
+        setHomePage(homePage);
       }
     };
     Meteor.loginWithCas(callback);
+  };
 
-  }
-
-  public render() {
-    const adminLabel = '... as admin';
-    const advisorLabel = '... as advisor';
-    const facultyLabel = '... as faculty';
-    const mentorLabel = '... as mentor';
-    const studentLabel = '... as student';
-    if (this.state.justLoggedIn) {
-      return (
-        <Redirect to={{
-          pathname: this.state.homePage,
-        }}
-        />
-      );
-    }
+  const adminLabel = '... as admin';
+  const advisorLabel = '... as advisor';
+  const facultyLabel = '... as faculty';
+  const mentorLabel = '... as mentor';
+  const studentLabel = '... as student';
+  if (justLoggedInState) {
     return (
-      <Dropdown text="LOGIN" pointing="top right">
-        <Dropdown.Menu>
-          <Dropdown.Item id="student" text={studentLabel} onClick={this.handleClick} />
-          <Dropdown.Item id="faculty" text={facultyLabel} onClick={this.handleClick} />
-          <Dropdown.Item id="mentor" text={mentorLabel} as={NavLink} to="/signin" />
-          <Dropdown.Item id="advisor" text={advisorLabel} onClick={this.handleClick} />
-          <Dropdown.Item id="admin" as={NavLink} exact to="/signin" text={adminLabel} />
-        </Dropdown.Menu>
-      </Dropdown>
+      <Redirect to={{
+        pathname: homePageState,
+      }}
+      />
     );
   }
-}
+  return (
+    <Dropdown text="LOGIN" pointing="top right">
+      <Dropdown.Menu>
+        <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
+        <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
+        <Dropdown.Item id="mentor" text={mentorLabel} as={NavLink} to="/signin" />
+        <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
+        <Dropdown.Item id="admin" as={NavLink} exact to="/signin" text={adminLabel} />
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 export default withRouter(RadGradLoginButtons);

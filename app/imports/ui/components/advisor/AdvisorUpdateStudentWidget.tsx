@@ -88,7 +88,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   // };
 
   const handleFormChange = (e, { name, value }): void => {
-    console.log(`handleFormChange name=${name}`, value);
+    // console.log(`handleFormChange name=${name}`, value);
     switch (name) {
       case 'firstName':
         setFirstName(value);
