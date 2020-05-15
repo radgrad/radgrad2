@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -12,22 +12,12 @@ export interface IAdvisorLogEntryWidgetProps {
   advisorUsername: string;
 }
 
-export interface IAdvisorLogEntryWidgetState {
-  advisorLogs: IAdvisorLog[];
-  comment: string;
-}
-
-class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps, IAdvisorLogEntryWidgetState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comment: '',
-      advisorLogs: this.props.advisorLogs,
-    };
-  }
+const AdvisorLogEntryWidget = (props: IAdvisorLogEntryWidgetProps) => {
+  const [commentState, setComment] = useState('');
+  const [advisorLogsState] = useState(props.advisorLogs);
 
   // For use with Date.getMinutes()
-  private formatMinuteString = (min) => {
+  const formatMinuteString = (min) => {
     if (min === 0) {
       return '00';
     }
@@ -40,16 +30,16 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
     return 'formatMinuteString: error';
   };
 
-  private handleForm = (e, { value }) => {
-    this.setState({ comment: value });
-  }
+  const handleForm = (e, { value }) => {
+    setComment(value);
+  };
 
-  private onSubmit = () => {
+  const onSubmit = () => {
     const collectionName = AdvisorLogs.getCollectionName();
     const definitionData: any = {};
-    definitionData.advisor = this.props.advisorUsername;
-    definitionData.student = this.props.usernameDoc.username;
-    definitionData.text = this.state.comment;
+    definitionData.advisor = props.advisorUsername;
+    definitionData.student = props.usernameDoc.username;
+    definitionData.text = commentState;
 
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
@@ -65,73 +55,71 @@ class AdvisorLogEntryWidget extends React.Component<IAdvisorLogEntryWidgetProps,
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ comment: '' });
+        setComment('');
       }
     });
-  }
+  };
 
-  componentDidUpdate(prevProps: Readonly<IAdvisorLogEntryWidgetProps>): void {
-    if (this.props !== prevProps) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ advisorLogs: this.props.advisorLogs });
-    }
-  }
+  // componentDidUpdate(prevProps: Readonly<IAdvisorLogEntryWidgetProps>): void {
+  //   if (props !== prevProps) {
+  //     // eslint-disable-next-line react/no-did-update-set-state
+  //     this.setState({ advisorLogs: props.advisorLogs });
+  //   }
+  // }
 
-  public render() {
-    return (
-      <Segment padded>
-        <Header as="h4" dividing>ADVISOR LOG</Header>
-        <Form onSubmit={this.onSubmit} widths="equal">
-          <Form.TextArea
-            label="Comments"
-            name="comment"
-            onChange={this.handleForm}
-            value={this.state.comment}
-          />
-          <Form.Button content="ADD COMMENTS" type="Submit" basic color="green" />
-        </Form>
-        <br />
-        <p style={{
-          marginTop: '15px',
-          display: 'block',
-          margin: '0 0 .28571429rem 0',
-          color: '#696969',
-          fontSize: '.92857143em',
-          fontWeight: 700,
-          textTransform: 'none',
-        }}
-        >
-          Past Advisor Logs
-        </p>
-        <div style={{ height: '200px' }}>
-          <div style={{ height: '100%', overflowY: 'auto' }}>
-            {this.state.advisorLogs.length > 0 ? this.state.advisorLogs.map(
-              (ele) => (
-                <Segment key={ele._id}>
-                  <strong>
-                    {ele.createdOn.toDateString()}
-                    {' '}
-                    {ele.createdOn.getHours()}
-                    :
-                    {this.formatMinuteString(ele.createdOn.getMinutes())}
-                    :
-                  </strong>
+  return (
+    <Segment padded>
+      <Header as="h4" dividing>ADVISOR LOG</Header>
+      <Form onSubmit={onSubmit} widths="equal">
+        <Form.TextArea
+          label="Comments"
+          name="comment"
+          onChange={handleForm}
+          value={commentState}
+        />
+        <Form.Button content="ADD COMMENTS" type="Submit" basic color="green" />
+      </Form>
+      <br />
+      <p style={{
+        marginTop: '15px',
+        display: 'block',
+        margin: '0 0 .28571429rem 0',
+        color: '#696969',
+        fontSize: '.92857143em',
+        fontWeight: 700,
+        textTransform: 'none',
+      }}
+      >
+        Past Advisor Logs
+      </p>
+      <div style={{ height: '200px' }}>
+        <div style={{ height: '100%', overflowY: 'auto' }}>
+          {advisorLogsState.length > 0 ? advisorLogsState.map(
+            (ele) => (
+              <Segment key={ele._id}>
+                <strong>
+                  {ele.createdOn.toDateString()}
                   {' '}
-                  {ele.text}
-                  {' '}
-                  <i>
-                    (
-                    {Users.getProfile(ele.advisorID).firstName}
-                    )
-                  </i>
-                </Segment>
-),
-            ) : <i>No past advisor logs with this student.</i>}
-          </div>
+                  {ele.createdOn.getHours()}
+                  :
+                  {formatMinuteString(ele.createdOn.getMinutes())}
+                  :
+                </strong>
+                {' '}
+                {ele.text}
+                {' '}
+                <i>
+                  (
+                  {Users.getProfile(ele.advisorID).firstName}
+                  )
+                </i>
+              </Segment>
+            ),
+          ) : <i>No past advisor logs with this student.</i>}
         </div>
-      </Segment>
-    );
-  }
-}
+      </div>
+    </Segment>
+  );
+};
 
 export default AdvisorLogEntryWidget;

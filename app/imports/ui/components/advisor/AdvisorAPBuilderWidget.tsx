@@ -47,19 +47,6 @@ interface IAdvisorAPBuilderWidgetProps {
   terms: IAcademicTerm[];
 }
 
-interface IAdvisorAPBuilderWidgetState {
-  choiceList: string[];
-  coursesPerTerm: number[];
-  combineChoice: string;
-  showConfirmAdd: boolean;
-  addPlanChoice: string;
-  showConfirmDelete: boolean;
-  deletePlanChoice: string;
-  showConfirmCombine: boolean;
-  combineLeftSide: string;
-  combineRightSide: string;
-}
-
 const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
   // console.log('AdvisorAPBuilderWidget %o', props);
   const quarterSystem = RadGradProperties.getQuarterSystem();
