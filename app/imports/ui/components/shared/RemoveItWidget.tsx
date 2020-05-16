@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
@@ -13,31 +13,23 @@ interface IRemoveItWidgetProps {
   selectCourseInstance: (courseInstanceID: string) => any;
 }
 
-interface IRemoveItWidgetState {
-  modalOpen: boolean;
-}
-
 const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
 });
 
-class RemoveItWidget extends React.Component<IRemoveItWidgetProps, IRemoveItWidgetState> {
-  constructor(props) {
-    super(props);
-    this.state = { modalOpen: false };
-  }
+const RemoveItWidget = (props: IRemoveItWidgetProps) => {
+  const [modalOpenState, setModalOpen] = useState(false);
 
-  handleOpen = () => this.setState({ modalOpen: true });
+  const handleOpen = () => setModalOpen(true);
 
-  handleClose = () => {
-    this.setState({ modalOpen: false });
-  }
+  const handleClose = () => setModalOpen(false);
 
-  handleRemoveIt = () => {
-    this.handleClose();
-    // console.log(this.props);
-    const collectionName = this.props.collectionName;
-    const instance = this.props.id;
+
+  const handleRemoveIt = () => {
+    handleClose();
+    // console.log(props);
+    const collectionName = props.collectionName;
+    const instance = props.id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         console.error(`Remove ${collectionName}: ${instance} failed.`, error);
@@ -51,46 +43,53 @@ class RemoveItWidget extends React.Component<IRemoveItWidgetProps, IRemoveItWidg
         // TODO: UserInteraction remove planned item.
       }
     });
-    this.props.selectCourseInstance('');
-  }
+    props.selectCourseInstance('');
+  };
 
-  render() {
-    return (
-      <Modal
-        trigger={<Button icon basic size="mini" onClick={this.handleOpen}><Icon name="remove circle" color="red" /></Button>}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-        size="small"
-      >
-        <Header>
-          Delete&nbsp;
-          {this.props.name}
-        </Header>
-        <Modal.Description>
-          <p>
-            Do you want to remove&nbsp;
-            {this.props.courseNumber}
-            &nbsp;
-            {this.props.name}
-            &nbsp;
-            from your plan?
-          </p>
-        </Modal.Description>
-        <Modal.Actions>
-          <Button color="green" onClick={this.handleRemoveIt} inverted>
-            <Icon name="checkmark" />
-            Yes
+  return (
+    <Modal
+      trigger={
+        (
+          <Button icon basic size="mini" onClick={handleOpen}>
+            <Icon
+              name="remove circle"
+              color="red"
+            />
           </Button>
-          <Button color="red" onClick={this.handleClose} inverted>
-            <Icon name="cancel" />
-            No
-          </Button>
-        </Modal.Actions>
+        )
+      }
+      open={modalOpenState}
+      onClose={handleClose}
+      basic
+      size="small"
+    >
+      <Header>
+        Delete&nbsp;
+        {props.name}
+      </Header>
+      <Modal.Description>
+        <p>
+          Do you want to remove&nbsp;
+          {props.courseNumber}
+          &nbsp;
+          {props.name}
+          &nbsp;
+          from your plan?
+        </p>
+      </Modal.Description>
+      <Modal.Actions>
+        <Button color="green" onClick={handleRemoveIt} inverted>
+          <Icon name="checkmark" />
+          Yes
+        </Button>
+        <Button color="red" onClick={handleClose} inverted>
+          <Icon name="cancel" />
+          No
+        </Button>
+      </Modal.Actions>
 
-      </Modal>
-    );
-  }
-}
+    </Modal>
+  );
+};
 
 export default connect(null, mapDispatchToProps)(RemoveItWidget);
