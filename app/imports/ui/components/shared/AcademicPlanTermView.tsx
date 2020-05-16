@@ -27,6 +27,7 @@ interface IAcademicPlanTermViewProps {
 }
 
 const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
+  console.log('AcademicPlanTermView', props);
   const noPaddingStyle = {
     padding: 2,
     margin: 2,

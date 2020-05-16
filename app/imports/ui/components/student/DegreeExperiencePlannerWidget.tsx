@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
@@ -41,34 +41,12 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-class DEPWidget extends React.Component<IDePProps, IDePState> {
-  constructor(props) {
-    super(props);
-    const username = props.match.params.username;
-    const studentID = Users.getID(username);
-    let years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
-    // Automatically generate 4 AcademicYearInstances if none exists
-    if (years.length === 0) {
-      this.generateAcademicYearInstances(4);
-      years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
-    }
-    let visibleYears;
-    let visibleStartIndex = 0;
-    if (years.length > 4) {
-      visibleYears = years.slice(years.length - 4);
-      visibleStartIndex = years.length - 4;
-    } else {
-      visibleYears = years;
-    }
-    this.state = {
-      years,
-      visibleStartIndex,
-      visibleYears,
-    };
-  }
+const DEPWidget = (props: IDePProps) => {
+  const username = props.match.params.username;
+  const studentID = Users.getID(username);
 
-  public generateAcademicYearInstances = (number) => {
-    const student = this.props.match.params.username;
+  const generateAcademicYearInstances = (number) => {
+    const student = props.match.params.username;
     let currentYear = moment().year();
     _.times(number, () => {
       const definitionData: IAcademicYearDefine = { year: currentYear++, student };
@@ -79,51 +57,61 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
         }
       });
     });
-  }
+  };
 
-  public handleClickCourseInstance = (event, { value }) => {
+  let years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+  // Automatically generate 4 AcademicYearInstances if none exists
+  if (years.length === 0) {
+    generateAcademicYearInstances(4);
+    years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+  }
+  let visibleYears;
+  let visibleStartIndex = 0;
+  if (years.length > 4) {
+    visibleYears = years.slice(years.length - 4);
+    visibleStartIndex = years.length - 4;
+  } else {
+    visibleYears = years;
+  }
+  const [yearsState, setYears] = useState(years);
+  const [visibleStartIndexState, setVisibleStartIndex] = useState(visibleStartIndex);
+  const [visibleYearsState, setVisibleYears] = useState(visibleYears);
+
+  const handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
     // console.log('click course instance', value);
-    this.props.selectCourseInstance(value);
-    this.props.selectFavoriteDetailsTab();
-  }
+    props.selectCourseInstance(value);
+    props.selectFavoriteDetailsTab();
+  };
 
-  public handleClickOpportunityInstance = (event, { value }) => {
+  const handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
     // console.log('click opportunity instance', value);
-    this.props.selectOpportunityInstance(value);
-    this.props.selectFavoriteDetailsTab();
-  }
+    props.selectOpportunityInstance(value);
+    props.selectFavoriteDetailsTab();
+  };
 
-  public handleClickPrevYear = (event) => {
+  const handleClickPrevYear = (event) => {
     event.preventDefault();
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    const visibleStartIndex = this.state.visibleStartIndex - 1;
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
-    this.setState({
-      visibleStartIndex,
-      visibleYears,
-    });
-  }
+    visibleStartIndex = visibleStartIndexState - 1;
+    visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
+    setVisibleStartIndex(visibleStartIndex);
+    setVisibleYears(visibleYears);
+  };
 
-  public handleClickNextYear = (event) => {
+  const handleClickNextYear = (event) => {
     event.preventDefault();
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    const visibleStartIndex = this.state.visibleStartIndex + 1;
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
-    this.setState({
-      visibleStartIndex,
-      visibleYears,
-    });
-  }
+    visibleStartIndex = visibleStartIndexState + 1;
+    visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
+    setVisibleStartIndex(visibleStartIndex);
+    setVisibleYears(visibleYears);
+  };
 
-  public handleAddYear = (event: any): void => {
+  const handleAddYear = (event: any): void => {
     event.preventDefault();
-    const student = this.props.match.params.username;
-    const numYears = this.state.years.length;
-    const nextYear = this.state.years[numYears - 1].year + 1;
+    const student = props.match.params.username;
+    const numYears = yearsState.length;
+    const nextYear = yearsState[numYears - 1].year + 1;
     const definitionData: IAcademicYearDefine = { year: nextYear, student };
     const collectionName = AcademicYearInstances.getCollectionName();
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -144,20 +132,17 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
         });
       }
     });
-    const studentID = Users.getID(student);
-    const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
     // eslint-disable-next-line react/no-access-state-in-setstate
-    const visibleYears = this.state.years.slice(this.state.visibleStartIndex, this.state.visibleStartIndex + 5);
-    this.setState({
-      years,
-      visibleYears,
-    });
-  }
+    visibleYears = yearsState.slice(visibleStartIndexState, visibleStartIndexState + 5);
+    setYears(years);
+    setVisibleYears(visibleYears);
+  };
 
-  public handleDeleteYear = (event: any): void => {
+  const handleDeleteYear = (event: any): void => {
     event.preventDefault();
     const collectionName = AcademicYearInstances.getCollectionName();
-    const instance = this.state.visibleYears[this.state.visibleYears.length - 1]._id;
+    const instance = visibleYearsState[visibleYearsState.length - 1]._id;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -177,21 +162,14 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       }
     });
 
-    const student = this.props.match.params.username;
-    const studentID = Users.getID(student);
-    const years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
-    const visibleStartIndex = this.state.visibleStartIndex - 1;
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    const visibleYears = this.state.years.slice(visibleStartIndex, visibleStartIndex + 4);
-    this.setState({
-      years,
-      visibleYears,
-    });
-  }
+    years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    visibleStartIndex = visibleStartIndexState - 1;
+    visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
+    setYears(years);
+    setVisibleYears(visibleYears);
+  };
 
-  public isTermEmpty = (termID: string): boolean => {
-    const username = this.props.match.params.username;
-    const studentID = Users.getID(username);
+  const isTermEmpty = (termID: string): boolean => {
     const courseInstances = CourseInstances.findNonRetired({
       termID: termID,
       studentID: studentID,
@@ -201,73 +179,68 @@ class DEPWidget extends React.Component<IDePProps, IDePState> {
       studentID: studentID,
     });
     return courseInstances.length === 0 && opportunityInstances.length === 0;
-  }
+  };
 
-  public isYearEmpty = (year): boolean => {
-    const mapped = year.termIDs.map((termID) => this.isTermEmpty(termID));
+  const isYearEmpty = (year): boolean => {
+    const mapped = year.termIDs.map((termID) => isTermEmpty(termID));
     return mapped.every(bool => bool === true);
-  }
+  };
 
-  public render() {
-    const { visibleYears, visibleStartIndex, years } = this.state;
-    const username = this.props.match.params.username;
-    const studentID = Users.getID(username);
 
-    return (
-      <Segment padded id={studentDepWidget}>
-        <Grid stackable columns="equal">
-          <Grid.Row stretched>
-            {_.map(visibleYears, (year) => (
-              <AcademicYearView
-                key={year._id}
-                academicYear={year}
-                studentID={studentID}
-                handleClickCourseInstance={this.handleClickCourseInstance}
-                handleClickOpportunityInstance={this.handleClickOpportunityInstance}
-              />
-            ))}
-          </Grid.Row>
-          <Grid.Row textAlign="center">
-            <Grid.Column textAlign="left">
-              {visibleStartIndex > 0 ? (
-                <Button color="green" icon labelPosition="left" onClick={this.handleClickPrevYear}>
-                  <Icon name="arrow circle left" />
-                  Previous Year
-                </Button>
-              ) : ''}
-            </Grid.Column>
-            <Grid.Column textAlign="center">
-              <Button color="green" onClick={this.handleAddYear}>
-                <Icon name="plus circle" />
-                {' '}
-                Add Academic Year
+  return (
+    <Segment padded id={studentDepWidget}>
+      <Grid stackable columns="equal">
+        <Grid.Row stretched>
+          {_.map(visibleYearsState, (year) => (
+            <AcademicYearView
+              key={year._id}
+              academicYear={year}
+              studentID={studentID}
+              handleClickCourseInstance={handleClickCourseInstance}
+              handleClickOpportunityInstance={handleClickOpportunityInstance}
+            />
+          ))}
+        </Grid.Row>
+        <Grid.Row textAlign="center">
+          <Grid.Column textAlign="left">
+            {visibleStartIndex > 0 ? (
+              <Button color="green" icon labelPosition="left" onClick={handleClickPrevYear}>
+                <Icon name="arrow circle left" />
+                Previous Year
               </Button>
-            </Grid.Column>
-            <Grid.Column textAlign="right">
-              {years.length > 0 ? (
-                <React.Fragment>
-                  {visibleStartIndex < years.length - 4 ? (
-                    <Button color="green" icon labelPosition="right" onClick={this.handleClickNextYear}>
-                      <Icon name="arrow circle right" />
-                      Next Year
-                    </Button>
+            ) : ''}
+          </Grid.Column>
+          <Grid.Column textAlign="center">
+            <Button color="green" onClick={handleAddYear}>
+              <Icon name="plus circle" />
+              {' '}
+              Add Academic Year
+            </Button>
+          </Grid.Column>
+          <Grid.Column textAlign="right">
+            {yearsState.length > 0 ? (
+              <React.Fragment>
+                {visibleStartIndexState < yearsState.length - 4 ? (
+                  <Button color="green" icon labelPosition="right" onClick={handleClickNextYear}>
+                    <Icon name="arrow circle right" />
+                    Next Year
+                  </Button>
                   )
-                    :
-                    (this.isYearEmpty(years[years.length - 1]) && visibleStartIndex !== 0) && (
-                    <Button color="green" icon labelPosition="right" onClick={this.handleDeleteYear}>
+                  :
+                  (isYearEmpty(yearsState[yearsState.length - 1]) && visibleStartIndexState !== 0) && (
+                    <Button color="green" icon labelPosition="right" onClick={handleDeleteYear}>
                       <Icon name="minus circle" />
                       Delete Year
                     </Button>
                   )}
-                </React.Fragment>
-              ) : ''}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    );
-  }
-}
+              </React.Fragment>
+            ) : ''}
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Segment>
+  );
+};
 
 const DEPWidgetContainer = withRouter(DEPWidget);
 const DegreeExperiencePlannerWidget = connect(null, mapDispatchToProps)(DEPWidgetContainer);
