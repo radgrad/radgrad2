@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router';
@@ -21,22 +21,15 @@ interface IStudentAboutMeUpdateWebsiteFormProps {
   };
 }
 
-interface IStudentAboutMeUpdateWebsiteFormState {
-  website: string;
-}
+const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteFormProps) => {
+  const [websiteState, setWebsite] = useState(props.website);
 
-class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpdateWebsiteFormProps, IStudentAboutMeUpdateWebsiteFormState> {
-  constructor(props) {
-    super(props);
-    this.state = { website: this.props.website };
-  }
+  const handleFormChange = (e, { value }) => setWebsite(value);
 
-  private handleFormChange = (e, { value }) => this.setState({ website: value });
-
-  private handleUpdateWebsite = (e): void => {
+  const handleUpdateWebsite = (e): void => {
     e.preventDefault();
-    const collectionName = this.props.collectionName;
-    const updateData = { id: this.props.docID, website: this.state.website };
+    const collectionName = props.collectionName;
+    const updateData = { id: props.docID, website: websiteState };
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -54,11 +47,11 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
           allowEscapeKey: false,
           allowEnterKey: false,
         });
-        const username = getUsername(this.props.match);
+        const username = getUsername(props.match);
         const interactionData: UserInteractionsDataType = {
           username,
           type: UserInteractionsTypes.WEBSITE,
-          typeData: this.state.website,
+          typeData: websiteState,
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
@@ -67,27 +60,24 @@ class StudentAboutMeUpdateWebsiteForm extends React.Component<IStudentAboutMeUpd
         });
       }
     });
-  }
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { website } = this.state;
-    return (
-      <React.Fragment>
-        <Grid.Column width={2}><b>Website</b></Grid.Column>
-        <Grid.Column width={6}>
-          <Form onSubmit={this.handleUpdateWebsite}>
-            <Form.Group>
-              <Form.Input
-                onChange={this.handleFormChange}
-                value={website}
-              />
-              <Form.Button basic color="green"> Update</Form.Button>
-            </Form.Group>
-          </Form>
-        </Grid.Column>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Grid.Column width={2}><b>Website</b></Grid.Column>
+      <Grid.Column width={6}>
+        <Form onSubmit={handleUpdateWebsite}>
+          <Form.Group>
+            <Form.Input
+              onChange={handleFormChange}
+              value={websiteState}
+            />
+            <Form.Button basic color="green"> Update</Form.Button>
+          </Form.Group>
+        </Form>
+      </Grid.Column>
+    </React.Fragment>
+  );
+};
 
 export default withRouter(StudentAboutMeUpdateWebsiteForm);

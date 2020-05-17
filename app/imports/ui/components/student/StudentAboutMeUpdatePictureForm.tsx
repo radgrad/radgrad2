@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router';
@@ -22,21 +22,12 @@ interface IStudentAboutMeUpdatePictureFormProps {
   };
 }
 
-interface IStudentAboutMeUpdatePictureFormState {
-  picture: string;
-}
+const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureFormProps) => {
+  const [pictureState, setPicture] = useState(props.picture);
 
-class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpdatePictureFormProps, IStudentAboutMeUpdatePictureFormState> {
-  constructor(props) {
-    super(props);
-    this.state = { picture: this.props.picture };
-  }
-
-  private handleFormChange = (e, { value }) => this.setState({ picture: value });
-
-  private handleUploadPicture = async (e): Promise<void> => {
+  const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
-    const { collectionName, docID } = this.props;
+    const { collectionName, docID } = props;
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
@@ -49,7 +40,7 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
               icon: 'error',
             });
           } else {
-            this.setState({ picture: cloudinaryResult.info.url });
+            setPicture(cloudinaryResult.info.url);
             Swal.fire({
               title: 'Update Succeeded',
               icon: 'success',
@@ -58,7 +49,7 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
               allowEscapeKey: false,
               allowEnterKey: false,
             });
-            const username = getUsername(this.props.match);
+            const username = getUsername(props.match);
             const interactionData: UserInteractionsDataType = {
               username,
               type: UserInteractionsTypes.PICTURE,
@@ -82,26 +73,23 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
         allowEnterKey: false,
       });
     }
-  }
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { picture } = this.state;
-    const imageStyle = {
-      maxHeight: 90,
-      maxWidth: 150,
-      paddingRight: 30,
-    };
+  const imageStyle = {
+    maxHeight: 90,
+    maxWidth: 150,
+    paddingRight: 30,
+  };
 
-    return (
-      <React.Fragment>
-        <Grid.Column width={2}><b>Picture</b></Grid.Column>
-        <Grid.Column width={6}>
-          <Image src={picture} style={imageStyle} floated="left" />
-          <Button basic color="green" onClick={this.handleUploadPicture}>Upload</Button>
-        </Grid.Column>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Grid.Column width={2}><b>Picture</b></Grid.Column>
+      <Grid.Column width={6}>
+        <Image src={pictureState} style={imageStyle} floated="left" />
+        <Button basic color="green" onClick={handleUploadPicture}>Upload</Button>
+      </Grid.Column>
+    </React.Fragment>
+  );
+};
 
 export default withRouter(StudentAboutMeUpdatePictureForm);

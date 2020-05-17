@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from '../shared/RouterHelperFunctions';
@@ -24,39 +24,28 @@ interface IStudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
 }
 
-interface IStudentIceColumnState {
-  verifiedColumnOpen: boolean;
-  unVerifiedColumnOpen: boolean;
-  recommendedColumnOpen: boolean;
-}
+const StudentIceColumn = (props: IStudentIceColumnProps) => {
+  const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
+  const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
+  const [recommendedColumnOpenState, setRecommendedColumnOpen] = useState(false);
 
-class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentIceColumnState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      verifiedColumnOpen: true,
-      unVerifiedColumnOpen: false,
-      recommendedColumnOpen: false,
-    };
-  }
-
-  private handleVerifiedColumnClick = (e): void => {
+  const handleVerifiedColumnClick = (e): void => {
     e.preventDefault();
-    this.setState((prevState) => ({ verifiedColumnOpen: !prevState.verifiedColumnOpen }));
-  }
+    setVerifiedColumnOpen(!verifiedColumnOpenState);
+  };
 
-  private handleUnVerifiedColumnClick = (e): void => {
+  const handleUnVerifiedColumnClick = (e): void => {
     e.preventDefault();
-    this.setState((prevState) => ({ unVerifiedColumnOpen: !prevState.unVerifiedColumnOpen }));
-  }
+    setUnVerifiedColumnOpen(!unVerifiedColumnOpenState);
+  };
 
-  private handleRecommendedColumnClick = (e): void => {
+  const handleRecommendedColumnClick = (e): void => {
     e.preventDefault();
-    this.setState((prevState) => ({ recommendedColumnOpen: !prevState.recommendedColumnOpen }));
-  }
+    setRecommendedColumnOpen(!recommendedColumnOpenState);
+  };
 
-  private getVerifiedColor = (): string => {
-    const { type } = this.props;
+  const getVerifiedColor = (): string => {
+    const { type } = props;
     switch (type) {
       case 'Innovation':
         return 'ice-innovation-color';
@@ -67,10 +56,10 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
       default:
         return '';
     }
-  }
+  };
 
-  private getUnverifiedColor = (): string => {
-    const { type } = this.props;
+  const getUnverifiedColor = (): string => {
+    const { type } = props;
     switch (type) {
       case 'Innovation':
         return 'ice-innovation-proj-color';
@@ -81,10 +70,10 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
       default:
         return '';
     }
-  }
+  };
 
-  private getPoints = (ice: Ice): number => {
-    const { type } = this.props;
+  const getPoints = (ice: Ice): number => {
+    const { type } = props;
     let ret;
     if (type === 'Innovation') {
       ret = ice.i;
@@ -94,15 +83,15 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
       ret = ice.e;
     }
     return ret;
-  }
+  };
 
-  private remainingICEPoints = (earned: number, projected: number): number => projected - earned;
+  const remainingICEPoints = (earned: number, projected: number): number => projected - earned;
 
-  private matchingPoints = (a: number, b: number): boolean => a <= b;
+  const matchingPoints = (a: number, b: number): boolean => a <= b;
 
-  private icePoints = (ice: Ice): number => {
+  const icePoints = (ice: Ice): number => {
     let ret;
-    const { type } = this.props;
+    const { type } = props;
     if (type === 'Innovation') {
       ret = ice.i;
     } else if (type === 'Competency') {
@@ -111,101 +100,98 @@ class StudentIceColumn extends React.Component<IStudentIceColumnProps, IStudentI
       ret = ice.e;
     }
     return ret;
-  }
+  };
 
-  private getCourseSlug = (course) => {
+  const getCourseSlug = (course) => {
     if (course.courseID) {
       return Slugs.findDoc(Courses.findDoc(course.courseID).slugID).name;
     }
     return Slugs.findDoc(course.slugID).name;
-  }
+  };
 
-  private getOpportunitySlug = (opportunity): string => {
+  const getOpportunitySlug = (opportunity): string => {
     if (opportunity.opportunityID) {
       return Slugs.findDoc(Opportunities.findDoc(opportunity.opportunityID).slugID).name;
     }
     return Slugs.findDoc(opportunity.slugID).name;
-  }
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { verifiedColumnOpen, unVerifiedColumnOpen, recommendedColumnOpen } = this.state;
-    const { type } = this.props;
-    const verifiedColor = this.getVerifiedColor();
-    const unverifiedColor = this.getUnverifiedColor();
+  const { type } = props;
+  const verifiedColor = getVerifiedColor();
+  const unverifiedColor = getUnverifiedColor();
 
-    const username = Router.getUsername(this.props.match);
-    const earnedICE = StudentProfiles.getEarnedICE(username);
-    const projectedICE = StudentProfiles.getProjectedICE(username);
-    const earnedICEPoints = this.getPoints(earnedICE);
-    const projectedICEPoints = this.getPoints(projectedICE);
-    const unverifiedICEPoints = this.remainingICEPoints(earnedICEPoints, projectedICEPoints);
+  const username = Router.getUsername(props.match);
+  const earnedICE = StudentProfiles.getEarnedICE(username);
+  const projectedICE = StudentProfiles.getProjectedICE(username);
+  const earnedICEPoints = getPoints(earnedICE);
+  const projectedICEPoints = getPoints(projectedICE);
+  const unverifiedICEPoints = remainingICEPoints(earnedICEPoints, projectedICEPoints);
 
-    return (
-      <Accordion styled fluid exclusive={false}>
-        <Accordion.Title active={verifiedColumnOpen} onClick={this.handleVerifiedColumnClick}>
-          <Icon name="dropdown" />
-          Verified
-          <div
-            className={`ui right floated ${verifiedColor}`}
-          >
-            {earnedICEPoints}
-            {' '}
-            pts
-          </div>
-        </Accordion.Title>
-        <Accordion.Content active={verifiedColumnOpen}>
-          <StudentIceColumnVerified
-            type={type}
-            earnedICEPoints={earnedICEPoints}
-            getCourseSlug={this.getCourseSlug}
-            matchingPoints={this.matchingPoints}
-            getOpportunitySlug={this.getOpportunitySlug}
-            icePoints={this.icePoints}
-          />
-        </Accordion.Content>
+  return (
+    <Accordion styled fluid exclusive={false}>
+      <Accordion.Title active={verifiedColumnOpenState} onClick={handleVerifiedColumnClick}>
+        <Icon name="dropdown" />
+        Verified
+        <div
+          className={`ui right floated ${verifiedColor}`}
+        >
+          {earnedICEPoints}
+          {' '}
+          pts
+        </div>
+      </Accordion.Title>
+      <Accordion.Content active={verifiedColumnOpenState}>
+        <StudentIceColumnVerified
+          type={type}
+          earnedICEPoints={earnedICEPoints}
+          getCourseSlug={getCourseSlug}
+          matchingPoints={matchingPoints}
+          getOpportunitySlug={getOpportunitySlug}
+          icePoints={icePoints}
+        />
+      </Accordion.Content>
 
-        <Accordion.Title active={unVerifiedColumnOpen} onClick={this.handleUnVerifiedColumnClick}>
-          <Icon name="dropdown" />
-          Unverified
-          <div
-            className={`ui right floated ${unverifiedColor}`}
-          >
-            {unverifiedICEPoints}
-            {' '}
-            pts
-          </div>
-        </Accordion.Title>
-        <Accordion.Content active={unVerifiedColumnOpen}>
-          <StudentIceColumnUnverified
-            type={type}
-            earnedICEPoints={earnedICEPoints}
-            icePoints={this.icePoints}
-            projectedICEPoints={projectedICEPoints}
-            getCourseSlug={this.getCourseSlug}
-            matchingPoints={this.matchingPoints}
-            getOpportunitySlug={this.getOpportunitySlug}
-            remainingICEPoints={this.remainingICEPoints}
-          />
-        </Accordion.Content>
+      <Accordion.Title active={unVerifiedColumnOpenState} onClick={handleUnVerifiedColumnClick}>
+        <Icon name="dropdown" />
+        Unverified
+        <div
+          className={`ui right floated ${unverifiedColor}`}
+        >
+          {unverifiedICEPoints}
+          {' '}
+          pts
+        </div>
+      </Accordion.Title>
+      <Accordion.Content active={unVerifiedColumnOpenState}>
+        <StudentIceColumnUnverified
+          type={type}
+          earnedICEPoints={earnedICEPoints}
+          icePoints={icePoints}
+          projectedICEPoints={projectedICEPoints}
+          getCourseSlug={getCourseSlug}
+          matchingPoints={matchingPoints}
+          getOpportunitySlug={getOpportunitySlug}
+          remainingICEPoints={remainingICEPoints}
+        />
+      </Accordion.Content>
 
-        <Accordion.Title active={recommendedColumnOpen} onClick={this.handleRecommendedColumnClick}>
-          <Icon name="dropdown" />
-          Get to 100
-        </Accordion.Title>
-        <Accordion.Content active={recommendedColumnOpen}>
-          <StudentIceColumnRecommended
-            type={type}
-            earnedICEPoints={earnedICEPoints}
-            getCourseSlug={this.getCourseSlug}
-            projectedICEPoints={projectedICEPoints}
-            matchingPoints={this.matchingPoints}
-            icePoints={this.icePoints}
-            getOpportunitySlug={this.getOpportunitySlug}
-          />
-        </Accordion.Content>
-      </Accordion>
-    );
-  }
-}
+      <Accordion.Title active={recommendedColumnOpenState} onClick={handleRecommendedColumnClick}>
+        <Icon name="dropdown" />
+        Get to 100
+      </Accordion.Title>
+      <Accordion.Content active={recommendedColumnOpenState}>
+        <StudentIceColumnRecommended
+          type={type}
+          earnedICEPoints={earnedICEPoints}
+          getCourseSlug={getCourseSlug}
+          projectedICEPoints={projectedICEPoints}
+          matchingPoints={matchingPoints}
+          icePoints={icePoints}
+          getOpportunitySlug={getOpportunitySlug}
+        />
+      </Accordion.Content>
+    </Accordion>
+  );
+};
 
 export default withRouter(StudentIceColumn);
