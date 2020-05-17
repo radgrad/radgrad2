@@ -203,7 +203,7 @@ const DEPWidget = (props: IDePProps) => {
         </Grid.Row>
         <Grid.Row textAlign="center">
           <Grid.Column textAlign="left">
-            {visibleStartIndex > 0 ? (
+            {visibleStartIndexState > 0 ? (
               <Button color="green" icon labelPosition="left" onClick={handleClickPrevYear}>
                 <Icon name="arrow circle left" />
                 Previous Year
