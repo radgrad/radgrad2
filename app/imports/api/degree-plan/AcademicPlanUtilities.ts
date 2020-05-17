@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { IAcademicPlan, ICourseInstance } from '../../typings/radgrad';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
+import { complexChoiceToArray } from './PlanChoiceUtilities';
 import * as PlanChoiceUtils from './PlanChoiceUtilities';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 
@@ -33,15 +34,17 @@ export function passedCourse(ci: ICourseInstance): boolean {
   return _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);
 }
 
-export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[], groups: any): boolean {
+export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]): boolean {
   const planCount = PlanChoiceUtils.getPlanCount(planChoice);
   const planSlug = PlanChoiceUtils.stripCounter(planChoice);
-  const courseSlugs = groups[planSlug].courseSlugs;
+  const courseSlugs = complexChoiceToArray(planSlug);
   let count = 0;
   _.forEach(takenSlugs, (slug) => {
-    if (_.includes(courseSlugs, slug)) {
-      count++;
-    }
+    _.forEach(courseSlugs, (cSlug) => {
+     if (PlanChoiceUtils.satisfiesPlanChoice(cSlug, slug)) {
+        count++;
+      }
+    });
   });
   const ret = count >= planCount;
   // console.log('isPlanChoiceSatisfied(%s, %o) returns %o', planChoice, takenSlugs, ret);

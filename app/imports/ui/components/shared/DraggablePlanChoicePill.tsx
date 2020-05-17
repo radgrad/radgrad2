@@ -8,7 +8,6 @@ import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 interface IPlanChoicePillProps {
   choice: string;
   name: string;
-  groups: any;
   index: number;
   studentID: string;
   satisfied: boolean;
