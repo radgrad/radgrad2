@@ -31,7 +31,7 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
       max: 15,
       defaultValue: 3,
     },
-    number: String,
+    num: String,
     description: String,
     interests: Array,
     syllabus: { type: String, optional: true },

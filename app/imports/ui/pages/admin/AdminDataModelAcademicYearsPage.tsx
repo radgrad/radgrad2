@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IAcademicYear, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicYear, IDescriptionPair } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
@@ -14,9 +14,9 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 
 const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
-    { label: 'Student', value: Users.getFullName(year.studentID) },
-    { label: 'Year', value: `${year.year}` },
-  ];
+  { label: 'Student', value: Users.getFullName(year.studentID) },
+  { label: 'Year', value: `${year.year}` },
+];
 
 const itemTitle = (year: IAcademicYear): React.ReactNode => {
   const name = Users.getFullName(year.studentID);
@@ -31,16 +31,13 @@ const itemTitle = (year: IAcademicYear): React.ReactNode => {
 
 const itemTitleString = (year: IAcademicYear): string => `${Users.getFullName(year.studentID)} ${year.year}`;
 
-class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelAcademicYearsPage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
-
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
@@ -58,26 +55,30 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
-  }
+  };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
-  }
+    setShowUpdateForm(false);
+    setId('');
+    setConfirmOpen(false);
+  };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
+  const handleConfirmDelete = () => {
     // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = AcademicYearInstances.getCollectionName();
-    const instance = this.state.id;
+    const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -94,17 +95,19 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
           timer: 1500,
         });
       }
-      this.setState({ confirmOpen: false, id: '' });
+      setConfirmOpen(false);
+      setId('');
     });
-  }
+  };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
+    setShowUpdateForm(true);
+    setId(inst.id);
+  };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     // console.log('handleUpdate(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const updateData: { id?: string, retired?: boolean } = {};
@@ -126,61 +129,66 @@ class AdminDataModelAcademicYearsPage extends React.Component<{}, IAdminDataMode
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
-        this.setState({ showUpdateForm: false, id: '' });
+        // @ts-ignore
+        formRef.current.reset();
+        setShowUpdateForm(false);
+        setId('');
       }
     });
-  }
+  };
 
-  public render(): React.ReactNode {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const findOptions = {
-      sort: { year: 1 },
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const findOptions = {
+    sort: { year: 1 },
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm
-                collection={AcademicYearInstances}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AddAcademicYearInstanceFormContainer
-                formRef={this.formRef}
-                handleAdd={this.handleAdd}
-              />
-            )}
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <AdminDataModelUpdateForm
               collection={AcademicYearInstances}
-              findOptions={findOptions}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Year Instance?" />
+          ) : (
+            <AddAcademicYearInstanceFormContainer
+              formRef={formRef}
+              handleAdd={handleAdd}
+            />
+          )}
+          <ListCollectionWidget
+            collection={AcademicYearInstances}
+            findOptions={findOptions}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Academic Year Instance?"
+      />
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelAcademicYearsPage;
