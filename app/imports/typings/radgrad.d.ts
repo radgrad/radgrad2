@@ -30,12 +30,6 @@ export interface IUpdate {
   id?: string;
 }
 
-export interface IAdminDataModelPageState {
-  showUpdateForm: boolean;
-  id: string;
-  confirmOpen: boolean;
-}
-
 export interface IPagination {
   AcademicPlanCollection?: {
     showIndex: number;
