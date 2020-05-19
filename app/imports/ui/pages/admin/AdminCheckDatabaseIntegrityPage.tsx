@@ -52,7 +52,6 @@ const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPage
   const showClient = !!clientResultState.message;
   const clientError = clientResultState.count !== 0;
   const working = props.checkIntegrityWorking;
-  // console.log('Check Integrity props=%o, state=%o working=%o', props, this.state, working);
   return (
     <div>
       <AdminPageMenuWidget />

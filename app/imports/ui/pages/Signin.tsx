@@ -67,7 +67,6 @@ const Signin = (props: ISigninProps) => {
     pathname = `/student/${username}/home`;
   }
   const { from } = { from: { pathname } };
-  // console.log(this.state);
   // if correct authentication, redirect to page instead of login screen
   if (redirectToRefererState) {
     return <Redirect to={from} />;

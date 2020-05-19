@@ -76,7 +76,6 @@ const AdminDataModelAcademicYearsPage = () => {
   };
 
   const handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
     const collectionName = AcademicYearInstances.getCollectionName();
     const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {

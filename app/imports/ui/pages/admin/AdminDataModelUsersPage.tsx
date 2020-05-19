@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -8,7 +8,6 @@ import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAdminDataModelPageState,
   IAdvisorProfile,
   IBaseProfile,
   ICombinedProfileDefine,
@@ -117,17 +116,13 @@ const mapStateToProps = (state): object => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
 
-class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPageProps, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-    // console.log('AdminDataModelUsersPage ', props);
-  }
-
-  private handleAdd = (doc: ICombinedProfileDefine) => {
+  const handleAdd = (doc: ICombinedProfileDefine) => {
     // console.log('handleAdd(%o)', doc);
     const definitionData: ICombinedProfileDefine = doc;
     definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
@@ -150,8 +145,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
         definitionData.level = 1;
       }
     }
-    const inst = this;
-    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    const { isCloudinaryUsed, cloudinaryUrl } = props;
     if (isCloudinaryUsed) {
       definitionData.picture = cloudinaryUrl;
     }
@@ -170,25 +164,28 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           showConfirmButton: false,
           timer: 1500,
         });
-        inst.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
   };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+    setShowUpdateForm(false);
+    setId('');
+    setConfirmOpen(false);
   };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
-    const profiles = Users.findProfiles({ _id: this.state.id }, {});
+  const handleConfirmDelete = () => {
+    const profiles = Users.findProfiles({ _id: idState }, {});
     if (profiles.length > 0) {
       const profile = profiles[0];
       let collectionName;
@@ -222,17 +219,20 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
             timer: 1500,
           });
         }
-        this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+        setShowUpdateForm(false);
+        setId('');
+        setConfirmOpen(false);
       });
     }
   };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
-    this.setState({ showUpdateForm: true, id: inst.id });
+    setShowUpdateForm(true);
+    setId(inst.id);
   };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     // console.log('UsersPage.handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
@@ -257,7 +257,7 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
-    const { isCloudinaryUsed, cloudinaryUrl } = this.props;
+    const { isCloudinaryUsed, cloudinaryUrl } = props;
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
@@ -277,128 +277,127 @@ class AdminDataModelUsersPage extends React.Component<IAdminDataModelUsersPagePr
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ showUpdateForm: false, id: '' });
+        setShowUpdateForm(false);
+        setId('');
       }
     });
   };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const panes = [
-      {
-        menuItem: `Admins (${this.props.admins.length})`, render: () => (
-          <Tab.Pane>
-            <ListCollectionWidget
-              collection={AdminProfiles}
-              descriptionPairs={descriptionPairs(this.props)}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
-            />
-          </Tab.Pane>
-        ),
-      },
-      {
-        menuItem: `Advisors (${this.props.advisors.length})`, render: () => (
-          <Tab.Pane>
-            <ListCollectionWidget
-              collection={AdvisorProfiles}
-              descriptionPairs={descriptionPairs(this.props)}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
-            />
-          </Tab.Pane>
-),
-      },
-      {
-        menuItem: `Faculty (${this.props.faculty.length})`, render: () => (
-          <Tab.Pane>
-            <ListCollectionWidget
-              collection={FacultyProfiles}
-              descriptionPairs={descriptionPairs(this.props)}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
-            />
-          </Tab.Pane>
-),
-      },
-      {
-        menuItem: `Mentors (${this.props.mentors.length})`, render: () => (
-          <Tab.Pane>
-            <ListCollectionWidget
-              collection={MentorProfiles}
-              descriptionPairs={descriptionPairs(this.props)}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
-            />
-          </Tab.Pane>
-),
-      },
-      {
-        menuItem: `Students (${this.props.students.length})`, render: () => (
-          <Tab.Pane>
-            <ListCollectionWidget
-              collection={StudentProfiles}
-              descriptionPairs={descriptionPairs(this.props)}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
-            />
-          </Tab.Pane>
-),
-      },
-    ];
-    return (
-      <div className="layout-page">
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const panes = [
+    {
+      menuItem: `Admins (${props.admins.length})`, render: () => (
+        <Tab.Pane>
+          <ListCollectionWidget
+            collection={AdminProfiles}
+            descriptionPairs={descriptionPairs(props)}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: `Advisors (${props.advisors.length})`, render: () => (
+        <Tab.Pane>
+          <ListCollectionWidget
+            collection={AdvisorProfiles}
+            descriptionPairs={descriptionPairs(props)}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: `Faculty (${props.faculty.length})`, render: () => (
+        <Tab.Pane>
+          <ListCollectionWidget
+            collection={FacultyProfiles}
+            descriptionPairs={descriptionPairs(props)}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: `Mentors (${props.mentors.length})`, render: () => (
+        <Tab.Pane>
+          <ListCollectionWidget
+            collection={MentorProfiles}
+            descriptionPairs={descriptionPairs(props)}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: `Students (${props.students.length})`, render: () => (
+        <Tab.Pane>
+          <ListCollectionWidget
+            collection={StudentProfiles}
+            descriptionPairs={descriptionPairs(props)}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Tab.Pane>
+      ),
+    },
+  ];
+  return (
+    <div className="layout-page">
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <UpdateUserForm
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AddUserForm formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-            <Tab panes={panes} defaultActiveIndex={4} />
-          </Grid.Column>
-        </Grid>
-        <Confirm
-          open={this.state.confirmOpen}
-          onCancel={this.handleCancel}
-          onConfirm={this.handleConfirmDelete}
-          header="Delete User?"
-        />
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <UpdateUserForm
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
+            />
+          ) : (
+            <AddUserForm formRef={formRef} handleAdd={handleAdd} />
+          )}
+          <Tab panes={panes} defaultActiveIndex={4} />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete User?"
+      />
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 const AdminDataModelUsersPageCon = connect(mapStateToProps, null)(AdminDataModelUsersPage);
 export default withTracker(() => {

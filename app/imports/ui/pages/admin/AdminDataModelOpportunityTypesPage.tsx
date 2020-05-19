@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
@@ -6,7 +6,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IAdminDataModelPageState, IDescriptionPair, IOpportunityType } from '../../../typings/radgrad';
+import { IDescriptionPair, IOpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -58,16 +58,13 @@ const itemTitle = (item: IOpportunityType): React.ReactNode => (
   </React.Fragment>
 );
 
-class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelOpportunityTypesPage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
-
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     // console.log('OpportunityTypes.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
@@ -85,26 +82,29 @@ class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataM
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
   };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+    setShowUpdateForm(false);
+    setId('');
+    setConfirmOpen(false);
   };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+  const handleConfirmDelete = () => {
     const collectionName = collection.getCollectionName();
-    const instance = this.state.id;
+    const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -121,17 +121,20 @@ class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataM
           timer: 1500,
         });
       }
-      this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+      setShowUpdateForm(false);
+      setId('');
+      setConfirmOpen(false);
     });
   };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
+    setShowUpdateForm(true);
+    setId(inst.id);
   };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc;
@@ -151,58 +154,62 @@ class AdminDataModelOpportunityTypesPage extends React.Component<{}, IAdminDataM
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ showUpdateForm: false, id: '' });
+        setShowUpdateForm(false);
+        setId('');
       }
     });
   };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const findOptions = {
-      sort: { name: 1 }, // determine how you want to sort the items in the list
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const findOptions = {
+    sort: { name: 1 }, // determine how you want to sort the items in the list
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <UpdateOpportunityTypeForm
-                collection={collection}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AddOpportunityTypeForm formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <UpdateOpportunityTypeForm
               collection={collection}
-              findOptions={findOptions}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Opportunity Type?" />
+          ) : (
+            <AddOpportunityTypeForm formRef={formRef} handleAdd={handleAdd} />
+          )}
+          <ListCollectionWidget
+            collection={collection}
+            findOptions={findOptions}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Opportunity Type?"
+      />
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelOpportunityTypesPage;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Button } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -12,55 +12,51 @@ export interface IFilterUsers {
   userNameRegex?: string;
 }
 
-class AdminHomePage extends React.Component<{}, IFilterUsers> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const AdminHomePage = () => {
+  const [firstNameRegexState, setFirstNameRegex] = useState('');
+  const [lastNameRegexState, setLastNameRegex] = useState('');
+  const [usernameRegexState, setusernameRegex] = useState('');
 
-  public updateFirstNameRegex = (firstNameRegex) => {
-    this.setState({ firstNameRegex });
-  }
+  const updateFirstNameRegex = (firstNameRegex) => {
+    setFirstNameRegex(firstNameRegex);
+  };
 
-  public updateLastNameRegex = (lastNameRegex) => {
-    this.setState({ lastNameRegex });
-  }
+  const updateLastNameRegex = (lastNameRegex) => {
+    setLastNameRegex(lastNameRegex);
+  };
 
-  public updateUserNameRegex = (userNameRegex) => {
-    this.setState({ userNameRegex });
-  }
+  const updateUserNameRegex = (userNameRegex) => {
+    setusernameRegex(userNameRegex);
+  };
 
   // TODO: remove after done with issue-158
-  private handleClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     userInteractionFindMethod.call({}, (error, result) => {
       const userInteractions = _.groupBy(result, 'username');
       console.log('userInteractions %o', userInteractions);
     });
-  }
+  };
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  public render() {
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Container textAlign="center" fluid={false}>
-          {/* TODO: remove after done with issue-158 */}
-          <Button onClick={this.handleClick}>User Interactions</Button>
-          <FilterUserWidget
-            updateFirstNameRegex={this.updateFirstNameRegex}
-            updateLastNameRegex={this.updateLastNameRegex}
-            updateUserNameRegex={this.updateUserNameRegex}
-          />
-          <RetrieveUserWidget
-            firstNameRegex={this.state.firstNameRegex}
-            lastNameRegex={this.state.lastNameRegex}
-            userNameRegex={this.state.userNameRegex}
-          />
-        </Container>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Container textAlign="center" fluid={false}>
+        {/* TODO: remove after done with issue-158 */}
+        <Button onClick={handleClick}>User Interactions</Button>
+        <FilterUserWidget
+          updateFirstNameRegex={updateFirstNameRegex}
+          updateLastNameRegex={updateLastNameRegex}
+          updateUserNameRegex={updateUserNameRegex}
+        />
+        <RetrieveUserWidget
+          firstNameRegex={firstNameRegexState}
+          lastNameRegex={lastNameRegexState}
+          userNameRegex={usernameRegexState}
+        />
+      </Container>
+    </div>
+  );
+};
 
 export default AdminHomePage;
