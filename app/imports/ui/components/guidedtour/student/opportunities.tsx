@@ -24,13 +24,7 @@ const GuidedTourStudentOpportunities = (props: IOpportunitiesProps) => (
           <p style={styles.p}>
             A well-balanced student learns from experiences inside and outside of school. RadGrad
             helps you reach beyond the classroom through
-            <strong
-              style={styles.strong}
-            >
-              {props.opportunties}
-            </strong>
-            {' '}
-            opportunities. These include:
+            <strong style={styles.strong}>{props.opportunties}</strong> opportunities. These include:
           </p>
           <List>
             <List.Item style={styles.li}>

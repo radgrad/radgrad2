@@ -34,12 +34,7 @@ const AdminDatabaseAccordion = (props: IAdminDatabaseAccordionProps) => {
   return (
     <Accordion styled fluid>
       <Accordion.Title active={activeIndex === props.index} index={props.index} onClick={handleClick}>
-        <Icon name="dropdown" />
-        {props.name}
-        {' '}
-        (
-        {props.contents.length}
-        )
+        <Icon name="dropdown" /> {props.name} ({props.contents.length})
       </Accordion.Title>
       <Accordion.Content active={activeIndex === props.index}>
         {prettyPrint()}

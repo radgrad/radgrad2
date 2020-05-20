@@ -243,13 +243,8 @@ const CardExplorerWidget = (props: ICardExplorerMenuWidgetProps) => {
             {
               !buildStudentUserCard ? (
                 <React.Fragment>
-                  <span style={uppercaseTextTransformStyle}>
-                    {header.title}
-                    {' '}
-                  </span>
-                  <WidgetHeaderNumber
-                    inputValue={header.count}
-                  />
+                  <span style={uppercaseTextTransformStyle}>{header.title} </span>
+                  <WidgetHeaderNumber inputValue={header.count} />
                 </React.Fragment>
                 )
                 :
@@ -280,31 +275,31 @@ const CardExplorerWidget = (props: ICardExplorerMenuWidgetProps) => {
           !buildStudentUserCard ? (
             <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable>
               {
-                buildPlanCard ?
-                  items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
-              }
+                  buildPlanCard ?
+                    items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
+                }
               {
-                buildProfileCard ?
-                  items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
-              }
+                  buildProfileCard ?
+                    items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
+                }
               {
-                buildTermCard ?
-                  items.map((item) => (
-                    <TermCard
-                      key={item._id}
-                      item={item}
-                      type={type}
-                      isStudent={isStudent}
-                      canAdd
-                    />
-                  ))
-                  : ''
-              }
+                  buildTermCard ?
+                    items.map((item) => (
+                      <TermCard
+                        key={item._id}
+                        item={item}
+                        type={type}
+                        isStudent={isStudent}
+                        canAdd
+                      />
+                    ))
+                    : ''
+                }
               {
-                buildExplorerCard ?
-                  items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
-                  : ''
-              }
+                  buildExplorerCard ?
+                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
+                    : ''
+                }
             </Card.Group>
             )
             :

@@ -68,15 +68,11 @@ const LandingOpportunityExplorer = (props: IOpportunityExplorerProps) => {
               </Header>
               <Grid columns={2} stackable>
                 <Grid.Column width="six">
-                  <b>Opportunity Type:</b>
-                  {' '}
-                  {getOpportunityTypeName(props.opportunity.opportunityTypeID)}
+                  <b>Opportunity Type:</b> {getOpportunityTypeName(props.opportunity.opportunityTypeID)}
                   <br />
                 </Grid.Column>
                 <Grid.Column width="ten">
-                  <b>{(props.quarters ? 'Quarters' : 'Semesters')}</b>
-                  {' '}
-                  {semesters(props.opportunity)}
+                  <b>{(props.quarters ? 'Quarters' : 'Semesters')}</b> {semesters(props.opportunity)}
                 </Grid.Column>
               </Grid>
               <b>Description:</b>

@@ -84,9 +84,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-                Back to
-                {' '}
-                {getTypeName(props)}
+                Back to {getTypeName(props)}
               </Button>
               {
                 isStudent ? (
@@ -117,9 +115,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-                Back to
-                {' '}
-                {getTypeName(props)}
+                Back to {getTypeName(props)}
               </Button>
               {
                 isStudent ? (
@@ -226,9 +222,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-                Back to
-                {' '}
-                {getTypeName(props)}
+                Back to {getTypeName(props)}
               </Button>
               <Header as="h4" dividing>MY CAREER GOALS</Header>
               {

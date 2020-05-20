@@ -41,9 +41,7 @@ const StudentMentorSpaceQuestionsAccordion = (props: IStudentMentorSpaceQuestion
                     {q.question}
                   </Grid.Column>
                   <Grid.Column width={2} textAlign="right">
-                    {answerCount[ind]}
-                    {' '}
-                    {answerCount[ind] > 1 ? ' answers' : ' answer'}
+                    {answerCount[ind]} {answerCount[ind] > 1 ? ' answers' : ' answer'}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

@@ -33,10 +33,7 @@ const StudentMentorSpaceMentorDirectoryAccordion = (props: IStudentMentorSpaceMe
                   <Image src={mentor.picture} size="mini" />
                   <List.Content>
                     <a href="#">
-                      {mentor.firstName}
-                      {' '}
-                      {mentor.lastName}
-                      {' '}
+                      {mentor.firstName} {mentor.lastName}
                     </a>
                     <List.Description>
                       {mentor.career}
@@ -54,20 +51,11 @@ const StudentMentorSpaceMentorDirectoryAccordion = (props: IStudentMentorSpaceMe
                 <br />
               </Segment>
               <Segment basic size="tiny">
-                {mentor.firstName}
-                {' '}
-                {mentor.lastName}
-                {' '}
-                is based in
-                {' '}
-                {mentor.location}
+                {mentor.firstName} {mentor.lastName} is based in {mentor.location}
                 <br />
-                <Icon name="mail" />
-                {' '}
-                <a href={`mailto:${mentor.username}`}>{mentor.username}</a>
+                <Icon name="mail" /> <a href={`mailto:${mentor.username}`}>{mentor.username}</a>
                 <br />
                 <Icon name="linkedin" />
-                {' '}
                 <a href={`https://www.linkedin.com/in/${mentor.linkedin}`}>{mentor.linkedin}</a>
                 <br />
               </Segment>

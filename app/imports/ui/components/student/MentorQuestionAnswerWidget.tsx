@@ -24,14 +24,7 @@ const MentorQuestionAnswerWidget = (props: IQuestionAnswersWidgetProps) => {
           <Image src={mentor.picture} size="mini" />
           <List.Content>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <a onClick={toggleFullSize}>
-              {mentor.firstName}
-              {' '}
-              {mentor.lastName}
-              {' '}
-            </a>
-            {' '}
-            answered:
+            <a onClick={toggleFullSize}>{mentor.firstName} {mentor.lastName}</a> answered:
             <ExplorerUsersWidget
               userProfile={mentor}
               isActive={isActiveState}

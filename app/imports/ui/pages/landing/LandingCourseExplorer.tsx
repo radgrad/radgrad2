@@ -53,27 +53,17 @@ const LandingCourseExplorer = (props: ICourseExplorerProps) => {
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
                 <span>
-                  {props.course.shortName}
-                  {' '}
-                  (
-                  {props.course.name}
-                  )
+                  {props.course.shortName} ({props.course.name})
                 </span>
               </Header>
               <Grid columns={2} stackable>
                 <Grid.Column width="six">
-                  <b>Course Number:</b>
-                  {' '}
-                  {props.course.num}
+                  <b>Course Number:</b>  {props.course.num}
                   <br />
-                  <b>Credit Hours:</b>
-                  {' '}
-                  {props.course.creditHrs}
+                  <b>Credit Hours:</b> {props.course.creditHrs}
                 </Grid.Column>
                 <Grid.Column width="ten">
-                  <b>Syllabus</b>
-                  {' '}
-                  {props.course.syllabus ?
+                  <b>Syllabus</b> {props.course.syllabus ?
                     <a href={props.course.syllabus}>{props.course.syllabus}</a> : 'None available'}
                 </Grid.Column>
               </Grid>
