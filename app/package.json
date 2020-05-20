@@ -213,7 +213,9 @@
       "react/jsx-fragments": "off",
       "react/jsx-props-no-spreading": "off",
       "react/prefer-stateless-function": "off",
-      "react/sort-comp": "off"
+      "react/sort-comp": "off",
+      "react/jsx-one-expression-per-line": "off",
+      "react/jsx-closing-tag-location": "off"
     }
   }
 }

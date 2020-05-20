@@ -47,12 +47,7 @@ const AdminDataModelAccordion = (props: IAdminDataModelAccordionProps) => {
       <Accordion.Content active={active}>
         {_.map(props.descriptionPairs, (descriptionPair, index) => (
           <React.Fragment key={index}>
-            <b>
-              {descriptionPair.label}
-              :
-            </b>
-            {' '}
-            {typeof descriptionPair.value === 'string' ? (
+            <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? (
               <Markdown
                 escapeHtml
                 source={descriptionPair.value}

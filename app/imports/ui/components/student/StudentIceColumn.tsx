@@ -132,12 +132,8 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
       <Accordion.Title active={verifiedColumnOpenState} onClick={handleVerifiedColumnClick}>
         <Icon name="dropdown" />
         Verified
-        <div
-          className={`ui right floated ${verifiedColor}`}
-        >
-          {earnedICEPoints}
-          {' '}
-          pts
+        <div className={`ui right floated ${verifiedColor}`}>
+          {earnedICEPoints} pts
         </div>
       </Accordion.Title>
       <Accordion.Content active={verifiedColumnOpenState}>
@@ -154,13 +150,7 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
       <Accordion.Title active={unVerifiedColumnOpenState} onClick={handleUnVerifiedColumnClick}>
         <Icon name="dropdown" />
         Unverified
-        <div
-          className={`ui right floated ${unverifiedColor}`}
-        >
-          {unverifiedICEPoints}
-          {' '}
-          pts
-        </div>
+        <div className={`ui right floated ${unverifiedColor}`}>{unverifiedICEPoints} pts</div>
       </Accordion.Title>
       <Accordion.Content active={unVerifiedColumnOpenState}>
         <StudentIceColumnUnverified

@@ -212,9 +212,7 @@ const DEPWidget = (props: IDePProps) => {
           </Grid.Column>
           <Grid.Column textAlign="center">
             <Button color="green" onClick={handleAddYear}>
-              <Icon name="plus circle" />
-              {' '}
-              Add Academic Year
+              <Icon name="plus circle" /> Add Academic Year
             </Button>
           </Grid.Column>
           <Grid.Column textAlign="right">

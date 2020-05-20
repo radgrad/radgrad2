@@ -66,9 +66,7 @@ const ModerationQuestionCardWidget = (props: IModerationQuestionCardWidget) => {
 
   return (
     <Container textAlign="left">
-      <strong>Question: </strong>
-      {' '}
-      {props.question.question}
+      <strong>Question:</strong> {props.question.question}
       <Segment>
         <Form>
           <Form.TextArea label="Moderator Comments" value={moderatorCommentState} onChange={handleChange} />

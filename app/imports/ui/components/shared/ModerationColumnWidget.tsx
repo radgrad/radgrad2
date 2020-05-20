@@ -18,11 +18,7 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
   <div>
     <Segment>
       <Header as="h4" textAlign="left" dividing>
-        PENDING
-        {props.type}
-        {' '}
-        REVIEWS
-        {' '}
+        PENDING {props.type} REVIEWS
       </Header>
       {props.isReview && props.reviews.length > 0 ? (
         <Item.Group divided>
@@ -58,10 +54,7 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
               : (
                 <Container textAlign="left">
                   <i>
-                    No pending
-                    {props.type.toLowerCase()}
-                    {' '}
-                    reviews
+                    No pending {props.type.toLowerCase()} reviews
                   </i>
                 </Container>
             )

@@ -163,19 +163,13 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
     <React.Fragment>
       {matchingPoints(100, earnedICEPoints) ? (
         <p>
-          Congratulations! You have 100 (or more) verified
-          {type}
-          {' '}
-          points!
+          Congratulations! You have 100 (or more) verified {type} points!
         </p>
       )
         :
         matchingPoints(100, projectedICEPoints) ? (
           <p>
-            You already have at least 100 verified or unverified
-            {type}
-            {' '}
-            points.
+            You already have at least 100 verified or unverified {type} points.
           </p>
         )
           :
@@ -184,10 +178,7 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
             : (
               <React.Fragment>
                 <p>
-                  Consider the following to acquire 100
-                  {type}
-                  {' '}
-                  points.
+                  Consider the following to acquire 100 {type} points.
                 </p>
                 <List>
                   {recommendedEvents(projectedICEPoints, props).map((event) => {
@@ -199,19 +190,12 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
                     <List.Item key={event._id}>
                       {type === 'Competency' ? (
                         <Link to={courseRoute}>
-                          <b>+9</b>
-                          {' '}
-                          {event.shortName}
+                          <b>+9</b> {event.shortName}
                         </Link>
                       )
                         : (
                           <Link to={opportunityRoute}>
-                            <b>
-                              +
-                              {icePoints(event.ice)}
-                            </b>
-                            {' '}
-                            {event.name}
+                            <b>+{icePoints(event.ice)}</b> {event.name}
                           </Link>
                       )}
                     </List.Item>

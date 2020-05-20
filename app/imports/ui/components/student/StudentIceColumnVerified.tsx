@@ -121,13 +121,7 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
         : (
           <React.Fragment>
             <p>
-              You have
-              {earnedICEPoints}
-              {' '}
-              verified
-              {type}
-              {' '}
-              points for the following:
+              You have {earnedICEPoints} verified {type} points for the following:
             </p>
             <List relaxed="very">
               {years(props).map((year) => (
@@ -171,9 +165,7 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
                                 <b>
                                   +
                                   {points}
-                                </b>
-                                {' '}
-                                {courseName(event as ICourseInstance)}
+                                </b> {courseName(event as ICourseInstance)}
                                 <br />
                               </Link>
                             );
