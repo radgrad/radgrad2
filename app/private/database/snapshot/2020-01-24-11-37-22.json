@@ -12428,6 +12428,18 @@
       ]
     },
     {
+      "name": "PageInterestCollection",
+      "contents": []
+    },
+    {
+      "name": "PageInterestsDailySnapshotCollection",
+      "contents": []
+    },
+    {
+      "name": "PageInterestsTermSnapshotCollection",
+      "contents": []
+    },
+    {
       "name": "PlanChoiceCollection",
       "contents": [
         {

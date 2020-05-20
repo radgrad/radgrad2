@@ -15,6 +15,14 @@ import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
 import { getAllUrlParamsByLocationObject, ILocationProps } from '../components/shared/RouterHelperFunctions';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
+import { EXPLORER_TYPE } from '../../startup/client/route-constants';
+import { IPageInterestDefine } from '../../typings/radgrad';
+import {
+  IPageInterestsCategoryTypes,
+  PageInterestsCategoryTypes,
+} from '../../api/page-tracking/PageInterestsCategoryTypes';
+import { pageInterestDefineMethod } from '../../api/page-tracking/PageInterestCollection.methods';
+import { Slugs } from '../../api/slug/SlugCollection';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -164,10 +172,12 @@ function withHistoryListen(WrappedComponent) {
     router: state.router,
   });
 
+  // TODO: Turn this class into a pure function
   class HistoryListen extends React.Component<IHistoryListenProps> {
     componentDidUpdate(prevProps: Readonly<IHistoryListenProps>, prevState: Readonly<{}>, snapshot?: any): void {
       const { match, router } = this.props;
       if (prevProps.router.location !== router.location) {
+        // Defining User Interactions
         const parameters = getAllUrlParamsByLocationObject(match, router.location);
         const typeData = parameters.join('/');
         const username = Meteor.user().username;
@@ -175,9 +185,47 @@ function withHistoryListen(WrappedComponent) {
         const interactionData = { username, type, typeData };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
-            console.log('Error creating UserInteraction.', userInteractionError);
+            console.error('Error creating UserInteraction.', userInteractionError);
           }
         });
+
+        // Defining Page Interests
+        if (parameters[0] === EXPLORER_TYPE.HOME && parameters[2]) {
+          // Don't create a PageInterest in case we ever change how the URL of Explorer Pages are structured
+          // since we're directly accessing parameters for data
+          if (parameters.length > 3) {
+            console.error('Invalid length of parameters: %o', parameters);
+            return;
+          }
+          // OR the user is trying to visit a specific page that no longer exists.
+          if (!Slugs.isDefined(parameters[2])) {
+            return;
+          }
+          let category: IPageInterestsCategoryTypes;
+          switch (parameters[1]) {
+            case EXPLORER_TYPE.CAREERGOALS:
+              category = PageInterestsCategoryTypes.CAREERGOAL;
+              break;
+            case EXPLORER_TYPE.COURSES:
+              category = PageInterestsCategoryTypes.COURSE;
+              break;
+            case EXPLORER_TYPE.INTERESTS:
+              category = PageInterestsCategoryTypes.INTEREST;
+              break;
+            case EXPLORER_TYPE.OPPORTUNITIES:
+              category = PageInterestsCategoryTypes.OPPORTUNITY;
+              break;
+            default:
+              // We only track and define Page Interests for the case statements above
+          }
+          // TODO: Implementation of Page Interest View defining
+          const pageInterestData: IPageInterestDefine = { username, category, name: parameters[2] };
+          pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
+            if (pageInterestError) {
+              console.error('Error creating PageInterest.', pageInterestError);
+            }
+          });
+        }
       }
     }
 

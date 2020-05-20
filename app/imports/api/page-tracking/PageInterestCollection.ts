@@ -5,11 +5,11 @@ import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { IPageInterest, IPageInterestDefine } from '../../typings/radgrad';
 import { Users } from '../user/UserCollection';
-import { CATEGORY_TYPE } from './PageInterestsCategoryTypes';
+import { PageInterestsCategoryTypes } from './PageInterestsCategoryTypes';
 import { Slugs } from '../slug/SlugCollection';
 
 /**
- * Represents a student's interest views for specific topic category pages
+ * Represents a student's interest view for a specific topic category page
  * The different topic categories that a page could be are Career Goal, Course, Interest, and Opportunity
  * Definition of a student's interest view when they visit a page
  * 1. When they Favorite that page and don't unfavorite it before leaving the page
@@ -31,7 +31,6 @@ class PageInterestCollection extends BaseCollection {
       username: String,
       category: String,
       name: String,
-      views: { type: SimpleSchema.Integer, min: 0 },
       timestamp: Date,
     }));
   }
@@ -41,11 +40,10 @@ class PageInterestCollection extends BaseCollection {
    * @param termID The ID of the academic term that this snapshot represents
    * @param category The topic category that this snapshot represents
    * @param name The name that the page represents
-   * @param views The number of student interest views for that name
    * @param timestamp Timestamp of when this snapshot was recorded
    */
-  public define({ username, category, name, views = 0, timestamp = moment().toDate() }: IPageInterestDefine): string {
-    return this.collection.insert({ username, category, name, views, timestamp });
+  public define({ username, category, name, timestamp = moment().toDate() }: IPageInterestDefine): string {
+    return this.collection.insert({ username, category, name, timestamp });
   }
 
   /**
@@ -76,7 +74,7 @@ class PageInterestCollection extends BaseCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks username, category, name, and views
+   * Checks username, category, and name
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   public checkIntegrity(): string[] {
@@ -85,15 +83,12 @@ class PageInterestCollection extends BaseCollection {
       if (!Users.isDefined(doc.username)) {
         problems.push(`Bad user: ${doc.username}`);
       }
-      const categories = Object.values(CATEGORY_TYPE);
+      const categories = Object.values(PageInterestsCategoryTypes);
       if (categories.indexOf(doc.category) < 0) {
         problems.push(`Bad category: ${doc.category}`);
       }
       if (!Slugs.isDefined(doc.name)) {
         problems.push(`Bad slug: ${doc.name}`);
-      }
-      if (doc.views < 0) {
-        problems.push(`Bad views: ${doc.views}`);
       }
     });
     return problems;
@@ -109,13 +104,12 @@ class PageInterestCollection extends BaseCollection {
     const username = doc.username;
     const category = doc.category;
     const name = doc.name;
-    const views = doc.views;
     const timestamp = doc.timestamp;
-    return { username, category, name, views, timestamp };
+    return { username, category, name, timestamp };
   }
 
   /**
-   * Publish an empty cursor to UserInteractions. Since method calls are used to find interactions,
+   * Publish an empty cursor to PageInterests. Since method calls are used to find interactions,
    * we do not need to publish any records, but would still like this to be on the list of collections
    * for integrity check, etc.
    */

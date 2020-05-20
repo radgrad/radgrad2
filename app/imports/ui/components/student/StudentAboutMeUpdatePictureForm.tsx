@@ -66,7 +66,7 @@ class StudentAboutMeUpdatePictureForm extends React.Component<IStudentAboutMeUpd
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {
-                console.log('Error creating UserInteraction.', userInteractionError);
+                console.error('Error creating UserInteraction.', userInteractionError);
               }
             });
           }

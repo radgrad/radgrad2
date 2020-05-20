@@ -2,7 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
-import { SyncedCron } from 'meteor/percolate:synced-cron';
+import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { Interests } from '../../api/interest/InterestCollection';

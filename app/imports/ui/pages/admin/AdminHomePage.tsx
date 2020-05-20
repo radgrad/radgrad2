@@ -5,6 +5,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';
 import FilterUserWidget from '../../components/shared/FilterUserWidget';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { pageInterestFindMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
 
 export interface IFilterUsers {
   firstNameRegex?: string;
@@ -30,12 +31,16 @@ class AdminHomePage extends React.Component<{}, IFilterUsers> {
     this.setState({ userNameRegex });
   }
 
-  // TODO: remove after done with issue-158
+  // TODO: remove after done with issue-138
   private handleClick = (e) => {
     e.preventDefault();
     userInteractionFindMethod.call({}, (error, result) => {
       const userInteractions = _.groupBy(result, 'username');
       console.log('userInteractions %o', userInteractions);
+    });
+    pageInterestFindMethod.call({}, (error, result) => {
+      const pageInterests = _.groupBy(result, 'username');
+      console.log('pageInterests %o', pageInterests);
     });
   }
 

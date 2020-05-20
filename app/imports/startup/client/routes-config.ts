@@ -89,9 +89,9 @@ import {
   EXPLORER_PARAM,
   GUIDEDTOUR,
   MENTOR_SPACE,
-  PAGE_TRACKING,
+  PAGE_TRACKING_SCOREBOARD,
 } from './route-constants';
-import PageTrackingAnalysisPage from '../../ui/pages/shared/PageTrackingAnalysisPage';
+import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
 
 export const routes = {
   ADMIN: [
@@ -606,11 +606,6 @@ export const routes = {
   ],
   STUDENT: [
     {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${PAGE_TRACKING}`,
-      exact: true,
-      component: PageTrackingAnalysisPage,
-    },
-    {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
       component: StudentHomePageContainer,
@@ -649,6 +644,11 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
       component: ExplorerHomePageContainer,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_SCOREBOARD}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,

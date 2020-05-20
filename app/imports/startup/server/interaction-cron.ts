@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { SyncedCron } from 'meteor/percolate:synced-cron';
+import { SyncedCron } from 'meteor/littledata:synced-cron';
 import moment from 'moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';

@@ -9,7 +9,7 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
-import PageTrackingWidget from '../../components/shared/PageTrackingWidget';
+import PageTrackingScoreboardWidget from '../../components/shared/PageTrackingScoreboardWidget';
 
 interface IPageTrackingAnalysisPageProps {
   match: {
@@ -22,7 +22,7 @@ interface IPageTrackingAnalysisPageProps {
   };
 }
 
-const PageTrackingAnalysisPage = (props: IPageTrackingAnalysisPageProps) => {
+const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
   const renderPageMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(props.match);
     switch (role) {
@@ -60,7 +60,7 @@ const PageTrackingAnalysisPage = (props: IPageTrackingAnalysisPageProps) => {
           </Grid.Column>
 
           <Grid.Column width={11} stretched>
-            <PageTrackingWidget />
+            <PageTrackingScoreboardWidget />
           </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
@@ -69,4 +69,4 @@ const PageTrackingAnalysisPage = (props: IPageTrackingAnalysisPageProps) => {
   );
 };
 
-export default PageTrackingAnalysisPage;
+export default PageTrackingScoreboardPage;

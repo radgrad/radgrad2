@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { CATEGORY_TYPE } from './PageInterestsCategoryTypes';
+import { PageInterestsCategoryTypes } from './PageInterestsCategoryTypes';
 import { Slugs } from '../slug/SlugCollection';
 import { IPageInterestsTermSnapshot, IPageInterestsTermSnapshotDefine } from '../../typings/radgrad';
 
@@ -54,7 +54,7 @@ class PageInterestsTermSnapshotCollection extends BaseCollection {
       if (!AcademicTerms.isDefined(doc.termID)) {
         problems.push(`Bad termID: ${doc.termID}`);
       }
-      const categories = Object.values(CATEGORY_TYPE);
+      const categories = Object.values(PageInterestsCategoryTypes);
       if (categories.indexOf(doc.category) < 0) {
         problems.push(`Bad category: ${doc.category}`);
       }
