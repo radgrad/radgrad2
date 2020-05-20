@@ -77,9 +77,7 @@ const InspectorCourseMenu = (props: IInpectorCourseMenuProps) => {
               <Dropdown.Menu>
                 {_.map(courses, (c) => (
                   <Dropdown.Item key={c._id} value={c._id} onClick={handleClick}>
-                    {c.num}
-                    {' '}
-                    {c.shortName}
+                    {c.num} {c.shortName}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>

@@ -83,9 +83,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
       >
         <Icon
           name="fast backward"
-        />
-        {' '}
-        First
+        /> First
       </Button>
       <Button
         basic
@@ -94,11 +92,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
         onClick={handlePrevClick(props)}
         style={heightStyle}
       >
-        <Icon
-          name="step backward"
-        />
-        {' '}
-        Prev
+        <Icon name="step backward" /> Prev
       </Button>
       <Message style={messageStyle}>{label}</Message>
       <Button
@@ -108,11 +102,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
         onClick={handleNextClick(props)}
         style={heightStyle}
       >
-        <Icon
-          name="step forward"
-        />
-        {' '}
-        Next
+        <Icon name="step forward" /> Next
       </Button>
       <Button
         basic
@@ -120,11 +110,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
         onClick={handleLastClick(props)}
         style={heightStyle}
       >
-        <Icon
-          name="fast forward"
-        />
-        {' '}
-        Last
+        <Icon name="fast forward" /> Last
       </Button>
       {/* <Dropdown selection={true} options={options} className="jsNum"/> */}
       <select className="ui dropdown jsNum" style={heightStyle} value={showCount} onChange={handleCountChange(props)}>

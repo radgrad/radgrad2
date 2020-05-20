@@ -66,13 +66,9 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
           </Grid.Row>
           <Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
             <Grid.Column>
-              Student:
-              {' '}
-              {getStudentFullName(ele)}
+              Student: {getStudentFullName(ele)}
               <br />
-              Sponsor:
-              {' '}
-              {getSponsorFullName(ele)}
+              Sponsor: {getSponsorFullName(ele)}
               <br />
               <Grid.Row style={{ paddingTop: '14px', paddingBottom: '14px' }}>
                 <Button
@@ -82,12 +78,12 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
                   content="REOPEN"
                   attached="right"
                   label={{
-                        size: 'mini',
-                        basic: false,
-                        color: getStatusColor(ele.status),
-                        pointing: 'right',
-                        content: ele.status,
-                      }}
+                    size: 'mini',
+                    basic: false,
+                    color: getStatusColor(ele.status),
+                    pointing: 'right',
+                    content: ele.status,
+                  }}
                   labelPosition="left"
                   icon="edit outline"
                   index={i}
@@ -102,25 +98,14 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
               <br />
               {ele.processed.map((elem: IProcessed) => (
                 <React.Fragment key={elem.verifier}>
-                  Processed:
-                  {' '}
-                  {moment(elem.date).calendar()}
-                  {' '}
-                  by
-                  {' '}
-                  {elem.verifier}
-                  {' '}
-                  (
-                  {elem.status}
-                  {elem.feedback ? `, ${elem.feedback}` : ''}
-                  )
+                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}{elem.feedback ? `, ${elem.feedback}` : ''})
                   <br />
                 </React.Fragment>
-))}
+              ))}
             </Grid.Column>
           </Grid.Row>
         </Grid>
-))}
+      ))}
       {props.completedVerifications.length < 1 && <i>No completed verifications in database.</i>}
     </Container>
   </Segment>

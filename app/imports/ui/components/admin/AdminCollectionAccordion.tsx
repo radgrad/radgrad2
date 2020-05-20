@@ -41,10 +41,8 @@ const AdminCollectionAccordion = (props: IAdminCollectionAccordionProps) => {
           {_.map(props.descriptionPairs, (descriptionPair, index) => (
             <React.Fragment key={index}>
               <b>
-                {descriptionPair.label}
-                :
+                {descriptionPair.label}:
               </b>
-              {' '}
               {typeof descriptionPair.value === 'string' ? (
                 <Markdown
                   escapeHtml

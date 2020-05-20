@@ -45,11 +45,7 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>ACADEMIC PLANS</span>
-                {' '}
-                (
-                {props.count}
-                )
+                <span>ACADEMIC PLANS</span> ({props.count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.academicPlans.map((plan) => (

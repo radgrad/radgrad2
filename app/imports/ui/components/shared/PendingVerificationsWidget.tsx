@@ -84,17 +84,9 @@ const PendingVerificationsWidget = (props: IPendingVerificationsWidgetProps) => 
             </Grid.Row>
             <Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
               <Grid.Column>
-                Student:
-                {' '}
-                {studentProfile(ele).firstName}
-                {' '}
-                {cachedStudent.lastName}
+                Student: {studentProfile(ele).firstName} {cachedStudent.lastName}
                 <br />
-                Sponsor:
-                {' '}
-                {sponsorProfile(ele).firstName}
-                {' '}
-                {cachedSponsor.lastName}
+                Sponsor: {sponsorProfile(ele).firstName} {cachedSponsor.lastName}
                 <br />
                 <Form style={{ paddingTop: '14px' }}>
                   <Form.Input
@@ -136,18 +128,7 @@ const PendingVerificationsWidget = (props: IPendingVerificationsWidgetProps) => 
                 <br />
                 {ele.processed.map((elem: IProcessed, ind) => (
                   <React.Fragment key={elem.verifier}>
-                    Processed:
-                    {' '}
-                    {moment(elem.date).calendar()}
-                    {' '}
-                    by
-                    {' '}
-                    {elem.verifier}
-                    {' '}
-                    (
-                    {elem.status}
-                    {elem.feedback ? `, ${elem.feedback}` : ''}
-                    )
+                    Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}{elem.feedback ? `, ${elem.feedback}` : ''})
                     <br />
                   </React.Fragment>
                 ))}

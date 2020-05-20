@@ -44,11 +44,7 @@ const renderPage = (props: IOpportunitiesCardExplorerProps) => {
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>OPPORTUNITIES</span>
-                {' '}
-                (
-                {props.count}
-                )
+                <span>OPPORTUNITIES</span> ({props.count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.opportunities.map((opportunity) => (

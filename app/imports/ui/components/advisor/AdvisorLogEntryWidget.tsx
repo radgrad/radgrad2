@@ -98,20 +98,11 @@ const AdvisorLogEntryWidget = (props: IAdvisorLogEntryWidgetProps) => {
             (ele) => (
               <Segment key={ele._id}>
                 <strong>
-                  {ele.createdOn.toDateString()}
-                  {' '}
-                  {ele.createdOn.getHours()}
+                  {ele.createdOn.toDateString()} {ele.createdOn.getHours()}
                   :
                   {formatMinuteString(ele.createdOn.getMinutes())}
                   :
-                </strong>
-                {' '}
-                {ele.text}
-                {' '}
-                <i>
-                  (
-                  {Users.getProfile(ele.advisorID).firstName}
-                  )
+                </strong> {ele.text} <i>({Users.getProfile(ele.advisorID).firstName})
                 </i>
               </Segment>
             ),
