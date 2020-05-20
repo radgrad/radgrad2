@@ -6,10 +6,9 @@ import { ROLE } from '../role/Role';
 import { VerificationRequests } from './VerificationRequestCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { makeSampleOpportunity, makeSampleOpportunityInstance } from '../opportunity/SampleOpportunities';
+import { makeSampleOpportunityInstance } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { Users } from '../user/UserCollection';
-import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
