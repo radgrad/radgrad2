@@ -1,99 +1,153 @@
 import { Meteor } from 'meteor/meteor';
-import {} from 'mocha';
 import { expect } from 'chai';
+import fc from 'fast-check';
+import faker from 'faker';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from './VerificationRequestCollection';
-import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { makeSampleOpportunity } from '../opportunity/SampleOpportunities';
+import { makeSampleOpportunity, makeSampleOpportunityInstance } from '../opportunity/SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { Users } from '../user/UserCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
+import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
   describe('VerificationRequestCollection', function testSuite() {
-    let academicTerm;
-    let student;
-    let studentFirstName;
-    let faculty;
-    let facultyFirstName;
-    let opportunityInstance;
-    let opportunity;
-    let opportunityName;
-    const verified = false;
-    let docID;
     before(function setup() {
       removeAllEntities();
-      academicTerm = AcademicTerms.define({ term: AcademicTerms.SUMMER, year: 2015 });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year: 2015 });
-      student = makeSampleUser();
-      studentFirstName = Users.getProfile(student).firstName;
-      faculty = makeSampleUser(ROLE.FACULTY);
-      // console.log(Users.getProfile(student), Users.getProfile(faculty));
-      const facultyProfile = Users.getProfile(faculty);
-      facultyFirstName = facultyProfile.firstName;
-      opportunity = makeSampleOpportunity(facultyProfile.username);
-      opportunityName = Opportunities.findDoc({ _id: opportunity }).name;
-      // opportunityInstance = OpportunityInstances.define({ academicTerm, opportunity, sponsor: faculty, student, verified });
     });
 
     after(function teardown() {
       removeAllEntities();
     });
 
-    it('#define without opportunity instance', function test() {
-      try {
-        VerificationRequests.define({ student, academicTerm, opportunity });
-        expect.fail('Should throw Meteor.Error');
-      } catch (e) {
-        // this is what is supposed to happen.
-      }
+    it('Can define and removeIt', function test1(done) { // Test the define and removeIt methods
+      this.timeout(25000);
+      fc.assert(
+        fc.property(fc.lorem(1), (fcWord) => {
+          const sponsorID = makeSampleUser(ROLE.FACULTY);
+          const sponsor = Users.getProfile(sponsorID).username;
+          const studentID = makeSampleUser();
+          const student = Users.getProfile(studentID).username;
+          const oiID = makeSampleOpportunityInstance(student, sponsor);
+          const opportunityDoc = OpportunityInstances.getOpportunityDoc(oiID);
+          const opportunity = Slugs.getNameFromID(opportunityDoc.slugID);
+          const academicTermDoc = OpportunityInstances.getAcademicTermDoc(oiID);
+          const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
+          // console.log(oiDoc, opportunityDoc, academicTermDoc);
+          // console.log(sponsor, student, opportunity, academicTerm);
+          // define without opportunity instance
+          const docID = VerificationRequests.define({ student, academicTerm, opportunity });
+          expect(VerificationRequests.isDefined(docID)).to.be.true;
+          VerificationRequests.removeIt(docID);
+          expect(VerificationRequests.isDefined(docID)).to.be.false;
+          const docID2 = VerificationRequests.define({ student, opportunityInstance: oiID });
+          expect(VerificationRequests.isDefined(docID2)).to.be.true;
+          VerificationRequests.removeIt(docID2);
+          expect(VerificationRequests.isDefined(docID2)).to.be.false;
+        }),
+      );
+      done();
     });
 
-    it('#define with opportunity instance using student, academicTerm and opportunity', function test() {
-      opportunityInstance = OpportunityInstances.define({ academicTerm, opportunity, sponsor: faculty, student, verified });
-      docID = VerificationRequests.define({ student, academicTerm, opportunity });
+    it('Can define duplicates', function test2() { // Test if duplicate documents can be defined
+      const sponsorID = makeSampleUser(ROLE.FACULTY);
+      const sponsor = Users.getProfile(sponsorID).username;
+      const studentID = makeSampleUser();
+      const student = Users.getProfile(studentID).username;
+      const oiID = makeSampleOpportunityInstance(student, sponsor);
+      const docID = VerificationRequests.define({ student, opportunityInstance: oiID });
+      const docID2 = VerificationRequests.define({ student, opportunityInstance: oiID });
+      expect(docID).to.not.equal(docID2);
+      VerificationRequests.removeIt(docID2);
+    });
+
+    it('Can update', function test3(done) { // Test updating documents
+      this.timeout(5000);
+      let doc = VerificationRequests.findOne({});
+      const docID = doc._id;
+      fc.assert(
+        fc.property(fc.boolean(), (fcRetired) => {
+          const rand = faker.random.number({ min: 0, max: 2 });
+          let status;
+          switch (rand) {
+            case 0:
+              status = VerificationRequests.ACCEPTED;
+              break;
+            case 1:
+              status = VerificationRequests.OPEN;
+              break;
+            default:
+              status = VerificationRequests.REJECTED;
+          }
+          VerificationRequests.update(docID, { status, retired: fcRetired });
+          doc = VerificationRequests.findDoc(docID);
+          expect(doc.status).to.equal(status);
+          expect(doc.retired).to.equal(fcRetired);
+        }),
+      );
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() { // Tests dumpOne and restoreOne
+      const origDoc = VerificationRequests.findOne({});
+      let docID = origDoc._id;
+      const dumpObject = VerificationRequests.dumpOne(docID);
+      VerificationRequests.removeIt(docID);
+      expect(VerificationRequests.isDefined(docID)).to.be.false;
+      docID = VerificationRequests.restoreOne(dumpObject);
       expect(VerificationRequests.isDefined(docID)).to.be.true;
     });
 
-    it('get documents', function test() {
+    it('Can checkIntegrity no errors', function test5() { // Tests checkIntegrity
+      const problems = VerificationRequests.checkIntegrity();
+      expect(problems).to.have.lengthOf(0);
+    });
+
+    it('Can get documents from VR', function test6() {
+      const origDoc = VerificationRequests.findOne({});
+      const docID = origDoc._id;
       const opportunityDoc = VerificationRequests.getOpportunityDoc(docID);
       expect(opportunityDoc).to.exist;
-      expect(opportunityDoc.name).to.equal(opportunityName);
       const studentDoc = VerificationRequests.getStudentDoc(docID);
       expect(studentDoc).to.exist;
-      expect(studentDoc.firstName).to.equal(studentFirstName);
       const sponsorDoc = VerificationRequests.getSponsorDoc(docID);
       expect(sponsorDoc).to.exist;
-      // console.log(sponsorDoc, facultyFirstName);
-      expect(sponsorDoc.firstName).to.equal(facultyFirstName);
       const opportunityInstanceDoc = VerificationRequests.getOpportunityInstanceDoc(docID);
       expect(opportunityInstanceDoc).to.exist;
       expect(opportunityInstanceDoc.studentID).to.equal(studentDoc.userID);
       expect(opportunityDoc.sponsorID).to.equal(sponsorDoc.userID);
       expect(opportunityInstanceDoc.opportunityID).to.equal(opportunityDoc._id);
     });
+    // it('get documents', function test() {
+    //   const opportunityDoc = VerificationRequests.getOpportunityDoc(docID);
+    //   expect(opportunityDoc).to.exist;
+    //   expect(opportunityDoc.name).to.equal(opportunityName);
+    //   expect(studentDoc.firstName).to.equal(studentFirstName);
+    // console.log(sponsorDoc, facultyFirstName);
+    // expect(sponsorDoc.firstName).to.equal(facultyFirstName);
+    // });
 
-    it('#define with opportunity instance, #isDefined, #findOne, #dumpOne, #removeIt, #restoreOne, #update, #removeUser', function test() {
-      docID = VerificationRequests.define({ student, opportunityInstance });
-      expect(VerificationRequests.isDefined(docID)).to.be.true;
-      expect(VerificationRequests.findOne({ opportunityInstanceID: opportunityInstance })).to.exist;
-      const dumpObject = VerificationRequests.dumpOne(docID);
-      expect(VerificationRequests.findNonRetired().length).to.equal(2);
-      VerificationRequests.removeIt(docID);
-      expect(VerificationRequests.isDefined(docID)).to.be.false;
-      expect(VerificationRequests.findNonRetired().length).to.equal(1);
-      docID = VerificationRequests.restoreOne(dumpObject);
-      expect(VerificationRequests.isDefined(docID)).to.be.true;
-      VerificationRequests.update(docID, { retired: true });
-      expect(VerificationRequests.findNonRetired().length).to.equal(1);
-      VerificationRequests.removeUser(student);
-      expect(VerificationRequests.count()).to.equal(0);
-    });
+    // it('#define with opportunity instance, #isDefined, #findOne, #dumpOne, #removeIt, #restoreOne, #update, #removeUser', function test() {
+    //   docID = VerificationRequests.define({ student, opportunityInstance });
+    //   expect(VerificationRequests.isDefined(docID)).to.be.true;
+    //   expect(VerificationRequests.findOne({ opportunityInstanceID: opportunityInstance })).to.exist;
+    //   const dumpObject = VerificationRequests.dumpOne(docID);
+    //   expect(VerificationRequests.findNonRetired().length).to.equal(2);
+    //   VerificationRequests.removeIt(docID);
+    //   expect(VerificationRequests.isDefined(docID)).to.be.false;
+    //   expect(VerificationRequests.findNonRetired().length).to.equal(1);
+    //   docID = VerificationRequests.restoreOne(dumpObject);
+    //   expect(VerificationRequests.isDefined(docID)).to.be.true;
+    //   VerificationRequests.update(docID, { retired: true });
+    //   expect(VerificationRequests.findNonRetired().length).to.equal(1);
+    //   VerificationRequests.removeUser(student);
+    //   expect(VerificationRequests.count()).to.equal(0);
+    // });
 
   });
 }
