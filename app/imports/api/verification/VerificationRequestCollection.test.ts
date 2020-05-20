@@ -123,31 +123,5 @@ if (Meteor.isServer) {
       expect(opportunityDoc.sponsorID).to.equal(sponsorDoc.userID);
       expect(opportunityInstanceDoc.opportunityID).to.equal(opportunityDoc._id);
     });
-    // it('get documents', function test() {
-    //   const opportunityDoc = VerificationRequests.getOpportunityDoc(docID);
-    //   expect(opportunityDoc).to.exist;
-    //   expect(opportunityDoc.name).to.equal(opportunityName);
-    //   expect(studentDoc.firstName).to.equal(studentFirstName);
-    // console.log(sponsorDoc, facultyFirstName);
-    // expect(sponsorDoc.firstName).to.equal(facultyFirstName);
-    // });
-
-    // it('#define with opportunity instance, #isDefined, #findOne, #dumpOne, #removeIt, #restoreOne, #update, #removeUser', function test() {
-    //   docID = VerificationRequests.define({ student, opportunityInstance });
-    //   expect(VerificationRequests.isDefined(docID)).to.be.true;
-    //   expect(VerificationRequests.findOne({ opportunityInstanceID: opportunityInstance })).to.exist;
-    //   const dumpObject = VerificationRequests.dumpOne(docID);
-    //   expect(VerificationRequests.findNonRetired().length).to.equal(2);
-    //   VerificationRequests.removeIt(docID);
-    //   expect(VerificationRequests.isDefined(docID)).to.be.false;
-    //   expect(VerificationRequests.findNonRetired().length).to.equal(1);
-    //   docID = VerificationRequests.restoreOne(dumpObject);
-    //   expect(VerificationRequests.isDefined(docID)).to.be.true;
-    //   VerificationRequests.update(docID, { retired: true });
-    //   expect(VerificationRequests.findNonRetired().length).to.equal(1);
-    //   VerificationRequests.removeUser(student);
-    //   expect(VerificationRequests.count()).to.equal(0);
-    // });
-
   });
 }
