@@ -1,5 +1,6 @@
 import faker from 'faker';
 import { AcademicTerms } from './AcademicTermCollection';
+import { Slugs } from '../slug/SlugCollection';
 
 export const getRandomTerm = () => {
   const index = faker.random.number({ max: AcademicTerms.terms.length - 1 });
@@ -18,4 +19,9 @@ export const makeSampleAcademicTermArray = (numTerms = 2) => {
     retVal.push(makeSampleAcademicTerm());
   }
   return retVal;
+};
+
+export const makeSampleAcademicTermSlug = () => {
+  const termID = makeSampleAcademicTerm();
+  return Slugs.getNameFromID(AcademicTerms.findDoc(termID).slugID);
 };

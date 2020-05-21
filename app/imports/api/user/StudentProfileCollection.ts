@@ -627,10 +627,11 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareOpportunities = doc.shareOpportunities;
     const shareCourses = doc.shareCourses;
     const shareLevel = doc.shareLevel;
+    const shareAcademicPlan = doc.shareAcademicPlan;
     return {
       username, firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans,
       favoriteCourses, favoriteOpportunities, declaredAcademicTerm, isAlumni, retired, shareUsername, sharePicture,
-      shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel,
+      shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel, shareAcademicPlan,
     };
   }
 }

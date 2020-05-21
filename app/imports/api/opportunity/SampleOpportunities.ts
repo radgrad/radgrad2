@@ -3,9 +3,8 @@ import moment from 'moment';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
-import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { makeSampleInterestArray } from '../interest/SampleInterests';
-import slugify from '../slug/SlugCollection';
+import slugify, { Slugs } from '../slug/SlugCollection';
 import { makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
 import { makeSampleIce } from '../ice/SampleIce';
 
@@ -37,6 +36,20 @@ export function makeSampleOpportunity(sponsor) {
   const academicTerms = makeSampleAcademicTermArray();
   const ice = makeSampleIce();
   return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice });
+}
+
+/**
+ * Creates an array of defined opportunity slugs.
+ * @param sponsor the sponsor of the opportunity.
+ * @param num the number of opportunities to define. Defaults to 1.
+ * @return An array of defined opportunity slugs.
+ */
+export function makeSampleOpportunitySlugArray(sponsor, num = 1) {
+  const retVal = [];
+  for (let i = 0; i < num; i++) {
+    retVal.push(Slugs.getNameFromID(Opportunities.findDoc(makeSampleOpportunity(sponsor)).slugID));
+  }
+  return retVal;
 }
 
 /**
