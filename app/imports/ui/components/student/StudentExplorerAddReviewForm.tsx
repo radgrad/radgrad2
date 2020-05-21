@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
@@ -35,40 +35,20 @@ interface IStudentExplorerAddReviewFormProps {
   };
 }
 
-interface IStudentExplorerAddReviewFormState {
-  active: boolean;
-}
-
 const collection = Reviews;
 
-class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddReviewFormProps, IStudentExplorerAddReviewFormState> {
-  private readonly formRef;
+const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps) => {
+  const formRef = React.createRef();
+  const [activeState, setActive] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.formRef = React.createRef();
-    this.state = {
-      active: false,
-    };
-  }
-
-  private handleAccordionClick = (e: any) => {
+  const handleAccordionClick = (e: any) => {
     e.preventDefault();
-    let { active } = this.state;
-    active = !active;
-    this.setState({ active });
-  }
+    setActive(!activeState);
+  };
 
-  private renameKey = (obj: object, oldKey: string, newKey: string): object => {
-    const newObject = obj;
-    newObject[newKey] = newObject[oldKey];
-    delete newObject[oldKey];
-    return newObject;
-  }
-
-  private handleAdd = (doc: IReviewDefine): void => {
+  const handleAdd = (doc: IReviewDefine): void => {
     const collectionName = collection.getCollectionName();
-    const { match, reviewType, event } = this.props;
+    const { match, reviewType, event } = props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
@@ -115,10 +95,10 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
         // this.formRef.current.reset();
       }
     });
-  }
+  };
 
-  private academicTerm = (): IAcademicTerm[] => {
-    const { match, event, reviewType } = this.props;
+  const academicTerm = (): IAcademicTerm[] => {
+    const { match, event, reviewType } = props;
     const academicTerms = [];
     let instances;
     if (reviewType === 'course') {
@@ -141,63 +121,60 @@ class StudentExplorerAddReviewForm extends React.Component<IStudentExplorerAddRe
       }
     });
     return academicTerms;
-  }
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const accordionTitleStyle = {
-      textAlign: 'center',
-      color: '#38840F',
-    };
-    const paddedContainerStyle = { paddingBottom: '1.5em' };
+  const accordionTitleStyle = {
+    textAlign: 'center',
+    color: '#38840F',
+  };
+  const paddedContainerStyle = { paddingBottom: '1.5em' };
 
-    const { active } = this.state;
 
-    const academicTerm = this.academicTerm();
-    const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
-    const schema = new SimpleSchema({
-      academicTerm: {
-        type: String,
-        label: 'Academic Term',
-        allowedValues: academicTermNames,
-        defaultValue: academicTermNames[0],
-      },
-      rating: {
-        type: Number,
-        label: 'Rating',
-        min: 0,
-        max: 5,
-        optional: true,
-      },
-      comments: {
-        type: String,
-        label: 'Comments',
-      },
-    });
-    return (
-      <Accordion>
-        <Accordion.Title style={accordionTitleStyle} active={active} onClick={this.handleAccordionClick}>
-          <Icon name="dropdown" />
-          <a>Add Review </a>
-        </Accordion.Title>
+  const terms = academicTerm();
+  const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
+  const schema = new SimpleSchema({
+    academicTerm: {
+      type: String,
+      label: 'Academic Term',
+      allowedValues: academicTermNames,
+      defaultValue: academicTermNames[0],
+    },
+    rating: {
+      type: Number,
+      label: 'Rating',
+      min: 0,
+      max: 5,
+      optional: true,
+    },
+    comments: {
+      type: String,
+      label: 'Comments',
+    },
+  });
+  return (
+    <Accordion>
+      <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
+        <Icon name="dropdown" />
+        <a>Add Review </a>
+      </Accordion.Title>
 
-        <Accordion.Content active={active}>
-          <div className="ui padded container" style={paddedContainerStyle}>
-            <AutoForm schema={schema} onSubmit={this.handleAdd} ref={this.formRef}>
-              <Form.Group widths="equal">
-                <SelectField name="academicTerm" />
-                <RatingField name="rating" />
-              </Form.Group>
+      <Accordion.Content active={activeState}>
+        <div className="ui padded container" style={paddedContainerStyle}>
+          <AutoForm schema={schema} onSubmit={handleAdd} ref={formRef}>
+            <Form.Group widths="equal">
+              <SelectField name="academicTerm" />
+              <RatingField name="rating" />
+            </Form.Group>
 
-              <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
+            <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
 
-              <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
-            </AutoForm>
-          </div>
-        </Accordion.Content>
-      </Accordion>
-    );
-  }
-}
+            <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
+          </AutoForm>
+        </div>
+      </Accordion.Content>
+    </Accordion>
+  );
+};
 
 const StudentExplorerAddReviewFormContainer = withRouter(StudentExplorerAddReviewForm);
 

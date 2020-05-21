@@ -185,9 +185,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
             {socialPairs.map((socialPair) => (
               <Grid.Column key={toId(socialPair)} textAlign="center" style={centerAlignedColumnStyle}>
                 <h5>
-                  {toUpper(socialPair.label)}
-                  {' '}
-                  <WidgetHeaderNumber inputValue={socialPair.amount} />
+                  {toUpper(socialPair.label)} <WidgetHeaderNumber inputValue={socialPair.amount} />
                 </h5>
 
                 <Image.Group size="mini" style={imageGroupStyle}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
@@ -21,97 +21,91 @@ interface IAddReviewFormProps {
   handleAdd: (doc) => any;
 }
 
-interface IAddReviewFormState {
-  reviewType: string;
-}
+// interface IAddReviewFormState {
+//   reviewType: string;
+// }
 
-class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormState> {
-  constructor(props) {
-    super(props);
-    // console.log('AddReviewForm props=%o', props);
-    this.state = { reviewType: '' };
-  }
+const AddReviewForm = (props: IAddReviewFormProps) => {
+// class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormState> {
+  const [reviewType, setReviewType] = useState('');
 
-  private handleModelChange = (model) => {
+  const handleModelChange = (model) => {
     // console.log('change %o', model);
-    const reviewType = model.reviewType;
-    this.setState({ reviewType });
+    setReviewType(model.reviewType);
   };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const termNames = _.map(this.props.terms, academicTermToName);
-    const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-    const courseNames = _.map(this.props.courses, courseToName);
-    const opportunityNames = _.map(this.props.opportunities, docToName);
-    const reviewTypes = [Reviews.COURSE, Reviews.OPPORTUNITY];
-    let revieweeNames;
-    if (this.state.reviewType === Reviews.COURSE) {
-      revieweeNames = courseNames;
-    } else {
-      revieweeNames = opportunityNames;
-    }
-    const studentNames = _.map(this.props.students, profileToName);
-    const schema = new SimpleSchema({
-      slug: String,
-      academicTerm: {
-        type: String,
-        allowedValues: termNames,
-        defaultValue: currentTermName,
-      },
-      reviewee: {
-        type: String,
-        allowedValues: revieweeNames,
-        defaultValue: revieweeNames[0],
-      },
-      student: {
-        type: String,
-        allowedValues: studentNames,
-        defaultValue: studentNames[0],
-      },
-      reviewType: { type: String, allowedValues: reviewTypes, defaultValue: Reviews.COURSE },
-      rating: { type: SimpleSchema.Integer, min: 0, max: 5, optional: true },
-      comments: String,
-      moderated: { type: Boolean, optional: true },
-      visible: { type: Boolean, optional: true },
-      moderatorComments: { type: String, optional: true },
-      retired: { type: Boolean, optional: true },
-    });
-    // @ts-ignore
-    return (
-      <Segment padded>
-        <Header dividing>Add Course Instance</Header>
-        <AutoForm
-          schema={schema}
-          onSubmit={this.props.handleAdd}
-          ref={this.props.formRef}
-          showInlineError
-          onChangeModel={this.handleModelChange}
-        >
-          <Form.Group widths="equal">
-            <TextField name="slug" />
-            <SelectField name="reviewType" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <SelectField name="student" />
-            <SelectField name="reviewee" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <SelectField name="academicTerm" />
-            <NumField name="rating" />
-          </Form.Group>
-          <LongTextField name="comments" />
-          <Form.Group>
-            <BoolField name="moderated" />
-            <BoolField name="visible" />
-          </Form.Group>
-          <LongTextField name="moderatorComments" />
-          <BoolField name="retired" />
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
-        </AutoForm>
-      </Segment>
-    );
+  const termNames = _.map(props.terms, academicTermToName);
+  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
+  const courseNames = _.map(props.courses, courseToName);
+  const opportunityNames = _.map(props.opportunities, docToName);
+  const reviewTypes = [Reviews.COURSE, Reviews.OPPORTUNITY];
+  let revieweeNames;
+  if (reviewType === Reviews.COURSE) {
+    revieweeNames = courseNames;
+  } else {
+    revieweeNames = opportunityNames;
   }
-}
+  const studentNames = _.map(props.students, profileToName);
+  const schema = new SimpleSchema({
+    slug: String,
+    academicTerm: {
+      type: String,
+      allowedValues: termNames,
+      defaultValue: currentTermName,
+    },
+    reviewee: {
+      type: String,
+      allowedValues: revieweeNames,
+      defaultValue: revieweeNames[0],
+    },
+    student: {
+      type: String,
+      allowedValues: studentNames,
+      defaultValue: studentNames[0],
+    },
+    reviewType: { type: String, allowedValues: reviewTypes, defaultValue: Reviews.COURSE },
+    rating: { type: SimpleSchema.Integer, min: 0, max: 5, optional: true },
+    comments: String,
+    moderated: { type: Boolean, optional: true },
+    visible: { type: Boolean, optional: true },
+    moderatorComments: { type: String, optional: true },
+    retired: { type: Boolean, optional: true },
+  });
+  // @ts-ignore
+  return (
+    <Segment padded>
+      <Header dividing>Add Course Instance</Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleAdd}
+        ref={props.formRef}
+        showInlineError
+        onChangeModel={handleModelChange}
+      >
+        <Form.Group widths="equal">
+          <TextField name="slug" />
+          <SelectField name="reviewType" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="student" />
+          <SelectField name="reviewee" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="academicTerm" />
+          <NumField name="rating" />
+        </Form.Group>
+        <LongTextField name="comments" />
+        <Form.Group>
+          <BoolField name="moderated" />
+          <BoolField name="visible" />
+        </Form.Group>
+        <LongTextField name="moderatorComments" />
+        <BoolField name="retired" />
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddReviewFormContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();

@@ -1,23 +1,46 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
+import SimpleSchema from 'simpl-schema';
+import { AutoForm, BoolField } from 'uniforms-semantic';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { IPlanChoiceDefine } from '../../../typings/radgrad';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './AcademicPlanBuilderUtilities';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import { academicPlanActions } from '../../../redux/advisor/academic-plan';
 
 interface IAdvisorAPBPlanChoiceWidgetProps {
-  choices: IPlanChoiceDefine[],
-  combineChoice: string,
+  dispatch: (any) => void;
+  showOnlyUnderGraduateChoices: boolean;
+  choices: IPlanChoiceDefine[];
+  combineChoice: string;
 }
 
+const mapStateToProps = (state) => ({
+  showOnlyUnderGraduateChoices: state.advisor.academicPlan.showOnlyUnderGraduateChoices,
+});
+
+const handleFilterChange = (props: IAdvisorAPBPlanChoiceWidgetProps) => ((model) => {
+  console.log(model);
+  props.dispatch(academicPlanActions.setShowOnlyUnderGraduateChoices(model.showOnlyUnderGraduateChoices));
+});
+
 const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => {
+  // console.log('AdvisorAPBPlanChoiceWidget', props);
   const column1 = [];
   const column2 = [];
   const column3 = [];
   const column4 = [];
-  props.choices.forEach((choice, index) => {
+  const choices = _.filter(props.choices, (choice) => {
+    if (props.showOnlyUnderGraduateChoices) {
+      return !PlanChoices.isGraduateChoice(choice.choice);
+    }
+    return true;
+  });
+  choices.forEach((choice, index) => {
     switch (index % 4) {
       case 0:
         column1.push(choice);
@@ -36,9 +59,20 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
     paddingLeft: 2,
     paddingRight: 2,
   };
+  const schema = new SimpleSchema({
+    showOnlyUnderGraduateChoices: Boolean,
+  });
+  const filter = {
+    showOnlyUnderGraduateChoices: props.showOnlyUnderGraduateChoices,
+  };
   return (
     <Segment>
-      <Header dividing>Course Choices</Header>
+      <Header dividing>
+        Course Choices
+        <AutoForm schema={schema} model={filter} onChangeModel={handleFilterChange(props)}>
+          <BoolField name="showOnlyUnderGraduateChoices" />
+        </AutoForm>
+      </Header>
       <Droppable droppableId={CHOICE_AREA}>
         {(provided, snapshot) => (
           <div
@@ -58,6 +92,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                     studentID="fakeID"
                   />
                 ))}
+                {provided.placeholder}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column2, (choice, index) => (
@@ -83,6 +118,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                     studentID="fakeID"
                   />
                 ))}
+                {provided.placeholder}
               </Grid.Column>
               <Grid.Column style={narrowStyle}>
                 {_.map(column4, (choice, index) => (
@@ -95,21 +131,21 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                     studentID="fakeID"
                   />
                 ))}
+                {provided.placeholder}
               </Grid.Column>
-              {provided.placeholder}
             </Grid>
           </div>
-)}
+        )}
       </Droppable>
-      <Segment>
-        <Icon name="linkify" size="big" />
-        <Droppable droppableId={COMBINE_AREA}>
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              // style={style}
-              style={getDroppableListStyle(snapshot.isDraggingOver)}
-            >
+      <Droppable droppableId={COMBINE_AREA}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            // style={style}
+            style={getDroppableListStyle(snapshot.isDraggingOver)}
+          >
+            <Segment>
+              <Icon name="linkify" size="big" />
               {props.combineChoice ? (
                 <DraggableCoursePill
                   key={props.combineChoice}
@@ -119,29 +155,29 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                   satisfied
                   studentID="fakeID"
                 />
-              ) : ''}
+              ) : 'Foobar'}
               {provided.placeholder}
-            </div>
-)}
-        </Droppable>
-      </Segment>
-      <Segment>
-        <Icon name="trash alternate outline" size="big" />
-        <Droppable droppableId={DELETE_AREA}>
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              // style={style}
-              style={getDroppableListStyle(snapshot.isDraggingOver)}
-              id="ApbTrash"
-            >
+            </Segment>
+          </div>
+        )}
+      </Droppable>
+      <Droppable droppableId={DELETE_AREA}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            // style={style}
+            style={getDroppableListStyle(snapshot.isDraggingOver)}
+            id="ApbTrash"
+          >
+            <Segment>
+              <Icon name="trash alternate outline" size="big" />
               {provided.placeholder}
-            </div>
-)}
-        </Droppable>
-      </Segment>
+            </Segment>
+          </div>
+        )}
+      </Droppable>
     </Segment>
   );
 };
 
-export default AdvisorAPBPlanChoiceWidget;
+export default connect(mapStateToProps)(AdvisorAPBPlanChoiceWidget);

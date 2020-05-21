@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SimpleSchema from 'simpl-schema';
 import { Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -18,67 +18,60 @@ interface IFavoriteAcademicPlansWidgetProps {
   plans: IAcademicPlan[];
 }
 
-interface IFavoriteAcademicPlansWidgetState {
-  selectedPlan: IAcademicPlan;
-}
-
 const getPlan = (planName: string, props: IFavoriteAcademicPlansWidgetProps) => _.find(props.plans, (p) => p.name === planName);
 
-class FavoriteAcademicPlansWidget extends React.Component<IFavoriteAcademicPlansWidgetProps, IFavoriteAcademicPlansWidgetState> {
-  constructor(props) {
-    super(props);
-    let plan;
-    if (this.props.plans.length > 0) {
-      plan = getPlan(this.props.plans[0].name, this.props);
-    }
-    this.state = { selectedPlan: plan };
+const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) => {
+  let plan;
+  if (props.plans.length > 0) {
+    plan = getPlan(props.plans[0].name, props);
   }
+  const [selectedPlanState, setSelectedPlan] = useState(plan);
 
-  private handleOnChangeModel = (model) => {
+  const handleOnChangeModel = (model) => {
     // console.log(model);
-    const selectedPlan = getPlan(model.academicPlan, this.props);
-    this.setState({ selectedPlan });
-  }
+    const selectedPlan = getPlan(model.academicPlan, props);
+    setSelectedPlan(selectedPlan);
+  };
 
-  public render() {
-    const planNames = _.map(this.props.plans, (plan) => plan.name);
-    const schema = new SimpleSchema({
-      academicPlan: {
-        type: String,
-        allowedValues: planNames,
-      },
-    });
-    const showPlanP = this.props.plans.length > 0;
-    return (
-      <div>
-        <AutoForm schema={schema} onChangeModel={this.handleOnChangeModel}>
-          <SelectField name="academicPlan" />
-        </AutoForm>
-        <p />
-        {showPlanP ? (
-          <AcademicPlanViewerWidgetContainer
-            academicPlan={this.state.selectedPlan}
-            username={Router.getUsername(this.props.match)}
-          />
+  const planNames = _.map(props.plans, (p) => p.name);
+
+  const schema = new SimpleSchema({
+    academicPlan: {
+      type: String,
+      allowedValues: planNames,
+      defaultValue: planNames[0],
+    },
+  });
+  const showPlanP = props.plans.length > 0;
+  return (
+    <div>
+      <AutoForm schema={schema} onChangeModel={handleOnChangeModel}>
+        <SelectField name="academicPlan" />
+      </AutoForm>
+      <p />
+      {showPlanP ? (
+        <AcademicPlanViewerWidgetContainer
+          academicPlan={selectedPlanState}
+          username={Router.getUsername(props.match)}
+        />
         )
-          : (
-            <Message info>
-              <Message.Header>No favorite acadmeic plans</Message.Header>
-              <p>
-                You can favorite academic plans in the explorer.
-                <Link to={Router.buildRouteName(this.props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                  View
-                  in
-                  Explorer
-                  <Icon name="arrow right" />
-                </Link>
-              </p>
-            </Message>
+        : (
+          <Message info>
+            <Message.Header>No favorite acadmeic plans</Message.Header>
+            <p>
+              You can favorite academic plans in the explorer.
+              <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                View
+                in
+                Explorer
+                <Icon name="arrow right" />
+              </Link>
+            </p>
+          </Message>
         )}
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);

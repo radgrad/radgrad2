@@ -1,9 +1,16 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
-import { buildSimpleName } from './PlanChoiceUtilities';
+import {
+  buildSimpleName,
+  complexChoiceToArray,
+  isSimpleChoice,
+  isSingleChoice,
+  isXXChoice,
+  getSimpleChoiceNumber,
+} from './PlanChoiceUtilities';
 import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
-import { Slugs } from '../slug/SlugCollection';
+import { IPlanChoiceType, PlanChoiceType } from './PlanChoiceType';
 import { Courses } from '../course/CourseCollection';
 
 /**
@@ -18,15 +25,15 @@ export class PlanChoiceCollection extends BaseCollection {
    */
   constructor() {
     super('PlanChoice', new SimpleSchema({
-      choice: { type: String },
+      choice: String, // this is the choice such as ics111 or ics_313,ics_361
       retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
-      choice: String,
+      choice: String, // this is the choice such as ics111 or ics_313,ics_361
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
-      choice: { type: String, optional: true },
+      choice: { type: String, optional: true }, // this is the choice such as ics111 or ics_313,ics_361
       retired: { type: Boolean, optional: true },
     });
   }
@@ -41,7 +48,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * @returns {*}
    */
   public define({ choice, retired = false }: IPlanChoiceDefine) {
-    const doc = this.collection.findOne(choice);
+    const doc = this.collection.findOne({ choice });
     if (doc) {
       return doc._id;
     }
@@ -67,17 +74,17 @@ export class PlanChoiceCollection extends BaseCollection {
 
   /**
    * Creates a human readable string representation of the choice.
-   * @param planChoiceSlug
+   * @param planChoice
    * @returns {string}
    */
-  public static toStringFromSlug(planChoiceSlug: string) {
+  public toString(planChoice: string) {
     let ret = '';
     let slug;
-    const countIndex = planChoiceSlug.indexOf('-');
+    const countIndex = planChoice.indexOf('-');
     if (countIndex === -1) {
-      slug = planChoiceSlug;
+      slug = planChoice;
     } else {
-      slug = planChoiceSlug.substring(0, countIndex);
+      slug = planChoice.substring(0, countIndex);
     }
     while (slug.length > 0) {
       let temp;
@@ -106,25 +113,73 @@ export class PlanChoiceCollection extends BaseCollection {
     return ret.substring(0, ret.length - 4);
   }
 
+  public getPlanChoiceType(choice: string): IPlanChoiceType {
+    if (isXXChoice(choice)) {
+      return PlanChoiceType.XPLUS;
+    }
+    if (isSingleChoice(choice)) {
+      return PlanChoiceType.SINGLE;
+    }
+    if (isSimpleChoice(choice)) {
+      return PlanChoiceType.SIMPLE;
+    }
+    return PlanChoiceType.COMPLEX;
+  }
+
+  public isGraduateChoice(planChoice: string): boolean {
+    const simpleChoices = complexChoiceToArray(planChoice);
+    let retVal = false;
+    _.forEach(simpleChoices, (choice) => {
+      const planNumberStr = getSimpleChoiceNumber(choice);
+      const planNumber = parseInt(planNumberStr, 10);
+      if (planNumber > 500) {
+        retVal = true;
+      }
+    });
+    return retVal;
+  }
+
+  public satisfiesPlanChoice(planChoice: string, courseSlug: string): boolean {
+    if (this.getPlanChoiceType(planChoice) === PlanChoiceType.XPLUS) {
+      const planNumberStr = getSimpleChoiceNumber(planChoice);
+      const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
+      const courseNumber = parseInt(getSimpleChoiceNumber(courseSlug), 10);
+      return courseNumber >= planNumber;
+    }
+    const simpleChoices = complexChoiceToArray(planChoice);
+    let returnVal = false;
+    _.forEach(simpleChoices, (choice) => {
+      if (this.getPlanChoiceType(choice) === PlanChoiceType.XPLUS) {
+        const planNumberStr = getSimpleChoiceNumber(choice);
+        const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
+        const courseNumber = parseInt(getSimpleChoiceNumber(courseSlug), 10);
+        if (courseNumber >= planNumber) {
+          returnVal = true;
+        }
+      } else if (choice.includes(courseSlug)) {
+        returnVal = true;
+      }
+    });
+    return returnVal;
+  }
+
   /**
    * Returns an empty array (no integrity checking done on this collection).
    * This method will ensure that there is a single choice for each of the non retired courses.
    * @returns {Array} An empty array.
    */
   public checkIntegrity() {
-    const courses = Courses.findNonRetired();
-    const courseSlugs = _.map(courses, (c) => Slugs.getNameFromID(c.slugID));
-    _.forEach(courseSlugs, (choice) => {
-      if (choice !== 'other') {
-        try {
-          this.findDoc({ choice });
-        } catch (e) {
-          this.define({ choice });
-          // console.log('defining ', choice);
-        }
+    const problems = [];
+    this.find().forEach((doc) => {
+      if (this.getPlanChoiceType(doc.choice) !== PlanChoiceType.XPLUS) {
+        const courseSlugs = complexChoiceToArray(doc.choice);
+        _.forEach(courseSlugs, (slug) => {
+          if (!Courses.isDefined(slug)) {
+            problems.push(`Plan choice ${doc.choice} has undefined course slug ${slug}.`);
+          }
+        });
       }
     });
-    const problems = [];
     return problems;
   }
 

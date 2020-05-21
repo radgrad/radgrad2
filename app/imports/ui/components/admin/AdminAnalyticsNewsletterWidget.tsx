@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
@@ -112,82 +112,97 @@ interface IAdminAnalyticsNewsletterWidgetState {
   message: object,
 }
 
-
-class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNewsletterWidget, IAdminAnalyticsNewsletterWidgetState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputMessage: '',
-      onSubmitInputMessage: '',
-      bcc: '',
-      subjectLine: '',
-      studentEmails: '',
-      sendToStudentsToo: false,
-      level: 0,
-      sendToLevels: false,
-      sendToAll: false,
-      message: {},
-    };
-  }
+const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) => {
+// class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNewsletterWidget, IAdminAnalyticsNewsletterWidgetState> {
+  const [inputMessage, setInputMessage] = useState('');
+  const [onSubmitInputMessage, setOnSubmitInputMessage] = useState('');
+  const [bcc, setBcc] = useState('');
+  const [subjectLine, setSubjectLine] = useState('');
+  const [studentEmails, setStudentEmails] = useState('');
+  const [sendToStudentsToo, setSendToStudentsToo] = useState(false);
+  const [level, setLevel] = useState(0);
+  const [sendToLevels, setSendToLevels] = useState(false);
+  const [sendToAll, setSendToAll] = useState(false);
+  const [message, setMessage] = useState({});
 
   /** Auto Forms */
     // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
-  private handleChange = (name, value) => {
-    const intermediateState = {};
-    intermediateState[name] = value;
-    this.setState(intermediateState, () => {
-    });
-  }
+  const handleChange = (name, value) => {
+      switch (name) {
+        case 'inputMessage':
+          setInputMessage(value);
+          break;
+        case 'onSubmitInputMessage':
+          setOnSubmitInputMessage(value);
+          break;
+        case 'bcc':
+          setBcc(value);
+          break;
+        case 'subjectLine':
+          setSubjectLine(value);
+          break;
+        case 'studentEmails':
+          setStudentEmails(value);
+          break;
+        case 'sendToStudentsToo':
+          setSendToStudentsToo(value === 'true');
+          break;
+        case 'level':
+          setLevel(parseInt(value, 10));
+          break;
+        case 'sendToLevels':
+          setSendToLevels(value === 'true');
+          break;
+        case 'sentToAll':
+          setSendToAll(value === 'true');
+          break;
+        default:
+        // do nothing
+      }
+    };
 
-  private onClickPreviewSave = () => {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    this.setState({ onSubmitInputMessage: this.state.inputMessage });
-  }
+  const onClickPreviewSave = () => {
+    setOnSubmitInputMessage(inputMessage);
+  };
 
-  private onClickSendStudentsToo = () => {
+  const onClickSendStudentsToo = () => {
     const trimmedEmails = [];
-    const studentEmails = this.state.studentEmails.split(',');
+    const studentEmailsArr = studentEmails.split(',');
     const adminEmail = RadGradProperties.getAdminEmail();
-    if (this.state.sendToStudentsToo === false) {
-      this.setState({
-        message: {
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          subjectLine: this.state.subjectLine,
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          bcc: `${this.state.bcc.split(',')}${adminEmail}`,
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          inputMessage: this.state.onSubmitInputMessage,
-          recipients: [/* 'radgrad@hawaii.edu' */],
-        },
-      }, () => {
-        this.generateEmail(this.state.message);
-        Swal.fire('Email sent to admin');
+    if (sendToStudentsToo === false) {
+      setMessage({
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        subjectLine,
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        bcc: `${bcc.split(',')}${adminEmail}`,
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        inputMessage: onSubmitInputMessage,
+        recipients: [/* 'radgrad@hawaii.edu' */],
       });
+      generateEmail(message);
+      Swal.fire('Email sent to admin');
     } else {
-      _.map(studentEmails, (emails) => {
+      _.map(studentEmailsArr, (emails) => {
         emails.toString();
         trimmedEmails.push(emails.trim());
       });
       // send copy to admin
       // trimmedEmails.push('radgrad@hawaii.edu');
       _.map(trimmedEmails, (trimmedEmail) => {
-        if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
+        if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
           if (Users.isDefined(trimmedEmail) === true) {
             const trimmedRecipients = [];
             trimmedRecipients.push(trimmedEmail);
-            this.setState({
-              message: {
-                // eslint-disable-next-line react/no-access-state-in-setstate
-                subjectLine: this.state.subjectLine,
-                // eslint-disable-next-line react/no-access-state-in-setstate
-                bcc: this.state.bcc.split(',') /* + 'radgrad@hawaii.edu' */,
-                // eslint-disable-next-line react/no-access-state-in-setstate
-                inputMessage: this.state.onSubmitInputMessage,
-                recipients: trimmedRecipients,
-              },
-            }, () => {
-              this.generateEmail(this.state.message);
+            setMessage({
+              // eslint-disable-next-line react/no-access-state-in-setstate
+              subjectLine,
+              // eslint-disable-next-line react/no-access-state-in-setstate
+              bcc: bcc.split(',') /* + 'radgrad@hawaii.edu' */,
+              // eslint-disable-next-line react/no-access-state-in-setstate
+              inputMessage: onSubmitInputMessage,
+              recipients: trimmedRecipients,
             });
+            generateEmail(message);
             Swal.fire(
               'Email sent to Admin and students',
             );
@@ -203,25 +218,21 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         }
       });
     }
+  };
 
-  }
-
-  private onClickSendLevels = () => {
-    if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0 && this.state.level !== 0) {
-      this.setState({
-        message: {
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          subjectLine: this.state.subjectLine,
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          bcc: this.state.bcc.split(','),
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          inputMessage: this.state.onSubmitInputMessage,
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          recipients: this.getStudentEmailsByLevel(this.state.level),
-        },
-      }, () => {
-        this.generateEmail(this.state.message);
+  const onClickSendLevels = () => {
+    if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
+      setMessage({
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        subjectLine,
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        bcc: bcc.split(','),
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        inputMessage: onSubmitInputMessage,
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        recipients: getStudentEmailsByLevel(level),
       });
+      generateEmail(message);
       Swal.fire(
         'Good Job, email sent!',
       );
@@ -230,23 +241,20 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         'You forgot to fill something out!',
       );
     }
-  }
+  };
 
-  private onClickSendToAll = () => {
-    if (this.state.onSubmitInputMessage.length !== 0 && this.state.subjectLine.length !== 0) {
-      this.setState({
-        message: {
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          subjectLine: this.state.subjectLine,
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          bcc: this.state.bcc.split(','),
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          inputMessage: this.state.onSubmitInputMessage,
-          recipients: this.getAllUsersEmails(),
-        },
-      }, () => {
-        this.generateEmail(this.state.message);
+  const onClickSendToAll = () => {
+    if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
+      setMessage({
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        subjectLine,
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        bcc: bcc.split(','),
+        // eslint-disable-next-line react/no-access-state-in-setstate
+        inputMessage: onSubmitInputMessage,
+        recipients: getAllUsersEmails(),
       });
+      generateEmail(message);
       Swal.fire(
         'Good Job, email sent!',
       );
@@ -255,18 +263,18 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         'You forgot to fill something out!',
       );
     }
-  }
+  };
 
-  private generateEmail = (message) => {
+  const generateEmail = (m) => {
     const adminEmail = RadGradProperties.getAdminEmail();
     const newsletterFrom = RadGradProperties.getNewsletterFrom();
     const emailData = {
-      to: message.recipients,
+      to: m.recipients,
       from: newsletterFrom,
       subject: '',
       replyTo: adminEmail,
       templateData: {
-        adminMessage: message.inputMessage,
+        adminMessage: m.inputMessage,
         firstName: '',
         lastName: '',
         firstRec: '',
@@ -275,8 +283,8 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       },
       filename: 'newsletter2.html',
     };
-    _.map(message.recipients, (username) => {
-      const informationForEmail = this.getInformationForEmail(username);
+    _.map(m.recipients, (username) => {
+      const informationForEmail = getInformationForEmail(username);
       emailData.subject = `Newsletter View For ${informationForEmail.recipientInfo.firstName} ${informationForEmail.recipientInfo.lastName}`;
       emailData.templateData.firstName = informationForEmail.recipientInfo.firstName;
       emailData.templateData.lastName = informationForEmail.recipientInfo.lastName;
@@ -289,9 +297,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         }
       });
     });
-  }
+  };
 
-  private getInformationForEmail = (username) => {
+  const getInformationForEmail = (username) => {
     const informationForEmail = {
       recipientInfo: {
         username: [],
@@ -309,52 +317,52 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
     //   informationForEmail.recipientInfo.username = username;
     //   informationForEmail.recipientInfo.firstName = 'Admin';
     // } else {
-      if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
-        const role = Users.findProfileFromUsername(username).role;
-        switch (role) {
-          case 'FACULTY':
-            // eslint-disable-next-line no-case-declarations
-            const faculty = FacultyProfiles.findDoc(username);
-            informationForEmail.recipientInfo.username = faculty.username;
-            informationForEmail.recipientInfo.firstName = faculty.firstName;
-            informationForEmail.recipientInfo.lastName = faculty.lastName;
-            break;
-          case 'ADVISOR':
-            // eslint-disable-next-line no-case-declarations
-            const advisor = AdvisorProfiles.findDoc(username);
-            informationForEmail.recipientInfo.username = advisor.username;
-            informationForEmail.recipientInfo.firstName = advisor.firstName;
-            informationForEmail.recipientInfo.lastName = advisor.lastName;
-            break;
-          default:
-            break;
-        }
-        // use role to find collection to search
-        // search for user and return first and last name
-        // put in conditional if user is not found in Users Collections
-      } else {
-        const student = StudentProfiles.findDoc(username); // doc
-        const recommendations = this.getRecommendations(student); // array
-        informationForEmail.recipientInfo.username = student.username;
-        informationForEmail.recipientInfo.firstName = student.firstName;
-        informationForEmail.recipientInfo.lastName = student.lastName;
-        informationForEmail.emailInfo.recommendationOne = recommendations[0];
-        informationForEmail.emailInfo.recommendationTwo = recommendations[1];
-        informationForEmail.emailInfo.recommendationThree = recommendations[2];
+    if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
+      const role = Users.findProfileFromUsername(username).role;
+      switch (role) {
+        case 'FACULTY':
+          // eslint-disable-next-line no-case-declarations
+          const faculty = FacultyProfiles.findDoc(username);
+          informationForEmail.recipientInfo.username = faculty.username;
+          informationForEmail.recipientInfo.firstName = faculty.firstName;
+          informationForEmail.recipientInfo.lastName = faculty.lastName;
+          break;
+        case 'ADVISOR':
+          // eslint-disable-next-line no-case-declarations
+          const advisor = AdvisorProfiles.findDoc(username);
+          informationForEmail.recipientInfo.username = advisor.username;
+          informationForEmail.recipientInfo.firstName = advisor.firstName;
+          informationForEmail.recipientInfo.lastName = advisor.lastName;
+          break;
+        default:
+          break;
       }
+      // use role to find collection to search
+      // search for user and return first and last name
+      // put in conditional if user is not found in Users Collections
+    } else {
+      const student = StudentProfiles.findDoc(username); // doc
+      const recommendations = getRecommendations(student); // array
+      informationForEmail.recipientInfo.username = student.username;
+      informationForEmail.recipientInfo.firstName = student.firstName;
+      informationForEmail.recipientInfo.lastName = student.lastName;
+      informationForEmail.emailInfo.recommendationOne = recommendations[0];
+      informationForEmail.emailInfo.recommendationTwo = recommendations[1];
+      informationForEmail.emailInfo.recommendationThree = recommendations[2];
+    }
     // }
     return informationForEmail;
-  }
+  };
 
-  private getRecommendations = (student) => {
+  const getRecommendations = (student) => {
     const recommendations = [];
-    recommendations.push(this.getRecommendationsICE(student));
-    recommendations.push(this.getRecommendationsLevel(student));
-    recommendations.push(this.getRecommendationsAcademicPlan(student));
+    recommendations.push(getRecommendationsICE(student));
+    recommendations.push(getRecommendationsLevel(student));
+    recommendations.push(getRecommendationsAcademicPlan(student));
     return recommendations;
-  }
+  };
 
-  private getRecommendationsICE = (student) => {
+  const getRecommendationsICE = (student) => {
     const projectedICE = StudentProfiles.getProjectedICE(student.userID);
     if (projectedICE.i < 100 && projectedICE.c < 100 && projectedICE.e < 100) {
       const iCERec = {
@@ -372,7 +380,7 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         }
         iCERec.info += `<p><span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)</span>
         : ${iceLevel}</p>`;
-        iCERec.info += `<ul><li>${this.iceRecHelper(student, value, component)}</li></ul>`;
+        iCERec.info += `<ul><li>${iceRecHelper(student, value, component)}</li></ul>`;
       });
       return iCERec;
     }
@@ -380,13 +388,15 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       header: 'You Have Completed Your Degree Plan',
     };
     return complete;
-  }
-  private iceRecHelper = (student, value, component) => {
+  };
+
+  const iceRecHelper = (student, value, component) => {
     let html = '';
     if (value >= 100) {
       html += `Congratulations! You have achieved 100 ${iceMap[component].name} points!`;
       return html;
-    } if (value < 30) {
+    }
+    if (value < 30) {
       html += iceMap[component].low;
     } else if (value < 60) {
       html += iceMap[component].med;
@@ -451,24 +461,24 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
         `/explorer/opportunities/${Opportunities.findSlugByID(recOpp._id)}"> ${recOpp.name}</a>`;
     }
     return html;
-  }
+  };
 
-  private getRecommendationsLevel = (student) => ({
+  const getRecommendationsLevel = (student) => ({
     header: 'Level Up and Upgrade Your RadGrad Sticker',
     info: `<img alt="radgrad icon" src="https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png" width="100" height="100" style="float: left; margin: 0 10px;"/> <p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p> <p><em>Swing by your advisor's office or POST 307 to pick up a laptop sticker for your current level if you haven't already!</em></p> <p>${levelMap[student.level]}</p><a style="color: #6FBE44; font-weight: bold" href="https://radgrad.ics.hawaii.edu/">Take me to RadGrad!</a>`,
-  })
+  });
 
-  private getRecommendationsAcademicPlan = (student) => {
+  const getRecommendationsAcademicPlan = (student) => {
     const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
     const academicPlanSlug = Slugs.getNameFromID(studentAcademicPlanDoc.slugID);
-    const remainingReqs = this.getRemainingRequirements(student, studentAcademicPlanDoc);
+    const remainingReqs = getRemainingRequirements(student, studentAcademicPlanDoc);
 
     const html = {
       header: 'Complete Your Academic Plan',
       info: `<p>Your Current Academic Plan: <a style ="color: #6FBE44; font-weight: bold" href = "https://radgrad.ics.hawaii.edu/student/${student.username}
        /explorer/plans/${academicPlanSlug}">${studentAcademicPlanDoc.name}</a></p>`,
     };
-    if (this.isAcademicPlanCompleted(student) === false) {
+    if (isAcademicPlanCompleted(student) === false) {
       html.info += '<p>Your degree planner shows that you do not' +
         ' have all required coursework planned out yet. Head over to your' +
         ' <a style="color: #6FBE44; font-weight: bold;"' +
@@ -487,11 +497,9 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       html.info = '<p>You have completed all your academic requirements</p>';
     }
     return html;
-  }
+  };
 
-  private
-  getRemainingRequirements = (student, studentAcademicPlanDoc) => {
-
+  const getRemainingRequirements = (student, studentAcademicPlanDoc) => {
     const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
     const inPlanCourseSlugs400 = [];
     const inPlanCourseSlugs300opt = [];
@@ -530,95 +538,92 @@ class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNews
       // return "ics_312, ics_331"
       const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[0][0]},${inPlanCourseSlugs300opt[0][1]}`, `${inPlanCourseSlugs300opt[1][0]},${inPlanCourseSlugs300opt[1][1]}`, inPlanCourseSlugs400);
       return missingRequirements;
-    } if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length === 2)) {
+    }
+    if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length === 2)) {
       const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[0][0]},${inPlanCourseSlugs300opt[0][1]}`, inPlanCourseSlugs400);
       return missingRequirements;
-    } if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length === 2)) {
+    }
+    if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length === 2)) {
       // return "ics_313, ics_361"
       const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[1][0]},${inPlanCourseSlugs300opt[1][1]}`, inPlanCourseSlugs400);
       return missingRequirements;
 
     }
-      const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
-      return missingRequirements;
+    const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
+    return missingRequirements;
+  };
 
-
-  }
-
-  private isAcademicPlanCompleted = (student) => {
+  const isAcademicPlanCompleted = (student) => {
     const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
     const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
     if (_.difference(studentAcademicPlanDoc.courseList, studentCompletedCourses).length === 0) {
       return true;
     }
-      return false;
+    return false;
+  };
 
-  }
 
-
-  private getStudentEmailsByLevel = (level) => {
+  const getStudentEmailsByLevel = (lvl) => {
     const emailaddresses = [];
-    const studentLevel = parseInt(level, 10);
+    const studentLevel = parseInt(lvl, 10);
     const students = StudentProfiles.findNonRetired({ level: studentLevel }); // array of objects
     _.map(students, (profile) => {
       emailaddresses.push(profile.username);
     });
     return emailaddresses;
-  }
+  };
 
-  private getAllUsersEmails = () => {
+  const getAllUsersEmails = () => {
     const allUsers = Meteor.users.find().fetch();
     const emailAddresses = [];
     _.map(allUsers, (profile) => {
       emailAddresses.push(profile.username);
     });
     return emailAddresses;
-  }
+  };
 
-  public render() {
-    return (
-      <div>
-        {/* Auto Forms */}
-        <Segment padded>
-          <Header dividing as="h4">NEWSLETTER OPTIONS</Header>
-          <AutoForm schema={schema} onChange={this.handleChange}>
-            <TextField name="subjectLine" />
-            <TextField name="bcc" />
-            <Form.Group widths="equal">
-              <LongTextField name="inputMessage" />
-              <AdminAnalyticsNewsletterMessagePreviewWidget message={this.state.onSubmitInputMessage} />
-            </Form.Group>
-            <Button color="green" basic onClick={this.onClickPreviewSave}>Preview And Save</Button>
-            <Header as="h4" dividing>SEND NEWSLETTER</Header>
-            <TextField name="studentEmails" />
-            <BoolField name="sendToStudentsToo" />
-            <Button basic color="green" onClick={this.onClickSendStudentsToo}>Send To Admin</Button>
+  return (
+    <div>
+      {/* Auto Forms */}
+      <Segment padded>
+        <Header dividing as="h4">NEWSLETTER OPTIONS</Header>
+        <AutoForm schema={schema} onChange={handleChange}>
+          <TextField name="subjectLine" />
+          <TextField name="bcc" />
+          <Form.Group widths="equal">
+            <LongTextField name="inputMessage" />
+            <AdminAnalyticsNewsletterMessagePreviewWidget message={onSubmitInputMessage} />
+          </Form.Group>
+          <Button color="green" basic onClick={onClickPreviewSave}>Preview And Save</Button>
+          <Header as="h4" dividing>SEND NEWSLETTER</Header>
+          <TextField name="studentEmails" />
+          <BoolField name="sendToStudentsToo" />
+          <Button basic color="green" onClick={onClickSendStudentsToo}>Send To Admin</Button>
 
-            <NumField name="level" placeholder="level" />
-            <BoolField name="sendToLevels" />
-            {/* eslint-disable-next-line react/button-has-type */}
-            <button
-              className="ui basic green button"
-              disabled={!this.state.sendToLevels}
-              onClick={this.onClickSendLevels}
-            >
-              Send To Students
-            </button>
-            <Form.Field label="Generate To Send To All Users" />
-            <BoolField name="sendToAll" />
-            {/* eslint-disable-next-line react/button-has-type */}
-            <button
-              className="ui basic green button"
-              disabled={!this.state.sendToAll}
-              onClick={this.onClickSendToAll}
-            >
-              Send To All
-            </button>
-          </AutoForm>
-        </Segment>
-      </div>
-    );
-  }
-}
+          <NumField name="level" placeholder="level" />
+          <BoolField name="sendToLevels" />
+          {/* eslint-disable-next-line react/button-has-type */}
+          <button
+            className="ui basic green button"
+            disabled={!sendToLevels}
+            onClick={onClickSendLevels}
+          >
+            Send To Students
+          </button>
+          <Form.Field label="Generate To Send To All Users" />
+          <BoolField name="sendToAll" />
+          {/* eslint-disable-next-line react/button-has-type */}
+          <button
+            className="ui basic green button"
+            disabled={!sendToAll}
+            onClick={onClickSendToAll}
+          >
+            Send To All
+          </button>
+        </AutoForm>
+      </Segment>
+    </div>
+  );
+};
 
 export default withRouter(AdminAnalyticsNewsletterWidget);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -14,6 +14,7 @@ import { starBulkLoadJsonDataMethod } from '../../../api/star/StarProcessor.meth
 import { homeActions } from '../../../redux/advisor/home';
 
 /* global FileReader */
+/* eslint-disable react/prop-types */
 
 interface IAdvisorStudentSelectorWidgetProps {
   dispatch: (any) => void;
@@ -22,16 +23,8 @@ interface IAdvisorStudentSelectorWidgetProps {
   username: string;
   students: IStudentProfile[];
   advisorUsername: string;
-  // These are parameters for reactivity
   interests: IInterest[];
   careerGoals: ICareerGoal[];
-}
-
-interface IAdvisorStudentSelectorWidgetState {
-  fileData: string;
-  isEmailWorking: boolean;
-  isUploadWorking: boolean;
-  generatedData: string;
 }
 
 const mapStateToProps = (state) => ({
@@ -40,49 +33,50 @@ const mapStateToProps = (state) => ({
   username: state.advisor.home.username,
 });
 
-class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelectorWidgetProps, IAdvisorStudentSelectorWidgetState> {
-  constructor(props) {
-    super(props);
-    this.state = { fileData: '', isEmailWorking: false, isUploadWorking: false, generatedData: '' };
-  }
+const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps) => {
+  const [fileDataState, setFileData] = useState('');
+  const [isEmailWorkingState, setIsEmailWorking] = useState(false);
+  const [isUploadWorkingState, setIsUploadWorking] = useState(false);
+  const [generatedDataState, setGeneratedData] = useState('');
 
-  private handleTabChange = () => {
-    this.props.dispatch(homeActions.setSelectedStudentUsername(''));
-    this.setState({ fileData: '', generatedData: '' });
-  }
+  const handleTabChange = () => {
+    props.dispatch(homeActions.setSelectedStudentUsername(''));
+    setFileData('');
+    setGeneratedData('');
+  };
 
   // Functionality for 'Update Existing' tab
-  public handleChangeFirstName = (event) => {
-    this.props.dispatch(homeActions.setFirstName(event.target.value));
+  const handleChangeFirstName = (event) => {
+    props.dispatch(homeActions.setFirstName(event.target.value));
   };
 
-  public handleChangeLastName = (event) => {
-    this.props.dispatch(homeActions.setLastName(event.target.value));
+  const handleChangeLastName = (event) => {
+    props.dispatch(homeActions.setLastName(event.target.value));
   };
 
-  public handleChangeUserName = (event) => {
-    this.props.dispatch(homeActions.setUsername(event.target.value));
+  const handleChangeUserName = (event) => {
+    props.dispatch(homeActions.setUsername(event.target.value));
   };
 
-  public clearFilter = () => {
-    this.props.dispatch(homeActions.clearFilter());
+  const clearFilter = () => {
+    props.dispatch(homeActions.clearFilter());
   };
 
-  public handleSelectStudent = (event, data) => {
-    this.props.dispatch(homeActions.setSelectedStudentUsername(data.studentusername));
+  const handleSelectStudent = (event, data) => {
+    props.dispatch(homeActions.setSelectedStudentUsername(data.studentusername));
   };
 
   // Functionality for 'Bulk STAR Upload' tab
 
-  private readFile = (e) => {
+  const readFile = (e) => {
     const files = e.target.files;
     const reader: FileReader = new FileReader();
     reader.readAsText(files[0]);
 
-    reader.onload = (event: {[key: string]: any}) => {
+    reader.onload = (event: { [key: string]: any }) => {
       try {
         const jsonData = JSON.parse(event.target.result);
-        this.setState({ fileData: jsonData });
+        setFileData(jsonData);
       } catch (error) {
         Swal.fire({
           title: 'Error reading data from file',
@@ -94,10 +88,10 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
     };
   };
 
-  private handleStarSubmit = () => {
-    this.setState({ isUploadWorking: true });
-    const advisor = this.props.advisorUsername;
-    const jsonData = this.state.fileData;
+  const handleStarSubmit = () => {
+    setIsUploadWorking(true);
+    const advisor = props.advisorUsername;
+    const jsonData = fileDataState;
     starBulkLoadJsonDataMethod.call({ advisor, jsonData }, ((error) => {
       if (error) {
         Swal.fire({
@@ -113,14 +107,14 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ fileData: '' });
+        setFileData('');
       }
     }));
-    this.setState({ isUploadWorking: false });
+    setIsUploadWorking(false);
   };
 
-  private getStudentEmails = () => {
-    this.setState({ isEmailWorking: true });
+  const getStudentEmails = () => {
+    setIsEmailWorking(true);
     generateStudentEmailsMethod.call({}, (error, result) => {
       if (error) {
         Swal.fire({
@@ -140,7 +134,7 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         data.name = 'Students';
         data.contents = result.students;
         const emails = result.students.join('\n');
-        this.setState({ generatedData: emails });
+        setGeneratedData(emails);
         const zip = new ZipZap();
         const now = moment().format('YYYY-MM-DD-HH-mm-ss');
         const dir = `radgrad-students${now}`;
@@ -149,156 +143,154 @@ class AdvisorStudentSelectorWidget extends React.Component<IAdvisorStudentSelect
         zip.saveAs(`${dir}.zip`);
       }
     });
-    this.setState({ isEmailWorking: false });
+    setIsEmailWorking(false);
   };
 
-  public render() {
-    const columnStyle = {
-      padding: 2,
-    };
+  const columnStyle = {
+    padding: 2,
+  };
 
-    const buttonStyle = {
-      overflow: 'hidden',
-    };
+  const buttonStyle = {
+    overflow: 'hidden',
+  };
 
-    const filterFirst = _.filter(this.props.students, s => s.firstName.toLowerCase().includes(this.props.firstName.toLowerCase()));
-    const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(this.props.lastName.toLowerCase()));
-    const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(this.props.username.toLowerCase()));
+  const filterFirst = _.filter(props.students, s => s.firstName.toLowerCase().includes(props.firstName.toLowerCase()));
+  const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(props.lastName.toLowerCase()));
+  const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(props.username.toLowerCase()));
 
-    const panes = [
-      {
-        menuItem: 'Update Existing',
-        render: () => (
-          <Tab.Pane key="update">
-            <Header as="h4" dividing>FILTER STUDENTS</Header>
-            <Form onSubmit={this.clearFilter}>
-              <Form.Group inline>
-                <Form.Field>
-                  <Form.Input
-                    name="firstName"
-                    // @ts-ignore
-                    label={{ basic: 'true', children: 'First Name:' }}
-                    value={this.props.firstName}
-                    onChange={this.handleChangeFirstName}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Form.Input
-                    name="lastName"
-                    // @ts-ignore
-                    label={{ basic: 'true', children: 'Last Name:' }}
-                    value={this.props.lastName}
-                    onChange={this.handleChangeLastName}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Form.Input
-                    name="userName"
-                    // @ts-ignore
-                    label={{ basic: 'true', children: 'Username:' }}
-                    value={this.props.username}
-                    onChange={this.handleChangeUserName}
-                  />
-                </Form.Field>
-                <Form.Button basic color="green" content="Clear Filter" />
-              </Form.Group>
-            </Form>
-            <Header as="h4">Header here</Header>
-            <Tab panes={[
-              {
-                menuItem: `Students (${this.props.students.length})`,
-                render: () => (
-                  <Tab.Pane>
-                    <Grid stackable>
-                      {filteredStudents.map((student) => (
-                        <Grid.Column style={columnStyle} width={3} key={student._id}>
-                          <Popup
-                            content={`${student.lastName}, ${student.firstName}`}
-                            position="top center"
-                            trigger={(
-                              <Button
-                                basic
-                                color="grey"
-                                fluid
-                                style={buttonStyle}
-                                studentusername={student.username}
-                                onClick={this.handleSelectStudent}
-                              >
-                                <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
-                                {student.lastName}
-                                ,
-                                {student.firstName}
-                                <br />
-                                {student.username}
-                              </Button>
-)}
-                          />
-                        </Grid.Column>
-                      ))}
-                    </Grid>
-                  </Tab.Pane>
-),
-              },
-            ]}
-            />
-          </Tab.Pane>
-)
-        ,
-      },
-      {
-        menuItem: 'Add New',
-        render: () => (
-          <AdvisorAddStudentWidget
-            interests={this.props.interests}
-            careerGoals={this.props.careerGoals}
-          />
-),
-      },
-      {
-        menuItem: 'Bulk STAR Upload',
-        render: () => (
-          <Tab.Pane key="upload">
-            <Header dividing content="BULK STAR UPLOAD STAR DATA" />
-            <Form onSubmit={this.handleStarSubmit}>
+  const panes = [
+    {
+      menuItem: 'Update Existing',
+      render: () => (
+        <Tab.Pane key="update">
+          <Header as="h4" dividing>FILTER STUDENTS</Header>
+          <Form onSubmit={clearFilter}>
+            <Form.Group inline>
               <Form.Field>
-                <Form.Input type="file" onChange={this.readFile} label="BULK STAR JSON" />
+                <Form.Input
+                  name="firstName"
+                  // @ts-ignore
+                  label={{ basic: 'true', children: 'First Name:' }}
+                  value={props.firstName}
+                  onChange={handleChangeFirstName}
+                />
               </Form.Field>
-              <Form.Group inline>
-                <Form.Button
-                  size="tiny"
-                  basic
-                  color="green"
-                  content="LOAD BULK STAR DATA"
-                  type="Submit"
-                  loading={this.state.isUploadWorking}
-                  disabled={this.state.isUploadWorking || (this.state.fileData === '')}
+              <Form.Field>
+                <Form.Input
+                  name="lastName"
+                  // @ts-ignore
+                  label={{ basic: 'true', children: 'Last Name:' }}
+                  value={props.lastName}
+                  onChange={handleChangeLastName}
                 />
-                <Form.Button
-                  size="tiny"
-                  basic
-                  color="green"
-                  content="GET STUDENT EMAILS"
-                  onClick={this.getStudentEmails}
-                  loading={this.state.isEmailWorking}
-                  disabled={this.state.isEmailWorking}
+              </Form.Field>
+              <Form.Field>
+                <Form.Input
+                  name="userName"
+                  // @ts-ignore
+                  label={{ basic: 'true', children: 'Username:' }}
+                  value={props.username}
+                  onChange={handleChangeUserName}
                 />
-              </Form.Group>
-            </Form>
-            {this.state.generatedData ? <Segment>{this.state.generatedData}</Segment> : undefined}
-          </Tab.Pane>
-)
-        ,
-      },
-    ];
+              </Form.Field>
+              <Form.Button basic color="green" content="Clear Filter" />
+            </Form.Group>
+          </Form>
+          <Header as="h4">Header here</Header>
+          <Tab panes={[
+            {
+              menuItem: `Students (${props.students.length})`,
+              render: () => (
+                <Tab.Pane>
+                  <Grid stackable>
+                    {filteredStudents.map((student) => (
+                      <Grid.Column style={columnStyle} width={3} key={student._id}>
+                        <Popup
+                          content={`${student.lastName}, ${student.firstName}`}
+                          position="top center"
+                          trigger={(
+                            <Button
+                              basic
+                              color="grey"
+                              fluid
+                              style={buttonStyle}
+                              studentusername={student.username}
+                              onClick={handleSelectStudent}
+                            >
+                              <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
+                              {student.lastName}
+                              ,
+                              {student.firstName}
+                              <br />
+                              {student.username}
+                            </Button>
+                          )}
+                        />
+                      </Grid.Column>
+                    ))}
+                  </Grid>
+                </Tab.Pane>
+              ),
+            },
+          ]}
+          />
+        </Tab.Pane>
+      )
+      ,
+    },
+    {
+      menuItem: 'Add New',
+      render: () => (
+        <AdvisorAddStudentWidget
+          interests={props.interests}
+          careerGoals={props.careerGoals}
+        />
+      ),
+    },
+    {
+      menuItem: 'Bulk STAR Upload',
+      render: () => (
+        <Tab.Pane key="upload">
+          <Header dividing content="BULK STAR UPLOAD STAR DATA" />
+          <Form onSubmit={handleStarSubmit}>
+            <Form.Field>
+              <Form.Input type="file" onChange={readFile} label="BULK STAR JSON" />
+            </Form.Field>
+            <Form.Group inline>
+              <Form.Button
+                size="tiny"
+                basic
+                color="green"
+                content="LOAD BULK STAR DATA"
+                type="Submit"
+                loading={isUploadWorkingState}
+                disabled={isUploadWorkingState || (fileDataState === '')}
+              />
+              <Form.Button
+                size="tiny"
+                basic
+                color="green"
+                content="GET STUDENT EMAILS"
+                onClick={getStudentEmails}
+                loading={isEmailWorkingState}
+                disabled={isEmailWorkingState}
+              />
+            </Form.Group>
+          </Form>
+          {generatedDataState ? <Segment>{generatedDataState}</Segment> : undefined}
+        </Tab.Pane>
+      )
+      ,
+    },
+  ];
 
-    return (
-      <Segment>
-        <Header as="h4" dividing>SELECT STUDENT</Header>
-        <Tab panes={panes} onTabChange={this.handleTabChange} />
-      </Segment>
-    );
-  }
-}
+  return (
+    <Segment>
+      <Header as="h4" dividing>SELECT STUDENT</Header>
+      <Tab panes={panes} onTabChange={handleTabChange} />
+    </Segment>
+  );
+};
 
 const AdvisorStudentSelectorWidgetContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';
@@ -37,42 +37,21 @@ interface IStudentExplorerEditReviewWidgetProps {
   };
 }
 
-interface IStudentExplorerEditReviewWidgetState {
-  active: boolean;
-  confirmOpen: boolean;
-}
-
 const collection = Reviews;
 
-class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEditReviewWidgetProps, IStudentExplorerEditReviewWidgetState> {
-  private readonly formRef;
+const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetProps) => {
+  const formRef = React.createRef();
+  const [activeState, setActive] = useState(false);
+  const [confirmOpenState, setConfirmOpen] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.formRef = React.createRef();
-    this.state = {
-      active: false,
-      confirmOpen: false,
-    };
-  }
-
-  private handleAccordionClick = (e: any) => {
+  const handleAccordionClick = (e: any) => {
     e.preventDefault();
-    let { active } = this.state;
-    active = !active;
-    this.setState({ active });
-  }
+    setActive(!activeState);
+  };
 
-  private renameKey = (obj: object, oldKey: string, newKey: string): object => {
-    const newObject = obj;
-    newObject[newKey] = newObject[oldKey];
-    delete newObject[oldKey];
-    return newObject;
-  }
-
-  private handleUpdate = (doc: IReviewUpdate): void => {
+  const handleUpdate = (doc: IReviewUpdate): void => {
     const collectionName = collection.getCollectionName();
-    const { match, review } = this.props;
+    const { match, review } = props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
@@ -118,16 +97,16 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
         });
       }
     });
-  }
+  };
 
-  private handleDelete = (e: any): void => {
+  const handleDelete = (e: any): void => {
     e.preventDefault();
-    this.setState({ confirmOpen: true });
-  }
+    setConfirmOpen(true);
+  };
 
-  private handleConfirmDelete = (e: any): void => {
+  const handleConfirmDelete = (e: any): void => {
     e.preventDefault();
-    const id = this.props.review._id;
+    const id = props.review._id;
     const collectionName = collection.getCollectionName();
     removeItMethod.call({ collectionName, instance: id }, (error) => {
       if (error) {
@@ -143,35 +122,33 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
           icon: 'success',
         });
       }
-      this.setState({ confirmOpen: false });
+      setConfirmOpen(false);
     });
-  }
+  };
 
-  private handleCancelDelete = (e: any): void => {
+  const handleCancelDelete = (e: any): void => {
     e.preventDefault();
-    this.setState({ confirmOpen: false });
-  }
+    setConfirmOpen(false);
+  };
 
-  private getUsername = (): string => this.props.match.params.username;
-
-  private getUserIdFromRoute = (): string => {
-    const username = this.getUsername();
+  const getUserIdFromRoute = (): string => {
+    const username = getUsername(props.match);
     return username && Users.getID(username);
-  }
+  };
 
-  private academicTerm = (): IAcademicTerm[] => {
+  const academicTerm = (): IAcademicTerm[] => {
     const academicTerms = [];
     let instances;
-    if (this.props.review.reviewType === ReviewTypes.COURSE) {
-      const course = this.props.event;
+    if (props.review.reviewType === ReviewTypes.COURSE) {
+      const course = props.event;
       instances = CourseInstances.find({
-        studentID: this.getUserIdFromRoute(),
+        studentID: getUserIdFromRoute(),
         courseID: course._id,
       }).fetch();
     } else {
-      const opportunity = this.props.event;
+      const opportunity = props.event;
       instances = OpportunityInstances.find({
-        studentID: this.getUserIdFromRoute(),
+        studentID: getUserIdFromRoute(),
         opportunityID: opportunity._id,
       }).fetch();
     }
@@ -182,86 +159,84 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
       }
     });
     return academicTerms;
-  }
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const accordionTitleStyle = {
-      textAlign: 'center',
-      color: '#38840F',
-    };
-    const paddedContainerStyle = { paddingBottom: '1.5em' };
+  const accordionTitleStyle = {
+    textAlign: 'center',
+    color: '#38840F',
+  };
+  const paddedContainerStyle = { paddingBottom: '1.5em' };
 
-    const { review } = this.props;
-    const { active, confirmOpen } = this.state;
+  const { review } = props;
 
-    const academicTerm = this.academicTerm();
-    const academicTermNames = _.map(academicTerm, (term) => `${term.term} ${term.year}`);
-    const schema = new SimpleSchema({
-      academicTerm: {
-        type: String,
-        label: 'Academic Term',
-        allowedValues: academicTermNames,
-        defaultValue: academicTermNames[0],
-      },
-      rating: {
-        type: SimpleSchema.Integer,
-        label: 'Rating',
-        defaultValue: review.rating,
-        min: 0,
-        max: 5,
-        optional: true,
-      },
-      comments: {
-        type: String,
-        label: 'Comments',
-        defaultValue: review.comments,
-      },
-    });
+  const terms = academicTerm();
+  const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
+  const schema = new SimpleSchema({
+    academicTerm: {
+      type: String,
+      label: 'Academic Term',
+      allowedValues: academicTermNames,
+      defaultValue: academicTermNames[0],
+    },
+    rating: {
+      type: SimpleSchema.Integer,
+      label: 'Rating',
+      defaultValue: review.rating,
+      min: 0,
+      max: 5,
+      optional: true,
+    },
+    comments: {
+      type: String,
+      label: 'Comments',
+      defaultValue: review.comments,
+    },
+  });
 
-    return (
-      <Accordion>
-        <Accordion.Title style={accordionTitleStyle} active={active} onClick={this.handleAccordionClick}>
-          <Icon name="dropdown" />
-          <a>Edit Review </a>
-          {
-            review.moderated ? (
-              <React.Fragment>
-                {
+  return (
+    <Accordion>
+      <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
+        <Icon name="dropdown" />
+        <a>Edit Review </a>
+        {
+          review.moderated ? (
+            <React.Fragment>
+              {
                   review.visible ?
                     <i className="green checkmark icon" />
                     :
                     <i className="red warning circle icon" />
+              }
+            </React.Fragment>
+            )
+            : (
+              <React.Fragment>
+                {
+                  review.visible ?
+                    <i className="yellow checkmark icon" />
+                    :
+                    <i className="yellow warning circle icon" />
                 }
               </React.Fragment>
-              )
-              : (
-                <React.Fragment>
-                  {
-                    review.visible ?
-                      <i className="yellow checkmark icon" />
-                      :
-                      <i className="yellow warning circle icon" />
-                  }
-                </React.Fragment>
-              )
-          }
-        </Accordion.Title>
+            )
+        }
+      </Accordion.Title>
 
-        <Accordion.Content active={active}>
-          <div className="ui padded container" style={paddedContainerStyle}>
-            {
-              review.visible ? (
-                <React.Fragment>
-                  {
-                    review.moderated ? (
-                      <Message positive>
-                        <p>
-                          <i className="green checkmark icon" />
-                          Your post is visible to the RadGrad community and has
-                          been approved by moderators.
-                        </p>
-                      </Message>
-                      )
+      <Accordion.Content active={activeState}>
+        <div className="ui padded container" style={paddedContainerStyle}>
+          {
+            review.visible ? (
+              <React.Fragment>
+                {
+                  review.moderated ? (
+                    <Message positive>
+                      <p>
+                        <i className="green checkmark icon" />
+                        Your post is visible to the RadGrad community and has
+                        been approved by moderators.
+                      </p>
+                    </Message>
+                    )
                       : (
                         <Message warning>
                           <p>
@@ -272,61 +247,60 @@ class StudentExplorerEditReviewForm extends React.Component<IStudentExplorerEdit
                         </Message>
                       )
                   }
-                </React.Fragment>
-                )
-                : (
-                  <React.Fragment>
-                    {
-                      review.moderated ? (
-                        <Message negative>
+              </React.Fragment>
+              )
+              : (
+                <React.Fragment>
+                  {
+                    review.moderated ? (
+                      <Message negative>
+                        <p>
+                          <i className="warning red circle icon" />
+                          Your post has been hidden by moderators for the
+                          following reasons:
+                        </p>
+                        <br />
+                        <i>{review.moderatorComments}</i>
+                      </Message>
+                      )
+                      : (
+                        <Message warning>
                           <p>
-                            <i className="warning red circle icon" />
-                            Your post has been hidden by moderators for the
-                            following reasons:
+                            <i className="warning yellow circle icon" />
+                            Your edited post is waiting for moderator
+                            approval. Your post has currently been hidden by moderators for the following reasons:
+                            <br />
+                            <i>{review.moderatorComments}</i>
                           </p>
-                          <br />
-                          <i>{review.moderatorComments}</i>
                         </Message>
-                        )
-                        : (
-                          <Message warning>
-                            <p>
-                              <i className="warning yellow circle icon" />
-                              Your edited post is waiting for moderator
-                              approval. Your post has currently been hidden by moderators for the following reasons:
-                              <br />
-                              <i>{review.moderatorComments}</i>
-                            </p>
-                          </Message>
-                        )
-                    }
-                  </React.Fragment>
-                )
-            }
+                      )
+                  }
+                </React.Fragment>
+              )
+          }
 
-            <AutoForm schema={schema} onSubmit={this.handleUpdate} ref={this.formRef}>
-              <Form.Group widths="equal">
-                <SelectField name="academicTerm" />
-                <RatingField name="rating" />
-              </Form.Group>
+          <AutoForm schema={schema} onSubmit={handleUpdate} ref={formRef}>
+            <Form.Group widths="equal">
+              <SelectField name="academicTerm" />
+              <RatingField name="rating" />
+            </Form.Group>
 
-              <LongTextField name="comments" />
+            <LongTextField name="comments" />
 
-              <SubmitField className="green basic mini" value="UPDATE" disabled={false} inputRef={undefined} />
-              <Button basic color="red" size="mini" onClick={this.handleDelete}>DELETE</Button>
-              <Confirm
-                open={confirmOpen}
-                onCancel={this.handleCancelDelete}
-                onConfirm={this.handleConfirmDelete}
-                header="Delete Review?"
-              />
-            </AutoForm>
-          </div>
-        </Accordion.Content>
-      </Accordion>
-    );
-  }
-}
+            <SubmitField className="green basic mini" value="UPDATE" disabled={false} inputRef={undefined} />
+            <Button basic color="red" size="mini" onClick={handleDelete}>DELETE</Button>
+            <Confirm
+              open={confirmOpenState}
+              onCancel={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+              header="Delete Review?"
+            />
+          </AutoForm>
+        </div>
+      </Accordion.Content>
+    </Accordion>
+  );
+};
 
 const StudentExplorerEditReviewFormContainer = withRouter(StudentExplorerEditReviewForm);
 

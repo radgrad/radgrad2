@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
@@ -47,50 +47,41 @@ interface IUpdateUserProps {
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
-interface IUpdateUserState {
-  pictureURL: string;
-}
-
 const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelUsersIsCloudinaryUsed(isCloudinaryUsed)),
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState> {
-  constructor(props) {
-    super(props);
-    // console.log('UpdateUserForm', props);
-    let collection;
-    const { id } = props;
-    if (StudentProfiles.isDefined(id)) {
-      collection = StudentProfiles;
-    }
-    if (FacultyProfiles.isDefined(id)) {
-      collection = FacultyProfiles;
-    }
-    if (MentorProfiles.isDefined(id)) {
-      collection = MentorProfiles;
-    }
-    if (AdvisorProfiles.isDefined(id)) {
-      collection = AdvisorProfiles;
-    }
-    if (AdminProfiles.isDefined(id)) {
-      collection = AdminProfiles;
-    }
-    const profile: IBaseProfile = collection.findDoc(id);
-    this.state = {
-      pictureURL: profile.picture,
-    };
+const UpdateUserForm = (props: IUpdateUserProps) => {
+  // console.log('UpdateUserForm', props);
+  let collection;
+  const { id } = props;
+  if (StudentProfiles.isDefined(id)) {
+    collection = StudentProfiles;
   }
+  if (FacultyProfiles.isDefined(id)) {
+    collection = FacultyProfiles;
+  }
+  if (MentorProfiles.isDefined(id)) {
+    collection = MentorProfiles;
+  }
+  if (AdvisorProfiles.isDefined(id)) {
+    collection = AdvisorProfiles;
+  }
+  if (AdminProfiles.isDefined(id)) {
+    collection = AdminProfiles;
+  }
+  const profile: IBaseProfile = collection.findDoc(id);
+  const [pictureURL, setPictureURL] = useState(profile.picture);
 
-  private handleUpload = async (e): Promise<void> => {
+  const handleUpload = async (e): Promise<void> => {
     e.preventDefault();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
-        this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-        this.setState({ pictureURL: cloudinaryResult.info.url });
+        props.setAdminDataModelUsersIsCloudinaryUsed(true);
+        props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        setPictureURL(cloudinaryResult.info.url);
       }
     } catch (error) {
       Swal.fire({
@@ -102,196 +93,168 @@ class UpdateUserForm extends React.Component<IUpdateUserProps, IUpdateUserState>
         allowEnterKey: false,
       });
     }
-  }
+  };
 
-  private handlePictureUrlChange = (value) => {
-    this.setState({ pictureURL: value });
-  }
+  const handlePictureUrlChange = (value) => {
+    setPictureURL(value);
+  };
 
-  // Hacky way of resetting pictureURL to be empty
-  private handleUpdateUser = (doc) => {
-    // console.log('UpdateUserForm.handleUpdateUser', doc);
-    this.props.handleUpdate(doc);
-    this.setState({ pictureURL: '' });
+  const model = collection.findDoc(id);
+  const userID = model.userID;
+  const favInterests = FavoriteInterests.findNonRetired({ userID });
+  const favInterestIDs = _.map(favInterests, (fav) => fav.interestID);
+  model.interests = _.map(favInterestIDs, interestIdToName);
+  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+  model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
+  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+  const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
+  model.academicPlans = _.map(favPlanIDs, (academicPlanID) => academicPlanIdToName(academicPlanID));
+  if (model.declaredAcademicTermID) {
+    model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }
-
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    // console.log(this.props);
-    const id = this.props.id;
-    let collection;
-    if (StudentProfiles.isDefined(id)) {
-      collection = StudentProfiles;
-    }
-    if (FacultyProfiles.isDefined(id)) {
-      collection = FacultyProfiles;
-    }
-    if (MentorProfiles.isDefined(id)) {
-      collection = MentorProfiles;
-    }
-    if (AdvisorProfiles.isDefined(id)) {
-      collection = AdvisorProfiles;
-    }
-    if (AdminProfiles.isDefined(id)) {
-      collection = AdminProfiles;
-    }
-    const model = collection.findDoc(id);
-    const userID = model.userID;
-    const favInterests = FavoriteInterests.findNonRetired({ userID });
-    const favInterestIDs = _.map(favInterests, (fav) => fav.interestID);
-    model.interests = _.map(favInterestIDs, interestIdToName);
-    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
-    model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
-    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
-    const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
-    model.academicPlans = _.map(favPlanIDs, (academicPlanID) => academicPlanIdToName(academicPlanID));
-    if (model.declaredAcademicTermID) {
-      model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
-    }
-    const interestNames = _.map(this.props.interests, docToName);
-    const careerGoalNames = _.map(this.props.careerGoals, docToName);
-    const academicTermNames = _.map(this.props.academicTerms, academicTermToName);
-    // const academicPlanNames = _.map(this.props.academicPlans, docToName);
-    const schema = new SimpleSchema({
-      username: { type: String, optional: true },
-      firstName: { type: String, optional: true },
-      lastName: { type: String, optional: true },
-      picture: {
-        type: String,
-        label:
+  const interestNames = _.map(props.interests, docToName);
+  const careerGoalNames = _.map(props.careerGoals, docToName);
+  const academicTermNames = _.map(props.academicTerms, academicTermToName);
+  // const academicPlanNames = _.map(props.academicPlans, docToName);
+  const schema = new SimpleSchema({
+    username: { type: String, optional: true },
+    firstName: { type: String, optional: true },
+    lastName: { type: String, optional: true },
+    picture: {
+      type: String,
+      label:
   <React.Fragment>
     Picture (
-    <button type="button" onClick={this.handleUpload}>Upload</button>
+    <button type="button" onClick={handleUpload}>Upload</button>
     )
   </React.Fragment>,
-        optional: true,
-      },
-      website: { type: String, optional: true },
-      interests: { type: Array, optional: true },
-      'interests.$': {
-        type: String,
-        allowedValues: interestNames,
-      },
-      careerGoals: { type: Array, optional: true },
-      'careerGoals.$': {
-        type: String,
-        allowedValues: careerGoalNames,
-      },
-      retired: { type: Boolean, optional: true },
-    });
-    const mentorSchema = new SimpleSchema({
-      company: { type: String, optional: true },
-      career: { type: String, optional: true },
-      location: { type: String, optional: true },
-      linkedin: { type: String, optional: true },
-      motivation: { type: String, optional: true },
-    });
-    const studentSchema = new SimpleSchema({
-      level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
-      declaredAcademicTerm: {
-        type: String,
-        optional: true,
-        allowedValues: academicTermNames,
-      },
-      // academicPlans: {
-      //   type: Array,
-      //   optional: true,
-      // },
-      // 'academicPlans.$': {
-      //   type: String,
-      //   allowedValues: academicPlanNames,
-      // },
-      shareUsername: { type: Boolean, optional: true },
-      sharePicture: { type: Boolean, optional: true },
-      shareWebsite: { type: Boolean, optional: true },
-      shareInterests: { type: Boolean, optional: true },
-      shareCareerGoals: { type: Boolean, optional: true },
-      shareAcademicPlan: { type: Boolean, optional: true },
-      shareOpportunities: { type: Boolean, optional: true },
-      shareCourses: { type: Boolean, optional: true },
-      shareLevel: { type: Boolean, optional: true },
-      isAlumni: { type: Boolean, optional: true },
-    });
-    if (model.role === ROLE.MENTOR) {
-      schema.extend(mentorSchema);
-    }
-    if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
-      schema.extend(studentSchema);
-    }
-    const { pictureURL } = this.state;
-    // console.log(schema);
-    return (
-      <Segment padded>
-        <Header dividing>
-          Update
-          {collection.getType()}
-          :
-          {this.props.itemTitleString(model)}
-        </Header>
-        <AutoForm
-          schema={schema}
-          onSubmit={this.props.handleUpdate}
-          ref={this.props.formRef}
-          showInlineError
-          model={model}
-        >
-          <Form.Group widths="equal">
-            <TextField name="username" placeholder="johndoe@foo.edu" />
-            <TextField name="firstName" placeholder="John" />
-            <TextField name="lastName" placeholder="Doe" />
-          </Form.Group>
-          <Header dividing as="h4">Optional fields (all users)</Header>
-          <Form.Group widths="equal">
-            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
-            <TextField name="website" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <MultiSelectField name="interests" />
-            <MultiSelectField name="careerGoals" />
-          </Form.Group>
-          <BoolField name="retired" />
-          {model.role === ROLE.MENTOR ? (
-            <div>
-              <Header dividing as="h4">Mentor fields</Header>
-              <Form.Group widths="equal">
-                <TextField name="company" />
-                <TextField name="career" label="Title" />
-              </Form.Group>
-              <Form.Group widths="equal">
-                <TextField name="location" />
-                <TextField name="linkedin" label="LinkedIn" />
-              </Form.Group>
-              <LongTextField name="motivation" />
-            </div>
-          ) : ''}
-          {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
-            <div>
-              <Header dividing as="h4">Student fields</Header>
-              <Form.Group widths="equal">
-                <NumField name="level" />
-                <SelectField name="declaredAcademicTerm" />
-              </Form.Group>
-              <Form.Group widths="equal">
-                <BoolField name="shareUsername" />
-                <BoolField name="sharePicture" />
-                <BoolField name="shareWebsite" />
-                <BoolField name="shareInterests" />
-                <BoolField name="shareCareerGoals" />
-                <BoolField name="shareAcademicPlan" />
-                <BoolField name="shareOpportunities" />
-                <BoolField name="shareCourses" />
-                <BoolField name="shareLevel" />
-                <BoolField name="isAlumni" />
-              </Form.Group>
-            </div>
-          ) : ''}
-          <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-          <Button onClick={this.props.handleCancel}>Cancel</Button>
-        </AutoForm>
-      </Segment>
-    );
+      optional: true,
+    },
+    website: { type: String, optional: true },
+    interests: { type: Array, optional: true },
+    'interests.$': {
+      type: String,
+      allowedValues: interestNames,
+    },
+    careerGoals: { type: Array, optional: true },
+    'careerGoals.$': {
+      type: String,
+      allowedValues: careerGoalNames,
+    },
+    retired: { type: Boolean, optional: true },
+  });
+  const mentorSchema = new SimpleSchema({
+    company: { type: String, optional: true },
+    career: { type: String, optional: true },
+    location: { type: String, optional: true },
+    linkedin: { type: String, optional: true },
+    motivation: { type: String, optional: true },
+  });
+  const studentSchema = new SimpleSchema({
+    level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
+    declaredAcademicTerm: {
+      type: String,
+      optional: true,
+      allowedValues: academicTermNames,
+    },
+    // academicPlans: {
+    //   type: Array,
+    //   optional: true,
+    // },
+    // 'academicPlans.$': {
+    //   type: String,
+    //   allowedValues: academicPlanNames,
+    // },
+    shareUsername: { type: Boolean, optional: true },
+    sharePicture: { type: Boolean, optional: true },
+    shareWebsite: { type: Boolean, optional: true },
+    shareInterests: { type: Boolean, optional: true },
+    shareCareerGoals: { type: Boolean, optional: true },
+    shareAcademicPlan: { type: Boolean, optional: true },
+    shareOpportunities: { type: Boolean, optional: true },
+    shareCourses: { type: Boolean, optional: true },
+    shareLevel: { type: Boolean, optional: true },
+    isAlumni: { type: Boolean, optional: true },
+  });
+  if (model.role === ROLE.MENTOR) {
+    schema.extend(mentorSchema);
   }
-}
+  if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
+    schema.extend(studentSchema);
+  }
+  // console.log(schema);
+  return (
+    <Segment padded>
+      <Header dividing>
+        Update
+        {collection.getType()}
+        :
+        {props.itemTitleString(model)}
+      </Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={props.handleUpdate}
+        ref={props.formRef}
+        showInlineError
+        model={model}
+      >
+        <Form.Group widths="equal">
+          <TextField name="username" placeholder="johndoe@foo.edu" />
+          <TextField name="firstName" placeholder="John" />
+          <TextField name="lastName" placeholder="Doe" />
+        </Form.Group>
+        <Header dividing as="h4">Optional fields (all users)</Header>
+        <Form.Group widths="equal">
+          <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+          <TextField name="website" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests" />
+          <MultiSelectField name="careerGoals" />
+        </Form.Group>
+        <BoolField name="retired" />
+        {model.role === ROLE.MENTOR ? (
+          <div>
+            <Header dividing as="h4">Mentor fields</Header>
+            <Form.Group widths="equal">
+              <TextField name="company" />
+              <TextField name="career" label="Title" />
+            </Form.Group>
+            <Form.Group widths="equal">
+              <TextField name="location" />
+              <TextField name="linkedin" label="LinkedIn" />
+            </Form.Group>
+            <LongTextField name="motivation" />
+          </div>
+        ) : ''}
+        {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
+          <div>
+            <Header dividing as="h4">Student fields</Header>
+            <Form.Group widths="equal">
+              <NumField name="level" />
+              <SelectField name="declaredAcademicTerm" />
+            </Form.Group>
+            <Form.Group widths="equal">
+              <BoolField name="shareUsername" />
+              <BoolField name="sharePicture" />
+              <BoolField name="shareWebsite" />
+              <BoolField name="shareInterests" />
+              <BoolField name="shareCareerGoals" />
+              <BoolField name="shareAcademicPlan" />
+              <BoolField name="shareOpportunities" />
+              <BoolField name="shareCourses" />
+              <BoolField name="shareLevel" />
+              <BoolField name="isAlumni" />
+            </Form.Group>
+          </div>
+        ) : ''}
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
+        <Button onClick={props.handleCancel}>Cancel</Button>
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const UpdateUserFormCon = connect(null, mapDispatchToProps)(UpdateUserForm);
 const UpdateUserFormContainter = withTracker(() => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
@@ -27,83 +27,75 @@ interface IAdvisorVerificationRequestPageState {
   activeItem: string;
 }
 
-/** A simple static component to render some text for the landing page. */
-class AdvisorVerificationRequestPage extends React.Component<IAdvisorVerificationRequestPageProps, IAdvisorVerificationRequestPageState> {
-  constructor(props) {
-    super(props);
-    this.state = { activeItem: 'pending' };
-  }
+const AdvisorVerificationRequestPage = (props: IAdvisorVerificationRequestPageProps) => {
+  const [activeItemState, setActiveItem] = useState('pending');
 
+  const handleMenu = (e, { name }) => setActiveItem(name);
 
-  handleMenu = (e, { name }) => this.setState({ activeItem: name });
+  return (
+    <div>
+      <AdvisorPageMenuWidget />
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
 
-  public render() {
-    const { activeItem } = this.state;
-    return (
-      <div>
-        <AdvisorPageMenuWidget />
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={1} />
-            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
-            <Grid.Column width={1} />
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column width={1} />
-            <Grid.Column width={3}>
-              <Menu vertical>
-                <Menu.Item
-                  name="pending"
-                  active={activeItem === 'pending'}
-                  onClick={this.handleMenu}
-                >
-                  Pending Verifications
-                </Menu.Item>
-                <Menu.Item
-                  name="event"
-                  active={activeItem === 'event'}
-                  onClick={this.handleMenu}
-                >
-                  Event Verifications
-                </Menu.Item>
-                <Menu.Item
-                  name="completed"
-                  active={activeItem === 'completed'}
-                  onClick={this.handleMenu}
-                >
-                  Completed Verifications
-                </Menu.Item>
-              </Menu>
-            </Grid.Column>
-            <Grid.Column width={11}>
-              {activeItem === 'pending' ? (
-                <PendingVerificationsWidget
-                  pendingVerifications={this.props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
-                />
+        <Grid.Row>
+          <Grid.Column width={1} />
+          <Grid.Column width={3}>
+            <Menu vertical>
+              <Menu.Item
+                name="pending"
+                active={activeItemState === 'pending'}
+                onClick={handleMenu}
+              >
+                Pending Verifications
+              </Menu.Item>
+              <Menu.Item
+                name="event"
+                active={activeItemState === 'event'}
+                onClick={handleMenu}
+              >
+                Event Verifications
+              </Menu.Item>
+              <Menu.Item
+                name="completed"
+                active={activeItemState === 'completed'}
+                onClick={handleMenu}
+              >
+                Completed Verifications
+              </Menu.Item>
+            </Menu>
+          </Grid.Column>
+          <Grid.Column width={11}>
+            {activeItemState === 'pending' ? (
+              <PendingVerificationsWidget
+                pendingVerifications={props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
+              />
               )
-                : undefined}
-              {activeItem === 'event' ?
-                <EventVerificationsWidget eventOpportunities={this.props.eventOpportunities} />
-                : undefined}
-              {activeItem === 'completed' ? (
-                <CompletedVerificationsWidget
-                  username={this.props.match.params.username}
-                  completedVerifications={this.props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
-                />
+              : undefined}
+            {activeItemState === 'event' ?
+              <EventVerificationsWidget eventOpportunities={props.eventOpportunities} />
+              : undefined}
+            {activeItemState === 'completed' ? (
+              <CompletedVerificationsWidget
+                username={props.match.params.username}
+                completedVerifications={props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
+              />
               )
-                : undefined}
-            </Grid.Column>
-            <Grid.Column width={1} />
-          </Grid.Row>
-          {/* </Grid.Column> */}
-        </Grid>
+              : undefined}
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid.Row>
+        {/* </Grid.Column> */}
+      </Grid>
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
   verificationRequests: VerificationRequests.find({}).fetch(),

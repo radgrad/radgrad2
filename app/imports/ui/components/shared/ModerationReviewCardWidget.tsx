@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Segment, Container, Form, Button, Rating } from 'semantic-ui-react';
@@ -14,30 +14,23 @@ interface IModerationReviewCardWidget {
   handleReject: (item, comment) => any,
 }
 
-interface IModerationReviewCardState {
-  moderatorComment: string;
-}
+const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
+  const [moderatorCommentState, setModeratorComment] = useState('');
 
-class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWidget, IModerationReviewCardState> {
-  constructor(props) {
-    super(props);
-    this.state = { moderatorComment: '' };
-  }
-
-  private getReviewee = () => {
+  const getReviewee = () => {
     let reviewee;
-    if (this.props.item.reviewType === 'course') {
-      reviewee = Courses.findDoc(this.props.item.revieweeID);
+    if (props.item.reviewType === 'course') {
+      reviewee = Courses.findDoc(props.item.revieweeID);
     } else {
-      reviewee = Opportunities.findDoc(this.props.item.revieweeID);
+      reviewee = Opportunities.findDoc(props.item.revieweeID);
     }
     return reviewee;
-  }
+  };
 
-  private handleAcceptClick = () => {
+  const handleAcceptClick = () => {
     // make handle accept take in the moderator comments
-    const update = this.props.handleAccept(this.props.item, this.state);
-    this.setState({ moderatorComment: '' });
+    const update = props.handleAccept(props.item, moderatorCommentState);
+    setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
@@ -58,9 +51,9 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
     });
   };
 
-  private handleRejectClick = () => {
-    const update = this.props.handleReject(this.props.item, this.state);
-    this.setState({ moderatorComment: '' });
+  const handleRejectClick = () => {
+    const update = props.handleReject(props.item, moderatorCommentState);
+    setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
@@ -82,58 +75,56 @@ class ModerationReviewCardWidget extends React.Component<IModerationReviewCardWi
   };
 
 
-  private handleChange = (event, { value }) => {
-    this.setState({ moderatorComment: value });
+  const handleChange = (event, { value }) => {
+    setModeratorComment(value);
   };
 
 
-  public render() {
-    // if findNonRetired and do not supply a selector, it will try do a find on that string
-    const student = Users.getFullName(this.props.item.studentID);
-    const reviewee = this.getReviewee().name;
-    const termDoc = AcademicTerms.findDoc(this.props.item.termID);
+  // if findNonRetired and do not supply a selector, it will try do a find on that string
+  const student = Users.getFullName(props.item.studentID);
+  const reviewee = getReviewee().name;
+  const termDoc = AcademicTerms.findDoc(props.item.termID);
 
-    return (
+  return (
 
-      <Container textAlign="left">
-        <strong>Student: </strong>
-        {student}
-        <br />
-        <strong>Reviewee: </strong>
-        {reviewee}
-        <br />
-        <strong>Semester: </strong>
-        {' '}
-        {`${termDoc.term}  ${termDoc.year}`}
-        {' '}
-        <br />
-        <strong>Rating: </strong>
-        <Rating
-          size="small"
-          icon="star"
-          rating={this.props.item.rating}
-          maxRating="5"
-          disabled
-        />
-        <br />
-        <strong>Comments: </strong>
-        {this.props.item.comments}
-        <br />
-        <Segment>
-          <Form>
-            <Form.TextArea
-              label="Moderator Comments"
-              onChange={this.handleChange}
-              value={this.state.moderatorComment}
-            />
-            <Button className="ui basic green mini button" onClick={this.handleAcceptClick}>ACCEPT</Button>
-            <Button className="ui basic red mini button" onClick={this.handleRejectClick}>REJECT</Button>
-          </Form>
-        </Segment>
-      </Container>
+    <Container textAlign="left">
+      <strong>Student: </strong>
+      {student}
+      <br />
+      <strong>Reviewee: </strong>
+      {reviewee}
+      <br />
+      <strong>Semester: </strong>
+      {' '}
+      {`${termDoc.term}  ${termDoc.year}`}
+      {' '}
+      <br />
+      <strong>Rating: </strong>
+      <Rating
+        size="small"
+        icon="star"
+        rating={props.item.rating}
+        maxRating="5"
+        disabled
+      />
+      <br />
+      <strong>Comments: </strong>
+      {props.item.comments}
+      <br />
+      <Segment>
+        <Form>
+          <Form.TextArea
+            label="Moderator Comments"
+            onChange={handleChange}
+            value={moderatorCommentState}
+          />
+          <Button className="ui basic green mini button" onClick={handleAcceptClick}>ACCEPT</Button>
+          <Button className="ui basic red mini button" onClick={handleRejectClick}>REJECT</Button>
+        </Form>
+      </Segment>
+    </Container>
 
-    );
-  }
-}
+  );
+};
 
 export default withRouter(ModerationReviewCardWidget);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField } from 'uniforms-semantic';
@@ -13,58 +13,46 @@ interface IAdvisorAcademicPlanViewerWidgetProps {
   plans: IAcademicPlan[];
 }
 
-interface IAdvisorAcademicPlanViewerWidgetState {
-  planNames: string[];
-  year: number;
-  selectedPlan?: IAcademicPlan;
-}
+const AdvisorAcademicPlanViewerWidget = (props: IAdvisorAcademicPlanViewerWidgetProps) => {
+  // console.log('AdvisorAcademicPlan props=%o', props);
+  let planNames = _.map(_.filter(props.plans, (p) => p.year === props.plans[0].year), (plan) => plan.name);
 
-class AdvisorAcademicPlanViewerWidget extends React.Component<IAdvisorAcademicPlanViewerWidgetProps, IAdvisorAcademicPlanViewerWidgetState> {
-  constructor(props) {
-    super(props);
-    const year = props.plans[0].year;
-    const planNames = _.map(_.filter(this.props.plans, (p) => p.year === year), (plan) => plan.name);
-    this.state = { planNames, selectedPlan: props.plans[0], year };
-    // console.log('AdvisorAcademicPlan props=%o', props);
-  }
+  const [planNamesState, setPlanNames] = useState(planNames);
+  const [selectedPlanState, setSelectedPlan] = useState(props.plans[0]);
+  const [yearState, setYear] = useState(props.plans[0].year);
 
-  private handleModelChange = (model) => {
-    // console.log('model=%o state=%o', model, this.state);
+  const handleModelChange = (model) => {
+    // console.log('model=%o', model);
     const { year, name } = model;
     const yearInt = parseInt(year, 10);
-    const yearChanged = yearInt !== this.state.year;
-    const newState: any = {};
+    const yearChanged = yearInt !== yearState;
     if (yearChanged) {
-      newState.planNames = _.map(_.filter(this.props.plans, (p) => p.year === yearInt), (plan) => plan.name);
-      newState.year = yearInt;
-      newState.selectedPlan = _.find(this.props.plans, (p) => p.name === newState.planNames[0]);
+      planNames = _.map(_.filter(props.plans, (p) => p.year === yearInt), (plan) => plan.name);
+      setPlanNames(planNames);
+      setSelectedPlan(_.find(props.plans, (p) => p.name === planNames[0]));
+      setYear(yearInt);
     } else {
-      newState.selectedPlan = _.find(this.props.plans, (p) => p.name === name);
+      setSelectedPlan(_.find(props.plans, (p) => p.name === name));
     }
-    // console.log('newState = %o', newState);
-    this.setState(newState);
   };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const years = _.uniq(_.map(this.props.plans, (p) => p.year));
-    const schema = new SimpleSchema({
-      year: { type: SimpleSchema.Integer, allowedValues: years, defaultValue: this.state.year },
-      name: { type: String, allowedValues: this.state.planNames, defaultValue: this.state.planNames[0] },
-    });
-    // console.log('APV render state', this.state);
-    return (
-      <Segment padded>
-        <AutoForm schema={schema} onChangeModel={this.handleModelChange}>
-          <Form.Group widths="equal">
-            <SelectField name="year" />
-            <SelectField name="name" />
-          </Form.Group>
-          {this.state.selectedPlan ? <AdvisorAcademicPlanViewer plan={this.state.selectedPlan} /> : ''}
-        </AutoForm>
-      </Segment>
-    );
-  }
-}
+  const years = _.uniq(_.map(props.plans, (p) => p.year));
+  const schema = new SimpleSchema({
+    year: { type: SimpleSchema.Integer, allowedValues: years, defaultValue: yearState },
+    name: { type: String, allowedValues: planNamesState, defaultValue: planNamesState[0] },
+  });
+  return (
+    <Segment padded>
+      <AutoForm schema={schema} onChangeModel={handleModelChange}>
+        <Form.Group widths="equal">
+          <SelectField name="year" />
+          <SelectField name="name" />
+        </Form.Group>
+        {selectedPlanState ? <AdvisorAcademicPlanViewer plan={selectedPlanState} /> : ''}
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AdvisorAcademicPlanViewerWidgetContainer = withTracker(() => {
   const plans = AcademicPlans.findNonRetired();

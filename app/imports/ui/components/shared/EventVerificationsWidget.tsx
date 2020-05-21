@@ -1,21 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import moment from 'moment';
 import { processVerificationEventMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 import { IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
-/* global document */
-
 interface IEventVerificationsWidgetProps {
   eventOpportunities: IOpportunity[];
 }
 
-interface IEventVerificationsWidgetState {
-  student: string;
-  opportunity: string;
-  log: string;
-}
 /**
  * This component naively displays a supplied array of **IEventOpportunities** and a form to verify individual students.
  * The parent component is expected to handle permissions and filtering (eventDate property **is not checked** in this
@@ -23,78 +16,89 @@ interface IEventVerificationsWidgetState {
  * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
  * @returns {Segment}
  */
-class EventVerificationsWidget extends React.Component<IEventVerificationsWidgetProps, IEventVerificationsWidgetState> {
-  constructor(props) {
-    super(props);
-    this.state = { student: '', opportunity: '', log: '' };
-  }
+const EventVerificationsWidget = (props: IEventVerificationsWidgetProps) => {
+  const [studentState, setStudent] = useState('');
+  const [opportunityState, setOpportunity] = useState('');
+  const [logState, setLog] = useState('');
 
-  // eslint-disable-next-line react/no-access-state-in-setstate
-  onChange = (e, { name, value }) => this.setState({ ...this.state, [name]: value });
-
-  onLog = (msg) => {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    this.setState({ ...this.state, log: `${this.state.log}\n${msg}` });
-  }
-
-  scrollToBottom = () => {
-    const textarea = document.getElementById('logTextArea');
-    textarea.scrollTop = textarea.scrollHeight;
+  const onChange = (e, { name, value }) => {
+    switch (name) {
+      case 'student':
+        setStudent(value);
+        break;
+      case 'opportunity':
+        setOpportunity(value);
+        break;
+      case 'log':
+        setLog(value);
+        break;
+      default:
+      // do nothing
+    }
   };
 
-  onSubmit = () => {
-    const { student, opportunity: opportunityID } = this.state;
-    const opportunity = this.props.eventOpportunities.find(ele => ele._id === opportunityID);
+  const onLog = (msg) => {
+    setLog(`${logState}\n${msg}`);
+  };
 
-    this.onLog(`Verifying ${opportunity.name} for ${student}...`);
+  // const scrollToBottom = () => {
+  //   const textarea = document.getElementById('logTextArea');
+  //   textarea.scrollTop = textarea.scrollHeight;
+  // };
+
+  const onSubmit = () => {
+    const opportunity = props.eventOpportunities.find(ele => ele._id === opportunityState);
+
+    onLog(`Verifying ${opportunity.name} for ${studentState}...`);
 
     const academicTerm = AcademicTerms.getAcademicTerm(opportunity.eventDate);
 
-    processVerificationEventMethod.call({ student, opportunity: opportunityID, academicTerm }, (e, result) => {
+    processVerificationEventMethod.call({
+      student: studentState,
+      opportunity: opportunityState,
+      academicTerm,
+    }, (e, result) => {
       if (e) {
-        this.onLog(`Error: problem during processing: ${e}\n`);
+        onLog(`Error: problem during processing: ${e}\n`);
       } else {
-        this.onLog(result);
+        onLog(result);
       }
     });
-  }
+  };
 
 
-  componentDidUpdate(prevProps: Readonly<IEventVerificationsWidgetProps>, prevState: Readonly<{}>): void {
-    if (prevState !== this.state) {
-      this.scrollToBottom();
-    }
-  }
+  // componentDidUpdate(prevProps: Readonly<IEventVerificationsWidgetProps>, prevState: Readonly<{}>): void {
+  //   if (prevState !== this.state) {
+  //     this.scrollToBottom();
+  //   }
+  // }
 
-  render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { student, opportunity, log } = this.state;
-    return (
-      <Segment>
-        <Header as="h4" dividing content="EVENT VERIFICATION" />
-        <Form onSubmit={this.onSubmit}>
-          <Form.Group inline>
-            <Form.Dropdown
-              options={this.props.eventOpportunities.map(
-                (ele, i) => ({
-                  key: i,
-                  text: `${ele.name} (${moment(ele.eventDate).format('MM/DD/YY')})`,
-                  value: ele._id,
-                }),
-              )}
-              label="Select recent event: "
-              placeholder="Select One..."
-              name="opportunity"
-              onChange={this.onChange}
-              value={opportunity}
-            />
-            <Form.Input placeholder="Student Username" name="student" onChange={this.onChange} value={student} />
-            <Form.Button basic color="green" content="Verify Attendance" />
-          </Form.Group>
-          <Form.TextArea id="logTextArea" label="Log" rows="10" value={log} readOnly />
-        </Form>
-      </Segment>
-    );
-  }
-}
+  return (
+    <Segment>
+      <Header as="h4" dividing content="EVENT VERIFICATION" />
+      <Form onSubmit={onSubmit}>
+        <Form.Group inline>
+          <Form.Dropdown
+            options={props.eventOpportunities.map(
+              (ele, i) => ({
+                key: i,
+                text: `${ele.name} (${moment(ele.eventDate).format('MM/DD/YY')})`,
+                value: ele._id,
+              }),
+            )}
+            label="Select recent event: "
+            placeholder="Select One..."
+            name="opportunity"
+            onChange={onChange}
+            value={opportunityState}
+          />
+          <Form.Input placeholder="Student Username" name="student" onChange={onChange} value={studentState} />
+          <Form.Button basic color="green" content="Verify Attendance" />
+        </Form.Group>
+        <Form.TextArea id="logTextArea" label="Log" rows="10" value={logState} readOnly />
+      </Form>
+    </Segment>
+  );
+};
 
 export default EventVerificationsWidget;

@@ -3,6 +3,7 @@ import { Header, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
+import { complexChoiceToArray } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { getDroppableListStyle } from './StyleFunctions';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
 import * as PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
@@ -13,7 +14,6 @@ interface IAcademicPlanTermViewProps {
   title: string;
   id: string;
   choices: string[];
-  groups: any;
   studentID: string;
   takenSlugs: string[];
   match: {
@@ -27,6 +27,7 @@ interface IAcademicPlanTermViewProps {
 }
 
 const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
+  // console.log('AcademicPlanTermView', props);
   const noPaddingStyle = {
     padding: 2,
     margin: 2,
@@ -42,16 +43,15 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
             style={getDroppableListStyle(snapshot.isDraggingOver)}
           >
             {_.map(props.choices, (choice, index) => {
-              const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs, props.groups);
+              const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
               const stripped = PlanChoiceUtils.stripCounter(choice);
-              const courseSlugs = props.groups[stripped].courseSlugs;
+              const courseSlugs = complexChoiceToArray(stripped);
               if (courseSlugs.length === 1 && !PlanChoiceUtils.isXXChoice(choice)) {
                 return (
                   <DraggablePlanChoicePill
                     key={index}
                     choice={choice}
                     name={PlanChoiceUtils.buildSimpleName(choice)}
-                    groups={props.groups}
                     index={index}
                     studentID={props.studentID}
                     satisfied={satisfied}
@@ -61,11 +61,10 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
               if (courseSlugs.length === 2) {
                 return (
                   <div key={index}>
-                    <DraggablePlanChoicePill choice={courseSlugs[0]} groups={props.groups} index={10 * index} studentID={props.studentID} satisfied={satisfied} name={PlanChoiceUtils.buildSimpleName(courseSlugs[0])} />
+                    <DraggablePlanChoicePill choice={courseSlugs[0]} index={10 * index} studentID={props.studentID} satisfied={satisfied} name={PlanChoiceUtils.buildSimpleName(courseSlugs[0])} />
                     Or
                     <DraggablePlanChoicePill
                       choice={courseSlugs[1]}
-                      groups={props.groups}
                       index={10 * index}
                       studentID={props.studentID}
                       satisfied={satisfied}
@@ -75,7 +74,7 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
                 );
               }
               return (
-                <SatisfiedPlanChoicePill key={index} choice={choice} groups={props.groups} satisfied={satisfied} />
+                <SatisfiedPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
               );
             })}
             {provided.placeholder}

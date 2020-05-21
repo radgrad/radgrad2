@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { getSatisfiedStyle } from '../shared/StyleFunctions';
 import NamePill from '../shared/NamePill';
-import { PlanChoiceCollection } from '../../../api/degree-plan/PlanChoiceCollection';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 
 interface ILandingPlanChoicePillProps {
   choice: string;
@@ -10,7 +10,7 @@ interface ILandingPlanChoicePillProps {
 
 const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (
   <Grid.Row style={getSatisfiedStyle()}>
-    <NamePill name={PlanChoiceCollection.toStringFromSlug(props.choice)} />
+    <NamePill name={PlanChoices.toString(props.choice)} />
   </Grid.Row>
 );
 

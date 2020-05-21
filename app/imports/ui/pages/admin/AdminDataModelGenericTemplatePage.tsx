@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -6,7 +6,7 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
-import { IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -18,8 +18,8 @@ const collection = null; // the collection to use.
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => [
-    { label: 'Retired', value: item.retired ? 'True' : 'False' },
-  ];
+  { label: 'Retired', value: item.retired ? 'True' : 'False' },
+];
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
@@ -37,18 +37,15 @@ const itemTitle = (item: any): React.ReactNode => (
     <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
-  );
+);
 
-class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelGenericTemplatePage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
-
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     // console.log('GenericTemplate.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc; // create the definitionData may need to modify doc's values
@@ -66,26 +63,29 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
-  }
+  };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
-  }
+    setShowUpdateForm(false);
+    setId('');
+    setConfirmOpen(false);
+  };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+  const handleConfirmDelete = () => {
     const collectionName = collection.getCollectionName();
-    const instance = this.state.id;
+    const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -102,17 +102,20 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
           timer: 1500,
         });
       }
-      this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+      setShowUpdateForm(false);
+      setId('');
+      setConfirmOpen(false);
     });
-  }
+  };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
+    setShowUpdateForm(true);
+    setId(inst.id);
+  };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     // console.log('GenericTemplate.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
@@ -132,58 +135,62 @@ class AdminDataModelGenericTemplatePage extends React.Component<{}, IAdminDataMo
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ showUpdateForm: false, id: '' });
+        setShowUpdateForm(false);
+        setId('');
       }
     });
-  }
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const findOptions = {
-      sort: { name: 1 }, // determine how you want to sort the items in the list
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const findOptions = {
+    sort: { name: 1 }, // determine how you want to sort the items in the list
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm
-                collection={collection}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AdminDataModelAddForm collection={collection} formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <AdminDataModelUpdateForm
               collection={collection}
-              findOptions={findOptions}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Generic?" />
+          ) : (
+            <AdminDataModelAddForm collection={collection} formRef={formRef} handleAdd={handleAdd} />
+          )}
+          <ListCollectionWidget
+            collection={collection}
+            findOptions={findOptions}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Generic?"
+      />
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelGenericTemplatePage;

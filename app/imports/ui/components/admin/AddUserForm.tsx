@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
@@ -38,28 +38,23 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      role: '',
-      pictureURL: '',
-    };
-  }
+const AddUserForm = (props: IAddUserProps) => {
+// class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
+  const [role, setRole] = useState('');
+  const [pictureURL, setPictureURL] = useState('');
 
-  private handleModelChange = (model) => {
-    const role = model.role;
-    this.setState({ role });
-  }
+  const handleModelChange = (model) => {
+    setRole(model.role);
+  };
 
-  private handleUpload = async (e): Promise<void> => {
+  const handleUpload = async (e): Promise<void> => {
     e.preventDefault();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        this.props.setAdminDataModelUsersIsCloudinaryUsed(true);
-        this.props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-        this.setState({ pictureURL: cloudinaryResult.info.url });
+        props.setAdminDataModelUsersIsCloudinaryUsed(true);
+        props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        setPictureURL(cloudinaryResult.info.url);
       }
     } catch (error) {
       Swal.fire({
@@ -71,163 +66,160 @@ class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
         allowEnterKey: false,
       });
     }
-  }
+  };
 
-  private handlePictureUrlChange = (value) => {
-    this.setState({ pictureURL: value });
-  }
+  const handlePictureUrlChange = (value) => {
+    setPictureURL(value);
+  };
 
   // Hacky way of resetting pictureURL to be empty
-  private handleAddUser = (doc) => {
-    this.props.handleAdd(doc);
-    this.setState({ pictureURL: '' });
-  }
+  const handleAddUser = (doc) => {
+    props.handleAdd(doc);
+    setPictureURL('');
+  };
 
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const interestNames = _.map(this.props.interests, docToName);
-    const careerGoalNames = _.map(this.props.careerGoals, docToName);
-    const academicTermNames = _.map(this.props.academicTerms, academicTermToName);
-    const academicPlanNames = _.map(this.props.academicPlans, docToName);
-    const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
-    const { role, pictureURL } = this.state;
-    const schema = new SimpleSchema({
-      username: String,
-      firstName: String,
-      lastName: String,
-      role: {
-        type: String,
-        allowedValues: roles,
-        defaultValue: roles[3],
-      },
-      picture: {
-        type: String,
-        label:
+  const interestNames = _.map(props.interests, docToName);
+  const careerGoalNames = _.map(props.careerGoals, docToName);
+  const academicTermNames = _.map(props.academicTerms, academicTermToName);
+  const academicPlanNames = _.map(props.academicPlans, docToName);
+  const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
+  const schema = new SimpleSchema({
+    username: String,
+    firstName: String,
+    lastName: String,
+    role: {
+      type: String,
+      allowedValues: roles,
+      defaultValue: roles[3],
+    },
+    picture: {
+      type: String,
+      label:
   <React.Fragment>
     Picture (
-    <button type="button" onClick={this.handleUpload}>Upload</button>
+    <button type="button" onClick={handleUpload}>Upload</button>
     )
   </React.Fragment>,
-        optional: true,
-      },
-      website: { type: String, optional: true },
-      interests: { type: Array, optional: true },
-      'interests.$': {
-        type: String,
-        allowedValues: interestNames,
-      },
-      careerGoals: { type: Array, optional: true },
-      'careerGoals.$': {
-        type: String,
-        allowedValues: careerGoalNames,
-      },
-      retired: { type: Boolean, optional: true },
-    });
-    const mentorSchema = new SimpleSchema({
-      company: { type: String, optional: true },
-      career: { type: String, optional: true },
-      location: { type: String, optional: true },
-      linkedin: { type: String, optional: true },
-      motivation: { type: String, optional: true },
-    });
-    const studentSchema = new SimpleSchema({
-      level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
-      declaredAcademicTerm: {
-        type: String,
-        optional: true,
-        allowedValues: academicTermNames,
-      },
-      academicPlan: {
-        type: String,
-        optional: true,
-        allowedValues: academicPlanNames,
-      },
-      shareUsername: { type: Boolean, optional: true },
-      sharePicture: { type: Boolean, optional: true },
-      shareWebsite: { type: Boolean, optional: true },
-      shareInterests: { type: Boolean, optional: true },
-      shareCareerGoals: { type: Boolean, optional: true },
-      shareAcademicPlan: { type: Boolean, optional: true },
-      shareOpportunities: { type: Boolean, optional: true },
-      shareCourses: { type: Boolean, optional: true },
-      shareLevel: { type: Boolean, optional: true },
-      isAlumni: { type: Boolean, optional: true },
-    });
-    if (role === ROLE.MENTOR) {
-      schema.extend(mentorSchema);
-    }
-    if (role === ROLE.STUDENT) {
-      schema.extend(studentSchema);
-    }
-    return (
-      <Segment padded>
-        <Header dividing>Add User</Header>
-        <AutoForm
-          schema={schema}
-          onSubmit={(doc) => this.handleAddUser(doc)}
-          ref={this.props.formRef}
-          showInlineError
-          onChangeModel={this.handleModelChange}
-        >
-          <Form.Group widths="equal">
-            <TextField name="username" placeholder="johndoe@foo.edu" />
-            <SelectField name="role" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <TextField name="firstName" placeholder="John" />
-            <TextField name="lastName" placeholder="Doe" />
-          </Form.Group>
-          <Header dividing as="h4">Optional fields (all users)</Header>
-          <Form.Group widths="equal">
-            <TextField name="picture" value={pictureURL} onChange={this.handlePictureUrlChange} />
-            <TextField name="website" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <MultiSelectField name="interests" />
-            <MultiSelectField name="careerGoals" />
-          </Form.Group>
-          <BoolField name="retired" />
-          {this.state.role === ROLE.MENTOR ? (
-            <div>
-              <Header dividing as="h4">Mentor fields</Header>
-              <Form.Group widths="equal">
-                <TextField name="company" />
-                <TextField name="career" label="Title" />
-              </Form.Group>
-              <Form.Group widths="equal">
-                <TextField name="location" />
-                <TextField name="linkedin" label="LinkedIn" />
-              </Form.Group>
-              <LongTextField name="motivation" />
-            </div>
-          ) : ''}
-          {this.state.role === ROLE.STUDENT ? (
-            <div>
-              <Header dividing as="h4">Student fields</Header>
-              <Form.Group widths="equal">
-                <NumField name="level" />
-                <SelectField name="declaredAcademicTerm" />
-                <SelectField name="academicPlan" />
-              </Form.Group>
-              <Form.Group widths="equal">
-                <BoolField name="shareUsername" />
-                <BoolField name="sharePicture" />
-                <BoolField name="shareWebsite" />
-                <BoolField name="shareInterests" />
-                <BoolField name="shareCareerGoals" />
-                <BoolField name="shareAcademicPlan" />
-                <BoolField name="shareOpportunities" />
-                <BoolField name="shareCourses" />
-                <BoolField name="shareLevel" />
-                <BoolField name="isAlumni" />
-              </Form.Group>
-            </div>
-          ) : ''}
-          <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
-        </AutoForm>
-      </Segment>
-    );
+      optional: true,
+    },
+    website: { type: String, optional: true },
+    interests: { type: Array, optional: true },
+    'interests.$': {
+      type: String,
+      allowedValues: interestNames,
+    },
+    careerGoals: { type: Array, optional: true },
+    'careerGoals.$': {
+      type: String,
+      allowedValues: careerGoalNames,
+    },
+    retired: { type: Boolean, optional: true },
+  });
+  const mentorSchema = new SimpleSchema({
+    company: { type: String, optional: true },
+    career: { type: String, optional: true },
+    location: { type: String, optional: true },
+    linkedin: { type: String, optional: true },
+    motivation: { type: String, optional: true },
+  });
+  const studentSchema = new SimpleSchema({
+    level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
+    declaredAcademicTerm: {
+      type: String,
+      optional: true,
+      allowedValues: academicTermNames,
+    },
+    academicPlan: {
+      type: String,
+      optional: true,
+      allowedValues: academicPlanNames,
+    },
+    shareUsername: { type: Boolean, optional: true },
+    sharePicture: { type: Boolean, optional: true },
+    shareWebsite: { type: Boolean, optional: true },
+    shareInterests: { type: Boolean, optional: true },
+    shareCareerGoals: { type: Boolean, optional: true },
+    shareAcademicPlan: { type: Boolean, optional: true },
+    shareOpportunities: { type: Boolean, optional: true },
+    shareCourses: { type: Boolean, optional: true },
+    shareLevel: { type: Boolean, optional: true },
+    isAlumni: { type: Boolean, optional: true },
+  });
+  if (role === ROLE.MENTOR) {
+    schema.extend(mentorSchema);
   }
-}
+  if (role === ROLE.STUDENT) {
+    schema.extend(studentSchema);
+  }
+  return (
+    <Segment padded>
+      <Header dividing>Add User</Header>
+      <AutoForm
+        schema={schema}
+        onSubmit={(doc) => handleAddUser(doc)}
+        ref={props.formRef}
+        showInlineError
+        onChangeModel={handleModelChange}
+      >
+        <Form.Group widths="equal">
+          <TextField name="username" placeholder="johndoe@foo.edu" />
+          <SelectField name="role" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <TextField name="firstName" placeholder="John" />
+          <TextField name="lastName" placeholder="Doe" />
+        </Form.Group>
+        <Header dividing as="h4">Optional fields (all users)</Header>
+        <Form.Group widths="equal">
+          <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+          <TextField name="website" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests" />
+          <MultiSelectField name="careerGoals" />
+        </Form.Group>
+        <BoolField name="retired" />
+        {role === ROLE.MENTOR ? (
+          <div>
+            <Header dividing as="h4">Mentor fields</Header>
+            <Form.Group widths="equal">
+              <TextField name="company" />
+              <TextField name="career" label="Title" />
+            </Form.Group>
+            <Form.Group widths="equal">
+              <TextField name="location" />
+              <TextField name="linkedin" label="LinkedIn" />
+            </Form.Group>
+            <LongTextField name="motivation" />
+          </div>
+        ) : ''}
+        {role === ROLE.STUDENT ? (
+          <div>
+            <Header dividing as="h4">Student fields</Header>
+            <Form.Group widths="equal">
+              <NumField name="level" />
+              <SelectField name="declaredAcademicTerm" />
+              <SelectField name="academicPlan" />
+            </Form.Group>
+            <Form.Group widths="equal">
+              <BoolField name="shareUsername" />
+              <BoolField name="sharePicture" />
+              <BoolField name="shareWebsite" />
+              <BoolField name="shareInterests" />
+              <BoolField name="shareCareerGoals" />
+              <BoolField name="shareAcademicPlan" />
+              <BoolField name="shareOpportunities" />
+              <BoolField name="shareCourses" />
+              <BoolField name="shareLevel" />
+              <BoolField name="isAlumni" />
+            </Form.Group>
+          </div>
+        ) : ''}
+        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+      </AutoForm>
+    </Segment>
+  );
+};
 
 const AddUserFormContainter = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();

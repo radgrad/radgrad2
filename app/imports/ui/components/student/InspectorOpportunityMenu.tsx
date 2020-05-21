@@ -11,13 +11,9 @@ interface IInpectorOpportunityMenuProps {
   selectOpportunity: (courseID: string) => any;
 }
 
-interface IInspectorOpportunityMenuState {
-  courseID?: string;
-}
-
 const mapDispatchToProps = (dispatch) => ({
-    selectOpportunity: (courseID) => dispatch(degreePlannerActions.selectOpportunity(courseID)),
-  });
+  selectOpportunity: (courseID) => dispatch(degreePlannerActions.selectOpportunity(courseID)),
+});
 
 function opportunityStructureForMenu() {
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
@@ -47,45 +43,39 @@ function opportunitiesLabel(opportunities) {
   return `${shortenName(opportunities[0].name)} - ${shortenName(opportunities[opportunities.length - 1].name)}`;
 }
 
-class InspectorOpportunityMenu extends React.Component<IInpectorOpportunityMenuProps, IInspectorOpportunityMenuState> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const InspectorOpportunityMenu = (props: IInpectorOpportunityMenuProps) => {
+  // console.log('InspectorOpportunityMenu', props);
 
-  private handleClick = (event, { value }) => {
+  const handleClick = (event, { value }) => {
     event.preventDefault();
-    this.props.selectOpportunity(value);
-  }
+    props.selectOpportunity(value);
+  };
 
-  public render() {
-    // console.log(this.props);
-    const opportunityMenuStructure = opportunityStructureForMenu();
-    return (
-      <Dropdown text="Opportunities">
-        <Dropdown.Menu>
-          {_.map(opportunityMenuStructure, (opportunities, index) => (
-            <Dropdown.Item key={index}>
-              <Dropdown text={opportunitiesLabel(opportunities)}>
-                <Dropdown.Menu direction="left">
-                  {_.map(opportunities, (o) => (
-                    <Dropdown.Item key={o._id} value={o._id} onClick={this.handleClick}>
-                      {o.name}
-                      {' '}
-                      <IceHeader
-                        ice={o.ice}
-                      />
-                    </Dropdown.Item>
-))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
-  }
-}
+  const opportunityMenuStructure = opportunityStructureForMenu();
+  return (
+    <Dropdown text="Opportunities">
+      <Dropdown.Menu>
+        {_.map(opportunityMenuStructure, (opportunities, index) => (
+          <Dropdown.Item key={index}>
+            <Dropdown text={opportunitiesLabel(opportunities)}>
+              <Dropdown.Menu direction="left">
+                {_.map(opportunities, (o) => (
+                  <Dropdown.Item key={o._id} value={o._id} onClick={handleClick}>
+                    {o.name}
+                    {' '}
+                    <IceHeader
+                      ice={o.ice}
+                    />
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 const InspectorOpportunityMenuContainer = connect(null, mapDispatchToProps)(InspectorOpportunityMenu);
 export default InspectorOpportunityMenuContainer;

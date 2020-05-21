@@ -45,11 +45,7 @@ const renderPage = (props: IInterestsCardExplorerProps) => {
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>INTERESTS</span>
-                {' '}
-                (
-                {props.count}
-                )
+                <span>INTERESTS</span> ({props.count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
                 {props.interests.map((interest) => (

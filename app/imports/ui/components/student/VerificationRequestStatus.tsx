@@ -17,14 +17,10 @@ const VerificationRequestStatus = (props: IVerificationRequestStatusProps) => {
       <Divider />
       <Header>REQUEST STATUS</Header>
       <span>
-        <strong>Date Submitted:</strong>
-        {' '}
-        {whenSubmitted}
+        <strong>Date Submitted:</strong> {whenSubmitted}
       </span>
       <span>
-        <strong>Status:</strong>
-        {' '}
-        {props.request.status}
+        <strong>Status:</strong> {props.request.status}
       </span>
       <strong>Documentation:</strong>
       {' '}

@@ -85,9 +85,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                     const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
                     return (
                       <Label key={careerGoal._id} as={Link} to={route} size="tiny">
-                        <Icon name="suitcase" fitted />
-                        {' '}
-                        {careerGoal.name}
+                        <Icon name="suitcase" fitted /> {careerGoal.name}
                       </Label>
                     );
                   })
@@ -106,9 +104,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
                   return (
                     <Label key={interest._id} as={Link} to={route} size="tiny">
-                      <Icon name="star" fitted />
-                      {' '}
-                      {interest.name}
+                      <Icon name="star" fitted /> {interest.name}
                     </Label>
                   );
                 })
@@ -129,9 +125,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                     const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
                     return (
                       <Label key={plan._id} as={Link} to={route} size="tiny">
-                        <Icon name="map outline" fitted />
-                        {' '}
-                        {plan.name}
+                        <Icon name="map outline" fitted /> {plan.name}
                       </Label>
                     );
                   })

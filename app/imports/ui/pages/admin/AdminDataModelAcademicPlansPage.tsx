@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan, IAdminDataModelPageState, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicPlan, IDescriptionPair } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { removeItMethod } from '../../../api/base/BaseCollection.methods';
+
+const collection = AcademicPlans;
 
 const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
   { label: 'Name', value: plan.name },
   { label: 'Year', value: `${plan.year}` },
-  { label: 'Course Choices', value: `${plan.courseList}` },
+  { label: 'Course Choices', value: `${plan.choiceList}` },
   { label: 'Retired', value: plan.retired ? 'True' : 'False' },
 ];
 
@@ -34,96 +38,122 @@ const itemTitle = (plan: IAcademicPlan): React.ReactNode => (
 /**
  * The AcademicPlan data model page.
  */
-class AdminDataModelAcademicPlansPage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelAcademicPlansPage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
 
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     console.log('AcademicPlans.handleAdd(%o)', doc);
     // const collectionName;
     // const definitionData;
   };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
+    setConfirmOpen(false);
+    setId('');
+    setShowUpdateForm(false);
   };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
-    // console.log('handleDelete inst=%o state=%o', inst, this.state);
-    this.setState({ confirmOpen: true, id: inst.id });
+    // console.log('AcademicPlans.handleDelete inst=%o', inst);
+    setConfirmOpen(true);
+    setId(inst.id);
   };
 
-  private handleConfirmDelete = (event) => {
-    event.preventDefault();
-    // console.log('handle confirm delete state=%o', this.state);
-    this.setState({ confirmOpen: false });
+  const handleConfirmDelete = () => {
+    // console.log('AcademicPlans.handleConfirmDelete');
+    const collectionName = collection.getCollectionName();
+    const instance = idState;
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error deleting AcademicPlan. %o', error);
+      } else {
+        Swal.fire({
+          title: 'Delete succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      setId('');
+      setConfirmOpen(false);
+    });
   };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
+    setShowUpdateForm(true);
+    setId(inst.id);
   };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     console.log(doc);
   };
 
-  public render() {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const findOptions = {
-      sort: { year: 1, name: 1 },
-    };
-    return (
-      <div className="layout-page">
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const findOptions = {
+    sort: { year: 1, name: 1 },
+  };
+  const planName = idState ? AcademicPlans.findDoc(idState).name : '';
+  return (
+    <div className="layout-page">
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm
-                collection={AcademicPlans}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AdminDataModelAddForm collection={AcademicPlans} formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <AdminDataModelUpdateForm
               collection={AcademicPlans}
-              findOptions={findOptions}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Plan?" />
+          ) : (
+            <AdminDataModelAddForm collection={AcademicPlans} formRef={formRef} handleAdd={handleAdd} />
+          )}
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+          <ListCollectionWidget
+            collection={AcademicPlans}
+            findOptions={findOptions}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Academic Plan?"
+        content={`Delete ${planName}. Are you sure?`}
+      />
+
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelAcademicPlansPage;

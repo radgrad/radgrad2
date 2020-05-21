@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -6,7 +6,6 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState,
   IAdvisorLog, IAdvisorLogUpdate,
   IDescriptionPair,
 } from '../../../typings/radgrad';
@@ -18,10 +17,10 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
-    { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
-    { label: 'Student', value: `${Users.getFullName(advisorLog.studentID)}` },
-    { label: 'Text', value: advisorLog.text },
-  ];
+  { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
+  { label: 'Student', value: `${Users.getFullName(advisorLog.studentID)}` },
+  { label: 'Text', value: advisorLog.text },
+];
 
 const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
   // console.log(advisorLog);
@@ -37,16 +36,13 @@ const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
 
 const itemTitleString = (advisorLog: IAdvisorLog): string => `${Users.getFullName(advisorLog.studentID)} ${advisorLog.createdOn}`;
 
-class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelAdvisorLogsPage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
-
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = AdvisorLogs.getCollectionName();
     const definitionData = doc;
@@ -64,28 +60,32 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
-  }
+  };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
     // console.log('formRef = %o', this.formRef);
-    this.formRef.current.reset();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
-  }
+    // @ts-ignore
+    formRef.current.reset();
+    setShowUpdateForm(false);
+    setId('');
+    setConfirmOpen(false);
+  };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+  const handleConfirmDelete = () => {
     const collectionName = AdvisorLogs.getCollectionName();
-    const instance = this.state.id;
+    const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -101,18 +101,20 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
           timer: 1500,
         });
         // this.formRef.current.reset();
-        this.setState({ id: '', confirmOpen: false });
+        setId('');
+        setConfirmOpen(false);
       }
     });
-  }
+  };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o ref=%o', inst, this.formRef);
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
+    setShowUpdateForm(true);
+    setId(inst.id);
+  };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
     const collectionName = AdvisorLogs.getCollectionName();
     const updateData: IAdvisorLogUpdate = {};
@@ -134,60 +136,64 @@ class AdminDataModelAdvisorLogsPage extends React.Component<{}, IAdminDataModelP
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
-        this.setState({ showUpdateForm: false, id: '' });
+        // @ts-ignore
+        formRef.current.reset();
+        setShowUpdateForm(false);
+        setId('');
       }
     });
-  }
+  };
 
-  public render(): React.ReactNode {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const findOptions = {
-      sort: { createdOn: 1 },
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const findOptions = {
+    sort: { createdOn: 1 },
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm
-                collection={AdvisorLogs}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AddAdvisorLogFormContainer formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <AdminDataModelUpdateForm
               collection={AdvisorLogs}
-              findOptions={findOptions}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Advisor Log?" />
+          ) : (
+            <AddAdvisorLogFormContainer formRef={formRef} handleAdd={handleAdd} />
+          )}
+          <ListCollectionWidget
+            collection={AdvisorLogs}
+            findOptions={findOptions}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Advisor Log?"
+      />
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelAdvisorLogsPage;

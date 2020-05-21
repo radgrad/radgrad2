@@ -15,13 +15,9 @@ interface IInpectorCourseMenuProps {
   selectCourse: (courseID: string) => any;
 }
 
-interface IInspectorCourseMenuState {
-  courseID?: string;
-}
-
 const mapDispatchToProps = (dispatch) => ({
-    selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
-  });
+  selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
+});
 
 function courseStructureForMenu(userID) {
   let courses = Courses.findNonRetired({}, { sort: { num: 1 } });
@@ -63,43 +59,35 @@ function coursesLabel(courses) {
   return `${courses[0].num} - ${courses[courses.length - 1].num}`;
 }
 
-class InspectorCourseMenu extends React.Component<IInpectorCourseMenuProps, IInspectorCourseMenuState> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const InspectorCourseMenu = (props: IInpectorCourseMenuProps) => {
+  // console.log('InspectorCourseMenu', props);
 
-  private handleClick = (event, { value }) => {
+  const handleClick = (event, { value }) => {
     event.preventDefault();
-    this.props.selectCourse(value);
-  }
+    props.selectCourse(value);
+  };
 
-  public render() {
-    // console.log(this.props);
-    const courseMenuStructure = courseStructureForMenu(this.props.studentID);
-    return (
-      <Dropdown text="Courses">
-        <Dropdown.Menu>
-          {_.map(courseMenuStructure, (courses, index) => (
-            <Dropdown.Item key={index}>
-              <Dropdown text={coursesLabel(courses)}>
-                <Dropdown.Menu>
-                  {_.map(courses, (c) => (
-                    <Dropdown.Item key={c._id} value={c._id} onClick={this.handleClick}>
-                      {c.num}
-                      {' '}
-                      {c.shortName}
-                    </Dropdown.Item>
-))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
-  }
-}
+  const courseMenuStructure = courseStructureForMenu(props.studentID);
+  return (
+    <Dropdown text="Courses">
+      <Dropdown.Menu>
+        {_.map(courseMenuStructure, (courses, index) => (
+          <Dropdown.Item key={index}>
+            <Dropdown text={coursesLabel(courses)}>
+              <Dropdown.Menu>
+                {_.map(courses, (c) => (
+                  <Dropdown.Item key={c._id} value={c._id} onClick={handleClick}>
+                    {c.num} {c.shortName}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 const InspectorCourseMenuContainer = connect(null, mapDispatchToProps)(InspectorCourseMenu);
 export default InspectorCourseMenuContainer;

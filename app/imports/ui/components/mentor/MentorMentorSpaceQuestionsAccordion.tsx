@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion, Icon, Grid, Divider, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -9,10 +9,6 @@ import MentorMentorSpaceAnswerForm from './MentorMentorSpaceAnswerForm';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 
-interface IMentorMentorSpaceQuestionsAccordionState {
-  activeIndex: number;
-}
-
 interface IMentorMentorSpaceQuestionsAccordionProps {
   answers: IMentorAnswer[];
   questions: IMentorQuestion[];
@@ -20,73 +16,61 @@ interface IMentorMentorSpaceQuestionsAccordionProps {
   answerCount: number;
 }
 
-class MentorMentorSpaceQuestionsAccordion extends React.Component<IMentorMentorSpaceQuestionsAccordionProps, IMentorMentorSpaceQuestionsAccordionState> {
-  constructor(props) {
-    super(props);
-    this.state = { activeIndex: -1 };
-  }
+const MentorMentorSpaceQuestionsAccordion = (props: IMentorMentorSpaceQuestionsAccordionProps) => {
+  const [activeIndexState, setActiveIndex] = useState(-1);
 
-  public handleClick = (e, titleProps) => {
+  const handleClick = (e, titleProps) => {
     e.preventDefault();
     const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex });
-  }
+    const newIndex = activeIndexState === index ? -1 : index;
+    setActiveIndex(newIndex);
+  };
 
-  public clickAnswer(event, instance) {
-    const questionID = event.target.id;
-    instance.answering.set(questionID);
-  }
-
-  public render() {
-    const { activeIndex } = this.state;
-    const { questions, answers, answerCount } = this.props;
-    const accordionStyle = { overflow: 'hidden' };
-    return (
-      <div>
-        {_.map(questions, (q, ind) => {
-          const mentorAnswers = _.filter(answers, (ans) => ans.questionID === q._id);
-          return (
-            <Segment key={ind}>
-              <Accordion fluid styled key={ind} style={accordionStyle}>
-                <Accordion.Title active={activeIndex === ind} index={ind} onClick={this.handleClick}>
-                  <Grid columns="equal">
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Icon name="dropdown" />
-                        {q.question}
-                      </Grid.Column>
-                      <Grid.Column width={2} textAlign="right">
-                        {answerCount[ind]}
-                        {' '}
-                        {answerCount[ind] > 1 ? ' answers' : ' answer'}
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === ind}>
-                  <React.Fragment>
-                    {_.map(mentorAnswers, (answer, index) => {
-                      const mentor = MentorProfiles.findDoc({ userID: answer.mentorID });
-                      return (
-                        <React.Fragment key={index}>
-                          <MentorQuestionAnswerWidget answer={answer} mentor={mentor} />
-                        </React.Fragment>
-                      );
-                    })}
-                  </React.Fragment>
-                </Accordion.Content>
-              </Accordion>
-              <Divider />
-              <MentorMentorSpaceAnswerForm question={q} />
-            </Segment>
-          );
-        })}
-      </div>
-    );
-  }
-}
+  const { questions, answers, answerCount } = props;
+  const accordionStyle = { overflow: 'hidden' };
+  return (
+    <div>
+      {_.map(questions, (q, ind) => {
+        const mentorAnswers = _.filter(answers, (ans) => ans.questionID === q._id);
+        return (
+          <Segment key={ind}>
+            <Accordion fluid styled key={ind} style={accordionStyle}>
+              <Accordion.Title active={activeIndexState === ind} index={ind} onClick={handleClick}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Icon name="dropdown" />
+                      {q.question}
+                    </Grid.Column>
+                    <Grid.Column width={2} textAlign="right">
+                      {answerCount[ind]}
+                      {' '}
+                      {answerCount[ind] > 1 ? ' answers' : ' answer'}
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Accordion.Title>
+              <Accordion.Content active={activeIndexState === ind}>
+                <React.Fragment>
+                  {_.map(mentorAnswers, (answer, index) => {
+                    const mentor = MentorProfiles.findDoc({ userID: answer.mentorID });
+                    return (
+                      <React.Fragment key={index}>
+                        <MentorQuestionAnswerWidget answer={answer} mentor={mentor} />
+                      </React.Fragment>
+                    );
+                  })}
+                </React.Fragment>
+              </Accordion.Content>
+            </Accordion>
+            <Divider />
+            <MentorMentorSpaceAnswerForm question={q} />
+          </Segment>
+        );
+      })}
+    </div>
+  );
+};
 
 const MentorMentorSpaceQuestionsAccordionContainer = withTracker(() => {
   const questions = MentorQuestions.find().fetch();

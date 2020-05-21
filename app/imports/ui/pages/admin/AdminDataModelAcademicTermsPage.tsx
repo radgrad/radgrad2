@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
@@ -12,7 +12,6 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
   IAcademicTerm,
   IAcademicTermDefine,
-  IAdminDataModelPageState,
   IDescriptionPair,
 } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
@@ -53,20 +52,17 @@ const itemTitle = (term: IAcademicTerm): React.ReactNode => (
     <Icon name="dropdown" />
     {AcademicTerms.toString(term._id, false)}
   </React.Fragment>
-  );
+);
 
 const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
 
-class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelAcademicTermsPage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
-
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = AcademicTerms.getCollectionName();
     const definitionData: IAcademicTermDefine = doc;
@@ -84,26 +80,29 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
-  }
+  };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
-  }
+    setConfirmOpen(false);
+    setId('');
+    setShowUpdateForm(false);
+  };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+  const handleConfirmDelete = () => {
     const collectionName = AcademicTerms.getCollectionName();
-    const instance = this.state.id;
+    const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -120,17 +119,19 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
           timer: 1500,
         });
       }
-      this.setState({ confirmOpen: false, id: '' });
+      setId('');
+      setConfirmOpen(false);
     });
-  }
+  };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
     // console.log('handleOpenUpdate inst=%o', evt, inst);
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
+    setShowUpdateForm(true);
+    setId(inst.id);
+  };
 
-  private handleUpdate = (doc) => {
+  const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = AcademicTerms.getCollectionName();
     const updateData: { id?: string, retired?: boolean } = {};
@@ -152,58 +153,61 @@ class AdminDataModelAcademicTermsPage extends React.Component<{}, IAdminDataMode
           showConfirmButton: false,
           timer: 1500,
         });
-        this.setState({ showUpdateForm: false, id: '' });
+        setShowUpdateForm(false);
+        setId('');
       }
     });
-  }
+  };
 
-  public render() {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    const findOptions = {
-      sort: { termNumber: 1 },
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  const findOptions = {
+    sort: { termNumber: 1 },
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm
-                collection={AcademicTerms}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AdminDataModelAddForm collection={AcademicTerms} formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <AdminDataModelUpdateForm
               collection={AcademicTerms}
-              findOptions={findOptions}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Academic Term?" />
-
-        <BackToTopButton />
-      </div>
-    );
-  }
-}
+          ) : (
+            <AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd} />
+          )}
+          <ListCollectionWidget
+            collection={AcademicTerms}
+            findOptions={findOptions}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Academic Term?"
+      />
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelAcademicTermsPage;

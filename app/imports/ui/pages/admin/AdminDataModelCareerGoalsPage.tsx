@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
@@ -7,7 +7,6 @@ import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdminDataModelPageState,
   ICareerGoal, ICareerGoalUpdate,
   IDescriptionPair,
 } from '../../../typings/radgrad';
@@ -32,10 +31,10 @@ function numReferences(careerGoal) {
 }
 
 const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => [
-    { label: 'Description', value: careerGoal.description },
-    { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
-    { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
-  ];
+  { label: 'Description', value: careerGoal.description },
+  { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
+  { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
+];
 
 const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name} (${itemToSlugName(careerGoal)})`;
 
@@ -45,18 +44,15 @@ const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
     <Icon name="dropdown" />
     {itemTitleString(careerGoal)}
   </React.Fragment>
-  );
+);
 
-class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelPageState> {
-  private readonly formRef;
+const AdminDataModelCareerGoalsPage = () => {
+  const formRef = React.createRef();
+  const [confirmOpenState, setConfirmOpen] = useState(false);
+  const [idState, setId] = useState('');
+  const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = { showUpdateForm: false, id: '', confirmOpen: false };
-    this.formRef = React.createRef();
-  }
-
-  private handleAdd = (doc) => {
+  const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = CareerGoals.getCollectionName();
     const interests = doc.interests;
@@ -77,28 +73,32 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
+        // @ts-ignore
+        formRef.current.reset();
       }
     });
-  }
+  };
 
-  private handleCancel = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    // console.log('formRef = %o', this.formRef);
-    this.formRef.current.reset();
-    this.setState({ showUpdateForm: false, id: '', confirmOpen: false });
-  }
+    // console.log('formRef = %o', formRef);
+    // @ts-ignore
+    formRef.current.reset();
+    setShowUpdateForm(false);
+    setId('');
+    setConfirmOpen(false);
+  };
 
-  private handleDelete = (event, inst) => {
+  const handleDelete = (event, inst) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    this.setState({ confirmOpen: true, id: inst.id });
-  }
+    setConfirmOpen(true);
+    setId(inst.id);
+  };
 
-  private handleConfirmDelete = () => {
-    // console.log('AcademicTerm.handleConfirmDelete state=%o', this.state);
+  const handleConfirmDelete = () => {
     const collectionName = CareerGoals.getCollectionName();
-    const instance = this.state.id;
+    const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         Swal.fire({
@@ -115,18 +115,20 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           timer: 1500,
         });
       }
-      this.setState({ confirmOpen: false, id: '' });
+      setConfirmOpen(false);
+      setId('');
     });
-  }
+  };
 
-  private handleOpenUpdate = (evt, inst) => {
+  const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o ref=%o', inst, this.formRef);
-    this.setState({ showUpdateForm: true, id: inst.id });
-  }
+    // console.log('handleOpenUpdate inst=%o ref=%o', inst, formRef);
+    setShowUpdateForm(true);
+    setId(inst.id);
+  };
 
-  private handleUpdate = (doc) => {
-    // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
+  const handleUpdate = (doc) => {
+    // console.log('handleUpdate(%o) ref=%o', doc, formRef);
     const collectionName = CareerGoals.getCollectionName();
     const updateData: ICareerGoalUpdate = {};
     updateData.id = doc._id;
@@ -150,56 +152,60 @@ class AdminDataModelCareerGoalsPage extends React.Component<{}, IAdminDataModelP
           showConfirmButton: false,
           timer: 1500,
         });
-        this.formRef.current.reset();
-        this.setState({ showUpdateForm: false, id: '' });
+        // @ts-ignore
+        formRef.current.reset();
+        setShowUpdateForm(false);
+        setId('');
       }
     });
-  }
+  };
 
-  public render(): React.ReactNode {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle}>
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle}>
 
-          <Grid.Column width={3}>
-            <AdminDataModelMenu />
-          </Grid.Column>
+        <Grid.Column width={3}>
+          <AdminDataModelMenu />
+        </Grid.Column>
 
-          <Grid.Column width={13}>
-            {this.state.showUpdateForm ? (
-              <AdminDataModelUpdateForm
-                collection={CareerGoals}
-                id={this.state.id}
-                formRef={this.formRef}
-                handleUpdate={this.handleUpdate}
-                handleCancel={this.handleCancel}
-                itemTitleString={itemTitleString}
-              />
-            ) : (
-              <AddCareerGoalForm collection={CareerGoals} formRef={this.formRef} handleAdd={this.handleAdd} />
-            )}
-            <ListCollectionWidget
+        <Grid.Column width={13}>
+          {showUpdateFormState ? (
+            <AdminDataModelUpdateForm
               collection={CareerGoals}
-              descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
-              handleOpenUpdate={this.handleOpenUpdate}
-              handleDelete={this.handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
+              id={idState}
+              formRef={formRef}
+              handleUpdate={handleUpdate}
+              handleCancel={handleCancel}
+              itemTitleString={itemTitleString}
             />
-          </Grid.Column>
-        </Grid>
-        <Confirm open={this.state.confirmOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirmDelete} header="Delete Career Goal?" />
+          ) : (
+            <AddCareerGoalForm collection={CareerGoals} formRef={formRef} handleAdd={handleAdd} />
+          )}
+          <ListCollectionWidget
+            collection={CareerGoals}
+            descriptionPairs={descriptionPairs}
+            itemTitle={itemTitle}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
+            setShowIndex={dataModelActions.setCollectionShowIndex}
+            setShowCount={dataModelActions.setCollectionShowCount}
+          />
+        </Grid.Column>
+      </Grid>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Career Goal?"
+      />
 
-        <BackToTopButton />
-      </div>
-    );
-  }
-
-}
+      <BackToTopButton />
+    </div>
+  );
+};
 
 export default AdminDataModelCareerGoalsPage;

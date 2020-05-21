@@ -1,10 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
+import moment from 'moment';
+import fc from 'fast-check';
 import 'mocha';
 import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { makeSampleAcademicPlan, makeSampleChoiceList, makeSampleCoursesPerTerm } from './SampleAcademicPlans';
+import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
+import { IAcademicPlan } from '../../typings/radgrad';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -17,7 +22,6 @@ if (Meteor.isServer) {
     const description = 'B.S. in CS.';
     const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
-    const notDefinedAcademicTerm = 'Spring-2009';
     const coursesPerAcademicTerm = [2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0];
     const choiceList = [
       'ics_111-1',
@@ -54,63 +58,8 @@ if (Meteor.isServer) {
       'ics_400+-3',
       'ics_400+-4',
     ];
-    const groups = {
-      ics_111: {
-        name: 'ICS 111',
-          courseSlugs: ['ics_111'],
-      },
-      ics_141: {
-        name: 'ICS 141',
-          courseSlugs: ['ics_141'],
-      },
-      ics_211: {
-        name: 'ICS 211',
-          courseSlugs: ['ics_211'],
-      },
-      ics_241: {
-        name: 'ICS 241',
-          courseSlugs: ['ics_241'],
-      },
-      ics_311: {
-        name: 'ICS 311',
-          courseSlugs: ['ics_311'],
-      },
-      ics_314: {
-        name: 'ICS 314',
-          courseSlugs: ['ics_314'],
-      },
-      ics_212: {
-        name: 'ICS 212',
-          courseSlugs: ['ics_212'],
-      },
-      ics_321: {
-        name: 'ICS 321',
-          courseSlugs: ['ics_321'],
-      },
-      'ics_312,ics_331': {
-        name: 'ICS 312 or ICS 331',
-          courseSlugs: ['ics_312', 'ics_331'],
-      },
-      'ics_400+': {
-        name: 'ICS 400+',
-          courseSlugs: ['ics_414', 'ics_415', 'ics_419', 'ics_421', 'ics_422', 'ics_423', 'ics_424', 'ics_425',
-          'ics_426', 'ics_431', 'ics_432', 'ics_434', 'ics_435', 'ics_441', 'ics_442', 'ics_443', 'ics_451',
-          'ics_452', 'ics_455', 'ics_461', 'ics_462', 'ics_464', 'ics_465', 'ics_466', 'ics_469', 'ics_471',
-          'ics_475', 'ics_476', 'ics_481', 'ics_483', 'ics_484', 'ics_485', 'ics_491', 'ics_495', 'ics_499',
-        ],
-      },
-      'ics_313,ics_361': {
-        name: 'ICS 313 or ICS 361',
-          courseSlugs: ['ics_313', 'ics_361'],
-      },
-      ics_332: {
-        name: 'ICS 332',
-          courseSlugs: ['ics_332'],
-      },
-    };
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
     });
 
@@ -118,12 +67,54 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    it('Can define', function test1() {
-      // Arrange
-      AcademicTerms.define({ term: 'Spring', year: 2017 });
-      DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
-      // Act
-      const docID = AcademicPlans.define({
+    it('Can define and removeIt', function test1(done) {
+      this.timeout(15000);
+      fc.assert(
+        fc.property(fc.integer(1, 3), fc.integer(2018, 2025), fc.lorem(1), fc.lorem(5), fc.lorem(), fc.lorem(5), fc.lorem(12), (termNameInt, termYear, fcDegreeSlug, fcDegreeName, fcPlanSlug, fcName, fcDescription) => {
+          const dSlug = `degree-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+          const pSlug = `plan-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+          let term;
+          switch (termNameInt) {
+            case 1:
+              term = AcademicTerms.FALL;
+              break;
+            case 2:
+              term = AcademicTerms.SPRING;
+              break;
+            default:
+              term = AcademicTerms.SUMMER;
+          }
+          const academicTermSlug = `${term}-${termYear}`;
+          const termID = AcademicTerms.define({ term, year: termYear });
+          const degreeID = DesiredDegrees.define({
+            name: fcDegreeName,
+            shortName: fcName,
+            slug: dSlug,
+            description: fcDescription,
+          });
+          const docID = AcademicPlans.define({
+            slug: pSlug,
+            name: fcName,
+            description: fcDescription,
+            degreeSlug: dSlug,
+            academicTerm: academicTermSlug,
+            choiceList,
+            coursesPerAcademicTerm,
+          });
+          expect(AcademicPlans.isDefined(docID)).to.be.true;
+          AcademicPlans.removeIt(docID);
+          expect(AcademicPlans.isDefined(docID)).to.be.false;
+          AcademicTerms.removeIt(termID);
+          DesiredDegrees.removeIt(degreeID);
+        }),
+      );
+      done();
+    });
+
+    it('Can define duplicates', function test2() {
+      const termID = AcademicTerms.define({ term: 'Spring', year: 2017 });
+      const degreeID = DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
+      const docID1 = AcademicPlans.define({
         slug,
         degreeSlug,
         name: description,
@@ -131,67 +122,88 @@ if (Meteor.isServer) {
         academicTerm,
         coursesPerAcademicTerm,
         choiceList,
-        groups,
       });
-      // Assert
+      const docID2 = AcademicPlans.define({
+        slug,
+        degreeSlug,
+        name: description,
+        description,
+        academicTerm,
+        coursesPerAcademicTerm,
+        choiceList,
+      });
+      expect(docID1).to.equal(docID2);
+      expect(AcademicPlans.isDefined(docID1)).to.be.true;
+      // clean up
+      AcademicPlans.removeIt(docID2);
+      AcademicTerms.removeIt(termID);
+      DesiredDegrees.removeIt(degreeID);
+    });
+
+    it('Can update', function test3(done) {
+      this.timeout(5000);
+      const docID = makeSampleAcademicPlan();
+      // { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
+      fc.assert(
+        fc.property(fc.lorem(), fc.boolean(), (fcName, fcRetired) => {
+          const coursesPerAcademicTerm2 = makeSampleCoursesPerTerm();
+          const choiceList2 = makeSampleChoiceList(coursesPerAcademicTerm);
+          const academicTerm2 = makeSampleAcademicTerm();
+          AcademicPlans.update(docID, {
+            name: fcName,
+            academicTerm: academicTerm2,
+            coursesPerAcademicTerm: coursesPerAcademicTerm2,
+            choiceList: choiceList2,
+            retired: fcRetired,
+          });
+          const doc = AcademicPlans.findDoc(docID);
+          // console.log(doc, coursePerAcademicTerm);
+          expect(doc.name).to.equal(fcName);
+          expect(doc.coursesPerAcademicTerm).to.have.ordered.members(coursesPerAcademicTerm2);
+        }),
+      );
+      AcademicPlans.removeIt(docID);
+      done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      let docID = makeSampleAcademicPlan();
       expect(AcademicPlans.isDefined(docID)).to.be.true;
-      expect(AcademicPlans.findIdBySlug(slug)).to.be.a('string');
-    });
-
-    it('Can update', function test2() {
-      // Arrange
-      const docID = AcademicPlans.findIdBySlug(slug);
-      // Act
-      AcademicPlans.update(docID, { retired: true });
-      // Assert
-      expect(AcademicPlans.countNonRetired()).to.equal(0);
-    });
-
-    it('Can dump removeIt and restore', function test3() {
-      // Arrange
-      const docID = AcademicPlans.findIdBySlug(slug);
-      // Act
+      const origPlan: IAcademicPlan = AcademicPlans.findDoc(docID);
       const dumpObject = AcademicPlans.dumpOne(docID);
       AcademicPlans.removeIt(docID);
       expect(AcademicPlans.isDefined(docID)).to.be.false;
-      const planID = AcademicPlans.restoreOne(dumpObject);
-      // Assert
-      expect(AcademicPlans.isDefined(planID)).to.be.true;
+      docID = AcademicPlans.restoreOne(dumpObject);
+      const doc: IAcademicPlan = AcademicPlans.findDoc(docID);
+      expect(origPlan.name).to.equal(doc.name);
+      expect(origPlan.degreeID).to.equal(doc.degreeID);
+      expect(origPlan.description).to.equal(doc.description);
+      expect(origPlan.academicTermNumber).to.equal(doc.academicTermNumber);
+      expect(origPlan.coursesPerAcademicTerm).to.have.ordered.members(doc.coursesPerAcademicTerm);
+      expect(origPlan.choiceList).to.have.ordered.members(doc.choiceList);
     });
 
-    it('Can checkIntegrity no errors', function test4() {
+    it('Can checkIntegrity no errors', function test5() {
       // Act
       const errors = AcademicPlans.checkIntegrity();
+      // console.log(errors);
       // Assert
-      expect(errors.length).to.equal(48); // we don't define the courses
+      expect(errors.length).to.equal(0);
     });
 
-    it('Can get plans for degree, good slug', function test6() {
-      const plans = AcademicPlans.getPlansForDegree(degreeSlug);
-      expect(plans).to.have.lengthOf(1);
-    });
-
-    it('Can get latest plans', function test8() {
+    it('Can get latest plans', function test6() {
       const plans = AcademicPlans.getLatestPlans();
       expect(plans).to.have.lengthOf(1);
     });
 
-    it('Can get latest academic term number', function test9() {
-      const termNumber = AcademicPlans.getLatestAcademicTermNumber();
-      expect(termNumber).to.equal(19);
-    });
-
-    it('Can checkIntegrity one error', function test5() {
+    it('Can checkIntegrity errors', function test7() {
       // Arrange
-      const docID = AcademicPlans.findIdBySlug(slug);
-      AcademicPlans.removeIt(docID);
-        const badID = AcademicPlans.define({
-          slug, degreeSlug, name: description, description, academicTerm: notDefinedAcademicTerm, coursesPerAcademicTerm,
-          choiceList: badCourseList, groups,
-        });
-        expect(AcademicPlans.isDefined(badID)).to.be.true;
-        const errors = AcademicPlans.checkIntegrity();
-        expect(errors).to.have.lengthOf(49); // we don't define the courses so we get lots of errors.
+      const doc = AcademicPlans.findOne({});
+      const docID = doc._id;
+      AcademicPlans.update(docID, { choiceList: badCourseList });
+      const errors = AcademicPlans.checkIntegrity();
+      // console.log(errors);
+      expect(errors).to.have.lengthOf(1);
     });
   });
 }

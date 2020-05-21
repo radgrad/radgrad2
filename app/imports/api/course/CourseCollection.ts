@@ -9,6 +9,7 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
+import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 
 /**
  * Represents a specific course, such as "ICS 311".
@@ -98,24 +99,16 @@ class CourseCollection extends BaseSlugCollection {
   public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false }: ICourseDefine) {
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
-    let slugID;
     // check if slug is defined
     if (Slugs.isSlugForEntity(slug, this.getType())) {
       // console.log(`${slug} is already defined for ${this.getType()}`);
-      slugID = Slugs.getEntityID(slug, this.getType());
-    } else {
-      // console.log(`Defining slug ${slug}`);
-      // Get SlugID, throw error if found.
-      slugID = Slugs.define({ name: slug, entityName: this.getType() });
+      return Slugs.getEntityID(slug, this.getType());
     }
+    // console.log(`Defining slug ${slug}`);
+    // Get SlugID, throw error if found.
+    const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
-    // If already defined return the _id.
-    const doc = this.collection.findOne({ name, shortName, num });
-    // console.log(doc);
-    if (doc) {
-      return doc._id;
-    }
     // Make sure creditHrs is a num between 1 and 15.
     if (!(typeof creditHrs === 'number') || (creditHrs < 1) || (creditHrs > 15)) {
       throw new Meteor.Error(`CreditHrs ${creditHrs} is not a number between 1 and 15.`);
@@ -131,9 +124,23 @@ class CourseCollection extends BaseSlugCollection {
     // can't check the validity of prereqs during a define, such as with:
     //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));
     // Instead, we check that prereqs are valid as part of checkIntegrity.
+    // We want to create a PlanChoice for all the courses.
+    if (slug !== 'other' && !PlanChoices.isDefined(slug)) {
+      PlanChoices.define({ choice: slug, retired });
+    }
     const courseID =
       this.collection.insert({
-        name, shortName, slugID, num, description, creditHrs, interestIDs, syllabus, corequisites, prerequisites, retired,
+        name,
+        shortName,
+        slugID,
+        num,
+        description,
+        creditHrs,
+        interestIDs,
+        syllabus,
+        corequisites,
+        prerequisites,
+        retired,
       });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, courseID);

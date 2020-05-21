@@ -81,9 +81,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
   return (
     <div className="ui padded container">
       <Header as="h4" dividing style={uppercaseStyle}>
-        {reviewType}
-        {' '}
-        REVIEWS
+        {reviewType} REVIEWS
       </Header>
 
       <List verticalAlign="middle" relaxed="very" divided>
@@ -130,10 +128,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                         : (
                           <p>
                             <i>
-                              You must complete this
-                              {` ${reviewType}`}
-                              {' '}
-                              first to leave a review.
+                              You must complete this {` ${reviewType}`} first to leave a review.
                             </i>
                           </p>
                         )

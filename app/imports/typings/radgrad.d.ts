@@ -34,12 +34,6 @@ export interface IUpdate {
   id?: string;
 }
 
-export interface IAdminDataModelPageState {
-  showUpdateForm: boolean;
-  id: string;
-  confirmOpen: boolean;
-}
-
 export interface IPagination {
   AcademicPlanCollection?: {
     showIndex: number;
@@ -234,7 +228,6 @@ export interface IAcademicPlan {
   year: number;
   coursesPerAcademicTerm: number[];
   choiceList: string[];
-  groups: any; // an object key is slug, value is IAcademicPlanGroup
   isBAM?: boolean;
   retired?: boolean;
 }
@@ -247,7 +240,6 @@ export interface IAcademicPlanDefine extends IDumpOne {
   academicTerm: string;
   coursesPerAcademicTerm: number[];
   choiceList: string[];
-  groups: any;
   retired?: boolean;
 }
 
@@ -257,7 +249,6 @@ export interface IAcademicPlanUpdate extends IUpdate {
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
   choiceList?: string[];
-  groups?: any;
   retired?: boolean;
 }
 
