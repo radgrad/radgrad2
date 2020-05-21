@@ -5,7 +5,6 @@ import faker from 'faker';
 import moment from 'moment';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { StudentProfiles } from './StudentProfileCollection';
-import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { makeSampleInterestArray, makeSampleInterestSlugArray } from '../interest/SampleInterests';
 import { makeSampleCareerGoalSlugArray } from '../career/SampleCareerGoals';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
