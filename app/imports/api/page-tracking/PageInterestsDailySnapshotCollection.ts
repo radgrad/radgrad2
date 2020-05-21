@@ -37,6 +37,7 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
       'opportunities.$.name': String,
       'opportunities.$.views': { type: SimpleSchema.Integer, min: 0 },
       timestamp: Date,
+      retired: { type: Boolean, optional: true },
     }));
   }
 

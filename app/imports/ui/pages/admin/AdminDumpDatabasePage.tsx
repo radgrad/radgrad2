@@ -10,6 +10,7 @@ import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.me
 import AdminDatabaseAccordion from '../../components/admin/AdminDatabaseAccordion';
 import { databaseActions } from '../../../redux/admin/database';
 import { analyticsActions } from '../../../redux/admin/analytics';
+import { RootState } from '../../../redux/types';
 
 interface ICollection {
   name?: string;
@@ -27,7 +28,7 @@ interface IAdminDumpDatabasePageProps {
 
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   dumpDatabaseWorking: state.admin.database.dumpDatabase,
   getStudentEmailsWorking: state.admin.analytics.getStudentEmails,
 });

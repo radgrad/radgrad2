@@ -8,7 +8,7 @@ import { URL_ROLES } from '../../../startup/client/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
+import PageTrackingScoreboardMenu from '../../components/shared/PageTrackingScoreboardMenu';
 import PageTrackingScoreboardWidget from '../../components/shared/PageTrackingScoreboardWidget';
 
 interface IPageTrackingAnalysisPageProps {
@@ -56,7 +56,7 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
         <Grid.Row>
           <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <PageTrackingMenu />
+            <PageTrackingScoreboardMenu />
           </Grid.Column>
 
           <Grid.Column width={11} stretched>

@@ -26,7 +26,7 @@ const initialState: IState = {
   },
 };
 
-export function reducer(state: IState = initialState, action: { [props: string]: any }): IState {
+function reducer(state: IState = initialState, action: { [props: string]: any }): IState {
   let s: IState;
   let otherKeys: ICloudinaryState;
   switch (action.type) {

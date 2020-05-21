@@ -5,6 +5,7 @@ import CourseOpportunityInspectorWidgetContainer from './CourseOpportunityInspec
 import AcademicPlanViewerContainer from './AcademicPlanViewer';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { SELECT_PLAN } from '../../../redux/student/degree-planner/types';
+import { RootState } from '../../../redux/types';
 
 interface ITabbedPlanInspectorProps {
   selectedTab: string;
@@ -12,7 +13,7 @@ interface ITabbedPlanInspectorProps {
   selectPlanTab: () => any;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedTab: state.student.degreePlanner.tab.selectedTab,
 });
 

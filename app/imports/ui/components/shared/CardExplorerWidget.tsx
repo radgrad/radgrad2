@@ -31,6 +31,7 @@ import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
+import { RootState } from '../../../redux/types';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   collection: any;
@@ -44,7 +45,7 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   menuList: object[];
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   hiddenCourses: state.shared.explorer.hiddenCourses,
   hiddenOpportunities: state.shared.explorer.hiddenOpportunities,
 });

@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Table, Form, Menu, Radio } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { withTracker } from 'meteor/react-meteor-data';
-import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 
-interface IPageTrackingWidgetProps {
-
+interface IPageTrackingScoreboardWidgetProps {
 }
 
-const PageTrackingScoreboardWidget = (props: IPageTrackingWidgetProps) => {
-  const [category, setCategory] = useState<PageInterestsCategoryTypes>(PageInterestsCategoryTypes.INTEREST);
-
+const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps) => {
   const tableBodyScrollStyle = {
     maxHeight: '10px',
     overflowY: 'scroll',
@@ -68,7 +64,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingWidgetProps) => {
 };
 
 const PageTrackingScoreboardWidgetContainer = withTracker(() => {
-  const pageInterestsDailySnapshots = PageInterestsDailySnapshots.find({});
+  const pageInterestsDailySnapshots = PageInterestsDailySnapshots.findNonRetired({});
   return {
     pageInterestsDailySnapshots,
   };

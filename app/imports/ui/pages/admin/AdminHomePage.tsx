@@ -41,7 +41,7 @@ const AdminHomePage = () => {
       const pageInterests = _.groupBy(result, 'username');
       console.log('pageInterests %o', pageInterests);
     });
-  }
+  };
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
 

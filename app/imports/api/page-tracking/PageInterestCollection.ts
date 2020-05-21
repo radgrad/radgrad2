@@ -32,6 +32,7 @@ class PageInterestCollection extends BaseCollection {
       category: String,
       name: String,
       timestamp: Date,
+      retired: { type: Boolean, optional: true },
     }));
   }
 

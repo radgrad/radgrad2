@@ -17,6 +17,7 @@ import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
 import { ICourse, IOpportunity } from '../../../typings/radgrad';
+import { RootState } from '../../../redux/types';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -38,7 +39,7 @@ interface IStudentOfInterestWidgetProps {
   opportunityInstances: any[];
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   hiddenCourses: state.student.home.hiddenCourses,
   hiddenOpportunities: state.student.home.hiddenOpportunities,
 });

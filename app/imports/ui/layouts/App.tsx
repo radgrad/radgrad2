@@ -23,6 +23,7 @@ import {
 } from '../../api/page-tracking/PageInterestsCategoryTypes';
 import { pageInterestDefineMethod } from '../../api/page-tracking/PageInterestCollection.methods';
 import { Slugs } from '../../api/slug/SlugCollection';
+import { RootState } from '../../redux/types';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -168,7 +169,7 @@ function withHistoryListen(WrappedComponent) {
     };
   }
 
-  const mapStateToProps = (state): object => ({
+  const mapStateToProps = (state: RootState): object => ({
     router: state.router,
   });
 

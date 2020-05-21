@@ -63,7 +63,7 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
               Page</b>!
             <p>
               <Link
-                to={Router.buildRouteName(props.match, `${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_SCOREBOARD}`)}
+                to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_SCOREBOARD}`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -73,7 +73,7 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
             </p>
             <p>
               <Link
-                to={Router.buildRouteName(props.match, `${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_COMPARISON}`)}
+                to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_COMPARISON}`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
