@@ -23,7 +23,7 @@ import { MentorProfiles } from '../user/MentorProfileCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
-import { PageInterestsTermSnapshots } from '../page-tracking/PageInterestsTermSnapshotCollection';
+// import { PageInterestsTermSnapshots } from '../page-tracking/PageInterestsTermSnapshotCollection';
 import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { PublicStats } from '../public-stats/PublicStatsCollection';
 import { Reviews } from '../review/ReviewCollection';
@@ -86,7 +86,7 @@ class RadGradClass {
       OpportunityTypes,
       PageInterests,
       PageInterestsDailySnapshots,
-      PageInterestsTermSnapshots,
+      // PageInterestsTermSnapshots,
       PlanChoices,
       PublicStats,
       Reviews,
@@ -132,7 +132,7 @@ class RadGradClass {
       UserInteractions,
       PageInterests,
       PageInterestsDailySnapshots,
-      PageInterestsTermSnapshots,
+      // PageInterestsTermSnapshots,
       MentorQuestions,
       MentorAnswers,
       Reviews,

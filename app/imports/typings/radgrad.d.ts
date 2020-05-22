@@ -808,31 +808,31 @@ export interface IPageInterestsDailySnapshot extends IDocument {
 }
 
 export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
-  careerGoals: [IPageInterestInfo];
-  courses: [IPageInterestInfo];
-  interests: [IPageInterestInfo];
-  opportunities: [IPageInterestInfo];
+  careerGoals: IPageInterestInfo[];
+  courses: IPageInterestInfo[];
+  interests: IPageInterestInfo[];
+  opportunities: IPageInterestInfo[];
   timestamp?: Date;
   retired?: boolean;
 }
 
-export interface IPageInterestsTermSnapshot extends IDocument {
-  termID: string;
-  category: string;
-  name: string;
-  views: number;
-  timestamp: Date;
-  retired?: boolean;
-}
-
-export interface IPageInterestsTermSnapshotDefine extends IDumpOne {
-  termID: string;
-  category: string;
-  name: string;
-  views?: number;
-  timestamp?: Date;
-  retired?: boolean;
-}
+// export interface IPageInterestsTermSnapshot extends IDocument {
+//   termID: string;
+//   category: string;
+//   name: string;
+//   views: number;
+//   timestamp: Date;
+//   retired?: boolean;
+// }
+//
+// export interface IPageInterestsTermSnapshotDefine extends IDumpOne {
+//   termID: string;
+//   category: string;
+//   name: string;
+//   views?: number;
+//   timestamp?: Date;
+//   retired?: boolean;
+// }
 
 
 // PlanChoice

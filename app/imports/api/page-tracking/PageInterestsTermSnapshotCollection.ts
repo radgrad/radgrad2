@@ -4,7 +4,7 @@ import BaseCollection from '../base/BaseCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { PageInterestsCategoryTypes } from './PageInterestsCategoryTypes';
 import { Slugs } from '../slug/SlugCollection';
-import { IPageInterestsTermSnapshot, IPageInterestsTermSnapshotDefine } from '../../typings/radgrad';
+// import { IPageInterestsTermSnapshot, IPageInterestsTermSnapshotDefine } from '../../typings/radgrad';
 
 /**
  * Represents a snapshot of the aggregated student interest views for an academic term
