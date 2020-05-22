@@ -804,6 +804,7 @@ export interface IPageInterestsDailySnapshot extends IDocument {
   interests: [IPageInterestInfo];
   opportunities: [IPageInterestInfo];
   timestamp: Date;
+  retired?: boolean;
 }
 
 export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
@@ -812,6 +813,7 @@ export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
   interests: [IPageInterestInfo];
   opportunities: [IPageInterestInfo];
   timestamp?: Date;
+  retired?: boolean;
 }
 
 export interface IPageInterestsTermSnapshot extends IDocument {
@@ -820,6 +822,7 @@ export interface IPageInterestsTermSnapshot extends IDocument {
   name: string;
   views: number;
   timestamp: Date;
+  retired?: boolean;
 }
 
 export interface IPageInterestsTermSnapshotDefine extends IDumpOne {
@@ -828,6 +831,7 @@ export interface IPageInterestsTermSnapshotDefine extends IDumpOne {
   name: string;
   views?: number;
   timestamp?: Date;
+  retired?: boolean;
 }
 
 

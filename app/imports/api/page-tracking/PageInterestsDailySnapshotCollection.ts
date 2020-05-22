@@ -43,16 +43,25 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
 
   /**
    * Defines a snapshot of the aggregated student interest views for the different categories for the particular timestamp.
-   * Only Admins should be able to define a document for this collection.
-   * Never call this method directly, use the pageInterestsDefineMethod.
-   * @param careerGoals
-   * @param courses
-   * @param interests
-   * @param opportunities
-   * @param timestamp
+   * This should never be called manually as it is handled by a cron job.
+   * @param careerGoals Array of objects that describe the name and views for all career goals
+   * @param courses Array of objects that describe the name and views for all courses
+   * @param interests Array of objects that describe the name and views for all interests
+   * @param opportunities Array of objects that describe the name and views for all opportunities
+   * @param timestamp Timestamp of when this snapshot was recorded
+   * @param retired boolean optional defaults to false.
    */
-  public define({ careerGoals, courses, interests, opportunities, timestamp = moment().toDate() }: IPageInterestsDailySnapshotDefine): string {
-    return this.collection.insert({ careerGoals, courses, interests, opportunities, timestamp });
+  public define({ careerGoals, courses, interests, opportunities, timestamp = moment().toDate(), retired = false }: IPageInterestsDailySnapshotDefine): string {
+    return this.collection.insert({ careerGoals, courses, interests, opportunities, timestamp, retired });
+  }
+
+  /**
+   * Remove the Page Interests Daily Snapshot
+   * @param docID The docID of the Page Interests Daily Snapshot
+   */
+  public removeIt(docID: string): boolean {
+    this.assertDefined(docID);
+    return super.removeIt(docID);
   }
 
   /**
@@ -132,7 +141,8 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
     const interests = doc.interests;
     const opportunities = doc.opportunities;
     const timestamp = doc.timestamp;
-    return { careerGoals, courses, interests, opportunities, timestamp };
+    const retired = doc.retired;
+    return { careerGoals, courses, interests, opportunities, timestamp, retired };
   }
 }
 
