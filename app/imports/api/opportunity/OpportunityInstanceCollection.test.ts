@@ -104,9 +104,6 @@ if (Meteor.isServer) {
       expect(OpportunityInstances.isDefined(docID)).to.be.true;
       expect(oi.studentID).to.equal(restored.studentID);
       expect(oi.termID).to.equal(restored.termID);
-      expect(oi.ice.i).to.equal(restored.ice.i);
-      expect(oi.ice.c).to.equal(restored.ice.c);
-      expect(oi.ice.e).to.equal(restored.ice.e);
       expect(oi.verified).to.equal(restored.verified);
       expect(oi.retired).to.equal(restored.retired);
     });

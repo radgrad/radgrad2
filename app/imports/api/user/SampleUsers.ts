@@ -5,6 +5,7 @@ import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { MentorProfiles } from './MentorProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
 import { ROLE } from '../role/Role';
+import { Users } from './UserCollection';
 
 function makeSampleStudent() {
   const username = `student.${faker.internet.email()}`;
@@ -87,4 +88,18 @@ export function makeSampleUser(role: string = ROLE.STUDENT) {
     return makeSampleMentor();
   }
   throw new Meteor.Error(`Unexpected role: ${role}`);
+}
+
+/**
+ * Returns an array of defined usernames.
+ * @param num the number of user to define. Defaults to 1.
+ * @param role the Role of the users. Defaults to STUDENT.
+ * @return an array of defined usernames.
+ */
+export function makeSampleUserArray(num = 1, role: string = ROLE.STUDENT) {
+  const retVal = [];
+  for (let i = 0; i < num; i++) {
+    retVal.push(Users.getProfile(makeSampleUser(role)).username);
+  }
+  return retVal;
 }

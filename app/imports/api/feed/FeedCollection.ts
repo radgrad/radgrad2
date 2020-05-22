@@ -157,7 +157,7 @@ class FeedCollection extends BaseCollection {
       updateData.courseID = Courses.getID(course);
     }
     if (academicTerm) {
-      updateData.termID = AcademicTerms.getID(course);
+      updateData.termID = AcademicTerms.getID(academicTerm);
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
