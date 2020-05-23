@@ -4,7 +4,12 @@ import moment from 'moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
-import { IIceSnapshotDefine, IPageInterest, IPageInterestsDailySnapshot } from '../../typings/radgrad';
+import {
+  IIceSnapshotDefine,
+  IPageInterest,
+  IPageInterestInfo,
+  IPageInterestsDailySnapshot,
+} from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { PageInterestsDailySnapshots } from '../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { PageInterests } from '../../api/page-tracking/PageInterestCollection';
@@ -78,11 +83,17 @@ SyncedCron.add({
 });
 
 function createDailySnapshot(pageInterests: IPageInterest[]) {
-  const doc = { careerGoals: [], courses: [], interests: [], opportunities: [] };
+  interface snapshotDoc {
+    careerGoals: IPageInterestInfo[];
+    courses: IPageInterestInfo[];
+    interests: IPageInterestInfo[];
+    opportunities: IPageInterestInfo[];
+  }
+
+  const doc: snapshotDoc = { careerGoals: [], courses: [], interests: [], opportunities: [] };
   const found = { careerGoals: [], courses: [], interests: [], opportunities: [] };
-  pageInterests.forEach((pageInterest: IPageInterest, index) => {
-    type instance = { name: string, views: number };
-    const objectInstance: instance = { name: pageInterest.name, views: 0 };
+  pageInterests.forEach((pageInterest: IPageInterest) => {
+    const objectInstance: IPageInterestInfo = { name: pageInterest.name, views: 0 };
     // If we have not yet discovered the first instance of a page interest for that area,
     // we push it to its corresponding array in the found object
     if (pageInterest.category === PageInterestsCategoryTypes.CAREERGOAL && found.careerGoals.indexOf(pageInterest.name) === -1) {
@@ -105,16 +116,16 @@ function createDailySnapshot(pageInterests: IPageInterest[]) {
       // Otherwise, just increment the existing value in doc array
       switch (pageInterest.category) {
         case PageInterestsCategoryTypes.CAREERGOAL:
-          doc.careerGoals.filter((careerGoal: instance) => careerGoal.name === pageInterest.name)[0].views++;
+          doc.careerGoals.filter((careerGoal) => careerGoal.name === pageInterest.name)[0].views++;
           break;
         case PageInterestsCategoryTypes.COURSE:
-          doc.courses.filter((course: instance) => course.name === pageInterest.name)[0].views++;
+          doc.courses.filter((course) => course.name === pageInterest.name)[0].views++;
           break;
         case PageInterestsCategoryTypes.INTEREST:
-          doc.interests.filter((interest: instance) => interest.name === pageInterest.name)[0].views++;
+          doc.interests.filter((interest) => interest.name === pageInterest.name)[0].views++;
           break;
         case PageInterestsCategoryTypes.OPPORTUNITY:
-          doc.opportunities.filter((opportunity: instance) => opportunity.name === pageInterest.name)[0].views++;
+          doc.opportunities.filter((opportunity) => opportunity.name === pageInterest.name)[0].views++;
           break;
         default:
           console.error(`Bad pageInterest.category: ${pageInterest.category}`);
