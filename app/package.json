@@ -6,6 +6,7 @@
     "start-custom": "cross-env METEOR_NO_RELEASE_CHECK=1 meteor --settings ../custom/settings.development.json --port 3200",
     "start-production": "meteor --production --no-release-check --settings ../config/settings.development.json --port 3200",
     "lint": "eslint --fix --quiet --ext .tsx --ext .ts ./imports",
+    "lint-console": "eslint --fix --ext .tsx --ext .ts ./imports",
     "pretest": "npm run lint",
     "test": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --once --driver-package meteortesting:mocha --port 3300",
     "test-no-lint": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --once --driver-package meteortesting:mocha --port 3300",
@@ -157,6 +158,7 @@
       "camelcase": "off",
       "class-methods-use-this": "off",
       "func-names": "off",
+      "jsx-a11y/anchor-is-valid": "off",
       "import/extensions": "off",
       "import/no-cycle": "warn",
       "import/no-unresolved": "off",
@@ -182,7 +184,7 @@
           "allowParens": true
         }
       ],
-      "no-console": "off",
+      "no-console": ["warn", { "allow": ["off", "error"] }],
       "no-plusplus": "off",
       "no-underscore-dangle": "off",
       "no-nested-ternary": "off",
