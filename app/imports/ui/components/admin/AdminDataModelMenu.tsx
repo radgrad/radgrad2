@@ -26,7 +26,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { leftHandMenu } from '../shared/shared-widget-names';
+import { leftHandMenu } from '../shared/component-names';
 
 interface IAdminDataModeMenuProps {
   match: {

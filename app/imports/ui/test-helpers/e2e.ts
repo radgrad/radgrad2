@@ -12,7 +12,7 @@ import {
   leftHandMenu,
   secondMenu,
   selectExplorerMenu,
-} from '../components/shared/shared-widget-names';
+} from '../components/shared/component-names';
 import {
   recommendedOpportunities,
   recommendedCourses,
@@ -28,7 +28,7 @@ import {
   studentMentorSpaceQuestionsWidget,
   studentMentorSpaceAskQuestionWidget,
   studentMentorSpaceMentorDirectoryWidget,
-} from '../components/student/student-widget-names';
+} from '../components/student/component-names';
 
 export const adminLogin = async ({ email, password, browser }) => {
   await browser.click(Selector('div.ui.top.right.pointing.dropdown').child('div.text'));

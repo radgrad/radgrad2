@@ -21,7 +21,7 @@ import { URL_ROLES } from '../../../startup/client/route-constants';
 import FavoritesButton from './FavoritesButton';
 import * as Router from './RouterHelperFunctions';
 import { profileGetInterestIDs } from './data-model-helper-functions';
-import { explorerInterestWidget } from './shared-widget-names';
+import { explorerInterestWidget } from './component-names';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 

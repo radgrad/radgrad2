@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { renderLink } from './RouterHelperFunctions';
 import { toUpper } from './helper-functions';
-import { explorerDegreeWidget } from './shared-widget-names';
+import { explorerDegreeWidget } from './component-names';
 import { toId } from '../../shared/description-pair-helpers';
 
 interface IExplorerDegreesWidgetProps {

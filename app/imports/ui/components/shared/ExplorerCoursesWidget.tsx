@@ -17,7 +17,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import FavoritesButton from './FavoritesButton';
 import { isSame, toUpper } from './helper-functions';
 import { courseSlugToName } from './data-model-helper-functions';
-import { explorerCourseWidget } from './shared-widget-names';
+import { explorerCourseWidget } from './component-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { toValueArray, toValueString } from '../../shared/description-pair-helpers';

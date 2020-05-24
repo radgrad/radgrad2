@@ -24,7 +24,7 @@ import {
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { studentAboutMeWidget } from './student-widget-names';
+import { studentAboutMeWidget } from './component-names';
 
 interface IStudentAboutMeWidgetProps {
   match: {

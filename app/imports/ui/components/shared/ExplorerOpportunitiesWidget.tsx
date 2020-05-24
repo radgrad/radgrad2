@@ -15,7 +15,7 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper, replaceTermString, isSame } from './helper-functions';
-import { explorerOpportunityWidget } from './shared-widget-names';
+import { explorerOpportunityWidget } from './component-names';
 import FutureParticipation from './FutureParticipation';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { toId } from '../../shared/description-pair-helpers';

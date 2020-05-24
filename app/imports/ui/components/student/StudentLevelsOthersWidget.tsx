@@ -6,7 +6,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { ROLE } from '../../../api/role/Role';
 import { IStudentProfile } from '../../../typings/radgrad';
-import { studentLevelsOthersWidget } from './student-widget-names';
+import { studentLevelsOthersWidget } from './component-names';
 
 interface IStudentLevelsOthersWidgetProps {
   match: {

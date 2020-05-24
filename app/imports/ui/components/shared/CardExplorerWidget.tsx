@@ -26,7 +26,7 @@ import {
   getUsers,
   isType,
 } from './explorer-helper-functions';
-import { cardExplorerWidget } from './shared-widget-names';
+import { cardExplorerWidget } from './component-names';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import PreferedChoice from '../../../api/degree-plan/PreferredChoice';

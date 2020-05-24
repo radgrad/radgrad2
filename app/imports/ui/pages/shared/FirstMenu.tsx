@@ -7,7 +7,7 @@ import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
 import { getUsername } from '../../components/shared/RouterHelperFunctions';
-import { firstMenu } from '../../components/shared/shared-widget-names';
+import { firstMenu } from '../../components/shared/component-names';
 
 interface IFirstMenuProps {
   currentUser: string;

@@ -9,7 +9,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import InterestList from './InterestList';
 import UserAnswersComponent from './UserAnswersComponent';
 import { capitalizeFirstLetter } from './helper-functions';
-import { explorerUserWidget } from './shared-widget-names';
+import { explorerUserWidget } from './component-names';
 
 interface IExplorerUsersWidgetProps {
   userProfile: IBaseProfile;

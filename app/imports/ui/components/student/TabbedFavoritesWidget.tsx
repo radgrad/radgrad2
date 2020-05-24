@@ -6,7 +6,7 @@ import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
-import { tabbedFavoritesWidget } from './student-widget-names';
+import { tabbedFavoritesWidget } from './component-names';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;

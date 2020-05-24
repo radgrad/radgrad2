@@ -64,7 +64,6 @@ fixture('Student Pages')
 test('Menu Bars', async (browser: any) => {
   await browser.click('#abi');
   await browser.expect(secondMenuSelector.count).eql(4); // second menu
-
 });
 
 test('Home Page', async (browser:any) => {

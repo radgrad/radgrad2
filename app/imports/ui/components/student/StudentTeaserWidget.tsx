@@ -11,7 +11,7 @@ import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
-import { studentTeaserWidget } from './student-widget-names';
+import { studentTeaserWidget } from './component-names';
 
 interface IStudentTeaserWidgetProps {
   match: {

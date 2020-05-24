@@ -3,7 +3,7 @@ import { Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { leftHandMenu } from '../shared/shared-widget-names';
+import { leftHandMenu } from '../shared/component-names';
 
 interface IAdminDatabaseMenuProps {
   currentUser: string;

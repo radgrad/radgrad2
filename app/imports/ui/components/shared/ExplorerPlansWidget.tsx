@@ -9,7 +9,7 @@ import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
 import { toUpper } from './helper-functions';
-import { explorerPlanWidget } from './shared-widget-names';
+import { explorerPlanWidget } from './component-names';
 import { toId } from '../../shared/description-pair-helpers';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 

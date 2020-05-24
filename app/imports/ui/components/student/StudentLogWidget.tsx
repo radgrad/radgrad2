@@ -5,7 +5,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, IBaseProfile } from '../../../typings/radgrad';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
-import { studentLogWidget } from './student-widget-names';
+import { studentLogWidget } from './component-names';
 
 interface IStudentLogWidgetProps {
   match: {

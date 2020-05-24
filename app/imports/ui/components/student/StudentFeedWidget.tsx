@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import StudentFeedItem from './StudentFeedItem';
-import { studentFeedWidget } from './student-widget-names';
+import { studentFeedWidget } from './component-names';
 import { IFeed } from '../../../typings/radgrad';
 
 interface IStudentFeedWidgetProps {
