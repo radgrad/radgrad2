@@ -21,6 +21,9 @@ import {
   secondMenuSelector,
   selectExplorerMenuItemsSelector,
   selectExplorerMenuSelector,
+  usersExplorerSelector,
+} from '../../test-helpers/e2e';
+import {
   student2ndMenuDegreePlannerPageSelector,
   student2ndMenuExplorerPageSelector,
   student2ndMenuHomePageSelector,
@@ -47,8 +50,7 @@ import {
   studentTabbedFavoriestWidgetFavOppTabSelector,
   studentTabbedFavoriestWidgetFavPlanTabSelector,
   studentTeaserWidgetTitleSelector,
-  usersExplorerSelector,
-} from '../../test-helpers/e2e';
+} from './selectors.e2e';
 
 /* global fixture, test */
 fixture('Student Pages')
