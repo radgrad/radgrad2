@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Form, Grid, Menu, Radio, Table } from 'semantic-ui-react';
+import { Grid, Menu, Table } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { withTracker } from 'meteor/react-meteor-data';
+import Swal from 'sweetalert2';
+import moment from 'moment';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import {
   ICareerGoal,
@@ -55,6 +57,15 @@ interface IAggregatedDailySnapshot {
   opportunities: IPageInterestInfo[];
 }
 
+const containsKey = (object: IPageInterestInfo, arr: IPageInterestInfo[]) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].name === object.name) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAggregatedDailySnapshot => {
   const aggregatedSnapshot: IAggregatedDailySnapshot = {
     careerGoals: [],
@@ -72,7 +83,7 @@ const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAgg
     snapshot.careerGoals.forEach((careerGoal) => {
       const careerGoalInstance: IPageInterestInfo = { name: careerGoal.name, views: careerGoal.views };
       // If we haven't iterated through this career goal, push it to the aggregated snapshot and found career goals.
-      if (foundCareerGoals.indexOf(careerGoal.name) === -1) {
+      if (!containsKey(careerGoal, foundCareerGoals)) {
         foundCareerGoals.push(careerGoalInstance);
         aggregatedSnapshot.careerGoals.push(careerGoalInstance);
         // Otherwise, simply increment the career goal already pushed to the aggregated snapshot with the number of views appropriately
@@ -83,7 +94,7 @@ const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAgg
     // Courses
     snapshot.courses.forEach((course) => {
       const courseInstance: IPageInterestInfo = { name: course.name, views: course.views };
-      if (foundCourses.indexOf(course.name) === -1) {
+      if (!containsKey(course, foundCourses)) {
         foundCourses.push(courseInstance);
         aggregatedSnapshot.courses.push(courseInstance);
       } else {
@@ -93,7 +104,7 @@ const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAgg
     // Interests
     snapshot.interests.forEach((interest) => {
       const interestInstance: IPageInterestInfo = { name: interest.name, views: interest.views };
-      if (foundInterests.indexOf(interest.name) === -1) {
+      if (!containsKey(interest, foundInterests)) {
         foundInterests.push(interestInstance);
         aggregatedSnapshot.interests.push(interestInstance);
       } else {
@@ -103,7 +114,7 @@ const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAgg
     // Opportunities
     snapshot.opportunities.forEach((opportunity) => {
       const opportunityInstance: IPageInterestInfo = { name: opportunity.name, views: opportunity.views };
-      if (foundOpportunities.indexOf(opportunity.name) === -1) {
+      if (!containsKey(opportunity, foundOpportunities)) {
         foundOpportunities.push(opportunityInstance);
         aggregatedSnapshot.opportunities.push(opportunityInstance);
       } else {
@@ -114,63 +125,102 @@ const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAgg
   return aggregatedSnapshot;
 };
 
+const parseName = (category: IPageInterestsCategoryTypes, slug: string): string => {
+  let doc: (ICareerGoal | ICourse | IInterest | IOpportunity);
+  switch (category) {
+    case PageInterestsCategoryTypes.CAREERGOAL:
+      doc = CareerGoals.findDocBySlug(slug);
+      break;
+    case PageInterestsCategoryTypes.COURSE:
+      doc = Courses.findDocBySlug(slug);
+      break;
+    case PageInterestsCategoryTypes.INTEREST:
+      doc = Interests.findDocBySlug(slug);
+      break;
+    case PageInterestsCategoryTypes.OPPORTUNITY:
+      doc = Opportunities.findDocBySlug(slug);
+      break;
+    default:
+      console.error(`Bad category: ${category}`);
+      break;
+  }
+  return doc.name;
+};
+
 const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps) => {
   const { pageInterestsDailySnapshots, scoreboardMenuCategory } = props;
-  const [column, setColumn] = useState(null);
-  const [data, setData] = useState(null);
-  const [direction, setDirection] = useState(null);
+  const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
+
+  // Scoreboard View
+  const [column, setColumn] = useState<'name' | 'views'>(null);
+  const [data, setData] = useState<IAggregatedDailySnapshot>(aggregatedDailySnapshot);
+  const [dataBeforeFilter] = useState<IAggregatedDailySnapshot>(data);
+  const [direction, setDirection] = useState<'ascending' | 'descending'>(null);
+  // Filters
+  const [startDate, setStartDate] = useState<Date>(null);
+  const [endDate, setEndDate] = useState<Date>(null);
 
   const tableBodyScrollStyle = {
     maxHeight: '10px',
     overflowY: 'scroll',
   };
 
-  const parseName = (category: IPageInterestsCategoryTypes, slug: string): string => {
-    let doc: (ICareerGoal | ICourse | IInterest | IOpportunity);
-    switch (category) {
-      case PageInterestsCategoryTypes.CAREERGOAL:
-        doc = CareerGoals.findDocBySlug(slug);
-        break;
-      case PageInterestsCategoryTypes.COURSE:
-        doc = Courses.findDocBySlug(slug);
-        break;
-      case PageInterestsCategoryTypes.INTEREST:
-        doc = Interests.findDocBySlug(slug);
-        break;
-      case PageInterestsCategoryTypes.OPPORTUNITY:
-        doc = Opportunities.findDocBySlug(slug);
-        break;
-      default:
-        console.error(`Bad category: ${category}`);
-        break;
-    }
-    return doc.name;
-  };
-
   const category = getCategory(scoreboardMenuCategory);
-  const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
 
   const handleSort = (e, clickedColumn) => {
     if (column !== clickedColumn) {
       setColumn(clickedColumn);
-      aggregatedDailySnapshot[category] = _.sortBy(aggregatedDailySnapshot[category], [clickedColumn]);
-      setData(aggregatedDailySnapshot);
+      const newData: IAggregatedDailySnapshot = { ...data, [category]: _.sortBy(data[category], [clickedColumn]) };
+      setData(newData);
       setDirection('ascending');
       return;
     }
 
     // Create new data by first creating a slice of data[category] so we do not mutate state directly,
     // and then reverse that slice. Then rebuild a new data object by combining old data with the new reversed data.
-    const newData = { ...data, [category]: data[category].slice().reverse() };
+    const newData: IAggregatedDailySnapshot = { ...data, [category]: data[category].slice().reverse() };
     setData(newData);
     setDirection(direction === 'ascending' ? 'descending' : 'ascending');
   };
 
-  const items = data === null ? aggregatedDailySnapshot : data;
+  const handleClear = () => {
+    setStartDate(null);
+    setEndDate(null);
+    setData(dataBeforeFilter);
+  };
+
+  const handleFilter = () => {
+    if (startDate === null || endDate === null) {
+      Swal.fire({
+        title: 'Date Selection Required',
+        text: 'A Start and End Date selection is required.',
+        icon: 'error',
+      });
+      return;
+    }
+    const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({
+      timestamp: {
+        $gte: startDate,
+        $lte: moment(endDate).endOf('day').toDate(),
+      },
+    });
+    const filteredAggregatedDailySnapshots: IAggregatedDailySnapshot = aggregateDailySnapshots(filteredDailySnapshots);
+    // Handle sort
+    if (column !== null) {
+      const newData: IAggregatedDailySnapshot = {
+        ...filteredAggregatedDailySnapshots,
+        [category]: _.sortBy(filteredAggregatedDailySnapshots[category], [column]),
+      };
+      setData(newData);
+    } else {
+      setData(filteredAggregatedDailySnapshots);
+    }
+  };
 
   return (
     <React.Fragment>
       <Grid columns={2}>
+        {/* Scoreboard View */}
         <Grid.Column width={11}>
           <Table striped sortable style={tableBodyScrollStyle}>
             <Table.Header>
@@ -190,7 +240,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {items[category].map((snapshot, index) => (
+              {data[category].map((snapshot, index) => (
                 <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
                   <Table.Cell>{parseName(scoreboardMenuCategory, snapshot.name)}</Table.Cell>
                   <Table.Cell>{snapshot.views}</Table.Cell>
@@ -200,26 +250,41 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
           </Table>
         </Grid.Column>
 
+        {/* Filters */}
         <Grid.Column width={5}>
           <Menu text vertical fluid>
-            <Menu.Item header>SORT BY</Menu.Item>
-            <Form>
-              <Form.Field>
-                <Radio checked label="Alphabetical Order" />
-              </Form.Field>
-
-              <Form.Field>
-                <Radio label="Most Views" />
-              </Form.Field>
-
-              <Form.Field>
-                <Radio label="Least Views" />
-              </Form.Field>
-            </Form>
-            <br />
             <Menu.Item header>FILTER BY DATE</Menu.Item>
-            <DatePicker />
-            <DatePicker />
+            <Grid.Row>
+              <Grid columns={2}>
+                <Grid.Column><Menu.Item onClick={handleFilter}>Filter</Menu.Item></Grid.Column>
+                <Grid.Column><Menu.Item onClick={handleClear}>Clear</Menu.Item></Grid.Column>
+              </Grid>
+            </Grid.Row>
+            <DatePicker
+              selectsStart
+              isClearable
+              showMonthDropdown
+              showYearDropdown
+              onChange={(date) => setStartDate(date)}
+              placeholderText="Start Date"
+              selected={startDate}
+              startDate={startDate}
+              endDate={endDate}
+              maxDate={endDate}
+            />
+            <DatePicker
+              selectsEnd
+              isClearable
+              showMonthDropdown
+              showYearDropdown
+              onChange={(date) => setEndDate(date)}
+              placeholderText="End Date"
+              selected={endDate}
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              maxDate={new Date()}
+            />
             <Menu.Item>Past Month</Menu.Item>
             <Menu.Item>By Semester</Menu.Item>
             <Menu.Item>By Academic Year</Menu.Item>

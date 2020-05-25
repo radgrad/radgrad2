@@ -12866,12 +12866,100 @@
           "category": "opportunity",
           "name": "acm-icpc",
           "timestamp": "2020-05-22T06:48:39.682Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "acm-icpc",
+          "timestamp": "2020-05-24T06:42:16.119Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "data-scientist",
+          "timestamp": "2020-05-25T06:38:28.330Z"
         }
       ]
     },
     {
       "name": "PageInterestsDailySnapshotCollection",
-      "contents": []
+      "contents": [
+        {
+          "careerGoals": [
+            {
+              "name": "iot-architect",
+              "views": 1
+            },
+            {
+              "name": "data-scientist",
+              "views": 2
+            }
+          ],
+          "courses": [
+            {
+              "name": "ee_406",
+              "views": 1
+            }
+          ],
+          "interests": [
+            {
+              "name": "algorithms",
+              "views": 1
+            },
+            {
+              "name": "android",
+              "views": 1
+            }
+          ],
+          "opportunities": [
+            {
+              "name": "acm-icpc",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-05-24T06:40:40.348Z",
+          "retired": false
+        },
+        {
+          "careerGoals": [],
+          "courses": [],
+          "interests": [],
+          "opportunities": [
+            {
+              "name": "acm-icpc",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-05-24T06:43:00.085Z",
+          "retired": false
+        },
+        {
+          "careerGoals": [],
+          "courses": [],
+          "interests": [],
+          "opportunities": [
+            {
+              "name": "acm-icpc",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-05-24T10:00:00.123Z",
+          "retired": false
+        },
+        {
+          "careerGoals": [
+            {
+              "name": "data-scientist",
+              "views": 1
+            }
+          ],
+          "courses": [],
+          "interests": [],
+          "opportunities": [],
+          "timestamp": "2020-05-25T10:00:49.593Z",
+          "retired": false
+        }
+      ]
     },
     {
       "name": "PlanChoiceCollection",
