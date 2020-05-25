@@ -6,7 +6,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { ROLE } from '../../../api/role/Role';
 import { IStudentProfile } from '../../../typings/radgrad';
-import { studentLevelsOthersWidget } from './component-names';
+import { studentLevelsOthersWidget } from './e2e-component-names';
 
 interface IStudentLevelsOthersWidgetProps {
   match: {
@@ -71,12 +71,7 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   const students = getStudents(studentLevelNumber, props);
   return (
     <Segment padded id={`${studentLevelsOthersWidget}`}>
-      <Header as="h4" dividing>
-        OTHER
-        {studentLevelName}
-        {' '}
-        STUDENTS
-      </Header>
+      <Header as="h4" dividing>OTHER {studentLevelName} STUDENTS</Header>
       {
         studentsExist(students) ? (
           <Image.Group size="mini" circular style={imageGroupStyle}>

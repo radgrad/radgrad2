@@ -9,7 +9,7 @@ import { IAcademicTerm, ICourse } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseScoreboard } from '../../../startup/client/collections';
-import { courseScoreboardWidget } from './component-names';
+import { courseScoreboardWidget } from './e2e-component-names';
 
 interface ICourseScoreboardWidgetProps {
   courses: ICourse[],

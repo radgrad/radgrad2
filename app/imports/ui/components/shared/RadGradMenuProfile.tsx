@@ -7,7 +7,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
 import { Ice, IStudentProfile } from '../../../typings/radgrad';
-import { radgradMenuProfile } from './component-names';
+import { radgradMenuProfile } from './e2e-component-names';
 
 interface IRadGradMenuProfileProps {
   userName: string;

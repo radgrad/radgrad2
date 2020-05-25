@@ -8,7 +8,7 @@ import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
-import { helpPanelWidget } from './component-names';
+import { helpPanelWidget } from './e2e-component-names';
 
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]

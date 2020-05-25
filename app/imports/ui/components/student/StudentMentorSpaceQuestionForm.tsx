@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { studentMentorSpaceAskQuestionWidget } from './component-names';
+import { studentMentorSpaceAskQuestionWidget } from './e2e-component-names';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
