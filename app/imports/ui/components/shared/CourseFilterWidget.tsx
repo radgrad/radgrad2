@@ -2,6 +2,7 @@ import React from 'react';
 import { AutoForm } from 'uniforms-semantic/';
 import SimpleSchema from 'simpl-schema';
 import RadioField from '../form-fields/RadioField';
+import { courseFilterWidget } from './e2e-names';
 
 export const courseFilterKeys = {
   none: 'All',
@@ -33,7 +34,7 @@ const CourseFilterWidget = (props: ICourseFilterWidgetProps) => {
     filterCoursesBy: props.filterChoice,
   };
   return (
-    <div>
+    <div id={courseFilterWidget}>
       <AutoForm schema={schema} model={model} onChange={props.handleChange}>
         <RadioField name="filterCoursesBy" inline />
       </AutoForm>

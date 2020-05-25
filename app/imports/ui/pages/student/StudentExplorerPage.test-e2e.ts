@@ -8,7 +8,7 @@ import {
   academicPlansExplorerSelector,
   cardExplorerWidgetCardSelector,
   cardExplorerWidgetTitleSelector,
-  careerGoalsExplorerSelector,
+  careerGoalsExplorerSelector, courseFilterWidget300PlusChoiceSelector,
   coursesExplorerSelector,
   degreesExplorerSelector,
   explorerCareerGoalWidgetTitleSelector,
@@ -25,6 +25,8 @@ import {
   selectExplorerMenuItemsSelector,
   selectExplorerMenuSelector,
   usersExplorerSelector,
+  courseFilterWidget400PlusChoiceSelector,
+  courseFilterWidget600PlusChoiceSelector, courseFilterWidgetAllChoiceSelector, courseFilterWidgetChoicesSelector,
 } from '../../components/shared/e2e-selectors';
 /* global fixture, test */
 fixture('Student Explorer Page')
@@ -79,6 +81,21 @@ test('Course Explorer Page', async (browser: any) => {
   await browser.expect(cardExplorerWidgetTitleSelector.textContent).contains('COURSES');
   await browser.click(cardExplorerWidgetCardSelector.nth(0).child('a')); // Go to first course
   await browser.expect(explorerCourseWidgetTitleSelector.textContent).eql('INTRODUCTION TO COMPUTER AND NETWORK SECURITY (Introduction to Computer and Network Security)');
+});
+test('Course Explorer Page Filter', async (browser: any) => {
+  await browser.click('#abi');
+  await browser.click(student2ndMenuExplorerPageSelector);
+  await browser.click(selectExplorerMenuSelector); // got to open the menu before selecting the choice
+  await browser.click(coursesExplorerSelector);
+  await browser.expect(cardExplorerWidgetTitleSelector.textContent).contains('COURSES');
+  await browser.click(courseFilterWidget300PlusChoiceSelector);
+  await browser.expect(cardExplorerWidgetCardSelector.nth(1).child('.content').child('.header').textContent).contains('Machine-Level');
+  await browser.click(courseFilterWidget400PlusChoiceSelector);
+  await browser.expect(cardExplorerWidgetCardSelector.nth(1).child('.content').child('.header').textContent).contains('ICS 419');
+  await browser.click(courseFilterWidget600PlusChoiceSelector);
+  await browser.expect(cardExplorerWidgetCardSelector.count).eql(0);
+  await browser.click(courseFilterWidgetAllChoiceSelector);
+  await browser.expect(cardExplorerWidgetCardSelector.nth(1).child('.content').child('.header').textContent).contains('ICS 101');
 });
 test('Desired Degree Explorer Page', async (browser: any) => {
   await browser.click('#abi');

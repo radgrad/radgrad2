@@ -9,6 +9,7 @@ import {
   explorerPlanWidget,
   helpPanelWidget,
   selectExplorerMenu,
+  courseFilterWidget,
 } from './e2e-names';
 
 export const helpTitleSelector = Selector(`#${helpPanelWidget} .ui.floating.info.message .title`);
@@ -47,3 +48,10 @@ export const explorerInterestWidgetTitleSelector = explorerInterestWidgetSelecto
 export const explorerOpportunityWidgetSelector = Selector(`#${explorerOpportunityWidget}`);
 export const explorerOpportunityWidgetTitleSelector = explorerOpportunityWidgetSelector.child('.segments')
   .child('.segment').child('.clearing.segment').child('h4');
+
+export const courseFilterWidgetSelector = Selector(`#${courseFilterWidget}`);
+export const courseFilterWidgetChoicesSelector = Selector('.ui.radio.checkbox');
+export const courseFilterWidgetAllChoiceSelector = courseFilterWidgetChoicesSelector.withText('All');
+export const courseFilterWidget300PlusChoiceSelector = courseFilterWidgetChoicesSelector.withText('300+');
+export const courseFilterWidget400PlusChoiceSelector = courseFilterWidgetChoicesSelector.withText('400+');
+export const courseFilterWidget600PlusChoiceSelector = courseFilterWidgetChoicesSelector.withText('600+');
