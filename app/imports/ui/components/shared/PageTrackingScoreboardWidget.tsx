@@ -262,7 +262,6 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
             </Grid.Row>
             <DatePicker
               selectsStart
-              isClearable
               showMonthDropdown
               showYearDropdown
               onChange={(date) => setStartDate(date)}
@@ -274,7 +273,6 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
             />
             <DatePicker
               selectsEnd
-              isClearable
               showMonthDropdown
               showYearDropdown
               onChange={(date) => setEndDate(date)}
@@ -285,9 +283,6 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
               minDate={startDate}
               maxDate={new Date()}
             />
-            <Menu.Item>Past Month</Menu.Item>
-            <Menu.Item>By Semester</Menu.Item>
-            <Menu.Item>By Academic Year</Menu.Item>
           </Menu>
         </Grid.Column>
       </Grid>
