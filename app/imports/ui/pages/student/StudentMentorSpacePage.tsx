@@ -10,7 +10,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import {
   studentMentorSpaceMentorDirectoryWidget,
   studentMentorSpaceQuestionsWidget,
-} from '../../components/student/e2e-component-names';
+} from '../../components/student/e2e-names';
 
 const StudentMentorSpacePage = () => (
   <div>

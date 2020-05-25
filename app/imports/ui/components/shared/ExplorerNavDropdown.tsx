@@ -3,7 +3,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
-import { selectExplorerMenu } from './e2e-component-names';
+import { selectExplorerMenu } from './e2e-names';
 
 interface IExplorerNavDropdownProps {
   match: {

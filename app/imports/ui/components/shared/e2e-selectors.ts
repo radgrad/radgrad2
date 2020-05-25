@@ -9,7 +9,7 @@ import {
   explorerPlanWidget,
   helpPanelWidget,
   selectExplorerMenu,
-} from './e2e-component-names';
+} from './e2e-names';
 
 export const helpTitleSelector = Selector(`#${helpPanelWidget} .ui.floating.info.message .title`);
 export const helpAccordionSelector = Selector(`#${helpPanelWidget} .ui.floating.info.message`).child('.accordion');

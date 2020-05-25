@@ -9,7 +9,7 @@ import { IAcademicTerm, IOpportunity } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityScoreboard } from '../../../startup/client/collections';
-import { opportunityScoreboardWidget } from './e2e-component-names';
+import { opportunityScoreboardWidget } from './e2e-names';
 
 interface IOpportunityScoreboardWidgetProps {
   opportunities: IOpportunity[];

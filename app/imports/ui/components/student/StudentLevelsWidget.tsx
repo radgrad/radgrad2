@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
-import { studentLevelsWidget } from './e2e-component-names';
+import { studentLevelsWidget } from './e2e-names';
 
 // import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 

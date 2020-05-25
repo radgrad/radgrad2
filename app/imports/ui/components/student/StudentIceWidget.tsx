@@ -5,7 +5,7 @@ import { Ice } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import StudentIceColumn from './StudentIceColumn';
-import { studentIceWidget } from './e2e-component-names';
+import { studentIceWidget } from './e2e-names';
 import PageIceCircle from './PageIceCircle';
 
 interface IStudentIceWidgetProps {

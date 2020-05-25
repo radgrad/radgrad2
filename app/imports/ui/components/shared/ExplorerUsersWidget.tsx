@@ -9,7 +9,7 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import InterestList from './InterestList';
 import UserAnswersComponent from './UserAnswersComponent';
 import { capitalizeFirstLetter } from './helper-functions';
-import { explorerUserWidget } from './e2e-component-names';
+import { explorerUserWidget } from './e2e-names';
 
 interface IExplorerUsersWidgetProps {
   userProfile: IBaseProfile;

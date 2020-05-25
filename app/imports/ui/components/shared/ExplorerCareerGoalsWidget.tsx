@@ -12,7 +12,7 @@ import FavoritesButton from './FavoritesButton';
 import { toUpper, isSame } from './helper-functions';
 import { userToFullName, userToPicture } from './data-model-helper-functions';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import { explorerCareerGoalWidget } from './e2e-component-names';
+import { explorerCareerGoalWidget } from './e2e-names';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { toId } from '../../shared/description-pair-helpers';

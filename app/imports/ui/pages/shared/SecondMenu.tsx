@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { secondMenu } from '../../components/shared/e2e-component-names';
+import { secondMenu } from '../../components/shared/e2e-names';
 
 interface IMenuItem {
   label: string;

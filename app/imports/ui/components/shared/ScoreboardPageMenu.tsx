@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { getBaseRoute } from './RouterHelperFunctions';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, SCOREBOARD } from '../../../startup/client/route-constants';
-import { leftHandMenu } from './e2e-component-names';
+import { leftHandMenu } from './e2e-names';
 
 
 const ScoreboardPageMenu = (props: any) => {

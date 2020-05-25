@@ -13,7 +13,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import { studentDepWidget } from './e2e-component-names';
+import { studentDepWidget } from './e2e-names';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;

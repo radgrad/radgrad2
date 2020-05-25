@@ -14,7 +14,7 @@ import {
   studentMentorSpaceQuestionsWidget,
   studentTeaserWidget,
   tabbedFavoritesWidget,
-} from './e2e-component-names';
+} from './e2e-names';
 
 export const studentRecommendedOpportunitiesWidgetSelector = Selector(`#${recommendedOpportunities}`);
 export const studentRecommendedOpportunitiesTitleSelector = studentRecommendedOpportunitiesWidgetSelector.child('.header').child('h4');

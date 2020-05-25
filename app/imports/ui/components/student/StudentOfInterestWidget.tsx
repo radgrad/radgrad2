@@ -15,7 +15,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
-import { recommendedCourses, recommendedOpportunities } from './e2e-component-names';
+import { recommendedCourses, recommendedOpportunities } from './e2e-names';
 import { ICourse, IOpportunity } from '../../../typings/radgrad';
 
 interface IStudentOfInterestWidgetProps {
