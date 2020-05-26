@@ -345,7 +345,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       if (!Users.isDefined(doc.sponsorID)) {
         problems.push(`Bad sponsorID: ${doc.sponsorID}`);
       }
-      if (doc.verified && VerificationRequests.find({ opportunityInstanceID: doc._id }).fetch().length == 0) {
+      if (doc.verified && VerificationRequests.find({ opportunityInstanceID: doc._id }).fetch().length === 0) {
         problems.push('No Verification Request for verified Opportunity Instance');
       }
     });
