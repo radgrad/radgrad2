@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { Users } from '../../../api/user/UserCollection';
@@ -39,15 +38,8 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   reactiveSourceForTermCarOne: object[];
   reactiveSourceForTermCarTwo: object[];
   dispatch: any;
-  hiddenCourses: boolean;
-  hiddenOpportunities: boolean;
   menuList: object[];
 }
-
-const mapStateToProps = (state) => ({
-  hiddenCourses: state.shared.explorer.hiddenCourses,
-  hiddenOpportunities: state.shared.explorer.hiddenOpportunities,
-});
 
 /**
  * Process to build a new Card Explorer Widget
@@ -310,7 +302,6 @@ const CardExplorerWidget = (props: ICardExplorerMenuWidgetProps) => {
   );
 };
 
-const CardExplorerWidgetCon = connect(mapStateToProps)(CardExplorerWidget);
 const CardExplorerWidgetCont = withTracker((props) => {
   const { collection, type, match, menuList } = props;
   const favoriteIDs = _.map(menuList, (m) => m.item._id);
@@ -336,7 +327,7 @@ const CardExplorerWidgetCont = withTracker((props) => {
     reactiveSourceForTermCarTwo,
     reactiveSourceProfile,
   };
-})(CardExplorerWidgetCon);
+})(CardExplorerWidget);
 const CardExplorerWidgetContainer = withRouter(CardExplorerWidgetCont);
 
 export default CardExplorerWidgetContainer;

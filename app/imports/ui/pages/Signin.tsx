@@ -26,7 +26,7 @@ const Signin = (props: ISigninProps) => {
 
   /** Update the form controls each time the user interacts with them. */
   const handleChange = (e, { name, value }) => {
-    console.log('handleChange', name, value);
+    // console.log('handleChange', name, value);
     switch (name) {
       case 'email':
         setEmail(value);
