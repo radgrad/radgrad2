@@ -79,79 +79,75 @@ const buildOpportunitiesRouteName = (teaser, props: IStudentTeaserWidgetProps) =
   return `${baseRoute}explorer/opportunities/${opportunityName}`;
 };
 
-
+// TODO make StudentTeaserWidget reactive
 const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
   const teasers = matchingTeasers(props.match);
   const teaserCount = matchingTeasers(props.match).length;
 
   const cardGroupStyle = {
-    maxHeight: '500px',
+    maxHeight: '656px',
     overflow: 'scroll',
-    marginTop: '10px',
+    padding: '5px',
   };
   const teaserWidgetVideoStyle = { padding: '0' };
   const chevronCircleRightIconStyle = { marginRight: '1px' };
-
   return (
     <Container id={`${studentTeaserWidget}`}>
       <Segment padded>
         <Header dividing>
           <Header as="h4">
-            {' '}
-            TEASERS
-            <WidgetHeaderNumber inputValue={teaserCount} />
-            {' '}
-
+            TEASERS <WidgetHeaderNumber inputValue={teaserCount} />
           </Header>
         </Header>
 
         {
-          teasers ? (
+          teasers.length > 0 ? (
             <Card.Group style={cardGroupStyle}>
               {
-                teasers.map((teaser) => (
-                  <React.Fragment key={teaser._id}>
-                    <Card centered>
-                      <Card.Content>
-                        <Card.Header>{teaserTitle(teaser)}</Card.Header>
-                        <Card.Meta>
-                          By
-                          {teaserAuthor(teaser)}
-                          {' '}
+                  teasers.map((teaser) => (
+                    <React.Fragment key={teaser._id}>
+                      <Card centered>
+                        <Card.Content>
+                          <Card.Header>{teaserTitle(teaser)}</Card.Header>
+                          <Card.Meta>
+                            By {teaserAuthor(teaser)}
+                          </Card.Meta>
+                        </Card.Content>
 
-                        </Card.Meta>
-                      </Card.Content>
+                        <Card.Content style={teaserWidgetVideoStyle}>
+                          <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
+                        </Card.Content>
 
-                      <Card.Content style={teaserWidgetVideoStyle}>
-                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
-                      </Card.Content>
+                        <Card.Content>
+                          <InterestList item={teaser} size="mini" />
+                        </Card.Content>
 
-                      <Card.Content>
-                        <InterestList item={teaser} size="mini" />
-                      </Card.Content>
-
-                      {
-                        teaser.opportunityID ? (
-                          <Link to={buildOpportunitiesRouteName(teaser, props)}>
-                            <Button attached="bottom">
-                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
-                              {' '}
-                              View
-                              More
-                            </Button>
-                          </Link>
-                        )
-                          : ''
-                      }
-                    </Card>
-                  </React.Fragment>
-                ))
-              }
+                        {/* TODO this doesnt work */}
+                        {
+                          teaser.opportunityID ? (
+                            <Link to={buildOpportunitiesRouteName(teaser, props)}>
+                              <Button attached="bottom">
+                                <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
+                                View More
+                              </Button>
+                            </Link>
+                            )
+                            : ''
+                        }
+                      </Card>
+                    </React.Fragment>
+                  ))
+                }
             </Card.Group>
+            )
+            : (
+              <p>
+                Add interests or career goals to see recommendations here. To add interests, click on
+                the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
+                dropdown menu on that page.
+              </p>
           )
-            :
-            <p>Add interests to see recommendations here.</p>
-        }
+}
       </Segment>
     </Container>
   );

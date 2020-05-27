@@ -6,10 +6,7 @@ interface IWidgetHeaderNumberProps {
 
 const WidgetHeaderNumber = (props: IWidgetHeaderNumberProps) => (
   <span className="radgrad-header-number">
-    &middot;
-    {props.inputValue}
-    {' '}
-
+    &middot; {props.inputValue}
   </span>
 );
 

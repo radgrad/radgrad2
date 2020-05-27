@@ -8,7 +8,6 @@ import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import StudentOfInterestCard from './StudentOfInterestCard';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -16,7 +15,11 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
-import { ICourse, IOpportunity } from '../../../typings/radgrad';
+import { ICourse, IFavoriteCareerGoal, IFavoriteInterest, IOpportunity } from '../../../typings/radgrad';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { getUsername } from '../shared/RouterHelperFunctions';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -234,9 +237,8 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
   const cardsStackableStyle: React.CSSProperties = {
     maxHeight: '500px',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
-    marginTop: '10px',
+    overflowY: 'auto',
+    padding: '5px',
   };
 
   const { type } = props;
@@ -246,78 +248,68 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   } else {
     id = recommendedCourses;
   }
+  const courseItems = courses(props);
+  const opportunityItems = opportunities(props);
   return (
     <Segment padded id={id}>
-      {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
-        complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
-        had to use the className attribute instead so it renders as "ui dividing header". - Gian */}
-      <Header className="dividing">
+      <Header dividing>
         <h4>
           RECOMMENDED
-          {' '}
-          <span style={uppercaseTextTransformStyle}>{type}</span>
-          {' '}
-          <WidgetHeaderNumber
-            inputValue={itemCount(props)}
-          />
+          <span style={uppercaseTextTransformStyle}> {type}</span> <WidgetHeaderNumber inputValue={itemCount(props)} />
         </h4>
       </Header>
 
-      {
-        courses ? (
+      {courseItems.length > 0 ?
+        (
           <div style={cardsStackableStyle}>
             <Card.Group stackable itemsPerRow={2}>
-              {
-                isTypeCourse(props) ?
-                  courses(props).map((course) => (
-                    <StudentOfInterestCard
-                      key={course._id}
-                      item={course}
-                      type={type}
-                    />
-))
-                  :
-                  opportunities(props).map((opp) => (
-                    <StudentOfInterestCard
-                      key={opp._id}
-                      item={opp}
-                      type={type}
-                    />
-))
-              }
+              {isTypeCourse(props) ?
+                courseItems.map((course) => (
+                  <StudentOfInterestCard
+                    key={course._id}
+                    item={course}
+                    type={type}
+                  />
+                ))
+                :
+                opportunityItems.map((opp) => (
+                  <StudentOfInterestCard
+                    key={opp._id}
+                    item={opp}
+                    type={type}
+                  />
+                ))}
             </Card.Group>
           </div>
         )
-          : (
-            <p>
-              Add interests to see recommendations here. To add interests, click on
-              the &quot;Explorer&quot; tab,
-              then select &quot;Interests&quot; in the pull-down menu on that page.
-            </p>
-        )
-}
+        : (
+          <p>
+            Add interests or career goals to see recommendations here. To add interests, click on
+            the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the dropdown
+            menu on that page.
+          </p>
+        )}
     </Segment>
   );
 };
 
 const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWidget);
 const StudentOfInterestWidgetCont = withTracker(({ match }) => {
-  /* Reactive sources to make Hiding a Course / Opportunity reactive */
-  const username = match.params.username;
+  const username = getUsername(match);
   const profile = Users.getProfile(username);
-  const nonRetiredCourses = Courses.findNonRetired();
-  const nonRetiredOpportunities = Opportunities.findNonRetired();
+  const userID = Users.getID(username);
+  const nonRetiredCourses = Courses.findNonRetired({});
+  const nonRetiredOpportunities = Opportunities.findNonRetired({});
 
-  /* Reactive sources to make StudentOfInterestAdd reactive */
-  const courseInstances = CourseInstances.findNonRetired();
-  const opportunityInstances = OpportunityInstances.findNonRetired();
+  const favoritedInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: userID });
+  const favoritedCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID: userID });
 
   return {
     profile,
     nonRetiredCourses,
     nonRetiredOpportunities,
-    courseInstances,
-    opportunityInstances,
+    favoritedInterests,
+    favoritedCareerGoals,
   };
 })(StudentOfInterestWidgetCon);
 const StudentOfInterestWidgetContainer = withRouter(StudentOfInterestWidgetCont);
