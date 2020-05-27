@@ -14,7 +14,6 @@ const MentorQuestionAnswerWidget = (props: IQuestionAnswersWidgetProps) => {
   const toggleFullSize = () => {
     setIsActive(!isActiveState);
   };
-
   const { answer, mentor } = props;
   return (
     <React.Fragment>

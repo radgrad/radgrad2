@@ -42,10 +42,8 @@ const MentorMentorSpaceQuestionsAccordion = (props: IMentorMentorSpaceQuestionsA
                       <Icon name="dropdown" />
                       {q.question}
                     </Grid.Column>
-                    <Grid.Column width={2} textAlign="right">
-                      {answerCount[ind]}
-                      {' '}
-                      {answerCount[ind] > 1 ? ' answers' : ' answer'}
+                    <Grid.Column width={3} textAlign="right">
+                      {answerCount[ind]} {answerCount[ind] > 1 ? ' answers' : ' answer'}
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
@@ -73,11 +71,9 @@ const MentorMentorSpaceQuestionsAccordion = (props: IMentorMentorSpaceQuestionsA
 };
 
 const MentorMentorSpaceQuestionsAccordionContainer = withTracker(() => {
-  const questions = MentorQuestions.find().fetch();
+  const questions = MentorQuestions.findNonRetired({});
   const answerCount = _.map(questions, (q) => MentorAnswers.find({ questionID: q._id }).fetch().length);
-  const answers = MentorAnswers.find().fetch();
-  // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', questions);
-  // console.log('StudentMentorSpaceQuestionAccordion withTracker items=%o', answerCount);
+  const answers = MentorAnswers.findNonRetired({});
   return {
     questions,
     answerCount,

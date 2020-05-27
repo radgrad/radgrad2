@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { IMentorQuestion } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -49,11 +50,41 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
     if (answerExists) {
       newAnswer.id = existingAnswers[0]._id;
       updateMethod.call({ collectionName, updateData: newAnswer }, (error) => {
-        if (error) console.log('error in MentorAnswers.update', error);
+        if (error) {
+          Swal.fire({
+            title: 'Failed to update Mentor Answer',
+            text: error.message,
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Mentor Answer Updated',
+            icon: 'success',
+            text: 'Your answer has been successfully updated.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          });
+        }
       });
     } else {
       defineMethod.call({ collectionName, definitionData: newAnswer }, (error) => {
-        if (error) console.log('error in MentorAnswers.define', error);
+        if (error) {
+          Swal.fire({
+            title: 'Failed to create Mentor Answer',
+            text: error.message,
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Mentor Answer Submitted',
+            icon: 'success',
+            text: 'Your answer has been successfully submitted.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          });
+        }
       });
     }
   };
@@ -79,9 +110,7 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
     <div>
       <Accordion fluid styled style={accordionStyle} key={0}>
         <Accordion.Title active={activeIndexState === 0} index={0} onClick={handleClick}>
-          <Icon name="dropdown" />
-          {' '}
-          Add or update your answer (markdown supported)
+          <Icon name="dropdown" /> Add or update your answer (markdown supported)
         </Accordion.Title>
         <Accordion.Content active={activeIndexState === 0}>
           <Form>

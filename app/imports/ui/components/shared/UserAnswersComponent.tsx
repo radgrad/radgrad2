@@ -40,6 +40,8 @@ const UserAnswersComponent = (props: IUserAnswersComponentProps) => {
     title: ele.question,
     content: ele.answer,
   }));
+  const overflowStyle: React.CSSProperties = { overflowX: 'scroll' };
+
   return (
     <Card.Content>
       {_.includes(ALLOWED_ROLES, thisUserProfile.role) ? (
@@ -48,28 +50,24 @@ const UserAnswersComponent = (props: IUserAnswersComponentProps) => {
             rel="noopener noreferrer"
             to={`/${thisUserProfile.role.toLowerCase()}/${thisUserProfile.username}/mentor-space/`}
           >
-            MENTOR
-            ANSWERS (
-            {mentorAnswers.length}
-            )
+            MENTOR ANSWERS ({mentorAnswers.length})
           </Link>
         </Header>
-      )
+        )
         : (
           <Header as="h4">
-            MENTOR ANSWERS (
-            {mentorAnswers.length}
-            )
+            MENTOR ANSWERS ({mentorAnswers.length})
           </Header>
-)}
+        )}
       {mentorAnswers.length > 0 ? (
         <Accordion
           fluid
+          style={overflowStyle}
           exclusive={false}
           panels={panels}
           defaultActiveIndex={[-1]}
         />
-      )
+        )
         : undefined}
     </Card.Content>
   );

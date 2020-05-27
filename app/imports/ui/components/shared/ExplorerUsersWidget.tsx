@@ -29,7 +29,13 @@ const isRole = (props: IExplorerUsersWidgetProps, compareRole: string, ...otherR
  * @return {Dimmer} */
 const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   if (!(props.userProfile)) return undefined;
-  const cardStyle = { textAlign: 'left', color: 'black', lineHeight: '1.5', width: '300px' };
+  const overflowStyle: React.CSSProperties = { overflow: 'scroll' };
+  const cardStyle: React.CSSProperties = {
+    textAlign: 'left',
+    color: 'black',
+    lineHeight: '1.5',
+    width: '400px',
+  };
   const p = props.userProfile;
   const level = p.level;
   const planID = p.academicPlanID;
@@ -42,11 +48,17 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
         {p.username}
         <br />
       </React.Fragment>
-) : undefined;
+    ) : undefined;
   }
 
   return (
-    <Dimmer active={props.isActive} onClickOutside={props.handleClose} page id={explorerUserWidget}>
+    <Dimmer
+      style={overflowStyle}
+      active={props.isActive}
+      onClickOutside={props.handleClose}
+      page
+      id={explorerUserWidget}
+    >
       <Grid centered>
         <Grid.Column width={12}>
           <Card fluid style={cardStyle}>
@@ -61,20 +73,20 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
                     {desiredDegree.shortName}
                     <br />
                   </React.Fragment>
-) : undefined}
+                ) : undefined}
                 {level ? (
                   <Image
                     style={{ padding: '5px' }}
                     size="mini"
                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}
                   />
-            ) : undefined}
+                ) : undefined}
                 {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
                   <React.Fragment>
                     {p.username}
                     <br />
                   </React.Fragment>
-            ) : undefined}
+                ) : undefined}
                 {sharedUsername}
                 <br />
               </Card.Meta>
