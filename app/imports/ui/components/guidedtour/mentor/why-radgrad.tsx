@@ -20,20 +20,18 @@ const GuidedTourMentorWhyRadGrad = () => (
             </p>
             <List as="ul">
               <List.Item style={styles.li}>
-                Do you have a list of &quot;things I wish I&apos;d known when I was a
-                student?&quot; RadGrad gives you the chance to let today&apos;s students know about it.
+                Do you have a list of &quot;things I wish I&apos;d known when I was a student?&quot; RadGrad gives you
+                the chance to let today&apos;s students know about it.
               </List.Item>
               <List.Item style={styles.li}>
-                You can &quot;pay it forward&quot; in gratitude for the mentoring you
-                received as a student.
+                You can &quot;pay it forward&quot; in gratitude for the mentoring you received as a student.
               </List.Item>
               <List.Item style={styles.li}>
-                RadGrad is designed in a question-answer format that enables you to reach the
-                most students possible for your time investment.
+                RadGrad is designed in a question-answer format that enables you to reach the most students possible for
+                your time investment.
               </List.Item>
               <List.Item style={styles.li}>
-                If your company offers internships, RadGrad can be an effective way to
-                promote them to students.
+                If your company offers internships, RadGrad can be an effective way to promote them to students.
               </List.Item>
             </List>
             <p>

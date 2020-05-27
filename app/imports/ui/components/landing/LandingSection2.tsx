@@ -22,26 +22,15 @@ const LandingSection2 = (props: ILandingSection2Props) => (
           <RadGradLogoTextQ />
         </Header>
         <p style={styles['header-description']}>
-          <b>Discover</b>
-          {' '}
-          your interests.
+          <b>Discover</b> your interests.
           <br />
-          <b>Build</b>
-          {' '}
-          your community.
+          <b>Build</b> your community.
           <br />
-          <b>Strengthen</b>
-          {' '}
-          your preparation.
+          <b>Strengthen</b> your preparation.
           <br />
-          <b>Define</b>
-          , then
-          <b>achieve</b>
-          {' '}
-          your career goals.
+          <b>Define</b>, then <b>achieve</b> your career goals.
           <br />
           <b>Pay it forward.</b>
-          {' '}
           <br />
         </p>
       </Grid.Column>

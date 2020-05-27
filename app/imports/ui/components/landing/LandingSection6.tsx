@@ -38,29 +38,12 @@ const LandingSection6 = (props: ILandingSection6Props) => (
               progress, RadGrad defines six levels of achievement: white, yellow, green, blue, brown and black.
             </p>
             <p>
-              Right now, there are
-              {' '}
-              <strong style={styles['green-text']}>{props.levelOne}</strong>
-              {' '}
-              student(s) at Level One,&nbsp;
-              <strong style={styles['green-text']}>{props.levelTwo}</strong>
-              {' '}
-              at Level Two,
-              <strong style={styles['green-text']}>{props.levelThree}</strong>
-              {' '}
-              at Level
-              Three,
-              <strong style={styles['green-text']}>{props.levelFour}</strong>
-              {' '}
-              at Level
-              Four,
-              <strong style={styles['green-text']}>{props.levelFive}</strong>
-              {' '}
-              at
-              Level Five, and
-              <strong style={styles['green-text']}>{props.levelSix}</strong>
-              {' '}
-              at Level Six.
+              Right now, there are <strong style={styles['green-text']}>{props.levelOne}</strong> student(s) at Level
+              One, <strong style={styles['green-text']}>{props.levelTwo}</strong> at Level Two,
+              <strong style={styles['green-text']}> {props.levelThree}</strong> at Level Three,
+              <strong style={styles['green-text']}> {props.levelFour}</strong> at Level Four,
+              <strong style={styles['green-text']}> {props.levelFive}</strong> at Level Five, and
+              <strong style={styles['green-text']}> {props.levelSix}</strong> at Level Six.
             </p>
             <p>
               Once you achieve a level, the corresponding badge appears in your profile and is visible to other

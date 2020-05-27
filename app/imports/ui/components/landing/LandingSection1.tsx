@@ -12,7 +12,7 @@ const LandingSection1 = () => (
     <Container textAlign="center">
       <Header as="h1" inverted style={styles['inverted-main-header']}>
         Welcome to
-        <span style={styles['green-text']}><RadGradLogoText style={headerStyle} /></span>
+        <span style={styles['green-text']}> <RadGradLogoText style={headerStyle} /></span>
       </Header>
       <Header as="h2" inverted className="mobile only" style={styles['mobile-header']}>
         Welcome to&nbsp;
@@ -20,10 +20,7 @@ const LandingSection1 = () => (
       </Header>
       <br />
       <span style={styles['inverted-main-description']}>
-        Developing awesome computer scientists,
-        <b>one</b>
-        {' '}
-        graduate at a time.
+        Developing awesome computer scientists, <b>one</b> graduate at a time.
       </span>
       <Card.Group stackable doubling centered itemsPerRow={4} style={styles['main-header-ice']}>
         <Card>
@@ -133,28 +130,25 @@ const LandingSection1 = () => (
               <Grid className="landing-ice" columns={3}>
                 <Grid.Column>
                   <MenuIceCircle earned={65} planned={100} type="innov" />
-                  {/* {{ > First_Menu_Ice earned="92" projected="100" iceType="innov" type='landing'}} */}
                 </Grid.Column>
                 <Grid.Column>
                   <MenuIceCircle earned={78} planned={100} type="comp" />
-                  {/* {{ > First_Menu_Ice earned="81" projected="100" iceType="comp" type='landing'}} */}
                 </Grid.Column>
                 <Grid.Column>
                   <MenuIceCircle earned={74} planned={100} type="exp" />
-                  {/* {{ > First_Menu_Ice earned="90" projected="100" iceType="exp" type='landing'}} */}
                 </Grid.Column>
               </Grid>
             </Card.Description>
-            <Card.Content extra>
-              <Label size="mini">
-                <Icon fitted name="suitcase" />
-                Hardware
-              </Label>
-              <Label size="mini">
-                <Icon fitted name="suitcase" />
-                Networks
-              </Label>
-            </Card.Content>
+          </Card.Content>
+          <Card.Content extra>
+            <Label size="mini">
+              <Icon fitted name="suitcase" />
+              Hardware
+            </Label>
+            <Label size="mini">
+              <Icon fitted name="suitcase" />
+              Networks
+            </Label>
           </Card.Content>
         </Card>
       </Card.Group>

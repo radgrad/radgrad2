@@ -19,14 +19,8 @@ const GuidedTourMentorWhatsNext = () => {
             <div style={styles.p}>
               <Header style={styles.h1}>What&apos;s next?</Header>
               <p>
-                If you do not have a RadGrad account yet, please contact a RadGrad administrator at&nbsp;
-                <a
-                  href={mailto}
-                >
-                  {adminEmail}
-                </a>
-                {' '}
-                to request one.
+                If you do not have a RadGrad account yet, please contact a RadGrad administrator at
+                <a href={mailto}> {adminEmail}</a> to request one.
               </p>
               <p>
                 If you have a RadGrad account, then please login, update your profile if necessary, and see if there are

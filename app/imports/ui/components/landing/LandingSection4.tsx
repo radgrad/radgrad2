@@ -13,21 +13,16 @@ const LandingSection4 = (props: ILandingSection4Props) => (
         <Grid.Column>
           <Header as="h1" style={styles['header-text']}>Generate a custom degree experience</Header>
           <p style={styles['header-description']}>
-            Based on your degree, career goals, and interests, RadGrad helps you plan what you&apos;ll do each
-            semester: not just the classes you&apos;ll take, but also
-            {' '}
-            <em>relevant</em>
-            {' '}
-            extracurricular opportunities such as
-            hackathons, internships, clubs, and more. RadGrad currently provides you with&nbsp;
-            <strong style={styles['inverted-description p > strong, .header-description p > strong']}>{props.opportunities}</strong>
-            {' '}
-            opportunities
-            to choose from, with more on the way!
+            Based on your academic plan, career goals, and interests, RadGrad helps you plan what you&apos;ll do each
+            semester: not just the classes you&apos;ll take, but also <em>relevant</em> extracurricular opportunities
+            such as hackathons, internships, clubs, and more. RadGrad currently provides you with&nbsp;
+            <strong style={styles['inverted-description p > strong, .header-description p > strong']}>
+              {props.opportunities}
+            </strong>
+            {' '}opportunities to choose from, with more on the way!
           </p>
           <p style={styles['header-description']}>
-            RadGrad recognizes that what you do outside of class is sometimes just as important as what you do in
-            it.
+            RadGrad recognizes that what you do outside of class is sometimes just as important as what you do in it.
           </p>
         </Grid.Column>
         <Grid.Column>

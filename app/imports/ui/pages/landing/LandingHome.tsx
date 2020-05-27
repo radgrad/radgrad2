@@ -16,10 +16,10 @@ import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC'
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ILandingHomeProps {
+  academicPlans: string;
   careerGoalNames: string;
   careerGoals: string;
   courseReviews?: string;
-  degrees?: string;
   interests: string;
   levelOne?: string;
   levelTwo?: string;
@@ -46,7 +46,7 @@ const LandingHome = (props: ILandingHomeProps) => (
     />
     <LandingSection3
       careerGoals={props.careerGoals}
-      degrees={props.degrees}
+      academicPlans={props.academicPlans}
       interests={props.interests}
     />
     <LandingSection4 opportunities={props.opportunities} />
@@ -77,10 +77,10 @@ const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationN
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = // console.log(`LandingHomeContainer withTracker()`);
   withTracker(() => ({
+    academicPlans: PublicStats.getPublicStat(PublicStats.academicPlansTotalKey),
     careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
     careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
     courseReviews: PublicStats.getPublicStat(PublicStats.courseReviewsTotalKey),
-    degrees: PublicStats.getPublicStat(PublicStats.desiredDegreesTotalKey),
     interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
     levelOne: PublicStats.getPublicStat(PublicStats.levelOneTotalKey),
     levelTwo: PublicStats.getPublicStat(PublicStats.levelTwoTotalKey),

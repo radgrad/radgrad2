@@ -14,8 +14,14 @@ const GuidedTourFacultyVerification = () => (
       <Grid.Column width="seven" textAlign="left">
         <div>
           <Header style={styles.h1}>Verify student participation</Header>
-          <p style={styles.p}>When students choose an opportunity that you sponsor, such as one of your research projects, they must request &quot;verification&quot; in order to actually earn the points associated with that opportunity.</p>
-          <p style={styles.p}>For you, this means that you can establish criteria for acceptable performance by the student, and only award them their ICE points when you are satisfied with their work.</p>
+          <p style={styles.p}>
+            When students choose an opportunity that you sponsor, such as one of your research projects, they must
+            request &quot;verification&quot; in order to actually earn the points associated with that opportunity.
+          </p>
+          <p style={styles.p}>
+            For you, this means that you can establish criteria for acceptable performance by the student, and only
+            award them their ICE points when you are satisfied with their work.
+          </p>
         </div>
       </Grid.Column>
     </Grid>
