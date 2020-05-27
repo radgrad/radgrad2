@@ -19,8 +19,8 @@ const GuidedTourStudentWhatsNext = () => {
             <div style={styles.p}>
               <Header style={styles.h1}>What&apos;s next?</Header>
               <p>
-                If you haven&apos;t gotten your RadGrad account yet, please see your advisor to get set up, or attend one
-                of the &quot;RadGrad Registration&quot; meetings.
+                If you haven&apos;t gotten your RadGrad account yet, please see your advisor to get set up, or attend
+                one of the &quot;RadGrad Registration&quot; meetings.
               </p>
               <p>
                 If you just have questions about RadGrad, feel free to contact us at&nbsp;
@@ -28,8 +28,7 @@ const GuidedTourStudentWhatsNext = () => {
                   href={mailto}
                 >
                   {adminEmail}
-                </a>
-                .
+                </a>.
               </p>
             </div>
           </Grid.Column>
