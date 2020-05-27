@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Accordion, Icon, Form, Button, Grid } from 'semantic-ui-react';
+import { Accordion, Icon, Form, Button, Grid, Confirm } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { IMentorQuestion } from '../../../typings/radgrad';
@@ -34,6 +34,7 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
 
   const [activeIndexState, setActiveIndex] = useState(-1);
   const [textAreaState, setTextArea] = useState(existingAnswer());
+  const [confirmOpenState, setConfirmOpen] = useState(false);
 
   const handleEdit = (e, { value }) => {
     setTextArea(value);
@@ -89,13 +90,40 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
     }
   };
 
-  const handleDelete = (doc) => {
-    doc.preventDefault();
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setConfirmOpen(false);
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
     const questionID = props.question._id;
     const collectionName = MentorAnswers.getCollectionName();
     const instance = MentorAnswers.findDoc({ questionID, mentorID: getUserIdFromRoute() })._id;
-    removeItMethod.call({ collectionName, instance });
-    setTextArea('');
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Delete failed',
+          text: error.message,
+          icon: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Deleted Mentor Answer',
+          icon: 'success',
+          text: 'Your answer has been successfully deleted.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+        setTextArea('');
+      }
+      setConfirmOpen(false);
+    });
   };
 
   const handleClick = (e, titleProps) => {
@@ -133,6 +161,12 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
           </Grid.Row>
         </Accordion.Content>
       </Accordion>
+      <Confirm
+        open={confirmOpenState}
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        header="Delete Answer?"
+      />
     </div>
   );
 };
