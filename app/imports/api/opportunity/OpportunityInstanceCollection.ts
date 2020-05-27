@@ -346,7 +346,10 @@ class OpportunityInstanceCollection extends BaseCollection {
         problems.push(`Bad sponsorID: ${doc.sponsorID}`);
       }
       if (doc.verified && VerificationRequests.find({ opportunityInstanceID: doc._id }).fetch().length === 0) {
-        problems.push('No Verification Request for verified Opportunity Instance');
+        const studentDoc = this.getStudentDoc(doc._id);
+        const opportunityDoc = this.getOpportunityDoc(doc._id);
+        const termDoc = this.getAcademicTermDoc(doc._id);
+        problems.push(`No Verification Request for verified Opportunity Instance: ${opportunityDoc.name}-${studentDoc.username}-${AcademicTerms.toString(termDoc._id, false)}`);
       }
     });
     return problems;
