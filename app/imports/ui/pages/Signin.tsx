@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../api/role/Role';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
@@ -105,9 +105,6 @@ const Signin = (props: ISigninProps) => {
                 <Form.Button content="Submit" />
               </Segment>
             </Form>
-            <Message>
-              <Link to="/signup">Click here to Register</Link>
-            </Message>
             {errorState === '' ? (
               ''
             ) : (
