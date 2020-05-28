@@ -26,7 +26,7 @@ import {
   selectExplorerMenuSelector,
   usersExplorerSelector,
   courseFilterWidget400PlusChoiceSelector,
-  courseFilterWidget600PlusChoiceSelector, courseFilterWidgetAllChoiceSelector, courseFilterWidgetChoicesSelector,
+  courseFilterWidget600PlusChoiceSelector, courseFilterWidgetAllChoiceSelector,
 } from '../../components/shared/e2e-selectors';
 /* global fixture, test */
 fixture('Student Explorer Page')

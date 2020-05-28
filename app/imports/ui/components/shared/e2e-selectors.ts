@@ -49,7 +49,6 @@ export const explorerOpportunityWidgetSelector = Selector(`#${explorerOpportunit
 export const explorerOpportunityWidgetTitleSelector = explorerOpportunityWidgetSelector.child('.segments')
   .child('.segment').child('.clearing.segment').child('h4');
 
-export const courseFilterWidgetSelector = Selector(`#${courseFilterWidget}`);
 export const courseFilterWidgetChoicesSelector = Selector('.ui.radio.checkbox');
 export const courseFilterWidgetAllChoiceSelector = courseFilterWidgetChoicesSelector.withText('All');
 export const courseFilterWidget300PlusChoiceSelector = courseFilterWidgetChoicesSelector.withText('300+');
