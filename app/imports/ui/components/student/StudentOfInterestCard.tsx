@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Header, Icon } from 'semantic-ui-react';
+import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
@@ -77,7 +77,7 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
   return (
     <Card className="radgrad-interest-card">
       <Card.Content>
-        <Header>{itemName}</Header>
+        <Card.Header>{itemName}</Card.Header>
         <Card.Meta>
           {itemTerms(props) ? replaceTermStringNextFour(itemTerms(props)) : ''}
         </Card.Meta>

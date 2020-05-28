@@ -1060,6 +1060,13 @@ export interface ISettingsUpdate extends IUpdate {
 }
 
 // Slugs
+export interface ISlug {
+  _id: string;
+  name: string;
+  entityName: string;
+  entityID: string;
+}
+
 export interface ISlugDefine extends IDumpOne {
   name: string;
   entityName: string;
@@ -1077,6 +1084,7 @@ export interface IStarDataObject {
 
 // Teasers
 export interface ITeaser {
+  _id: string;
   title: string;
   slugID: string;
   author: string;

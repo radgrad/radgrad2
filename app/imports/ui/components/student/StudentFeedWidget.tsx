@@ -12,8 +12,8 @@ interface IStudentFeedWidgetProps {
 
 const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
   const feedStyle = {
-    maxHeight: '488px',
-    overflow: 'scroll',
+    maxHeight: '325px',
+    overflowY: 'scroll',
     marginTop: '10px',
   };
 
@@ -21,8 +21,8 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
     <Container id={`${studentFeedWidget}`}>
       <Segment padded>
         <Header dividing>RADGRAD COMMUNITY ACTIVITY</Header>
-        {
-          props.feeds ? (
+        {props.feeds ?
+          (
             <Feed style={feedStyle}>
               {props.feeds.map((feed, index) => (
                 <React.Fragment key={feed._id}>
@@ -32,9 +32,7 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
               ))}
             </Feed>
           )
-            :
-            <p>No recent feeds.</p>
-        }
+          : <p>No recent feeds.</p>}
       </Segment>
     </Container>
   );
