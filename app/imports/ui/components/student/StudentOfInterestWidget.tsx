@@ -119,7 +119,6 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
 
 const matchingOpportunities = (props: IStudentOfInterestWidgetProps) => {
   const allOpportunities = availableOpps(props);
-  // console.log('allOpportunities ', allOpportunities);
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
   const interestIDs = Users.getInterestIDs(profile.userID);
@@ -137,17 +136,6 @@ const itemCount = (props: IStudentOfInterestWidgetProps) => {
   }
   return ret;
 };
-
-const courses = (props: IStudentOfInterestWidgetProps) => {
-  const cs = matchingCourses(props);
-  return cs;
-};
-
-const opportunities = (props: IStudentOfInterestWidgetProps) => {
-  const os = matchingOpportunities(props);
-  return os;
-};
-
 
 const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   /*
@@ -168,8 +156,9 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   } else {
     id = recommendedCourses;
   }
-  const courseItems = courses(props);
-  const opportunityItems = opportunities(props);
+  const courses = matchingCourses(props);
+  const opportunities = matchingOpportunities(props);
+
   return (
     <Segment padded id={id}>
       <Header dividing>
@@ -179,36 +168,51 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
         </h4>
       </Header>
 
-      {courseItems.length > 0 ?
-        (
-          <div style={cardsStackableStyle}>
-            <Card.Group stackable itemsPerRow={2}>
-              {isTypeCourse(props) ?
-                courseItems.map((course) => (
+      {isTypeCourse(props)
+        ? (courses.length > 0)
+          ? (
+            <div style={cardsStackableStyle}>
+              <Card.Group stackable itemsPerRow={2}>
+                {courses.map((course) => (
                   <StudentOfInterestCard
                     key={course._id}
                     item={course}
                     type={type}
                   />
-                ))
-                :
-                opportunityItems.map((opp) => (
+                ))}
+              </Card.Group>
+            </div>
+          )
+          : (
+            <p>
+              Add interests or career goals to see recommendations here. To add interests, click on
+              the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
+              dropdown
+              menu on that page.
+            </p>
+          )
+        : (opportunities.length > 0)
+          ? (
+            <div style={cardsStackableStyle}>
+              <Card.Group stackable itemsPerRow={2}>
+                {opportunities.map((course) => (
                   <StudentOfInterestCard
-                    key={opp._id}
-                    item={opp}
+                    key={course._id}
+                    item={course}
                     type={type}
                   />
                 ))}
-            </Card.Group>
-          </div>
-        )
-        : (
-          <p>
-            Add interests or career goals to see recommendations here. To add interests, click on
-            the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the dropdown
-            menu on that page.
-          </p>
-        )}
+              </Card.Group>
+            </div>
+          )
+          : (
+            <p>
+              Add interests or career goals to see recommendations here. To add interests, click on
+              the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
+              dropdown
+              menu on that page.
+            </p>
+          )}
     </Segment>
   );
 };
