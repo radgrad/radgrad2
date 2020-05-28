@@ -6,7 +6,6 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -19,6 +18,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 
 // TODO: bug hunting
 // admin should be recieving copy of newsletter 09/16/19

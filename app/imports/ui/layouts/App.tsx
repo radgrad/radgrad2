@@ -18,8 +18,8 @@ import {
   getUsername,
   ILocationProps,
 } from '../components/shared/RouterHelperFunctions';
-import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { Users } from '../../api/user/UserCollection';
+import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import NotAuthorized from '../pages/NotAuthorized';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
@@ -181,7 +181,7 @@ function withHistoryListen(WrappedComponent) {
         const interactionData = { username, type, typeData };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
-            console.log('Error creating UserInteraction.', userInteractionError);
+            console.error('Error creating UserInteraction.', userInteractionError);
           }
         });
       }
