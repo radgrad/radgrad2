@@ -9,11 +9,11 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import StudentTeaserWidgetVideo from './StudentTeaserWidgetVideo';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
+import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
 import { studentTeaserWidget } from './student-widget-names';
-import { ITeaser } from '../../../typings/radgrad';
+import { ISlug, ITeaser } from '../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -57,29 +57,53 @@ const matchingTeasers = (match: IMatchProps) => {
   return [];
 };
 
-const teaserTitle = (teaser: any): string => teaser.title;
+const teaserTitle = (teaser: ITeaser): string => teaser.title;
 
-const teaserAuthor = (teaser: any): string => teaser.author;
+const teaserAuthor = (teaser: ITeaser): string => teaser.author;
 
-const teaserUrl = (teaser: any): string => teaser.url;
+const teaserUrl = (teaser: ITeaser): string => teaser.url;
 
-const opportunitySlug = (teaser) => {
-  let ret;
-  if (teaser.opportunityID) {
-    ret = Slugs.findDoc(Opportunities.findDoc(teaser.opportunityID).slugID).name;
-  } else {
-    ret = '#';
+const getType = (teaser: ITeaser): string => {
+  const slugDoc: ISlug = Slugs.findDoc(teaser.targetSlugID);
+  switch (slugDoc.entityName) {
+    case 'CareerGoal':
+      return 'CareerGoal';
+    case 'Course':
+      return 'Course';
+    case 'Interest':
+      return 'Interest';
+    case 'Opportunity':
+      return 'Opportunity';
+    default:
+      console.error(`Bad slugDoc.entityName: ${slugDoc.entityName}`);
+      break;
   }
-  return ret;
+  return undefined;
 };
 
-const buildOpportunitiesRouteName = (teaser, props: IStudentTeaserWidgetProps) => {
-  const opportunityName = opportunitySlug(teaser);
-  const username = props.match.params.username;
-  const baseUrl = props.match.url;
-  const baseIndex = baseUrl.indexOf(username);
-  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-  return `${baseRoute}explorer/opportunities/${opportunityName}`;
+const buildTeaserRouteName = (teaser: ITeaser, props: IStudentTeaserWidgetProps): string => {
+  const type: string = getType(teaser);
+  const slugDoc: ISlug = Slugs.findDoc(teaser.targetSlugID);
+  const slugName: string = slugDoc.name;
+
+  let category: string;
+  switch (type) {
+    case 'CareerGoal':
+      category = EXPLORER_TYPE.CAREERGOALS;
+      break;
+    case 'Course':
+      category = EXPLORER_TYPE.COURSES;
+      break;
+    case 'Interest':
+      category = EXPLORER_TYPE.INTERESTS;
+      break;
+    case 'Opportunity':
+      category = EXPLORER_TYPE.OPPORTUNITIES;
+      break;
+    default:
+      break;
+  }
+  return buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${category}/${slugName}`);
 };
 
 const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
@@ -103,9 +127,10 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
         </Header>
 
         {
-          teasers.length > 0 ? (
-            <Card.Group style={cardGroupStyle}>
-              {
+          teasers.length > 0 ?
+            (
+              <Card.Group style={cardGroupStyle}>
+                {
                   teasers.map((teaser) => (
                     <React.Fragment key={teaser._id}>
                       <Card centered>
@@ -124,23 +149,17 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
                           <InterestList item={teaser} size="mini" />
                         </Card.Content>
 
-                        {/* TODO this doesnt work */}
-                        {
-                          teaser.opportunityID ? (
-                            <Link to={buildOpportunitiesRouteName(teaser, props)}>
-                              <Button attached="bottom">
-                                <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
-                                View More
-                              </Button>
-                            </Link>
-                            )
-                            : ''
-                        }
+                        <Link to={buildTeaserRouteName(teaser, props)}>
+                          <Button attached="bottom">
+                            <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
+                            View More
+                          </Button>
+                        </Link>
                       </Card>
                     </React.Fragment>
                   ))
                 }
-            </Card.Group>
+              </Card.Group>
             )
             : (
               <p>
@@ -148,8 +167,8 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
                 the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
                 dropdown menu on that page.
               </p>
-          )
-}
+            )
+        }
       </Segment>
     </Container>
   );
