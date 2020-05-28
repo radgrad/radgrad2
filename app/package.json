@@ -184,7 +184,15 @@
           "allowParens": true
         }
       ],
-      "no-console": ["warn", { "allow": ["off", "error"] }],
+      "no-console": [
+        "warn",
+        {
+          "allow": [
+            "off",
+            "error"
+          ]
+        }
+      ],
       "no-plusplus": "off",
       "no-underscore-dangle": "off",
       "no-nested-ternary": "off",

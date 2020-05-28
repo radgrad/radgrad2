@@ -16,7 +16,9 @@ class AdminAnalyticsNewsletterMessagePreviewWidget extends React.Component<IAdmi
         <label htmlFor="example">Message Preview</label>
         <input type="hidden" id="example" />
         <p>Aloha Student</p>
-        <Markdown source={this.props.message} />
+        <div className="adminMessage">
+          <Markdown source={this.props.message} />
+        </div>
         <p>- The RadGrad Team</p>
       </div>
 

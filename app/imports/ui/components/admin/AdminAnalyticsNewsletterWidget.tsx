@@ -5,7 +5,10 @@ import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniform
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
+import { $ } from 'meteor/jquery';
 import _ from 'lodash';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { IStudentProfile } from '../../../typings/radgrad';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -19,11 +22,12 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { Reviews } from '../../../api/review/ReviewCollection';
 
-// TODO: bug hunting
-// admin should be recieving copy of newsletter 09/16/19
-// currenty, admin recieves copy, but without student's information
-// should probably try to handle if the "send to student's too" checkbox is not checked
+interface IHtml {
+  header?: string;
+  info?: string;
+}
 const schema = new SimpleSchema({
   inputMessage: String,
   bcc: { type: String, optional: true },
@@ -68,7 +72,6 @@ const iceMap = {
       ' profession-related opportunities to top this area off and reach 100 Experience points!',
   },
 };
-
 const levelMap = {
   1: 'You are currently level 1. To get to level 2, finish your first semester of ICS' +
     ' coursework and then go see your advisor to confirm the completion of your courses and pick up' +
@@ -92,6 +95,261 @@ const levelMap = {
     ' from a successful future in computer science, whether it\'s joining the workforce or entering Graduate School.' +
     ' Congratulations on your journey! If you have not already done so, pick up your new RadGrad sticker and show it' +
     ' off proudly!',
+};
+
+const iceRecHelper = (student: IStudentProfile, value, component): string => {
+  let html = '';
+  if (value >= 100) {
+    html += `Congratulations! You have achieved 100 ${iceMap[component].name} points!`;
+    return html;
+  }
+  if (value < 30) {
+    html += iceMap[component].low;
+  } else if (value < 60) {
+    html += iceMap[component].med;
+  } else {
+    html += iceMap[component].high;
+  }
+  const studentInterests = Users.getInterestIDs(student.userID);
+  if (component === 'c') {
+    if (studentInterests.length === 0) {
+      html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+        ' Add some interests so we can provide course recommendations!</a></em>';
+      return html;
+    }
+    const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
+      if (_.some(course.interestIDs, interest => _.includes(studentInterests, interest))) {
+        return true;
+      }
+      return false;
+    });
+    const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
+    const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
+    if (recommendedCourses.length === 0) {
+      html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
+        ' Add more interests so we can provide course recommendations!</a></em>';
+      return html;
+    }
+    const recCourse = recommendedCourses[0];
+    html += ' Check out';
+    html += '<a style="color: #6FBE44; font-weight: bold;"' +
+      ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
+      `/explorer/courses/${Courses.findSlugByID(recCourse._id)}"> ${recCourse.shortName}</a>`;
+  } else {
+    if (studentInterests.length === 0) {
+      html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+        ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
+      return html;
+    }
+    const opps = _.filter(Opportunities.findNonRetired(), function (opp) {
+      return opp.ice[component] > 0;
+    });
+    const relevantOpps = _.filter(opps, function (opp) {
+      if (_.some(opp.interestIDs, interest => _.includes(studentInterests, interest))) {
+        return true;
+      }
+      return false;
+    });
+    if (relevantOpps.length === 0) {
+      return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
+        ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
+    }
+    const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
+    const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
+    let recOpp;
+    if (recommendedOpps.length === 0) {
+      recOpp = relevantOpps[0];
+    } else {
+      recOpp = recommendedOpps[0];
+    }
+    html += ' Check out';
+    html += '<a style="color: #6FBE44; font-weight: bold;"' +
+      ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
+      `/explorer/opportunities/${Opportunities.findSlugByID(recOpp._id)}"> ${recOpp.name}</a>`;
+  }
+  return html;
+};
+const iceRecommendation = (student: IStudentProfile): IHtml | string => {
+  const ice = StudentProfiles.getProjectedICE(student.username);
+  if (ice.i >= 100 && ice.c >= 100 && ice.e >= 100) {
+    return '';
+  }
+  const html: IHtml = {};
+  html.header = 'Finish Your Degree Plan';
+  html.info = '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>';
+  _.each(ice, function (value, component) {
+    let iceLevel = '';
+    if (value < 30) {
+      iceLevel = '<span style="color: red;"><strong>NEEDS WORK</strong></span>';
+    } else if (value < 60) {
+      iceLevel = '<span style="color: orange;"><strong>NEEDS WORK</strong></span>';
+    } else {
+      iceLevel = '<span style="color: green;"><strong>GOOD</strong></span>';
+    }
+    html.info += `<p><span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)</span>
+      : ${iceLevel}</p>`;
+    html.info += `<ul><li>${iceRecHelper(student, value, component)}</li></ul>`;
+  });
+  return html;
+};
+const levelRecommendation = (student: IStudentProfile): IHtml | string => {
+  if (student.level > 5) {
+    return '';
+  }
+  const html: IHtml = {};
+  html.header = 'Level Up and Upgrade Your RadGrad Sticker';
+  html.info = '<img src='
+    + `"https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png"`
+    + ' width="100" height="100" style="float: left; margin: 0 10px;">';
+  html.info += `<p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p>`;
+  html.info += '<p><em>Swing by your advisor\'s office or POST 307 to pick up a laptop sticker for'
+    + ' your current level if you haven\'t already!</em></p>';
+  html.info += `<p>${levelMap[student.level]}</p>`;
+  if (student.level < 6) {
+    html.info += '<p>View your <a style="color: #6FBE44; font-weight: bold" '
+      + `href="https://radgrad.ics.hawaii.edu/student/${student.username}/home/levels">Level Page</a>`
+      + ' to view specific level requirements.</p>';
+  }
+  return html;
+};
+const verifyOppRecommendation = (student: IStudentProfile): IHtml | string => {
+  const unverifiedOpps = OpportunityInstances.find({ studentID: student.userID, verified: false }).fetch();
+  const currentUnverifiedOpps = _.filter(unverifiedOpps, function (unverifiedOpp) {
+    const { termID } = unverifiedOpp;
+    const { termNumber } = AcademicTerms.findOne({ _id: termID });
+    if (termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
+      return true;
+    }
+    return false;
+  });
+  if (currentUnverifiedOpps.length === 0) {
+    return '';
+  }
+  const html: IHtml = {};
+  html.header = 'Verify Your Opportunities';
+  html.info = '<p>You have unverified opportunities. To verify them, visit your RadGrad Degree Planner and'
+    + ' click on the opportunity with the red question mark.'
+    + ' <img src='
+    + '"https://radgrad.ics.hawaii.edu/images/help/degree-planner-unverified-opportunity.png" width="100"> Select '
+    + 'the opportunity you want to verify in your planner'
+    + ' and it should be displayed in the Details tab, along with an option at the bottom to request verification.'
+    + ' You must supply a brief explanation of how you participated. There may be additional requirements in addition '
+    + 'to requesting the verification. Here is a list of'
+    + ' past or current opportunities that you have not yet verified:</p>';
+  html.info += '<ul>';
+  _.each(currentUnverifiedOpps, function (unverifiedOpp) {
+    const { termID } = unverifiedOpp;
+    const termName = AcademicTerms.toString(termID, false);
+    const opp = Opportunities.findOne({ _id: unverifiedOpp.opportunityID });
+    const oppSlug = Slugs.getNameFromID(opp.slugID);
+    html.info += '<li><a style="color: #6FBE44; font-weight: bold"'
+      + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
+      + `/explorer/opportunities/${oppSlug}">${opp.name} (${termName})</a></li>`;
+  });
+  html.info += '</ul>';
+  return html;
+};
+const reviewCourseRecommendation = (student: IStudentProfile): IHtml | string => {
+  const completedCourses = _.map(CourseInstances.find({ studentID: student.userID, verified: true }).fetch(),
+    function (instance) {
+      return instance.courseID;
+    });
+  const nonReviewedCourses = _.filter(completedCourses, function (courseID) {
+    return !(Reviews.findOne({ studentID: student.userID, revieweeID: courseID }));
+  });
+  if (nonReviewedCourses.length === 0) {
+    return '';
+  }
+  let suggestedReviewCourses = [];
+  const remainingCourses = [];
+  _.each(nonReviewedCourses, function (courseID) {
+    if (Reviews.findOne({ revieweeID: courseID }) === undefined) {
+      suggestedReviewCourses.push(courseID);
+    } else {
+      remainingCourses.push(courseID);
+    }
+  });
+  suggestedReviewCourses = suggestedReviewCourses.concat(remainingCourses);
+  const html: IHtml = {};
+  html.header = 'Review Courses You Have Completed';
+  html.info = '<p>Contribute to the ICS community by providing reviews for courses you have completed.'
+    + ' Here are some suggested courses to review:</p>';
+  html.info += '<ul>';
+  _.each(suggestedReviewCourses, function (courseID, index) {
+    if (index === 3) {
+      return false;
+    }
+    const courseSlug = Slugs.getNameFromID(Courses.findDoc(courseID).slugID);
+    const courseName = Courses.findDocBySlug(courseSlug).shortName;
+    html.info += '<li><a style="color: #6FBE44; font-weight: bold"'
+      + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
+      + `/explorer/courses/${courseSlug}">${courseName}</a></li>`;
+    return true;
+  });
+  html.info += '</ul>';
+  return html;
+};
+const reviewOppRecommendation = (student: IStudentProfile): IHtml | string => {
+  const completedOpps = _.map(OpportunityInstances.find({ studentID: student.userID, verified: true }).fetch(),
+    function (instance) {
+      return instance.opportunityID;
+    });
+  const nonReviewedOpps = _.filter(completedOpps, function (oppID) {
+    return !(Reviews.findOne({ studentID: student.userID, revieweeID: oppID }));
+  });
+  if (nonReviewedOpps.length === 0) {
+    return '';
+  }
+  let suggestedReviewOpps = [];
+  const remainingOpps = [];
+  _.each(nonReviewedOpps, function (oppID) {
+    if (Reviews.findOne({ revieweeID: oppID }) === undefined) {
+      suggestedReviewOpps.push(oppID);
+    } else {
+      remainingOpps.push(oppID);
+    }
+  });
+  suggestedReviewOpps = suggestedReviewOpps.concat(remainingOpps);
+  suggestedReviewOpps = _.uniq(suggestedReviewOpps);
+  const html: IHtml = {};
+  html.header = 'Review Opportunities You Have Completed';
+  html.info = '<p>Contribute to the ICS community by providing reviews for opportunities you have completed.'
+    + ' Here are some suggested opportunities to review:</p>';
+  html.info += '<ul>';
+  _.each(suggestedReviewOpps, function (oppID, index) {
+    if (index === 3) {
+      return false;
+    }
+    const oppSlug = Slugs.getNameFromID(oppID);
+    const oppName = Opportunities.findDocBySlug(oppSlug).name;
+    html.info += '<li><a style="color: #6FBE44; font-weight: bold"'
+      + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
+      + `/explorer/opportunities/${oppSlug}">${oppName}</a></li>`;
+    return true;
+  });
+  html.info += '</ul>';
+  return html;
+};
+const visitMentorRecommendation = (student: IStudentProfile): IHtml => {
+  const html: IHtml = {};
+  html.header = 'Visit The Mentor Space';
+  html.info = '<p>Connect with RadGrad mentors to learn more about future opportunities and careers, or if you simply'
+    + ' have questions regarding your current degree track. Visit the <a style="color: #6FBE44; font-weight: bold"'
+    + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}/mentor-space">Mentor Space</a>`
+    + ' page to get started!</p>';
+  return html;
+};
+const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation,
+  reviewCourseRecommendation, reviewOppRecommendation, visitMentorRecommendation];
+const getRecList = (student: IStudentProfile) => {
+  const suggestedRecs = [];
+  _.each(recList, function (func) {
+    const html = func(student);
+    if (html) {
+      suggestedRecs.push(html);
+    }
+  });
+  return suggestedRecs;
 };
 
 interface IAdminAnalyticsNewsletterWidget {
@@ -128,6 +386,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
   /** Auto Forms */
     // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
   const handleChange = (name, value) => {
+    // console.log('handleChange', name, value);
       switch (name) {
         case 'inputMessage':
           setInputMessage(value);
@@ -145,7 +404,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
           setStudentEmails(value);
           break;
         case 'sendToStudentsToo':
-          setSendToStudentsToo(value === 'true');
+          setSendToStudentsToo(value);
           break;
         case 'level':
           setLevel(parseInt(value, 10));
@@ -166,58 +425,43 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
   };
 
   const onClickSendStudentsToo = () => {
-    const trimmedEmails = [];
     const studentEmailsArr = studentEmails.split(',');
+    const bccListArray = _.map(bcc.split(','), email => email.trim());
     const adminEmail = RadGradProperties.getAdminEmail();
-    if (sendToStudentsToo === false) {
-      setMessage({
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        subjectLine,
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        bcc: `${bcc.split(',')}${adminEmail}`,
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        inputMessage: onSubmitInputMessage,
-        recipients: [/* 'radgrad@hawaii.edu' */],
-      });
-      generateEmail(message);
-      Swal.fire('Email sent to admin');
-    } else {
-      _.map(studentEmailsArr, (emails) => {
-        emails.toString();
-        trimmedEmails.push(emails.trim());
-      });
-      // send copy to admin
-      // trimmedEmails.push('radgrad@hawaii.edu');
-      _.map(trimmedEmails, (trimmedEmail) => {
-        if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
-          if (Users.isDefined(trimmedEmail) === true) {
-            const trimmedRecipients = [];
-            trimmedRecipients.push(trimmedEmail);
-            setMessage({
-              // eslint-disable-next-line react/no-access-state-in-setstate
-              subjectLine,
-              // eslint-disable-next-line react/no-access-state-in-setstate
-              bcc: bcc.split(',') /* + 'radgrad@hawaii.edu' */,
-              // eslint-disable-next-line react/no-access-state-in-setstate
-              inputMessage: onSubmitInputMessage,
-              recipients: trimmedRecipients,
-            });
-            generateEmail(message);
-            Swal.fire(
-              'Email sent to Admin and students',
-            );
-          } else {
-            Swal.fire(
-              `User: ${trimmedEmail} is NOT in the Student Profile Collection`,
-            );
-          }
-        } else {
-          Swal.fire(
-            'You forgot to fill something out...',
-          );
+    const from = RadGradProperties.getNewsletterFrom();
+    const adminMessage = $('.adminMessage').html();
+    _.forEach(studentEmailsArr, (studentEmail) => {
+      const student = StudentProfiles.findByUsername(studentEmail);
+      if (student) {
+        const suggestedRecs = getRecList(student);
+        const sendList = [];
+        sendList.push(adminEmail); // always send to admin
+        if (sendToStudentsToo) {
+          sendList.push(studentEmail);
         }
-      });
-    }
+        const emailData: any = {};
+        emailData.to = sendList;
+        emailData.bcc = bccListArray;
+        emailData.from = from;
+        emailData.replyTo = 'radgrad@hawaii.edu';
+        emailData.subject = `Newsletter View For ${student.firstName} ${student.lastName}`;
+        emailData.templateData = {
+          adminMessage,
+          firstName: student.firstName,
+          firstRec: suggestedRecs[0],
+          secondRec: suggestedRecs[1],
+          thirdRec: suggestedRecs[2],
+        };
+        emailData.filename = 'newsletter2.html';
+        sendEmailMethod.call(emailData, (error) => {
+          if (error) {
+            console.error('Error sending email.', error);
+          } else {
+            Swal.fire('Email sent to admin');
+          }
+        });
+      }
+    });
   };
 
   const onClickSendLevels = () => {
@@ -266,6 +510,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
   };
 
   const generateEmail = (m) => {
+    console.log('generateEmail', m);
     const adminEmail = RadGradProperties.getAdminEmail();
     const newsletterFrom = RadGradProperties.getNewsletterFrom();
     const emailData = {
@@ -388,79 +633,6 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
       header: 'You Have Completed Your Degree Plan',
     };
     return complete;
-  };
-
-  const iceRecHelper = (student, value, component) => {
-    let html = '';
-    if (value >= 100) {
-      html += `Congratulations! You have achieved 100 ${iceMap[component].name} points!`;
-      return html;
-    }
-    if (value < 30) {
-      html += iceMap[component].low;
-    } else if (value < 60) {
-      html += iceMap[component].med;
-    } else {
-      html += iceMap[component].high;
-    }
-    const studentInterests = Users.getInterestIDs(student.userID);
-    if (component === 'c') {
-      if (studentInterests.length === 0) {
-        html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
-          ' Add some interests so we can provide course recommendations!</a></em>';
-        return html;
-      }
-      const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
-        if (_.some(course.interestIDs, interest => _.includes(studentInterests, interest))) {
-          return true;
-        }
-        return false;
-      });
-      const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
-      const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
-      if (recommendedCourses.length === 0) {
-        html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
-          ' Add more interests so we can provide course recommendations!</a></em>';
-        return html;
-      }
-      const recCourse = recommendedCourses[0];
-      html += ' Check out';
-      html += '<a style="color: #6FBE44; font-weight: bold;"' +
-        ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-        `/explorer/courses/${Courses.findSlugByID(recCourse._id)}"> ${recCourse.shortName}</a>`;
-    } else {
-      if (studentInterests.length === 0) {
-        html += ' <em><a href="https://radgrad.ics.hawaii.edu">' +
-          ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
-        return html;
-      }
-      const opps = _.filter(Opportunities.findNonRetired(), function (opp) {
-        return opp.ice[component] > 0;
-      });
-      const relevantOpps = _.filter(opps, function (opp) {
-        if (_.some(opp.interestIDs, interest => _.includes(studentInterests, interest))) {
-          return true;
-        }
-        return false;
-      });
-      if (relevantOpps.length === 0) {
-        return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
-          ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
-      }
-      const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
-      const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
-      let recOpp;
-      if (recommendedOpps.length === 0) {
-        recOpp = relevantOpps[0];
-      } else {
-        recOpp = recommendedOpps[0];
-      }
-      html += ' Check out';
-      html += '<a style="color: #6FBE44; font-weight: bold;"' +
-        ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
-        `/explorer/opportunities/${Opportunities.findSlugByID(recOpp._id)}"> ${recOpp.name}</a>`;
-    }
-    return html;
   };
 
   const getRecommendationsLevel = (student) => ({
