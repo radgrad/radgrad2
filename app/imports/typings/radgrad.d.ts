@@ -1077,6 +1077,7 @@ export interface IStarDataObject {
 
 // Teasers
 export interface ITeaser {
+  _id: string;
   title: string;
   slugID: string;
   author: string;

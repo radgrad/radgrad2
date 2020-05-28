@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -12,6 +13,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
 import { studentTeaserWidget } from './student-widget-names';
+import { ITeaser } from '../../../typings/radgrad';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -22,11 +24,12 @@ interface IStudentTeaserWidgetProps {
       username: string;
     }
   };
+  teasers: ITeaser[];
 }
 
 const matchingTeasers = (match: IMatchProps) => {
   if (getUsername(match)) {
-    const allTeasers = Teasers.find().fetch();
+    const allTeasers: ITeaser[] = Teasers.findNonRetired({});
     const matching = [];
     const profile = Users.getProfile(getUsername(match));
     const userInterests = [];
@@ -79,12 +82,11 @@ const buildOpportunitiesRouteName = (teaser, props: IStudentTeaserWidgetProps) =
   return `${baseRoute}explorer/opportunities/${opportunityName}`;
 };
 
-// TODO make StudentTeaserWidget reactive
 const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
-  const teasers = matchingTeasers(props.match);
-  const teaserCount = matchingTeasers(props.match).length;
+  const { teasers } = props;
+  const teaserCount = teasers.length;
 
-  const cardGroupStyle = {
+  const cardGroupStyle: React.CSSProperties = {
     maxHeight: '656px',
     overflow: 'scroll',
     padding: '5px',
@@ -153,4 +155,13 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
   );
 };
 
-export default withRouter(StudentTeaserWidget);
+const StudentTeaserWidgetCon = withTracker(({ match }) => {
+  const teasers: ITeaser[] = matchingTeasers(match);
+
+  return {
+    teasers,
+  };
+})(StudentTeaserWidget);
+const StudentTeaserWidgetContainer = withRouter(StudentTeaserWidgetCon);
+
+export default StudentTeaserWidgetContainer;
