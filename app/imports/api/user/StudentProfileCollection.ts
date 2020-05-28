@@ -114,8 +114,6 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param retired boolean. (optional defaults to false)
    * @param academicPlan An optional slug indicating the academic plan.
    * @param declaredAcademicTerm An optional string indicating the student's declared academic term.
-   * @param hiddenCourses An optional array of course slugs indicating the hidden ones.
-   * @param hiddenOpportunities An optional array of opportunity slugs indicating the hidden opportunities.
    * @param isAlumni An optional boolean indicating if this student has graduated. Defaults to false.
    * @param shareUsername An optional boolean indicating if this student is sharing their username. Defaults to false.
    * @param sharePicture An optional boolean indicating if this student is sharing their picture. Defaults to false.
@@ -127,7 +125,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareOpportunities An optional boolean indicating if this student is sharing their opportunities. Defaults to false.
    * @param shareLevel An optional boolean indicating if this student is sharing their level. Defaults to false.
    * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
-   * academicPlan, declaredAcademicTerm, hiddenCourses, or hiddenOpportunities are invalid.
+   * academicPlan, or declaredAcademicTerm are invalid.
    * @return { String } The docID of the StudentProfile.
    */
 
@@ -213,8 +211,6 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param level
    * @param academicPlan
    * @param declaredAcademicTerm
-   * @param hiddenCourses
-   * @param hiddenOpportunities
    * @param isAlumni
    * @param retired
    * @param shareUsername
@@ -379,16 +375,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (doc.declaredAcademicTermID && !AcademicTerms.isDefined(doc.declaredAcademicTermID)) {
         problems.push(`Bad termID: ${doc.declaredAcademicTermID} in ${doc.username}`);
       }
-      _.forEach(doc.hiddenCourseIDs, (hiddenCourseID) => {
-        if (!Courses.isDefined(hiddenCourseID)) {
-          problems.push(`Bad hiddenCourseID: ${hiddenCourseID} in ${doc.username}`);
-        }
-      });
-      _.forEach(doc.hiddenOpportunityIDs, (hiddenOpportunityID) => {
-        if (!Opportunities.isDefined(hiddenOpportunityID)) {
-          problems.push(`Bad hiddenOpportunityID: ${hiddenOpportunityID} in ${doc.username}`);
-        }
-      });
     });
     return problems;
   }
@@ -559,8 +545,6 @@ class StudentProfileCollection extends BaseProfileCollection {
               }, '$academicPlanID', ''],
             },
             declaredAcademicTermID: 1,
-            hiddenCourseIDs: 1,
-            hiddenOpportunityIDs: 1,
             isAlumni: 1,
             shareUsername: 1,
             sharePicture: 1,

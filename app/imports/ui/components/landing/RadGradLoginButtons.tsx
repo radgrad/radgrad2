@@ -21,7 +21,7 @@ const RadGradLoginButtons = () => {
     e.preventDefault();
     const callback = function loginCallback(error) {
       if (error) {
-        console.log('Error during CAS Login: ', error);
+        console.error('Error during CAS Login: ', error);
         instance.$('div .ui.error.message.hidden').text('You are not yet registered. Go see your Advisor.');
         instance.$('div .ui.error.message.hidden').removeClass('hidden');
       } else {

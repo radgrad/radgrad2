@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
@@ -20,6 +19,7 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';
+import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -34,23 +34,12 @@ interface IStudentOfInterestWidgetProps {
   profile: any;
   nonRetiredCourses: ICourse[];
   nonRetiredOpportunities: IOpportunity[];
-  hiddenCourses: boolean;
-  hiddenOpportunities: boolean;
   dispatch: any;
   courseInstances: any[];
   opportunityInstances: any[];
 }
 
-const mapStateToProps = (state) => ({
-  hiddenCourses: state.student.home.hiddenCourses,
-  hiddenOpportunities: state.student.home.hiddenOpportunities,
-});
-
 const isTypeCourse = (props: IStudentOfInterestWidgetProps): boolean => props.type === EXPLORER_TYPE.COURSES;
-
-const isCoursesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenCourses;
-
-const isOpportunitiesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenOpportunities;
 
 const availableCourses = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredCourses } = props;
@@ -102,26 +91,6 @@ const matchingCourses = (props: IStudentOfInterestWidgetProps) => {
   return [];
 };
 
-const hiddenCoursesHelper = (props: IStudentOfInterestWidgetProps) => {
-  if (Router.getUsername(props.match)) {
-    const courses = matchingCourses(props);
-    let nonHiddenCourses;
-    if (isCoursesHidden(props)) {
-      const { profile } = props;
-      nonHiddenCourses = _.filter(courses, (course) => {
-        if (_.includes(profile.hiddenCourseIDs, course._id)) {
-          return false;
-        }
-        return true;
-      });
-    } else {
-      nonHiddenCourses = courses;
-    }
-    return nonHiddenCourses;
-  }
-  return [];
-};
-
 const availableOpps = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredOpportunities } = props;
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -150,82 +119,33 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
 
 const matchingOpportunities = (props: IStudentOfInterestWidgetProps) => {
   const allOpportunities = availableOpps(props);
-  const matching: any = [];
-  const { profile } = props;
-  const userInterests = [];
-  let opportunityInterests = [];
-  _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-    userInterests.push(Interests.findDoc(id));
-  });
-  _.forEach(allOpportunities, (opp) => {
-    opportunityInterests = [];
-    _.forEach(opp.interestIDs, (id) => {
-      opportunityInterests.push(Interests.findDoc(id));
-      _.forEach(opportunityInterests, (oppInterest) => {
-        _.forEach(userInterests, (userInterest) => {
-          if (_.isEqual(oppInterest, userInterest)) {
-            if (!_.includes(matching, opp)) {
-              matching.push(opp);
-            }
-          }
-        });
-      });
-    });
-  });
-  // Only display up to the first six matches.
-  return (matching < 7) ? matching : matching.slice(0, 6);
-};
-
-const hiddenOpportunitiesHelper = (props: IStudentOfInterestWidgetProps) => {
-  if (Router.getUsername(props.match)) {
-    const opportunities = matchingOpportunities(props);
-    let nonHiddenOpportunities;
-    if (isOpportunitiesHidden(props)) {
-      const { profile } = props;
-      nonHiddenOpportunities = _.filter(opportunities, (opp) => {
-        if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
-          return false;
-        }
-        return true;
-      });
-    } else {
-      nonHiddenOpportunities = opportunities;
-    }
-    return nonHiddenOpportunities;
-  }
-  return [];
+  // console.log('allOpportunities ', allOpportunities);
+  const username = Router.getUsername(props.match);
+  const profile = Users.getProfile(username);
+  const interestIDs = Users.getInterestIDs(profile.userID);
+  const preferred = new PreferredChoice(allOpportunities, interestIDs);
+  const matching = preferred.getOrderedChoices();
+  return (matching.length < 7) ? matching : matching.slice(0, 6);
 };
 
 const itemCount = (props: IStudentOfInterestWidgetProps) => {
   let ret;
   if (isTypeCourse(props)) {
-    ret = hiddenCoursesHelper(props).length;
+    ret = matchingCourses(props).length;
   } else {
-    ret = hiddenOpportunitiesHelper(props).length;
+    ret = matchingOpportunities(props).length;
   }
   return ret;
 };
 
 const courses = (props: IStudentOfInterestWidgetProps) => {
   const cs = matchingCourses(props);
-  let visibleCourses;
-  if (isCoursesHidden(props)) {
-    visibleCourses = hiddenCoursesHelper(props);
-  } else {
-    visibleCourses = cs;
-  }
-  return visibleCourses;
+  return cs;
 };
 
 const opportunities = (props: IStudentOfInterestWidgetProps) => {
   const os = matchingOpportunities(props);
-  let visibleOpportunities;
-  if (isOpportunitiesHidden(props)) {
-    visibleOpportunities = hiddenOpportunitiesHelper(props);
-  } else {
-    visibleOpportunities = os;
-  }
-  return visibleOpportunities;
+  return os;
 };
 
 
@@ -293,7 +213,6 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   );
 };
 
-const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWidget);
 const StudentOfInterestWidgetCont = withTracker(({ match }) => {
   const username = getUsername(match);
   const profile = Users.getProfile(username);
@@ -311,7 +230,7 @@ const StudentOfInterestWidgetCont = withTracker(({ match }) => {
     favoritedInterests,
     favoritedCareerGoals,
   };
-})(StudentOfInterestWidgetCon);
+})(StudentOfInterestWidget);
 const StudentOfInterestWidgetContainer = withRouter(StudentOfInterestWidgetCont);
 
 export default StudentOfInterestWidgetContainer;

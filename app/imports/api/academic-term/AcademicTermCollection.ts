@@ -31,7 +31,7 @@ class AcademicTermCollection extends BaseSlugCollection {
   constructor() {
     super('AcademicTerm', new SimpleSchema({
       term: { type: String },
-      year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
+      year: { type: SimpleSchema.Integer, min: 1991, max: 2050, defaultValue: moment().year() },
       termNumber: { type: Number },
       slugID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },

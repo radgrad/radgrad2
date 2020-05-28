@@ -804,8 +804,6 @@ export interface IBaseProfile {
   level?: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
   isAlumni?: boolean;
   shareUsername?: boolean;
   sharePicture?: boolean;
@@ -865,8 +863,6 @@ export interface ICombinedProfileDefine extends IProfileDefine {
   level?: number;
   declaredAcademicTerm?: string;
   academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -920,8 +916,6 @@ export interface IStudentProfile extends IProfile {
   level: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
   isAlumni?: boolean;
   shareUsername?: boolean;
   sharePicture?: boolean;
@@ -976,8 +970,6 @@ export interface IStudentProfileUpdateData {
   level?: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
-  hiddenCourseIDs?: string[];
-  hiddenOpportunityIDs?: string[];
   isAlumni?: boolean;
   role?: string;
   retired?: boolean;
