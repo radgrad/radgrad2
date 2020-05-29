@@ -13,8 +13,14 @@ import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
-import { getAllUrlParamsByLocationObject, ILocationProps } from '../components/shared/RouterHelperFunctions';
+import {
+  getAllUrlParamsByLocationObject,
+  getUsername,
+  ILocationProps,
+} from '../components/shared/RouterHelperFunctions';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
+import { Users } from '../../api/user/UserCollection';
+import NotAuthorized from '../pages/NotAuthorized';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -202,11 +208,18 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props: any) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
-        const isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
-        return (isLogged && isAllowed) ?
+        if (!isLogged) {
+          return (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />);
+        }
+        let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+        const routeUsername = getUsername(props.match);
+        const loggedInUserName = Users.getProfile(userId).username;
+        if (isStudent) {
+          isAllowed = routeUsername === loggedInUserName;
+        }
+        return (isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
-          );
+          (<NotAuthorized />);
       }}
     />
   );
