@@ -4,10 +4,12 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree, IExplorerCard,
+  IDesiredDegree,
+  IExplorerCard,
   IInterest,
   IOpportunity,
-  IProfile, IStudentProfile,
+  IProfile,
+  IStudentProfile,
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
@@ -25,7 +27,9 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  itemToSlugName, profileFavoriteBamAcademicPlan, profileGetCareerGoalIDs,
+  itemToSlugName,
+  profileFavoriteBamAcademicPlan,
+  profileGetCareerGoalIDs,
   profileGetFavoriteAcademicPlanIDs,
   profileGetFavoriteAcademicPlans,
 } from './data-model-helper-functions';
@@ -449,13 +453,10 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
   }
 };
 
-export const buildHeader = (props: ICardExplorerMenuWidgetProps): { title: string; count: number; } => {
-  const header = {
-    title: getHeaderTitle(props),
-    count: getHeaderCount(props),
-  };
-  return header;
-};
+export const buildHeader = (props: ICardExplorerMenuWidgetProps): { title: string; count: number; } => ({
+  title: getHeaderTitle(props),
+  count: getHeaderCount(props),
+});
 
 
 export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean => {
@@ -474,40 +475,55 @@ export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean
 export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenuWidgetProps): Element | JSX.Element | string => {
   switch (noItemsMessageType) {
     case 'noPlan':
-      return <p>You have no Academic Plan, select add to profile to select a plan.</p>;
+      return (
+        <p>
+          You have not favorited any Academic Plans. To favorite academic plans, click on &quot;View More&quot;
+          to view the details for an Academic Plan and favorite from there.
+        </p>
+      );
     case 'noInterests':
       if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
         return (
           <p>
-            Add interests to see sorted careers. To add interests, select &quot;Interests&quot; in the pull-down
-            menu on the left.
+            Favorite interests to see sorted Career Goals. To favorite Interests, select &quot;Interests&quot; in the
+            dropdown on the left.
           </p>
-);
+        );
       }
       if (isType(EXPLORER_TYPE.COURSES, props)) {
         return (
           <p>
-            Add interests to see sorted courses. To add interests, select &quot;Interests&quot; in the pull-down
-            menu on the left.
+            Favorite interests to see sorted Courses. To favorite Interests, select &quot;Interests&quot; in the
+            dropdown menu on the left.
           </p>
-);
+        );
       }
       if (isType(EXPLORER_TYPE.INTERESTS, props)) {
-        return <p>You have no Interests, select add to profile to add an interest.</p>;
+        return (
+          <p>
+            You have not favorited any Interests. To favorite Interests, click on &quot;View More&quot; to view the
+            details for an Interest and favorite from there.
+          </p>
+        );
       }
       if (isType(EXPLORER_TYPE.OPPORTUNITIES, props)) {
         return (
           <p>
-            Add interests to see sorted opportunities. To add interests, select &quot;Interests&quot; in the
-            pull-down menu on the left.
+            Favorite interests to see sorted Opportunities. To favorite Interests, select &quot;Interests&quot; in the
+            dropdown menu on the left.
           </p>
-);
+        );
       }
       return '';
     case 'noCareerGoals':
-      return <p>You have no Career Goals, select &quot;Add to Profile&quot; to add a career goal.</p>;
+      return (
+        <p>You have not favorited any Career Goals. To favorite Career Goals, click on &quot;View More&quot; to view the
+          details for a Career Goal and favorite from there.
+        </p>
+      );
     default:
-      return '';
+      console.error(`Bad noItemsMessageType: ${noItemsMessageType}`);
+      return undefined;
   }
 };
 
@@ -522,7 +538,7 @@ export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | 
           {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
           {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
         </React.Fragment>
-);
+      );
     case EXPLORER_TYPE.COURSES:
       return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
     case EXPLORER_TYPE.DEGREES:
@@ -568,7 +584,7 @@ export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: 
 
 export const buildExplorerRoute = (item, props: IExplorerCard) => {
   const { type } = props;
-  let route = '';
+  let route: string;
   switch (type) {
     case EXPLORER_TYPE.CAREERGOALS:
       route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/`);

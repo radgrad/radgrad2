@@ -99,7 +99,6 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
         typeData: `${props.type}:${slug}`,
       };
   }
-  // console.log(collectionName, definitionData);
   defineMethod.call({ collectionName, definitionData }, (error) => {
     if (error) {
       Swal.fire({
@@ -114,14 +113,10 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       Swal.fire({
         title: 'Favorited',
         icon: 'success',
-        text: 'You have successfully favorited this item.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
       });
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
         if (userInteractionError) {
-          console.log('Error creating UserInteraction.', userInteractionError);
+          console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
     }
@@ -129,7 +124,6 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
 };
 
 const handleRemove = (props: IFavoriteButtonProps) => () => {
-  // console.log('handleRemove', props);
   const profile = Users.getProfile(props.studentID);
   const student = profile.username;
   let instance;
@@ -204,7 +198,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
   });
   userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
     if (userInteractionError) {
-      console.log('Error creating UserInteraction.', userInteractionError);
+      console.error('Error creating UserInteraction.', userInteractionError);
     }
   });
 };

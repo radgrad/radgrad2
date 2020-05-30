@@ -87,25 +87,25 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 Back to {getTypeName(props)}
               </Button>
               {
-                isStudent ? (
-                  <Menu vertical text>
-                    <Header as="h4" dividing>MY ACADEMIC PLAN</Header>
-                    {
-                      menuAddedList.map((listItem) => (
-                        <ExplorerMenuNonMobileItem
-                          listItem={listItem}
-                          type={EXPLORER_TYPE.ACADEMICPLANS}
-                          key={listItem.item._id}
-                          match={props.match}
-                        />
-                      ))
-                    }
-                  </Menu>
-                )
-                  : ''
-              }
+                  isStudent ? (
+                    <Menu vertical text>
+                      <Header as="h4" dividing>MY FAVORITE ACADEMIC PLANS</Header>
+                      {
+                          menuAddedList.map((listItem) => (
+                            <ExplorerMenuNonMobileItem
+                              listItem={listItem}
+                              type={EXPLORER_TYPE.ACADEMICPLANS}
+                              key={listItem.item._id}
+                              match={props.match}
+                            />
+                          ))
+                        }
+                    </Menu>
+                    )
+                    : ''
+                }
             </React.Fragment>
-          )
+            )
             : ''
         }
 
@@ -118,25 +118,25 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 Back to {getTypeName(props)}
               </Button>
               {
-                isStudent ? (
-                  <Menu vertical text>
-                    <Header as="h4" dividing>FAVORITE COURSES</Header>
-                    {
-                      menuAddedList.map((listItem) => (
-                        <ExplorerMenuNonMobileItem
-                          listItem={listItem}
-                          type={EXPLORER_TYPE.COURSES}
-                          key={listItem.item._id}
-                          match={props.match}
-                        />
-                      ))
-                    }
-                  </Menu>
-                )
-                  : ''
-              }
+                  isStudent ? (
+                    <Menu vertical text>
+                      <Header as="h4" dividing>FAVORITE COURSES</Header>
+                      {
+                          menuAddedList.map((listItem) => (
+                            <ExplorerMenuNonMobileItem
+                              listItem={listItem}
+                              type={EXPLORER_TYPE.COURSES}
+                              key={listItem.item._id}
+                              match={props.match}
+                            />
+                          ))
+                        }
+                    </Menu>
+                    )
+                    : ''
+                }
             </React.Fragment>
-          )
+            )
             : ''
         }
 
@@ -152,25 +152,25 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 {getTypeName(props)}
               </Button>
               {
-                isStudent ? (
-                  <Menu vertical text>
-                    <Header as="h4" dividing>FAVORITE OPPORTUNITIES</Header>
-                    {
-                      menuAddedList.map((listItem) => (
-                        <ExplorerMenuNonMobileItem
-                          listItem={listItem}
-                          type={EXPLORER_TYPE.OPPORTUNITIES}
-                          key={listItem.item._id}
-                          match={props.match}
-                        />
-                      ))
-                    }
-                  </Menu>
-                )
-                  : ''
-              }
+                  isStudent ? (
+                    <Menu vertical text>
+                      <Header as="h4" dividing>FAVORITE OPPORTUNITIES</Header>
+                      {
+                          menuAddedList.map((listItem) => (
+                            <ExplorerMenuNonMobileItem
+                              listItem={listItem}
+                              type={EXPLORER_TYPE.OPPORTUNITIES}
+                              key={listItem.item._id}
+                              match={props.match}
+                            />
+                          ))
+                        }
+                    </Menu>
+                    )
+                    : ''
+                }
             </React.Fragment>
-          )
+            )
             : ''
         }
 
@@ -189,29 +189,29 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               </Button>
               <Header as="h4" dividing>MY INTERESTS</Header>
               {
-                menuAddedList.map((listItem) => (
-                  <ExplorerMenuNonMobileItem
-                    listItem={listItem}
-                    type={EXPLORER_TYPE.INTERESTS}
-                    key={listItem.item._id}
-                    match={props.match}
-                  />
-                ))
-              }
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.INTERESTS}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
 
               <Header as="h4" dividing>CAREER GOAL INTERESTS</Header>
               {
-                menuCareerList.map((listItem) => (
-                  <ExplorerMenuNonMobileItem
-                    listItem={listItem}
-                    type={EXPLORER_TYPE.INTERESTS}
-                    key={listItem.item._id}
-                    match={props.match}
-                  />
-                ))
-              }
+                  menuCareerList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.INTERESTS}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
             </Menu>
-          )
+            )
             : ''
         }
 
@@ -226,17 +226,17 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               </Button>
               <Header as="h4" dividing>MY CAREER GOALS</Header>
               {
-                menuAddedList.map((listItem) => (
-                  <ExplorerMenuNonMobileItem
-                    listItem={listItem}
-                    type={EXPLORER_TYPE.CAREERGOALS}
-                    key={listItem.item._id}
-                    match={props.match}
-                  />
-                ))
-              }
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.CAREERGOALS}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
             </Menu>
-          )
+            )
             : ''
         }
 
@@ -249,7 +249,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               {' '}
               {getTypeName(props)}
             </Button>
-          )
+            )
             : ''
         }
       </Responsive>
