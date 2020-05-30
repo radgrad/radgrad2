@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { studentLevelsWidget } from './student-widget-names';
@@ -17,6 +18,7 @@ interface IStudentLevelsWidgetProps {
       username: string;
     }
   };
+  studentLevelNumber: number;
 }
 
 
@@ -67,7 +69,7 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
 
 const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   const imageStyle = { width: '230px' };
-  const studentLevelNumber = getStudentLevelNumber(props);
+  const { studentLevelNumber } = props;
   const studentLevelName = getStudentLevelName(props);
   const studentLevelHint = getStudentLevelHint(props);
   return (
@@ -96,4 +98,12 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLevelsWidget);
+const StudentLevelsWidgetCon = withTracker((props) => {
+  const studentLevelNumber: number = getStudentLevelNumber(props);
+
+  return {
+    studentLevelNumber,
+  };
+})(StudentLevelsWidget);
+const StudentLevelsWidgetContainer = withRouter(StudentLevelsWidgetCon);
+export default StudentLevelsWidgetContainer;

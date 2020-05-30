@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { ROLE } from '../../../api/role/Role';
@@ -18,6 +19,8 @@ interface IStudentLevelsOthersWidgetProps {
       opportunity: string;
     }
   };
+  students: IStudentProfile[];
+  studentLevelNumber: number;
 }
 
 const studentsExist = (students): boolean => students.length > 0;
@@ -65,23 +68,24 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
     height: '30px',
     width: 'auto',
   };
-
+  const { students } = props;
   const studentLevelName = getStudentLevelName(props);
-  const studentLevelNumber = getStudentLevelNumber(props);
-  const students = getStudents(studentLevelNumber, props);
   return (
     <Segment padded id={`${studentLevelsOthersWidget}`}>
       <Header as="h4" dividing>
-        OTHER
-        {studentLevelName}
-        {' '}
-        STUDENTS
+        OTHER {studentLevelName} STUDENTS
       </Header>
       {
         studentsExist(students) ? (
           <Image.Group size="mini" circular style={imageGroupStyle}>
             {
               students.map((student) => (
+                // FIXME the <Image circular> gives a console warning:
+                // "Warning: Received `true` for a non-boolean attribute `circular`."
+                // Not really our problem, more of a Semantic UI React problem as "circular" is a boolean attribute.
+                // This has happened for other Semantic UI React components in the past but after a while those warnings
+                // disappear for whatever reason. So no need to really fix this, just putting this here that this warning
+                // can pop up.
                 <Popup
                   key={student._id}
                   trigger={<Image circular src={studentPicture(student)} style={imageStyle} />}
@@ -99,4 +103,13 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLevelsOthersWidget);
+const StudentLevelsOthersWidgetCon = withTracker((props) => {
+  const studentLevelNumber: number = getStudentLevelNumber(props);
+  const students: IStudentProfile[] = getStudents(studentLevelNumber, props);
+
+  return {
+    students,
+  };
+})(StudentLevelsOthersWidget);
+const StudentLevelsOthersWidgetContainer = withRouter(StudentLevelsOthersWidgetCon);
+export default StudentLevelsOthersWidgetContainer;
