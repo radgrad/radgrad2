@@ -2,8 +2,14 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { Ice, ICourse, IOpportunity } from '../../../typings/radgrad';
+import {
+  Ice,
+  ICourse,
+  IFavoriteInterest,
+  IOpportunity,
+} from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -19,6 +25,7 @@ interface IStudentIceColumnRecommendedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
+  favoriteInterests: IFavoriteInterest[];
   match: {
     isExact: boolean;
     path: string;
@@ -30,15 +37,15 @@ interface IStudentIceColumnRecommendedProps {
 }
 
 const hasNoInterests = (props: IStudentIceColumnRecommendedProps): boolean => {
-  const studentID = getUserIdFromRoute(props.match);
-  const interests = FavoriteInterests.findNonRetired({ studentID });
+  const userID = getUserIdFromRoute(props.match);
+  const interests = FavoriteInterests.findNonRetired({ userID });
   return interests.length === 0;
 };
 
 const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
-    const filtered = _.filter(courses, (course) => {
+    const filtered: ICourse[] = _.filter(courses, (course) => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
@@ -54,10 +61,9 @@ const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =
 };
 
 const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOpportunity[] => {
+  const { favoriteInterests } = props;
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
-  const studentID = getUserIdFromRoute(props.match);
-  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
   const userInterests = [];
   _.forEach(favoriteInterests, (f) => {
     userInterests.push(Interests.findDoc(f.interestID));
@@ -82,10 +88,9 @@ const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOppor
 };
 
 const matchingCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
-  const allCourses = availableCourses(props);
-  const matching = [];
-  const studentID = getUserIdFromRoute(props.match);
-  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
+  const { favoriteInterests } = props;
+  const allCourses: ICourse[] = availableCourses(props);
+  const matching: ICourse[] = [];
   const userInterests = [];
   _.forEach(favoriteInterests, (f) => {
     userInterests.push(Interests.findDoc(f.interestID));
@@ -165,13 +170,13 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
         <p>
           Congratulations! You have 100 (or more) verified {type} points!
         </p>
-      )
+        )
         :
         matchingPoints(100, projectedICEPoints) ? (
           <p>
             You already have at least 100 verified or unverified {type} points.
           </p>
-        )
+          )
           :
           hasNoInterests(props) ?
             <p>Consider adding interests to see recommendations here.</p>
@@ -182,30 +187,40 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
                 </p>
                 <List>
                   {recommendedEvents(projectedICEPoints, props).map((event) => {
-                  const courseSlug = getCourseSlug(event);
-                  const courseRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
-                  const opportunitySlug = getOpportunitySlug(event);
-                  const opportunityRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
-                  return (
-                    <List.Item key={event._id}>
-                      {type === 'Competency' ? (
-                        <Link to={courseRoute}>
-                          <b>+9</b> {event.shortName}
-                        </Link>
-                      )
-                        : (
-                          <Link to={opportunityRoute}>
-                            <b>+{icePoints(event.ice)}</b> {event.name}
+                    const courseSlug = getCourseSlug(event);
+                    const courseRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
+                    const opportunitySlug = getOpportunitySlug(event);
+                    const opportunityRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
+                    return (
+                      <List.Item key={event._id}>
+                        {type === 'Competency' ? (
+                          <Link to={courseRoute}>
+                            <b>+9</b> {event.shortName}
                           </Link>
-                      )}
-                    </List.Item>
-                  );
-                })}
+                          )
+                          : (
+                            <Link to={opportunityRoute}>
+                              <b>+{icePoints(event.ice)}</b> {event.name}
+                            </Link>
+                          )}
+                      </List.Item>
+                    );
+                  })}
                 </List>
               </React.Fragment>
-          )}
+            )}
     </React.Fragment>
   );
 };
 
-export default withRouter(StudentIceColumnRecommended);
+const StudentIceColumnRecommendedCon = withTracker(({ match }) => {
+  const userID = getUserIdFromRoute(match);
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+
+  return {
+    favoriteInterests,
+  };
+})(StudentIceColumnRecommended);
+const StudentIceColumnRecommendedContainer = withRouter(StudentIceColumnRecommendedCon);
+
+export default StudentIceColumnRecommendedContainer;

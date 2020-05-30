@@ -39,7 +39,7 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
         <Header as="h4" dividing>ADVISOR MEETING LOG</Header>
         {
           advisorLogs ?
-            advisorLogs.map((log, index) => {
+            advisorLogs.map((log) => {
               const advisorImage = getAdvisorImage(log);
               const advisorName = getAdvisorName(log);
               const displayDate = getDisplayDate(log);
@@ -51,10 +51,7 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
                       <Item.Header>{displayDate}</Item.Header>
                       <Item.Meta>
                         <span>
-                          Results from the meeting with
-                          {advisorName}
-                          :
-                          {' '}
+                          Results from the meeting with {advisorName}:
                         </span>
                       </Item.Meta>
                       <Item.Description><p>{log.text}</p></Item.Description>
