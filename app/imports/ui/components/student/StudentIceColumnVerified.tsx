@@ -1,10 +1,11 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import { getUserIdFromRoute, buildRouteName } from '../shared/RouterHelperFunctions';
+import { withTracker } from 'meteor/react-meteor-data';
+import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IAcademicYear, Ice } from '../../../typings/radgrad';
+import { IAcademicTerm, IAcademicYear, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -19,6 +20,8 @@ interface IStudentIceColumnVerifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
   match: {
     isExact: boolean;
     path: string;
@@ -31,8 +34,7 @@ interface IStudentIceColumnVerifiedProps {
 
 const years = (props: IStudentIceColumnVerifiedProps): IAcademicYear[] => {
   const studentID = getUserIdFromRoute(props.match);
-  const ay = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-  return ay;
+  return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
 
 const academicTerms = (year: IAcademicYear): IAcademicTerm[] => {
@@ -112,12 +114,9 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
     <React.Fragment>
       {matchingPoints(earnedICEPoints, 0) ? (
         <p>
-          You have no verified
-          {type}
-          {' '}
-          points.
+          You have no verified {type} points.
         </p>
-      )
+        )
         : (
           <React.Fragment>
             <p>
@@ -143,12 +142,7 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
                                 key={`${opportunitySlug}-${route}-${points}-${opportunityName(event as IOpportunityInstance)}`}
                                 to={route}
                               >
-                                <b>
-                                  +
-                                  {points}
-                                </b>
-                                {' '}
-                                {opportunityName(event as IOpportunityInstance)}
+                                <b>+{points}</b> {opportunityName(event as IOpportunityInstance)}
                                 <br />
                               </Link>
                             );
@@ -162,10 +156,7 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
                                 key={`${courseSlug}-${route}-${points}-${courseName(event as ICourseInstance)}`}
                                 to={route}
                               >
-                                <b>
-                                  +
-                                  {points}
-                                </b> {courseName(event as ICourseInstance)}
+                                <b>+{points}</b> {courseName(event as ICourseInstance)}
                                 <br />
                               </Link>
                             );
@@ -178,9 +169,22 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
               ))}
             </List>
           </React.Fragment>
-      )}
+        )}
     </React.Fragment>
   );
 };
 
-export default withRouter(StudentIceColumnVerified);
+const StudentIceColumnVerifiedCon = withTracker(({ match }) => {
+  const studentID = getUserIdFromRoute(match);
+  // Tracked to make StudentIceColumnVerified reactive
+  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
+
+  return {
+    courseInstances,
+    opportunityInstances,
+  };
+})(StudentIceColumnVerified);
+const StudentIceColumnVerifiedContainer = withRouter(StudentIceColumnVerifiedCon);
+
+export default StudentIceColumnVerifiedContainer;

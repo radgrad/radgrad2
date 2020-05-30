@@ -1,7 +1,8 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IAcademicYear, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
@@ -21,6 +22,8 @@ interface IStudentIceColumnUnverifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
   match: {
     isExact: boolean;
     path: string;
@@ -34,8 +37,7 @@ interface IStudentIceColumnUnverifiedProps {
 
 const years = (props: IStudentIceColumnUnverifiedProps): IAcademicYear[] => {
   const studentID = getUserIdFromRoute(props.match);
-  const ay = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-  return ay;
+  return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
 
 const academicTerms = (year: IAcademicYear): IAcademicTerm[] => {
@@ -124,54 +126,66 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
             </p>
             <List relaxed="very">
               {years(props).map((year) => (
-              academicTerms(year).map((term, index) => {
-                const opportunityEvents = getEvents('opportunity', false, term, props);
-                const courseEvents = getEvents('course', false, term, props);
-                return (
-                  <React.Fragment key={term._id}>
-                    {hasEvents(false, term, props) ? (
-                      <List.Item>
-                        <List.Header>{printTerm(term)}</List.Header>
-                        {opportunityEvents.map((event) => {
-                          const opportunitySlug = getOpportunitySlug(event as IOpportunityInstance);
-                          const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
-                          const points = icePoints(event.ice);
-                          const oName = opportunityName(event as IOpportunityInstance);
-                          return (
-                            <Link
-                              key={`${opportunitySlug}-${route}-${points}-${oName}`}
-                              to={route}
-                            >
-                              <b>+{points}</b> {oName}
-                              <br />
-                            </Link>
-                          );
-                        })}
-                        {courseEvents.map((event) => {
-                          const courseSlug = getCourseSlug(event);
-                          const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
-                          const points = icePoints(event.ice);
-                          const cName = courseName(event as ICourseInstance);
-                          return (
-                            <Link
-                              key={`${courseSlug}-${route}-${points}-${cName}`}
-                              to={route}
-                            >
-                              <b>+{points}</b> {cName}
-                              <br />
-                            </Link>
-                          );
-                        })}
-                      </List.Item>
-                    ) : ''}
-                  </React.Fragment>
-                );
-              })))}
+                academicTerms(year).map((term) => {
+                  const opportunityEvents = getEvents('opportunity', false, term, props);
+                  const courseEvents = getEvents('course', false, term, props);
+                  return (
+                    <React.Fragment key={term._id}>
+                      {hasEvents(false, term, props) ? (
+                        <List.Item>
+                          <List.Header>{printTerm(term)}</List.Header>
+                          {opportunityEvents.map((event) => {
+                            const opportunitySlug = getOpportunitySlug(event as IOpportunityInstance);
+                            const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
+                            const points = icePoints(event.ice);
+                            const oName = opportunityName(event as IOpportunityInstance);
+                            return (
+                              <Link
+                                key={`${opportunitySlug}-${route}-${points}-${oName}`}
+                                to={route}
+                              >
+                                <b>+{points}</b> {oName}
+                                <br />
+                              </Link>
+                            );
+                          })}
+                          {courseEvents.map((event) => {
+                            const courseSlug = getCourseSlug(event);
+                            const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
+                            const points = icePoints(event.ice);
+                            const cName = courseName(event as ICourseInstance);
+                            return (
+                              <Link
+                                key={`${courseSlug}-${route}-${points}-${cName}`}
+                                to={route}
+                              >
+                                <b>+{points}</b> {cName}
+                                <br />
+                              </Link>
+                            );
+                          })}
+                        </List.Item>
+                      ) : ''}
+                    </React.Fragment>
+                  );
+                })))}
             </List>
           </React.Fragment>
-      )}
+        )}
     </React.Fragment>
   );
 };
 
-export default withRouter(StudentIceColumnUnverified);
+const StudentIceColumnUnverifiedCon = withTracker(({ match }) => {
+  const studentID = getUserIdFromRoute(match);
+  // Tracked to make StudentIceColumnUnVerified reactive
+  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
+  return {
+    courseInstances,
+    opportunityInstances,
+  };
+})(StudentIceColumnUnverified);
+const StudentIceColumnUnverifiedContainer = withRouter(StudentIceColumnUnverifiedCon);
+
+export default StudentIceColumnUnverifiedContainer;
