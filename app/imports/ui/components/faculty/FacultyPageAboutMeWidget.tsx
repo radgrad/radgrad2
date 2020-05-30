@@ -15,9 +15,10 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IFacultyProfile } from '../../../typings/radgrad';
+import { IFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
 
 /**
  * The Faculty
@@ -30,6 +31,8 @@ interface IFacultyPageAboutMeWidgetProps {
     },
   }
   profile: IFacultyProfile;
+  favoriteInterests: IFavoriteInterest[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
 
@@ -168,6 +171,10 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
     }
   };
 
+  const marginStyle = {
+    marginBottom: 0,
+  };
+
   const username = props.match.params.username;
   // gets the doc object containing information on desired profile based on username
   const facultyDoc = FacultyProfiles.findDoc(username);
@@ -228,20 +235,25 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
             <Grid>
               <Grid.Row divided textAlign="left">
                 <Label.Group>
-                  {_.map(facultyInterests, (interests, index) => (
-                    <Label
-                      size="small"
-                      key={index}
-                      as={NavLink}
-                      exact
-                      to={generateInterestRoute(interests)}
-                    >
-                      <Icon
-                        name="star"
-                      />
-                      {interests}
-                    </Label>
-                  ))}
+                  {
+                    facultyInterests.length > 0 ? (
+                        _.map(facultyInterests, (interests, index) => (
+                          <Label
+                            size="small"
+                            key={index}
+                            as={NavLink}
+                            exact
+                            to={generateInterestRoute(interests)}
+                          >
+                            <Icon
+                              name="star"
+                            />
+                            {interests}
+                          </Label>
+                        ))
+                      )
+                      : <p style={marginStyle}>No interests favorited yet.</p>
+                  }
                 </Label.Group>
               </Grid.Row>
               <Link to={exploreRoute}>Edit in Interest Explorer</Link>
@@ -254,20 +266,22 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
             <Grid>
               <Grid.Row divided textAlign="left">
                 <Label.Group>
-                  {_.map(facultyCareerGoals, (careerGoals, index) => (
-                    <Label
-                      size="small"
-                      key={index}
-                      as={NavLink}
-                      exact
-                      to={generateCareerGoalsRoute(careerGoals)}
-                    >
-                      <Icon
-                        name="suitcase"
-                      />
-                      {careerGoals}
-                    </Label>
-                  ))}
+                  {
+                    facultyCareerGoals.length > 0 ? (
+                        _.map(facultyCareerGoals, (careerGoals, index) => (
+                          <Label
+                            size="small"
+                            key={index}
+                            as={NavLink}
+                            exact
+                            to={generateCareerGoalsRoute(careerGoals)}
+                          >
+                            <Icon name="suitcase" /> {careerGoals}
+                          </Label>
+                        ))
+                      )
+                      : <p style={marginStyle}>No career goals favorited yet.</p>
+                  }
                 </Label.Group>
               </Grid.Row>
               <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
@@ -311,14 +325,19 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   );
 };
 
-export default withRouter(withTracker((props) => ({
-  profile: Users.getProfile(props.match.params.username),
-}))(FacultyPageAboutMeWidget));
+const FacultyPageAboutMeWidgetCon = withTracker(({ match }) => {
+  const username = getUsername(match);
+  const profile: IFacultyProfile = Users.getProfile(username);
+  const userID = getUserIdFromRoute(match);
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
 
-/**
- * Addtional Notes:
- * may have to make quality checks and what not
- * make alert to notify user that information has been updated sucessfully
- * conditional showing of interest and career goal labels: if user doesn't have any, text should say:
- * no career goals/ interests added yet
- */
+  return {
+    profile,
+    favoriteInterests,
+    favoriteCareerGoals,
+  };
+})(FacultyPageAboutMeWidget);
+const FacultyPageAboutMeWidgetContainer = withRouter(FacultyPageAboutMeWidgetCon);
+
+export default FacultyPageAboutMeWidgetContainer;
