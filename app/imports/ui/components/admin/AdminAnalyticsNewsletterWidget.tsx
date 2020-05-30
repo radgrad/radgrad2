@@ -4,25 +4,23 @@ import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
-import { Meteor } from 'meteor/meteor';
 import { $ } from 'meteor/jquery';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { IStudentProfile } from '../../../typings/radgrad';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { sendEmailMethod } from '../../../api/analytic/Email.methods';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { Reviews } from '../../../api/review/ReviewCollection';
+import { analyticsActions } from '../../../redux/admin/analytics';
 
 interface IHtml {
   header?: string;
@@ -96,7 +94,6 @@ const levelMap = {
     ' Congratulations on your journey! If you have not already done so, pick up your new RadGrad sticker and show it' +
     ' off proudly!',
 };
-
 const iceRecHelper = (student: IStudentProfile, value, component): string => {
   let html = '';
   if (value >= 100) {
@@ -351,11 +348,38 @@ const getRecList = (student: IStudentProfile) => {
   });
   return suggestedRecs;
 };
+const getStudentEmailsByLevel = (level: number) => {
+  const studentProfiles = StudentProfiles.findNonRetired({ level, isAlumni: false });
+  return _.map(studentProfiles, (p) => p.username);
+};
 
-interface IAdminAnalyticsNewsletterWidget {
-  userID: string
+interface IAdminAnalyticsNewsletterWidgetProps {
+  userID: string;
+  startTestNewsletter: () => any;
+  testNewsletterDone: () => any;
+  testNewsletterWorking: boolean;
+  startLevelNewsletter: () => any;
+  levelNewsletterDone: () => any;
+  levelNewsletterWorking: boolean;
+  startAllNewsletter: () => any;
+  allNewsletterDone: () => any;
+  allNewsletterWorking: boolean;
 }
 
+const mapStateToProps = (state) => ({
+  testNewsletterWorking: state.admin.analytics.testNewsletter,
+  levelNewsletterWorking: state.admin.analytics.levelNewsletter,
+  allNewsletterWorking: state.admin.analytics.allNewsletter,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  startTestNewsletter: () => dispatch(analyticsActions.startTestNewsletter()),
+  testNewsletterDone: () => dispatch(analyticsActions.testNewsletterDone()),
+  startLevelNewsletter: () => dispatch(analyticsActions.startLevelNewsletter()),
+  levelNewsletterDone: () => dispatch(analyticsActions.levelNewsletterDone()),
+  startAllNewsletter: () => dispatch(analyticsActions.startAllNewsletter()),
+  allNewsletterDone: () => dispatch(analyticsActions.allNewsletterDone()),
+});
 
 interface IAdminAnalyticsNewsletterWidgetState {
   inputMessage: string,
@@ -370,7 +394,7 @@ interface IAdminAnalyticsNewsletterWidgetState {
   message: object,
 }
 
-const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) => {
+const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetProps) => {
 // class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNewsletterWidget, IAdminAnalyticsNewsletterWidgetState> {
   const [inputMessage, setInputMessage] = useState('');
   const [onSubmitInputMessage, setOnSubmitInputMessage] = useState('');
@@ -381,7 +405,6 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
   const [level, setLevel] = useState(0);
   const [sendToLevels, setSendToLevels] = useState(false);
   const [sendToAll, setSendToAll] = useState(false);
-  const [message, setMessage] = useState({});
 
   /** Auto Forms */
     // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
@@ -410,10 +433,10 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
           setLevel(parseInt(value, 10));
           break;
         case 'sendToLevels':
-          setSendToLevels(value === 'true');
+          setSendToLevels(value);
           break;
-        case 'sentToAll':
-          setSendToAll(value === 'true');
+        case 'sendToAll':
+          setSendToAll(value);
           break;
         default:
         // do nothing
@@ -425,12 +448,13 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
   };
 
   const onClickSendStudentsToo = () => {
+    props.startTestNewsletter();
     const studentEmailsArr = studentEmails.split(',');
     const bccListArray = _.map(bcc.split(','), email => email.trim());
     const adminEmail = RadGradProperties.getAdminEmail();
     const from = RadGradProperties.getNewsletterFrom();
     const adminMessage = $('.adminMessage').html();
-    _.forEach(studentEmailsArr, (studentEmail) => {
+    _.forEach(studentEmailsArr, (studentEmail, index) => {
       const student = StudentProfiles.findByUsername(studentEmail);
       if (student) {
         const suggestedRecs = getRecList(student);
@@ -443,7 +467,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
         emailData.to = sendList;
         emailData.bcc = bccListArray;
         emailData.from = from;
-        emailData.replyTo = 'radgrad@hawaii.edu';
+        emailData.replyTo = RadGradProperties.getAdminEmail();
         emailData.subject = `Newsletter View For ${student.firstName} ${student.lastName}`;
         emailData.templateData = {
           adminMessage,
@@ -462,296 +486,94 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
         });
       }
     });
+    props.testNewsletterDone();
   };
 
   const onClickSendLevels = () => {
+    props.startLevelNewsletter();
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
-      setMessage({
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        subjectLine,
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        bcc: bcc.split(','),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        inputMessage: onSubmitInputMessage,
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        recipients: getStudentEmailsByLevel(level),
+      const studentEmailsArr = getStudentEmailsByLevel(level);
+      const bccListArray = _.map(bcc.split(','), email => email.trim());
+      const from = RadGradProperties.getNewsletterFrom();
+      const adminMessage = $('.adminMessage').html();
+      _.forEach(studentEmailsArr, (studentEmail) => {
+        const student = StudentProfiles.findByUsername(studentEmail);
+        if (student) {
+          const suggestedRecs = getRecList(student);
+          const emailData: any = {};
+          emailData.to = studentEmail;
+          emailData.bcc = bccListArray;
+          emailData.from = from;
+          emailData.replyTo = RadGradProperties.getAdminEmail();
+          emailData.subject = subjectLine;
+          emailData.templateData = {
+            adminMessage,
+            firstName: student.firstName,
+            firstRec: suggestedRecs[0],
+            secondRec: suggestedRecs[1],
+            thirdRec: suggestedRecs[2],
+          };
+          emailData.filename = 'newsletter2.html';
+          sendEmailMethod.call(emailData, (error) => {
+            if (error) {
+              console.error('Error sending email.', error);
+            }
+          });
+        }
       });
-      generateEmail(message);
-      Swal.fire(
-        'Good Job, email sent!',
+       Swal.fire(
+        'Good Job, emails sent!',
       );
     } else {
       Swal.fire(
         'You forgot to fill something out!',
       );
     }
+    props.levelNewsletterDone();
   };
 
   const onClickSendToAll = () => {
+    props.startAllNewsletter();
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
-      setMessage({
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        subjectLine,
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        bcc: bcc.split(','),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        inputMessage: onSubmitInputMessage,
-        recipients: getAllUsersEmails(),
+      const profiles = StudentProfiles.findNonRetired({ isAlumni: false });
+      const studentEmailsArr = _.map(profiles, (p) => p.username);
+      const bccListArray = _.map(bcc.split(','), email => email.trim());
+      const from = RadGradProperties.getNewsletterFrom();
+      const adminMessage = $('.adminMessage').html();
+      _.forEach(studentEmailsArr, (studentEmail) => {
+        const student = StudentProfiles.findByUsername(studentEmail);
+        if (student) {
+          const suggestedRecs = getRecList(student);
+          const emailData: any = {};
+          emailData.to = studentEmail;
+          emailData.bcc = bccListArray;
+          emailData.from = from;
+          emailData.replyTo = RadGradProperties.getAdminEmail();
+          emailData.subject = subjectLine;
+          emailData.templateData = {
+            adminMessage,
+            firstName: student.firstName,
+            firstRec: suggestedRecs[0],
+            secondRec: suggestedRecs[1],
+            thirdRec: suggestedRecs[2],
+          };
+          emailData.filename = 'newsletter2.html';
+          sendEmailMethod.call(emailData, (error) => {
+            if (error) {
+              console.error('Error sending email.', error);
+            }
+          });
+        }
       });
-      generateEmail(message);
       Swal.fire(
-        'Good Job, email sent!',
+        'Good Job, emails sent!',
       );
     } else {
       Swal.fire(
         'You forgot to fill something out!',
       );
     }
-  };
-
-  const generateEmail = (m) => {
-    console.log('generateEmail', m);
-    const adminEmail = RadGradProperties.getAdminEmail();
-    const newsletterFrom = RadGradProperties.getNewsletterFrom();
-    const emailData = {
-      to: m.recipients,
-      from: newsletterFrom,
-      subject: '',
-      replyTo: adminEmail,
-      templateData: {
-        adminMessage: m.inputMessage,
-        firstName: '',
-        lastName: '',
-        firstRec: '',
-        secondRec: '',
-        thirdRec: '',
-      },
-      filename: 'newsletter2.html',
-    };
-    _.map(m.recipients, (username) => {
-      const informationForEmail = getInformationForEmail(username);
-      emailData.subject = `Newsletter View For ${informationForEmail.recipientInfo.firstName} ${informationForEmail.recipientInfo.lastName}`;
-      emailData.templateData.firstName = informationForEmail.recipientInfo.firstName;
-      emailData.templateData.lastName = informationForEmail.recipientInfo.lastName;
-      emailData.templateData.firstRec = informationForEmail.emailInfo.recommendationOne;
-      emailData.templateData.secondRec = informationForEmail.emailInfo.recommendationTwo;
-      emailData.templateData.thirdRec = informationForEmail.emailInfo.recommendationThree;
-      sendEmailMethod.call(emailData, (error) => {
-        if (error) {
-          Swal.fire('Error sending email.');
-        }
-      });
-    });
-  };
-
-  const getInformationForEmail = (username) => {
-    const informationForEmail = {
-      recipientInfo: {
-        username: [],
-        firstName: '',
-        lastName: '',
-      },
-      emailInfo: {
-        recommendationOne: '',
-        recommendationTwo: '',
-        recommendationThree: '',
-      },
-    };
-    // send to admin
-    // if (username === 'radgrad@hawaii.edu') {
-    //   informationForEmail.recipientInfo.username = username;
-    //   informationForEmail.recipientInfo.firstName = 'Admin';
-    // } else {
-    if (Users.findProfileFromUsername(username).role !== 'STUDENT') {
-      const role = Users.findProfileFromUsername(username).role;
-      switch (role) {
-        case 'FACULTY':
-          // eslint-disable-next-line no-case-declarations
-          const faculty = FacultyProfiles.findDoc(username);
-          informationForEmail.recipientInfo.username = faculty.username;
-          informationForEmail.recipientInfo.firstName = faculty.firstName;
-          informationForEmail.recipientInfo.lastName = faculty.lastName;
-          break;
-        case 'ADVISOR':
-          // eslint-disable-next-line no-case-declarations
-          const advisor = AdvisorProfiles.findDoc(username);
-          informationForEmail.recipientInfo.username = advisor.username;
-          informationForEmail.recipientInfo.firstName = advisor.firstName;
-          informationForEmail.recipientInfo.lastName = advisor.lastName;
-          break;
-        default:
-          break;
-      }
-      // use role to find collection to search
-      // search for user and return first and last name
-      // put in conditional if user is not found in Users Collections
-    } else {
-      const student = StudentProfiles.findDoc(username); // doc
-      const recommendations = getRecommendations(student); // array
-      informationForEmail.recipientInfo.username = student.username;
-      informationForEmail.recipientInfo.firstName = student.firstName;
-      informationForEmail.recipientInfo.lastName = student.lastName;
-      informationForEmail.emailInfo.recommendationOne = recommendations[0];
-      informationForEmail.emailInfo.recommendationTwo = recommendations[1];
-      informationForEmail.emailInfo.recommendationThree = recommendations[2];
-    }
-    // }
-    return informationForEmail;
-  };
-
-  const getRecommendations = (student) => {
-    const recommendations = [];
-    recommendations.push(getRecommendationsICE(student));
-    recommendations.push(getRecommendationsLevel(student));
-    recommendations.push(getRecommendationsAcademicPlan(student));
-    return recommendations;
-  };
-
-  const getRecommendationsICE = (student) => {
-    const projectedICE = StudentProfiles.getProjectedICE(student.userID);
-    if (projectedICE.i < 100 && projectedICE.c < 100 && projectedICE.e < 100) {
-      const iCERec = {
-        header: 'Finish Your Degree Plan',
-        info: '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>',
-      };
-      _.each(projectedICE, (value, component) => {
-        let iceLevel = '';
-        if (value < 30) {
-          iceLevel = '<span style="color: red;"><strong>NEEDS WORK</strong></span>';
-        } else if (value < 60) {
-          iceLevel = '<span style="color: orange;"><strong>NEEDS WORK</strong></span>';
-        } else {
-          iceLevel = '<span style="color: green;"><strong>GOOD</strong></span>';
-        }
-        iCERec.info += `<p><span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)</span>
-        : ${iceLevel}</p>`;
-        iCERec.info += `<ul><li>${iceRecHelper(student, value, component)}</li></ul>`;
-      });
-      return iCERec;
-    }
-    const complete = {
-      header: 'You Have Completed Your Degree Plan',
-    };
-    return complete;
-  };
-
-  const getRecommendationsLevel = (student) => ({
-    header: 'Level Up and Upgrade Your RadGrad Sticker',
-    info: `<img alt="radgrad icon" src="https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png" width="100" height="100" style="float: left; margin: 0 10px;"/> <p style="color: #6FBE44;"><strong>Current Level: ${student.level}</strong></p> <p><em>Swing by your advisor's office or POST 307 to pick up a laptop sticker for your current level if you haven't already!</em></p> <p>${levelMap[student.level]}</p><a style="color: #6FBE44; font-weight: bold" href="https://radgrad.ics.hawaii.edu/">Take me to RadGrad!</a>`,
-  });
-
-  const getRecommendationsAcademicPlan = (student) => {
-    const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
-    const academicPlanSlug = Slugs.getNameFromID(studentAcademicPlanDoc.slugID);
-    const remainingReqs = getRemainingRequirements(student, studentAcademicPlanDoc);
-
-    const html = {
-      header: 'Complete Your Academic Plan',
-      info: `<p>Your Current Academic Plan: <a style ="color: #6FBE44; font-weight: bold" href = "https://radgrad.ics.hawaii.edu/student/${student.username}
-       /explorer/plans/${academicPlanSlug}">${studentAcademicPlanDoc.name}</a></p>`,
-    };
-    if (isAcademicPlanCompleted(student) === false) {
-      html.info += '<p>Your degree planner shows that you do not' +
-        ' have all required coursework planned out yet. Head over to your' +
-        ' <a style="color: #6FBE44; font-weight: bold;"' +
-        ` href="https://radgrad.ics.hawaii.edu/student/${student.username}/degree-planner">RadGrad degree planner</a>` +
-        ' to complete your academic plan, or click on your plan above to find out more information.' +
-        ' Provided below is a list of required coursework that you are currently missing.' +
-        ' Make sure to double-check the requirements with your advisor!</p>';
-      html.info += '<p style="text-decoration: underline;">Missing Requirements: </p>';
-      html.info += '<ul>';
-      _.each(remainingReqs, function (req) {
-        const requirement = (req.toString().toUpperCase()).replace(/,/g, ' or ').replace(/_/g, ' ');
-        html.info += `<li style="color: red;">${requirement}</li>`;
-      });
-      html.info += '</ul>';
-    } else {
-      html.info = '<p>You have completed all your academic requirements</p>';
-    }
-    return html;
-  };
-
-  const getRemainingRequirements = (student, studentAcademicPlanDoc) => {
-    const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
-    const inPlanCourseSlugs400 = [];
-    const inPlanCourseSlugs300opt = [];
-    const inPlanCourseSlugs = [];
-    _.map(studentAcademicPlanDoc.courseList, (course) => {
-      if (_.includes(course, '-') && _.includes(course, '_4')) {
-        inPlanCourseSlugs400.push(course.substring(0, course.indexOf('-')));
-      } else if (_.includes(course, ',')) {
-        inPlanCourseSlugs300opt.push([course.substring(0, course.indexOf(',')), course.substring(course.indexOf(',') + 1, course.indexOf('-'))]);
-      } else if (_.includes(course, '-')) {
-        inPlanCourseSlugs.push(course.substring(0, course.indexOf('-')));
-      }
-    });
-    const studentCompletedCourseSlugs = [];
-    const studentCompletedCourseSlugs300op = [];
-    const studentCompletedCourseSlugs400 = [];
-    _.map(studentCompletedCourses, (course) => {
-      const slugName = CourseInstances.getCourseSlug(course._id);
-      if (_.includes(slugName, '_4')) {
-        studentCompletedCourseSlugs400.push(slugName);
-      } else if (_.includes(slugName, '312' || '331')) {
-        studentCompletedCourseSlugs300op.push([slugName]);
-      } else if (_.includes(slugName, '313' || '361')) {
-        studentCompletedCourseSlugs300op.push([slugName]);
-      } else {
-        studentCompletedCourseSlugs.push(slugName);
-      }
-    });
-
-    _.each(studentCompletedCourseSlugs400, () => {
-      inPlanCourseSlugs400.pop();
-    });
-
-    const needsWork = _.difference(inPlanCourseSlugs, studentCompletedCourseSlugs);
-    if ((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length === 2 && (_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length === 2) {
-      // return "ics_312, ics_331"
-      const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[0][0]},${inPlanCourseSlugs300opt[0][1]}`, `${inPlanCourseSlugs300opt[1][0]},${inPlanCourseSlugs300opt[1][1]}`, inPlanCourseSlugs400);
-      return missingRequirements;
-    }
-    if (((_.difference(inPlanCourseSlugs300opt[0], studentCompletedCourseSlugs300op[0])).length === 2)) {
-      const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[0][0]},${inPlanCourseSlugs300opt[0][1]}`, inPlanCourseSlugs400);
-      return missingRequirements;
-    }
-    if (((_.difference(inPlanCourseSlugs300opt[1], studentCompletedCourseSlugs300op[1])).length === 2)) {
-      // return "ics_313, ics_361"
-      const missingRequirements = _.concat(needsWork, `${inPlanCourseSlugs300opt[1][0]},${inPlanCourseSlugs300opt[1][1]}`, inPlanCourseSlugs400);
-      return missingRequirements;
-
-    }
-    const missingRequirements = _.concat(needsWork, inPlanCourseSlugs400);
-    return missingRequirements;
-  };
-
-  const isAcademicPlanCompleted = (student) => {
-    const studentCompletedCourses = CourseInstances.find({ verified: true, studentID: student.userID }).fetch();
-    const studentAcademicPlanDoc = AcademicPlans.findDoc(student.academicPlanID);
-    if (_.difference(studentAcademicPlanDoc.courseList, studentCompletedCourses).length === 0) {
-      return true;
-    }
-    return false;
-  };
-
-
-  const getStudentEmailsByLevel = (lvl) => {
-    const emailaddresses = [];
-    const studentLevel = parseInt(lvl, 10);
-    const students = StudentProfiles.findNonRetired({ level: studentLevel }); // array of objects
-    _.map(students, (profile) => {
-      emailaddresses.push(profile.username);
-    });
-    return emailaddresses;
-  };
-
-  const getAllUsersEmails = () => {
-    const allUsers = Meteor.users.find().fetch();
-    const emailAddresses = [];
-    _.map(allUsers, (profile) => {
-      emailAddresses.push(profile.username);
-    });
-    return emailAddresses;
+    props.allNewsletterDone();
   };
 
   return (
@@ -768,34 +590,32 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidget) 
           </Form.Group>
           <Button color="green" basic onClick={onClickPreviewSave}>Preview And Save</Button>
           <Header as="h4" dividing>SEND NEWSLETTER</Header>
-          <TextField name="studentEmails" />
-          <BoolField name="sendToStudentsToo" />
-          <Button basic color="green" onClick={onClickSendStudentsToo}>Send To Admin</Button>
-
-          <NumField name="level" placeholder="level" />
-          <BoolField name="sendToLevels" />
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button
-            className="ui basic green button"
-            disabled={!sendToLevels}
-            onClick={onClickSendLevels}
-          >
-            Send To Students
-          </button>
-          <Form.Field label="Generate To Send To All Users" />
-          <BoolField name="sendToAll" />
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button
-            className="ui basic green button"
-            disabled={!sendToAll}
-            onClick={onClickSendToAll}
-          >
-            Send To All
-          </button>
+          <Segment>
+            <TextField name="studentEmails" />
+            <BoolField name="sendToStudentsToo" />
+            <Button basic color="green" loading={props.testNewsletterWorking} onClick={onClickSendStudentsToo}>Send To
+              Admin</Button>
+          </Segment>
+          <Segment>
+            <NumField name="level" placeholder="level" />
+            <BoolField name="sendToLevels" />
+            <Button disabled={!sendToLevels} loading={props.levelNewsletterWorking} onClick={onClickSendLevels}>
+              Send To Students
+            </Button>
+          </Segment>
+          <Segment>
+            <Form.Field label="Generate To Send To All Users" />
+            <BoolField name="sendToAll" />
+            {/* eslint-disable-next-line react/button-has-type */}
+            <Button disabled={!sendToAll} loading={props.allNewsletterWorking} onClick={onClickSendToAll}>
+              Send To All
+            </Button>
+          </Segment>
         </AutoForm>
       </Segment>
     </div>
   );
 };
 
-export default withRouter(AdminAnalyticsNewsletterWidget);
+const AdminAnalyticsNewsletterWidgetCon = connect(mapStateToProps, mapDispatchToProps)(AdminAnalyticsNewsletterWidget);
+export default withRouter(AdminAnalyticsNewsletterWidgetCon);
