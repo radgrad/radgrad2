@@ -26,6 +26,12 @@ interface IHtml {
   header?: string;
   info?: string;
 }
+
+const emailDelayMs = 500; // the delay between sending student emails in milliseconds.
+
+/**
+ * Schema for the form that controls sending email.
+ */
 const schema = new SimpleSchema({
   inputMessage: String,
   bcc: { type: String, optional: true },
@@ -409,7 +415,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
   /** Auto Forms */
     // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
   const handleChange = (name, value) => {
-    // console.log('handleChange', name, value);
+      // console.log('handleChange', name, value);
       switch (name) {
         case 'inputMessage':
           setInputMessage(value);
@@ -443,10 +449,16 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
       }
     };
 
+  /**
+   * Sets the Admin's message.
+   */
   const onClickPreviewSave = () => {
     setOnSubmitInputMessage(inputMessage);
   };
 
+  /**
+   * Sends test emails to the admin and optionally the student(s).
+   */
   const onClickSendStudentsToo = () => {
     props.startTestNewsletter();
     const studentEmailsArr = studentEmails.split(',');
@@ -455,57 +467,21 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
     const from = RadGradProperties.getNewsletterFrom();
     const adminMessage = $('.adminMessage').html();
     _.forEach(studentEmailsArr, (studentEmail, index) => {
-      const student = StudentProfiles.findByUsername(studentEmail);
-      if (student) {
-        const suggestedRecs = getRecList(student);
-        const sendList = [];
-        sendList.push(adminEmail); // always send to admin
-        if (sendToStudentsToo) {
-          sendList.push(studentEmail);
-        }
-        const emailData: any = {};
-        emailData.to = sendList;
-        emailData.bcc = bccListArray;
-        emailData.from = from;
-        emailData.replyTo = RadGradProperties.getAdminEmail();
-        emailData.subject = `Newsletter View For ${student.firstName} ${student.lastName}`;
-        emailData.templateData = {
-          adminMessage,
-          firstName: student.firstName,
-          firstRec: suggestedRecs[0],
-          secondRec: suggestedRecs[1],
-          thirdRec: suggestedRecs[2],
-        };
-        emailData.filename = 'newsletter2.html';
-        sendEmailMethod.call(emailData, (error) => {
-          if (error) {
-            console.error('Error sending email.', error);
-          } else {
-            Swal.fire('Email sent to admin');
-          }
-        });
-      }
-    });
-    props.testNewsletterDone();
-  };
-
-  const onClickSendLevels = () => {
-    props.startLevelNewsletter();
-    if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
-      const studentEmailsArr = getStudentEmailsByLevel(level);
-      const bccListArray = _.map(bcc.split(','), email => email.trim());
-      const from = RadGradProperties.getNewsletterFrom();
-      const adminMessage = $('.adminMessage').html();
-      _.forEach(studentEmailsArr, (studentEmail) => {
+      setTimeout(() => {
         const student = StudentProfiles.findByUsername(studentEmail);
         if (student) {
           const suggestedRecs = getRecList(student);
+          const sendList = [];
+          sendList.push(adminEmail); // always send to admin
+          if (sendToStudentsToo) {
+            sendList.push(studentEmail);
+          }
           const emailData: any = {};
-          emailData.to = studentEmail;
+          emailData.to = sendList;
           emailData.bcc = bccListArray;
           emailData.from = from;
           emailData.replyTo = RadGradProperties.getAdminEmail();
-          emailData.subject = subjectLine;
+          emailData.subject = `Newsletter View For ${student.firstName} ${student.lastName}`;
           emailData.templateData = {
             adminMessage,
             firstName: student.firstName,
@@ -520,9 +496,54 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
             }
           });
         }
+      }, emailDelayMs);
+    });
+    let numEmails = studentEmailsArr.length;
+    if (sendToStudentsToo) {
+      numEmails *= 2;
+    }
+    Swal.fire(
+      `Good Job, ${numEmails} emails sent!`,
+    );
+    props.testNewsletterDone();
+  };
+
+  const onClickSendLevels = () => {
+    props.startLevelNewsletter();
+    if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
+      const studentEmailsArr = getStudentEmailsByLevel(level);
+      const bccListArray = _.map(bcc.split(','), email => email.trim());
+      const from = RadGradProperties.getNewsletterFrom();
+      const adminMessage = $('.adminMessage').html();
+      _.forEach(studentEmailsArr, (studentEmail) => {
+        setTimeout(() => {
+          const student = StudentProfiles.findByUsername(studentEmail);
+          if (student) {
+            const suggestedRecs = getRecList(student);
+            const emailData: any = {};
+            emailData.to = studentEmail;
+            emailData.bcc = bccListArray;
+            emailData.from = from;
+            emailData.replyTo = RadGradProperties.getAdminEmail();
+            emailData.subject = subjectLine;
+            emailData.templateData = {
+              adminMessage,
+              firstName: student.firstName,
+              firstRec: suggestedRecs[0],
+              secondRec: suggestedRecs[1],
+              thirdRec: suggestedRecs[2],
+            };
+            emailData.filename = 'newsletter2.html';
+            sendEmailMethod.call(emailData, (error) => {
+              if (error) {
+                console.error('Error sending email.', error);
+              }
+            });
+          }
+        }, emailDelayMs);
       });
-       Swal.fire(
-        'Good Job, emails sent!',
+      Swal.fire(
+        `Good Job, ${studentEmailsArr.length} emails sent!`,
       );
     } else {
       Swal.fire(
@@ -541,32 +562,34 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
       _.forEach(studentEmailsArr, (studentEmail) => {
-        const student = StudentProfiles.findByUsername(studentEmail);
-        if (student) {
-          const suggestedRecs = getRecList(student);
-          const emailData: any = {};
-          emailData.to = studentEmail;
-          emailData.bcc = bccListArray;
-          emailData.from = from;
-          emailData.replyTo = RadGradProperties.getAdminEmail();
-          emailData.subject = subjectLine;
-          emailData.templateData = {
-            adminMessage,
-            firstName: student.firstName,
-            firstRec: suggestedRecs[0],
-            secondRec: suggestedRecs[1],
-            thirdRec: suggestedRecs[2],
-          };
-          emailData.filename = 'newsletter2.html';
-          sendEmailMethod.call(emailData, (error) => {
-            if (error) {
-              console.error('Error sending email.', error);
-            }
-          });
-        }
+        setTimeout(() => {
+          const student = StudentProfiles.findByUsername(studentEmail);
+          if (student) {
+            const suggestedRecs = getRecList(student);
+            const emailData: any = {};
+            emailData.to = studentEmail;
+            emailData.bcc = bccListArray;
+            emailData.from = from;
+            emailData.replyTo = RadGradProperties.getAdminEmail();
+            emailData.subject = subjectLine;
+            emailData.templateData = {
+              adminMessage,
+              firstName: student.firstName,
+              firstRec: suggestedRecs[0],
+              secondRec: suggestedRecs[1],
+              thirdRec: suggestedRecs[2],
+            };
+            emailData.filename = 'newsletter2.html';
+            sendEmailMethod.call(emailData, (error) => {
+              if (error) {
+                console.error('Error sending email.', error);
+              }
+            });
+          }
+        }, emailDelayMs);
       });
       Swal.fire(
-        'Good Job, emails sent!',
+        `Good Job, ${studentEmailsArr.length} emails sent!`,
       );
     } else {
       Swal.fire(
