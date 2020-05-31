@@ -796,6 +796,7 @@ export interface IPlanChoiceUpdate extends IUpdate {
 
 // Profiles
 export interface IBaseProfile {
+  _id: string;
   userID?: string;
   username: string;
   firstName: string;
@@ -830,7 +831,7 @@ export interface IBaseProfile {
 }
 
 export interface IProfile {
-  _id?: string;
+  _id: string;
   userID: string;
   username: string;
   firstName: string;

@@ -1,14 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import {
-  IAcademicPlan,
+  IAcademicPlan, IBaseProfile,
   ICareerGoal,
   ICourse,
   IDesiredDegree,
   IExplorerCard,
   IInterest,
   IOpportunity,
-  IProfile,
   IStudentProfile,
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
@@ -390,15 +389,19 @@ export const matchingOpportunities = (props: ICardExplorerMenuWidgetProps): obje
 const opportunitiesItemCount = (props: ICardExplorerMenuWidgetProps) => availableOpps(props).length;
 
 /* ####################################### USERS HELPER FUNCTIONS ####################################### */
-export const getUsers = (role: string, match: Router.IMatchProps): IProfile[] => {
+export const getUsers = (role: string, match: Router.IMatchProps): IBaseProfile[] => {
   const username = Router.getUsername(match);
-  const users = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
+  let users: IBaseProfile[] = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
+  if (role === ROLE.STUDENT) {
+    users = _.filter(users, (user) => user.optedIn);
+  }
 
   if (username) {
     const profile = Users.getProfile(username);
-    const filtered = _.filter(users, (u) => u.username !== profile.username);
+    // const filtered = _.filter(users, (u) => u.username !== profile.username);
     const interestIDs = Users.getInterestIDs(profile.userID);
-    const preferred = new PreferredChoice(filtered, interestIDs);
+    // const preferred = new PreferredChoice(filtered, interestIDs);
+    const preferred = new PreferredChoice(users, interestIDs);
     return preferred.getOrderedChoices();
   }
   return users;
