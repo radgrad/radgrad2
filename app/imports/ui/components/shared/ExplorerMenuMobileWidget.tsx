@@ -168,7 +168,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
           isType(EXPLORER_TYPE.CAREERGOALS, props) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY CAREER GOALS</Dropdown.Header>
+                <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
                     menuAddedList.map((listItem) => (

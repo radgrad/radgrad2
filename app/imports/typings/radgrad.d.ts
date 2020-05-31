@@ -16,6 +16,16 @@ declare namespace cloudinary {
   function openUploadWidget(options: any, resultCallback?: (error: null | string, result: { event: string; info?: { [key: string]: any } }) => any): any;
 }
 
+export interface IMeteorError {
+  details: any;
+  error: string;
+  errorType: string;
+  isClientSafe: boolean;
+  message: string;
+  reason: string;
+  stack: string;
+}
+
 export interface Ice {
   i: number;
   c: number;

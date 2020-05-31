@@ -224,7 +224,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 <br />
                 Back to {getTypeName(props)}
               </Button>
-              <Header as="h4" dividing>MY CAREER GOALS</Header>
+              <Header as="h4" dividing>MY FAVORITE CAREER GOALS</Header>
               {
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuNonMobileItem

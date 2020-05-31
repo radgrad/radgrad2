@@ -56,102 +56,96 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           )
           : ''}
 
-        {
-          isType(EXPLORER_TYPE.COURSES, props) ? (
+        {isType(EXPLORER_TYPE.COURSES, props) ?
+          (
             <React.Fragment>
               <Menu vertical text>
                 <Header as="h4" dividing>MY FAVORITE COURSES</Header>
                 {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuNonMobileItem
-                        listItem={listItem}
-                        type={EXPLORER_TYPE.COURSES}
-                        key={listItem.item._id}
-                        match={props.match}
-                      />
-                    ))
-                  }
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.COURSES}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
               </Menu>
             </React.Fragment>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.OPPORTUNITIES, props) ? (
+        {isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
+          (
             <React.Fragment>
               <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
               <Menu vertical text>
                 <Header as="h4" dividing>MY FAVORITE OPPORTUNITIES</Header>
                 {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuNonMobileItem
-                        listItem={listItem}
-                        type={EXPLORER_TYPE.OPPORTUNITIES}
-                        key={listItem.item._id}
-                        match={props.match}
-                      />
-                    ))
-                  }
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.OPPORTUNITIES}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
               </Menu>
             </React.Fragment>
-            )
-            : ''
-        }
+          )
+          : ''}
 
         {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
-        {
-          isType(EXPLORER_TYPE.INTERESTS, props) ? (
+        {isType(EXPLORER_TYPE.INTERESTS, props) ?
+          (
             <Menu vertical text>
               <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
               <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
               {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.INTERESTS}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
+                menuAddedList.map((listItem) => (
+                  <ExplorerMenuNonMobileItem
+                    listItem={listItem}
+                    type={EXPLORER_TYPE.INTERESTS}
+                    key={listItem.item._id}
+                    match={props.match}
+                  />
+                ))
+              }
 
               <Header as="h4" dividing>CAREER GOAL INTERESTS</Header>
               {
-                  menuCareerList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.INTERESTS}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
+                menuCareerList.map((listItem) => (
+                  <ExplorerMenuNonMobileItem
+                    listItem={listItem}
+                    type={EXPLORER_TYPE.INTERESTS}
+                    key={listItem.item._id}
+                    match={props.match}
+                  />
+                ))
+              }
             </Menu>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.CAREERGOALS, props) ? (
+        {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+          (
             <Menu vertical text>
               <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
               <Header as="h4" dividing>MY FAVORITE CAREER GOALS</Header>
-              {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.CAREERGOALS}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
+              {menuAddedList.map((listItem) => (
+                <ExplorerMenuNonMobileItem
+                  listItem={listItem}
+                  type={EXPLORER_TYPE.CAREERGOALS}
+                  key={listItem.item._id}
+                  match={props.match}
+                />
+              ))}
             </Menu>
-            )
-            : ''
-        }
+          )
+          : ''}
       </Responsive>
     </React.Fragment>
   );
