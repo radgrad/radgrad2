@@ -94,8 +94,7 @@ const StudentOfInterestCard = (props: IStudentOfInterestCardProps) => {
 
       <Card.Content>
         <span>
-          STUDENTS PARTICIPATING
-          <WidgetHeaderNumber inputValue={numberStudents(item)} />
+          STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents(item)} />
         </span>
       </Card.Content>
 

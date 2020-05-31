@@ -11,8 +11,6 @@ import {
   isType,
 } from './explorer-helper-functions';
 
-
-// FIXME: Needs to be reactive
 const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
   const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(props.match);
@@ -118,7 +116,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
                     ))
                   }
 
-                <Dropdown.Header as="h4">CAREER GOAL INTERESTS</Dropdown.Header>
+                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
                     menuCareerList.map((listItem) => (

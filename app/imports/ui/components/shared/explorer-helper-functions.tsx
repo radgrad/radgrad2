@@ -501,8 +501,9 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
       if (isType(EXPLORER_TYPE.INTERESTS, props)) {
         return (
           <p>
-            You have not favorited any Interests. To favorite Interests, click on &quot;View More&quot; to view the
-            details for an Interest and favorite from there.
+            You have not favorited any Interests or Career Goals. To favorite Interests, click on &quot;View
+            More&quot; to view the details for an Interest and favorite from there. To favorite Career Goals,
+            select &quot;Career Goals&quot; in the dropdown menu on the left.
           </p>
         );
       }

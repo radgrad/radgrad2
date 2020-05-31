@@ -63,7 +63,6 @@ const isType = (typeToCheck: string, props: IExplorerMenuNonMobileWidgetProps): 
   return type === typeToCheck;
 };
 
-// FIXME: Needs to be reactive.
 const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) => {
   const marginTopStyle = { marginTop: '5px' };
 
@@ -187,7 +186,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 {' '}
                 {getTypeName(props)}
               </Button>
-              <Header as="h4" dividing>MY INTERESTS</Header>
+              <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
               {
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuNonMobileItem
@@ -199,7 +198,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                   ))
                 }
 
-              <Header as="h4" dividing>CAREER GOAL INTERESTS</Header>
+              <Header as="h4" dividing>SUGGESTED CAREER GOAL INTERESTS</Header>
               {
                   menuCareerList.map((listItem) => (
                     <ExplorerMenuNonMobileItem

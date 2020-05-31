@@ -43,7 +43,7 @@ const itemTerms = (props: ITermCard) => {
 
 const buildRouteName = (item, type, props: ITermCard) => {
   const itemSlug = itemToSlugName(item);
-  let route = '';
+  let route: string;
   switch (type) {
     case EXPLORER_TYPE.COURSES:
       route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemSlug}`);
@@ -91,8 +91,7 @@ const TermCard = (props: ITermCard) => {
       </Card.Content>
       <Card.Content>
         <span>
-          STUDENTS PARTICIPATING
-          <WidgetHeaderNumber inputValue={numberStudents} />
+          STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
       </Card.Content>
 

@@ -37,9 +37,8 @@ interface ICardExplorerMenuProps {
 }
 
 const getTypeName = (props: ICardExplorerMenuProps): string => {
-  const { type } = props;
   const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
-  switch (type) {
+  switch (props.type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return names[0];
     case EXPLORER_TYPE.CAREERGOALS:
@@ -59,7 +58,6 @@ const getTypeName = (props: ICardExplorerMenuProps): string => {
   }
 };
 
-// FIXME: Needs to be reactive
 const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
   const { menuAddedList, menuCareerList, match, type, role } = props;
   const isTypeInterest = props.type === EXPLORER_TYPE.INTERESTS;

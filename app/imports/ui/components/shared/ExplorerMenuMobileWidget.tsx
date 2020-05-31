@@ -40,8 +40,6 @@ const isType = (typeToCheck: string, props: IExplorerMenuMobileWidgetProps): boo
   return type === typeToCheck;
 };
 
-
-// FIXME: Needs to be reactive
 const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
 
   const { menuAddedList, menuCareerList } = props;
@@ -133,7 +131,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
           isType(EXPLORER_TYPE.INTERESTS, props) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY INTERESTS</Dropdown.Header>
+                <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
                     menuAddedList.map((listItem) => (
@@ -146,7 +144,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                     ))
                   }
 
-                <Dropdown.Header as="h4">CAREER GOAL INTERESTS</Dropdown.Header>
+                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
                     menuCareerList.map((listItem) => (

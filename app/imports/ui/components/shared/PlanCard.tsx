@@ -42,8 +42,7 @@ const PlanCard = (props: IPlanCard) => {
 
       <Card.Content>
         <span>
-          STUDENTS PARTICIPATING
-          <WidgetHeaderNumber inputValue={numberStudents} />
+          STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
         <Image.Group size="mini">
           {interested.map((student) => (

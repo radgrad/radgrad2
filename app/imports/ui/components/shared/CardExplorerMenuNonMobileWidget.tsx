@@ -115,7 +115,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
                 ))
               }
 
-              <Header as="h4" dividing>CAREER GOAL INTERESTS</Header>
+              <Header as="h4" dividing>SUGGESTED CAREER GOAL INTERESTS</Header>
               {
                 menuCareerList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
