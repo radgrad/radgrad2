@@ -60,7 +60,7 @@ const ProfileCard = (props: IProfileCardProps) => {
               trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />}
               content={profileIDToFullname(student.userID)}
             />
-))}
+          ))}
         </Image.Group>
       </Card.Content>
       <Link to={buildExplorerRoute(props.item, props)} className="ui button">
