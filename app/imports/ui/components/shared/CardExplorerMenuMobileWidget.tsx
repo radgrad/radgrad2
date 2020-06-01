@@ -3,15 +3,38 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Dropdown, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
-import { Users } from '../../../api/user/UserCollection';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
 import {
   ICardExplorerMenuWidgetProps,
   isType,
 } from './explorer-helper-functions';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import {
+  ICourseInstance,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest, IFavoriteOpportunity, IOpportunityInstance,
+} from '../../../typings/radgrad';
 
-const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
+interface ICardExplorerMenuMobileWidgetProps extends ICardExplorerMenuWidgetProps {
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
+}
+
+const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps) => {
   const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(props.match);
   return (
@@ -40,34 +63,33 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
           )
           : ''}
 
-        {
-          isType(EXPLORER_TYPE.COURSES, props) ? (
+        {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
+          (
             <React.Fragment>
               {
-                  isStudent ? (
-                    <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                      <Dropdown.Menu>
-                        <Dropdown.Header as="h4">FAVORITE COURSES</Dropdown.Header>
-                        <Dropdown.Divider />
-                        {
-                            menuAddedList.map((listItem) => (
-                              <ExplorerMenuMobileItem
-                                type={EXPLORER_TYPE.COURSES}
-                                listItem={listItem}
-                                key={listItem.item._id}
-                                match={props.match}
-                              />
-                            ))
-                          }
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    )
-                    : ''
-                }
+                isStudent ? (
+                  <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
+                    <Dropdown.Menu>
+                      <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
+                      <Dropdown.Divider />
+                      {
+                          menuAddedList.map((listItem) => (
+                            <ExplorerMenuMobileItem
+                              type={EXPLORER_TYPE.COURSES}
+                              listItem={listItem}
+                              key={listItem.item._id}
+                              match={props.match}
+                            />
+                          ))
+                        }
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  )
+                  : ''
+              }
             </React.Fragment>
-            )
-            : ''
-        }
+          )
+          : ''}
 
         {
           isType(EXPLORER_TYPE.OPPORTUNITIES, props) ? (
@@ -160,12 +182,25 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuWidgetProps) => {
   );
 };
 
-export const CardExplorerMenuMobileWidgetCon = withTracker((props) => {
-  const username = Router.getUsername(props.match);
-  const profile = Users.getProfile(username);
+export const CardExplorerMenuMobileWidgetCon = withTracker(({ match }) => {
+  const studentID = Router.getUserIdFromRoute(match);
+  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
+  const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
   return {
-    profile,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteCourses,
+    favoriteInterests,
+    favoriteOpportunities,
+    courseInstances,
+    opportunityInstances,
   };
 })(CardExplorerMenuMobileWidget);
 export const CardExplorerMenuMobileWidgetContainer = withRouter(CardExplorerMenuMobileWidgetCon);
+
 export default CardExplorerMenuMobileWidgetContainer;

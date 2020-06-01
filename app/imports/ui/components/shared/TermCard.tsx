@@ -86,9 +86,11 @@ const TermCard = (props: ITermCard) => {
         />
         <InterestList item={item} size="mini" />
       </Card.Content>
+
       <Card.Content>
         <FutureParticipation type={props.type} item={props.item} />
       </Card.Content>
+
       <Card.Content>
         <span>
           STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents} />

@@ -9,7 +9,7 @@ import InterestList from './InterestList';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
-import { ICourse, IDescriptionPair } from '../../../typings/radgrad';
+import { ICourse, IDescriptionPair, IReview } from '../../../typings/radgrad';
 import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
@@ -109,13 +109,10 @@ const choices = (prerequisite: { course: string; status: string }): string[] => 
 
 const isFirst = (index: number): boolean => index === 0;
 
-const findReview = (props: IExplorerCoursesWidgetProps): object => {
-  const review = Reviews.find({
-    studentID: Router.getUserIdFromRoute(props.match),
-    revieweeID: props.item._id,
-  }).fetch();
-  return review[0];
-};
+const findReview = (props: IExplorerCoursesWidgetProps): IReview => Reviews.findOne({
+  studentID: Router.getUserIdFromRoute(props.match),
+  revieweeID: props.item._id,
+});
 
 const teaserUrlHelper = (props: IExplorerCoursesWidgetProps): string => {
   const _id = Slugs.getEntityID(props.match.params.course, 'Course');
@@ -137,6 +134,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
     paddingRight: 0,
     paddingTop: 0,
     paddingBottom: 0,
+    wordWrap: 'break-word',
   };
   const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
@@ -151,13 +149,17 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
         <Segment padded className="container">
           <Segment clearing basic style={clearingBasicSegmentStyle}>
             <Header as="h4" floated="left">
-              {upperShortName} ({name})
+              <div style={breakWordStyle}>{upperShortName}</div> ({name})
             </Header>
-            <FavoritesButton
-              item={props.item}
-              studentID={Router.getUserIdFromRoute(props.match)}
-              type={FAVORITE_TYPE.COURSE}
-            />
+            {isStudent ?
+              (
+                <FavoritesButton
+                  item={props.item}
+                  studentID={Router.getUserIdFromRoute(props.match)}
+                  type={FAVORITE_TYPE.COURSE}
+                />
+              )
+              : undefined}
           </Segment>
 
           <Divider style={zeroMarginTopStyle} />
@@ -167,27 +169,21 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
               <Grid columns={2}>
                 <Grid.Column width={9}>
                   {
-                    descriptionPairs.map((descriptionPair, index) => (
+                    descriptionPairs.map((descriptionPair) => (
                       <React.Fragment key={descriptionPair.label}>
                         {
                           isSame(descriptionPair.label, 'Course Number') ? (
                             <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-                                :
-                              </b>
+                              <b>{descriptionPair.label}: </b>
                               {
                                   descriptionPair.value ? (
                                     <React.Fragment>
-                                      {' '}
                                       {descriptionPair.value}
-                                      {' '}
                                       <br />
                                     </React.Fragment>
                                     )
                                     : (
                                       <React.Fragment>
-                                        {' '}
                                         N/A
                                         <br />
                                       </React.Fragment>
@@ -200,10 +196,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                         {
                           isSame(descriptionPair.label, 'Credit Hours') ? (
                             <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-                                :
-                              </b>
+                              <b>{descriptionPair.label}: </b>
                               {
                                   descriptionPair.value ? (
                                     <React.Fragment>
@@ -225,10 +218,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                         {
                           isSame(descriptionPair.label, 'Description') ? (
                             <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-                                :
-                              </b>
+                              <b>{descriptionPair.label}: </b>
                               {
                                   descriptionPair.value ? (
                                     <Markdown
@@ -370,10 +360,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                         {
                           isSame(descriptionPair.label, 'Syllabus') ? (
                             <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-                                :
-                              </b>
+                              <b>{descriptionPair.label}: </b>
                               {
                                   descriptionPair.value ? (
                                     <div style={breakWordStyle}>
@@ -386,7 +373,6 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                                     )
                                     : (
                                       <React.Fragment>
-                                        {' '}
                                         N/A
                                         <br />
                                       </React.Fragment>
@@ -399,10 +385,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                         {
                           isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ? (
                             <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-                                :
-                              </b>
+                              <b>{descriptionPair.label}: </b>
                               {
                                   descriptionPair.value ? (
                                     <Embed
@@ -434,22 +417,16 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                           {
                             isSame(descriptionPair.label, 'Course Number') ? (
                               <React.Fragment>
-                                <b>
-                                  {descriptionPair.label}
-                                  :
-                                </b>
+                                <b>{descriptionPair.label}: </b>
                                 {
                                     descriptionPair.value ? (
                                       <React.Fragment>
-                                        {' '}
                                         {descriptionPair.value}
-                                        {' '}
                                         <br />
                                       </React.Fragment>
                                       )
                                       : (
                                         <React.Fragment>
-                                          {' '}
                                           N/A
                                           <br />
                                         </React.Fragment>
@@ -463,22 +440,16 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                           {
                             isSame(descriptionPair.label, 'Credit Hours') ? (
                               <React.Fragment>
-                                <b>
-                                  {descriptionPair.label}
-                                  :
-                                </b>
+                                <b>{descriptionPair.label}: </b>
                                 {
                                     descriptionPair.value ? (
                                       <React.Fragment>
-                                        {' '}
                                         {descriptionPair.value}
-                                        {' '}
                                         <br />
                                       </React.Fragment>
                                       )
                                       : (
                                         <React.Fragment>
-                                          {' '}
                                           N/A
                                           <br />
                                         </React.Fragment>
@@ -500,10 +471,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                           {
                             isSame(descriptionPair.label, 'Syllabus') ? (
                               <React.Fragment>
-                                <b>
-                                  {descriptionPair.label}
-                                  :
-                                </b>
+                                <b>{descriptionPair.label}: </b>
                                 {
                                     descriptionPair.value ? (
                                       <div style={breakWordStyle}>
@@ -516,7 +484,6 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                                       )
                                       : (
                                         <React.Fragment>
-                                          {' '}
                                           N/A
                                           <br />
                                         </React.Fragment>
@@ -539,10 +506,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                           {
                             isSame(descriptionPair.label, 'Description') ? (
                               <React.Fragment>
-                                <b>
-                                  {descriptionPair.label}
-                                  :
-                                </b>
+                                <b>{descriptionPair.label}: </b>
                                 {
                                     descriptionPair.value ? (
                                       <Markdown
@@ -553,7 +517,6 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                                       )
                                       : (
                                         <React.Fragment>
-                                          {' '}
                                           N/A
                                           <br />
                                         </React.Fragment>

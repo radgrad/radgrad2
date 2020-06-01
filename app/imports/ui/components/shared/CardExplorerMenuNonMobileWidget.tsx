@@ -5,7 +5,13 @@ import { withRouter } from 'react-router-dom';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import * as Router from './RouterHelperFunctions';
 import {
-  IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  ICourseInstance,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
+  IOpportunityInstance,
 } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
@@ -19,6 +25,8 @@ import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection'
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { isUrlRoleStudent } from './RouterHelperFunctions';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetProps {
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
@@ -26,6 +34,8 @@ interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetP
   favoriteCourses: IFavoriteCourse[];
   favoriteInterests: IFavoriteInterest[];
   favoriteOpportunities: IFavoriteOpportunity[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
@@ -56,7 +66,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           )
           : ''}
 
-        {isType(EXPLORER_TYPE.COURSES, props) ?
+        {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
           (
             <React.Fragment>
               <Menu vertical text>
@@ -151,20 +161,25 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
   );
 };
 
-export const CardExplorerMenuNonMobileWidgetCon = withTracker((props) => {
-  const studentID = Router.getUserIdFromRoute(props.match);
-  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID });
-  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests = FavoriteInterests.findNonRetired({ studentID });
-  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+export const CardExplorerMenuNonMobileWidgetCon = withTracker(({ match }) => {
+  const studentID = Router.getUserIdFromRoute(match);
+  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
+  const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
   return {
     favoriteAcademicPlans,
     favoriteCareerGoals,
     favoriteCourses,
     favoriteInterests,
     favoriteOpportunities,
+    courseInstances,
+    opportunityInstances,
   };
 })(CardExplorerMenuNonMobileWidget);
 export const CardExplorerMenuNonMobileWidgetContainer = withRouter(CardExplorerMenuNonMobileWidgetCon);
+
 export default CardExplorerMenuNonMobileWidgetContainer;

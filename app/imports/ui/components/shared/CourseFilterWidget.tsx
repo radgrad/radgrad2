@@ -16,7 +16,6 @@ interface ICourseFilterWidgetProps {
 }
 
 const CourseFilterWidget = (props: ICourseFilterWidgetProps) => {
-  // console.log('CourseFilterWidget', props);
   const schema = new SimpleSchema({
     filterCoursesBy: {
       type: String,

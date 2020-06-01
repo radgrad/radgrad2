@@ -6,22 +6,27 @@ import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import {
   IAcademicPlan,
   ICareerGoal,
-  ICourse,
-  IDesiredDegree,
+  ICourse, ICourseInstance,
+  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
   IInterest,
-  IOpportunity,
-  IProfile,
+  IOpportunity, IOpportunityInstance,
 } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
 interface IExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
-  menuCareerList?: { item: IInterest, count: number }[] | undefined;
+  menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty' | 'mentor';
   match: {
@@ -32,7 +37,13 @@ interface IExplorerMenuNonMobileWidgetProps {
       username: string;
     }
   };
-  profile: IProfile;
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
@@ -58,10 +69,7 @@ const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
   }
 };
 
-const isType = (typeToCheck: string, props: IExplorerMenuNonMobileWidgetProps): boolean => {
-  const { type } = props;
-  return type === typeToCheck;
-};
+const isType = (typeToCheck: string, props: IExplorerMenuNonMobileWidgetProps): boolean => props.type === typeToCheck;
 
 const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) => {
   const marginTopStyle = { marginTop: '5px' };
@@ -119,7 +127,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               {
                   isStudent ? (
                     <Menu vertical text>
-                      <Header as="h4" dividing>FAVORITE COURSES</Header>
+                      <Header as="h4" dividing>MY FAVORITE COURSES</Header>
                       {
                           menuAddedList.map((listItem) => (
                             <ExplorerMenuNonMobileItem
@@ -146,9 +154,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-                Back to
-                {' '}
-                {getTypeName(props)}
+                Back to {getTypeName(props)}
               </Button>
               {
                   isStudent ? (
@@ -182,9 +188,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
-                Back to
-                {' '}
-                {getTypeName(props)}
+                Back to {getTypeName(props)}
               </Button>
               <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
               {
@@ -244,9 +248,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
             <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
               <Icon name="chevron circle left" />
               <br />
-              Back to
-              {' '}
-              {getTypeName(props)}
+              Back to {getTypeName(props)}
             </Button>
             )
             : ''
@@ -256,12 +258,25 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
   );
 };
 
-export const ExplorerMenuNonMobileWidgetCon = withTracker((props) => {
-  const username = Router.getUsername(props.match);
-  const profile = Users.getProfile(username);
+export const ExplorerMenuNonMobileWidgetCon = withTracker(({ match }) => {
+  const studentID = Router.getUserIdFromRoute(match);
+  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ studentID });
+  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
+  const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
   return {
-    profile,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteCourses,
+    favoriteInterests,
+    favoriteOpportunities,
+    courseInstances,
+    opportunityInstances,
   };
 })(ExplorerMenuNonMobileWidget);
 export const ExplorerMenuNonMobileWidgetContainer = withRouter(ExplorerMenuNonMobileWidgetCon);
+
 export default ExplorerMenuNonMobileWidgetContainer;
