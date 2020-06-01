@@ -197,9 +197,8 @@ class BaseProfileCollection extends BaseSlugCollection {
       _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
         VerificationRequests, FavoriteAcademicPlans, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
         FavoriteOpportunities], (collection) => collection.removeUser(userID));
-      const username = profile.username;
-      Meteor.users.remove({ _id: profile.userID });
-      Slugs.getCollection().remove({ name: username });
+      Meteor.users.remove({ _id: userID });
+      Slugs.getCollection().remove({ name: profile.username });
       return super.removeIt(profileID);
     }
     return null;
