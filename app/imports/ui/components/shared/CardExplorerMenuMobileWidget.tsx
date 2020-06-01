@@ -65,118 +65,101 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
 
         {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
           (
-            <React.Fragment>
-              {
-                isStudent ? (
-                  <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                    <Dropdown.Menu>
-                      <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
-                      <Dropdown.Divider />
-                      {
-                          menuAddedList.map((listItem) => (
-                            <ExplorerMenuMobileItem
-                              type={EXPLORER_TYPE.COURSES}
-                              listItem={listItem}
-                              key={listItem.item._id}
-                              match={props.match}
-                            />
-                          ))
-                        }
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  )
-                  : ''
-              }
-            </React.Fragment>
+            <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
+              <Dropdown.Menu>
+                <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
+                <Dropdown.Divider />
+                {
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuMobileItem
+                      type={EXPLORER_TYPE.COURSES}
+                      listItem={listItem}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
+              </Dropdown.Menu>
+            </Dropdown>
           )
           : ''}
 
-        {
-          isType(EXPLORER_TYPE.OPPORTUNITIES, props) ? (
-            <React.Fragment>
-              {
-                  isStudent ? (
-                    <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                      <Dropdown.Menu>
-                        <Dropdown.Header as="h4">FAVORITE OPPORTUNITIES</Dropdown.Header>
-                        <Dropdown.Divider />
-                        {
-                            menuAddedList.map((listItem) => (
-                              <ExplorerMenuMobileItem
-                                type={EXPLORER_TYPE.OPPORTUNITIES}
-                                listItem={listItem}
-                                key={listItem.item._id}
-                                match={props.match}
-                              />
-                            ))
-                          }
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    )
-                    : ''
+        {(isType(EXPLORER_TYPE.OPPORTUNITIES, props) && isStudent) ?
+          (
+            <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
+              <Dropdown.Menu>
+                <Dropdown.Header as="h4">MY FAVORITE OPPORTUNITIES</Dropdown.Header>
+                <Dropdown.Divider />
+                {
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuMobileItem
+                      type={EXPLORER_TYPE.OPPORTUNITIES}
+                      listItem={listItem}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
                 }
-            </React.Fragment>
-            )
-            : ''
-        }
+              </Dropdown.Menu>
+            </Dropdown>
+          )
+          : ''}
 
         {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
-        {
-          isType(EXPLORER_TYPE.INTERESTS, props) ? (
+        {isType(EXPLORER_TYPE.INTERESTS, props) ?
+          (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
                 <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuMobileItem
-                        type={EXPLORER_TYPE.INTERESTS}
-                        listItem={listItem}
-                        key={listItem.item._id}
-                        match={props.match}
-                      />
-                    ))
-                  }
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuMobileItem
+                      type={EXPLORER_TYPE.INTERESTS}
+                      listItem={listItem}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
 
                 <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
-                    menuCareerList.map((listItem) => (
-                      <ExplorerMenuMobileItem
-                        type={EXPLORER_TYPE.INTERESTS}
-                        listItem={listItem}
-                        key={listItem.item._id}
-                        match={props.match}
-                      />
-                    ))
-                  }
+                  menuCareerList.map((listItem) => (
+                    <ExplorerMenuMobileItem
+                      type={EXPLORER_TYPE.INTERESTS}
+                      listItem={listItem}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
               </Dropdown.Menu>
             </Dropdown>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.CAREERGOALS, props) ? (
+        {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+          (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
                 <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuMobileItem
-                        type={EXPLORER_TYPE.CAREERGOALS}
-                        listItem={listItem}
-                        key={listItem.item._id}
-                        match={props.match}
-                      />
-                    ))
-                  }
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuMobileItem
+                      type={EXPLORER_TYPE.CAREERGOALS}
+                      listItem={listItem}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
               </Dropdown.Menu>
             </Dropdown>
-            )
-            : ''
-        }
+          )
+          : ''}
       </Responsive>
     </React.Fragment>
   );

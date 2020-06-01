@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, Header, Responsive } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { Menu, Header, Responsive, Button } from 'semantic-ui-react';
+import { withRouter, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import * as Router from './RouterHelperFunctions';
 import {
@@ -24,7 +24,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { isUrlRoleStudent } from './RouterHelperFunctions';
+import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from './RouterHelperFunctions';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
@@ -42,6 +42,9 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
   const { menuAddedList, menuCareerList } = props;
   const adminEmail = RadGradProperties.getAdminEmail();
   const isStudent = isUrlRoleStudent(props.match);
+  const isFaculty = isUrlRoleFaculty(props.match);
+
+  const addFacultyOpportunityButtonStyle: React.CSSProperties = { marginTop: '5px' };
   return (
     <React.Fragment>
       {/* ####### The Menu underneath the Dropdown for NON mobile  ####### */}
@@ -90,19 +93,35 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           (
             <React.Fragment>
               <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
-              <Menu vertical text>
-                <Header as="h4" dividing>MY FAVORITE OPPORTUNITIES</Header>
-                {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.OPPORTUNITIES}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
-              </Menu>
+              {isFaculty ?
+                (
+                  <Button
+                    as={Link}
+                    to={buildRouteName(props.match, '/manage-opportunities')}
+                    size="small"
+                    style={addFacultyOpportunityButtonStyle}
+                  >
+                    Add a Faculty Opportunity
+                  </Button>
+                )
+                : ''}
+              {isStudent ?
+                (
+                  <Menu vertical text>
+                    <Header as="h4" dividing>MY FAVORITE OPPORTUNITIES</Header>
+                    {
+                      menuAddedList.map((listItem) => (
+                        <ExplorerMenuNonMobileItem
+                          listItem={listItem}
+                          type={EXPLORER_TYPE.OPPORTUNITIES}
+                          key={listItem.item._id}
+                          match={props.match}
+                        />
+                      ))
+                    }
+                  </Menu>
+                )
+                : ''}
             </React.Fragment>
           )
           : ''}

@@ -10,7 +10,6 @@ import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { ICourse, IDescriptionPair, IReview } from '../../../typings/radgrad';
-import { UserInteractions } from '../../../api/analytic/UserInteractionCollection';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
@@ -22,6 +21,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { toValueArray, toValueString } from '../../shared/description-pair-helpers';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
+import FutureParticipation from './FutureParticipation';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -40,7 +40,6 @@ interface IExplorerCoursesWidgetProps {
   };
   reactiveSourceOne: object[];
   reactiveSourceTwo: object[];
-  reactiveSourceThree: object[];
 }
 
 const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | String => {
@@ -125,7 +124,7 @@ const teaserUrlHelper = (props: IExplorerCoursesWidgetProps): string => {
 };
 
 const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
-  const segmentGroupStyle = { backgroundColor: 'white' };
+  const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
   const clearingBasicSegmentStyle = {
@@ -145,520 +144,424 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   return (
     <div id={explorerCourseWidget}>
-      <Segment.Group style={segmentGroupStyle}>
-        <Segment padded className="container">
-          <Segment clearing basic style={clearingBasicSegmentStyle}>
-            <Header as="h4" floated="left">
-              <div style={breakWordStyle}>{upperShortName}</div> ({name})
-            </Header>
-            {isStudent ?
-              (
-                <FavoritesButton
-                  item={props.item}
-                  studentID={Router.getUserIdFromRoute(props.match)}
-                  type={FAVORITE_TYPE.COURSE}
-                />
-              )
-              : undefined}
-          </Segment>
+      <Segment padded className="container" style={segmentStyle}>
+        <Segment clearing basic style={clearingBasicSegmentStyle}>
+          <Header as="h4" floated="left">
+            <div style={breakWordStyle}>{upperShortName}</div>
+            ({name})</Header>
+          {isStudent ?
+            (
+              <FavoritesButton
+                item={props.item}
+                studentID={Router.getUserIdFromRoute(props.match)}
+                type={FAVORITE_TYPE.COURSE}
+              />
+            )
+            : undefined}
+        </Segment>
 
-          <Divider style={zeroMarginTopStyle} />
-          <div style={fiveMarginTopStyle}><InterestList item={item} size="mini" /></div>
-          {
-            hasTeaser ? (
-              <Grid columns={2}>
-                <Grid.Column width={9}>
+        <Divider style={zeroMarginTopStyle} />
+        <div style={fiveMarginTopStyle}><InterestList item={item} size="mini" /></div>
+        {hasTeaser ?
+          (
+            <Grid columns={2}>
+              <Grid.Column width={9}>
+                {descriptionPairs.map((descriptionPair) => (
+                  <React.Fragment key={descriptionPair.label}>
+                    {isSame(descriptionPair.label, 'Course Number') ?
+                      (
+                        <React.Fragment>
+                          <b>{descriptionPair.label}: </b>
+                          {descriptionPair.value ?
+                            (
+                              <React.Fragment>
+                                {descriptionPair.value}
+                                <br />
+                              </React.Fragment>
+                            )
+                            : (<React.Fragment>N/A <br /></React.Fragment>)}
+                        </React.Fragment>
+                      )
+                      : ''}
+                    {isSame(descriptionPair.label, 'Credit Hours') ?
+                      (
+                        <React.Fragment>
+                          <b>{descriptionPair.label}: </b>
+                          {descriptionPair.value ?
+                            (<React.Fragment>{descriptionPair.value} <br /></React.Fragment>)
+                            : (<React.Fragment>N/A <br /></React.Fragment>)}
+                        </React.Fragment>
+                      )
+                      : ''}
+                    {isSame(descriptionPair.label, 'Description') ?
+                      (
+                        <React.Fragment>
+                          <b>{descriptionPair.label}: </b>
+                          {descriptionPair.value ?
+                            (
+                              <Markdown
+                                escapeHtml
+                                source={toValueString(descriptionPair)}
+                                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+                              />
+                            )
+                            : (<React.Fragment>N/A <br /></React.Fragment>)}
+                        </React.Fragment>
+                      )
+                      : ''}
+                    {isSame(descriptionPair.label, 'Prerequisites') ?
+                      (
+                        <React.Fragment>
+                          {descriptionPair.value ?
+                            (
+                              <React.Fragment>
+                                <Header as="h4" className="horizontal divider">{descriptionPair.label}</Header>
+                                {isStudent ?
+                                  (
+                                    <Grid columns={3} stackable padded celled>
+                                      <Grid.Row>
+                                        {toValueArray(descriptionPair).map((table, tableIndex) => (
+                                          <Grid.Column
+                                            key={_.uniqueId()}
+                                            style={{
+                                              textAlign: 'center',
+                                              backgroundColor: color(table),
+                                            }}
+                                          >
+                                            {getTableTitle(tableIndex, table)}
+                                            {length(table) ?
+                                              (
+                                                <React.Fragment>
+                                                  {table.map((prerequisite) => (
+                                                    <React.Fragment key={_.uniqueId()}>
+                                                      {isSingleChoice(prerequisite.course) ?
+                                                        (
+                                                          <NavLink
+                                                            exact
+                                                            to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
+                                                            activeClassName="active item"
+                                                          >
+                                                            {courseSlugToName(prerequisite.course)} <br />
+                                                          </NavLink>
+                                                        )
+                                                        :
+                                                        _.map(choices(prerequisite), (choice, choicesIndex) => (
+                                                          <React.Fragment key={_.uniqueId()}>
+                                                            {isFirst(choicesIndex) ?
+                                                              (
+                                                                <NavLink
+                                                                  exact
+                                                                  to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                  activeClassName="active item"
+                                                                >
+                                                                  {courseSlugToName(choice)}
+                                                                </NavLink>
+                                                              )
+                                                              :
+                                                              (
+                                                                <React.Fragment>
+                                                                  {/* Not exactly sure where this pops up because even in
+                                                                             the original RadGrad I don't see any "or {choice} */}
+                                                                  or
+                                                                  {' '}
+                                                                  <NavLink
+                                                                    exact
+                                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                    activeClassName="active item"
+                                                                  >
+                                                                    {courseSlugToName(choice)}
+                                                                  </NavLink>
+                                                                </React.Fragment>
+                                                              )}
+                                                          </React.Fragment>
+                                                        ))}
+                                                    </React.Fragment>
+                                                  ))}
+                                                </React.Fragment>
+                                              )
+                                              : (<Item style={{ color: 'grey' }}>None</Item>)}
+                                          </Grid.Column>
+                                        ))}
+                                      </Grid.Row>
+                                    </Grid>
+                                  )
+                                  :
+                                  (
+                                    <List horizontal bulleted>
+                                      {toValueArray(descriptionPair).map((prereqType) => (
+                                        prereqType.map((prereq) => (
+                                          <List.Item
+                                            key={prereq.course}
+                                            as={NavLink}
+                                            exact
+                                            to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
+                                          >
+                                            {courseSlugToName(prereq.course)}
+                                          </List.Item>
+                                        ))
+                                      ))}
+                                    </List>
+                                  )}
+                              </React.Fragment>
+                            )
+                            : ''}
+                        </React.Fragment>
+                      )
+                      : ''}
+                  </React.Fragment>
+                ))}
+              </Grid.Column>
+
+              <Grid.Column width={7}>
+                {descriptionPairs.map((descriptionPair) => (
+                  <React.Fragment key={descriptionPair.label}>
+                    {isSame(descriptionPair.label, 'Syllabus') ?
+                      (
+                        <React.Fragment>
+                          <b>{descriptionPair.label}: </b>
+                          {descriptionPair.value ?
+                            (
+                              <div style={breakWordStyle}>
+                                <Markdown
+                                  source={toValueString(descriptionPair)}
+                                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+                                />
+                                <br />
+                              </div>
+                            )
+                            : (<React.Fragment>N/A <br /></React.Fragment>)}
+                        </React.Fragment>
+                      )
+                      : ''}
+                    {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ?
+                      (
+                        <React.Fragment>
+                          <b>{descriptionPair.label}: </b>
+                          {descriptionPair.value ?
+                            (
+                              <Embed
+                                active
+                                autoplay={false}
+                                source="youtube"
+                                id={teaserUrlHelper(props)}
+                              />
+                            )
+                            : (<p> N/A </p>)}
+                        </React.Fragment>
+                      )
+                      : ''}
+                  </React.Fragment>
+                ))}
+              </Grid.Column>
+            </Grid>
+          )
+          :
+          (
+            <React.Fragment>
+              <Grid stackable columns={2}>
+                <Grid.Column width={6}>
+                  {descriptionPairs.map((descriptionPair) => (
+                    <React.Fragment key={descriptionPair.label}>
+                      {isSame(descriptionPair.label, 'Course Number') ?
+                        (
+                          <React.Fragment>
+                            <b>{descriptionPair.label}: </b>
+                            {descriptionPair.value ?
+                              (
+                                <React.Fragment>
+                                  {descriptionPair.value}
+                                  <br />
+                                </React.Fragment>
+                              )
+                              : (<React.Fragment>N/A <br /></React.Fragment>)}
+                          </React.Fragment>
+                        )
+                        : ''}
+                      {isSame(descriptionPair.label, 'Credit Hours') ?
+                        (
+                          <React.Fragment>
+                            <b>{descriptionPair.label}: </b>
+                            {descriptionPair.value ?
+                              (<React.Fragment>{descriptionPair.value} <br /></React.Fragment>)
+                              : (<React.Fragment>N/A <br /></React.Fragment>)}
+                          </React.Fragment>
+                        )
+                        : ''}
+                    </React.Fragment>
+                  ))}
+                </Grid.Column>
+
+                <Grid.Column width={10}>
                   {
                     descriptionPairs.map((descriptionPair) => (
                       <React.Fragment key={descriptionPair.label}>
-                        {
-                          isSame(descriptionPair.label, 'Course Number') ? (
+                        {isSame(descriptionPair.label, 'Syllabus') ?
+                          (
                             <React.Fragment>
                               <b>{descriptionPair.label}: </b>
-                              {
-                                  descriptionPair.value ? (
-                                    <React.Fragment>
-                                      {descriptionPair.value}
-                                      <br />
-                                    </React.Fragment>
-                                    )
-                                    : (
-                                      <React.Fragment>
-                                        N/A
-                                        <br />
-                                      </React.Fragment>
-                                    )
-                                }
-                            </React.Fragment>
-                            )
-                            : ''
-                        }
-                        {
-                          isSame(descriptionPair.label, 'Credit Hours') ? (
-                            <React.Fragment>
-                              <b>{descriptionPair.label}: </b>
-                              {
-                                  descriptionPair.value ? (
-                                    <React.Fragment>
-                                      {descriptionPair.value}
-                                      <br />
-                                    </React.Fragment>
-                                    )
-                                    : (
-                                      <React.Fragment>
-                                        N/A
-                                        <br />
-                                      </React.Fragment>
-                                    )
-                                }
-                            </React.Fragment>
-                            )
-                            : ''
-                        }
-                        {
-                          isSame(descriptionPair.label, 'Description') ? (
-                            <React.Fragment>
-                              <b>{descriptionPair.label}: </b>
-                              {
-                                  descriptionPair.value ? (
+                              {descriptionPair.value ?
+                                (
+                                  <div style={breakWordStyle}>
                                     <Markdown
-                                      escapeHtml
                                       source={toValueString(descriptionPair)}
                                       renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                                     />
-                                    )
-                                    : (
-                                      <React.Fragment>
-                                        N/A
-                                        <br />
-                                      </React.Fragment>
-                                    )
-                                }
+                                    <br />
+                                  </div>
+                                )
+                                : (<React.Fragment>N/A <br /></React.Fragment>)}
                             </React.Fragment>
-                            )
-                            : ''
-                        }
-                        {
-                          isSame(descriptionPair.label, 'Prerequisites') ? (
-                            <React.Fragment>
-                              {
-                                  descriptionPair.value ? (
-                                    <React.Fragment>
-                                      <Header as="h4" className="horizontal divider">{descriptionPair.label}</Header>
-                                      {
-                                          isStudent ? (
-                                            <Grid columns={3} stackable padded celled>
-                                              <Grid.Row>
-                                                {
-                                                    toValueArray(descriptionPair).map((table, tableIndex) => (
-                                                      <Grid.Column
-                                                        key={_.uniqueId()}
-                                                        style={{
-                                                          textAlign: 'center',
-                                                          backgroundColor: color(table),
-                                                        }}
-                                                      >
-                                                        {getTableTitle(tableIndex, table)}
-                                                        {
-                                                          length(table) ? (
-                                                            <React.Fragment>
-                                                              {
-                                                                  table.map((prerequisite) => (
-                                                                    <React.Fragment key={_.uniqueId()}>
-                                                                      {
-                                                                        isSingleChoice(prerequisite.course) ? (
-                                                                          <NavLink
-                                                                            exact
-                                                                            to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
-                                                                            activeClassName="active item"
-                                                                          >
-                                                                            {courseSlugToName(prerequisite.course)}
-                                                                            <br />
-                                                                          </NavLink>
-                                                                          )
-                                                                          :
-                                                                          _.map(choices(prerequisite), (choice, choicesIndex) => (
-                                                                            <React.Fragment key={_.uniqueId()}>
-                                                                              {
-                                                                                isFirst(choicesIndex) ? (
-                                                                                  <NavLink
-                                                                                    exact
-                                                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
-                                                                                    activeClassName="active item"
-                                                                                  >
-                                                                                    {courseSlugToName(choice)}
-                                                                                  </NavLink>
-                                                                                  )
-                                                                                  : (
-                                                                                    <React.Fragment>
-                                                                                      {/* Not exactly sure where this pops up because even in
-                                                                             the original RadGrad I don't see any "or {choice} */}
-                                                                                      or
-                                                                                      {' '}
-                                                                                      <NavLink
-                                                                                        exact
-                                                                                        to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
-                                                                                        activeClassName="active item"
-                                                                                      >
-                                                                                        {courseSlugToName(choice)}
-                                                                                      </NavLink>
-                                                                                    </React.Fragment>
-                                                                                  )
-                                                                              }
-                                                                            </React.Fragment>
-                                                                          ))
-                                                                      }
-                                                                    </React.Fragment>
-                                                                  ))
-                                                                }
-                                                            </React.Fragment>
-                                                            )
-                                                            :
-                                                            <Item style={{ color: 'grey' }}>None</Item>
-                                                        }
-                                                      </Grid.Column>
-                                                    ))
-                                                  }
-                                              </Grid.Row>
-                                            </Grid>
-                                            )
-                                            : (
-                                              <List horizontal bulleted>
-                                                {
-                                                  toValueArray(descriptionPair).map((prereqType) => (
-                                                    prereqType.map((prereq) => (
-                                                      <List.Item
-                                                        key={prereq.course}
-                                                        as={NavLink}
-                                                        exact
-                                                        to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
-                                                      >
-                                                        {courseSlugToName(prereq.course)}
-                                                      </List.Item>
-                                                    ))
-                                                  ))
-                                                }
-                                              </List>
-                                            )
-                                        }
-                                    </React.Fragment>
-                                    )
-                                    : ''
-                                }
-                            </React.Fragment>
-                            )
-                            : ''
-                        }
-                      </React.Fragment>
-                    ))
-                  }
-                </Grid.Column>
-                <Grid.Column width={7}>
-                  {
-                    descriptionPairs.map((descriptionPair) => (
-                      <React.Fragment key={descriptionPair.label}>
-                        {
-                          isSame(descriptionPair.label, 'Syllabus') ? (
-                            <React.Fragment>
-                              <b>{descriptionPair.label}: </b>
-                              {
-                                  descriptionPair.value ? (
-                                    <div style={breakWordStyle}>
-                                      <Markdown
-                                        source={toValueString(descriptionPair)}
-                                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-                                      />
-                                      <br />
-                                    </div>
-                                    )
-                                    : (
-                                      <React.Fragment>
-                                        N/A
-                                        <br />
-                                      </React.Fragment>
-                                    )
-                                }
-                            </React.Fragment>
-                            )
-                            : ''
-                        }
-                        {
-                          isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ? (
-                            <React.Fragment>
-                              <b>{descriptionPair.label}: </b>
-                              {
-                                  descriptionPair.value ? (
-                                    <Embed
-                                      active
-                                      autoplay={false}
-                                      source="youtube"
-                                      id={teaserUrlHelper(props)}
-                                    />
-                                    )
-                                    :
-                                    <p> N/A </p>
-                                }
-                            </React.Fragment>
-                            )
-                            : ''
-                        }
+                          ) : ''}
                       </React.Fragment>
                     ))
                   }
                 </Grid.Column>
               </Grid>
-            ) : (
-              <React.Fragment>
-                <Grid stackable columns={2}>
-                  <Grid.Column width={6}>
-                    {
-                      descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
-                          {
-                            isSame(descriptionPair.label, 'Course Number') ? (
-                              <React.Fragment>
-                                <b>{descriptionPair.label}: </b>
-                                {
-                                    descriptionPair.value ? (
-                                      <React.Fragment>
-                                        {descriptionPair.value}
-                                        <br />
-                                      </React.Fragment>
-                                      )
-                                      : (
-                                        <React.Fragment>
-                                          N/A
-                                          <br />
-                                        </React.Fragment>
-                                      )
-                                  }
-                              </React.Fragment>
-                              )
-                              : ''
-                          }
 
-                          {
-                            isSame(descriptionPair.label, 'Credit Hours') ? (
-                              <React.Fragment>
-                                <b>{descriptionPair.label}: </b>
-                                {
-                                    descriptionPair.value ? (
-                                      <React.Fragment>
-                                        {descriptionPair.value}
-                                        <br />
-                                      </React.Fragment>
-                                      )
-                                      : (
-                                        <React.Fragment>
-                                          N/A
-                                          <br />
-                                        </React.Fragment>
-                                      )
-                                  }
-                              </React.Fragment>
-                              )
-                              : ''
-                          }
-                        </React.Fragment>
-                      ))
-                    }
-                  </Grid.Column>
-
-                  <Grid.Column width={10}>
-                    {
-                      descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
-                          {
-                            isSame(descriptionPair.label, 'Syllabus') ? (
-                              <React.Fragment>
-                                <b>{descriptionPair.label}: </b>
-                                {
-                                    descriptionPair.value ? (
-                                      <div style={breakWordStyle}>
-                                        <Markdown
-                                          source={toValueString(descriptionPair)}
-                                          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-                                        />
-                                        <br />
-                                      </div>
-                                      )
-                                      : (
-                                        <React.Fragment>
-                                          N/A
-                                          <br />
-                                        </React.Fragment>
-                                      )
-                                  }
-                              </React.Fragment>
-                              )
-                              : ''
-                          }
-                        </React.Fragment>
-                      ))
-                    }
-                  </Grid.Column>
-                </Grid>
-                <Grid stackable style={zeroMarginTopStyle}>
-                  <Grid.Column>
-                    {
-                      descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
-                          {
-                            isSame(descriptionPair.label, 'Description') ? (
-                              <React.Fragment>
-                                <b>{descriptionPair.label}: </b>
-                                {
-                                    descriptionPair.value ? (
-                                      <Markdown
-                                        escapeHtml
-                                        source={toValueString(descriptionPair)}
-                                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-                                      />
-                                      )
-                                      : (
-                                        <React.Fragment>
-                                          N/A
-                                          <br />
-                                        </React.Fragment>
-                                      )
-                                  }
-                              </React.Fragment>
-                              )
-                              : ''
-                          }
-                        </React.Fragment>
-                      ))
-                    }
-                  </Grid.Column>
-                </Grid>
-                <Grid stackable style={zeroMarginTopStyle}>
-                  <Grid.Column>
-                    {
-                      descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={descriptionPair.label}>
-                          {
-                            isSame(descriptionPair.label, 'Prerequisites') ? (
-                              <React.Fragment>
-                                {
-                                    descriptionPair.value ? (
-                                      <React.Fragment>
-                                        <Header as="h4" className="horizontal divider">{descriptionPair.label}</Header>
-                                        {
-                                            isStudent ? (
-                                              <Grid columns={3} stackable padded celled>
-                                                <Grid.Row>
-                                                  {
-                                                      toValueArray(descriptionPair).map((table, tableIndex) => (
-                                                        <Grid.Column
-                                                          key={_.uniqueId()}
-                                                          style={{
-                                                            textAlign: 'center',
-                                                            backgroundColor: color(table),
-                                                          }}
-                                                        >
-                                                          {getTableTitle(tableIndex, table)}
-                                                          {
-                                                            length(table) ? (
-                                                              <React.Fragment>
-                                                                {
-                                                                    table.map((prerequisite) => (
-                                                                      <React.Fragment key={_.uniqueId()}>
-                                                                        {
-                                                                          isSingleChoice(prerequisite.course) ? (
-                                                                            <NavLink
-                                                                              exact
-                                                                              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
-                                                                              activeClassName="active item"
-                                                                            >
-                                                                              {courseSlugToName(prerequisite.course)}
-                                                                              <br />
-                                                                            </NavLink>
-                                                                            )
-                                                                            :
-                                                                            _.map(choices(prerequisite), (choice, choicesIndex) => (
-                                                                              <React.Fragment key={_.uniqueId()}>
-                                                                                {
-                                                                                  isFirst(choicesIndex) ? (
-                                                                                    <NavLink
-                                                                                      exact
-                                                                                      to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
-                                                                                      activeClassName="active item"
-                                                                                    >
-                                                                                      {courseSlugToName(choice)}
-                                                                                    </NavLink>
-                                                                                    )
-                                                                                    : (
-                                                                                      <React.Fragment>
-                                                                                        {/* Not exactly sure where this pops up because even in
+              <Grid stackable style={zeroMarginTopStyle}>
+                <Grid.Column>
+                  {
+                    descriptionPairs.map((descriptionPair) => (
+                      <React.Fragment key={descriptionPair.label}>
+                        {isSame(descriptionPair.label, 'Description') ?
+                          (
+                            <React.Fragment>
+                              <b>{descriptionPair.label}: </b>
+                              {descriptionPair.value ?
+                                (
+                                  <Markdown
+                                    escapeHtml
+                                    source={toValueString(descriptionPair)}
+                                    renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+                                  />
+                                )
+                                : (<React.Fragment>N/A <br /></React.Fragment>)}
+                            </React.Fragment>
+                          )
+                          : ''}
+                      </React.Fragment>
+                    ))
+                  }
+                </Grid.Column>
+              </Grid>
+              <Grid stackable style={zeroMarginTopStyle}>
+                <Grid.Column>
+                  {descriptionPairs.map((descriptionPair) => (
+                    <React.Fragment key={descriptionPair.label}>
+                      {isSame(descriptionPair.label, 'Prerequisites') ?
+                        (
+                          <React.Fragment>
+                            {descriptionPair.value ?
+                              (
+                                <React.Fragment>
+                                  <Header as="h4" className="horizontal divider">{descriptionPair.label}</Header>
+                                  {isStudent ?
+                                    (
+                                      <Grid columns={3} stackable padded celled>
+                                        <Grid.Row>
+                                          {toValueArray(descriptionPair).map((table, tableIndex) => (
+                                            <Grid.Column
+                                              key={_.uniqueId()}
+                                              style={{
+                                                textAlign: 'center',
+                                                backgroundColor: color(table),
+                                              }}
+                                            >
+                                              {getTableTitle(tableIndex, table)}
+                                              {length(table) ?
+                                                (
+                                                  <React.Fragment>
+                                                    {table.map((prerequisite) => (
+                                                      <React.Fragment key={_.uniqueId()}>
+                                                        {isSingleChoice(prerequisite.course) ?
+                                                          (
+                                                            <NavLink
+                                                              exact
+                                                              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
+                                                              activeClassName="active item"
+                                                            >
+                                                              {courseSlugToName(prerequisite.course)}
+                                                              <br />
+                                                            </NavLink>
+                                                          )
+                                                          :
+                                                          _.map(choices(prerequisite), (choice, choicesIndex) => (
+                                                            <React.Fragment key={_.uniqueId()}>
+                                                              {isFirst(choicesIndex) ?
+                                                                (
+                                                                  <NavLink
+                                                                    exact
+                                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                    activeClassName="active item"
+                                                                  >
+                                                                    {courseSlugToName(choice)}
+                                                                  </NavLink>
+                                                                )
+                                                                : (
+                                                                  <React.Fragment>
+                                                                    {/* Not exactly sure where this pops up because even in
                                                                              the original RadGrad I don't see any "or {choice} */}
-                                                                                        or
-                                                                                        <NavLink
-                                                                                          exact
-                                                                                          to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
-                                                                                          activeClassName="active item"
-                                                                                        >
-                                                                                          {courseSlugToName(choice)}
-                                                                                        </NavLink>
-                                                                                      </React.Fragment>
-                                                                                    )
-                                                                                }
-                                                                              </React.Fragment>
-                                                                            ))
-                                                                        }
-                                                                      </React.Fragment>
-                                                                    ))
-                                                                  }
-                                                              </React.Fragment>
-                                                              )
-                                                              :
-                                                              <Item style={{ color: 'grey' }}>None</Item>
-                                                          }
-                                                        </Grid.Column>
-                                                      ))
-                                                    }
-                                                </Grid.Row>
-                                              </Grid>
-                                              )
-                                              : (
-                                                <List horizontal bulleted>
-                                                  {
-                                                    toValueArray(descriptionPair).map((prereqType) => (
-                                                      prereqType.map((prereq) => (
-                                                        <List.Item
-                                                          key={prereq.course}
-                                                          as={NavLink}
-                                                          exact
-                                                          to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
-                                                        >
-                                                          {courseSlugToName(prereq.course)}
-                                                        </List.Item>
-                                                      ))
-                                                    ))
-                                                  }
-                                                </List>
-                                              )
-                                          }
-                                      </React.Fragment>
-                                      )
-                                      : ''
-                                  }
-                              </React.Fragment>
+                                                                    or
+                                                                    <NavLink
+                                                                      exact
+                                                                      to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                      activeClassName="active item"
+                                                                    >
+                                                                      {courseSlugToName(choice)}
+                                                                    </NavLink>
+                                                                  </React.Fragment>
+                                                                )}
+                                                            </React.Fragment>
+                                                          ))}
+                                                      </React.Fragment>
+                                                    ))}
+                                                  </React.Fragment>
+                                                )
+                                                : (<Item style={{ color: 'grey' }}>None</Item>)}
+                                            </Grid.Column>
+                                          ))}
+                                        </Grid.Row>
+                                      </Grid>
+                                    )
+                                    :
+                                    (
+                                      <List horizontal bulleted>
+                                        {toValueArray(descriptionPair).map((prereqType) => (
+                                          prereqType.map((prereq) => (
+                                            <List.Item
+                                              key={prereq.course}
+                                              as={NavLink}
+                                              exact
+                                              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
+                                            >
+                                              {courseSlugToName(prereq.course)}
+                                            </List.Item>
+                                          ))
+                                        ))}
+                                      </List>
+                                    )}
+                                </React.Fragment>
                               )
-                              : ''
-                          }
-                        </React.Fragment>
-                      ))
-                    }
-                  </Grid.Column>
-                </Grid>
-              </React.Fragment>
-            )
-          }
-        </Segment>
-      </Segment.Group>
+                              : ''}
+                          </React.Fragment>
+                        )
+                        : ''}
+                    </React.Fragment>
+                  ))}
+                </Grid.Column>
+              </Grid>
+            </React.Fragment>
+          )}
+      </Segment>
 
-      {
-        isStudent ? (
+      <Segment textAlign="center">
+        <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
+        <Divider />
+        <FutureParticipation item={props.item} type="courses" />
+      </Segment>
+
+      {isStudent ?
+        (
           <Grid stackable className="column">
             <Grid.Column width={16}>
               <Segment padded>
@@ -671,9 +574,8 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
               </Segment>
             </Grid.Column>
           </Grid>
-          )
-          : ''
-      }
+        )
+        : ''}
     </div>
   );
 };
@@ -681,15 +583,13 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
 const ExplorerCoursesWidgetContainer = withTracker(() => {
   /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
   const reactiveSourceOne = CourseInstances.findNonRetired({});
-  const reactiveSouceTwo = UserInteractions.find({}).fetch();
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
-  const reactiveSourceThree = Reviews.find({}).fetch();
+  const reactiveSourceTwo = Reviews.find({}).fetch();
 
   return {
     reactiveSourceOne,
-    reactiveSouceTwo,
-    reactiveSourceThree,
+    reactiveSourceTwo,
   };
 })(ExplorerCoursesWidget);
 export default withRouter(ExplorerCoursesWidgetContainer);

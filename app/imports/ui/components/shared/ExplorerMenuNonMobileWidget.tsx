@@ -21,6 +21,7 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { buildRouteName, isUrlRoleFaculty } from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -82,107 +83,113 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
   const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(props.match);
   const adminEmail = RadGradProperties.getAdminEmail();
+  const isFaculty = isUrlRoleFaculty(props.match);
+
+  const addFacultyOpportunityButtonStyle: React.CSSProperties = { marginTop: '5px' };
+
   return (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        {
-          isType(EXPLORER_TYPE.ACADEMICPLANS, props) ? (
+        {isType(EXPLORER_TYPE.ACADEMICPLANS, props) ?
+          (
             <React.Fragment>
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
                 Back to {getTypeName(props)}
               </Button>
-              {
-                  isStudent ? (
-                    <Menu vertical text>
-                      <Header as="h4" dividing>MY FAVORITE ACADEMIC PLANS</Header>
-                      {
-                          menuAddedList.map((listItem) => (
-                            <ExplorerMenuNonMobileItem
-                              listItem={listItem}
-                              type={EXPLORER_TYPE.ACADEMICPLANS}
-                              key={listItem.item._id}
-                              match={props.match}
-                            />
-                          ))
-                        }
-                    </Menu>
-                    )
-                    : ''
-                }
+              {isStudent ?
+                (
+                  <Menu vertical text>
+                    <Header as="h4" dividing>MY FAVORITE ACADEMIC PLANS</Header>
+                    {menuAddedList.map((listItem) => (
+                      <ExplorerMenuNonMobileItem
+                        listItem={listItem}
+                        type={EXPLORER_TYPE.ACADEMICPLANS}
+                        key={listItem.item._id}
+                        match={props.match}
+                      />
+                    ))}
+                  </Menu>
+                )
+                : ''}
             </React.Fragment>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.COURSES, props) ? (
+        {isType(EXPLORER_TYPE.COURSES, props) ?
+          (
             <React.Fragment>
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
                 Back to {getTypeName(props)}
               </Button>
-              {
-                  isStudent ? (
-                    <Menu vertical text>
-                      <Header as="h4" dividing>MY FAVORITE COURSES</Header>
-                      {
-                          menuAddedList.map((listItem) => (
-                            <ExplorerMenuNonMobileItem
-                              listItem={listItem}
-                              type={EXPLORER_TYPE.COURSES}
-                              key={listItem.item._id}
-                              match={props.match}
-                            />
-                          ))
-                        }
-                    </Menu>
-                    )
-                    : ''
-                }
+              {isStudent ?
+                (
+                  <Menu vertical text>
+                    <Header as="h4" dividing>MY FAVORITE COURSES</Header>
+                    {menuAddedList.map((listItem) => (
+                      <ExplorerMenuNonMobileItem
+                        listItem={listItem}
+                        type={EXPLORER_TYPE.COURSES}
+                        key={listItem.item._id}
+                        match={props.match}
+                      />
+                    ))}
+                  </Menu>
+                )
+                : ''}
             </React.Fragment>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.OPPORTUNITIES, props) ? (
+        {isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
+          (
             <React.Fragment>
               <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
+              {isFaculty ?
+                (
+                  <Button
+                    as={Link}
+                    to={buildRouteName(props.match, '/manage-opportunities')}
+                    size="small"
+                    style={addFacultyOpportunityButtonStyle}
+                  >
+                    Add a Faculty Opportunity
+                  </Button>
+                )
+                : ''}
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
                 <Icon name="chevron circle left" />
                 <br />
                 Back to {getTypeName(props)}
               </Button>
-              {
-                  isStudent ? (
-                    <Menu vertical text>
-                      <Header as="h4" dividing>FAVORITE OPPORTUNITIES</Header>
-                      {
-                          menuAddedList.map((listItem) => (
-                            <ExplorerMenuNonMobileItem
-                              listItem={listItem}
-                              type={EXPLORER_TYPE.OPPORTUNITIES}
-                              key={listItem.item._id}
-                              match={props.match}
-                            />
-                          ))
-                        }
-                    </Menu>
-                    )
-                    : ''
-                }
+              {isStudent ?
+                (
+                  <Menu vertical text>
+                    <Header as="h4" dividing>MY FAVORITE OPPORTUNITIES</Header>
+                    {
+                      menuAddedList.map((listItem) => (
+                        <ExplorerMenuNonMobileItem
+                          listItem={listItem}
+                          type={EXPLORER_TYPE.OPPORTUNITIES}
+                          key={listItem.item._id}
+                          match={props.match}
+                        />
+                      ))
+                    }
+                  </Menu>
+                )
+                : ''}
             </React.Fragment>
-            )
-            : ''
-        }
+          )
+          : ''}
 
         {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
-        {
-          isType(EXPLORER_TYPE.INTERESTS, props) ? (
+        {isType(EXPLORER_TYPE.INTERESTS, props) ?
+          (
             <Menu vertical text>
               <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
@@ -191,35 +198,30 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 Back to {getTypeName(props)}
               </Button>
               <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
-              {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.INTERESTS}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
+              {menuAddedList.map((listItem) => (
+                <ExplorerMenuNonMobileItem
+                  listItem={listItem}
+                  type={EXPLORER_TYPE.INTERESTS}
+                  key={listItem.item._id}
+                  match={props.match}
+                />
+              ))}
 
               <Header as="h4" dividing>SUGGESTED CAREER GOAL INTERESTS</Header>
-              {
-                  menuCareerList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.INTERESTS}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
+              {menuCareerList.map((listItem) => (
+                <ExplorerMenuNonMobileItem
+                  listItem={listItem}
+                  type={EXPLORER_TYPE.INTERESTS}
+                  key={listItem.item._id}
+                  match={props.match}
+                />
+              ))}
             </Menu>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.CAREERGOALS, props) ? (
+        {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+          (
             <Menu vertical text>
               <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
               <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
@@ -228,31 +230,27 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                 Back to {getTypeName(props)}
               </Button>
               <Header as="h4" dividing>MY FAVORITE CAREER GOALS</Header>
-              {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.CAREERGOALS}
-                      key={listItem.item._id}
-                      match={props.match}
-                    />
-                  ))
-                }
+              {menuAddedList.map((listItem) => (
+                <ExplorerMenuNonMobileItem
+                  listItem={listItem}
+                  type={EXPLORER_TYPE.CAREERGOALS}
+                  key={listItem.item._id}
+                  match={props.match}
+                />
+              ))}
             </Menu>
-            )
-            : ''
-        }
+          )
+          : ''}
 
-        {
-          isType(EXPLORER_TYPE.DEGREES, props) ? (
+        {isType(EXPLORER_TYPE.DEGREES, props) ?
+          (
             <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
               <Icon name="chevron circle left" />
               <br />
               Back to {getTypeName(props)}
             </Button>
-            )
-            : ''
-        }
+          )
+          : ''}
       </Responsive>
     </React.Fragment>
   );

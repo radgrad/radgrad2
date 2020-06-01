@@ -71,7 +71,7 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
 const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   // console.log('CardExplorerWidget', props);
   const [filterCoursesChoiceState, setFilterCoursesChoice] = useState(courseFilterKeys.none);
-  const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.alphabetic);
+  const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
 
   /* Styles */
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
@@ -141,7 +141,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   const isOpportunityExplorer = isType(EXPLORER_TYPE.OPPORTUNITIES, props);
   if (isOpportunityExplorer) {
     switch (sortOpportunitiesChoiceState) {
-      case opportunitySortKeys.match:
+      case opportunitySortKeys.recommended:
         // eslint-disable-next-line no-case-declarations
         const userID = Router.getUserIdFromRoute(props.match);
         // eslint-disable-next-line no-case-declarations
@@ -298,13 +298,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
               {
                   buildTermCard ?
                     items.map((item) => (
-                      <TermCard
-                        key={item._id}
-                        item={item}
-                        type={type}
-                        isStudent={isStudent}
-                        canAdd
-                      />
+                      <TermCard key={item._id} item={item} type={type} isStudent={isStudent} canAdd />
                     ))
                     : ''
                 }
