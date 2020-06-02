@@ -73,7 +73,6 @@ class UserCollection {
         const casReturn: { userId: string; } = Accounts.updateOrCreateUserFromExternalService('cas', result, options);
         const userID2 = casReturn.userId;
         Meteor.users.update(userID2, { $set: { username } });
-        // Meteor.users.find().fetch().map(user => console.log('  ', JSON.stringify(user)));
         Roles.addUsersToRoles(userID2, [role]);
         return userID2;
       }
@@ -86,7 +85,7 @@ class UserCollection {
       }
       // Otherwise define this user with a Meteor login and randomly generated password.
       const password = this.generateRandomPassword();
-      console.log(`Defining user ${username} with password ${password}`);
+      console.log(`Defining ${role} ${username} with password ${password}`);
       const userID = Accounts.createUser({ username, email: username, password });
       Roles.addUsersToRoles(userID, [role]);
       return userID;
