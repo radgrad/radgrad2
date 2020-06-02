@@ -16,7 +16,6 @@ const ExplorerCard = (props: IExplorerCard) => {
     <Card className="radgrad-interest-card">
       <Card.Content>
         <Card.Header>{itemName}</Card.Header>
-        <Card.Meta />
       </Card.Content>
 
       <Card.Content>

@@ -1,21 +1,36 @@
 import React from 'react';
-import { Label } from 'semantic-ui-react';
+import { Header, Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { IInterest } from '../../../typings/radgrad';
 
 interface IWithInterestsProps {
   interestIDs: string[];
 }
 
+const getSlugName = (interest: IInterest) => Slugs.getNameFromID(interest.slugID);
+
 const LandingInterestList = (props: IWithInterestsProps) => {
-  // console.log(Interests.find().fetch());
-  // console.log(props.interestIDs);
-  const interests = _.map(props.interestIDs, (id) => Interests.findDoc(id));
-  // console.log(interests);
+  const interests: IInterest[] = _.map(props.interestIDs, (id) => Interests.findDoc(id));
+  const labelStyle = { marginBottom: '2px' };
   return (
-    <div>
-      {interests.map((interest) => <Label key={interest._id} color="grey">{interest.name}</Label>)}
-    </div>
+    <React.Fragment>
+      <Header as="h4" dividing>Related Interests</Header>
+      {interests.map((interest) => (
+        <Label
+          as={Link}
+          key={interest._id}
+          to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${getSlugName(interest)}`}
+          color="grey"
+          style={labelStyle}
+        >
+          {interest.name}
+        </Label>
+      ))}
+    </React.Fragment>
   );
 };
 

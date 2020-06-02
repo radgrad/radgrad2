@@ -4,10 +4,10 @@ import SimpleSchema from 'simpl-schema';
 import RadioField from '../form-fields/RadioField';
 
 export const opportunitySortKeys = {
-  alphabetic: 'alphabetic',
-  innovation: 'innovation',
-  experience: 'experience',
-  match: 'match',
+  recommended: 'Recommended',
+  alphabetic: 'Alphabetic',
+  innovation: 'Innovation',
+  experience: 'Experience',
 };
 
 interface IOpportunitySortWidgetProps {
@@ -21,10 +21,10 @@ const OpportunitySortWidget = (props: IOpportunitySortWidgetProps) => {
     sortOpportunitiesBy: {
       type: String,
       allowedValues: [
+        opportunitySortKeys.recommended,
         opportunitySortKeys.alphabetic,
         opportunitySortKeys.experience,
         opportunitySortKeys.innovation,
-        opportunitySortKeys.match,
       ],
       optional: true,
     },
@@ -35,7 +35,7 @@ const OpportunitySortWidget = (props: IOpportunitySortWidgetProps) => {
   return (
     <div>
       <AutoForm schema={schema} model={model} onChange={props.handleChange}>
-        <RadioField name="sortOpportunitiesBy" inline />
+        <RadioField name="sortOpportunitiesBy" label="Sort Opportunities By:" inline />
       </AutoForm>
     </div>
   );

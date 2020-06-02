@@ -22,8 +22,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
           <Container fluid>
             <Segment>
               <Header as="h5" textAlign="center">
-                STUDENTS
-                <WidgetHeaderNumber inputValue={numberStudents} />
+                STUDENTS <WidgetHeaderNumber inputValue={numberStudents} />
               </Header>
               <Divider />
               <Container textAlign="center">
@@ -34,7 +33,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
                       trigger={<Image src={student.picture} circular size="mini" />}
                       content={`${student.firstName} ${student.lastName}`}
                     />
-))}
+                  ))}
                 </Image.Group>
               </Container>
             </Segment>
@@ -46,10 +45,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
           <Container fluid>
             <Segment>
               <Header as="h5" textAlign="center">
-                FACULTY MEMBERS
-                <WidgetHeaderNumber
-                  inputValue={faculty.length}
-                />
+                FACULTY MEMBERS <WidgetHeaderNumber inputValue={faculty.length} />
               </Header>
               <Divider />
               <Container textAlign="center">
@@ -60,7 +56,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
                       trigger={<Image src={fac.picture} circular />}
                       content={`${fac.firstName} ${fac.lastName}`}
                     />
-))}
+                  ))}
                 </Image.Group>
               </Container>
             </Segment>
@@ -72,8 +68,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
           <Container>
             <Segment>
               <Header as="h5" textAlign="center">
-                ALUMNI
-                <WidgetHeaderNumber inputValue={alumni.length} />
+                ALUMNI <WidgetHeaderNumber inputValue={alumni.length} />
               </Header>
               <Divider />
               <Container textAlign="center">
@@ -84,7 +79,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
                       trigger={<Image src={alum.picture} circular />}
                       content={`${alum.firstName} ${alum.lastName}`}
                     />
-))}
+                  ))}
                 </Image.Group>
               </Container>
             </Segment>
@@ -96,8 +91,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
           <Container>
             <Segment>
               <Header as="h5" textAlign="center">
-                MENTORS
-                <WidgetHeaderNumber inputValue={mentors.length} />
+                MENTORS <WidgetHeaderNumber inputValue={mentors.length} />
               </Header>
               <Divider />
               <Container textAlign="center">
@@ -108,7 +102,7 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
                       trigger={<Image src={mentor.picture} circular />}
                       content={`${mentor.firstName} ${mentor.lastName}`}
                     />
-))}
+                  ))}
                 </Image.Group>
               </Container>
             </Segment>

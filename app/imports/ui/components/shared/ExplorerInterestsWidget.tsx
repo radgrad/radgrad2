@@ -139,10 +139,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
   const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
   const hasTeaser = teaser.length > 0;
-  /**
-   * ToDo polish this UI
-   * ToDo add functionality for button
-   */
+
   return (
     <div id={explorerInterestWidget}>
       <SegmentGroup>
@@ -180,20 +177,21 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
                 />
               </Grid.Column>
             </Grid>
-) : (
-  <React.Fragment>
-    <div>
-      <b>Description: </b>
-    </div>
-    <div>
-      <Markdown escapeHtml source={props.interest.description} />
-    </div>
-  </React.Fragment>
-)}
+          ) : (
+            <React.Fragment>
+              <div>
+                <b>Description: </b>
+              </div>
+              <div>
+                <Markdown escapeHtml source={props.interest.description} />
+              </div>
+            </React.Fragment>
+          )}
         </Segment>
       </SegmentGroup>
       <Grid stackable columns={2}>
         <Grid.Column width={10}>
+          {/* TODO fix this; make sure to test for students, faculty, and mentor */}
           <InterestedRelatedWidget
             relatedCourses={relatedCourses}
             relatedOpportunities={relatedOpportunities}
@@ -201,6 +199,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
             baseURL={getBaseURL(props)}
           />
         </Grid.Column>
+
         <Grid.Column width={6}>
           <InterestedProfilesWidget
             interest={props.interest}

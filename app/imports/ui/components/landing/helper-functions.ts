@@ -3,6 +3,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { IOpportunity } from '../../../typings/radgrad';
 
 export function itemShortDescription(item: { description: string; }) {
   let description = item.description;
@@ -41,14 +42,12 @@ export function getOpportunityTypeName(opportunityTypeID) {
   }
 }
 
-export function teaser(opportunity) {
-  try {
-    const t = Teasers.findDoc({ opportunityID: opportunity._id });
-    const url = t.url;
-    return url;
-  } catch (e) {
-    return '';
+export function teaser(opportunity: IOpportunity) {
+  const oppTeaser = Teasers.find({ targetSlugID: opportunity.slugID }).fetch();
+  if (oppTeaser.length > 1) {
+    return undefined;
   }
+  return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 }
 
 export function semesters(opportunity) {

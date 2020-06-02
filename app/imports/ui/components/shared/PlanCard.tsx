@@ -32,23 +32,26 @@ const PlanCard = (props: IPlanCard) => {
       </Card.Content>
 
       <Card.Content>
-        <Markdown escapeHtml source={`${itemShortDescription}...`} />
+        <Markdown
+          escapeHtml
+          source={`${itemShortDescription}...`}
+          renderers={{ link: (p) => Router.renderLink(p, props.match) }}
+        />
         <AcademicPlanStaticViewer plan={item} />
       </Card.Content>
 
       <Card.Content>
         <span>
-          STUDENTS PARTICIPATING
-          <WidgetHeaderNumber inputValue={numberStudents} />
+          STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
         <Image.Group size="mini">
-          {interested.map((student, index) => (
+          {interested.map((student) => (
             <Popup
               key={student._id}
               trigger={<Image src={profileIDToPicture(student._id)} circular bordered />}
               content={profileIDToFullname(student._id)}
             />
-))}
+          ))}
         </Image.Group>
       </Card.Content>
 

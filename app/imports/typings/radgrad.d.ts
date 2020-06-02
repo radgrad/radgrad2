@@ -16,6 +16,16 @@ declare namespace cloudinary {
   function openUploadWidget(options: any, resultCallback?: (error: null | string, result: { event: string; info?: { [key: string]: any } }) => any): any;
 }
 
+export interface IMeteorError {
+  details: any;
+  error: string;
+  errorType: string;
+  isClientSafe: boolean;
+  message: string;
+  reason: string;
+  stack: string;
+}
+
 export interface Ice {
   i: number;
   c: number;
@@ -786,6 +796,7 @@ export interface IPlanChoiceUpdate extends IUpdate {
 
 // Profiles
 export interface IBaseProfile {
+  _id: string;
   userID?: string;
   username: string;
   firstName: string;
@@ -820,7 +831,7 @@ export interface IBaseProfile {
 }
 
 export interface IProfile {
-  _id?: string;
+  _id: string;
   userID: string;
   username: string;
   firstName: string;

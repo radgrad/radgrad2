@@ -54,7 +54,6 @@ const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
                   yearNumber={yearNumber++}
                   academicPlan={plan}
                   username={username}
-
                   takenSlugs={props.takenSlugs}
                 />
               </Grid.Column>
@@ -63,7 +62,6 @@ const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
                   yearNumber={yearNumber++}
                   academicPlan={plan}
                   username={username}
-
                   takenSlugs={props.takenSlugs}
                 />
               </Grid.Column>
@@ -72,7 +70,6 @@ const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
                   yearNumber={yearNumber++}
                   academicPlan={plan}
                   username={username}
-
                   takenSlugs={props.takenSlugs}
                 />
               </Grid.Column>
