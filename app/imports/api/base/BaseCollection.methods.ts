@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { RadGrad } from '../radgrad/RadGrad';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
+import { loadCollectionNewDataOnly } from '../utilities/load-fixtures';
 
 /**
  * Allows admins to create and return a JSON object to the client representing a snapshot of the RadGrad database.
@@ -74,5 +75,34 @@ export const removeItMethod = new ValidatedMethod({
     collection.assertValidRoleForMethod(this.userId);
     collection.removeIt(instance);
     return true;
+  },
+});
+
+export const loadFixtureMethod = new ValidatedMethod({
+  name: 'base.loadFixture',
+  validate: null,
+  run(fixtureData) {
+    // console.log('loadFixtureMethod', fixtureData);
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to load a fixture.', '');
+    } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
+      throw new Meteor.Error('unauthorized', 'You must be an admin to load a fixture.', '');
+    }
+    if (Meteor.isServer) {
+      let ret = '';
+      // console.log(RadGrad.collectionLoadSequence);
+      _.forEach(RadGrad.collectionLoadSequence, (collection) => {
+        const result = loadCollectionNewDataOnly(collection, fixtureData, true);
+        console.log(collection.getCollectionName(), result);
+        ret = `${ret} ${result}`;
+      });
+      // console.log(`loadFixtureMethod ${ret}`);
+      const trimmed = ret.trim();
+      if (trimmed.length === 0) {
+        ret = 'Defined no new instances.';
+      }
+      return ret;
+    }
+    return '';
   },
 });
