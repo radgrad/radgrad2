@@ -39,7 +39,6 @@ const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
   const _id = Slugs.getEntityID(props.match.params.careergoal, 'CareerGoal');
   const careerGoal = CareerGoals.findDoc({ _id });
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
-  // console.log(oppTeaser);
   if (oppTeaser.length > 1) {
     return undefined;
   }
@@ -48,7 +47,6 @@ const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
 
 
 const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
-  // console.log(props);
   const marginStyle = {
     marginTop: 5,
   };
@@ -62,6 +60,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   const { name, descriptionPairs, socialPairs, item, match } = props;
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
+
   return (
     <Grid container stackable style={marginStyle} id={explorerCareerGoalWidget}>
       <Grid.Column width={16}>
@@ -96,18 +95,18 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                 <br />
                               </b>
                               {
-                                descriptionPair.value ? (
-                                  <Markdown
-                                    escapeHtml={false}
-                                    source={descriptionPair.value}
-                                    renderers={{ link: (localProps) => renderLink(localProps, match) }}
-                                  />
-                                )
-                                  :
-                                  'N/A'
-                              }
+                                  descriptionPair.value ? (
+                                    <Markdown
+                                      escapeHtml={false}
+                                      source={descriptionPair.value}
+                                      renderers={{ link: (localProps) => renderLink(localProps, match) }}
+                                    />
+                                    )
+                                    :
+                                    'N/A'
+                                }
                             </React.Fragment>
-                          )
+                            )
                             : ''
                         }
                       </React.Fragment>
@@ -125,19 +124,19 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                   :
                                 </b>
                                 {
-                                  descriptionPair.value ? (
-                                    <Embed
-                                      active
-                                      autoplay={false}
-                                      source="youtube"
-                                      id={teaserUrlHelper(props)}
-                                    />
-                                  )
-                                    :
-                                    <p> N/A </p>
-                                }
+                                    descriptionPair.value ? (
+                                      <Embed
+                                        active
+                                        autoplay={false}
+                                        source="youtube"
+                                        id={teaserUrlHelper(props)}
+                                      />
+                                      )
+                                      :
+                                      <p> N/A </p>
+                                  }
                               </React.Fragment>
-                            )
+                              )
                               : ''
                           }
                         </React.Fragment>
@@ -160,18 +159,18 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                               <br />
                             </b>
                             {
-                              descriptionPair.value ? (
-                                <Markdown
-                                  escapeHtml={false}
-                                  source={descriptionPair.value}
-                                  renderers={{ link: (localProps) => renderLink(localProps, match) }}
-                                />
-                              )
-                                :
-                                'N/A'
-                            }
+                                descriptionPair.value ? (
+                                  <Markdown
+                                    escapeHtml={false}
+                                    source={descriptionPair.value}
+                                    renderers={{ link: (localProps) => renderLink(localProps, match) }}
+                                  />
+                                  )
+                                  :
+                                  'N/A'
+                              }
                           </React.Fragment>
-                        )
+                          )
                           : ''
                       }
                     </React.Fragment>
@@ -195,7 +194,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                       trigger={<Image src={userToPicture(user)} circular bordered />}
                       content={userToFullName(user)}
                     />
-))}
+                  ))}
                 </Image.Group>
               </Grid.Column>
             ))}

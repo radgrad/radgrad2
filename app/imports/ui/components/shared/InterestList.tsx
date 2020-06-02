@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
 import { docToName, itemToSlugName } from './data-model-helper-functions';
 import { MatchingInterests } from '../../../api/interest/MatchingInterests';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IInterestListProps {
   item: {
@@ -33,12 +34,10 @@ const InterestList = (props: IInterestListProps) => {
             <Label
               as={Link}
               key={interest._id}
-              to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)}
+              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)}
               size={props.size}
             >
-              <i className="fitted star icon" />
-              {' '}
-              {docToName(interest)}
+              <i className="fitted star icon" /> {docToName(interest)}
             </Label>
           );
         })
@@ -51,7 +50,7 @@ const InterestList = (props: IInterestListProps) => {
             <Label
               as={Link}
               key={interest._id}
-              to={Router.buildRouteName(props.match, `/explorer/interests/${interestSlug}`)}
+              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)}
               size={props.size}
             >
               <i className="fitted suitcase icon" />

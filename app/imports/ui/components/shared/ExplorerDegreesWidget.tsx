@@ -45,14 +45,11 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
 
           <Grid stackable>
             <Grid.Column>
-              {
-                descriptionPairs.map((descriptionPair) => (
-                  descriptionPair.value ? (
+              {descriptionPairs.map((descriptionPair) => (
+                descriptionPair.value ?
+                  (
                     <React.Fragment key={toId(descriptionPair)}>
-                      <b>
-                        {descriptionPair.label}
-                        :
-                      </b>
+                      <b>{descriptionPair.label}: </b>
                       <Markdown
                         escapeHtml={false}
                         source={descriptionPair.value}
@@ -60,18 +57,12 @@ const ExplorerDegreesWidget = (props: IExplorerDegreesWidgetProps) => {
                       />
                     </React.Fragment>
                   )
-                    : (
-                      <p key={toId(descriptionPair)}>
-                        <b>
-                          {descriptionPair.label}
-                          :
-                        </b>
-                        {' '}
-                        N/A
-                      </p>
+                  : (
+                    <p key={toId(descriptionPair)}>
+                      <b>{descriptionPair.label}:</b> N/A
+                    </p>
                   )
-                ))
-              }
+              ))}
             </Grid.Column>
           </Grid>
         </Segment>

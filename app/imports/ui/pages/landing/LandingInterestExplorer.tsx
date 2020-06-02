@@ -14,6 +14,7 @@ import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC'
 import { getSlugFromEntityID } from '../../components/landing/helper-functions';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IInterestExplorerProps {
   interest: IInterest;
@@ -64,33 +65,37 @@ const LandingInterestExplorer = (props: IInterestExplorerProps) => {
             </Segment>
             <Segment padded>
               <Header as="h4" dividing>Related Courses</Header>
-              <List horizontal bulleted>
-                {// console.log(course.name);
-                  props.courses.map((course) => (
-                    <List.Item
-                      key={course._id}
-                      href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}
-                    >
-                      {course.name}
-                    </List.Item>
-))
-}
-              </List>
+              {props.courses.length > 0 ?
+                (
+                  <List horizontal bulleted>
+                    {props.courses.map((course) => (
+                      <List.Item
+                        key={course._id}
+                        href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${getSlugFromEntityID(course._id)}`}
+                      >
+                        {course.name}
+                      </List.Item>
+                    ))}
+                  </List>
+                )
+                : 'N/A'}
             </Segment>
             <Segment padded>
               <Header as="h4" dividing>Related Opportunities</Header>
-              <List horizontal bulleted>
-                {// console.log(course.name);
-                  props.opportunities.map((opportunity) => (
-                    <List.Item
-                      key={opportunity._id}
-                      href={`#/explorer/opportunites/${getSlugFromEntityID(opportunity._id)}`}
-                    >
-                      {opportunity.name}
-                    </List.Item>
-))
-}
-              </List>
+              {props.opportunities.length > 0 ?
+                (
+                  <List horizontal bulleted>
+                    {props.opportunities.map((opportunity) => (
+                      <List.Item
+                        key={opportunity._id}
+                        href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${getSlugFromEntityID(opportunity._id)}`}
+                      >
+                        {opportunity.name}
+                      </List.Item>
+                    ))}
+                  </List>
+                )
+                : 'N/A'}
             </Segment>
           </Grid.Column>
           <Grid.Column width={1} />

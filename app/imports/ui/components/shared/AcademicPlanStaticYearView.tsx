@@ -21,8 +21,7 @@ const AcademicPlanStaticYearView = (props: IAcademicPlanYearViewProps) => {
   return (
     <div>
       <Header>
-        Year
-        {props.yearNumber + 1}
+        Year {props.yearNumber + 1}
       </Header>
       <AcademicPlanStaticTermView
         title={AcademicTerms.FALL}
@@ -41,7 +40,7 @@ const AcademicPlanStaticYearView = (props: IAcademicPlanYearViewProps) => {
           studentID={studentID}
           takenSlugs={props.takenSlugs}
         />
-) : ''}
+      ) : ''}
       <AcademicPlanStaticTermView
         title={AcademicTerms.SPRING}
         id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}

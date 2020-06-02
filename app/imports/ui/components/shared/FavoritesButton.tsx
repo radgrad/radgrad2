@@ -3,7 +3,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
+import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IMeteorError, IOpportunity } from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
@@ -99,13 +99,12 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
         typeData: `${props.type}:${slug}`,
       };
   }
-  // console.log(collectionName, definitionData);
-  defineMethod.call({ collectionName, definitionData }, (error) => {
+  defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
     if (error) {
       Swal.fire({
         title: 'Failed to Favorite',
         icon: 'error',
-        text: 'This item failed to be added to your favorites.',
+        text: error.message,
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
@@ -114,14 +113,10 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       Swal.fire({
         title: 'Favorited',
         icon: 'success',
-        text: 'You have successfully favorited this item.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
       });
-      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+      userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
         if (userInteractionError) {
-          console.log('Error creating UserInteraction.', userInteractionError);
+          console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
     }
@@ -129,7 +124,6 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
 };
 
 const handleRemove = (props: IFavoriteButtonProps) => () => {
-  // console.log('handleRemove', props);
   const profile = Users.getProfile(props.studentID);
   const student = profile.username;
   let instance;
@@ -197,14 +191,21 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
         typeData: `${props.type}:${slug}`,
       };
   }
-  removeItMethod.call({ collectionName, instance }, (error) => {
+  removeItMethod.call({ collectionName, instance }, (error: IMeteorError) => {
     if (error) {
-      console.error('Failed to remove favorite', error);
+      Swal.fire({
+        title: 'Failed to Unfavorite',
+        icon: 'error',
+        text: error.message,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
     }
   });
-  userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+  userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
     if (userInteractionError) {
-      console.log('Error creating UserInteraction.', userInteractionError);
+      console.error('Error creating UserInteraction.', userInteractionError);
     }
   });
 };

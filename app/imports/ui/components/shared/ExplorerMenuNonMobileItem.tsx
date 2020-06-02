@@ -60,7 +60,6 @@ const userCourses = (course: ICourse, props: IExplorerMenuNonMobileItemProps): s
   }).fetch();
   if (ci.length > 0) {
     ret = 'check green circle outline icon';
-
   }
   return ret;
 };

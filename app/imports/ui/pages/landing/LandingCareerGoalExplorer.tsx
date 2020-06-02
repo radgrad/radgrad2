@@ -57,8 +57,9 @@ const LandingCareerGoalExplorer = (props: ICareerGoalExplorerProps) => {
               source={props.careerGoal.description}
               renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
             />
-            <Header as="h4" dividing>Career Goal Interests</Header>
-            <LandingInterestList interestIDs={props.careerGoal.interestIDs} />
+            {props.careerGoal.interestIDs.length > 0 ?
+              (<LandingInterestList interestIDs={props.careerGoal.interestIDs} />)
+              : 'N/A'}
           </Segment>
         </Grid.Column>
         <Grid.Column width={1} />
