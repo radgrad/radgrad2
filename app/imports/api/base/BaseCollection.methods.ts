@@ -93,13 +93,17 @@ export const loadFixtureMethod = new ValidatedMethod({
       // console.log(RadGrad.collectionLoadSequence);
       _.forEach(RadGrad.collectionLoadSequence, (collection) => {
         const result = loadCollectionNewDataOnly(collection, fixtureData, true);
-        console.log(collection.getCollectionName(), result);
-        ret = `${ret} ${result}`;
+        // console.log(collection.getCollectionName(), result);
+        if (result) {
+          ret = `${ret} ${result},`;
+        }
       });
       // console.log(`loadFixtureMethod ${ret}`);
       const trimmed = ret.trim();
       if (trimmed.length === 0) {
         ret = 'Defined no new instances.';
+      } else {
+        ret = ret.substring(0, ret.length - 1); // trim off trailing ,
       }
       return ret;
     }

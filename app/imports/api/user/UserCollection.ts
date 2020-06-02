@@ -65,7 +65,7 @@ class UserCollection {
   public define({ username, role }: { username: string; role: string; }) {
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
-      if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR)) {
+      if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR || (role === ROLE.ALUMNI))) {
         // Define this user with a CAS login.
         const userWithoutHost = username.split('@')[0];
         const result = { id: userWithoutHost };
@@ -152,7 +152,7 @@ class UserCollection {
   public getID(user) {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     if (!userDoc) {
-      // console.log('Error: user is not defined: ', user);
+      console.error('Error: user is not defined: ', user);
       console.trace(`Error: user is not defined: ${user}`);
       throw new Meteor.Error(`Error: user ${user} is not defined.`);
     }

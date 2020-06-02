@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Header, Message, Segment } from 'semantic-ui-react';
+import { Form, Header, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { loadFixtureMethod } from '../../../api/base/BaseCollection.methods';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import UploadMessageWidget from './UploadMessageWidget';
 
 /* global FileReader */
 
@@ -36,7 +37,7 @@ const UploadFixtureWidget = (props: IUploadFixtureWidgetProps) => {
     };
   };
   const onSubmit = () => {
-    console.log('Data submitted: ', fileDataState);
+    // console.log('Data submitted: ', fileDataState);
     const jsonData = JSON.parse(fileDataState);
     loadFixtureMethod.call(jsonData, (err, result) => {
       if (err) {
@@ -55,10 +56,10 @@ const UploadFixtureWidget = (props: IUploadFixtureWidgetProps) => {
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Field>
           <Form.Input type="file" onChange={readFile} label="FIXTURE" />
-          <Form.Button basic color="green" type="Submit">UPLOAD FIXTURE</Form.Button>
+          <Form.Button basic color="green" loading={props.uploadFixtureWorking} type="Submit">UPLOAD FIXTURE</Form.Button>
         </Form.Field>
       </Form>
-      {uploadResult ? <Message>{uploadResult}</Message> : ''}
+      {uploadResult ? <UploadMessageWidget error={error} message={uploadResult} /> : ''}
     </Segment>
   );
 
