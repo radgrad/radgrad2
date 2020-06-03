@@ -11,7 +11,7 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
   ICourseInstanceDefine,
-  ICourseInstanceUpdate,
+  ICourseInstanceUpdate, IMeteorError,
   IOpportunityInstanceDefine,
   IOpportunityInstanceUpdate,
 } from '../../../typings/radgrad';
@@ -83,7 +83,6 @@ const onDragEnd = (props: IPageProps) => (result) => {
         if (error) {
           console.error(error);
         } else {
-          // console.log(res);
           props.selectCourseInstance(res);
           // props.selectFavoriteDetailsTab();
         }
@@ -100,7 +99,6 @@ const onDragEnd = (props: IPageProps) => (result) => {
       const instance = CourseInstances.findDoc(slug);
       const ciTerm = AcademicTerms.findDoc(instance.termID);
       const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
-      console.log(ciTerm, currentTerm, inPastStart);
       if (inPastStart) {
         Swal.fire({
           title: 'Cannot move a course from the past.',
@@ -113,7 +111,7 @@ const onDragEnd = (props: IPageProps) => (result) => {
         updateData.termID = termID;
         updateData.id = slug;
         const collectionName = CourseInstances.getCollectionName();
-        updateMethod.call({ collectionName, updateData }, (error, res) => {
+        updateMethod.call({ collectionName, updateData }, (error: IMeteorError) => {
           if (error) {
             console.error(error);
           } else {
@@ -134,23 +132,20 @@ const onDragEnd = (props: IPageProps) => (result) => {
       student,
       sponsor,
     };
-    // console.log(definitionData);
     defineMethod.call({ collectionName, definitionData }, (error, res) => {
       if (error) {
         console.error(error);
       } else {
-        // console.log(res);
         props.selectOpportunityInstance(res);
       }
     });
   } else if (isOppInstDrop) {
-    // console.log('Opportunity instance');
     const termID = AcademicTerms.findIdBySlug(termSlug);
     const updateData: IOpportunityInstanceUpdate = {};
     updateData.termID = termID;
     updateData.id = slug;
     const collectionName = OpportunityInstances.getCollectionName();
-    updateMethod.call({ collectionName, updateData }, (error, res) => {
+    updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         console.error(error);
       } else {
@@ -171,7 +166,6 @@ const StudentDegreePlannerPage = (props: IPageProps) => {
   const marginStyle = {
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 5,
   };
   return (
     <DragDropContext onDragEnd={onDragEnd(props)}>
