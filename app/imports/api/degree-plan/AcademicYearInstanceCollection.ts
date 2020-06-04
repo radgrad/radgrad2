@@ -6,7 +6,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IAcademicYearDefine } from '../../typings/radgrad';
+import { IAcademicYearInstanceDefine } from '../../typings/radgrad';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /**
@@ -64,8 +64,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined student or a year that is out of bounds.
    * @returns The newly created docID.
    */
-  public define({ year, student }: IAcademicYearDefine) {
-    // console.log(`AcadmeicYearInstance.define(${year}, ${student})`);
+  public define({ year, student }: IAcademicYearInstanceDefine) {
     const studentID = Users.getID(student);
     const quarterSystem = RadGradProperties.getQuarterSystem();
     let termIDs = [];
@@ -237,7 +236,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param docID The docID of an AcademicYearInstance.
    * @returns { object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IAcademicYearDefine {
+  public dumpOne(docID: string): IAcademicYearInstanceDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const year = doc.year;

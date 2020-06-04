@@ -57,16 +57,18 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
             takenSlugs={props.takenSlugs}
           />
         </Grid.Column>
-        {fiveYear ? (
-          <Grid.Column style={littlePadding}>
-            <AcademicPlanYearView
-              yearNumber={yearNumber++}
-              academicPlan={props.academicPlan}
-              username={props.username}
-              takenSlugs={props.takenSlugs}
-            />
-          </Grid.Column>
-        ) : ''}
+        {fiveYear ?
+          (
+            <Grid.Column style={littlePadding}>
+              <AcademicPlanYearView
+                yearNumber={yearNumber++}
+                academicPlan={props.academicPlan}
+                username={props.username}
+                takenSlugs={props.takenSlugs}
+              />
+            </Grid.Column>
+          )
+          : ''}
       </Grid.Row>
     </Grid>
   );
@@ -74,7 +76,6 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
 
 function takenSlugs(courseInstances) {
   const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
-  // console.log(courseInstances, passedCourseInstances);
   return _.map(passedCourseInstances, (ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
     return Slugs.getNameFromID(doc.slugID);
@@ -82,9 +83,7 @@ function takenSlugs(courseInstances) {
 }
 
 const AcademicPlanViewerWidgetContainer = withTracker((props) => {
-  // console.log('AcademicPlanViewerWidget props = %o', props);
   const profile = Users.findProfileFromUsername(props.username);
-  // console.log(profile);
   const courseInstances = CourseInstances.find({ studentID: profile.userID }).fetch();
   return {
     takenSlugs: takenSlugs(courseInstances),

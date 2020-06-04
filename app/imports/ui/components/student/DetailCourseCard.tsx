@@ -26,7 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
   event.preventDefault();
-  // console.log(`Remove CI ${value}`);
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
   removeItMethod.call({ collectionName, instance }, (error) => {
@@ -46,7 +45,6 @@ const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
 };
 
 const DetailCourseCard = (props: IDetailCourseCardProps) => {
-  // console.log('DetailCourseCard', props);
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
@@ -62,52 +60,45 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
           <IceHeader ice={props.instance.ice} />
           <Card.Header>
             <h4>
-              {course.num}
-              :
-              {' '}
-              {course.name}
+              {course.num}: {course.name}
             </h4>
           </Card.Header>
         </Card.Content>
         <Card.Content>
-          {futureP ? (
-            <React.Fragment>
+          {futureP ?
+            (
+              <React.Fragment>
+                <p>
+                  <b>Scheduled:</b> {termName}
+                </p>
+                <FutureParticipation item={course} type="courses" />
+                <Button
+                  floated="right"
+                  basic
+                  color="green"
+                  value={props.instance._id}
+                  onClick={handleRemove(props)}
+                  size="tiny"
+                >
+                  Remove
+                </Button>
+              </React.Fragment>
+            )
+            :
+            (
               <p>
-                <b>Scheduled:</b>
-                {' '}
-                {termName}
+                <b>Taken:</b> {termName}
               </p>
-              <FutureParticipation item={course} type="courses" />
-              <Button
-                floated="right"
-                basic
-                color="green"
-                value={props.instance._id}
-                onClick={handleRemove(props)}
-                size="tiny"
-              >
-                remove
-              </Button>
-            </React.Fragment>
-) : (
-  <p>
-    <b>Taken:</b>
-    {' '}
-    {termName}
-  </p>
-)}
+            )}
         </Card.Content>
         <Card.Content>
           <p style={textAlignRight}>
             <Link
               to={buildRouteName(props.match, course, EXPLORER_TYPE.COURSES)}
+              rel="noopener noreferrer"
               target="_blank"
             >
-              View
-              in
-              Explorer
-              {' '}
-              <Icon name="arrow right" />
+              View in Explorer <Icon name="arrow right" />
             </Link>
           </p>
         </Card.Content>

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { IAcademicTerm, IAcademicYear, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
+import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -32,12 +32,12 @@ interface IStudentIceColumnVerifiedProps {
   };
 }
 
-const years = (props: IStudentIceColumnVerifiedProps): IAcademicYear[] => {
+const years = (props: IStudentIceColumnVerifiedProps): IAcademicYearInstance[] => {
   const studentID = getUserIdFromRoute(props.match);
   return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
 
-const academicTerms = (year: IAcademicYear): IAcademicTerm[] => {
+const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
   const yearTerms = [];
   const termIDs = year.termIDs;
   _.forEach(termIDs, (termID) => {

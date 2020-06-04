@@ -3,7 +3,7 @@ import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, IAcademicYear, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
+import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
@@ -35,12 +35,12 @@ interface IStudentIceColumnUnverifiedProps {
 
 }
 
-const years = (props: IStudentIceColumnUnverifiedProps): IAcademicYear[] => {
+const years = (props: IStudentIceColumnUnverifiedProps): IAcademicYearInstance[] => {
   const studentID = getUserIdFromRoute(props.match);
   return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
 
-const academicTerms = (year: IAcademicYear): IAcademicTerm[] => {
+const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
   const yearTerms = [];
   const termIDs = year.termIDs;
   _.forEach(termIDs, (termID) => {

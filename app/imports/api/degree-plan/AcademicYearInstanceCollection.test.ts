@@ -8,7 +8,7 @@ import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { IAcademicYear } from '../../typings/radgrad';
+import { IAcademicYearInstance } from '../../typings/radgrad';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -89,7 +89,7 @@ if (Meteor.isServer) {
     });
 
     it('Can remove user', function test6() {
-      const ay: IAcademicYear = AcademicYearInstances.findOne({});
+      const ay: IAcademicYearInstance = AcademicYearInstances.findOne({});
       AcademicYearInstances.removeUser(ay.studentID);
       expect(AcademicYearInstances.find({ studentID: ay.studentID }).count()).to.equal(0);
     });

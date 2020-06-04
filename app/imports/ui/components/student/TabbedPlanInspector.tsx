@@ -23,7 +23,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const handleTabChange = (props: ITabbedPlanInspectorProps) => (e, { activeIndex }) => {
   e.preventDefault();
-  // console.log(`handleTabChange ${activeIndex}`);
   switch (activeIndex) {
     case 0:
       props.selectPlanTab();

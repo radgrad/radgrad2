@@ -26,9 +26,10 @@ const FavoriteCoursesWidget = (props: IFavoriteCoursesWidgetProps) => {
             {_.map(props.courses, (c) => <FavoriteCourseCard key={c._id} course={c} studentID={props.studentID} />)}
           </Card.Group>
         )
-        : (
+        :
+        (
           <Message>
-            <Message.Header>No favorite courses</Message.Header>
+            <Message.Header>No Favorite Courses</Message.Header>
             <p>You can favorite courses in the explorer.</p>
             <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
               View in Explorer <Icon name="arrow right" />

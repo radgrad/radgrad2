@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 
@@ -24,6 +24,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
 
   const handleClose = () => setModalOpen(false);
 
+  const buttonStyle: React.CSSProperties = { padding: 0 };
 
   const handleRemoveIt = () => {
     handleClose();
@@ -35,7 +36,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
         console.error(`Remove ${collectionName}: ${instance} failed.`, error);
       } else {
         Swal.fire({
-          title: 'Remove succeeded',
+          title: 'Remove Succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
@@ -50,7 +51,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
     <Modal
       trigger={
         (
-          <Button icon basic size="mini" onClick={handleOpen}>
+          <Button icon circular basic onClick={handleOpen} style={buttonStyle}>
             <Icon
               name="remove circle"
               color="red"
@@ -60,29 +61,22 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
       }
       open={modalOpenState}
       onClose={handleClose}
-      basic
       size="small"
     >
-      <Header>
-        Delete&nbsp;
-        {props.name}
-      </Header>
-      <Modal.Description>
-        <p>
-          Do you want to remove&nbsp;
-          {props.courseNumber}
-          &nbsp;
-          {props.name}
-          &nbsp;
-          from your plan?
-        </p>
-      </Modal.Description>
+      <Modal.Header>
+        Remove {props.name}
+      </Modal.Header>
+      <Modal.Content>
+        <Modal.Description>
+          <p>Do you want to remove {props.courseNumber} {props.name} from your plan?</p>
+        </Modal.Description>
+      </Modal.Content>
       <Modal.Actions>
-        <Button color="green" onClick={handleRemoveIt} inverted>
+        <Button color="green" onClick={handleRemoveIt}>
           <Icon name="checkmark" />
           Yes
         </Button>
-        <Button color="red" onClick={handleClose} inverted>
+        <Button color="red" onClick={handleClose}>
           <Icon name="cancel" />
           No
         </Button>
