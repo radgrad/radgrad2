@@ -28,7 +28,6 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
   const [selectedPlanState, setSelectedPlan] = useState(plan);
 
   const handleOnChangeModel = (model) => {
-    // console.log(model);
     const selectedPlan = getPlan(model.academicPlan, props);
     setSelectedPlan(selectedPlan);
   };
@@ -46,27 +45,24 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
   return (
     <div>
       <AutoForm schema={schema} onChangeModel={handleOnChangeModel}>
-        <SelectField name="academicPlan" />
+        <SelectField name="academicPlan" label="Academic Plans" />
       </AutoForm>
       <p />
-      {showPlanP ? (
-        <AcademicPlanViewerWidgetContainer
-          academicPlan={selectedPlanState}
-          username={Router.getUsername(props.match)}
-        />
+      {showPlanP ?
+        (
+          <AcademicPlanViewerWidgetContainer
+            academicPlan={selectedPlanState}
+            username={Router.getUsername(props.match)}
+          />
         )
-        : (
+        :
+        (
           <Message info>
-            <Message.Header>No favorite acadmeic plans</Message.Header>
-            <p>
-              You can favorite academic plans in the explorer.
-              <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                View
-                in
-                Explorer
-                <Icon name="arrow right" />
-              </Link>
-            </p>
+            <Message.Header>No Favorite Academic Plans</Message.Header>
+            <p>You can favorite academic plans in the explorer.</p>
+            <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+              View in Explorer <Icon name="arrow right" />
+            </Link>
           </Message>
         )}
     </div>

@@ -21,8 +21,7 @@ const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
   return (
     <div>
       <Header>
-        Year
-        {props.yearNumber + 1}
+        Year {props.yearNumber + 1}
       </Header>
       <AcademicPlanTermView
         title={AcademicTerms.FALL}
@@ -32,16 +31,18 @@ const AcademicPlanYearView = (props: IAcademicPlanYearViewProps) => {
         studentID={studentID}
         takenSlugs={props.takenSlugs}
       />
-      {quarter ? (
-        <AcademicPlanTermView
-          title={AcademicTerms.WINTER}
-          id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
-          choices={getPlanChoices(props.academicPlan, termNum++)}
-          groups={props.academicPlan.groups}
-          studentID={studentID}
-          takenSlugs={props.takenSlugs}
-        />
-) : ''}
+      {quarter ?
+        (
+          <AcademicPlanTermView
+            title={AcademicTerms.WINTER}
+            id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
+            choices={getPlanChoices(props.academicPlan, termNum++)}
+            groups={props.academicPlan.groups}
+            studentID={studentID}
+            takenSlugs={props.takenSlugs}
+          />
+        )
+        : ''}
       <AcademicPlanTermView
         title={AcademicTerms.SPRING}
         id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}

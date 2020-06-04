@@ -36,7 +36,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
         console.error(`Remove ${collectionName}: ${instance} failed.`, error);
       } else {
         Swal.fire({
-          title: 'Remove succeeded',
+          title: 'Remove Succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
