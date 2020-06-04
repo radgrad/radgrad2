@@ -263,7 +263,7 @@ export interface IAcademicPlanUpdate extends IUpdate {
 }
 
 // AcademicYearInstances
-export interface IAcademicYear {
+export interface IAcademicYearInstance {
   _id: string;
   year: number;
   springYear: number;
@@ -272,7 +272,7 @@ export interface IAcademicYear {
   retired?: boolean;
 }
 
-export interface IAcademicYearDefine extends IDumpOne {
+export interface IAcademicYearInstanceDefine extends IDumpOne {
   year: number;
   student: string;
   retired?: boolean;

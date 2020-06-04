@@ -20,23 +20,25 @@ const FavoriteOpportunitiesWidget = (props: IFavoriteOpportunitiesWidgetProps) =
   const hasFavorites = props.opportunities.length > 0;
   return (
     <div>
-      {hasFavorites ? (
-        <Card.Group itemsPerRow={1}>
-          {_.map(props.opportunities, (o) => (
-            <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID} />))}
-        </Card.Group>
-    ) : (
-      <Message>
-        <Message.Header>No favorite opportunities</Message.Header>
-        <p>You can favorite opportunities in the explorer.</p>
-        <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
-          View in Explorer
-          <Icon name="arrow right" />
-        </Link>
-      </Message>
-)}
+      {hasFavorites ?
+        (
+          <Card.Group itemsPerRow={1}>
+            {_.map(props.opportunities, (o) => (
+              <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID} />))}
+          </Card.Group>
+        )
+        :
+        (
+          <Message>
+            <Message.Header>No Favorite Opportunities</Message.Header>
+            <p>You can favorite opportunities in the explorer.</p>
+            <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
+              View in Explorer <Icon name="arrow right" />
+            </Link>
+          </Message>
+        )}
     </div>
-);
+  );
 };
 
 export default withRouter(withTracker((props) => {

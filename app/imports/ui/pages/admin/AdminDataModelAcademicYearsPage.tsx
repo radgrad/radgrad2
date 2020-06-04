@@ -5,7 +5,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IAcademicYear, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicYearInstance, IDescriptionPair } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcademicYearInstanceForm';
@@ -13,12 +13,12 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 
-const descriptionPairs = (year: IAcademicYear): IDescriptionPair[] => [
+const descriptionPairs = (year: IAcademicYearInstance): IDescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
   { label: 'Year', value: `${year.year}` },
 ];
 
-const itemTitle = (year: IAcademicYear): React.ReactNode => {
+const itemTitle = (year: IAcademicYearInstance): React.ReactNode => {
   const name = Users.getFullName(year.studentID);
   return (
     <React.Fragment>
@@ -29,7 +29,7 @@ const itemTitle = (year: IAcademicYear): React.ReactNode => {
   );
 };
 
-const itemTitleString = (year: IAcademicYear): string => `${Users.getFullName(year.studentID)} ${year.year}`;
+const itemTitleString = (year: IAcademicYearInstance): string => `${Users.getFullName(year.studentID)} ${year.year}`;
 
 const AdminDataModelAcademicYearsPage = () => {
   const formRef = React.createRef();
@@ -38,7 +38,6 @@ const AdminDataModelAcademicYearsPage = () => {
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
   const handleAdd = (doc) => {
-    // console.log('handleAdd(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {

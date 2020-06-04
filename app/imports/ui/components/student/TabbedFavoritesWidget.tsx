@@ -28,7 +28,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const active = (props) => {
-  // console.log(props);
   switch (props.selectedTab) {
     case degreePlannerTypes.SELECT_FAVORITE_OPPORTUNITIES:
       return 0;
@@ -44,7 +43,6 @@ const active = (props) => {
 };
 
 const handleTabChange = (props, event, instance) => {
-  // console.log(props);
   const { activeIndex } = instance;
   event.preventDefault();
   switch (activeIndex) {
@@ -61,46 +59,49 @@ const handleTabChange = (props, event, instance) => {
       props.selectFavoriteDetailsTab();
       break;
     default:
-      console.error(`Bad tab index ${activeIndex}`);
+      console.error(`Bad tab index: ${activeIndex}`);
   }
 };
 
-const TabbedFavoritesWidget = (props) => {
+const TabbedFavoritesWidget = (props: ITabbedFavoritesWidgetProps) => {
   const panes = [
     {
       menuItem: (
         <Menu.Item key="FavoriteOpportunities">
-          <Icon name="heart" fitted color="red" />
-          {' '}
-          OPPS
+          <Icon name="heart" fitted color="red" /> OPPS
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteOpportunitiesPane" active={active(props) === 0}><FavoriteOpportunitiesWidget /></Tab.Pane>
+        <Tab.Pane
+          key="FavoriteOpportunitiesPane"
+          active={active(props) === 0}
+        >
+          <FavoriteOpportunitiesWidget />
+        </Tab.Pane>
       ),
     },
     {
       menuItem: (
         <Menu.Item key="FavoritePlans">
-          <Icon name="heart" fitted color="red" />
-          {' '}
-          PLAN
+          <Icon name="heart" fitted color="red" /> PLAN
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoritePlansPane" active={active(props) === 1}><FavoriteAcademicPlansWidget /></Tab.Pane>
+        <Tab.Pane key="FavoritePlansPane" active={active(props) === 1}>
+          <FavoriteAcademicPlansWidget />
+        </Tab.Pane>
       ),
     },
     {
       menuItem: (
         <Menu.Item key="FavoriteCourses">
-          <Icon name="heart" fitted color="red" />
-          {' '}
-          COUR
+          <Icon name="heart" fitted color="red" /> COURSE
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteCoursesPane" active={active(props) === 2}><FavoriteCoursesWidget /></Tab.Pane>
+        <Tab.Pane key="FavoriteCoursesPane" active={active(props) === 2}>
+          <FavoriteCoursesWidget />
+        </Tab.Pane>
       ),
     },
     {
@@ -108,13 +109,20 @@ const TabbedFavoritesWidget = (props) => {
         <Menu.Item key="FavoriteDetails">DETAILS</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteDetailsPane" active={active(props) === 3}><DepDetailsWidget /></Tab.Pane>
+        <Tab.Pane key="FavoriteDetailsPane" active={active(props) === 3}>
+          <DepDetailsWidget />
+        </Tab.Pane>
       ),
     },
   ];
   return (
     <Segment padded id={tabbedFavoritesWidget}>
-      <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(props, event, instance)} activeIndex={active(props)} />
+      <Tab
+        panes={panes}
+        renderActiveOnly={false}
+        onTabChange={(event, instance) => handleTabChange(props, event, instance)}
+        activeIndex={active(props)}
+      />
     </Segment>
   );
 };

@@ -24,9 +24,10 @@ interface IFavoriteCourseCardProps {
 }
 
 const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
-  // console.log('FavoriteCourseCard', props);
   const instances = props.instances;
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  // Sort by ascending order
+  terms.sort((a, b) => a.year - b.year);
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(props.course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
@@ -40,21 +41,18 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
         <IceHeader ice={ice} />
         <Card.Header>
           <h4>
-            {props.course.num}
-            :
-            {' '}
-            {props.course.name}
+            {props.course.num}: {props.course.name}
           </h4>
         </Card.Header>
       </Card.Content>
       <Card.Content>
-        {instances.length > 0 ? (
-          <React.Fragment>
-            <b>Scheduled:</b>
-            {' '}
-            {termNames}
-          </React.Fragment>
-) : <b>Not in plan</b>}
+        {instances.length > 0 ?
+          (
+            <React.Fragment>
+              <b>Scheduled:</b> {termNames}
+            </React.Fragment>
+          )
+          : <b>Not In Plan (Drag to move)</b>}
         <Droppable droppableId={droppableID}>
           {(provided) => (
             <div
@@ -77,7 +75,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
               </Draggable>
               {provided.placeholder}
             </div>
-            )}
+          )}
         </Droppable>
       </Card.Content>
       <Card.Content>
@@ -85,11 +83,12 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
       </Card.Content>
       <Card.Content>
         <p style={textAlignRight}>
-          <Link to={buildRouteName(props.match, props.course, EXPLORER_TYPE.COURSES)} target="_blank">
-            View
-            in
-            Explorer
-            <Icon name="arrow right" />
+          <Link
+            to={buildRouteName(props.match, props.course, EXPLORER_TYPE.COURSES)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View in Explorer <Icon name="arrow right" />
           </Link>
         </p>
       </Card.Content>

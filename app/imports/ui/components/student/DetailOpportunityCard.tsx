@@ -36,7 +36,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) => {
   event.preventDefault();
-  // console.log(`Remove OI ${value}`);
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
   removeItMethod.call({ collectionName, instance }, (error) => {
@@ -56,7 +55,6 @@ const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) 
 };
 
 const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model) => {
-  // console.log(model, props);
   const collectionName = VerificationRequests.getCollectionName();
   const username = getUsername(props.match);
   const opportunityInstance = props.instance._id;
@@ -82,7 +80,7 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
         if (userInteractionError) {
-          console.log('Error creating UserInteraction.', userInteractionError);
+          console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
     }
@@ -90,7 +88,6 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
 };
 
 const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
-  // console.log('DetailOpportuntiyCard', props);
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
@@ -108,33 +105,13 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
           <Card.Header>{opportunity.name}</Card.Header>
         </Card.Content>
         <Card.Content>
-          {futureP ? (
-            <React.Fragment>
-              <p>
-                <b>Scheduled:</b>
-                {' '}
-                {termName}
-              </p>
-              <FutureParticipation item={opportunity} type="courses" />
-              <Button
-                floated="right"
-                basic
-                color="green"
-                value={props.instance._id}
-                onClick={handleRemove(props)}
-                size="tiny"
-              >
-                remove
-              </Button>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <p>
-                <b>Participated:</b>
-                {' '}
-                {termName}
-              </p>
-              {verificationRequested ? '' : (
+          {futureP ?
+            (
+              <React.Fragment>
+                <p>
+                  <b>Scheduled:</b> {termName}
+                </p>
+                <FutureParticipation item={opportunity} type="courses" />
                 <Button
                   floated="right"
                   basic
@@ -143,29 +120,50 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                   onClick={handleRemove(props)}
                   size="tiny"
                 >
-                  remove
+                  Remove
                 </Button>
-              )}
-            </React.Fragment>
-          )}
+              </React.Fragment>
+            )
+            :
+            (
+              <React.Fragment>
+                <p>
+                  <b>Participated:</b> {termName}
+                </p>
+                {verificationRequested ?
+                  ''
+                  :
+                  (
+                    <Button
+                      floated="right"
+                      basic
+                      color="green"
+                      value={props.instance._id}
+                      onClick={handleRemove(props)}
+                      size="tiny"
+                    >
+                      Remove
+                    </Button>
+                  )}
+              </React.Fragment>
+            )}
         </Card.Content>
         {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : ''}
-        {!futureP && !verificationRequested ? (
-          <Card.Content>
-            <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
-          </Card.Content>
-        ) : ''}
+        {!futureP && !verificationRequested ?
+          (
+            <Card.Content>
+              <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
+            </Card.Content>
+          )
+          : ''}
         <Card.Content>
           <p style={textAlignRight}>
             <Link
               to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
+              rel="noopener noreferrer"
               target="_blank"
             >
-              View
-              in
-              Explorer
-              {' '}
-              <Icon name="arrow right" />
+              View in Explorer <Icon name="arrow right" />
             </Link>
           </p>
         </Card.Content>

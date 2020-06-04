@@ -30,7 +30,6 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = props.term.termNumber < currentTermNum;
   const isCurrent = props.term.termNumber === currentTermNum;
-  // console.log('AcademicTermView inPast=%o dropType=%o', inPast, dropType);
   return (
     <Container style={paddedStyle}>
       <Header
@@ -45,7 +44,6 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
-              // style={style}
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
               {_.map(props.courseInstances, (ci, index) => (
@@ -56,15 +54,15 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
                   inPast={inPast}
                   handleClickCourseInstance={props.handleClickCourseInstance}
                 />
-))}
+              ))}
               {_.map(props.opportunityInstances, (oi, index) => (
                 <DraggableOpportunityInstancePill
                   key={oi._id}
                   instance={oi}
-                  index={index}
+                  index={props.courseInstances.length + index}
                   handleClickOpportunityInstance={props.handleClickOpportunityInstance}
                 />
-))}
+              ))}
               {provided.placeholder}
             </div>
           )}
