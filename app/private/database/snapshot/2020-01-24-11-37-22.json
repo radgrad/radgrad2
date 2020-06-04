@@ -13507,7 +13507,7 @@
           "shareInterests": false,
           "shareCareerGoals": false,
           "shareOpportunities": false,
-          "shareCourses": false,
+          "shareCourses": true,
           "shareLevel": false
         },
         {

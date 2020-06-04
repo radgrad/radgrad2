@@ -5,7 +5,7 @@ import styles from './landing-styles';
 interface ILandingSection3Props {
   careerGoals: string;
   interests: string;
-  degrees: string;
+  academicPlans: string;
 }
 
 const LandingSection3 = (props: ILandingSection3Props) => (
@@ -17,34 +17,18 @@ const LandingSection3 = (props: ILandingSection3Props) => (
         </Grid.Column>
         <Grid.Column>
           <Header as="h1" style={styles['inverted-header']}>
-            Specify your degree, career goals, and
-            interests
+            Specify your academic plan, career goals, and interests
           </Header>
           <p style={styles['inverted-description']}>
-            Getting started with RadGrad is easy. Just meet with your
-            advisor, and they will set up your account and answer your questions.
+            Getting started with RadGrad is easy. Just meet with your advisor, and they will set up your account and
+            answer your questions.
           </p>
 
           <p style={styles['inverted-description']}>
-            To start, you&apos;ll select one of
-            the
-            <strong style={styles['green-text']}>{props.degrees}</strong>
-            {' '}
-            <a href="#/explorer/degrees">degree programs</a>
-            , one out
-            of
-            {' '}
-            <strong>{props.careerGoals}</strong>
-            {' '}
-            <a href="#/explorer/career-goals">career directions</a>
-            , and a few of
-            the
-            {' '}
-            <strong>{props.interests}</strong>
-            {' '}
-            <a href="#/explorer/interests">interest areas</a>
-            . Don&apos;t worry, you can change
-            them later!
+            To start, you&apos;ll select one of the <strong style={styles['green-text']}>{props.academicPlans}</strong>
+            <a href="#/explorer/plans"> academic plans</a>, one out of <strong>{props.careerGoals}</strong>
+            <a href="#/explorer/career-goals"> career directions</a>, and a few of the <strong>{props.interests}</strong>
+            <a href="#/explorer/interests"> interest areas.</a> Don&apos;t worry, you can change them later!
           </p>
         </Grid.Column>
       </Grid>

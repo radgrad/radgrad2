@@ -23,7 +23,7 @@ const GuidedTourStudentSetUp = () => (
           </p>
           <p style={styles.p}>
             If you are a new student with minimal knowledge about computer science, your advisor will
-            give you a basic overview, then create up your RadGrad account. You&apos;ll then work together to get a
+            give you a basic overview, then create your RadGrad account. You&apos;ll then work together to get a
             handle on your interests, career goals, and degree plan. If you have questions about any of those, RadGrad
             is designed to help you answer them.
           </p>

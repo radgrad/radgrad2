@@ -76,7 +76,6 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
           allowEnterKey: false,
         });
         const reviewType: IReviewTypes = review.reviewType as IReviewTypes;
-        console.log('review %o', review);
         let slug: string;
         if (reviewType === ReviewTypes.COURSE) {
           const revieweeID = Courses.getID(review.revieweeID);
@@ -92,7 +91,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
-            console.log('Error creating UserInteraction.', userInteractionError);
+            console.error('Error creating UserInteraction.', userInteractionError);
           }
         });
       }

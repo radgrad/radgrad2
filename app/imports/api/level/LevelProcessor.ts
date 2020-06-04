@@ -89,7 +89,7 @@ export function updateStudentLevel(advisor, studentID) {
     const student = studentID;
     defineMethod.call({ collectionName: 'AdvisorLogCollection', definitionData: { advisor, student, text } }, (error) => {
       if (error) {
-        console.log('Error creating AdvisorLog.', error);
+        console.error('Error creating AdvisorLog.', error);
       }
     });
     const feedData = {
@@ -99,7 +99,6 @@ export function updateStudentLevel(advisor, studentID) {
     };
     defineMethod.call({ collectionName: 'FeedCollection', definitionData: feedData });
   }
-  // console.log(`updateStudentLevel(${studentID}), ${level}`);
   StudentProfiles.setLevel(studentID, level);
 }
 

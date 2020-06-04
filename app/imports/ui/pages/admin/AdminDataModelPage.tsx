@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
+import UploadFixtureWidget from '../../components/admin/UploadFixtureWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdminDataModelPage = () => {
@@ -22,6 +23,7 @@ const AdminDataModelPage = () => {
             floating
             content="Click on a data model element in the menu to the left to display those items."
           />
+          <UploadFixtureWidget />
         </Grid.Column>
       </Grid>
 

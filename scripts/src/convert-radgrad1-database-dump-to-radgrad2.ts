@@ -110,6 +110,9 @@ const convertObject = (item) => {
       case 'coursesPerSemester':
         result.coursesPerAcademicTerm = item[key];
         break;
+      case 'courseList':
+        result.choiceList = item[key];
+        break;
       case 'declaredSemester':
         result.declaredAcademicTerm = item[key];
         break;
@@ -177,11 +180,30 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
-const addRadGradSettings = (result) => {
-  const coll: any = {};
-  coll.name = 'RadGradSettingsCollection';
+const addMissingCollections = (result) => {
+  let coll: any = {};
+  coll.name = 'AdminProfileCollection';
   coll.contents = [];
-  coll.contents.push({ quarterSystem: false }); // We know its false since RadGrad1 is tailored to UHM.
+  result.collections.push(coll);
+  coll = {};
+  coll.contents = [];
+  coll.name = 'FavoriteAcademicPlanCollection';
+  result.collections.push(coll);
+  coll = {};
+  coll.contents = [];
+  coll.name = 'FavoriteCareerGoalCollection';
+  result.collections.push(coll);
+  coll = {};
+  coll.contents = [];
+  coll.name = 'FavoriteCourseCollection';
+  result.collections.push(coll);
+  coll = {};
+  coll.contents = [];
+  coll.name = 'FavoriteInterestCollection';
+  result.collections.push(coll);
+  coll = {};
+  coll.contents = [];
+  coll.name = 'FavoriteOpportunityCollection';
   result.collections.push(coll);
 };
 
@@ -190,24 +212,25 @@ function processRadGradCollections(data: IDataDump) {
   result.timestamp = moment().format(databaseFileDateFormat);
   result.collections = [];
   _.forEach(data.collections, (c) => result.collections.push(processRadGradCollection(c)));
-  addRadGradSettings(result);
+  addMissingCollections(result);
   return result;
 }
 
 
 async function convertRadGrad1DatabaseDumpToRadGrad2() {
   const argv = process.argv;
-  if (argv.length < 3) {
-    console.error('Usage: node dist/convert <fileName>');
+  if (argv.length < 4) {
+    console.error('Usage: node dist/convert <RadGrad1 JSON filename> <RadGrad2 JSON filename>');
   } else {
     const filename = argv[2];
+    const outFileName = argv[3];
     // console.log(userParams.radgrad1);
     const data = fs.readFileSync(filename);
     const radgrad1: IDataDump = JSON.parse(data.toString());
     // console.log(radgrad1);
     const radgrad2 = processRadGradCollections(radgrad1);
     const data2 = JSON.stringify(radgrad2, null, 2);
-    fs.writeFileSync(`RadGrad2-${filename}`, data2);
+    fs.writeFileSync(outFileName, data2);
   }
 }
 

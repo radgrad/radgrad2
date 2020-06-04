@@ -18,21 +18,22 @@ const LandingAcademicPlanYearView = (props: ILandingAcademicPlanYearViewProps) =
   return (
     <div>
       <Header>
-        Year
-        {props.yearNumber + 1}
+        Year {props.yearNumber + 1}
       </Header>
       <LandingAcademicTermView
         title={AcademicTerms.FALL}
         id={`${AcademicTerms.FALL}-${props.yearNumber * 10 + termNum}`}
         choices={getPlanChoices(props.academicPlan, termNum++)}
       />
-      {quarter ? (
-        <LandingAcademicTermView
-          title={AcademicTerms.WINTER}
-          id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
-          choices={getPlanChoices(props.academicPlan, termNum++)}
-        />
-) : ''}
+      {quarter ?
+        (
+          <LandingAcademicTermView
+            title={AcademicTerms.WINTER}
+            id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
+            choices={getPlanChoices(props.academicPlan, termNum++)}
+          />
+        )
+        : ''}
       <LandingAcademicTermView
         title={AcademicTerms.SPRING}
         id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}

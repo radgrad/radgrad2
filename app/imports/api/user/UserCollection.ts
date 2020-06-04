@@ -65,7 +65,7 @@ class UserCollection {
   public define({ username, role }: { username: string; role: string; }) {
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
-      if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR)) {
+      if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR || (role === ROLE.ALUMNI))) {
         // Define this user with a CAS login.
         const userWithoutHost = username.split('@')[0];
         const result = { id: userWithoutHost };
@@ -73,7 +73,6 @@ class UserCollection {
         const casReturn: { userId: string; } = Accounts.updateOrCreateUserFromExternalService('cas', result, options);
         const userID2 = casReturn.userId;
         Meteor.users.update(userID2, { $set: { username } });
-        // Meteor.users.find().fetch().map(user => console.log('  ', JSON.stringify(user)));
         Roles.addUsersToRoles(userID2, [role]);
         return userID2;
       }
@@ -86,7 +85,7 @@ class UserCollection {
       }
       // Otherwise define this user with a Meteor login and randomly generated password.
       const password = this.generateRandomPassword();
-      console.log(`Defining user ${username} with password ${password}`);
+      console.log(`Defining ${role} ${username} with password ${password}`);
       const userID = Accounts.createUser({ username, email: username, password });
       Roles.addUsersToRoles(userID, [role]);
       return userID;
@@ -153,7 +152,7 @@ class UserCollection {
   public getID(user) {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     if (!userDoc) {
-      // console.log('Error: user is not defined: ', user);
+      console.error('Error: user is not defined: ', user);
       console.trace(`Error: user is not defined: ${user}`);
       throw new Meteor.Error(`Error: user ${user} is not defined.`);
     }

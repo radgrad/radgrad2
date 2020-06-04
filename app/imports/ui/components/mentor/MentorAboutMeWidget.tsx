@@ -6,6 +6,7 @@ import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semant
 import Swal from 'sweetalert2';
 import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -14,14 +15,12 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../redux/shared/cloudinary';
-import {
-  SET_MENTOR_HOME_CLOUDINARY_URL,
-  SET_MENTOR_HOME_IS_CLOUDINARY_USED,
-} from '../../../redux/shared/cloudinary/types';
 import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { RootState } from '../../../redux/types';
+import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
+import { IFavoriteCareerGoal, IFavoriteInterest, IMentorProfile } from '../../../typings/radgrad';
 
 interface IMentorAboutMeWidgetProps {
   match: {
@@ -34,8 +33,11 @@ interface IMentorAboutMeWidgetProps {
   };
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  setIsCloudinaryUsed: (icon: string, isCloudinaryUsed: boolean) => any;
-  setCloudinaryUrl: (icon: string, cloudinaryUrl: string) => any;
+  setIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
+  setCloudinaryUrl: (cloudinaryUrl: string) => any;
+  profile: IMentorProfile;
+  favoriteInterests: IFavoriteInterest[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
 const mapStateToProps = (state: RootState): object => ({
@@ -60,8 +62,8 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        props.setIsCloudinaryUsed(SET_MENTOR_HOME_IS_CLOUDINARY_USED, true);
-        props.setCloudinaryUrl(SET_MENTOR_HOME_CLOUDINARY_URL, cloudinaryResult.info.url);
+        props.setIsCloudinaryUsed(true);
+        props.setCloudinaryUrl(cloudinaryResult.info.url);
         setPictureURL(cloudinaryResult.info.url);
       }
     } catch (error) {
@@ -94,10 +96,9 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
     return 'No career specified.';
   };
 
-  const careerGoals = () => {
+  const getCareerGoals = () => {
     if (Router.getUsername(props.match)) {
-      const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-      return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
+      return _.map(props.favoriteCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
     }
     return [];
   };
@@ -160,10 +161,9 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
   // const interestName = (interest) => interest.name;
 
-  const interests = () => {
+  const getInterests = () => {
     if (Router.getUsername(props.match)) {
-      const favInterests = FavoriteInterests.findNonRetired({ userID });
-      return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
+      return _.map(props.favoriteInterests, (fav) => Interests.findDoc(fav.interestID));
     }
     return [];
   };
@@ -226,10 +226,6 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
     setIsEditingProfile(false);
   };
 
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
-
   const handleSubmit = (doc: { [key: string]: any }): void => {
     const collectionName = MentorProfiles.getCollectionName();
     const mentorProfile = MentorProfiles.findOne({ userID });
@@ -239,7 +235,6 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    // console.log('updateData %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -307,14 +302,14 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
       optional: true,
       label:
   <React.Fragment>
-    Picture (
-    <button type="button" onClick={handleUpload}>Upload</button>
-    )
+    Picture (<button type="button" onClick={handleUpload}>Upload</button>)
   </React.Fragment>,
       defaultValue: picture(),
     },
   });
 
+  const careerGoals = getCareerGoals();
+  const interests = getInterests();
   return (
     <Segment padded>
       <Header as="h3" dividing textAlign="left">PROFILE</Header>
@@ -343,10 +338,10 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
               <Grid.Row divided textAlign="left">
                 <Label.Group>
                   {
-                    interests() ? (
+                    interests.length > 0 ? (
                       <React.Fragment>
                         {
-                          _.map(interests(), (interest, index) => (
+                          _.map(interests, (interest, index) => (
                             <Label
                               size="tiny"
                               key={index}
@@ -360,7 +355,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
                         }
                       </React.Fragment>
                       )
-                      : <p style={marginStyle}>No interests added yet.</p>
+                      : <p style={marginStyle}>No interests favorited yet.</p>
                   }
                 </Label.Group>
               </Grid.Row>
@@ -375,10 +370,10 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
               <Grid.Row divided textAlign="left">
                 <Label.Group>
                   {
-                    careerGoals() ? (
+                    careerGoals.length > 0 ? (
                       <React.Fragment>
                         {
-                          _.map(careerGoals(), (goal, index) => (
+                          _.map(careerGoals, (goal, index) => (
                             <Label
                               size="tiny"
                               key={index}
@@ -392,7 +387,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
                         }
                       </React.Fragment>
                       )
-                      : <p style={marginStyle}>No career goals added yet.</p>
+                      : <p style={marginStyle}>No career goals favorited yet.</p>
                   }
                 </Label.Group>
               </Grid.Row>
@@ -416,7 +411,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
             <Form.Group widths="equal">
               <TextField name="linkedin" />
-              <TextField name="picture" value={pictureURLState} onChange={handlePictureUrlChange} />
+              <TextField name="picture" value={pictureURLState} />
             </Form.Group>
 
             <LongTextField name="motivation" />
@@ -491,4 +486,20 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
   );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MentorAboutMeWidget));
+const MentorAboutMeWidgetCon = connect(mapStateToProps, mapDispatchToProps)(MentorAboutMeWidget);
+const MentorAboutMeWidgetCont = withTracker(({ match }) => {
+  const username = getUsername(match);
+  const profile: IMentorProfile = Users.getProfile(username);
+  const userID = getUserIdFromRoute(match);
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
+
+  return {
+    profile,
+    favoriteInterests,
+    favoriteCareerGoals,
+  };
+})(MentorAboutMeWidgetCon);
+const MentorAboutMeWidgetContainer = withRouter(MentorAboutMeWidgetCont);
+
+export default MentorAboutMeWidgetContainer;

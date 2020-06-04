@@ -11,21 +11,13 @@ import UserAnswersComponent from './UserAnswersComponent';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
 import { capitalizeFirstOnly } from './helper-functions';
 
-/* global window */
-
-/**
- * Component that displays a <Card> given a user profile. Although the interface accepts type <b>any</b>,
- * this component expects an <b>IBaseProfile</b> and will not render without certain required information.
- * @param item {IBaseProfile} A user profile to process for display on the card
- * @return {Card} */
-
 const UserProfileCard = (props: IUserProfileCard) => {
   const [isActiveState, setIsActive] = useState(false);
 
   const isRole = (compareRole: string, ...otherRoles: string[]): boolean => props.item.role === compareRole || _.includes(otherRoles, props.item.role);
 
   const openInNewTab = () => {
-    const win = window.open(props.item.website, '_blank');
+    const win = window.open(props.item.website, '_blank', 'noopener,noreferrer');
     win.focus();
   };
 
@@ -50,8 +42,15 @@ const UserProfileCard = (props: IUserProfileCard) => {
     ) : undefined;
   }
 
+  const cardStyle: React.CSSProperties = {
+    textAlign: 'left',
+  };
+ const usernameStyle: React.CSSProperties = {
+   wordWrap: 'break-word',
+ };
+
   return (
-    <Card fluid>
+    <Card fluid style={cardStyle}>
       <Card.Content>
         <Image src={p.picture ? p.picture : defaultProfilePicture} floated="right" size="tiny" />
         <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
@@ -64,7 +63,7 @@ const UserProfileCard = (props: IUserProfileCard) => {
               <br />
             </React.Fragment>
           ) : undefined}
-          {level ? (
+          {level > 0 ? (
             <Image
               style={{ padding: '5px' }}
               size="mini"
@@ -72,10 +71,10 @@ const UserProfileCard = (props: IUserProfileCard) => {
             />
           ) : undefined}
           {isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
-            <React.Fragment>
+            <div style={usernameStyle}>
               {p.username}
               <br />
-            </React.Fragment>
+            </div>
           ) : undefined}
           {sharedUsername}
           <br />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Ice } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getUsername } from '../shared/RouterHelperFunctions';
@@ -18,15 +19,14 @@ interface IStudentIceWidgetProps {
       opportunity: string;
     }
   };
+  earnedICE: Ice;
+  projectedICE: Ice;
 }
 
 const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
-
-  const username = getUsername(props.match);
-  const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
-  const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
+  const { earnedICE, projectedICE } = props;
 
   return (
     <Segment padded id={`${studentIceWidget}`}>
@@ -60,4 +60,15 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   );
 };
 
-export default withRouter(StudentIceWidget);
+const StudentIceWidgetCon = withTracker(({ match }) => {
+  const username = getUsername(match);
+  const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
+  const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
+  return {
+    earnedICE,
+    projectedICE,
+  };
+})(StudentIceWidget);
+const StudentIceWidgetContainer = withRouter(StudentIceWidgetCon);
+
+export default StudentIceWidgetContainer;

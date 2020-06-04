@@ -347,7 +347,7 @@ const sponsor = (theOpp: IOpportunity): string => Users.getFullName(theOpp.spons
 
 const descriptionPairsOpportunities = (theOpp: IOpportunity): { label: string, value: any }[] => [
   { label: 'Opportunity Type', value: opportunityType(theOpp) },
-  { label: 'Semesters', value: academicTerms(theOpp) },
+  { label: 'Academic Terms', value: academicTerms(theOpp) },
   { label: 'Event Date', value: theOpp.eventDate },
   { label: 'Sponsor', value: sponsor(theOpp) },
   { label: 'Description', value: theOpp.description },

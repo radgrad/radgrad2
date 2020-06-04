@@ -30,9 +30,7 @@ const FavoriteOpportunitiesWidget = (props: IFavoriteOpportunitiesWidgetProps) =
         <Message.Header>No favorite opportunities</Message.Header>
         <p>You can favorite opportunities in the explorer.</p>
         <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
-          View
-          in
-          Explorer
+          View in Explorer
           <Icon name="arrow right" />
         </Link>
       </Message>

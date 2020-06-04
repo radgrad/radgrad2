@@ -155,7 +155,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
                   satisfied
                   studentID="fakeID"
                 />
-              ) : 'Foobar'}
+              ) : ''}
               {provided.placeholder}
             </Segment>
           </div>

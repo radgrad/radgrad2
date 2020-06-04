@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
@@ -13,15 +12,13 @@ import {
 } from '../../../api/analytic/UserInteractionsTypes';
 
 const RadGradLoginButtons = () => {
-  const [justLoggedInState, setJustLoggedIn] = useState(false);
-  const [homePageState, setHomePage] = useState('');
 
   const handleClick = (e, instance) => {
     // console.log(e, instance);
     e.preventDefault();
     const callback = function loginCallback(error) {
       if (error) {
-        console.log('Error during CAS Login: ', error);
+        console.error('Error during CAS Login: ', error);
         instance.$('div .ui.error.message.hidden').text('You are not yet registered. Go see your Advisor.');
         instance.$('div .ui.error.message.hidden').removeClass('hidden');
       } else {
@@ -42,14 +39,11 @@ const RadGradLoginButtons = () => {
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {
-                console.log('Error creating UserInteraction.', userInteractionError);
+                console.error('Error creating UserInteraction.', userInteractionError);
               }
             });
           }
         }
-        const homePage = `/${role.toLowerCase()}/${username}/home`;
-        setJustLoggedIn(true);
-        setHomePage(homePage);
       }
     };
     Meteor.loginWithCas(callback);
@@ -60,14 +54,6 @@ const RadGradLoginButtons = () => {
   const facultyLabel = '... as faculty';
   const mentorLabel = '... as mentor';
   const studentLabel = '... as student';
-  if (justLoggedInState) {
-    return (
-      <Redirect to={{
-        pathname: homePageState,
-      }}
-      />
-    );
-  }
   return (
     <Dropdown text="LOGIN" pointing="top right">
       <Dropdown.Menu>

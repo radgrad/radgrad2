@@ -82,7 +82,6 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
                       )
                       : (
                         <React.Fragment>
-                          {' '}
                           N/A
                           <br />
                         </React.Fragment>

@@ -16,6 +16,16 @@ declare namespace cloudinary {
   function openUploadWidget(options: any, resultCallback?: (error: null | string, result: { event: string; info?: { [key: string]: any } }) => any): any;
 }
 
+export interface IMeteorError {
+  details: any;
+  error: string;
+  errorType: string;
+  isClientSafe: boolean;
+  message: string;
+  reason: string;
+  stack: string;
+}
+
 export interface Ice {
   i: number;
   c: number;
@@ -848,6 +858,7 @@ export interface IPlanChoiceUpdate extends IUpdate {
 
 // Profiles
 export interface IBaseProfile {
+  _id: string;
   userID?: string;
   username: string;
   firstName: string;
@@ -866,8 +877,6 @@ export interface IBaseProfile {
   level?: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
   isAlumni?: boolean;
   shareUsername?: boolean;
   sharePicture?: boolean;
@@ -884,7 +893,7 @@ export interface IBaseProfile {
 }
 
 export interface IProfile {
-  _id?: string;
+  _id: string;
   userID: string;
   username: string;
   firstName: string;
@@ -927,8 +936,6 @@ export interface ICombinedProfileDefine extends IProfileDefine {
   level?: number;
   declaredAcademicTerm?: string;
   academicPlan?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -982,8 +989,6 @@ export interface IStudentProfile extends IProfile {
   level: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
-  hiddenCourses?: string[];
-  hiddenOpportunities?: string[];
   isAlumni?: boolean;
   shareUsername?: boolean;
   sharePicture?: boolean;
@@ -1038,8 +1043,6 @@ export interface IStudentProfileUpdateData {
   level?: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
-  hiddenCourseIDs?: string[];
-  hiddenOpportunityIDs?: string[];
   isAlumni?: boolean;
   role?: string;
   retired?: boolean;
@@ -1131,6 +1134,13 @@ export interface ISettingsUpdate extends IUpdate {
 }
 
 // Slugs
+export interface ISlug {
+  _id: string;
+  name: string;
+  entityName: string;
+  entityID: string;
+}
+
 export interface ISlugDefine extends IDumpOne {
   name: string;
   entityName: string;
@@ -1148,6 +1158,7 @@ export interface IStarDataObject {
 
 // Teasers
 export interface ITeaser {
+  _id: string;
   title: string;
   slugID: string;
   author: string;

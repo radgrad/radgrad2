@@ -58,13 +58,19 @@ const LandingCourseExplorer = (props: ICourseExplorerProps) => {
               </Header>
               <Grid columns={2} stackable>
                 <Grid.Column width="six">
-                  <b>Course Number:</b>  {props.course.num}
+                  <b>Course Number:</b> {props.course.num}
                   <br />
                   <b>Credit Hours:</b> {props.course.creditHrs}
                 </Grid.Column>
                 <Grid.Column width="ten">
-                  <b>Syllabus</b> {props.course.syllabus ?
-                    <a href={props.course.syllabus}>{props.course.syllabus}</a> : 'None available'}
+                  <b>Syllabus: </b>
+                  {props.course.syllabus ?
+                    (
+                      <a href={props.course.syllabus} target="_blank" rel="noopener noreferrer">
+                        {props.course.syllabus}
+                      </a>
+                    )
+                    : 'None available'}
                 </Grid.Column>
               </Grid>
               <b>Description:</b>
@@ -74,9 +80,12 @@ const LandingCourseExplorer = (props: ICourseExplorerProps) => {
                 renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
               />
               <Header as="h4" dividing>Prerequisites</Header>
-              <LandingPrerequisiteList prerequisites={props.course.prerequisites} />
-              <Header as="h4" dividing>Course Interests</Header>
-              <LandingInterestList interestIDs={props.course.interestIDs} />
+              {props.course.prerequisites.length > 0 ?
+                (<LandingPrerequisiteList prerequisites={props.course.prerequisites} />)
+                : 'N/A'}
+              {props.course.interestIDs.length > 0 ?
+                (<LandingInterestList interestIDs={props.course.interestIDs} />)
+                : 'N/A'}
             </Segment>
           </Grid.Column>
           <Grid.Column width={1} />

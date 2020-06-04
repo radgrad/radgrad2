@@ -25,10 +25,7 @@ const LandingSection7 = (props: ILandingSection7Props) => (
           <p style={styles['inverted-description']}>
             RadGrad provides &quot;Explorers&quot; for career goals, interests, degrees, and more so you can stay on top of
             the latest trends. For example, RadGrad&apos;s career goals
-            include:
-            {' '}
-            <strong style={styles['green-text']}>{props.careerGoalNames}</strong>
-            .
+            include: <strong style={styles['green-text']}>{props.careerGoalNames}</strong>.
           </p>
         </Grid.Column>
 

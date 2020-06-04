@@ -215,3 +215,14 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
   }
   return retVal;
 };
+
+export const setUploadFixtureWorking = (working: boolean) => {
+  const retVal: { type?: string, payload?: boolean } = {};
+  retVal.payload = working;
+  if (working) {
+    retVal.type = TYPES.SET_UPLOAD_FIXTURE_WORKING;
+  } else {
+    retVal.type = TYPES.SET_UPLOAD_FIXTURE_DONE;
+  }
+  return retVal;
+};

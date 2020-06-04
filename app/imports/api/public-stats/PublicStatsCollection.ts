@@ -32,6 +32,7 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  */
 class PublicStatsCollection extends BaseCollection {
   private readonly stats: any[];
+  public academicPlansTotalKey: string;
   public coursesTotalKey: string;
   public careerGoalsTotalKey: string;
   public careerGoalsListKey: string;
@@ -70,6 +71,8 @@ class PublicStatsCollection extends BaseCollection {
       value: { type: String },
     }));
     this.stats = [];
+    this.academicPlansTotalKey = 'academicPlansTotal';
+    this.stats.push(this.academicPlansTotalKey);
     this.coursesTotalKey = 'coursesTotal';
     this.stats.push(this.coursesTotalKey);
     this.careerGoalsTotalKey = 'careerGoalsTotal';
@@ -128,6 +131,11 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.firstOpportunityKey);
     this.firstDegreeKey = 'firstDegree';
     this.stats.push(this.firstDegreeKey);
+  }
+
+  public academicPlansTotal() {
+    const count: number = AcademicPlans.find().count();
+    this.collection.upsert({ key: this.academicPlansTotalKey }, { $set: { value: `${count}` } });
   }
 
   public careerGoalsTotal() {

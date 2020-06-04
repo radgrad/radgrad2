@@ -13,7 +13,12 @@ import { routes } from '../../startup/client/routes-config';
 import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
-import { getAllUrlParamsByLocationObject, ILocationProps } from '../components/shared/RouterHelperFunctions';
+import {
+  getAllUrlParamsByLocationObject,
+  getUsername,
+  ILocationProps,
+} from '../components/shared/RouterHelperFunctions';
+import { Users } from '../../api/user/UserCollection';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { EXPLORER_TYPE } from '../../startup/client/route-constants';
 import { IPageInterestDefine } from '../../typings/radgrad';
@@ -24,6 +29,7 @@ import {
 import { pageInterestDefineMethod } from '../../api/page-tracking/PageInterestCollection.methods';
 import { Slugs } from '../../api/slug/SlugCollection';
 import { RootState } from '../../redux/types';
+import NotAuthorized from '../pages/NotAuthorized';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -217,7 +223,7 @@ function withHistoryListen(WrappedComponent) {
               category = PageInterestsCategoryTypes.OPPORTUNITY;
               break;
             default:
-              // We only track and define Page Interests for the case statements above
+            // We only track and define Page Interests for the case statements above
           }
           // TODO: Implementation of Page Interest View defining
           const pageInterestData: IPageInterestDefine = { username, category, name: parameters[2] };
@@ -251,11 +257,18 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props: any) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
-        const isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
-        return (isLogged && isAllowed) ?
+        if (!isLogged) {
+          return (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />);
+        }
+        let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+        const routeUsername = getUsername(props.match);
+        const loggedInUserName = Users.getProfile(userId).username;
+        if (isStudent) {
+          isAllowed = routeUsername === loggedInUserName;
+        }
+        return (isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
-          );
+          (<NotAuthorized />);
       }}
     />
   );

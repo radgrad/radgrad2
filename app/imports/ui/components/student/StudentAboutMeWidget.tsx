@@ -49,6 +49,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const careerGoals = profileGetCareerGoals(props.profile);
   const interests = profileGetInterests(props.profile);
   const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
+  const labelStyle = { marginBottom: '2px' };
   return (
     <Segment padded id={`${studentAboutMeWidget}`}>
       <Container>
@@ -80,17 +81,17 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
             <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
             <Grid.Column width={6}>
               {careerGoals.length !== 0 ?
-                  careerGoals.map((careerGoal) => {
-                    const slugName = itemToSlugName(careerGoal);
-                    const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
-                    return (
-                      <Label key={careerGoal._id} as={Link} to={route} size="tiny">
-                        <Icon name="suitcase" fitted /> {careerGoal.name}
-                      </Label>
-                    );
-                  })
-                  :
-                  <p style={marginBottomStyle}>No career goals favorited yet.</p>}
+                careerGoals.map((careerGoal) => {
+                  const slugName = itemToSlugName(careerGoal);
+                  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
+                  return (
+                    <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
+                      <Icon name="suitcase" fitted /> {careerGoal.name}
+                    </Label>
+                  );
+                })
+                :
+                <p style={marginBottomStyle}>No career goals favorited yet.</p>}
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
                 <p>View More Career Goals</p>
               </Link>
@@ -103,7 +104,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                   const slugName = itemToSlugName(interest);
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
                   return (
-                    <Label key={interest._id} as={Link} to={route} size="tiny">
+                    <Label style={labelStyle} key={interest._id} as={Link} to={route} size="tiny">
                       <Icon name="star" fitted /> {interest.name}
                     </Label>
                   );
@@ -111,7 +112,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                 :
                 <p style={marginBottomStyle}>No interests favorited yet.</p>}
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
-                <p>Update in interest explorer</p>
+                <p>View More Interests</p>
               </Link>
             </Grid.Column>
           </Grid.Row>
@@ -120,19 +121,19 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
             <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
             <Grid.Column width={6}>
               {academicPlans.length !== 0 ?
-                  academicPlans.map((plan) => {
-                    const slugName = itemToSlugName(plan);
-                    const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
-                    return (
-                      <Label key={plan._id} as={Link} to={route} size="tiny">
-                        <Icon name="map outline" fitted /> {plan.name}
-                      </Label>
-                    );
-                  })
-                  :
-                  <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
+                academicPlans.map((plan) => {
+                  const slugName = itemToSlugName(plan);
+                  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
+                  return (
+                    <Label style={labelStyle} key={plan._id} as={Link} to={route} size="tiny">
+                      <Icon name="map outline" fitted /> {plan.name}
+                    </Label>
+                  );
+                })
+                :
+                <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                Update in academic plan explorer
+                <p>View More Academic Plans</p>
               </Link>
             </Grid.Column>
           </Grid.Row>

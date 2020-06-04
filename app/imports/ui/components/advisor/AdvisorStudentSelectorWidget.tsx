@@ -159,6 +159,12 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
   const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(props.lastName.toLowerCase()));
   const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(props.username.toLowerCase()));
 
+  const levelOnes = _.filter(filteredStudents, (s) => s.level === 1).length;
+  const levelTwos = _.filter(filteredStudents, (s) => s.level === 2).length;
+  const levelThrees = _.filter(filteredStudents, (s) => s.level === 3).length;
+  const levelFours = _.filter(filteredStudents, (s) => s.level === 4).length;
+  const levelFives = _.filter(filteredStudents, (s) => s.level === 5).length;
+  const levelSixes = _.filter(filteredStudents, (s) => s.level === 6).length;
   const panes = [
     {
       menuItem: 'Update Existing',
@@ -197,7 +203,14 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
               <Form.Button basic color="green" content="Clear Filter" />
             </Form.Group>
           </Form>
-          <Header as="h4">Header here</Header>
+          <Header as="h4">
+            <Image avatar src="/images/level-icons/radgrad-level-1-icon.png" /> {levelOnes} &nbsp;
+            <Image avatar src="/images/level-icons/radgrad-level-2-icon.png" /> {levelTwos} &nbsp;
+            <Image avatar src="/images/level-icons/radgrad-level-3-icon.png" /> {levelThrees} &nbsp;
+            <Image avatar src="/images/level-icons/radgrad-level-4-icon.png" /> {levelFours} &nbsp;
+            <Image avatar src="/images/level-icons/radgrad-level-5-icon.png" /> {levelFives} &nbsp;
+            <Image avatar src="/images/level-icons/radgrad-level-6-icon.png" /> {levelSixes} &nbsp;
+          </Header>
           <Tab panes={[
             {
               menuItem: `Students (${props.students.length})`,

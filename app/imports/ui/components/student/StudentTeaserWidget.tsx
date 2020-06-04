@@ -2,16 +2,18 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import StudentTeaserWidgetVideo from './StudentTeaserWidgetVideo';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
+import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
 import { studentTeaserWidget } from './student-widget-names';
+import { ISlug, ITeaser } from '../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -22,11 +24,12 @@ interface IStudentTeaserWidgetProps {
       username: string;
     }
   };
+  teasers: ITeaser[];
 }
 
 const matchingTeasers = (match: IMatchProps) => {
   if (getUsername(match)) {
-    const allTeasers = Teasers.find().fetch();
+    const allTeasers: ITeaser[] = Teasers.findNonRetired({});
     const matching = [];
     const profile = Users.getProfile(getUsername(match));
     const userInterests = [];
@@ -54,107 +57,130 @@ const matchingTeasers = (match: IMatchProps) => {
   return [];
 };
 
-const teaserTitle = (teaser: any): string => teaser.title;
+const teaserTitle = (teaser: ITeaser): string => teaser.title;
 
-const teaserAuthor = (teaser: any): string => teaser.author;
+const teaserAuthor = (teaser: ITeaser): string => teaser.author;
 
-const teaserUrl = (teaser: any): string => teaser.url;
+const teaserUrl = (teaser: ITeaser): string => teaser.url;
 
-const opportunitySlug = (teaser) => {
-  let ret;
-  if (teaser.opportunityID) {
-    ret = Slugs.findDoc(Opportunities.findDoc(teaser.opportunityID).slugID).name;
-  } else {
-    ret = '#';
+const getType = (teaser: ITeaser): string => {
+  const slugDoc: ISlug = Slugs.findDoc(teaser.targetSlugID);
+  switch (slugDoc.entityName) {
+    case 'CareerGoal':
+      return 'CareerGoal';
+    case 'Course':
+      return 'Course';
+    case 'Interest':
+      return 'Interest';
+    case 'Opportunity':
+      return 'Opportunity';
+    default:
+      console.error(`Bad slugDoc.entityName: ${slugDoc.entityName}`);
+      break;
   }
-  return ret;
+  return undefined;
 };
 
-const buildOpportunitiesRouteName = (teaser, props: IStudentTeaserWidgetProps) => {
-  const opportunityName = opportunitySlug(teaser);
-  const username = props.match.params.username;
-  const baseUrl = props.match.url;
-  const baseIndex = baseUrl.indexOf(username);
-  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-  return `${baseRoute}explorer/opportunities/${opportunityName}`;
-};
+const buildTeaserRouteName = (teaser: ITeaser, props: IStudentTeaserWidgetProps): string => {
+  const type: string = getType(teaser);
+  const slugDoc: ISlug = Slugs.findDoc(teaser.targetSlugID);
+  const slugName: string = slugDoc.name;
 
+  let category: string;
+  switch (type) {
+    case 'CareerGoal':
+      category = EXPLORER_TYPE.CAREERGOALS;
+      break;
+    case 'Course':
+      category = EXPLORER_TYPE.COURSES;
+      break;
+    case 'Interest':
+      category = EXPLORER_TYPE.INTERESTS;
+      break;
+    case 'Opportunity':
+      category = EXPLORER_TYPE.OPPORTUNITIES;
+      break;
+    default:
+      break;
+  }
+  return buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${category}/${slugName}`);
+};
 
 const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
-  const teasers = matchingTeasers(props.match);
-  const teaserCount = matchingTeasers(props.match).length;
+  const { teasers } = props;
+  const teaserCount = teasers.length;
 
-  const cardGroupStyle = {
-    maxHeight: '500px',
+  const cardGroupStyle: React.CSSProperties = {
+    maxHeight: '656px',
     overflow: 'scroll',
-    marginTop: '10px',
+    padding: '5px',
   };
   const teaserWidgetVideoStyle = { padding: '0' };
   const chevronCircleRightIconStyle = { marginRight: '1px' };
-
   return (
     <Container id={`${studentTeaserWidget}`}>
       <Segment padded>
         <Header dividing>
           <Header as="h4">
-            {' '}
-            TEASERS
-            <WidgetHeaderNumber inputValue={teaserCount} />
-            {' '}
-
+            TEASERS <WidgetHeaderNumber inputValue={teaserCount} />
           </Header>
         </Header>
 
         {
-          teasers ? (
-            <Card.Group style={cardGroupStyle}>
-              {
-                teasers.map((teaser) => (
-                  <React.Fragment key={teaser._id}>
-                    <Card centered>
-                      <Card.Content>
-                        <Card.Header>{teaserTitle(teaser)}</Card.Header>
-                        <Card.Meta>
-                          By
-                          {teaserAuthor(teaser)}
-                          {' '}
+          teasers.length > 0 ?
+            (
+              <Card.Group style={cardGroupStyle}>
+                {
+                  teasers.map((teaser) => (
+                    <React.Fragment key={teaser._id}>
+                      <Card centered>
+                        <Card.Content>
+                          <Card.Header>{teaserTitle(teaser)}</Card.Header>
+                          <Card.Meta>
+                            By {teaserAuthor(teaser)}
+                          </Card.Meta>
+                        </Card.Content>
 
-                        </Card.Meta>
-                      </Card.Content>
+                        <Card.Content style={teaserWidgetVideoStyle}>
+                          <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
+                        </Card.Content>
 
-                      <Card.Content style={teaserWidgetVideoStyle}>
-                        <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
-                      </Card.Content>
+                        <Card.Content>
+                          <InterestList item={teaser} size="mini" />
+                        </Card.Content>
 
-                      <Card.Content>
-                        <InterestList item={teaser} size="mini" />
-                      </Card.Content>
-
-                      {
-                        teaser.opportunityID ? (
-                          <Link to={buildOpportunitiesRouteName(teaser, props)}>
-                            <Button attached="bottom">
-                              <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
-                              {' '}
-                              View
-                              More
-                            </Button>
-                          </Link>
-                        )
-                          : ''
-                      }
-                    </Card>
-                  </React.Fragment>
-                ))
-              }
-            </Card.Group>
-          )
-            :
-            <p>Add interests to see recommendations here.</p>
+                        <Link to={buildTeaserRouteName(teaser, props)}>
+                          <Button attached="bottom">
+                            <Icon name="chevron circle right" style={chevronCircleRightIconStyle} />
+                            View More
+                          </Button>
+                        </Link>
+                      </Card>
+                    </React.Fragment>
+                  ))
+                }
+              </Card.Group>
+            )
+            : (
+              <p>
+                Add interests or career goals to see recommendations here. To add interests, click on
+                the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
+                dropdown menu on that page.
+              </p>
+            )
         }
       </Segment>
     </Container>
   );
 };
 
-export default withRouter(StudentTeaserWidget);
+const StudentTeaserWidgetCon = withTracker(({ match }) => {
+  const teasers: ITeaser[] = matchingTeasers(match);
+
+  return {
+    teasers,
+  };
+})(StudentTeaserWidget);
+const StudentTeaserWidgetContainer = withRouter(StudentTeaserWidgetCon);
+
+export default StudentTeaserWidgetContainer;

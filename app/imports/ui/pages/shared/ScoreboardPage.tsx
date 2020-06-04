@@ -37,7 +37,6 @@ const renderPageMenuWidget = (props: IScoreboardPageProps): JSX.Element => {
 };
 
 const ScoreboardPage = (props: IScoreboardPageProps) => {
-  // console.log(props);
   let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
   if (props.match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
     content = <CourseScoreboardWidget />;
@@ -45,7 +44,6 @@ const ScoreboardPage = (props: IScoreboardPageProps) => {
   if (props.match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
     content = <OpportunityScoreboardWidgetContainer />;
   }
-  // console.log(props.match.path, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD);
   return (
     <React.Fragment>
       {renderPageMenuWidget(props)}

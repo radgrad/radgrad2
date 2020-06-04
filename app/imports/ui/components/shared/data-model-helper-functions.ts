@@ -20,6 +20,7 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { IAcademicTerm } from '../../../typings/radgrad';
 // import Router from './RouterHelperFunctions';
 
 interface IHasName {
@@ -42,10 +43,12 @@ export const academicTermToName = (term) => AcademicTerms.toString(term._id, fal
 
 export const academicTermNameToDoc = (name) => AcademicTerms.getAcademicTermFromToString(name);
 
-export const academicTermNameToShortName = (name) => {
-  const termNameYear = name.split(' ');
-  let termName = '';
-  switch (termNameYear[0]) {
+export const academicTermNameToShortName = (termID) => {
+  const academicTerm: IAcademicTerm = AcademicTerms.findOne(termID);
+  const termYear = `${academicTerm.year}`.substring(2, 4);
+
+  let termName: string;
+  switch (academicTerm.term) {
     case 'Spring':
       termName = 'Spr';
       break;
@@ -62,7 +65,7 @@ export const academicTermNameToShortName = (name) => {
       termName = 'N/A';
       break;
   }
-  return `${termName} ${termNameYear[1]}`;
+  return `${termName} ${termYear}`;
 };
 
 export const academicTermNameToSlug = (name) => itemToSlugName(AcademicTerms.getAcademicTermFromToString(name));

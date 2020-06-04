@@ -55,3 +55,6 @@ export const SET_STUDENTS_SHOW_INDEX = 'radgrad/admin/data-model/SET_STUDENTS_SH
 export const SET_STUDENTS_SHOW_COUNT = 'radgrad/admin/data-model/SET_STUDENTS_SHOW_COUNT';
 export const SET_VERIFICATION_REQUESTS_SHOW_INDEX = 'radgrad/admin/data-model/SET_VERIFICATION_REQUESTS_SHOW_INDEX';
 export const SET_VERIFICATION_REQUESTS_SHOW_COUNT = 'radgrad/admin/data-model/SET_VERIFICATION_REQUESTS_SHOW_COUNT';
+// Upload Fixture
+export const SET_UPLOAD_FIXTURE_WORKING = 'radgrad/admin/data-model/SET_UPLOAD_FIXTURE_WORKING';
+export const SET_UPLOAD_FIXTURE_DONE = 'radgrad/admin/data-model/SET_UPLOAD_FIXTURE_DONE';

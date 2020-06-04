@@ -51,17 +51,16 @@ const ProfileCard = (props: IProfileCardProps) => {
       </Card.Content>
       <Card.Content>
         <span>
-          STUDENTS PARTICIPATING
-          <WidgetHeaderNumber inputValue={numberStudents} />
+          STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents} />
         </span>
         <Image.Group size="mini">
-          {interested.map((student, index) => (
+          {interested.map((student) => (
             <Popup
               key={student._id}
               trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />}
               content={profileIDToFullname(student.userID)}
             />
-))}
+          ))}
         </Image.Group>
       </Card.Content>
       <Link to={buildExplorerRoute(props.item, props)} className="ui button">

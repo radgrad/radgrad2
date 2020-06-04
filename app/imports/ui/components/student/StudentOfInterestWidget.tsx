@@ -1,14 +1,12 @@
 import React from 'react';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import StudentOfInterestCard from './StudentOfInterestCard';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -16,8 +14,12 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from '../shared/RouterHelperFunctions';
 import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
-import { ICourse, IOpportunity } from '../../../typings/radgrad';
-import { RootState } from '../../../redux/types';
+import { ICourse, IFavoriteCareerGoal, IFavoriteInterest, IOpportunity } from '../../../typings/radgrad';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { getUsername } from '../shared/RouterHelperFunctions';
+import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -32,23 +34,12 @@ interface IStudentOfInterestWidgetProps {
   profile: any;
   nonRetiredCourses: ICourse[];
   nonRetiredOpportunities: IOpportunity[];
-  hiddenCourses: boolean;
-  hiddenOpportunities: boolean;
   dispatch: any;
   courseInstances: any[];
   opportunityInstances: any[];
 }
 
-const mapStateToProps = (state: RootState) => ({
-  hiddenCourses: state.student.home.hiddenCourses,
-  hiddenOpportunities: state.student.home.hiddenOpportunities,
-});
-
 const isTypeCourse = (props: IStudentOfInterestWidgetProps): boolean => props.type === EXPLORER_TYPE.COURSES;
-
-const isCoursesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenCourses;
-
-const isOpportunitiesHidden = (props: IStudentOfInterestWidgetProps): boolean => props.hiddenOpportunities;
 
 const availableCourses = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredCourses } = props;
@@ -100,26 +91,6 @@ const matchingCourses = (props: IStudentOfInterestWidgetProps) => {
   return [];
 };
 
-const hiddenCoursesHelper = (props: IStudentOfInterestWidgetProps) => {
-  if (Router.getUsername(props.match)) {
-    const courses = matchingCourses(props);
-    let nonHiddenCourses;
-    if (isCoursesHidden(props)) {
-      const { profile } = props;
-      nonHiddenCourses = _.filter(courses, (course) => {
-        if (_.includes(profile.hiddenCourseIDs, course._id)) {
-          return false;
-        }
-        return true;
-      });
-    } else {
-      nonHiddenCourses = courses;
-    }
-    return nonHiddenCourses;
-  }
-  return [];
-};
-
 const availableOpps = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredOpportunities } = props;
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -148,84 +119,23 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
 
 const matchingOpportunities = (props: IStudentOfInterestWidgetProps) => {
   const allOpportunities = availableOpps(props);
-  const matching: any = [];
-  const { profile } = props;
-  const userInterests = [];
-  let opportunityInterests = [];
-  _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-    userInterests.push(Interests.findDoc(id));
-  });
-  _.forEach(allOpportunities, (opp) => {
-    opportunityInterests = [];
-    _.forEach(opp.interestIDs, (id) => {
-      opportunityInterests.push(Interests.findDoc(id));
-      _.forEach(opportunityInterests, (oppInterest) => {
-        _.forEach(userInterests, (userInterest) => {
-          if (_.isEqual(oppInterest, userInterest)) {
-            if (!_.includes(matching, opp)) {
-              matching.push(opp);
-            }
-          }
-        });
-      });
-    });
-  });
-  // Only display up to the first six matches.
-  return (matching < 7) ? matching : matching.slice(0, 6);
-};
-
-const hiddenOpportunitiesHelper = (props: IStudentOfInterestWidgetProps) => {
-  if (Router.getUsername(props.match)) {
-    const opportunities = matchingOpportunities(props);
-    let nonHiddenOpportunities;
-    if (isOpportunitiesHidden(props)) {
-      const { profile } = props;
-      nonHiddenOpportunities = _.filter(opportunities, (opp) => {
-        if (_.includes(profile.hiddenOpportunityIDs, opp._id)) {
-          return false;
-        }
-        return true;
-      });
-    } else {
-      nonHiddenOpportunities = opportunities;
-    }
-    return nonHiddenOpportunities;
-  }
-  return [];
+  const username = Router.getUsername(props.match);
+  const profile = Users.getProfile(username);
+  const interestIDs = Users.getInterestIDs(profile.userID);
+  const preferred = new PreferredChoice(allOpportunities, interestIDs);
+  const matching = preferred.getOrderedChoices();
+  return (matching.length < 7) ? matching : matching.slice(0, 6);
 };
 
 const itemCount = (props: IStudentOfInterestWidgetProps) => {
   let ret;
   if (isTypeCourse(props)) {
-    ret = hiddenCoursesHelper(props).length;
+    ret = matchingCourses(props).length;
   } else {
-    ret = hiddenOpportunitiesHelper(props).length;
+    ret = matchingOpportunities(props).length;
   }
   return ret;
 };
-
-const courses = (props: IStudentOfInterestWidgetProps) => {
-  const cs = matchingCourses(props);
-  let visibleCourses;
-  if (isCoursesHidden(props)) {
-    visibleCourses = hiddenCoursesHelper(props);
-  } else {
-    visibleCourses = cs;
-  }
-  return visibleCourses;
-};
-
-const opportunities = (props: IStudentOfInterestWidgetProps) => {
-  const os = matchingOpportunities(props);
-  let visibleOpportunities;
-  if (isOpportunitiesHidden(props)) {
-    visibleOpportunities = hiddenOpportunitiesHelper(props);
-  } else {
-    visibleOpportunities = os;
-  }
-  return visibleOpportunities;
-};
-
 
 const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   /*
@@ -235,9 +145,8 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
   const cardsStackableStyle: React.CSSProperties = {
     maxHeight: '500px',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
-    marginTop: '10px',
+    overflowY: 'auto',
+    padding: '5px',
   };
 
   const { type } = props;
@@ -247,80 +156,85 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   } else {
     id = recommendedCourses;
   }
+  const courses = matchingCourses(props);
+  const opportunities = matchingOpportunities(props);
+
   return (
     <Segment padded id={id}>
-      {/* Don't know why this particular <Header> is not accepting a boolean value of true for dividing, it's
-        complaining that I should use the string "true" instead. Even then, the dividing line doesn't even appear. So I
-        had to use the className attribute instead so it renders as "ui dividing header". - Gian */}
-      <Header className="dividing">
+      <Header dividing>
         <h4>
           RECOMMENDED
-          {' '}
-          <span style={uppercaseTextTransformStyle}>{type}</span>
-          {' '}
-          <WidgetHeaderNumber
-            inputValue={itemCount(props)}
-          />
+          <span style={uppercaseTextTransformStyle}> {type}</span> <WidgetHeaderNumber inputValue={itemCount(props)} />
         </h4>
       </Header>
 
-      {
-        courses ? (
-          <div style={cardsStackableStyle}>
-            <Card.Group stackable itemsPerRow={2}>
-              {
-                isTypeCourse(props) ?
-                  courses(props).map((course) => (
-                    <StudentOfInterestCard
-                      key={course._id}
-                      item={course}
-                      type={type}
-                    />
-))
-                  :
-                  opportunities(props).map((opp) => (
-                    <StudentOfInterestCard
-                      key={opp._id}
-                      item={opp}
-                      type={type}
-                    />
-))
-              }
-            </Card.Group>
-          </div>
-        )
+      {isTypeCourse(props)
+        ? (courses.length > 0)
+          ? (
+            <div style={cardsStackableStyle}>
+              <Card.Group stackable itemsPerRow={2}>
+                {courses.map((course) => (
+                  <StudentOfInterestCard
+                    key={course._id}
+                    item={course}
+                    type={type}
+                  />
+                ))}
+              </Card.Group>
+            </div>
+          )
           : (
             <p>
-              Add interests to see recommendations here. To add interests, click on
-              the &quot;Explorer&quot; tab,
-              then select &quot;Interests&quot; in the pull-down menu on that page.
+              Add interests or career goals to see recommendations here. To add interests, click on
+              the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
+              dropdown
+              menu on that page.
             </p>
-        )
-}
+          )
+        : (opportunities.length > 0)
+          ? (
+            <div style={cardsStackableStyle}>
+              <Card.Group stackable itemsPerRow={2}>
+                {opportunities.map((course) => (
+                  <StudentOfInterestCard
+                    key={course._id}
+                    item={course}
+                    type={type}
+                  />
+                ))}
+              </Card.Group>
+            </div>
+          )
+          : (
+            <p>
+              Add interests or career goals to see recommendations here. To add interests, click on
+              the &quot;Explorer&quot; tab, then select &quot;Interests&quot; or &quot;Career Goals&quot; in the
+              dropdown
+              menu on that page.
+            </p>
+          )}
     </Segment>
   );
 };
 
-const StudentOfInterestWidgetCon = connect(mapStateToProps)(StudentOfInterestWidget);
 const StudentOfInterestWidgetCont = withTracker(({ match }) => {
-  /* Reactive sources to make Hiding a Course / Opportunity reactive */
-  const username = match.params.username;
+  const username = getUsername(match);
   const profile = Users.getProfile(username);
-  const nonRetiredCourses = Courses.findNonRetired();
-  const nonRetiredOpportunities = Opportunities.findNonRetired();
+  const userID = Users.getID(username);
+  const nonRetiredCourses = Courses.findNonRetired({});
+  const nonRetiredOpportunities = Opportunities.findNonRetired({});
 
-  /* Reactive sources to make StudentOfInterestAdd reactive */
-  const courseInstances = CourseInstances.findNonRetired();
-  const opportunityInstances = OpportunityInstances.findNonRetired();
+  const favoritedInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: userID });
+  const favoritedCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID: userID });
 
   return {
     profile,
     nonRetiredCourses,
     nonRetiredOpportunities,
-    courseInstances,
-    opportunityInstances,
+    favoritedInterests,
+    favoritedCareerGoals,
   };
-})(StudentOfInterestWidgetCon);
+})(StudentOfInterestWidget);
 const StudentOfInterestWidgetContainer = withRouter(StudentOfInterestWidgetCont);
 
 export default StudentOfInterestWidgetContainer;

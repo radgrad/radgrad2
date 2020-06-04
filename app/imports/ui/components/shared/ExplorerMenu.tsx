@@ -58,7 +58,6 @@ const getTypeName = (props: IExplorerMenuProps): string => {
   }
 };
 
-// FIXME: Needs to be reactive
 const ExplorerMenu = (props: IExplorerMenuProps) => {
   const { menuAddedList, menuCareerList, match, type, role } = props;
 

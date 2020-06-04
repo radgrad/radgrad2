@@ -36,6 +36,9 @@ interface IState {
     TeaserCollection: IPaginationState;
     VerificationRequestCollection: IPaginationState;
   };
+  uploadFixture: {
+    working: boolean;
+  }
 }
 
 const initialState: IState = {
@@ -153,10 +156,13 @@ const initialState: IState = {
       showCount: 25,
     },
   },
+  uploadFixture: {
+    working: false,
+  },
 };
 
 export function reducer(state: IState = initialState, action): IState {
-  // console.log('paginationReducer state=%o, action=%o', state, action);
+  // console.log('dataModelReducer state=%o, action=%o', state, action);
   let s: IState;
   let collect;
   const paginationState = state.pagination;
@@ -860,6 +866,22 @@ export function reducer(state: IState = initialState, action): IState {
             ...collect,
             showCount: action.payload,
           },
+        },
+      };
+      return s;
+    case TYPES.SET_UPLOAD_FIXTURE_WORKING:
+      s = {
+        ...state,
+        uploadFixture: {
+          working: true,
+        },
+      };
+      return s;
+    case TYPES.SET_UPLOAD_FIXTURE_DONE:
+      s = {
+        ...state,
+        uploadFixture: {
+          working: false,
         },
       };
       return s;
