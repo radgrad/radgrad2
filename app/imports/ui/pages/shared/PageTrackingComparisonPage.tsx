@@ -1,28 +1,22 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import * as Router from '../../components/shared/RouterHelperFunctions';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { URL_ROLES } from '../../../startup/client/route-constants';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
-import PageTrackingScoreboardWidget from '../../components/shared/PageTrackingScoreboardWidget';
+import PageTrackingScoreboardMenu from '../../components/shared/PageTrackingMenu';
+import PageTrackingComparisonWidget from './PageTrackingComparisonWidget';
 
-interface IPageTrackingAnalysisPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+interface IPageTrackingComparisonPageProps {
+  match: IMatchProps;
 }
 
-const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
+const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => {
   const renderPageMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(props.match);
     switch (role) {
@@ -56,11 +50,11 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
         <Grid.Row>
           <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <PageTrackingMenu type="scoreboard" />
+            <PageTrackingScoreboardMenu type="comparison" />
           </Grid.Column>
 
           <Grid.Column width={11} stretched>
-            <PageTrackingScoreboardWidget />
+            <PageTrackingComparisonWidget />
           </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
@@ -69,4 +63,4 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
   );
 };
 
-export default PageTrackingScoreboardPage;
+export default PageTrackingComparisonPage;

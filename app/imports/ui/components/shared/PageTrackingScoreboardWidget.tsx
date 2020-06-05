@@ -218,75 +218,73 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   };
 
   return (
-    <React.Fragment>
-      <Grid columns={2}>
-        {/* Scoreboard View */}
-        <Grid.Column width={11}>
-          <Table striped sortable style={tableBodyScrollStyle}>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell
-                  sorted={column === 'name' ? direction : null}
-                  onClick={(e) => handleSort(e, 'name')}
-                >
-                  Name
-                </Table.HeaderCell>
-                <Table.HeaderCell
-                  sorted={column === 'views' ? direction : null}
-                  onClick={(e) => handleSort(e, 'views')}
-                >
-                  Page Views
-                </Table.HeaderCell>
+    <Grid columns={2}>
+      {/* Scoreboard View */}
+      <Grid.Column width={11}>
+        <Table striped sortable style={tableBodyScrollStyle}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell
+                sorted={column === 'name' ? direction : null}
+                onClick={(e) => handleSort(e, 'name')}
+              >
+                Name
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'views' ? direction : null}
+                onClick={(e) => handleSort(e, 'views')}
+              >
+                Page Views
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {data[category].map((snapshot) => (
+              <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
+                <Table.Cell>{parseName(scoreboardMenuCategory, snapshot.name)}</Table.Cell>
+                <Table.Cell>{snapshot.views}</Table.Cell>
               </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {data[category].map((snapshot, index) => (
-                <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
-                  <Table.Cell>{parseName(scoreboardMenuCategory, snapshot.name)}</Table.Cell>
-                  <Table.Cell>{snapshot.views}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        </Grid.Column>
+            ))}
+          </Table.Body>
+        </Table>
+      </Grid.Column>
 
-        {/* Filters */}
-        <Grid.Column width={5}>
-          <Menu text vertical fluid>
-            <Menu.Item header>FILTER BY DATE</Menu.Item>
-            <Grid.Row>
-              <Grid columns={2}>
-                <Grid.Column><Menu.Item onClick={handleFilter}>Filter</Menu.Item></Grid.Column>
-                <Grid.Column><Menu.Item onClick={handleClear}>Clear</Menu.Item></Grid.Column>
-              </Grid>
-            </Grid.Row>
-            <DatePicker
-              selectsStart
-              showMonthDropdown
-              showYearDropdown
-              onChange={(date) => setStartDate(date)}
-              placeholderText="Start Date"
-              selected={startDate}
-              startDate={startDate}
-              endDate={endDate}
-              maxDate={endDate}
-            />
-            <DatePicker
-              selectsEnd
-              showMonthDropdown
-              showYearDropdown
-              onChange={(date) => setEndDate(date)}
-              placeholderText="End Date"
-              selected={endDate}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              maxDate={new Date()}
-            />
-          </Menu>
-        </Grid.Column>
-      </Grid>
-    </React.Fragment>
+      {/* Filters */}
+      <Grid.Column width={5}>
+        <Menu text vertical fluid>
+          <Menu.Item header>FILTER BY DATE</Menu.Item>
+          <Grid.Row>
+            <Grid columns={2}>
+              <Grid.Column><Menu.Item onClick={handleFilter}>Filter</Menu.Item></Grid.Column>
+              <Grid.Column><Menu.Item onClick={handleClear}>Clear</Menu.Item></Grid.Column>
+            </Grid>
+          </Grid.Row>
+          <DatePicker
+            selectsStart
+            showMonthDropdown
+            showYearDropdown
+            onChange={(date) => setStartDate(date)}
+            placeholderText="Start Date"
+            selected={startDate}
+            startDate={startDate}
+            endDate={endDate}
+            maxDate={endDate}
+          />
+          <DatePicker
+            selectsEnd
+            showMonthDropdown
+            showYearDropdown
+            onChange={(date) => setEndDate(date)}
+            placeholderText="End Date"
+            selected={endDate}
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            maxDate={new Date()}
+          />
+        </Menu>
+      </Grid.Column>
+    </Grid>
   );
 };
 
