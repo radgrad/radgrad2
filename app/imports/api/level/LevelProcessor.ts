@@ -27,6 +27,9 @@ export function defaultCalcLevel(studentID) {
     .count();
   // console.log('defaultCalcLevel', earnedICE, plannedICE, numReviews);
   let level = 1;
+  if (Meteor.isTest) {
+    return testCalcLevel(studentID);
+  }
   if (earnedICE.i >= Meteor.settings.public.level.six.earnedICE.i &&
     earnedICE.c >= Meteor.settings.public.level.six.earnedICE.c &&
     earnedICE.e >= Meteor.settings.public.level.six.earnedICE.e &&
@@ -69,6 +72,60 @@ export function defaultCalcLevel(studentID) {
     level = 2;
   }
   // console.log('defaultCalcLevel', studentID, earnedICE, plannedICE, numReviews, level);
+  return level;
+}
+
+export function testCalcLevel(studentID) {
+  const instances = _.concat(CourseInstances.find({ studentID })
+      .fetch(),
+    OpportunityInstances.find({ studentID })
+      .fetch());
+  const earnedICE: Ice = getEarnedICE(instances);
+  const plannedICE: Ice = getProjectedICE(instances);
+  const numReviews: number = Reviews.find({ studentID, reviewType: 'course', moderated: true, visible: true })
+    .count();
+  const hasPicture: boolean = StudentProfiles.hasSetPicture(studentID);
+  // console.log('defaultCalcLevel', earnedICE, plannedICE, numReviews, hasPicture);
+  let level = 1;
+  if (earnedICE.i >= 100 &&
+    earnedICE.c >= 100 &&
+    earnedICE.e >= 100 &&
+    numReviews >= 6 &&
+    plannedICE.i >= 100 &&
+    plannedICE.c >= 100 &&
+    plannedICE.e >= 100 &&
+    hasPicture) {
+    level = 6;
+  } else if (earnedICE.i >= 80 &&
+    earnedICE.c >= 80 &&
+    earnedICE.e >= 80 &&
+    numReviews >= 1 &&
+    plannedICE.i >= 100 &&
+    plannedICE.c >= 100 &&
+    plannedICE.e >= 100 &&
+    hasPicture) {
+    level = 5;
+  } else if (earnedICE.i >= 30 &&
+    earnedICE.c >= 36 &&
+    earnedICE.e >= 30 &&
+    numReviews >= 0 &&
+    plannedICE.i >= 100 &&
+    plannedICE.c >= 100 &&
+    plannedICE.e >= 100 &&
+    hasPicture) {
+    level = 4;
+  } else if ((earnedICE.i >= 1 ||
+    earnedICE.e >= 1) &&
+    earnedICE.c >= 24 &&
+    numReviews >= 0) {
+    level = 3;
+  } else if (earnedICE.i >= 0 &&
+    earnedICE.c >= 12 &&
+    earnedICE.e >= 0 &&
+    numReviews >= 0) {
+    level = 2;
+  }
+  // console.log('defaultCalcLevel', studentID, earnedICE, plannedICE, numReviews, hasPicture, level);
   return level;
 }
 
