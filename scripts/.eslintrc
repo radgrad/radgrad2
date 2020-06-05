@@ -47,6 +47,7 @@
     "no-console": "off",
     "no-plusplus": "off",
     "no-underscore-dangle": "off",
+    "no-unused-vars": "warn",
     "no-useless-constructor": "off",
     "object-curly-newline": "off",
     "object-property-newline": "off",
