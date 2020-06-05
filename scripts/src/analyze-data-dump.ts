@@ -50,7 +50,7 @@ const getUserInteractionsBetween = (startStr, endStr) => {
     const lTime = moment(l.timestamp);
     return lTime.isBetween(start, end, null, '[]');
   });
-  return between;
+  return _.sortBy(between, (i) => i.timestamp);
 };
 
 const getActiveStudentsBetween = (startStr, endStr) => {
