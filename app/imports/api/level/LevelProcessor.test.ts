@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
 import { StudentProfiles } from '../user/StudentProfileCollection';
-import { defaultCalcLevel } from './LevelProcessor';
+import { defaultCalcLevel, testCalcLevel } from './LevelProcessor';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { RadGrad } from '../radgrad/RadGrad';
 import { defineTestFixtures } from '../test/test-utilities';
