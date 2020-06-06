@@ -3,17 +3,29 @@ import { Dropdown, Grid, Menu, Table } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
+import Swal from 'sweetalert2';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
 } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import { RootState } from '../../../redux/types';
-import { ICareerGoal, ICourse, IInterest, IOpportunity, IPageInterestsDailySnapshot } from '../../../typings/radgrad';
+import {
+  ICareerGoal,
+  ICourse,
+  IInterest,
+  IOpportunity, IPageInterestInfo,
+  IPageInterestsDailySnapshot,
+} from '../../../typings/radgrad';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import {
+  aggregateDailySnapshots, getCategory,
+  IAggregatedDailySnapshot, parseName,
+} from '../../components/shared/page-tracking-helper-functions';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IPageTrackingComparisonWidgetProps {
   pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
@@ -24,34 +36,54 @@ const mapStateToProps = (state: RootState) => ({
   comparisonMenuCategory: state.shared.pageTracking.comparisonMenuCategory,
 });
 
+const getOptions = (comparisonMenuCategory) => {
+  switch (comparisonMenuCategory) {
+    case PageInterestsCategoryTypes.CAREERGOAL:
+      return getOptionsHelper(CareerGoals.find({}).fetch());
+    case PageInterestsCategoryTypes.COURSE:
+      return getOptionsHelper(Courses.find({}).fetch());
+    case PageInterestsCategoryTypes.INTEREST:
+      return getOptionsHelper(Interests.find({}).fetch());
+    case PageInterestsCategoryTypes.OPPORTUNITY:
+      return getOptionsHelper(Opportunities.find({}).fetch());
+    default:
+      console.error(`Bad comparisonMenuCategory: ${comparisonMenuCategory}`);
+      return undefined;
+  }
+};
+
+const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunity)[]) => docs.map((doc) => ({
+  key: doc._id,
+  text: doc.name,
+  value: doc.slugID,
+}));
+
 const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps) => {
-  const [data, setData] = useState(null);
-  const [dataBeforeFilter] = useState(data);
+  const { pageInterestsDailySnapshots, comparisonMenuCategory } = props;
+  const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
+
+  const [data, setData] = useState(aggregatedDailySnapshot);
+  const dataBeforeFilter: IAggregatedDailySnapshot = data;
+
+  /* ######################### Table State ######################### */
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(null);
   const [column, setColumn] = useState<'name' | 'views'>(null);
   const [direction, setDirection] = useState<'ascending' | 'descending'>(null);
+
+  /* ######################### Date Picker State ######################### */
   const [startDate, setStartDate] = useState<Date>(null);
   const [endDate, setEndDate] = useState<Date>(null);
 
-  const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunity)[]) => docs.map((doc) => ({
-    key: doc._id,
-    text: doc.name,
-    value: doc.name,
-  }));
+  /* ######################### Styles ######################### */
+  const tableBodyScrollStyle = {
+    maxHeight: '10px',
+    overflowY: 'scroll',
+  };
 
-  const getOptions = () => {
-    switch (props.comparisonMenuCategory) {
-      case PageInterestsCategoryTypes.CAREERGOAL:
-        return getOptionsHelper(CareerGoals.find({}).fetch());
-      case PageInterestsCategoryTypes.COURSE:
-        return getOptionsHelper(Courses.find({}).fetch());
-      case PageInterestsCategoryTypes.INTEREST:
-        return getOptionsHelper(Interests.find({}).fetch());
-      case PageInterestsCategoryTypes.OPPORTUNITY:
-        return getOptionsHelper(Opportunities.find({}).fetch());
-      default:
-        console.error(`Bad comparisonMenuCategory: ${props.comparisonMenuCategory}`);
-        return undefined;
-    }
+  /* ######################### Event Handlers ######################### */
+  const handleSearchSelectionChange = (e, { value }) => {
+    e.preventDefault();
+    setSelectedOptions(value);
   };
 
   const handleClear = () => {
@@ -61,6 +93,14 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   };
 
   const handleFilter = () => {
+    if (startDate === null || endDate === null) {
+      Swal.fire({
+        title: 'Date Selection Required',
+        text: 'A Start and End Date selection is required.',
+        icon: 'error',
+      });
+
+    }
 
   };
 
@@ -68,18 +108,44 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
 
   };
 
-  const tableBodyScrollStyle = {
-    maxHeight: '10px',
-    overflowY: 'scroll',
+  /* ######################### Functions ######################### */
+  const slugIDToSlugName = (slugID) => Slugs.findOne(slugID).name;
+
+  const getItems = (): IPageInterestInfo[] => {
+    const category = getCategory(comparisonMenuCategory);
+    const snapshotItems: IPageInterestInfo[] = data[category];
+    const selectedSlugNames: string[] = [];
+    selectedOptions.forEach((option) => {
+      const slugName = slugIDToSlugName(option);
+      selectedSlugNames.push(slugName);
+    });
+    const filteredItems: IPageInterestInfo[] = [];
+    selectedSlugNames.forEach((slugName) => {
+      snapshotItems.forEach((item) => {
+        if (slugName === item.name) {
+          filteredItems.push(item);
+        }
+      });
+    });
+    return filteredItems;
   };
 
-  const searchDropdownOptions = getOptions();
+  /* ######################### Variables ######################### */
+  const items = selectedOptions !== null ? getItems() : undefined;
 
   return (
     <Grid columns={2}>
       <Grid.Column width={11}>
         <Grid.Row>
-          <Dropdown placeholder="Search" fluid multiple search selection options={searchDropdownOptions} />
+          <Dropdown
+            placeholder="Search"
+            onChange={handleSearchSelectionChange}
+            fluid
+            multiple
+            search
+            selection
+            options={getOptions(comparisonMenuCategory)}
+          />
         </Grid.Row>
         <Table striped sortable style={tableBodyScrollStyle}>
           <Table.Header>
@@ -99,12 +165,18 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {/* {data.map((snapshot) => ( */}
-            {/*  <Table.Row> */}
-            {/*    <Table.Cell /> */}
-            {/*    <Table.Cell /> */}
-            {/*  </Table.Row> */}
-            {/* ))} */}
+            {items ?
+              (
+                <>
+                  {items.map((item) => (
+                    <Table.Row>
+                      <Table.Cell>{parseName(comparisonMenuCategory, item.name)}</Table.Cell>
+                      <Table.Cell>{item.views}</Table.Cell>
+                    </Table.Row>
+                  ))}
+                </>
+              )
+              : ''}
           </Table.Body>
         </Table>
       </Grid.Column>

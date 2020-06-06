@@ -809,12 +809,12 @@ export interface IPageInterestInfo {
 }
 
 export interface IPageInterestsDailySnapshot extends IDocument {
-  careerGoals: [IPageInterestInfo];
-  courses: [IPageInterestInfo];
-  interests: [IPageInterestInfo];
-  opportunities: [IPageInterestInfo];
+  careerGoals: IPageInterestInfo[];
+  courses: IPageInterestInfo[];
+  interests: IPageInterestInfo[];
+  opportunities: IPageInterestInfo[];
   timestamp: Date;
-  retired?: boolean;
+  retired: boolean;
 }
 
 export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
@@ -825,25 +825,6 @@ export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
   timestamp?: Date;
   retired?: boolean;
 }
-
-// export interface IPageInterestsTermSnapshot extends IDocument {
-//   termID: string;
-//   category: string;
-//   name: string;
-//   views: number;
-//   timestamp: Date;
-//   retired?: boolean;
-// }
-//
-// export interface IPageInterestsTermSnapshotDefine extends IDumpOne {
-//   termID: string;
-//   category: string;
-//   name: string;
-//   views?: number;
-//   timestamp?: Date;
-//   retired?: boolean;
-// }
-
 
 // PlanChoice
 export interface IPlanChoiceDefine extends IDumpOne {
