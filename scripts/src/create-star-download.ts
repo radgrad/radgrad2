@@ -49,6 +49,7 @@ interface IStudentStarData {
     second: string;
   }
 }
+
 const makeStarCourseData = (academicTermSlug, courseSlug, grade): IStarCourseData => {
   const semester = academicTermSlug.replace('-', ' ');
   const name = courseSlug.split('_')[0].toUpperCase();
@@ -161,7 +162,7 @@ const getStudentProfiles = (radgradDump) => getCollectionData(radgradDump, 'Stud
 const getCourseInstances = (radgradDump) => getCollectionData(radgradDump, 'CourseInstanceCollection');
 const getStudentCourseInstances = (radgradDump, student) => {
   const courseInstances = getCourseInstances(radgradDump);
-  return _.filter(courseInstances, (ci) => ci.student !== student);
+  return _.filter(courseInstances, (ci) => ci.student === student.username);
 };
 
 const buildStarData = () => {
@@ -170,7 +171,9 @@ const buildStarData = () => {
   const retVal = [];
   _.forEach(profiles, (p) => {
     const studentData = makeStudentStarData(p);
-    _.forEach(getStudentCourseInstances(radgradDump, p), (cis) => {
+    const studentInstances = getStudentCourseInstances(radgradDump, p);
+    // console.log(p.username, studentInstances.length);
+    _.forEach(studentInstances, (cis) => {
       if (cis.fromRegistrar) {
         studentData.courses.push(makeStarCourseData(cis.academicTerm, cis.course, cis.grade));
       }
