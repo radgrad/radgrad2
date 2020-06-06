@@ -56,19 +56,20 @@ const menuItems = [
 ];
 
 const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
-  const setPageTrackingScoreboardMenuCategory = (content: IPageTrackingMenuTypes) => {
+  const { scoreboardMenuCategory, comparisonMenuCategory, setPageTrackingScoreboardMenuCategory, setPageTrackingComparisonMenuCategory, type } = props;
+  const setScoreboardMenuCategory = (content: IPageTrackingMenuTypes) => {
     switch (content) {
       case PageTrackingMenuType.CAREERGOAL:
-        props.setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.CAREERGOAL);
+        setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.CAREERGOAL);
         break;
       case PageTrackingMenuType.COURSE:
-        props.setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.COURSE);
+        setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.COURSE);
         break;
       case PageTrackingMenuType.INTEREST:
-        props.setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.INTEREST);
+        setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.INTEREST);
         break;
       case PageTrackingMenuType.OPPORTUNITY:
-        props.setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.OPPORTUNITY);
+        setPageTrackingScoreboardMenuCategory(PageInterestsCategoryTypes.OPPORTUNITY);
         break;
       default:
         console.error(`Content does not match valid Page Interest Category Types: ${content}`);
@@ -76,19 +77,19 @@ const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
     }
   };
 
-  const setPageTrackingComparisonMenuCategory = (content: IPageTrackingMenuTypes) => {
+  const setComparisonMenuCategory = (content: IPageTrackingMenuTypes) => {
     switch (content) {
       case PageTrackingMenuType.CAREERGOAL:
-        props.setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.CAREERGOAL);
+        setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.CAREERGOAL);
         break;
       case PageTrackingMenuType.COURSE:
-        props.setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.COURSE);
+        setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.COURSE);
         break;
       case PageTrackingMenuType.INTEREST:
-        props.setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.INTEREST);
+        setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.INTEREST);
         break;
       case PageTrackingMenuType.OPPORTUNITY:
-        props.setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.OPPORTUNITY);
+        setPageTrackingComparisonMenuCategory(PageInterestsCategoryTypes.OPPORTUNITY);
         break;
       default:
         console.error(`Content does not match valid Page Interest Category Types: ${content}`);
@@ -98,22 +99,30 @@ const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
 
   const handleClick = (e, { content }) => {
     e.preventDefault();
-    if (props.type === 'scoreboard') {
-      setPageTrackingScoreboardMenuCategory(content);
+    if (type === 'scoreboard') {
+      setScoreboardMenuCategory(content);
     }
-    setPageTrackingComparisonMenuCategory(content);
+    setComparisonMenuCategory(content);
   };
 
   return (
     <Menu vertical>
-      {menuItems.map((item) => (
-        <Menu.Item
-          key={item.key}
-          content={item.text}
-          active={item.key === props.scoreboardMenuCategory ? true : undefined}
-          onClick={handleClick}
-        />
-      ))}
+      {menuItems.map((item) => {
+        let isActive: boolean | undefined;
+        if (type === 'scoreboard') {
+          isActive = item.key === scoreboardMenuCategory;
+        } else {
+          isActive = item.key === comparisonMenuCategory;
+        }
+        return (
+          <Menu.Item
+            key={item.key}
+            content={item.text}
+            active={isActive}
+            onClick={handleClick}
+          />
+        );
+      })}
     </Menu>
   );
 };

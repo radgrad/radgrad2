@@ -62,12 +62,6 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
     setDirection(direction === 'ascending' ? 'descending' : 'ascending');
   };
 
-  const handleClear = () => {
-    setStartDate(null);
-    setEndDate(null);
-    setData(dataBeforeFilter);
-  };
-
   const handleFilter = () => {
     if (startDate === null || endDate === null) {
       Swal.fire({
@@ -94,6 +88,12 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
     } else {
       setData(filteredAggregatedDailySnapshots);
     }
+  };
+
+  const handleClear = () => {
+    setStartDate(null);
+    setEndDate(null);
+    setData(dataBeforeFilter);
   };
 
   /* ######################### Variables ######################### */
@@ -127,8 +127,8 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
                 <React.Fragment>
                   {data[category].map((snapshot) => (
                     <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
-                      <Table.Cell>{parseName(scoreboardMenuCategory, snapshot.name)}</Table.Cell>
-                      <Table.Cell>{snapshot.views}</Table.Cell>
+                      <Table.Cell width={10}>{parseName(scoreboardMenuCategory, snapshot.name)}</Table.Cell>
+                      <Table.Cell width={6}>{snapshot.views}</Table.Cell>
                     </Table.Row>
                   ))}
                 </React.Fragment>

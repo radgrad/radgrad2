@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Dropdown, Grid, Menu, Table } from 'semantic-ui-react';
+import { Dropdown, Grid, Menu, Table, Message, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
+import _ from 'lodash';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
@@ -23,9 +24,8 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
   aggregateDailySnapshots, getCategory,
-  IAggregatedDailySnapshot, parseName,
+  IAggregatedDailySnapshot, parseName, slugIDToSlugName,
 } from '../../components/shared/page-tracking-helper-functions';
-import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IPageTrackingComparisonWidgetProps {
   pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
@@ -62,8 +62,8 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   const { pageInterestsDailySnapshots, comparisonMenuCategory } = props;
   const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
 
-  const [data, setData] = useState(aggregatedDailySnapshot);
-  const dataBeforeFilter: IAggregatedDailySnapshot = data;
+  const [data, setData] = useState<IPageInterestInfo[]>(undefined);
+  const [dataBeforeFilter, setDataBeforeFilter] = useState<IPageInterestInfo[]>(undefined);
 
   /* ######################### Table State ######################### */
   const [selectedOptions, setSelectedOptions] = useState<string[]>(null);
@@ -81,39 +81,9 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   };
 
   /* ######################### Event Handlers ######################### */
-  const handleSearchSelectionChange = (e, { value }) => {
-    e.preventDefault();
-    setSelectedOptions(value);
-  };
-
-  const handleClear = () => {
-    setStartDate(null);
-    setEndDate(null);
-    setData(dataBeforeFilter);
-  };
-
-  const handleFilter = () => {
-    if (startDate === null || endDate === null) {
-      Swal.fire({
-        title: 'Date Selection Required',
-        text: 'A Start and End Date selection is required.',
-        icon: 'error',
-      });
-
-    }
-
-  };
-
-  const handleSort = (e, clickedColumn) => {
-
-  };
-
-  /* ######################### Functions ######################### */
-  const slugIDToSlugName = (slugID) => Slugs.findOne(slugID).name;
-
-  const getItems = (): IPageInterestInfo[] => {
+  const setItemsToData = () => {
     const category = getCategory(comparisonMenuCategory);
-    const snapshotItems: IPageInterestInfo[] = data[category];
+    const snapshotItems: IPageInterestInfo[] = aggregatedDailySnapshot[category];
     const selectedSlugNames: string[] = [];
     selectedOptions.forEach((option) => {
       const slugName = slugIDToSlugName(option);
@@ -127,58 +97,95 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
         }
       });
     });
-    return filteredItems;
+    setData(filteredItems);
+    setDataBeforeFilter(filteredItems);
   };
 
-  /* ######################### Variables ######################### */
-  const items = selectedOptions !== null ? getItems() : undefined;
+  const handleSearchSelectionChange = (e, { value }) => {
+    e.preventDefault();
+    setSelectedOptions(value);
+  };
+
+  const handleSort = (e, clickedColumn) => {
+    if (column !== clickedColumn) {
+      setColumn(clickedColumn);
+      const newData = _.sortBy(data, [clickedColumn]);
+      setData(newData);
+      setDirection('ascending');
+      return;
+    }
+    const newData = data.slice().reverse();
+    setData(newData);
+    setDirection(direction === 'ascending' ? 'descending' : 'ascending');
+  };
+
+  const handleFilter = () => {
+    if (startDate === null || endDate === null) {
+      Swal.fire({
+        title: 'Date Selection Required',
+        text: 'A Start and End Date selection is required.',
+        icon: 'error',
+      });
+      return;
+    }
+
+  };
+
+  const handleClear = () => {
+    setStartDate(null);
+    setEndDate(null);
+    setData(dataBeforeFilter);
+  };
 
   return (
     <Grid columns={2}>
       <Grid.Column width={11}>
         <Grid.Row>
-          <Dropdown
-            placeholder="Search"
-            onChange={handleSearchSelectionChange}
-            fluid
-            multiple
-            search
-            selection
-            options={getOptions(comparisonMenuCategory)}
-          />
+          <Grid.Column>
+            <Dropdown
+              placeholder="Search"
+              onChange={handleSearchSelectionChange}
+              fluid
+              multiple
+              search
+              selection
+              options={getOptions(comparisonMenuCategory)}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <Button onClick={setItemsToData}>Search</Button>
+          </Grid.Column>
         </Grid.Row>
-        <Table striped sortable style={tableBodyScrollStyle}>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell
-                sorted={column === 'name' ? direction : null}
-                onClick={(e) => handleSort(e, 'name')}
-              >
-                Name
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'views' ? direction : null}
-                onClick={(e) => handleSort(e, 'views')}
-              >
-                Page Views
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {items ?
-              (
-                <>
-                  {items.map((item) => (
-                    <Table.Row>
-                      <Table.Cell>{parseName(comparisonMenuCategory, item.name)}</Table.Cell>
-                      <Table.Cell>{item.views}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </>
-              )
-              : ''}
-          </Table.Body>
-        </Table>
+        {data ?
+          (
+            <Table striped sortable style={tableBodyScrollStyle}>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell
+                    sorted={column === 'name' ? direction : null}
+                    onClick={(e) => handleSort(e, 'name')}
+                  >
+                    Name
+                  </Table.HeaderCell>
+                  <Table.HeaderCell
+                    sorted={column === 'views' ? direction : null}
+                    onClick={(e) => handleSort(e, 'views')}
+                  >
+                    Page Views
+                  </Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {data.map((item) => (
+                  <Table.Row key={`${comparisonMenuCategory}-${item.name}:${item.views}`}>
+                    <Table.Cell width={10}>{parseName(comparisonMenuCategory, item.name)}</Table.Cell>
+                    <Table.Cell width={6}>{item.views}</Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          )
+          : <Message info>Search for items using the Dropdown above</Message>}
       </Grid.Column>
 
       <Grid.Column width={5}>

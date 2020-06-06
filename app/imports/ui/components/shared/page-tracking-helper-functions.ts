@@ -13,6 +13,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 export interface IAggregatedDailySnapshot {
   careerGoals: IPageInterestInfo[];
@@ -127,3 +128,5 @@ export const parseName = (category: IPageInterestsCategoryTypes, slug: string): 
   }
   return doc.name;
 };
+
+export const slugIDToSlugName = (slugID) => Slugs.findOne(slugID).name;
