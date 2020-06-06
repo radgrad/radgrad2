@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
+import moment from 'moment';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
@@ -36,7 +37,7 @@ const mapStateToProps = (state: RootState) => ({
   comparisonMenuCategory: state.shared.pageTracking.comparisonMenuCategory,
 });
 
-const getOptions = (comparisonMenuCategory) => {
+const getOptions = (comparisonMenuCategory: IPageInterestsCategoryTypes) => {
   switch (comparisonMenuCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
       return getOptionsHelper(CareerGoals.find({}).fetch());
@@ -60,30 +61,42 @@ const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunit
 
 const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps) => {
   const { pageInterestsDailySnapshots, comparisonMenuCategory } = props;
-  const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
 
   const [data, setData] = useState<IPageInterestInfo[]>(undefined);
   const [dataBeforeFilter, setDataBeforeFilter] = useState<IPageInterestInfo[]>(undefined);
 
   /* ######################### Table State ######################### */
-  const [selectedOptions, setSelectedOptions] = useState<string[]>(null);
-  const [column, setColumn] = useState<'name' | 'views'>(null);
-  const [direction, setDirection] = useState<'ascending' | 'descending'>(null);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(undefined);
+  const [column, setColumn] = useState<'name' | 'views'>(undefined);
+  const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
 
   /* ######################### Date Picker State ######################### */
-  const [startDate, setStartDate] = useState<Date>(null);
-  const [endDate, setEndDate] = useState<Date>(null);
+  const [startDate, setStartDate] = useState<Date>(undefined);
+  const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
-  const tableBodyScrollStyle = {
+  const tableBodyScrollStyle: React.CSSProperties = {
     maxHeight: '10px',
     overflowY: 'scroll',
   };
 
   /* ######################### Event Handlers ######################### */
-  const setItemsToData = () => {
-    const category = getCategory(comparisonMenuCategory);
-    const snapshotItems: IPageInterestInfo[] = aggregatedDailySnapshot[category];
+  const setItemsToData = (event: React.SyntheticEvent, filtered: boolean) => {
+    event.preventDefault();
+    const category: string = getCategory(comparisonMenuCategory);
+    let aggregatedSnapshot: (IPageInterestInfo[] | IAggregatedDailySnapshot);
+    if (filtered) {
+      const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({
+        timestamp: {
+          $gte: startDate,
+          $lte: moment(endDate).endOf('day').toDate(),
+        },
+      });
+      aggregatedSnapshot = aggregateDailySnapshots(filteredDailySnapshots);
+    } else {
+      aggregatedSnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
+    }
+    const snapshotItems: IPageInterestInfo[] = aggregatedSnapshot[category];
     const selectedSlugNames: string[] = [];
     selectedOptions.forEach((option) => {
       const slugName = slugIDToSlugName(option);
@@ -101,26 +114,27 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
     setDataBeforeFilter(filteredItems);
   };
 
-  const handleSearchSelectionChange = (e, { value }) => {
-    e.preventDefault();
+  const handleChange = (event: React.SyntheticEvent, { value }): void => {
+    event.preventDefault();
     setSelectedOptions(value);
   };
 
-  const handleSort = (e, clickedColumn) => {
+  const handleSort = (event, clickedColumn: ('name' | 'views')): void => {
+    event.preventDefault();
     if (column !== clickedColumn) {
       setColumn(clickedColumn);
-      const newData = _.sortBy(data, [clickedColumn]);
+      const newData: IPageInterestInfo[] = _.sortBy(data, [clickedColumn]);
       setData(newData);
       setDirection('ascending');
       return;
     }
-    const newData = data.slice().reverse();
+    const newData: IPageInterestInfo[] = data.slice().reverse();
     setData(newData);
     setDirection(direction === 'ascending' ? 'descending' : 'ascending');
   };
 
-  const handleFilter = () => {
-    if (startDate === null || endDate === null) {
+  const handleFilter = (event: React.SyntheticEvent): void => {
+    if (startDate === undefined || endDate === undefined) {
       Swal.fire({
         title: 'Date Selection Required',
         text: 'A Start and End Date selection is required.',
@@ -128,12 +142,13 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
       });
       return;
     }
-
+    setItemsToData(event, true);
   };
 
-  const handleClear = () => {
-    setStartDate(null);
-    setEndDate(null);
+  const handleClear = (): void => {
+    setStartDate(undefined);
+    setEndDate(undefined);
+    // TODO not working properly
     setData(dataBeforeFilter);
   };
 
@@ -144,7 +159,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
           <Grid.Column>
             <Dropdown
               placeholder="Search"
-              onChange={handleSearchSelectionChange}
+              onChange={handleChange}
               fluid
               multiple
               search
@@ -152,8 +167,9 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
               options={getOptions(comparisonMenuCategory)}
             />
           </Grid.Column>
+          {/* FIX UI */}
           <Grid.Column>
-            <Button onClick={setItemsToData}>Search</Button>
+            <Button onClick={(e) => setItemsToData(e, false)}>Search</Button>
           </Grid.Column>
         </Grid.Row>
         {data ?
@@ -162,13 +178,13 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell
-                    sorted={column === 'name' ? direction : null}
+                    sorted={column === 'name' ? direction : undefined}
                     onClick={(e) => handleSort(e, 'name')}
                   >
                     Name
                   </Table.HeaderCell>
                   <Table.HeaderCell
-                    sorted={column === 'views' ? direction : null}
+                    sorted={column === 'views' ? direction : undefined}
                     onClick={(e) => handleSort(e, 'views')}
                   >
                     Page Views
@@ -176,6 +192,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
                 </Table.Row>
               </Table.Header>
               <Table.Body>
+                {/* TODO Show items that have 0 views */}
                 {data.map((item) => (
                   <Table.Row key={`${comparisonMenuCategory}-${item.name}:${item.views}`}>
                     <Table.Cell width={10}>{parseName(comparisonMenuCategory, item.name)}</Table.Cell>
