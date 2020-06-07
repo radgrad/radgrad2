@@ -23,6 +23,7 @@ interface IAdvisorStudentSelectorWidgetProps {
   lastName: string;
   username: string;
   students: IStudentProfile[];
+  alumni: IStudentProfile[];
   advisorUsername: string;
   interests: IInterest[];
   careerGoals: ICareerGoal[];
@@ -159,6 +160,10 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
   const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(props.lastName.toLowerCase()));
   const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(props.username.toLowerCase()));
 
+  const filterAlumiFirst = _.filter(props.alumni, s => s.firstName.toLowerCase().includes(props.firstName.toLowerCase()));
+  const filterAlumniLast = _.filter(filterAlumiFirst, s => s.lastName.toLowerCase().includes(props.lastName.toLowerCase()));
+  const filteredAlumni = _.filter(filterAlumniLast, s => s.username.toLowerCase().includes(props.username.toLowerCase()));
+
   const levelOnes = _.filter(filteredStudents, (s) => s.level === 1).length;
   const levelTwos = _.filter(filteredStudents, (s) => s.level === 2).length;
   const levelThrees = _.filter(filteredStudents, (s) => s.level === 3).length;
@@ -213,11 +218,45 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
           </Header>
           <Tab panes={[
             {
-              menuItem: `Students (${props.students.length})`,
+              menuItem: `Students (${filteredStudents.length})`,
               render: () => (
                 <Tab.Pane>
                   <Grid stackable>
                     {filteredStudents.map((student) => (
+                      <Grid.Column style={columnStyle} width={3} key={student._id}>
+                        <Popup
+                          content={`${student.lastName}, ${student.firstName}`}
+                          position="top center"
+                          trigger={(
+                            <Button
+                              basic
+                              color="grey"
+                              fluid
+                              style={buttonStyle}
+                              studentusername={student.username}
+                              onClick={handleSelectStudent}
+                            >
+                              <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
+                              {student.lastName}
+                              ,
+                              {student.firstName}
+                              <br />
+                              {student.username}
+                            </Button>
+                          )}
+                        />
+                      </Grid.Column>
+                    ))}
+                  </Grid>
+                </Tab.Pane>
+              ),
+            },
+            {
+              menuItem: `Alumni (${filteredAlumni.length})`,
+              render: () => (
+                <Tab.Pane>
+                  <Grid stackable>
+                    {filteredAlumni.map((student) => (
                       <Grid.Column style={columnStyle} width={3} key={student._id}>
                         <Popup
                           content={`${student.lastName}, ${student.firstName}`}
@@ -307,7 +346,8 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
 };
 
 const AdvisorStudentSelectorWidgetContainer = withTracker(() => ({
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+  students: StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+  alumni: StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(AdvisorStudentSelectorWidget);
 
 export default connect(mapStateToProps)(AdvisorStudentSelectorWidgetContainer);
