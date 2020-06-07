@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dropdown, Grid, Menu, Table, Message, Button } from 'semantic-ui-react';
+import { Dropdown, Grid, Menu, Table, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -150,7 +150,6 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   const handleClear = (): void => {
     setStartDate(undefined);
     setEndDate(undefined);
-    // TODO not working properly
     setData(dataBeforeFilter);
   };
 
@@ -168,10 +167,6 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
               selection
               options={getOptions(comparisonMenuCategory)}
             />
-          </Grid.Column>
-          {/* FIX UI */}
-          <Grid.Column>
-            <Button onClick={(e) => setItemsToData(e, false)}>Search</Button>
           </Grid.Column>
         </Grid.Row>
         {data ?
@@ -204,10 +199,11 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
               </Table.Body>
             </Table>
           )
-          : <Message info>Search for items using the Dropdown above</Message>}
+          : undefined}
       </Grid.Column>
 
       <Grid.Column width={5}>
+        <Grid.Row><Button onClick={(e) => setItemsToData(e, false)}>Search</Button></Grid.Row>
         <Menu text vertical fluid>
           <Menu.Item header>FILTER BY DATE</Menu.Item>
           <Grid.Row>

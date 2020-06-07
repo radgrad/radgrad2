@@ -8,16 +8,10 @@ import {
 } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import { pageTrackingActions } from '../../../redux/shared/page-tracking';
 import { RootState } from '../../../redux/types';
+import { IMatchProps } from './RouterHelperFunctions';
 
 interface IPageTrackingScoreboardMenuProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IMatchProps
   type: 'scoreboard' | 'comparison';
   scoreboardMenuCategory: IPageInterestsCategoryTypes;
   comparisonMenuCategory: IPageInterestsCategoryTypes;
