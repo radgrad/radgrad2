@@ -111,7 +111,9 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
       });
     });
     setData(filteredItems);
-    setDataBeforeFilter(filteredItems);
+    if (!filtered) {
+      setDataBeforeFilter(filteredItems);
+    }
   };
 
   const handleChange = (event: React.SyntheticEvent, { value }): void => {
