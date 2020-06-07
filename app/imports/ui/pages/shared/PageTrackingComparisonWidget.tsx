@@ -107,7 +107,13 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
         }
       });
     });
-    setData(filteredItems);
+    // Handle sort to main sort properties (ascending/descending for a clicked column) when we filter data
+    if (column !== undefined) {
+      const sortedFilteredItems: IPageInterestInfo[] = _.sortBy(filteredItems, [column]);
+      setData(sortedFilteredItems);
+    } else {
+      setData(filteredItems);
+    }
     if (!filtered) {
       setDataBeforeFilter(filteredItems);
     }

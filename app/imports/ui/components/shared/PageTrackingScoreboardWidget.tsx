@@ -31,9 +31,9 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
 
   /* ######################### Table State ######################### */
-  const [column, setColumn] = useState<'name' | 'views'>(undefined);
   const [data, setData] = useState<IAggregatedDailySnapshot>(aggregatedDailySnapshot);
   const [dataBeforeFilter] = useState<IAggregatedDailySnapshot>(data);
+  const [column, setColumn] = useState<'name' | 'views'>(undefined);
   const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
   /* ######################### Date Picker State ######################### */
   const [startDate, setStartDate] = useState<Date>(undefined);
@@ -78,7 +78,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
       },
     });
     const filteredAggregatedDailySnapshots: IAggregatedDailySnapshot = aggregateDailySnapshots(filteredDailySnapshots);
-    // Handle sort
+    // Handle sort to main sort properties (ascending/descending for a clicked column) when we filter data
     if (column !== undefined) {
       const newData: IAggregatedDailySnapshot = {
         ...filteredAggregatedDailySnapshots,
