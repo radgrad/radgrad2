@@ -8,10 +8,10 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerNavDropdown from '../../components/shared/ExplorerNavDropdown';
 import {
-  EXPLORER_TYPE,
   PAGE_TRACKING_COMPARISON,
   PAGE_TRACKING_SCOREBOARD,
 } from '../../../startup/client/route-constants';
+import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 
 interface IExplorerHomePageProps {
   match: {
@@ -63,7 +63,7 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
               Page</b>!
             <p>
               <Link
-                to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_SCOREBOARD}`)}
+                to={Router.buildRouteName(props.match, `/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -73,7 +73,7 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
             </p>
             <p>
               <Link
-                to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${PAGE_TRACKING_COMPARISON}`)}
+                to={Router.buildRouteName(props.match, `/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dropdown, Grid, Menu, Table, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
@@ -10,7 +10,6 @@ import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
 } from '../../../api/page-tracking/PageInterestsCategoryTypes';
-import { RootState } from '../../../redux/types';
 import {
   ICareerGoal,
   ICourse,
@@ -24,21 +23,18 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  aggregateDailySnapshots, getCategory,
+  aggregateDailySnapshots, getCategory, getUrlCategory,
   IAggregatedDailySnapshot, parseName, slugIDToSlugName,
 } from '../../components/shared/page-tracking-helper-functions';
+import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
 
 interface IPageTrackingComparisonWidgetProps {
+  match: IMatchProps;
   pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
-  comparisonMenuCategory: IPageInterestsCategoryTypes;
 }
 
-const mapStateToProps = (state: RootState) => ({
-  comparisonMenuCategory: state.shared.pageTracking.comparisonMenuCategory,
-});
-
-const getOptions = (comparisonMenuCategory: IPageInterestsCategoryTypes) => {
-  switch (comparisonMenuCategory) {
+const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
+  switch (urlCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
       return getOptionsHelper(CareerGoals.find({}).fetch());
     case PageInterestsCategoryTypes.COURSE:
@@ -48,7 +44,7 @@ const getOptions = (comparisonMenuCategory: IPageInterestsCategoryTypes) => {
     case PageInterestsCategoryTypes.OPPORTUNITY:
       return getOptionsHelper(Opportunities.find({}).fetch());
     default:
-      console.error(`Bad comparisonMenuCategory: ${comparisonMenuCategory}`);
+      console.error(`Bad category: ${urlCategory}`);
       return undefined;
   }
 };
@@ -60,7 +56,8 @@ const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunit
 }));
 
 const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps) => {
-  const { pageInterestsDailySnapshots, comparisonMenuCategory } = props;
+  const { pageInterestsDailySnapshots, match } = props;
+  const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
 
   const [data, setData] = useState<IPageInterestInfo[]>(undefined);
   const [dataBeforeFilter, setDataBeforeFilter] = useState<IPageInterestInfo[]>(undefined);
@@ -83,7 +80,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   /* ######################### Event Handlers ######################### */
   const setItemsToData = (event: React.SyntheticEvent, filtered: boolean) => {
     event.preventDefault();
-    const category: string = getCategory(comparisonMenuCategory);
+    const category: string = getCategory(urlCategory);
     let aggregatedSnapshot: (IPageInterestInfo[] | IAggregatedDailySnapshot);
     if (filtered) {
       const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({
@@ -156,6 +153,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   return (
     <Grid columns={2}>
       <Grid.Column width={11}>
+        {/* Search Dropdown */}
         <Grid.Row>
           <Grid.Column>
             <Dropdown
@@ -165,10 +163,11 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
               multiple
               search
               selection
-              options={getOptions(comparisonMenuCategory)}
+              options={getOptions(urlCategory)}
             />
           </Grid.Column>
         </Grid.Row>
+        {/* Table View */}
         {data ?
           (
             <Table striped sortable style={tableBodyScrollStyle}>
@@ -191,8 +190,8 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
               <Table.Body>
                 {/* TODO Show items that have 0 views */}
                 {data.map((item) => (
-                  <Table.Row key={`${comparisonMenuCategory}-${item.name}:${item.views}`}>
-                    <Table.Cell width={10}>{parseName(comparisonMenuCategory, item.name)}</Table.Cell>
+                  <Table.Row key={`${urlCategory}-${item.name}:${item.views}`}>
+                    <Table.Cell width={10}>{parseName(urlCategory, item.name)}</Table.Cell>
                     <Table.Cell width={6}>{item.views}</Table.Cell>
                   </Table.Row>
                 ))}
@@ -203,7 +202,9 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
       </Grid.Column>
 
       <Grid.Column width={5}>
+        {/* Search Button */}
         <Grid.Row><Button onClick={(e) => setItemsToData(e, false)}>Search</Button></Grid.Row>
+        {/* Date Filter */}
         <Menu text vertical fluid>
           <Menu.Item header>FILTER BY DATE</Menu.Item>
           <Grid.Row>
@@ -241,12 +242,12 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   );
 };
 
-const PageTrackingComparisonWidgetCon = connect(mapStateToProps)(PageTrackingComparisonWidget);
-const PageTrackingComparisonWidgetContainer = withTracker(() => {
+const PageTrackingComparisonWidgetCon = withTracker(() => {
   const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({});
   return {
     pageInterestsDailySnapshots,
   };
-})(PageTrackingComparisonWidgetCon);
+})(PageTrackingComparisonWidget);
+const PageTrackingComparisonWidgetContainer = withRouter(PageTrackingComparisonWidgetCon);
 
 export default PageTrackingComparisonWidgetContainer;

@@ -14,6 +14,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { getLastUrlParam, IMatchProps } from './RouterHelperFunctions';
 
 export interface IAggregatedDailySnapshot {
   careerGoals: IPageInterestInfo[];
@@ -21,6 +22,27 @@ export interface IAggregatedDailySnapshot {
   interests: IPageInterestInfo[];
   opportunities: IPageInterestInfo[];
 }
+
+// urlCategory is of type PageInterestsCategoryTypes
+export const getUrlCategory = (match: IMatchProps) => getLastUrlParam(match) as PageInterestsCategoryTypes;
+
+// category is of type IPageInterestsDailySnapshot
+export const getCategory = (selectedCategory: IPageInterestsCategoryTypes): string => {
+  switch (selectedCategory) {
+    case PageInterestsCategoryTypes.CAREERGOAL:
+      return 'careerGoals';
+    case PageInterestsCategoryTypes.COURSE:
+      return 'courses';
+    case PageInterestsCategoryTypes.INTEREST:
+      return 'interests';
+    case PageInterestsCategoryTypes.OPPORTUNITY:
+      return 'opportunities';
+    default:
+      console.error(`Bad selectedCategory: ${selectedCategory}`);
+      break;
+  }
+  return undefined;
+};
 
 export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAggregatedDailySnapshot => {
   const aggregatedSnapshot: IAggregatedDailySnapshot = {
@@ -88,23 +110,6 @@ const containsKey = (object: IPageInterestInfo, arr: IPageInterestInfo[]) => {
     }
   }
   return false;
-};
-
-export const getCategory = (selectedCategory: IPageInterestsCategoryTypes): string => {
-  switch (selectedCategory) {
-    case PageInterestsCategoryTypes.CAREERGOAL:
-      return 'careerGoals';
-    case PageInterestsCategoryTypes.COURSE:
-      return 'courses';
-    case PageInterestsCategoryTypes.INTEREST:
-      return 'interests';
-    case PageInterestsCategoryTypes.OPPORTUNITY:
-      return 'opportunities';
-    default:
-      console.error(`Bad selectedCategory: ${selectedCategory}`);
-      break;
-  }
-  return undefined;
 };
 
 export const parseName = (category: IPageInterestsCategoryTypes, slug: string): string => {

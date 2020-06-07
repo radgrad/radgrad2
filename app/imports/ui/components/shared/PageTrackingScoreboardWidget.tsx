@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Grid, Menu, Table } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
+import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { IPageInterestsDailySnapshot } from '../../../typings/radgrad';
-import { IPageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
-import { RootState } from '../../../redux/types';
 import {
   aggregateDailySnapshots,
-  getCategory,
+  getCategory, getUrlCategory,
   IAggregatedDailySnapshot,
   parseName,
 } from './page-tracking-helper-functions';
+import { IMatchProps } from './RouterHelperFunctions';
+import { IPageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 
 interface IPageTrackingScoreboardWidgetProps {
+  match: IMatchProps;
   pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
-  scoreboardMenuCategory: IPageInterestsCategoryTypes;
 }
 
-const mapStateToProps = (state: RootState) => ({
-  scoreboardMenuCategory: state.shared.pageTracking.scoreboardMenuCategory,
-});
-
 const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps) => {
-  const { pageInterestsDailySnapshots, scoreboardMenuCategory } = props;
+  const { pageInterestsDailySnapshots, match } = props;
+  const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
+  // See page-tracking-helper-functions.ts to see urlCategory vs category
+  const category = getCategory(urlCategory);
+
   const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
 
   /* ######################### Table State ######################### */
-  const [column, setColumn] = useState<'name' | 'views'>(null);
+  const [column, setColumn] = useState<'name' | 'views'>(undefined);
   const [data, setData] = useState<IAggregatedDailySnapshot>(aggregatedDailySnapshot);
-  const dataBeforeFilter: IAggregatedDailySnapshot = data;
-  const [direction, setDirection] = useState<'ascending' | 'descending'>(null);
+  const [dataBeforeFilter] = useState<IAggregatedDailySnapshot>(data);
+  const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
   /* ######################### Date Picker State ######################### */
-  const [startDate, setStartDate] = useState<Date>(null);
-  const [endDate, setEndDate] = useState<Date>(null);
+  const [startDate, setStartDate] = useState<Date>(undefined);
+  const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
   const tableBodyScrollStyle = {
@@ -63,7 +63,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   };
 
   const handleFilter = () => {
-    if (startDate === null || endDate === null) {
+    if (startDate === undefined || endDate === undefined) {
       Swal.fire({
         title: 'Date Selection Required',
         text: 'A Start and End Date selection is required.',
@@ -79,7 +79,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
     });
     const filteredAggregatedDailySnapshots: IAggregatedDailySnapshot = aggregateDailySnapshots(filteredDailySnapshots);
     // Handle sort
-    if (column !== null) {
+    if (column !== undefined) {
       const newData: IAggregatedDailySnapshot = {
         ...filteredAggregatedDailySnapshots,
         [category]: _.sortBy(filteredAggregatedDailySnapshots[category], [column]),
@@ -91,29 +91,26 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   };
 
   const handleClear = () => {
-    setStartDate(null);
-    setEndDate(null);
+    setStartDate(undefined);
+    setEndDate(undefined);
     setData(dataBeforeFilter);
   };
 
-  /* ######################### Variables ######################### */
-  const category = getCategory(scoreboardMenuCategory);
-
   return (
     <Grid columns={2}>
-      {/* Scoreboard View */}
+      {/* Table View */}
       <Grid.Column width={11}>
         <Table striped sortable style={tableBodyScrollStyle}>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell
-                sorted={column === 'name' ? direction : null}
+                sorted={column === 'name' ? direction : undefined}
                 onClick={(e) => handleSort(e, 'name')}
               >
                 Name
               </Table.HeaderCell>
               <Table.HeaderCell
-                sorted={column === 'views' ? direction : null}
+                sorted={column === 'views' ? direction : undefined}
                 onClick={(e) => handleSort(e, 'views')}
               >
                 Page Views
@@ -127,18 +124,18 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
                 <React.Fragment>
                   {data[category].map((snapshot) => (
                     <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
-                      <Table.Cell width={10}>{parseName(scoreboardMenuCategory, snapshot.name)}</Table.Cell>
+                      <Table.Cell width={10}>{parseName(urlCategory, snapshot.name)}</Table.Cell>
                       <Table.Cell width={6}>{snapshot.views}</Table.Cell>
                     </Table.Row>
                   ))}
                 </React.Fragment>
               )
-              : 'There are no items in this category that have more than 0 views.'}
+              : undefined}
           </Table.Body>
         </Table>
       </Grid.Column>
 
-      {/* Filters */}
+      {/* Date Filter */}
       <Grid.Column width={5}>
         <Menu text vertical fluid>
           <Menu.Item header>FILTER BY DATE</Menu.Item>
@@ -177,12 +174,11 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   );
 };
 
-const PageTrackingScoreboardWidgetCon = connect(mapStateToProps)(PageTrackingScoreboardWidget);
-const PageTrackingScoreboardWidgetContainer = withTracker(() => {
+const PageTrackingScoreboardWidgetCon = withTracker(() => {
   const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({});
   return {
     pageInterestsDailySnapshots,
   };
-})(PageTrackingScoreboardWidgetCon);
-
+})(PageTrackingScoreboardWidget);
+const PageTrackingScoreboardWidgetContainer = withRouter(PageTrackingScoreboardWidgetCon);
 export default PageTrackingScoreboardWidgetContainer;

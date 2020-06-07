@@ -9,7 +9,7 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import PageTrackingScoreboardMenu from '../../components/shared/PageTrackingMenu';
+import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
 import PageTrackingComparisonWidget from './PageTrackingComparisonWidget';
 
 interface IPageTrackingComparisonPageProps {
@@ -50,7 +50,7 @@ const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => 
         <Grid.Row>
           <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <PageTrackingScoreboardMenu type="comparison" />
+            <PageTrackingMenu type="comparison" />
           </Grid.Column>
 
           <Grid.Column width={11} stretched>
