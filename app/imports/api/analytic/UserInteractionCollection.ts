@@ -44,6 +44,10 @@ class UserInteractionCollection extends BaseCollection {
    * @param timestamp The time of interaction.
    */
   public define({ username, type, typeData, timestamp = moment().toDate() }: IUserInteractionDefine): string {
+    const doc = this.collection.findOne({ username, type, typeData, timestamp });
+    if (doc) {
+      return doc._id;
+    }
     return this.collection.insert({ username, type, typeData, timestamp });
   }
 
