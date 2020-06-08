@@ -51,6 +51,10 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
    * @param retired boolean optional defaults to false.
    */
   public define({ careerGoals, courses, interests, opportunities, timestamp = moment().toDate(), retired = false }: IPageInterestsDailySnapshotDefine): string {
+    const doc = this.collection.findOne({ careerGoals, courses, interests, opportunities, timestamp, retired });
+    if (doc) {
+      return doc._id;
+    }
     return this.collection.insert({ careerGoals, courses, interests, opportunities, timestamp, retired });
   }
 
@@ -83,26 +87,26 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
       });
       doc.courses.forEach((course) => {
         if (!Slugs.isDefined(course.name)) {
-          problems.push(`Bad careerGoal slug: ${course.name}`);
+          problems.push(`Bad course slug: ${course.name}`);
         }
         if (course.views < 0) {
-          problems.push(`Bad careerGoal views: ${course.views}`);
+          problems.push(`Bad course views: ${course.views}`);
         }
       });
       doc.interests.forEach((interest) => {
         if (!Slugs.isDefined(interest.name)) {
-          problems.push(`Bad careerGoal slug: ${interest.name}`);
+          problems.push(`Bad interest slug: ${interest.name}`);
         }
         if (interest.views < 0) {
-          problems.push(`Bad careerGoal views: ${interest.views}`);
+          problems.push(`Bad interest views: ${interest.views}`);
         }
       });
       doc.opportunities.forEach((opportunity) => {
         if (!Slugs.isDefined(opportunity.name)) {
-          problems.push(`Bad careerGoal slug: ${opportunity.name}`);
+          problems.push(`Bad opportunity slug: ${opportunity.name}`);
         }
         if (opportunity.views < 0) {
-          problems.push(`Bad careerGoal views: ${opportunity.views}`);
+          problems.push(`Bad opportunity views: ${opportunity.views}`);
         }
       });
     });
