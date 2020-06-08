@@ -2,7 +2,6 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { IPageInterestsDailySnapshot, IPageInterestsDailySnapshotDefine } from '../../typings/radgrad';
-import { ROLE } from '../role/Role';
 import { Slugs } from '../slug/SlugCollection';
 
 /**
@@ -62,25 +61,6 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
   public removeIt(docID: string): boolean {
     this.assertDefined(docID);
     return super.removeIt(docID);
-  }
-
-  /**
-   * Asserts that the userID belongs to an admin role when running the find and removeUser method within this class.
-   * Only Admins should be able to query a DEFINE, REMOVE, and UPDATE from this collection.
-   * @param userId The userId of the logged in user.
-   */
-  public assertAdminRoleForMethod(userId: string) {
-    this.assertRole(userId, [ROLE.ADMIN]);
-  }
-
-  /**
-   * Asserts that the userID belongs to a valid role when running the define method within this class.
-   * Admins, Students, Advisor, Mentor, and Faculty can query a FIND from this collection.
-   * Prefer to call this method via pageInterestsFindMethod.
-   * @param userId The userId of the logged in user.
-   */
-  public assertValidRoleForMethod(userId: string) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.STUDENT, ROLE.ADVISOR, ROLE.MENTOR, ROLE.FACULTY]);
   }
 
   /**

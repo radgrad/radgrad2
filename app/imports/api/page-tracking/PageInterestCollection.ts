@@ -69,7 +69,7 @@ class PageInterestCollection extends BaseCollection {
    * @param userId The userId of the logged in user.
    */
   public assertValidRoleForMethod(userId: string) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.STUDENT, ROLE.ADVISOR, ROLE.MENTOR, ROLE.FACULTY]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.STUDENT]);
   }
 
   /**
