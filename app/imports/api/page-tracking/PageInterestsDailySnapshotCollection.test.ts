@@ -7,7 +7,11 @@ import {
   makeSamplePageInterestInfoArray,
   makeSamplePageInterestsDailySnapshot,
 } from './SamplePageInterestsDailySnapshots';
-import { IPageInterestInfo, IPageInterestsDailySnapshot } from '../../typings/radgrad';
+import {
+  IPageInterestInfo,
+  IPageInterestsDailySnapshot,
+  IPageInterestsDailySnapshotDefine,
+} from '../../typings/radgrad';
 
 /* eslint @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -31,7 +35,7 @@ if (Meteor.isServer) {
           const courses: IPageInterestInfo[] = makeSamplePageInterestInfoArray(coursesNum);
           const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(interestsNum);
           const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(opportunitiesNum);
-          const docID: string = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+          const docID = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
 
           expect(PageInterestsDailySnapshots.isDefined(docID)).to.be.true;
           PageInterestsDailySnapshots.removeIt(docID);
@@ -47,10 +51,10 @@ if (Meteor.isServer) {
       const courses: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
-      const docID1: string = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+      const docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
       const docID1Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID1 });
       const docID1Timestamp: Date = docID1Object.timestamp;
-      const docID2: string = PageInterestsDailySnapshots.define({
+      const docID2 = PageInterestsDailySnapshots.define({
         careerGoals,
         courses,
         interests,
@@ -65,13 +69,15 @@ if (Meteor.isServer) {
     });
 
     it('Can dumpOne, removeIt, and restoreOne', function test3() {
-      let docID: string = makeSamplePageInterestsDailySnapshot();
+      let docID = makeSamplePageInterestsDailySnapshot();
       const original: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findDoc(docID);
-      const dumpObject = PageInterestsDailySnapshots.dumpOne(docID);
+      const dumpObject: IPageInterestsDailySnapshotDefine = PageInterestsDailySnapshots.dumpOne(docID);
       PageInterestsDailySnapshots.removeIt(docID);
       expect(PageInterestsDailySnapshots.isDefined(docID)).to.be.false;
+
       docID = PageInterestsDailySnapshots.restoreOne(dumpObject);
       expect(PageInterestsDailySnapshots.isDefined(docID)).to.be.true;
+
       const restored: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findDoc(docID);
       expect(original.careerGoals).to.deep.equal(restored.careerGoals);
       expect(original.courses).to.deep.equal(restored.courses);
@@ -85,7 +91,7 @@ if (Meteor.isServer) {
       const pageInterestsDailySnapshot: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({});
       const errors = PageInterestsDailySnapshots.checkIntegrity();
       const { careerGoals, courses, interests, opportunities } = pageInterestsDailySnapshot;
-      const numSlugs: number = careerGoals.length + courses.length + interests.length + opportunities.length;
+      const numSlugs = careerGoals.length + courses.length + interests.length + opportunities.length;
 
       // When we call makeSamplePageInterestsDailySnapshot we don't create the random slugs that it generates
       expect(errors.length).to.equal(numSlugs);

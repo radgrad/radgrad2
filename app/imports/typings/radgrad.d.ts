@@ -791,16 +791,16 @@ export interface IPageInterest extends IDocument {
   username: string;
   category: string;
   name: string;
-  views: number;
   timestamp: Date;
+  retired: boolean;
 }
 
 export interface IPageInterestDefine extends IDumpOne {
   username: string;
   category: string;
   name: string;
-  views?: number;
   timestamp?: Date;
+  retired?: boolean;
 }
 
 export interface IPageInterestInfo {

@@ -42,9 +42,14 @@ class PageInterestCollection extends BaseCollection {
    * @param category The topic category that this snapshot represents
    * @param name The name that the page represents
    * @param timestamp Timestamp of when this snapshot was recorded
+   * @param retired boolean optional defaults to false.
    */
-  public define({ username, category, name, timestamp = moment().toDate() }: IPageInterestDefine): string {
-    return this.collection.insert({ username, category, name, timestamp });
+  public define({ username, category, name, timestamp = moment().toDate(), retired = false }: IPageInterestDefine): string {
+    const doc = this.collection.findOne({ username, category, name, timestamp, retired });
+    if (doc) {
+      return doc._id;
+    }
+    return this.collection.insert({ username, category, name, timestamp, retired });
   }
 
   /**
@@ -106,7 +111,8 @@ class PageInterestCollection extends BaseCollection {
     const category = doc.category;
     const name = doc.name;
     const timestamp = doc.timestamp;
-    return { username, category, name, timestamp };
+    const retired = doc.retired;
+    return { username, category, name, timestamp, retired };
   }
 
   /**
