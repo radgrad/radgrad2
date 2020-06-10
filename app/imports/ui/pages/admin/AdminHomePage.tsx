@@ -30,7 +30,6 @@ const AdminHomePage = () => {
     setusernameRegex(userNameRegex);
   };
 
-  // TODO: remove after done with issue-138
   const handleClick = (e) => {
     e.preventDefault();
     userInteractionFindMethod.call({}, (error, result) => {
@@ -49,8 +48,8 @@ const AdminHomePage = () => {
     <div>
       <AdminPageMenuWidget />
       <Container textAlign="center" fluid={false}>
-        {/* TODO: remove after done with issue-158 */}
-        <Button onClick={handleClick}>User Interactions</Button>
+        {/* TODO: remove after done with issue-138 */}
+        <Button onClick={handleClick}>Interactions</Button>
         <FilterUserWidget
           updateFirstNameRegex={updateFirstNameRegex}
           updateLastNameRegex={updateLastNameRegex}
