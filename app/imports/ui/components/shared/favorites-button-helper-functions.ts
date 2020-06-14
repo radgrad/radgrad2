@@ -6,10 +6,12 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import {
   IBaseProfile,
-  IFavoriteAcademicPlan,
-  IFavoriteCareerGoal,
-  IFavoriteCourse,
-  IFavoriteInterest, IFavoriteOpportunity, IPageInterestDefine,
+  IFavoriteAcademicPlanDefine,
+  IFavoriteCareerGoalDefine,
+  IFavoriteCourseDefine,
+  IFavoriteInterestDefine,
+  IFavoriteOpportunityDefine,
+  IPageInterestDefine,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -52,7 +54,7 @@ export const getStudent = (studentID: string): string => {
 
 export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
-export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcademicPlan | IFavoriteCareerGoal | IFavoriteCourse | IFavoriteInterest | IFavoriteOpportunity => {
+export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcademicPlanDefine | IFavoriteCareerGoalDefine | IFavoriteCourseDefine | IFavoriteInterestDefine | IFavoriteOpportunityDefine => {
   const student = getStudent(props.studentID);
   const slug = getSlug(props.item.slugID);
   let definitionData;
@@ -61,35 +63,30 @@ export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcad
       definitionData = {
         student,
         academicPlan: slug,
-        retired: false,
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
       definitionData = {
         username: student,
         careerGoal: slug,
-        retired: false,
       };
       break;
     case FAVORITE_TYPE.COURSE:
       definitionData = {
         student,
         course: slug,
-        retired: false,
       };
       break;
     case FAVORITE_TYPE.INTEREST:
       definitionData = {
         username: student,
         interest: slug,
-        retired: false,
       };
       break;
     case FAVORITE_TYPE.OPPORTUNITY:
       definitionData = {
         student,
         opportunity: slug,
-        retired: false,
       };
       break;
     default:
