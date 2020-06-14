@@ -188,6 +188,9 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
           console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
+
+      // Page Interests
+
     }
   });
 };

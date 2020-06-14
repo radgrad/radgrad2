@@ -5,7 +5,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';
 import FilterUserWidget from '../../components/shared/FilterUserWidget';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { pageInterestFindMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
+import { pageInterestAdminFindMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
 
 export interface IFilterUsers {
   firstNameRegex?: string;
@@ -36,7 +36,7 @@ const AdminHomePage = () => {
       const userInteractions = _.groupBy(result, 'username');
       console.log('userInteractions %o', userInteractions);
     });
-    pageInterestFindMethod.call({}, (error, result) => {
+    pageInterestAdminFindMethod.call({}, (error, result) => {
       const pageInterests = _.groupBy(result, 'username');
       console.log('pageInterests %o', pageInterests);
     });

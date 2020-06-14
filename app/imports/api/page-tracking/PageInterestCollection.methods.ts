@@ -35,7 +35,7 @@ export const pageInterestRemoveUserMethod = new ValidatedMethod({
  * The validated method for finding PageInterests.
  * @memberOf api/page-tracking
  */
-export const pageInterestFindMethod = new ValidatedMethod({
+export const pageInterestAdminFindMethod = new ValidatedMethod({
   name: 'PageInterest.find',
   validate: null,
   mixins: [CallPromiseMixin],

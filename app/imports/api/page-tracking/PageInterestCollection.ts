@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
+import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
@@ -122,7 +123,23 @@ class PageInterestCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () => this.collection.find({}, { limit: 0 }));
+      // Meteor.publish(this.collectionName, () => this.collection.find({}, { limit: 0 }));
+      const instance = this;
+      // eslint-disable-next-line meteor/audit-argument-checks
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) {
+        if (!studentID) {
+          return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (_.includes([ROLE.STUDENT], profile.role)) {
+          const username = profile.username;
+
+          // Only expose PageInterests for the past 24 hours
+          const yesterday = moment().subtract(24, 'hours').toDate();
+          return instance.collection.find({ username, timestamp: { $gte: yesterday } });
+        }
+        return instance.collection.find({}, { limit: 0 });
+      });
     }
   }
 }

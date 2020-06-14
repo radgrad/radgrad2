@@ -63,7 +63,7 @@ class FavoriteCourseCollection extends BaseCollection {
   removeIt(docID) {
     this.assertDefined(docID);
     // OK, clear to delete.
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
