@@ -196,8 +196,10 @@ function withHistoryListen(WrappedComponent) {
           }
         });
 
+        const isValidParameter = (p) => p === EXPLORER_TYPE.CAREERGOALS || p === EXPLORER_TYPE.COURSES || p === EXPLORER_TYPE.INTERESTS || p === EXPLORER_TYPE.OPPORTUNITIES;
+
         // Defining Page Interests
-        if (parameters[0] === EXPLORER_TYPE.HOME && parameters[2]) {
+        if (parameters[0] === EXPLORER_TYPE.HOME && parameters[2] && isValidParameter(parameters[1])) {
           // Don't create a PageInterest in case we ever change how the URL of Explorer Pages are structured
           // since we're directly accessing parameters for data
           if (parameters.length > 3) {
@@ -222,8 +224,6 @@ function withHistoryListen(WrappedComponent) {
             case EXPLORER_TYPE.OPPORTUNITIES:
               category = PageInterestsCategoryTypes.OPPORTUNITY;
               break;
-            default:
-            // We only track and define Page Interests for the case statements above
           }
           // TODO: Implementation of Page Interest View defining
           const pageInterestData: IPageInterestDefine = { username, category, name: parameters[2] };

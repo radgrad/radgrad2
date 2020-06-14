@@ -3,7 +3,20 @@ import { Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IMeteorError, IOpportunity } from '../../../typings/radgrad';
+import {
+  IAcademicPlan,
+  IBaseProfile,
+  ICareerGoal,
+  ICourse,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
+  IInterest,
+  IMeteorError,
+  IOpportunity,
+} from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
@@ -12,35 +25,102 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import * as Router from './RouterHelperFunctions';
 import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
+import { FAVORITE_TYPE, IFavoriteTypes } from '../../../api/favorite/FavoriteTypes';
 
 interface IFavoriteButtonProps {
-  studentID: string;
-  type: string;
-  role: string;
   item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+  studentID: string;
+  type: IFavoriteTypes;
   added: boolean;
 }
 
-const handleAdd = (props: IFavoriteButtonProps) => () => {
-  // console.log('handleAdd', props);
-  const profile = Users.getProfile(props.studentID);
-  const student = profile.username;
-  let collectionName;
-  let definitionData: any;
-  let interactionData: UserInteractionsDataType;
-  const slug = Slugs.getNameFromID(props.item.slugID);
-  switch (props.type) {
+const getCollectionName = (type: IFavoriteTypes): string => {
+  let collectionName: string;
+  switch (type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       collectionName = FavoriteAcademicPlans.getCollectionName();
+      break;
+    case FAVORITE_TYPE.CAREERGOAL:
+      collectionName = FavoriteCareerGoals.getCollectionName();
+      break;
+    case FAVORITE_TYPE.COURSE:
+      collectionName = FavoriteCourses.getCollectionName();
+      break;
+    case FAVORITE_TYPE.INTEREST:
+      collectionName = FavoriteInterests.getCollectionName();
+      break;
+    case FAVORITE_TYPE.OPPORTUNITY:
+      collectionName = FavoriteOpportunities.getCollectionName();
+      break;
+    default:
+      console.error(`Bad favorite type: ${type}`);
+      break;
+  }
+  return collectionName;
+};
+
+const getStudent = (studentID: string): string => {
+  const profile: IBaseProfile = Users.getProfile(studentID);
+  return profile.username;
+};
+
+const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
+
+const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcademicPlan | IFavoriteCareerGoal | IFavoriteCourse | IFavoriteInterest | IFavoriteOpportunity => {
+  const student = getStudent(props.studentID);
+  const slug = getSlug(props.item.slugID);
+  let definitionData;
+  switch (props.type) {
+    case FAVORITE_TYPE.ACADEMICPLAN:
       definitionData = {
         student,
         academicPlan: slug,
         retired: false,
       };
+      break;
+    case FAVORITE_TYPE.CAREERGOAL:
+      definitionData = {
+        username: student,
+        careerGoal: slug,
+        retired: false,
+      };
+      break;
+    case FAVORITE_TYPE.COURSE:
+      definitionData = {
+        student,
+        course: slug,
+        retired: false,
+      };
+      break;
+    case FAVORITE_TYPE.INTEREST:
+      definitionData = {
+        username: student,
+        interest: slug,
+        retired: false,
+      };
+      break;
+    case FAVORITE_TYPE.OPPORTUNITY:
+      definitionData = {
+        student,
+        opportunity: slug,
+        retired: false,
+      };
+      break;
+    default:
+      console.error(`Bad favorite type: ${props.type}`);
+      break;
+  }
+  return definitionData;
+};
+
+const createInteractionData = (props: IFavoriteButtonProps): UserInteractionsDataType => {
+  const student = getStudent(props.studentID);
+  const slug = getSlug(props.item.slugID);
+  let interactionData: UserInteractionsDataType;
+  switch (props.type) {
+    case FAVORITE_TYPE.ACADEMICPLAN:
       interactionData = {
         username: student,
         type: UserInteractionsTypes.FAVORITEITEM,
@@ -48,12 +128,6 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
-      collectionName = FavoriteCareerGoals.getCollectionName();
-      definitionData = {
-        username: student,
-        careerGoal: slug,
-        retired: false,
-      };
       interactionData = {
         username: student,
         type: UserInteractionsTypes.FAVORITEITEM,
@@ -61,12 +135,6 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       break;
     case FAVORITE_TYPE.COURSE:
-      collectionName = FavoriteCourses.getCollectionName();
-      definitionData = {
-        student,
-        course: slug,
-        retired: false,
-      };
       interactionData = {
         username: student,
         type: UserInteractionsTypes.FAVORITEITEM,
@@ -74,31 +142,31 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       };
       break;
     case FAVORITE_TYPE.INTEREST:
-      collectionName = FavoriteInterests.getCollectionName();
-      definitionData = {
-        username: student,
-        interest: slug,
-        retired: false,
-      };
       interactionData = {
         username: student,
         type: UserInteractionsTypes.FAVORITEITEM,
         typeData: `${props.type}:${slug}`,
       };
       break;
-    default: // opportunity
-      collectionName = FavoriteOpportunities.getCollectionName();
-      definitionData = {
-        student,
-        opportunity: slug,
-        retired: false,
-      };
+    case FAVORITE_TYPE.OPPORTUNITY:
       interactionData = {
         username: student,
         type: UserInteractionsTypes.FAVORITEITEM,
         typeData: `${props.type}:${slug}`,
       };
+      break;
+    default:
+      console.error(`Bad favorite type: ${props.type}`);
+      break;
   }
+  return interactionData;
+};
+
+const handleAdd = (props: IFavoriteButtonProps) => () => {
+  const collectionName = getCollectionName(props.type);
+  const definitionData = createDefinitionData(props);
+  const interactionData = createInteractionData(props);
+
   defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
     if (error) {
       Swal.fire({
@@ -208,6 +276,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       console.error('Error creating UserInteraction.', userInteractionError);
     }
   });
+
 };
 
 
@@ -248,9 +317,7 @@ export default withRouter(withTracker((props) => {
     FavoriteCourses.findNonRetired({ studentID: props.studentID, courseID: props.item._id }).length +
     FavoriteInterests.findNonRetired({ userID: props.studentID, interestID: props.item._id }).length +
     FavoriteOpportunities.findNonRetired({ studentID: props.studentID, opportunityID: props.item._id }).length;
-  const role = Router.getRoleByUrl(props.match);
   return {
     added: count > 0,
-    role,
   };
 })(FavoritesButton));
