@@ -323,9 +323,10 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param profileID The ID for this profile object.
    */
   public removeIt(profileID) {
+    // FIXME Fix consistent-return
     if (this.isDefined(profileID)) {
       // const doc = this.findDoc(profileID);
-      super.removeIt(profileID);
+      return super.removeIt(profileID);
     }
   }
 
