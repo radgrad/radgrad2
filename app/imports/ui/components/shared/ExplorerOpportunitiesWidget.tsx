@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { Divider, Embed, Grid, Header, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IOpportunity } from '../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
@@ -19,6 +19,7 @@ import FutureParticipation from './FutureParticipation';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { toId } from '../../shared/description-pair-helpers';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
+import TeaserVideo from './TeaserVideo';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -201,14 +202,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
                         <React.Fragment>
                           <b>{descriptionPair.label}: </b>
                           {descriptionPair.value ?
-                            (
-                              <Embed
-                                active
-                                autoplay={false}
-                                source="youtube"
-                                id={teaserUrlHelper(props)}
-                              />
-                            )
+                            (<TeaserVideo id={teaserUrlHelper(props)} />)
                             : <p>N/A </p>}
                         </React.Fragment>
                       )

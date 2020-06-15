@@ -6,7 +6,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import StudentTeaserWidgetVideo from './StudentTeaserWidgetVideo';
 import InterestList from '../shared/InterestList';
 import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -14,6 +13,7 @@ import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelper
 import { studentTeaserWidget } from './student-widget-names';
 import { ISlug, ITeaser } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import TeaserVideo from '../shared/TeaserVideo';
 
 interface IStudentTeaserWidgetProps {
   match: {
@@ -142,7 +142,7 @@ const StudentTeaserWidget = (props: IStudentTeaserWidgetProps) => {
                         </Card.Content>
 
                         <Card.Content style={teaserWidgetVideoStyle}>
-                          <StudentTeaserWidgetVideo teaserUrl={teaserUrl(teaser)} />
+                          <TeaserVideo id={teaserUrl(teaser)} />
                         </Card.Content>
 
                         <Card.Content>

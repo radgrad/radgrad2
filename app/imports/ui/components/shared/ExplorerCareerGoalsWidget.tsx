@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Segment, Header, Divider, Image, Popup, Embed } from 'semantic-ui-react';
+import { Grid, Segment, Header, Divider, Image, Popup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +17,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { toId } from '../../shared/description-pair-helpers';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
+import TeaserVideo from './TeaserVideo';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
@@ -124,14 +125,8 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                   :
                                 </b>
                                 {
-                                    descriptionPair.value ? (
-                                      <Embed
-                                        active
-                                        autoplay={false}
-                                        source="youtube"
-                                        id={teaserUrlHelper(props)}
-                                      />
-                                      )
+                                    descriptionPair.value ?
+                                      (<TeaserVideo id={teaserUrlHelper(props)} />)
                                       :
                                       <p> N/A </p>
                                   }
