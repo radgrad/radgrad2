@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dropdown, Grid, Menu, Table, Button } from 'semantic-ui-react';
+import { Dropdown, Grid, Table, Button, Header } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -72,10 +72,8 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
-  const tableBodyScrollStyle: React.CSSProperties = {
-    maxHeight: '10px',
-    overflowY: 'scroll',
-  };
+  const tableStyle: React.CSSProperties = { height: '400', overflowY: 'scroll' };
+  const marginBottomStyle: React.CSSProperties = { marginBottom: '5px' };
 
   /* ######################### Event Handlers ######################### */
   const setItemsToData = (event: React.SyntheticEvent, filtered: boolean) => {
@@ -176,7 +174,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
         {/* Table View */}
         {data ?
           (
-            <Table striped sortable style={tableBodyScrollStyle}>
+            <Table celled striped sortable style={tableStyle}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell
@@ -211,14 +209,12 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
         {/* Search Button */}
         <Grid.Row><Button onClick={(e) => setItemsToData(e, false)}>Search</Button></Grid.Row>
         {/* Date Filter */}
-        <Menu text vertical fluid>
-          <Menu.Item header>FILTER BY DATE</Menu.Item>
-          <Grid.Row>
-            <Grid columns={2}>
-              <Grid.Column><Menu.Item onClick={handleFilter}>Filter</Menu.Item></Grid.Column>
-              <Grid.Column><Menu.Item onClick={handleClear}>Clear</Menu.Item></Grid.Column>
-            </Grid>
-          </Grid.Row>
+        <Header>FILTER BY DATE</Header>
+        <Grid.Row style={marginBottomStyle}>
+          <Button size="mini" onClick={handleFilter}>Filter</Button>
+          <Button size="mini" onClick={handleClear}>Clear</Button>
+        </Grid.Row>
+        <Grid.Row>
           <DatePicker
             selectsStart
             showMonthDropdown
@@ -242,7 +238,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
             minDate={startDate}
             maxDate={new Date()}
           />
-        </Menu>
+        </Grid.Row>
       </Grid.Column>
     </Grid>
   );

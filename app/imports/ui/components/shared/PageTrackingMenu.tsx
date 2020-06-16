@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import { NavLink, Link } from 'react-router-dom';
+import { Button, Menu } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import {
   PageInterestsCategoryTypes,
@@ -22,27 +22,40 @@ const menuItems = [
   { key: PageInterestsCategoryTypes.OPPORTUNITY, text: 'Opportunities' },
 ];
 
-const getRoute = (match: IMatchProps, type: PageTrackingMenuTypes, key: string) => {
+const getMenuItemRoute = (match: IMatchProps, type: PageTrackingMenuTypes, key: string) => {
   if (type === 'scoreboard') {
     return buildRouteName(match, `/${PAGE_TRACKING_SCOREBOARD}/${key}`);
   }
   return buildRouteName(match, `/${PAGE_TRACKING_COMPARISON}/${key}`);
 };
 
+const getButtonRoute = (match: IMatchProps, type: PageTrackingMenuTypes, key: string) => {
+  if (type === 'scoreboard') {
+    return buildRouteName(match, `/${PAGE_TRACKING_COMPARISON}/${key}`);
+  }
+  return buildRouteName(match, `/${PAGE_TRACKING_SCOREBOARD}/${key}`);
+};
+
+const getButtonText = (type: PageTrackingMenuTypes) => {
+  if (type === 'scoreboard') {
+    return 'Go To Comparison Page';
+  }
+  return 'Go to Scoreboard Page';
+};
+
 const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
   const { match, type } = props;
+  const buttonText = getButtonText(type);
+  const buttonRoute = getButtonRoute(match, type, PageInterestsCategoryTypes.CAREERGOAL);
   return (
-    <Menu vertical>
-      {menuItems.map((item) => (
-        <Menu.Item
-          key={item.key}
-          as={NavLink}
-          content={item.text}
-          to={type === 'scoreboard' ?
-            getRoute(match, 'scoreboard', item.key) : getRoute(match, 'comparison', item.key)}
-        />
-      ))}
-    </Menu>
+    <>
+      <Button as={Link} to={buttonRoute}>{buttonText}</Button>
+      <Menu vertical>
+        {menuItems.map((item) => (
+          <Menu.Item key={item.key} as={NavLink} content={item.text} to={getMenuItemRoute(match, type, item.key)} />
+        ))}
+      </Menu>
+    </>
   );
 };
 

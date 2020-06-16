@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
-import { Grid, Menu, Table } from 'semantic-ui-react';
+import { Grid, Table, Header, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -16,6 +16,7 @@ import {
 } from './page-tracking-helper-functions';
 import { IMatchProps } from './RouterHelperFunctions';
 import { IPageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
+import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
 interface IPageTrackingScoreboardWidgetProps {
   match: IMatchProps;
@@ -40,10 +41,8 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
-  const tableBodyScrollStyle = {
-    maxHeight: '10px',
-    overflowY: 'scroll',
-  };
+  const tableStyle: React.CSSProperties = { height: '400px', overflowY: 'scroll' };
+  const marginBottomStyle: React.CSSProperties = { marginBottom: '5px' };
 
   /* ######################### Event Handlers ######################### */
   const handleSort = (e, clickedColumn) => {
@@ -100,51 +99,51 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
     <Grid columns={2}>
       {/* Table View */}
       <Grid.Column width={11}>
-        <Table striped sortable style={tableBodyScrollStyle}>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell
-                sorted={column === 'name' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'name')}
-              >
-                Name
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'views' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'views')}
-              >
-                Page Views
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {/* TODO Show items that have 0 views */}
-            {data[category].length > 0 ?
-              (
-                <React.Fragment>
-                  {data[category].map((snapshot) => (
-                    <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
-                      <Table.Cell width={10}>{parseName(urlCategory, snapshot.name)}</Table.Cell>
-                      <Table.Cell width={6}>{snapshot.views}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </React.Fragment>
-              )
-              : undefined}
-          </Table.Body>
-        </Table>
+        <div style={tableStyle}>
+          <Table celled striped sortable>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell
+                  sorted={column === 'name' ? direction : undefined}
+                  onClick={(e) => handleSort(e, 'name')}
+                >
+                  Name
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'views' ? direction : undefined}
+                  onClick={(e) => handleSort(e, 'views')}
+                >
+                  Page Views
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {data[category].length > 0 ?
+                (
+                  <React.Fragment>
+                    {data[category].map((snapshot) => (
+                      <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
+                        <Table.Cell width={10}>{parseName(urlCategory, snapshot.name)}</Table.Cell>
+                        <Table.Cell width={6}>{snapshot.views}</Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </React.Fragment>
+                )
+                : undefined}
+            </Table.Body>
+          </Table>
+        </div>
+        <PageTrackingWidgetMessage />
       </Grid.Column>
 
       {/* Date Filter */}
       <Grid.Column width={5}>
-        <Menu text vertical fluid>
-          <Menu.Item header>FILTER BY DATE</Menu.Item>
-          <Grid.Row>
-            <Grid columns={2}>
-              <Grid.Column><Menu.Item onClick={handleFilter}>Filter</Menu.Item></Grid.Column>
-              <Grid.Column><Menu.Item onClick={handleClear}>Clear</Menu.Item></Grid.Column>
-            </Grid>
-          </Grid.Row>
+        <Header>FILTER BY DATE</Header>
+        <Grid.Row style={marginBottomStyle}>
+          <Button size="mini" onClick={handleFilter}>Filter</Button>
+          <Button size="mini" onClick={handleClear}>Clear</Button>
+        </Grid.Row>
+        <Grid.Row>
           <DatePicker
             selectsStart
             showMonthDropdown
@@ -168,7 +167,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
             minDate={startDate}
             maxDate={new Date()}
           />
-        </Menu>
+        </Grid.Row>
       </Grid.Column>
     </Grid>
   );
