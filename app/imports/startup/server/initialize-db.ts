@@ -127,7 +127,7 @@ function startupStudentParticipation() {
  * Check the integrity of the newly loaded collections; print out problems if any occur.
  * @memberOf startup/server
  */
-function startupCheckIntegrity() {
+function startupCheckIntegrity() { // eslint-disable-line @typescript-eslint/no-unused-vars
   // console.log('Checking DB integrity.');
   const integrity = checkIntegrity();
   if (integrity.count > 0) {
@@ -213,7 +213,7 @@ Meteor.startup(() => {
   } else {
     defineAdminUser();
     loadDatabase();
-    startupCheckIntegrity();
+    // startupCheckIntegrity();
     startupPublicStats();
     startupStudentParticipation();
     fixUserInteractions();
