@@ -51,21 +51,35 @@ if (Meteor.isServer) {
       const courses: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
-      const docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
-      const docID1Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID1 });
-      const docID1Timestamp: Date = docID1Object.timestamp;
-      const docID2 = PageInterestsDailySnapshots.define({
+
+      // Snapshot with the same values for all its fields
+      let docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+      let docID1Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID1 });
+      let docID2 = PageInterestsDailySnapshots.define({
         careerGoals,
         courses,
         interests,
         opportunities,
-        timestamp: docID1Timestamp,
+        timestamp: docID1Object.timestamp,
       });
 
       expect(docID1).to.equal(docID2);
       expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.true;
       PageInterestsDailySnapshots.removeIt(docID2);
       expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.false;
+
+      // Snapshot with the same values for all its fields created the same day
+      Meteor.setTimeout(() => {
+        docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+        docID2 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+        docID1Object = PageInterestsDailySnapshots.findOne({ _id: docID1 });
+        const docID2Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID2 });
+        expect(docID1Object.timestamp).to.be.below(docID2Object.timestamp);
+        expect(docID1).to.equal(docID2);
+        expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.true;
+        PageInterestsDailySnapshots.removeIt(docID2);
+        expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.false;
+      }, 500);
     });
 
     it('Can dumpOne, removeIt, and restoreOne', function test3() {
@@ -85,6 +99,7 @@ if (Meteor.isServer) {
       expect(original.opportunities).to.deep.equal(restored.opportunities);
       expect(original.timestamp).to.deep.equal(restored.timestamp);
       expect(original.retired).to.deep.equal(restored.retired);
+
     });
 
     it('Can checkIntegrity no errors', function test4() {

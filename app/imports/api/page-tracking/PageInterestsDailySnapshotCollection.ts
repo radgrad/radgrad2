@@ -51,7 +51,22 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
    * @param retired boolean optional defaults to false.
    */
   public define({ careerGoals, courses, interests, opportunities, timestamp = moment().toDate(), retired = false }: IPageInterestsDailySnapshotDefine): string {
-    const doc = this.collection.findOne({ careerGoals, courses, interests, opportunities, timestamp, retired });
+    // Duplicates are not allowed
+    // 1) Documents with the same values for all its fields
+    let doc: IPageInterestsDailySnapshot;
+    doc = this.collection.findOne({ careerGoals, courses, interests, opportunities, timestamp, retired });
+    if (doc) {
+      return doc._id;
+    }
+    // 2) Documents with the same values for all its fields within the same day
+    doc = this.collection.findOne({
+      careerGoals,
+      courses,
+      interests,
+      opportunities,
+      timestamp: { $gte: moment().startOf('day').toDate(), $lte: moment().endOf('day').toDate() },
+      retired,
+    });
     if (doc) {
       return doc._id;
     }
