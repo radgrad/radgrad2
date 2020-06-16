@@ -27,6 +27,7 @@ import {
   IAggregatedDailySnapshot, parseName, slugIDToSlugName,
 } from '../../components/shared/page-tracking-helper-functions';
 import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
+import PageTrackingWidgetMessage from '../../components/shared/PageTrackingWidgetMessage';
 
 interface IPageTrackingComparisonWidgetProps {
   match: IMatchProps;
@@ -72,7 +73,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
-  const tableStyle: React.CSSProperties = { height: '400', overflowY: 'scroll' };
+  const tableStyle: React.CSSProperties = { height: '400px', overflowY: 'scroll', marginTop: '5px' };
   const marginBottomStyle: React.CSSProperties = { marginBottom: '5px' };
 
   /* ######################### Event Handlers ######################### */
@@ -174,33 +175,38 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
         {/* Table View */}
         {data ?
           (
-            <Table celled striped sortable style={tableStyle}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell
-                    sorted={column === 'name' ? direction : undefined}
-                    onClick={(e) => handleSort(e, 'name')}
-                  >
-                    Name
-                  </Table.HeaderCell>
-                  <Table.HeaderCell
-                    sorted={column === 'views' ? direction : undefined}
-                    onClick={(e) => handleSort(e, 'views')}
-                  >
-                    Page Views
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {/* TODO Show items that have 0 views */}
-                {data.map((item) => (
-                  <Table.Row key={`${urlCategory}-${item.name}:${item.views}`}>
-                    <Table.Cell width={10}>{parseName(urlCategory, item.name)}</Table.Cell>
-                    <Table.Cell width={6}>{item.views}</Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
+            <>
+              <div style={tableStyle}>
+                <Table celled striped sortable style={tableStyle}>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell
+                        sorted={column === 'name' ? direction : undefined}
+                        onClick={(e) => handleSort(e, 'name')}
+                      >
+                        Name
+                      </Table.HeaderCell>
+                      <Table.HeaderCell
+                        sorted={column === 'views' ? direction : undefined}
+                        onClick={(e) => handleSort(e, 'views')}
+                      >
+                        Page Views
+                      </Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+                  <Table.Body>
+                    {/* TODO Show items that have 0 views */}
+                    {data.map((item) => (
+                      <Table.Row key={`${urlCategory}-${item.name}:${item.views}`}>
+                        <Table.Cell width={10}>{parseName(urlCategory, item.name)}</Table.Cell>
+                        <Table.Cell width={6}>{item.views}</Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </div>
+              <PageTrackingWidgetMessage />
+            </>
           )
           : undefined}
       </Grid.Column>
