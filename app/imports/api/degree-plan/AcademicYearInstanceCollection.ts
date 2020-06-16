@@ -28,7 +28,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       retired: { type: Boolean, optional: true },
     }));
     if (Meteor.isServer) {
-      this.collection._ensureIndex({ studentID: 1 });
+      this.collection.rawCollection().createIndex({ studentID: 1 });
     }
     this.defineSchema = new SimpleSchema({
       year: {
