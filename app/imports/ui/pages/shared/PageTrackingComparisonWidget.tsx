@@ -73,7 +73,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
-  const tableStyle: React.CSSProperties = { height: '400px', overflowY: 'scroll', marginTop: '5px' };
+  const tableStyle: React.CSSProperties = { maxHeight: '400px', overflowY: 'auto', marginTop: '5px' };
   const marginBottomStyle: React.CSSProperties = { marginBottom: '5px' };
 
   /* ######################### Event Handlers ######################### */

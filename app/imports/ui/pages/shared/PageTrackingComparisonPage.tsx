@@ -11,6 +11,7 @@ import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
 import PageTrackingComparisonWidget from './PageTrackingComparisonWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IPageTrackingComparisonPageProps {
   match: IMatchProps;
@@ -59,6 +60,8 @@ const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => 
           <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
+
+      <BackToTopButton />
     </React.Fragment>
   );
 };

@@ -41,7 +41,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   const [endDate, setEndDate] = useState<Date>(undefined);
 
   /* ######################### Styles ######################### */
-  const tableStyle: React.CSSProperties = { height: '400px', overflowY: 'scroll' };
+  const tableStyle: React.CSSProperties = { maxHeight: '400px', overflowY: 'auto' };
   const marginBottomStyle: React.CSSProperties = { marginBottom: '5px' };
 
   /* ######################### Event Handlers ######################### */

@@ -153,6 +153,7 @@ SyncedCron.add({
     } else {
       const recentSnapshot: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({}, { sort: { natural: -1 } });
       const recentSnapshotTimestamp: Date = recentSnapshot.timestamp;
+      // TODO https://github.com/radgrad/radgrad2/issues/138#issuecomment-640179173 See edge cases
       const pageInterestsSinceRecentSnapshot = PageInterests.find({ timestamp: { $gt: recentSnapshotTimestamp } }).fetch();
       createDailySnapshot(pageInterestsSinceRecentSnapshot);
     }

@@ -10,6 +10,7 @@ import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
 import PageTrackingScoreboardWidget from '../../components/shared/PageTrackingScoreboardWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IPageTrackingAnalysisPageProps {
   match: {
@@ -65,6 +66,8 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
           <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
+
+      <BackToTopButton />
     </React.Fragment>
   );
 };
