@@ -1,10 +1,9 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import '/public/semantic.min.css';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import { Button, Menu } from 'semantic-ui-react';
-import { withRouter } from 'react-router';
+
 import {
   PageInterestsCategoryTypes,
 } from '../../../api/page-tracking/PageInterestsCategoryTypes';

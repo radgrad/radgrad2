@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
+import moment from 'moment';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { PageInterestsDailySnapshots } from './PageInterestsDailySnapshotCollection';
 import {
@@ -18,7 +19,6 @@ import {
 
 if (Meteor.isServer) {
   describe('PageInterestsDailySnapshotCollection', function testSuite() {
-
     before(function setup() {
       removeAllEntities();
     });
@@ -45,17 +45,15 @@ if (Meteor.isServer) {
       done();
     });
 
-    it('Cannot define duplicates', function test2() {
+    it('Cannot define duplicate snapshots with the same value for all its fields', function test2() {
       const numItems = 5;
       const careerGoals: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const courses: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
       const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
-
-      // Snapshot with the same values for all its fields
-      let docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
-      let docID1Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID1 });
-      let docID2 = PageInterestsDailySnapshots.define({
+      const docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+      const docID1Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID1 });
+      const docID2 = PageInterestsDailySnapshots.define({
         careerGoals,
         courses,
         interests,
@@ -67,22 +65,36 @@ if (Meteor.isServer) {
       expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.true;
       PageInterestsDailySnapshots.removeIt(docID2);
       expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.false;
-
-      // Snapshot with the same values for all its fields created the same day
-      Meteor.setTimeout(() => {
-        docID1 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
-        docID2 = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
-        docID1Object = PageInterestsDailySnapshots.findOne({ _id: docID1 });
-        const docID2Object: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID2 });
-        expect(docID1Object.timestamp).to.be.below(docID2Object.timestamp);
-        expect(docID1).to.equal(docID2);
-        expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.true;
-        PageInterestsDailySnapshots.removeIt(docID2);
-        expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.false;
-      }, 500);
     });
 
-    it('Can dumpOne, removeIt, and restoreOne', function test3() {
+    it('Cannot define duplicate snapshots with the same values for all its fields created the same day', function test3() {
+      const numItems = 5;
+      const careerGoals: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+      const courses: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+      const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+      const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+      const docID1 = PageInterestsDailySnapshots.define({
+        careerGoals,
+        courses,
+        interests,
+        opportunities,
+        timestamp: moment('2020-06-16T00:00').toDate(),
+      });
+      const docID2 = PageInterestsDailySnapshots.define({
+        careerGoals,
+        courses,
+        interests,
+        opportunities,
+        timestamp: moment('2020-06-16T01:00').toDate(),
+      });
+
+      expect(docID1).to.equal(docID2);
+      expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.true;
+      PageInterestsDailySnapshots.removeIt(docID2);
+      expect(PageInterestsDailySnapshots.isDefined(docID1)).to.be.false;
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
       let docID = makeSamplePageInterestsDailySnapshot();
       const original: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findDoc(docID);
       const dumpObject: IPageInterestsDailySnapshotDefine = PageInterestsDailySnapshots.dumpOne(docID);
@@ -102,7 +114,7 @@ if (Meteor.isServer) {
 
     });
 
-    it('Can checkIntegrity no errors', function test4() {
+    it('Can checkIntegrity no errors', function test5() {
       const pageInterestsDailySnapshot: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({});
       const errors = PageInterestsDailySnapshots.checkIntegrity();
       const { careerGoals, courses, interests, opportunities } = pageInterestsDailySnapshot;

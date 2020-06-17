@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
 import { getUsername } from '../shared/RouterHelperFunctions';
