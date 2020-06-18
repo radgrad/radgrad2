@@ -30,8 +30,10 @@ import {
   createPageInterestData,
   getCollectionName,
 } from './favorites-button-helper-functions';
+import { getUsername, IMatchProps } from './RouterHelperFunctions';
 
 export interface IFavoriteButtonProps {
+  match: IMatchProps
   item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
   studentID: string;
   type: IFavoriteTypes;
@@ -59,6 +61,8 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
       Swal.fire({
         title: 'Favorited',
         icon: 'success',
+        showConfirmButton: false,
+        timer: 1500,
       });
       userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
         if (userInteractionError) {
@@ -166,7 +170,7 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
   </React.Fragment>
 );
 
-export default withRouter(withTracker((props) => {
+export default withRouter(withTracker((props: IFavoriteButtonProps) => {
   const count = FavoriteAcademicPlans.findNonRetired({
       studentID: props.studentID,
       academicPlanID: props.item._id,
@@ -175,8 +179,9 @@ export default withRouter(withTracker((props) => {
     FavoriteCourses.findNonRetired({ studentID: props.studentID, courseID: props.item._id }).length +
     FavoriteInterests.findNonRetired({ userID: props.studentID, interestID: props.item._id }).length +
     FavoriteOpportunities.findNonRetired({ studentID: props.studentID, opportunityID: props.item._id }).length;
+  const username = getUsername(props.match);
   const slugName = Slugs.getNameFromID(props.item.slugID);
-  const pageInterest: IPageInterest = PageInterests.findOne({ name: slugName });
+  const pageInterest: IPageInterest = PageInterests.findOne({ username, name: slugName });
   return {
     added: count > 0,
     pageInterest,

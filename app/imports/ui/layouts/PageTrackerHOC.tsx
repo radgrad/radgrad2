@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-  getAllUrlParamsByLocationObject,
+  getAllUrlParamsByLocationObject, getUsername,
   ILocationProps,
   IMatchProps,
 } from '../components/shared/RouterHelperFunctions';
@@ -111,7 +111,7 @@ function withPageTracker(WrappedComponent) {
         /* ########## User Interactions ########## */
         const parameters = getAllUrlParamsByLocationObject(match, router.location);
         const typeData = parameters.join('/');
-        const username = Meteor.user().username;
+        const username = getUsername(match);
         const type = UserInteractionsTypes.PAGEVIEW;
         const interactionData = { username, type, typeData };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -150,7 +150,7 @@ function withPageTracker(WrappedComponent) {
               category = PageInterestsCategoryTypes.OPPORTUNITY;
               break;
           }
-          const pageInterest: IPageInterest = PageInterests.findOne({ name: urlSlug });
+          const pageInterest: IPageInterest = PageInterests.findOne({ username, name: urlSlug });
           // Only define a PageInterest if there hasn't been one defined for the past 24 hours.
           if (!pageInterest) {
             const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
