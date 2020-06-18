@@ -138,7 +138,8 @@ class PageInterestCollection extends BaseCollection {
           const yesterday = moment().subtract(24, 'hours').toDate();
           return instance.collection.find({ username, timestamp: { $gte: yesterday } });
         }
-        return instance.collection.find({}, { limit: 0 });
+        // Don't publish any documents
+        return instance.collection.find({}, { skip: instance.collection.find({}).count() });
       });
     }
   }
