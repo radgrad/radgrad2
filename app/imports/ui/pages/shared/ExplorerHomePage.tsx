@@ -64,8 +64,6 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
             <p>
               <Link
                 to={Router.buildRouteName(props.match, `/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 Scoreboard Page
               </Link>
@@ -74,8 +72,6 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
             <p>
               <Link
                 to={Router.buildRouteName(props.match, `/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 Comparison Page
               </Link>

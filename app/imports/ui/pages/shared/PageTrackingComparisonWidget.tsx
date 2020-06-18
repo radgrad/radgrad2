@@ -230,7 +230,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
             selected={startDate}
             startDate={startDate}
             endDate={endDate}
-            maxDate={endDate}
+            maxDate={endDate || new Date()}
           />
           <DatePicker
             selectsEnd

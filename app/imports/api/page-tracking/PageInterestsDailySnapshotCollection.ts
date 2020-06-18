@@ -41,16 +41,33 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
   }
 
   /**
+   * Gets the correct timestamp date that the daily snapshot represents
+   * The cron job that autopopulates this collection runs at 00:00:00 (morning of next day)
+   * Since a daily snapshot represents the page interest views for the day BEFORE, we need to subtract one day from
+   * .toDate() when the define() method is called.
+   * i.e.,
+   *  A cron job runs at June 18,2020 00:00:00 AM
+   *  Therefore, the timestamp for the daily snapshot that it creates should represent the page interest views that
+   *  were defined between June 17,2020 00:00:00 AM and June 17,2020 23:59:59 PM
+   *  Thus, the timestamp of the daily snapshot created on June 18,2020 00:00:00 AM should be June 17, 2020 23:59:59 PM
+   * @returns {Date}
+   */
+  private getDateOffset = moment().subtract(1, 'day').endOf('day').toDate();
+
+  /**
    * Defines a snapshot of the aggregated student interest views for the different categories for the particular timestamp.
    * This should never be called manually as it is handled by a cron job.
    * @param careerGoals Array of objects that describe the name and views for all career goals
    * @param courses Array of objects that describe the name and views for all courses
    * @param interests Array of objects that describe the name and views for all interests
    * @param opportunities Array of objects that describe the name and views for all opportunities
-   * @param timestamp Timestamp of when this snapshot was recorded
+   * @param timestamp the timestamp that represents the page interests it aggregated
+   *          by default, this is the day before .toDate(). This is because the cron job that autopopulates
+   *          this collection runs on 00:00:00 time (the day after), so we need to subtract one day
    * @param retired boolean optional defaults to false.
+   * @returns {String} the id of the document created
    */
-  public define({ careerGoals, courses, interests, opportunities, timestamp = moment().toDate(), retired = false }: IPageInterestsDailySnapshotDefine): string {
+  public define({ careerGoals, courses, interests, opportunities, timestamp = this.getDateOffset, retired = false }: IPageInterestsDailySnapshotDefine): string {
     // Duplicates are not allowed
     // 1) Documents with the same values for all its fields
     let doc: IPageInterestsDailySnapshot;
@@ -58,13 +75,16 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
     if (doc) {
       return doc._id;
     }
-    // 2) Documents with the same values for all its fields within the same day
+    // 2) Documents with the same values for all its fields within the same day that it represents
     doc = this.collection.findOne({
       careerGoals,
       courses,
       interests,
       opportunities,
-      timestamp: { $gte: moment().startOf('day').toDate(), $lte: moment().endOf('day').toDate() },
+      timestamp: {
+        $gte: moment().subtract(1, 'day').startOf('day').toDate(),
+        $lte: moment().subtract(1, 'day').endOf('day').toDate(),
+      },
       retired,
     });
     if (doc) {

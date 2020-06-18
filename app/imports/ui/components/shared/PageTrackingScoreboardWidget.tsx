@@ -153,7 +153,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
             selected={startDate}
             startDate={startDate}
             endDate={endDate}
-            maxDate={endDate}
+            maxDate={endDate || new Date()}
           />
           <DatePicker
             selectsEnd
