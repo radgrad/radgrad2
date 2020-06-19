@@ -82,8 +82,8 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
       interests,
       opportunities,
       timestamp: {
-        $gte: moment().subtract(1, 'day').startOf('day').toDate(),
-        $lte: moment().subtract(1, 'day').endOf('day').toDate(),
+        $gte: moment(timestamp).startOf('day').toDate(),
+        $lte: moment(timestamp).endOf('day').toDate(),
       },
       retired,
     });

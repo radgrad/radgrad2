@@ -36,7 +36,9 @@ if (Meteor.isServer) {
           const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(interestsNum);
           const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(opportunitiesNum);
           const docID = PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
+          const docObject: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({ _id: docID });
 
+          expect(docObject.timestamp).to.be.below(new Date());
           expect(PageInterestsDailySnapshots.isDefined(docID)).to.be.true;
           PageInterestsDailySnapshots.removeIt(docID);
           expect(PageInterestsDailySnapshots.isDefined(docID)).to.be.false;
