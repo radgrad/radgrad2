@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Button } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import { Container } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';
 import FilterUserWidget from '../../components/shared/FilterUserWidget';
-import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { pageInterestAdminFindMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
 
 export interface IFilterUsers {
   firstNameRegex?: string;
@@ -30,26 +27,11 @@ const AdminHomePage = () => {
     setusernameRegex(userNameRegex);
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    userInteractionFindMethod.call({}, (error, result) => {
-      const userInteractions = _.groupBy(result, 'username');
-      console.log('userInteractions %o', userInteractions);
-    });
-    pageInterestAdminFindMethod.call({}, (error, result) => {
-      const pageInterests = _.groupBy(result, 'username');
-      console.log('pageInterests %o', pageInterests);
-    });
-  };
-
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-
   return (
     <div>
       <AdminPageMenuWidget />
       <Container textAlign="center" fluid={false}>
-        {/* TODO: remove after done with issue-138 */}
-        <Button onClick={handleClick}>Interactions</Button>
         <FilterUserWidget
           updateFirstNameRegex={updateFirstNameRegex}
           updateLastNameRegex={updateLastNameRegex}
