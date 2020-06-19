@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Embed, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -22,6 +22,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { toValueArray, toValueString } from '../../shared/description-pair-helpers';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 import FutureParticipation from './FutureParticipation';
+import TeaserVideo from './TeaserVideo';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -338,14 +339,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
                         <React.Fragment>
                           <b>{descriptionPair.label}: </b>
                           {descriptionPair.value ?
-                            (
-                              <Embed
-                                active
-                                autoplay={false}
-                                source="youtube"
-                                id={teaserUrlHelper(props)}
-                              />
-                            )
+                            (<TeaserVideo id={teaserUrlHelper(props)} />)
                             : (<p> N/A </p>)}
                         </React.Fragment>
                       )

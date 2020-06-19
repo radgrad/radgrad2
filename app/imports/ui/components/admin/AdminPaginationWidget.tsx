@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Icon, Message } from 'semantic-ui-react';
 import BaseCollection from '../../../api/base/BaseCollection';
+import { RootState } from '../../../redux/types';
 
 interface IAdminPaginationWidgetProps {
   collection: BaseCollection;
@@ -11,7 +12,7 @@ interface IAdminPaginationWidgetProps {
   setShowCount: (collectionName: string, count: number) => any;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 

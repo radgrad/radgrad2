@@ -7,6 +7,7 @@ import { Users } from '../user/UserCollection';
 import { UserInteractions } from './UserInteractionCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { IUserInteraction } from '../../typings/radgrad';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -36,7 +37,21 @@ if (Meteor.isServer) {
       );
     });
 
-    it('Can restoreOne then dumpOne', function test2() {
+    it('Cannot define duplicates', function test2() {
+      const type: string = faker.lorem.word();
+      const typeData: string[] = [faker.lorem.word(), faker.lorem.word()];
+      const docID1: string = UserInteractions.define({ username, type, typeData });
+      const docID1Object: IUserInteraction = UserInteractions.findOne({ _id: docID1 });
+      const docID1Timestamp: Date = docID1Object.timestamp;
+      const docID2: string = UserInteractions.define({ username, type, typeData, timestamp: docID1Timestamp });
+
+      expect(docID1).to.equal(docID2);
+      expect(UserInteractions.isDefined(docID1)).to.be.true;
+      UserInteractions.removeIt(docID2);
+      expect(UserInteractions.isDefined(docID1)).to.be.false;
+    });
+
+    it('Can restoreOne then dumpOne', function test3() {
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.array(fc.lorem(1), 1, 5), fc.date(), (name, type, typeData, timestamp) => {
           const dumpObject = {
@@ -48,7 +63,6 @@ if (Meteor.isServer) {
           const docID = UserInteractions.restoreOne(dumpObject);
           expect(UserInteractions.isDefined(docID)).to.be.true;
           const dumpObject2 = UserInteractions.dumpOne(docID);
-          // console.log(dumpObject, dumpObject2);
           expect(dumpObject2.username).to.equal(dumpObject.username);
           expect(dumpObject2.type).to.equal(dumpObject.type);
           expect(dumpObject2.typeData.length).to.equal(dumpObject.typeData.length);
@@ -59,7 +73,7 @@ if (Meteor.isServer) {
       );
     });
 
-    it('Can checkIntegrity all errors', function test3() {
+    it('Can checkIntegrity all errors', function test4() {
       fc.assert(
         fc.property(fc.lorem(1), fc.array(fc.lorem(1), 1, 5), (type, typeData) => {
           UserInteractions.define({ username, type, typeData });
@@ -69,7 +83,7 @@ if (Meteor.isServer) {
       expect(errors).to.have.lengthOf(100);
     });
 
-    it('Can removeUser', function test4() {
+    it('Can removeUser', function test5() {
       fc.assert(
         fc.property(fc.lorem(1), fc.array(fc.lorem(1), 1, 5), (type, typeData) => {
           UserInteractions.define({ username, type, typeData });
@@ -80,17 +94,5 @@ if (Meteor.isServer) {
       expect(interactions).to.have.lengthOf(0);
     });
 
-    it('Can define duplicates', function test5() {
-      const type = faker.lorem.word();
-      const typeData = [faker.lorem.word(), faker.lorem.word()];
-      // console.log(type, typeData);
-      const docID = UserInteractions.define({ username, type, typeData });
-      const docID2 = UserInteractions.define({ username, type, typeData });
-      expect(UserInteractions.find({ username }).fetch()).to.have.lengthOf(2);
-      expect(function () { UserInteractions.findDoc(docID); }).to.not.throw(Error);
-      expect(function () { UserInteractions.findDoc(docID2); }).to.not.throw(Error);
-      UserInteractions.removeIt(docID);
-      UserInteractions.removeIt(docID2);
-    });
   });
 }

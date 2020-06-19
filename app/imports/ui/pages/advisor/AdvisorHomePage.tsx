@@ -15,6 +15,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { RootState } from '../../../redux/types';
 
 // Formatting for parameters
 export interface IFilterStudents {
@@ -30,7 +31,7 @@ export interface IFilterStudents {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedUsername: state.advisor.home.selectedUsername,
 });
 

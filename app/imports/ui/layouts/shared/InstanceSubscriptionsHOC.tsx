@@ -16,6 +16,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { PageInterests } from '../../../api/page-tracking/PageInterestCollection';
 
 interface ILoading {
   loading: boolean;
@@ -64,6 +65,7 @@ function withInstanceSubscriptions(WrappedComponent) {
         handles.push(instanceSubs.subscribe(FavoriteCourses.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FavoriteInterests.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FavoriteOpportunities.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(PageInterests.getPublicationName(), userID));
       }
     }
     const loading = handles.some((handle) => !handle.ready());

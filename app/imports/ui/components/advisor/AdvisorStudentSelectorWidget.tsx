@@ -12,6 +12,7 @@ import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../api/star/StarProcessor.methods';
 import { homeActions } from '../../../redux/advisor/home';
+import { RootState } from '../../../redux/types';
 
 /* global FileReader */
 /* eslint-disable react/prop-types */
@@ -28,7 +29,7 @@ interface IAdvisorStudentSelectorWidgetProps {
   careerGoals: ICareerGoal[];
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   firstName: state.advisor.home.firstName,
   lastName: state.advisor.home.lastName,
   username: state.advisor.home.username,

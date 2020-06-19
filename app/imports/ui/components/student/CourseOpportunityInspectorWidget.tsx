@@ -15,6 +15,7 @@ import InspectorCourseMenuContainer from './InspectorCourseMenu';
 import InspectorOpportunityMenuContainer from './InspectorOpportunityMenu';
 import InspectorOpportunityViewContainer from './InspectorOpportunityView';
 import InspectorCourseViewContainer from './InspectorCourseView';
+import { RootState } from '../../../redux/types';
 
 interface ICOInspectorWidgetProps {
   selectedCourseID: string;
@@ -33,7 +34,7 @@ interface ICOInspectorWidgetProps {
   };
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedCourseID: state.student.degreePlanner.inspector.selectedCourseID,
   selectedCourseInstanceID: state.student.degreePlanner.inspector.selectedCourseInstanceID,
   selectedOpportunityID: state.student.degreePlanner.inspector.selectedOpportunityID,

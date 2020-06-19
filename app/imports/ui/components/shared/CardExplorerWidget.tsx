@@ -9,9 +9,7 @@ import { ROLE } from '../../../api/role/Role';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
-
 import ProfileCard from './ProfileCard';
-
 import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';

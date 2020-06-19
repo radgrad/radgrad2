@@ -41,7 +41,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       verification: `${this.collectionName}.Verification`,
     };
     if (Meteor.isServer) {
-      this.collection._ensureIndex({ _id: 1, studentID: 1, termID: 1 });
+      this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, termID: 1 });
     }
     this.defineSchema = new SimpleSchema({
       academicTerm: String,

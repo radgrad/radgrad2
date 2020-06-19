@@ -2,7 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
-import { SyncedCron } from 'meteor/percolate:synced-cron';
+import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { Interests } from '../../api/interest/InterestCollection';
@@ -17,6 +17,7 @@ import { StudentParticipations } from '../../api/public-stats/StudentParticipati
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
 
 /** global Assets */
+/* eslint-disable no-console */
 
 /**
  * Returns an Array of numbers, one per loadable collection, indicating the number of documents in that collection.

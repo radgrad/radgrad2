@@ -75,7 +75,25 @@ import AdminDataModelSlugsPage from '../../ui/pages/admin/AdminDataModelSlugsPag
 import AdminDataModelTeasersPage from '../../ui/pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../ui/pages/admin/AdminDataModelVerificationRequestsPage';
 import ScoreboardPageContainer from '../../ui/pages/shared/ScoreboardPage';
-import { URL_ROLES, USERNAME, HOME, DATAMODEL, EXPLORER_TYPE, MODERATION, ANALYTICS, SCOREBOARD, COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, EXPLORER_PARAM, GUIDEDTOUR, MENTOR_SPACE } from './route-constants';
+import {
+  URL_ROLES,
+  USERNAME,
+  HOME,
+  DATAMODEL,
+  EXPLORER_TYPE,
+  MODERATION,
+  ANALYTICS,
+  SCOREBOARD,
+  COURSE_SCOREBOARD,
+  OPPORTUNITY_SCOREBOARD,
+  EXPLORER_PARAM,
+  GUIDEDTOUR,
+  MENTOR_SPACE,
+  PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON,
+} from './route-constants';
+import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
+import PageTrackingComparisonPage from '../../ui/pages/shared/PageTrackingComparisonPage';
+import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
 
 export const routes = {
   ADMIN: [
@@ -277,6 +295,48 @@ export const routes = {
       component:
       ScoreboardPageContainer,
     },
+    /* ############################## Page Tracking SCOREBOARD ############################## */
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    /* ############################## Page Tracking Comparison ############################## */
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
   ],
   ADVISOR: [
     {
@@ -311,6 +371,48 @@ export const routes = {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
       component: ScoreboardPageContainer,
+    },
+    /* ############################## Page Tracking SCOREBOARD ############################## */
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    /* ############################## Page Tracking Comparison ############################## */
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
     },
   ],
   ALUMNI: [
@@ -418,6 +520,48 @@ export const routes = {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
       component: ScoreboardPageContainer,
+    },
+    /* ############################## Page Tracking SCOREBOARD ############################## */
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    /* ############################## Page Tracking Comparison ############################## */
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
     },
   ],
   LANDING: [
@@ -587,8 +731,51 @@ export const routes = {
       exact: true,
       component: CardExplorerPageContainer,
     },
+    /* ############################## Page Tracking SCOREBOARD ############################## */
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    /* ############################## Page Tracking Comparison ############################## */
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
   ],
   STUDENT: [
+    /* ############################## HOME ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
@@ -614,21 +801,67 @@ export const routes = {
       exact: true,
       component: StudentHomeLogPageContainer,
     },
+    /* ############################## DEGREE PLANNER ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/degree-planner`,
       exact: true,
       component: StudentDegreePlannerPageContainer,
     },
+    /* ############################## MENTOR SPACE ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${MENTOR_SPACE}`,
       exact: true,
       component: StudentMentorSpacePageContainer,
     },
+    /* ############################## Page Tracking SCOREBOARD ############################## */
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingScoreboardPage,
+    },
+    /* ############################## Page Tracking Comparison ############################## */
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.COURSE}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.INTEREST}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
+      exact: true,
+      component: PageTrackingComparisonPage,
+    },
+    /* ############################## Explorers ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
       component: ExplorerHomePageContainer,
     },
+    /* ############################## Explorers ACADEMIC PLANS ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
@@ -639,6 +872,7 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
+    /* ############################## Explorers CAREER GOALS ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
@@ -649,6 +883,7 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
+    /* ############################## Explorers COURSES ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
@@ -659,6 +894,7 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
+    /* ############################## Explorers DEGREES ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
       exact: true,
@@ -669,6 +905,7 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
+    /* ############################## Explorers INTERESTS ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
       exact: true,
@@ -679,6 +916,7 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
+    /* ############################## Explorers OPPORTUNITIES ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
       exact: true,
@@ -689,6 +927,7 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
+    /* ############################## Explorers USERS ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
       exact: true,

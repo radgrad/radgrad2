@@ -324,9 +324,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public removeIt(profileID) {
     if (this.isDefined(profileID)) {
-      // const doc = this.findDoc(profileID);
-      super.removeIt(profileID);
+      return super.removeIt(profileID);
     }
+    return null;
   }
 
   /**

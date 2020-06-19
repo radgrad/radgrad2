@@ -41,55 +41,111 @@
           "groups": {
             "ics_111": {
               "name": "ICS 111",
-              "courseSlugs": ["ics_111"]
+              "courseSlugs": [
+                "ics_111"
+              ]
             },
             "ics_141": {
               "name": "ICS 141",
-              "courseSlugs": ["ics_141"]
+              "courseSlugs": [
+                "ics_141"
+              ]
             },
             "ics_211": {
               "name": "ICS 211",
-              "courseSlugs": ["ics_211"]
+              "courseSlugs": [
+                "ics_211"
+              ]
             },
             "ics_241": {
               "name": "ICS 241",
-              "courseSlugs": ["ics_241"]
+              "courseSlugs": [
+                "ics_241"
+              ]
             },
             "ics_311": {
               "name": "ICS 311",
-              "courseSlugs": ["ics_311"]
+              "courseSlugs": [
+                "ics_311"
+              ]
             },
             "ics_314": {
               "name": "ICS 314",
-              "courseSlugs": ["ics_314"]
+              "courseSlugs": [
+                "ics_314"
+              ]
             },
             "ics_212": {
               "name": "ICS 212",
-              "courseSlugs": ["ics_212"]
+              "courseSlugs": [
+                "ics_212"
+              ]
             },
             "ics_321": {
               "name": "ICS 321",
-              "courseSlugs": ["ics_321"]
+              "courseSlugs": [
+                "ics_321"
+              ]
             },
             "ics_312,ics_331": {
               "name": "ICS 312 or ICS 331",
-              "courseSlugs": ["ics_312", "ics_331"]
+              "courseSlugs": [
+                "ics_312",
+                "ics_331"
+              ]
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             },
             "ics_313,ics_361": {
               "name": "ICS 313 or ICS 361",
-              "courseSlugs": ["ics_313", "ics_361"]
+              "courseSlugs": [
+                "ics_313",
+                "ics_361"
+              ]
             },
             "ics_332": {
               "name": "ICS 332",
-              "courseSlugs": ["ics_332"]
+              "courseSlugs": [
+                "ics_332"
+              ]
             }
           },
           "retired": false
@@ -131,51 +187,109 @@
           "groups": {
             "ics_111": {
               "name": "ICS 111",
-              "courseSlugs": ["ics_111"]
+              "courseSlugs": [
+                "ics_111"
+              ]
             },
             "ics_141": {
               "name": "ICS 141",
-              "courseSlugs": ["ics_141"]
+              "courseSlugs": [
+                "ics_141"
+              ]
             },
             "ics_211": {
               "name": "ICS 211",
-              "courseSlugs": ["ics_211"]
+              "courseSlugs": [
+                "ics_211"
+              ]
             },
             "ics_241": {
               "name": "ICS 241",
-              "courseSlugs": ["ics_241"]
+              "courseSlugs": [
+                "ics_241"
+              ]
             },
             "ics_311": {
               "name": "ICS 311",
-              "courseSlugs": ["ics_311"]
+              "courseSlugs": [
+                "ics_311"
+              ]
             },
             "ics_314": {
               "name": "ICS 314",
-              "courseSlugs": ["ics_314"]
+              "courseSlugs": [
+                "ics_314"
+              ]
             },
             "ics_212": {
               "name": "ICS 212",
-              "courseSlugs": ["ics_212"]
+              "courseSlugs": [
+                "ics_212"
+              ]
             },
             "ics_321": {
               "name": "ICS 321",
-              "courseSlugs": ["ics_321"]
+              "courseSlugs": [
+                "ics_321"
+              ]
             },
             "(ics_312,ics_331),(ics_313,ics_361),(ics_351,ics_451),ics_355": {
               "name": "ICS 312/ICS 331,ICS 313/ICS 361,ICS 351/ICS 451, or ICS 355",
-              "courseSlugs": ["ics_312", "ics_331", "ics_313", "ics_361", "ics_351", "ics_451", "ics_355"]
+              "courseSlugs": [
+                "ics_312",
+                "ics_331",
+                "ics_313",
+                "ics_361",
+                "ics_351",
+                "ics_451",
+                "ics_355"
+              ]
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             },
             "ics_332": {
               "name": "ICS 332",
-              "courseSlugs": ["ics_332"]
+              "courseSlugs": [
+                "ics_332"
+              ]
             }
           },
           "retired": false
@@ -248,7 +362,9 @@
             },
             "ics_222": {
               "name": "ICS 222",
-              "courseSlugs": ["ics_222"]
+              "courseSlugs": [
+                "ics_222"
+              ]
             },
             "ics_241": {
               "name": "ICS 241",
@@ -442,11 +558,16 @@
             },
             "ics_212,ics_215": {
               "name": "ICS 212 or ICS 215",
-              "courseSlug": ["ics_212", "ics_215"]
+              "courseSlug": [
+                "ics_212",
+                "ics_215"
+              ]
             },
             "ics_222": {
               "name": "ICS 222",
-              "courseSlugs": ["ics_222"]
+              "courseSlugs": [
+                "ics_222"
+              ]
             },
             "ics_241": {
               "name": "ICS 241",
@@ -486,7 +607,10 @@
             },
             "ics_351,ics_451": {
               "name": "ICS 351 or ICS 451",
-              "courseSlugs": ["ics_351", "ics_451"]
+              "courseSlugs": [
+                "ics_351",
+                "ics_451"
+              ]
             },
             "ics_355": {
               "name": "ICS 355",
@@ -592,7 +716,9 @@
             },
             "ics_222": {
               "name": "ICS 222",
-              "courseSlugs": ["ics_222"]
+              "courseSlugs": [
+                "ics_222"
+              ]
             },
             "ics_241": {
               "name": "ICS 241",
@@ -716,7 +842,9 @@
             },
             "ics_222": {
               "name": "ICS 222",
-              "courseSlugs": ["ics_222"]
+              "courseSlugs": [
+                "ics_222"
+              ]
             },
             "ics_241": {
               "name": "ICS 241",
@@ -884,10 +1012,42 @@
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             }
           },
@@ -1002,10 +1162,42 @@
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             }
           },
@@ -1152,10 +1344,42 @@
             },
             "ics_400+": {
               "name": "Data Science Elective 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             }
           },
@@ -1302,10 +1526,42 @@
             },
             "ics_400+": {
               "name": "Data Science Elective 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             }
           },
@@ -1680,10 +1936,42 @@
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             },
             "ics_621": {
@@ -1885,10 +2173,42 @@
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             },
             "ics_621": {
@@ -2083,10 +2403,42 @@
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             },
             "ics_635": {
@@ -2269,10 +2621,42 @@
             },
             "ics_400+": {
               "name": "ICS 400+",
-              "courseSlugs": ["ics_414", "ics_415", "ics_419", "ics_421", "ics_422", "ics_423", "ics_424", "ics_425",
-                "ics_426", "ics_431", "ics_432", "ics_434", "ics_435", "ics_441", "ics_442", "ics_443", "ics_451",
-                "ics_452", "ics_455", "ics_461", "ics_462", "ics_464", "ics_465", "ics_466", "ics_469", "ics_471",
-                "ics_475", "ics_476", "ics_481", "ics_483", "ics_484", "ics_485", "ics_491", "ics_495", "ics_499"
+              "courseSlugs": [
+                "ics_414",
+                "ics_415",
+                "ics_419",
+                "ics_421",
+                "ics_422",
+                "ics_423",
+                "ics_424",
+                "ics_425",
+                "ics_426",
+                "ics_431",
+                "ics_432",
+                "ics_434",
+                "ics_435",
+                "ics_441",
+                "ics_442",
+                "ics_443",
+                "ics_451",
+                "ics_452",
+                "ics_455",
+                "ics_461",
+                "ics_462",
+                "ics_464",
+                "ics_465",
+                "ics_466",
+                "ics_469",
+                "ics_471",
+                "ics_475",
+                "ics_476",
+                "ics_481",
+                "ics_483",
+                "ics_484",
+                "ics_485",
+                "ics_491",
+                "ics_495",
+                "ics_499"
               ]
             },
             "ics_635": {
@@ -3361,7 +3745,8 @@
             "math_215"
           ],
           "retired": false
-        },{
+        },
+        {
           "name": "Discrete Mathematics for Computer Science II",
           "shortName": "Discrete Math II",
           "slug": "ics_241",
@@ -4851,7 +5236,9 @@
           "creditHrs": 4,
           "interests": [],
           "corequisites": [],
-          "prerequisites": ["math_215,math_241"],
+          "prerequisites": [
+            "math_215,math_241"
+          ],
           "retired": false
         },
         {
@@ -4861,9 +5248,13 @@
           "num": "MATH 301",
           "description": "Symbolic logic, sets and relations, algorithms, trees and other graphs. Additional topics chosen from algebraic systems, networks, automata.",
           "creditHrs": 3,
-          "interests": ["algorithms"],
+          "interests": [
+            "algorithms"
+          ],
           "corequisites": [],
-          "prerequisites": ["math_215,math_241"],
+          "prerequisites": [
+            "math_215,math_241"
+          ],
           "retired": false
         },
         {
@@ -4875,7 +5266,9 @@
           "creditHrs": 3,
           "interests": [],
           "corequisites": [],
-          "prerequisites": ["math_242"],
+          "prerequisites": [
+            "math_242"
+          ],
           "retired": false
         },
         {
@@ -4887,14 +5280,16 @@
           "creditHrs": 3,
           "interests": [],
           "corequisites": [],
-          "prerequisites": ["math_242"],
+          "prerequisites": [
+            "math_242"
+          ],
           "retired": false
         },
         {
           "name": "Introduction to Computer and Network Security",
           "shortName": "Introduction to Computer and Network Security",
           "slug": "ee_406",
-          "num" : "EE 406",
+          "num": "EE 406",
           "description": "We will discuss basic computer and network security issues in this course. We will first review basic networking and cryptography concepts, and then study algorithms and protocols used in computer and network security. We will further discuss practical security mechanisms, including Web security, TCP/IP security, firewalls, IPSec, Virtual Private Networks, intrusion detection systems, etc..",
           "creditHrs": 3,
           "interests": [],
@@ -12423,6 +12818,461 @@
           "name": "Project",
           "slug": "project",
           "description": "A project related to computer science.",
+          "retired": false
+        }
+      ]
+    },
+    {
+      "name": "PageInterestCollection",
+      "contents": [
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "career-goal",
+          "name": "data-scientist",
+          "timestamp": "2020-06-16T03:36:16.455Z",
+          "retired": false
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "career-goal",
+          "name": "iot-architect",
+          "timestamp": "2020-06-16T03:39:09.113Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "vr-ar-engineer",
+          "timestamp": "2020-06-16T03:39:33.536Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "game-developer",
+          "timestamp": "2020-06-16T03:39:37.060Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "ux-designer",
+          "timestamp": "2020-06-16T03:39:40.293Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "devops-engineer",
+          "timestamp": "2020-06-16T03:39:43.540Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "database-administrator",
+          "timestamp": "2020-06-16T03:39:47.193Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "information-security-analyst",
+          "timestamp": "2020-06-16T03:39:51.084Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "network-engineer",
+          "timestamp": "2020-06-16T03:39:54.087Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "robotics-engineer",
+          "timestamp": "2020-06-16T03:39:58.323Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "software-developer",
+          "timestamp": "2020-06-16T03:40:12.035Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "graduate-school",
+          "timestamp": "2020-06-16T03:40:38.381Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "research-scientist",
+          "timestamp": "2020-06-16T03:40:43.429Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "information-system-manager",
+          "timestamp": "2020-06-16T03:40:49.539Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "mobile-app-developer",
+          "timestamp": "2020-06-16T03:40:53.463Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "startup-cofounder",
+          "timestamp": "2020-06-16T03:41:00.303Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "teacher",
+          "timestamp": "2020-06-16T03:41:03.791Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ee_406",
+          "timestamp": "2020-06-16T03:41:15.924Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ics_101",
+          "timestamp": "2020-06-16T03:41:20.196Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ics_102",
+          "timestamp": "2020-06-16T03:41:25.591Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "android",
+          "timestamp": "2020-06-16T03:41:32.242Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "angular",
+          "timestamp": "2020-06-16T03:41:35.055Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "apache-spark",
+          "timestamp": "2020-06-16T03:41:38.434Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "google-summer-of-code",
+          "timestamp": "2020-06-16T03:41:46.111Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "acm-manoa",
+          "timestamp": "2020-06-16T03:41:51.166Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "oceanit-student-intern",
+          "timestamp": "2020-06-16T03:41:56.885Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "data-scientist",
+          "timestamp": "2020-06-17T03:36:16.455Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "iot-architect",
+          "timestamp": "2020-06-17T03:39:09.113Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "vr-ar-engineer",
+          "timestamp": "2020-06-17T03:39:33.536Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "game-developer",
+          "timestamp": "2020-06-17T03:39:37.060Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "ux-designer",
+          "timestamp": "2020-06-17T03:39:40.293Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "devops-engineer",
+          "timestamp": "2020-06-17T03:39:43.540Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "mobile-app-developer",
+          "timestamp": "2020-06-17T03:40:53.463Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "teacher",
+          "timestamp": "2020-06-17T03:41:03.791Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ics_102",
+          "timestamp": "2020-06-17T03:41:25.591Z",
+          "retired": false
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "android",
+          "timestamp": "2020-06-17T03:41:32.242Z",
+          "retired": false
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "oceanit-student-intern",
+          "timestamp": "2020-06-17T03:41:56.885Z",
+          "retired": false
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "google-summer-of-code",
+          "timestamp": "2020-06-18T03:41:56.885Z",
+          "retired": false
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "acm-manoa",
+          "timestamp": "2020-06-19T03:41:56.885Z",
+          "retired": false
+        }
+      ]
+    },
+    {
+      "name": "PageInterestsDailySnapshotCollection",
+      "contents": [
+        {
+          "careerGoals": [
+            {
+              "name": "data-scientist",
+              "views": 1
+            },
+            {
+              "name": "iot-architect",
+              "views": 1
+            },
+            {
+              "name": "vr-ar-engineer",
+              "views": 1
+            },
+            {
+              "name": "game-developer",
+              "views": 1
+            },
+            {
+              "name": "ux-designer",
+              "views": 1
+            },
+            {
+              "name": "devops-engineer",
+              "views": 1
+            },
+            {
+              "name": "database-administrator",
+              "views": 1
+            },
+            {
+              "name": "information-security-analyst",
+              "views": 1
+            },
+            {
+              "name": "network-engineer",
+              "views": 1
+            },
+            {
+              "name": "robotics-engineer",
+              "views": 1
+            },
+            {
+              "name": "software-developer",
+              "views": 1
+            },
+            {
+              "name": "graduate-school",
+              "views": 1
+            },
+            {
+              "name": "research-scientist",
+              "views": 1
+            },
+            {
+              "name": "information-system-manager",
+              "views": 1
+            },
+            {
+              "name": "mobile-app-developer",
+              "views": 1
+            },
+            {
+              "name": "startup-cofounder",
+              "views": 1
+            },
+            {
+              "name": "teacher",
+              "views": 1
+            }
+          ],
+          "courses": [
+            {
+              "name": "ee_406",
+              "views": 1
+            },
+            {
+              "name": "ics_101",
+              "views": 1
+            },
+            {
+              "name": "ics_102",
+              "views": 1
+            }
+          ],
+          "interests": [
+            {
+              "name": "android",
+              "views": 1
+            },
+            {
+              "name": "angular",
+              "views": 1
+            },
+            {
+              "name": "apache-spark",
+              "views": 1
+            }
+          ],
+          "opportunities": [
+            {
+              "name": "google-summer-of-code",
+              "views": 1
+            },
+            {
+              "name": "acm-manoa",
+              "views": 1
+            },
+            {
+              "name": "oceanit-student-intern",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-06-16T09:59:59.000Z",
+          "retired": false
+        },
+        {
+          "careerGoals": [
+            {
+              "name": "data-scientist",
+              "views": 1
+            },
+            {
+              "name": "iot-architect",
+              "views": 1
+            },
+            {
+              "name": "vr-ar-engineer",
+              "views": 1
+            },
+            {
+              "name": "game-developer",
+              "views": 1
+            },
+            {
+              "name": "ux-designer",
+              "views": 1
+            },
+            {
+              "name": "devops-engineer",
+              "views": 1
+            },
+            {
+              "name": "mobile-app-developer",
+              "views": 1
+            },
+            {
+              "name": "teacher",
+              "views": 1
+            }
+          ],
+          "courses": [
+            {
+              "name": "ics_102",
+              "views": 1
+            }
+          ],
+          "interests": [
+            {
+              "name": "android",
+              "views": 1
+            }
+          ],
+          "opportunities": [
+            {
+              "name": "oceanit-student-intern",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-06-17T09:59:59.999Z",
           "retired": false
         }
       ]

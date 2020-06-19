@@ -32,6 +32,10 @@ export interface Ice {
   e: number;
 }
 
+interface IDocument {
+  _id: string;
+}
+
 export interface IDumpOne {
   slug?: string;
 }
@@ -249,7 +253,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAcademicPlanUpdate  extends IUpdate {
+export interface IAcademicPlanUpdate extends IUpdate {
   degreeSlug?: string;
   name?: string;
   academicTerm?: string;
@@ -315,7 +319,7 @@ export interface ICareerGoalDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICareerGoalUpdate extends IUpdate{
+export interface ICareerGoalUpdate extends IUpdate {
   name?: string;
   description?: string;
   interests?: string[];
@@ -566,7 +570,7 @@ export interface IHelpDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IHelpUpdate extends IUpdate{
+export interface IHelpUpdate extends IUpdate {
   routeName?: string;
   title?: string;
   text?: string;
@@ -780,6 +784,45 @@ export interface IOpportunityTypeDefine extends IDumpOne {
 export interface IOpportunityTypeUpdate extends IUpdate {
   description?: string;
   name?: string;
+  retired?: boolean;
+}
+
+export interface IPageInterest extends IDocument {
+  username: string;
+  category: string;
+  name: string;
+  timestamp: Date;
+  retired: boolean;
+}
+
+export interface IPageInterestDefine extends IDumpOne {
+  username: string;
+  category: string;
+  name: string;
+  timestamp?: Date;
+  retired?: boolean;
+}
+
+export interface IPageInterestInfo {
+  name: string;
+  views: number;
+}
+
+export interface IPageInterestsDailySnapshot extends IDocument {
+  careerGoals: IPageInterestInfo[];
+  courses: IPageInterestInfo[];
+  interests: IPageInterestInfo[];
+  opportunities: IPageInterestInfo[];
+  timestamp: Date;
+  retired: boolean;
+}
+
+export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
+  careerGoals: IPageInterestInfo[];
+  courses: IPageInterestInfo[];
+  interests: IPageInterestInfo[];
+  opportunities: IPageInterestInfo[];
+  timestamp?: Date;
   retired?: boolean;
 }
 
@@ -997,6 +1040,7 @@ export interface IStudentProfileUpdateData {
 
 // Reviews
 type ReviewRatings = 1 | 2 | 3 | 4 | 5;
+
 export interface IReview {
   _id: string;
   slugID: string;
@@ -1170,7 +1214,6 @@ interface IDateRange {
   startDate: Date;
   endDate: Date;
 }
-
 
 
 // VerificationRequests
