@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
@@ -12,7 +12,6 @@ import {
 } from '../../../api/analytic/UserInteractionsTypes';
 
 const RadGradLoginButtons = () => {
-
   const handleClick = (e, instance) => {
     // console.log(e, instance);
     e.preventDefault();
@@ -59,9 +58,9 @@ const RadGradLoginButtons = () => {
       <Dropdown.Menu>
         <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
         <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
-        <Dropdown.Item id="mentor" text={mentorLabel} as={NavLink} to="/signin" />
+        <Dropdown.Item id="mentor" text={mentorLabel} as={Link} to="/signin" />
         <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
-        <Dropdown.Item id="admin" as={NavLink} exact to="/signin" text={adminLabel} />
+        <Dropdown.Item id="admin" as={Link} exact to="/signin" text={adminLabel} />
       </Dropdown.Menu>
     </Dropdown>
   );

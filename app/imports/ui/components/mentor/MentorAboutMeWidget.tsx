@@ -18,6 +18,7 @@ import { cloudinaryActions } from '../../../redux/shared/cloudinary';
 import * as Router from '../shared/RouterHelperFunctions';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { RootState } from '../../../redux/types';
 import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
 import { IFavoriteCareerGoal, IFavoriteInterest, IMentorProfile } from '../../../typings/radgrad';
 
@@ -39,7 +40,7 @@ interface IMentorAboutMeWidgetProps {
   favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
-const mapStateToProps = (state): object => ({
+const mapStateToProps = (state: RootState): object => ({
   isCloudinaryUsed: state.shared.cloudinary.mentorHome.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.mentorHome.cloudinaryUrl,
 });

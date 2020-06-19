@@ -44,6 +44,10 @@ class UserInteractionCollection extends BaseCollection {
    * @param timestamp The time of interaction.
    */
   public define({ username, type, typeData, timestamp = moment().toDate() }: IUserInteractionDefine): string {
+    const doc = this.collection.findOne({ username, type, typeData, timestamp });
+    if (doc) {
+      return doc._id;
+    }
     return this.collection.insert({ username, type, typeData, timestamp });
   }
 
@@ -104,13 +108,13 @@ class UserInteractionCollection extends BaseCollection {
   }
 
   /**
-   * Publish an empty cursor to UserInteractions. Since method calls are used to find interactions,
-   * we do not need to publish any records, but would still like this to be on the list of collections
+   * Publish a cursor to UserInteractions. Method calls are used to find interactions and we do not subscribe to
+   * UserInteractions on the client. However, we would still like this to be on the list of collections
    * for integrity check, etc.
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () => this.collection.find({}, { limit: 0 }));
+      Meteor.publish(this.collectionName, () => this.collection.find());
     }
   }
 }

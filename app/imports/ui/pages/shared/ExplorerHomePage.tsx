@@ -1,11 +1,17 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerNavDropdown from '../../components/shared/ExplorerNavDropdown';
+import {
+  PAGE_TRACKING_COMPARISON,
+  PAGE_TRACKING_SCOREBOARD,
+} from '../../../startup/client/route-constants';
+import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 
 interface IExplorerHomePageProps {
   match: {
@@ -47,6 +53,34 @@ const ExplorerHomePage = (props: IExplorerHomePageProps) => (
         <Grid.Column width={3}>
           <ExplorerNavDropdown match={props.match} text="Select Explorer" />
         </Grid.Column>
+        <Grid.Column width={11}>
+          <Message>
+            <Message.Header>
+              MOST VIEWED CATEGORIES
+            </Message.Header>
+            Interested in seeing which areas of the different topic categories (Career Goals, Courses, Interests, and
+            Opportunities) are visited the most? Go to the <b>Page Tracking Scoreboard Page</b> or <b>Comparison
+              Page</b>!
+            <p>
+              <Link
+                to={Router.buildRouteName(props.match, `/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
+              >
+                Scoreboard Page
+              </Link>
+              : Sort and filter the number of views a student has visited that page for the different topic categories.
+            </p>
+            <p>
+              <Link
+                to={Router.buildRouteName(props.match, `/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
+              >
+                Comparison Page
+              </Link>
+              : Pick out specific areas for a topic category to view the number of views a student has visited those
+              particular pages.
+            </p>
+          </Message>
+        </Grid.Column>
+        <Grid.Column width={1} />
       </Grid.Row>
     </Grid>
   </div>

@@ -42,6 +42,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { RootState } from '../../../redux/types';
 
 interface IAdminDataModelUsersPageProps {
   admins: IBaseProfile[];
@@ -111,7 +112,7 @@ const itemTitle = (user: IBaseProfile): React.ReactNode => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state): object => ({
+const mapStateToProps = (state: RootState): object => ({
   isCloudinaryUsed: state.shared.cloudinary.adminDataModelUsers.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });

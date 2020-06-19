@@ -24,13 +24,9 @@ const ALLOWED_ROLES = [
   ROLE.MENTOR,
 ];
 
-/**
- * @param userID {string} UserID used to search for answers in the database
- * @return {Card.Component} A component meant to be used on a <Card>.
- */
 const UserAnswersComponent = (props: IUserAnswersComponentProps) => {
   const thisUserProfile = Users.findProfileFromUsername(props.match.params.username);
-  const mentorAnswers = MentorAnswers.find({ mentorID: props.userID }).fetch(); // TODO: Why is this not reactive?
+  const mentorAnswers = MentorAnswers.find({ mentorID: props.userID }).fetch();
   const associatedQuestions = mentorAnswers.map((ele) => ({
     question: MentorQuestions.find({ _id: ele.questionID }).fetch()[0].question,
     answer: ele.text,

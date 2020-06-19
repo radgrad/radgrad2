@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
@@ -55,7 +55,7 @@ const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteForm
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
-            console.log('Error creating UserInteraction.', userInteractionError);
+            console.error('Error creating UserInteraction.', userInteractionError);
           }
         });
       }

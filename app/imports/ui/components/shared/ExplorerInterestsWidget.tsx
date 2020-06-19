@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Header, Grid, Divider, Segment, SegmentGroup, Embed } from 'semantic-ui-react';
+import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
@@ -24,6 +24,7 @@ import { profileGetInterestIDs } from './data-model-helper-functions';
 import { explorerInterestWidget } from './shared-widget-names';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
+import TeaserVideo from './TeaserVideo';
 
 interface IExplorerInterestsWidgetProps {
   type: string;
@@ -169,12 +170,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
               </Grid.Column>
               <Grid.Column width={7}>
                 <b>Teaser:</b>
-                <Embed
-                  active
-                  autoplay={false}
-                  source="youtube"
-                  id={teaser && teaser[0] && teaser[0].url}
-                />
+                <TeaserVideo id={teaser && teaser[0] && teaser[0].url} />
               </Grid.Column>
             </Grid>
           ) : (

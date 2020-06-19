@@ -8,6 +8,7 @@ import { IDescriptionPair } from '../../../typings/radgrad';
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { RootState } from '../../../redux/types';
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
@@ -21,7 +22,7 @@ interface IListCollectionWidgetProps {
   pagination: any;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 

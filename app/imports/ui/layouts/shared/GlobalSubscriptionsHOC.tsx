@@ -31,6 +31,7 @@ import { Feeds } from '../../../api/feed/FeedCollection';
 import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 
 
 interface ILoading {
@@ -77,6 +78,7 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(Opportunities.getPublicationName()),
       globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
+      globalSubs.subscribe(PageInterestsDailySnapshots.getPublicationName()),
       globalSubs.subscribe(PlanChoices.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
