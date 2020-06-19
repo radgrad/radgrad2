@@ -12941,6 +12941,35 @@
       "name": "StudentProfileCollection",
       "contents": [
         {
+          "username": "heacheng@hawaii.edu",
+          "firstName": "Hanna",
+          "lastName": "Park",
+          "picture": "/images/mockup/hanna.png",
+          "website": "http://hannaparkUH.github.io",
+          "interests": [
+          ],
+          "careerGoals": [
+          ],
+          "level": 1,
+          "favoriteAcademicPlans": [
+            "bs-cs-2019",
+            "bs-cs-2020"
+          ],
+          "favoriteCourses": [],
+          "favoriteOpportunities": [],
+          "declaredAcademicTerm": "Fall-2017",
+          "isAlumni": false,
+          "retired": false,
+          "shareUsername": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": true,
+          "shareLevel": false
+        },
+        {
           "username": "abi@hawaii.edu",
           "firstName": "Abigail",
           "lastName": "Kealoha",

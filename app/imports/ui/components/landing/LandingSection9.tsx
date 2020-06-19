@@ -11,11 +11,10 @@ const noBoxShadowStyle = {
 };
 
 const LandingSection9 = () => (
-  <div id="landing-section-9" style={styles['inverted-section']}>
+  <div id="landing-section-9" style={styles['inverted-section-green']}>
     <Grid stackable container>
       <Grid.Column textAlign="center">
-        <Header as="h1" style={styles['inverted-header']}>Ready to get started?</Header>
-        <p style={styles['inverted-description']}>Take a guided tour!</p>
+        <Header as="h1" style={styles['inverted-header2']}>Ready to get started?</Header>
         <Grid>
           <Card.Group stackable itemsPerRow={4} style={paddingStyle}>
             <Card style={noBoxShadowStyle}>
@@ -23,7 +22,7 @@ const LandingSection9 = () => (
                 <Image src="/images/landing/students.jpg" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">
-                Students
+                STUDENTS
                 <Icon name="chevron right" />
               </a>
             </Card>
@@ -32,7 +31,7 @@ const LandingSection9 = () => (
                 <Image src="/images/landing/advisor.png" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/advisor">
-                Advisors
+                ADVISORS
                 <Icon name="chevron right" />
               </a>
             </Card>
@@ -41,7 +40,7 @@ const LandingSection9 = () => (
                 <Image src="/images/landing/ics-faculty-group.png" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/faculty">
-                Faculty
+                FACULTY
                 <Icon name="chevron right" />
               </a>
             </Card>
@@ -50,7 +49,7 @@ const LandingSection9 = () => (
                 <Image src="/images/landing/nagashima.jpg" />
               </div>
               <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/mentor">
-                Mentors
+                MENTORS
                 <Icon name="chevron right" />
               </a>
             </Card>

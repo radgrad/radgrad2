@@ -5,11 +5,6 @@ import LandingNavBarContainer from '../../components/landing/LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
 import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';
-import LandingSection4 from '../../components/landing/LandingSection4';
-import LandingSection5 from '../../components/landing/LandingSection5';
-import LandingSection6 from '../../components/landing/LandingSection6';
-import LandingSection7 from '../../components/landing/LandingSection7';
-import LandingSection8 from '../../components/landing/LandingSection8';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
@@ -44,27 +39,7 @@ const LandingHome = (props: ILandingHomeProps) => (
       opportunities={props.opportunities}
       users={props.users}
     />
-    <LandingSection3
-      careerGoals={props.careerGoals}
-      academicPlans={props.academicPlans}
-      interests={props.interests}
-    />
-    <LandingSection4 opportunities={props.opportunities} />
-    <LandingSection5 />
-    <LandingSection6
-      levelOne={props.levelOne}
-      levelTwo={props.levelTwo}
-      levelThree={props.levelThree}
-      levelFour={props.levelFour}
-      levelFive={props.levelFive}
-      levelSix={props.levelSix}
-    />
-    <LandingSection7 careerGoalNames={props.careerGoalNames} />
-    <LandingSection8
-      courseReviews={props.courseReviews}
-      locations={props.locations}
-      mentors={props.mentors}
-    />
+    <LandingSection3 />
     <LandingSection9Container />
     <LandingFooter />
 

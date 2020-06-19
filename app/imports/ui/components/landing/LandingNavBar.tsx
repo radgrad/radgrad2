@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Button, Header, Image, Menu } from 'semantic-ui-react';
+import { Button, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 import { ROLE } from '../../../api/role/Role';
@@ -27,7 +27,9 @@ const LandingNavBar = (props: INavBarProps) => {
   // console.log(props);
   const url = `/#/${props.role}/${props.currentUser}/home`;
   return (
+
     <Menu attached="top" borderless size="small">
+      <Container>
       <Menu.Item as={NavLink} activeClassName="" exact to="/">
         <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
         <div className="mobile hidden item">
@@ -46,7 +48,9 @@ const LandingNavBar = (props: INavBarProps) => {
           <RadGradLoginButtons />
         )}
       </Menu.Item>
+      </Container>
     </Menu>
+
   );
 };
 
