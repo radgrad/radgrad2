@@ -46,7 +46,17 @@ class PageInterestCollection extends BaseCollection {
    * @param retired boolean optional defaults to false.
    */
   public define({ username, category, name, timestamp = moment().toDate(), retired = false }: IPageInterestDefine): string {
-    const doc = this.collection.findOne({ username, category, name, timestamp, retired });
+    // Duplicates are not allowed
+    // 1) Documents with the same values for all its fields
+    let doc: IPageInterest;
+    doc = this.collection.findOne({ username, category, name, timestamp, retired });
+    if (doc) {
+      return doc._id;
+    }
+    // 2) Documents with the same values for all its fields except timestamp
+    // PageInterests only publishes PageInterests within the past 24 hours for the purpose of not defining more than 1
+    // PageInterest for an item within that 24 hour period.
+    doc = this.collection.findOne({ username, category, name, retired });
     if (doc) {
       return doc._id;
     }

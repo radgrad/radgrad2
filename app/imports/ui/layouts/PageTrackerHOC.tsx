@@ -13,7 +13,7 @@ import { CareerGoals } from '../../api/career/CareerGoalCollection';
 import { Courses } from '../../api/course/CourseCollection';
 import { Interests } from '../../api/interest/InterestCollection';
 import { Opportunities } from '../../api/opportunity/OpportunityCollection';
-import { IPageInterest, IPageInterestDefine, ISlug } from '../../typings/radgrad';
+import { IPageInterestDefine, ISlug } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
 import { EXPLORER_TYPE } from '../../startup/client/route-constants';
@@ -21,7 +21,6 @@ import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
 } from '../../api/page-tracking/PageInterestsCategoryTypes';
-import { PageInterests } from '../../api/page-tracking/PageInterestCollection';
 import { pageInterestDefineMethod } from '../../api/page-tracking/PageInterestCollection.methods';
 
 interface IPageTrackerProps {
@@ -150,19 +149,16 @@ function withPageTracker(WrappedComponent) {
               category = PageInterestsCategoryTypes.OPPORTUNITY;
               break;
           }
-          const pageInterest: IPageInterest = PageInterests.findOne({ username, name: urlSlug });
           // Only define a PageInterest if there hasn't been one defined for the past 24 hours.
-          if (!pageInterest) {
-            const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
-            const pageInterestData: IPageInterestDefine = { username, category, name: urlSlug };
-            timeoutHandle = Meteor.setTimeout(() => {
-              pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
-                if (pageInterestError) {
-                  console.error('Error creating PageInterest.', pageInterestError);
-                }
-              });
-            }, engagedInterestTime);
-          }
+          const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
+          const pageInterestData: IPageInterestDefine = { username, category, name: urlSlug };
+          timeoutHandle = Meteor.setTimeout(() => {
+            pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
+              if (pageInterestError) {
+                console.error('Error creating PageInterest.', pageInterestError);
+              }
+            });
+          }, engagedInterestTime);
         }
         // componentWillUnmount
         // eslint-disable-next-line consistent-return

@@ -75,7 +75,7 @@ if (Meteor.isServer) {
 
     });
 
-    it('Can checkIntegrity no errors', function test2() {
+    it('Can checkIntegrity no errors', function test4() {
       const problems = PageInterests.checkIntegrity();
 
       // When we call makeSamplePageInterest, we don't create the random slugs (category and name) that it generates

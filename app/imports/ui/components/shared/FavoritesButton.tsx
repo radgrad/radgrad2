@@ -10,7 +10,6 @@ import {
   IInterest,
   IMeteorError,
   IOpportunity,
-  IPageInterest,
   IPageInterestDefine,
 } from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
@@ -18,11 +17,9 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { FAVORITE_TYPE, IFavoriteTypes } from '../../../api/favorite/FavoriteTypes';
-import { PageInterests } from '../../../api/page-tracking/PageInterestCollection';
 import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
 import {
   createDefinitionData,
@@ -30,7 +27,7 @@ import {
   createPageInterestData,
   getCollectionName,
 } from './favorites-button-helper-functions';
-import { getUsername, IMatchProps } from './RouterHelperFunctions';
+import { IMatchProps } from './RouterHelperFunctions';
 
 export interface IFavoriteButtonProps {
   match: IMatchProps
@@ -38,7 +35,6 @@ export interface IFavoriteButtonProps {
   studentID: string;
   type: IFavoriteTypes;
   added: boolean;
-  pageInterest: IPageInterest;
 }
 
 
@@ -69,15 +65,12 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
           console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
-      // Only define a PageInterest if there hasn't been one defined for the past 24 hours.
-      if (!props.pageInterest) {
-        const pageInterestData: IPageInterestDefine = createPageInterestData(props);
-        pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
-          if (pageInterestError) {
-            console.error('Error creating PageInterest.', pageInterestError);
-          }
-        });
-      }
+      const pageInterestData: IPageInterestDefine = createPageInterestData(props);
+      pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
+        if (pageInterestError) {
+          console.error('Error creating PageInterest.', pageInterestError);
+        }
+      });
     }
   });
 };
@@ -111,7 +104,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
         interestID: props.item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.OPPORTUNITY: // opportunity
+    case FAVORITE_TYPE.OPPORTUNITY:
       instance = FavoriteOpportunities.findNonRetired({
         studentID: props.studentID,
         opportunityID: props.item._id,
@@ -179,11 +172,8 @@ export default withRouter(withTracker((props: IFavoriteButtonProps) => {
     FavoriteCourses.findNonRetired({ studentID: props.studentID, courseID: props.item._id }).length +
     FavoriteInterests.findNonRetired({ userID: props.studentID, interestID: props.item._id }).length +
     FavoriteOpportunities.findNonRetired({ studentID: props.studentID, opportunityID: props.item._id }).length;
-  const username = getUsername(props.match);
-  const slugName = Slugs.getNameFromID(props.item.slugID);
-  const pageInterest: IPageInterest = PageInterests.findOne({ username, name: slugName });
+
   return {
     added: count > 0,
-    pageInterest,
   };
 })(FavoritesButton));
