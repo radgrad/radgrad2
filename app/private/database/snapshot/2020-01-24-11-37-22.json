@@ -12829,258 +12829,272 @@
           "username": "samplestudent@hawaii.edu",
           "category": "career-goal",
           "name": "data-scientist",
-          "timestamp": "2020-06-18T03:36:16.455Z",
+          "timestamp": "2020-06-16T03:36:16.455Z",
           "retired": false
         },
         {
           "username": "samplestudent@hawaii.edu",
           "category": "career-goal",
           "name": "iot-architect",
-          "timestamp": "2020-06-18T03:39:09.113Z",
+          "timestamp": "2020-06-16T03:39:09.113Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "vr-ar-engineer",
-          "timestamp": "2020-06-18T03:39:33.536Z",
+          "timestamp": "2020-06-16T03:39:33.536Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "game-developer",
-          "timestamp": "2020-06-18T03:39:37.060Z",
+          "timestamp": "2020-06-16T03:39:37.060Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "ux-designer",
-          "timestamp": "2020-06-18T03:39:40.293Z",
+          "timestamp": "2020-06-16T03:39:40.293Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "devops-engineer",
-          "timestamp": "2020-06-18T03:39:43.540Z",
+          "timestamp": "2020-06-16T03:39:43.540Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "database-administrator",
-          "timestamp": "2020-06-18T03:39:47.193Z",
+          "timestamp": "2020-06-16T03:39:47.193Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "information-security-analyst",
-          "timestamp": "2020-06-18T03:39:51.084Z",
+          "timestamp": "2020-06-16T03:39:51.084Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "network-engineer",
-          "timestamp": "2020-06-18T03:39:54.087Z",
+          "timestamp": "2020-06-16T03:39:54.087Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "robotics-engineer",
-          "timestamp": "2020-06-18T03:39:58.323Z",
+          "timestamp": "2020-06-16T03:39:58.323Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "software-developer",
-          "timestamp": "2020-06-18T03:40:12.035Z",
+          "timestamp": "2020-06-16T03:40:12.035Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "graduate-school",
-          "timestamp": "2020-06-18T03:40:38.381Z",
+          "timestamp": "2020-06-16T03:40:38.381Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "research-scientist",
-          "timestamp": "2020-06-18T03:40:43.429Z",
+          "timestamp": "2020-06-16T03:40:43.429Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "information-system-manager",
-          "timestamp": "2020-06-18T03:40:49.539Z",
+          "timestamp": "2020-06-16T03:40:49.539Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "mobile-app-developer",
-          "timestamp": "2020-06-18T03:40:53.463Z",
+          "timestamp": "2020-06-16T03:40:53.463Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "startup-cofounder",
-          "timestamp": "2020-06-18T03:41:00.303Z",
+          "timestamp": "2020-06-16T03:41:00.303Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "teacher",
-          "timestamp": "2020-06-18T03:41:03.791Z",
+          "timestamp": "2020-06-16T03:41:03.791Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "course",
           "name": "ee_406",
-          "timestamp": "2020-06-18T03:41:15.924Z",
+          "timestamp": "2020-06-16T03:41:15.924Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "course",
           "name": "ics_101",
-          "timestamp": "2020-06-18T03:41:20.196Z",
+          "timestamp": "2020-06-16T03:41:20.196Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "course",
           "name": "ics_102",
-          "timestamp": "2020-06-18T03:41:25.591Z",
+          "timestamp": "2020-06-16T03:41:25.591Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "interest",
           "name": "android",
-          "timestamp": "2020-06-18T03:41:32.242Z",
+          "timestamp": "2020-06-16T03:41:32.242Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "interest",
           "name": "angular",
-          "timestamp": "2020-06-18T03:41:35.055Z",
+          "timestamp": "2020-06-16T03:41:35.055Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "interest",
           "name": "apache-spark",
-          "timestamp": "2020-06-18T03:41:38.434Z",
+          "timestamp": "2020-06-16T03:41:38.434Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "opportunity",
           "name": "google-summer-of-code",
-          "timestamp": "2020-06-18T03:41:46.111Z",
+          "timestamp": "2020-06-16T03:41:46.111Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "opportunity",
           "name": "acm-manoa",
-          "timestamp": "2020-06-18T03:41:51.166Z",
+          "timestamp": "2020-06-16T03:41:51.166Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "opportunity",
           "name": "oceanit-student-intern",
-          "timestamp": "2020-06-18T03:41:56.885Z",
+          "timestamp": "2020-06-16T03:41:56.885Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "data-scientist",
-          "timestamp": "2020-06-19T03:36:16.455Z",
+          "timestamp": "2020-06-17T03:36:16.455Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "iot-architect",
-          "timestamp": "2020-06-19T03:39:09.113Z",
+          "timestamp": "2020-06-17T03:39:09.113Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "vr-ar-engineer",
-          "timestamp": "2020-06-19T03:39:33.536Z",
+          "timestamp": "2020-06-17T03:39:33.536Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "game-developer",
-          "timestamp": "2020-06-19T03:39:37.060Z",
+          "timestamp": "2020-06-17T03:39:37.060Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "ux-designer",
-          "timestamp": "2020-06-19T03:39:40.293Z",
+          "timestamp": "2020-06-17T03:39:40.293Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "devops-engineer",
-          "timestamp": "2020-06-19T03:39:43.540Z",
+          "timestamp": "2020-06-17T03:39:43.540Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "mobile-app-developer",
-          "timestamp": "2020-06-19T03:40:53.463Z",
+          "timestamp": "2020-06-17T03:40:53.463Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "career-goal",
           "name": "teacher",
-          "timestamp": "2020-06-19T03:41:03.791Z",
+          "timestamp": "2020-06-17T03:41:03.791Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "course",
           "name": "ics_102",
-          "timestamp": "2020-06-19T03:41:25.591Z",
+          "timestamp": "2020-06-17T03:41:25.591Z",
           "retired": false
         },
         {
           "username": "gcalica@hawaii.edu",
           "category": "interest",
           "name": "android",
-          "timestamp": "2020-06-19T03:41:32.242Z",
+          "timestamp": "2020-06-17T03:41:32.242Z",
           "retired": false
         },
         {
           "username": "samplestudent@hawaii.edu",
           "category": "opportunity",
           "name": "oceanit-student-intern",
+          "timestamp": "2020-06-17T03:41:56.885Z",
+          "retired": false
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "google-summer-of-code",
+          "timestamp": "2020-06-18T03:41:56.885Z",
+          "retired": false
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "acm-manoa",
           "timestamp": "2020-06-19T03:41:56.885Z",
           "retired": false
         }
@@ -13202,7 +13216,7 @@
               "views": 1
             }
           ],
-          "timestamp": "2020-06-18T09:59:59.000Z",
+          "timestamp": "2020-06-16T09:59:59.000Z",
           "retired": false
         },
         {
@@ -13258,7 +13272,7 @@
               "views": 1
             }
           ],
-          "timestamp": "2020-06-19T09:59:59.999Z",
+          "timestamp": "2020-06-17T09:59:59.999Z",
           "retired": false
         }
       ]

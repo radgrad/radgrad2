@@ -8,7 +8,6 @@ import {
   IIceSnapshotDefine,
   IPageInterest,
   IPageInterestInfo,
-  IPageInterestsDailySnapshot,
 } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { PageInterestsDailySnapshots } from '../../api/page-tracking/PageInterestsDailySnapshotCollection';
@@ -151,10 +150,11 @@ SyncedCron.add({
     if (PageInterestsDailySnapshots.find({}).count() === 0) {
       createDailySnapshot(PageInterests.find({}).fetch());
     } else {
-      const recentSnapshot: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({}, { sort: { natural: -1 } });
-      const recentSnapshotTimestamp: Date = recentSnapshot.timestamp;
-      // TODO https://github.com/radgrad/radgrad2/issues/138#issuecomment-640179173 See edge cases
-      const pageInterestsSinceRecentSnapshot = PageInterests.find({ timestamp: { $gt: recentSnapshotTimestamp } }).fetch();
+      // const recentSnapshot: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({}, { sort: { timestamp: -1 } });
+      // FIXME https://github.com/radgrad/radgrad2/issues/138#issuecomment-640179173 See edge cases
+      const gte = moment().subtract(1, 'day').startOf('day').toDate();
+      const lte = moment().subtract(1, 'day').endOf('day').toDate();
+      const pageInterestsSinceRecentSnapshot = PageInterests.find({ timestamp: { $gte: gte, $lte: lte } }).fetch();
       createDailySnapshot(pageInterestsSinceRecentSnapshot);
     }
   },
