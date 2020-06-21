@@ -1,4 +1,4 @@
-import {toUpper} from "../shared/helper-functions";
+import { toUpper } from '../shared/helper-functions';
 
 export default {
     'landing-menu > .item, .landing-menu .right.menu > .item': {
@@ -17,7 +17,7 @@ export default {
     },
     'inverted-main-header': {
         color: 'white',
-        fontSize: 60,
+        fontSize: 55,
         lineHeight: 1,
         paddingBottom: 10,
     },
@@ -31,6 +31,7 @@ export default {
         fontWeight: 500,
         paddingRight: 10,
         verticalAlign: 'top',
+        lineHeight:0.3,
 
     },
     'float-right': {

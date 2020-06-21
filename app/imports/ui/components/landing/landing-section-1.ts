@@ -1,4 +1,4 @@
-import {toUpper} from "../shared/helper-functions";
+import { toUpper } from '../shared/helper-functions';
 
 export default {
   '@global': {
