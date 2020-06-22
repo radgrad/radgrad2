@@ -1,11 +1,11 @@
 import React from 'react';
 import { Grid, Popup } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
-import { ICourseInstance } from '../../../typings/radgrad';
-import { getDraggablePillStyle } from '../shared/StyleFunctions';
-import NamePill from '../shared/NamePill';
-import { Courses } from '../../../api/course/CourseCollection';
-import RemoveItWidget from '../shared/RemoveItWidget';
+import { ICourseInstance } from '../../../../typings/radgrad';
+import { getDraggablePillStyle } from '../../shared/StyleFunctions';
+import NamePill from '../../shared/NamePill';
+import { Courses } from '../../../../api/course/CourseCollection';
+import RemoveItWidget from '../../shared/RemoveItWidget';
 
 interface ICourseInstancePillProps {
   instance: ICourseInstance;

@@ -3,16 +3,16 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { ICourseInstance } from '../../../typings/radgrad';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import IceHeader from '../shared/IceHeader';
-import { Courses } from '../../../api/course/CourseCollection';
-import FutureParticipation from '../shared/FutureParticipation';
+import { ICourseInstance } from '../../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import IceHeader from '../../shared/IceHeader';
+import { Courses } from '../../../../api/course/CourseCollection';
+import FutureParticipation from '../../shared/FutureParticipation';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 
 interface IDetailCourseCardProps {
   match: any;

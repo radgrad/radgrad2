@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Header, Card, List } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { IVerificationRequest } from '../../../typings/radgrad';
+import { IVerificationRequest } from '../../../../typings/radgrad';
 
 interface IVerificationRequestStatusProps {
   request: IVerificationRequest;

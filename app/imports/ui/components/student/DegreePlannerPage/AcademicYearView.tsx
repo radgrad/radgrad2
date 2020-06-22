@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicYearInstance } from '../../../typings/radgrad';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { IAcademicYearInstance } from '../../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import AcademicTermViewContainer from './AcademicTermView';
 
 interface IAcademicYearViewProps {

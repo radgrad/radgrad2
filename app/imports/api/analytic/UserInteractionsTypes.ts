@@ -10,8 +10,13 @@ export enum UserInteractionsTypes {
   WEBSITE = 'website',
   SHAREINFORMATION = 'shareInformation',
   /* Degree Planner */
+  // Dragging a course/opportunity to the planner
   ADDCOURSE = 'addCourse',
   ADDOPPORTUNITY = 'addOpportunity',
+  // Moving a course/opportunity from a term to another term
+  UPDATECOURSE = 'updateCourse',
+  UPDATEOPPORTUNITY = 'updateOpportunity',
+  // Removing a course/opportunity from the planner
   REMOVECOURSE = 'removeCourse',
   REMOVEOPPORTUNITY = 'removeOpportunity',
   /* Favorites */

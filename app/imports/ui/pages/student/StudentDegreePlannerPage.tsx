@@ -1,40 +1,37 @@
 import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import DegreeExperiencePlannerWidget from '../../components/student/DegreeExperiencePlannerWidget';
+import DegreeExperiencePlannerWidget from '../../components/student/DegreePlannerPage/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
+  IAcademicTerm,
+  ICourseInstance,
   ICourseInstanceDefine,
-  ICourseInstanceUpdate, IMeteorError,
+  ICourseInstanceUpdate, IMeteorError, IOpportunityInstance,
   IOpportunityInstanceDefine,
-  IOpportunityInstanceUpdate,
+  IOpportunityInstanceUpdate, IUserInteractionDefine,
 } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import TabbedFavoritesWidget from '../../components/student/TabbedFavoritesWidget';
+import TabbedFavoritesWidget from '../../components/student/DegreePlannerPage/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { getUsername, IMatchProps } from '../../components/shared/RouterHelperFunctions';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 
-interface IPageProps {
+interface IStudentDegreePlannerProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IMatchProps;
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -43,14 +40,13 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const onDragEnd = (props: IPageProps) => (result) => {
-  // console.log(result);
+const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
   if (!result.destination) {
     return;
   }
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
-  const student = props.match.params.username;
+  const student = getUsername(props.match);
   const isCourseDrop = Courses.isDefined(slug);
   const isCourseInstanceDrop = CourseInstances.isDefined(slug);
   const isOppDrop = Opportunities.isDefined(slug);
@@ -58,6 +54,13 @@ const onDragEnd = (props: IPageProps) => (result) => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
   const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
+
+  // Variables for dealing with defining user interaction
+  const academicTermSplit = result.destination.droppableId.split('-'); // droppableID is in the form "Term-Year"
+  const academicTermToString = academicTermSplit.join(' '); // AcademicTerms.getAcademicTermFromToString splits based on whitespace
+  const academicTerm: IAcademicTerm = AcademicTerms.getAcademicTermFromToString(academicTermToString);
+  let interactionData: IUserInteractionDefine;
+
   if (isCourseDrop) {
     if (isPastDrop) {
       Swal.fire({
@@ -79,12 +82,35 @@ const onDragEnd = (props: IPageProps) => (result) => {
         student,
         creditHrs: course.creditHrs,
       };
+      /**
+       * If you drag a course into an academic term in which an course instance already exists for that course in
+       * that academic term, that dragged course won't be added to that academic term permanently.
+       * This is because although the define method fires, it won't actually insert a new course instance to the
+       * database (see the define() method of CourseInstanceCollection) because it's considered a duplicate.
+       * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
+       * course instance and only create a user interaction if it was not a duplicate.
+       */
+        // Before we define a course instance, check if it already exists first
+      const termID = academicTerm._id;
+      const instanceExists: ICourseInstance = CourseInstances.findCourseInstanceDoc(termID, courseID, student);
       defineMethod.call({ collectionName, definitionData }, (error, res) => {
         if (error) {
           console.error(error);
         } else {
           props.selectCourseInstance(res);
           // props.selectFavoriteDetailsTab();
+          if (!instanceExists) {
+            interactionData = {
+              username: student,
+              type: UserInteractionsTypes.ADDCOURSE,
+              typeData: [academicTermSplit[0], academicTermSplit[1], slug],
+            };
+            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+              if (userInteractionError) {
+                console.error('Error creating UserInteraction.', userInteractionError);
+              }
+            });
+          }
         }
       });
     }
@@ -116,6 +142,16 @@ const onDragEnd = (props: IPageProps) => (result) => {
             console.error(error);
           } else {
             props.selectCourseInstance(slug);
+            interactionData = {
+              username: student,
+              type: UserInteractionsTypes.UPDATECOURSE,
+              typeData: [academicTermSplit[0], academicTermSplit[1], CourseInstances.getCourseSlug(slug)],
+            };
+            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+              if (userInteractionError) {
+                console.error('Error creating UserInteraction.', userInteractionError);
+              }
+            });
           }
         });
       }
@@ -132,11 +168,33 @@ const onDragEnd = (props: IPageProps) => (result) => {
       student,
       sponsor,
     };
+    /**
+     * If you drag an opportunity into an academic term in which an opportunity instance already exists for that opportunity
+     * in that academic term, that dragged opportunity won't be added to that academic term permanently.
+     * This is because although the define method fires, it won't actually insert a new opportunity instance to the
+     * database (see the define() method of OpportunityInstanceCollection) because it's considered a duplicate.
+     * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
+     * opportunity instance and only create a user interaction if it was not a duplicate.
+     */
+    const termID = academicTerm._id;
+    const instanceExists: IOpportunityInstance = OpportunityInstances.findOpportunityInstanceDoc(termID, opportunityID, student);
     defineMethod.call({ collectionName, definitionData }, (error, res) => {
       if (error) {
         console.error(error);
       } else {
         props.selectOpportunityInstance(res);
+        if (!instanceExists) {
+          interactionData = {
+            username: student,
+            type: UserInteractionsTypes.ADDOPPORTUNITY,
+            typeData: [academicTermSplit[0], academicTermSplit[1], slug],
+          };
+          userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+            if (userInteractionError) {
+              console.error('Error creating UserInteraction.', userInteractionError);
+            }
+          });
+        }
       }
     });
   } else if (isOppInstDrop) {
@@ -150,14 +208,22 @@ const onDragEnd = (props: IPageProps) => (result) => {
         console.error(error);
       } else {
         props.selectOpportunityInstance(slug);
+        interactionData = {
+          username: student,
+          type: UserInteractionsTypes.UPDATEOPPORTUNITY,
+          typeData: [academicTermSplit[0], academicTermSplit[1], OpportunityInstances.getOpportunitySlug(slug)],
+        };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.error('Error creating UserInteraction.', userInteractionError);
+          }
+        });
       }
     });
-
   }
 };
 
-
-const StudentDegreePlannerPage = (props: IPageProps) => {
+const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,
@@ -194,4 +260,4 @@ const StudentDegreePlannerPage = (props: IPageProps) => {
 
 const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPage);
 
-export default withRouter(StudentDegreePlannerPageContainer);
+export default StudentDegreePlannerPageContainer;

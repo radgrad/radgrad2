@@ -6,7 +6,7 @@ import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { ISlug, IUserInteractionDefine } from '../../../typings/radgrad';
+import { IUserInteractionDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { getUsername, IMatchProps } from './RouterHelperFunctions';
@@ -38,7 +38,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
     const collectionName = props.collectionName;
     const instance = props.id;
     let type;
-    let slugName: ISlug;
+    let slugName;
     if (collectionName === CourseInstances.getCollectionName()) {
       type = UserInteractionsTypes.REMOVECOURSE;
       slugName = CourseInstances.getCourseSlug(instance);

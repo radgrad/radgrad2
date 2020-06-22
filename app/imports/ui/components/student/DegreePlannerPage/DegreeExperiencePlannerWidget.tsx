@@ -6,21 +6,21 @@ import Swal from 'sweetalert2';
 import moment from 'moment';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Users } from '../../../api/user/UserCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
+import { Users } from '../../../../api/user/UserCollection';
+import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
 import {
   IAcademicYearInstance,
   IAcademicYearInstanceDefine,
   ICourseInstance,
   IMeteorError, IOpportunityInstance,
-} from '../../../typings/radgrad';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import { studentDepWidget } from './student-widget-names';
-import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
+} from '../../../../typings/radgrad';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { degreePlannerActions } from '../../../../redux/student/degree-planner';
+import { studentDepWidget } from '../student-widget-names';
+import { getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;

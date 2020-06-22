@@ -1,12 +1,12 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Grid, Icon, Popup } from 'semantic-ui-react';
-import { IOpportunityInstance } from '../../../typings/radgrad';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { getDraggablePillStyle } from '../shared/StyleFunctions';
-import NamePill from '../shared/NamePill';
-import IceHeader from '../shared/IceHeader';
-import RemoveItWidget from '../shared/RemoveItWidget';
+import { IOpportunityInstance } from '../../../../typings/radgrad';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { getDraggablePillStyle } from '../../shared/StyleFunctions';
+import NamePill from '../../shared/NamePill';
+import IceHeader from '../../shared/IceHeader';
+import RemoveItWidget from '../../shared/RemoveItWidget';
 
 interface IOpportunityInstancePillProps {
   instance: IOpportunityInstance;

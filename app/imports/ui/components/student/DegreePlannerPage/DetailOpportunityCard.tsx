@@ -4,28 +4,28 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
+import { getUserIdFromRoute, getUsername, IMatchProps } from '../../shared/RouterHelperFunctions';
 import {
   IOpportunityInstance,
   IUserInteractionDefine,
   IVerificationRequest,
   IVerificationRequestDefine,
-} from '../../../typings/radgrad';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import IceHeader from '../shared/IceHeader';
-import FutureParticipation from '../shared/FutureParticipation';
-import { defineMethod, removeItMethod } from '../../../api/base/BaseCollection.methods';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+} from '../../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import IceHeader from '../../shared/IceHeader';
+import FutureParticipation from '../../shared/FutureParticipation';
+import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import RequestVerificationForm from './RequestVerificationForm';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import RequestVerificationForm from '../RequestVerificationForm';
+import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';
-import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import { degreePlannerActions } from '../../../../redux/student/degree-planner';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
+import { Slugs } from '../../../../api/slug/SlugCollection';
 
 
 interface IDetailOpportunityCardProps {

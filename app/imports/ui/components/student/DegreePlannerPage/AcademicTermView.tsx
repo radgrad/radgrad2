@@ -3,14 +3,14 @@ import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import DraggableCourseInstancePill from './DraggableCourseInstancePill';
 import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { getDroppableListStyle } from '../shared/StyleFunctions';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { getDroppableListStyle } from '../../shared/StyleFunctions';
 
 interface IAcademicTermViewProps {
   term: IAcademicTerm;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
-import { degreePlannerActions, degreePlannerTypes } from '../../../redux/student/degree-planner';
+import { degreePlannerActions, degreePlannerTypes } from '../../../../redux/student/degree-planner';
 import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
-import { tabbedFavoritesWidget } from './student-widget-names';
+import { tabbedFavoritesWidget } from '../student-widget-names';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;

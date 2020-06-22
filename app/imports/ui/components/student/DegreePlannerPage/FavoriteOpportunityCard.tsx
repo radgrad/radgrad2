@@ -4,46 +4,40 @@ import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { ICourse, ICourseInstance } from '../../../typings/radgrad';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import IceHeader from '../shared/IceHeader';
-import { makeCourseICE } from '../../../api/ice/IceProcessor';
-import { getInspectorDraggablePillStyle } from '../shared/StyleFunctions';
-import NamePill from '../shared/NamePill';
-import FutureParticipation from '../shared/FutureParticipation';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
+import IceHeader from '../../shared/IceHeader';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import FutureParticipation from '../../shared/FutureParticipation';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { getInspectorDraggablePillStyle } from '../../shared/StyleFunctions';
+import NamePill from '../../shared/NamePill';
 import { buildRouteName } from './DepUtilityFunctions';
 
-interface IFavoriteCourseCardProps {
+interface IFavoriteOpportunityCardProps {
   match: any;
-  course: ICourse;
+  opportunity: IOpportunity;
   studentID: string;
-  instances: ICourseInstance[];
+  instances: IOpportunityInstance[];
 }
 
-const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
+const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
   const instances = props.instances;
-  const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  const terms: IAcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
-  const slug = Slugs.findDoc(props.course.slugID).name;
-  const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
+  const slug = Slugs.findDoc(props.opportunity.slugID).name;
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
-  const droppableID = `${props.course._id}`;
+  const droppableID = `${props.opportunity._id}`;
   return (
     <Card>
       <Card.Content>
-        <IceHeader ice={ice} />
-        <Card.Header>
-          <h4>
-            {props.course.num}: {props.course.name}
-          </h4>
-        </Card.Header>
+        <IceHeader ice={props.opportunity.ice} />
+        <Card.Header>{props.opportunity.name}</Card.Header>
       </Card.Content>
       <Card.Content>
         {instances.length > 0 ?
@@ -55,9 +49,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
           : <b>Not In Plan (Drag to move)</b>}
         <Droppable droppableId={droppableID}>
           {(provided) => (
-            <div
-              ref={provided.innerRef}
-            >
+            <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
                   <div
@@ -69,7 +61,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
                       prov.draggableProps.style,
                     )}
                   >
-                    <NamePill name={props.course.num} />
+                    <NamePill name={props.opportunity.name} />
                   </div>
                 )}
               </Draggable>
@@ -79,14 +71,14 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
         </Droppable>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation item={props.course} type="courses" />
+        <FutureParticipation item={props.opportunity} type="opportunities" />
       </Card.Content>
       <Card.Content>
         <p style={textAlignRight}>
           <Link
-            to={buildRouteName(props.match, props.course, EXPLORER_TYPE.COURSES)}
-            target="_blank"
+            to={buildRouteName(props.match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
             rel="noopener noreferrer"
+            target="_blank"
           >
             View in Explorer <Icon name="arrow right" />
           </Link>
@@ -97,11 +89,11 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
 };
 
 export default withRouter(withTracker((props) => {
-  const instances = CourseInstances.findNonRetired({
+  const instances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({
     studentID: props.studentID,
-    courseID: props.course._id,
+    opportunityID: props.opportunity._id,
   });
   return {
     instances,
   };
-})(FavoriteCourseCard));
+})(FavoriteOpportunityCard));

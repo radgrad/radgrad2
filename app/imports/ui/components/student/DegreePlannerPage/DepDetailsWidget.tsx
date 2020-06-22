@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import DetailCourseCard from './DetailCourseCard';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import DetailOpportunityCard from './DetailOpportunityCard';
-import { ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
+import { ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
 
 interface IDepDetailsWidgetProps {
   selectedCourseInstanceID: string;
