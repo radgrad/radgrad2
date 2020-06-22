@@ -12,8 +12,8 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from '../shared/RatingField';
-import { IAcademicTerm, IReview, IReviewUpdate } from '../../../typings/radgrad';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { IAcademicTerm, IReview, IReviewUpdate, IUserInteractionDefine } from '../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { getUsername } from '../shared/RouterHelperFunctions';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -84,10 +84,10 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
           const revieweeID = Opportunities.getID(review.revieweeID);
           slug = Opportunities.findSlugByID(revieweeID);
         }
-        const interactionData: UserInteractionsDataType = {
+        const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.EDITREVIEW,
-          typeData: [`${reviewType}:${updateData.academicTerm}-${slug}`],
+          typeData: [reviewType, `${updateData.academicTerm}-${slug}`],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {

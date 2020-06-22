@@ -1,12 +1,24 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import * as _ from 'lodash';
+import { Grid, Button } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
 import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AdminAnalyticsLoggedInUsersWidget';
+import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+
+const handleClick = (e) => {
+  e.preventDefault();
+  userInteractionFindMethod.call({}, (error, result) => {
+    const userInteractions = _.groupBy(result, 'username');
+    console.log('userInteractions %o', userInteractions);
+  });
+};
 
 const AdminAnalyticsPage = () => (
   <div>
     <AdminPageMenuWidget />
+    {/* TODO: remove after done with issue-146 */}
+    <Button onClick={handleClick}>Interactions</Button>
     <Grid container stackable columns={1}>
       <Grid.Column>
         <Grid>

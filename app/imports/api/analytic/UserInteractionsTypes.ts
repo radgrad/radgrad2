@@ -9,6 +9,11 @@ export enum UserInteractionsTypes {
   PICTURE = 'picture',
   WEBSITE = 'website',
   SHAREINFORMATION = 'shareInformation',
+  /* Degree Planner */
+  ADDCOURSE = 'addCourse',
+  ADDOPPORTUNITY = 'addOpportunity',
+  REMOVECOURSE = 'removeCourse',
+  REMOVEOPPORTUNITY = 'removeOpportunity',
   /* Favorites */
   FAVORITEITEM = 'favoriteItem',
   UNFAVORITEITEM = 'unFavoriteItem',
@@ -19,13 +24,6 @@ export enum UserInteractionsTypes {
   ASKQUESTION = 'askQuestion',
   /* Degree Planner */
   VERIFYREQUEST = 'verifyRequest',
-}
-
-// type for interactionData object
-export type UserInteractionsDataType = {
-  username: string;
-  type: string;
-  typeData: string | string[];
 }
 
 // Default string if we do not need to store a typeData for that User Interaction

@@ -6,10 +6,10 @@ import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import {
-  UserInteractionsDataType,
   USERINTERACTIONSNOTYPEDATA,
   UserInteractionsTypes,
 } from '../../../api/analytic/UserInteractionsTypes';
+import { IUserInteractionDefine } from '../../../typings/radgrad';
 
 const RadGradLoginButtons = () => {
   const handleClick = (e, instance) => {
@@ -31,10 +31,10 @@ const RadGradLoginButtons = () => {
             role = 'Alumni';
           } else {
             // Track Student Login
-            const interactionData: UserInteractionsDataType = {
+            const interactionData: IUserInteractionDefine = {
               username,
               type: UserInteractionsTypes.LOGIN,
-              typeData: USERINTERACTIONSNOTYPEDATA,
+              typeData: [USERINTERACTIONSNOTYPEDATA],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {

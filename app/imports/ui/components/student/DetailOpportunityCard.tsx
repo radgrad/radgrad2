@@ -5,7 +5,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { getUserIdFromRoute, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
-import { IOpportunityInstance, IVerificationRequest, IVerificationRequestDefine } from '../../../typings/radgrad';
+import {
+  IOpportunityInstance,
+  IUserInteractionDefine,
+  IVerificationRequest,
+  IVerificationRequestDefine,
+} from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../shared/IceHeader';
@@ -18,7 +23,7 @@ import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
@@ -72,8 +77,10 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
         showConfirmButton: false,
         timer: 1500,
       });
-      const typeData = Slugs.getNameFromID(OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID);
-      const interactionData: UserInteractionsDataType = {
+      const slugID = OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID;
+      const slugName = Slugs.getNameFromID(slugID);
+      const typeData = [slugName];
+      const interactionData: IUserInteractionDefine = {
         username,
         type: UserInteractionsTypes.VERIFYREQUEST,
         typeData,

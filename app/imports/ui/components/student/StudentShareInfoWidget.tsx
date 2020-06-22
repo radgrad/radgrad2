@@ -5,8 +5,8 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IStudentProfile } from '../../../typings/radgrad';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { IStudentProfile, IUserInteractionDefine } from '../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 
@@ -40,23 +40,23 @@ const handleUpdateInformation = (doc): void => {
       const modifiedList = [];
       const previousStudentProfileData = StudentProfiles.findNonRetired({ username });
       if (previousStudentProfileData.length > 1) {
-        console.log(`Error creating a UserInteraction: Found more than one student profile with the same username: ${username}`);
+        console.error(`Error creating a UserInteraction: Found more than one student profile with the same username: ${username}`);
         return;
       }
       // For the type data, we only record the specific information that was modified
       keys.forEach((key, index) => {
         if (doc[key] !== previousStudentProfileData[0][key]) {
-          modifiedList.push(`${key}:${doc[key]}`);
+          modifiedList.push(`${key}-${index}:${doc[key]}`);
         }
       });
-      const interactionData: UserInteractionsDataType = {
+      const interactionData: IUserInteractionDefine = {
         username,
         type: UserInteractionsTypes.SHAREINFORMATION,
         typeData: modifiedList,
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
         if (userInteractionError) {
-          console.log('Error creating UserInteraction.', userInteractionError);
+          console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
     }

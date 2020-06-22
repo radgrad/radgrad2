@@ -2,10 +2,6 @@ import React from 'react';
 import { Container, List, Grid } from 'semantic-ui-react';
 import styles from './landing-styles';
 
-const style = {
-
-};
-
 const LandingFooter = () => (
   <footer>
     <div style={styles['footer-section']}>
