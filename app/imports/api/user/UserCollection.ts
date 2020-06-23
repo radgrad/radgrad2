@@ -137,10 +137,7 @@ class UserCollection {
    */
   public isDefined(user) {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
-    if (!userDoc) {
-      return false;
-    }
-    return true;
+    return userDoc;
   }
 
   /**
@@ -153,8 +150,6 @@ class UserCollection {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     if (!userDoc) {
       console.error('Error: user is not defined: ', user);
-      console.trace(`Error: user is not defined: ${user}`);
-      throw new Meteor.Error(`Error: user ${user} is not defined.`);
     }
     return userDoc._id;
   }

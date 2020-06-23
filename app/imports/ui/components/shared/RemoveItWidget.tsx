@@ -6,11 +6,12 @@ import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { IUserInteractionDefine } from '../../../typings/radgrad';
+import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IUserInteractionDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { getUsername, IMatchProps } from './RouterHelperFunctions';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 interface IRemoveItWidgetProps {
   match: IMatchProps;
@@ -39,12 +40,15 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
     const instance = props.id;
     let type;
     let slugName;
+    let instanceObject: ICourseInstance | IOpportunityInstance;
     if (collectionName === CourseInstances.getCollectionName()) {
       type = UserInteractionsTypes.REMOVECOURSE;
       slugName = CourseInstances.getCourseSlug(instance);
+      instanceObject = CourseInstances.findDoc({ _id: instance });
     } else {
       type = UserInteractionsTypes.REMOVEOPPORTUNITY;
       slugName = OpportunityInstances.getOpportunitySlug(instance);
+      instanceObject = OpportunityInstances.findDoc({ _id: instance });
     }
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
@@ -57,7 +61,8 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
           timer: 1500,
         });
         const username = getUsername(props.match);
-        const typeData = [slugName];
+        const instanceAcademicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+        const typeData = [instanceAcademicTerm.term, instanceAcademicTerm.year, slugName];
         const interactionData: IUserInteractionDefine = { username, type, typeData };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
