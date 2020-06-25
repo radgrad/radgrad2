@@ -13,7 +13,6 @@ export const MENTOR_SPACE = 'mentor-space';
 export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
 export const PAGE_TRACKING_COMPARISON = 'page-tracking-comparison';
 
-
 export const ANALYTICS = {
   HOME: 'analytics',
   NEWSLETTER: 'newsletter',

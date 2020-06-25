@@ -57,7 +57,6 @@ const handleRejectQuestion = (item, comments) => {
   };
 };
 
-
 const ModerationWidget = (props: IModerationWidget) => (
   <Grid columns="equal" divided="vertically">
     <Grid.Column>

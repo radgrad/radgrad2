@@ -21,7 +21,6 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
-
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
 interface IExplorerMenuMobileWidgetProps {

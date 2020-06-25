@@ -51,7 +51,6 @@ const handleSaveAsCSV = (props: ICourseScoreboardWidgetProps) => () => {
   zip.saveAs(`${dir}.zip`);
 };
 
-
 const CourseScoreboardWidget = (props: ICourseScoreboardWidgetProps) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',

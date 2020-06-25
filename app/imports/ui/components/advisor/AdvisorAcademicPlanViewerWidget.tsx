@@ -8,7 +8,6 @@ import { IAcademicPlan } from '../../../typings/radgrad';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AdvisorAcademicPlanViewer from './AdvisorAcademicPlanViewer';
 
-
 interface IAdvisorAcademicPlanViewerWidgetProps {
   plans: IAcademicPlan[];
 }

@@ -35,7 +35,6 @@ interface IFacultyPageAboutMeWidgetProps {
   favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
-
 /**
  * The Faculty About Me Widget should show basic information of the specified user.
  */

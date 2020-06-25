@@ -156,7 +156,6 @@ const onDragEnd = (props: IPageProps) => (result) => {
   }
 };
 
-
 const StudentDegreePlannerPage = (props: IPageProps) => {
   const paddedStyle = {
     paddingTop: 0,

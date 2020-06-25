@@ -29,7 +29,6 @@ const getDisplayDate = (log: IAdvisorLog): string => {
   return `${date.toDateString()}`;
 };
 
-
 const StudentLogWidget = (props: IStudentLogWidgetProps) => {
   const advisorLogs = getAdvisorLogs(props);
 

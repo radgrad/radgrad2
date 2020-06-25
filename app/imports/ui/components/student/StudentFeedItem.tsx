@@ -25,7 +25,6 @@ const dateDiffInDays = (a: string, b: string) => {
   return ret;
 };
 
-
 const feedTimestamp = (feed): string => {
   let ret = '';
   const feedTime = feed.timestamp;
@@ -41,7 +40,6 @@ const feedTimestamp = (feed): string => {
   }
   return ret;
 };
-
 
 const StudentFeedItem = (props: IStudentFeedItemProps) => {
   const { feed, match }: any = props;

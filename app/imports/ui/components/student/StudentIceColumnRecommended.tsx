@@ -114,7 +114,6 @@ const matchingCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =>
   return matching;
 };
 
-
 const recommendedEvents = (projectedPoints: number, props: IStudentIceColumnRecommendedProps): any[] => {
   const { type } = props;
   if (getUserIdFromRoute(props.match)) {

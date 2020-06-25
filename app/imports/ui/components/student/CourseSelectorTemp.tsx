@@ -14,7 +14,6 @@ interface IConnectedCourseSelectorTempProps {
   selectCourse: (courseID: string) => any;
 }
 
-
 const mapDispatchToProps = (dispatch) => ({
   selectCourse: (courseID) => dispatch(degreePlannerActions.selectCourse(courseID)),
 });

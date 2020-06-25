@@ -61,5 +61,4 @@ const MultiSelect = ({
                        </div>
 );
 
-
 export default connectField(MultiSelect);

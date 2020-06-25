@@ -22,7 +22,6 @@ interface IStudentLevelsWidgetProps {
   studentLevelNumber: number;
 }
 
-
 const getStudentLevelNumber = (props: IStudentLevelsWidgetProps): number => {
   if (getUserIdFromRoute(props.match)) {
     const profile = Users.getProfile(getUserIdFromRoute(props.match));

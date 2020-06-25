@@ -33,7 +33,6 @@ const itemName = (item: { item: explorerInterfaces, count: number }): string => 
   return `${item.item.name}`;
 };
 
-
 const userPlans = (plan: IAcademicPlan, props: IExplorerMenuNonMobileItemProps): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(props.match));

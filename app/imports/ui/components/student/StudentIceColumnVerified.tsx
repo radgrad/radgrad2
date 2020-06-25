@@ -107,7 +107,6 @@ const courseName = (courseInstance: ICourseInstance): string => {
   return course.shortName;
 };
 
-
 const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
   const { type, earnedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints, match } = props;
   return (

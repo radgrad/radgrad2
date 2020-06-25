@@ -1,7 +1,6 @@
 import { Dictionary } from 'lodash';
 import * as TYPES from './types';
 
-
 interface IAction {
   type: string;
 }

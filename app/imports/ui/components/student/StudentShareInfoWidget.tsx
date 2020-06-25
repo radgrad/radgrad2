@@ -9,7 +9,6 @@ import { IStudentProfile } from '../../../typings/radgrad';
 import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
-
 interface IStudentShareInfoWidgetProps {
   profile: IStudentProfile;
 }

@@ -58,7 +58,6 @@ const teaserUrlHelper = (props: IExplorerOpportunitiesWidgetProps): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-
 const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };

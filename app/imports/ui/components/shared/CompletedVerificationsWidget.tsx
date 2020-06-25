@@ -45,7 +45,6 @@ const handleOnClick = (props: ICompletedVerificationsWidgetProps) => (e, { doc }
   verificationRequestsUpdateStatusMethod.call({ id, status, processed });
 };
 
-
 /**
  * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
  * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this

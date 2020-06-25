@@ -20,7 +20,6 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Interests; // the collection to use.
 
-
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.

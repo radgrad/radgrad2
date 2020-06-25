@@ -17,7 +17,6 @@ import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { COMBINE_AREA } from './AcademicPlanBuilderUtilities';
 
-
 interface IAdvisorAcademicPlanBuilderWidgetProps {
   degrees: IDesiredDegree[];
   choices: IPlanChoiceDefine[],
