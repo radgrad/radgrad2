@@ -99,5 +99,4 @@ const Rating = ({
                   </div>
 );
 
-
 export default connectField(Rating);

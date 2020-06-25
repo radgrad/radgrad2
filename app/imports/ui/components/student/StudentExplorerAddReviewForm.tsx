@@ -38,6 +38,7 @@ interface IStudentExplorerAddReviewFormProps {
 const collection = Reviews;
 
 const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps) => {
+  // console.log('StudentExplorerAddReviewForm', props);
   const formRef = React.createRef();
   const [activeState, setActive] = useState(false);
 
@@ -89,7 +90,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
-            console.log('Error creating UserInteraction.', userInteractionError);
+            console.error('Error creating UserInteraction.', userInteractionError);
           }
         });
         // this.formRef.current.reset();
@@ -120,6 +121,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
         academicTerms.push(AcademicTerms.findDoc(instance.termID));
       }
     });
+    // console.log(academicTerms);
     return academicTerms;
   };
 
@@ -128,7 +130,6 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
     color: '#38840F',
   };
   const paddedContainerStyle = { paddingBottom: '1.5em' };
-
 
   const terms = academicTerm();
   const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
@@ -140,11 +141,12 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
       defaultValue: academicTermNames[0],
     },
     rating: {
-      type: Number,
+      type: SimpleSchema.Integer,
       label: 'Rating',
       min: 0,
       max: 5,
       optional: true,
+      defaultValue: 3,
     },
     comments: {
       type: String,
