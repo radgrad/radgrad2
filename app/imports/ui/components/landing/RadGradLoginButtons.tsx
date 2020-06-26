@@ -60,7 +60,7 @@ const RadGradLoginButtons = () => {
         <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
         <Dropdown.Item id="mentor" text={mentorLabel} as={Link} to="/signin" />
         <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
-        <Dropdown.Item id="admin" as={Link} exact to="/signin" text={adminLabel} />
+        <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
       </Dropdown.Menu>
     </Dropdown>
   );
