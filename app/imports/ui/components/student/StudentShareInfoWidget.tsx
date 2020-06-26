@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -39,7 +40,7 @@ const handleUpdateInformation = (doc): void => {
       const modifiedList = [];
       const previousStudentProfileData = StudentProfiles.findNonRetired({ username });
       if (previousStudentProfileData.length > 1) {
-        console.log(`Error creating a UserInteraction: Found more than one student profile with the same username: ${username}`);
+        console.error(`Error creating a UserInteraction: Found more than one student profile with the same username: ${username}`);
         return;
       }
       // For the type data, we only record the specific information that was modified
@@ -55,7 +56,7 @@ const handleUpdateInformation = (doc): void => {
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
         if (userInteractionError) {
-          console.log('Error creating UserInteraction.', userInteractionError);
+          console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
     }
@@ -113,12 +114,12 @@ const StudentShareInfoWidget = (props: IStudentShareInfoWidgetProps) => {
       optional: true,
     },
   });
-
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <React.Fragment>
       <Header as="h4" dividing>Share your Information with others</Header>
       <Grid stackable style={marginTopStyle}>
-        <AutoForm schema={schema} model={model} onSubmit={handleUpdateInformation}>
+        <AutoForm schema={formSchema} model={model} onSubmit={handleUpdateInformation}>
           <Form.Group>
             <BoolField name="shareUsername" />
             <BoolField name="sharePicture" />

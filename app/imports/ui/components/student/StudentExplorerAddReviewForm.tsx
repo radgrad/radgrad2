@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
@@ -153,6 +154,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
       label: 'Comments',
     },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Accordion>
       <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
@@ -162,7 +164,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
 
       <Accordion.Content active={activeState}>
         <div className="ui padded container" style={paddedContainerStyle}>
-          <AutoForm schema={schema} onSubmit={handleAdd} ref={formRef}>
+          <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
             <Form.Group widths="equal">
               <SelectField name="academicTerm" />
               <RatingField name="rating" />

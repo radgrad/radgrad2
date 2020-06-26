@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 
@@ -24,7 +25,7 @@ const UpdateMentorQuestionForm = (props: IUpdateMentorQuestionFormProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={MentorQuestions.getUpdateSchema()}
+        schema={new SimpleSchema2Bridge(MentorQuestions.getUpdateSchema())}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError

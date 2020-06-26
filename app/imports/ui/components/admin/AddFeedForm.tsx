@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -106,12 +107,13 @@ const AddFeedForm = (props: IAddFeedFromProps) => {
       break;
     default:
   }
+  const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(schema);
   return (
     <Segment padded>
       <Header dividing>Add Feed</Header>
       <AutoForm
-        schema={schema}
+        schema={formSchema}
         onSubmit={props.handleAdd}
         ref={props.formRef}
         showInlineError

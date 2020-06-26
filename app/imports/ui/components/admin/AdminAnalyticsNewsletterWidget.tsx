@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { $ } from 'meteor/jquery';
@@ -47,6 +48,7 @@ const schema = new SimpleSchema({
   sendToLevels: { type: Boolean, optional: true, label: 'Check to confirm send' },
   sendToAll: { type: Boolean, optional: true, label: 'Check to confirm send' },
 });
+const formSchema = new SimpleSchema2Bridge(schema);
 const iceMap = {
   i: {
     name: 'Innovation', color: '#80ad27',
@@ -604,7 +606,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
       {/* Auto Forms */}
       <Segment padded>
         <Header dividing as="h4">NEWSLETTER OPTIONS</Header>
-        <AutoForm schema={schema} onChange={handleChange}>
+        <AutoForm schema={formSchema} onChange={handleChange}>
           <TextField name="subjectLine" />
           <TextField name="bcc" />
           <Form.Group widths="equal">

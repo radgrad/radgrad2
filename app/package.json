@@ -62,9 +62,9 @@
     "sweetalert2": "^9.15.2",
     "sweetalert2-react-content": "^3.0.1",
     "typesafe-actions": "^5.1.0",
-    "uniforms": "^2.6.9",
-    "uniforms-bridge-simple-schema-2": "^2.6.9",
-    "uniforms-semantic": "^2.6.9"
+    "uniforms": "^3.0.0-alpha.5",
+    "uniforms-bridge-simple-schema-2": "^3.0.0-alpha.5",
+    "uniforms-semantic": "^3.0.0-alpha.5"
   },
   "devDependencies": {
     "@babel/helper-call-delegate": "^7.10.3",

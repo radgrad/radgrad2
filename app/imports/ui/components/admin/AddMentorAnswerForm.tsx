@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
@@ -26,10 +27,11 @@ const AddMentorAnswerForm = (props: IAddMentorAnswerFormProps): React.ReactEleme
     text: String,
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>Add Mentor Answer</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
           <SelectField name="mentor" />
           <SelectField name="question" />

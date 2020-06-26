@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
@@ -25,10 +26,11 @@ const AddMentorQuestionForm = (props: IAddMentorQuestionFormProps) => {
     visible: { type: Boolean, optional: true },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>Add Mentor Question</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef}>
         <Form.Group widths="equal">
           <SelectField name="student" />
           <TextField name="slug" placeholder="question-student-0" />

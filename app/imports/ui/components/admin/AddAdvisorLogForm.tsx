@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import 'uniforms-bridge-simple-schema-2';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
@@ -35,10 +35,11 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<a
     },
     text: String,
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>Add Advisor Log</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef}>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef}>
         <SelectField name="advisor" />
         <SelectField name="student" />
         <LongTextField name="text" />

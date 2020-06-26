@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import BaseCollection from '../../../api/base/BaseCollection';
 
@@ -24,7 +25,7 @@ const UpdateHelpMessageForm = (props: IUpdateHelpMessageFormProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={HelpMessages.getUpdateSchema()}
+        schema={new SimpleSchema2Bridge(HelpMessages.getUpdateSchema())}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError
