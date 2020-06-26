@@ -64,17 +64,17 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, (fav) => fav.userID === user.userID);
+  const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, ['userID', user.userID]);
   // const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
-  const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
+  const careerGoalIDs = _.map(favoriteCareerGoals, 'careerGoalID');
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const favoriteInterests = _.filter(props.favoriteInterests, (fav) => fav.userID === user.userID);
+  const favoriteInterests = _.filter(props.favoriteInterests, ['userID', user.userID]);
   // const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
-  const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
+  const interestIDs = _.map(favoriteInterests, 'interestID');
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
-    const favoritePlans = _.filter(props.favoriteAcademicPlans, (fav) => fav.studentID === user.userID);
+    const favoritePlans = _.filter(props.favoriteAcademicPlans, ['studentID', user.userID]);
     // const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
     const planNames = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID).name);
     pairs.push({
@@ -399,7 +399,6 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
     </div>
   );
 };
-
 const AdminDataModelUsersPageCon = connect(mapStateToProps, null)(AdminDataModelUsersPage);
 export default withTracker(() => {
   const admins = AdminProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();

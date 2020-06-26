@@ -180,6 +180,7 @@
       "indent": "off",
       "linebreak-style": "off",
       "lines-between-class-members": "off",
+      "lodash/prefer-lodash-method": "warn",
       "max-len": "off",
       "meteor/eventmap-params": [
         2,

@@ -64,10 +64,7 @@ const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOppor
   const { favoriteInterests } = props;
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
-  const userInterests = [];
-  _.forEach(favoriteInterests, (f) => {
-    userInterests.push(Interests.findDoc(f.interestID));
-  });
+  const userInterests = _.map(favoriteInterests, (f) => Interests.findDoc(f.interestID));
   let opportunityInterests = [];
   _.forEach(allOpportunities, (opp) => {
     opportunityInterests = [];
@@ -91,10 +88,7 @@ const matchingCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =>
   const { favoriteInterests } = props;
   const allCourses: ICourse[] = availableCourses(props);
   const matching: ICourse[] = [];
-  const userInterests = [];
-  _.forEach(favoriteInterests, (f) => {
-    userInterests.push(Interests.findDoc(f.interestID));
-  });
+  const userInterests = _.map(favoriteInterests, (f) => Interests.findDoc(f.interestID));
   let courseInterests = [];
   _.forEach(allCourses, (course) => {
     courseInterests = [];

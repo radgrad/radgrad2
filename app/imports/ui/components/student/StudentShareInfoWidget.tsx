@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -44,7 +45,7 @@ const handleUpdateInformation = (doc): void => {
         return;
       }
       // For the type data, we only record the specific information that was modified
-      keys.forEach((key, index) => {
+      _.forEach(keys, (key, index) => {
         if (doc[key] !== previousStudentProfileData[0][key]) {
           modifiedList.push(`${key}:${doc[key]}`);
         }

@@ -36,10 +36,7 @@ interface IAdminDataModelFeedsPageProps {
  * @param item an item from the collection.
  */
 const descriptionPairs = (item: any): IDescriptionPair[] => {
-  const users = [];
-  _.forEach(item.userIDs, (id) => {
-    users.push(Users.getFullName(id));
-  });
+  const users = _.map(item.userIDs, (id) => Users.getFullName(id));
   let opportunityName = '';
   if (item.opportunityID) {
     opportunityName = Opportunities.findDoc(item.opportunityID).name;

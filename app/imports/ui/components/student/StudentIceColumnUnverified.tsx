@@ -41,11 +41,8 @@ const years = (props: IStudentIceColumnUnverifiedProps): IAcademicYearInstance[]
 };
 
 const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
-  const yearTerms = [];
   const termIDs = year.termIDs;
-  _.forEach(termIDs, (termID) => {
-    yearTerms.push(AcademicTerms.findDoc(termID));
-  });
+  const yearTerms = _.map(termIDs, (termID) => AcademicTerms.findDoc(termID));
   return yearTerms;
 };
 

@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 function courseStructureForMenu(userID) {
   let courses = Courses.findNonRetired({}, { sort: { num: 1 } });
-  courses = _.filter(courses, (c: ICourse) => c.num !== 'other');
+  courses = _.reject(courses, ['num', 'other']);
   const profile = Users.getProfile(userID);
   if (profile.role === ROLE.STUDENT) {
     const bam = profileFavoriteBamAcademicPlan(profile);

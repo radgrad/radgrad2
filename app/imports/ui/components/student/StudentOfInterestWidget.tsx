@@ -65,11 +65,8 @@ const matchingCourses = (props: IStudentOfInterestWidgetProps) => {
     const allCourses = availableCourses(props);
     const matching: any = [];
     const { profile } = props;
-    const userInterests = [];
+    const userInterests = _.map(Users.getInterestIDs(profile.userID), (id) => Interests.findDoc(id));
     let courseInterests = [];
-    _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-      userInterests.push(Interests.findDoc(id));
-    });
     _.forEach(allCourses, (course) => {
       courseInterests = [];
       _.forEach(course.interestIDs, (id) => {

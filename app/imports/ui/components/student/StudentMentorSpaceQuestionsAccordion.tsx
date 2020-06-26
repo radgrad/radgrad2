@@ -30,7 +30,7 @@ const StudentMentorSpaceQuestionsAccordion = (props: IStudentMentorSpaceQuestion
   return (
     <div>
       {_.map(questions, (q, ind) => {
-        const mentorAnswers = _.filter(answers, (ans) => ans.questionID === q._id);
+        const mentorAnswers = _.filter(answers, ['questionID', q._id]);
         return (
           <Accordion fluid styled key={ind} style={accordionStyle}>
             <Accordion.Title active={activeIndexState === ind} index={ind} onClick={handleClick}>

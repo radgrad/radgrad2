@@ -32,11 +32,8 @@ const matchingTeasers = (match: IMatchProps) => {
     const allTeasers: ITeaser[] = Teasers.findNonRetired({});
     const matching = [];
     const profile = Users.getProfile(getUsername(match));
-    const userInterests = [];
+    const userInterests = _.map(Users.getInterestIDs(profile.userID), (id) => Interests.findDoc(id));
     let teaserInterests = [];
-    _.forEach(Users.getInterestIDs(profile.userID), (id) => {
-      userInterests.push(Interests.findDoc(id));
-    });
     _.forEach(allTeasers, (teaser) => {
       teaserInterests = [];
       _.forEach(teaser.interestIDs, (id) => {

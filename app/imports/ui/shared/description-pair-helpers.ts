@@ -1,12 +1,13 @@
+import _ from 'lodash';
 import { IDescriptionPair, Ice } from '../../typings/radgrad';
 import { isICE } from '../../api/ice/IceProcessor';
 
 export const toValueArray = (pair: IDescriptionPair): any[] => {
   const value = pair.value;
-  if (typeof value === 'string') {
+  if (_.isString(value)) {
     return [value];
   }
-  if (typeof value === 'object') {
+  if (_.isObject(value)) {
     return value;
   }
   return [];
@@ -15,7 +16,7 @@ export const toValueArray = (pair: IDescriptionPair): any[] => {
 export const toValueString = (pair: IDescriptionPair): string => {
   const value = pair.value;
   // console.log(pair);
-  if (typeof value === 'string') {
+  if (_.isString(value)) {
     return value;
   }
   if (isICE(value as unknown as Ice)) {

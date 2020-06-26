@@ -141,12 +141,14 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
     let instances;
     if (props.review.reviewType === ReviewTypes.COURSE) {
       const course = props.event;
+      // eslint-disable-next-line lodash/prefer-lodash-method
       instances = CourseInstances.find({
         studentID: getUserIdFromRoute(),
         courseID: course._id,
       }).fetch();
     } else {
       const opportunity = props.event;
+      // eslint-disable-next-line lodash/prefer-lodash-method
       instances = OpportunityInstances.find({
         studentID: getUserIdFromRoute(),
         opportunityID: opportunity._id,

@@ -26,15 +26,9 @@ interface IStudentLevelsOthersWidgetProps {
 const studentsExist = (students): boolean => students.length > 0;
 
 const getStudents = (userLevel: number, props: IStudentLevelsOthersWidgetProps): IStudentProfile[] => {
-  const students = [];
   const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  _.forEach(profiles, (profile) => {
-    if (profile.level === userLevel) {
-      if (profile.userID !== getUserIdFromRoute(props.match)) {
-        students.push(profile);
-      }
-    }
-  });
+  const students = _.filter(profiles, (profile) => (profile.level === userLevel) &&
+    (profile.userID !== getUserIdFromRoute(props.match)));
   return students;
 };
 

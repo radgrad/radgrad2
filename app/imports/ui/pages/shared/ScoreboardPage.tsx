@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Grid, Message } from 'semantic-ui-react';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
@@ -38,10 +39,10 @@ const renderPageMenuWidget = (props: IScoreboardPageProps): JSX.Element => {
 
 const ScoreboardPage = (props: IScoreboardPageProps) => {
   let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
-  if (props.match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
+  if (_.includes(props.match.path, COURSE_SCOREBOARD)) {
     content = <CourseScoreboardWidget />;
   }
-  if (props.match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
+  if (_.includes(props.match.path, OPPORTUNITY_SCOREBOARD)) {
     content = <OpportunityScoreboardWidgetContainer />;
   }
   return (

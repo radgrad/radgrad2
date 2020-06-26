@@ -38,11 +38,8 @@ const years = (props: IStudentIceColumnVerifiedProps): IAcademicYearInstance[] =
 };
 
 const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
-  const yearTerms = [];
   const termIDs = year.termIDs;
-  _.forEach(termIDs, (termID) => {
-    yearTerms.push(AcademicTerms.findDoc(termID));
-  });
+  const yearTerms = _.map(termIDs, (termID) => AcademicTerms.findDoc(termID));
   return yearTerms;
 };
 
@@ -51,12 +48,11 @@ const getEventsHelper = (iceType: string, type: string, earned: boolean, term: I
     let allInstances = [];
     const iceInstances = [];
     if (type === 'course') {
-      const courseInstances = CourseInstances.findNonRetired({
+      allInstances = CourseInstances.findNonRetired({
         termID: term._id,
         studentID: getUserIdFromRoute(props.match),
         verified: earned,
       });
-      courseInstances.forEach(courseInstance => allInstances.push(courseInstance));
     } else {
       allInstances = OpportunityInstances.findNonRetired({
         termID: term._id,

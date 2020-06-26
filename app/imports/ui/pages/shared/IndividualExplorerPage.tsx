@@ -190,6 +190,7 @@ const passedCourseHelper = (courseSlugName: string, props: IIndividualExplorerPa
   let ret = 'Not in plan';
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
+  // eslint-disable-next-line lodash/prefer-lodash-method
   const ci = CourseInstances.find({
     studentID: Router.getUserIdFromRoute(props.match),
     courseID: theCourse._id,
@@ -219,9 +220,9 @@ const prerequisiteStatus = (prerequisite: string, props: IIndividualExplorerPage
   if (isSingleChoice(prerequisite)) {
     return passedCourseHelper(prerequisite, props);
   }
-  const slugs = prerequisite.split(',');
+  const slugs = _.split(prerequisite, ',');
   let ret = 'Not in plan';
-  slugs.forEach((slug) => {
+  _.forEach(slugs, (slug) => {
     const result = passedCourseHelper(slug, props);
     if (result === 'Completed') {
       ret = result;
@@ -319,6 +320,7 @@ const isOpportunityCompleted = (props: IIndividualExplorerPageProps): boolean =>
   let ret = false;
   const slug = Slugs.findDoc({ name: opportunitySlugName });
   const theOpp = Opportunities.findDoc({ slugID: slug._id });
+  // eslint-disable-next-line lodash/prefer-lodash-method
   const oi = OpportunityInstances.find({
     studentID: Router.getUserIdFromRoute(props.match),
     opportunityID: theOpp._id,

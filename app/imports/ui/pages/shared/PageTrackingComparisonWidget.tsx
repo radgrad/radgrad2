@@ -37,12 +37,16 @@ interface IPageTrackingComparisonWidgetProps {
 const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   switch (urlCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
+      // eslint-disable-next-line lodash/prefer-lodash-method
       return getOptionsHelper(CareerGoals.find({}).fetch());
     case PageInterestsCategoryTypes.COURSE:
+      // eslint-disable-next-line lodash/prefer-lodash-method
       return getOptionsHelper(Courses.find({}).fetch());
     case PageInterestsCategoryTypes.INTEREST:
+      // eslint-disable-next-line lodash/prefer-lodash-method
       return getOptionsHelper(Interests.find({}).fetch());
     case PageInterestsCategoryTypes.OPPORTUNITY:
+      // eslint-disable-next-line lodash/prefer-lodash-method
       return getOptionsHelper(Opportunities.find({}).fetch());
     default:
       console.error(`Bad category: ${urlCategory}`);
@@ -50,7 +54,7 @@ const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   }
 };
 
-const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunity)[]) => docs.map((doc) => ({
+const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunity)[]) => _.map(docs, (doc) => ({
   key: doc._id,
   text: doc.name,
   value: doc.slugID,
@@ -94,13 +98,14 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
     }
     const snapshotItems: IPageInterestInfo[] = aggregatedSnapshot[category];
     const selectedSlugNames: string[] = [];
-    selectedOptions.forEach((option) => {
+    _.forEach(selectedOptions, (option) => {
       const slugName = slugIDToSlugName(option);
       selectedSlugNames.push(slugName);
     });
     const filteredItems: IPageInterestInfo[] = [];
-    selectedSlugNames.forEach((slugName) => {
-      snapshotItems.forEach((item) => {
+    _.forEach(selectedSlugNames, (slugName) => {
+      // eslint-disable-next-line lodash/prefer-filter
+      _.forEach(snapshotItems, (item) => {
         if (slugName === item.name) {
           filteredItems.push(item);
         }
@@ -196,7 +201,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
                   </Table.Header>
                   <Table.Body>
                     {/* TODO Show items that have 0 views */}
-                    {data.map((item) => (
+                    {_.map(data, (item) => (
                       <Table.Row key={`${urlCategory}-${item.name}:${item.views}`}>
                         <Table.Cell width={10}>{parseName(urlCategory, item.name)}</Table.Cell>
                         <Table.Cell width={6}>{item.views}</Table.Cell>

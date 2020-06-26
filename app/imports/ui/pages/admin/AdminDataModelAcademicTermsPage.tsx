@@ -23,11 +23,7 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 function numReferences(term) {
   let references = 0;
   [CourseInstances, OpportunityInstances].forEach((entity) => {
-    _.forEach(entity.find().fetch(), (e) => {
-      if (e.termID === term._id) {
-        references++;
-      }
-    });
+    references += _.filter(entity.find().fetch(), ['termID', term._id]).length;
   });
   _.forEach(Opportunities.find().fetch(), (e) => {
     if (_.includes(e.termIDs, term._id)) {
