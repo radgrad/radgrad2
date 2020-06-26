@@ -95,12 +95,16 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-chai-expect": "^2.1.0",
     "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-lodash": "^7.1.0",
     "eslint-plugin-meteor": "^7.0.0",
+    "eslint-plugin-mocha": "^7.0.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
+    "eslint-plugin-react-redux": "^3.0.3",
     "faker": "^4.1.0",
     "fast-check": "^1.25.1",
     "fs-extra": "^9.0.1",
@@ -147,12 +151,18 @@
     "plugins": [
       "@typescript-eslint",
       "meteor",
-      "react"
+      "react",
+      "react-redux",
+      "lodash",
+      "chai-expect"
     ],
     "extends": [
       "airbnb",
       "plugin:meteor/recommended",
-      "react-app"
+      "react-app",
+      "plugin:react-redux/recommended",
+      "plugin:lodash/canonical",
+      "plugin:chai-expect/recommended"
     ],
     "rules": {
       "arrow-parens": "off",
