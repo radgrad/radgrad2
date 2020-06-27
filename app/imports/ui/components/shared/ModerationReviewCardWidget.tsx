@@ -74,11 +74,9 @@ const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
     });
   };
 
-
   const handleChange = (event, { value }) => {
     setModeratorComment(value);
   };
-
 
   // if findNonRetired and do not supply a selector, it will try do a find on that string
   const student = Users.getFullName(props.item.studentID);

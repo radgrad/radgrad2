@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
@@ -51,11 +52,12 @@ const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => 
     verified: { type: Boolean, optional: true },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(termNames, courseNames, studentNames);
   return (
     <Segment padded>
       <Header dividing>Add Opportunity Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="term" />
           <SelectField name="student" />

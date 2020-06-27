@@ -53,7 +53,6 @@ const handleCountChange = (props: IAdminPaginationWidgetProps) => (event) => {
   props.dispatch(props.setShowCount(props.collection.getCollectionName(), count));
 };
 
-
 const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
   // console.log('AdminPaginationWidget.render props=%o', props);
   const heightStyle = {

@@ -27,7 +27,6 @@ const menuItems = [
   },
 ];
 
-
 const ScoreboardPageMenu = (props: any) => {
   const menuOptions = menuItems.map((item) => (
     <Menu.Item

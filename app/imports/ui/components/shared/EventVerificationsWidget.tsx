@@ -66,7 +66,6 @@ const EventVerificationsWidget = (props: IEventVerificationsWidgetProps) => {
     });
   };
 
-
   // componentDidUpdate(prevProps: Readonly<IEventVerificationsWidgetProps>, prevState: Readonly<{}>): void {
   //   if (prevState !== this.state) {
   //     this.scrollToBottom();

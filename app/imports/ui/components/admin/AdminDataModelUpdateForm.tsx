@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, AutoFields, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../api/base/BaseCollection';
 
 interface IAdminDataModelUpdateFormProps {
@@ -24,7 +25,7 @@ const AdminDataModelUpdateForm = (props: IAdminDataModelUpdateFormProps) => {
       </Header>
       <AutoForm
         ref={props.formRef}
-        schema={props.collection.getUpdateSchema()}
+        schema={new SimpleSchema2Bridge(props.collection.getUpdateSchema())}
         model={model}
         onSubmit={props.handleUpdate}
       >

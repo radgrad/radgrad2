@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
@@ -37,6 +38,7 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
     description: { type: String, optional: true },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>
@@ -46,7 +48,7 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={schema}
+        schema={formSchema}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError

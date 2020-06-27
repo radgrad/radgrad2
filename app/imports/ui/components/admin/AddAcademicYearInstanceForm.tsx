@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, NumField, SelectField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
@@ -24,11 +25,12 @@ const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): Reac
     },
     year: { type: SimpleSchema.Integer, min: 2009, max: 2050, defaultValue: moment().year() },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
 
   return (
     <Segment padded>
       <Header dividing>Add Academic Year Instance</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <NumField name="year" />
         <SelectField name="student" />
         <SubmitField className="basic green" value="Add" />

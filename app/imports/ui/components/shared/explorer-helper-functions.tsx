@@ -61,7 +61,6 @@ export const isType = (typeToCheck: string, props: { type: string }) => {
   return type === typeToCheck;
 };
 
-
 export const getHeaderTitle = (props: { type: string }): string => {
   const { type } = props;
   switch (type) {
@@ -83,7 +82,6 @@ export const getHeaderTitle = (props: { type: string }): string => {
       return 'UNDEFINED TITLE';
   }
 };
-
 
 /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
 export const userPlans = (plan: IAcademicPlan, match: Router.IMatchProps): string => {
@@ -208,7 +206,6 @@ export const noCareerGoals = (match: Router.IMatchProps): boolean => {
   return true;
 };
 
-
 /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
 export const userCourses = (course: ICourse, match: Router.IMatchProps): string => {
   let ret = '';
@@ -279,7 +276,6 @@ export const coursesItemCount = (match: Router.IMatchProps): number => available
 export const degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
 
 export const degreesItemCount = (): number => degrees().length;
-
 
 /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
 export const userInterests = (interest: IInterest, match: Router.IMatchProps): string => {
@@ -407,7 +403,6 @@ export const getUsers = (role: string, match: Router.IMatchProps): IBaseProfile[
   return users;
 };
 
-
 /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
 
 // Determines whether or not we show a "check green circle outline icon" for an item
@@ -460,7 +455,6 @@ export const buildHeader = (props: ICardExplorerMenuWidgetProps): { title: strin
   title: getHeaderTitle(props),
   count: getHeaderCount(props),
 });
-
 
 export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean => {
   switch (noItemsType) {

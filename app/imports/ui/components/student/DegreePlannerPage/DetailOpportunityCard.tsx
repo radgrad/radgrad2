@@ -27,7 +27,6 @@ import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractions
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
-
 interface IDetailOpportunityCardProps {
   match: IMatchProps;
   instance: IOpportunityInstance;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
@@ -75,10 +76,11 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
     const schema = new SimpleSchema({
       question: String,
     });
+    const formSchema = new SimpleSchema2Bridge(schema);
     return (
       <Segment padded id={studentMentorSpaceAskQuestionWidget}>
         <Header dividing><h4>ASK A NEW QUESTION</h4></Header>
-        <AutoForm schema={schema} onSubmit={this.handleSubmit} ref={this.formRef}>
+        <AutoForm schema={formSchema} onSubmit={this.handleSubmit} ref={this.formRef}>
           <LongTextField name="question" />
           <SubmitField inputRef={undefined} value="Ask Question" disabled={false} className="" />
         </AutoForm>

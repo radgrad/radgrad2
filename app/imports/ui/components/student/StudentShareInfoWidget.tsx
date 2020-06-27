@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -8,7 +9,6 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { IStudentProfile, IUserInteractionDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-
 
 interface IStudentShareInfoWidgetProps {
   profile: IStudentProfile;
@@ -114,12 +114,12 @@ const StudentShareInfoWidget = (props: IStudentShareInfoWidgetProps) => {
       optional: true,
     },
   });
-
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <React.Fragment>
       <Header as="h4" dividing>Share your Information with others</Header>
       <Grid stackable style={marginTopStyle}>
-        <AutoForm schema={schema} model={model} onSubmit={handleUpdateInformation}>
+        <AutoForm schema={formSchema} model={model} onSubmit={handleUpdateInformation}>
           <Form.Group>
             <BoolField name="shareUsername" />
             <BoolField name="sharePicture" />

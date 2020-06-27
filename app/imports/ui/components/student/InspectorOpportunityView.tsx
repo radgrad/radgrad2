@@ -77,7 +77,6 @@ const handleRemoveClick = (props: IInspectorOpportunityViewProps) => (event, { v
   });
 };
 
-
 const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
   const opportunity = Opportunities.findDoc(props.opportunityID);
   const opportunitySlug = Slugs.getNameFromID(opportunity.slugID);

@@ -2,7 +2,6 @@ import { Slugs } from '../../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import * as Router from '../../shared/RouterHelperFunctions';
 
-
 export const itemSlug = (item) => Slugs.findDoc(item.slugID).name;
 
 export const buildRouteName = (match, item, type) => {

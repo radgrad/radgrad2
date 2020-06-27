@@ -51,7 +51,6 @@ const saveAsCSV = (props: IOpportunityScoreboardWidgetProps) => () => {
   zip.saveAs(`${dir}.zip`);
 };
 
-
 const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',

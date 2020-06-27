@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 
 interface IAddDesiredDegreeFormProps {
@@ -12,7 +13,7 @@ const AddDesiredDegreeForm = (props: IAddDesiredDegreeFormProps) => (
   <Segment padded>
     <Header dividing>Add Desired Degree</Header>
     <AutoForm
-      schema={DesiredDegrees.getDefineSchema()}
+      schema={new SimpleSchema2Bridge(DesiredDegrees.getDefineSchema())}
       onSubmit={props.handleAdd}
       ref={props.formRef}
       showInlineError

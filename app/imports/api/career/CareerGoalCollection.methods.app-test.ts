@@ -7,7 +7,6 @@ import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
-
 if (Meteor.isClient) {
   describe('CareerGoalCollection Meteor Methods ', function test() {
     const collectionName = CareerGoals.getCollectionName();

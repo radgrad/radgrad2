@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
@@ -38,6 +39,7 @@ interface IStudentExplorerAddReviewFormProps {
 const collection = Reviews;
 
 const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps) => {
+  // console.log('StudentExplorerAddReviewForm', props);
   const formRef = React.createRef();
   const [activeState, setActive] = useState(false);
 
@@ -118,6 +120,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
         academicTerms.push(AcademicTerms.findDoc(instance.termID));
       }
     });
+    // console.log(academicTerms);
     return academicTerms;
   };
 
@@ -126,7 +129,6 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
     color: '#38840F',
   };
   const paddedContainerStyle = { paddingBottom: '1.5em' };
-
 
   const terms = academicTerm();
   const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
@@ -138,17 +140,19 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
       defaultValue: academicTermNames[0],
     },
     rating: {
-      type: Number,
+      type: SimpleSchema.Integer,
       label: 'Rating',
       min: 0,
       max: 5,
       optional: true,
+      defaultValue: 3,
     },
     comments: {
       type: String,
       label: 'Comments',
     },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Accordion>
       <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
@@ -158,7 +162,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
 
       <Accordion.Content active={activeState}>
         <div className="ui padded container" style={paddedContainerStyle}>
-          <AutoForm schema={schema} onSubmit={handleAdd} ref={formRef}>
+          <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
             <Form.Group widths="equal">
               <SelectField name="academicTerm" />
               <RatingField name="rating" />

@@ -110,7 +110,6 @@ const courseName = (courseInstance: ICourseInstance): string => {
   return course.shortName;
 };
 
-
 const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => {
   const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints, match } = props;
 

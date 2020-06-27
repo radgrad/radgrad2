@@ -298,7 +298,6 @@ class OpportunityInstanceCollection extends BaseCollection {
     return this.publicationNames;
   }
 
-
   /**
    * @returns {String} This opportunity instance, formatted as a string.
    * @param opportunityInstanceID The opportunity instance ID.

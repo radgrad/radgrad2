@@ -11,7 +11,6 @@ import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
-
 /**
  * Represents a Admin Profile.
  * @extends api/user.BaseProfileCollection

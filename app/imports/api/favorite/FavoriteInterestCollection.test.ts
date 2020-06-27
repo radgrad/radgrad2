@@ -20,7 +20,6 @@ if (Meteor.isServer) {
     let userID;
     let firstName;
 
-
     before(function setup() {
       this.timeout(5000);
       removeAllEntities();

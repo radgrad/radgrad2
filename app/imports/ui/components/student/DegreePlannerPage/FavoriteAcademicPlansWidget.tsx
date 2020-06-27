@@ -5,12 +5,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { AutoForm, SelectField } from 'uniforms-semantic';
-import { IAcademicPlan } from '../../../../typings/radgrad';
-import * as Router from '../../shared/RouterHelperFunctions';
-import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
-import AcademicPlanViewerWidgetContainer from '../AcademicPlanViewerWidget';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
+import { IAcademicPlan } from '../../../typings/radgrad';
+import * as Router from '../shared/RouterHelperFunctions';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 interface IFavoriteAcademicPlansWidgetProps {
   match: Router.IMatchProps;
@@ -41,10 +42,11 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
       defaultValue: planNames[0],
     },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   const showPlanP = props.plans.length > 0;
   return (
     <div>
-      <AutoForm schema={schema} onChangeModel={handleOnChangeModel}>
+      <AutoForm schema={formSchema} onChangeModel={handleOnChangeModel}>
         <SelectField name="academicPlan" label="Academic Plans" />
       </AutoForm>
       <p />

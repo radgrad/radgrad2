@@ -5,6 +5,7 @@ import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, BoolField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { IPlanChoiceDefine } from '../../../typings/radgrad';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
@@ -24,7 +25,7 @@ const mapStateToProps = (state) => ({
 });
 
 const handleFilterChange = (props: IAdvisorAPBPlanChoiceWidgetProps) => ((model) => {
-  console.log(model);
+  // console.log(model);
   props.dispatch(academicPlanActions.setShowOnlyUnderGraduateChoices(model.showOnlyUnderGraduateChoices));
 });
 
@@ -62,6 +63,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
   const schema = new SimpleSchema({
     showOnlyUnderGraduateChoices: Boolean,
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   const filter = {
     showOnlyUnderGraduateChoices: props.showOnlyUnderGraduateChoices,
   };
@@ -69,7 +71,7 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
     <Segment>
       <Header dividing>
         Course Choices
-        <AutoForm schema={schema} model={filter} onChangeModel={handleFilterChange(props)}>
+        <AutoForm schema={formSchema} model={filter} onChangeModel={handleFilterChange(props)}>
           <BoolField name="showOnlyUnderGraduateChoices" />
         </AutoForm>
       </Header>

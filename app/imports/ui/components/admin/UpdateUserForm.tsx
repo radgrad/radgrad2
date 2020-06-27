@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
@@ -183,6 +184,7 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
   if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
     schema.extend(studentSchema);
   }
+  const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(schema);
   return (
     <Segment padded>
@@ -193,7 +195,7 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={schema}
+        schema={formSchema}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError

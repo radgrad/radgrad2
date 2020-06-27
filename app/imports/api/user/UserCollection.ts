@@ -53,7 +53,6 @@ class UserCollection {
     return credential;
   }
 
-
   /**
    * Define a new user, which means creating an entry in Meteor.Accounts.
    * This is called in the various Profile define() methods.
