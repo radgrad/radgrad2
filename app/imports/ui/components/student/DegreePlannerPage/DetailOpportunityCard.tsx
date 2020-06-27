@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { getUserIdFromRoute, getUsername, IMatchProps } from '../../shared/RouterHelperFunctions';
 import {
+  IAcademicTerm,
   IOpportunityInstance,
   IUserInteractionDefine,
   IVerificationRequest,
@@ -42,9 +43,11 @@ const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) 
   event.preventDefault();
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
+  const instanceObject: IOpportunityInstance = OpportunityInstances.findDoc({ _id: instance });
+  const slugName = OpportunityInstances.getOpportunitySlug(instance);
   removeItMethod.call({ collectionName, instance }, (error) => {
     if (error) {
-      console.error(`Remove courseInstance ${instance} failed.`, error);
+      console.error(`Remove opportunity instance ${instance} failed.`, error);
     } else {
       Swal.fire({
         title: 'Remove succeeded',
@@ -52,7 +55,17 @@ const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) 
         showConfirmButton: false,
         timer: 1500,
       });
-      // TODO: UserInteraction remove planned course.
+      const academicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+      const interactionData: IUserInteractionDefine = {
+        username: getUsername(props.match),
+        type: UserInteractionsTypes.REMOVEOPPORTUNITY,
+        typeData: [academicTerm.term, academicTerm.year, slugName],
+      };
+      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+        if (userInteractionError) {
+          console.error('Error creating UserInteraction.', userInteractionError);
+        }
+      });
     }
   });
   props.selectOpportunityInstance('');

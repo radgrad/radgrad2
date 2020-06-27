@@ -3,7 +3,11 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { ICourseInstance } from '../../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  ICourseInstance,
+  IUserInteractionDefine,
+} from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -13,6 +17,9 @@ import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
+import { getUsername } from '../../shared/RouterHelperFunctions';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 
 interface IDetailCourseCardProps {
   match: any;
@@ -28,6 +35,8 @@ const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
   event.preventDefault();
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
+  const instanceObject: ICourseInstance = CourseInstances.findDoc({ _id: instance });
+  const slugName = CourseInstances.getCourseSlug(instance);
   removeItMethod.call({ collectionName, instance }, (error) => {
     if (error) {
       console.error(`Remove courseInstance ${instance} failed.`, error);
@@ -38,7 +47,17 @@ const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
         showConfirmButton: false,
         timer: 1500,
       });
-      // TODO: UserInteraction remove planned course.
+      const academicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+      const interactionData: IUserInteractionDefine = {
+        username: getUsername(props.match),
+        type: UserInteractionsTypes.REMOVECOURSE,
+        typeData: [academicTerm.term, academicTerm.year, slugName],
+      };
+      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+        if (userInteractionError) {
+          console.error('Error creating UserInteraction.', userInteractionError);
+        }
+      });
     }
   });
   props.selectCourseInstance('');
