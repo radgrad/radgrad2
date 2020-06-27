@@ -9,7 +9,7 @@ interface ILandingSection2Props {
     users: string;
 }
 
-const whiteBG = { backgroundColor: '#ffffff', width: '100%' };
+const whiteBG: React.CSSProperties = { backgroundColor: '#ffffff', width: '100%' };
 const LandingSection2 = (props: ILandingSection2Props) => (
   <div style={whiteBG}>
     <Container>

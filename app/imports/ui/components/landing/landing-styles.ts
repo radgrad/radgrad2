@@ -31,7 +31,7 @@ export default {
         fontWeight: 500,
         paddingRight: 10,
         verticalAlign: 'top',
-        lineHeight:0.3,
+        lineHeight: 0.6,
 
     },
     'float-right': {
@@ -140,4 +140,4 @@ export default {
         color: 'white',
         fontSize: 13,
     },
-};
+} as React.CSSProperties;
