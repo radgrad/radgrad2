@@ -38,7 +38,6 @@ const handleUpdateLevelButton = (event) => {
   });
 };
 
-
 const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
   let advisors = props.advisors;
   let faculty = props.faculty;

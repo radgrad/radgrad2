@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicPlan } from '../../../typings/radgrad';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import AdvisorAcademicPlanViewer from './AdvisorAcademicPlanViewer';
-
 
 interface IAdvisorAcademicPlanViewerWidgetProps {
   plans: IAcademicPlan[];
@@ -41,9 +41,10 @@ const AdvisorAcademicPlanViewerWidget = (props: IAdvisorAcademicPlanViewerWidget
     year: { type: SimpleSchema.Integer, allowedValues: years, defaultValue: yearState },
     name: { type: String, allowedValues: planNamesState, defaultValue: planNamesState[0] },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
-      <AutoForm schema={schema} onChangeModel={handleModelChange}>
+      <AutoForm schema={formSchema} onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <SelectField name="year" />
           <SelectField name="name" />

@@ -197,7 +197,6 @@ class FavoriteCareerGoalCollection extends BaseCollection {
     return { careerGoal, username, retired };
   }
 
-
 }
 
 export const FavoriteCareerGoals = new FavoriteCareerGoalCollection();

@@ -46,7 +46,6 @@ const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-
 const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   const marginStyle = {
     marginTop: 5,

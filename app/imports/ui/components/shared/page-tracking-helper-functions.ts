@@ -3,7 +3,7 @@ import {
   ICourse,
   IInterest, IOpportunity,
   IPageInterestInfo,
-  IPageInterestsDailySnapshot,
+  IPageInterestsDailySnapshot, ISlug,
 } from '../../../typings/radgrad';
 import {
   IPageInterestsCategoryTypes,
@@ -15,6 +15,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { getLastUrlParam, IMatchProps } from './RouterHelperFunctions';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
 export interface IAggregatedDailySnapshot {
   careerGoals: IPageInterestInfo[];
@@ -135,3 +136,53 @@ export const parseName = (category: IPageInterestsCategoryTypes, slug: string): 
 };
 
 export const slugIDToSlugName = (slugID) => Slugs.findOne(slugID).name;
+
+// Calculates how long to wait (since the time the student has opened the page) before they're considered "interested" in that item
+export const calculateEngagedInterestTime = (slugName: string): number => {
+  const slug: ISlug = Slugs.findOne({ name: slugName });
+  const type = slug.entityName;
+  const descriptionText = getDescriptionText(type, slugName);
+
+  const descriptionTextStrings: string[] = descriptionText.split(' ');
+  const removedHttpLinks: string[] = descriptionTextStrings.filter((str) => !str.includes('http')); // Remove the Markdown http links
+  const validWordLength: number = 3; // Number of characters for a string to be considered a "word"
+  const validDescriptionTextStrings: string[] = removedHttpLinks.filter((str) => str.length >= validWordLength); // Remove strings that aren't "valid words"
+  const isLongDescriptionText: boolean = validDescriptionTextStrings.length > 50; // If there are more than 50 words, it's considered a long description
+
+  const wpm = isLongDescriptionText ? 275 : 250; // Words per minute. We expect that the longer a description is, the faster a english-literate college student reads
+  // We expect that in order for a student to have been considered "interested" in the item they're reading
+  // that they have read around half of the words in the description
+  const expectedNumberOfWords = validDescriptionTextStrings.length / 2;
+  const estimatedReadingTime = (expectedNumberOfWords / wpm) * 60 * 1000; // Based on the WPM, the estimated time it would take to read half of the description (in milliseconds)
+  // As reading experience and time varies between students (in the sense that they might not read everything word by word),
+  // we only expect that they have spent a minimum of half of the estimated reading time for reading half of the description
+  // to be considered "interested" in that item
+  const expectedReadingTime = estimatedReadingTime / 2;
+
+  // Students may not necessarily start reading the description as soon as they enter the page.
+  // If it is a longer description, they might spend some time skimming the page first before reading. (in milliseconds)
+  const initiationTime = isLongDescriptionText ? 1500 : 500;
+  return expectedReadingTime + initiationTime;
+};
+
+// Checks if the URL parameter is one of the explorer types that we're tracking
+// Valid explorer types that we track are Career Goals, Courses, Interests, and Opportunities
+export const isValidParameter = (parameter) => (parameter === EXPLORER_TYPE.CAREERGOALS || parameter === EXPLORER_TYPE.COURSES || parameter === EXPLORER_TYPE.INTERESTS || parameter === EXPLORER_TYPE.OPPORTUNITIES);
+
+export const getDescriptionText = (type, slugName) => {
+  const id = Slugs.findOne({ name: slugName })._id;
+  switch (type) { // entityNames are the types
+    case CareerGoals.getType():
+      return CareerGoals.findOne({ slugID: id }).description;
+    case Courses.getType():
+      return Courses.findOne({ slugID: id }).description;
+    case Interests.getType():
+      return Interests.findOne({ slugID: id }).description;
+    case Opportunities.getType():
+      return Opportunities.findOne({ slugID: id }).description;
+    default:
+      console.error(`Bad entityName: ${type}`);
+      break;
+  }
+  return undefined;
+};

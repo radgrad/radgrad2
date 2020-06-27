@@ -40,7 +40,6 @@ const ModerationQuestionCardWidget = (props: IModerationQuestionCardWidget) => {
     setModeratorComment(value);
   };
 
-
   const handleRejectClick = () => {
     const update = props.handleReject(props.question, moderatorCommentState);
     setModeratorComment('');

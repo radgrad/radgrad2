@@ -26,7 +26,6 @@ const FutureCourseEnrollmentWidget = (props: IFutureCourseEnrollmentWidgetProps)
     }
   });
 
-
   if (dataState) {
     // console.log(dataState.enrollmentData);
     const quarterP = RadGradProperties.getQuarterSystem();

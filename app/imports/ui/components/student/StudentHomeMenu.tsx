@@ -32,7 +32,6 @@ const buildRouteName = (props: IStudentHomeMenuProps) => {
   }
 };
 
-
 const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
   const username = props.match.params.username;
   const baseUrl = props.match.url;

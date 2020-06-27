@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
@@ -182,7 +183,7 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
   };
 
   const handleDropInCombineArea = (dropResult) => {
-    console.log(COMBINE_AREA, dropResult, combineChoiceState);
+    // console.log(COMBINE_AREA, dropResult, combineChoiceState);
     const choice = stripCounter(stripPrefix(dropResult.draggableId));
     const index = dropResult.destination.index;
     let combineLeftSide = '';
@@ -195,7 +196,7 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
         combineLeftSide = combineChoiceState;
         combineRightSide = choice;
       }
-      console.log(combineLeftSide, combineRightSide);
+      // console.log(combineLeftSide, combineRightSide);
       if (isSingleChoice(combineLeftSide) && isSingleChoice(combineRightSide)) {
         const newCombineChoice = simpleCombineChoices(combineLeftSide, combineRightSide);
         setCombineChoice(newCombineChoice);
@@ -307,13 +308,14 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
       defaultValue: currentTermName,
     },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   const paddingTopStyle = {
     marginTop: 10,
   };
   return (
     <Segment>
       <Header dividing>ACADEMIC PLAN</Header>
-      <AutoForm schema={schema} onSubmit={handleSavePlan}>
+      <AutoForm schema={formSchema} onSubmit={handleSavePlan}>
         <Form.Group widths="equal">
           <SelectField name="degree" />
           <TextField name="name" />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -54,6 +55,7 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
     'prerequisiteNames.$': { type: String, allowedValues: courseNames },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(model, schema);
   return (
     <Segment padded>
@@ -64,7 +66,7 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={schema}
+        schema={formSchema}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError

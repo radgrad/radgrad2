@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { AutoForm, SelectField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimplSchema from 'simpl-schema';
 import _ from 'lodash';
 import { Users } from '../../../api/user/UserCollection';
@@ -23,7 +24,7 @@ const ChooseSchema = new SimplSchema({
   year: Number,
   name: String,
 });
-
+const formSchema = new SimpleSchema2Bridge(ChooseSchema);
 const AcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
   // console.log('AcademicPlanViewer', props);
   const username = props.match.params.username;
@@ -68,7 +69,7 @@ const AcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
   };
   return (
     <div>
-      <AutoForm schema={ChooseSchema} onSubmit={submit} model={plan}>
+      <AutoForm schema={formSchema} onSubmit={submit} model={plan}>
         <Form.Group style={noBottomMargin}>
           <SelectField allowedValues={planYears} name="year" onChange={handleChangeYear} width={4} />
           <SelectField allowedValues={names} name="name" onChange={handleChangeName} width={12} />

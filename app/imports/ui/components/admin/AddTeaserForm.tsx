@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../typings/radgrad';
@@ -52,10 +53,11 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
     },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>Add Teaser</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="title" />
           <TextField name="slug" />

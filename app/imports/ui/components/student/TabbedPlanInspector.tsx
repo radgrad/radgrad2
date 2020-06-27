@@ -36,7 +36,6 @@ const handleTabChange = (props: ITabbedPlanInspectorProps) => (e, { activeIndex 
   }
 };
 
-
 const TabbedPlanInspector = (props: ITabbedPlanInspectorProps) => {
   const activeIndex = props.selectedTab === SELECT_PLAN ? 0 : 1;
   // console.log('TabbedPlanInspector.render props=%o, activeIndex=%o', props, activeIndex);

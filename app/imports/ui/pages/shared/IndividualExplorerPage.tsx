@@ -119,7 +119,6 @@ const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerG
   count: 1,
 }));
 
-
 const careerGoal = (props: IIndividualExplorerPageProps): ICareerGoal => {
   const careerGoalSlugName = props.match.params.careergoal;
   const slug = Slugs.findDoc({ name: careerGoalSlugName });
@@ -344,7 +343,6 @@ const academicTerms = (theOpp: IOpportunity): string[] => {
 
 const sponsor = (theOpp: IOpportunity): string => Users.getFullName(theOpp.sponsorID);
 
-
 const descriptionPairsOpportunities = (theOpp: IOpportunity): { label: string, value: any }[] => [
   { label: 'Opportunity Type', value: opportunityType(theOpp) },
   { label: 'Academic Terms', value: academicTerms(theOpp) },
@@ -355,7 +353,6 @@ const descriptionPairsOpportunities = (theOpp: IOpportunity): { label: string, v
   { label: 'ICE', value: theOpp.ice },
   { label: 'Teaser', value: teaser(theOpp) },
 ];
-
 
 const getAddedList = (props: IIndividualExplorerPageProps): { [key: string]: any }[] => {
   const type = Router.getUrlParam(props.match, 2);
@@ -533,7 +530,6 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
     </React.Fragment>
   );
 };
-
 
 export default withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);

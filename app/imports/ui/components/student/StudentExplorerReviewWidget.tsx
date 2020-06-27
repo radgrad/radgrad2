@@ -68,7 +68,6 @@ const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
   return matchingReviewsFinal;
 };
 
-
 const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) => {
   const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };
@@ -191,6 +190,5 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
     </div>
   );
 };
-
 
 export default withRouter(StudentExplorerReviewWidget);

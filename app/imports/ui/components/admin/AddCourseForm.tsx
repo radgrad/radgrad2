@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../form-fields/MultiSelectField';
@@ -43,10 +44,11 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
     prerequisites: { type: Array, optional: true },
     'prerequisites.$': { type: String, allowedValues: courseNames },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>Add Course</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" placeholder="dept_111" />
           <TextField name="name" placeholder="DEPT 111 Introduction to Science" />

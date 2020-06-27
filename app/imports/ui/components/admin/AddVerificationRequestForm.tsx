@@ -4,6 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { IAcademicTerm, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -44,10 +45,11 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
     opportunity: { type: String, optional: true, allowedValues: opportunityNames },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>Add Verification Request</Header>
-      <AutoForm schema={schema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="student" placeholder="Choose the student" />
           <SelectField name="status" placeholder="Choose the status" />

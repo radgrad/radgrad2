@@ -12,7 +12,6 @@ interface ISummaryStatisticsTabsProps {
   interactionsByUser: object;
 }
 
-
 const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 

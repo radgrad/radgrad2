@@ -1,5 +1,6 @@
 import React from 'react';
 import { AutoForm } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import RadioField from '../form-fields/RadioField';
 
@@ -29,12 +30,13 @@ const OpportunitySortWidget = (props: IOpportunitySortWidgetProps) => {
       optional: true,
     },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   const model = {
     sortOpportunitiesBy: props.sortChoice,
   };
   return (
     <div>
-      <AutoForm schema={schema} model={model} onChange={props.handleChange}>
+      <AutoForm schema={formSchema} model={model} onChange={props.handleChange}>
         <RadioField name="sortOpportunitiesBy" label="Sort Opportunities By:" inline />
       </AutoForm>
     </div>

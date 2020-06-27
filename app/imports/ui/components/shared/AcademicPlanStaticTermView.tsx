@@ -26,7 +26,6 @@ interface IAcademicPlanTermViewProps {
   };
 }
 
-
 const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
   const isStudent = Router.isUrlRoleStudent(props.match);
   const noPaddingStyle = {

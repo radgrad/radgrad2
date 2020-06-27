@@ -97,7 +97,6 @@ const AdvisorHomePage = (props: IFilterStudents) => (
   </div>
     );
 
-
 const AdvisorHomePageTracker = withTracker((props) => {
   const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
   const userID = usernameDoc ? usernameDoc.userID : '';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../api/base/BaseCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 
@@ -24,7 +25,7 @@ const UpdateOpportunityTypeForm = (props: IUpdateOpportunityTypeFormProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={OpportunityTypes.getUpdateSchema()}
+        schema={new SimpleSchema2Bridge(OpportunityTypes.getUpdateSchema())}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError

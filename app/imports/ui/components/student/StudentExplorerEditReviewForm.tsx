@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -149,6 +150,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
       instances = OpportunityInstances.find({
         studentID: getUserIdFromRoute(),
         opportunityID: opportunity._id,
+        verified: true,
       }).fetch();
     }
     _.forEach(instances, (instance) => {
@@ -168,6 +170,10 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
 
   const { review } = props;
 
+  const model: any = {};
+  model.comments = review.comments;
+  model.rating = review.rating;
+  model.academicTerm = AcademicTerms.toString(review.termID, false);
   const terms = academicTerm();
   const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
   const schema = new SimpleSchema({
@@ -191,7 +197,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
       defaultValue: review.comments,
     },
   });
-
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Accordion>
       <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
@@ -278,7 +284,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
               )
           }
 
-          <AutoForm schema={schema} onSubmit={handleUpdate} ref={formRef}>
+          <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} model={model}>
             <Form.Group widths="equal">
               <SelectField name="academicTerm" />
               <RatingField name="rating" />

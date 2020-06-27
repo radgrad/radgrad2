@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IAddHelpMessageFormProps {
@@ -11,7 +12,7 @@ interface IAddHelpMessageFormProps {
 const AddHelpMessageForm = (props: IAddHelpMessageFormProps) => (
   <Segment padded>
     <Header dividing>Add Help Message</Header>
-    <AutoForm schema={HelpMessages.getDefineSchema()} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+    <AutoForm schema={new SimpleSchema2Bridge(HelpMessages.getDefineSchema())} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
       <Form.Group widths="equal">
         <TextField name="routeName" />
         <TextField name="title" />

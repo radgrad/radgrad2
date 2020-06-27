@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic/';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import Swal from 'sweetalert2';
 import { Segment, Grid, Button, Label, Icon, Header, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -307,7 +308,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
       defaultValue: picture(),
     },
   });
-
+  const formSchema = new SimpleSchema2Bridge(updateSchema);
   const careerGoals = getCareerGoals();
   const interests = getInterests();
   return (
@@ -399,7 +400,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
       {
         isEditingProfileState ? (
-          <AutoForm model={model} schema={updateSchema} onSubmit={handleSubmit} ref={formRef}>
+          <AutoForm model={model} schema={formSchema} onSubmit={handleSubmit} ref={formRef}>
             <Form.Group widths="equal">
               <TextField name="website" />
               <TextField name="company" />

@@ -22,5 +22,4 @@ const AdminAnalyticsPage = () => (
   </div>
 );
 
-
 export default AdminAnalyticsPage;

@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -40,6 +41,7 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
     },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(model);
   return (
     <Segment padded>
@@ -51,7 +53,7 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
       </Header>
       <AutoForm
         ref={props.formRef}
-        schema={schema}
+        schema={formSchema}
         model={model}
         onSubmit={props.handleUpdate}
       >

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../typings/radgrad';
@@ -71,12 +72,13 @@ const AddReviewForm = (props: IAddReviewFormProps) => {
     moderatorComments: { type: String, optional: true },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   // @ts-ignore
   return (
     <Segment padded>
       <Header dividing>Add Course Instance</Header>
       <AutoForm
-        schema={schema}
+        schema={formSchema}
         onSubmit={props.handleAdd}
         ref={props.formRef}
         showInlineError

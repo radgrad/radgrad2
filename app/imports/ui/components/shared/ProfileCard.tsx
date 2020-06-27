@@ -72,5 +72,4 @@ const ProfileCard = (props: IProfileCardProps) => {
   );
 };
 
-
 export default withRouter(ProfileCard);

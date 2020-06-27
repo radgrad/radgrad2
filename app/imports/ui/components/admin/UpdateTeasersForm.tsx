@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
@@ -62,6 +63,7 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
     targetSlug: { type: String, allowedValues: opportunitySlugs.concat(courseSlugs.concat(interestSlugs.concat(careerGoalSlugs))), optional: true, defaultValue: modelSlugAndType },
     retired: { type: Boolean, optional: true },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
       <Header dividing>
@@ -71,7 +73,7 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
         {props.itemTitleString(model)}
       </Header>
       <AutoForm
-        schema={schema}
+        schema={formSchema}
         onSubmit={props.handleUpdate}
         ref={props.formRef}
         showInlineError

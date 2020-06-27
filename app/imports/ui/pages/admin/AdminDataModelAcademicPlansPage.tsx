@@ -44,7 +44,6 @@ const AdminDataModelAcademicPlansPage = () => {
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-
   const handleAdd = (doc) => {
     console.log('AcademicPlans.handleAdd(%o)', doc);
     // const collectionName;

@@ -4,6 +4,7 @@ import { $ } from 'meteor/jquery';
 import { Divider, Form, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AutoForm, SelectField, TextField } from 'uniforms-semantic';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
@@ -16,7 +17,6 @@ import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { COMBINE_AREA } from './AcademicPlanBuilderUtilities';
-
 
 interface IAdvisorAcademicPlanBuilderWidgetProps {
   degrees: IDesiredDegree[];
@@ -90,6 +90,7 @@ const AdvisorAcademicPlanBuilderWidget = (props: IAdvisorAcademicPlanBuilderWidg
     name: String,
     year: { type: SimpleSchema.Integer, allowedValues: props.years, defaultValue: currentYear },
   });
+  const formSchema = new SimpleSchema2Bridge(schema);
   const planYears = ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
   const academicYearStyle = {
     padding: '0 0.6rem',
@@ -99,7 +100,7 @@ const AdvisorAcademicPlanBuilderWidget = (props: IAdvisorAcademicPlanBuilderWidg
   return (
     <Segment padded>
       <Header dividing>ACADEMIC PLAN</Header>
-      <AutoForm schema={schema}>
+      <AutoForm schema={formSchema}>
         <Form.Group widths="equal">
           <SelectField name="degree" />
           <TextField name="name" />

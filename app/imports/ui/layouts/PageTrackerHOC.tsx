@@ -9,11 +9,7 @@ import {
 } from '../components/shared/RouterHelperFunctions';
 import { RootState } from '../../redux/types';
 import { Slugs } from '../../api/slug/SlugCollection';
-import { CareerGoals } from '../../api/career/CareerGoalCollection';
-import { Courses } from '../../api/course/CourseCollection';
-import { Interests } from '../../api/interest/InterestCollection';
-import { Opportunities } from '../../api/opportunity/OpportunityCollection';
-import { IPageInterestDefine, ISlug } from '../../typings/radgrad';
+import { IPageInterestDefine } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
 import { EXPLORER_TYPE } from '../../startup/client/route-constants';
@@ -22,6 +18,7 @@ import {
   PageInterestsCategoryTypes,
 } from '../../api/page-tracking/PageInterestsCategoryTypes';
 import { pageInterestDefineMethod } from '../../api/page-tracking/PageInterestCollection.methods';
+import { calculateEngagedInterestTime, isValidParameter } from '../components/shared/page-tracking-helper-functions';
 
 interface IPageTrackerProps {
   history: {
@@ -38,58 +35,6 @@ const mapStateToProps = (state: RootState): object => ({
   router: state.router,
 });
 
-/* Page Interest Views Tracking Helper Functions */
-// Checks if the URL parameter is one of the explorer types that we're tracking
-// Valid explorer types that we track are Career Goals, Courses, Interests, and Opportunities
-const isValidParameter = (parameter) => (parameter === EXPLORER_TYPE.CAREERGOALS || parameter === EXPLORER_TYPE.COURSES || parameter === EXPLORER_TYPE.INTERESTS || parameter === EXPLORER_TYPE.OPPORTUNITIES);
-
-const getDescriptionText = (type, slugName) => {
-  const id = Slugs.findOne({ name: slugName })._id;
-  switch (type) { // entityNames are the types
-    case CareerGoals.getType():
-      return CareerGoals.findOne({ slugID: id }).description;
-    case Courses.getType():
-      return Courses.findOne({ slugID: id }).description;
-    case Interests.getType():
-      return Interests.findOne({ slugID: id }).description;
-    case Opportunities.getType():
-      return Opportunities.findOne({ slugID: id }).description;
-    default:
-      console.error(`Bad entityName: ${type}`);
-      break;
-  }
-  return undefined;
-};
-
-// Calculates how long to wait (since the time the student has opened the page) before they're considered "interested" in that item
-const calculateEngagedInterestTime = (slugName: string): number => {
-  const slug: ISlug = Slugs.findOne({ name: slugName });
-  const type = slug.entityName;
-  const descriptionText = getDescriptionText(type, slugName);
-
-  const descriptionTextStrings: string[] = descriptionText.split(' ');
-  const removedHttpLinks: string[] = descriptionTextStrings.filter((str) => !str.includes('http')); // Remove the Markdown http links
-  const validWordLength: number = 3; // Number of characters for a string to be considered a "word"
-  const validDescriptionTextStrings: string[] = removedHttpLinks.filter((str) => str.length >= validWordLength); // Remove strings that aren't "valid words"
-  const isLongDescriptionText: boolean = validDescriptionTextStrings.length > 50; // If there are more than 50 words, it's considered a long description
-
-  const wpm = isLongDescriptionText ? 275 : 250; // Words per minute. We expect that the longer a description is, the faster a english-literate college student reads
-  // We expect that in order for a student to have been considered "interested" in the item they're reading
-  // that they have read around half of the words in the description
-  const expectedNumberOfWords = validDescriptionTextStrings.length / 2;
-  const estimatedReadingTime = (expectedNumberOfWords / wpm) * 60 * 1000; // Based on the WPM, the estimated time it would take to read half of the description (in milliseconds)
-  // As reading experience and time varies between students (in the sense that they might not read everything word by word),
-  // we only expect that they have spent a minimum of half of the estimated reading time for reading half of the description
-  // to be considered "interested" in that item
-  const expectedReadingTime = estimatedReadingTime / 2;
-
-  // Students may not necessarily start reading the description as soon as they enter the page.
-  // If it is a longer description, they might spend some time skimming the page first before reading. (in milliseconds)
-  const initiationTime = isLongDescriptionText ? 1500 : 500;
-  return expectedReadingTime + initiationTime;
-};
-
-/* ################################### */
 function usePreviousProps(value) {
   const ref = useRef();
   useEffect(() => {
@@ -127,7 +72,7 @@ function withPageTracker(WrappedComponent) {
           // Don't create a PageInterest in case we ever change how the URL of Explorer Pages are structured
           // since we're directly accessing parameters for data
           if (parameters.length > 3) {
-            console.error('Invalid length of parameters: %o', parameters);
+            console.error('Invalid length of parameters (expected 3): %o', parameters.length);
             return;
           }
           // OR the user is trying to visit a specific page that no longer exists.
@@ -149,7 +94,6 @@ function withPageTracker(WrappedComponent) {
               category = PageInterestsCategoryTypes.OPPORTUNITY;
               break;
           }
-          // Only define a PageInterest if there hasn't been one defined for the past 24 hours.
           const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
           const pageInterestData: IPageInterestDefine = { username, category, name: urlSlug };
           timeoutHandle = Meteor.setTimeout(() => {
@@ -202,53 +146,6 @@ export default withPageTracker;
 //     router: state.router,
 //   });
 //
-//   const getDescriptionText = (type, slugName) => {
-//     const id = Slugs.findOne({ name: slugName })._id;
-//     switch (type) {
-//       case 'CareerGoal':
-//         return CareerGoals.findOne({ slugID: id }).description;
-//       case 'Course':
-//         return Courses.findOne({ slugID: id }).description;
-//       case 'Interest':
-//         return Interests.findOne({ slugID: id }).description;
-//       case 'Opportunity':
-//         return Opportunities.findOne({ slugID: id }).description;
-//       default:
-//         console.error(`Bad entityName: ${type}`);
-//         break;
-//     }
-//     return undefined;
-//   };
-//
-//   // Calculates how long to wait (since the time the student has opened the page) before they're considered "interested" in that item
-//   const calculateEngagedInterestTime = (slugName: string): number => {
-//     const slug: ISlug = Slugs.findOne({ name: slugName });
-//     const type = slug.entityName;
-//     const descriptionText = getDescriptionText(type, slugName);
-//
-//     const descriptionTextStrings: string[] = descriptionText.split(' ');
-//     const removedHttpLinks: string[] = descriptionTextStrings.filter((str) => !str.includes('http')); // Remove the Markdown http links
-//     const validWordLength: number = 3; // Number of characters for a string to be considered a "word"
-//     const validDescriptionTextStrings: string[] = removedHttpLinks.filter((str) => str.length >= validWordLength); // Remove strings that aren't "valid words"
-//     const isLongDescriptionText: boolean = validDescriptionTextStrings.length > 50; // If there are more than 50 words, it's considered a long description
-//
-//     const wpm = isLongDescriptionText ? 275 : 250; // Words per minute. We expect that the longer a description is, the faster a english-literate college student reads
-//     // We expect that in order for a student to have been considered "interested" in the item they're reading
-//     // that they have read around half of the words in the description
-//     const expectedNumberOfWords = validDescriptionTextStrings.length / 2;
-//     const estimatedReadingTime = (expectedNumberOfWords / wpm) * 60 * 1000; // Based on the WPM, the estimated time it would take to read half of the description (in milliseconds)
-//     // As reading experience and time varies between students (in the sense that they might not read everything word by word),
-//     // we only expect that they have spent a minimum of half of the estimated reading time for reading half of the description
-//     // to be considered "interested" in that item
-//     const expectedReadingTime = estimatedReadingTime / 2;
-//
-//     // Students may not necessarily start reading the description as soon as they enter the page.
-//     // If it is a longer description, they might spend some time skimming the page first before reading. (in milliseconds)
-//     const initiationTime = isLongDescriptionText ? 1500 : 1000;
-//
-//     return expectedReadingTime + initiationTime;
-//   };
-//
 //   class HistoryListen extends React.Component<IHistoryListenProps> {
 //     private timeoutHandle;
 //
@@ -267,7 +164,6 @@ export default withPageTracker;
 //           }
 //         });
 //
-//         const isValidParameter = (p) => p === EXPLORER_TYPE.CAREERGOALS || p === EXPLORER_TYPE.COURSES || p === EXPLORER_TYPE.INTERESTS || p === EXPLORER_TYPE.OPPORTUNITIES;
 //         const urlCategory = parameters[1];
 //         const urlSlug = parameters[2];
 //         // Defining Page Interests

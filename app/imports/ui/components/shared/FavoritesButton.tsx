@@ -37,7 +37,6 @@ export interface IFavoriteButtonProps {
   added: boolean;
 }
 
-
 const handleAdd = (props: IFavoriteButtonProps) => () => {
   const collectionName = getCollectionName(props.type);
   const definitionData = createDefinitionData(props);
