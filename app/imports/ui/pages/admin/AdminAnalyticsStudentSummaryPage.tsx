@@ -1,34 +1,42 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
+import * as _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
-import AdminAnalyticsStudentSummaryWidget from '../../components/admin/AdminAnalyticsStudentSummaryWidget';
+import AdminAnalyticsStudentSummaryWidget from '../../components/admin/AnalyticsStudentSummaryPage/AdminAnalyticsStudentSummaryWidget';
+import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
-/** A simple static component to render some text for the landing page. */
-class AdminAnalyticsStudentSummaryPage extends React.Component {
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  public render() {
-    const paddedStyle = {
-      paddingTop: 20,
-    };
-    return (
-      <div>
-        <AdminPageMenuWidget />
-        <Grid container stackable style={paddedStyle} columns={1}>
-          <Grid.Column>
-            <Grid>
-              <Grid.Column width={3}>
-                <AdminAnalyticsMenuWidget />
-              </Grid.Column>
-              <Grid.Column width={13}>
-                <AdminAnalyticsStudentSummaryWidget />
-              </Grid.Column>
-            </Grid>
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
-}
+const handleClick = (e) => {
+  e.preventDefault();
+  userInteractionFindMethod.call({}, (error, result) => {
+    const userInteractions = _.groupBy(result, 'username');
+    console.log('userInteractions %o', userInteractions);
+  });
+};
+
+const AdminAnalyticsStudentSummaryPage = () => {
+  const paddedStyle = {
+    paddingTop: 20,
+  };
+  return (
+    <div>
+      <AdminPageMenuWidget />
+      <Grid container stackable style={paddedStyle} columns={1}>
+        <Grid.Column>
+          {/* TODO: remove after done with issue-146 */}
+          <Button onClick={handleClick}>Interactions</Button>
+          <Grid>
+            <Grid.Column width={3}>
+              <AdminAnalyticsMenuWidget />
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <AdminAnalyticsStudentSummaryWidget />
+            </Grid.Column>
+          </Grid>
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
+};
 
 export default AdminAnalyticsStudentSummaryPage;

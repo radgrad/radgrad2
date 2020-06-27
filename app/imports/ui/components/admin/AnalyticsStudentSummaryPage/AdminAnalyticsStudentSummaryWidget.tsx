@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
-import { ANALYTICS } from '../../../startup/client/route-constants';
-import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
+import { ANALYTICS } from '../../../../startup/client/route-constants';
+import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
-import { IBehavior, IDateRange } from '../../../typings/radgrad';
+import { IBehavior, IDateRange } from '../../../../typings/radgrad';
 
 interface IAdminAnalyticsStudentSummaryWidgetProps {
   dateRange: IDateRange;
@@ -29,7 +29,6 @@ const dateRangeString = (dateRange: IDateRange): string => {
 };
 
 const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummaryWidgetProps) => {
-  // console.log('SummaryWidget', props);
   const dateRangeStr = dateRangeString(props.dateRange);
   const interactionsByUser = props.userInteractions;
   const behaviors: IBehavior[] = [

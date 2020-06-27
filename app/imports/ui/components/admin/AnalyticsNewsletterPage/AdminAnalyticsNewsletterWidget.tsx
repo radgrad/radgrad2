@@ -7,20 +7,20 @@ import Swal from 'sweetalert2';
 import { $ } from 'meteor/jquery';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { IStudentProfile } from '../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { IStudentProfile } from '../../../../typings/radgrad';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { sendEmailMethod } from '../../../api/analytic/Email.methods';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { analyticsActions } from '../../../redux/admin/analytics';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { Users } from '../../../../api/user/UserCollection';
+import { sendEmailMethod } from '../../../../api/analytic/Email.methods';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { Courses } from '../../../../api/course/CourseCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { Reviews } from '../../../../api/review/ReviewCollection';
+import { analyticsActions } from '../../../../redux/admin/analytics';
 
 interface IHtml {
   header?: string;
@@ -121,10 +121,7 @@ const iceRecHelper = (student: IStudentProfile, value, component): string => {
       return html;
     }
     const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
-      if (_.some(course.interestIDs, interest => _.includes(studentInterests, interest))) {
-        return true;
-      }
-      return false;
+      return _.some(course.interestIDs, interest => _.includes(studentInterests, interest));
     });
     const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
     const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
@@ -148,10 +145,7 @@ const iceRecHelper = (student: IStudentProfile, value, component): string => {
       return opp.ice[component] > 0;
     });
     const relevantOpps = _.filter(opps, function (opp) {
-      if (_.some(opp.interestIDs, interest => _.includes(studentInterests, interest))) {
-        return true;
-      }
-      return false;
+      return _.some(opp.interestIDs, interest => _.includes(studentInterests, interest));
     });
     if (relevantOpps.length === 0) {
       return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
@@ -181,7 +175,7 @@ const iceRecommendation = (student: IStudentProfile): IHtml | string => {
   html.header = 'Finish Your Degree Plan';
   html.info = '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>';
   _.each(ice, function (value, component) {
-    let iceLevel = '';
+    let iceLevel;
     if (value < 30) {
       iceLevel = '<span style="color: red;"><strong>NEEDS WORK</strong></span>';
     } else if (value < 60) {
@@ -220,10 +214,7 @@ const verifyOppRecommendation = (student: IStudentProfile): IHtml | string => {
   const currentUnverifiedOpps = _.filter(unverifiedOpps, function (unverifiedOpp) {
     const { termID } = unverifiedOpp;
     const { termNumber } = AcademicTerms.findOne({ _id: termID });
-    if (termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
-      return true;
-    }
-    return false;
+    return termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   });
   if (currentUnverifiedOpps.length === 0) {
     return '';
@@ -387,30 +378,17 @@ const mapDispatchToProps = (dispatch) => ({
   allNewsletterDone: () => dispatch(analyticsActions.allNewsletterDone()),
 });
 
-interface IAdminAnalyticsNewsletterWidgetState {
-  inputMessage: string,
-  onSubmitInputMessage: string,
-  bcc: string,
-  subjectLine: string,
-  studentEmails: string,
-  sendToStudentsToo: boolean,
-  level: number,
-  sendToLevels: boolean,
-  sendToAll: boolean,
-  message: object,
-}
-
 const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetProps) => {
 // class AdminAnalyticsNewsletterWidget extends React.Component<IAdminAnalyticsNewsletterWidget, IAdminAnalyticsNewsletterWidgetState> {
-  const [inputMessage, setInputMessage] = useState('');
-  const [onSubmitInputMessage, setOnSubmitInputMessage] = useState('');
-  const [bcc, setBcc] = useState('');
-  const [subjectLine, setSubjectLine] = useState('');
-  const [studentEmails, setStudentEmails] = useState('');
-  const [sendToStudentsToo, setSendToStudentsToo] = useState(false);
-  const [level, setLevel] = useState(0);
-  const [sendToLevels, setSendToLevels] = useState(false);
-  const [sendToAll, setSendToAll] = useState(false);
+  const [inputMessage, setInputMessage] = useState<string>('');
+  const [onSubmitInputMessage, setOnSubmitInputMessage] = useState<string>('');
+  const [bcc, setBcc] = useState<string>('');
+  const [subjectLine, setSubjectLine] = useState<string>('');
+  const [studentEmails, setStudentEmails] = useState<string>('');
+  const [sendToStudentsToo, setSendToStudentsToo] = useState<boolean>(false);
+  const [level, setLevel] = useState<number>(0);
+  const [sendToLevels, setSendToLevels] = useState<boolean>(false);
+  const [sendToAll, setSendToAll] = useState<boolean>(false);
 
   /** Auto Forms */
     // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
@@ -466,7 +444,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
     const adminEmail = RadGradProperties.getAdminEmail();
     const from = RadGradProperties.getNewsletterFrom();
     const adminMessage = $('.adminMessage').html();
-    _.forEach(studentEmailsArr, (studentEmail, index) => {
+    _.forEach(studentEmailsArr, (studentEmail) => {
       setTimeout(() => {
         const student = StudentProfiles.findByUsername(studentEmail);
         if (student) {

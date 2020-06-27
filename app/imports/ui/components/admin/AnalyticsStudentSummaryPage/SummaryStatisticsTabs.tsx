@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { Menu, Segment, Tab } from 'semantic-ui-react';
 import StudentSummaryTab from './StudentSummaryTab';
-import { IBehavior } from '../../../typings/radgrad';
+import { IBehavior } from '../../../../typings/radgrad';
 import TimelineChartTab from './TimelineChartTab';
 
 interface ISummaryStatisticsTabsProps {

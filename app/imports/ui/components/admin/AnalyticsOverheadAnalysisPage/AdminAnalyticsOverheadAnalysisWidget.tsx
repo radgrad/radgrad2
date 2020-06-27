@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Header, Segment, Tab } from 'semantic-ui-react';
-import AdminAnalyticsDateSelectionWidget from './AdminAnalyticsDateSelectionWidget';
-import { ANALYTICS } from '../../../startup/client/route-constants';
+import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
+import { ANALYTICS } from '../../../../startup/client/route-constants';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
 

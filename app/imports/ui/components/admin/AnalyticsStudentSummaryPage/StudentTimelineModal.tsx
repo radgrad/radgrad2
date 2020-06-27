@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Grid, Header, List, Modal, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
-import { profileIDToFullname } from '../shared/data-model-helper-functions';
+import { profileIDToFullname } from '../../shared/data-model-helper-functions';
 
 interface IStudentTimelineModalProps {
   username: string;

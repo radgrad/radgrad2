@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 
 interface ITimelineChartTabProps {
   startDate?: Date;
@@ -84,7 +84,6 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
     });
     _.each(behaviorsByDate, function (behaviors) {
       const groupedBehaviors = _.groupBy(behaviors);
-      console.log(groupedBehaviors);
       _.each(behaviorList, function (behavior) {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });

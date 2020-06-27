@@ -3,35 +3,29 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { Grid, Segment, Header, Button, Table } from 'semantic-ui-react';
-import { IStudentProfile } from '../../../typings/radgrad';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { IStudentProfile } from '../../../../typings/radgrad';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { userInteractionFindMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 
 interface IAdminAnalyticsUserInteractionsWidgetProps {
   students: IStudentProfile[];
 }
 
-interface IAdminAnalyticsUserInteractionsWidgetState {
-  selectedStudent?: IStudentProfile;
-  interactions: any[];
-}
-
 const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteractionsWidgetProps) => {
-  const [selectedStudent, setSelectedStudent] = useState(undefined);
-  const [interactions, setInteractions] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState<IStudentProfile>(undefined);
+  const [interactions, setInteractions] = useState<any[]>([]);
 
   const handleClick = (event, instance) => {
-    // console.log(event, instance);
     event.preventDefault();
     const username = instance.value;
     setSelectedStudent(StudentProfiles.findDoc({ username }));
-    // console.log(selectedStudent);
     const selector = { username };
     const options = { sort: { timestamp: -1 } };
     userInteractionFindMethod.call({ selector, options }, (error, result) => {
       if (error) {
-        console.log('Error finding user interactions.', error);
+        console.error('Error finding user interactions.', error);
       } else {
+        // TODO Should PageInterests from PageInterestsCollection be part of this page?
         setInteractions(result);
       }
     });
@@ -40,9 +34,9 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
 
   const getStudentName = () => {
     if (selectedStudent) {
-      return ` ${selectedStudent.firstName} ${selectedStudent.lastName}`;
+      return `${selectedStudent.firstName} ${selectedStudent.lastName}`;
     }
-    return ' NO USER SELECTED';
+    return 'NO USER SELECTED';
   };
 
   const usersStyle = {
@@ -82,8 +76,7 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
       </Segment>
       <Segment padded style={usersStyle}>
         <Header as="h4" dividing>
-          USER INTERACTIONS:&nbsp;
-          <span style={nameStyle}>{getStudentName()}</span>
+          USER INTERACTIONS: <span style={nameStyle}>{getStudentName()}</span>
         </Header>
         <Table celled>
           <Table.Header>

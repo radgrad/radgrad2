@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Accordion, Icon, Grid } from 'semantic-ui-react';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import StudentTimelineModal from './StudentTimelineModal';
-import { IBehavior } from '../../../typings/radgrad';
+import { IBehavior } from '../../../../typings/radgrad';
 
 interface IStudentSummaryTabProps {
   startDate: string;

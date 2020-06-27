@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
 import AdminAnalyticsOverheadAnalysisWidget
-  from '../../components/admin/AdminAnalyticsOverheadAnalysisWidget';
+  from '../../components/admin/AnalyticsOverheadAnalysisPage/AdminAnalyticsOverheadAnalysisWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
