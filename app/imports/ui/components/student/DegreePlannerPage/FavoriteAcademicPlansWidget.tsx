@@ -6,15 +6,15 @@ import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { IAcademicPlan } from '../../../typings/radgrad';
-import * as Router from '../shared/RouterHelperFunctions';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { IAcademicPlan } from '../../../../typings/radgrad';
+import { getUsername, IMatchProps, buildRouteName, getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
+import AcademicPlanViewerWidgetContainer from '../AcademicPlanViewerWidget';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
+import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 
 interface IFavoriteAcademicPlansWidgetProps {
-  match: Router.IMatchProps;
+  match: IMatchProps;
   studentID: string;
   plans: IAcademicPlan[];
 }
@@ -54,7 +54,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
         (
           <AcademicPlanViewerWidgetContainer
             academicPlan={selectedPlanState}
-            username={Router.getUsername(props.match)}
+            username={getUsername(props.match)}
           />
         )
         :
@@ -62,7 +62,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
           <Message info>
             <Message.Header>No Favorite Academic Plans</Message.Header>
             <p>You can favorite academic plans in the explorer.</p>
-            <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+            <Link to={buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
               View in Explorer <Icon name="arrow right" />
             </Link>
           </Message>
@@ -72,7 +72,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
 };
 
 export default withRouter(withTracker((props) => {
-  const studentID = Router.getUserIdFromRoute(props.match);
+  const studentID = getUserIdFromRoute(props.match);
   const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
   return {
