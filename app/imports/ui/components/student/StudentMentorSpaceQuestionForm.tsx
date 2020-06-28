@@ -54,7 +54,7 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
           showConfirmButton: false,
           timer: 1500,
         });
-        const typeData = question.substring(0, 100); // get first 100 characters of question for typeData
+        const typeData = [question.substring(0, 100)]; // get first 100 characters of question for typeData
         const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.ASKQUESTION,

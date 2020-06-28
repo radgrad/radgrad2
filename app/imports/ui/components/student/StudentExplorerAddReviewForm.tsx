@@ -87,7 +87,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
         const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.ADDREVIEW,
-          typeData: [reviewType, `${academicTermSlug}-${slug}`],
+          typeData: [reviewType, `${academicTermSlug}:${slug}`],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {

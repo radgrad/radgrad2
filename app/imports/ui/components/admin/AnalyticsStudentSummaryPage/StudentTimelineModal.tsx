@@ -46,9 +46,28 @@ const getSessionDuration = (sessionArr) => {
 
 const getBehaviors = (sessionArr) => {
   const actions = {
-    login: [], careerGoalIDs: [], interestIDs: [], academicPlanID: [], pageView: [],
-    addCourse: [], removeCourse: [], addOpportunity: [], removeOpportunity: [], verifyRequest: [],
-    addReview: [], askQuestion: [], level: [], picture: [], website: [], favoriteItem: [], unFavoriteItem: [],
+    careerGoalIDs: [],
+    interestIDs: [],
+    academicPlanID: [],
+    pageView: [],
+    login: [],
+    level: [],
+    completePlan: [],
+    picture: [],
+    website: [],
+    shareInformation: [],
+    addCourse: [],
+    removeCourse: [],
+    updateCourse: [],
+    addOpportunity: [],
+    removeOpportunity: [],
+    updateOpportunity: [],
+    favoriteItem: [],
+    unFavoriteItem: [],
+    addReview: [],
+    editReview: [],
+    askQuestion: [],
+    verifyRequest: [],
   };
   _.each(sessionArr, function (interaction) {
     actions[interaction.type].push(interaction.typeData.join(', '));

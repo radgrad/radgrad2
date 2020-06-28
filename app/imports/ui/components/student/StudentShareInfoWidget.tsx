@@ -44,9 +44,9 @@ const handleUpdateInformation = (doc): void => {
         return;
       }
       // For the type data, we only record the specific information that was modified
-      keys.forEach((key, index) => {
+      keys.forEach((key) => {
         if (doc[key] !== previousStudentProfileData[0][key]) {
-          modifiedList.push(`${key}-${index}:${doc[key]}`);
+          modifiedList.push(`${key}:${doc[key]}`);
         }
       });
       const interactionData: IUserInteractionDefine = {
