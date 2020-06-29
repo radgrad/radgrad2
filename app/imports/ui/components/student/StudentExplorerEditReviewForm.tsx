@@ -88,7 +88,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
         const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.EDITREVIEW,
-          typeData: [reviewType, `${updateData.academicTerm}:${slug}`],
+          typeData: [reviewType, updateData.academicTerm, slug],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {

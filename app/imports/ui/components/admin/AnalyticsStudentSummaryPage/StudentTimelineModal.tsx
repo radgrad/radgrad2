@@ -3,18 +3,21 @@ import { Button, Grid, Header, List, Modal, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
 import { profileIDToFullname } from '../../shared/data-model-helper-functions';
+import { IUserInteraction } from '../../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 
 interface IStudentTimelineModalProps {
   username: string;
   startDate: string;
   endDate: string;
-  interactions: any;
+  interactions: IUserInteraction[];
 }
 
 // This defines the time between sessions
 const gap = 10;
 
-const getSessions = (props: IStudentTimelineModalProps) => {
+const getSessions = (props: IStudentTimelineModalProps): IUserInteraction[][] => {
   const sessions = [];
   let slicedIndex = 0;
   _.each(props.interactions, (interaction, index: number, interactions) => {
@@ -34,65 +37,109 @@ const getSessions = (props: IStudentTimelineModalProps) => {
   if (sessions.length === 0) {
     sessions.push(props.interactions);
   }
-  // console.log(sessions);
   return sessions;
 };
 
-const getSessionDuration = (sessionArr) => {
+const getSessionDuration = (sessionArr: IUserInteraction[]): string => {
   const firstTimestamp = moment(sessionArr[0].timestamp);
   const lastTimestamp = moment(sessionArr[sessionArr.length - 1].timestamp);
   return moment.duration(lastTimestamp.diff(firstTimestamp)).asMinutes().toFixed(2);
 };
 
-const getBehaviors = (sessionArr) => {
+enum Behaviors {
+  LOGIN = 'Log In',
+  OUTLOOK = 'Change Outlook',
+  EXPLORATION = 'Exploration',
+  PLANNING = 'Planning',
+  VERIFICATION = 'Verification',
+  REVIEWING = 'Reviewing',
+  MENTORSHIP = 'Mentorship',
+  LEVEL = 'Level Up',
+  PROFILE = 'Profile',
+  FAVORITE = 'Favorite Item',
+  UNFAVORITE = 'Unfavorite Item',
+}
+
+// Helper function to format the typeData of addCourse, removeCourse, updateCourse, addOpportunity, removeOpportunity, and updateOpportunity
+// strArray is an array of strings, the expected format of a string input in this array is "Term, Year, slug"
+// This helper function maps the array such that the string is reformatted to "slug (Term Year)"
+const formatCourseOpportunitySlugMessages = (strArray: string[]): string[] => strArray.map((str) => {
+  const split = str.split(', ');
+  return `${split[2]} (${split[0]} ${split[1]})`;
+});
+
+// Helper function to format the typeData of addReview and editReview
+// strArray is an array of strings, the format of the expected string input is ["reviewType, Term-Year, slug"
+// This helper function maps the array such that the string is reformatted to "slug (Term Year)"
+const formatReviewSlugMessages = (strArray: string[]): string => strArray.map((str) => {
+  const split = str.split(', ');
+  return `${split[2]} (${split[0]})`;
+}).join(', ');
+
+const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: string[] }[] => {
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
     academicPlanID: [],
-    pageView: [],
-    login: [],
-    level: [],
-    completePlan: [],
-    picture: [],
-    website: [],
-    shareInformation: [],
-    addCourse: [],
-    removeCourse: [],
-    updateCourse: [],
-    addOpportunity: [],
-    removeOpportunity: [],
-    updateOpportunity: [],
-    favoriteItem: [],
-    unFavoriteItem: [],
-    addReview: [],
-    editReview: [],
-    askQuestion: [],
-    verifyRequest: [],
+    [UserInteractionsTypes.PAGEVIEW]: [],
+    [UserInteractionsTypes.LOGIN]: [],
+    [UserInteractionsTypes.LEVEL]: [],
+    [UserInteractionsTypes.COMPLETEPLAN]: [],
+    [UserInteractionsTypes.PICTURE]: [],
+    [UserInteractionsTypes.WEBSITE]: [],
+    [UserInteractionsTypes.SHAREINFORMATION]: [],
+    [UserInteractionsTypes.ADDCOURSE]: [],
+    [UserInteractionsTypes.REMOVECOURSE]: [],
+    [UserInteractionsTypes.UPDATECOURSE]: [],
+    [UserInteractionsTypes.ADDOPPORTUNITY]: [],
+    [UserInteractionsTypes.REMOVEOPPORTUNITY]: [],
+    [UserInteractionsTypes.UPDATEOPPORTUNITY]: [],
+    [UserInteractionsTypes.FAVORITEITEM]: [],
+    [UserInteractionsTypes.UNFAVORITEITEM]: [],
+    [UserInteractionsTypes.ADDREVIEW]: [],
+    [UserInteractionsTypes.EDITREVIEW]: [],
+    [UserInteractionsTypes.ASKQUESTION]: [],
+    [UserInteractionsTypes.VERIFYREQUEST]: [],
   };
   _.each(sessionArr, function (interaction) {
     actions[interaction.type].push(interaction.typeData.join(', '));
   });
   const behaviors = {
-    'Log In': [], 'Change Outlook': [], Exploration: [], Planning: [], Verification: [],
-    Reviewing: [], Mentorship: [], 'Level Up': [], Profile: [], 'Favorite Item': [], 'Unfavorite Item': [],
+    [Behaviors.LOGIN]: [],
+    [Behaviors.OUTLOOK]: [],
+    [Behaviors.EXPLORATION]: [],
+    [Behaviors.PLANNING]: [],
+    [Behaviors.VERIFICATION]: [],
+    [Behaviors.REVIEWING]: [],
+    [Behaviors.MENTORSHIP]: [],
+    [Behaviors.LEVEL]: [],
+    [Behaviors.PROFILE]: [],
+    [Behaviors.FAVORITE]: [],
+    [Behaviors.UNFAVORITE]: [],
   };
-  _.each(actions, function (array, action) {
+  _.each(actions, function (array: string[], action: string) {
     if (array.length !== 0) {
-      if (action === 'login') {
-        behaviors['Log In'].push(`User logged in ${array.length} time(s)`);
+      if (action === UserInteractionsTypes.LOGIN) {
+        behaviors[Behaviors.LOGIN].push(`User logged in ${array.length} time(s)`);
       } else if (action === 'careerGoalIDs') {
-        behaviors['Change Outlook'].push(`User modified career goals ${array.length} time(s)`);
-        behaviors['Change Outlook'].push(`Career goals at end of session: ${_.last(array)}`);
+        //   TODO deal with Change Outlook
+        behaviors[Behaviors.OUTLOOK].push(`User modified career goals ${array.length} time(s)`);
+        behaviors[Behaviors.OUTLOOK].push(`Career goals at end of session: ${_.last(array)}`);
       } else if (action === 'interestIDs') {
-        behaviors['Change Outlook'].push(`User modified interests ${array.length} time(s)`);
-        behaviors['Change Outlook'].push(`Interests at end of session: ${_.last(array)}`);
+        behaviors[Behaviors.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
+        behaviors[Behaviors.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
       } else if (action === 'academicPlanID') {
-        behaviors['Change Outlook'].push(`User modified academic plan ${array.length} time(s)`);
-        behaviors['Change Outlook'].push(`Academic plan at end of session: ${_.last(array)}`);
-      } else if (action === 'pageView') {
+        behaviors[Behaviors.OUTLOOK].push(`User modified academic plan ${array.length} time(s)`);
+        behaviors[Behaviors.OUTLOOK].push(`Academic plan at end of session: ${_.last(array)}`);
+      } else if (action === UserInteractionsTypes.PAGEVIEW) {
         const explorerPages = {
-          'career-goals': [], plans: [], opportunities: [], courses: [], users: [],
-          interests: [], degrees: [],
+          [EXPLORER_TYPE.ACADEMICPLANS]: [],
+          [EXPLORER_TYPE.CAREERGOALS]: [],
+          [EXPLORER_TYPE.COURSES]: [],
+          [EXPLORER_TYPE.DEGREES]: [],
+          [EXPLORER_TYPE.INTERESTS]: [],
+          [EXPLORER_TYPE.OPPORTUNITIES]: [],
+          [EXPLORER_TYPE.USERS]: [],
         };
         let visitedMentor = false;
         _.each(array, function (url) {
@@ -110,45 +157,51 @@ const getBehaviors = (sessionArr) => {
         });
         _.each(explorerPages, function (pages, pageName) {
           if (!_.isEmpty(pages)) {
-            behaviors.Exploration.push(`Entries viewed in ${pageName}: 
+            behaviors[Behaviors.EXPLORATION].push(`Entries viewed in ${pageName}: 
               ${_.uniq(pages).join(', ')}`);
           }
         });
         if (visitedMentor) {
-          behaviors.Mentorship.push('User visited the Mentor Space page');
+          behaviors[Behaviors.MENTORSHIP].push('User visited the Mentor Space page');
         }
-      } else if (action === 'addCourse') {
-        behaviors.Planning.push(`Added the following courses: ${_.uniq(array)}`);
-      } else if (action === 'removeCourse') {
-        behaviors.Planning.push(`Removed the following courses: ${_.uniq(array)}`);
-      } else if (action === 'addOpportunity') {
-        behaviors.Planning.push(`Added the following opportunites: ${_.uniq(array)}`);
-      } else if (action === 'removeOpportunity') {
-        behaviors.Planning.push(`Removed the following opportunities: ${_.uniq(array)}`);
-      } else if (action === 'verifyRequest') {
-        behaviors.Verification.push(`Requested verification for: ${_.uniq(array)}`);
-      } else if (action === 'addReview') {
-        behaviors.Reviewing.push(`Reviewed the following courses: ${_.uniq(array)}`);
-      } else if (action === 'askQuestion') {
-        behaviors.Mentorship.push(`Asked ${array.length} question(s): `);
+      } else if (action === UserInteractionsTypes.ADDCOURSE) {
+        behaviors[Behaviors.PLANNING].push(`Added the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.REMOVECOURSE) {
+        behaviors[Behaviors.PLANNING].push(`Removed the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.UPDATECOURSE) {
+        behaviors[Behaviors.PLANNING].push(`Updated the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.ADDOPPORTUNITY) {
+        behaviors[Behaviors.PLANNING].push(`Added the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.REMOVEOPPORTUNITY) {
+        behaviors[Behaviors.PLANNING].push(`Removed the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.UPDATEOPPORTUNITY) {
+        behaviors[Behaviors.PLANNING].push(`Updated the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.VERIFYREQUEST) {
+        behaviors[Behaviors.VERIFICATION].push(`Requested verification for: ${_.uniq(array)}`);
+      } else if (action === UserInteractionsTypes.ADDREVIEW) {
+        behaviors[Behaviors.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.EDITREVIEW) {
+        behaviors[Behaviors.REVIEWING].push(`Edited a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
+      } else if (action === UserInteractionsTypes.ASKQUESTION) {
+        behaviors[Behaviors.MENTORSHIP].push(`Asked ${array.length} question(s): `);
         _.each(array, function (question) {
-          behaviors.Mentorship.push(`Question: ${question}`);
+          behaviors[Behaviors.MENTORSHIP].push(`Question: ${question}`);
         });
-      } else if (action === 'level') {
-        behaviors['Level Up'].push(`Level updated ${array.length} time(s): ${array}`);
-      } else if (action === 'picture') {
-        behaviors.Profile.push(`User updated their picture ${array.length} time(s)`);
-      } else if (action === 'website') {
-        behaviors.Profile.push(`User updated their website ${array.length} time(s)`);
-      } else if (action === 'favoriteItem') {
-        behaviors['Favorite Item'].push(`User added favorites ${array.length} time(s)`);
+      } else if (action === UserInteractionsTypes.LEVEL) {
+        behaviors[Behaviors.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
+      } else if (action === UserInteractionsTypes.PICTURE) {
+        behaviors[Behaviors.PROFILE].push(`User updated their picture ${array.length} time(s)`);
+      } else if (action === UserInteractionsTypes.WEBSITE) {
+        behaviors[Behaviors.PROFILE].push(`User updated their website ${array.length} time(s)`);
+      } else if (action === UserInteractionsTypes.FAVORITEITEM) {
+        behaviors[Behaviors.FAVORITE].push(`User favorited ${array.length} time(s)`);
         _.each(array, function (item) {
-          behaviors['Favorite Item'].push(`Item: ${item}`);
+          behaviors[Behaviors.FAVORITE].push(`Item: ${item}`);
         });
-      } else if (action === 'unFavoriteItem') {
-        behaviors['Unfavorite Item'].push(`User removed favorites ${array.length} time(s)`);
+      } else if (action === UserInteractionsTypes.UNFAVORITEITEM) {
+        behaviors[Behaviors.UNFAVORITE].push(`User unfavorited ${array.length} time(s)`);
         _.each(array, function (item) {
-          behaviors['Unfavorite Item'].push(`Item: ${item}`);
+          behaviors[Behaviors.UNFAVORITE].push(`Item: ${item}`);
         });
       }
     }
@@ -166,7 +219,6 @@ const getBehaviors = (sessionArr) => {
 };
 
 const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
-  // console.log(props);
   const textAlignStyle = {
     textAlign: 'left',
   };
@@ -185,57 +237,44 @@ const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
     color: '#6FBE44',
   };
   return (
-    <Modal trigger={
-      (
-        <Button
-          color="grey"
-          size="tiny"
-          basic
-          fluid
-          style={textAlignStyle}
-          value={props.username}
-        >
-          {props.username}
-        </Button>
-      )
-    }
+    <Modal trigger={(
+      <Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={props.username}>
+        {props.username}
+      </Button>
+    )}
     >
       <Modal.Header>
-        {profileIDToFullname(props.username)}
-        &apos;s Timeline from&nbsp;
-        {props.startDate}
-        &nbsp;to&nbsp;
-        {props.endDate}
+        {profileIDToFullname(props.username)}&apos;s Timeline from {props.startDate} to {props.endDate}
       </Modal.Header>
       <Modal.Content>
         <Grid padded stackable centered style={modalStyle}>
           {getSessions(props).map((session, index) => {
-            const key = `segment-${index}`;
+            const day = moment(session[0].timestamp).utc(true).format('MMMM Do');
+            const time = moment(session[0].timestamp).utc(true).format('h:mma');
+            const duration = getSessionDuration(session);
             return (
-              <Segment color="green" textAlign="left" style={widthStyle} key={key}>
+              <Segment
+                color="green"
+                textAlign="left"
+                style={widthStyle}
+                key={`${_.uniqueId(`segment-${session[index].username}`)}`}
+              >
                 <Header dividing color="grey">
-                  Day:&nbsp;
-                  <div style={headerStyle}>{moment(session[0].timestamp).utc(true).format('MMMM Do')}</div>
-                  &nbsp;Time:&nbsp;
-                  <div style={headerStyle}>{moment(session[0].timestamp).utc(true).format('h:mma')}</div>
-                  &nbsp;Duration:&nbsp;
-                  <div style={headerStyle}>{getSessionDuration(session)}</div>
+                  Day: <div style={headerStyle}>{day} </div>
+                  Time: <div style={headerStyle}>{time} </div>
+                  Duration: <div style={headerStyle}>{duration} </div>
                 </Header>
                 <Segment.Group>
-                  {getBehaviors(session).map((b, ind) => {
-                    const bkey = `behavior-segment-${ind}`;
-                    return (
-                      <Segment key={bkey}>
-                        <Header as="h5">{b.type}</Header>
-                        <List>
-                          {b.stats.map((stat, i) => {
-                            const statKey = `statkey${i}`;
-                            return (<List.Item style={colorStyle} key={statKey}>{stat}</List.Item>);
-                          })}
-                        </List>
-                      </Segment>
-                    );
-                  })}
+                  {getBehaviors(session).map((behavior) => (
+                    <Segment key={`${_.uniqueId(`behavior-segment-${behavior.type}`)}`}>
+                      <Header as="h5">{behavior.type}</Header>
+                      <List>
+                        {behavior.stats.map((stat) => (
+                          <List.Item style={colorStyle} key={`${_.uniqueId(`statkey:${stat}`)}`}>{stat}</List.Item>
+                        ))}
+                      </List>
+                    </Segment>
+                  ))}
                 </Segment.Group>
               </Segment>
             );
