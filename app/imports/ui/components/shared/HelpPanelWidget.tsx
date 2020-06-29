@@ -38,7 +38,7 @@ const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
   };
 
   const { match } = props;
-  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === props.match.path);
+  const helpMessage = _.find(props.helpMessages, ['routeName', props.match.path]);
   const adminEmail = RadGradProperties.getAdminEmail();
   const helpText = helpMessage ? `${helpMessage.text}
 

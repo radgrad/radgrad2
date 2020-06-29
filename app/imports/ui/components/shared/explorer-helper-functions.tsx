@@ -107,12 +107,12 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
       plans = AcademicPlans.getLatestPlans();
     } else {
       const declaredTerm = AcademicTerms.findDoc(profile.declaredAcademicTermID);
-      plans = _.filter(AcademicPlans.find({ termNumber: { $gte: declaredTerm.termNumber } }, {
+      plans = _.reject(AcademicPlans.find({ termNumber: { $gte: declaredTerm.termNumber } }, {
         sort: {
           year: 1,
           name: 1,
         },
-      }).fetch(), (ap) => !ap.retired);
+      }).fetch(), 'retired');
     }
     const profilePlanIDs = profileGetFavoriteAcademicPlanIDs(profile);
     // console.log(plans, profilePlanIDs, _.filter(plans, p => !_.includes(profilePlanIDs, p._id)));
@@ -131,21 +131,21 @@ export const interestedStudents = (item: { _id: string }, type: string): IStuden
     profiles = _.filter(profiles, (profile) => {
       const studentID = profile.userID;
       const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-      const favIDs = _.map(favPlans, (fav) => fav.academicPlanID);
+      const favIDs = _.map(favPlans, 'academicPlanID');
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.CAREERGOALS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
       const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-      const favIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+      const favIDs = _.map(favCareerGoals, 'careerGoalID');
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.INTERESTS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
       const favInterests = FavoriteInterests.findNonRetired({ userID });
-      const favIDs = _.map(favInterests, (fav) => fav.interestID);
+      const favIDs = _.map(favInterests, 'interestID');
       return _.includes(favIDs, item._id);
     });
   }
@@ -251,7 +251,7 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
       }
     }
     const favorites = FavoriteCourses.findNonRetired({ studentID });
-    const favIDs = _.map(favorites, (fav) => fav.courseID);
+    const favIDs = _.map(favorites, 'courseID');
     filtered = _.filter(filtered, (f) => !_.includes(favIDs, f._id));
     return filtered;
   }
@@ -361,13 +361,13 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
       });
       // console.log('second filter ', filteredOpps.length);
       const favorites = FavoriteOpportunities.findNonRetired({ studentID });
-      const favIDs = _.map(favorites, (fav) => fav.opportunityID);
+      const favIDs = _.map(favorites, 'opportunityID');
       filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
       // console.log('third filter ', filteredOpps.length);
       return filteredOpps;
     }
   } else if (props.role === URL_ROLES.FACULTY) {
-    return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(props.match));
+    return _.reject(notRetired, ['sponsorID', Router.getUserIdFromRoute(props.match)]);
   }
   return notRetired;
 };
@@ -389,7 +389,7 @@ export const getUsers = (role: string, match: Router.IMatchProps): IBaseProfile[
   const username = Router.getUsername(match);
   let users: IBaseProfile[] = Users.findProfilesWithRole(role, {}, { sort: { lastName: 1 } });
   if (role === ROLE.STUDENT) {
-    users = _.filter(users, (user) => user.optedIn);
+    users = _.filter(users, 'optedIn');
   }
 
   if (username) {

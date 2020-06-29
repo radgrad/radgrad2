@@ -33,14 +33,11 @@ const ConnectedCourseSelectorTemp = (props: IConnectedCourseSelectorTempProps) =
     props.selectCourse(courseID);
   };
 
-  const options = [];
-  _.forEach(props.courses, (c) => {
-    options.push({
-      key: c._id,
-      text: c.shortName,
-      value: c._id,
-    });
-  });
+  const options = _.map(props.courses, (c) => ({
+    key: c._id,
+    text: c.shortName,
+    value: c._id,
+  }));
   // console.log(options);
   return (
     <Form>

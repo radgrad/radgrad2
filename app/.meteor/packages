@@ -58,3 +58,4 @@ meteortesting:mocha
 mdg:meteor-apm-agent
 force-ssl
 maestroqadev:validated-method
+mdg:validated-method

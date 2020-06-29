@@ -58,6 +58,7 @@ logging@1.1.20
 maestroqadev:pub-sub-lite@1.0.0
 maestroqadev:validated-method@1.2.0
 mdg:meteor-apm-agent@3.2.5
+mdg:validated-method@1.2.0
 meteor@1.9.3
 meteor-base@1.4.0
 meteorhacks:ssr@2.2.0

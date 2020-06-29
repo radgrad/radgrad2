@@ -50,8 +50,9 @@ export const generateStudentEmailsMethod = new ValidatedMethod({
     }
     // Don't generate unless on Server side.
     if (Meteor.isServer) {
+      // eslint-disable-next-line lodash/prefer-lodash-method
       const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
-      const students = _.map(profiles, (student) => student.username);
+      const students = _.map(profiles, 'username');
       return { students };
     }
     return null;

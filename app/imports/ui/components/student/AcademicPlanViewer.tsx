@@ -59,10 +59,10 @@ const AcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
 
   const planYears = AcademicPlans.getPlanYears();
   // console.log(planYears);
-  const names = [];
+  let names;
   _.forEach(planYears, (year) => {
     const plans = AcademicPlans.find({ year }).fetch();
-    _.forEach(plans, (p) => names.push(p.name));
+    names = _.map(plans, 'name');
   });
   const noBottomMargin = {
     marginBottom: 0,

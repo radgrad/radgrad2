@@ -125,13 +125,10 @@ export const opportunityTerms = (opportuntiy) => {
 
 export const opportunityTermsNotTaken = (opportunity, studentID) => {
   const termIDs = opportunity.termIDs;
-  const takenTermIDs = [];
   const termNames = [];
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  _.forEach(ois, (o) => {
-    takenTermIDs.push(o.termID);
-  });
+  const takenTermIDs = _.map(ois, 'termID');
   _.forEach(termIDs, (termID) => {
     if (AcademicTerms.findDoc(termID).termNumber >= currentTerm.termNumber) {
       if (!_.includes(takenTermIDs, termID)) {
@@ -143,13 +140,9 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
 };
 
 export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
-  const termNames = [];
   const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  _.forEach(ois, (o) => {
-    if (!o.verified) {
-      termNames.push(AcademicTerms.toString(o.termID, false));
-    }
-  });
+  const unverified = _.reject(ois, 'verified');
+  const termNames = _.map(unverified, (o) => AcademicTerms.toString(o.termID, false));
   return termNames;
 };
 
@@ -213,7 +206,7 @@ export const profileFavoriteBamAcademicPlan = (profile) => {
   return !notBAM;
 };
 
-export const profileGetFavoriteAcademicPlanIDs = (profile) => _.map(profileGetFavoriteAcademicPlans(profile), (plan) => plan._id);
+export const profileGetFavoriteAcademicPlanIDs = (profile) => _.map(profileGetFavoriteAcademicPlans(profile), '_id');
 
 export const profileGetCareerGoals = (profile) => {
   const userID = profile.userID;
@@ -221,7 +214,7 @@ export const profileGetCareerGoals = (profile) => {
   return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
 };
 
-export const profileGetCareerGoalIDs = (profile) => _.map(profileGetCareerGoals(profile), (goal) => goal._id);
+export const profileGetCareerGoalIDs = (profile) => _.map(profileGetCareerGoals(profile), '_id');
 
 export const profileGetDesiredDegreeName = (profile) => {
   if (profile.academicPlanID) {
@@ -236,7 +229,7 @@ export const profileGetInterests = (profile) => {
   return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
 };
 
-export const profileGetInterestIDs = (profile) => _.map(profileGetInterests(profile), (interest) => interest._id);
+export const profileGetInterestIDs = (profile) => _.map(profileGetInterests(profile), '_id');
 
 export const profileToFullName = (profile) => Users.getFullName(profile.userID);
 

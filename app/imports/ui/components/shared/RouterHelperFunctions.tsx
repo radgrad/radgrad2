@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import { URL_ROLES } from '../../../startup/client/route-constants';
@@ -35,7 +36,7 @@ const getUrl = (match: IMatchProps): string => match.url;
 // i.e., /student/abi@hawaii.edu/explorer => ["", "student", "abi@hawaii.edu", "explorer"]
 export const splitUrlIntoArray = (match: IMatchProps): string[] => {
   const url = getUrl(match);
-  return url.split('/');
+  return _.split(url, '/');
 };
 
 // Returns the base route of the URL (role + username)
@@ -91,7 +92,7 @@ export const getAllUrlParams = (match: IMatchProps) => {
 // This functions exactly at as getAllUrlParams() except it looks at the location.pathname as the url instead of match.url
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
 export const getAllUrlParamsByLocationObject = (match: IMatchProps, location: ILocationProps) => {
-  const parameters = location.pathname.split('/');
+  const parameters = _.split(location.pathname, '/');
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
   const allParams = parameters.slice(usernameIndex + 1);
@@ -162,7 +163,7 @@ export const renderLink = (props: { href: string; children: React.ReactNode }, m
   }
   // Viewing the Landing Explorers not logged in will cause the match.path to not have a ":username" param
   // Since baseRoute is calculated on the assumption that there is a ":username" param, we need to handle this case
-  if (match.path.indexOf(':username') === -1) {
+  if (_.includes(match.path, ':username')) {
     return <Link to={`${props.href}`}>{props.children}</Link>;
   }
   return <Link to={`${baseRoute}${props.href}`}>{props.children}</Link>;

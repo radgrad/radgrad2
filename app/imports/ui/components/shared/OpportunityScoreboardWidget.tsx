@@ -21,7 +21,7 @@ const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
 const getOpportunityScore = (opportunityID, termID, props: IOpportunityScoreboardWidgetProps) => {
   const id = `${opportunityID} ${termID}`;
-  const scoreItem = _.find(props.scores, (p) => p._id === id);
+  const scoreItem = _.find(props.scores, ['_id', id]);
   // console.log(scoreItem, courseID, termID);
   if (scoreItem) {
     return scoreItem.count;
@@ -31,8 +31,8 @@ const getOpportunityScore = (opportunityID, termID, props: IOpportunityScoreboar
 
 const saveAsCSV = (props: IOpportunityScoreboardWidgetProps) => () => {
   let result = '';
-  const headerArr = ['Opportunity'];
-  _.forEach(props.terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
+  const headerArr = _.map(props.terms, (term) => AcademicTerms.getShortName(term._id));
+  headerArr.unshift('Opportunity');
   result += headerArr.join(',');
   result += '\r\n';
   _.forEach(props.opportunities, (o) => {

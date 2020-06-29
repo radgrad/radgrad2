@@ -19,7 +19,7 @@ interface IFavoriteAcademicPlansWidgetProps {
   plans: IAcademicPlan[];
 }
 
-const getPlan = (planName: string, props: IFavoriteAcademicPlansWidgetProps) => _.find(props.plans, (p) => p.name === planName);
+const getPlan = (planName: string, props: IFavoriteAcademicPlansWidgetProps) => _.find(props.plans, ['name', planName]);
 
 const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) => {
   let plan;
@@ -33,7 +33,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
     setSelectedPlan(selectedPlan);
   };
 
-  const planNames = _.map(props.plans, (p) => p.name);
+  const planNames = _.map(props.plans, 'name');
 
   const schema = new SimpleSchema({
     academicPlan: {
