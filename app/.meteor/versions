@@ -36,6 +36,8 @@ email@1.2.3
 erasaur:meteor-lodash@4.0.0
 es5-shim@4.8.0
 fetch@0.1.1
+force-ssl@1.1.0
+force-ssl-common@1.1.0
 fourseven:scss@4.12.0
 geojson-utils@1.0.10
 harrison:papa-parse@1.1.7
@@ -53,8 +55,9 @@ livedata@1.0.18
 lmieulet:meteor-coverage@3.2.0
 localstorage@1.2.0
 logging@1.1.20
+maestroqadev:pub-sub-lite@1.0.0
+maestroqadev:validated-method@1.2.0
 mdg:meteor-apm-agent@3.2.5
-mdg:validated-method@1.2.0
 meteor@1.9.3
 meteor-base@1.4.0
 meteorhacks:ssr@2.2.0

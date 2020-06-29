@@ -1,5 +1,5 @@
 /* eslint-disable */
-declare module 'meteor/mdg:validated-method' {
+declare module 'meteor/maestroqadev:validated-method' {
   class ValidatedMethod {
     constructor(options: object);
     public callPromise(args: any);

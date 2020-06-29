@@ -33,6 +33,7 @@ if (Meteor.isClient) {
       expect(FavoriteInterests.isDefined(docID), 'retired: isDefined').to.be.true; // still in client collection
       await removeItMethod.callPromise({ collectionName, instance: docID });
       expect(FavoriteInterests.countNonRetired()).to.equal(0);
+      console.log(FavoriteInterests.count());
       expect(FavoriteInterests.isDefined(docID), 'removeIt: isDefined').to.be.false;
     });
   });

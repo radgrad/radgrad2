@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod } from 'meteor/maestroqadev:validated-method';
 import { FeedbackInstances } from './FeedbackInstanceCollection';
 
 /**

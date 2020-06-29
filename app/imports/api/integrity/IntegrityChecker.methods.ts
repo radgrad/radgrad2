@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod } from 'meteor/maestroqadev:validated-method';
 import { checkIntegrity } from './IntegrityChecker';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';

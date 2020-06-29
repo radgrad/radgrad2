@@ -18,6 +18,8 @@ es5-shim@4.8.0                   # ECMAScript 5 compatibility for older browsers
 ecmascript@0.14.3                # Enable ECMAScript2015+ syntax in app code
 shell-server@0.5.0               # Server-side component of the `meteor shell` command
 
+maestroqadev:pub-sub-lite
+
 # Accounts
 accounts-password@1.6.0                # https://guide.meteor.com/accounts.html
 
@@ -34,7 +36,6 @@ ejson@1.1.1                            # https://docs.meteor.com/api/ejson.html
 # Prototyping only
 erasaur:meteor-lodash
 didericis:callpromise-mixin
-mdg:validated-method
 momentjs:moment
 atoy40:accounts-cas
 ddp-rate-limiter@1.0.7
@@ -55,3 +56,5 @@ lmieulet:meteor-coverage
 littledata:synced-cron
 meteortesting:mocha
 mdg:meteor-apm-agent
+force-ssl
+maestroqadev:validated-method

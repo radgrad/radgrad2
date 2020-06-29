@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod } from 'meteor/maestroqadev:validated-method';
 import _ from 'lodash';
 import { RadGrad } from '../radgrad/RadGrad';
 import { ROLE } from '../role/Role';
@@ -27,7 +27,7 @@ export const dumpDatabaseMethod = new ValidatedMethod({
     // Return an object with fields timestamp and collections.
     if (Meteor.isServer) {
       const collections = _.sortBy(RadGrad.collectionLoadSequence.map((collection) => collection.dumpAll()),
-        (entry) => entry.name);
+        'name');
       const timestamp = new Date();
       return { timestamp, collections };
     }
@@ -44,6 +44,7 @@ export const dumpDatabaseMethod = new ValidatedMethod({
 export const defineMethod = new ValidatedMethod({
   name: 'BaseCollection.define',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, definitionData }) {
     // console.log(collectionName, this.userId, definitionData);
@@ -56,6 +57,7 @@ export const defineMethod = new ValidatedMethod({
 export const updateMethod = new ValidatedMethod({
   name: 'BaseCollection.update',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, updateData }) {
     // console.log('updateMethod(%o, %o)', collectionName, updateData);
@@ -69,11 +71,14 @@ export const updateMethod = new ValidatedMethod({
 export const removeItMethod = new ValidatedMethod({
   name: 'BaseCollection.removeIt',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, instance }) {
+    console.log('removeItMethod', collectionName, instance, Meteor.isClient ? 'Client' : 'Server');
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     collection.removeIt(instance);
+    console.log('removeItMethod', collection.count());
     return true;
   },
 });

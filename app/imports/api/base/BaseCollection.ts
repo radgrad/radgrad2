@@ -57,7 +57,7 @@ class BaseCollection {
    * @returns { Number } The number of non-retired elements in this collection.
    */
   public countNonRetired() {
-    return _.filter(this.collection.find().fetch(), (doc) => !doc.retired).length;
+    return _.reject(this.collection.find().fetch(), 'retired').length;
   }
 
   /**
@@ -88,7 +88,7 @@ class BaseCollection {
    * @throws { Meteor.Error } If the document cannot be found.
    */
   public findDoc(name: string | object | { name } | { _id: string; } | { username: string; }) {
-    if (_.isNull(name) || _.isUndefined(name)) {
+    if (_.isNil(name)) {
       throw new Meteor.Error(`${name} is not a defined ${this.type}`);
     }
     const doc = (
@@ -97,7 +97,7 @@ class BaseCollection {
       this.collection.findOne({ _id: name }) ||
       this.collection.findOne({ username: name }));
     if (!doc) {
-      if (typeof name !== 'string') {
+      if (_.isString(name)) {
         throw new Meteor.Error(`${JSON.stringify(name)} is not a defined ${this.type}`);
       } else {
         throw new Meteor.Error(`${name} is not a defined ${this.type}`);
@@ -114,7 +114,7 @@ class BaseCollection {
    * @returns {Mongo.Cursor}
    */
   public find(selector?: object, options?: object) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    const theSelector = (_.isUndefined(selector)) ? {} : selector;
     return this.collection.find(theSelector, options);
   }
 
@@ -126,8 +126,8 @@ class BaseCollection {
    * @returns { Array } non-retired documents.
    */
   public findNonRetired(selector?: object, options?: object) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    return _.filter(this.collection.find(theSelector, options).fetch(), (doc) => !doc.retired);
+    const theSelector = (_.isUndefined(selector)) ? {} : selector;
+    return _.reject(this.collection.find(theSelector, options).fetch(), 'retired');
   }
 
   /**
@@ -138,7 +138,7 @@ class BaseCollection {
    * @returns {Mongo.Cursor}
    */
   public findOne(selector: object, options?: object) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    const theSelector = (_.isUndefined(selector)) ? {} : selector;
     return this.collection.findOne(theSelector, options);
   }
 
@@ -191,6 +191,7 @@ class BaseCollection {
    * @returns true
    */
   public removeAll() {
+    // eslint-disable-next-line lodash/prefer-lodash-method
     const items = this.collection.find().fetch();
     const instance = this;
     _.forEach(items, (i) => {
@@ -320,7 +321,7 @@ class BaseCollection {
     dumpObject.contents = _.without(dumpObject.contents, null);
     // sort the contents array by slug (if present)
     if (dumpObject.contents[0] && dumpObject.contents[0].slug) {
-      dumpObject.contents = _.sortBy(dumpObject.contents, (obj) => obj.slug);
+      dumpObject.contents = _.sortBy(dumpObject.contents, 'slug');
     }
     return dumpObject;
   }
@@ -342,7 +343,7 @@ class BaseCollection {
    * @returns { String } The docID of the newly created document.
    */
   public restoreOne(dumpObject): string {
-    if (typeof this.define === 'function') {
+    if (_.isFunction(this.define)) {
       return this.define(dumpObject);
     }
     return null;
@@ -353,7 +354,7 @@ class BaseCollection {
    * @param dumpObjects The array of objects representing the definition of a document in this collection.
    */
   public restoreAll(dumpObjects) {
-    _.each(dumpObjects, (dumpObject) => this.restoreOne(dumpObject));
+    _.forEach(dumpObjects, (dumpObject) => this.restoreOne(dumpObject));
   }
 
   /**
