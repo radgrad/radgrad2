@@ -4,12 +4,13 @@ import { Menu, Segment, Tab } from 'semantic-ui-react';
 import StudentSummaryTab from './StudentSummaryTab';
 import TimelineChartTab from './TimelineChartTab';
 import { IStudentSummaryBehaviorCategory } from './admin-analytics-student-summary-helper-functions';
+import { IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 
 interface ISummaryStatisticsTabsProps {
   startDate?: Date;
   endDate: Date;
   behaviors: IStudentSummaryBehaviorCategory[];
-  interactionsByUser: object;
+  interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
 const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {

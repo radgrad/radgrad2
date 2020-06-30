@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Accordion, Icon, Grid } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import StudentTimelineModal from './StudentTimelineModal';
-import { IBehavior } from '../../../../typings/radgrad';
+import { IStudentSummaryBehaviorCategory } from './admin-analytics-student-summary-helper-functions';
+import { IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 
 interface IStudentSummaryTabProps {
   startDate: string;
   endDate: string;
-  behaviors: IBehavior[];
-  interactionsByUser: object;
+  behaviors: IStudentSummaryBehaviorCategory[];
+  interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
 const StudentSummaryTab = (props: IStudentSummaryTabProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -27,61 +28,48 @@ const StudentSummaryTab = (props: IStudentSummaryTabProps) => {
     color: '#6FBE44',
     paddingLeft: 5,
   };
-  const paddingStyle = {
-    padding: 2,
-  };
   return (
     <div>
       {
-        props.behaviors.map((b, index) => {
-          const key = `${b.type}-${index}`;
-          return (
-            <Accordion key={key}>
-              <div>
-                <Accordion.Title
-                  active={activeIndex === index}
-                  index={index}
-                  onClick={handleClick}
-                >
-                  <Grid>
-                    <Grid.Column width={1}>
-                      <Icon name="dropdown" />
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      Behavior:
-                      <div style={paddedLabelStyle}>{b.type}</div>
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                      Users:
-                      <div style={paddedLabelStyle}>{b.count}</div>
-                      <div style={paddedLabelStyle}>{`(${percent(b.count)} %)`}</div>
-                    </Grid.Column>
-                    <Grid.Column width={8}>
-                      Description:
-                      <div style={paddedLabelStyle}>{b.description}</div>
-                    </Grid.Column>
-                  </Grid>
-                </Accordion.Title>
-                <Accordion.Content
-                  active={activeIndex === index}
-                >
-                  <Grid stackable padded>
-                    {b.users.map((u) => (
-                      <Grid.Column width={3} style={paddingStyle} key={u}>
-                        <StudentTimelineModal
-                          username={u}
-                          startDate={props.startDate}
-                          endDate={props.endDate}
-                          interactions={props.interactionsByUser[u]}
-                        />
-                      </Grid.Column>
-                    ))}
-                  </Grid>
-                </Accordion.Content>
-              </div>
-            </Accordion>
-          );
-        })
+        props.behaviors.map((behavior, index) => (
+          <Accordion key={behavior.type}>
+            <div>
+              <Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
+                <Grid>
+                  <Grid.Column width={1}>
+                    <Icon name="dropdown" />
+                  </Grid.Column>
+                  <Grid.Column width={4}>
+                    Behavior:
+                    <div style={paddedLabelStyle}>{behavior.type}</div>
+                  </Grid.Column>
+                  <Grid.Column width={3}>
+                    Users:
+                    <div style={paddedLabelStyle}>{behavior.count}</div>
+                    <div style={paddedLabelStyle}>{`(${percent(behavior.count)}%)`}</div>
+                  </Grid.Column>
+                  <Grid.Column width={8}>
+                    Description:
+                    <div style={paddedLabelStyle}>{behavior.description}</div>
+                  </Grid.Column>
+                </Grid>
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === index}>
+                <Grid stackable padded>
+                  {behavior.users.map((user) => (
+                    <StudentTimelineModal
+                      key={user}
+                      username={user}
+                      startDate={props.startDate}
+                      endDate={props.endDate}
+                      interactions={props.interactionsByUser[user]}
+                    />
+                  ))}
+                </Grid>
+              </Accordion.Content>
+            </div>
+          </Accordion>
+        ))
       }
     </div>
   );

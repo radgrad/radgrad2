@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
-import { ANALYTICS, MENTOR_SPACE } from '../../../../startup/client/route-constants';
+import { ANALYTICS, EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
-import { IDateRange, IUserInteraction } from '../../../../typings/radgrad';
 import { behaviorCategories } from './admin-analytics-student-summary-helper-functions';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { RootState } from '../../../../redux/types';
+import { IAdminAnalyticsDateRange, IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 
 interface IAdminAnalyticsStudentSummaryWidgetProps {
-  dateRange: IDateRange;
-  userInteractions: { [username: string]: IUserInteraction[] };
+  dateRange: IAdminAnalyticsDateRange;
+  userInteractions: IAdminAnalyticsUserInteraction;
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -22,13 +22,13 @@ const mapStateToProps = (state: RootState) => ({
   userInteractions: state.admin.analytics.studentSummary.userInteractions,
 });
 
-const dateRangeString = (dateRange: IDateRange): string => {
-  if (dateRange) {
+const dateRangeString = (dateRange: IAdminAnalyticsDateRange): string | JSX.Element => {
+  if (dateRange.startDate && dateRange.endDate) {
     const start = moment(dateRange.startDate).format('MM-DD-YYYY');
     const end = moment(dateRange.endDate).format('MM-DD-YYYY');
     return ` ${start} to ${end}`;
   }
-  return '';
+  return <i>Select a Start date and an End date above</i>;
 };
 
 const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummaryWidgetProps) => {
@@ -46,7 +46,7 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       behaviorCategories[1].count++;
       behaviorCategories[1].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes('explorer/'))) {
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
       behaviorCategories[2].count++;
       behaviorCategories[2].users.push(user);
     }
@@ -68,7 +68,7 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       behaviorCategories[5].users.push(user);
     }
     if (_.some(interactions, (i: any) => (i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(MENTOR_SPACE))
-      || i.type === 'askQuestion')) {
+      || i.type === UserInteractionsTypes.ASKQUESTION)) {
       behaviorCategories[6].count++;
       behaviorCategories[6].users.push(user);
     }
@@ -92,8 +92,7 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       behaviorCategories[11].count++;
       behaviorCategories[11].users.push(user);
     }
-    // TODO When logout UserInteractions are made, change this hard-coded string to UserInteractionsTypes.LOGOUT
-    if (_.some(interactions, { type: 'logout' })) {
+    if (_.some(interactions, { type: UserInteractionsTypes.LOGOUT })) {
       behaviorCategories[12].count++;
       behaviorCategories[12].users.push(user);
     }

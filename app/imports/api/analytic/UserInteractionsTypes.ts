@@ -3,6 +3,7 @@ export enum UserInteractionsTypes {
   /* General Tracking */
   PAGEVIEW = 'pageView',
   LOGIN = 'login',
+  LOGOUT = 'logout',
   LEVEL = 'level',
   COMPLETEPLAN = 'completePlan',
   /* Student About Me Page */

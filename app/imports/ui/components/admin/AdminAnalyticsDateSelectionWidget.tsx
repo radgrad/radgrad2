@@ -9,22 +9,23 @@ import _ from 'lodash';
 import { ANALYTICS } from '../../../startup/client/route-constants';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { IAdminAnalyticsUserInteraction } from '../../../redux/admin/analytics/reducers';
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   page: string;
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
   setOverheadBuckets: (overheadBuckets: any[]) => any;
-  setUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
+  setUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
-  setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
+  setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
 }
 
 const mapDispatchToProps = (dispatch: any): object => ({
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
   setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
-  setUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
+  setUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
-  setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
+  setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
 const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWidgetProps) => {
@@ -154,7 +155,7 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
   return (
     <Container>
       <Segment padded>
-        <Header dividing as="h4">SELECT DATE RANGE:</Header>
+        <Header dividing as="h4">SELECT A DATE PERIOD</Header>
         <Form>
           <Form.Group>
             <Form.Input label="Start Date" required>

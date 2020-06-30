@@ -1203,12 +1203,6 @@ export interface IUserInteractionDefine extends IDumpOne {
   timestamp?: any;
 }
 
-interface IDateRange {
-  startDate: Date;
-  endDate: Date;
-}
-
-
 // VerificationRequests
 interface IProcessed {
   date: Date;

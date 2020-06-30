@@ -6,6 +6,7 @@ import { profileIDToFullname } from '../../shared/data-model-helper-functions';
 import { IUserInteraction } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
+import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
 
 interface IStudentTimelineModalProps {
   username: string;
@@ -45,20 +46,6 @@ const getSessionDuration = (sessionArr: IUserInteraction[]): string => {
   const lastTimestamp = moment(sessionArr[sessionArr.length - 1].timestamp);
   return moment.duration(lastTimestamp.diff(firstTimestamp)).asMinutes().toFixed(2);
 };
-
-enum Behaviors {
-  LOGIN = 'Log In',
-  OUTLOOK = 'Change Outlook',
-  EXPLORATION = 'Exploration',
-  PLANNING = 'Planning',
-  VERIFICATION = 'Verification',
-  REVIEWING = 'Reviewing',
-  MENTORSHIP = 'Mentorship',
-  LEVEL = 'Level Up',
-  PROFILE = 'Profile',
-  FAVORITE = 'Favorite Item',
-  UNFAVORITE = 'Unfavorite Item',
-}
 
 // Helper function to format the typeData of addCourse, removeCourse, updateCourse, addOpportunity, removeOpportunity, and updateOpportunity
 // strArray is an array of strings, the expected format of a string input in this array is "Term, Year, slug"
@@ -105,32 +92,33 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
     actions[interaction.type].push(interaction.typeData.join(', '));
   });
   const behaviors = {
-    [Behaviors.LOGIN]: [],
-    [Behaviors.OUTLOOK]: [],
-    [Behaviors.EXPLORATION]: [],
-    [Behaviors.PLANNING]: [],
-    [Behaviors.VERIFICATION]: [],
-    [Behaviors.REVIEWING]: [],
-    [Behaviors.MENTORSHIP]: [],
-    [Behaviors.LEVEL]: [],
-    [Behaviors.PROFILE]: [],
-    [Behaviors.FAVORITE]: [],
-    [Behaviors.UNFAVORITE]: [],
+    [StudentSummaryBehaviorTypes.LOGIN]: [],
+    [StudentSummaryBehaviorTypes.OUTLOOK]: [],
+    [StudentSummaryBehaviorTypes.EXPLORATION]: [],
+    [StudentSummaryBehaviorTypes.PLANNING]: [],
+    [StudentSummaryBehaviorTypes.VERIFICATION]: [],
+    [StudentSummaryBehaviorTypes.REVIEWING]: [],
+    [StudentSummaryBehaviorTypes.MENTORSHIP]: [],
+    [StudentSummaryBehaviorTypes.LEVEL]: [],
+    [StudentSummaryBehaviorTypes.COMPLETEPLAN]: [],
+    [StudentSummaryBehaviorTypes.PROFILE]: [],
+    [StudentSummaryBehaviorTypes.FAVORITE]: [],
+    [StudentSummaryBehaviorTypes.UNFAVORITE]: [],
   };
   _.each(actions, function (array: string[], action: string) {
     if (array.length !== 0) {
       if (action === UserInteractionsTypes.LOGIN) {
-        behaviors[Behaviors.LOGIN].push(`User logged in ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.LOGIN].push(`User logged in ${array.length} time(s)`);
       } else if (action === 'careerGoalIDs') {
         // FIXME Proper tracking for "Change Outlook" to now track favorited career goals/interests/academic plans instead of using careerGoalIDs, interestIDs, and academicPlanID
-        behaviors[Behaviors.OUTLOOK].push(`User modified career goals ${array.length} time(s)`);
-        behaviors[Behaviors.OUTLOOK].push(`Career goals at end of session: ${_.last(array)}`);
+        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified career goals ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Career goals at end of session: ${_.last(array)}`);
       } else if (action === 'interestIDs') {
-        behaviors[Behaviors.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
-        behaviors[Behaviors.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
+        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
       } else if (action === 'academicPlanID') {
-        behaviors[Behaviors.OUTLOOK].push(`User modified academic plan ${array.length} time(s)`);
-        behaviors[Behaviors.OUTLOOK].push(`Academic plan at end of session: ${_.last(array)}`);
+        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified academic plan ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Academic plan at end of session: ${_.last(array)}`);
       } else if (action === UserInteractionsTypes.PAGEVIEW) {
         const explorerPages = {
           [EXPLORER_TYPE.ACADEMICPLANS]: [],
@@ -158,51 +146,53 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
         });
         _.each(explorerPages, function (pages, pageName) {
           if (!_.isEmpty(pages)) {
-            behaviors[Behaviors.EXPLORATION].push(`Entries viewed in ${pageName}: 
+            behaviors[StudentSummaryBehaviorTypes.EXPLORATION].push(`Entries viewed in ${pageName}: 
               ${_.uniq(pages).join(', ')}`);
           }
         });
         if (visitedMentor) {
-          behaviors[Behaviors.MENTORSHIP].push('User visited the Mentor Space page');
+          behaviors[StudentSummaryBehaviorTypes.MENTORSHIP].push('User visited the Mentor Space page');
         }
       } else if (action === UserInteractionsTypes.ADDCOURSE) {
-        behaviors[Behaviors.PLANNING].push(`Added the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.REMOVECOURSE) {
-        behaviors[Behaviors.PLANNING].push(`Removed the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Removed the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.UPDATECOURSE) {
-        behaviors[Behaviors.PLANNING].push(`Updated the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Updated the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.ADDOPPORTUNITY) {
-        behaviors[Behaviors.PLANNING].push(`Added the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.REMOVEOPPORTUNITY) {
-        behaviors[Behaviors.PLANNING].push(`Removed the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Removed the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.UPDATEOPPORTUNITY) {
-        behaviors[Behaviors.PLANNING].push(`Updated the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Updated the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.VERIFYREQUEST) {
-        behaviors[Behaviors.VERIFICATION].push(`Requested verification for: ${_.uniq(array).join(', ')}`);
+        behaviors[StudentSummaryBehaviorTypes.VERIFICATION].push(`Requested verification for: ${_.uniq(array).join(', ')}`);
       } else if (action === UserInteractionsTypes.ADDREVIEW) {
-        behaviors[Behaviors.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.EDITREVIEW) {
-        behaviors[Behaviors.REVIEWING].push(`Edited a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
+        behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Edited a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.ASKQUESTION) {
-        behaviors[Behaviors.MENTORSHIP].push(`Asked ${array.length} question(s): `);
+        behaviors[StudentSummaryBehaviorTypes.MENTORSHIP].push(`Asked ${array.length} question(s): `);
         _.each(array, function (question) {
-          behaviors[Behaviors.MENTORSHIP].push(`Question: ${question}`);
+          behaviors[StudentSummaryBehaviorTypes.MENTORSHIP].push(`Question: ${question}`);
         });
       } else if (action === UserInteractionsTypes.LEVEL) {
-        behaviors[Behaviors.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
+        behaviors[StudentSummaryBehaviorTypes.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
+      } else if (action === UserInteractionsTypes.COMPLETEPLAN) {
+        behaviors[StudentSummaryBehaviorTypes.COMPLETEPLAN].push(`User completed their plan with the following ICE points: ${array}`);
       } else if (action === UserInteractionsTypes.PICTURE) {
-        behaviors[Behaviors.PROFILE].push(`User updated their picture ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their picture ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.WEBSITE) {
-        behaviors[Behaviors.PROFILE].push(`User updated their website ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their website ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.FAVORITEITEM) {
-        behaviors[Behaviors.FAVORITE].push(`User favorited ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.FAVORITE].push(`User favorited ${array.length} time(s)`);
         _.each(array, function (item) {
-          behaviors[Behaviors.FAVORITE].push(`Item: ${item}`);
+          behaviors[StudentSummaryBehaviorTypes.FAVORITE].push(`Item: ${item}`);
         });
       } else if (action === UserInteractionsTypes.UNFAVORITEITEM) {
-        behaviors[Behaviors.UNFAVORITE].push(`User unfavorited ${array.length} time(s)`);
+        behaviors[StudentSummaryBehaviorTypes.UNFAVORITE].push(`User unfavorited ${array.length} time(s)`);
         _.each(array, function (item) {
-          behaviors[Behaviors.UNFAVORITE].push(`Item: ${item}`);
+          behaviors[StudentSummaryBehaviorTypes.UNFAVORITE].push(`Item: ${item}`);
         });
       }
     }
@@ -220,8 +210,9 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
 };
 
 const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
-  const textAlignStyle = {
-    textAlign: 'left',
+  const buttonStyle = {
+    padding: 5,
+    margin: 3,
   };
   const modalStyle = {
     height: 550,
@@ -238,12 +229,7 @@ const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
     color: '#6FBE44',
   };
   return (
-    <Modal trigger={(
-      <Button color="grey" size="tiny" basic fluid style={textAlignStyle} value={props.username}>
-        {props.username}
-      </Button>
-    )}
-    >
+    <Modal trigger={(<Button color="grey" basic size="tiny" style={buttonStyle}>{props.username}</Button>)}>
       <Modal.Header>
         {profileIDToFullname(props.username)}&apos;s Timeline from {props.startDate} to {props.endDate}
       </Modal.Header>

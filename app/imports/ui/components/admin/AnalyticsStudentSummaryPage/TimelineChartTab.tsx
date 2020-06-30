@@ -4,11 +4,16 @@ import _ from 'lodash';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
+import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
+import { IUserInteraction } from '../../../../typings/radgrad';
 
 interface ITimelineChartTabProps {
   startDate?: Date;
   endDate?: Date;
-  interactionsByUser: object;
+  interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
 const TimelineChartTab = (props: ITimelineChartTabProps) => {
@@ -17,59 +22,77 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
     const startDate = moment(props.startDate, 'MMMM D, YYYY');
     const endDate = moment(props.endDate, 'MMMM D, YYYY');
     const numDays = endDate.diff(startDate, 'days') + 1;
-    const behaviorsByDate = {};
+    const behaviorsByDate: { [key: string]: string[] } = {};
     _.times(numDays, function (index) {
       const date = moment(startDate).add(index, 'days');
       behaviorsByDate[moment(date).format('MMM D, YYYY')] = [];
     });
-    const behaviorList = ['Log In', 'Change Outlook', 'Exploration', 'Planning', 'Verification',
-      'Reviewing', 'Mentorship', 'Level Up', 'Complete Plan', 'Profile', 'Favorite Item', 'Unfavorite Item', 'Log Out'];
+    const behaviorList = [
+      StudentSummaryBehaviorTypes.LOGIN,
+      StudentSummaryBehaviorTypes.OUTLOOK,
+      StudentSummaryBehaviorTypes.EXPLORATION,
+      StudentSummaryBehaviorTypes.PLANNING,
+      StudentSummaryBehaviorTypes.VERIFICATION,
+      StudentSummaryBehaviorTypes.REVIEWING,
+      StudentSummaryBehaviorTypes.MENTORSHIP,
+      StudentSummaryBehaviorTypes.LEVEL,
+      StudentSummaryBehaviorTypes.COMPLETEPLAN,
+      StudentSummaryBehaviorTypes.PROFILE,
+      StudentSummaryBehaviorTypes.FAVORITE,
+      StudentSummaryBehaviorTypes.UNFAVORITE,
+      StudentSummaryBehaviorTypes.LOGOUT,
+    ];
     _.each(behaviorsByDate, function (array, date, obj) {
-      _.each(props.interactionsByUser, function (interactions: any) {
-        const interactionsWithinDate = _.filter(interactions, function (interaction) {
+      _.each(props.interactionsByUser, function (interactions: IUserInteraction[]) {
+        const interactionsWithinDate: IUserInteraction[] = _.filter(interactions, function (interaction) {
           const interactionDate = moment(interaction.timestamp).format('MMM D, YYYY');
           return interactionDate === date;
         });
-        if (_.some(interactionsWithinDate, { type: 'login' })) {
+        if (_.some(interactionsWithinDate, { type: UserInteractionsTypes.LOGIN })) {
           obj[date].push(behaviorList[0]);
         }
+        // FIXME careerGoalIDs, interestIDs, and academicPlanID is now deprecated. Change this to use favorites instead
         if (_.some(interactionsWithinDate, (i) => i.type === 'careerGoalIDs' || i.type === 'interestIDs'
           || i.type === 'academicPlanID')) {
           obj[date].push(behaviorList[1]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'pageView' && i.typeData[0].includes('explorer/'))) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
           obj[date].push(behaviorList[2]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'addCourse' || i.type === 'removeCourse'
-          || i.type === 'addOpportunity' || i.type === 'removeOpportunity')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADDCOURSE
+          || i.type === UserInteractionsTypes.REMOVECOURSE
+          || i.type === UserInteractionsTypes.UPDATECOURSE
+          || i.type === UserInteractionsTypes.ADDOPPORTUNITY
+          || i.type === UserInteractionsTypes.REMOVEOPPORTUNITY
+          || i.type === UserInteractionsTypes.UPDATEOPPORTUNITY)) {
           obj[date].push(behaviorList[3]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'verifyRequest')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.VERIFYREQUEST)) {
           obj[date].push(behaviorList[4]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'addReview')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADDREVIEW)) {
           obj[date].push(behaviorList[5]);
         }
-        if (_.some(interactionsWithinDate, (i) => (i.type === 'pageView'
-          && i.typeData[0].includes('mentor-space')) || i.type === 'askQuestion')) {
+        if (_.some(interactionsWithinDate, (i) => (i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(MENTOR_SPACE))
+          || i.type === UserInteractionsTypes.ASKQUESTION)) {
           obj[date].push(behaviorList[6]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'level')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LEVEL)) {
           obj[date].push(behaviorList[7]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'completePlan')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
           obj[date].push(behaviorList[8]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'picture' || i.type === 'website')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
           obj[date].push(behaviorList[9]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'favoriteItem')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.FAVORITEITEM)) {
           obj[date].push(behaviorList[10]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'unFavoriteItem')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.UNFAVORITEITEM)) {
           obj[date].push(behaviorList[11]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === 'logout')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LOGOUT)) {
           obj[date].push(behaviorList[12]);
         }
       });

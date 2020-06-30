@@ -1,12 +1,12 @@
 import * as TYPES from './types';
 import { IUserInteraction } from '../../../typings/radgrad';
 
-interface IDateRangeState {
+export interface IAdminAnalyticsDateRange {
   startDate: Date;
   endDate: Date;
 }
 
-type IAdminAnalyticsUserInteraction = { [username: string]: IUserInteraction[] };
+export type IAdminAnalyticsUserInteraction = { [username: string]: IUserInteraction[] };
 
 interface IState {
   newsletter: {
@@ -16,12 +16,12 @@ interface IState {
     allNewsletter: boolean;
   }
   overheadAnalysis: {
-    dateRange: IDateRangeState;
+    dateRange: IAdminAnalyticsDateRange;
     overheadBuckets: any[];
     userInteractions: IAdminAnalyticsUserInteraction;
   }
   studentSummary: {
-    dateRange: IDateRangeState;
+    dateRange: IAdminAnalyticsDateRange;
     userInteractions: IAdminAnalyticsUserInteraction;
   };
 }
