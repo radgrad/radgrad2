@@ -74,7 +74,7 @@ export const removeItMethod = new ValidatedMethod({
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     collection.removeIt(instance);
-    return true;
+    // return true;
   },
 });
 

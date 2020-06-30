@@ -173,14 +173,12 @@ class BaseCollection {
   /**
    * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
    * @param { String | Object } name A document or docID in this collection.
-   * @returns true
    */
-  public removeIt(name: string | object): boolean {
+  public removeIt(name: string | object) {
     const doc = this.findDoc(name);
     check(doc, Object);
     // @ts-ignore
     this.collection.remove(doc._id);
-    return true;
   }
 
   /**
